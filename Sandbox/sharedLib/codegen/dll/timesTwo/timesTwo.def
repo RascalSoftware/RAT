@@ -1,0 +1,8 @@
+DLL {
+	global:
+		timesTwo;
+		timesTwo_initialize;
+		timesTwo_terminate;
+	local:
+		*;
+};

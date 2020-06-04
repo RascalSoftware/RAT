@@ -1,0 +1,61 @@
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="2,1" id="srcline1"> 1</a></span><span class="line"><span class="keyword">function</span> [<span class="var type1" id="S2T11U3">backg</span>,<span class="var type1" id="S3T11U4">qshift</span>,<span class="var type1" id="S4T11U5">sf</span>,<span class="var type1" id="S5T11U6">nba</span>,<span class="var type1" id="S6T11U7">nbs</span>,<span class="var type1" id="S7T11U8">resol</span>] = backSort(<span class="var type1" id="S8T11U11">cBacks</span>,<span class="var type1" id="S9T11U12">cShifts</span>,<span class="var type1" id="S10T11U13">cScales</span>,<span class="var type1" id="S11T11U14">cNbas</span>,<span class="var type1" id="S12T11U15">cNbss</span>,<span class="var type1" id="S13T11U16">cRes</span>,<span class="var type1" id="S14T13U17">backs</span>,<span class="var type1" id="S15T13U18">shifts</span>,<span class="var type1" id="S4T13U19">sf</span>,<span class="var type1" id="S5T13U20">nba</span>,<span class="var type1" id="S6T13U21">nbs</span>,<span class="var type1" id="S16T13U22">res</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="2,2" id="srcline2"> 2</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,3" id="srcline3"> 3</a></span><span class="line"><span class="comment">%Distributes the background and shift values among the different contrasts.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,4" id="srcline4"> 4</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,5" id="srcline5"> 5</a></span><span class="line"><span class="comment">%[backgs,qshifts,sfs,nbas,nbss,resols] = backSort(nc,cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,6" id="srcline6"> 6</a></span><span class="line"><span class="comment">% Inputs:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,7" id="srcline7"> 7</a></span><span class="line"><span class="comment">%       nc = number of contrasts (double)</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,8" id="srcline8"> 8</a></span><span class="line"><span class="comment">%       cBacks = Which backround value is associated with each contrast?</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,9" id="srcline9"> 9</a></span><span class="line"><span class="comment">%       cShifts = Which qz_shift value is associated with each contrast?</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,10" id="srcline10">10</a></span><span class="line"><span class="comment">%       cScales = Which scalefactor value is associated with each contrast?</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,11" id="srcline11">11</a></span><span class="line"><span class="comment">%       cNba = Which NBa value is associated with each contrast?</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,12" id="srcline12">12</a></span><span class="line"><span class="comment">%       cNbs = Which Nbs value is associated with each contrast?</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,13" id="srcline13">13</a></span><span class="line"><span class="comment">%       cRes = Which resolution value is associated with each contrast?</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,14" id="srcline14">14</a></span><span class="line"><span class="comment">%       backs = List of all background values.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,15" id="srcline15">15</a></span><span class="line"><span class="comment">%       shifts = List of all qz-shift values</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,16" id="srcline16">16</a></span><span class="line"><span class="comment">%       sf = List of all scalefactor values</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,17" id="srcline17">17</a></span><span class="line"><span class="comment">%       nba = List of all nba values</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,18" id="srcline18">18</a></span><span class="line"><span class="comment">%       nbs = List of all nbs values</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,19" id="srcline19">19</a></span><span class="line"><span class="comment">%       res = List of all resolution values</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,20" id="srcline20">20</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,21" id="srcline21">21</a></span><span class="line"><span class="comment">% Outputs:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,22" id="srcline22">22</a></span><span class="line"><span class="comment">%       backgs = list of actual background values for each contrast</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,23" id="srcline23">23</a></span><span class="line"><span class="comment">%       qshifts = list of actual shift values for each contrast      </span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,24" id="srcline24">24</a></span><span class="line"><span class="comment">%       sfs = list of actual shift values for each contrast     </span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,25" id="srcline25">25</a></span><span class="line"><span class="comment">%       nbas = list of actual shift values for each contrast     </span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,26" id="srcline26">26</a></span><span class="line"><span class="comment">%       nbss = list of actual shift values for each contrast</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,27" id="srcline27">27</a></span><span class="line"><span class="comment">%       nbss = list of actual shift values for each contrast  </span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,28" id="srcline28">28</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,29" id="srcline29">29</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,30" id="srcline30">30</a></span><span class="line"><span class="comment">% backgs = 0;%zeros(1,nc);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,31" id="srcline31">31</a></span><span class="line"><span class="comment">% qshifts = 0;%zeros(1,nc);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,32" id="srcline32">32</a></span><span class="line"><span class="comment">% sfs = 0;%zeros(1,nc);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,33" id="srcline33">33</a></span><span class="line"><span class="comment">% nbas = 0;%zeros(1,nc);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,34" id="srcline34">34</a></span><span class="line"><span class="comment">% nbss = 0;%zeros(1,nc);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,35" id="srcline35">35</a></span><span class="line"><span class="comment">% resols = 0;%zeros(1,nc);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,36" id="srcline36">36</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,37" id="srcline37">37</a></span><span class="line"><span class="comment">%for i = 1:nc</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,38" id="srcline38">38</a></span><span class="line">    <span class="comment">%thisBack = cBacks(i);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,39" id="srcline39">39</a></span><span class="line">    <span class="mxinfo " id="T11:U19"><span class="var type1" id="S2T11U25">backg</span> = <span class="mxinfo " id="T11:U21"><span class="var type1" id="S14T13U27">backs</span>(<span class="var type1" id="S8T11U28">cBacks</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,40" id="srcline40">40</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="2,41" id="srcline41">41</a></span><span class="line">    <span class="comment">%thisShift = cShifts(i);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,42" id="srcline42">42</a></span><span class="line">    <span class="mxinfo " id="T11:U24"><span class="var type1" id="S3T11U31">qshift</span> = <span class="mxinfo " id="T11:U26"><span class="var type1" id="S15T13U33">shifts</span>(<span class="var type1" id="S9T11U34">cShifts</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,43" id="srcline43">43</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="2,44" id="srcline44">44</a></span><span class="line">    <span class="comment">%thisScale = cScales(i);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,45" id="srcline45">45</a></span><span class="line">    <span class="mxinfo " id="T11:U29"><span class="var type1" id="S4T11U37">sf</span> = <span class="mxinfo " id="T11:U31"><span class="var type1" id="S4T13U39">sf</span>(<span class="var type1" id="S10T11U40">cScales</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,46" id="srcline46">46</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="2,47" id="srcline47">47</a></span><span class="line">    <span class="comment">%thisNbair = cNbas(i);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,48" id="srcline48">48</a></span><span class="line">    <span class="mxinfo " id="T11:U34"><span class="var type1" id="S5T11U43">nba</span> = <span class="mxinfo " id="T11:U36"><span class="var type1" id="S5T13U45">nba</span>(<span class="var type1" id="S11T11U46">cNbas</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,49" id="srcline49">49</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="2,50" id="srcline50">50</a></span><span class="line">    <span class="comment">%thisNbsub = cNbss(i);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,51" id="srcline51">51</a></span><span class="line">    <span class="mxinfo " id="T11:U39"><span class="var type1" id="S6T11U49">nbs</span> = <span class="mxinfo " id="T11:U41"><span class="var type1" id="S6T13U51">nbs</span>(<span class="var type1" id="S12T11U52">cNbss</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,52" id="srcline52">52</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="2,53" id="srcline53">53</a></span><span class="line">    <span class="comment">%thisResol = cRes(i);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,54" id="srcline54">54</a></span><span class="line">    <span class="mxinfo " id="T11:U44"><span class="var type1" id="S7T11U55">resol</span> = <span class="mxinfo " id="T11:U46"><span class="var type1" id="S16T13U57">res</span>(<span class="var type1" id="S13T11U58">cRes</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,55" id="srcline55">55</a></span><span class="line"><span class="comment">%end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,56" id="srcline56">56</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,57" id="srcline57">57</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,58" id="srcline58">58</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,59" id="srcline59">59</a></span><span class="line"></span></span>
+</pre>

@@ -1,0 +1,1 @@
+void LogLike(double *Cube, int *ndim, int *npars, double *lnew, void *context);

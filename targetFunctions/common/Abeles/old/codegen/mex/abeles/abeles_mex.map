@@ -1,0 +1,14 @@
+MEX {
+	global:
+		mexFunction;
+		mexfilerequiredapiversion;
+		emlrtMexFcnProperties;
+		abeles;
+		emlrtGetRootTLSGlobal;
+		emlrtLockerFunction;
+		abeles_initialize;
+		abeles_terminate;
+		abeles_atexit;
+	local:
+		*;
+};

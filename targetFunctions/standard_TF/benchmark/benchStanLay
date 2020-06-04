@@ -1,0 +1,15 @@
+figure(3)
+clf
+hold on
+
+b = load('timMulti');
+a = load('timSingle');
+
+
+plot(a(:,1),a(:,2),'bo');
+plot(b(:,1),b(:,2),'ro');
+
+
+y1 = 0.00072*a(:,1) + 0.0018;
+plot(a(:,1),y1,'b-','LineWidth',2.0)
+

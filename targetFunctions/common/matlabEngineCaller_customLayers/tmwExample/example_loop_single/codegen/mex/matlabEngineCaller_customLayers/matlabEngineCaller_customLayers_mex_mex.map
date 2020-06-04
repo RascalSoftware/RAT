@@ -1,0 +1,14 @@
+MEX {
+	global:
+		mexFunction;
+		emlrtMexFcnProperties;
+		matlabEngineCaller_customLayers;
+		emxEnsureCapacity;
+		emxFree_real_T;
+		emxInit_real_T;
+		matlabEngineCaller_customLayers_initialize;
+		matlabEngineCaller_customLayers_terminate;
+		matlabEngineCaller_customLayers_atexit;
+	local:
+		*;
+};

@@ -1,0 +1,63 @@
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="1,1" id="srcline1"> 1</a></span><span class="line"><span class="keyword">function</span> <span class="var type1" id="S2T1U3">res</span> = multinestCaller()</span></span>
+<span class="srcline"><span class="lineno"><a href="1,2" id="srcline2"> 2</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,3" id="srcline3"> 3</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,4" id="srcline4"> 4</a></span><span class="line">    <span class="mxinfo " id="T2:U2"><span class="var type1" id="S3T2U8">path</span> = <span class="mxinfo " id="T2:U4"><span class="string">'//home/arwel/Documents/RascalDev/RAT/Sandbox/multinestTests'</span></span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,5" id="srcline5"> 5</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="1,6" id="srcline6"> 6</a></span><span class="line">    coder.updateBuildInfo(<span class="mxinfo " id="T3:U5"><span class="string">'addSourcePaths'</span></span>,<span class="var type1" id="S3T2U16">path</span>);    </span></span>
+<span class="srcline"><span class="lineno"><a href="1,7" id="srcline7"> 7</a></span><span class="line">    coder.cinclude(<span class="string">'mainRoutine.c'</span>);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,8" id="srcline8"> 8</a></span><span class="line">    coder.cinclude(<span class="string">'LogLike.c'</span>);  </span></span>
+<span class="srcline"><span class="lineno"><a href="1,9" id="srcline9"> 9</a></span><span class="line">    coder.cinclude(<span class="string">'dumper.c'</span>);  </span></span>
+<span class="srcline"><span class="lineno"><a href="1,10" id="srcline10">10</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="1,11" id="srcline11">11</a></span><span class="line">    <span class="mxinfo " id="T4:U7"><span class="var type1" id="S5T4U37">libPriority</span> = <span class="mxinfo " id="T4:U9"><span class="string">''</span></span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,12" id="srcline12">12</a></span><span class="line">    <span class="mxinfo " id="T5:U10"><span class="var type1" id="S6T5U41">libPreCompiled</span> = <span class="mxinfo " id="T5:U12">true</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,13" id="srcline13">13</a></span><span class="line">    <span class="mxinfo " id="T5:U13"><span class="var type1" id="S8T5U46">libLinkOnly</span> = <span class="mxinfo " id="T5:U15">true</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,14" id="srcline14">14</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="1,15" id="srcline15">15</a></span><span class="line">    <span class="mxinfo " id="T6:U16"><span class="var type1" id="S9T6U51">linkPath1</span> = <span class="mxinfo " id="T6:U18"><span class="string">'/usr/local/lib/'</span></span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,16" id="srcline16">16</a></span><span class="line">    <span class="mxinfo " id="T7:U19"><span class="var type1" id="S10T7U55">linkPath2</span> = <span class="mxinfo " id="T7:U21"><span class="string">'/usr/local/MATLAB/R2016b/bin/glnxa64/'</span></span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,17" id="srcline17">17</a></span><span class="line">    <span class="mxinfo " id="T8:U22"><span class="var type1" id="S11T8U59">linkPath3</span> = <span class="mxinfo " id="T8:U24"><span class="string">'/home/arwel/Documents/RascalDev/RAT/Sandbox/multinestTests'</span></span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,18" id="srcline18">18</a></span><span class="line">    <span class="mxinfo " id="T9:U25"><span class="var type1" id="S12T9U63">pw</span> = <span class="mxinfo " id="T9:U27"><span class="string">'/usr/lib64/'</span></span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,19" id="srcline19">19</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="1,20" id="srcline20">20</a></span><span class="line">    coder.updateBuildInfo(<span class="mxinfo " id="T6:U28"><span class="string">'addIncludePaths'</span></span>,<span class="var type1" id="S9T6U71">linkPath1</span>);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,21" id="srcline21">21</a></span><span class="line">    coder.updateBuildInfo(<span class="mxinfo " id="T6:U30"><span class="string">'addIncludePaths'</span></span>,<span class="var type1" id="S10T7U78">linkPath2</span>);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,22" id="srcline22">22</a></span><span class="line">    coder.updateBuildInfo(<span class="mxinfo " id="T3:U32"><span class="string">'addLinkObjects'</span></span>,<span class="mxinfo " id="T10:U33"><span class="string">'libmultinest.so.3.10'</span></span>,<span class="var type1" id="S11T8U86">linkPath3</span>,<span class="var type1" id="S5T4U87">libPriority</span>,<span class="var type1" id="S6T5U88">libPreCompiled</span>,<span class="var type1" id="S8T5U89">libLinkOnly</span>);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,23" id="srcline23">23</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="1,24" id="srcline24">24</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,25" id="srcline25">25</a></span><span class="line">    coder.ceval(<span class="string">'mainRoutine'</span>,<span class="mxinfo " id="T11:U38">0</span>,<span class="mxinfo " id="T1:U39">[]</span>);</span></span>
+<span class="srcline"><span class="lineno"><a href="1,26" id="srcline26">26</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,27" id="srcline27">27</a></span><span class="line">    <span class="mxinfo " id="T1:U40"><span class="var type1" id="S2T1U101">res</span> = <span class="mxinfo " id="T1:U42">[]</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="1,28" id="srcline28">28</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,29" id="srcline29">29</a></span><span class="line"><span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,30" id="srcline30">30</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,31" id="srcline31">31</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,32" id="srcline32">32</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,33" id="srcline33">33</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,34" id="srcline34">34</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,35" id="srcline35">35</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,36" id="srcline36">36</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,37" id="srcline37">37</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,38" id="srcline38">38</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,39" id="srcline39">39</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,40" id="srcline40">40</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,41" id="srcline41">41</a></span><span class="line"><span class="comment">%     %incPath2 = '/usr/include/openmpi';</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,42" id="srcline42">42</a></span><span class="line"><span class="comment">%     linkPath1 = '/home/arwel/Documents/coding/multinestEdits/eggboxOnly/MultiNest_v3.10_eggboxOnly/multinest_eggboxOnly/lib';    </span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,43" id="srcline43">43</a></span><span class="line"><span class="comment">%     linkFile1 = 'libmultinest.so';</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,44" id="srcline44">44</a></span><span class="line"><span class="comment">% </span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,45" id="srcline45">45</a></span><span class="line"><span class="comment">%   </span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,46" id="srcline46">46</a></span><span class="line"><span class="comment">%     source1 = 'mainRoutine.h';</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,47" id="srcline47">47</a></span><span class="line"><span class="comment">% %    source2 = 'multinest.h';</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,48" id="srcline48">48</a></span><span class="line"><span class="comment">% %     source3 = 'dumper.h';</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,49" id="srcline49">49</a></span><span class="line"><span class="comment">%    source4 = 'LogLike.h';    </span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,50" id="srcline50">50</a></span><span class="line"><span class="comment">%     source5 = 'mainRoutine.c';</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,51" id="srcline51">51</a></span><span class="line"><span class="comment">%     source6 = 'multinest.c';</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,52" id="srcline52">52</a></span><span class="line"><span class="comment">% %     source7 = 'dumper.c';</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,53" id="srcline53">53</a></span><span class="line"><span class="comment">%    source8 = 'LogLike.c';</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,54" id="srcline54">54</a></span><span class="line"><span class="comment">%     </span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,55" id="srcline55">55</a></span><span class="line"><span class="comment">%     </span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,56" id="srcline56">56</a></span><span class="line"><span class="comment">%     libPriority = '';</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,57" id="srcline57">57</a></span><span class="line"><span class="comment">%     libPreCompiled = true;</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,58" id="srcline58">58</a></span><span class="line"><span class="comment">%     libLinkOnly = true;</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,59" id="srcline59">59</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="1,60" id="srcline60">60</a></span><span class="line"><span class="comment">%     coder.updateBuildInfo('addIncludePaths',linkPath1);</span></span></span>
+<span class="srcline"><span class="lineno"><a href="1,61" id="srcline61">61</a></span><span class="line"><span class="comment">%     coder.updateBuildInfo('addLinkObjects',linkFile1,linkPath1,libPriority,libPreCompiled,libLinkOnly);</span></span></span>
+</pre>

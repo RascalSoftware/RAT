@@ -93,7 +93,7 @@ for i = 1:numberOfContrasts
 end
 coder.varsize('allLayers{:}',[10000 3],[1 1]);
 
-parallel = controls.Para;
+parallel = controls.parallel;
 
 switch parallel
     case 'single'

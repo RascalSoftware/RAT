@@ -259,7 +259,7 @@ while tol > tolerance || j <= Nlive
     %.....MODIFIED FOR RAT......AVH
 %
 if verbose
-      out = sprintf('log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %d\n', ...
+      out = sprintf('log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %d', ...
                  logZ, tol, K, j, H);
       ratSendTextOutput(out);
 %             drawnow;

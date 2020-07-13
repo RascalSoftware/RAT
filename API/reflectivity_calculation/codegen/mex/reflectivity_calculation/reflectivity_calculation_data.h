@@ -69,8 +69,8 @@ extern emlrtRTEInfo kb_emlrtRTEI;
 extern emlrtRTEInfo ob_emlrtRTEI;
 extern emlrtRTEInfo pb_emlrtRTEI;
 extern emlrtRTEInfo tb_emlrtRTEI;
-extern emlrtRTEInfo lh_emlrtRTEI;
-extern emlrtRTEInfo mh_emlrtRTEI;
-extern emlrtRTEInfo vh_emlrtRTEI;
+extern emlrtRTEInfo qh_emlrtRTEI;
+extern emlrtRTEInfo rh_emlrtRTEI;
+extern emlrtRTEInfo bi_emlrtRTEI;
 
 /* End of code generation (reflectivity_calculation_data.h) */

@@ -38,7 +38,8 @@ function [outSsubs,...
             numberOfLayers , ...
             layersDetails,...
             problemDef_limits, ...
-            backsType)
+            backsType,...
+            calcSld)
 
          
 %Pre-Allocation...
@@ -83,7 +84,17 @@ for i = 1:numberOfContrasts
     thisContrastLayers = allocateLayersForContrast(contrastLayers{i},outParameterisedLayers);
     [outLayers, outSsubs(i)] = groupLayers_Mod(thisContrastLayers,allRoughs(i),geometry,nbas(i),nbss(i));
     
-    sldProfile = makeSLDProfiles(nbas(i),nbss(i),outLayers,outSsubs(i),repeatLayers{i});
+    thisCalcSld = calcSld;
+    if resample(i) == 1
+        thisCalcSld = 1;
+    end
+    
+    if thisCalcSld == 1
+        sldProfile = makeSLDProfiles(nbas(i),nbss(i),outLayers,outSsubs(i),repeatLayers{i});
+    else
+        sldProfile = [0 0 0];
+    end
+    
     sldProfiles{i} = sldProfile;
 
     if resample(i) == 1

@@ -40,6 +40,7 @@ numberOfLayers = problemDef.numberOfLayers;
 %layersDetails = problemDef.layersDetails;
 resample = problemDef.resample;
 backsType = problemDef.contrastBacksType;
+calcSld = controls.calcSld;
 
 
 %Pre-allocation
@@ -96,7 +97,7 @@ switch para
             numberOfContrasts,geometry,repeatLayers,cBacks,cShifts, ...
             cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res,dataPresent , ...
             allData ,dataLimits ,simLimits ,nParams ,params ,contrastLayers, ...
-            numberOfLayers ,layersDetails,problemDef_limits,backsType);
+            numberOfLayers ,layersDetails,problemDef_limits,backsType,calcSld);
         
      case 'points'
          
@@ -108,7 +109,8 @@ switch para
             numberOfContrasts,geometry,repeatLayers,cBacks,cShifts, ...
             cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res,dataPresent , ...
             allData ,dataLimits ,simLimits ,nParams ,params ,contrastLayers, ...
-            numberOfLayers ,layersDetails,problemDef_limits,backsType);
+            numberOfLayers ,layersDetails,problemDef_limits,backsType,calcSld);
+        
     case 'contrasts'
         
         [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
@@ -119,7 +121,7 @@ switch para
             numberOfContrasts,geometry,repeatLayers,cBacks,cShifts, ...
             cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res,dataPresent , ...
             allData ,dataLimits ,simLimits ,nParams ,params ,contrastLayers, ...
-            numberOfLayers ,layersDetails,problemDef_limits,backsType);      
+            numberOfLayers ,layersDetails,problemDef_limits,backsType,calcSld);      
 end
 
 problem.ssubs = outSsubs;

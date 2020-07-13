@@ -39,7 +39,9 @@ void emxEnsureCapacity_cell_wrap_1(const emlrtStack *sp, emxArray_cell_wrap_1
   *emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
 void emxEnsureCapacity_cell_wrap_10(const emlrtStack *sp, emxArray_cell_wrap_10 *
   emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
-void emxEnsureCapacity_cell_wrap_13(const emlrtStack *sp, emxArray_cell_wrap_13 *
+void emxEnsureCapacity_cell_wrap_111(const emlrtStack *sp, emxArray_cell_wrap_11
+  *emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
+void emxEnsureCapacity_cell_wrap_14(const emlrtStack *sp, emxArray_cell_wrap_14 *
   emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
 void emxEnsureCapacity_cell_wrap_2(const emlrtStack *sp, emxArray_cell_wrap_2
   *emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
@@ -65,8 +67,8 @@ void emxEnsureCapacity_real_T(const emlrtStack *sp, emxArray_real_T *emxArray,
   int32_T oldNumel, const emlrtRTEInfo *srcLocation);
 void emxEnsureCapacity_uint32_T(const emlrtStack *sp, emxArray_uint32_T
   *emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
-void emxFreeStruct_cell_11(cell_11 *pStruct);
-void emxFreeStruct_cell_15(cell_15 *pStruct);
+void emxFreeStruct_cell_12(cell_12 *pStruct);
+void emxFreeStruct_cell_16(cell_16 *pStruct);
 void emxFreeStruct_cell_5(cell_5 *pStruct);
 void emxFreeStruct_cell_7(cell_7 *pStruct);
 void emxFreeStruct_struct0_T(struct0_T *pStruct);
@@ -77,7 +79,8 @@ void emxFree_boolean_T(emxArray_boolean_T **pEmxArray);
 void emxFree_cell_wrap_0(emxArray_cell_wrap_0 **pEmxArray);
 void emxFree_cell_wrap_1(emxArray_cell_wrap_1 **pEmxArray);
 void emxFree_cell_wrap_10(emxArray_cell_wrap_10 **pEmxArray);
-void emxFree_cell_wrap_13(emxArray_cell_wrap_13 **pEmxArray);
+void emxFree_cell_wrap_11(emxArray_cell_wrap_11 **pEmxArray);
+void emxFree_cell_wrap_14(emxArray_cell_wrap_14 **pEmxArray);
 void emxFree_cell_wrap_2(emxArray_cell_wrap_2 **pEmxArray);
 void emxFree_cell_wrap_4(emxArray_cell_wrap_4 **pEmxArray);
 void emxFree_cell_wrap_6(emxArray_cell_wrap_6 **pEmxArray);
@@ -88,9 +91,9 @@ void emxFree_int32_T(emxArray_int32_T **pEmxArray);
 void emxFree_int8_T(emxArray_int8_T **pEmxArray);
 void emxFree_real_T(emxArray_real_T **pEmxArray);
 void emxFree_uint32_T(emxArray_uint32_T **pEmxArray);
-void emxInitStruct_cell_11(const emlrtStack *sp, cell_11 *pStruct, const
+void emxInitStruct_cell_12(const emlrtStack *sp, cell_12 *pStruct, const
   emlrtRTEInfo *srcLocation, boolean_T doPush);
-void emxInitStruct_cell_15(const emlrtStack *sp, cell_15 *pStruct, const
+void emxInitStruct_cell_16(const emlrtStack *sp, cell_16 *pStruct, const
   emlrtRTEInfo *srcLocation, boolean_T doPush);
 void emxInitStruct_cell_5(const emlrtStack *sp, cell_5 *pStruct, const
   emlrtRTEInfo *srcLocation, boolean_T doPush);
@@ -113,7 +116,10 @@ void emxInit_cell_wrap_1(const emlrtStack *sp, emxArray_cell_wrap_1 **pEmxArray,
 void emxInit_cell_wrap_10(const emlrtStack *sp, emxArray_cell_wrap_10
   **pEmxArray, int32_T numDimensions, const emlrtRTEInfo *srcLocation, boolean_T
   doPush);
-void emxInit_cell_wrap_13(const emlrtStack *sp, emxArray_cell_wrap_13
+void emxInit_cell_wrap_111(const emlrtStack *sp, emxArray_cell_wrap_11
+  **pEmxArray, int32_T numDimensions, const emlrtRTEInfo *srcLocation, boolean_T
+  doPush);
+void emxInit_cell_wrap_14(const emlrtStack *sp, emxArray_cell_wrap_14
   **pEmxArray, int32_T numDimensions, const emlrtRTEInfo *srcLocation, boolean_T
   doPush);
 void emxInit_cell_wrap_2(const emlrtStack *sp, emxArray_cell_wrap_2 **pEmxArray,

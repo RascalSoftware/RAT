@@ -26,32 +26,32 @@
 /* Variable Definitions */
 static emlrtRSInfo tc_emlrtRSI = { 252,/* lineNo */
   "adaptive",                          /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo uc_emlrtRSI = { 267,/* lineNo */
   "adaptive",                          /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo vc_emlrtRSI = { 281,/* lineNo */
   "adaptive",                          /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo wc_emlrtRSI = { 304,/* lineNo */
   "adaptive",                          /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo xc_emlrtRSI = { 305,/* lineNo */
   "adaptive",                          /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo yc_emlrtRSI = { 376,/* lineNo */
   "normalizeFunction",                 /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo hd_emlrtRSI = { 167,/* lineNo */
@@ -91,47 +91,47 @@ static emlrtRSInfo nd_emlrtRSI = { 92, /* lineNo */
 
 static emlrtRSInfo od_emlrtRSI = { 398,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo pd_emlrtRSI = { 399,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo qd_emlrtRSI = { 401,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo rd_emlrtRSI = { 403,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo sd_emlrtRSI = { 404,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo td_emlrtRSI = { 405,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo ud_emlrtRSI = { 408,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo vd_emlrtRSI = { 407,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo wd_emlrtRSI = { 409,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo ce_emlrtRSI = { 16, /* lineNo */
@@ -151,18 +151,18 @@ static emlrtRSInfo ge_emlrtRSI = { 143,/* lineNo */
 
 static emlrtRSInfo he_emlrtRSI = { 431,/* lineNo */
   "increaseSampling",                  /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtRSInfo ie_emlrtRSI = { 433,/* lineNo */
   "increaseSampling",                  /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
 static emlrtDCInfo hb_emlrtDCI = { 274,/* lineNo */
   30,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
   4                                    /* checkKind */
 };
 
@@ -170,14 +170,14 @@ static emlrtECInfo e_emlrtECI = { -1,  /* nDims */
   283,                                 /* lineNo */
   25,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtECInfo f_emlrtECI = { -1,  /* nDims */
   289,                                 /* lineNo */
   21,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtRTEInfo mb_emlrtRTEI = { 26,/* lineNo */
@@ -196,88 +196,88 @@ static emlrtECInfo g_emlrtECI = { -1,  /* nDims */
   376,                                 /* lineNo */
   5,                                   /* colNo */
   "normalizeFunction",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtECInfo h_emlrtECI = { 2,   /* nDims */
   398,                                 /* lineNo */
   3,                                   /* colNo */
   "calculateCentralAngles",            /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtECInfo i_emlrtECI = { -1,  /* nDims */
   403,                                 /* lineNo */
   21,                                  /* colNo */
   "calculateCentralAngles",            /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtECInfo j_emlrtECI = { -1,  /* nDims */
   404,                                 /* lineNo */
   21,                                  /* colNo */
   "calculateCentralAngles",            /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtECInfo k_emlrtECI = { -1,  /* nDims */
   405,                                 /* lineNo */
   21,                                  /* colNo */
   "calculateCentralAngles",            /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtECInfo l_emlrtECI = { -1,  /* nDims */
   407,                                 /* lineNo */
   4,                                   /* colNo */
   "calculateCentralAngles",            /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtECInfo m_emlrtECI = { -1,  /* nDims */
   408,                                 /* lineNo */
   8,                                   /* colNo */
   "calculateCentralAngles",            /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
-};
-
-static emlrtBCInfo vg_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  386,                                 /* lineNo */
-  20,                                  /* colNo */
-  "XYdata",                            /* aName */
-  "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo wg_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  386,                                 /* lineNo */
-  22,                                  /* colNo */
-  "XYdata",                            /* aName */
-  "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
-  0                                    /* checkKind */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtBCInfo xg_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   386,                                 /* lineNo */
-  40,                                  /* colNo */
+  20,                                  /* colNo */
   "XYdata",                            /* aName */
   "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo yg_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   386,                                 /* lineNo */
+  22,                                  /* colNo */
+  "XYdata",                            /* aName */
+  "calculateTrianglesSides",           /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo ah_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  386,                                 /* lineNo */
+  40,                                  /* colNo */
+  "XYdata",                            /* aName */
+  "calculateTrianglesSides",           /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo bh_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  386,                                 /* lineNo */
   42,                                  /* colNo */
   "XYdata",                            /* aName */
   "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -285,36 +285,36 @@ static emlrtECInfo n_emlrtECI = { 2,   /* nDims */
   386,                                 /* lineNo */
   13,                                  /* colNo */
   "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
-};
-
-static emlrtBCInfo ah_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  387,                                 /* lineNo */
-  23,                                  /* colNo */
-  "XYdata",                            /* aName */
-  "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo bh_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  387,                                 /* lineNo */
-  41,                                  /* colNo */
-  "XYdata",                            /* aName */
-  "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
-  0                                    /* checkKind */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtBCInfo ch_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   387,                                 /* lineNo */
+  23,                                  /* colNo */
+  "XYdata",                            /* aName */
+  "calculateTrianglesSides",           /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo dh_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  387,                                 /* lineNo */
+  41,                                  /* colNo */
+  "XYdata",                            /* aName */
+  "calculateTrianglesSides",           /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo eh_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  387,                                 /* lineNo */
   43,                                  /* colNo */
   "XYdata",                            /* aName */
   "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -322,36 +322,36 @@ static emlrtECInfo o_emlrtECI = { 2,   /* nDims */
   387,                                 /* lineNo */
   14,                                  /* colNo */
   "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
-};
-
-static emlrtBCInfo dh_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  388,                                 /* lineNo */
-  22,                                  /* colNo */
-  "XYdata",                            /* aName */
-  "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo eh_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  388,                                 /* lineNo */
-  40,                                  /* colNo */
-  "XYdata",                            /* aName */
-  "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
-  0                                    /* checkKind */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtBCInfo fh_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   388,                                 /* lineNo */
+  22,                                  /* colNo */
+  "XYdata",                            /* aName */
+  "calculateTrianglesSides",           /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo gh_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  388,                                 /* lineNo */
+  40,                                  /* colNo */
+  "XYdata",                            /* aName */
+  "calculateTrianglesSides",           /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo hh_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  388,                                 /* lineNo */
   42,                                  /* colNo */
   "XYdata",                            /* aName */
   "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -359,7 +359,7 @@ static emlrtECInfo p_emlrtECI = { 2,   /* nDims */
   388,                                 /* lineNo */
   13,                                  /* colNo */
   "calculateTrianglesSides",           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtRTEInfo qb_emlrtRTEI = { 13,/* lineNo */
@@ -372,278 +372,278 @@ static emlrtECInfo r_emlrtECI = { -1,  /* nDims */
   429,                                 /* lineNo */
   29,                                  /* colNo */
   "increaseSampling",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtECInfo s_emlrtECI = { -1,  /* nDims */
   429,                                 /* lineNo */
   1,                                   /* colNo */
   "increaseSampling",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtECInfo t_emlrtECI = { -1,  /* nDims */
   431,                                 /* lineNo */
   1,                                   /* colNo */
   "increaseSampling",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtBCInfo jk_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo mk_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   425,                                 /* lineNo */
   39,                                  /* colNo */
   "segmentsToSplit",                   /* aName */
   "increaseSampling",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo kk_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  429,                                 /* lineNo */
-  40,                                  /* colNo */
-  "dataPoints",                        /* aName */
-  "increaseSampling",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo lk_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  430,                                 /* lineNo */
-  14,                                  /* colNo */
-  "dataPoints",                        /* aName */
-  "increaseSampling",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo mk_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  376,                                 /* lineNo */
-  20,                                  /* colNo */
-  "x",                                 /* aName */
-  "normalizeFunction",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo nk_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
+  429,                                 /* lineNo */
+  40,                                  /* colNo */
+  "dataPoints",                        /* aName */
+  "increaseSampling",                  /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo ok_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  430,                                 /* lineNo */
+  14,                                  /* colNo */
+  "dataPoints",                        /* aName */
+  "increaseSampling",                  /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo pk_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  376,                                 /* lineNo */
+  20,                                  /* colNo */
+  "x",                                 /* aName */
+  "normalizeFunction",                 /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo qk_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
   376,                                 /* lineNo */
   5,                                   /* colNo */
   "y",                                 /* aName */
   "normalizeFunction",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo ah_emlrtRTEI = { 255,/* lineNo */
+static emlrtRTEInfo fh_emlrtRTEI = { 255,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo bh_emlrtRTEI = { 334,/* lineNo */
+static emlrtRTEInfo gh_emlrtRTEI = { 334,/* lineNo */
   3,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
-};
-
-static emlrtRTEInfo ch_emlrtRTEI = { 281,/* lineNo */
-  42,                                  /* colNo */
-  "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
-};
-
-static emlrtRTEInfo dh_emlrtRTEI = { 282,/* lineNo */
-  5,                                   /* colNo */
-  "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
-};
-
-static emlrtRTEInfo eh_emlrtRTEI = { 283,/* lineNo */
-  5,                                   /* colNo */
-  "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
-};
-
-static emlrtRTEInfo fh_emlrtRTEI = { 289,/* lineNo */
-  21,                                  /* colNo */
-  "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
-};
-
-static emlrtRTEInfo gh_emlrtRTEI = { 289,/* lineNo */
-  50,                                  /* colNo */
-  "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
 static emlrtRTEInfo hh_emlrtRTEI = { 281,/* lineNo */
+  42,                                  /* colNo */
+  "adaptive",                          /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+};
+
+static emlrtRTEInfo ih_emlrtRTEI = { 282,/* lineNo */
   5,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ih_emlrtRTEI = { 289,/* lineNo */
+static emlrtRTEInfo jh_emlrtRTEI = { 283,/* lineNo */
+  5,                                   /* colNo */
+  "adaptive",                          /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+};
+
+static emlrtRTEInfo kh_emlrtRTEI = { 289,/* lineNo */
+  21,                                  /* colNo */
+  "adaptive",                          /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+};
+
+static emlrtRTEInfo lh_emlrtRTEI = { 289,/* lineNo */
+  50,                                  /* colNo */
+  "adaptive",                          /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+};
+
+static emlrtRTEInfo mh_emlrtRTEI = { 281,/* lineNo */
+  5,                                   /* colNo */
+  "adaptive",                          /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+};
+
+static emlrtRTEInfo nh_emlrtRTEI = { 289,/* lineNo */
   3,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo jh_emlrtRTEI = { 1,/* lineNo */
+static emlrtRTEInfo oh_emlrtRTEI = { 1,/* lineNo */
   16,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo wh_emlrtRTEI = { 398,/* lineNo */
+static emlrtRTEInfo ci_emlrtRTEI = { 398,/* lineNo */
   3,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo xh_emlrtRTEI = { 397,/* lineNo */
+static emlrtRTEInfo di_emlrtRTEI = { 397,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo yh_emlrtRTEI = { 386,/* lineNo */
+static emlrtRTEInfo ei_emlrtRTEI = { 386,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ai_emlrtRTEI = { 387,/* lineNo */
+static emlrtRTEInfo fi_emlrtRTEI = { 387,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo bi_emlrtRTEI = { 388,/* lineNo */
+static emlrtRTEInfo gi_emlrtRTEI = { 388,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ci_emlrtRTEI = { 403,/* lineNo */
+static emlrtRTEInfo hi_emlrtRTEI = { 403,/* lineNo */
   21,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo di_emlrtRTEI = { 403,/* lineNo */
+static emlrtRTEInfo ii_emlrtRTEI = { 403,/* lineNo */
   42,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ei_emlrtRTEI = { 404,/* lineNo */
+static emlrtRTEInfo ji_emlrtRTEI = { 404,/* lineNo */
   21,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo fi_emlrtRTEI = { 404,/* lineNo */
+static emlrtRTEInfo ki_emlrtRTEI = { 404,/* lineNo */
   42,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo gi_emlrtRTEI = { 405,/* lineNo */
+static emlrtRTEInfo li_emlrtRTEI = { 405,/* lineNo */
   21,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo hi_emlrtRTEI = { 405,/* lineNo */
+static emlrtRTEInfo mi_emlrtRTEI = { 405,/* lineNo */
   42,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ii_emlrtRTEI = { 407,/* lineNo */
+static emlrtRTEInfo ni_emlrtRTEI = { 407,/* lineNo */
   3,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ji_emlrtRTEI = { 409,/* lineNo */
+static emlrtRTEInfo oi_emlrtRTEI = { 409,/* lineNo */
   20,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ki_emlrtRTEI = { 409,/* lineNo */
+static emlrtRTEInfo pi_emlrtRTEI = { 409,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo li_emlrtRTEI = { 403,/* lineNo */
+static emlrtRTEInfo qi_emlrtRTEI = { 403,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo mi_emlrtRTEI = { 404,/* lineNo */
+static emlrtRTEInfo ri_emlrtRTEI = { 404,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ni_emlrtRTEI = { 405,/* lineNo */
+static emlrtRTEInfo si_emlrtRTEI = { 405,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo oi_emlrtRTEI = { 391,/* lineNo */
+static emlrtRTEInfo ti_emlrtRTEI = { 391,/* lineNo */
   24,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ik_emlrtRTEI = { 426,/* lineNo */
+static emlrtRTEInfo pk_emlrtRTEI = { 426,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo jk_emlrtRTEI = { 429,/* lineNo */
+static emlrtRTEInfo qk_emlrtRTEI = { 429,/* lineNo */
   40,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo kk_emlrtRTEI = { 430,/* lineNo */
+static emlrtRTEInfo rk_emlrtRTEI = { 430,/* lineNo */
   14,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo lk_emlrtRTEI = { 422,/* lineNo */
+static emlrtRTEInfo sk_emlrtRTEI = { 422,/* lineNo */
   23,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo mk_emlrtRTEI = { 429,/* lineNo */
+static emlrtRTEInfo tk_emlrtRTEI = { 429,/* lineNo */
   22,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo nk_emlrtRTEI = { 431,/* lineNo */
+static emlrtRTEInfo uk_emlrtRTEI = { 431,/* lineNo */
   22,                                  /* colNo */
   "adaptive",                          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ok_emlrtRTEI = { 303,/* lineNo */
+static emlrtRTEInfo vk_emlrtRTEI = { 303,/* lineNo */
   14,                                  /* colNo */
   "cat",                               /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/cat.m"/* pName */
@@ -710,7 +710,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   i_st.prev = &h_st;
   i_st.tls = h_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_real_T(sp, &normalizedData, 2, &xh_emlrtRTEI, true);
+  emxInit_real_T(sp, &normalizedData, 2, &di_emlrtRTEI, true);
 
   /*  Calculate the central angle of the triangles formed by data points. */
   /*  For input size NxM, the output size is (N-2)xN, because the first and the */
@@ -745,7 +745,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   i = normalizedData->size[0] * normalizedData->size[1];
   normalizedData->size[0] = XYdata->size[0];
   normalizedData->size[1] = 2;
-  emxEnsureCapacity_real_T(&st, normalizedData, i, &wh_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, normalizedData, i, &ci_emlrtRTEI);
   for (i = 0; i < m; i++) {
     normalizedData->data[i] = XYdata->data[i] / normalizedData->data[i];
   }
@@ -796,7 +796,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     }
   }
 
-  emxInit_real_T(&g_st, &longStep, 2, &oi_emlrtRTEI, true);
+  emxInit_real_T(&g_st, &longStep, 2, &ti_emlrtRTEI, true);
   st.site = &pd_emlrtRSI;
   repmat(&st, varargin_1, XYdata->size[0], longStep);
   emlrtSizeEqCheckNDR2012b(*(int32_T (*)[2])normalizedData->size, *(int32_T (*)
@@ -804,7 +804,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   m = normalizedData->size[0] * normalizedData->size[1];
   i = normalizedData->size[0] * normalizedData->size[1];
   normalizedData->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, normalizedData, i, &xh_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, normalizedData, i, &di_emlrtRTEI);
   for (i = 0; i < m; i++) {
     normalizedData->data[i] -= longStep->data[i];
   }
@@ -820,14 +820,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     i1 = -1;
   } else {
     if (2 > normalizedData->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData->size[0], &vg_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData->size[0], &xg_emlrtBCI,
         &st);
     }
 
     i = 0;
     i1 = normalizedData->size[0] - 1;
     if ((i1 < 1) || (i1 > normalizedData->size[0])) {
-      emlrtDynamicBoundsCheckR2012b(i1, 1, normalizedData->size[0], &wg_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i1, 1, normalizedData->size[0], &yg_emlrtBCI,
         &st);
     }
 
@@ -838,14 +838,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     b_i = 0;
   } else {
     if (1 > normalizedData->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData->size[0], &xg_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData->size[0], &ah_emlrtBCI,
         &st);
     }
 
     b_i = normalizedData->size[0] - 2;
     if ((b_i < 1) || (b_i > normalizedData->size[0])) {
       emlrtDynamicBoundsCheckR2012b(b_i, 1, normalizedData->size[0],
-        &yg_emlrtBCI, &st);
+        &bh_emlrtBCI, &st);
     }
   }
 
@@ -858,11 +858,11 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     emlrtSizeEqCheckNDR2012b(&iv[0], &iv1[0], &n_emlrtECI, &st);
   }
 
-  emxInit_real_T(&st, &firstStep, 2, &oi_emlrtRTEI, true);
+  emxInit_real_T(&st, &firstStep, 2, &ti_emlrtRTEI, true);
   i1 = firstStep->size[0] * firstStep->size[1];
   firstStep->size[0] = m;
   firstStep->size[1] = 2;
-  emxEnsureCapacity_real_T(&st, firstStep, i1, &yh_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, firstStep, i1, &ei_emlrtRTEI);
   for (i1 = 0; i1 < m; i1++) {
     firstStep->data[i1] = normalizedData->data[(i + i1) + 1] -
       normalizedData->data[i1];
@@ -881,7 +881,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     i = 1;
     if (normalizedData->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(normalizedData->size[0], 1,
-        normalizedData->size[0], &ah_emlrtBCI, &st);
+        normalizedData->size[0], &ch_emlrtBCI, &st);
     }
 
     i1 = normalizedData->size[0] - 1;
@@ -892,14 +892,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     k = 0;
   } else {
     if (2 > normalizedData->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData->size[0], &bh_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData->size[0], &dh_emlrtBCI,
         &st);
     }
 
     b_i = 0;
     k = normalizedData->size[0] - 1;
     if ((k < 1) || (k > normalizedData->size[0])) {
-      emlrtDynamicBoundsCheckR2012b(k, 1, normalizedData->size[0], &ch_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(k, 1, normalizedData->size[0], &eh_emlrtBCI,
         &st);
     }
   }
@@ -913,11 +913,11 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     emlrtSizeEqCheckNDR2012b(&iv[0], &iv1[0], &o_emlrtECI, &st);
   }
 
-  emxInit_real_T(&st, &secondStep, 2, &oi_emlrtRTEI, true);
+  emxInit_real_T(&st, &secondStep, 2, &ti_emlrtRTEI, true);
   i1 = secondStep->size[0] * secondStep->size[1];
   secondStep->size[0] = m;
   secondStep->size[1] = 2;
-  emxEnsureCapacity_real_T(&st, secondStep, i1, &ai_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, secondStep, i1, &fi_emlrtRTEI);
   for (i1 = 0; i1 < m; i1++) {
     secondStep->data[i1] = normalizedData->data[(i + i1) + 1] -
       normalizedData->data[(b_i + i1) + 1];
@@ -936,7 +936,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     i = 1;
     if (normalizedData->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(normalizedData->size[0], 1,
-        normalizedData->size[0], &dh_emlrtBCI, &st);
+        normalizedData->size[0], &fh_emlrtBCI, &st);
     }
 
     i1 = normalizedData->size[0] - 1;
@@ -946,14 +946,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     b_i = 0;
   } else {
     if (1 > normalizedData->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData->size[0], &eh_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData->size[0], &gh_emlrtBCI,
         &st);
     }
 
     b_i = normalizedData->size[0] - 2;
     if ((b_i < 1) || (b_i > normalizedData->size[0])) {
       emlrtDynamicBoundsCheckR2012b(b_i, 1, normalizedData->size[0],
-        &fh_emlrtBCI, &st);
+        &hh_emlrtBCI, &st);
     }
   }
 
@@ -969,7 +969,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   i1 = longStep->size[0] * longStep->size[1];
   longStep->size[0] = m;
   longStep->size[1] = 2;
-  emxEnsureCapacity_real_T(&st, longStep, i1, &bi_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, longStep, i1, &gi_emlrtRTEI);
   for (i1 = 0; i1 < m; i1++) {
     longStep->data[i1] = normalizedData->data[(i + i1) + 1] -
       normalizedData->data[i1];
@@ -982,30 +982,30 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   }
 
   emxFree_real_T(&normalizedData);
-  emxInit_real_T(&st, &b_firstStep, 1, &ci_emlrtRTEI, true);
+  emxInit_real_T(&st, &b_firstStep, 1, &hi_emlrtRTEI, true);
 
   /*  calculate area of squares of length of triangle sides */
   m = firstStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = firstStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &ci_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &hi_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = firstStep->data[i];
   }
 
-  emxInit_real_T(sp, &firstStepSquared, 1, &li_emlrtRTEI, true);
+  emxInit_real_T(sp, &firstStepSquared, 1, &qi_emlrtRTEI, true);
   st.site = &rd_emlrtRSI;
   power(&st, b_firstStep, firstStepSquared);
   m = firstStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = firstStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &di_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &ii_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = firstStep->data[i + firstStep->size[0]];
   }
 
   emxFree_real_T(&firstStep);
-  emxInit_real_T(sp, &r, 1, &oi_emlrtRTEI, true);
+  emxInit_real_T(sp, &r, 1, &ti_emlrtRTEI, true);
   st.site = &rd_emlrtRSI;
   power(&st, b_firstStep, r);
   if (firstStepSquared->size[0] != r->size[0]) {
@@ -1021,18 +1021,18 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   m = secondStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = secondStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &ei_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &ji_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = secondStep->data[i];
   }
 
-  emxInit_real_T(sp, &secondStepSquared, 1, &mi_emlrtRTEI, true);
+  emxInit_real_T(sp, &secondStepSquared, 1, &ri_emlrtRTEI, true);
   st.site = &sd_emlrtRSI;
   power(&st, b_firstStep, secondStepSquared);
   m = secondStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = secondStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &fi_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &ki_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = secondStep->data[i + secondStep->size[0]];
   }
@@ -1053,18 +1053,18 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   m = longStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = longStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &gi_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &li_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = longStep->data[i];
   }
 
-  emxInit_real_T(sp, &longStepSquared, 1, &ni_emlrtRTEI, true);
+  emxInit_real_T(sp, &longStepSquared, 1, &si_emlrtRTEI, true);
   st.site = &td_emlrtRSI;
   power(&st, b_firstStep, longStepSquared);
   m = longStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = longStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &hi_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &mi_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = longStep->data[i + longStep->size[0]];
   }
@@ -1102,7 +1102,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   st.site = &vd_emlrtRSI;
   i = longStepSquared->size[0];
   longStepSquared->size[0] = firstStepSquared->size[0];
-  emxEnsureCapacity_real_T(&st, longStepSquared, i, &ii_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, longStepSquared, i, &ni_emlrtRTEI);
   m = firstStepSquared->size[0];
   for (i = 0; i < m; i++) {
     longStepSquared->data[i] = ((firstStepSquared->data[i] +
@@ -1165,10 +1165,10 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
       "MATLAB:dimagree", 0);
   }
 
-  emxInit_creal_T(&st, &r1, 1, &ji_emlrtRTEI, true);
+  emxInit_creal_T(&st, &r1, 1, &oi_emlrtRTEI, true);
   i = r1->size[0];
   r1->size[0] = longStepSquared->size[0];
-  emxEnsureCapacity_creal_T(sp, r1, i, &ji_emlrtRTEI);
+  emxEnsureCapacity_creal_T(sp, r1, i, &oi_emlrtRTEI);
   m = longStepSquared->size[0];
   for (i = 0; i < m; i++) {
     r1->data[i].re = longStepSquared->data[i] / firstStepSquared->data[i];
@@ -1181,7 +1181,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   b_acos(&st, r1);
   i = cornerAngle->size[0];
   cornerAngle->size[0] = r1->size[0];
-  emxEnsureCapacity_real_T(sp, cornerAngle, i, &ki_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, cornerAngle, i, &pi_emlrtRTEI);
   m = r1->size[0];
   for (i = 0; i < m; i++) {
     cornerAngle->data[i] = r1->data[i].re;
@@ -1224,7 +1224,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
       b_i = i + 1;
       if ((b_i < 1) || (b_i > segmentsToSplit->size[0])) {
         emlrtDynamicBoundsCheckR2012b(b_i, 1, segmentsToSplit->size[0],
-          &jk_emlrtBCI, sp);
+          &mk_emlrtBCI, sp);
       }
     }
   }
@@ -1237,20 +1237,20 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
     }
   }
 
-  emxInit_real_T(sp, &newDataPoints, 2, &ik_emlrtRTEI, true);
+  emxInit_real_T(sp, &newDataPoints, 2, &pk_emlrtRTEI, true);
   b_i = newDataPoints->size[0] * newDataPoints->size[1];
   newDataPoints->size[0] = trueCount;
   newDataPoints->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, newDataPoints, b_i, &ik_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, newDataPoints, b_i, &pk_emlrtRTEI);
   input_sizes_idx_0 = trueCount << 1;
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
     newDataPoints->data[b_i] = 0.0;
   }
 
-  emxInit_boolean_T(sp, &r, 1, &jk_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &r, 1, &qk_emlrtRTEI, true);
   b_i = r->size[0];
   r->size[0] = segmentsToSplit->size[0] + 1;
-  emxEnsureCapacity_boolean_T(sp, r, b_i, &jk_emlrtRTEI);
+  emxEnsureCapacity_boolean_T(sp, r, b_i, &qk_emlrtRTEI);
   input_sizes_idx_0 = segmentsToSplit->size[0];
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
     r->data[b_i] = segmentsToSplit->data[b_i];
@@ -1263,16 +1263,16 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
       b_i = dataPoints->size[0];
       input_sizes_idx_0 = i + 1;
       if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > b_i)) {
-        emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, b_i, &kk_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, b_i, &nk_emlrtBCI,
           sp);
       }
     }
   }
 
-  emxInit_boolean_T(sp, &r1, 1, &kk_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &r1, 1, &rk_emlrtRTEI, true);
   b_i = r1->size[0];
   r1->size[0] = segmentsToSplit->size[0] + 1;
-  emxEnsureCapacity_boolean_T(sp, r1, b_i, &kk_emlrtRTEI);
+  emxEnsureCapacity_boolean_T(sp, r1, b_i, &rk_emlrtRTEI);
   r1->data[0] = false;
   input_sizes_idx_0 = segmentsToSplit->size[0];
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
@@ -1285,7 +1285,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
       b_i = dataPoints->size[0];
       input_sizes_idx_0 = i + 1;
       if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > b_i)) {
-        emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, b_i, &lk_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, b_i, &ok_emlrtBCI,
           sp);
       }
     }
@@ -1299,10 +1299,10 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
     }
   }
 
-  emxInit_int32_T(sp, &r2, 1, &jk_emlrtRTEI, true);
+  emxInit_int32_T(sp, &r2, 1, &qk_emlrtRTEI, true);
   b_i = r2->size[0];
   r2->size[0] = input_sizes_idx_0;
-  emxEnsureCapacity_int32_T(sp, r2, b_i, &lk_emlrtRTEI);
+  emxEnsureCapacity_int32_T(sp, r2, b_i, &sk_emlrtRTEI);
   input_sizes_idx_0 = 0;
   for (i = 0; i <= end; i++) {
     if (r->data[i]) {
@@ -1319,10 +1319,10 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
     }
   }
 
-  emxInit_int32_T(sp, &r3, 1, &kk_emlrtRTEI, true);
+  emxInit_int32_T(sp, &r3, 1, &rk_emlrtRTEI, true);
   b_i = r3->size[0];
   r3->size[0] = input_sizes_idx_0;
-  emxEnsureCapacity_int32_T(sp, r3, b_i, &lk_emlrtRTEI);
+  emxEnsureCapacity_int32_T(sp, r3, b_i, &sk_emlrtRTEI);
   input_sizes_idx_0 = 0;
   for (i = 0; i <= end; i++) {
     if (r1->data[i]) {
@@ -1345,10 +1345,10 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
     }
   }
 
-  emxInit_int32_T(sp, &r4, 1, &jk_emlrtRTEI, true);
+  emxInit_int32_T(sp, &r4, 1, &qk_emlrtRTEI, true);
   b_i = r4->size[0];
   r4->size[0] = input_sizes_idx_0;
-  emxEnsureCapacity_int32_T(sp, r4, b_i, &lk_emlrtRTEI);
+  emxEnsureCapacity_int32_T(sp, r4, b_i, &sk_emlrtRTEI);
   input_sizes_idx_0 = 0;
   for (i = 0; i <= end; i++) {
     if (r->data[i]) {
@@ -1366,10 +1366,10 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
     }
   }
 
-  emxInit_int32_T(sp, &r5, 1, &kk_emlrtRTEI, true);
+  emxInit_int32_T(sp, &r5, 1, &rk_emlrtRTEI, true);
   b_i = r5->size[0];
   r5->size[0] = input_sizes_idx_0;
-  emxEnsureCapacity_int32_T(sp, r5, b_i, &lk_emlrtRTEI);
+  emxEnsureCapacity_int32_T(sp, r5, b_i, &sk_emlrtRTEI);
   input_sizes_idx_0 = 0;
   for (i = 0; i <= end; i++) {
     if (r1->data[i]) {
@@ -1379,10 +1379,10 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
   }
 
   emxFree_boolean_T(&r1);
-  emxInit_real_T(sp, &r6, 1, &lk_emlrtRTEI, true);
+  emxInit_real_T(sp, &r6, 1, &sk_emlrtRTEI, true);
   b_i = r6->size[0];
   r6->size[0] = r4->size[0];
-  emxEnsureCapacity_real_T(sp, r6, b_i, &mk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, r6, b_i, &tk_emlrtRTEI);
   input_sizes_idx_0 = r4->size[0];
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
     r6->data[b_i] = 0.5 * (dataPoints->data[r4->data[b_i] - 1] +
@@ -1397,7 +1397,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
     newDataPoints->data[b_i] = r6->data[b_i];
   }
 
-  emxInit_real_T(sp, &r7, 1, &lk_emlrtRTEI, true);
+  emxInit_real_T(sp, &r7, 1, &sk_emlrtRTEI, true);
   st.site = &he_emlrtRSI;
 
   /*  Subfunctions */
@@ -1412,7 +1412,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
   /* abs(nargout(func)); %for anonymous functions nargout<0 */
   b_i = r7->size[0];
   r7->size[0] = newDataPoints->size[0];
-  emxEnsureCapacity_real_T(&st, r7, b_i, &nk_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, r7, b_i, &uk_emlrtRTEI);
 
   /*  if vectorizable */
   /*    % For uniformity reasons, transform the 'x' array into a column vector. */
@@ -1431,7 +1431,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
     if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > newDataPoints->size[0]))
     {
       emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, newDataPoints->size[0],
-        &mk_emlrtBCI, &st);
+        &pk_emlrtBCI, &st);
     }
 
     b_st.site = &yc_emlrtRSI;
@@ -1443,7 +1443,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
     input_sizes_idx_0 = i + 1;
     if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > r7->size[0])) {
       emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, r7->size[0],
-        &nk_emlrtBCI, &st);
+        &qk_emlrtBCI, &st);
     }
 
     r7->data[input_sizes_idx_0 - 1] = r6->data[0];
@@ -1460,7 +1460,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
   }
 
   emxFree_real_T(&r7);
-  emxInit_real_T(sp, &b_dataPoints, 2, &ok_emlrtRTEI, true);
+  emxInit_real_T(sp, &b_dataPoints, 2, &vk_emlrtRTEI, true);
 
   /*  For simplicity append the new points at the end and then sort. */
   st.site = &ie_emlrtRSI;
@@ -1479,7 +1479,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
   b_i = b_dataPoints->size[0] * b_dataPoints->size[1];
   b_dataPoints->size[0] = end + input_sizes_idx_0;
   b_dataPoints->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, b_dataPoints, b_i, &ok_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_dataPoints, b_i, &vk_emlrtRTEI);
   for (b_i = 0; b_i < end; b_i++) {
     b_dataPoints->data[b_i] = dataPoints->data[b_i];
   }
@@ -1502,7 +1502,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
   b_i = dataPoints->size[0] * dataPoints->size[1];
   dataPoints->size[0] = b_dataPoints->size[0];
   dataPoints->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, dataPoints, b_i, &lk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, dataPoints, b_i, &sk_emlrtRTEI);
   input_sizes_idx_0 = b_dataPoints->size[0];
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
     dataPoints->data[b_i] = b_dataPoints->data[b_i];
@@ -1520,7 +1520,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
 }
 
 void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
-              real_T startDomain[2], cell_15 *out)
+              real_T startDomain[2], cell_16 *out)
 {
   real_T d1;
   real_T y[50];
@@ -1817,7 +1817,7 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
   /*    [newValues{:}] = func(x(:)); */
   /*    y = cell2mat(newValues); */
   /*  else */
-  emxInit_real_T(&st, &cornerAngle, 1, &hh_emlrtRTEI, true);
+  emxInit_real_T(&st, &cornerAngle, 1, &mh_emlrtRTEI, true);
   for (k = 0; k < 50; k++) {
     /*  Remove cell array so no need for cell2mat */
     /*  which won't compile - AVH */
@@ -1839,11 +1839,11 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
     b_y[i + 50] = hiVal[i];
   }
 
-  emxInit_real_T(sp, &dataPoints, 2, &ah_emlrtRTEI, true);
+  emxInit_real_T(sp, &dataPoints, 2, &fh_emlrtRTEI, true);
   i = dataPoints->size[0] * dataPoints->size[1];
   dataPoints->size[0] = 50;
   dataPoints->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, dataPoints, i, &ah_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, dataPoints, i, &fh_emlrtRTEI);
   for (i = 0; i < 100; i++) {
     dataPoints->data[i] = b_y[i];
   }
@@ -1855,10 +1855,10 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
   /*    setappdata(refinementWaitbar,'canceling',false) */
   /*  end */
   nRefinements = 0;
-  emxInit_boolean_T(sp, &sharpCorners, 1, &dh_emlrtRTEI, true);
-  emxInit_boolean_T(sp, &segmentsToSplit, 1, &ih_emlrtRTEI, true);
-  emxInit_boolean_T(sp, &r, 1, &jh_emlrtRTEI, true);
-  emxInit_real_T(sp, &b_dataPoints, 2, &ch_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &sharpCorners, 1, &ih_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &segmentsToSplit, 1, &nh_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &r, 1, &oh_emlrtRTEI, true);
+  emxInit_real_T(sp, &b_dataPoints, 2, &hh_emlrtRTEI, true);
   exitg1 = false;
   while ((!exitg1) && (nRefinements < 10)) {
     /*  calculate the box which encloses the current data points: */
@@ -1967,7 +1967,7 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
     i = b_dataPoints->size[0] * b_dataPoints->size[1];
     b_dataPoints->size[0] = dataPoints->size[0];
     b_dataPoints->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, b_dataPoints, i, &ch_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_dataPoints, i, &hh_emlrtRTEI);
     for (i = 0; i < k; i++) {
       b_dataPoints->data[i] = dataPoints->data[i];
     }
@@ -1983,7 +1983,7 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
     calculateCentralAngles(&st, b_dataPoints, maxval, cornerAngle);
     i = sharpCorners->size[0];
     sharpCorners->size[0] = cornerAngle->size[0];
-    emxEnsureCapacity_boolean_T(sp, sharpCorners, i, &dh_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(sp, sharpCorners, i, &ih_emlrtRTEI);
     k = cornerAngle->size[0];
     for (i = 0; i < k; i++) {
       sharpCorners->data[i] = (cornerAngle->data[i] < 2.1991148575128552);
@@ -1996,14 +1996,14 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
 
     i = sharpCorners->size[0];
     sharpCorners->size[0] = dataPoints->size[0] - 2;
-    emxEnsureCapacity_boolean_T(sp, sharpCorners, i, &eh_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(sp, sharpCorners, i, &jh_emlrtRTEI);
 
     /*  For N points there are N-2 triangles and N-1 triangle sides. Each */
     /*  triangle side is a segment, which can be split or not depending on the */
     /*  refinement parameters. */
     i = segmentsToSplit->size[0];
     segmentsToSplit->size[0] = dataPoints->size[0] - 1;
-    emxEnsureCapacity_boolean_T(sp, segmentsToSplit, i, &fh_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(sp, segmentsToSplit, i, &kh_emlrtRTEI);
     k = dataPoints->size[0] - 2;
     for (i = 0; i < k; i++) {
       segmentsToSplit->data[i] = sharpCorners->data[i];
@@ -2012,7 +2012,7 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
     segmentsToSplit->data[dataPoints->size[0] - 2] = false;
     i = r->size[0];
     r->size[0] = dataPoints->size[0] - 1;
-    emxEnsureCapacity_boolean_T(sp, r, i, &gh_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(sp, r, i, &lh_emlrtRTEI);
     r->data[0] = false;
     k = dataPoints->size[0] - 2;
     for (i = 0; i < k; i++) {
@@ -2084,7 +2084,7 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
   i = out->f1->size[0] * out->f1->size[1];
   out->f1->size[0] = dataPoints->size[0];
   out->f1->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, out->f1, i, &bh_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, out->f1, i, &gh_emlrtRTEI);
   k = dataPoints->size[0] * dataPoints->size[1];
   for (i = 0; i < k; i++) {
     out->f1->data[i] = dataPoints->data[i];

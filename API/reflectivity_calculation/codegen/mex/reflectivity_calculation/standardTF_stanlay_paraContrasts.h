@@ -34,12 +34,12 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
   emxArray_cell_wrap_1 *allData, const emxArray_cell_wrap_0 *dataLimits, const
   emxArray_cell_wrap_0 *simLimits, real_T nParams, const emxArray_real_T *params,
   const emxArray_cell_wrap_2 *contrastLayers, const emxArray_cell_wrap_2
-  *layersDetails, const emxArray_real_T *backsType, emxArray_real_T *outSsubs,
-  emxArray_real_T *backgs, emxArray_real_T *qshifts, emxArray_real_T *sfs,
-  emxArray_real_T *nbas, emxArray_real_T *nbss, emxArray_real_T *resols,
-  emxArray_real_T *chis, emxArray_cell_wrap_6 *reflectivity,
-  emxArray_cell_wrap_6 *Simulation, emxArray_cell_wrap_1 *shifted_data,
-  emxArray_cell_wrap_1 *layerSlds, emxArray_cell_wrap_6 *sldProfiles,
-  emxArray_cell_wrap_10 *allLayers, emxArray_real_T *allRoughs);
+  *layersDetails, const emxArray_real_T *backsType, real_T calcSld,
+  emxArray_real_T *outSsubs, emxArray_real_T *backgs, emxArray_real_T *qshifts,
+  emxArray_real_T *sfs, emxArray_real_T *nbas, emxArray_real_T *nbss,
+  emxArray_real_T *resols, emxArray_real_T *chis, emxArray_cell_wrap_6
+  *reflectivity, emxArray_cell_wrap_6 *Simulation, emxArray_cell_wrap_1
+  *shifted_data, emxArray_cell_wrap_1 *layerSlds, emxArray_cell_wrap_11
+  *sldProfiles, emxArray_cell_wrap_10 *allLayers, emxArray_real_T *allRoughs);
 
 /* End of code generation (standardTF_stanlay_paraContrasts.h) */

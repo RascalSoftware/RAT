@@ -20,7 +20,7 @@
 static emlrtDCInfo lb_emlrtDCI = { 3,  /* lineNo */
   8,                                   /* colNo */
   "applyBackgroundCorrection",         /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m",/* pName */
   1                                    /* checkKind */
 };
 
@@ -28,25 +28,25 @@ static emlrtECInfo x_emlrtECI = { -1,  /* nDims */
   10,                                  /* lineNo */
   9,                                   /* colNo */
   "applyBackgroundCorrection",         /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
 };
 
-static emlrtRTEInfo dl_emlrtRTEI = { 6,/* lineNo */
+static emlrtRTEInfo kl_emlrtRTEI = { 6,/* lineNo */
   9,                                   /* colNo */
   "applyBackgroundCorrection",         /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
 };
 
-static emlrtRTEInfo el_emlrtRTEI = { 7,/* lineNo */
+static emlrtRTEInfo ll_emlrtRTEI = { 7,/* lineNo */
   9,                                   /* colNo */
   "applyBackgroundCorrection",         /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
 };
 
-static emlrtRTEInfo fl_emlrtRTEI = { 10,/* lineNo */
+static emlrtRTEInfo ml_emlrtRTEI = { 10,/* lineNo */
   28,                                  /* colNo */
   "applyBackgroundCorrection",         /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
 };
 
 /* Function Definitions */
@@ -67,10 +67,10 @@ void applyBackgroundCorrection(const emlrtStack *sp, emxArray_real_T *reflect,
     /* Add background to the simulation */
     i = reflect->size[0] * reflect->size[1];
     reflect->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflect, i, &dl_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflect, i, &kl_emlrtRTEI);
     i = Simul->size[0] * Simul->size[1];
     Simul->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simul, i, &el_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simul, i, &ll_emlrtRTEI);
     loop_ub = reflect->size[0];
     for (i = 0; i < loop_ub; i++) {
       reflect->data[i] += backg;
@@ -93,7 +93,7 @@ void applyBackgroundCorrection(const emlrtStack *sp, emxArray_real_T *reflect,
     break;
 
    case 2:
-    emxInit_real_T(sp, &b_shifted_dat, 1, &fl_emlrtRTEI, true);
+    emxInit_real_T(sp, &b_shifted_dat, 1, &ml_emlrtRTEI, true);
 
     /*          %Subtract the background from the data.. */
     emlrtSubAssignSizeCheckR2012b(&shifted_dat->size[0], 1, &shifted_dat->size[0],
@@ -101,7 +101,7 @@ void applyBackgroundCorrection(const emlrtStack *sp, emxArray_real_T *reflect,
     loop_ub = shifted_dat->size[0] - 1;
     i = b_shifted_dat->size[0];
     b_shifted_dat->size[0] = loop_ub + 1;
-    emxEnsureCapacity_real_T(sp, b_shifted_dat, i, &fl_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_shifted_dat, i, &ml_emlrtRTEI);
     for (i = 0; i <= loop_ub; i++) {
       b_shifted_dat->data[i] = shifted_dat->data[i + shifted_dat->size[0]] -
         backg;

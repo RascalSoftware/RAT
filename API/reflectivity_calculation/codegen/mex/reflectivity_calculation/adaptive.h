@@ -24,6 +24,6 @@
 
 /* Function Declarations */
 void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
-              real_T startDomain[2], cell_15 *out);
+              real_T startDomain[2], cell_16 *out);
 
 /* End of code generation (adaptive.h) */

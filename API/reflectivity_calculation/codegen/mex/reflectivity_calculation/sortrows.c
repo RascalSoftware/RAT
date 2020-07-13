@@ -84,31 +84,31 @@ static emlrtRSInfo ye_emlrtRSI = { 43, /* lineNo */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/sortrows.m"/* pathName */
 };
 
-static emlrtRTEInfo pk_emlrtRTEI = { 27,/* lineNo */
+static emlrtRTEInfo wk_emlrtRTEI = { 27,/* lineNo */
   1,                                   /* colNo */
   "sortrows",                          /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/sortrows.m"/* pName */
 };
 
-static emlrtRTEInfo qk_emlrtRTEI = { 86,/* lineNo */
+static emlrtRTEInfo xk_emlrtRTEI = { 86,/* lineNo */
   15,                                  /* colNo */
   "sortIdx",                           /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/sortIdx.m"/* pName */
 };
 
-static emlrtRTEInfo rk_emlrtRTEI = { 28,/* lineNo */
+static emlrtRTEInfo yk_emlrtRTEI = { 28,/* lineNo */
   5,                                   /* colNo */
   "sortrows",                          /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/sortrows.m"/* pName */
 };
 
-static emlrtRTEInfo sk_emlrtRTEI = { 38,/* lineNo */
+static emlrtRTEInfo al_emlrtRTEI = { 38,/* lineNo */
   1,                                   /* colNo */
   "sortrows",                          /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/sortrows.m"/* pName */
 };
 
-static emlrtRTEInfo tk_emlrtRTEI = { 52,/* lineNo */
+static emlrtRTEInfo bl_emlrtRTEI = { 52,/* lineNo */
   1,                                   /* colNo */
   "mergesort",                         /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/mergesort.m"/* pName */
@@ -144,7 +144,7 @@ void sortrows(const emlrtStack *sp, emxArray_real_T *y)
   d_st.prev = &c_st;
   d_st.tls = c_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_int32_T(sp, &idx, 1, &pk_emlrtRTEI, true);
+  emxInit_int32_T(sp, &idx, 1, &wk_emlrtRTEI, true);
   st.site = &ke_emlrtRSI;
   b_st.site = &ne_emlrtRSI;
   col_data[0] = 1;
@@ -153,7 +153,7 @@ void sortrows(const emlrtStack *sp, emxArray_real_T *y)
   n = y->size[0] + 1;
   j = idx->size[0];
   idx->size[0] = y->size[0];
-  emxEnsureCapacity_int32_T(&st, idx, j, &pk_emlrtRTEI);
+  emxEnsureCapacity_int32_T(&st, idx, j, &wk_emlrtRTEI);
   i2 = y->size[0];
   for (j = 0; j < i2; j++) {
     idx->data[j] = 0;
@@ -170,11 +170,11 @@ void sortrows(const emlrtStack *sp, emxArray_real_T *y)
       idx->data[k] = k + 1;
     }
   } else {
-    emxInit_int32_T(&st, &iwork, 1, &tk_emlrtRTEI, true);
+    emxInit_int32_T(&st, &iwork, 1, &bl_emlrtRTEI, true);
     b_st.site = &pe_emlrtRSI;
     j = iwork->size[0];
     iwork->size[0] = y->size[0];
-    emxEnsureCapacity_int32_T(&b_st, iwork, j, &qk_emlrtRTEI);
+    emxEnsureCapacity_int32_T(&b_st, iwork, j, &xk_emlrtRTEI);
     i2 = y->size[0] - 1;
     c_st.site = &qe_emlrtRSI;
     if ((1 <= y->size[0] - 1) && (y->size[0] - 1 > 2147483645)) {
@@ -252,12 +252,12 @@ void sortrows(const emlrtStack *sp, emxArray_real_T *y)
     emxFree_int32_T(&iwork);
   }
 
-  emxInit_real_T(&st, &ycol, 1, &sk_emlrtRTEI, true);
+  emxInit_real_T(&st, &ycol, 1, &al_emlrtRTEI, true);
   st.site = &me_emlrtRSI;
   i2 = y->size[0];
   j = ycol->size[0];
   ycol->size[0] = y->size[0];
-  emxEnsureCapacity_real_T(&st, ycol, j, &rk_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, ycol, j, &yk_emlrtRTEI);
   b_st.site = &we_emlrtRSI;
   b_st.site = &xe_emlrtRSI;
   if ((1 <= i2) && (i2 > 2147483646)) {

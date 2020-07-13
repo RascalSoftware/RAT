@@ -21,114 +21,114 @@
 /* Variable Definitions */
 static emlrtRSInfo q_emlrtRSI = { 57,  /* lineNo */
   "groupLayers_Mod",                   /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pathName */
 };
 
 static emlrtRSInfo r_emlrtRSI = { 61,  /* lineNo */
   "groupLayers_Mod",                   /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pathName */
 };
 
-static emlrtBCInfo pf_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo rf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   57,                                  /* lineNo */
   44,                                  /* colNo */
   "roughs",                            /* aName */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo qf_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  56,                                  /* lineNo */
-  24,                                  /* colNo */
-  "roughs",                            /* aName */
-  "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo rf_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  73,                                  /* lineNo */
-  28,                                  /* colNo */
-  "output",                            /* aName */
-  "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo sf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  74,                                  /* lineNo */
-  20,                                  /* colNo */
-  "output",                            /* aName */
+  56,                                  /* lineNo */
+  24,                                  /* colNo */
+  "roughs",                            /* aName */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo tf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  80,                                  /* lineNo */
-  78,                                  /* colNo */
-  "layers",                            /* aName */
+  73,                                  /* lineNo */
+  28,                                  /* colNo */
+  "output",                            /* aName */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo uf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
+  74,                                  /* lineNo */
+  20,                                  /* colNo */
+  "output",                            /* aName */
+  "groupLayers_Mod",                   /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo vf_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  80,                                  /* lineNo */
+  78,                                  /* colNo */
+  "layers",                            /* aName */
+  "groupLayers_Mod",                   /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo wf_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
   80,                                  /* lineNo */
   21,                                  /* colNo */
   "layers",                            /* aName */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m",/* pName */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo yf_emlrtRTEI = { 46,/* lineNo */
+static emlrtRTEInfo eg_emlrtRTEI = { 46,/* lineNo */
   5,                                   /* colNo */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo ag_emlrtRTEI = { 90,/* lineNo */
+static emlrtRTEInfo fg_emlrtRTEI = { 90,/* lineNo */
   5,                                   /* colNo */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo bg_emlrtRTEI = { 88,/* lineNo */
+static emlrtRTEInfo gg_emlrtRTEI = { 88,/* lineNo */
   5,                                   /* colNo */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo cg_emlrtRTEI = { 50,/* lineNo */
+static emlrtRTEInfo hg_emlrtRTEI = { 50,/* lineNo */
   17,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo dg_emlrtRTEI = { 57,/* lineNo */
+static emlrtRTEInfo ig_emlrtRTEI = { 57,/* lineNo */
   17,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo eg_emlrtRTEI = { 61,/* lineNo */
+static emlrtRTEInfo jg_emlrtRTEI = { 61,/* lineNo */
   21,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo fg_emlrtRTEI = { 53,/* lineNo */
+static emlrtRTEInfo kg_emlrtRTEI = { 53,/* lineNo */
   17,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
 /* Function Definitions */
@@ -166,7 +166,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_real_T(sp, &layers, 2, &yf_emlrtRTEI, true);
+  emxInit_real_T(sp, &layers, 2, &eg_emlrtRTEI, true);
 
   /* Arrange layers according to geometry and apply any coverage correction. */
   /*  */
@@ -207,7 +207,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   i = layers->size[0] * layers->size[1];
   layers->size[0] = (int32_T)unnamed_idx_0;
   layers->size[1] = 5;
-  emxEnsureCapacity_real_T(sp, layers, i, &yf_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, layers, i, &eg_emlrtRTEI);
   loop_ub = (int32_T)unnamed_idx_0 * 5;
   for (i = 0; i < loop_ub; i++) {
     layers->data[i] = 0.0;
@@ -265,7 +265,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       i = layers->size[0] * layers->size[1];
       layers->size[0] = allLayers->size[0];
       layers->size[1] = 5;
-      emxEnsureCapacity_real_T(sp, layers, i, &cg_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, layers, i, &hg_emlrtRTEI);
       loop_ub = allLayers->size[0] * allLayers->size[1];
       for (i = 0; i < loop_ub; i++) {
         layers->data[i] = allLayers->data[i];
@@ -277,7 +277,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
      case 1:
       if (allLayers->size[0] < 1) {
         emlrtDynamicBoundsCheckR2012b(allLayers->size[0], 1, allLayers->size[0],
-          &qf_emlrtBCI, sp);
+          &sf_emlrtBCI, sp);
       }
 
       *outSsubs = allLayers->data[(allLayers->size[0] + allLayers->size[0] * 2)
@@ -288,18 +288,18 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
         loop_ub = allLayers->size[0] - 1;
         if ((loop_ub < 1) || (loop_ub > allLayers->size[0])) {
           emlrtDynamicBoundsCheckR2012b(loop_ub, 1, allLayers->size[0],
-            &pf_emlrtBCI, sp);
+            &rf_emlrtBCI, sp);
         }
       }
 
-      emxInit_real_T(sp, &roughs, 1, &fg_emlrtRTEI, true);
+      emxInit_real_T(sp, &roughs, 1, &kg_emlrtRTEI, true);
       iv[0] = 1;
       iv[1] = loop_ub;
       st.site = &q_emlrtRSI;
       indexShapeCheck(&st, allLayers->size[0], iv);
       i = roughs->size[0];
       roughs->size[0] = loop_ub + 1;
-      emxEnsureCapacity_real_T(sp, roughs, i, &dg_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, roughs, i, &ig_emlrtRTEI);
       roughs->data[0] = allRoughs;
       for (i = 0; i < loop_ub; i++) {
         roughs->data[i + 1] = allLayers->data[i + allLayers->size[0] * 2];
@@ -320,7 +320,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       i = layers->size[0] * layers->size[1];
       layers->size[0] = allLayers->size[0];
       layers->size[1] = 4;
-      emxEnsureCapacity_real_T(sp, layers, i, &eg_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, layers, i, &jg_emlrtRTEI);
       for (i = 0; i < loop_ub; i++) {
         layers->data[i] = allLayers->data[i];
       }
@@ -348,14 +348,14 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
     for (b_loop_ub = 0; b_loop_ub < i; b_loop_ub++) {
       i1 = b_loop_ub + 1;
       if ((i1 < 1) || (i1 > allLayers->size[0])) {
-        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers->size[0], &rf_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers->size[0], &tf_emlrtBCI,
           sp);
       }
 
       this_pcw = allLayers->data[(i1 + allLayers->size[0] * 3) - 1];
       i1 = b_loop_ub + 1;
       if ((i1 < 1) || (i1 > allLayers->size[0])) {
-        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers->size[0], &sf_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers->size[0], &uf_emlrtBCI,
           sp);
       }
 
@@ -368,12 +368,12 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       if (!muDoubleScalarIsNaN(this_pcw)) {
         i1 = b_loop_ub + 1;
         if ((i1 < 1) || (i1 > layers->size[0])) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, layers->size[0], &tf_emlrtBCI, sp);
+          emlrtDynamicBoundsCheckR2012b(i1, 1, layers->size[0], &vf_emlrtBCI, sp);
         }
 
         kstr = b_loop_ub + 1;
         if ((kstr < 1) || (kstr > layers->size[0])) {
-          emlrtDynamicBoundsCheckR2012b(kstr, 1, layers->size[0], &uf_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(kstr, 1, layers->size[0], &wf_emlrtBCI,
             sp);
         }
 
@@ -390,7 +390,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
     i = outLayers->size[0] * outLayers->size[1];
     outLayers->size[0] = layers->size[0];
     outLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, outLayers, i, &bg_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, outLayers, i, &gg_emlrtRTEI);
     for (i = 0; i < 3; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
         outLayers->data[i1 + outLayers->size[0] * i] = layers->data[i1 +
@@ -401,7 +401,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
     i = outLayers->size[0] * outLayers->size[1];
     outLayers->size[0] = 1;
     outLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, outLayers, i, &ag_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, outLayers, i, &fg_emlrtRTEI);
     outLayers->data[0] = 0.0;
     outLayers->data[1] = 0.0;
     outLayers->data[2] = 0.0;

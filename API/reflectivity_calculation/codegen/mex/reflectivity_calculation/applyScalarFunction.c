@@ -25,7 +25,7 @@ static emlrtRSInfo wb_emlrtRSI = { 61, /* lineNo */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyScalarFunction.m"/* pathName */
 };
 
-static emlrtRTEInfo wg_emlrtRTEI = { 1,/* lineNo */
+static emlrtRTEInfo ch_emlrtRTEI = { 1,/* lineNo */
   23,                                  /* colNo */
   "applyScalarFunction",               /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyScalarFunction.m"/* pName */
@@ -57,7 +57,7 @@ void applyScalarFunction(const emlrtStack *sp, const emxArray_real_T *x,
   ub_loop = z1->size[0] * z1->size[1];
   z1->size[0] = 1;
   z1->size[1] = x->size[1];
-  emxEnsureCapacity_real_T(sp, z1, ub_loop, &wg_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, z1, ub_loop, &ch_emlrtRTEI);
   st.site = &wb_emlrtRSI;
   if ((1 <= x->size[1]) && (x->size[1] > 2147483646)) {
     b_st.site = &lb_emlrtRSI;

@@ -19,99 +19,99 @@
 /* Variable Definitions */
 static emlrtRSInfo pf_emlrtRSI = { 26, /* lineNo */
   "resolution_polly",                  /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m"/* pathName */
 };
 
 static emlrtRTEInfo vb_emlrtRTEI = { 25,/* lineNo */
   13,                                  /* colNo */
   "resolution_polly",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m"/* pName */
 };
 
-static emlrtBCInfo vh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo xh_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   10,                                  /* lineNo */
   5,                                   /* colNo */
   "dummydata",                         /* aName */
   "resolution_polly",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo wh_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  31,                                  /* lineNo */
-  24,                                  /* colNo */
-  "dummydata",                         /* aName */
-  "resolution_polly",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo xh_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  31,                                  /* lineNo */
-  9,                                   /* colNo */
-  "dummydata",                         /* aName */
-  "resolution_polly",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo yh_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  26,                                  /* lineNo */
-  22,                                  /* colNo */
-  "xdata",                             /* aName */
+  31,                                  /* lineNo */
+  24,                                  /* colNo */
+  "dummydata",                         /* aName */
   "resolution_polly",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo ai_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  26,                                  /* lineNo */
-  33,                                  /* colNo */
-  "xdata",                             /* aName */
+  31,                                  /* lineNo */
+  9,                                   /* colNo */
+  "dummydata",                         /* aName */
   "resolution_polly",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo bi_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  28,                                  /* lineNo */
-  24,                                  /* colNo */
-  "dummydata",                         /* aName */
+  26,                                  /* lineNo */
+  22,                                  /* colNo */
+  "xdata",                             /* aName */
   "resolution_polly",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo ci_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  28,                                  /* lineNo */
-  39,                                  /* colNo */
-  "dummyref",                          /* aName */
+  26,                                  /* lineNo */
+  33,                                  /* colNo */
+  "xdata",                             /* aName */
   "resolution_polly",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo di_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   28,                                  /* lineNo */
-  9,                                   /* colNo */
+  24,                                  /* colNo */
   "dummydata",                         /* aName */
   "resolution_polly",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo hj_emlrtRTEI = { 5,/* lineNo */
+static emlrtBCInfo ei_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  28,                                  /* lineNo */
+  39,                                  /* colNo */
+  "dummyref",                          /* aName */
+  "resolution_polly",                  /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo fi_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  28,                                  /* lineNo */
+  9,                                   /* colNo */
+  "dummydata",                         /* aName */
+  "resolution_polly",                  /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtRTEInfo mj_emlrtRTEI = { 5,/* lineNo */
   1,                                   /* colNo */
   "resolution_polly",                  /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m"/* pName */
 };
 
 /* Function Definitions */
@@ -135,7 +135,7 @@ void resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata, const
   loop_ub = (int32_T)points;
   i = out->size[0];
   out->size[0] = loop_ub;
-  emxEnsureCapacity_real_T(sp, out, i, &hj_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, out, i, &mj_emlrtRTEI);
   for (i = 0; i < loop_ub; i++) {
     out->data[i] = 0.0;
   }
@@ -144,7 +144,7 @@ void resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata, const
     sumg = 0.0;
     i = (int32_T)(j + 1U);
     if ((i < 1) || (i > out->size[0])) {
-      emlrtDynamicBoundsCheckR2012b(i, 1, out->size[0], &vh_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(i, 1, out->size[0], &xh_emlrtBCI, sp);
     }
 
     out->data[i - 1] = 0.0;
@@ -168,11 +168,11 @@ void resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata, const
       st.site = &pf_emlrtRSI;
       i2 = (int32_T)(((real_T)j + 1.0) + (real_T)(ilow + b_i));
       if ((i2 < 1) || (i2 > xdata->size[1])) {
-        emlrtDynamicBoundsCheckR2012b(i2, 1, xdata->size[1], &yh_emlrtBCI, &st);
+        emlrtDynamicBoundsCheckR2012b(i2, 1, xdata->size[1], &bi_emlrtBCI, &st);
       }
 
       if (i > xdata->size[1]) {
-        emlrtDynamicBoundsCheckR2012b(i, 1, xdata->size[1], &ai_emlrtBCI, &st);
+        emlrtDynamicBoundsCheckR2012b(i, 1, xdata->size[1], &ci_emlrtBCI, &st);
       }
 
       ihi = (xdata->data[i2 - 1] - xdata->data[i - 1]) / (res * xdata->data[i -
@@ -180,15 +180,15 @@ void resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata, const
       ihi = muDoubleScalarExp(-(ihi * ihi));
       sumg += ihi;
       if (i > out->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(i, 1, out->size[0], &bi_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(i, 1, out->size[0], &di_emlrtBCI, sp);
       }
 
       if (i2 > ydata->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(i2, 1, ydata->size[0], &ci_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(i2, 1, ydata->size[0], &ei_emlrtBCI, sp);
       }
 
       if (i > out->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(i, 1, out->size[0], &di_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(i, 1, out->size[0], &fi_emlrtBCI, sp);
       }
 
       out->data[i - 1] += ydata->data[i2 - 1] * ihi;
@@ -196,11 +196,11 @@ void resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata, const
 
     if (sumg != 0.0) {
       if (i > out->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(i, 1, out->size[0], &wh_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(i, 1, out->size[0], &yh_emlrtBCI, sp);
       }
 
       if (i > out->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(i, 1, out->size[0], &xh_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(i, 1, out->size[0], &ai_emlrtBCI, sp);
       }
 
       out->data[i - 1] /= sumg;

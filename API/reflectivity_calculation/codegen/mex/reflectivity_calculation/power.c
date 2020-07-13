@@ -39,7 +39,7 @@ static emlrtRSInfo be_emlrtRSI = { 188,/* lineNo */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyBinaryScalarFunction.m"/* pathName */
 };
 
-static emlrtRTEInfo qi_emlrtRTEI = { 79,/* lineNo */
+static emlrtRTEInfo vi_emlrtRTEI = { 79,/* lineNo */
   5,                                   /* colNo */
   "power",                             /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/power.m"/* pName */
@@ -69,7 +69,7 @@ void power(const emlrtStack *sp, const emxArray_real_T *a, emxArray_real_T *y)
   b_st.site = &ob_emlrtRSI;
   nx = y->size[0];
   y->size[0] = a->size[0];
-  emxEnsureCapacity_real_T(&b_st, y, nx, &qi_emlrtRTEI);
+  emxEnsureCapacity_real_T(&b_st, y, nx, &vi_emlrtRTEI);
   c_st.site = &ae_emlrtRSI;
   nx = a->size[0];
   d_st.site = &be_emlrtRSI;

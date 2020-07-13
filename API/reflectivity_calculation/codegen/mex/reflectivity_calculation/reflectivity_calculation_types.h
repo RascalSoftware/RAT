@@ -145,8 +145,8 @@ typedef struct {
 
 #endif                                 /*typedef_emxArray_cell_wrap_4*/
 
-#ifndef typedef_cell_11
-#define typedef_cell_11
+#ifndef typedef_cell_12
+#define typedef_cell_12
 
 typedef struct {
   emxArray_cell_wrap_0 *f1;
@@ -162,18 +162,18 @@ typedef struct {
   emxArray_cell_wrap_4 *f11;
   emxArray_cell_wrap_4 *f12;
   emxArray_cell_wrap_4 *f13;
-} cell_11;
+} cell_12;
 
-#endif                                 /*typedef_cell_11*/
+#endif                                 /*typedef_cell_12*/
 
-#ifndef typedef_cell_15
-#define typedef_cell_15
+#ifndef typedef_cell_16
+#define typedef_cell_16
 
 typedef struct {
   emxArray_real_T *f1;
-} cell_15;
+} cell_16;
 
-#endif                                 /*typedef_cell_15*/
+#endif                                 /*typedef_cell_16*/
 
 #ifndef struct_emxArray_real_T_1x5
 #define struct_emxArray_real_T_1x5
@@ -281,14 +281,23 @@ typedef struct {
 
 #endif                                 /*typedef_cell_wrap_10*/
 
-#ifndef typedef_cell_wrap_13
-#define typedef_cell_wrap_13
+#ifndef typedef_cell_wrap_11
+#define typedef_cell_wrap_11
+
+typedef struct {
+  emxArray_real_T *f1;
+} cell_wrap_11;
+
+#endif                                 /*typedef_cell_wrap_11*/
+
+#ifndef typedef_cell_wrap_14
+#define typedef_cell_wrap_14
 
 typedef struct {
   real_T f1[5];
-} cell_wrap_13;
+} cell_wrap_14;
 
-#endif                                 /*typedef_cell_wrap_13*/
+#endif                                 /*typedef_cell_wrap_14*/
 
 #ifndef typedef_cell_wrap_8
 #define typedef_cell_wrap_8
@@ -342,18 +351,31 @@ typedef struct {
 
 #endif                                 /*typedef_emxArray_cell_wrap_10*/
 
-#ifndef typedef_emxArray_cell_wrap_13
-#define typedef_emxArray_cell_wrap_13
+#ifndef typedef_emxArray_cell_wrap_11
+#define typedef_emxArray_cell_wrap_11
 
 typedef struct {
-  cell_wrap_13 *data;
+  cell_wrap_11 *data;
   int32_T *size;
   int32_T allocatedSize;
   int32_T numDimensions;
   boolean_T canFreeData;
-} emxArray_cell_wrap_13;
+} emxArray_cell_wrap_11;
 
-#endif                                 /*typedef_emxArray_cell_wrap_13*/
+#endif                                 /*typedef_emxArray_cell_wrap_11*/
+
+#ifndef typedef_emxArray_cell_wrap_14
+#define typedef_emxArray_cell_wrap_14
+
+typedef struct {
+  cell_wrap_14 *data;
+  int32_T *size;
+  int32_T allocatedSize;
+  int32_T numDimensions;
+  boolean_T canFreeData;
+} emxArray_cell_wrap_14;
+
+#endif                                 /*typedef_emxArray_cell_wrap_14*/
 
 #ifndef typedef_emxArray_cell_wrap_8
 #define typedef_emxArray_cell_wrap_8
@@ -457,21 +479,6 @@ typedef struct emxArray_uint32_T emxArray_uint32_T;
 
 #endif                                 /*typedef_emxArray_uint32_T*/
 
-#ifndef typedef_struct1_T
-#define typedef_struct1_T
-
-typedef struct {
-  emxArray_real_T *params;
-  emxArray_real_T *backs;
-  emxArray_real_T *scales;
-  emxArray_real_T *shifts;
-  emxArray_real_T *nba;
-  emxArray_real_T *nbs;
-  emxArray_real_T *res;
-} struct1_T;
-
-#endif                                 /*typedef_struct1_T*/
-
 #ifndef typedef_struct3_T
 #define typedef_struct3_T
 
@@ -508,10 +515,26 @@ typedef struct {
   real_T nmcmc;
   real_T propScale;
   real_T nsTolerance;
+  real_T calcSld;
   struct3_T checks;
 } struct2_T;
 
 #endif                                 /*typedef_struct2_T*/
+
+#ifndef typedef_struct1_T
+#define typedef_struct1_T
+
+typedef struct {
+  emxArray_real_T *params;
+  emxArray_real_T *backs;
+  emxArray_real_T *scales;
+  emxArray_real_T *shifts;
+  emxArray_real_T *nba;
+  emxArray_real_T *nbs;
+  emxArray_real_T *res;
+} struct1_T;
+
+#endif                                 /*typedef_struct1_T*/
 
 #ifndef typedef_struct0_T
 #define typedef_struct0_T

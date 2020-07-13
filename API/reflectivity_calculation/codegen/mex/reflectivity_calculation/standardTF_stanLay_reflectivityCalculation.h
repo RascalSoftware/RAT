@@ -24,10 +24,10 @@
 
 /* Function Declarations */
 void c_standardTF_stanLay_reflectivi(const emlrtStack *sp, const struct0_T
-  *problemDef, const cell_11 *problemDef_cells, const struct2_T *controls,
+  *problemDef, const cell_12 *problemDef_cells, const struct2_T *controls,
   struct4_T *problem, emxArray_cell_wrap_6 *reflectivity, emxArray_cell_wrap_6
   *Simulation, emxArray_cell_wrap_1 *shifted_data, emxArray_cell_wrap_1
-  *layerSlds, emxArray_cell_wrap_6 *sldProfiles, emxArray_cell_wrap_10
+  *layerSlds, emxArray_cell_wrap_11 *sldProfiles, emxArray_cell_wrap_10
   *allLayers);
 
 /* End of code generation (standardTF_stanLay_reflectivityCalculation.h) */

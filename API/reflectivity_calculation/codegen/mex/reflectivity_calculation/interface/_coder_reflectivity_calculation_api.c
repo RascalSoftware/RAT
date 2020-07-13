@@ -17,7 +17,7 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRTEInfo hk_emlrtRTEI = { 1,/* lineNo */
+static emlrtRTEInfo ok_emlrtRTEI = { 1,/* lineNo */
   1,                                   /* colNo */
   "_coder_reflectivity_calculation_api",/* fName */
   ""                                   /* pName */
@@ -922,15 +922,15 @@ static void u_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   emlrtMsgIdentifier *parentId, struct2_T *y)
 {
   emlrtMsgIdentifier thisId;
-  static const char * fieldNames[18] = { "para", "proc", "display", "tolX",
+  static const char * fieldNames[19] = { "para", "proc", "display", "tolX",
     "tolFun", "maxFunEvals", "maxIter", "populationSize", "F_weight", "F_CR",
     "VTR", "numGen", "strategy", "Nlive", "nmcmc", "propScale", "nsTolerance",
-    "checks" };
+    "calcSld", "checks" };
 
   static const int32_T dims = 0;
   thisId.fParent = parentId;
   thisId.bParentIsCell = false;
-  emlrtCheckStructR2012b(sp, parentId, u, 18, fieldNames, 0U, &dims);
+  emlrtCheckStructR2012b(sp, parentId, u, 19, fieldNames, 0U, &dims);
   thisId.fIdentifier = "para";
   d_emlrt_marshallIn(sp, emlrtAlias(emlrtGetFieldR2017b(sp, u, 0, 0, "para")),
                      &thisId, y->para);
@@ -982,8 +982,11 @@ static void u_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   thisId.fIdentifier = "nsTolerance";
   y->nsTolerance = e_emlrt_marshallIn(sp, emlrtAlias(emlrtGetFieldR2017b(sp, u,
     0, 16, "nsTolerance")), &thisId);
+  thisId.fIdentifier = "calcSld";
+  y->calcSld = e_emlrt_marshallIn(sp, emlrtAlias(emlrtGetFieldR2017b(sp, u, 0,
+    17, "calcSld")), &thisId);
   thisId.fIdentifier = "checks";
-  v_emlrt_marshallIn(sp, emlrtAlias(emlrtGetFieldR2017b(sp, u, 0, 17, "checks")),
+  v_emlrt_marshallIn(sp, emlrtAlias(emlrtGetFieldR2017b(sp, u, 0, 18, "checks")),
                      &thisId, &y->checks);
   emlrtDestroyArray(&u);
 }
@@ -1088,12 +1091,12 @@ void reflectivity_calculation_api(const mxArray * const prhs[4], int32_T nlhs,
 
   st.tls = emlrtRootTLSGlobal;
   emlrtHeapReferenceStackEnterFcnR2012b(&st);
-  emxInitStruct_struct0_T(&st, &problemDef, &hk_emlrtRTEI, true);
-  emxInitStruct_cell_5(&st, &problemDef_cells, &hk_emlrtRTEI, true);
-  emxInitStruct_struct1_T(&st, &problemDef_limits, &hk_emlrtRTEI, true);
-  emxInitStruct_struct2_T(&st, &controls, &hk_emlrtRTEI, true);
-  emxInitStruct_struct4_T(&st, &problem, &hk_emlrtRTEI, true);
-  emxInitStruct_cell_7(&st, &result, &hk_emlrtRTEI, true);
+  emxInitStruct_struct0_T(&st, &problemDef, &ok_emlrtRTEI, true);
+  emxInitStruct_cell_5(&st, &problemDef_cells, &ok_emlrtRTEI, true);
+  emxInitStruct_struct1_T(&st, &problemDef_limits, &ok_emlrtRTEI, true);
+  emxInitStruct_struct2_T(&st, &controls, &ok_emlrtRTEI, true);
+  emxInitStruct_struct4_T(&st, &problem, &ok_emlrtRTEI, true);
+  emxInitStruct_cell_7(&st, &result, &ok_emlrtRTEI, true);
 
   /* Marshall function inputs */
   emlrt_marshallIn(&st, emlrtAliasP(prhs[0]), "problemDef", &problemDef);

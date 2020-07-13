@@ -35,7 +35,7 @@ static emlrtRTEInfo rb_emlrtRTEI = { 58,/* lineNo */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/assertValidSizeArg.m"/* pName */
 };
 
-static emlrtRTEInfo pi_emlrtRTEI = { 1,/* lineNo */
+static emlrtRTEInfo ui_emlrtRTEI = { 1,/* lineNo */
   14,                                  /* colNo */
   "repmat",                            /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/repmat.m"/* pName */
@@ -64,7 +64,7 @@ void repmat(const emlrtStack *sp, const real_T a[2], real_T varargin_1,
   itilerow = b->size[0] * b->size[1];
   b->size[0] = i;
   b->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, b, itilerow, &pi_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b, itilerow, &ui_emlrtRTEI);
   st.site = &yd_emlrtRSI;
   if ((1 <= i) && (i > 2147483646)) {
     b_st.site = &lb_emlrtRSI;

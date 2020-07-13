@@ -19,155 +19,155 @@
 /* Variable Definitions */
 static emlrtRSInfo emlrtRSI = { 63,    /* lineNo */
   "reflectivity_calculation",          /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pathName */
 };
 
 static emlrtRSInfo b_emlrtRSI = { 52,  /* lineNo */
   "standardTF_reflectivityCalculation",/* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pathName */
 };
 
 static emlrtDCInfo emlrtDCI = { 23,    /* lineNo */
   21,                                  /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   4                                    /* checkKind */
 };
 
 static emlrtDCInfo b_emlrtDCI = { 23,  /* lineNo */
   21,                                  /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   1                                    /* checkKind */
 };
 
 static emlrtRTEInfo emlrtRTEI = { 24,  /* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtDCInfo c_emlrtDCI = { 29,  /* lineNo */
   19,                                  /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   1                                    /* checkKind */
 };
 
 static emlrtRTEInfo b_emlrtRTEI = { 30,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo c_emlrtRTEI = { 36,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo d_emlrtRTEI = { 42,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo e_emlrtRTEI = { 48,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo f_emlrtRTEI = { 54,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo g_emlrtRTEI = { 76,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo h_emlrtRTEI = { 83,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo i_emlrtRTEI = { 90,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo j_emlrtRTEI = { 97,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo k_emlrtRTEI = { 104,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo l_emlrtRTEI = { 111,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtDCInfo d_emlrtDCI = { 6,   /* lineNo */
   18,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
   1                                    /* checkKind */
 };
 
 static emlrtDCInfo e_emlrtDCI = { 20,  /* lineNo */
   21,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
   1                                    /* checkKind */
 };
 
 static emlrtRTEInfo m_emlrtRTEI = { 21,/* lineNo */
   9,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo n_emlrtRTEI = { 26,/* lineNo */
   9,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo o_emlrtRTEI = { 31,/* lineNo */
   9,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo p_emlrtRTEI = { 36,/* lineNo */
   9,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo q_emlrtRTEI = { 41,/* lineNo */
   9,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo r_emlrtRTEI = { 46,/* lineNo */
   9,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtBCInfo emlrtBCI = { -1,    /* iFirst */
@@ -176,7 +176,7 @@ static emlrtBCInfo emlrtBCI = { -1,    /* iFirst */
   5,                                   /* colNo */
   "reflectivity",                      /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -186,7 +186,7 @@ static emlrtBCInfo b_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "Simulation",                        /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -196,7 +196,7 @@ static emlrtBCInfo c_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "shifted_data",                      /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -206,7 +206,7 @@ static emlrtBCInfo d_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "layerSlds",                         /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -216,7 +216,7 @@ static emlrtBCInfo e_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "sldProfiles",                       /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -226,7 +226,7 @@ static emlrtBCInfo f_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "allLayers",                         /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -236,7 +236,7 @@ static emlrtBCInfo g_emlrtBCI = { -1,  /* iFirst */
   16,                                  /* colNo */
   "reflectivity",                      /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -246,7 +246,7 @@ static emlrtBCInfo h_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "cell1",                             /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -256,7 +256,7 @@ static emlrtBCInfo i_emlrtBCI = { -1,  /* iFirst */
   16,                                  /* colNo */
   "Simulation",                        /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -266,7 +266,7 @@ static emlrtBCInfo j_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "cell2",                             /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -276,7 +276,7 @@ static emlrtBCInfo k_emlrtBCI = { -1,  /* iFirst */
   16,                                  /* colNo */
   "shifted_data",                      /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -286,7 +286,7 @@ static emlrtBCInfo l_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "cell3",                             /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -296,7 +296,7 @@ static emlrtBCInfo m_emlrtBCI = { -1,  /* iFirst */
   16,                                  /* colNo */
   "layerSlds",                         /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -306,7 +306,7 @@ static emlrtBCInfo n_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "cell4",                             /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -316,7 +316,7 @@ static emlrtBCInfo o_emlrtBCI = { -1,  /* iFirst */
   16,                                  /* colNo */
   "sldProfiles",                       /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -326,7 +326,7 @@ static emlrtBCInfo p_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "cell5",                             /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -336,7 +336,7 @@ static emlrtBCInfo q_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "cell6",                             /* aName */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -346,7 +346,7 @@ static emlrtBCInfo r_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "reflectivity",                      /* aName */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -356,7 +356,7 @@ static emlrtBCInfo s_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "Simulation",                        /* aName */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -366,7 +366,7 @@ static emlrtBCInfo t_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "shifted_data",                      /* aName */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -376,7 +376,7 @@ static emlrtBCInfo u_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "layerSlds",                         /* aName */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -386,7 +386,7 @@ static emlrtBCInfo v_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "sldProfiles",                       /* aName */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
   0                                    /* checkKind */
 };
 
@@ -396,344 +396,350 @@ static emlrtBCInfo w_emlrtBCI = { -1,  /* iFirst */
   5,                                   /* colNo */
   "allLayers",                         /* aName */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtRTEInfo cc_emlrtRTEI = { 10,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo dc_emlrtRTEI = { 11,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo ec_emlrtRTEI = { 12,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo fc_emlrtRTEI = { 13,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo gc_emlrtRTEI = { 14,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo hc_emlrtRTEI = { 15,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo ic_emlrtRTEI = { 16,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo jc_emlrtRTEI = { 17,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo kc_emlrtRTEI = { 19,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo lc_emlrtRTEI = { 2,/* lineNo */
   29,                                  /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo mc_emlrtRTEI = { 25,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo nc_emlrtRTEI = { 31,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo oc_emlrtRTEI = { 37,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo pc_emlrtRTEI = { 43,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo qc_emlrtRTEI = { 49,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo rc_emlrtRTEI = { 55,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo sc_emlrtRTEI = { 63,/* lineNo */
   136,                                 /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo tc_emlrtRTEI = { 79,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo uc_emlrtRTEI = { 86,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo vc_emlrtRTEI = { 77,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo wc_emlrtRTEI = { 93,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo xc_emlrtRTEI = { 84,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo yc_emlrtRTEI = { 100,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo ad_emlrtRTEI = { 91,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo bd_emlrtRTEI = { 107,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo cd_emlrtRTEI = { 98,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo dd_emlrtRTEI = { 114,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo ed_emlrtRTEI = { 105,/* lineNo */
   5,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo fd_emlrtRTEI = { 10,/* lineNo */
   26,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo gd_emlrtRTEI = { 11,/* lineNo */
   32,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo hd_emlrtRTEI = { 12,/* lineNo */
   28,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo id_emlrtRTEI = { 13,/* lineNo */
   33,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo jd_emlrtRTEI = { 14,/* lineNo */
   27,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo kd_emlrtRTEI = { 15,/* lineNo */
   27,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo ld_emlrtRTEI = { 16,/* lineNo */
   32,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo md_emlrtRTEI = { 17,/* lineNo */
   51,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo nd_emlrtRTEI = { 18,/* lineNo */
   32,                                  /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo od_emlrtRTEI = { 63,/* lineNo */
   9,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo pd_emlrtRTEI = { 22,/* lineNo */
   5,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo qd_emlrtRTEI = { 27,/* lineNo */
   5,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo rd_emlrtRTEI = { 32,/* lineNo */
   5,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo sd_emlrtRTEI = { 37,/* lineNo */
   5,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo td_emlrtRTEI = { 42,/* lineNo */
   5,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo ud_emlrtRTEI = { 47,/* lineNo */
   5,                                   /* colNo */
   "standardTF_reflectivityCalculation",/* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"/* pName */
 };
 
 static emlrtRTEInfo vd_emlrtRTEI = { 63,/* lineNo */
   10,                                  /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo wd_emlrtRTEI = { 63,/* lineNo */
   18,                                  /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 static emlrtRTEInfo xd_emlrtRTEI = { 63,/* lineNo */
   42,                                  /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-static emlrtRTEInfo yd_emlrtRTEI = { 23,/* lineNo */
-  1,                                   /* colNo */
+static emlrtRTEInfo yd_emlrtRTEI = { 63,/* lineNo */
+  65,                                  /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-static emlrtRTEInfo ae_emlrtRTEI = { 29,/* lineNo */
+static emlrtRTEInfo ae_emlrtRTEI = { 23,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-static emlrtRTEInfo be_emlrtRTEI = { 35,/* lineNo */
+static emlrtRTEInfo be_emlrtRTEI = { 29,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-static emlrtRTEInfo ce_emlrtRTEI = { 41,/* lineNo */
+static emlrtRTEInfo ce_emlrtRTEI = { 35,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-static emlrtRTEInfo de_emlrtRTEI = { 47,/* lineNo */
+static emlrtRTEInfo de_emlrtRTEI = { 41,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-static emlrtRTEInfo ee_emlrtRTEI = { 53,/* lineNo */
+static emlrtRTEInfo ee_emlrtRTEI = { 47,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-static emlrtRTEInfo fe_emlrtRTEI = { 75,/* lineNo */
+static emlrtRTEInfo fe_emlrtRTEI = { 53,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-static emlrtRTEInfo ge_emlrtRTEI = { 89,/* lineNo */
+static emlrtRTEInfo ge_emlrtRTEI = { 75,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-static emlrtRTEInfo he_emlrtRTEI = { 110,/* lineNo */
+static emlrtRTEInfo he_emlrtRTEI = { 89,/* lineNo */
   1,                                   /* colNo */
   "reflectivity_calculation",          /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
+};
+
+static emlrtRTEInfo ie_emlrtRTEI = { 110,/* lineNo */
+  1,                                   /* colNo */
+  "reflectivity_calculation",          /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
 /* Function Definitions */
@@ -776,10 +782,10 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emxArray_cell_wrap_4 *t0_f13;
   emxArray_cell_wrap_6 *b_Simulation;
   emxArray_cell_wrap_1 *b_layerSlds;
-  emxArray_cell_wrap_6 *b_sldProfiles;
+  emxArray_cell_wrap_11 *b_sldProfiles;
   static const char_T cv1[6] = { 'l', 'a', 'y', 'e', 'r', 's' };
 
-  cell_11 expl_temp;
+  cell_12 expl_temp;
   emlrtStack st;
   emlrtStack b_st;
   (void)problemDef_limits;
@@ -836,7 +842,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &b_emlrtDCI, sp);
   }
 
-  emxInit_cell_wrap_8(sp, &reflectivity, 1, &yd_emlrtRTEI, true);
+  emxInit_cell_wrap_8(sp, &reflectivity, 1, &ae_emlrtRTEI, true);
   loop_ub = (int32_T)problemDef->numberOfContrasts;
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, (int32_T)problemDef->numberOfContrasts, &emlrtRTEI, sp);
@@ -899,7 +905,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &c_emlrtDCI, sp);
   }
 
-  emxInit_cell_wrap_8(sp, &Simulation, 1, &ae_emlrtRTEI, true);
+  emxInit_cell_wrap_8(sp, &Simulation, 1, &be_emlrtRTEI, true);
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, (int32_T)problemDef->numberOfContrasts, &b_emlrtRTEI, sp);
   i1 = Simulation->size[0];
@@ -955,7 +961,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     Simulation->data[b_i].f1->data[3] = 1.0;
   }
 
-  emxInit_cell_wrap_9(sp, &shifted_data, 1, &be_emlrtRTEI, true);
+  emxInit_cell_wrap_9(sp, &shifted_data, 1, &ce_emlrtRTEI, true);
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, (int32_T)problemDef->numberOfContrasts, &c_emlrtRTEI, sp);
   i1 = shifted_data->size[0];
@@ -1000,7 +1006,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     }
   }
 
-  emxInit_cell_wrap_9(sp, &layerSlds, 1, &ce_emlrtRTEI, true);
+  emxInit_cell_wrap_9(sp, &layerSlds, 1, &de_emlrtRTEI, true);
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, (int32_T)problemDef->numberOfContrasts, &d_emlrtRTEI, sp);
   i1 = layerSlds->size[0];
@@ -1043,7 +1049,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     }
   }
 
-  emxInit_cell_wrap_8(sp, &sldProfiles, 1, &de_emlrtRTEI, true);
+  emxInit_cell_wrap_8(sp, &sldProfiles, 1, &ee_emlrtRTEI, true);
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, (int32_T)problemDef->numberOfContrasts, &e_emlrtRTEI, sp);
   i1 = sldProfiles->size[0];
@@ -1099,7 +1105,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     sldProfiles->data[b_i].f1->data[3] = 1.0;
   }
 
-  emxInit_cell_wrap_10(sp, &allLayers, 1, &ee_emlrtRTEI, true);
+  emxInit_cell_wrap_10(sp, &allLayers, 1, &fe_emlrtRTEI, true);
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, (int32_T)problemDef->numberOfContrasts, &f_emlrtRTEI, sp);
   i1 = allLayers->size[0];
@@ -1146,8 +1152,8 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     } while (exitg1 == 0);
   }
 
-  emxInit_cell_wrap_6(sp, &cell1, 1, &fe_emlrtRTEI, true);
-  emxInit_cell_wrap_1(sp, &cell3, 1, &ge_emlrtRTEI, true);
+  emxInit_cell_wrap_6(sp, &cell1, 1, &ge_emlrtRTEI, true);
+  emxInit_cell_wrap_1(sp, &cell3, 1, &he_emlrtRTEI, true);
   if (b_bool) {
     kstr = 0;
   } else {
@@ -1579,12 +1585,12 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       }
     }
 
-    emxInit_cell_wrap_6(&st, &b_sldProfiles, 1, &lc_emlrtRTEI, true);
+    emxInit_cell_wrap_111(&st, &b_sldProfiles, 1, &lc_emlrtRTEI, true);
     emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
       mxDOUBLE_CLASS, (int32_T)problemDef->numberOfContrasts, &q_emlrtRTEI, &st);
     i = b_sldProfiles->size[0];
     b_sldProfiles->size[0] = (int32_T)problemDef->numberOfContrasts;
-    emxEnsureCapacity_cell_wrap_6(&st, b_sldProfiles, i, &od_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_111(&st, b_sldProfiles, i, &od_emlrtRTEI);
     for (b_i = 0; b_i < loop_ub; b_i++) {
       i = b_sldProfiles->size[0] - 1;
       if (b_i > i) {
@@ -1692,7 +1698,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
 
     switch (kstr) {
      case 0:
-      emxInitStruct_cell_11(&st, &expl_temp, &vd_emlrtRTEI, true);
+      emxInitStruct_cell_12(&st, &expl_temp, &vd_emlrtRTEI, true);
       i = expl_temp.f13->size[0] * expl_temp.f13->size[1];
       expl_temp.f13->size[0] = 1;
       expl_temp.f13->size[1] = t0_f13->size[1];
@@ -1825,10 +1831,10 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
         allLayers);
 
       /* case 'custom layers' */
-      /*     [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls); */
+      /* [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls); */
       /* case 'custXY' */
       /* problem = standardTF_custXY_reflectivityCalculation(problemDef,problemDef_cells,controls); */
-      emxFreeStruct_cell_11(&expl_temp);
+      emxFreeStruct_cell_12(&expl_temp);
       break;
     }
 
@@ -1913,13 +1919,13 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emxFree_cell_wrap_1(&b_layerSlds);
     i = sldProfiles->size[0];
     sldProfiles->size[0] = b_sldProfiles->size[0];
-    emxEnsureCapacity_cell_wrap_8(sp, sldProfiles, i, &wd_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_8(sp, sldProfiles, i, &yd_emlrtRTEI);
     i = b_sldProfiles->size[0];
     for (i1 = 0; i1 < i; i1++) {
       i2 = sldProfiles->data[i1].f1->size[0] * sldProfiles->data[i1].f1->size[1];
       sldProfiles->data[i1].f1->size[0] = b_sldProfiles->data[i1].f1->size[0];
-      sldProfiles->data[i1].f1->size[1] = 2;
-      emxEnsureCapacity_real_T(sp, sldProfiles->data[i1].f1, i2, &wd_emlrtRTEI);
+      sldProfiles->data[i1].f1->size[1] = b_sldProfiles->data[i1].f1->size[1];
+      emxEnsureCapacity_real_T(sp, sldProfiles->data[i1].f1, i2, &yd_emlrtRTEI);
       kstr = b_sldProfiles->data[i1].f1->size[0] * b_sldProfiles->data[i1]
         .f1->size[1];
       for (i2 = 0; i2 < kstr; i2++) {
@@ -1927,7 +1933,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       }
     }
 
-    emxFree_cell_wrap_6(&b_sldProfiles);
+    emxFree_cell_wrap_11(&b_sldProfiles);
 
     /* case 'oilWaterTF' */
     /* problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);     */
@@ -2319,7 +2325,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
 
   emxFree_cell_wrap_6(&cell1);
-  emxInit_int8_T(sp, &cell6, 1, &he_emlrtRTEI, true);
+  emxInit_int8_T(sp, &cell6, 1, &ie_emlrtRTEI, true);
 
   /*   */
   /*  cell6Length = 7; */

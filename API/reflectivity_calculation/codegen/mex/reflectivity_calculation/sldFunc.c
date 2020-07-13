@@ -22,151 +22,151 @@
 /* Variable Definitions */
 static emlrtRSInfo ad_emlrtRSI = { 24, /* lineNo */
   "sldFunc",                           /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pathName */
 };
 
 static emlrtRSInfo bd_emlrtRSI = { 29, /* lineNo */
   "sldFunc",                           /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pathName */
 };
 
 static emlrtRSInfo cd_emlrtRSI = { 30, /* lineNo */
   "sldFunc",                           /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pathName */
 };
 
-static emlrtBCInfo ng_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo pg_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   27,                                  /* lineNo */
   18,                                  /* colNo */
   "rho",                               /* aName */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo og_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  31,                                  /* lineNo */
-  23,                                  /* colNo */
-  "belowVals",                         /* aName */
-  "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo pg_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  32,                                  /* lineNo */
-  23,                                  /* colNo */
-  "aboveVals",                         /* aName */
-  "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo qg_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  34,                                  /* lineNo */
-  18,                                  /* colNo */
-  "rho",                               /* aName */
+  31,                                  /* lineNo */
+  23,                                  /* colNo */
+  "belowVals",                         /* aName */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo rg_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  35,                                  /* lineNo */
-  18,                                  /* colNo */
-  "rho",                               /* aName */
+  32,                                  /* lineNo */
+  23,                                  /* colNo */
+  "aboveVals",                         /* aName */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo sg_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  38,                                  /* lineNo */
-  15,                                  /* colNo */
-  "z",                                 /* aName */
+  34,                                  /* lineNo */
+  18,                                  /* colNo */
+  "rho",                               /* aName */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo tg_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  38,                                  /* lineNo */
-  26,                                  /* colNo */
-  "z",                                 /* aName */
+  35,                                  /* lineNo */
+  18,                                  /* colNo */
+  "rho",                               /* aName */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo ug_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
+  38,                                  /* lineNo */
+  15,                                  /* colNo */
+  "z",                                 /* aName */
+  "sldFunc",                           /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo vg_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  38,                                  /* lineNo */
+  26,                                  /* colNo */
+  "z",                                 /* aName */
+  "sldFunc",                           /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo wg_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
   42,                                  /* lineNo */
   20,                                  /* colNo */
   "z",                                 /* aName */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m",/* pName */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo kh_emlrtRTEI = { 24,/* lineNo */
+static emlrtRTEInfo ph_emlrtRTEI = { 24,/* lineNo */
   14,                                  /* colNo */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo nh_emlrtRTEI = { 24,/* lineNo */
+static emlrtRTEInfo sh_emlrtRTEI = { 24,/* lineNo */
   1,                                   /* colNo */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo oh_emlrtRTEI = { 27,/* lineNo */
+static emlrtRTEInfo th_emlrtRTEI = { 27,/* lineNo */
   5,                                   /* colNo */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo ph_emlrtRTEI = { 29,/* lineNo */
+static emlrtRTEInfo uh_emlrtRTEI = { 29,/* lineNo */
   22,                                  /* colNo */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo qh_emlrtRTEI = { 29,/* lineNo */
+static emlrtRTEInfo vh_emlrtRTEI = { 29,/* lineNo */
   5,                                   /* colNo */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo rh_emlrtRTEI = { 30,/* lineNo */
+static emlrtRTEInfo wh_emlrtRTEI = { 30,/* lineNo */
   22,                                  /* colNo */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo sh_emlrtRTEI = { 30,/* lineNo */
+static emlrtRTEInfo xh_emlrtRTEI = { 30,/* lineNo */
   5,                                   /* colNo */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo th_emlrtRTEI = { 48,/* lineNo */
+static emlrtRTEInfo yh_emlrtRTEI = { 48,/* lineNo */
   9,                                   /* colNo */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo uh_emlrtRTEI = { 46,/* lineNo */
+static emlrtRTEInfo ai_emlrtRTEI = { 46,/* lineNo */
   9,                                   /* colNo */
   "sldFunc",                           /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
 /* Function Definitions */
@@ -201,7 +201,7 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
   e_st.prev = &d_st;
   e_st.tls = d_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_boolean_T(sp, &b_x, 1, &kh_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &b_x, 1, &ph_emlrtRTEI, true);
 
   /*  sldVal = sldFunc(x,SLD) */
   /*  SLD = [x rho;....xn rho] */
@@ -223,19 +223,19 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
   loop_ub = SLD->size[0];
   i = b_x->size[0];
   b_x->size[0] = SLD->size[0];
-  emxEnsureCapacity_boolean_T(&st, b_x, i, &kh_emlrtRTEI);
+  emxEnsureCapacity_boolean_T(&st, b_x, i, &ph_emlrtRTEI);
   for (i = 0; i < loop_ub; i++) {
     b_x->data[i] = (SLD->data[i] == x);
   }
 
-  emxInit_int32_T(&st, &ii, 1, &vh_emlrtRTEI, true);
+  emxInit_int32_T(&st, &ii, 1, &bi_emlrtRTEI, true);
   b_st.site = &dd_emlrtRSI;
   nx = b_x->size[0];
   c_st.site = &ed_emlrtRSI;
   idx = 0;
   i = ii->size[0];
   ii->size[0] = b_x->size[0];
-  emxEnsureCapacity_int32_T(&c_st, ii, i, &lh_emlrtRTEI);
+  emxEnsureCapacity_int32_T(&c_st, ii, i, &qh_emlrtRTEI);
   d_st.site = &fd_emlrtRSI;
   if ((1 <= b_x->size[0]) && (b_x->size[0] > 2147483646)) {
     e_st.site = &lb_emlrtRSI;
@@ -280,13 +280,13 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
     indexShapeCheck(&d_st, ii->size[0], iv);
     loop_ub = ii->size[0];
     ii->size[0] = i;
-    emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &mh_emlrtRTEI);
+    emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &rh_emlrtRTEI);
   }
 
-  emxInit_uint32_T(&c_st, &where, 1, &nh_emlrtRTEI, true);
+  emxInit_uint32_T(&c_st, &where, 1, &sh_emlrtRTEI, true);
   i = where->size[0];
   where->size[0] = ii->size[0];
-  emxEnsureCapacity_uint32_T(&st, where, i, &nh_emlrtRTEI);
+  emxEnsureCapacity_uint32_T(&st, where, i, &sh_emlrtRTEI);
   loop_ub = ii->size[0];
   for (i = 0; i < loop_ub; i++) {
     where->data[i] = (uint32_T)ii->data[i];
@@ -295,13 +295,13 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
   if (where->size[0] != 0) {
     i = sldVal->size[0];
     sldVal->size[0] = where->size[0];
-    emxEnsureCapacity_real_T(sp, sldVal, i, &oh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, sldVal, i, &th_emlrtRTEI);
     loop_ub = where->size[0];
     for (i = 0; i < loop_ub; i++) {
       if (((int32_T)where->data[i] < 1) || ((int32_T)where->data[i] > SLD->size
            [0])) {
         emlrtDynamicBoundsCheckR2012b((int32_T)where->data[i], 1, SLD->size[0],
-          &ng_emlrtBCI, sp);
+          &pg_emlrtBCI, sp);
       }
 
       sldVal->data[i] = SLD->data[((int32_T)where->data[i] + SLD->size[0]) - 1];
@@ -311,7 +311,7 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
     loop_ub = SLD->size[0];
     i = b_x->size[0];
     b_x->size[0] = SLD->size[0];
-    emxEnsureCapacity_boolean_T(&st, b_x, i, &ph_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(&st, b_x, i, &uh_emlrtRTEI);
     for (i = 0; i < loop_ub; i++) {
       b_x->data[i] = (x > SLD->data[i]);
     }
@@ -322,7 +322,7 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
     idx = 0;
     i = ii->size[0];
     ii->size[0] = b_x->size[0];
-    emxEnsureCapacity_int32_T(&c_st, ii, i, &lh_emlrtRTEI);
+    emxEnsureCapacity_int32_T(&c_st, ii, i, &qh_emlrtRTEI);
     d_st.site = &fd_emlrtRSI;
     if ((1 <= b_x->size[0]) && (b_x->size[0] > 2147483646)) {
       e_st.site = &lb_emlrtRSI;
@@ -367,12 +367,12 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
       indexShapeCheck(&d_st, ii->size[0], iv);
       loop_ub = ii->size[0];
       ii->size[0] = i;
-      emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &mh_emlrtRTEI);
+      emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &rh_emlrtRTEI);
     }
 
     i = where->size[0];
     where->size[0] = ii->size[0];
-    emxEnsureCapacity_uint32_T(&st, where, i, &qh_emlrtRTEI);
+    emxEnsureCapacity_uint32_T(&st, where, i, &vh_emlrtRTEI);
     loop_ub = ii->size[0];
     for (i = 0; i < loop_ub; i++) {
       where->data[i] = (uint32_T)ii->data[i];
@@ -382,7 +382,7 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
     loop_ub = SLD->size[0];
     i = b_x->size[0];
     b_x->size[0] = SLD->size[0];
-    emxEnsureCapacity_boolean_T(&st, b_x, i, &rh_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(&st, b_x, i, &wh_emlrtRTEI);
     for (i = 0; i < loop_ub; i++) {
       b_x->data[i] = (x < SLD->data[i]);
     }
@@ -393,7 +393,7 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
     idx = 0;
     i = ii->size[0];
     ii->size[0] = b_x->size[0];
-    emxEnsureCapacity_int32_T(&c_st, ii, i, &lh_emlrtRTEI);
+    emxEnsureCapacity_int32_T(&c_st, ii, i, &qh_emlrtRTEI);
     d_st.site = &fd_emlrtRSI;
     if ((1 <= b_x->size[0]) && (b_x->size[0] > 2147483646)) {
       e_st.site = &lb_emlrtRSI;
@@ -438,13 +438,13 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
       indexShapeCheck(&d_st, ii->size[0], iv);
       loop_ub = ii->size[0];
       ii->size[0] = i;
-      emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &mh_emlrtRTEI);
+      emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &rh_emlrtRTEI);
     }
 
-    emxInit_uint32_T(&c_st, &aboveVals, 1, &sh_emlrtRTEI, true);
+    emxInit_uint32_T(&c_st, &aboveVals, 1, &xh_emlrtRTEI, true);
     i = aboveVals->size[0];
     aboveVals->size[0] = ii->size[0];
-    emxEnsureCapacity_uint32_T(&st, aboveVals, i, &sh_emlrtRTEI);
+    emxEnsureCapacity_uint32_T(&st, aboveVals, i, &xh_emlrtRTEI);
     loop_ub = ii->size[0];
     for (i = 0; i < loop_ub; i++) {
       aboveVals->data[i] = (uint32_T)ii->data[i];
@@ -452,36 +452,36 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
 
     if (where->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(where->size[0], 1, where->size[0],
-        &og_emlrtBCI, sp);
+        &qg_emlrtBCI, sp);
     }
 
     if (1 > aboveVals->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, aboveVals->size[0], &pg_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(1, 1, aboveVals->size[0], &rg_emlrtBCI, sp);
     }
 
     i = (int32_T)where->data[where->size[0] - 1];
-    if ((i < 1) || (i > SLD->size[0])) {
-      emlrtDynamicBoundsCheckR2012b(i, 1, SLD->size[0], &qg_emlrtBCI, sp);
-    }
-
-    i = (int32_T)aboveVals->data[0];
-    if ((i < 1) || (i > SLD->size[0])) {
-      emlrtDynamicBoundsCheckR2012b(i, 1, SLD->size[0], &rg_emlrtBCI, sp);
-    }
-
-    i = (int32_T)aboveVals->data[0];
     if ((i < 1) || (i > SLD->size[0])) {
       emlrtDynamicBoundsCheckR2012b(i, 1, SLD->size[0], &sg_emlrtBCI, sp);
     }
 
-    i = (int32_T)where->data[where->size[0] - 1];
+    i = (int32_T)aboveVals->data[0];
     if ((i < 1) || (i > SLD->size[0])) {
       emlrtDynamicBoundsCheckR2012b(i, 1, SLD->size[0], &tg_emlrtBCI, sp);
     }
 
-    i = (int32_T)where->data[where->size[0] - 1];
+    i = (int32_T)aboveVals->data[0];
     if ((i < 1) || (i > SLD->size[0])) {
       emlrtDynamicBoundsCheckR2012b(i, 1, SLD->size[0], &ug_emlrtBCI, sp);
+    }
+
+    i = (int32_T)where->data[where->size[0] - 1];
+    if ((i < 1) || (i > SLD->size[0])) {
+      emlrtDynamicBoundsCheckR2012b(i, 1, SLD->size[0], &vg_emlrtBCI, sp);
+    }
+
+    i = (int32_T)where->data[where->size[0] - 1];
+    if ((i < 1) || (i > SLD->size[0])) {
+      emlrtDynamicBoundsCheckR2012b(i, 1, SLD->size[0], &wg_emlrtBCI, sp);
     }
 
     loop_ub = (int32_T)aboveVals->data[0] - 1;
@@ -495,13 +495,13 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
         < deltaY_tmp) {
       i = sldVal->size[0];
       sldVal->size[0] = 1;
-      emxEnsureCapacity_real_T(sp, sldVal, i, &uh_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, sldVal, i, &ai_emlrtRTEI);
       sldVal->data[0] = SLD->data[((int32_T)where->data[where->size[0] - 1] +
         SLD->size[0]) - 1] + deltaY;
     } else {
       i = sldVal->size[0];
       sldVal->size[0] = 1;
-      emxEnsureCapacity_real_T(sp, sldVal, i, &th_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, sldVal, i, &yh_emlrtRTEI);
       sldVal->data[0] = SLD->data[((int32_T)where->data[where->size[0] - 1] +
         SLD->size[0]) - 1] - deltaY;
     }

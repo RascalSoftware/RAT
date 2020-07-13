@@ -17,52 +17,52 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtBCInfo mf_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo of_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   11,                                  /* lineNo */
   24,                                  /* colNo */
   "thisContrastLayers",                /* aName */
   "allocateLayersForContrast",         /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/allocateLayersForContrast.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m",/* pName */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo nf_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo pf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   10,                                  /* lineNo */
   17,                                  /* colNo */
   "outParameterisedLayers",            /* aName */
   "allocateLayersForContrast",         /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/allocateLayersForContrast.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtDCInfo y_emlrtDCI = { 10,  /* lineNo */
   17,                                  /* colNo */
   "allocateLayersForContrast",         /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/allocateLayersForContrast.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m",/* pName */
   1                                    /* checkKind */
 };
 
-static emlrtBCInfo of_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo qf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   10,                                  /* lineNo */
   17,                                  /* colNo */
   "contrastLayers",                    /* aName */
   "allocateLayersForContrast",         /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/allocateLayersForContrast.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m",/* pName */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo xf_emlrtRTEI = { 7,/* lineNo */
+static emlrtRTEInfo dg_emlrtRTEI = { 7,/* lineNo */
   1,                                   /* colNo */
   "allocateLayersForContrast",         /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/allocateLayersForContrast.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m"/* pName */
 };
 
 /* Function Definitions */
 void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
-  *contrastLayers, const emxArray_cell_wrap_13 *outParameterisedLayers,
+  *contrastLayers, const emxArray_cell_wrap_14 *outParameterisedLayers,
   emxArray_real_T *thisContrastLayers)
 {
   int32_T i;
@@ -78,7 +78,7 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
   i = thisContrastLayers->size[0] * thisContrastLayers->size[1];
   thisContrastLayers->size[0] = contrastLayers->size[1];
   thisContrastLayers->size[1] = 5;
-  emxEnsureCapacity_real_T(sp, thisContrastLayers, i, &xf_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, thisContrastLayers, i, &dg_emlrtRTEI);
   loop_ub = contrastLayers->size[1] * 5;
   for (i = 0; i < loop_ub; i++) {
     thisContrastLayers->data[i] = 0.0;
@@ -89,7 +89,7 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
     loop_ub = b_i + 1;
     if ((loop_ub < 1) || (loop_ub > thisContrastLayers->size[0])) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 1, thisContrastLayers->size[0],
-        &mf_emlrtBCI, sp);
+        &of_emlrtBCI, sp);
     }
 
     loop_ub = outParameterisedLayers->size[1] - 1;
@@ -97,7 +97,7 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
     for (i2 = 0; i2 < 5; i2++) {
       if ((i1 < 1) || (i1 > contrastLayers->size[1])) {
         emlrtDynamicBoundsCheckR2012b(i1, 1, contrastLayers->size[1],
-          &of_emlrtBCI, sp);
+          &qf_emlrtBCI, sp);
       }
 
       d = contrastLayers->data[i1 - 1];
@@ -107,7 +107,7 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
 
       i3 = (int32_T)d - 1;
       if ((i3 < 0) || (i3 > loop_ub)) {
-        emlrtDynamicBoundsCheckR2012b(i3, 0, loop_ub, &nf_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(i3, 0, loop_ub, &pf_emlrtBCI, sp);
       }
 
       thisContrastLayers->data[b_i + thisContrastLayers->size[0] * i2] =

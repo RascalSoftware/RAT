@@ -63,10 +63,18 @@ setappdata(0,'ratOut',{ratOut ; ratListener});
 %Call the main RAT routine...
 [outProblemStruct,problem,result] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls);
 
+% Then just do a final calculation to fill in SLD if necessary 
+if controls.calcSld == 0
+    controls.calcSld = 1;
+    controls.proc = 'calculate';
+    [outProblemStruct,problem,result] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,controls);
+end
+
 if ~strcmp(controls.proc,'NS')
     result = parseResultToStruct(outProblemStruct,problem,result);
 end
 outProblemDef = RATparseOutToProblemDef2(problemDefInput,outProblemStruct,problem,result);
+
 problem = outProblemDef;
 
 end

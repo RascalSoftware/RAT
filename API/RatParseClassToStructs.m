@@ -148,6 +148,12 @@ controls.Nlive = inputControls.Nlive;
 controls.nmcmc = inputControls.Nmcmc;
 controls.propScale = inputControls.propScale;
 controls.nsTolerance = inputControls.nsTolerance;
+switch inputControls.calcSldDuringFit
+    case 'no'
+        controls.calcSld = 0;
+    otherwise
+        controls.calcSld = 1;
+end
 
 %Also need to deal with the checks...
 

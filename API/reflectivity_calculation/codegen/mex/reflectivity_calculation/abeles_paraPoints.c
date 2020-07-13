@@ -22,79 +22,79 @@
 /* Variable Definitions */
 static emlrtRSInfo hg_emlrtRSI = { 31, /* lineNo */
   "abeles_paraPoints",                 /* fcnName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pathName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pathName */
 };
 
 static emlrtRTEInfo wb_emlrtRTEI = { 42,/* lineNo */
   19,                                  /* colNo */
   "abeles_paraPoints",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pName */
 };
 
-static emlrtBCInfo fi_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo hi_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   37,                                  /* lineNo */
   17,                                  /* colNo */
   "sld",                               /* aName */
   "abeles_paraPoints",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo gi_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  30,                                  /* lineNo */
-  11,                                  /* colNo */
-  "x",                                 /* aName */
-  "abeles_paraPoints",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo hi_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  44,                                  /* lineNo */
-  21,                                  /* colNo */
-  "sld",                               /* aName */
-  "abeles_paraPoints",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo ii_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  45,                                  /* lineNo */
-  19,                                  /* colNo */
-  "sld",                               /* aName */
+  30,                                  /* lineNo */
+  11,                                  /* colNo */
+  "x",                                 /* aName */
   "abeles_paraPoints",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo ji_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
-  46,                                  /* lineNo */
+  44,                                  /* lineNo */
   21,                                  /* colNo */
   "sld",                               /* aName */
   "abeles_paraPoints",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
   0                                    /* checkKind */
 };
 
 static emlrtBCInfo ki_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
+  45,                                  /* lineNo */
+  19,                                  /* colNo */
+  "sld",                               /* aName */
+  "abeles_paraPoints",                 /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo li_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  46,                                  /* lineNo */
+  21,                                  /* colNo */
+  "sld",                               /* aName */
+  "abeles_paraPoints",                 /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo mi_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
   75,                                  /* lineNo */
   5,                                   /* colNo */
   "out",                               /* aName */
   "abeles_paraPoints",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo pj_emlrtRTEI = { 9,/* lineNo */
+static emlrtRTEInfo uj_emlrtRTEI = { 9,/* lineNo */
   7,                                   /* colNo */
   "abeles_paraPoints",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pName */
 };
 
 /* Function Definitions */
@@ -146,7 +146,7 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x, const
   ub_loop = (int32_T)points;
   i = out->size[0];
   out->size[0] = ub_loop;
-  emxEnsureCapacity_real_T(sp, out, i, &pj_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, out, i, &uj_emlrtRTEI);
 
   /* pi = 3.141592653589; */
   snair = 1.0 - nbair * 0.377451863036739;
@@ -180,7 +180,7 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x, const
       if (setjmp(b_emlrtJBEnviron) == 0) {
         i1 = loop + 1;
         if ((i1 < 1) || (i1 > x->size[1])) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, x->size[1], &gi_emlrtBCI, &st);
+          emlrtDynamicBoundsCheckR2012b(i1, 1, x->size[1], &ii_emlrtBCI, &st);
         }
 
         b_st.site = &hg_emlrtRSI;
@@ -204,7 +204,7 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x, const
         blast.re = 0.0;
         blast.im = 0.0;
         if (1 > sld->size[0]) {
-          emlrtDynamicBoundsCheckR2012b(1, 1, sld->size[0], &fi_emlrtBCI, &st);
+          emlrtDynamicBoundsCheckR2012b(1, 1, sld->size[0], &hi_emlrtBCI, &st);
         }
 
         MI[0].re = 1.0;
@@ -226,19 +226,19 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x, const
           for (nl = 0; nl < i2; nl++) {
             i3 = (int32_T)(nl + 1U);
             if ((i3 < 1) || (i3 > sld->size[0])) {
-              emlrtDynamicBoundsCheckR2012b(i3, 1, sld->size[0], &hi_emlrtBCI,
+              emlrtDynamicBoundsCheckR2012b(i3, 1, sld->size[0], &ji_emlrtBCI,
                 &st);
             }
 
             thick = sld->data[i3 - 1];
             if (i3 > sld->size[0]) {
-              emlrtDynamicBoundsCheckR2012b(i3, 1, sld->size[0], &ii_emlrtBCI,
+              emlrtDynamicBoundsCheckR2012b(i3, 1, sld->size[0], &ki_emlrtBCI,
                 &st);
             }
 
             preal = sld->data[(i3 + sld->size[0]) - 1];
             if (i3 > sld->size[0]) {
-              emlrtDynamicBoundsCheckR2012b(i3, 1, sld->size[0], &ji_emlrtBCI,
+              emlrtDynamicBoundsCheckR2012b(i3, 1, sld->size[0], &li_emlrtBCI,
                 &st);
             }
 
@@ -605,7 +605,7 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x, const
 
         i1 = (int32_T)(loop + 1U);
         if ((i1 < 1) || (i1 > out->size[0])) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, out->size[0], &ki_emlrtBCI, &st);
+          emlrtDynamicBoundsCheckR2012b(i1, 1, out->size[0], &mi_emlrtBCI, &st);
         }
 
         out->data[i1 - 1] = muDoubleScalarHypot(quo.re, quo.im);

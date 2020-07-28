@@ -20,9 +20,29 @@
 #include <string.h>
 
 /* Variable Definitions */
-static emlrtRSInfo hg_emlrtRSI = { 31, /* lineNo */
+static emlrtRSInfo jg_emlrtRSI = { 31, /* lineNo */
   "abeles_paraPoints",                 /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pathName */
+};
+
+static emlrtBCInfo hi_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  45,                                  /* lineNo */
+  23,                                  /* colNo */
+  "sld",                               /* aName */
+  "abeles_paraPoints",                 /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtBCInfo ii_emlrtBCI = { -1, /* iFirst */
+  -1,                                  /* iLast */
+  44,                                  /* lineNo */
+  25,                                  /* colNo */
+  "sld",                               /* aName */
+  "abeles_paraPoints",                 /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
+  0                                    /* checkKind */
 };
 
 static emlrtRTEInfo wb_emlrtRTEI = { 42,/* lineNo */
@@ -31,7 +51,7 @@ static emlrtRTEInfo wb_emlrtRTEI = { 42,/* lineNo */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pName */
 };
 
-static emlrtBCInfo hi_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo ji_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   37,                                  /* lineNo */
   17,                                  /* colNo */
@@ -41,31 +61,11 @@ static emlrtBCInfo hi_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo ii_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo ki_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   30,                                  /* lineNo */
   11,                                  /* colNo */
   "x",                                 /* aName */
-  "abeles_paraPoints",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo ji_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  44,                                  /* lineNo */
-  21,                                  /* colNo */
-  "sld",                               /* aName */
-  "abeles_paraPoints",                 /* fName */
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
-  0                                    /* checkKind */
-};
-
-static emlrtBCInfo ki_emlrtBCI = { -1, /* iFirst */
-  -1,                                  /* iLast */
-  45,                                  /* lineNo */
-  19,                                  /* colNo */
-  "sld",                               /* aName */
   "abeles_paraPoints",                 /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m",/* pName */
   0                                    /* checkKind */
@@ -91,7 +91,7 @@ static emlrtBCInfo mi_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo uj_emlrtRTEI = { 9,/* lineNo */
+static emlrtRTEInfo dl_emlrtRTEI = { 9,/* lineNo */
   7,                                   /* colNo */
   "abeles_paraPoints",                 /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pName */
@@ -102,400 +102,221 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x, const
   emxArray_real_T *sld, real_T nbair, real_T nbsub, real_T nrepeats, real_T
   rfinal, real_T layers, real_T points, emxArray_real_T *out)
 {
-  int32_T ub_loop;
   int32_T i;
+  int32_T i1;
   real_T snair;
   real_T snsub;
-  int32_T loop;
-  creal_T quo;
-  creal_T num;
-  creal_T MI[4];
-  creal_T beta;
-  creal_T pimag;
-  real_T preal;
-  real_T rough;
-  real_T thick;
-  creal_T blast;
-  creal_T psub;
-  creal_T N[4];
-  int32_T i1;
-  real_T preal_tmp;
   int32_T i2;
-  int32_T reploop;
-  real_T re;
-  int32_T nl;
-  real_T im;
+  int32_T loop;
   int32_T i3;
+  real_T ar_tmp;
+  real_T theta;
+  real_T snlay;
+  real_T psub_tmp_tmp;
+  creal_T psub;
+  real_T pair_re;
+  real_T pair_im;
+  real_T blast_re;
+  real_T blast_im;
+  creal_T MI[4];
+  int32_T reploop;
+  int32_T nl;
+  real_T re;
   real_T ar;
-  real_T quo_re;
+  real_T rough;
+  real_T rij_re;
+  real_T rij_im;
   real_T brm;
+  real_T bim;
+  creal_T pimag;
   real_T x_re;
   real_T x_im;
   creal_T b_MI[4];
-  jmp_buf * volatile emlrtJBStack;
   emlrtStack st;
-  jmp_buf b_emlrtJBEnviron;
-  emlrtStack b_st;
-  boolean_T emlrtHadParallelError = false;
+  st.prev = sp;
+  st.tls = sp->tls;
+  covrtLogFcn(&emlrtCoverageInstance, 22U, 0U);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 22U, 0U);
 
   /*  nbair = nbairs(thisCont); */
   /*  nbsub = nbsubs(thisCont); */
   /*  ssub = ssubs(thisCont); */
   /*  nrepeats = nrepeatss(thisCont); */
   /*  resol = resols(thisCont); */
-  ub_loop = (int32_T)points;
-  i = out->size[0];
-  out->size[0] = ub_loop;
-  emxEnsureCapacity_real_T(sp, out, i, &uj_emlrtRTEI);
+  i = (int32_T)points;
+  i1 = out->size[0];
+  out->size[0] = i;
+  emxEnsureCapacity_real_T(sp, out, i1, &dl_emlrtRTEI);
 
   /* pi = 3.141592653589; */
   snair = 1.0 - nbair * 0.377451863036739;
   snsub = 1.0 - nbsub * 0.377451863036739;
-  ub_loop--;
-  emlrtEnterParallelRegion(sp, omp_in_parallel());
-  emlrtPushJmpBuf(sp, &emlrtJBStack);
-
-#pragma omp parallel \
- num_threads(emlrtAllocRegionTLSs(sp->tls, omp_in_parallel(), omp_get_max_threads(), omp_get_num_procs())) \
- private(quo,num,MI,beta,pimag,preal,rough,thick,blast,psub,N,b_emlrtJBEnviron,b_st,i1,preal_tmp,i2,reploop,re,nl,i3,im,ar,quo_re,x_re,x_im,brm,b_MI) \
- firstprivate(st,emlrtHadParallelError)
-
-  {
-    if (setjmp(b_emlrtJBEnviron) == 0) {
-      st.prev = sp;
-      st.tls = emlrtAllocTLS(sp, omp_get_thread_num());
-      st.site = NULL;
-      emlrtSetJmpBuf(&st, &b_emlrtJBEnviron);
-      b_st.prev = &st;
-      b_st.tls = st.tls;
-    } else {
-      emlrtHadParallelError = true;
+  if (0 <= i - 1) {
+    i2 = (int32_T)nrepeats;
+    if (0 <= i2 - 1) {
+      i3 = (int32_T)layers;
     }
 
-#pragma omp for nowait
+    ar_tmp = rfinal * rfinal;
+  }
 
-    for (loop = 0; loop <= ub_loop; loop++) {
-      if (emlrtHadParallelError)
-        continue;
-      if (setjmp(b_emlrtJBEnviron) == 0) {
-        i1 = loop + 1;
-        if ((i1 < 1) || (i1 > x->size[1])) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, x->size[1], &ii_emlrtBCI, &st);
+  for (loop = 0; loop < i; loop++) {
+    covrtLogFor(&emlrtCoverageInstance, 22U, 0U, 0, 1);
+    covrtLogBasicBlock(&emlrtCoverageInstance, 22U, 1U);
+    i1 = loop + 1;
+    if ((i1 < 1) || (i1 > x->size[1])) {
+      emlrtDynamicBoundsCheckR2012b(i1, 1, x->size[1], &ki_emlrtBCI, sp);
+    }
+
+    st.site = &jg_emlrtRSI;
+    theta = x->data[loop] * 1.54 / 12.566370614359172;
+    if ((theta < -1.0) || (theta > 1.0)) {
+      emlrtErrorWithMessageIdR2018a(&st, &pb_emlrtRTEI,
+        "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3, 4,
+        4, "asin");
+    }
+
+    theta = muDoubleScalarAsin(theta);
+    snlay = muDoubleScalarCos(theta);
+    psub_tmp_tmp = snair * snair * (snlay * snlay);
+    snlay = snsub * snsub - psub_tmp_tmp;
+    psub.re = snlay;
+    psub.im = snlay * 0.0;
+    b_sqrt(&psub);
+    pair_re = snair * muDoubleScalarSin(theta);
+    pair_im = pair_re * 0.0;
+    blast_re = 0.0;
+    blast_im = 0.0;
+    if (1 > sld->size[0]) {
+      emlrtDynamicBoundsCheckR2012b(1, 1, sld->size[0], &ji_emlrtBCI, sp);
+    }
+
+    MI[0].re = 1.0;
+    MI[0].im = 0.0;
+    MI[3].re = 1.0;
+    MI[3].im = 0.0;
+    MI[2].re = 0.0;
+    MI[2].im = 0.0;
+    MI[1].re = 0.0;
+    MI[1].im = 0.0;
+    emlrtForLoopVectorCheckR2012b(1.0, 1.0, nrepeats, mxDOUBLE_CLASS, (int32_T)
+      nrepeats, &wb_emlrtRTEI, sp);
+    for (reploop = 0; reploop < i2; reploop++) {
+      covrtLogFor(&emlrtCoverageInstance, 22U, 0U, 1, 1);
+      for (nl = 0; nl < i3; nl++) {
+        covrtLogFor(&emlrtCoverageInstance, 22U, 0U, 2, 1);
+        covrtLogBasicBlock(&emlrtCoverageInstance, 22U, 2U);
+        i1 = nl + 1;
+        if ((i1 < 1) || (i1 > sld->size[0])) {
+          emlrtDynamicBoundsCheckR2012b(i1, 1, sld->size[0], &ii_emlrtBCI, sp);
         }
 
-        b_st.site = &hg_emlrtRSI;
-        thick = x->data[loop] * 1.54 / 12.566370614359172;
-        if ((thick < -1.0) || (thick > 1.0)) {
-          emlrtErrorWithMessageIdR2018a(&b_st, &tb_emlrtRTEI,
-            "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError",
-            3, 4, 4, "asin");
+        i1 = nl + 1;
+        if ((i1 < 1) || (i1 > sld->size[0])) {
+          emlrtDynamicBoundsCheckR2012b(i1, 1, sld->size[0], &hi_emlrtBCI, sp);
         }
 
-        thick = muDoubleScalarAsin(thick);
-        preal = muDoubleScalarCos(thick);
-        preal_tmp = snair * snair * (preal * preal);
-        preal = snsub * snsub - preal_tmp;
-        psub.re = preal;
-        psub.im = preal * 0.0;
-        b_sqrt(&psub);
-        preal = snair * muDoubleScalarSin(thick);
-        quo.re = preal;
-        quo.im = preal * 0.0;
-        blast.re = 0.0;
-        blast.im = 0.0;
-        if (1 > sld->size[0]) {
-          emlrtDynamicBoundsCheckR2012b(1, 1, sld->size[0], &hi_emlrtBCI, &st);
+        i1 = (int32_T)(nl + 1U);
+        if ((i1 < 1) || (i1 > sld->size[0])) {
+          emlrtDynamicBoundsCheckR2012b(i1, 1, sld->size[0], &li_emlrtBCI, sp);
         }
 
-        MI[0].re = 1.0;
-        MI[0].im = 0.0;
-        MI[3].re = 1.0;
-        MI[3].im = 0.0;
-        MI[2].re = 0.0;
-        MI[2].im = 0.0;
-        MI[1].re = 0.0;
-        MI[1].im = 0.0;
-        i1 = (int32_T)nrepeats;
-        emlrtForLoopVectorCheckR2012b(1.0, 1.0, nrepeats, mxDOUBLE_CLASS,
-          (int32_T)nrepeats, &wb_emlrtRTEI, &st);
-        if (0 <= i1 - 1) {
-          i2 = (int32_T)layers;
-        }
-
-        for (reploop = 0; reploop < i1; reploop++) {
-          for (nl = 0; nl < i2; nl++) {
-            i3 = (int32_T)(nl + 1U);
-            if ((i3 < 1) || (i3 > sld->size[0])) {
-              emlrtDynamicBoundsCheckR2012b(i3, 1, sld->size[0], &ji_emlrtBCI,
-                &st);
-            }
-
-            thick = sld->data[i3 - 1];
-            if (i3 > sld->size[0]) {
-              emlrtDynamicBoundsCheckR2012b(i3, 1, sld->size[0], &ki_emlrtBCI,
-                &st);
-            }
-
-            preal = sld->data[(i3 + sld->size[0]) - 1];
-            if (i3 > sld->size[0]) {
-              emlrtDynamicBoundsCheckR2012b(i3, 1, sld->size[0], &li_emlrtBCI,
-                &st);
-            }
-
-            rough = sld->data[(i3 + sld->size[0] * 2) - 1];
-            preal = 1.0 - preal * 0.377451863036739;
-            preal = preal * preal - preal_tmp;
-            pimag.re = preal;
-            pimag.im = preal * 0.0;
-            b_sqrt(&pimag);
-            beta.re = 4.0799904592075231 * thick * pimag.re;
-            beta.im = 4.0799904592075231 * thick * pimag.im;
-            re = -78.956835208714864 * quo.re;
-            im = -78.956835208714864 * quo.im;
-            thick = rough * rough;
-            ar = (re * pimag.re - im * pimag.im) * thick;
-            re = (re * pimag.im + im * pimag.re) * thick;
-            if (re == 0.0) {
-              num.re = ar / 2.3716;
-              num.im = 0.0;
-            } else if (ar == 0.0) {
-              num.re = 0.0;
-              num.im = re / 2.3716;
-            } else {
-              num.re = ar / 2.3716;
-              num.im = re / 2.3716;
-            }
-
-            if (num.im == 0.0) {
-              quo_re = num.re;
-              num.re = muDoubleScalarExp(quo_re);
-              num.im = 0.0;
-            } else if (muDoubleScalarIsInf(num.im) && muDoubleScalarIsInf(num.re)
-                       && (num.re < 0.0)) {
-              num.re = 0.0;
-              num.im = 0.0;
-            } else {
-              preal = muDoubleScalarExp(num.re / 2.0);
-              quo_re = num.im;
-              ar = num.im;
-              num.re = preal * (preal * muDoubleScalarCos(quo_re));
-              num.im = preal * (preal * muDoubleScalarSin(ar));
-            }
-
-            ar = quo.re - pimag.re;
-            re = quo.im - pimag.im;
-            preal = quo.re + pimag.re;
-            im = quo.im + pimag.im;
-            if (im == 0.0) {
-              if (re == 0.0) {
-                quo_re = ar / preal;
-                preal = 0.0;
-              } else if (ar == 0.0) {
-                quo_re = 0.0;
-                preal = re / preal;
-              } else {
-                quo_re = ar / preal;
-                preal = re / preal;
-              }
-            } else if (preal == 0.0) {
-              if (ar == 0.0) {
-                quo_re = re / im;
-                preal = 0.0;
-              } else if (re == 0.0) {
-                quo_re = 0.0;
-                preal = -(ar / im);
-              } else {
-                quo_re = re / im;
-                preal = -(ar / im);
-              }
-            } else {
-              brm = muDoubleScalarAbs(preal);
-              rough = muDoubleScalarAbs(im);
-              if (brm > rough) {
-                rough = im / preal;
-                preal += rough * im;
-                quo_re = (ar + rough * re) / preal;
-                preal = (re - rough * ar) / preal;
-              } else if (rough == brm) {
-                if (preal > 0.0) {
-                  thick = 0.5;
-                } else {
-                  thick = -0.5;
-                }
-
-                if (im > 0.0) {
-                  preal = 0.5;
-                } else {
-                  preal = -0.5;
-                }
-
-                quo_re = (ar * thick + re * preal) / brm;
-                preal = (re * thick - ar * preal) / brm;
-              } else {
-                rough = preal / im;
-                preal = im + rough * preal;
-                quo_re = (rough * ar + re) / preal;
-                preal = (rough * re - ar) / preal;
-              }
-            }
-
-            re = quo_re * num.re - preal * num.im;
-            im = quo_re * num.im + preal * num.re;
-            x_re = blast.re * 0.0 - blast.im;
-            x_im = blast.re + blast.im * 0.0;
-            if (x_im == 0.0) {
-              x_re = muDoubleScalarExp(x_re);
-              x_im = 0.0;
-            } else if (muDoubleScalarIsInf(x_im) && muDoubleScalarIsInf(x_re) &&
-                       (x_re < 0.0)) {
-              x_re = 0.0;
-              x_im = 0.0;
-            } else {
-              preal = muDoubleScalarExp(x_re / 2.0);
-              x_re = preal * (preal * muDoubleScalarCos(x_im));
-              x_im = preal * (preal * muDoubleScalarSin(x_im));
-            }
-
-            quo_re = -blast.re * 0.0 - (-blast.im);
-            ar = -blast.re + -blast.im * 0.0;
-            if (ar == 0.0) {
-              quo_re = muDoubleScalarExp(quo_re);
-              quo.re = quo_re;
-              ar = 0.0;
-              quo.im = 0.0;
-            } else if (muDoubleScalarIsInf(ar) && muDoubleScalarIsInf(quo_re) &&
-                       (quo_re < 0.0)) {
-              quo_re = 0.0;
-              quo.re = 0.0;
-              ar = 0.0;
-              quo.im = 0.0;
-            } else {
-              preal = muDoubleScalarExp(quo_re / 2.0);
-              quo_re = preal * (preal * muDoubleScalarCos(ar));
-              quo.re = quo_re;
-              ar = preal * (preal * muDoubleScalarSin(ar));
-              quo.im = ar;
-            }
-
-            brm = re * quo_re - im * ar;
-            quo_re = re * ar + im * quo_re;
-            N[3] = quo;
-            ar = re * x_re - im * x_im;
-            preal = re * x_im + im * x_re;
-            quo = pimag;
-            blast = beta;
-            thick = N[3].re;
-            rough = N[3].im;
-            for (i3 = 0; i3 < 2; i3++) {
-              im = MI[i3 + 2].re;
-              re = MI[i3 + 2].im;
-              b_MI[i3].re = (MI[i3].re * x_re - MI[i3].im * x_im) + (im * brm -
-                re * quo_re);
-              b_MI[i3].im = (MI[i3].re * x_im + MI[i3].im * x_re) + (im * quo_re
-                + re * brm);
-              b_MI[i3 + 2].re = (MI[i3].re * ar - MI[i3].im * preal) + (im *
-                thick - re * rough);
-              b_MI[i3 + 2].im = (MI[i3].re * preal + MI[i3].im * ar) + (im *
-                rough + re * thick);
-            }
-
-            memcpy(&MI[0], &b_MI[0], 4U * sizeof(creal_T));
-          }
-        }
-
-        re = -78.956835208714864 * quo.re;
-        im = -78.956835208714864 * quo.im;
-        thick = rfinal * rfinal;
-        ar = (re * psub.re - im * psub.im) * thick;
-        re = (re * psub.im + im * psub.re) * thick;
-        if (re == 0.0) {
-          num.re = ar / 2.3716;
-          num.im = 0.0;
+        rough = sld->data[(i1 + sld->size[0] * 2) - 1];
+        snlay = 1.0 - sld->data[nl + sld->size[0]] * 0.377451863036739;
+        theta = snlay * snlay - psub_tmp_tmp;
+        pimag.re = theta;
+        pimag.im = theta * 0.0;
+        b_sqrt(&pimag);
+        re = -78.956835208714864 * pair_re;
+        snlay = -78.956835208714864 * pair_im;
+        theta = rough * rough;
+        ar = (re * pimag.re - snlay * pimag.im) * theta;
+        rough = (re * pimag.im + snlay * pimag.re) * theta;
+        if (rough == 0.0) {
+          rij_re = ar / 2.3716;
+          rij_im = 0.0;
         } else if (ar == 0.0) {
-          num.re = 0.0;
-          num.im = re / 2.3716;
+          rij_re = 0.0;
+          rij_im = rough / 2.3716;
         } else {
-          num.re = ar / 2.3716;
-          num.im = re / 2.3716;
+          rij_re = ar / 2.3716;
+          rij_im = rough / 2.3716;
         }
 
-        if (num.im == 0.0) {
-          quo_re = num.re;
-          num.re = muDoubleScalarExp(quo_re);
-          num.im = 0.0;
-        } else if (muDoubleScalarIsInf(num.im) && muDoubleScalarIsInf(num.re) &&
-                   (num.re < 0.0)) {
-          num.re = 0.0;
-          num.im = 0.0;
+        if (rij_im == 0.0) {
+          rij_re = muDoubleScalarExp(rij_re);
+          rij_im = 0.0;
+        } else if (muDoubleScalarIsInf(rij_im) && muDoubleScalarIsInf(rij_re) &&
+                   (rij_re < 0.0)) {
+          rij_re = 0.0;
+          rij_im = 0.0;
         } else {
-          preal = muDoubleScalarExp(num.re / 2.0);
-          quo_re = num.im;
-          ar = num.im;
-          num.re = preal * (preal * muDoubleScalarCos(quo_re));
-          num.im = preal * (preal * muDoubleScalarSin(ar));
+          theta = muDoubleScalarExp(rij_re / 2.0);
+          rij_re = theta * (theta * muDoubleScalarCos(rij_im));
+          rij_im = theta * (theta * muDoubleScalarSin(rij_im));
         }
 
-        ar = quo.re - psub.re;
-        re = quo.im - psub.im;
-        preal = quo.re + psub.re;
-        im = quo.im + psub.im;
-        if (im == 0.0) {
-          if (re == 0.0) {
-            quo_re = ar / preal;
-            preal = 0.0;
+        ar = pair_re - pimag.re;
+        rough = pair_im - pimag.im;
+        theta = pair_re + pimag.re;
+        snlay = pair_im + pimag.im;
+        if (snlay == 0.0) {
+          if (rough == 0.0) {
+            pair_re = ar / theta;
+            pair_im = 0.0;
           } else if (ar == 0.0) {
-            quo_re = 0.0;
-            preal = re / preal;
+            pair_re = 0.0;
+            pair_im = rough / theta;
           } else {
-            quo_re = ar / preal;
-            preal = re / preal;
+            pair_re = ar / theta;
+            pair_im = rough / theta;
           }
-        } else if (preal == 0.0) {
+        } else if (theta == 0.0) {
           if (ar == 0.0) {
-            quo_re = re / im;
-            preal = 0.0;
-          } else if (re == 0.0) {
-            quo_re = 0.0;
-            preal = -(ar / im);
+            pair_re = rough / snlay;
+            pair_im = 0.0;
+          } else if (rough == 0.0) {
+            pair_re = 0.0;
+            pair_im = -(ar / snlay);
           } else {
-            quo_re = re / im;
-            preal = -(ar / im);
+            pair_re = rough / snlay;
+            pair_im = -(ar / snlay);
           }
         } else {
-          brm = muDoubleScalarAbs(preal);
-          rough = muDoubleScalarAbs(im);
-          if (brm > rough) {
-            rough = im / preal;
-            preal += rough * im;
-            quo_re = (ar + rough * re) / preal;
-            preal = (re - rough * ar) / preal;
-          } else if (rough == brm) {
-            if (preal > 0.0) {
-              thick = 0.5;
+          brm = muDoubleScalarAbs(theta);
+          bim = muDoubleScalarAbs(snlay);
+          if (brm > bim) {
+            bim = snlay / theta;
+            theta += bim * snlay;
+            pair_re = (ar + bim * rough) / theta;
+            pair_im = (rough - bim * ar) / theta;
+          } else if (bim == brm) {
+            if (theta > 0.0) {
+              bim = 0.5;
             } else {
-              thick = -0.5;
+              bim = -0.5;
             }
 
-            if (im > 0.0) {
-              preal = 0.5;
+            if (snlay > 0.0) {
+              theta = 0.5;
             } else {
-              preal = -0.5;
+              theta = -0.5;
             }
 
-            quo_re = (ar * thick + re * preal) / brm;
-            preal = (re * thick - ar * preal) / brm;
+            pair_re = (ar * bim + rough * theta) / brm;
+            pair_im = (rough * bim - ar * theta) / brm;
           } else {
-            rough = preal / im;
-            preal = im + rough * preal;
-            quo_re = (rough * ar + re) / preal;
-            preal = (rough * re - ar) / preal;
+            bim = theta / snlay;
+            theta = snlay + bim * theta;
+            pair_re = (bim * ar + rough) / theta;
+            pair_im = (bim * rough - ar) / theta;
           }
         }
 
-        re = quo_re * num.re - preal * num.im;
-        im = quo_re * num.im + preal * num.re;
-        x_re = blast.re * 0.0 - blast.im;
-        x_im = blast.re + blast.im * 0.0;
+        re = pair_re * rij_re - pair_im * rij_im;
+        snlay = pair_re * rij_im + pair_im * rij_re;
+        x_re = blast_re * 0.0 - blast_im;
+        x_im = blast_re + blast_im * 0.0;
         if (x_im == 0.0) {
           x_re = muDoubleScalarExp(x_re);
           x_im = 0.0;
@@ -504,119 +325,258 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x, const
           x_re = 0.0;
           x_im = 0.0;
         } else {
-          preal = muDoubleScalarExp(x_re / 2.0);
-          x_re = preal * (preal * muDoubleScalarCos(x_im));
-          x_im = preal * (preal * muDoubleScalarSin(x_im));
+          theta = muDoubleScalarExp(x_re / 2.0);
+          x_re = theta * (theta * muDoubleScalarCos(x_im));
+          x_im = theta * (theta * muDoubleScalarSin(x_im));
         }
 
-        quo.re = -blast.re * 0.0 - (-blast.im);
-        quo.im = -blast.re + -blast.im * 0.0;
-        if (quo.im == 0.0) {
-          quo_re = quo.re;
-          quo.re = muDoubleScalarExp(quo_re);
-          quo.im = 0.0;
-        } else if (muDoubleScalarIsInf(quo.im) && muDoubleScalarIsInf(quo.re) &&
-                   (quo.re < 0.0)) {
-          quo.re = 0.0;
-          quo.im = 0.0;
+        pair_re = -blast_re * 0.0 - (-blast_im);
+        pair_im = -blast_re + -blast_im * 0.0;
+        if (pair_im == 0.0) {
+          pair_re = muDoubleScalarExp(pair_re);
+          pair_im = 0.0;
+        } else if (muDoubleScalarIsInf(pair_im) && muDoubleScalarIsInf(pair_re) &&
+                   (pair_re < 0.0)) {
+          pair_re = 0.0;
+          pair_im = 0.0;
         } else {
-          preal = muDoubleScalarExp(quo.re / 2.0);
-          quo_re = quo.im;
-          ar = quo.im;
-          quo.re = preal * (preal * muDoubleScalarCos(quo_re));
-          quo.im = preal * (preal * muDoubleScalarSin(ar));
+          theta = muDoubleScalarExp(pair_re / 2.0);
+          pair_re = theta * (theta * muDoubleScalarCos(pair_im));
+          pair_im = theta * (theta * muDoubleScalarSin(pair_im));
         }
 
-        quo_re = re * quo.re - im * quo.im;
-        ar = re * quo.im + im * quo.re;
-        brm = re * x_re - im * x_im;
-        preal = re * x_im + im * x_re;
-        thick = quo.re;
-        rough = quo.im;
+        rij_re = re * pair_re - snlay * pair_im;
+        bim = re * pair_im + snlay * pair_re;
+        brm = pair_re;
+        rij_im = pair_im;
+        ar = re * x_re - snlay * x_im;
+        theta = re * x_im + snlay * x_re;
+        pair_re = pimag.re;
+        pair_im = pimag.im;
+        blast_re = 4.0799904592075231 * sld->data[nl] * pimag.re;
+        blast_im = 4.0799904592075231 * sld->data[nl] * pimag.im;
         for (i1 = 0; i1 < 2; i1++) {
-          im = MI[i1 + 2].re;
-          re = MI[i1 + 2].im;
-          b_MI[i1].re = (MI[i1].re * x_re - MI[i1].im * x_im) + (im * quo_re -
-            re * ar);
-          b_MI[i1].im = (MI[i1].re * x_im + MI[i1].im * x_re) + (im * ar + re *
-            quo_re);
-          b_MI[i1 + 2].re = (MI[i1].re * brm - MI[i1].im * preal) + (im * thick
-            - re * rough);
-          b_MI[i1 + 2].im = (MI[i1].re * preal + MI[i1].im * brm) + (im * rough
-            + re * thick);
+          snlay = MI[i1 + 2].re;
+          rough = MI[i1 + 2].im;
+          b_MI[i1].re = (MI[i1].re * x_re - MI[i1].im * x_im) + (snlay * rij_re
+            - rough * bim);
+          b_MI[i1].im = (MI[i1].re * x_im + MI[i1].im * x_re) + (snlay * bim +
+            rough * rij_re);
+          b_MI[i1 + 2].re = (MI[i1].re * ar - MI[i1].im * theta) + (snlay * brm
+            - rough * rij_im);
+          b_MI[i1 + 2].im = (MI[i1].re * theta + MI[i1].im * ar) + (snlay *
+            rij_im + rough * brm);
         }
 
-        num.re = b_MI[1].re * b_MI[1].re - b_MI[1].im * -b_MI[1].im;
-        num.im = b_MI[1].re * -b_MI[1].im + b_MI[1].im * b_MI[1].re;
-        thick = b_MI[0].re * b_MI[0].re - b_MI[0].im * -b_MI[0].im;
-        preal = b_MI[0].re * -b_MI[0].im + b_MI[0].im * b_MI[0].re;
-        if (preal == 0.0) {
-          if (num.im == 0.0) {
-            quo.re = num.re / thick;
-            quo.im = 0.0;
-          } else if (num.re == 0.0) {
-            quo.re = 0.0;
-            quo.im = num.im / thick;
-          } else {
-            quo.re = num.re / thick;
-            quo.im = num.im / thick;
-          }
-        } else if (thick == 0.0) {
-          if (num.re == 0.0) {
-            quo.re = num.im / preal;
-            quo.im = 0.0;
-          } else if (num.im == 0.0) {
-            quo.re = 0.0;
-            quo.im = -(num.re / preal);
-          } else {
-            quo.re = num.im / preal;
-            quo.im = -(num.re / preal);
-          }
-        } else {
-          brm = muDoubleScalarAbs(thick);
-          rough = muDoubleScalarAbs(preal);
-          if (brm > rough) {
-            rough = preal / thick;
-            preal = thick + rough * preal;
-            quo.re = (num.re + rough * num.im) / preal;
-            quo.im = (num.im - rough * num.re) / preal;
-          } else if (rough == brm) {
-            if (thick > 0.0) {
-              thick = 0.5;
-            } else {
-              thick = -0.5;
-            }
+        memcpy(&MI[0], &b_MI[0], 4U * sizeof(creal_T));
+      }
 
-            if (preal > 0.0) {
-              preal = 0.5;
-            } else {
-              preal = -0.5;
-            }
+      covrtLogFor(&emlrtCoverageInstance, 22U, 0U, 2, 0);
+    }
 
-            quo.re = (num.re * thick + num.im * preal) / brm;
-            quo.im = (num.im * thick - num.re * preal) / brm;
-          } else {
-            rough = thick / preal;
-            preal += rough * thick;
-            quo.re = (rough * num.re + num.im) / preal;
-            quo.im = (rough * num.im - num.re) / preal;
-          }
-        }
+    covrtLogFor(&emlrtCoverageInstance, 22U, 0U, 1, 0);
+    covrtLogBasicBlock(&emlrtCoverageInstance, 22U, 3U);
+    re = -78.956835208714864 * pair_re;
+    snlay = -78.956835208714864 * pair_im;
+    ar = (re * psub.re - snlay * psub.im) * ar_tmp;
+    rough = (re * psub.im + snlay * psub.re) * ar_tmp;
+    if (rough == 0.0) {
+      rij_re = ar / 2.3716;
+      rij_im = 0.0;
+    } else if (ar == 0.0) {
+      rij_re = 0.0;
+      rij_im = rough / 2.3716;
+    } else {
+      rij_re = ar / 2.3716;
+      rij_im = rough / 2.3716;
+    }
 
-        i1 = (int32_T)(loop + 1U);
-        if ((i1 < 1) || (i1 > out->size[0])) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, out->size[0], &mi_emlrtBCI, &st);
-        }
+    if (rij_im == 0.0) {
+      rij_re = muDoubleScalarExp(rij_re);
+      rij_im = 0.0;
+    } else if (muDoubleScalarIsInf(rij_im) && muDoubleScalarIsInf(rij_re) &&
+               (rij_re < 0.0)) {
+      rij_re = 0.0;
+      rij_im = 0.0;
+    } else {
+      theta = muDoubleScalarExp(rij_re / 2.0);
+      rij_re = theta * (theta * muDoubleScalarCos(rij_im));
+      rij_im = theta * (theta * muDoubleScalarSin(rij_im));
+    }
 
-        out->data[i1 - 1] = muDoubleScalarHypot(quo.re, quo.im);
+    ar = pair_re - psub.re;
+    rough = pair_im - psub.im;
+    theta = pair_re + psub.re;
+    snlay = pair_im + psub.im;
+    if (snlay == 0.0) {
+      if (rough == 0.0) {
+        pair_re = ar / theta;
+        pair_im = 0.0;
+      } else if (ar == 0.0) {
+        pair_re = 0.0;
+        pair_im = rough / theta;
       } else {
-        emlrtHadParallelError = true;
+        pair_re = ar / theta;
+        pair_im = rough / theta;
+      }
+    } else if (theta == 0.0) {
+      if (ar == 0.0) {
+        pair_re = rough / snlay;
+        pair_im = 0.0;
+      } else if (rough == 0.0) {
+        pair_re = 0.0;
+        pair_im = -(ar / snlay);
+      } else {
+        pair_re = rough / snlay;
+        pair_im = -(ar / snlay);
+      }
+    } else {
+      brm = muDoubleScalarAbs(theta);
+      bim = muDoubleScalarAbs(snlay);
+      if (brm > bim) {
+        bim = snlay / theta;
+        theta += bim * snlay;
+        pair_re = (ar + bim * rough) / theta;
+        pair_im = (rough - bim * ar) / theta;
+      } else if (bim == brm) {
+        if (theta > 0.0) {
+          bim = 0.5;
+        } else {
+          bim = -0.5;
+        }
+
+        if (snlay > 0.0) {
+          theta = 0.5;
+        } else {
+          theta = -0.5;
+        }
+
+        pair_re = (ar * bim + rough * theta) / brm;
+        pair_im = (rough * bim - ar * theta) / brm;
+      } else {
+        bim = theta / snlay;
+        theta = snlay + bim * theta;
+        pair_re = (bim * ar + rough) / theta;
+        pair_im = (bim * rough - ar) / theta;
       }
     }
+
+    re = pair_re * rij_re - pair_im * rij_im;
+    snlay = pair_re * rij_im + pair_im * rij_re;
+    x_re = blast_re * 0.0 - blast_im;
+    x_im = blast_re + blast_im * 0.0;
+    if (x_im == 0.0) {
+      x_re = muDoubleScalarExp(x_re);
+      x_im = 0.0;
+    } else if (muDoubleScalarIsInf(x_im) && muDoubleScalarIsInf(x_re) && (x_re <
+                0.0)) {
+      x_re = 0.0;
+      x_im = 0.0;
+    } else {
+      theta = muDoubleScalarExp(x_re / 2.0);
+      x_re = theta * (theta * muDoubleScalarCos(x_im));
+      x_im = theta * (theta * muDoubleScalarSin(x_im));
+    }
+
+    pair_re = -blast_re * 0.0 - (-blast_im);
+    pair_im = -blast_re + -blast_im * 0.0;
+    if (pair_im == 0.0) {
+      pair_re = muDoubleScalarExp(pair_re);
+      pair_im = 0.0;
+    } else if (muDoubleScalarIsInf(pair_im) && muDoubleScalarIsInf(pair_re) &&
+               (pair_re < 0.0)) {
+      pair_re = 0.0;
+      pair_im = 0.0;
+    } else {
+      theta = muDoubleScalarExp(pair_re / 2.0);
+      pair_re = theta * (theta * muDoubleScalarCos(pair_im));
+      pair_im = theta * (theta * muDoubleScalarSin(pair_im));
+    }
+
+    rij_re = re * pair_re - snlay * pair_im;
+    bim = re * pair_im + snlay * pair_re;
+    brm = re * x_re - snlay * x_im;
+    rij_im = re * x_im + snlay * x_re;
+    for (i1 = 0; i1 < 2; i1++) {
+      ar = MI[i1 + 2].re;
+      theta = MI[i1 + 2].im;
+      b_MI[i1].re = (MI[i1].re * x_re - MI[i1].im * x_im) + (ar * rij_re - theta
+        * bim);
+      b_MI[i1].im = (MI[i1].re * x_im + MI[i1].im * x_re) + (ar * bim + theta *
+        rij_re);
+      b_MI[i1 + 2].re = (MI[i1].re * brm - MI[i1].im * rij_im) + (ar * pair_re -
+        theta * pair_im);
+      b_MI[i1 + 2].im = (MI[i1].re * rij_im + MI[i1].im * brm) + (ar * pair_im +
+        theta * pair_re);
+    }
+
+    rough = b_MI[1].re * b_MI[1].re - b_MI[1].im * -b_MI[1].im;
+    rij_re = b_MI[1].re * -b_MI[1].im + b_MI[1].im * b_MI[1].re;
+    theta = b_MI[0].re * b_MI[0].re - b_MI[0].im * -b_MI[0].im;
+    snlay = b_MI[0].re * -b_MI[0].im + b_MI[0].im * b_MI[0].re;
+    if (snlay == 0.0) {
+      if (rij_re == 0.0) {
+        pair_re = rough / theta;
+        pair_im = 0.0;
+      } else if (rough == 0.0) {
+        pair_re = 0.0;
+        pair_im = rij_re / theta;
+      } else {
+        pair_re = rough / theta;
+        pair_im = rij_re / theta;
+      }
+    } else if (theta == 0.0) {
+      if (rough == 0.0) {
+        pair_re = rij_re / snlay;
+        pair_im = 0.0;
+      } else if (rij_re == 0.0) {
+        pair_re = 0.0;
+        pair_im = -(rough / snlay);
+      } else {
+        pair_re = rij_re / snlay;
+        pair_im = -(rough / snlay);
+      }
+    } else {
+      brm = muDoubleScalarAbs(theta);
+      bim = muDoubleScalarAbs(snlay);
+      if (brm > bim) {
+        bim = snlay / theta;
+        theta += bim * snlay;
+        pair_re = (rough + bim * rij_re) / theta;
+        pair_im = (rij_re - bim * rough) / theta;
+      } else if (bim == brm) {
+        if (theta > 0.0) {
+          bim = 0.5;
+        } else {
+          bim = -0.5;
+        }
+
+        if (snlay > 0.0) {
+          theta = 0.5;
+        } else {
+          theta = -0.5;
+        }
+
+        pair_re = (rough * bim + rij_re * theta) / brm;
+        pair_im = (rij_re * bim - rough * theta) / brm;
+      } else {
+        bim = theta / snlay;
+        theta = snlay + bim * theta;
+        pair_re = (bim * rough + rij_re) / theta;
+        pair_im = (bim * rij_re - rough) / theta;
+      }
+    }
+
+    i1 = (int32_T)(loop + 1U);
+    if ((i1 < 1) || (i1 > out->size[0])) {
+      emlrtDynamicBoundsCheckR2012b(i1, 1, out->size[0], &mi_emlrtBCI, sp);
+    }
+
+    out->data[i1 - 1] = muDoubleScalarHypot(pair_re, pair_im);
   }
 
-  emlrtPopJmpBuf(sp, &emlrtJBStack);
-  emlrtExitParallelRegion(sp, omp_in_parallel());
+  covrtLogFor(&emlrtCoverageInstance, 22U, 0U, 0, 0);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 22U, 4U);
 }
 
 /* End of code generation (abeles_paraPoints.c) */

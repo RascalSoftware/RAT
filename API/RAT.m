@@ -70,7 +70,7 @@ setappdata(0,'ratOut',{ratOut ; ratListener});
 %     [outProblemStruct,problem,result] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,controls);
 % end
 
-if ~strcmp(controls.proc,'NS')
+if ~ any((strcmp(controls.proc,{'NS','bayes'})))
     result = parseResultToStruct(outProblemStruct,problem,result);
 end
 outProblemDef = RATparseOutToProblemDef2(problemDefInput,outProblemStruct,problem,result);

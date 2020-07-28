@@ -103,7 +103,7 @@ S_struct.FVr_bestmem = [0 0];
 [res,problemDef] = RAT_deopt(@intrafun,problemDef,problemDef_limits,problemDef_cells,@plotIt,controls,S_struct);
 problemDef.fitpars = res;
 problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 
 end

@@ -18,12 +18,12 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
+#include "covrt.h"
 #include "rtwtypes.h"
-#include "omp.h"
 #include "reflectivity_calculation_types.h"
 
 /* Function Declarations */
 void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
-              real_T startDomain[2], cell_16 *out);
+              real_T startDomain[2], cell_19 *out);
 
 /* End of code generation (adaptive.h) */

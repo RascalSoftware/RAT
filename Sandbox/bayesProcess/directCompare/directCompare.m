@@ -3,7 +3,7 @@
 %Do the direct calculation first.
 %Start by converting the R1 project to 
 %the R2 case...
-[d2oproblem,controls] = r1ToProblemDef('defaultProject_D2O_bayesCompare_3D.mat');
+[d2oproblem,controls] = r1ToProblemDef('defaultProject');%_D2O_bayesCompare_3D.mat');
 [outProb,results] = RAT(d2oproblem,controls);
 figure(1); clf
 plotRefSLD(outProb, results);

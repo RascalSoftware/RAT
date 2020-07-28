@@ -18,11 +18,14 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
+#include "covrt.h"
 #include "rtwtypes.h"
-#include "omp.h"
 #include "reflectivity_calculation_types.h"
 
 /* Function Declarations */
+void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
+  real_T allRoughs, const emxArray_char_T *geometry, emxArray_real_T *outLayers,
+  real_T *outSsubs);
 void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
                      real_T allRoughs, const emxArray_char_T *geometry, real_T
                      nbair, real_T nbsubs, emxArray_real_T *outLayers, real_T

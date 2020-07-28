@@ -26,8 +26,8 @@ switch action
         [outProblemDef,problem,results] = runSimplex(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'DE'
         [outProblemDef,problem,results] = runDE(problemDef,problemDef_cells,problemDef_limits,controls);
-    case 'Bayes'
-        [outProblemDef,results] = runBayes(problemDef,problemDef_cells,problemDef_limits,controls);
+    case 'bayes'
+        [outProblemDef,results] = runDram(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'NS'
         [outProblemDef,results] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
 end

@@ -14,8 +14,8 @@ problemDef.fitpars = cell2mat(p);
 problemDef = unpackparams(problemDef,controls);
 [problemDef,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
-fval = -(problemDef.calculations.sum_chi/2); %old way....
-fval2 = log(exp(-problemDef.calculations.sum_chi/2));
+fval = (-problemDef.calculations.sum_chi/2); %old way....
+%fval = -log(exp(-problemDef.calculations.sum_chi/2));
 
 
 end

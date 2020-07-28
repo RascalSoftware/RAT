@@ -9,15 +9,13 @@
  *
  */
 
-#ifndef MATLABENGINECALLER_CUSTOMLAYERS_INITIALIZE_H
-#define MATLABENGINECALLER_CUSTOMLAYERS_INITIALIZE_H
+#pragma once
 
 /* Include files */
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tmwtypes.h"
 #include "mex.h"
 #include "emlrt.h"
 #include "covrt.h"
@@ -25,8 +23,6 @@
 #include "matlabEngineCaller_customLayers_types.h"
 
 /* Function Declarations */
-extern void matlabEngineCaller_customLayers_initialize(void);
-
-#endif
+void matlabEngineCaller_customLayers_initialize(void);
 
 /* End of code generation (matlabEngineCaller_customLayers_initialize.h) */

@@ -86,7 +86,7 @@ switch thisMask(1)
 end
 
 %Calculate mole fraction of D2O from the bulk SLD..
-d2o_molfr = (1/D2O-H2O)*((bulk_out(contrast)/0.036182336306)-H2O);
+d2o_molfr = (1/D2O-H2O)*((bulk_out / 0.036182336306)-H2O);
 thisWater = (d2o_molfr * D2O) + ((1-d2o_molfr)*H2O);
 
 
@@ -97,7 +97,7 @@ switch thisMask(2)
         thisHead = dCHOL + PO4 + GLYC + COO;
 end
 
-switch thisMask(3);
+switch thisMask(3)
     case 0
         thisTail = (32*CH2) + CH3;
     case 1

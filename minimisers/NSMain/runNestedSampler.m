@@ -52,6 +52,7 @@ end
 result.logX = logZ;
 result.nest_samples = nest_samples;
 result.post_samples = post_samples;
+result.fitNames = fitNames;
 %xy_result = parseBayesResults(nest_samples,problemDef,problemDef_cells,problemDef_limits,controls);
 %result.xyResults = xy_result;
 

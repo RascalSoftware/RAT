@@ -10,14 +10,14 @@
  */
 
 /* Include files */
-#include "rt_nonfinite.h"
-#include "matlabEngineCaller_customLayers.h"
 #include "_coder_matlabEngineCaller_customLayers_api.h"
-#include "matlabEngineCaller_customLayers_emxutil.h"
+#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_data.h"
+#include "matlabEngineCaller_customLayers_emxutil.h"
+#include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRTEInfo c_emlrtRTEI = { 1, /* lineNo */
+static emlrtRTEInfo d_emlrtRTEI = { 1, /* lineNo */
   1,                                   /* colNo */
   "_coder_matlabEngineCaller_customLayers_api",/* fName */
   ""                                   /* pName */
@@ -63,10 +63,10 @@ static real_T (*b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   static const mxArray *b_emlrt_marshallOut(const real_T u)
 {
   const mxArray *y;
-  const mxArray *m1;
+  const mxArray *m;
   y = NULL;
-  m1 = emlrtCreateDoubleScalar(u);
-  emlrtAssign(&y, m1);
+  m = emlrtCreateDoubleScalar(u);
+  emlrtAssign(&y, m);
   return y;
 }
 
@@ -118,14 +118,14 @@ static real_T (*emlrt_marshallIn(const emlrtStack *sp, const mxArray *params,
   static const mxArray *emlrt_marshallOut(const emxArray_real_T *u)
 {
   const mxArray *y;
-  const mxArray *m0;
-  static const int32_T iv0[2] = { 0, 0 };
+  const mxArray *m;
+  static const int32_T iv[2] = { 0, 0 };
 
   y = NULL;
-  m0 = emlrtCreateNumericArray(2, iv0, mxDOUBLE_CLASS, mxREAL);
-  emlrtMxSetData((mxArray *)m0, &u->data[0]);
-  emlrtSetDimensions((mxArray *)m0, u->size, 2);
-  emlrtAssign(&y, m0);
+  m = emlrtCreateNumericArray(2, &iv[0], mxDOUBLE_CLASS, mxREAL);
+  emlrtMxSetData((mxArray *)m, &u->data[0]);
+  emlrtSetDimensions((mxArray *)m, u->size, 2);
+  emlrtAssign(&y, m);
   return y;
 }
 
@@ -214,7 +214,7 @@ void matlabEngineCaller_customLayers_api(const mxArray * const prhs[6], int32_T
 
   st.tls = emlrtRootTLSGlobal;
   emlrtHeapReferenceStackEnterFcnR2012b(&st);
-  emxInit_real_T(&st, &output, 2, &c_emlrtRTEI, true);
+  emxInit_real_T(&st, &output, 2, &d_emlrtRTEI, true);
 
   /* Marshall function inputs */
   params = emlrt_marshallIn(&st, emlrtAlias(prhs[0]), "params");

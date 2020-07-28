@@ -10,20 +10,20 @@
  */
 
 /* Include files */
-#include "matlabEngineCaller_customLayers.h"
 #include "_coder_matlabEngineCaller_customLayers_mex.h"
-#include "matlabEngineCaller_customLayers_terminate.h"
 #include "_coder_matlabEngineCaller_customLayers_api.h"
-#include "matlabEngineCaller_customLayers_initialize.h"
+#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_data.h"
+#include "matlabEngineCaller_customLayers_initialize.h"
+#include "matlabEngineCaller_customLayers_terminate.h"
 
 /* Function Declarations */
-static void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2],
-  int32_T nrhs, const mxArray *prhs[6]);
+MEXFUNCTION_LINKAGE void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray
+  *plhs[2], int32_T nrhs, const mxArray *prhs[6]);
 
 /* Function Definitions */
-static void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2],
-  int32_T nrhs, const mxArray *prhs[6])
+void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2], int32_T
+  nrhs, const mxArray *prhs[6])
 {
   const mxArray *outputs[2];
   int32_T nOutputs;
@@ -61,7 +61,7 @@ static void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2],
 void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const mxArray
                  *prhs[])
 {
-  mexAtExit(matlabEngineCaller_customLayers_atexit);
+  mexAtExit(&matlabEngineCaller_customLayers_atexit);
 
   /* Module initialization. */
   matlabEngineCaller_customLayers_initialize();

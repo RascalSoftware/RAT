@@ -35,14 +35,14 @@ if simXLo < xdata(1)
     step = (xdata(2)-xdata(1));
     firstSection = [simXLo:step:(xdata(1)-step)];
 else
-    firstSection = 0;
+    firstSection = [];
 end
 
 if simXHi > xdata(end)
     step = (xdata(end)-xdata(end-1,1));
     lastSection = [xdata(end,1)+step:step:simXHi];
 else
-    lastSection = 0;
+    lastSection = [];
 end
 
 simXdata = [firstSection(:) ; middleSection ; lastSection(:)]';

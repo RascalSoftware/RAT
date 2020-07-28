@@ -18,16 +18,13 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
+#include "covrt.h"
 #include "rtwtypes.h"
-#include "omp.h"
 #include "reflectivity_calculation_types.h"
 
 /* Function Declarations */
 void MEXGlobalSyncInFunction(void);
 void MEXGlobalSyncOutFunction(boolean_T skipDirtyCheck);
-emlrtCTX emlrtGetRootTLSGlobal(void);
-void emlrtLockerFunction(EmlrtLockeeFunction aLockee, const emlrtConstCTX aTLS,
-  void *aData);
 void emlrt_synchGlobalsFromML(const emlrtStack *sp);
 void emlrt_synchGlobalsToML(const emlrtStack *sp);
 

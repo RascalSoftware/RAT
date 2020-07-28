@@ -12,7 +12,9 @@
 /* Include files */
 #include "adaptive.h"
 #include "acos.h"
+#include "any.h"
 #include "eml_int_forloop_overflow_check.h"
+#include "linspace.h"
 #include "mwmathutil.h"
 #include "power.h"
 #include "reflectivity_calculation.h"
@@ -24,139 +26,134 @@
 #include "sortrows.h"
 
 /* Variable Definitions */
-static emlrtRSInfo tc_emlrtRSI = { 252,/* lineNo */
+static emlrtRSInfo vc_emlrtRSI = { 252,/* lineNo */
   "adaptive",                          /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo uc_emlrtRSI = { 267,/* lineNo */
+static emlrtRSInfo wc_emlrtRSI = { 267,/* lineNo */
   "adaptive",                          /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo vc_emlrtRSI = { 281,/* lineNo */
+static emlrtRSInfo xc_emlrtRSI = { 281,/* lineNo */
   "adaptive",                          /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo wc_emlrtRSI = { 304,/* lineNo */
+static emlrtRSInfo yc_emlrtRSI = { 304,/* lineNo */
   "adaptive",                          /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo xc_emlrtRSI = { 305,/* lineNo */
+static emlrtRSInfo ad_emlrtRSI = { 305,/* lineNo */
   "adaptive",                          /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo yc_emlrtRSI = { 376,/* lineNo */
+static emlrtRSInfo bd_emlrtRSI = { 376,/* lineNo */
   "normalizeFunction",                 /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo hd_emlrtRSI = { 167,/* lineNo */
+static emlrtRSInfo jd_emlrtRSI = { 167,/* lineNo */
   "unaryMinOrMax",                     /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-static emlrtRSInfo id_emlrtRSI = { 326,/* lineNo */
+static emlrtRSInfo kd_emlrtRSI = { 326,/* lineNo */
   "unaryMinOrMaxDispatch",             /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-static emlrtRSInfo jd_emlrtRSI = { 394,/* lineNo */
+static emlrtRSInfo ld_emlrtRSI = { 394,/* lineNo */
   "minOrMax2D",                        /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-static emlrtRSInfo kd_emlrtRSI = { 476,/* lineNo */
+static emlrtRSInfo md_emlrtRSI = { 476,/* lineNo */
   "minOrMax2DColumnMajorDim1",         /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-static emlrtRSInfo ld_emlrtRSI = { 14, /* lineNo */
+static emlrtRSInfo nd_emlrtRSI = { 14, /* lineNo */
   "min",                               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/min.m"/* pathName */
 };
 
-static emlrtRSInfo md_emlrtRSI = { 46, /* lineNo */
+static emlrtRSInfo od_emlrtRSI = { 46, /* lineNo */
   "minOrMax",                          /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/minOrMax.m"/* pathName */
 };
 
-static emlrtRSInfo nd_emlrtRSI = { 92, /* lineNo */
+static emlrtRSInfo pd_emlrtRSI = { 92, /* lineNo */
   "minimum",                           /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/minOrMax.m"/* pathName */
 };
 
-static emlrtRSInfo od_emlrtRSI = { 398,/* lineNo */
+static emlrtRSInfo qd_emlrtRSI = { 398,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo pd_emlrtRSI = { 399,/* lineNo */
+static emlrtRSInfo rd_emlrtRSI = { 399,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo qd_emlrtRSI = { 401,/* lineNo */
+static emlrtRSInfo sd_emlrtRSI = { 401,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo rd_emlrtRSI = { 403,/* lineNo */
+static emlrtRSInfo td_emlrtRSI = { 403,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo sd_emlrtRSI = { 404,/* lineNo */
+static emlrtRSInfo ud_emlrtRSI = { 404,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo td_emlrtRSI = { 405,/* lineNo */
+static emlrtRSInfo vd_emlrtRSI = { 405,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo ud_emlrtRSI = { 408,/* lineNo */
+static emlrtRSInfo wd_emlrtRSI = { 408,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo vd_emlrtRSI = { 407,/* lineNo */
+static emlrtRSInfo xd_emlrtRSI = { 407,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo wd_emlrtRSI = { 409,/* lineNo */
+static emlrtRSInfo yd_emlrtRSI = { 409,/* lineNo */
   "calculateCentralAngles",            /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo ce_emlrtRSI = { 16, /* lineNo */
+static emlrtRSInfo ee_emlrtRSI = { 16, /* lineNo */
   "sqrt",                              /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elfun/sqrt.m"/* pathName */
 };
 
-static emlrtRSInfo fe_emlrtRSI = { 13, /* lineNo */
-  "any",                               /* fcnName */
-  "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/any.m"/* pathName */
-};
-
-static emlrtRSInfo ge_emlrtRSI = { 143,/* lineNo */
-  "allOrAny",                          /* fcnName */
-  "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/allOrAny.m"/* pathName */
-};
-
-static emlrtRSInfo he_emlrtRSI = { 431,/* lineNo */
+static emlrtRSInfo je_emlrtRSI = { 431,/* lineNo */
   "increaseSampling",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo ie_emlrtRSI = { 433,/* lineNo */
+static emlrtRSInfo ke_emlrtRSI = { 433,/* lineNo */
   "increaseSampling",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
+};
+
+static emlrtRSInfo le_emlrtRSI = { 27, /* lineNo */
+  "cat",                               /* fcnName */
+  "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/cat.m"/* pathName */
 };
 
 static emlrtDCInfo hb_emlrtDCI = { 274,/* lineNo */
@@ -180,13 +177,13 @@ static emlrtECInfo f_emlrtECI = { -1,  /* nDims */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo mb_emlrtRTEI = { 26,/* lineNo */
+static emlrtRTEInfo ib_emlrtRTEI = { 26,/* lineNo */
   27,                                  /* colNo */
   "unaryMinOrMax",                     /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pName */
 };
 
-static emlrtRTEInfo nb_emlrtRTEI = { 95,/* lineNo */
+static emlrtRTEInfo jb_emlrtRTEI = { 95,/* lineNo */
   27,                                  /* colNo */
   "unaryMinOrMax",                     /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pName */
@@ -241,7 +238,7 @@ static emlrtECInfo m_emlrtECI = { -1,  /* nDims */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtBCInfo xg_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo ye_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   386,                                 /* lineNo */
   20,                                  /* colNo */
@@ -251,7 +248,7 @@ static emlrtBCInfo xg_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo yg_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo af_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   386,                                 /* lineNo */
   22,                                  /* colNo */
@@ -261,7 +258,7 @@ static emlrtBCInfo yg_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo ah_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo bf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   386,                                 /* lineNo */
   40,                                  /* colNo */
@@ -271,7 +268,7 @@ static emlrtBCInfo ah_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo bh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo cf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   386,                                 /* lineNo */
   42,                                  /* colNo */
@@ -288,7 +285,7 @@ static emlrtECInfo n_emlrtECI = { 2,   /* nDims */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtBCInfo ch_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo df_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   387,                                 /* lineNo */
   23,                                  /* colNo */
@@ -298,7 +295,7 @@ static emlrtBCInfo ch_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo dh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo ef_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   387,                                 /* lineNo */
   41,                                  /* colNo */
@@ -308,7 +305,7 @@ static emlrtBCInfo dh_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo eh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo ff_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   387,                                 /* lineNo */
   43,                                  /* colNo */
@@ -325,7 +322,7 @@ static emlrtECInfo o_emlrtECI = { 2,   /* nDims */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtBCInfo fh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo gf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   388,                                 /* lineNo */
   22,                                  /* colNo */
@@ -335,7 +332,7 @@ static emlrtBCInfo fh_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo gh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo hf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   388,                                 /* lineNo */
   40,                                  /* colNo */
@@ -345,7 +342,7 @@ static emlrtBCInfo gh_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo hh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo if_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   388,                                 /* lineNo */
   42,                                  /* colNo */
@@ -362,34 +359,34 @@ static emlrtECInfo p_emlrtECI = { 2,   /* nDims */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo qb_emlrtRTEI = { 13,/* lineNo */
+static emlrtRTEInfo mb_emlrtRTEI = { 13,/* lineNo */
   9,                                   /* colNo */
   "sqrt",                              /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elfun/sqrt.m"/* pName */
 };
 
-static emlrtECInfo r_emlrtECI = { -1,  /* nDims */
+static emlrtECInfo bb_emlrtECI = { -1, /* nDims */
   429,                                 /* lineNo */
   29,                                  /* colNo */
   "increaseSampling",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtECInfo s_emlrtECI = { -1,  /* nDims */
+static emlrtECInfo cb_emlrtECI = { -1, /* nDims */
   429,                                 /* lineNo */
   1,                                   /* colNo */
   "increaseSampling",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtECInfo t_emlrtECI = { -1,  /* nDims */
+static emlrtECInfo db_emlrtECI = { -1, /* nDims */
   431,                                 /* lineNo */
   1,                                   /* colNo */
   "increaseSampling",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtBCInfo mk_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo vq_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   425,                                 /* lineNo */
   39,                                  /* colNo */
@@ -399,7 +396,7 @@ static emlrtBCInfo mk_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo nk_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo wq_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   429,                                 /* lineNo */
   40,                                  /* colNo */
@@ -409,7 +406,7 @@ static emlrtBCInfo nk_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo ok_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo xq_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   430,                                 /* lineNo */
   14,                                  /* colNo */
@@ -419,7 +416,7 @@ static emlrtBCInfo ok_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo pk_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo yq_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   376,                                 /* lineNo */
   20,                                  /* colNo */
@@ -429,7 +426,7 @@ static emlrtBCInfo pk_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo qk_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo ar_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   376,                                 /* lineNo */
   5,                                   /* colNo */
@@ -439,211 +436,211 @@ static emlrtBCInfo qk_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo fh_emlrtRTEI = { 255,/* lineNo */
+static emlrtRTEInfo xh_emlrtRTEI = { 255,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo gh_emlrtRTEI = { 334,/* lineNo */
+static emlrtRTEInfo yh_emlrtRTEI = { 334,/* lineNo */
   3,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo hh_emlrtRTEI = { 281,/* lineNo */
+static emlrtRTEInfo ai_emlrtRTEI = { 281,/* lineNo */
   42,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ih_emlrtRTEI = { 282,/* lineNo */
+static emlrtRTEInfo bi_emlrtRTEI = { 282,/* lineNo */
   5,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo jh_emlrtRTEI = { 283,/* lineNo */
+static emlrtRTEInfo ci_emlrtRTEI = { 283,/* lineNo */
   5,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo kh_emlrtRTEI = { 289,/* lineNo */
+static emlrtRTEInfo di_emlrtRTEI = { 289,/* lineNo */
   21,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo lh_emlrtRTEI = { 289,/* lineNo */
+static emlrtRTEInfo ei_emlrtRTEI = { 289,/* lineNo */
   50,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo mh_emlrtRTEI = { 281,/* lineNo */
+static emlrtRTEInfo fi_emlrtRTEI = { 281,/* lineNo */
   5,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo nh_emlrtRTEI = { 289,/* lineNo */
+static emlrtRTEInfo gi_emlrtRTEI = { 289,/* lineNo */
   3,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo oh_emlrtRTEI = { 1,/* lineNo */
+static emlrtRTEInfo hi_emlrtRTEI = { 1,/* lineNo */
   16,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ci_emlrtRTEI = { 398,/* lineNo */
+static emlrtRTEInfo ui_emlrtRTEI = { 398,/* lineNo */
   3,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo di_emlrtRTEI = { 397,/* lineNo */
+static emlrtRTEInfo vi_emlrtRTEI = { 397,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ei_emlrtRTEI = { 386,/* lineNo */
+static emlrtRTEInfo wi_emlrtRTEI = { 386,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo fi_emlrtRTEI = { 387,/* lineNo */
+static emlrtRTEInfo xi_emlrtRTEI = { 387,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo gi_emlrtRTEI = { 388,/* lineNo */
+static emlrtRTEInfo yi_emlrtRTEI = { 388,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo hi_emlrtRTEI = { 403,/* lineNo */
+static emlrtRTEInfo aj_emlrtRTEI = { 403,/* lineNo */
   21,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ii_emlrtRTEI = { 403,/* lineNo */
+static emlrtRTEInfo bj_emlrtRTEI = { 403,/* lineNo */
   42,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ji_emlrtRTEI = { 404,/* lineNo */
+static emlrtRTEInfo cj_emlrtRTEI = { 404,/* lineNo */
   21,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ki_emlrtRTEI = { 404,/* lineNo */
+static emlrtRTEInfo dj_emlrtRTEI = { 404,/* lineNo */
   42,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo li_emlrtRTEI = { 405,/* lineNo */
+static emlrtRTEInfo ej_emlrtRTEI = { 405,/* lineNo */
   21,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo mi_emlrtRTEI = { 405,/* lineNo */
+static emlrtRTEInfo fj_emlrtRTEI = { 405,/* lineNo */
   42,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ni_emlrtRTEI = { 407,/* lineNo */
+static emlrtRTEInfo gj_emlrtRTEI = { 407,/* lineNo */
   3,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo oi_emlrtRTEI = { 409,/* lineNo */
+static emlrtRTEInfo hj_emlrtRTEI = { 409,/* lineNo */
   20,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo pi_emlrtRTEI = { 409,/* lineNo */
+static emlrtRTEInfo ij_emlrtRTEI = { 409,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo qi_emlrtRTEI = { 403,/* lineNo */
+static emlrtRTEInfo jj_emlrtRTEI = { 403,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ri_emlrtRTEI = { 404,/* lineNo */
+static emlrtRTEInfo kj_emlrtRTEI = { 404,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo si_emlrtRTEI = { 405,/* lineNo */
+static emlrtRTEInfo lj_emlrtRTEI = { 405,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ti_emlrtRTEI = { 391,/* lineNo */
+static emlrtRTEInfo mj_emlrtRTEI = { 391,/* lineNo */
   24,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo pk_emlrtRTEI = { 426,/* lineNo */
+static emlrtRTEInfo qo_emlrtRTEI = { 426,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo qk_emlrtRTEI = { 429,/* lineNo */
+static emlrtRTEInfo ro_emlrtRTEI = { 429,/* lineNo */
   40,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo rk_emlrtRTEI = { 430,/* lineNo */
+static emlrtRTEInfo so_emlrtRTEI = { 430,/* lineNo */
   14,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo sk_emlrtRTEI = { 422,/* lineNo */
+static emlrtRTEInfo to_emlrtRTEI = { 422,/* lineNo */
   23,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo tk_emlrtRTEI = { 429,/* lineNo */
+static emlrtRTEInfo uo_emlrtRTEI = { 429,/* lineNo */
   22,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo uk_emlrtRTEI = { 431,/* lineNo */
+static emlrtRTEInfo vo_emlrtRTEI = { 431,/* lineNo */
   22,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo vk_emlrtRTEI = { 303,/* lineNo */
+static emlrtRTEInfo wo_emlrtRTEI = { 303,/* lineNo */
   14,                                  /* colNo */
   "cat",                               /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/cat.m"/* pName */
@@ -710,14 +707,16 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   i_st.prev = &h_st;
   i_st.tls = h_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_real_T(sp, &normalizedData, 2, &di_emlrtRTEI, true);
+  emxInit_real_T(sp, &normalizedData, 2, &vi_emlrtRTEI, true);
+  covrtLogFcn(&emlrtCoverageInstance, 13U, 3U);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 17U);
 
   /*  Calculate the central angle of the triangles formed by data points. */
   /*  For input size NxM, the output size is (N-2)xN, because the first and the */
   /*  last point are not the central corner of any triangle. */
   /*  Normalize data, because angles depend on scaling. */
-  st.site = &od_emlrtRSI;
-  b_st.site = &od_emlrtRSI;
+  st.site = &qd_emlrtRSI;
+  b_st.site = &qd_emlrtRSI;
   repmat(&b_st, dataBoxSize, XYdata->size[0], normalizedData);
   varargin_1[0] = XYdata->size[0];
   varargin_2[0] = (uint32_T)normalizedData->size[0];
@@ -737,7 +736,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
 
   overflow = (int32_T)p;
   if (!overflow) {
-    emlrtErrorWithMessageIdR2018a(&st, &pb_emlrtRTEI, "MATLAB:dimagree",
+    emlrtErrorWithMessageIdR2018a(&st, &lb_emlrtRTEI, "MATLAB:dimagree",
       "MATLAB:dimagree", 0);
   }
 
@@ -745,72 +744,76 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   i = normalizedData->size[0] * normalizedData->size[1];
   normalizedData->size[0] = XYdata->size[0];
   normalizedData->size[1] = 2;
-  emxEnsureCapacity_real_T(&st, normalizedData, i, &ci_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, normalizedData, i, &ui_emlrtRTEI);
   for (i = 0; i < m; i++) {
     normalizedData->data[i] = XYdata->data[i] / normalizedData->data[i];
   }
 
-  st.site = &pd_emlrtRSI;
-  b_st.site = &ld_emlrtRSI;
-  c_st.site = &md_emlrtRSI;
-  d_st.site = &nd_emlrtRSI;
+  st.site = &rd_emlrtRSI;
+  b_st.site = &nd_emlrtRSI;
+  c_st.site = &od_emlrtRSI;
+  d_st.site = &pd_emlrtRSI;
   if (XYdata->size[0] == 1) {
-    emlrtErrorWithMessageIdR2018a(&d_st, &mb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&d_st, &ib_emlrtRTEI,
       "Coder:toolbox:autoDimIncompatibility",
       "Coder:toolbox:autoDimIncompatibility", 0);
   }
 
   if (XYdata->size[0] < 1) {
-    emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&d_st, &jb_emlrtRTEI,
       "Coder:toolbox:eml_min_or_max_varDimZero",
       "Coder:toolbox:eml_min_or_max_varDimZero", 0);
   }
 
-  e_st.site = &hd_emlrtRSI;
-  f_st.site = &id_emlrtRSI;
-  g_st.site = &jd_emlrtRSI;
+  e_st.site = &jd_emlrtRSI;
+  f_st.site = &kd_emlrtRSI;
+  g_st.site = &ld_emlrtRSI;
   m = XYdata->size[0];
   overflow = ((2 <= XYdata->size[0]) && (XYdata->size[0] > 2147483646));
   varargin_1[0] = XYdata->data[0];
-  h_st.site = &kd_emlrtRSI;
+  h_st.site = &md_emlrtRSI;
   if (overflow) {
-    i_st.site = &lb_emlrtRSI;
+    i_st.site = &nb_emlrtRSI;
     check_forloop_overflow_error(&i_st);
   }
 
   for (b_i = 2; b_i <= m; b_i++) {
     b = XYdata->data[b_i - 1];
-    if ((!muDoubleScalarIsNaN(b)) && (muDoubleScalarIsNaN(varargin_1[0]) ||
-         (varargin_1[0] > b))) {
+    overflow = ((!muDoubleScalarIsNaN(b)) && (muDoubleScalarIsNaN(varargin_1[0])
+      || (varargin_1[0] > b)));
+    if (overflow) {
       varargin_1[0] = b;
     }
   }
 
   varargin_1[1] = XYdata->data[XYdata->size[0]];
-  h_st.site = &kd_emlrtRSI;
+  h_st.site = &md_emlrtRSI;
   for (b_i = 2; b_i <= m; b_i++) {
     b = XYdata->data[(b_i + XYdata->size[0]) - 1];
-    if ((!muDoubleScalarIsNaN(b)) && (muDoubleScalarIsNaN(varargin_1[1]) ||
-         (varargin_1[1] > b))) {
+    overflow = ((!muDoubleScalarIsNaN(b)) && (muDoubleScalarIsNaN(varargin_1[1])
+      || (varargin_1[1] > b)));
+    if (overflow) {
       varargin_1[1] = b;
     }
   }
 
-  emxInit_real_T(&g_st, &longStep, 2, &ti_emlrtRTEI, true);
-  st.site = &pd_emlrtRSI;
+  emxInit_real_T(&g_st, &longStep, 2, &mj_emlrtRTEI, true);
+  st.site = &rd_emlrtRSI;
   repmat(&st, varargin_1, XYdata->size[0], longStep);
   emlrtSizeEqCheckNDR2012b(*(int32_T (*)[2])normalizedData->size, *(int32_T (*)
     [2])longStep->size, &h_emlrtECI, sp);
   m = normalizedData->size[0] * normalizedData->size[1];
   i = normalizedData->size[0] * normalizedData->size[1];
   normalizedData->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, normalizedData, i, &di_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, normalizedData, i, &vi_emlrtRTEI);
   for (i = 0; i < m; i++) {
     normalizedData->data[i] -= longStep->data[i];
   }
 
   /*  calculate cosine of central angles */
-  st.site = &qd_emlrtRSI;
+  st.site = &sd_emlrtRSI;
+  covrtLogFcn(&emlrtCoverageInstance, 13U, 2U);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 16U);
 
   /*  Return the sides (deltaX, deltaY) of the triangles formed by data points. */
   /*  For input size NxM, the output size is (N-2)xN, because the first and the */
@@ -820,14 +823,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     i1 = -1;
   } else {
     if (2 > normalizedData->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData->size[0], &xg_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData->size[0], &ye_emlrtBCI,
         &st);
     }
 
     i = 0;
     i1 = normalizedData->size[0] - 1;
     if ((i1 < 1) || (i1 > normalizedData->size[0])) {
-      emlrtDynamicBoundsCheckR2012b(i1, 1, normalizedData->size[0], &yg_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i1, 1, normalizedData->size[0], &af_emlrtBCI,
         &st);
     }
 
@@ -838,14 +841,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     b_i = 0;
   } else {
     if (1 > normalizedData->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData->size[0], &ah_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData->size[0], &bf_emlrtBCI,
         &st);
     }
 
     b_i = normalizedData->size[0] - 2;
     if ((b_i < 1) || (b_i > normalizedData->size[0])) {
       emlrtDynamicBoundsCheckR2012b(b_i, 1, normalizedData->size[0],
-        &bh_emlrtBCI, &st);
+        &cf_emlrtBCI, &st);
     }
   }
 
@@ -858,11 +861,11 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     emlrtSizeEqCheckNDR2012b(&iv[0], &iv1[0], &n_emlrtECI, &st);
   }
 
-  emxInit_real_T(&st, &firstStep, 2, &ti_emlrtRTEI, true);
+  emxInit_real_T(&st, &firstStep, 2, &mj_emlrtRTEI, true);
   i1 = firstStep->size[0] * firstStep->size[1];
   firstStep->size[0] = m;
   firstStep->size[1] = 2;
-  emxEnsureCapacity_real_T(&st, firstStep, i1, &ei_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, firstStep, i1, &wi_emlrtRTEI);
   for (i1 = 0; i1 < m; i1++) {
     firstStep->data[i1] = normalizedData->data[(i + i1) + 1] -
       normalizedData->data[i1];
@@ -881,7 +884,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     i = 1;
     if (normalizedData->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(normalizedData->size[0], 1,
-        normalizedData->size[0], &ch_emlrtBCI, &st);
+        normalizedData->size[0], &df_emlrtBCI, &st);
     }
 
     i1 = normalizedData->size[0] - 1;
@@ -892,14 +895,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     k = 0;
   } else {
     if (2 > normalizedData->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData->size[0], &dh_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData->size[0], &ef_emlrtBCI,
         &st);
     }
 
     b_i = 0;
     k = normalizedData->size[0] - 1;
     if ((k < 1) || (k > normalizedData->size[0])) {
-      emlrtDynamicBoundsCheckR2012b(k, 1, normalizedData->size[0], &eh_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(k, 1, normalizedData->size[0], &ff_emlrtBCI,
         &st);
     }
   }
@@ -913,11 +916,11 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     emlrtSizeEqCheckNDR2012b(&iv[0], &iv1[0], &o_emlrtECI, &st);
   }
 
-  emxInit_real_T(&st, &secondStep, 2, &ti_emlrtRTEI, true);
+  emxInit_real_T(&st, &secondStep, 2, &mj_emlrtRTEI, true);
   i1 = secondStep->size[0] * secondStep->size[1];
   secondStep->size[0] = m;
   secondStep->size[1] = 2;
-  emxEnsureCapacity_real_T(&st, secondStep, i1, &fi_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, secondStep, i1, &xi_emlrtRTEI);
   for (i1 = 0; i1 < m; i1++) {
     secondStep->data[i1] = normalizedData->data[(i + i1) + 1] -
       normalizedData->data[(b_i + i1) + 1];
@@ -936,7 +939,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     i = 1;
     if (normalizedData->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(normalizedData->size[0], 1,
-        normalizedData->size[0], &fh_emlrtBCI, &st);
+        normalizedData->size[0], &gf_emlrtBCI, &st);
     }
 
     i1 = normalizedData->size[0] - 1;
@@ -946,14 +949,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
     b_i = 0;
   } else {
     if (1 > normalizedData->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData->size[0], &gh_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData->size[0], &hf_emlrtBCI,
         &st);
     }
 
     b_i = normalizedData->size[0] - 2;
     if ((b_i < 1) || (b_i > normalizedData->size[0])) {
       emlrtDynamicBoundsCheckR2012b(b_i, 1, normalizedData->size[0],
-        &hh_emlrtBCI, &st);
+        &if_emlrtBCI, &st);
     }
   }
 
@@ -969,7 +972,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   i1 = longStep->size[0] * longStep->size[1];
   longStep->size[0] = m;
   longStep->size[1] = 2;
-  emxEnsureCapacity_real_T(&st, longStep, i1, &gi_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, longStep, i1, &yi_emlrtRTEI);
   for (i1 = 0; i1 < m; i1++) {
     longStep->data[i1] = normalizedData->data[(i + i1) + 1] -
       normalizedData->data[i1];
@@ -982,31 +985,31 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   }
 
   emxFree_real_T(&normalizedData);
-  emxInit_real_T(&st, &b_firstStep, 1, &hi_emlrtRTEI, true);
+  emxInit_real_T(&st, &b_firstStep, 1, &aj_emlrtRTEI, true);
 
   /*  calculate area of squares of length of triangle sides */
   m = firstStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = firstStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &hi_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &aj_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = firstStep->data[i];
   }
 
-  emxInit_real_T(sp, &firstStepSquared, 1, &qi_emlrtRTEI, true);
-  st.site = &rd_emlrtRSI;
+  emxInit_real_T(sp, &firstStepSquared, 1, &jj_emlrtRTEI, true);
+  st.site = &td_emlrtRSI;
   power(&st, b_firstStep, firstStepSquared);
   m = firstStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = firstStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &ii_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &bj_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = firstStep->data[i + firstStep->size[0]];
   }
 
   emxFree_real_T(&firstStep);
-  emxInit_real_T(sp, &r, 1, &ti_emlrtRTEI, true);
-  st.site = &rd_emlrtRSI;
+  emxInit_real_T(sp, &r, 1, &mj_emlrtRTEI, true);
+  st.site = &td_emlrtRSI;
   power(&st, b_firstStep, r);
   if (firstStepSquared->size[0] != r->size[0]) {
     emlrtSizeEqCheck1DR2012b(firstStepSquared->size[0], r->size[0], &i_emlrtECI,
@@ -1021,24 +1024,24 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   m = secondStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = secondStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &ji_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &cj_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = secondStep->data[i];
   }
 
-  emxInit_real_T(sp, &secondStepSquared, 1, &ri_emlrtRTEI, true);
-  st.site = &sd_emlrtRSI;
+  emxInit_real_T(sp, &secondStepSquared, 1, &kj_emlrtRTEI, true);
+  st.site = &ud_emlrtRSI;
   power(&st, b_firstStep, secondStepSquared);
   m = secondStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = secondStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &ki_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &dj_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = secondStep->data[i + secondStep->size[0]];
   }
 
   emxFree_real_T(&secondStep);
-  st.site = &sd_emlrtRSI;
+  st.site = &ud_emlrtRSI;
   power(&st, b_firstStep, r);
   if (secondStepSquared->size[0] != r->size[0]) {
     emlrtSizeEqCheck1DR2012b(secondStepSquared->size[0], r->size[0], &j_emlrtECI,
@@ -1053,24 +1056,24 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   m = longStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = longStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &li_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &ej_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = longStep->data[i];
   }
 
-  emxInit_real_T(sp, &longStepSquared, 1, &si_emlrtRTEI, true);
-  st.site = &td_emlrtRSI;
+  emxInit_real_T(sp, &longStepSquared, 1, &lj_emlrtRTEI, true);
+  st.site = &vd_emlrtRSI;
   power(&st, b_firstStep, longStepSquared);
   m = longStep->size[0];
   i = b_firstStep->size[0];
   b_firstStep->size[0] = longStep->size[0];
-  emxEnsureCapacity_real_T(sp, b_firstStep, i, &mi_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_firstStep, i, &fj_emlrtRTEI);
   for (i = 0; i < m; i++) {
     b_firstStep->data[i] = longStep->data[i + longStep->size[0]];
   }
 
   emxFree_real_T(&longStep);
-  st.site = &td_emlrtRSI;
+  st.site = &vd_emlrtRSI;
   power(&st, b_firstStep, r);
   emxFree_real_T(&b_firstStep);
   if (longStepSquared->size[0] != r->size[0]) {
@@ -1099,17 +1102,17 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
       [0], &m_emlrtECI, sp);
   }
 
-  st.site = &vd_emlrtRSI;
+  st.site = &xd_emlrtRSI;
   i = longStepSquared->size[0];
   longStepSquared->size[0] = firstStepSquared->size[0];
-  emxEnsureCapacity_real_T(&st, longStepSquared, i, &ni_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, longStepSquared, i, &gj_emlrtRTEI);
   m = firstStepSquared->size[0];
   for (i = 0; i < m; i++) {
     longStepSquared->data[i] = ((firstStepSquared->data[i] +
       secondStepSquared->data[i]) - longStepSquared->data[i]) / 2.0;
   }
 
-  b_st.site = &ud_emlrtRSI;
+  b_st.site = &wd_emlrtRSI;
   m = firstStepSquared->size[0];
   for (i = 0; i < m; i++) {
     firstStepSquared->data[i] *= secondStepSquared->data[i];
@@ -1125,17 +1128,18 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
   }
 
   if (overflow) {
-    emlrtErrorWithMessageIdR2018a(&b_st, &qb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&b_st, &mb_emlrtRTEI,
       "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3, 4,
       4, "sqrt");
   }
 
-  c_st.site = &ce_emlrtRSI;
+  c_st.site = &ee_emlrtRSI;
   m = firstStepSquared->size[0];
-  d_st.site = &de_emlrtRSI;
-  if ((1 <= firstStepSquared->size[0]) && (firstStepSquared->size[0] >
-       2147483646)) {
-    e_st.site = &lb_emlrtRSI;
+  d_st.site = &fe_emlrtRSI;
+  overflow = ((1 <= firstStepSquared->size[0]) && (firstStepSquared->size[0] >
+    2147483646));
+  if (overflow) {
+    e_st.site = &nb_emlrtRSI;
     check_forloop_overflow_error(&e_st);
   }
 
@@ -1161,14 +1165,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
 
   overflow = (int32_T)p;
   if (!overflow) {
-    emlrtErrorWithMessageIdR2018a(&st, &pb_emlrtRTEI, "MATLAB:dimagree",
+    emlrtErrorWithMessageIdR2018a(&st, &lb_emlrtRTEI, "MATLAB:dimagree",
       "MATLAB:dimagree", 0);
   }
 
-  emxInit_creal_T(&st, &r1, 1, &oi_emlrtRTEI, true);
+  emxInit_creal_T(&st, &r1, 1, &hj_emlrtRTEI, true);
   i = r1->size[0];
   r1->size[0] = longStepSquared->size[0];
-  emxEnsureCapacity_creal_T(sp, r1, i, &oi_emlrtRTEI);
+  emxEnsureCapacity_creal_T(sp, r1, i, &hj_emlrtRTEI);
   m = longStepSquared->size[0];
   for (i = 0; i < m; i++) {
     r1->data[i].re = longStepSquared->data[i] / firstStepSquared->data[i];
@@ -1177,11 +1181,11 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
 
   emxFree_real_T(&longStepSquared);
   emxFree_real_T(&firstStepSquared);
-  st.site = &wd_emlrtRSI;
+  st.site = &yd_emlrtRSI;
   b_acos(&st, r1);
   i = cornerAngle->size[0];
   cornerAngle->size[0] = r1->size[0];
-  emxEnsureCapacity_real_T(sp, cornerAngle, i, &pi_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, cornerAngle, i, &ij_emlrtRTEI);
   m = r1->size[0];
   for (i = 0; i < m; i++) {
     cornerAngle->data[i] = r1->data[i].re;
@@ -1194,12 +1198,12 @@ static void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T
 static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
   const emxArray_boolean_T *segmentsToSplit, const emxArray_real_T *sldProfile)
 {
-  int32_T end;
+  int32_T input_sizes_idx_0;
   int32_T i;
   int32_T trueCount;
   int32_T b_i;
   emxArray_real_T *newDataPoints;
-  int32_T input_sizes_idx_0;
+  int32_T b_input_sizes_idx_0;
   emxArray_boolean_T *r;
   emxArray_boolean_T *r1;
   emxArray_int32_T *r2;
@@ -1216,189 +1220,193 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
   b_st.prev = &st;
   b_st.tls = st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
+  covrtLogFcn(&emlrtCoverageInstance, 13U, 5U);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 19U);
 
   /*  increaseSampling increase the sampling of an input function */
-  end = segmentsToSplit->size[0];
-  for (i = 0; i < end; i++) {
+  input_sizes_idx_0 = segmentsToSplit->size[0];
+  for (i = 0; i < input_sizes_idx_0; i++) {
     if (segmentsToSplit->data[i]) {
       b_i = i + 1;
       if ((b_i < 1) || (b_i > segmentsToSplit->size[0])) {
         emlrtDynamicBoundsCheckR2012b(b_i, 1, segmentsToSplit->size[0],
-          &mk_emlrtBCI, sp);
+          &vq_emlrtBCI, sp);
       }
     }
   }
 
-  end = segmentsToSplit->size[0];
+  input_sizes_idx_0 = segmentsToSplit->size[0];
   trueCount = 0;
-  for (i = 0; i < end; i++) {
+  for (i = 0; i < input_sizes_idx_0; i++) {
     if (segmentsToSplit->data[i]) {
       trueCount++;
     }
   }
 
-  emxInit_real_T(sp, &newDataPoints, 2, &pk_emlrtRTEI, true);
+  emxInit_real_T(sp, &newDataPoints, 2, &qo_emlrtRTEI, true);
   b_i = newDataPoints->size[0] * newDataPoints->size[1];
   newDataPoints->size[0] = trueCount;
   newDataPoints->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, newDataPoints, b_i, &pk_emlrtRTEI);
-  input_sizes_idx_0 = trueCount << 1;
-  for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
+  emxEnsureCapacity_real_T(sp, newDataPoints, b_i, &qo_emlrtRTEI);
+  b_input_sizes_idx_0 = trueCount << 1;
+  for (b_i = 0; b_i < b_input_sizes_idx_0; b_i++) {
     newDataPoints->data[b_i] = 0.0;
   }
 
-  emxInit_boolean_T(sp, &r, 1, &qk_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &r, 1, &ro_emlrtRTEI, true);
   b_i = r->size[0];
   r->size[0] = segmentsToSplit->size[0] + 1;
-  emxEnsureCapacity_boolean_T(sp, r, b_i, &qk_emlrtRTEI);
-  input_sizes_idx_0 = segmentsToSplit->size[0];
-  for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
+  emxEnsureCapacity_boolean_T(sp, r, b_i, &ro_emlrtRTEI);
+  b_input_sizes_idx_0 = segmentsToSplit->size[0];
+  for (b_i = 0; b_i < b_input_sizes_idx_0; b_i++) {
     r->data[b_i] = segmentsToSplit->data[b_i];
   }
 
   r->data[segmentsToSplit->size[0]] = false;
-  end = r->size[0];
-  for (i = 0; i < end; i++) {
+  input_sizes_idx_0 = r->size[0];
+  for (i = 0; i < input_sizes_idx_0; i++) {
     if (r->data[i]) {
       b_i = dataPoints->size[0];
-      input_sizes_idx_0 = i + 1;
-      if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > b_i)) {
-        emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, b_i, &nk_emlrtBCI,
+      b_input_sizes_idx_0 = i + 1;
+      if ((b_input_sizes_idx_0 < 1) || (b_input_sizes_idx_0 > b_i)) {
+        emlrtDynamicBoundsCheckR2012b(b_input_sizes_idx_0, 1, b_i, &wq_emlrtBCI,
           sp);
       }
     }
   }
 
-  emxInit_boolean_T(sp, &r1, 1, &rk_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &r1, 1, &so_emlrtRTEI, true);
   b_i = r1->size[0];
   r1->size[0] = segmentsToSplit->size[0] + 1;
-  emxEnsureCapacity_boolean_T(sp, r1, b_i, &rk_emlrtRTEI);
+  emxEnsureCapacity_boolean_T(sp, r1, b_i, &so_emlrtRTEI);
   r1->data[0] = false;
-  input_sizes_idx_0 = segmentsToSplit->size[0];
-  for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
+  b_input_sizes_idx_0 = segmentsToSplit->size[0];
+  for (b_i = 0; b_i < b_input_sizes_idx_0; b_i++) {
     r1->data[b_i + 1] = segmentsToSplit->data[b_i];
   }
 
-  end = r1->size[0];
-  for (i = 0; i < end; i++) {
+  input_sizes_idx_0 = r1->size[0];
+  for (i = 0; i < input_sizes_idx_0; i++) {
     if (r1->data[i]) {
       b_i = dataPoints->size[0];
-      input_sizes_idx_0 = i + 1;
-      if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > b_i)) {
-        emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, b_i, &ok_emlrtBCI,
+      b_input_sizes_idx_0 = i + 1;
+      if ((b_input_sizes_idx_0 < 1) || (b_input_sizes_idx_0 > b_i)) {
+        emlrtDynamicBoundsCheckR2012b(b_input_sizes_idx_0, 1, b_i, &xq_emlrtBCI,
           sp);
       }
     }
   }
 
-  end = r->size[0] - 1;
-  input_sizes_idx_0 = 0;
-  for (i = 0; i <= end; i++) {
+  input_sizes_idx_0 = r->size[0] - 1;
+  b_input_sizes_idx_0 = 0;
+  for (i = 0; i <= input_sizes_idx_0; i++) {
     if (r->data[i]) {
-      input_sizes_idx_0++;
+      b_input_sizes_idx_0++;
     }
   }
 
-  emxInit_int32_T(sp, &r2, 1, &qk_emlrtRTEI, true);
+  emxInit_int32_T(sp, &r2, 1, &ro_emlrtRTEI, true);
   b_i = r2->size[0];
-  r2->size[0] = input_sizes_idx_0;
-  emxEnsureCapacity_int32_T(sp, r2, b_i, &sk_emlrtRTEI);
-  input_sizes_idx_0 = 0;
-  for (i = 0; i <= end; i++) {
+  r2->size[0] = b_input_sizes_idx_0;
+  emxEnsureCapacity_int32_T(sp, r2, b_i, &to_emlrtRTEI);
+  b_input_sizes_idx_0 = 0;
+  for (i = 0; i <= input_sizes_idx_0; i++) {
     if (r->data[i]) {
-      r2->data[input_sizes_idx_0] = i + 1;
-      input_sizes_idx_0++;
+      r2->data[b_input_sizes_idx_0] = i + 1;
+      b_input_sizes_idx_0++;
     }
   }
 
-  end = r1->size[0] - 1;
-  input_sizes_idx_0 = 0;
-  for (i = 0; i <= end; i++) {
+  input_sizes_idx_0 = r1->size[0] - 1;
+  b_input_sizes_idx_0 = 0;
+  for (i = 0; i <= input_sizes_idx_0; i++) {
     if (r1->data[i]) {
-      input_sizes_idx_0++;
+      b_input_sizes_idx_0++;
     }
   }
 
-  emxInit_int32_T(sp, &r3, 1, &rk_emlrtRTEI, true);
+  emxInit_int32_T(sp, &r3, 1, &so_emlrtRTEI, true);
   b_i = r3->size[0];
-  r3->size[0] = input_sizes_idx_0;
-  emxEnsureCapacity_int32_T(sp, r3, b_i, &sk_emlrtRTEI);
-  input_sizes_idx_0 = 0;
-  for (i = 0; i <= end; i++) {
+  r3->size[0] = b_input_sizes_idx_0;
+  emxEnsureCapacity_int32_T(sp, r3, b_i, &to_emlrtRTEI);
+  b_input_sizes_idx_0 = 0;
+  for (i = 0; i <= input_sizes_idx_0; i++) {
     if (r1->data[i]) {
-      r3->data[input_sizes_idx_0] = i + 1;
-      input_sizes_idx_0++;
+      r3->data[b_input_sizes_idx_0] = i + 1;
+      b_input_sizes_idx_0++;
     }
   }
 
   if (r2->size[0] != r3->size[0]) {
-    emlrtSizeEqCheck1DR2012b(r2->size[0], r3->size[0], &r_emlrtECI, sp);
+    emlrtSizeEqCheck1DR2012b(r2->size[0], r3->size[0], &bb_emlrtECI, sp);
   }
 
   emxFree_int32_T(&r3);
   emxFree_int32_T(&r2);
-  end = r->size[0] - 1;
-  input_sizes_idx_0 = 0;
-  for (i = 0; i <= end; i++) {
+  input_sizes_idx_0 = r->size[0] - 1;
+  b_input_sizes_idx_0 = 0;
+  for (i = 0; i <= input_sizes_idx_0; i++) {
     if (r->data[i]) {
-      input_sizes_idx_0++;
+      b_input_sizes_idx_0++;
     }
   }
 
-  emxInit_int32_T(sp, &r4, 1, &qk_emlrtRTEI, true);
+  emxInit_int32_T(sp, &r4, 1, &ro_emlrtRTEI, true);
   b_i = r4->size[0];
-  r4->size[0] = input_sizes_idx_0;
-  emxEnsureCapacity_int32_T(sp, r4, b_i, &sk_emlrtRTEI);
-  input_sizes_idx_0 = 0;
-  for (i = 0; i <= end; i++) {
+  r4->size[0] = b_input_sizes_idx_0;
+  emxEnsureCapacity_int32_T(sp, r4, b_i, &to_emlrtRTEI);
+  b_input_sizes_idx_0 = 0;
+  for (i = 0; i <= input_sizes_idx_0; i++) {
     if (r->data[i]) {
-      r4->data[input_sizes_idx_0] = i + 1;
-      input_sizes_idx_0++;
+      r4->data[b_input_sizes_idx_0] = i + 1;
+      b_input_sizes_idx_0++;
     }
   }
 
   emxFree_boolean_T(&r);
-  end = r1->size[0] - 1;
-  input_sizes_idx_0 = 0;
-  for (i = 0; i <= end; i++) {
+  input_sizes_idx_0 = r1->size[0] - 1;
+  b_input_sizes_idx_0 = 0;
+  for (i = 0; i <= input_sizes_idx_0; i++) {
     if (r1->data[i]) {
-      input_sizes_idx_0++;
+      b_input_sizes_idx_0++;
     }
   }
 
-  emxInit_int32_T(sp, &r5, 1, &rk_emlrtRTEI, true);
+  emxInit_int32_T(sp, &r5, 1, &so_emlrtRTEI, true);
   b_i = r5->size[0];
-  r5->size[0] = input_sizes_idx_0;
-  emxEnsureCapacity_int32_T(sp, r5, b_i, &sk_emlrtRTEI);
-  input_sizes_idx_0 = 0;
-  for (i = 0; i <= end; i++) {
+  r5->size[0] = b_input_sizes_idx_0;
+  emxEnsureCapacity_int32_T(sp, r5, b_i, &to_emlrtRTEI);
+  b_input_sizes_idx_0 = 0;
+  for (i = 0; i <= input_sizes_idx_0; i++) {
     if (r1->data[i]) {
-      r5->data[input_sizes_idx_0] = i + 1;
-      input_sizes_idx_0++;
+      r5->data[b_input_sizes_idx_0] = i + 1;
+      b_input_sizes_idx_0++;
     }
   }
 
   emxFree_boolean_T(&r1);
-  emxInit_real_T(sp, &r6, 1, &sk_emlrtRTEI, true);
+  emxInit_real_T(sp, &r6, 1, &to_emlrtRTEI, true);
   b_i = r6->size[0];
   r6->size[0] = r4->size[0];
-  emxEnsureCapacity_real_T(sp, r6, b_i, &tk_emlrtRTEI);
-  input_sizes_idx_0 = r4->size[0];
-  for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
+  emxEnsureCapacity_real_T(sp, r6, b_i, &uo_emlrtRTEI);
+  b_input_sizes_idx_0 = r4->size[0];
+  for (b_i = 0; b_i < b_input_sizes_idx_0; b_i++) {
     r6->data[b_i] = 0.5 * (dataPoints->data[r4->data[b_i] - 1] +
       dataPoints->data[r5->data[b_i] - 1]);
   }
 
   emxFree_int32_T(&r5);
   emxFree_int32_T(&r4);
-  emlrtSubAssignSizeCheckR2012b(&trueCount, 1, &r6->size[0], 1, &s_emlrtECI, sp);
-  input_sizes_idx_0 = r6->size[0];
-  for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
+  emlrtSubAssignSizeCheckR2012b(&trueCount, 1, &r6->size[0], 1, &cb_emlrtECI, sp);
+  b_input_sizes_idx_0 = r6->size[0];
+  for (b_i = 0; b_i < b_input_sizes_idx_0; b_i++) {
     newDataPoints->data[b_i] = r6->data[b_i];
   }
 
-  emxInit_real_T(sp, &r7, 1, &sk_emlrtRTEI, true);
-  st.site = &he_emlrtRSI;
+  emxInit_real_T(sp, &r7, 1, &to_emlrtRTEI, true);
+  st.site = &je_emlrtRSI;
+  covrtLogFcn(&emlrtCoverageInstance, 13U, 1U);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 14U);
 
   /*  Subfunctions */
   /*  NORMALIZEFUNCTION evaluates a function and returns a NxM array, where N */
@@ -1412,7 +1420,7 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
   /* abs(nargout(func)); %for anonymous functions nargout<0 */
   b_i = r7->size[0];
   r7->size[0] = newDataPoints->size[0];
-  emxEnsureCapacity_real_T(&st, r7, b_i, &uk_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, r7, b_i, &vo_emlrtRTEI);
 
   /*  if vectorizable */
   /*    % For uniformity reasons, transform the 'x' array into a column vector. */
@@ -1423,78 +1431,83 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
   /*  else */
   b_i = newDataPoints->size[0] - 1;
   for (i = 0; i <= b_i; i++) {
+    covrtLogFor(&emlrtCoverageInstance, 13U, 0U, 1, 1);
+    covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 15U);
+
     /*  Remove cell array so no need for cell2mat */
     /*  which won't compile - AVH */
     /* [newValues{:}] = func(x(i)); */
     /* y(i,:) = cell2mat(newValues); */
-    input_sizes_idx_0 = i + 1;
-    if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > newDataPoints->size[0]))
-    {
-      emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, newDataPoints->size[0],
-        &pk_emlrtBCI, &st);
+    b_input_sizes_idx_0 = i + 1;
+    if ((b_input_sizes_idx_0 < 1) || (b_input_sizes_idx_0 > newDataPoints->size
+         [0])) {
+      emlrtDynamicBoundsCheckR2012b(b_input_sizes_idx_0, 1, newDataPoints->size
+        [0], &yq_emlrtBCI, &st);
     }
 
-    b_st.site = &yc_emlrtRSI;
-    sldFunc(&b_st, newDataPoints->data[input_sizes_idx_0 - 1], sldProfile, r6);
+    b_st.site = &bd_emlrtRSI;
+    sldFunc(&b_st, newDataPoints->data[b_input_sizes_idx_0 - 1], sldProfile, r6);
     if (1 != r6->size[0]) {
       emlrtSubAssignSizeCheck1dR2017a(1, r6->size[0], &g_emlrtECI, &st);
     }
 
-    input_sizes_idx_0 = i + 1;
-    if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > r7->size[0])) {
-      emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, r7->size[0],
-        &qk_emlrtBCI, &st);
+    b_input_sizes_idx_0 = i + 1;
+    if ((b_input_sizes_idx_0 < 1) || (b_input_sizes_idx_0 > r7->size[0])) {
+      emlrtDynamicBoundsCheckR2012b(b_input_sizes_idx_0, 1, r7->size[0],
+        &ar_emlrtBCI, &st);
     }
 
-    r7->data[input_sizes_idx_0 - 1] = r6->data[0];
+    r7->data[b_input_sizes_idx_0 - 1] = r6->data[0];
   }
 
   emxFree_real_T(&r6);
+  covrtLogFor(&emlrtCoverageInstance, 13U, 0U, 1, 0);
 
   /* end */
   emlrtSubAssignSizeCheckR2012b(&newDataPoints->size[0], 1, &r7->size[0], 1,
-    &t_emlrtECI, sp);
-  input_sizes_idx_0 = r7->size[0];
-  for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
+    &db_emlrtECI, sp);
+  b_input_sizes_idx_0 = r7->size[0];
+  for (b_i = 0; b_i < b_input_sizes_idx_0; b_i++) {
     newDataPoints->data[b_i + newDataPoints->size[0]] = r7->data[b_i];
   }
 
   emxFree_real_T(&r7);
-  emxInit_real_T(sp, &b_dataPoints, 2, &vk_emlrtRTEI, true);
 
   /*  For simplicity append the new points at the end and then sort. */
-  st.site = &ie_emlrtRSI;
+  st.site = &ke_emlrtRSI;
+  b_st.site = &le_emlrtRSI;
+  if (dataPoints->size[0] != 0) {
+    b_input_sizes_idx_0 = dataPoints->size[0];
+  } else {
+    b_input_sizes_idx_0 = 0;
+  }
+
   if (newDataPoints->size[0] != 0) {
     input_sizes_idx_0 = newDataPoints->size[0];
   } else {
     input_sizes_idx_0 = 0;
   }
 
-  if (dataPoints->size[0] != 0) {
-    end = dataPoints->size[0];
-  } else {
-    end = 0;
-  }
-
+  emxInit_real_T(&b_st, &b_dataPoints, 2, &wo_emlrtRTEI, true);
   b_i = b_dataPoints->size[0] * b_dataPoints->size[1];
-  b_dataPoints->size[0] = end + input_sizes_idx_0;
+  b_dataPoints->size[0] = b_input_sizes_idx_0 + input_sizes_idx_0;
   b_dataPoints->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, b_dataPoints, b_i, &vk_emlrtRTEI);
-  for (b_i = 0; b_i < end; b_i++) {
+  emxEnsureCapacity_real_T(sp, b_dataPoints, b_i, &wo_emlrtRTEI);
+  for (b_i = 0; b_i < b_input_sizes_idx_0; b_i++) {
     b_dataPoints->data[b_i] = dataPoints->data[b_i];
   }
 
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
-    b_dataPoints->data[b_i + end] = newDataPoints->data[b_i];
+    b_dataPoints->data[b_i + b_input_sizes_idx_0] = newDataPoints->data[b_i];
   }
 
-  for (b_i = 0; b_i < end; b_i++) {
+  for (b_i = 0; b_i < b_input_sizes_idx_0; b_i++) {
     b_dataPoints->data[b_i + b_dataPoints->size[0]] = dataPoints->data[b_i +
       dataPoints->size[0]];
   }
 
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
-    b_dataPoints->data[(b_i + end) + b_dataPoints->size[0]] =
+    b_dataPoints->data[(b_i + b_input_sizes_idx_0) + b_dataPoints->size[0]] =
       newDataPoints->data[b_i + newDataPoints->size[0]];
   }
 
@@ -1502,45 +1515,44 @@ static void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints,
   b_i = dataPoints->size[0] * dataPoints->size[1];
   dataPoints->size[0] = b_dataPoints->size[0];
   dataPoints->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, dataPoints, b_i, &sk_emlrtRTEI);
-  input_sizes_idx_0 = b_dataPoints->size[0];
-  for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
+  emxEnsureCapacity_real_T(sp, dataPoints, b_i, &to_emlrtRTEI);
+  b_input_sizes_idx_0 = b_dataPoints->size[0];
+  for (b_i = 0; b_i < b_input_sizes_idx_0; b_i++) {
     dataPoints->data[b_i] = b_dataPoints->data[b_i];
   }
 
-  for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
+  for (b_i = 0; b_i < b_input_sizes_idx_0; b_i++) {
     dataPoints->data[b_i + dataPoints->size[0]] = b_dataPoints->data[b_i +
       b_dataPoints->size[0]];
   }
 
   emxFree_real_T(&b_dataPoints);
-  st.site = &ie_emlrtRSI;
+  st.site = &ke_emlrtRSI;
   sortrows(&st, dataPoints);
   emlrtHeapReferenceStackLeaveFcnR2012b(sp);
 }
 
 void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
-              real_T startDomain[2], cell_16 *out)
+              real_T startDomain[2], cell_19 *out)
 {
-  real_T d1;
-  real_T y[50];
-  int32_T k;
-  real_T delta1;
-  real_T delta2;
+  real_T newDomain[50];
   emxArray_real_T *cornerAngle;
   int32_T i;
+  int32_T b_i;
   emxArray_real_T *dataPoints;
-  real_T b_y[100];
+  real_T b_newDomain[100];
   real_T hiVal[50];
   int32_T nRefinements;
   emxArray_boolean_T *sharpCorners;
   emxArray_boolean_T *segmentsToSplit;
   emxArray_boolean_T *r;
   emxArray_real_T *b_dataPoints;
-  boolean_T exitg1;
+  int32_T exitg1;
   boolean_T overflow;
   real_T maxval[2];
-  boolean_T exitg2;
+  real_T b;
+  real_T minval_idx_0;
+  real_T minval_idx_1;
   emlrtStack st;
   emlrtStack b_st;
   emlrtStack c_st;
@@ -1569,6 +1581,8 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
   i_st.prev = &h_st;
   i_st.tls = h_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
+  covrtLogFcn(&emlrtCoverageInstance, 13U, 0U);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 0U);
 
   /*  adaptive: evaluates a matlab function on a given range */
   /*  */
@@ -1768,37 +1782,24 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
   /*    end */
   /*  end */
   /*  if no method is specified use the 'angle' method as default */
+  covrtLogIf(&emlrtCoverageInstance, 13U, 0U, 0, false);
+
   /*  Initial function evaluation */
   /*  if initialDomain only contains the start and the end points, create a new */
   /*  array with 'nPoints' points. */
-  d1 = startDomain[0];
-  y[49] = startDomain[1];
-  y[0] = startDomain[0];
-  if (startDomain[0] == -startDomain[1]) {
-    for (k = 0; k < 48; k++) {
-      y[k + 1] = startDomain[1] * ((2.0 * ((real_T)k + 2.0) - 51.0) / 49.0);
-    }
-  } else if (((startDomain[0] < 0.0) != (startDomain[1] < 0.0)) &&
-             ((muDoubleScalarAbs(startDomain[0]) > 8.9884656743115785E+307) ||
-              (muDoubleScalarAbs(startDomain[1]) > 8.9884656743115785E+307))) {
-    delta1 = startDomain[0] / 49.0;
-    delta2 = startDomain[1] / 49.0;
-    for (k = 0; k < 48; k++) {
-      y[k + 1] = (d1 + delta2 * ((real_T)k + 1.0)) - delta1 * ((real_T)k + 1.0);
-    }
-  } else {
-    delta1 = (startDomain[1] - startDomain[0]) / 49.0;
-    for (k = 0; k < 48; k++) {
-      y[k + 1] = d1 + ((real_T)k + 1.0) * delta1;
-    }
-  }
+  covrtLogIf(&emlrtCoverageInstance, 13U, 0U, 1, true);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 2U);
+  linspace(startDomain[0], startDomain[1], newDomain);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 3U);
 
   /*  Normalize the input function: This step allows to use the same syntax for */
   /*  functions with single or multiple output parameters. */
   /*  Remove this syntax for compile - AVH */
   /* func = @(x) normalizeFunction(x,sldProfile,vectorizable); */
   /*  Evaluate the input function on the initial set of points. */
-  st.site = &tc_emlrtRSI;
+  st.site = &vc_emlrtRSI;
+  covrtLogFcn(&emlrtCoverageInstance, 13U, 1U);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 14U);
 
   /*  Subfunctions */
   /*  NORMALIZEFUNCTION evaluates a function and returns a NxM array, where N */
@@ -1817,35 +1818,40 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
   /*    [newValues{:}] = func(x(:)); */
   /*    y = cell2mat(newValues); */
   /*  else */
-  emxInit_real_T(&st, &cornerAngle, 1, &mh_emlrtRTEI, true);
-  for (k = 0; k < 50; k++) {
+  emxInit_real_T(&st, &cornerAngle, 1, &fi_emlrtRTEI, true);
+  for (i = 0; i < 50; i++) {
+    covrtLogFor(&emlrtCoverageInstance, 13U, 0U, 1, 1);
+    covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 15U);
+
     /*  Remove cell array so no need for cell2mat */
     /*  which won't compile - AVH */
     /* [newValues{:}] = func(x(i)); */
     /* y(i,:) = cell2mat(newValues); */
-    b_st.site = &yc_emlrtRSI;
-    sldFunc(&b_st, y[k], sldProfile, cornerAngle);
+    b_st.site = &bd_emlrtRSI;
+    sldFunc(&b_st, newDomain[i], sldProfile, cornerAngle);
     if (1 != cornerAngle->size[0]) {
       emlrtSubAssignSizeCheck1dR2017a(1, cornerAngle->size[0], &g_emlrtECI, &st);
     }
 
-    hiVal[k] = cornerAngle->data[0];
+    hiVal[i] = cornerAngle->data[0];
   }
+
+  covrtLogFor(&emlrtCoverageInstance, 13U, 0U, 1, 0);
 
   /* end */
   /* dataPoints = [initialDomain(:), func(initialDomain(:))]; */
-  for (i = 0; i < 50; i++) {
-    b_y[i] = y[i];
-    b_y[i + 50] = hiVal[i];
+  for (b_i = 0; b_i < 50; b_i++) {
+    b_newDomain[b_i] = newDomain[b_i];
+    b_newDomain[b_i + 50] = hiVal[b_i];
   }
 
-  emxInit_real_T(sp, &dataPoints, 2, &fh_emlrtRTEI, true);
-  i = dataPoints->size[0] * dataPoints->size[1];
+  emxInit_real_T(sp, &dataPoints, 2, &xh_emlrtRTEI, true);
+  b_i = dataPoints->size[0] * dataPoints->size[1];
   dataPoints->size[0] = 50;
   dataPoints->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, dataPoints, i, &fh_emlrtRTEI);
-  for (i = 0; i < 100; i++) {
-    dataPoints->data[i] = b_y[i];
+  emxEnsureCapacity_real_T(sp, dataPoints, b_i, &xh_emlrtRTEI);
+  for (b_i = 0; b_i < 100; b_i++) {
+    dataPoints->data[b_i] = b_newDomain[b_i];
   }
 
   /*  Iterative function refinement */
@@ -1855,214 +1861,218 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
   /*    setappdata(refinementWaitbar,'canceling',false) */
   /*  end */
   nRefinements = 0;
-  emxInit_boolean_T(sp, &sharpCorners, 1, &ih_emlrtRTEI, true);
-  emxInit_boolean_T(sp, &segmentsToSplit, 1, &nh_emlrtRTEI, true);
-  emxInit_boolean_T(sp, &r, 1, &oh_emlrtRTEI, true);
-  emxInit_real_T(sp, &b_dataPoints, 2, &hh_emlrtRTEI, true);
-  exitg1 = false;
-  while ((!exitg1) && (nRefinements < 10)) {
-    /*  calculate the box which encloses the current data points: */
-    st.site = &uc_emlrtRSI;
-    b_st.site = &kc_emlrtRSI;
-    c_st.site = &lc_emlrtRSI;
-    d_st.site = &mc_emlrtRSI;
-    if (dataPoints->size[0] == 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &mb_emlrtRTEI,
-        "Coder:toolbox:autoDimIncompatibility",
-        "Coder:toolbox:autoDimIncompatibility", 0);
-    }
+  emxInit_boolean_T(sp, &sharpCorners, 1, &bi_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &segmentsToSplit, 1, &gi_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &r, 1, &hi_emlrtRTEI, true);
+  emxInit_real_T(sp, &b_dataPoints, 2, &ai_emlrtRTEI, true);
+  do {
+    exitg1 = 0;
+    if (nRefinements < 10) {
+      covrtLogFor(&emlrtCoverageInstance, 13U, 0U, 0, 1);
+      covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 4U);
 
-    if (dataPoints->size[0] < 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
-        "Coder:toolbox:eml_min_or_max_varDimZero",
-        "Coder:toolbox:eml_min_or_max_varDimZero", 0);
-    }
-
-    e_st.site = &hd_emlrtRSI;
-    f_st.site = &id_emlrtRSI;
-    g_st.site = &jd_emlrtRSI;
-    i = dataPoints->size[0];
-    overflow = ((2 <= dataPoints->size[0]) && (dataPoints->size[0] > 2147483646));
-    maxval[0] = dataPoints->data[0];
-    h_st.site = &kd_emlrtRSI;
-    if (overflow) {
-      i_st.site = &lb_emlrtRSI;
-      check_forloop_overflow_error(&i_st);
-    }
-
-    for (k = 2; k <= i; k++) {
-      d1 = dataPoints->data[k - 1];
-      if ((!muDoubleScalarIsNaN(d1)) && (muDoubleScalarIsNaN(maxval[0]) ||
-           (maxval[0] < d1))) {
-        maxval[0] = d1;
+      /*  calculate the box which encloses the current data points: */
+      st.site = &wc_emlrtRSI;
+      b_st.site = &mc_emlrtRSI;
+      c_st.site = &nc_emlrtRSI;
+      d_st.site = &oc_emlrtRSI;
+      if (dataPoints->size[0] == 1) {
+        emlrtErrorWithMessageIdR2018a(&d_st, &ib_emlrtRTEI,
+          "Coder:toolbox:autoDimIncompatibility",
+          "Coder:toolbox:autoDimIncompatibility", 0);
       }
-    }
 
-    maxval[1] = dataPoints->data[dataPoints->size[0]];
-    h_st.site = &kd_emlrtRSI;
-    for (k = 2; k <= i; k++) {
-      d1 = dataPoints->data[(k + dataPoints->size[0]) - 1];
-      if ((!muDoubleScalarIsNaN(d1)) && (muDoubleScalarIsNaN(maxval[1]) ||
-           (maxval[1] < d1))) {
-        maxval[1] = d1;
+      if (dataPoints->size[0] < 1) {
+        emlrtErrorWithMessageIdR2018a(&d_st, &jb_emlrtRTEI,
+          "Coder:toolbox:eml_min_or_max_varDimZero",
+          "Coder:toolbox:eml_min_or_max_varDimZero", 0);
       }
-    }
 
-    st.site = &uc_emlrtRSI;
-    b_st.site = &ld_emlrtRSI;
-    c_st.site = &md_emlrtRSI;
-    d_st.site = &nd_emlrtRSI;
-    if (dataPoints->size[0] == 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &mb_emlrtRTEI,
-        "Coder:toolbox:autoDimIncompatibility",
-        "Coder:toolbox:autoDimIncompatibility", 0);
-    }
-
-    if (dataPoints->size[0] < 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
-        "Coder:toolbox:eml_min_or_max_varDimZero",
-        "Coder:toolbox:eml_min_or_max_varDimZero", 0);
-    }
-
-    e_st.site = &hd_emlrtRSI;
-    f_st.site = &id_emlrtRSI;
-    g_st.site = &jd_emlrtRSI;
-    i = dataPoints->size[0];
-    overflow = ((2 <= dataPoints->size[0]) && (dataPoints->size[0] > 2147483646));
-    delta1 = dataPoints->data[0];
-    h_st.site = &kd_emlrtRSI;
-    if (overflow) {
-      i_st.site = &lb_emlrtRSI;
-      check_forloop_overflow_error(&i_st);
-    }
-
-    for (k = 2; k <= i; k++) {
-      d1 = dataPoints->data[k - 1];
-      if ((!muDoubleScalarIsNaN(d1)) && (muDoubleScalarIsNaN(delta1) || (delta1 >
-            d1))) {
-        delta1 = d1;
+      e_st.site = &jd_emlrtRSI;
+      f_st.site = &kd_emlrtRSI;
+      g_st.site = &ld_emlrtRSI;
+      b_i = dataPoints->size[0];
+      overflow = ((2 <= dataPoints->size[0]) && (dataPoints->size[0] >
+        2147483646));
+      maxval[0] = dataPoints->data[0];
+      h_st.site = &md_emlrtRSI;
+      if (overflow) {
+        i_st.site = &nb_emlrtRSI;
+        check_forloop_overflow_error(&i_st);
       }
-    }
 
-    delta2 = dataPoints->data[dataPoints->size[0]];
-    h_st.site = &kd_emlrtRSI;
-    for (k = 2; k <= i; k++) {
-      d1 = dataPoints->data[(k + dataPoints->size[0]) - 1];
-      if ((!muDoubleScalarIsNaN(d1)) && (muDoubleScalarIsNaN(delta2) || (delta2 >
-            d1))) {
-        delta2 = d1;
+      for (i = 2; i <= b_i; i++) {
+        b = dataPoints->data[i - 1];
+        overflow = ((!muDoubleScalarIsNaN(b)) && (muDoubleScalarIsNaN(maxval[0])
+          || (maxval[0] < b)));
+        if (overflow) {
+          maxval[0] = b;
+        }
       }
-    }
 
-    /*  Each point is considered as the central corner of the triangle formed */
-    /*  with its left and right hand side neighbours. The first and the last */
-    /*  points are not the central corner of any triangle, so for N points */
-    /*  there are only N-2 triangles. */
-    if (!((real_T)dataPoints->size[0] - 2.0 >= 0.0)) {
-      emlrtNonNegativeCheckR2012b((real_T)dataPoints->size[0] - 2.0,
-        &hb_emlrtDCI, sp);
-    }
-
-    k = dataPoints->size[0];
-    i = b_dataPoints->size[0] * b_dataPoints->size[1];
-    b_dataPoints->size[0] = dataPoints->size[0];
-    b_dataPoints->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, b_dataPoints, i, &hh_emlrtRTEI);
-    for (i = 0; i < k; i++) {
-      b_dataPoints->data[i] = dataPoints->data[i];
-    }
-
-    maxval[0] -= delta1;
-    for (i = 0; i < k; i++) {
-      b_dataPoints->data[i + b_dataPoints->size[0]] = dataPoints->data[i +
-        dataPoints->size[0]];
-    }
-
-    maxval[1] -= delta2;
-    st.site = &vc_emlrtRSI;
-    calculateCentralAngles(&st, b_dataPoints, maxval, cornerAngle);
-    i = sharpCorners->size[0];
-    sharpCorners->size[0] = cornerAngle->size[0];
-    emxEnsureCapacity_boolean_T(sp, sharpCorners, i, &ih_emlrtRTEI);
-    k = cornerAngle->size[0];
-    for (i = 0; i < k; i++) {
-      sharpCorners->data[i] = (cornerAngle->data[i] < 2.1991148575128552);
-    }
-
-    i = dataPoints->size[0] - 2;
-    if (i != sharpCorners->size[0]) {
-      emlrtSizeEqCheck1DR2012b(i, sharpCorners->size[0], &e_emlrtECI, sp);
-    }
-
-    i = sharpCorners->size[0];
-    sharpCorners->size[0] = dataPoints->size[0] - 2;
-    emxEnsureCapacity_boolean_T(sp, sharpCorners, i, &jh_emlrtRTEI);
-
-    /*  For N points there are N-2 triangles and N-1 triangle sides. Each */
-    /*  triangle side is a segment, which can be split or not depending on the */
-    /*  refinement parameters. */
-    i = segmentsToSplit->size[0];
-    segmentsToSplit->size[0] = dataPoints->size[0] - 1;
-    emxEnsureCapacity_boolean_T(sp, segmentsToSplit, i, &kh_emlrtRTEI);
-    k = dataPoints->size[0] - 2;
-    for (i = 0; i < k; i++) {
-      segmentsToSplit->data[i] = sharpCorners->data[i];
-    }
-
-    segmentsToSplit->data[dataPoints->size[0] - 2] = false;
-    i = r->size[0];
-    r->size[0] = dataPoints->size[0] - 1;
-    emxEnsureCapacity_boolean_T(sp, r, i, &lh_emlrtRTEI);
-    r->data[0] = false;
-    k = dataPoints->size[0] - 2;
-    for (i = 0; i < k; i++) {
-      r->data[i + 1] = sharpCorners->data[i];
-    }
-
-    if (segmentsToSplit->size[0] != r->size[0]) {
-      emlrtSizeEqCheck1DR2012b(segmentsToSplit->size[0], r->size[0], &f_emlrtECI,
-        sp);
-    }
-
-    k = segmentsToSplit->size[0];
-    for (i = 0; i < k; i++) {
-      segmentsToSplit->data[i] = (segmentsToSplit->data[i] || r->data[i]);
-    }
-
-    st.site = &wc_emlrtRSI;
-    b_st.site = &fe_emlrtRSI;
-    overflow = false;
-    c_st.site = &ge_emlrtRSI;
-    if (segmentsToSplit->size[0] > 2147483646) {
-      d_st.site = &lb_emlrtRSI;
-      check_forloop_overflow_error(&d_st);
-    }
-
-    k = 1;
-    exitg2 = false;
-    while ((!exitg2) && (k <= segmentsToSplit->size[0])) {
-      if (!segmentsToSplit->data[k - 1]) {
-        k++;
-      } else {
-        overflow = true;
-        exitg2 = true;
+      maxval[1] = dataPoints->data[dataPoints->size[0]];
+      h_st.site = &md_emlrtRSI;
+      for (i = 2; i <= b_i; i++) {
+        b = dataPoints->data[(i + dataPoints->size[0]) - 1];
+        overflow = ((!muDoubleScalarIsNaN(b)) && (muDoubleScalarIsNaN(maxval[1])
+          || (maxval[1] < b)));
+        if (overflow) {
+          maxval[1] = b;
+        }
       }
-    }
 
-    if (overflow) {
+      st.site = &wc_emlrtRSI;
+      b_st.site = &nd_emlrtRSI;
+      c_st.site = &od_emlrtRSI;
+      d_st.site = &pd_emlrtRSI;
+      if (dataPoints->size[0] == 1) {
+        emlrtErrorWithMessageIdR2018a(&d_st, &ib_emlrtRTEI,
+          "Coder:toolbox:autoDimIncompatibility",
+          "Coder:toolbox:autoDimIncompatibility", 0);
+      }
+
+      if (dataPoints->size[0] < 1) {
+        emlrtErrorWithMessageIdR2018a(&d_st, &jb_emlrtRTEI,
+          "Coder:toolbox:eml_min_or_max_varDimZero",
+          "Coder:toolbox:eml_min_or_max_varDimZero", 0);
+      }
+
+      e_st.site = &jd_emlrtRSI;
+      f_st.site = &kd_emlrtRSI;
+      g_st.site = &ld_emlrtRSI;
+      b_i = dataPoints->size[0];
+      overflow = ((2 <= dataPoints->size[0]) && (dataPoints->size[0] >
+        2147483646));
+      minval_idx_0 = dataPoints->data[0];
+      h_st.site = &md_emlrtRSI;
+      if (overflow) {
+        i_st.site = &nb_emlrtRSI;
+        check_forloop_overflow_error(&i_st);
+      }
+
+      for (i = 2; i <= b_i; i++) {
+        b = dataPoints->data[i - 1];
+        overflow = ((!muDoubleScalarIsNaN(b)) && (muDoubleScalarIsNaN
+          (minval_idx_0) || (minval_idx_0 > b)));
+        if (overflow) {
+          minval_idx_0 = b;
+        }
+      }
+
+      minval_idx_1 = dataPoints->data[dataPoints->size[0]];
+      h_st.site = &md_emlrtRSI;
+      for (i = 2; i <= b_i; i++) {
+        b = dataPoints->data[(i + dataPoints->size[0]) - 1];
+        overflow = ((!muDoubleScalarIsNaN(b)) && (muDoubleScalarIsNaN
+          (minval_idx_1) || (minval_idx_1 > b)));
+        if (overflow) {
+          minval_idx_1 = b;
+        }
+      }
+
+      /*  Each point is considered as the central corner of the triangle formed */
+      /*  with its left and right hand side neighbours. The first and the last */
+      /*  points are not the central corner of any triangle, so for N points */
+      /*  there are only N-2 triangles. */
+      if (!((real_T)dataPoints->size[0] - 2.0 >= 0.0)) {
+        emlrtNonNegativeCheckR2012b((real_T)dataPoints->size[0] - 2.0,
+          &hb_emlrtDCI, sp);
+      }
+
+      covrtLogIf(&emlrtCoverageInstance, 13U, 0U, 2, false);
+      covrtLogIf(&emlrtCoverageInstance, 13U, 0U, 3, true);
+      covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 6U);
+      i = dataPoints->size[0];
+      b_i = b_dataPoints->size[0] * b_dataPoints->size[1];
+      b_dataPoints->size[0] = dataPoints->size[0];
+      b_dataPoints->size[1] = 2;
+      emxEnsureCapacity_real_T(sp, b_dataPoints, b_i, &ai_emlrtRTEI);
+      for (b_i = 0; b_i < i; b_i++) {
+        b_dataPoints->data[b_i] = dataPoints->data[b_i];
+      }
+
+      maxval[0] -= minval_idx_0;
+      for (b_i = 0; b_i < i; b_i++) {
+        b_dataPoints->data[b_i + b_dataPoints->size[0]] = dataPoints->data[b_i +
+          dataPoints->size[0]];
+      }
+
+      maxval[1] -= minval_idx_1;
       st.site = &xc_emlrtRSI;
-      increaseSampling(&st, dataPoints, segmentsToSplit, sldProfile);
+      calculateCentralAngles(&st, b_dataPoints, maxval, cornerAngle);
+      b_i = sharpCorners->size[0];
+      sharpCorners->size[0] = cornerAngle->size[0];
+      emxEnsureCapacity_boolean_T(sp, sharpCorners, b_i, &bi_emlrtRTEI);
+      i = cornerAngle->size[0];
+      for (b_i = 0; b_i < i; b_i++) {
+        sharpCorners->data[b_i] = (cornerAngle->data[b_i] < 2.1991148575128552);
+      }
 
-      /*  Removed waitbar for compile - AVH */
-      /*    if displayWaitbar */
-      /*      if getappdata(refinementWaitbar,'canceling'), break; end */
-      /*      waitbar(nRefinements/maxRefinements,refinementWaitbar); */
-      /*    end */
-      nRefinements++;
+      b_i = dataPoints->size[0] - 2;
+      if (b_i != sharpCorners->size[0]) {
+        emlrtSizeEqCheck1DR2012b(b_i, sharpCorners->size[0], &e_emlrtECI, sp);
+      }
+
+      b_i = sharpCorners->size[0];
+      sharpCorners->size[0] = dataPoints->size[0] - 2;
+      emxEnsureCapacity_boolean_T(sp, sharpCorners, b_i, &ci_emlrtRTEI);
+      covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 7U);
+
+      /*  For N points there are N-2 triangles and N-1 triangle sides. Each */
+      /*  triangle side is a segment, which can be split or not depending on the */
+      /*  refinement parameters. */
+      b_i = segmentsToSplit->size[0];
+      segmentsToSplit->size[0] = dataPoints->size[0] - 1;
+      emxEnsureCapacity_boolean_T(sp, segmentsToSplit, b_i, &di_emlrtRTEI);
+      i = dataPoints->size[0] - 2;
+      for (b_i = 0; b_i < i; b_i++) {
+        segmentsToSplit->data[b_i] = sharpCorners->data[b_i];
+      }
+
+      segmentsToSplit->data[dataPoints->size[0] - 2] = false;
+      b_i = r->size[0];
+      r->size[0] = dataPoints->size[0] - 1;
+      emxEnsureCapacity_boolean_T(sp, r, b_i, &ei_emlrtRTEI);
+      r->data[0] = false;
+      i = dataPoints->size[0] - 2;
+      for (b_i = 0; b_i < i; b_i++) {
+        r->data[b_i + 1] = sharpCorners->data[b_i];
+      }
+
+      if (segmentsToSplit->size[0] != r->size[0]) {
+        emlrtSizeEqCheck1DR2012b(segmentsToSplit->size[0], r->size[0],
+          &f_emlrtECI, sp);
+      }
+
+      i = segmentsToSplit->size[0];
+      for (b_i = 0; b_i < i; b_i++) {
+        segmentsToSplit->data[b_i] = (segmentsToSplit->data[b_i] || r->data[b_i]);
+      }
+
+      covrtLogIf(&emlrtCoverageInstance, 13U, 0U, 4, false);
+      covrtLogIf(&emlrtCoverageInstance, 13U, 0U, 5, false);
+      st.site = &yc_emlrtRSI;
+      if (covrtLogIf(&emlrtCoverageInstance, 13U, 0U, 6, any(&st,
+            segmentsToSplit))) {
+        covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 10U);
+        st.site = &ad_emlrtRSI;
+        increaseSampling(&st, dataPoints, segmentsToSplit, sldProfile);
+
+        /*  Removed waitbar for compile - AVH */
+        /*    if displayWaitbar */
+        /*      if getappdata(refinementWaitbar,'canceling'), break; end */
+        /*      waitbar(nRefinements/maxRefinements,refinementWaitbar); */
+        /*    end */
+        nRefinements++;
+      } else {
+        covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 11U);
+        exitg1 = 1;
+      }
     } else {
-      exitg1 = true;
+      covrtLogFor(&emlrtCoverageInstance, 13U, 0U, 0, 0);
+      exitg1 = 1;
     }
-  }
+  } while (exitg1 == 0);
 
   emxFree_real_T(&b_dataPoints);
   emxFree_boolean_T(&r);
@@ -2081,13 +2091,15 @@ void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
   /*    plot(dataPoints(:,1), dataPoints(:,2),'ro-'); */
   /*    legend('initial', 'refiniment'); */
   /*  end */
-  i = out->f1->size[0] * out->f1->size[1];
+  covrtLogIf(&emlrtCoverageInstance, 13U, 0U, 7, true);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 13U, 12U);
+  b_i = out->f1->size[0] * out->f1->size[1];
   out->f1->size[0] = dataPoints->size[0];
   out->f1->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, out->f1, i, &gh_emlrtRTEI);
-  k = dataPoints->size[0] * dataPoints->size[1];
-  for (i = 0; i < k; i++) {
-    out->f1->data[i] = dataPoints->data[i];
+  emxEnsureCapacity_real_T(sp, out->f1, b_i, &yh_emlrtRTEI);
+  i = dataPoints->size[0] * dataPoints->size[1];
+  for (b_i = 0; b_i < i; b_i++) {
+    out->f1->data[b_i] = dataPoints->data[b_i];
   }
 
   emxFree_real_T(&dataPoints);

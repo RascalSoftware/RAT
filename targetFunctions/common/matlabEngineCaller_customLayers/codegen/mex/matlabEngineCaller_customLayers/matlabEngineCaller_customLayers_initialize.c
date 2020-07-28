@@ -10,11 +10,11 @@
  */
 
 /* Include files */
-#include "rt_nonfinite.h"
-#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_initialize.h"
 #include "_coder_matlabEngineCaller_customLayers_mex.h"
+#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_data.h"
+#include "rt_nonfinite.h"
 
 /* Function Declarations */
 static void c_matlabEngineCaller_customLaye(void);
@@ -27,6 +27,8 @@ static void c_matlabEngineCaller_customLaye(void)
   const int32_T cond_ends_0_0[1] = { 637 };
 
   const int32_T postfix_exprs_0_0[2] = { 0, -1 };
+
+  mex_InitInfAndNan();
 
   /* Allocate instance data */
   covrtAllocateInstanceData(&emlrtCoverageInstance);

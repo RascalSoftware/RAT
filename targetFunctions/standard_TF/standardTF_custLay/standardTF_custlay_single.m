@@ -40,7 +40,9 @@ function         [outSsubs,...
             problemDef_limits, ...
             fname, ...
             lang, ...
-            path);
+            path,...
+            backsType,...
+            calcSLD);
 
             
 %coder.extrinsic('callModules');            
@@ -81,6 +83,7 @@ coder.varsize('allLayers{:}',[10000 3],[1 1]);
 
 for i = 1:numberOfContrasts
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+    
     [outLayers,allRoughs(i)] = call_customLayers(params,i,fname,path,nbas(i),nbss(i));
     allLayers{i} = outLayers;
     
@@ -100,7 +103,10 @@ for i = 1:numberOfContrasts
     shifted_dat = shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i});
     shifted_data{i} = shifted_dat;
     
-    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),backgs(i),resols(i));
+    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),backgs(i),resols(i),'single');
+    
+    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgs(i),backsType(i));
+    
     reflectivity{i} = reflect;
     Simulation{i} = Simul;
     

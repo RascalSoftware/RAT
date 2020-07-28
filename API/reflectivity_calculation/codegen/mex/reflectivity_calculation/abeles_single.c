@@ -20,12 +20,12 @@
 #include <string.h>
 
 /* Variable Definitions */
-static emlrtRSInfo mf_emlrtRSI = { 28, /* lineNo */
+static emlrtRSInfo of_emlrtRSI = { 28, /* lineNo */
   "abeles_single",                     /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_single.m"/* pathName */
 };
 
-static emlrtBCInfo rh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo sf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   42,                                  /* lineNo */
   23,                                  /* colNo */
@@ -35,7 +35,7 @@ static emlrtBCInfo rh_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo sh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo tf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   41,                                  /* lineNo */
   25,                                  /* colNo */
@@ -45,13 +45,13 @@ static emlrtBCInfo sh_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo ub_emlrtRTEI = { 39,/* lineNo */
+static emlrtRTEInfo qb_emlrtRTEI = { 39,/* lineNo */
   19,                                  /* colNo */
   "abeles_single",                     /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_single.m"/* pName */
 };
 
-static emlrtBCInfo th_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo uf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   34,                                  /* lineNo */
   17,                                  /* colNo */
@@ -61,7 +61,7 @@ static emlrtBCInfo th_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo uh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo vf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   27,                                  /* lineNo */
   11,                                  /* colNo */
@@ -71,7 +71,7 @@ static emlrtBCInfo uh_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo vh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo wf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   43,                                  /* lineNo */
   21,                                  /* colNo */
@@ -81,7 +81,7 @@ static emlrtBCInfo vh_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo wh_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo xf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   72,                                  /* lineNo */
   5,                                   /* colNo */
@@ -91,7 +91,7 @@ static emlrtBCInfo wh_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo lj_emlrtRTEI = { 9,/* lineNo */
+static emlrtRTEInfo ck_emlrtRTEI = { 9,/* lineNo */
   7,                                   /* colNo */
   "abeles_single",                     /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_single.m"/* pName */
@@ -121,8 +121,8 @@ void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
   real_T blast_im;
   creal_T MI[4];
   int32_T reploop;
-  real_T re;
   int32_T nl;
+  real_T re;
   real_T ar;
   real_T rough;
   real_T rij_re;
@@ -136,6 +136,8 @@ void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
   emlrtStack st;
   st.prev = sp;
   st.tls = sp->tls;
+  covrtLogFcn(&emlrtCoverageInstance, 17U, 0U);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 17U, 0U);
 
   /*  nbair = nbairs(thisCont); */
   /*  nbsub = nbsubs(thisCont); */
@@ -145,7 +147,7 @@ void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
   i = (int32_T)points;
   i1 = out->size[0];
   out->size[0] = i;
-  emxEnsureCapacity_real_T(sp, out, i1, &lj_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, out, i1, &ck_emlrtRTEI);
 
   /* pi = 3.141592653589; */
   snair = 1.0 - nbair * 0.377451863036739;
@@ -160,15 +162,17 @@ void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
   }
 
   for (loop = 0; loop < i; loop++) {
+    covrtLogFor(&emlrtCoverageInstance, 17U, 0U, 0, 1);
+    covrtLogBasicBlock(&emlrtCoverageInstance, 17U, 1U);
     i1 = loop + 1;
     if ((i1 < 1) || (i1 > x->size[1])) {
-      emlrtDynamicBoundsCheckR2012b(i1, 1, x->size[1], &uh_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(i1, 1, x->size[1], &vf_emlrtBCI, sp);
     }
 
-    st.site = &mf_emlrtRSI;
+    st.site = &of_emlrtRSI;
     theta = x->data[loop] * 1.54 / 12.566370614359172;
     if ((theta < -1.0) || (theta > 1.0)) {
-      emlrtErrorWithMessageIdR2018a(&st, &tb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&st, &pb_emlrtRTEI,
         "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3, 4,
         4, "asin");
     }
@@ -185,7 +189,7 @@ void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
     blast_re = 0.0;
     blast_im = 0.0;
     if (1 > sld->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, sld->size[0], &th_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(1, 1, sld->size[0], &uf_emlrtBCI, sp);
     }
 
     MI[0].re = 1.0;
@@ -197,22 +201,25 @@ void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
     MI[1].re = 0.0;
     MI[1].im = 0.0;
     emlrtForLoopVectorCheckR2012b(1.0, 1.0, nrepeats, mxDOUBLE_CLASS, (int32_T)
-      nrepeats, &ub_emlrtRTEI, sp);
+      nrepeats, &qb_emlrtRTEI, sp);
     for (reploop = 0; reploop < i2; reploop++) {
+      covrtLogFor(&emlrtCoverageInstance, 17U, 0U, 1, 1);
       for (nl = 0; nl < i3; nl++) {
+        covrtLogFor(&emlrtCoverageInstance, 17U, 0U, 2, 1);
+        covrtLogBasicBlock(&emlrtCoverageInstance, 17U, 2U);
         i1 = nl + 1;
         if ((i1 < 1) || (i1 > sld->size[0])) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, sld->size[0], &sh_emlrtBCI, sp);
+          emlrtDynamicBoundsCheckR2012b(i1, 1, sld->size[0], &tf_emlrtBCI, sp);
         }
 
         i1 = nl + 1;
         if ((i1 < 1) || (i1 > sld->size[0])) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, sld->size[0], &rh_emlrtBCI, sp);
+          emlrtDynamicBoundsCheckR2012b(i1, 1, sld->size[0], &sf_emlrtBCI, sp);
         }
 
         i1 = (int32_T)(nl + 1U);
         if ((i1 < 1) || (i1 > sld->size[0])) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, sld->size[0], &vh_emlrtBCI, sp);
+          emlrtDynamicBoundsCheckR2012b(i1, 1, sld->size[0], &wf_emlrtBCI, sp);
         }
 
         rough = sld->data[(i1 + sld->size[0] * 2) - 1];
@@ -364,8 +371,12 @@ void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
 
         memcpy(&MI[0], &b_MI[0], 4U * sizeof(creal_T));
       }
+
+      covrtLogFor(&emlrtCoverageInstance, 17U, 0U, 2, 0);
     }
 
+    covrtLogFor(&emlrtCoverageInstance, 17U, 0U, 1, 0);
+    covrtLogBasicBlock(&emlrtCoverageInstance, 17U, 3U);
     re = -78.956835208714864 * pair_re;
     snlay = -78.956835208714864 * pair_im;
     ar = (re * psub.re - snlay * psub.im) * ar_tmp;
@@ -559,11 +570,14 @@ void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
 
     i1 = (int32_T)(loop + 1U);
     if ((i1 < 1) || (i1 > out->size[0])) {
-      emlrtDynamicBoundsCheckR2012b(i1, 1, out->size[0], &wh_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(i1, 1, out->size[0], &xf_emlrtBCI, sp);
     }
 
     out->data[i1 - 1] = muDoubleScalarHypot(pair_re, pair_im);
   }
+
+  covrtLogFor(&emlrtCoverageInstance, 17U, 0U, 0, 0);
+  covrtLogBasicBlock(&emlrtCoverageInstance, 17U, 4U);
 }
 
 /* End of code generation (abeles_single.c) */

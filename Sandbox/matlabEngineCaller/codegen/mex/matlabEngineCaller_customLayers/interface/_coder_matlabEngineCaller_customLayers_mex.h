@@ -9,26 +9,23 @@
  *
  */
 
-#ifndef _CODER_MATLABENGINECALLER_CUSTOMLAYERS_MEX_H
-#define _CODER_MATLABENGINECALLER_CUSTOMLAYERS_MEX_H
+#pragma once
 
 /* Include files */
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tmwtypes.h"
 #include "mex.h"
 #include "emlrt.h"
-#include "covrt.h"
 #include "rtwtypes.h"
 #include "matlabEngineCaller_customLayers_types.h"
 
 /* Function Declarations */
-extern void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const
-  mxArray *prhs[]);
-extern emlrtCTX mexFunctionCreateRootTLS(void);
-
-#endif
+MEXFUNCTION_LINKAGE void c_matlabEngineCaller_customLaye(int32_T nlhs, mxArray
+  *plhs[2], int32_T nrhs, const mxArray *prhs[6]);
+MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
+  const mxArray *prhs[]);
+emlrtCTX mexFunctionCreateRootTLS(void);
 
 /* End of code generation (_coder_matlabEngineCaller_customLayers_mex.h) */

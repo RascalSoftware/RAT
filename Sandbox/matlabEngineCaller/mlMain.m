@@ -9,7 +9,7 @@ contrast = 1.0;
 
 
 
-[layersList,sRoughs] = matlabEngineCaller_customLayers(params,contrast,fileName,filePath,bulkIn,bulkOut);
+[layersList,sRoughs] = matlabEngineCaller_customLayers_mex(params,contrast,fileName,filePath,bulkIn,bulkOut);
 
 %[a,b] = matlabEngineCaller_customLayers_mex(1,-1,'test','test',1,1);
 

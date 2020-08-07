@@ -1,11 +1,13 @@
 # ninja log v5
-1	410	1556793217	build/glnxa64/c_mexapi_version.o	1e7cfbe4a5c6a4ad
-0	420	1556793217	build/glnxa64/matlabCallFun.o	986609e9b88cb004
-0	441	1556793217	build/glnxa64/matlabEngineCaller_customLayers_data.o	3763d691f38884ca
-0	445	1556793217	build/glnxa64/matlabEngineCaller_customLayers_terminate.o	9977767a35dcf6c
-1	447	1556793217	build/glnxa64/_coder_matlabEngineCaller_customLayers_mex.o	51268c143caf62c9
-0	448	1556793217	build/glnxa64/_coder_matlabEngineCaller_customLayers_info.o	ff9b36bc3181dfa8
-0	449	1556793217	build/glnxa64/matlabEngineCaller_customLayers_initialize.o	a3b9deba3c3c51be
-1	456	1556793217	build/glnxa64/matlabEngineCaller_customLayers_emxutil.o	af44371cb0472818
-1	459	1556793217	build/glnxa64/_coder_matlabEngineCaller_customLayers_api.o	d4dda9d73975dea2
-0	487	1556793217	build/glnxa64/matlabEngineCaller_customLayers.o	1be475db3dc7f923
+0	29	1596810176362202142	build/glnxa64/rt_nonfinite.o	f80b75b5cfbd38c1
+1	30	1596810176362202142	build/glnxa64/c_mexapi_version.o	b84cc65b367988d1
+0	39	1596810176372202426	build/glnxa64/matlabEngineCaller_customLayers_data.o	7687aa686ae6d04c
+0	40	1596810176372202426	build/glnxa64/matlabCallFun.o	ae4a01f02293dfa8
+1	44	1596810176377202567	build/glnxa64/_coder_matlabEngineCaller_customLayers_info.o	e0ab23f87b9020d3
+0	44	1596810176377202567	build/glnxa64/matlabEngineCaller_customLayers_initialize.o	6c2044125b7afb3f
+1	58	1596810176391202964	build/glnxa64/_coder_matlabEngineCaller_customLayers_mex.o	4fcce5ca66183c6d
+1	58	1596810176391202964	build/glnxa64/matlabEngineCaller_customLayers_terminate.o	aa309da0f654a32c
+1	72	1596810176405203361	build/glnxa64/matlabEngineCaller_customLayers_emxutil.o	fd0459154f92dedd
+1	79	1596810176411203531	build/glnxa64/matlabEngineCaller_customLayers.o	e17c9930a90ae8d7
+1	79	1596810176412203559	build/glnxa64/_coder_matlabEngineCaller_customLayers_api.o	73e8da1b20fe2c4c
+79	135	1596810176467205119	matlabEngineCaller_customLayers_mex.mexa64	d6d5ed561be46238

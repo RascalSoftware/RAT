@@ -10,17 +10,16 @@
  */
 
 /* Include files */
-#include "rt_nonfinite.h"
-#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_data.h"
+#include "matlabEngineCaller_customLayers.h"
+#include "rt_nonfinite.h"
 
 /* Variable Definitions */
 emlrtCTX emlrtRootTLSGlobal = NULL;
 const volatile char_T *emlrtBreakCheckR2012bFlagVar = NULL;
-covrtInstance emlrtCoverageInstance;
 emlrtContext emlrtContextGlobal = { true,/* bFirstTime */
   false,                               /* bInitialized */
-  131482U,                             /* fVersionInfo */
+  131594U,                             /* fVersionInfo */
   NULL,                                /* fErrorFunction */
   "matlabEngineCaller_customLayers",   /* fFunctionName */
   NULL,                                /* fRTCallStack */

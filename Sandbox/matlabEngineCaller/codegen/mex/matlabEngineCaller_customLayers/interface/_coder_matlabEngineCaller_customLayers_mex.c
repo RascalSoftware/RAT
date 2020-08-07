@@ -10,23 +10,23 @@
  */
 
 /* Include files */
-#include "matlabEngineCaller_customLayers.h"
 #include "_coder_matlabEngineCaller_customLayers_mex.h"
-#include "matlabEngineCaller_customLayers_terminate.h"
 #include "_coder_matlabEngineCaller_customLayers_api.h"
-#include "matlabEngineCaller_customLayers_initialize.h"
+#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_data.h"
+#include "matlabEngineCaller_customLayers_initialize.h"
+#include "matlabEngineCaller_customLayers_terminate.h"
 
 /* Function Declarations */
-static void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2],
-  int32_T nrhs, const mxArray *prhs[6]);
+MEXFUNCTION_LINKAGE void c_matlabEngineCaller_customLaye(int32_T nlhs, mxArray
+  *plhs[2], int32_T nrhs, const mxArray *prhs[6]);
 
 /* Function Definitions */
-static void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2],
-  int32_T nrhs, const mxArray *prhs[6])
+void c_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2], int32_T
+  nrhs, const mxArray *prhs[6])
 {
   const mxArray *outputs[2];
-  int32_T nOutputs;
+  int32_T b_nlhs;
   emlrtStack st = { NULL,              /* site */
     NULL,                              /* tls */
     NULL                               /* prev */
@@ -50,24 +50,24 @@ static void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2],
 
   /* Copy over outputs to the caller. */
   if (nlhs < 1) {
-    nOutputs = 1;
+    b_nlhs = 1;
   } else {
-    nOutputs = nlhs;
+    b_nlhs = nlhs;
   }
 
-  emlrtReturnArrays(nOutputs, plhs, outputs);
+  emlrtReturnArrays(b_nlhs, plhs, outputs);
 }
 
 void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const mxArray
                  *prhs[])
 {
-  mexAtExit(matlabEngineCaller_customLayers_atexit);
+  mexAtExit(&matlabEngineCaller_customLayers_atexit);
 
   /* Module initialization. */
   matlabEngineCaller_customLayers_initialize();
 
   /* Dispatch the entry-point. */
-  d_matlabEngineCaller_customLaye(nlhs, plhs, nrhs, prhs);
+  c_matlabEngineCaller_customLaye(nlhs, plhs, nrhs, prhs);
 
   /* Module termination. */
   matlabEngineCaller_customLayers_terminate();

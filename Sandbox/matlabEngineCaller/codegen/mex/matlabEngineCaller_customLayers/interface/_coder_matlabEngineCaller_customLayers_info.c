@@ -10,24 +10,44 @@
  */
 
 /* Include files */
-#include "rt_nonfinite.h"
-#include "matlabEngineCaller_customLayers.h"
 #include "_coder_matlabEngineCaller_customLayers_info.h"
-#include "matlabEngineCaller_customLayers_data.h"
+#include "emlrt.h"
+#include "rt_nonfinite.h"
+#include "tmwtypes.h"
+
+/* Function Declarations */
+static const mxArray *emlrtMexFcnResolvedFunctionsInfo(void);
 
 /* Function Definitions */
+static const mxArray *emlrtMexFcnResolvedFunctionsInfo(void)
+{
+  const mxArray *nameCaptureInfo;
+  const char * data[5] = {
+    "789ce553cb4ec240149d1a346e505cf815240ca28971590123b1a0810689c4e8d05e69e33cccb4c5b2f213f433fc1437fe936da158884d0946369e64727b7a33"
+    "73ce3d93414aa3a920847682f5f982d0db168a909f145498d60d348fc5be9252636ca2dcdc3e65aaf73ae586e02ef8ee8470c260b6d314cce684bbfaf8099004",
+    "47d0119851e7c1a6a0db0c3a49d20a193b4bb466246c85df550b8cc78ec790b49c6f873449a23c427ca4cc9b5b320f23258fc242bf5fbfc5966080897c068a6b"
+    "c2f01870d7c16de21884d66084dbaa8e3b849b03e163465c4a06753eb4395409a5207ff87567788e2b9846c6209d129b9bcbffe55cfb1973c57d4398204b7670",
+    "b992135aa2c087ae95f071bfa28f45a4f98811ebbdafa8179f7f9ea117f7fb0dad175ca9e7484c457081b8a9ea9a7a8adb9572a54cb02b040def11188d5631ca"
+    "0917e3a0f024a812cbca697749df69ef328fb6a33adebbec85755d7a31fe8bdebade9bae756f4e98d993eaf5d1b17f70d865e5d645c2c755864e960f94c2fffa",
+    "fc2fb04a80da", "" };
+
+  nameCaptureInfo = NULL;
+  emlrtNameCaptureMxArrayR2016a(&data[0], 1704U, &nameCaptureInfo);
+  return nameCaptureInfo;
+}
+
 mxArray *emlrtMexFcnProperties(void)
 {
   mxArray *xResult;
   mxArray *xEntryPoints;
-  const char * fldNames[6] = { "Name", "NumberOfInputs", "NumberOfOutputs",
+  const char * epFieldName[6] = { "Name", "NumberOfInputs", "NumberOfOutputs",
     "ConstantInputs", "FullPath", "TimeStamp" };
 
   mxArray *xInputs;
-  const char * b_fldNames[4] = { "Version", "ResolvedFunctions", "EntryPoints",
-    "CoverageInfo" };
+  const char * propFieldName[4] = { "Version", "ResolvedFunctions",
+    "EntryPoints", "CoverageInfo" };
 
-  xEntryPoints = emlrtCreateStructMatrix(1, 1, 6, fldNames);
+  xEntryPoints = emlrtCreateStructMatrix(1, 1, 6, epFieldName);
   xInputs = emlrtCreateLogicalMatrix(1, 6);
   emlrtSetField(xEntryPoints, 0, "Name", emlrtMxCreateString(
     "matlabEngineCaller_customLayers"));
@@ -38,33 +58,14 @@ mxArray *emlrtMexFcnProperties(void)
   emlrtSetField(xEntryPoints, 0, "FullPath", emlrtMxCreateString(
     "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/matlabEngineCaller_customLayers.m"));
   emlrtSetField(xEntryPoints, 0, "TimeStamp", emlrtMxCreateDoubleScalar
-                (737468.6921527778));
-  xResult = emlrtCreateStructMatrix(1, 1, 4, b_fldNames);
+                (738010.63421296293));
+  xResult = emlrtCreateStructMatrix(1, 1, 4, propFieldName);
   emlrtSetField(xResult, 0, "Version", emlrtMxCreateString(
-    "9.6.0.1072779 (R2019a)"));
+    "9.8.0.1380330 (R2020a) Update 2"));
   emlrtSetField(xResult, 0, "ResolvedFunctions", (mxArray *)
                 emlrtMexFcnResolvedFunctionsInfo());
   emlrtSetField(xResult, 0, "EntryPoints", xEntryPoints);
-  emlrtSetField(xResult, 0, "CoverageInfo", covrtSerializeInstanceData
-                (&emlrtCoverageInstance));
   return xResult;
-}
-
-const mxArray *emlrtMexFcnResolvedFunctionsInfo(void)
-{
-  const mxArray *nameCaptureInfo;
-  const char * data[5] = {
-    "789cc5535b4ec240141d0cbe3e3424c6559830a026863f2a60201662a04122f131b457689c8799b6083faec405b8103f5c81cb31b68562214e4a4cc49b34d3d3"
-    "93de73efe9294ad5ea2984d0ae7f7d3e2394d94461ed4c0e94999e6b68be16f994e28c6a1da5e7de4b4df55ea6d814dc85913b01d4e6d0f0580fa40f3861306b",
-    "63096673c25d63fc08488223e810ac90b9b7291836035dc440d5f6013b8b51331050c17d6900e643cb63480e9cef71691ca0a93f41bd2bf64f2fe98fa9f027b3"
-    "c0772bd778201860229f80e2b2303d06dc7570933826a16518e2a666e016e1564f8c30232e25bd0aeffbce9508a5207f78746b7a8e2b984ec6209d2c9bdbeb4e",
-    "31f7c6927ba9befb36da8a6f598cf4468a7ecbfab8afd0cb2cf0a6b040666d3f5c92139aa5c0fbee0025ef9d34c762a9e6882ad27bfda55ed4bf9aa017f1dd9a"
-    "def123e4391253e10706d73543d74e71f330972f10ec0a4183dc00a3e17510fa840f22a3f0c4a82c5b5d3e8a376f7b1fda6af3b8eafcff9fdeaafe37436f5f15",
-    "98d591dae5f1c9287fd466b9c6796c8e8b049da4399002ff75ff2fbaf1880a", "" };
-
-  nameCaptureInfo = NULL;
-  emlrtNameCaptureMxArrayR2016a(data, 1832U, &nameCaptureInfo);
-  return nameCaptureInfo;
 }
 
 /* End of code generation (_coder_matlabEngineCaller_customLayers_info.c) */

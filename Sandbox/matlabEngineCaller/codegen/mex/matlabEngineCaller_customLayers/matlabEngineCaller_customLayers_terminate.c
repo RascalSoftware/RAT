@@ -10,11 +10,11 @@
  */
 
 /* Include files */
-#include "rt_nonfinite.h"
-#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_terminate.h"
 #include "_coder_matlabEngineCaller_customLayers_mex.h"
+#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_data.h"
+#include "rt_nonfinite.h"
 
 /* Function Definitions */
 void matlabEngineCaller_customLayers_atexit(void)
@@ -27,9 +27,6 @@ void matlabEngineCaller_customLayers_atexit(void)
   mexFunctionCreateRootTLS();
   st.tls = emlrtRootTLSGlobal;
   emlrtEnterRtStackR2012b(&st);
-
-  /* Free instance data */
-  covrtFreeInstanceData(&emlrtCoverageInstance);
   emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
   emlrtExitTimeCleanup(&emlrtContextGlobal);

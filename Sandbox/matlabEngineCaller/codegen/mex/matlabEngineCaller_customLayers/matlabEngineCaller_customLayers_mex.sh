@@ -1,1 +1,1 @@
-"/usr/local/MATLAB/R2019a/toolbox/shared/coder/ninja/glnxa64/ninja" -v "$@"
+"/usr/local/MATLAB/R2020a/toolbox/shared/coder/ninja/glnxa64/ninja" -v "$@"

@@ -13,12 +13,11 @@
 #include "allocateParamsToLayers.h"
 #include "mwmathutil.h"
 #include "reflectivity_calculation.h"
-#include "reflectivity_calculation_data.h"
 #include "reflectivity_calculation_emxutil.h"
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtBCInfo kd_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo df_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   15,                                  /* lineNo */
   29,                                  /* colNo */
@@ -28,7 +27,7 @@ static emlrtBCInfo kd_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo ld_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo ef_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   12,                                  /* lineNo */
   31,                                  /* colNo */
@@ -38,7 +37,7 @@ static emlrtBCInfo ld_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo md_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo ff_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   22,                                  /* lineNo */
   25,                                  /* colNo */
@@ -48,7 +47,7 @@ static emlrtBCInfo md_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo nd_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo gf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   23,                                  /* lineNo */
   5,                                   /* colNo */
@@ -58,7 +57,7 @@ static emlrtBCInfo nd_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo od_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo hf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   17,                                  /* lineNo */
   31,                                  /* colNo */
@@ -68,14 +67,14 @@ static emlrtBCInfo od_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo x_emlrtDCI = { 17,  /* lineNo */
+static emlrtDCInfo r_emlrtDCI = { 17,  /* lineNo */
   31,                                  /* colNo */
   "allocateParamsToLayers",            /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateParamsToLayers.m",/* pName */
   1                                    /* checkKind */
 };
 
-static emlrtRTEInfo ug_emlrtRTEI = { 9,/* lineNo */
+static emlrtRTEInfo dh_emlrtRTEI = { 9,/* lineNo */
   20,                                  /* colNo */
   "allocateParamsToLayers",            /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateParamsToLayers.m"/* pName */
@@ -93,8 +92,6 @@ void allocateParamsToLayers(const emlrtStack *sp, const emxArray_real_T *params,
   int32_T b_n;
   int32_T i2;
   real_T d;
-  covrtLogFcn(&emlrtCoverageInstance, 5U, 0U);
-  covrtLogBasicBlock(&emlrtCoverageInstance, 5U, 0U);
 
   /* This function takes the list of all layers (in terms of parameter */
   /* numbers) in layersDetails, and loops through putting in the correct */
@@ -106,55 +103,44 @@ void allocateParamsToLayers(const emlrtStack *sp, const emxArray_real_T *params,
   i = outLayers->size[0] * outLayers->size[1];
   outLayers->size[0] = 1;
   outLayers->size[1] = layersDetails->size[0];
-  emxEnsureCapacity_cell_wrap_17(sp, outLayers, i, &ug_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_17(sp, outLayers, i, &dh_emlrtRTEI);
   i = layersDetails->size[0];
   for (b_i = 0; b_i < i; b_i++) {
-    covrtLogFor(&emlrtCoverageInstance, 5U, 0U, 0, 1);
-    covrtLogBasicBlock(&emlrtCoverageInstance, 5U, 1U);
     i1 = layersDetails->size[0] - 1;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &ld_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &ef_emlrtBCI, sp);
     }
 
     i1 = layersDetails->data[b_i].f1.size[1];
     n = 1;
     for (b_n = 0; b_n <= i1 - 2; b_n++) {
       n = b_n + 1;
-      covrtLogFor(&emlrtCoverageInstance, 5U, 0U, 1, 1);
-      covrtLogBasicBlock(&emlrtCoverageInstance, 5U, 2U);
       i2 = b_n + 1;
       if ((i2 < 1) || (i2 > layersDetails->data[b_i].f1.size[1])) {
         emlrtDynamicBoundsCheckR2012b(i2, 1, layersDetails->data[b_i].f1.size[1],
-          &kd_emlrtBCI, sp);
+          &df_emlrtBCI, sp);
       }
 
-      if (covrtLogIf(&emlrtCoverageInstance, 5U, 0U, 0, covrtLogMcdc
-                     (&emlrtCoverageInstance, 5U, 0U, 0, !covrtLogCond
-                      (&emlrtCoverageInstance, 5U, 0U, 0, muDoubleScalarIsNaN
-                       (layersDetails->data[b_i].f1.data[b_n]))))) {
-        covrtLogBasicBlock(&emlrtCoverageInstance, 5U, 3U);
+      if (!muDoubleScalarIsNaN(layersDetails->data[b_i].f1.data[b_n])) {
         d = layersDetails->data[b_i].f1.data[b_n];
         if (d != (int32_T)muDoubleScalarFloor(d)) {
-          emlrtIntegerCheckR2012b(d, &x_emlrtDCI, sp);
+          emlrtIntegerCheckR2012b(d, &r_emlrtDCI, sp);
         }
 
         i2 = (int32_T)d;
         if ((i2 < 1) || (i2 > params->size[1])) {
-          emlrtDynamicBoundsCheckR2012b(i2, 1, params->size[1], &od_emlrtBCI, sp);
+          emlrtDynamicBoundsCheckR2012b(i2, 1, params->size[1], &hf_emlrtBCI, sp);
         }
 
         thisOutLayer[b_n] = params->data[i2 - 1];
       } else {
-        covrtLogBasicBlock(&emlrtCoverageInstance, 5U, 4U);
         thisOutLayer[b_n] = rtNaN;
       }
     }
 
-    covrtLogFor(&emlrtCoverageInstance, 5U, 0U, 1, 0);
-    covrtLogBasicBlock(&emlrtCoverageInstance, 5U, 5U);
     if (layersDetails->data[b_i].f1.size[1] < 1) {
       emlrtDynamicBoundsCheckR2012b(layersDetails->data[b_i].f1.size[1], 1,
-        layersDetails->data[b_i].f1.size[1], &md_emlrtBCI, sp);
+        layersDetails->data[b_i].f1.size[1], &ff_emlrtBCI, sp);
     }
 
     thisOutLayer[n] = layersDetails->data[b_i].f1.data[layersDetails->data[b_i].
@@ -162,14 +148,12 @@ void allocateParamsToLayers(const emlrtStack *sp, const emxArray_real_T *params,
     i1 = outLayers->size[1] - 1;
     for (i2 = 0; i2 < 5; i2++) {
       if (b_i > i1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &nd_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &gf_emlrtBCI, sp);
       }
 
       outLayers->data[b_i].f1[i2] = thisOutLayer[i2];
     }
   }
-
-  covrtLogFor(&emlrtCoverageInstance, 5U, 0U, 0, 0);
 }
 
 /* End of code generation (allocateParamsToLayers.c) */

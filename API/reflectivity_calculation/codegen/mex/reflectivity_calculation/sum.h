@@ -18,12 +18,11 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
-#include "covrt.h"
 #include "rtwtypes.h"
+#include "omp.h"
 #include "reflectivity_calculation_types.h"
 
 /* Function Declarations */
-void b_sum(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y);
 real_T sum(const emlrtStack *sp, const emxArray_real_T *x);
 
 /* End of code generation (sum.h) */

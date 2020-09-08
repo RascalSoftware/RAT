@@ -13,12 +13,11 @@
 #include "allocateLayersForContrast.h"
 #include "mwmathutil.h"
 #include "reflectivity_calculation.h"
-#include "reflectivity_calculation_data.h"
 #include "reflectivity_calculation_emxutil.h"
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtBCInfo pd_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo of_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   11,                                  /* lineNo */
   24,                                  /* colNo */
@@ -28,7 +27,7 @@ static emlrtBCInfo pd_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo qd_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo pf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   10,                                  /* lineNo */
   17,                                  /* colNo */
@@ -45,7 +44,7 @@ static emlrtDCInfo y_emlrtDCI = { 10,  /* lineNo */
   1                                    /* checkKind */
 };
 
-static emlrtBCInfo rd_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo qf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   10,                                  /* lineNo */
   17,                                  /* colNo */
@@ -55,7 +54,7 @@ static emlrtBCInfo rd_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo vg_emlrtRTEI = { 7,/* lineNo */
+static emlrtRTEInfo eh_emlrtRTEI = { 7,/* lineNo */
   1,                                   /* colNo */
   "allocateLayersForContrast",         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m"/* pName */
@@ -73,8 +72,6 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
   int32_T i2;
   int32_T i3;
   real_T d;
-  covrtLogFcn(&emlrtCoverageInstance, 7U, 0U);
-  covrtLogBasicBlock(&emlrtCoverageInstance, 7U, 0U);
 
   /*  Take the layers list for a contrast and build an */
   /*  array of real valued layers  */
@@ -87,7 +84,7 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
   i = thisContrastLayers->size[0] * thisContrastLayers->size[1];
   thisContrastLayers->size[0] = n;
   thisContrastLayers->size[1] = 5;
-  emxEnsureCapacity_real_T(sp, thisContrastLayers, i, &vg_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, thisContrastLayers, i, &eh_emlrtRTEI);
   n *= 5;
   for (i = 0; i < n; i++) {
     thisContrastLayers->data[i] = 0.0;
@@ -100,12 +97,10 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
   }
 
   for (b_i = 0; b_i < n; b_i++) {
-    covrtLogFor(&emlrtCoverageInstance, 7U, 0U, 0, 1);
-    covrtLogBasicBlock(&emlrtCoverageInstance, 7U, 1U);
     i = b_i + 1;
     if ((i < 1) || (i > thisContrastLayers->size[0])) {
       emlrtDynamicBoundsCheckR2012b(i, 1, thisContrastLayers->size[0],
-        &pd_emlrtBCI, sp);
+        &of_emlrtBCI, sp);
     }
 
     i = outParameterisedLayers->size[1] - 1;
@@ -113,7 +108,7 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
     for (i2 = 0; i2 < 5; i2++) {
       i3 = contrastLayers->size[0] * contrastLayers->size[1];
       if ((i1 < 1) || (i1 > i3)) {
-        emlrtDynamicBoundsCheckR2012b(i1, 1, i3, &rd_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(i1, 1, i3, &qf_emlrtBCI, sp);
       }
 
       d = contrastLayers->data[i1 - 1];
@@ -123,15 +118,13 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
 
       i3 = (int32_T)d - 1;
       if ((i3 < 0) || (i3 > i)) {
-        emlrtDynamicBoundsCheckR2012b(i3, 0, i, &qd_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(i3, 0, i, &pf_emlrtBCI, sp);
       }
 
       thisContrastLayers->data[b_i + thisContrastLayers->size[0] * i2] =
         outParameterisedLayers->data[i3].f1[i2];
     }
   }
-
-  covrtLogFor(&emlrtCoverageInstance, 7U, 0U, 0, 0);
 }
 
 /* End of code generation (allocateLayersForContrast.c) */

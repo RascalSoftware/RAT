@@ -18,8 +18,8 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
-#include "covrt.h"
 #include "rtwtypes.h"
+#include "omp.h"
 #include "reflectivity_calculation_types.h"
 
 /* Function Declarations */
@@ -39,8 +39,8 @@ void emxEnsureCapacity_cell_wrap_1(const emlrtStack *sp, emxArray_cell_wrap_1
   *emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
 void emxEnsureCapacity_cell_wrap_10(const emlrtStack *sp, emxArray_cell_wrap_10 *
   emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
-void emxEnsureCapacity_cell_wrap_11(const emlrtStack *sp, emxArray_cell_wrap_11 *
-  emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
+void emxEnsureCapacity_cell_wrap_111(const emlrtStack *sp, emxArray_cell_wrap_11
+  *emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
 void emxEnsureCapacity_cell_wrap_14(const emlrtStack *sp, emxArray_cell_wrap_14 *
   emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
 void emxEnsureCapacity_cell_wrap_15(const emlrtStack *sp, emxArray_cell_wrap_15 *
@@ -72,7 +72,6 @@ void emxEnsureCapacity_real_T(const emlrtStack *sp, emxArray_real_T *emxArray,
 void emxEnsureCapacity_uint32_T(const emlrtStack *sp, emxArray_uint32_T
   *emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation);
 void emxFreeStruct_cell_13(cell_13 *pStruct);
-void emxFreeStruct_cell_19(cell_19 *pStruct);
 void emxFreeStruct_cell_5(cell_5 *pStruct);
 void emxFreeStruct_cell_7(cell_7 *pStruct);
 void emxFreeStruct_struct0_T(struct0_T *pStruct);
@@ -99,8 +98,6 @@ void emxFree_int8_T(emxArray_int8_T **pEmxArray);
 void emxFree_real_T(emxArray_real_T **pEmxArray);
 void emxFree_uint32_T(emxArray_uint32_T **pEmxArray);
 void emxInitStruct_cell_13(const emlrtStack *sp, cell_13 *pStruct, const
-  emlrtRTEInfo *srcLocation, boolean_T doPush);
-void emxInitStruct_cell_19(const emlrtStack *sp, cell_19 *pStruct, const
   emlrtRTEInfo *srcLocation, boolean_T doPush);
 void emxInitStruct_cell_5(const emlrtStack *sp, cell_5 *pStruct, const
   emlrtRTEInfo *srcLocation, boolean_T doPush);

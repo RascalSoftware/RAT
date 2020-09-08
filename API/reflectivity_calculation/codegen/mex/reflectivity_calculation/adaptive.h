@@ -18,12 +18,15 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
-#include "covrt.h"
 #include "rtwtypes.h"
+#include "omp.h"
 #include "reflectivity_calculation_types.h"
 
 /* Function Declarations */
-void adaptive(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
-              real_T startDomain[2], cell_19 *out);
+void calculateCentralAngles(const emlrtStack *sp, const emxArray_real_T *XYdata,
+  const real_T dataBoxSize[2], emxArray_real_T *cornerAngle);
+void increaseSampling(const emlrtStack *sp, emxArray_real_T *dataPoints, const
+                      emxArray_boolean_T *segmentsToSplit, const emxArray_real_T
+                      *sldProfile);
 
 /* End of code generation (adaptive.h) */

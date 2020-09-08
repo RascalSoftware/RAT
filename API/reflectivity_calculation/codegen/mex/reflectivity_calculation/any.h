@@ -18,8 +18,8 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
-#include "covrt.h"
 #include "rtwtypes.h"
+#include "omp.h"
 #include "reflectivity_calculation_types.h"
 
 /* Function Declarations */

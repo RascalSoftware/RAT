@@ -26,6 +26,15 @@ problemDef_cells{2} = allData;
 problemDef_cells{3} = dataLimits;
 problemDef_cells{4} = simLimits;
 problemDef_cells{5} = contrastLayers;
+
+% Fix for cell array bug with custom layers
+if strcmp(inputProblemDef.modelType,'custom layers')
+    for i = 1:length(problemDef_cells{5})
+        problemDef_cells{5}{i} = 0;
+    end
+end
+
+
 problemDef_cells{6} = layersDetails;
 problemDef_cells{7} = paramNames;
 problemDef_cells{8} = backsNames;

@@ -1,4 +1,4 @@
-function [output,sub_rough] = Model_IIb(params,bulk_in,bulk_out,contrast)
+function [output,layers] = Model_IIb(params,bulk_in,bulk_out,contrast)
 %MODEL_1  RASCAL Custom Layer Model File.
 %
 %
@@ -121,7 +121,7 @@ output = [thickTail sldTail Roughness;
           thickHead sldHead Roughness;];
       
 
-sub_rough = Roughness;
+layers = size(output,1);
       
 
 

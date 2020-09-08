@@ -206,15 +206,6 @@ typedef struct {
 
 #endif                                 /*typedef_cell_13*/
 
-#ifndef typedef_cell_19
-#define typedef_cell_19
-
-typedef struct {
-  emxArray_real_T *f1;
-} cell_19;
-
-#endif                                 /*typedef_cell_19*/
-
 #ifndef typedef_cell_wrap_2
 #define typedef_cell_wrap_2
 
@@ -523,21 +514,6 @@ typedef struct emxArray_uint32_T emxArray_uint32_T;
 
 #endif                                 /*typedef_emxArray_uint32_T*/
 
-#ifndef typedef_struct3_T
-#define typedef_struct3_T
-
-typedef struct {
-  emxArray_real_T *params_fitYesNo;
-  emxArray_real_T *backs_fitYesNo;
-  emxArray_real_T *shifts_fitYesNo;
-  emxArray_real_T *scales_fitYesNo;
-  emxArray_real_T *nbairs_fitYesNo;
-  emxArray_real_T *nbsubs_fitYesNo;
-  emxArray_real_T *resol_fitYesNo;
-} struct3_T;
-
-#endif                                 /*typedef_struct3_T*/
-
 #ifndef typedef_struct0_T
 #define typedef_struct0_T
 
@@ -573,6 +549,21 @@ typedef struct {
 } struct0_T;
 
 #endif                                 /*typedef_struct0_T*/
+
+#ifndef typedef_struct3_T
+#define typedef_struct3_T
+
+typedef struct {
+  emxArray_real_T *params_fitYesNo;
+  emxArray_real_T *backs_fitYesNo;
+  emxArray_real_T *shifts_fitYesNo;
+  emxArray_real_T *scales_fitYesNo;
+  emxArray_real_T *nbairs_fitYesNo;
+  emxArray_real_T *nbsubs_fitYesNo;
+  emxArray_real_T *resol_fitYesNo;
+} struct3_T;
+
+#endif                                 /*typedef_struct3_T*/
 
 #ifndef typedef_struct2_T
 #define typedef_struct2_T

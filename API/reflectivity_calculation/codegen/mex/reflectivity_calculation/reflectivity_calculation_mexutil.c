@@ -28,6 +28,19 @@ void MEXGlobalSyncOutFunction(boolean_T skipDirtyCheck)
   /* Marshall out global variables */
 }
 
+emlrtCTX emlrtGetRootTLSGlobal(void)
+{
+  return emlrtRootTLSGlobal;
+}
+
+void emlrtLockerFunction(EmlrtLockeeFunction aLockee, const emlrtConstCTX aTLS,
+  void *aData)
+{
+  omp_set_lock(&emlrtLockGlobal);
+  emlrtCallLockeeFunction(aLockee, aTLS, aData);
+  omp_unset_lock(&emlrtLockGlobal);
+}
+
 void emlrt_synchGlobalsFromML(const emlrtStack *sp)
 {
   (void)sp;

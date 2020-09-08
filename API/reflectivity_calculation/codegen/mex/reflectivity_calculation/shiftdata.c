@@ -20,12 +20,12 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo cf_emlrtRSI = { 24, /* lineNo */
+static emlrtRSInfo bf_emlrtRSI = { 24, /* lineNo */
   "shiftdata",                         /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m"/* pathName */
 };
 
-static emlrtRSInfo df_emlrtRSI = { 31, /* lineNo */
+static emlrtRSInfo cf_emlrtRSI = { 31, /* lineNo */
   "shiftdata",                         /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m"/* pathName */
 };
@@ -40,7 +40,7 @@ static emlrtBCInfo br_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo cc_emlrtDCI = { 12, /* lineNo */
+static emlrtDCInfo bc_emlrtDCI = { 12, /* lineNo */
   8,                                   /* colNo */
   "shiftdata",                         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m",/* pName */
@@ -88,49 +88,49 @@ static emlrtBCInfo dr_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo dp_emlrtRTEI = { 17,/* lineNo */
+static emlrtRTEInfo to_emlrtRTEI = { 17,/* lineNo */
   21,                                  /* colNo */
   "shiftdata",                         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m"/* pName */
 };
 
-static emlrtRTEInfo ep_emlrtRTEI = { 18,/* lineNo */
+static emlrtRTEInfo uo_emlrtRTEI = { 18,/* lineNo */
   21,                                  /* colNo */
   "shiftdata",                         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m"/* pName */
 };
 
-static emlrtRTEInfo fp_emlrtRTEI = { 19,/* lineNo */
+static emlrtRTEInfo vo_emlrtRTEI = { 19,/* lineNo */
   21,                                  /* colNo */
   "shiftdata",                         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m"/* pName */
 };
 
-static emlrtRTEInfo gp_emlrtRTEI = { 24,/* lineNo */
+static emlrtRTEInfo wo_emlrtRTEI = { 24,/* lineNo */
   25,                                  /* colNo */
   "shiftdata",                         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m"/* pName */
 };
 
-static emlrtRTEInfo hp_emlrtRTEI = { 24,/* lineNo */
+static emlrtRTEInfo xo_emlrtRTEI = { 24,/* lineNo */
   9,                                   /* colNo */
   "shiftdata",                         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m"/* pName */
 };
 
-static emlrtRTEInfo ip_emlrtRTEI = { 31,/* lineNo */
+static emlrtRTEInfo yo_emlrtRTEI = { 31,/* lineNo */
   24,                                  /* colNo */
   "shiftdata",                         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m"/* pName */
 };
 
-static emlrtRTEInfo jp_emlrtRTEI = { 31,/* lineNo */
+static emlrtRTEInfo ap_emlrtRTEI = { 31,/* lineNo */
   9,                                   /* colNo */
   "shiftdata",                         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m"/* pName */
 };
 
-static emlrtRTEInfo kp_emlrtRTEI = { 38,/* lineNo */
+static emlrtRTEInfo bp_emlrtRTEI = { 38,/* lineNo */
   24,                                  /* colNo */
   "shiftdata",                         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m"/* pName */
@@ -147,7 +147,6 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
   emxArray_int32_T *ii;
   int32_T nx;
   int32_T idx;
-  boolean_T overflow;
   boolean_T exitg1;
   int32_T iv[2];
   int32_T b_lowIndex;
@@ -168,7 +167,6 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
   e_st.prev = &d_st;
   e_st.tls = d_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  covrtLogFcn(&emlrtCoverageInstance, 15U, 0U);
 
   /* Shifts the data according to scale factor */
   /*  scalefac = problem.scalefactors; */
@@ -179,25 +177,22 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
   /*  dataLimits = problem.dataLimits; */
   /* shifted_data = cell(1,numberOfContrasts); */
   if (dataPresent != (int32_T)muDoubleScalarFloor(dataPresent)) {
-    emlrtIntegerCheckR2012b(dataPresent, &cc_emlrtDCI, sp);
+    emlrtIntegerCheckR2012b(dataPresent, &bc_emlrtDCI, sp);
   }
 
   switch ((int32_T)dataPresent) {
    case 1:
-    covrtLogSwitch(&emlrtCoverageInstance, 15U, 0U, 0, 1);
-    if (covrtLogIf(&emlrtCoverageInstance, 15U, 0U, 0, scalefac == 0.0)) {
-      covrtLogBasicBlock(&emlrtCoverageInstance, 15U, 0U);
+    if (scalefac == 0.0) {
       scalefac = 1.0E-30;
     }
 
-    emxInit_real_T(sp, &lowIndex, 1, &hp_emlrtRTEI, true);
-    covrtLogBasicBlock(&emlrtCoverageInstance, 15U, 1U);
+    emxInit_real_T(sp, &lowIndex, 1, &xo_emlrtRTEI, true);
     emlrtSubAssignSizeCheckR2012b(&data->size[0], 1, &data->size[0], 1,
       &eb_emlrtECI, sp);
     hiIndex = data->size[0] - 1;
     i = lowIndex->size[0];
     lowIndex->size[0] = hiIndex + 1;
-    emxEnsureCapacity_real_T(sp, lowIndex, i, &dp_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, lowIndex, i, &to_emlrtRTEI);
     for (i = 0; i <= hiIndex; i++) {
       lowIndex->data[i] = data->data[i] + horshift;
     }
@@ -210,7 +205,7 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
     hiIndex = data->size[0];
     i = lowIndex->size[0];
     lowIndex->size[0] = hiIndex;
-    emxEnsureCapacity_real_T(sp, lowIndex, i, &ep_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, lowIndex, i, &uo_emlrtRTEI);
     for (i = 0; i < hiIndex; i++) {
       lowIndex->data[i] = data->data[i + data->size[0]] / scalefac;
     }
@@ -225,7 +220,7 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
     hiIndex = data->size[0];
     i = lowIndex->size[0];
     lowIndex->size[0] = hiIndex;
-    emxEnsureCapacity_real_T(sp, lowIndex, i, &fp_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, lowIndex, i, &vo_emlrtRTEI);
     for (i = 0; i < hiIndex; i++) {
       lowIndex->data[i] = data->data[i + data->size[0] * 2] / scalefac;
     }
@@ -237,28 +232,27 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
       data->data[i + data->size[0] * 2] = lowIndex->data[i];
     }
 
-    emxInit_boolean_T(sp, &x, 1, &gp_emlrtRTEI, true);
-    st.site = &cf_emlrtRSI;
+    emxInit_boolean_T(sp, &x, 1, &wo_emlrtRTEI, true);
+    st.site = &bf_emlrtRSI;
     hiIndex = data->size[0];
     i = x->size[0];
     x->size[0] = hiIndex;
-    emxEnsureCapacity_boolean_T(&st, x, i, &gp_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(&st, x, i, &wo_emlrtRTEI);
     for (i = 0; i < hiIndex; i++) {
       x->data[i] = (data->data[i] < dataLimits[0]);
     }
 
-    emxInit_int32_T(&st, &ii, 1, &ti_emlrtRTEI, true);
-    b_st.site = &fd_emlrtRSI;
+    emxInit_int32_T(&st, &ii, 1, &aj_emlrtRTEI, true);
+    b_st.site = &ed_emlrtRSI;
     nx = x->size[0];
-    c_st.site = &gd_emlrtRSI;
+    c_st.site = &fd_emlrtRSI;
     idx = 0;
     i = ii->size[0];
     ii->size[0] = x->size[0];
-    emxEnsureCapacity_int32_T(&c_st, ii, i, &ji_emlrtRTEI);
-    d_st.site = &hd_emlrtRSI;
-    overflow = ((1 <= x->size[0]) && (x->size[0] > 2147483646));
-    if (overflow) {
-      e_st.site = &nb_emlrtRSI;
+    emxEnsureCapacity_int32_T(&c_st, ii, i, &pi_emlrtRTEI);
+    d_st.site = &gd_emlrtRSI;
+    if ((1 <= x->size[0]) && (x->size[0] > 2147483646)) {
+      e_st.site = &mb_emlrtRSI;
       check_forloop_overflow_error(&e_st);
     }
 
@@ -279,7 +273,7 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
     }
 
     if (idx > x->size[0]) {
-      emlrtErrorWithMessageIdR2018a(&c_st, &kb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&c_st, &ob_emlrtRTEI,
         "Coder:builtins:AssertionFailed", "Coder:builtins:AssertionFailed", 0);
     }
 
@@ -289,31 +283,29 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
       }
     } else {
       if (1 > idx) {
-        idx = 0;
+        i = 0;
+      } else {
+        i = idx;
       }
 
       iv[0] = 1;
-      iv[1] = idx;
-      d_st.site = &id_emlrtRSI;
+      iv[1] = i;
+      d_st.site = &hd_emlrtRSI;
       indexShapeCheck(&d_st, ii->size[0], iv);
-      i = ii->size[0];
-      ii->size[0] = idx;
-      emxEnsureCapacity_int32_T(&c_st, ii, i, &li_emlrtRTEI);
+      idx = ii->size[0];
+      ii->size[0] = i;
+      emxEnsureCapacity_int32_T(&c_st, ii, idx, &qi_emlrtRTEI);
     }
 
     i = lowIndex->size[0];
     lowIndex->size[0] = ii->size[0];
-    emxEnsureCapacity_real_T(&st, lowIndex, i, &hp_emlrtRTEI);
+    emxEnsureCapacity_real_T(&st, lowIndex, i, &xo_emlrtRTEI);
     hiIndex = ii->size[0];
     for (i = 0; i < hiIndex; i++) {
       lowIndex->data[i] = ii->data[i];
     }
 
-    if (covrtLogIf(&emlrtCoverageInstance, 15U, 0U, 1, covrtLogMcdc
-                   (&emlrtCoverageInstance, 15U, 0U, 0, !covrtLogCond
-                    (&emlrtCoverageInstance, 15U, 0U, 0, lowIndex->size[0] == 0))))
-    {
-      covrtLogBasicBlock(&emlrtCoverageInstance, 15U, 2U);
+    if (lowIndex->size[0] != 0) {
       if (lowIndex->size[0] < 1) {
         emlrtDynamicBoundsCheckR2012b(lowIndex->size[0], 1, lowIndex->size[0],
           &br_emlrtBCI, sp);
@@ -321,31 +313,28 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
 
       b_lowIndex = (int32_T)lowIndex->data[lowIndex->size[0] - 1];
     } else {
-      covrtLogBasicBlock(&emlrtCoverageInstance, 15U, 3U);
       b_lowIndex = 1;
     }
 
-    covrtLogBasicBlock(&emlrtCoverageInstance, 15U, 4U);
-    st.site = &df_emlrtRSI;
+    st.site = &cf_emlrtRSI;
     hiIndex = data->size[0];
     i = x->size[0];
     x->size[0] = hiIndex;
-    emxEnsureCapacity_boolean_T(&st, x, i, &ip_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(&st, x, i, &yo_emlrtRTEI);
     for (i = 0; i < hiIndex; i++) {
       x->data[i] = (data->data[i] > dataLimits[1]);
     }
 
-    b_st.site = &fd_emlrtRSI;
+    b_st.site = &ed_emlrtRSI;
     nx = x->size[0];
-    c_st.site = &gd_emlrtRSI;
+    c_st.site = &fd_emlrtRSI;
     idx = 0;
     i = ii->size[0];
     ii->size[0] = x->size[0];
-    emxEnsureCapacity_int32_T(&c_st, ii, i, &ji_emlrtRTEI);
-    d_st.site = &hd_emlrtRSI;
-    overflow = ((1 <= x->size[0]) && (x->size[0] > 2147483646));
-    if (overflow) {
-      e_st.site = &nb_emlrtRSI;
+    emxEnsureCapacity_int32_T(&c_st, ii, i, &pi_emlrtRTEI);
+    d_st.site = &gd_emlrtRSI;
+    if ((1 <= x->size[0]) && (x->size[0] > 2147483646)) {
+      e_st.site = &mb_emlrtRSI;
       check_forloop_overflow_error(&e_st);
     }
 
@@ -366,7 +355,7 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
     }
 
     if (idx > x->size[0]) {
-      emlrtErrorWithMessageIdR2018a(&c_st, &kb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&c_st, &ob_emlrtRTEI,
         "Coder:builtins:AssertionFailed", "Coder:builtins:AssertionFailed", 0);
     }
 
@@ -376,41 +365,37 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
       }
     } else {
       if (1 > idx) {
-        idx = 0;
+        i = 0;
+      } else {
+        i = idx;
       }
 
       iv[0] = 1;
-      iv[1] = idx;
-      d_st.site = &id_emlrtRSI;
+      iv[1] = i;
+      d_st.site = &hd_emlrtRSI;
       indexShapeCheck(&d_st, ii->size[0], iv);
-      i = ii->size[0];
-      ii->size[0] = idx;
-      emxEnsureCapacity_int32_T(&c_st, ii, i, &li_emlrtRTEI);
+      idx = ii->size[0];
+      ii->size[0] = i;
+      emxEnsureCapacity_int32_T(&c_st, ii, idx, &qi_emlrtRTEI);
     }
 
     emxFree_boolean_T(&x);
     i = lowIndex->size[0];
     lowIndex->size[0] = ii->size[0];
-    emxEnsureCapacity_real_T(&st, lowIndex, i, &jp_emlrtRTEI);
+    emxEnsureCapacity_real_T(&st, lowIndex, i, &ap_emlrtRTEI);
     hiIndex = ii->size[0];
     for (i = 0; i < hiIndex; i++) {
       lowIndex->data[i] = ii->data[i];
     }
 
     emxFree_int32_T(&ii);
-    if (covrtLogIf(&emlrtCoverageInstance, 15U, 0U, 2, covrtLogMcdc
-                   (&emlrtCoverageInstance, 15U, 0U, 1, !covrtLogCond
-                    (&emlrtCoverageInstance, 15U, 0U, 1, lowIndex->size[0] == 0))))
-    {
-      covrtLogBasicBlock(&emlrtCoverageInstance, 15U, 5U);
+    if (lowIndex->size[0] != 0) {
       hiIndex = (int32_T)lowIndex->data[0];
     } else {
-      covrtLogBasicBlock(&emlrtCoverageInstance, 15U, 6U);
       hiIndex = data->size[0];
     }
 
     emxFree_real_T(&lowIndex);
-    covrtLogBasicBlock(&emlrtCoverageInstance, 15U, 7U);
     if (b_lowIndex > hiIndex) {
       i = 0;
       hiIndex = 0;
@@ -427,12 +412,12 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
       }
     }
 
-    emxInit_real_T(sp, &b_data, 2, &kp_emlrtRTEI, true);
+    emxInit_real_T(sp, &b_data, 2, &bp_emlrtRTEI, true);
     hiIndex -= i;
     idx = b_data->size[0] * b_data->size[1];
     b_data->size[0] = hiIndex;
     b_data->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, b_data, idx, &kp_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_data, idx, &bp_emlrtRTEI);
     for (idx = 0; idx < 3; idx++) {
       for (nx = 0; nx < hiIndex; nx++) {
         b_data->data[nx + b_data->size[0] * idx] = data->data[(i + nx) +
@@ -443,7 +428,7 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
     i = data->size[0] * data->size[1];
     data->size[0] = b_data->size[0];
     data->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, data, i, &kp_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, data, i, &bp_emlrtRTEI);
     hiIndex = b_data->size[0];
     for (i = 0; i < 3; i++) {
       for (idx = 0; idx < hiIndex; idx++) {
@@ -453,11 +438,6 @@ void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
     }
 
     emxFree_real_T(&b_data);
-    break;
-
-   default:
-    covrtLogSwitch(&emlrtCoverageInstance, 15U, 0U, 0, 0);
-    covrtLogBasicBlock(&emlrtCoverageInstance, 15U, 8U);
     break;
   }
 

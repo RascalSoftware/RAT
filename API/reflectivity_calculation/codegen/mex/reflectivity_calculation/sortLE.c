@@ -13,7 +13,6 @@
 #include "sortLE.h"
 #include "mwmathutil.h"
 #include "reflectivity_calculation.h"
-#include "reflectivity_calculation_data.h"
 #include "rt_nonfinite.h"
 
 /* Function Definitions */

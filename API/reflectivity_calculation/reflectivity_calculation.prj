@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.coder" plugin-version="R2018b">
-  <configuration build-checksum="1608831803" file="/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.prj" location="/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation" name="reflectivity_calculation" target="target.unifiedcoder" target-name="MATLAB Coder">
+  <configuration build-checksum="79714467" file="/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.prj" location="/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation" name="reflectivity_calculation" target="target.unifiedcoder" target-name="MATLAB Coder">
     <profile key="profile.mex">
       <param.BuiltInstrumentedMex>false</param.BuiltInstrumentedMex>
       <param.RanInstrumentedMex>false</param.RanInstrumentedMex>
@@ -27,14 +27,14 @@
       <param.MATLABSourceComments>false</param.MATLABSourceComments>
       <param.ReservedNameArray />
       <param.EnableDebugging>false</param.EnableDebugging>
-      <param.ReportPotentialDifferences>true</param.ReportPotentialDifferences>
+      <param.ReportPotentialDifferences>false</param.ReportPotentialDifferences>
       <param.GenerateReport>true</param.GenerateReport>
       <param.LaunchReport>false</param.LaunchReport>
       <param.ReportInfoVarName />
       <param.DefaultTestFile />
       <param.MergeInstrumentationResults>false</param.MergeInstrumentationResults>
       <param.VerificationMode>option.VerificationMode.None</param.VerificationMode>
-      <param.VerificationStatus>option.VerificationStatus.FailedBuild</param.VerificationStatus>
+      <param.VerificationStatus>option.VerificationStatus.FailedTest</param.VerificationStatus>
       <param.EnableMexProfiling>false</param.EnableMexProfiling>
       <var.BuiltWithMexProfiling>false</var.BuiltWithMexProfiling>
       <param.CustomSourceCode />
@@ -196,7 +196,7 @@
       <param.ReservedNameArray />
       <param.RuntimeChecks>false</param.RuntimeChecks>
       <param.Verbose />
-      <param.ReportPotentialDifferences>true</param.ReportPotentialDifferences>
+      <param.ReportPotentialDifferences>false</param.ReportPotentialDifferences>
       <param.GenerateReport>true</param.GenerateReport>
       <param.GenerateCodeMetricsReport />
       <param.GenerateCodeReplacementReport />
@@ -833,7 +833,7 @@
       </unset>
     </profile>
     <param.objective>option.objective.c</param.objective>
-    <param.WorkflowStep>verifyCompatibility</param.WorkflowStep>
+    <param.WorkflowStep>workflowSummary</param.WorkflowStep>
     <param.TestSnippets>
       <item>refCalc_callFun</item>
     </param.TestSnippets>
@@ -879,12 +879,12 @@
     <param.unifiedParamStorage />
     <var.gc.lastOutputRoot>codegen/mex/reflectivity_calculation</var.gc.lastOutputRoot>
     <var.gc.lastOutputType>MEX_FILE</var.gc.lastOutputType>
-    <var.gc.preBuildChecksum>3048240926</var.gc.preBuildChecksum>
+    <var.gc.preBuildChecksum>79714467</var.gc.preBuildChecksum>
     <var.cfi.lastOutputRoot>codegen/mex/reflectivity_calculation</var.cfi.lastOutputRoot>
     <var.cfi.preBuildChecksum>3996045011</var.cfi.preBuildChecksum>
     <var.lastCfiTestSnippet>refCalc_callFun</var.lastCfiTestSnippet>
     <var.outdatedOnRestore>false</var.outdatedOnRestore>
-    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/API/RAT_parse_cells.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/API/reflectivity_calculation/reflectivity_calculation.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_paraPoints.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/Abeles/abeles_single.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/backSorts/backSort.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/callReflectivity.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/callReflectivity/resolution_polly.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/chiSquared/chiSquared.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/allocateLayersForContrast.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/allocateParamsToLayers.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/groupLayers/groupLayers_Mod.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/makeSLDProfiles/asymconvstep.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/makeSLDProfiles/makeSLDProfiles.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/adaptive.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/resampleLayers.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/resampleLayers/sldFunc.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/common/shiftData/shiftdata.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_single.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT_new/targetFunctions/standard_TF/standardTF_stanLay_reflectivityCalculation.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;1416594671&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
+    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/API/RAT_parse_cells.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_single.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/backSorts/backSort.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/callReflectivity.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateParamsToLayers.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfiles.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/resampleLayers.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay/call_customLayers.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_single.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_stanlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_single.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay_reflectivityCalculation.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;1573395713&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
     <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/API/RAT_parse_cells.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_single.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/backSorts/backSort.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/callReflectivity.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateParamsToLayers.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfiles.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/resampleLayers.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/shiftData/shiftdata.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay/call_customLayers.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_single.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_stanlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_single.m&lt;/file&gt;&lt;file&gt;/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay_reflectivityCalculation.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
     <param.forceMexBuild>false</param.forceMexBuild>
     <param.NoDefaultJIT>false</param.NoDefaultJIT>
@@ -910,7 +910,7 @@
     <param.gpu.EnableCUSOLVER>false</param.gpu.EnableCUSOLVER>
     <param.gpu.EnableCUFFT>false</param.gpu.EnableCUFFT>
     <param.gpu.Benchmarking>false</param.gpu.Benchmarking>
-    <param.gpu.SafeBuild>true</param.gpu.SafeBuild>
+    <param.gpu.SafeBuild>false</param.gpu.SafeBuild>
     <param.gpu.ComputeCapability />
     <param.gpu.CustomComputeCapability />
     <param.gpu.CompilerFlags />
@@ -918,7 +918,7 @@
     <var.hasGpu>true</var.hasGpu>
     <var.isDeepLearningForMatlabCoderEnabled>true</var.isDeepLearningForMatlabCoderEnabled>
     <param.deeplearning.TargetLib>option.deeplearning.targetlibrary.none</param.deeplearning.TargetLib>
-    <var.cfiTargetLibSuppression>true</var.cfiTargetLibSuppression>
+    <var.cfiTargetLibSuppression>false</var.cfiTargetLibSuppression>
     <var.hasMatlabDeepLearningSupportPackage>true</var.hasMatlabDeepLearningSupportPackage>
     <var.hasGpuDeepLearningSupportPackage>true</var.hasGpuDeepLearningSupportPackage>
     <param.tensorrt.DataType>option.tensorrt.datatype.fp32</param.tensorrt.DataType>
@@ -1030,6 +1030,7 @@
       <var.hasGpu />
       <var.isDeepLearningForMatlabCoderEnabled />
       <param.deeplearning.TargetLib />
+      <var.cfiTargetLibSuppression />
       <var.hasMatlabDeepLearningSupportPackage />
       <var.hasGpuDeepLearningSupportPackage />
       <param.tensorrt.DataType />

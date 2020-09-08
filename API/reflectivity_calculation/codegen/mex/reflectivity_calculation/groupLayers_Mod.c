@@ -19,22 +19,22 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo s_emlrtRSI = { 57,  /* lineNo */
+static emlrtRSInfo r_emlrtRSI = { 57,  /* lineNo */
   "groupLayers_Mod",                   /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pathName */
 };
 
-static emlrtRSInfo t_emlrtRSI = { 61,  /* lineNo */
+static emlrtRSInfo s_emlrtRSI = { 61,  /* lineNo */
   "groupLayers_Mod",                   /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pathName */
 };
 
-static emlrtRSInfo mh_emlrtRSI = { 63, /* lineNo */
+static emlrtRSInfo kh_emlrtRSI = { 63, /* lineNo */
   "groupLayers_Mod",                   /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pathName */
 };
 
-static emlrtBCInfo sd_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo rf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   57,                                  /* lineNo */
   44,                                  /* colNo */
@@ -44,7 +44,7 @@ static emlrtBCInfo sd_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo td_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo sf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   56,                                  /* lineNo */
   24,                                  /* colNo */
@@ -54,7 +54,7 @@ static emlrtBCInfo td_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo ud_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo tf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   73,                                  /* lineNo */
   28,                                  /* colNo */
@@ -64,7 +64,7 @@ static emlrtBCInfo ud_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo vd_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo uf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   74,                                  /* lineNo */
   20,                                  /* colNo */
@@ -74,7 +74,7 @@ static emlrtBCInfo vd_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo wd_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo vf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   80,                                  /* lineNo */
   78,                                  /* colNo */
@@ -84,7 +84,7 @@ static emlrtBCInfo wd_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo xd_emlrtBCI = { -1, /* iFirst */
+static emlrtBCInfo wf_emlrtBCI = { -1, /* iFirst */
   -1,                                  /* iLast */
   80,                                  /* lineNo */
   21,                                  /* colNo */
@@ -94,49 +94,49 @@ static emlrtBCInfo xd_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo wg_emlrtRTEI = { 46,/* lineNo */
+static emlrtRTEInfo fh_emlrtRTEI = { 46,/* lineNo */
   5,                                   /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo xg_emlrtRTEI = { 90,/* lineNo */
+static emlrtRTEInfo gh_emlrtRTEI = { 90,/* lineNo */
   5,                                   /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo yg_emlrtRTEI = { 88,/* lineNo */
+static emlrtRTEInfo hh_emlrtRTEI = { 88,/* lineNo */
   5,                                   /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo ah_emlrtRTEI = { 50,/* lineNo */
+static emlrtRTEInfo ih_emlrtRTEI = { 50,/* lineNo */
   17,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo bh_emlrtRTEI = { 57,/* lineNo */
+static emlrtRTEInfo jh_emlrtRTEI = { 57,/* lineNo */
   17,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo ch_emlrtRTEI = { 61,/* lineNo */
+static emlrtRTEInfo kh_emlrtRTEI = { 61,/* lineNo */
   21,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo dh_emlrtRTEI = { 53,/* lineNo */
+static emlrtRTEInfo lh_emlrtRTEI = { 53,/* lineNo */
   17,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo jn_emlrtRTEI = { 63,/* lineNo */
+static emlrtRTEInfo an_emlrtRTEI = { 63,/* lineNo */
   21,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
@@ -172,9 +172,7 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_real_T(sp, &layers, 2, &wg_emlrtRTEI, true);
-  covrtLogFcn(&emlrtCoverageInstance, 8U, 0U);
-  covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 0U);
+  emxInit_real_T(sp, &layers, 2, &fh_emlrtRTEI, true);
 
   /* Arrange layers according to geometry and apply any coverage correction. */
   /*  */
@@ -215,15 +213,12 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   i = layers->size[0] * layers->size[1];
   layers->size[0] = (int32_T)unnamed_idx_0;
   layers->size[1] = 3;
-  emxEnsureCapacity_real_T(sp, layers, i, &wg_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, layers, i, &fh_emlrtRTEI);
   loop_ub = (int32_T)unnamed_idx_0 * 3;
   for (i = 0; i < loop_ub; i++) {
     layers->data[i] = 0.0;
   }
 
-  covrtLogCond(&emlrtCoverageInstance, 8U, 0U, 0, false);
-  covrtLogMcdc(&emlrtCoverageInstance, 8U, 0U, 0, true);
-  covrtLogIf(&emlrtCoverageInstance, 8U, 0U, 0, true);
   b_bool = false;
   if (geometry->size[1] == 13) {
     kstr = 0;
@@ -272,12 +267,10 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
 
   switch (kstr) {
    case 0:
-    covrtLogSwitch(&emlrtCoverageInstance, 8U, 0U, 0, 1);
-    covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 1U);
     i = layers->size[0] * layers->size[1];
     layers->size[0] = allLayers->size[0];
     layers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layers, i, &ah_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layers, i, &ih_emlrtRTEI);
     loop_ub = allLayers->size[0] * allLayers->size[1];
     for (i = 0; i < loop_ub; i++) {
       layers->data[i] = allLayers->data[i];
@@ -287,11 +280,9 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
     break;
 
    case 1:
-    covrtLogSwitch(&emlrtCoverageInstance, 8U, 0U, 0, 2);
-    covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 2U);
     if (allLayers->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(allLayers->size[0], 1, allLayers->size[0],
-        &td_emlrtBCI, sp);
+        &sf_emlrtBCI, sp);
     }
 
     *outSsubs = allLayers->data[(allLayers->size[0] + allLayers->size[0] * 2) -
@@ -302,30 +293,28 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       loop_ub = allLayers->size[0] - 1;
       if ((loop_ub < 1) || (loop_ub > allLayers->size[0])) {
         emlrtDynamicBoundsCheckR2012b(loop_ub, 1, allLayers->size[0],
-          &sd_emlrtBCI, sp);
+          &rf_emlrtBCI, sp);
       }
     }
 
-    emxInit_real_T(sp, &roughs, 1, &dh_emlrtRTEI, true);
+    emxInit_real_T(sp, &roughs, 1, &lh_emlrtRTEI, true);
     iv[0] = 1;
     iv[1] = loop_ub;
-    st.site = &s_emlrtRSI;
+    st.site = &r_emlrtRSI;
     indexShapeCheck(&st, allLayers->size[0], iv);
     i = roughs->size[0];
     roughs->size[0] = loop_ub + 1;
-    emxEnsureCapacity_real_T(sp, roughs, i, &bh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, roughs, i, &jh_emlrtRTEI);
     roughs->data[0] = allRoughs;
     for (i = 0; i < loop_ub; i++) {
       roughs->data[i + 1] = allLayers->data[i + allLayers->size[0] * 2];
     }
 
-    covrtLogIf(&emlrtCoverageInstance, 8U, 0U, 1, false);
-    covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 4U);
-    st.site = &mh_emlrtRSI;
-    b_st.site = &v_emlrtRSI;
-    c_st.site = &w_emlrtRSI;
+    st.site = &kh_emlrtRSI;
+    b_st.site = &u_emlrtRSI;
+    c_st.site = &v_emlrtRSI;
     if (roughs->size[0] != allLayers->size[0]) {
-      emlrtErrorWithMessageIdR2018a(&c_st, &db_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&c_st, &hb_emlrtRTEI,
         "MATLAB:catenate:matrixDimensionMismatch",
         "MATLAB:catenate:matrixDimensionMismatch", 0);
     }
@@ -335,7 +324,7 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
     i = layers->size[0] * layers->size[1];
     layers->size[0] = allLayers->size[0];
     layers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layers, i, &jn_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layers, i, &an_emlrtRTEI);
     for (i = 0; i < loop_ub; i++) {
       layers->data[i] = allLayers->data[i];
     }
@@ -350,30 +339,17 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
     }
 
     emxFree_real_T(&roughs);
-    covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 5U);
-    break;
-
-   default:
-    covrtLogSwitch(&emlrtCoverageInstance, 8U, 0U, 0, 0);
     break;
   }
 
-  covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 6U);
-
   /* Deal with the %coverage if present */
-  covrtLogIf(&emlrtCoverageInstance, 8U, 0U, 2, false);
-
   /*      problem.layers{i} = layers; */
   /*      problem.ssubs(i) = s_sub; */
-  covrtLogCond(&emlrtCoverageInstance, 8U, 0U, 2, false);
-  covrtLogMcdc(&emlrtCoverageInstance, 8U, 0U, 2, true);
-  covrtLogIf(&emlrtCoverageInstance, 8U, 0U, 5, true);
-  covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 11U);
   loop_ub = layers->size[0];
   i = outLayers->size[0] * outLayers->size[1];
   outLayers->size[0] = layers->size[0];
   outLayers->size[1] = 3;
-  emxEnsureCapacity_real_T(sp, outLayers, i, &yg_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, outLayers, i, &hh_emlrtRTEI);
   for (i = 0; i < 3; i++) {
     for (kstr = 0; kstr < loop_ub; kstr++) {
       outLayers->data[kstr + outLayers->size[0] * i] = layers->data[kstr +
@@ -382,7 +358,6 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   }
 
   emxFree_real_T(&layers);
-  covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 13U);
 
   /* end */
   emlrtHeapReferenceStackLeaveFcnR2012b(sp);
@@ -400,8 +375,8 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   boolean_T b_bool;
   int32_T kstr;
   int32_T exitg1;
-  int32_T i1;
   int32_T b_loop_ub;
+  int32_T i1;
   emxArray_real_T *roughs;
   int32_T iv[2];
   real_T this_pcw;
@@ -416,9 +391,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_real_T(sp, &layers, 2, &wg_emlrtRTEI, true);
-  covrtLogFcn(&emlrtCoverageInstance, 8U, 0U);
-  covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 0U);
+  emxInit_real_T(sp, &layers, 2, &fh_emlrtRTEI, true);
 
   /* Arrange layers according to geometry and apply any coverage correction. */
   /*  */
@@ -459,16 +432,13 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   i = layers->size[0] * layers->size[1];
   layers->size[0] = (int32_T)unnamed_idx_0;
   layers->size[1] = 5;
-  emxEnsureCapacity_real_T(sp, layers, i, &wg_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, layers, i, &fh_emlrtRTEI);
   loop_ub = (int32_T)unnamed_idx_0 * 5;
   for (i = 0; i < loop_ub; i++) {
     layers->data[i] = 0.0;
   }
 
-  if (covrtLogIf(&emlrtCoverageInstance, 8U, 0U, 0, covrtLogMcdc
-                 (&emlrtCoverageInstance, 8U, 0U, 0, !covrtLogCond
-                  (&emlrtCoverageInstance, 8U, 0U, 0, allLayers->size[0] == 0))))
-  {
+  if (allLayers->size[0] != 0) {
     b_bool = false;
     if (geometry->size[1] == 13) {
       kstr = 0;
@@ -517,12 +487,10 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
 
     switch (kstr) {
      case 0:
-      covrtLogSwitch(&emlrtCoverageInstance, 8U, 0U, 0, 1);
-      covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 1U);
       i = layers->size[0] * layers->size[1];
       layers->size[0] = allLayers->size[0];
       layers->size[1] = 5;
-      emxEnsureCapacity_real_T(sp, layers, i, &ah_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, layers, i, &ih_emlrtRTEI);
       loop_ub = allLayers->size[0] * allLayers->size[1];
       for (i = 0; i < loop_ub; i++) {
         layers->data[i] = allLayers->data[i];
@@ -532,11 +500,9 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       break;
 
      case 1:
-      covrtLogSwitch(&emlrtCoverageInstance, 8U, 0U, 0, 2);
-      covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 2U);
       if (allLayers->size[0] < 1) {
         emlrtDynamicBoundsCheckR2012b(allLayers->size[0], 1, allLayers->size[0],
-          &td_emlrtBCI, sp);
+          &sf_emlrtBCI, sp);
       }
 
       *outSsubs = allLayers->data[(allLayers->size[0] + allLayers->size[0] * 2)
@@ -547,30 +513,28 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
         loop_ub = allLayers->size[0] - 1;
         if ((loop_ub < 1) || (loop_ub > allLayers->size[0])) {
           emlrtDynamicBoundsCheckR2012b(loop_ub, 1, allLayers->size[0],
-            &sd_emlrtBCI, sp);
+            &rf_emlrtBCI, sp);
         }
       }
 
-      emxInit_real_T(sp, &roughs, 1, &dh_emlrtRTEI, true);
+      emxInit_real_T(sp, &roughs, 1, &lh_emlrtRTEI, true);
       iv[0] = 1;
       iv[1] = loop_ub;
-      st.site = &s_emlrtRSI;
+      st.site = &r_emlrtRSI;
       indexShapeCheck(&st, allLayers->size[0], iv);
       i = roughs->size[0];
       roughs->size[0] = loop_ub + 1;
-      emxEnsureCapacity_real_T(sp, roughs, i, &bh_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, roughs, i, &jh_emlrtRTEI);
       roughs->data[0] = allRoughs;
       for (i = 0; i < loop_ub; i++) {
         roughs->data[i + 1] = allLayers->data[i + allLayers->size[0] * 2];
       }
 
-      covrtLogIf(&emlrtCoverageInstance, 8U, 0U, 1, true);
-      covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 3U);
-      st.site = &t_emlrtRSI;
-      b_st.site = &v_emlrtRSI;
-      c_st.site = &w_emlrtRSI;
+      st.site = &s_emlrtRSI;
+      b_st.site = &u_emlrtRSI;
+      c_st.site = &v_emlrtRSI;
       if (roughs->size[0] != allLayers->size[0]) {
-        emlrtErrorWithMessageIdR2018a(&c_st, &db_emlrtRTEI,
+        emlrtErrorWithMessageIdR2018a(&c_st, &hb_emlrtRTEI,
           "MATLAB:catenate:matrixDimensionMismatch",
           "MATLAB:catenate:matrixDimensionMismatch", 0);
       }
@@ -581,7 +545,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       i = layers->size[0] * layers->size[1];
       layers->size[0] = allLayers->size[0];
       layers->size[1] = 4;
-      emxEnsureCapacity_real_T(sp, layers, i, &ch_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, layers, i, &kh_emlrtRTEI);
       for (i = 0; i < loop_ub; i++) {
         layers->data[i] = allLayers->data[i];
       }
@@ -601,58 +565,40 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
         layers->data[i + layers->size[0] * 3] = allLayers->data[i +
           allLayers->size[0] * 3];
       }
-
-      covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 5U);
-      break;
-
-     default:
-      covrtLogSwitch(&emlrtCoverageInstance, 8U, 0U, 0, 0);
       break;
     }
 
-    covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 6U);
-
     /* Deal with the %coverage if present */
-    covrtLogIf(&emlrtCoverageInstance, 8U, 0U, 2, true);
     i = allLayers->size[0];
     for (b_loop_ub = 0; b_loop_ub < i; b_loop_ub++) {
-      covrtLogFor(&emlrtCoverageInstance, 8U, 0U, 0, 1);
-      covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 7U);
       i1 = b_loop_ub + 1;
       if ((i1 < 1) || (i1 > allLayers->size[0])) {
-        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers->size[0], &ud_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers->size[0], &tf_emlrtBCI,
           sp);
       }
 
       this_pcw = allLayers->data[(i1 + allLayers->size[0] * 3) - 1];
       i1 = b_loop_ub + 1;
       if ((i1 < 1) || (i1 > allLayers->size[0])) {
-        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers->size[0], &vd_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers->size[0], &uf_emlrtBCI,
           sp);
       }
 
-      if (covrtLogIf(&emlrtCoverageInstance, 8U, 0U, 3, allLayers->data[(i1 +
-            allLayers->size[0] * 4) - 1] == 1.0)) {
-        covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 8U);
+      if (allLayers->data[(i1 + allLayers->size[0] * 4) - 1] == 1.0) {
         pc_add = nbsubs;
       } else {
-        covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 9U);
         pc_add = nbair;
       }
 
-      if (covrtLogIf(&emlrtCoverageInstance, 8U, 0U, 4, covrtLogMcdc
-                     (&emlrtCoverageInstance, 8U, 0U, 1, !covrtLogCond
-                      (&emlrtCoverageInstance, 8U, 0U, 1, muDoubleScalarIsNaN
-                       (this_pcw))))) {
-        covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 10U);
+      if (!muDoubleScalarIsNaN(this_pcw)) {
         i1 = b_loop_ub + 1;
         if ((i1 < 1) || (i1 > layers->size[0])) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, layers->size[0], &wd_emlrtBCI, sp);
+          emlrtDynamicBoundsCheckR2012b(i1, 1, layers->size[0], &vf_emlrtBCI, sp);
         }
 
         kstr = b_loop_ub + 1;
         if ((kstr < 1) || (kstr > layers->size[0])) {
-          emlrtDynamicBoundsCheckR2012b(kstr, 1, layers->size[0], &xd_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(kstr, 1, layers->size[0], &wf_emlrtBCI,
             sp);
         }
 
@@ -660,21 +606,16 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
           + (1.0 - this_pcw / 100.0) * layers->data[(i1 + layers->size[0]) - 1];
       }
     }
-
-    covrtLogFor(&emlrtCoverageInstance, 8U, 0U, 0, 0);
   }
 
   /*      problem.layers{i} = layers; */
   /*      problem.ssubs(i) = s_sub; */
-  if (covrtLogIf(&emlrtCoverageInstance, 8U, 0U, 5, covrtLogMcdc
-                 (&emlrtCoverageInstance, 8U, 0U, 2, !covrtLogCond
-                  (&emlrtCoverageInstance, 8U, 0U, 2, layers->size[0] == 0)))) {
-    covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 11U);
+  if (layers->size[0] != 0) {
     loop_ub = layers->size[0];
     i = outLayers->size[0] * outLayers->size[1];
     outLayers->size[0] = layers->size[0];
     outLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, outLayers, i, &yg_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, outLayers, i, &hh_emlrtRTEI);
     for (i = 0; i < 3; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
         outLayers->data[i1 + outLayers->size[0] * i] = layers->data[i1 +
@@ -682,18 +623,16 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       }
     }
   } else {
-    covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 12U);
     i = outLayers->size[0] * outLayers->size[1];
     outLayers->size[0] = 1;
     outLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, outLayers, i, &xg_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, outLayers, i, &gh_emlrtRTEI);
     outLayers->data[0] = 0.0;
     outLayers->data[1] = 0.0;
     outLayers->data[2] = 0.0;
   }
 
   emxFree_real_T(&layers);
-  covrtLogBasicBlock(&emlrtCoverageInstance, 8U, 13U);
 
   /* end */
   emlrtHeapReferenceStackLeaveFcnR2012b(sp);

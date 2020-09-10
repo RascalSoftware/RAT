@@ -34,7 +34,7 @@ rule linkxx
     command = $linkerxx $in $ldflags
 
 # Build
-build $builddir/matlabCallFun.o : cc /home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customXY/matlabCallFun.c
+build $builddir/matlabCallFun.o : cc /home/arwel/Documents/RascalDev/RAT/Sandbox/matlabCallFun.c
 build $builddir/rt_nonfinite.o : cc $root/rt_nonfinite.c
 build $builddir/matlabEngineCaller_customXY_data.o : cc $root/matlabEngineCaller_customXY_data.c
 build $builddir/matlabEngineCaller_customXY_initialize.o : cc $root/matlabEngineCaller_customXY_initialize.c

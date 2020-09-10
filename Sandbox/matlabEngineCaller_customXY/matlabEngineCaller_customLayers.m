@@ -1,4 +1,4 @@
-function [output,sRough] = matlabEngineCaller_customLayers(params,contrast,funcName,funcPath,bulkIn,bulkOut)
+function [output,sRough] = matlabEngineCaller_customXY(params,contrast,funcName,funcPath,bulkIn,bulkOut)
 
 
 paramsLen = int16(length(params));

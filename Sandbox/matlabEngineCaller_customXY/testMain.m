@@ -7,7 +7,8 @@ bulk_out = 6.35e-6;
 
 % matlabEngineCaller_customXY(params,contrast,funcName,funcPath,bulkIn,bulkOut)
 funcName = 'DPPC_gaus_mod_as_custLay_resample';
-[output,subrough] = matlabEngineCaller_customLayers(params,1,funcName,pwd,bulk_in,bulk_out);
+path = pwd;
+[output,subrough] = matlabEngineCaller_customXY(params,1,funcName,path,bulk_in,bulk_out);
 
 figure(1); clf
 plot(output(:,1),output(:,2));

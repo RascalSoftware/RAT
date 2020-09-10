@@ -1,13 +1,1 @@
 # ninja log v5
-0	26	1599573358940030992	build/glnxa64/rt_nonfinite.o	2a2a6479f216b170
-1	26	1599573358941031020	build/glnxa64/c_mexapi_version.o	5795bd3e2f728c10
-0	34	1599573358949031238	build/glnxa64/matlabEngineCaller_customXY_data.o	b78614d4edb3253d
-1	36	1599573358950031266	build/glnxa64/_coder_matlabEngineCaller_customXY_info.o	30e9b32f7d96670d
-0	38	1599573358953031348	build/glnxa64/matlabCallFun.o	64a84d621eba264a
-0	39	1599573358954031375	build/glnxa64/matlabEngineCaller_customXY_initialize.o	2fa2880eb0f2bd5b
-0	40	1599573358955031402	build/glnxa64/matlabEngineCaller_customXY_terminate.o	15ac050565e92bb4
-1	43	1599573358958031484	build/glnxa64/_coder_matlabEngineCaller_customXY_mex.o	630ef7e1d63cfae3
-1	58	1599573358973031894	build/glnxa64/_coder_matlabEngineCaller_customXY_api.o	bdbfe73310ec7971
-1	65	1599573358979032058	build/glnxa64/matlabEngineCaller_customXY_emxutil.o	25261044b538803b
-0	67	1599573358982032140	build/glnxa64/matlabEngineCaller_customXY.o	5c8aa815c7098638
-68	125	1599573359039033697	matlabEngineCaller_customXY_mex.mexa64	f4ec3b239c76f42e

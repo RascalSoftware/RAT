@@ -26,7 +26,7 @@ void c_matlabEngineCaller_customXY_m(int32_T nlhs, mxArray *plhs[2], int32_T
   nrhs, const mxArray *prhs[6])
 {
   const mxArray *outputs[2];
-  int32_T b_nlhs;
+  int32_T nOutputs;
   emlrtStack st = { NULL,              /* site */
     NULL,                              /* tls */
     NULL                               /* prev */
@@ -50,12 +50,12 @@ void c_matlabEngineCaller_customXY_m(int32_T nlhs, mxArray *plhs[2], int32_T
 
   /* Copy over outputs to the caller. */
   if (nlhs < 1) {
-    b_nlhs = 1;
+    nOutputs = 1;
   } else {
-    b_nlhs = nlhs;
+    nOutputs = nlhs;
   }
 
-  emlrtReturnArrays(b_nlhs, plhs, outputs);
+  emlrtReturnArrays(nOutputs, plhs, outputs);
 }
 
 void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const mxArray

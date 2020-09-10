@@ -28,7 +28,7 @@ problemDef_cells{4} = simLimits;
 problemDef_cells{5} = contrastLayers;
 
 % Fix for cell array bug with custom layers
-if strcmp(inputProblemDef.modelType,'custom layers')
+if strcmpi(inputProblemDef.modelType,'custom layers') || strcmpi(inputProblemDef.modelType,'Custom XY')
     for i = 1:length(problemDef_cells{5})
         problemDef_cells{5}{i} = 0;
     end

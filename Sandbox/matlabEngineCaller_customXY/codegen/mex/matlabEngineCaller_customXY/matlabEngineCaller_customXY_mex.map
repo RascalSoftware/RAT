@@ -1,0 +1,18 @@
+MEX {
+	global:
+		mexFunction;
+		mexfilerequiredapiversion;
+		emlrtMexFcnProperties;
+		matlabEngineCaller_customXY_initialize;
+		matlabEngineCaller_customXY_terminate;
+		matlabEngineCaller_customXY_atexit;
+		matlabEngineCaller_customXY;
+		emxEnsureCapacity_char_T;
+		emxEnsureCapacity_real_T;
+		emxInit_char_T;
+		emxFree_char_T;
+		emxInit_real_T;
+		emxFree_real_T;
+	local:
+		*;
+};

@@ -144,8 +144,15 @@ if strcmpi(problem.module.type,'standard layers')
         thisProblemDef.contrastLayers{i} = newContrastLayer;
     end
     
-elseif strcmpi(problem.module.type,'custom layers')
-    thisProblemDef.modelType = 'custom layers';
+elseif strcmpi(problem.module.type,'Custom Layers')
+    thisProblemDef.modelType = 'Custom Layers';
+    fname = problem.module.name;
+    thisProblemDef.modelFilename = fname;
+    thisProblemDef.modelLanguage = 'matlab'; %Rascal1 has no python scripting option
+    
+    
+elseif strcmpi(problem.module.type,'Custom XY Profile')
+    thisProblemDef.modelType = 'Custom XY';
     fname = problem.module.name;
     thisProblemDef.modelFilename = fname;
     thisProblemDef.modelLanguage = 'matlab'; %Rascal1 has no python scripting option

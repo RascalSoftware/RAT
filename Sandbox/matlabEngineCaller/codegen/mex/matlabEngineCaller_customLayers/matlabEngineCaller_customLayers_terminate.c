@@ -27,6 +27,9 @@ void matlabEngineCaller_customLayers_atexit(void)
   mexFunctionCreateRootTLS();
   st.tls = emlrtRootTLSGlobal;
   emlrtEnterRtStackR2012b(&st);
+
+  /* Free instance data */
+  covrtFreeInstanceData(&emlrtCoverageInstance);
   emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
   emlrtExitTimeCleanup(&emlrtContextGlobal);

@@ -7,10 +7,7 @@ MEX {
 		matlabEngineCaller_customLayers_terminate;
 		matlabEngineCaller_customLayers_atexit;
 		matlabEngineCaller_customLayers;
-		emxEnsureCapacity_char_T;
 		emxEnsureCapacity_real_T;
-		emxInit_char_T;
-		emxFree_char_T;
 		emxInit_real_T;
 		emxFree_real_T;
 	local:

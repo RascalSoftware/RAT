@@ -18,6 +18,7 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
+#include "covrt.h"
 #include "rtwtypes.h"
 #include "matlabEngineCaller_customLayers_types.h"
 

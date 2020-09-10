@@ -13,6 +13,10 @@ contrast = 1.0;
 
 %[a,b] = matlabEngineCaller_customLayers_mex(1,-1,'test','test',1,1);
 
+disp('debug');
+
+
+
 end
 
 

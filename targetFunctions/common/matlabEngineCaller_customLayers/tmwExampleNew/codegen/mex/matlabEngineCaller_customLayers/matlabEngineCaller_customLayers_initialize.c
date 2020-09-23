@@ -10,11 +10,11 @@
  */
 
 /* Include files */
-#include "rt_nonfinite.h"
-#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_initialize.h"
 #include "_coder_matlabEngineCaller_customLayers_mex.h"
+#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_data.h"
+#include "rt_nonfinite.h"
 
 /* Function Declarations */
 static void c_matlabEngineCaller_customLaye(void);
@@ -28,24 +28,26 @@ static void c_matlabEngineCaller_customLaye(void)
 
   const int32_T postfix_exprs_0_0[2] = { 0, -1 };
 
+  mex_InitInfAndNan();
+
   /* Allocate instance data */
   covrtAllocateInstanceData(&emlrtCoverageInstance);
 
   /* Initialize Coverage Information */
   covrtScriptInit(&emlrtCoverageInstance,
-                  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m",
-                  0U, 1U, 10U, 5U, 0U, 0U, 0U, 1U, 0U, 1U, 1U);
+                  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/tmwExampleNew/matlabEngineCaller_cust"
+                  "omLayers.m", 0U, 1U, 10U, 5U, 0U, 0U, 0U, 1U, 0U, 1U, 1U);
 
   /* Initialize Function Information */
   covrtFcnInit(&emlrtCoverageInstance, 0U, 0U, "matlabEngineCaller_customLayers",
-               0, -1, 2702);
+               0, -1, 2718);
 
   /* Initialize Basic Block Information */
-  covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 9U, 2651, -1, 2687);
-  covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 8U, 2551, -1, 2604);
-  covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 7U, 2353, -1, 2494);
-  covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 6U, 2284, -1, 2309);
-  covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 5U, 802, -1, 2201);
+  covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 9U, 2667, -1, 2703);
+  covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 8U, 2567, -1, 2620);
+  covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 7U, 2369, -1, 2510);
+  covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 6U, 2300, -1, 2325);
+  covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 5U, 802, -1, 2217);
   covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 4U, 689, -1, 786);
   covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 3U, 646, -1, 675);
   covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 2U, 585, -1, 614);
@@ -53,18 +55,18 @@ static void c_matlabEngineCaller_customLaye(void)
   covrtBasicBlockInit(&emlrtCoverageInstance, 0U, 0U, 111, -1, 438);
 
   /* Initialize If Information */
-  covrtIfInit(&emlrtCoverageInstance, 0U, 0U, 440, 465, 788, 2701);
+  covrtIfInit(&emlrtCoverageInstance, 0U, 0U, 440, 465, 788, 2717);
   covrtIfInit(&emlrtCoverageInstance, 0U, 1U, 470, 483, -1, 580);
   covrtIfInit(&emlrtCoverageInstance, 0U, 2U, 620, 637, -1, 684);
-  covrtIfInit(&emlrtCoverageInstance, 0U, 3U, 2258, 2275, 2638, 2696);
-  covrtIfInit(&emlrtCoverageInstance, 0U, 4U, 2508, 2534, -1, 2621);
+  covrtIfInit(&emlrtCoverageInstance, 0U, 3U, 2274, 2291, 2654, 2712);
+  covrtIfInit(&emlrtCoverageInstance, 0U, 4U, 2524, 2550, -1, 2637);
 
   /* Initialize MCDC Information */
   covrtMcdcInit(&emlrtCoverageInstance, 0U, 0U, 623, 637, 1, 0, cond_starts_0_0,
                 cond_ends_0_0, 2, postfix_exprs_0_0);
 
   /* Initialize For Information */
-  covrtForInit(&emlrtCoverageInstance, 0U, 0U, 2319, 2341, 2633);
+  covrtForInit(&emlrtCoverageInstance, 0U, 0U, 2335, 2357, 2649);
 
   /* Initialize While Information */
   /* Initialize Switch Information */

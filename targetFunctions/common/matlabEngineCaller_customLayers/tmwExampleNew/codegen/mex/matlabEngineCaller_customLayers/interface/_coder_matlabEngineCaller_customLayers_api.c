@@ -10,14 +10,14 @@
  */
 
 /* Include files */
-#include "rt_nonfinite.h"
-#include "matlabEngineCaller_customLayers.h"
 #include "_coder_matlabEngineCaller_customLayers_api.h"
-#include "matlabEngineCaller_customLayers_emxutil.h"
+#include "matlabEngineCaller_customLayers.h"
 #include "matlabEngineCaller_customLayers_data.h"
+#include "matlabEngineCaller_customLayers_emxutil.h"
+#include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRTEInfo c_emlrtRTEI = { 1, /* lineNo */
+static emlrtRTEInfo d_emlrtRTEI = { 1, /* lineNo */
   1,                                   /* colNo */
   "_coder_matlabEngineCaller_customLayers_api",/* fName */
   ""                                   /* pName */
@@ -25,7 +25,7 @@ static emlrtRTEInfo c_emlrtRTEI = { 1, /* lineNo */
 
 /* Function Declarations */
 static real_T (*b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
-  emlrtMsgIdentifier *parentId))[8];
+  emlrtMsgIdentifier *parentId))[9];
 static const mxArray *b_emlrt_marshallOut(const real_T u);
 static real_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *contrast,
   const char_T *identifier);
@@ -34,7 +34,7 @@ static real_T d_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
 static void e_emlrt_marshallIn(const emlrtStack *sp, const mxArray *funcName,
   const char_T *identifier, char_T y[10]);
 static real_T (*emlrt_marshallIn(const emlrtStack *sp, const mxArray *params,
-  const char_T *identifier))[8];
+  const char_T *identifier))[9];
 static const mxArray *emlrt_marshallOut(const emxArray_real_T *u);
 static void f_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   emlrtMsgIdentifier *parentId, char_T y[10]);
@@ -43,7 +43,7 @@ static void g_emlrt_marshallIn(const emlrtStack *sp, const mxArray *funcPath,
 static void h_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   emlrtMsgIdentifier *parentId, char_T y[54]);
 static real_T (*i_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
-  const emlrtMsgIdentifier *msgId))[8];
+  const emlrtMsgIdentifier *msgId))[9];
 static real_T j_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
   emlrtMsgIdentifier *msgId);
 static void k_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
@@ -53,9 +53,9 @@ static void l_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src, const
 
 /* Function Definitions */
 static real_T (*b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
-  emlrtMsgIdentifier *parentId))[8]
+  emlrtMsgIdentifier *parentId))[9]
 {
-  real_T (*y)[8];
+  real_T (*y)[9];
   y = i_emlrt_marshallIn(sp, emlrtAlias(u), parentId);
   emlrtDestroyArray(&u);
   return y;
@@ -63,10 +63,10 @@ static real_T (*b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
   static const mxArray *b_emlrt_marshallOut(const real_T u)
 {
   const mxArray *y;
-  const mxArray *m1;
+  const mxArray *m;
   y = NULL;
-  m1 = emlrtCreateDoubleScalar(u);
-  emlrtAssign(&y, m1);
+  m = emlrtCreateDoubleScalar(u);
+  emlrtAssign(&y, m);
   return y;
 }
 
@@ -104,9 +104,9 @@ static void e_emlrt_marshallIn(const emlrtStack *sp, const mxArray *funcName,
 }
 
 static real_T (*emlrt_marshallIn(const emlrtStack *sp, const mxArray *params,
-  const char_T *identifier))[8]
+  const char_T *identifier))[9]
 {
-  real_T (*y)[8];
+  real_T (*y)[9];
   emlrtMsgIdentifier thisId;
   thisId.fIdentifier = (const char *)identifier;
   thisId.fParent = NULL;
@@ -118,14 +118,14 @@ static real_T (*emlrt_marshallIn(const emlrtStack *sp, const mxArray *params,
   static const mxArray *emlrt_marshallOut(const emxArray_real_T *u)
 {
   const mxArray *y;
-  const mxArray *m0;
-  static const int32_T iv0[2] = { 0, 0 };
+  const mxArray *m;
+  static const int32_T iv[2] = { 0, 0 };
 
   y = NULL;
-  m0 = emlrtCreateNumericArray(2, iv0, mxDOUBLE_CLASS, mxREAL);
-  emlrtMxSetData((mxArray *)m0, &u->data[0]);
-  emlrtSetDimensions((mxArray *)m0, u->size, 2);
-  emlrtAssign(&y, m0);
+  m = emlrtCreateNumericArray(2, &iv[0], mxDOUBLE_CLASS, mxREAL);
+  emlrtMxSetData((mxArray *)m, &u->data[0]);
+  emlrtSetDimensions((mxArray *)m, u->size, 2);
+  emlrtAssign(&y, m);
   return y;
 }
 
@@ -155,13 +155,13 @@ static void h_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u, const
 }
 
 static real_T (*i_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
-  const emlrtMsgIdentifier *msgId))[8]
+  const emlrtMsgIdentifier *msgId))[9]
 {
-  real_T (*ret)[8];
-  static const int32_T dims[2] = { 1, 8 };
+  real_T (*ret)[9];
+  static const int32_T dims[2] = { 1, 9 };
 
   emlrtCheckBuiltInR2012b(sp, msgId, src, "double", false, 2U, dims);
-  ret = (real_T (*)[8])emlrtMxGetData(src);
+  ret = (real_T (*)[9])emlrtMxGetData(src);
   emlrtDestroyArray(&src);
   return ret;
 }
@@ -200,7 +200,7 @@ void matlabEngineCaller_customLayers_api(const mxArray * const prhs[6], int32_T
   nlhs, const mxArray *plhs[2])
 {
   emxArray_real_T *output;
-  real_T (*params)[8];
+  real_T (*params)[9];
   real_T contrast;
   char_T funcName[10];
   char_T funcPath[54];
@@ -214,7 +214,7 @@ void matlabEngineCaller_customLayers_api(const mxArray * const prhs[6], int32_T
 
   st.tls = emlrtRootTLSGlobal;
   emlrtHeapReferenceStackEnterFcnR2012b(&st);
-  emxInit_real_T(&st, &output, 2, &c_emlrtRTEI, true);
+  emxInit_real_T(&st, &output, 2, &d_emlrtRTEI, true);
 
   /* Marshall function inputs */
   params = emlrt_marshallIn(&st, emlrtAlias(prhs[0]), "params");

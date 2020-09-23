@@ -28,7 +28,7 @@ if coder.target('MATLAB')
     [output,layers] = fileHandle(params,bulkIn,bulkOut,contrast);
 else
     
-    path = '/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/';
+    path = '/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/tmwExampleNew';
     
     incPath1 = '/usr/local/MATLAB/R2020a/extern/include';
     %incPath2 = '/usr/include/openmpi-x86_64';
@@ -38,7 +38,7 @@ else
     linkFile2 = 'libmx.so';
     
     source1 = 'matlabCallFun.c';
-    source2 = 'matlabCallFun.h';
+    %source2 = 'matlabCallFun.h';
     
     %source1 = 'matlabCallFun.c';
     %source2 = 'matlabCallFun.h';
@@ -47,9 +47,9 @@ else
     libPreCompiled = true;
     libLinkOnly = true;
 
-    coder.cinclude(source2);
+    %coder.cinclude(source2);
     coder.updateBuildInfo('addSourceFiles',source1);
-    coder.updateBuildInfo('addSourceFiles',source2);
+    %coder.updateBuildInfo('addSourceFiles',source2);
     coder.updateBuildInfo('addSourcePaths',path);
     coder.updateBuildInfo('addIncludePaths',incPath1);
     %coder.updateBuildInfo('addIncludePaths',incPath2);

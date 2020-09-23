@@ -5,12 +5,11 @@
  *
  * matlabEngineCaller_customLayers_types.h
  *
- * Code generation for function 'matlabEngineCaller_customLayers'
+ * Code generation for function 'matlabEngineCaller_customLayers_types'
  *
  */
 
-#ifndef MATLABENGINECALLER_CUSTOMLAYERS_TYPES_H
-#define MATLABENGINECALLER_CUSTOMLAYERS_TYPES_H
+#pragma once
 
 /* Include files */
 #include "rtwtypes.h"
@@ -36,6 +35,5 @@ struct emxArray_real_T
 typedef struct emxArray_real_T emxArray_real_T;
 
 #endif                                 /*typedef_emxArray_real_T*/
-#endif
 
 /* End of code generation (matlabEngineCaller_customLayers_types.h) */

@@ -9,15 +9,13 @@
  *
  */
 
-#ifndef MATLABENGINECALLER_CUSTOMLAYERS_H
-#define MATLABENGINECALLER_CUSTOMLAYERS_H
+#pragma once
 
 /* Include files */
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tmwtypes.h"
 #include "mex.h"
 #include "emlrt.h"
 #include "covrt.h"
@@ -25,10 +23,8 @@
 #include "matlabEngineCaller_customLayers_types.h"
 
 /* Function Declarations */
-extern void matlabEngineCaller_customLayers(const emlrtStack *sp, const real_T
-  params[8], real_T contrast, const char_T funcName[10], const char_T funcPath
-  [54], real_T bulkIn, real_T bulkOut, emxArray_real_T *output, real_T *sRough);
-
-#endif
+void matlabEngineCaller_customLayers(const emlrtStack *sp, const real_T params[9],
+  real_T contrast, const char_T funcName[10], const char_T funcPath[54], real_T
+  bulkIn, real_T bulkOut, emxArray_real_T *output, real_T *sRough);
 
 /* End of code generation (matlabEngineCaller_customLayers.h) */

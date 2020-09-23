@@ -9,15 +9,13 @@
  *
  */
 
-#ifndef MATLABENGINECALLER_CUSTOMLAYERS_TERMINATE_H
-#define MATLABENGINECALLER_CUSTOMLAYERS_TERMINATE_H
+#pragma once
 
 /* Include files */
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tmwtypes.h"
 #include "mex.h"
 #include "emlrt.h"
 #include "covrt.h"
@@ -25,9 +23,7 @@
 #include "matlabEngineCaller_customLayers_types.h"
 
 /* Function Declarations */
-extern void matlabEngineCaller_customLayers_atexit(void);
-extern void matlabEngineCaller_customLayers_terminate(void);
-
-#endif
+void matlabEngineCaller_customLayers_atexit(void);
+void matlabEngineCaller_customLayers_terminate(void);
 
 /* End of code generation (matlabEngineCaller_customLayers_terminate.h) */

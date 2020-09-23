@@ -1,4 +1,4 @@
-function [output,sRough] = matlabEngineCaller_customLayers(params,contrast,funcName,funcPath,bulkIn,bulkOut)
+function [output,sRough] = matlabEngineCaller_customXY(params,contrast,funcName,funcPath,bulkIn,bulkOut)
 
 
 paramsLen = int16(length(params));
@@ -28,7 +28,8 @@ if coder.target('MATLAB')
     [output,layers] = fileHandle(params,bulkIn,bulkOut,contrast);
 else
     
-    path = '/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/';
+    path = '/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew';
+
     
     incPath1 = '/usr/local/MATLAB/R2020a/extern/include';
     %incPath2 = '/usr/include/openmpi-x86_64';
@@ -47,9 +48,9 @@ else
     libPreCompiled = true;
     libLinkOnly = true;
 
-    coder.cinclude(source2);
+    %coder.cinclude(source2);
     coder.updateBuildInfo('addSourceFiles',source1);
-    coder.updateBuildInfo('addSourceFiles',source2);
+    %coder.updateBuildInfo('addSourceFiles',source2);
     coder.updateBuildInfo('addSourcePaths',path);
     coder.updateBuildInfo('addIncludePaths',incPath1);
     %coder.updateBuildInfo('addIncludePaths',incPath2);
@@ -57,7 +58,7 @@ else
     coder.updateBuildInfo('addLinkObjects',linkFile2,linkPath1,libPriority,libPreCompiled,libLinkOnly);
     
     %Need to reserve some meory for the referencenced variables
-    outp = zeros(100,3);
+    outp = zeros(100,2);
     nLayers = 0;
     
     coder.ceval('matlabCallFun', params, paramsLen, funName, pathCall, bulkIn, bulkOut, contrast, coder.wref(outp), coder.wref(nLayers));
@@ -68,10 +69,10 @@ else
     m = size(outp,1);
     n = size(outp,2);
     
-    %reshape the output to [layers * 3] array
+    %reshape the output to [layers * 2] array
     if (nLayers >= 1)
-        output = zeros(nLayers,3);
-        for i = 1:(nLayers*3)
+        output = zeros(nLayers,2);
+        for i = 1:(nLayers*2)
             thisVal = outp(i);  %Make use of Matlab linear indexing.
             output(rowCount,colCount) = thisVal;
             rowCount = rowCount + 1;
@@ -81,7 +82,7 @@ else
             end
         end
     else
-        output = [1 1 1];
+        output = [1 1];
         sRough = 1;
     end
 

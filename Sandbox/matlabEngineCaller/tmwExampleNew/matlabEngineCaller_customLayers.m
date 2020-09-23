@@ -67,7 +67,7 @@ else
     colCount = 1;
     
     m = size(outp,1);
-    n = size(outp,2);
+    n = size(outp,3);
     
     %reshape the output to [layers * 3] array
     if (nLayers >= 1)

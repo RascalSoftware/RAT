@@ -58,7 +58,7 @@ else
     coder.updateBuildInfo('addLinkObjects',linkFile2,linkPath1,libPriority,libPreCompiled,libLinkOnly);
     
     %Need to reserve some meory for the referencenced variables
-    outp = zeros(100,3);
+    outp = zeros(1000,3);
     nLayers = 0;
     
     coder.ceval('matlabCallFun', params, paramsLen, funName, pathCall, bulkIn, bulkOut, contrast, coder.wref(outp), coder.wref(nLayers));

@@ -11,146 +11,216 @@
 
 /* Include files */
 #include "matlabEngineCaller_customLayers.h"
-#include "matlabCallFun.h"
 #include "matlabEngineCaller_customLayers_data.h"
 #include "matlabEngineCaller_customLayers_emxutil.h"
 #include "mwmathutil.h"
 #include "rt_nonfinite.h"
-#include <string.h>
 
 /* Variable Definitions */
-static emlrtRTEInfo emlrtRTEI = { 74,  /* lineNo */
+static emlrtBCInfo emlrtBCI = { -1,    /* iFirst */
+  -1,                                  /* iLast */
+  11,                                  /* lineNo */
+  17,                                  /* colNo */
+  "params",                            /* aName */
+  "matlabEngineCaller_customLayers",   /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m",/* pName */
+  0                                    /* checkKind */
+};
+
+static emlrtRTEInfo emlrtRTEI = { 75,  /* lineNo */
   17,                                  /* colNo */
   "matlabEngineCaller_customLayers",   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m"/* pName */
 };
 
-static emlrtDCInfo emlrtDCI = { 73,    /* lineNo */
+static emlrtDCInfo emlrtDCI = { 74,    /* lineNo */
   24,                                  /* colNo */
   "matlabEngineCaller_customLayers",   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m",/* pName */
   1                                    /* checkKind */
 };
 
-static emlrtDCInfo b_emlrtDCI = { 73,  /* lineNo */
+static emlrtDCInfo b_emlrtDCI = { 74,  /* lineNo */
   9,                                   /* colNo */
   "matlabEngineCaller_customLayers",   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m",/* pName */
   1                                    /* checkKind */
 };
 
-static emlrtBCInfo emlrtBCI = { 1,     /* iFirst */
-  300,                                 /* iLast */
-  75,                                  /* lineNo */
+static emlrtBCInfo b_emlrtBCI = { 1,   /* iFirst */
+  3000,                                /* iLast */
+  76,                                  /* lineNo */
   23,                                  /* colNo */
   "outp",                              /* aName */
   "matlabEngineCaller_customLayers",   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m",/* pName */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo b_emlrtBCI = { -1,  /* iFirst */
+static emlrtBCInfo c_emlrtBCI = { -1,  /* iFirst */
   -1,                                  /* iLast */
-  76,                                  /* lineNo */
+  77,                                  /* lineNo */
   13,                                  /* colNo */
   "output",                            /* aName */
   "matlabEngineCaller_customLayers",   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m",/* pName */
   0                                    /* checkKind */
 };
 
-static emlrtBCInfo c_emlrtBCI = { 1,   /* iFirst */
+static emlrtBCInfo d_emlrtBCI = { 1,   /* iFirst */
   3,                                   /* iLast */
-  76,                                  /* lineNo */
+  77,                                  /* lineNo */
   13,                                  /* colNo */
   "output",                            /* aName */
   "matlabEngineCaller_customLayers",   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m",/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m",/* pName */
   3                                    /* checkKind */
 };
 
-static emlrtRTEInfo b_emlrtRTEI = { 84,/* lineNo */
-  9,                                   /* colNo */
+static emlrtRTEInfo b_emlrtRTEI = { 10,/* lineNo */
+  1,                                   /* colNo */
   "matlabEngineCaller_customLayers",   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m"/* pName */
 };
 
-static emlrtRTEInfo c_emlrtRTEI = { 73,/* lineNo */
+static emlrtRTEInfo c_emlrtRTEI = { 13,/* lineNo */
+  1,                                   /* colNo */
+  "matlabEngineCaller_customLayers",   /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m"/* pName */
+};
+
+static emlrtRTEInfo d_emlrtRTEI = { 64,/* lineNo */
+  34,                                  /* colNo */
+  "matlabEngineCaller_customLayers",   /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m"/* pName */
+};
+
+static emlrtRTEInfo e_emlrtRTEI = { 85,/* lineNo */
   9,                                   /* colNo */
   "matlabEngineCaller_customLayers",   /* fName */
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.m"/* pName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m"/* pName */
+};
+
+static emlrtRTEInfo f_emlrtRTEI = { 74,/* lineNo */
+  9,                                   /* colNo */
+  "matlabEngineCaller_customLayers",   /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m"/* pName */
+};
+
+static emlrtRTEInfo g_emlrtRTEI = { 1, /* lineNo */
+  28,                                  /* colNo */
+  "matlabEngineCaller_customLayers",   /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m"/* pName */
 };
 
 /* Function Definitions */
-void matlabEngineCaller_customLayers(const emlrtStack *sp, const real_T params[8],
-  real_T contrast, const char_T funcName[10], const char_T funcPath[54], real_T
-  bulkIn, real_T bulkOut, emxArray_real_T *output, real_T *sRough)
+void matlabEngineCaller_customLayers(const emlrtStack *sp, const emxArray_real_T
+  *params, real_T contrast, const emxArray_char_T *funcName, const
+  emxArray_char_T *funcPath, real_T bulkIn, real_T bulkOut, emxArray_real_T
+  *output, real_T *sRough)
 {
+  emxArray_char_T *funName;
   int32_T i;
-  char_T cv[61];
-  static const char_T cv1[17] = { '[', 't', 'o', 't', 'a', 'l', ',', 'l', 'a',
+  int32_T loop_ub;
+  static const char_T cv[17] = { '[', 't', 'o', 't', 'a', 'l', ',', 'l', 'a',
     'y', 'e', 'r', 's', ']', ' ', '=', ' ' };
 
-  char_T cv2[60];
-  static const char_T cv3[34] = { '(', 'p', 'a', 'r', 'a', 'm', 's', ',', 'b',
+  static const char_T cv1[34] = { '(', 'p', 'a', 'r', 'a', 'm', 's', ',', 'b',
     'u', 'l', 'k', '_', 'i', 'n', ',', 'b', 'u', 'l', 'k', '_', 'o', 'u', 't',
     ',', 'c', 'o', 'n', 't', 'r', 'a', 's', 't', ')' };
 
-  real_T b_params[8];
-  real_T outp[300];
+  emxArray_char_T *pathCall;
+  emxArray_real_T *b_params;
+  real_T outp[3000];
   real_T nLayers;
   uint32_T rowCount;
   int32_T colCount;
-  int32_T loop_ub;
   real_T d;
   int32_T b_i;
-  covrtLogFcn(&emlrtCoverageInstance, 0U, 0U);
-  covrtLogBasicBlock(&emlrtCoverageInstance, 0U, 0U);
+  emlrtHeapReferenceStackEnterFcnR2012b(sp);
+  emxInit_char_T(sp, &funName, 2, &b_emlrtRTEI, true);
 
   /*  dotM = strfind(funcName,'.m'); */
   /*  if ~isempty(dotM) */
   /*      funcName = funcName(1:dotM-1); */
   /*  end */
   /* [path,funcName,extension] = fileparts(funcName); */
-  *sRough = params[0];
-  covrtLogIf(&emlrtCoverageInstance, 0U, 0U, 0, false);
-  covrtLogBasicBlock(&emlrtCoverageInstance, 0U, 5U);
-
-  /* incPath2 = '/usr/include/openmpi-x86_64'; */
-  /* source1 = 'matlabCallFun.c'; */
-  /* source2 = 'matlabCallFun.h'; */
-  /* coder.updateBuildInfo('addIncludePaths',incPath2); */
-  /* Need to reserve some meory for the referencenced variables */
+  i = funName->size[0] * funName->size[1];
+  funName->size[0] = 1;
+  funName->size[1] = funcName->size[1] + 51;
+  emxEnsureCapacity_char_T(sp, funName, i, &b_emlrtRTEI);
   for (i = 0; i < 17; i++) {
-    cv[i] = cv1[i];
+    funName->data[i] = cv[i];
   }
 
-  for (i = 0; i < 10; i++) {
-    cv[i + 17] = funcName[i];
+  loop_ub = funcName->size[1];
+  for (i = 0; i < loop_ub; i++) {
+    funName->data[i + 17] = funcName->data[i];
   }
 
   for (i = 0; i < 34; i++) {
-    cv[i + 27] = cv3[i];
+    funName->data[(i + funcName->size[1]) + 17] = cv1[i];
   }
 
-  cv2[0] = 'c';
-  cv2[1] = 'd';
-  cv2[2] = ' ';
-  cv2[3] = '\'';
-  for (i = 0; i < 54; i++) {
-    cv2[i + 4] = funcPath[i];
+  if (1 > params->size[1]) {
+    emlrtDynamicBoundsCheckR2012b(1, 1, params->size[1], &emlrtBCI, sp);
   }
 
-  cv2[58] = '\'';
-  cv2[59] = ';';
-  memcpy(&b_params[0], &params[0], 8U * sizeof(real_T));
-  matlabCallFun(b_params, 8, cv, cv2, bulkIn, bulkOut, contrast, outp, &nLayers);
+  emxInit_char_T(sp, &pathCall, 2, &c_emlrtRTEI, true);
+  *sRough = params->data[0];
+  i = pathCall->size[0] * pathCall->size[1];
+  pathCall->size[0] = 1;
+  pathCall->size[1] = funcPath->size[1] + 6;
+  emxEnsureCapacity_char_T(sp, pathCall, i, &c_emlrtRTEI);
+  pathCall->data[0] = 'c';
+  pathCall->data[1] = 'd';
+  pathCall->data[2] = ' ';
+  pathCall->data[3] = '\'';
+  loop_ub = funcPath->size[1];
+  for (i = 0; i < loop_ub; i++) {
+    pathCall->data[i + 4] = funcPath->data[i];
+  }
+
+  emxInit_real_T(sp, &b_params, 2, &g_emlrtRTEI, true);
+  pathCall->data[funcPath->size[1] + 4] = '\'';
+  pathCall->data[funcPath->size[1] + 5] = ';';
+
+  /* incPath2 = '/usr/include/openmpi-x86_64'; */
+  /* source2 = 'matlabCallFun.h'; */
+  /* source1 = 'matlabCallFun.c'; */
+  /* source2 = 'matlabCallFun.h'; */
+  /* coder.cinclude(source2); */
+  /* coder.updateBuildInfo('addSourceFiles',source2); */
+  /* coder.updateBuildInfo('addIncludePaths',incPath2); */
+  /* Need to reserve some meory for the referencenced variables */
+  i = b_params->size[0] * b_params->size[1];
+  b_params->size[0] = 1;
+  b_params->size[1] = params->size[1];
+  emxEnsureCapacity_real_T(sp, b_params, i, &d_emlrtRTEI);
+  loop_ub = params->size[0] * params->size[1];
+  for (i = 0; i < loop_ub; i++) {
+    b_params->data[i] = params->data[i];
+  }
+
+  i = params->size[1];
+  if (params->size[1] > 32767) {
+    i = 32767;
+  } else {
+    if (params->size[1] < -32768) {
+      i = -32768;
+    }
+  }
+
+  matlabCallFun(&b_params->data[0], (int16_T)i, &funName->data[0],
+                &pathCall->data[0], bulkIn, bulkOut, contrast, outp, &nLayers);
   rowCount = 1U;
   colCount = 1;
 
   /* reshape the output to [layers * 3] array */
-  if (covrtLogIf(&emlrtCoverageInstance, 0U, 0U, 3, nLayers >= 1.0)) {
-    covrtLogBasicBlock(&emlrtCoverageInstance, 0U, 6U);
+  emxFree_real_T(&b_params);
+  emxFree_char_T(&pathCall);
+  emxFree_char_T(&funName);
+  if (nLayers >= 1.0) {
     i = (int32_T)muDoubleScalarFloor(nLayers);
     if (nLayers != i) {
       emlrtIntegerCheckR2012b(nLayers, &emlrtDCI, sp);
@@ -159,7 +229,7 @@ void matlabEngineCaller_customLayers(const emlrtStack *sp, const real_T params[8
     loop_ub = output->size[0] * output->size[1];
     output->size[0] = (int32_T)nLayers;
     output->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, output, loop_ub, &c_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, output, loop_ub, &f_emlrtRTEI);
     if ((int32_T)nLayers != i) {
       emlrtIntegerCheckR2012b(nLayers, &b_emlrtDCI, sp);
     }
@@ -174,20 +244,18 @@ void matlabEngineCaller_customLayers(const emlrtStack *sp, const real_T params[8
     emlrtForLoopVectorCheckR2012b(1.0, 1.0, d, mxDOUBLE_CLASS, (int32_T)d,
       &emlrtRTEI, sp);
     for (b_i = 0; b_i < i; b_i++) {
-      covrtLogFor(&emlrtCoverageInstance, 0U, 0U, 0, 1);
-      covrtLogBasicBlock(&emlrtCoverageInstance, 0U, 7U);
       loop_ub = (int32_T)(b_i + 1U);
-      if ((loop_ub < 1) || (loop_ub > 300)) {
-        emlrtDynamicBoundsCheckR2012b(loop_ub, 1, 300, &emlrtBCI, sp);
+      if ((loop_ub < 1) || (loop_ub > 3000)) {
+        emlrtDynamicBoundsCheckR2012b(loop_ub, 1, 3000, &b_emlrtBCI, sp);
       }
 
       if (((int32_T)rowCount < 1) || ((int32_T)rowCount > output->size[0])) {
         emlrtDynamicBoundsCheckR2012b((int32_T)rowCount, 1, output->size[0],
-          &b_emlrtBCI, sp);
+          &c_emlrtBCI, sp);
       }
 
       if (colCount > 3) {
-        emlrtDynamicBoundsCheckR2012b(4, 1, 3, &c_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(4, 1, 3, &d_emlrtBCI, sp);
       }
 
       output->data[((int32_T)rowCount + output->size[0] * (colCount - 1)) - 1] =
@@ -195,9 +263,7 @@ void matlabEngineCaller_customLayers(const emlrtStack *sp, const real_T params[8
 
       /* Make use of Matlab linear indexing. */
       rowCount++;
-      if (covrtLogIf(&emlrtCoverageInstance, 0U, 0U, 4, rowCount == (uint32_T)
-                     nLayers + 1U)) {
-        covrtLogBasicBlock(&emlrtCoverageInstance, 0U, 8U);
+      if (rowCount == (uint32_T)nLayers + 1U) {
         rowCount = 1U;
         colCount++;
       }
@@ -206,19 +272,18 @@ void matlabEngineCaller_customLayers(const emlrtStack *sp, const real_T params[8
         emlrtBreakCheckR2012b(sp);
       }
     }
-
-    covrtLogFor(&emlrtCoverageInstance, 0U, 0U, 0, 0);
   } else {
-    covrtLogBasicBlock(&emlrtCoverageInstance, 0U, 9U);
     i = output->size[0] * output->size[1];
     output->size[0] = 1;
     output->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, output, i, &b_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, output, i, &e_emlrtRTEI);
     output->data[0] = 1.0;
     output->data[1] = 1.0;
     output->data[2] = 1.0;
     *sRough = 1.0;
   }
+
+  emlrtHeapReferenceStackLeaveFcnR2012b(sp);
 }
 
 /* End of code generation (matlabEngineCaller_customLayers.c) */

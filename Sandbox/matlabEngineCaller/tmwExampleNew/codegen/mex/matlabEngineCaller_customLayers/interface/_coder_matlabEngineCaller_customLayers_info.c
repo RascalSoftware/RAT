@@ -23,13 +23,13 @@ static const mxArray *emlrtMexFcnResolvedFunctionsInfo(void)
 {
   const mxArray *nameCaptureInfo;
   const char * data[5] = {
-    "789ce553cb4ec240149d1a346e505cf8052e4d3a8826c665058c4440030d1289d1a1bd42e33c703a4059f909fe824b3fc9cf91168a85d8946064e34926b727a7"
-    "33e7de3319a4952a1a426867bc0e5e117adf4201d2938232d3ba81e6b1a86b3135c4264acdedd3a67e6f536e09aec05313c20983d94e5b308713aecc510f9004",
-    "57d001d881f2e450301d06f528a9fa8c5d44a419f125ff3bdf05ebb9de674876ddef0e69940479f8f88c9937b5641e2f31796416f456f11e7705034ce410282e"
-    "08abcf802b17d7886b115a8001ae1926ae136eb78587195194b48bbce370c8134a4162c586458fb01e852a0c7ff8e1c1eabb4ab03219817475b630a7f7cb39f7",
-    "13e60c754bd82075677cd99213aa53e01dd58df4f1b8621f8b88eb2344e8f7b1a25f78fe65825fa8b74ae5e6f88afbaec4548c2f14570cb36c9ce35a2e9bcb12"
-    "ac84a0febd02a3c13a0c72c2876150781294ce9272da5db2efb8779a46db411ded5d37fdba2ebf10ffc56f5defcd2c37eece98dd94c6edc9a97774dc60d9ea55",
-    "a48f9b049fa43e500cffebf3bf00a232853f", "" };
+    "789ce553cb4ec240149d1a34c6041f0bbf82a48368625c56c0480434d02091181dda2b34ce03a70394959fe02fb8f493fc1c69a158884d0946369e64727b723a"
+    "73ee3d93415aa9a2218476c76be715a1f72d14203d29687f5a37d03c16752da686d844a9b97ddad4ef6dca2dc115786a42386130db690be670c29539ea0192e0",
+    "0a3a003b509e1c0aa6c3a01e25559fb18b883423bee47fe7bb603dd7fb0cc9aefbdd218d92200f1f9f31f3a696cce325268ffd05bd55bcc75dc1001339048a0b"
+    "c2ea33e0cac535e25a841660806b8689eb84db6de161461425ed22ef381cf284529058b161d123ac47a10ac31f7e78b0faae12ac4c46205d9d2dcce9fd72cec3",
+    "843943dd123648dd195fb6e484ea14784775237d3caed8c722e2fa0811fa7dace8179e7f99e017eaad52b939bee2be2b3115e30bc515c32c1be7b896cbe6b204"
+    "2b21a87fafc068b032414e381306852741e92c29a7bd25fb8e7ba769b41dd4d1c175d3afebf20bf15ffcd6f5decc72e3ee8cd94d69dc9e9c7a47c70d96ad5e45",
+    "fab849f049ea03c5f0bf3eff0b5f7b850d", "" };
 
   nameCaptureInfo = NULL;
   emlrtNameCaptureMxArrayR2016a(&data[0], 1720U, &nameCaptureInfo);
@@ -58,7 +58,7 @@ mxArray *emlrtMexFcnProperties(void)
   emlrtSetField(xEntryPoints, 0, "FullPath", emlrtMxCreateString(
     "/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabEngineCaller_customLayers.m"));
   emlrtSetField(xEntryPoints, 0, "TimeStamp", emlrtMxCreateDoubleScalar
-                (738057.402337963));
+                (738057.46045138885));
   xResult = emlrtCreateStructMatrix(1, 1, 4, propFieldName);
   emlrtSetField(xResult, 0, "Version", emlrtMxCreateString(
     "9.8.0.1380330 (R2020a) Update 2"));

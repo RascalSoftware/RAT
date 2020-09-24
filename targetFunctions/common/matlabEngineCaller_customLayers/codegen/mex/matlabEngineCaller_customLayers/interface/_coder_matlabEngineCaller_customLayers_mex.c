@@ -18,15 +18,15 @@
 #include "matlabEngineCaller_customLayers_terminate.h"
 
 /* Function Declarations */
-MEXFUNCTION_LINKAGE void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray
+MEXFUNCTION_LINKAGE void c_matlabEngineCaller_customLaye(int32_T nlhs, mxArray
   *plhs[2], int32_T nrhs, const mxArray *prhs[6]);
 
 /* Function Definitions */
-void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2], int32_T
+void c_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2], int32_T
   nrhs, const mxArray *prhs[6])
 {
   const mxArray *outputs[2];
-  int32_T nOutputs;
+  int32_T b_nlhs;
   emlrtStack st = { NULL,              /* site */
     NULL,                              /* tls */
     NULL                               /* prev */
@@ -50,12 +50,12 @@ void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray *plhs[2], int32_T
 
   /* Copy over outputs to the caller. */
   if (nlhs < 1) {
-    nOutputs = 1;
+    b_nlhs = 1;
   } else {
-    nOutputs = nlhs;
+    b_nlhs = nlhs;
   }
 
-  emlrtReturnArrays(nOutputs, plhs, outputs);
+  emlrtReturnArrays(b_nlhs, plhs, outputs);
 }
 
 void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const mxArray
@@ -67,7 +67,7 @@ void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const mxArray
   matlabEngineCaller_customLayers_initialize();
 
   /* Dispatch the entry-point. */
-  d_matlabEngineCaller_customLaye(nlhs, plhs, nrhs, prhs);
+  c_matlabEngineCaller_customLaye(nlhs, plhs, nrhs, prhs);
 
   /* Module termination. */
   matlabEngineCaller_customLayers_terminate();

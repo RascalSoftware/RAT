@@ -28,7 +28,8 @@ if coder.target('MATLAB')
     [output,layers] = fileHandle(params,bulkIn,bulkOut,contrast);
 else
     
-    path = '/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller';
+    path = '/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew';
+
     
     incPath1 = '/usr/local/MATLAB/R2020a/extern/include';
     %incPath2 = '/usr/include/openmpi-x86_64';
@@ -37,8 +38,8 @@ else
     linkFile1 = 'libeng.so';
     linkFile2 = 'libmx.so';
     
-    source1 = '/home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/matlabCallFun.c';
-    %source2 = '/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabCallFun.h';
+    source1 = 'matlabCallFun.c';
+    %source2 = 'matlabCallFun.h';
     
     %source1 = 'matlabCallFun.c';
     %source2 = 'matlabCallFun.h';
@@ -57,7 +58,7 @@ else
     coder.updateBuildInfo('addLinkObjects',linkFile2,linkPath1,libPriority,libPreCompiled,libLinkOnly);
     
     %Need to reserve some meory for the referencenced variables
-    outp = zeros(100,3);
+    outp = zeros(1000,3);
     nLayers = 0;
     
     coder.ceval('matlabCallFun', params, paramsLen, funName, pathCall, bulkIn, bulkOut, contrast, coder.wref(outp), coder.wref(nLayers));
@@ -66,7 +67,7 @@ else
     colCount = 1;
     
     m = size(outp,1);
-    n = size(outp,2);
+    n = size(outp,3);
     
     %reshape the output to [layers * 3] array
     if (nLayers >= 1)

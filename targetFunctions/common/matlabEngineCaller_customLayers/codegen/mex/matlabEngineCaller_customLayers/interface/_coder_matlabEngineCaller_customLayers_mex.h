@@ -18,12 +18,11 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
-#include "covrt.h"
 #include "rtwtypes.h"
 #include "matlabEngineCaller_customLayers_types.h"
 
 /* Function Declarations */
-MEXFUNCTION_LINKAGE void d_matlabEngineCaller_customLaye(int32_T nlhs, mxArray
+MEXFUNCTION_LINKAGE void c_matlabEngineCaller_customLaye(int32_T nlhs, mxArray
   *plhs[2], int32_T nrhs, const mxArray *prhs[6]);
 MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
   const mxArray *prhs[]);

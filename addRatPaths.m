@@ -43,7 +43,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
 %addpath('/home/arwel/eclipseWorkspace_new/matlabEngine_demo/src');
 %addpath('/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/old_standardTF');
 
-for i = 1:length(ratPaths);
+for i = 1:length(ratPaths)
     addpath(ratPaths{i});
 end
 

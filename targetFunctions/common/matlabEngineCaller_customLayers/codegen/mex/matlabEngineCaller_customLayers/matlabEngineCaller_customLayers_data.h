@@ -18,7 +18,6 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
-#include "covrt.h"
 #include "rtwtypes.h"
 #include "matlabEngineCaller_customLayers_types.h"
 
@@ -26,6 +25,5 @@
 extern emlrtCTX emlrtRootTLSGlobal;
 extern const volatile char_T *emlrtBreakCheckR2012bFlagVar;
 extern emlrtContext emlrtContextGlobal;
-extern covrtInstance emlrtCoverageInstance;
 
 /* End of code generation (matlabEngineCaller_customLayers_data.h) */

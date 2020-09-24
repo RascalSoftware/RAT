@@ -48,7 +48,7 @@ static emlrtDCInfo b_emlrtDCI = { 74,  /* lineNo */
 };
 
 static emlrtBCInfo b_emlrtBCI = { 1,   /* iFirst */
-  300,                                 /* iLast */
+  3000,                                /* iLast */
   76,                                  /* lineNo */
   23,                                  /* colNo */
   "outp",                              /* aName */
@@ -131,7 +131,7 @@ void matlabEngineCaller_customLayers(const emlrtStack *sp, const emxArray_real_T
 
   emxArray_char_T *pathCall;
   emxArray_real_T *b_params;
-  real_T outp[300];
+  real_T outp[3000];
   real_T nLayers;
   uint32_T rowCount;
   int32_T colCount;
@@ -245,8 +245,8 @@ void matlabEngineCaller_customLayers(const emlrtStack *sp, const emxArray_real_T
       &emlrtRTEI, sp);
     for (b_i = 0; b_i < i; b_i++) {
       loop_ub = (int32_T)(b_i + 1U);
-      if ((loop_ub < 1) || (loop_ub > 300)) {
-        emlrtDynamicBoundsCheckR2012b(loop_ub, 1, 300, &b_emlrtBCI, sp);
+      if ((loop_ub < 1) || (loop_ub > 3000)) {
+        emlrtDynamicBoundsCheckR2012b(loop_ub, 1, 3000, &b_emlrtBCI, sp);
       }
 
       if (((int32_T)rowCount < 1) || ((int32_T)rowCount > output->size[0])) {

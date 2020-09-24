@@ -28,6 +28,4 @@ emlrtContext emlrtContextGlobal = { true,/* bFirstTime */
   NULL                                 /* fSigMem */
 };
 
-covrtInstance emlrtCoverageInstance;
-
 /* End of code generation (matlabEngineCaller_customLayers_data.c) */

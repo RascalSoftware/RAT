@@ -23,32 +23,32 @@
 #include "sldFunc.h"
 
 /* Variable Definitions */
-static emlrtRSInfo tc_emlrtRSI = { 18, /* lineNo */
+static emlrtRSInfo uc_emlrtRSI = { 18, /* lineNo */
   "resampleLayers",                    /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/resampleLayers.m"/* pathName */
 };
 
-static emlrtRSInfo uc_emlrtRSI = { 252,/* lineNo */
+static emlrtRSInfo vc_emlrtRSI = { 252,/* lineNo */
   "adaptive",                          /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo vc_emlrtRSI = { 267,/* lineNo */
+static emlrtRSInfo wc_emlrtRSI = { 267,/* lineNo */
   "adaptive",                          /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo wc_emlrtRSI = { 281,/* lineNo */
+static emlrtRSInfo xc_emlrtRSI = { 281,/* lineNo */
   "adaptive",                          /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo xc_emlrtRSI = { 304,/* lineNo */
+static emlrtRSInfo yc_emlrtRSI = { 304,/* lineNo */
   "adaptive",                          /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-static emlrtRSInfo yc_emlrtRSI = { 305,/* lineNo */
+static emlrtRSInfo ad_emlrtRSI = { 305,/* lineNo */
   "adaptive",                          /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
@@ -67,7 +67,7 @@ static emlrtECInfo g_emlrtECI = { -1,  /* nDims */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtDCInfo gb_emlrtDCI = { 274,/* lineNo */
+static emlrtDCInfo hb_emlrtDCI = { 274,/* lineNo */
   30,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m",/* pName */
@@ -144,68 +144,68 @@ static emlrtBCInfo og_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo hb_emlrtDCI = { 23, /* lineNo */
+static emlrtDCInfo ib_emlrtDCI = { 23, /* lineNo */
   16,                                  /* colNo */
   "resampleLayers",                    /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/resampleLayers.m",/* pName */
   4                                    /* checkKind */
 };
 
-static emlrtRTEInfo ei_emlrtRTEI = { 255,/* lineNo */
+static emlrtRTEInfo aj_emlrtRTEI = { 255,/* lineNo */
   1,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo fi_emlrtRTEI = { 23,/* lineNo */
+static emlrtRTEInfo bj_emlrtRTEI = { 23,/* lineNo */
   1,                                   /* colNo */
   "resampleLayers",                    /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/resampleLayers.m"/* pName */
 };
 
-static emlrtRTEInfo gi_emlrtRTEI = { 281,/* lineNo */
+static emlrtRTEInfo cj_emlrtRTEI = { 281,/* lineNo */
   42,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo hi_emlrtRTEI = { 282,/* lineNo */
+static emlrtRTEInfo dj_emlrtRTEI = { 282,/* lineNo */
   5,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ii_emlrtRTEI = { 283,/* lineNo */
+static emlrtRTEInfo ej_emlrtRTEI = { 283,/* lineNo */
   5,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ji_emlrtRTEI = { 289,/* lineNo */
+static emlrtRTEInfo fj_emlrtRTEI = { 289,/* lineNo */
   21,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ki_emlrtRTEI = { 289,/* lineNo */
+static emlrtRTEInfo gj_emlrtRTEI = { 289,/* lineNo */
   50,                                  /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo li_emlrtRTEI = { 281,/* lineNo */
+static emlrtRTEInfo hj_emlrtRTEI = { 281,/* lineNo */
   5,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo mi_emlrtRTEI = { 289,/* lineNo */
+static emlrtRTEInfo ij_emlrtRTEI = { 289,/* lineNo */
   3,                                   /* colNo */
   "adaptive",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pName */
 };
 
-static emlrtRTEInfo ni_emlrtRTEI = { 2,/* lineNo */
+static emlrtRTEInfo jj_emlrtRTEI = { 2,/* lineNo */
   19,                                  /* colNo */
   "resampleLayers",                    /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/resampleLayers.m"/* pName */
@@ -280,7 +280,7 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
 
   /*  Keep points and minangle as constants for now */
   /*  will fix later */
-  st.site = &tc_emlrtRSI;
+  st.site = &uc_emlrtRSI;
 
   /*  adaptive: evaluates a matlab function on a given range */
   /*  */
@@ -491,7 +491,7 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
   /*  Remove this syntax for compile - AVH */
   /* func = @(x) normalizeFunction(x,sldProfile,vectorizable); */
   /*  Evaluate the input function on the initial set of points. */
-  b_st.site = &uc_emlrtRSI;
+  b_st.site = &vc_emlrtRSI;
 
   /*  Subfunctions */
   /*  NORMALIZEFUNCTION evaluates a function and returns a NxM array, where N */
@@ -510,13 +510,13 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
   /*    [newValues{:}] = func(x(:)); */
   /*    y = cell2mat(newValues); */
   /*  else */
-  emxInit_real_T(&b_st, &cornerAngle, 1, &li_emlrtRTEI, true);
+  emxInit_real_T(&b_st, &cornerAngle, 1, &hj_emlrtRTEI, true);
   for (i = 0; i < 50; i++) {
     /*  Remove cell array so no need for cell2mat */
     /*  which won't compile - AVH */
     /* [newValues{:}] = func(x(i)); */
     /* y(i,:) = cell2mat(newValues); */
-    c_st.site = &ad_emlrtRSI;
+    c_st.site = &bd_emlrtRSI;
     sldFunc(&c_st, newDomain[i], sldProfile, cornerAngle);
     if (1 != cornerAngle->size[0]) {
       emlrtSubAssignSizeCheck1dR2017a(1, cornerAngle->size[0], &e_emlrtECI,
@@ -533,11 +533,11 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
     b_newDomain[b_i + 50] = hiVal[b_i];
   }
 
-  emxInit_real_T(&st, &dataPoints, 2, &ei_emlrtRTEI, true);
+  emxInit_real_T(&st, &dataPoints, 2, &aj_emlrtRTEI, true);
   b_i = dataPoints->size[0] * dataPoints->size[1];
   dataPoints->size[0] = 50;
   dataPoints->size[1] = 2;
-  emxEnsureCapacity_real_T(&st, dataPoints, b_i, &ei_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, dataPoints, b_i, &aj_emlrtRTEI);
   for (b_i = 0; b_i < 100; b_i++) {
     dataPoints->data[b_i] = b_newDomain[b_i];
   }
@@ -549,17 +549,17 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
   /*    setappdata(refinementWaitbar,'canceling',false) */
   /*  end */
   nRefinements = 0;
-  emxInit_boolean_T(&st, &sharpCorners, 1, &hi_emlrtRTEI, true);
-  emxInit_boolean_T(&st, &segmentsToSplit, 1, &mi_emlrtRTEI, true);
-  emxInit_boolean_T(&st, &r, 1, &ni_emlrtRTEI, true);
-  emxInit_real_T(&st, &b_dataPoints, 2, &gi_emlrtRTEI, true);
+  emxInit_boolean_T(&st, &sharpCorners, 1, &dj_emlrtRTEI, true);
+  emxInit_boolean_T(&st, &segmentsToSplit, 1, &ij_emlrtRTEI, true);
+  emxInit_boolean_T(&st, &r, 1, &jj_emlrtRTEI, true);
+  emxInit_real_T(&st, &b_dataPoints, 2, &cj_emlrtRTEI, true);
   exitg1 = false;
   while ((!exitg1) && (nRefinements < 10)) {
     /*  calculate the box which encloses the current data points: */
-    b_st.site = &vc_emlrtRSI;
-    c_st.site = &lc_emlrtRSI;
-    d_st.site = &mc_emlrtRSI;
-    e_st.site = &nc_emlrtRSI;
+    b_st.site = &wc_emlrtRSI;
+    c_st.site = &mc_emlrtRSI;
+    d_st.site = &nc_emlrtRSI;
+    e_st.site = &oc_emlrtRSI;
     if (dataPoints->size[0] == 1) {
       emlrtErrorWithMessageIdR2018a(&e_st, &nb_emlrtRTEI,
         "Coder:toolbox:autoDimIncompatibility",
@@ -572,15 +572,15 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
         "Coder:toolbox:eml_min_or_max_varDimZero", 0);
     }
 
-    f_st.site = &id_emlrtRSI;
-    g_st.site = &jd_emlrtRSI;
-    h_st.site = &kd_emlrtRSI;
+    f_st.site = &jd_emlrtRSI;
+    g_st.site = &kd_emlrtRSI;
+    h_st.site = &ld_emlrtRSI;
     b_i = dataPoints->size[0];
     overflow = ((2 <= dataPoints->size[0]) && (dataPoints->size[0] > 2147483646));
     startDomain[0] = dataPoints->data[0];
-    i_st.site = &ld_emlrtRSI;
+    i_st.site = &md_emlrtRSI;
     if (overflow) {
-      j_st.site = &mb_emlrtRSI;
+      j_st.site = &nb_emlrtRSI;
       check_forloop_overflow_error(&j_st);
     }
 
@@ -593,7 +593,7 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
     }
 
     startDomain[1] = dataPoints->data[dataPoints->size[0]];
-    i_st.site = &ld_emlrtRSI;
+    i_st.site = &md_emlrtRSI;
     for (i = 2; i <= b_i; i++) {
       thisLayRho = dataPoints->data[(i + dataPoints->size[0]) - 1];
       if ((!muDoubleScalarIsNaN(thisLayRho)) && (muDoubleScalarIsNaN
@@ -602,10 +602,10 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
       }
     }
 
-    b_st.site = &vc_emlrtRSI;
-    c_st.site = &md_emlrtRSI;
-    d_st.site = &nd_emlrtRSI;
-    e_st.site = &od_emlrtRSI;
+    b_st.site = &wc_emlrtRSI;
+    c_st.site = &nd_emlrtRSI;
+    d_st.site = &od_emlrtRSI;
+    e_st.site = &pd_emlrtRSI;
     if (dataPoints->size[0] == 1) {
       emlrtErrorWithMessageIdR2018a(&e_st, &nb_emlrtRTEI,
         "Coder:toolbox:autoDimIncompatibility",
@@ -618,15 +618,15 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
         "Coder:toolbox:eml_min_or_max_varDimZero", 0);
     }
 
-    f_st.site = &id_emlrtRSI;
-    g_st.site = &jd_emlrtRSI;
-    h_st.site = &kd_emlrtRSI;
+    f_st.site = &jd_emlrtRSI;
+    g_st.site = &kd_emlrtRSI;
+    h_st.site = &ld_emlrtRSI;
     b_i = dataPoints->size[0];
     overflow = ((2 <= dataPoints->size[0]) && (dataPoints->size[0] > 2147483646));
     minval_idx_0 = dataPoints->data[0];
-    i_st.site = &ld_emlrtRSI;
+    i_st.site = &md_emlrtRSI;
     if (overflow) {
-      j_st.site = &mb_emlrtRSI;
+      j_st.site = &nb_emlrtRSI;
       check_forloop_overflow_error(&j_st);
     }
 
@@ -639,7 +639,7 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
     }
 
     minval_idx_1 = dataPoints->data[dataPoints->size[0]];
-    i_st.site = &ld_emlrtRSI;
+    i_st.site = &md_emlrtRSI;
     for (i = 2; i <= b_i; i++) {
       thisLayRho = dataPoints->data[(i + dataPoints->size[0]) - 1];
       if ((!muDoubleScalarIsNaN(thisLayRho)) && (muDoubleScalarIsNaN
@@ -654,14 +654,14 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
     /*  there are only N-2 triangles. */
     if (!((real_T)dataPoints->size[0] - 2.0 >= 0.0)) {
       emlrtNonNegativeCheckR2012b((real_T)dataPoints->size[0] - 2.0,
-        &gb_emlrtDCI, &st);
+        &hb_emlrtDCI, &st);
     }
 
     i = dataPoints->size[0];
     b_i = b_dataPoints->size[0] * b_dataPoints->size[1];
     b_dataPoints->size[0] = dataPoints->size[0];
     b_dataPoints->size[1] = 2;
-    emxEnsureCapacity_real_T(&st, b_dataPoints, b_i, &gi_emlrtRTEI);
+    emxEnsureCapacity_real_T(&st, b_dataPoints, b_i, &cj_emlrtRTEI);
     for (b_i = 0; b_i < i; b_i++) {
       b_dataPoints->data[b_i] = dataPoints->data[b_i];
     }
@@ -673,11 +673,11 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
     }
 
     startDomain[1] -= minval_idx_1;
-    b_st.site = &wc_emlrtRSI;
+    b_st.site = &xc_emlrtRSI;
     calculateCentralAngles(&b_st, b_dataPoints, startDomain, cornerAngle);
     b_i = sharpCorners->size[0];
     sharpCorners->size[0] = cornerAngle->size[0];
-    emxEnsureCapacity_boolean_T(&st, sharpCorners, b_i, &hi_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(&st, sharpCorners, b_i, &dj_emlrtRTEI);
     i = cornerAngle->size[0];
     for (b_i = 0; b_i < i; b_i++) {
       sharpCorners->data[b_i] = (cornerAngle->data[b_i] < 2.1991148575128552);
@@ -690,14 +690,14 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
 
     b_i = sharpCorners->size[0];
     sharpCorners->size[0] = dataPoints->size[0] - 2;
-    emxEnsureCapacity_boolean_T(&st, sharpCorners, b_i, &ii_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(&st, sharpCorners, b_i, &ej_emlrtRTEI);
 
     /*  For N points there are N-2 triangles and N-1 triangle sides. Each */
     /*  triangle side is a segment, which can be split or not depending on the */
     /*  refinement parameters. */
     b_i = segmentsToSplit->size[0];
     segmentsToSplit->size[0] = dataPoints->size[0] - 1;
-    emxEnsureCapacity_boolean_T(&st, segmentsToSplit, b_i, &ji_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(&st, segmentsToSplit, b_i, &fj_emlrtRTEI);
     i = dataPoints->size[0] - 2;
     for (b_i = 0; b_i < i; b_i++) {
       segmentsToSplit->data[b_i] = sharpCorners->data[b_i];
@@ -706,7 +706,7 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
     segmentsToSplit->data[dataPoints->size[0] - 2] = false;
     b_i = r->size[0];
     r->size[0] = dataPoints->size[0] - 1;
-    emxEnsureCapacity_boolean_T(&st, r, b_i, &ki_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(&st, r, b_i, &gj_emlrtRTEI);
     r->data[0] = false;
     i = dataPoints->size[0] - 2;
     for (b_i = 0; b_i < i; b_i++) {
@@ -723,9 +723,9 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
       segmentsToSplit->data[b_i] = (segmentsToSplit->data[b_i] || r->data[b_i]);
     }
 
-    b_st.site = &xc_emlrtRSI;
+    b_st.site = &yc_emlrtRSI;
     if (any(&b_st, segmentsToSplit)) {
-      b_st.site = &yc_emlrtRSI;
+      b_st.site = &ad_emlrtRSI;
       increaseSampling(&b_st, dataPoints, segmentsToSplit, sldProfile);
 
       /*  Removed waitbar for compile - AVH */
@@ -765,13 +765,13 @@ void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
   }
 
   if (i < 0) {
-    emlrtNonNegativeCheckR2012b(i, &hb_emlrtDCI, sp);
+    emlrtNonNegativeCheckR2012b(i, &ib_emlrtDCI, sp);
   }
 
   b_i = newSLD->size[0] * newSLD->size[1];
   newSLD->size[0] = i;
   newSLD->size[1] = 3;
-  emxEnsureCapacity_real_T(sp, newSLD, b_i, &fi_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, newSLD, b_i, &bj_emlrtRTEI);
   i *= 3;
   for (b_i = 0; b_i < i; b_i++) {
     newSLD->data[b_i] = 0.0;

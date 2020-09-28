@@ -514,42 +514,6 @@ typedef struct emxArray_uint32_T emxArray_uint32_T;
 
 #endif                                 /*typedef_emxArray_uint32_T*/
 
-#ifndef typedef_struct0_T
-#define typedef_struct0_T
-
-typedef struct {
-  emxArray_real_T *contrastBacks;
-  emxArray_real_T *contrastBacksType;
-  emxArray_char_T *TF;
-  emxArray_real_T *resample;
-  emxArray_real_T *dataPresent;
-  real_T numberOfContrasts;
-  emxArray_char_T *geometry;
-  emxArray_real_T *contrastShifts;
-  emxArray_real_T *contrastScales;
-  emxArray_real_T *contrastNbas;
-  emxArray_real_T *contrastNbss;
-  emxArray_real_T *contrastRes;
-  emxArray_real_T *backs;
-  emxArray_real_T *shifts;
-  emxArray_real_T *sf;
-  emxArray_real_T *nba;
-  emxArray_real_T *nbs;
-  emxArray_real_T *res;
-  emxArray_real_T *params;
-  real_T numberOfLayers;
-  emxArray_char_T *modelType;
-  emxArray_char_T *modelFilename;
-  emxArray_char_T *path;
-  emxArray_char_T *modelLanguage;
-  emxArray_real_T *fitpars;
-  emxArray_real_T *otherpars;
-  emxArray_real_T *fitconstr;
-  emxArray_real_T *otherconstr;
-} struct0_T;
-
-#endif                                 /*typedef_struct0_T*/
-
 #ifndef typedef_struct3_T
 #define typedef_struct3_T
 
@@ -633,5 +597,41 @@ typedef struct {
 } struct4_T;
 
 #endif                                 /*typedef_struct4_T*/
+
+#ifndef typedef_struct0_T
+#define typedef_struct0_T
+
+typedef struct {
+  emxArray_real_T *contrastBacks;
+  emxArray_real_T *contrastBacksType;
+  emxArray_char_T *TF;
+  emxArray_real_T *resample;
+  emxArray_real_T *dataPresent;
+  real_T numberOfContrasts;
+  emxArray_char_T *geometry;
+  emxArray_real_T *contrastShifts;
+  emxArray_real_T *contrastScales;
+  emxArray_real_T *contrastNbas;
+  emxArray_real_T *contrastNbss;
+  emxArray_real_T *contrastRes;
+  emxArray_real_T *backs;
+  emxArray_real_T *shifts;
+  emxArray_real_T *sf;
+  emxArray_real_T *nba;
+  emxArray_real_T *nbs;
+  emxArray_real_T *res;
+  emxArray_real_T *params;
+  real_T numberOfLayers;
+  emxArray_char_T *modelType;
+  emxArray_char_T *modelFilename;
+  emxArray_char_T *path;
+  emxArray_char_T *modelLanguage;
+  emxArray_real_T *fitpars;
+  emxArray_real_T *otherpars;
+  emxArray_real_T *fitconstr;
+  emxArray_real_T *otherconstr;
+} struct0_T;
+
+#endif                                 /*typedef_struct0_T*/
 
 /* End of code generation (reflectivity_calculation_types.h) */

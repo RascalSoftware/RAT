@@ -46,7 +46,7 @@ function [logZ, nest_samples, post_samples,H] = nested_sampler(data, ...
 global verbose;
 global DEBUG;
 
-verbose = 0;
+verbose = 1;
 DEBUG = 0;
 
 % get the number of parameters from the prior array

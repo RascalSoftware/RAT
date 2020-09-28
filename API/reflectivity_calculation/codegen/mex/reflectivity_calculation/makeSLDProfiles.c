@@ -16,7 +16,7 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo w_emlrtRSI = { 12,  /* lineNo */
+static emlrtRSInfo x_emlrtRSI = { 12,  /* lineNo */
   "makeSLDProfiles",                   /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfiles.m"/* pathName */
 };
@@ -36,7 +36,7 @@ void makeSLDProfiles(const emlrtStack *sp, real_T nbair, real_T nbsub, const
     b_repeats = repeats[1];
   }
 
-  st.site = &w_emlrtRSI;
+  st.site = &x_emlrtRSI;
   makeSLDProfileXY(&st, nbair, nbsub, ssub, sld, sld->size[0], b_repeats,
                    sldProfile);
 }

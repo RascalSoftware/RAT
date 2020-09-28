@@ -19,12 +19,12 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo yd_emlrtRSI = { 28, /* lineNo */
+static emlrtRSInfo ae_emlrtRSI = { 28, /* lineNo */
   "repmat",                            /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/repmat.m"/* pathName */
 };
 
-static emlrtRSInfo ae_emlrtRSI = { 69, /* lineNo */
+static emlrtRSInfo be_emlrtRSI = { 69, /* lineNo */
   "repmat",                            /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/repmat.m"/* pathName */
 };
@@ -35,7 +35,7 @@ static emlrtRTEInfo rb_emlrtRTEI = { 58,/* lineNo */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/assertValidSizeArg.m"/* pName */
 };
 
-static emlrtRTEInfo tj_emlrtRTEI = { 1,/* lineNo */
+static emlrtRTEInfo pk_emlrtRTEI = { 1,/* lineNo */
   14,                                  /* colNo */
   "repmat",                            /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/repmat.m"/* pName */
@@ -51,7 +51,7 @@ void repmat(const emlrtStack *sp, const real_T a[2], real_T varargin_1,
   emlrtStack b_st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &yd_emlrtRSI;
+  st.site = &ae_emlrtRSI;
   b_st.prev = &st;
   b_st.tls = st.tls;
   if ((varargin_1 != varargin_1) || muDoubleScalarIsInf(varargin_1)) {
@@ -64,10 +64,10 @@ void repmat(const emlrtStack *sp, const real_T a[2], real_T varargin_1,
   itilerow = b->size[0] * b->size[1];
   b->size[0] = i;
   b->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, b, itilerow, &tj_emlrtRTEI);
-  st.site = &ae_emlrtRSI;
+  emxEnsureCapacity_real_T(sp, b, itilerow, &pk_emlrtRTEI);
+  st.site = &be_emlrtRSI;
   if ((1 <= i) && (i > 2147483646)) {
-    b_st.site = &mb_emlrtRSI;
+    b_st.site = &nb_emlrtRSI;
     check_forloop_overflow_error(&b_st);
   }
 
@@ -75,7 +75,7 @@ void repmat(const emlrtStack *sp, const real_T a[2], real_T varargin_1,
     b->data[itilerow] = a[0];
   }
 
-  st.site = &ae_emlrtRSI;
+  st.site = &be_emlrtRSI;
   for (itilerow = 0; itilerow < i; itilerow++) {
     b->data[i + itilerow] = a[1];
   }

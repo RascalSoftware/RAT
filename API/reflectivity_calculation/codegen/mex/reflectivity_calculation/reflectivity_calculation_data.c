@@ -29,229 +29,234 @@ emlrtContext emlrtContextGlobal = { true,/* bFirstTime */
   NULL                                 /* fSigMem */
 };
 
-emlrtRSInfo u_emlrtRSI = { 22,         /* lineNo */
+emlrtRSInfo v_emlrtRSI = { 22,         /* lineNo */
   "cat",                               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/cat.m"/* pathName */
 };
 
-emlrtRSInfo v_emlrtRSI = { 102,        /* lineNo */
+emlrtRSInfo w_emlrtRSI = { 102,        /* lineNo */
   "cat_impl",                          /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/cat.m"/* pathName */
 };
 
-emlrtRSInfo ib_emlrtRSI = { 20,        /* lineNo */
+emlrtRSInfo jb_emlrtRSI = { 20,        /* lineNo */
   "sum",                               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/sum.m"/* pathName */
 };
 
-emlrtRSInfo jb_emlrtRSI = { 99,        /* lineNo */
+emlrtRSInfo kb_emlrtRSI = { 99,        /* lineNo */
   "sumprod",                           /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/private/sumprod.m"/* pathName */
 };
 
-emlrtRSInfo kb_emlrtRSI = { 125,       /* lineNo */
+emlrtRSInfo lb_emlrtRSI = { 125,       /* lineNo */
   "combineVectorElements",             /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/private/combineVectorElements.m"/* pathName */
 };
 
-emlrtRSInfo lb_emlrtRSI = { 185,       /* lineNo */
+emlrtRSInfo mb_emlrtRSI = { 185,       /* lineNo */
   "colMajorFlatIter",                  /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/private/combineVectorElements.m"/* pathName */
 };
 
-emlrtRSInfo mb_emlrtRSI = { 21,        /* lineNo */
+emlrtRSInfo nb_emlrtRSI = { 21,        /* lineNo */
   "eml_int_forloop_overflow_check",    /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"/* pathName */
 };
 
-emlrtRSInfo qb_emlrtRSI = { 41,        /* lineNo */
+emlrtRSInfo rb_emlrtRSI = { 41,        /* lineNo */
   "applyBinaryScalarFunction",         /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyBinaryScalarFunction.m"/* pathName */
 };
 
-emlrtRSInfo rb_emlrtRSI = { 139,       /* lineNo */
+emlrtRSInfo sb_emlrtRSI = { 139,       /* lineNo */
   "scalar_float_power",                /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/power.m"/* pathName */
 };
 
-emlrtRSInfo yb_emlrtRSI = { 62,        /* lineNo */
+emlrtRSInfo ac_emlrtRSI = { 62,        /* lineNo */
   "applyScalarFunction",               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyScalarFunction.m"/* pathName */
 };
 
-emlrtRSInfo ac_emlrtRSI = { 51,        /* lineNo */
+emlrtRSInfo bc_emlrtRSI = { 51,        /* lineNo */
   "scalar_erf",                        /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/specfun/private/eml_erfcore.m"/* pathName */
 };
 
-emlrtRSInfo bc_emlrtRSI = { 236,       /* lineNo */
+emlrtRSInfo cc_emlrtRSI = { 236,       /* lineNo */
   "scalar_erf_and_erfc",               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/specfun/private/eml_erfcore.m"/* pathName */
 };
 
-emlrtRSInfo cc_emlrtRSI = { 238,       /* lineNo */
+emlrtRSInfo dc_emlrtRSI = { 238,       /* lineNo */
   "scalar_erf_and_erfc",               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/specfun/private/eml_erfcore.m"/* pathName */
 };
 
-emlrtRSInfo dc_emlrtRSI = { 17,        /* lineNo */
+emlrtRSInfo ec_emlrtRSI = { 17,        /* lineNo */
   "log2",                              /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elfun/log2.m"/* pathName */
 };
 
-emlrtRSInfo ec_emlrtRSI = { 47,        /* lineNo */
+emlrtRSInfo fc_emlrtRSI = { 47,        /* lineNo */
   "applyScalarFunction",               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyScalarFunction.m"/* pathName */
 };
 
-emlrtRSInfo fc_emlrtRSI = { 17,        /* lineNo */
+emlrtRSInfo gc_emlrtRSI = { 17,        /* lineNo */
   "log2",                              /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/+scalar/log2.m"/* pathName */
 };
 
-emlrtRSInfo gc_emlrtRSI = { 12,        /* lineNo */
+emlrtRSInfo hc_emlrtRSI = { 12,        /* lineNo */
   "pow2",                              /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elfun/pow2.m"/* pathName */
 };
 
-emlrtRSInfo hc_emlrtRSI = { 49,        /* lineNo */
+emlrtRSInfo ic_emlrtRSI = { 49,        /* lineNo */
   "applyScalarFunction",               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyScalarFunction.m"/* pathName */
 };
 
-emlrtRSInfo ic_emlrtRSI = { 12,        /* lineNo */
+emlrtRSInfo jc_emlrtRSI = { 12,        /* lineNo */
   "pow2",                              /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/+scalar/pow2.m"/* pathName */
 };
 
-emlrtRSInfo lc_emlrtRSI = { 14,        /* lineNo */
+emlrtRSInfo mc_emlrtRSI = { 14,        /* lineNo */
   "max",                               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/max.m"/* pathName */
 };
 
-emlrtRSInfo mc_emlrtRSI = { 44,        /* lineNo */
+emlrtRSInfo nc_emlrtRSI = { 44,        /* lineNo */
   "minOrMax",                          /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/minOrMax.m"/* pathName */
 };
 
-emlrtRSInfo nc_emlrtRSI = { 79,        /* lineNo */
+emlrtRSInfo oc_emlrtRSI = { 79,        /* lineNo */
   "maximum",                           /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/minOrMax.m"/* pathName */
 };
 
-emlrtRSInfo rc_emlrtRSI = { 924,       /* lineNo */
+emlrtRSInfo sc_emlrtRSI = { 924,       /* lineNo */
   "minOrMaxRealVector",                /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-emlrtRSInfo sc_emlrtRSI = { 992,       /* lineNo */
+emlrtRSInfo tc_emlrtRSI = { 992,       /* lineNo */
   "minOrMaxRealVectorKernel",          /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-emlrtRSInfo ad_emlrtRSI = { 376,       /* lineNo */
+emlrtRSInfo bd_emlrtRSI = { 376,       /* lineNo */
   "normalizeFunction",                 /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"/* pathName */
 };
 
-emlrtRSInfo ed_emlrtRSI = { 41,        /* lineNo */
+emlrtRSInfo fd_emlrtRSI = { 41,        /* lineNo */
   "find",                              /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/find.m"/* pathName */
 };
 
-emlrtRSInfo fd_emlrtRSI = { 153,       /* lineNo */
+emlrtRSInfo gd_emlrtRSI = { 153,       /* lineNo */
   "eml_find",                          /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/find.m"/* pathName */
 };
 
-emlrtRSInfo gd_emlrtRSI = { 377,       /* lineNo */
+emlrtRSInfo hd_emlrtRSI = { 377,       /* lineNo */
   "find_first_indices",                /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/find.m"/* pathName */
 };
 
-emlrtRSInfo hd_emlrtRSI = { 397,       /* lineNo */
+emlrtRSInfo id_emlrtRSI = { 397,       /* lineNo */
   "find_first_indices",                /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/find.m"/* pathName */
 };
 
-emlrtRSInfo id_emlrtRSI = { 167,       /* lineNo */
+emlrtRSInfo jd_emlrtRSI = { 167,       /* lineNo */
   "unaryMinOrMax",                     /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-emlrtRSInfo jd_emlrtRSI = { 326,       /* lineNo */
+emlrtRSInfo kd_emlrtRSI = { 326,       /* lineNo */
   "unaryMinOrMaxDispatch",             /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-emlrtRSInfo kd_emlrtRSI = { 394,       /* lineNo */
+emlrtRSInfo ld_emlrtRSI = { 394,       /* lineNo */
   "minOrMax2D",                        /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-emlrtRSInfo ld_emlrtRSI = { 476,       /* lineNo */
+emlrtRSInfo md_emlrtRSI = { 476,       /* lineNo */
   "minOrMax2DColumnMajorDim1",         /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-emlrtRSInfo md_emlrtRSI = { 14,        /* lineNo */
+emlrtRSInfo nd_emlrtRSI = { 14,        /* lineNo */
   "min",                               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/min.m"/* pathName */
 };
 
-emlrtRSInfo nd_emlrtRSI = { 46,        /* lineNo */
+emlrtRSInfo od_emlrtRSI = { 46,        /* lineNo */
   "minOrMax",                          /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/minOrMax.m"/* pathName */
 };
 
-emlrtRSInfo od_emlrtRSI = { 92,        /* lineNo */
+emlrtRSInfo pd_emlrtRSI = { 92,        /* lineNo */
   "minimum",                           /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/minOrMax.m"/* pathName */
 };
 
-emlrtRSInfo ee_emlrtRSI = { 33,        /* lineNo */
+emlrtRSInfo fe_emlrtRSI = { 33,        /* lineNo */
   "applyScalarFunctionInPlace",        /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyScalarFunctionInPlace.m"/* pathName */
 };
 
-emlrtRSInfo ke_emlrtRSI = { 27,        /* lineNo */
+emlrtRSInfo le_emlrtRSI = { 27,        /* lineNo */
   "cat",                               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/cat.m"/* pathName */
 };
 
-emlrtRSInfo ve_emlrtRSI = { 17,        /* lineNo */
+emlrtRSInfo we_emlrtRSI = { 17,        /* lineNo */
   "sortLE",                            /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/sortLE.m"/* pathName */
 };
 
-emlrtRSInfo we_emlrtRSI = { 48,        /* lineNo */
+emlrtRSInfo xe_emlrtRSI = { 48,        /* lineNo */
   "sortrowsLE",                        /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/sortrowsLE.m"/* pathName */
 };
 
-emlrtRSInfo mf_emlrtRSI = { 306,       /* lineNo */
+emlrtRSInfo nf_emlrtRSI = { 306,       /* lineNo */
   "eml_float_colon",                   /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/colon.m"/* pathName */
 };
 
-emlrtRSInfo of_emlrtRSI = { 29,        /* lineNo */
+emlrtRSInfo pf_emlrtRSI = { 29,        /* lineNo */
   "abeles_single",                     /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_single.m"/* pathName */
 };
 
-emlrtRSInfo pf_emlrtRSI = { 45,        /* lineNo */
+emlrtRSInfo qf_emlrtRSI = { 45,        /* lineNo */
   "abeles_single",                     /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_single.m"/* pathName */
 };
 
-emlrtRSInfo jg_emlrtRSI = { 32,        /* lineNo */
+emlrtRSInfo kg_emlrtRSI = { 32,        /* lineNo */
   "abeles_paraPoints",                 /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pathName */
 };
 
-emlrtRSInfo kg_emlrtRSI = { 48,        /* lineNo */
+emlrtRSInfo lg_emlrtRSI = { 48,        /* lineNo */
   "abeles_paraPoints",                 /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_paraPoints.m"/* pathName */
+};
+
+emlrtRSInfo pi_emlrtRSI = { 3,         /* lineNo */
+  "call_customXY",                     /* fcnName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custXY/call_customXY.m"/* pathName */
 };
 
 emlrtRTEInfo hb_emlrtRTEI = { 283,     /* lineNo */
@@ -303,40 +308,62 @@ emlrtRTEInfo tb_emlrtRTEI = { 14,      /* lineNo */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elfun/asin.m"/* pName */
 };
 
-emlrtRTEInfo se_emlrtRTEI = { 63,      /* lineNo */
+emlrtBCInfo ms_emlrtBCI = { -1,        /* iFirst */
+  -1,                                  /* iLast */
+  14,                                  /* lineNo */
+  17,                                  /* colNo */
+  "params",                            /* aName */
+  "call_customXY",                     /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custXY/call_customXY.m",/* pName */
+  0                                    /* checkKind */
+};
+
+emlrtRTEInfo pe_emlrtRTEI = { 63,      /* lineNo */
   31,                                  /* colNo */
   "reflectivity_calculation",          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-emlrtRTEInfo te_emlrtRTEI = { 63,      /* lineNo */
+emlrtRTEInfo qe_emlrtRTEI = { 63,      /* lineNo */
   42,                                  /* colNo */
   "reflectivity_calculation",          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation/reflectivity_calculation.m"/* pName */
 };
 
-emlrtRTEInfo ve_emlrtRTEI = { 110,     /* lineNo */
+emlrtRTEInfo sf_emlrtRTEI = { 110,     /* lineNo */
   13,                                  /* colNo */
   "standardTF_custLay_reflectivityCalculation",/* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay_reflectivityCalculation.m"/* pName */
 };
 
-emlrtRTEInfo pi_emlrtRTEI = { 153,     /* lineNo */
+emlrtRTEInfo vf_emlrtRTEI = { 115,     /* lineNo */
+  13,                                  /* colNo */
+  "standardTF_custLay_reflectivityCalculation",/* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custLay_reflectivityCalculation.m"/* pName */
+};
+
+emlrtRTEInfo lj_emlrtRTEI = { 153,     /* lineNo */
   13,                                  /* colNo */
   "find",                              /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/find.m"/* pName */
 };
 
-emlrtRTEInfo qi_emlrtRTEI = { 41,      /* lineNo */
+emlrtRTEInfo mj_emlrtRTEI = { 41,      /* lineNo */
   5,                                   /* colNo */
   "find",                              /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/find.m"/* pName */
 };
 
-emlrtRTEInfo aj_emlrtRTEI = { 33,      /* lineNo */
+emlrtRTEInfo vj_emlrtRTEI = { 33,      /* lineNo */
   6,                                   /* colNo */
   "find",                              /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elmat/find.m"/* pName */
+};
+
+emlrtRTEInfo xp_emlrtRTEI = { 9,       /* lineNo */
+  14,                                  /* colNo */
+  "call_customXY",                     /* fName */
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_custXY/call_customXY.m"/* pName */
 };
 
 const char_T cv[9] = { 'c', 'o', 'n', 't', 'r', 'a', 's', 't', 's' };

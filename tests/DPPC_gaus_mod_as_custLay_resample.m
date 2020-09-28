@@ -1,4 +1,4 @@
-function [output,subrough] = SAM_supported_bilayer(params,bulk_in,bulk_out,contrast);
+function [output,layers] = SAM_supported_bilayer(params,bulk_in,bulk_out,contrast);
 
 %ubil_pos ubil_rough ubil_apm ucov lbil_head_pos lbil_rough lbil_apm lcov ox_thick subrough eff_pos
 %params = problem.params;
@@ -117,6 +117,7 @@ upper_pos = p.Position;%
 % tot_sld = upper_bil_sld + lower_bil_sld + watsld + subs_sld + ox_sld;
 % output = [x(:) tot_sld(:)];
 
+disp('debug')
 switch contrast
     case{1,3}
         AlloySLD = Alloy_SLD_up;
@@ -163,6 +164,8 @@ sldTot = SLDalloy + SLDgold + SLDsub + SLDmon + SLDbil + sldWat;
 
 
 prof = [x(:) sldTot(:)];
+
+layers = size(prof,1);
 
 %debug plot
 % figure (4)

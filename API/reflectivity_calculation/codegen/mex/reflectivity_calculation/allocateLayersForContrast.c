@@ -37,7 +37,7 @@ static emlrtBCInfo pf_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo y_emlrtDCI = { 10,  /* lineNo */
+static emlrtDCInfo ab_emlrtDCI = { 10, /* lineNo */
   17,                                  /* colNo */
   "allocateLayersForContrast",         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m",/* pName */
@@ -54,7 +54,7 @@ static emlrtBCInfo qf_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo eh_emlrtRTEI = { 7,/* lineNo */
+static emlrtRTEInfo ai_emlrtRTEI = { 7,/* lineNo */
   1,                                   /* colNo */
   "allocateLayersForContrast",         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m"/* pName */
@@ -84,7 +84,7 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
   i = thisContrastLayers->size[0] * thisContrastLayers->size[1];
   thisContrastLayers->size[0] = n;
   thisContrastLayers->size[1] = 5;
-  emxEnsureCapacity_real_T(sp, thisContrastLayers, i, &eh_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, thisContrastLayers, i, &ai_emlrtRTEI);
   n *= 5;
   for (i = 0; i < n; i++) {
     thisContrastLayers->data[i] = 0.0;
@@ -113,7 +113,7 @@ void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
 
       d = contrastLayers->data[i1 - 1];
       if (d != (int32_T)muDoubleScalarFloor(d)) {
-        emlrtIntegerCheckR2012b(d, &y_emlrtDCI, sp);
+        emlrtIntegerCheckR2012b(d, &ab_emlrtDCI, sp);
       }
 
       i3 = (int32_T)d - 1;

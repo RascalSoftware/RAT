@@ -17,33 +17,33 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtDCInfo cc_emlrtDCI = { 3,  /* lineNo */
+static emlrtDCInfo tc_emlrtDCI = { 3,  /* lineNo */
   8,                                   /* colNo */
   "applyBackgroundCorrection",         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m",/* pName */
   1                                    /* checkKind */
 };
 
-static emlrtECInfo hb_emlrtECI = { -1, /* nDims */
+static emlrtECInfo lb_emlrtECI = { -1, /* nDims */
   10,                                  /* lineNo */
   9,                                   /* colNo */
   "applyBackgroundCorrection",         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
 };
 
-static emlrtRTEInfo cp_emlrtRTEI = { 6,/* lineNo */
+static emlrtRTEInfo or_emlrtRTEI = { 6,/* lineNo */
   9,                                   /* colNo */
   "applyBackgroundCorrection",         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
 };
 
-static emlrtRTEInfo dp_emlrtRTEI = { 7,/* lineNo */
+static emlrtRTEInfo pr_emlrtRTEI = { 7,/* lineNo */
   9,                                   /* colNo */
   "applyBackgroundCorrection",         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
 };
 
-static emlrtRTEInfo ep_emlrtRTEI = { 10,/* lineNo */
+static emlrtRTEInfo qr_emlrtRTEI = { 10,/* lineNo */
   28,                                  /* colNo */
   "applyBackgroundCorrection",         /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"/* pName */
@@ -59,7 +59,7 @@ void applyBackgroundCorrection(const emlrtStack *sp, emxArray_real_T *reflect,
   int32_T loop_ub;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
   if (backsType != (int32_T)muDoubleScalarFloor(backsType)) {
-    emlrtIntegerCheckR2012b(backsType, &cc_emlrtDCI, sp);
+    emlrtIntegerCheckR2012b(backsType, &tc_emlrtDCI, sp);
   }
 
   switch ((int32_T)backsType) {
@@ -67,10 +67,10 @@ void applyBackgroundCorrection(const emlrtStack *sp, emxArray_real_T *reflect,
     /* Add background to the simulation */
     i = reflect->size[0] * reflect->size[1];
     reflect->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflect, i, &cp_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflect, i, &or_emlrtRTEI);
     i = Simul->size[0] * Simul->size[1];
     Simul->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simul, i, &dp_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simul, i, &pr_emlrtRTEI);
     loop_ub = reflect->size[0];
     for (i = 0; i < loop_ub; i++) {
       reflect->data[i] += backg;
@@ -93,15 +93,15 @@ void applyBackgroundCorrection(const emlrtStack *sp, emxArray_real_T *reflect,
     break;
 
    case 2:
-    emxInit_real_T(sp, &b_shifted_dat, 1, &ep_emlrtRTEI, true);
+    emxInit_real_T(sp, &b_shifted_dat, 1, &qr_emlrtRTEI, true);
 
     /*          %Subtract the background from the data.. */
     emlrtSubAssignSizeCheckR2012b(&shifted_dat->size[0], 1, &shifted_dat->size[0],
-      1, &hb_emlrtECI, sp);
+      1, &lb_emlrtECI, sp);
     loop_ub = shifted_dat->size[0] - 1;
     i = b_shifted_dat->size[0];
     b_shifted_dat->size[0] = loop_ub + 1;
-    emxEnsureCapacity_real_T(sp, b_shifted_dat, i, &ep_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_shifted_dat, i, &qr_emlrtRTEI);
     for (i = 0; i <= loop_ub; i++) {
       b_shifted_dat->data[i] = shifted_dat->data[i + shifted_dat->size[0]] -
         backg;

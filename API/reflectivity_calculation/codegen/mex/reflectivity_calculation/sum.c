@@ -29,7 +29,7 @@ real_T sum(const emlrtStack *sp, const emxArray_real_T *x)
   emlrtStack e_st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &ib_emlrtRSI;
+  st.site = &jb_emlrtRSI;
   b_st.prev = &st;
   b_st.tls = st.tls;
   c_st.prev = &b_st;
@@ -38,16 +38,16 @@ real_T sum(const emlrtStack *sp, const emxArray_real_T *x)
   d_st.tls = c_st.tls;
   e_st.prev = &d_st;
   e_st.tls = d_st.tls;
-  b_st.site = &jb_emlrtRSI;
+  b_st.site = &kb_emlrtRSI;
   vlen = x->size[0];
   if (x->size[0] == 0) {
     y = 0.0;
   } else {
-    c_st.site = &kb_emlrtRSI;
+    c_st.site = &lb_emlrtRSI;
     y = x->data[0];
-    d_st.site = &lb_emlrtRSI;
+    d_st.site = &mb_emlrtRSI;
     if ((2 <= x->size[0]) && (x->size[0] > 2147483646)) {
-      e_st.site = &mb_emlrtRSI;
+      e_st.site = &nb_emlrtRSI;
       check_forloop_overflow_error(&e_st);
     }
 

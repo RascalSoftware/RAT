@@ -34,7 +34,7 @@ rule linkxx
     command = $linkerxx $in $ldflags
 
 # Build
-build $builddir/matlabCallFun.o : cc /home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabCallFun.c
+build $builddir/matlabCallFun.o : cc /home/arwel/Documents/RascalDev/RAT/Sandbox/matlabEngineCaller/tmwExampleNew/matlabCallFun.c
 build $builddir/rt_nonfinite.o : cc $root/rt_nonfinite.c
 build $builddir/reflectivity_calculation_mexutil.o : cc $root/reflectivity_calculation_mexutil.c
 build $builddir/reflectivity_calculation_data.o : cc $root/reflectivity_calculation_data.c
@@ -42,6 +42,7 @@ build $builddir/reflectivity_calculation_initialize.o : cc $root/reflectivity_ca
 build $builddir/reflectivity_calculation_terminate.o : cc $root/reflectivity_calculation_terminate.c
 build $builddir/reflectivity_calculation.o : cc $root/reflectivity_calculation.c
 build $builddir/eml_int_forloop_overflow_check.o : cc $root/eml_int_forloop_overflow_check.c
+build $builddir/standardTF_reflectivityCalculation.o : cc $root/standardTF_reflectivityCalculation.c
 build $builddir/standardTF_stanLay_reflectivityCalculation.o : cc $root/standardTF_stanLay_reflectivityCalculation.c
 build $builddir/allocateParamsToLayers.o : cc $root/allocateParamsToLayers.c
 build $builddir/backSort.o : cc $root/backSort.c
@@ -76,8 +77,11 @@ build $builddir/standardTF_stanlay_paraContrasts.o : cc $root/standardTF_stanlay
 build $builddir/standardTF_custLay_reflectivityCalculation.o : cc $root/standardTF_custLay_reflectivityCalculation.c
 build $builddir/standardTF_custlay_single.o : cc $root/standardTF_custlay_single.c
 build $builddir/call_customLayers.o : cc $root/call_customLayers.c
+build $builddir/matlabEngineCaller_customLayers.o : cc $root/matlabEngineCaller_customLayers.c
 build $builddir/standardTF_custlay_paraPoints.o : cc $root/standardTF_custlay_paraPoints.c
 build $builddir/standardTF_custlay_paraContrasts.o : cc $root/standardTF_custlay_paraContrasts.c
+build $builddir/standardTF_custXY_reflectivityCalculation.o : cc $root/standardTF_custXY_reflectivityCalculation.c
+build $builddir/standardTF_custXY_single.o : cc $root/standardTF_custXY_single.c
 build $builddir/_coder_reflectivity_calculation_api.o : cc $root/interface/_coder_reflectivity_calculation_api.c
 build $builddir/_coder_reflectivity_calculation_mex.o : cc $root/interface/_coder_reflectivity_calculation_mex.c
 build $builddir/reflectivity_calculation_emxutil.o : cc $root/reflectivity_calculation_emxutil.c
@@ -85,4 +89,4 @@ build $builddir/_coder_reflectivity_calculation_info.o : cc $root/interface/_cod
 build $builddir/c_mexapi_version.o : cc $matlabdir/extern/version/c_mexapi_version.c
 
 # Link
-build $root/reflectivity_calculation_mex.mexa64 : link $builddir/matlabCallFun.o $builddir/rt_nonfinite.o $builddir/reflectivity_calculation_mexutil.o $builddir/reflectivity_calculation_data.o $builddir/reflectivity_calculation_initialize.o $builddir/reflectivity_calculation_terminate.o $builddir/reflectivity_calculation.o $builddir/eml_int_forloop_overflow_check.o $builddir/standardTF_stanLay_reflectivityCalculation.o $builddir/allocateParamsToLayers.o $builddir/backSort.o $builddir/allocateLayersForContrast.o $builddir/groupLayers_Mod.o $builddir/indexShapeCheck.o $builddir/makeSLDProfiles.o $builddir/makeSLDProfileXY.o $builddir/sum.o $builddir/colon.o $builddir/asymconvstep.o $builddir/power.o $builddir/sqrt.o $builddir/applyScalarFunction.o $builddir/resampleLayers.o $builddir/linspace.o $builddir/adaptive.o $builddir/sldFunc.o $builddir/repmat.o $builddir/acos.o $builddir/any.o $builddir/sortrows.o $builddir/sortLE.o $builddir/shiftdata.o $builddir/callReflectivity.o $builddir/abeles_single.o $builddir/resolution_polly.o $builddir/applyBackgroundCorrection.o $builddir/chiSquared.o $builddir/abeles_paraPoints.o $builddir/standardTF_stanlay_paraContrasts.o $builddir/standardTF_custLay_reflectivityCalculation.o $builddir/standardTF_custlay_single.o $builddir/call_customLayers.o $builddir/standardTF_custlay_paraPoints.o $builddir/standardTF_custlay_paraContrasts.o $builddir/_coder_reflectivity_calculation_api.o $builddir/_coder_reflectivity_calculation_mex.o $builddir/reflectivity_calculation_emxutil.o $builddir/_coder_reflectivity_calculation_info.o $builddir/c_mexapi_version.o 
+build $root/reflectivity_calculation_mex.mexa64 : link $builddir/matlabCallFun.o $builddir/rt_nonfinite.o $builddir/reflectivity_calculation_mexutil.o $builddir/reflectivity_calculation_data.o $builddir/reflectivity_calculation_initialize.o $builddir/reflectivity_calculation_terminate.o $builddir/reflectivity_calculation.o $builddir/eml_int_forloop_overflow_check.o $builddir/standardTF_reflectivityCalculation.o $builddir/standardTF_stanLay_reflectivityCalculation.o $builddir/allocateParamsToLayers.o $builddir/backSort.o $builddir/allocateLayersForContrast.o $builddir/groupLayers_Mod.o $builddir/indexShapeCheck.o $builddir/makeSLDProfiles.o $builddir/makeSLDProfileXY.o $builddir/sum.o $builddir/colon.o $builddir/asymconvstep.o $builddir/power.o $builddir/sqrt.o $builddir/applyScalarFunction.o $builddir/resampleLayers.o $builddir/linspace.o $builddir/adaptive.o $builddir/sldFunc.o $builddir/repmat.o $builddir/acos.o $builddir/any.o $builddir/sortrows.o $builddir/sortLE.o $builddir/shiftdata.o $builddir/callReflectivity.o $builddir/abeles_single.o $builddir/resolution_polly.o $builddir/applyBackgroundCorrection.o $builddir/chiSquared.o $builddir/abeles_paraPoints.o $builddir/standardTF_stanlay_paraContrasts.o $builddir/standardTF_custLay_reflectivityCalculation.o $builddir/standardTF_custlay_single.o $builddir/call_customLayers.o $builddir/matlabEngineCaller_customLayers.o $builddir/standardTF_custlay_paraPoints.o $builddir/standardTF_custlay_paraContrasts.o $builddir/standardTF_custXY_reflectivityCalculation.o $builddir/standardTF_custXY_single.o $builddir/_coder_reflectivity_calculation_api.o $builddir/_coder_reflectivity_calculation_mex.o $builddir/reflectivity_calculation_emxutil.o $builddir/_coder_reflectivity_calculation_info.o $builddir/c_mexapi_version.o 

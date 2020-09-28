@@ -21,77 +21,77 @@
 #include "sum.h"
 
 /* Variable Definitions */
-static emlrtRSInfo x_emlrtRSI = { 4,   /* lineNo */
+static emlrtRSInfo y_emlrtRSI = { 4,   /* lineNo */
   "makeSLDProfileXY",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pathName */
 };
 
-static emlrtRSInfo y_emlrtRSI = { 11,  /* lineNo */
+static emlrtRSInfo ab_emlrtRSI = { 11, /* lineNo */
   "makeSLDProfileXY",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pathName */
 };
 
-static emlrtRSInfo ab_emlrtRSI = { 26, /* lineNo */
+static emlrtRSInfo bb_emlrtRSI = { 26, /* lineNo */
   "makeSLDProfileXY",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pathName */
 };
 
-static emlrtRSInfo bb_emlrtRSI = { 37, /* lineNo */
+static emlrtRSInfo cb_emlrtRSI = { 37, /* lineNo */
   "makeSLDProfileXY",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pathName */
 };
 
-static emlrtRSInfo cb_emlrtRSI = { 42, /* lineNo */
+static emlrtRSInfo db_emlrtRSI = { 42, /* lineNo */
   "makeSLDProfileXY",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pathName */
 };
 
-static emlrtRSInfo db_emlrtRSI = { 45, /* lineNo */
+static emlrtRSInfo eb_emlrtRSI = { 45, /* lineNo */
   "makeSLDProfileXY",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pathName */
 };
 
-static emlrtRSInfo eb_emlrtRSI = { 47, /* lineNo */
+static emlrtRSInfo fb_emlrtRSI = { 47, /* lineNo */
   "makeSLDProfileXY",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pathName */
 };
 
-static emlrtRSInfo fb_emlrtRSI = { 48, /* lineNo */
+static emlrtRSInfo gb_emlrtRSI = { 48, /* lineNo */
   "makeSLDProfileXY",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pathName */
 };
 
-static emlrtRSInfo gb_emlrtRSI = { 49, /* lineNo */
+static emlrtRSInfo hb_emlrtRSI = { 49, /* lineNo */
   "makeSLDProfileXY",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pathName */
 };
 
-static emlrtRSInfo hb_emlrtRSI = { 54, /* lineNo */
+static emlrtRSInfo ib_emlrtRSI = { 54, /* lineNo */
   "makeSLDProfileXY",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pathName */
 };
 
-static emlrtRSInfo jc_emlrtRSI = { 169,/* lineNo */
+static emlrtRSInfo kc_emlrtRSI = { 169,/* lineNo */
   "colMajorFlatIter",                  /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/private/combineVectorElements.m"/* pathName */
 };
 
-static emlrtRSInfo kc_emlrtRSI = { 187,/* lineNo */
+static emlrtRSInfo lc_emlrtRSI = { 187,/* lineNo */
   "colMajorFlatIter",                  /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/private/combineVectorElements.m"/* pathName */
 };
 
-static emlrtRSInfo oc_emlrtRSI = { 145,/* lineNo */
+static emlrtRSInfo pc_emlrtRSI = { 145,/* lineNo */
   "unaryMinOrMax",                     /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-static emlrtRSInfo pc_emlrtRSI = { 1019,/* lineNo */
+static emlrtRSInfo qc_emlrtRSI = { 1019,/* lineNo */
   "maxRealVectorOmitNaN",              /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
 
-static emlrtRSInfo qc_emlrtRSI = { 932,/* lineNo */
+static emlrtRSInfo rc_emlrtRSI = { 932,/* lineNo */
   "minOrMaxRealVector",                /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"/* pathName */
 };
@@ -116,28 +116,28 @@ static emlrtBCInfo yf_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo ab_emlrtDCI = { 7,  /* lineNo */
+static emlrtDCInfo bb_emlrtDCI = { 7,  /* lineNo */
   5,                                   /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m",/* pName */
   4                                    /* checkKind */
 };
 
-static emlrtDCInfo bb_emlrtDCI = { 7,  /* lineNo */
+static emlrtDCInfo cb_emlrtDCI = { 7,  /* lineNo */
   5,                                   /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m",/* pName */
   1                                    /* checkKind */
 };
 
-static emlrtDCInfo cb_emlrtDCI = { 7,  /* lineNo */
+static emlrtDCInfo db_emlrtDCI = { 7,  /* lineNo */
   28,                                  /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m",/* pName */
   4                                    /* checkKind */
 };
 
-static emlrtDCInfo db_emlrtDCI = { 7,  /* lineNo */
+static emlrtDCInfo eb_emlrtDCI = { 7,  /* lineNo */
   28,                                  /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m",/* pName */
@@ -161,7 +161,7 @@ static emlrtBCInfo ag_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo eb_emlrtDCI = { 40, /* lineNo */
+static emlrtDCInfo fb_emlrtDCI = { 40, /* lineNo */
   12,                                  /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m",/* pName */
@@ -185,7 +185,7 @@ static emlrtBCInfo bg_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo fb_emlrtDCI = { 37, /* lineNo */
+static emlrtDCInfo gb_emlrtDCI = { 37, /* lineNo */
   12,                                  /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m",/* pName */
@@ -265,73 +265,73 @@ static emlrtBCInfo hg_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo mh_emlrtRTEI = { 44,/* lineNo */
+static emlrtRTEInfo ii_emlrtRTEI = { 44,/* lineNo */
   5,                                   /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
 };
 
-static emlrtRTEInfo nh_emlrtRTEI = { 4,/* lineNo */
+static emlrtRTEInfo ji_emlrtRTEI = { 4,/* lineNo */
   23,                                  /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
 };
 
-static emlrtRTEInfo oh_emlrtRTEI = { 6,/* lineNo */
+static emlrtRTEInfo ki_emlrtRTEI = { 6,/* lineNo */
   5,                                   /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
 };
 
-static emlrtRTEInfo ph_emlrtRTEI = { 7,/* lineNo */
+static emlrtRTEInfo li_emlrtRTEI = { 7,/* lineNo */
   5,                                   /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
 };
 
-static emlrtRTEInfo qh_emlrtRTEI = { 44,/* lineNo */
+static emlrtRTEInfo mi_emlrtRTEI = { 44,/* lineNo */
   9,                                   /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
 };
 
-static emlrtRTEInfo rh_emlrtRTEI = { 50,/* lineNo */
+static emlrtRTEInfo ni_emlrtRTEI = { 50,/* lineNo */
   5,                                   /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
 };
 
-static emlrtRTEInfo sh_emlrtRTEI = { 42,/* lineNo */
+static emlrtRTEInfo oi_emlrtRTEI = { 42,/* lineNo */
   11,                                  /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
 };
 
-static emlrtRTEInfo th_emlrtRTEI = { 125,/* lineNo */
+static emlrtRTEInfo pi_emlrtRTEI = { 125,/* lineNo */
   13,                                  /* colNo */
   "combineVectorElements",             /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/private/combineVectorElements.m"/* pName */
 };
 
-static emlrtRTEInfo uh_emlrtRTEI = { 54,/* lineNo */
+static emlrtRTEInfo qi_emlrtRTEI = { 54,/* lineNo */
   1,                                   /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
 };
 
-static emlrtRTEInfo vh_emlrtRTEI = { 42,/* lineNo */
+static emlrtRTEInfo ri_emlrtRTEI = { 42,/* lineNo */
   5,                                   /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
 };
 
-static emlrtRTEInfo wh_emlrtRTEI = { 11,/* lineNo */
+static emlrtRTEInfo si_emlrtRTEI = { 11,/* lineNo */
   5,                                   /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
 };
 
-static emlrtRTEInfo xh_emlrtRTEI = { 26,/* lineNo */
+static emlrtRTEInfo ti_emlrtRTEI = { 26,/* lineNo */
   13,                                  /* colNo */
   "makeSLDProfileXY",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m"/* pName */
@@ -386,28 +386,28 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
   g_st.prev = &f_st;
   g_st.tls = f_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_real_T(sp, &x, 2, &oh_emlrtRTEI, true);
-  emxInit_real_T(sp, &airBox, 2, &wh_emlrtRTEI, true);
-  emxInit_real_T(sp, &thisBox, 2, &xh_emlrtRTEI, true);
-  emxInit_real_T(sp, &SLD, 2, &vh_emlrtRTEI, true);
+  emxInit_real_T(sp, &x, 2, &ki_emlrtRTEI, true);
+  emxInit_real_T(sp, &airBox, 2, &si_emlrtRTEI, true);
+  emxInit_real_T(sp, &thisBox, 2, &ti_emlrtRTEI, true);
+  emxInit_real_T(sp, &SLD, 2, &ri_emlrtRTEI, true);
   if (numberOfLayers > 0.0) {
-    emxInit_real_T(sp, &b_layers, 1, &nh_emlrtRTEI, true);
+    emxInit_real_T(sp, &b_layers, 1, &ji_emlrtRTEI, true);
     vlen = layers->size[0];
     i = b_layers->size[0];
     b_layers->size[0] = layers->size[0];
-    emxEnsureCapacity_real_T(sp, b_layers, i, &nh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_layers, i, &ji_emlrtRTEI);
     for (i = 0; i < vlen; i++) {
       b_layers->data[i] = layers->data[i];
     }
 
-    st.site = &x_emlrtRSI;
+    st.site = &y_emlrtRSI;
     layerThicks = sum(&st, b_layers);
     layerThicks = layerThicks * nrepeats + 150.0;
     if (muDoubleScalarIsNaN(layerThicks)) {
       i = x->size[0] * x->size[1];
       x->size[0] = 1;
       x->size[1] = 1;
-      emxEnsureCapacity_real_T(sp, x, i, &oh_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, x, i, &ki_emlrtRTEI);
       x->data[0] = rtNaN;
     } else if (layerThicks < 0.0) {
       x->size[0] = 1;
@@ -416,43 +416,43 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
       i = x->size[0] * x->size[1];
       x->size[0] = 1;
       x->size[1] = 1;
-      emxEnsureCapacity_real_T(sp, x, i, &oh_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, x, i, &ki_emlrtRTEI);
       x->data[0] = rtNaN;
     } else {
       i = x->size[0] * x->size[1];
       x->size[0] = 1;
       vlen = (int32_T)muDoubleScalarFloor(layerThicks);
       x->size[1] = vlen + 1;
-      emxEnsureCapacity_real_T(sp, x, i, &oh_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, x, i, &ki_emlrtRTEI);
       for (i = 0; i <= vlen; i++) {
         x->data[i] = i;
       }
     }
 
-    emxInit_real_T(sp, &Lays, 2, &ph_emlrtRTEI, true);
+    emxInit_real_T(sp, &Lays, 2, &li_emlrtRTEI, true);
     i = Lays->size[0] * Lays->size[1];
     Lays->size[0] = x->size[1];
-    emxEnsureCapacity_real_T(sp, Lays, i, &ph_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Lays, i, &li_emlrtRTEI);
     d = numberOfLayers * nrepeats;
     if (!(d + 2.0 >= 0.0)) {
-      emlrtNonNegativeCheckR2012b(d + 2.0, &cb_emlrtDCI, sp);
+      emlrtNonNegativeCheckR2012b(d + 2.0, &db_emlrtDCI, sp);
     }
 
     d1 = (int32_T)muDoubleScalarFloor(d + 2.0);
     if (d + 2.0 != d1) {
-      emlrtIntegerCheckR2012b(d + 2.0, &db_emlrtDCI, sp);
+      emlrtIntegerCheckR2012b(d + 2.0, &eb_emlrtDCI, sp);
     }
 
     i = Lays->size[0] * Lays->size[1];
     vstride = (int32_T)(d + 2.0);
     Lays->size[1] = vstride;
-    emxEnsureCapacity_real_T(sp, Lays, i, &ph_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Lays, i, &li_emlrtRTEI);
     if (!(d + 2.0 >= 0.0)) {
-      emlrtNonNegativeCheckR2012b(d + 2.0, &ab_emlrtDCI, sp);
+      emlrtNonNegativeCheckR2012b(d + 2.0, &bb_emlrtDCI, sp);
     }
 
     if (d + 2.0 != d1) {
-      emlrtIntegerCheckR2012b(d + 2.0, &bb_emlrtDCI, sp);
+      emlrtIntegerCheckR2012b(d + 2.0, &cb_emlrtDCI, sp);
     }
 
     vlen = x->size[1] * vstride;
@@ -465,7 +465,7 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
     }
 
     nextLayRough = layers->data[layers->size[0] * 2];
-    st.site = &y_emlrtRSI;
+    st.site = &ab_emlrtRSI;
     asymconvstep(&st, x, 100.0, 0.0, nextLayRough, nextLayRough, nbair, airBox);
     layerThicks = 50.0;
     i = (int32_T)nrepeats;
@@ -509,7 +509,7 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
         }
 
         layerThicks += thisLayThick / 2.0;
-        st.site = &ab_emlrtRSI;
+        st.site = &bb_emlrtRSI;
         asymconvstep(&st, x, thisLayThick, layerThicks, layers->data[b_i +
                      layers->size[0] * 2], nextLayRough, layers->data[b_i +
                      layers->size[0]], thisBox);
@@ -544,7 +544,7 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
     }
 
     if (d + 1.0 != (int32_T)muDoubleScalarFloor(d + 1.0)) {
-      emlrtIntegerCheckR2012b(d + 1.0, &fb_emlrtDCI, sp);
+      emlrtIntegerCheckR2012b(d + 1.0, &gb_emlrtDCI, sp);
     }
 
     i = (int32_T)(d + 1.0);
@@ -553,7 +553,7 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
     }
 
     i--;
-    st.site = &bb_emlrtRSI;
+    st.site = &cb_emlrtRSI;
     asymconvstep(&st, x, (x->data[x->size[1] - 1] - layerThicks) * 2.0, x->
                  data[x->size[1] - 1], nextLayRough, ssub, nbsub, thisBox);
     emlrtSubAssignSizeCheckR2012b(&Lays->size[0], 1, &thisBox->size[0], 2,
@@ -565,7 +565,7 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
 
     /* plot(x,Lays(:,(numberOfLayers*nrepeats)+1)) */
     if (d + 2.0 != d1) {
-      emlrtIntegerCheckR2012b(d + 2.0, &eb_emlrtDCI, sp);
+      emlrtIntegerCheckR2012b(d + 2.0, &fb_emlrtDCI, sp);
     }
 
     if ((vstride < 1) || (vstride > Lays->size[1])) {
@@ -581,28 +581,28 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
     }
 
     /* plot(x,Lays(:,(numberOfLayers*nrepeats)+2)) */
-    st.site = &cb_emlrtRSI;
-    b_st.site = &ib_emlrtRSI;
-    c_st.site = &jb_emlrtRSI;
+    st.site = &db_emlrtRSI;
+    b_st.site = &jb_emlrtRSI;
+    c_st.site = &kb_emlrtRSI;
     vlen = Lays->size[1];
     if ((Lays->size[0] == 0) || (Lays->size[1] == 0)) {
       sz_idx_0 = (uint32_T)Lays->size[0];
       i = b_layers->size[0];
       b_layers->size[0] = (int32_T)sz_idx_0;
-      emxEnsureCapacity_real_T(&c_st, b_layers, i, &sh_emlrtRTEI);
+      emxEnsureCapacity_real_T(&c_st, b_layers, i, &oi_emlrtRTEI);
       vlen = (int32_T)sz_idx_0;
       for (i = 0; i < vlen; i++) {
         b_layers->data[i] = 0.0;
       }
     } else {
-      d_st.site = &kb_emlrtRSI;
+      d_st.site = &lb_emlrtRSI;
       vstride = Lays->size[0];
       i = b_layers->size[0];
       b_layers->size[0] = Lays->size[0];
-      emxEnsureCapacity_real_T(&d_st, b_layers, i, &th_emlrtRTEI);
-      e_st.site = &jc_emlrtRSI;
+      emxEnsureCapacity_real_T(&d_st, b_layers, i, &pi_emlrtRTEI);
+      e_st.site = &kc_emlrtRSI;
       if (Lays->size[0] > 2147483646) {
-        f_st.site = &mb_emlrtRSI;
+        f_st.site = &nb_emlrtRSI;
         check_forloop_overflow_error(&f_st);
       }
 
@@ -610,17 +610,17 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
         b_layers->data[n] = Lays->data[n];
       }
 
-      e_st.site = &lb_emlrtRSI;
+      e_st.site = &mb_emlrtRSI;
       if ((2 <= Lays->size[1]) && (Lays->size[1] > 2147483646)) {
-        f_st.site = &mb_emlrtRSI;
+        f_st.site = &nb_emlrtRSI;
         check_forloop_overflow_error(&f_st);
       }
 
       for (k = 2; k <= vlen; k++) {
         xoffset = (k - 1) * vstride;
-        e_st.site = &kc_emlrtRSI;
+        e_st.site = &lc_emlrtRSI;
         if (vstride > 2147483646) {
-          f_st.site = &mb_emlrtRSI;
+          f_st.site = &nb_emlrtRSI;
           check_forloop_overflow_error(&f_st);
         }
 
@@ -634,7 +634,7 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
     i = SLD->size[0] * SLD->size[1];
     SLD->size[0] = b_layers->size[0];
     SLD->size[1] = 1;
-    emxEnsureCapacity_real_T(sp, SLD, i, &vh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, SLD, i, &ri_emlrtRTEI);
     vlen = b_layers->size[0];
     for (i = 0; i < vlen; i++) {
       SLD->data[i] = b_layers->data[i];
@@ -645,17 +645,17 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
     i = x->size[0] * x->size[1];
     x->size[0] = 1;
     x->size[1] = 101;
-    emxEnsureCapacity_real_T(sp, x, i, &mh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, x, i, &ii_emlrtRTEI);
     for (i = 0; i < 101; i++) {
       x->data[i] = i;
     }
 
-    st.site = &db_emlrtRSI;
-    b_st.site = &lc_emlrtRSI;
-    c_st.site = &mc_emlrtRSI;
-    d_st.site = &nc_emlrtRSI;
-    e_st.site = &oc_emlrtRSI;
-    f_st.site = &pc_emlrtRSI;
+    st.site = &eb_emlrtRSI;
+    b_st.site = &mc_emlrtRSI;
+    c_st.site = &nc_emlrtRSI;
+    d_st.site = &oc_emlrtRSI;
+    e_st.site = &pc_emlrtRSI;
+    f_st.site = &qc_emlrtRSI;
     xoffset = 0;
     for (k = 0; k < 100; k++) {
       if (xoffset < k + 1) {
@@ -663,13 +663,13 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
       }
     }
 
-    st.site = &eb_emlrtRSI;
-    b_st.site = &lc_emlrtRSI;
-    c_st.site = &mc_emlrtRSI;
-    d_st.site = &nc_emlrtRSI;
-    e_st.site = &oc_emlrtRSI;
-    f_st.site = &pc_emlrtRSI;
-    g_st.site = &qc_emlrtRSI;
+    st.site = &fb_emlrtRSI;
+    b_st.site = &mc_emlrtRSI;
+    c_st.site = &nc_emlrtRSI;
+    d_st.site = &oc_emlrtRSI;
+    e_st.site = &pc_emlrtRSI;
+    f_st.site = &qc_emlrtRSI;
+    g_st.site = &rc_emlrtRSI;
     vlen = 0;
     for (k = 0; k < 100; k++) {
       if (vlen < k + 1) {
@@ -677,26 +677,26 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
       }
     }
 
-    emxInit_real_T(&g_st, &r, 2, &qh_emlrtRTEI, true);
+    emxInit_real_T(&g_st, &r, 2, &mi_emlrtRTEI, true);
     i = r->size[0] * r->size[1];
     r->size[0] = 1;
     r->size[1] = 101;
-    emxEnsureCapacity_real_T(sp, r, i, &qh_emlrtRTEI);
-    for (i = 0; i < 101; i++) {
-      r->data[i] = i;
-    }
-
-    st.site = &fb_emlrtRSI;
-    asymconvstep(&st, r, vlen, 0.0, ssub, ssub, nbair, airBox);
-    i = r->size[0] * r->size[1];
-    r->size[0] = 1;
-    r->size[1] = 101;
-    emxEnsureCapacity_real_T(sp, r, i, &qh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, r, i, &mi_emlrtRTEI);
     for (i = 0; i < 101; i++) {
       r->data[i] = i;
     }
 
     st.site = &gb_emlrtRSI;
+    asymconvstep(&st, r, vlen, 0.0, ssub, ssub, nbair, airBox);
+    i = r->size[0] * r->size[1];
+    r->size[0] = 1;
+    r->size[1] = 101;
+    emxEnsureCapacity_real_T(sp, r, i, &mi_emlrtRTEI);
+    for (i = 0; i < 101; i++) {
+      r->data[i] = i;
+    }
+
+    st.site = &hb_emlrtRSI;
     asymconvstep(&st, r, vlen, xoffset, ssub, ssub, nbsub, thisBox);
     vlen = thisBox->size[0] * thisBox->size[1];
     emxFree_real_T(&r);
@@ -707,7 +707,7 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
     i = SLD->size[0] * SLD->size[1];
     SLD->size[0] = 1;
     SLD->size[1] = airBox->size[1];
-    emxEnsureCapacity_real_T(sp, SLD, i, &rh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, SLD, i, &ni_emlrtRTEI);
     vlen = airBox->size[0] * airBox->size[1];
     for (i = 0; i < vlen; i++) {
       SLD->data[i] = airBox->data[i] + subBox_data[i];
@@ -718,9 +718,9 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
   emxFree_real_T(&airBox);
 
   /* plot(x,SLD) */
-  st.site = &hb_emlrtRSI;
-  b_st.site = &u_emlrtRSI;
-  c_st.site = &v_emlrtRSI;
+  st.site = &ib_emlrtRSI;
+  b_st.site = &v_emlrtRSI;
+  c_st.site = &w_emlrtRSI;
   if (SLD->size[0] * SLD->size[1] != x->size[1]) {
     emlrtErrorWithMessageIdR2018a(&c_st, &hb_emlrtRTEI,
       "MATLAB:catenate:matrixDimensionMismatch",
@@ -731,7 +731,7 @@ void makeSLDProfileXY(const emlrtStack *sp, real_T nbair, real_T nbsub, real_T
   i = out->size[0] * out->size[1];
   out->size[0] = x->size[1];
   out->size[1] = 2;
-  emxEnsureCapacity_real_T(&b_st, out, i, &uh_emlrtRTEI);
+  emxEnsureCapacity_real_T(&b_st, out, i, &qi_emlrtRTEI);
   vlen = x->size[1];
   for (i = 0; i < vlen; i++) {
     out->data[i] = x->data[i];

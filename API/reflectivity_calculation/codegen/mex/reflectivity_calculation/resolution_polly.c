@@ -17,7 +17,7 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo qf_emlrtRSI = { 26, /* lineNo */
+static emlrtRSInfo rf_emlrtRSI = { 26, /* lineNo */
   "resolution_polly",                  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m"/* pathName */
 };
@@ -108,7 +108,7 @@ static emlrtBCInfo fi_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo jk_emlrtRTEI = { 5,/* lineNo */
+static emlrtRTEInfo fl_emlrtRTEI = { 5,/* lineNo */
   1,                                   /* colNo */
   "resolution_polly",                  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/resolution_polly.m"/* pName */
@@ -135,7 +135,7 @@ void resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata, const
   loop_ub = (int32_T)points;
   i = out->size[0];
   out->size[0] = loop_ub;
-  emxEnsureCapacity_real_T(sp, out, i, &jk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, out, i, &fl_emlrtRTEI);
   for (i = 0; i < loop_ub; i++) {
     out->data[i] = 0.0;
   }
@@ -165,7 +165,7 @@ void resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata, const
     emlrtForLoopVectorCheckR2012b(ilow, 1.0, ihi, mxDOUBLE_CLASS, i1,
       &vb_emlrtRTEI, sp);
     for (b_i = 0; b_i < i1; b_i++) {
-      st.site = &qf_emlrtRSI;
+      st.site = &rf_emlrtRSI;
       i2 = (int32_T)(((real_T)j + 1.0) + (real_T)(ilow + b_i));
       if ((i2 < 1) || (i2 > xdata->size[1])) {
         emlrtDynamicBoundsCheckR2012b(i2, 1, xdata->size[1], &bi_emlrtBCI, &st);

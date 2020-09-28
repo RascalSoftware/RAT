@@ -21,22 +21,22 @@
 #include "sum.h"
 
 /* Variable Definitions */
-static emlrtRSInfo rf_emlrtRSI = { 12, /* lineNo */
+static emlrtRSInfo sf_emlrtRSI = { 12, /* lineNo */
   "chiSquared",                        /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m"/* pathName */
 };
 
-static emlrtRSInfo sf_emlrtRSI = { 16, /* lineNo */
+static emlrtRSInfo tf_emlrtRSI = { 16, /* lineNo */
   "chiSquared",                        /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m"/* pathName */
 };
 
-static emlrtRSInfo tf_emlrtRSI = { 17, /* lineNo */
+static emlrtRSInfo uf_emlrtRSI = { 17, /* lineNo */
   "chiSquared",                        /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m"/* pathName */
 };
 
-static emlrtRSInfo uf_emlrtRSI = { 21, /* lineNo */
+static emlrtRSInfo vf_emlrtRSI = { 21, /* lineNo */
   "chiSquared",                        /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m"/* pathName */
 };
@@ -58,37 +58,37 @@ static emlrtECInfo q_emlrtECI = { -1,  /* nDims */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m"/* pName */
 };
 
-static emlrtRTEInfo kk_emlrtRTEI = { 16,/* lineNo */
+static emlrtRTEInfo gl_emlrtRTEI = { 16,/* lineNo */
   15,                                  /* colNo */
   "chiSquared",                        /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m"/* pName */
 };
 
-static emlrtRTEInfo lk_emlrtRTEI = { 47,/* lineNo */
+static emlrtRTEInfo hl_emlrtRTEI = { 47,/* lineNo */
   9,                                   /* colNo */
   "div",                               /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/div.m"/* pName */
 };
 
-static emlrtRTEInfo mk_emlrtRTEI = { 17,/* lineNo */
+static emlrtRTEInfo il_emlrtRTEI = { 17,/* lineNo */
   14,                                  /* colNo */
   "chiSquared",                        /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m"/* pName */
 };
 
-static emlrtRTEInfo nk_emlrtRTEI = { 17,/* lineNo */
+static emlrtRTEInfo jl_emlrtRTEI = { 17,/* lineNo */
   5,                                   /* colNo */
   "chiSquared",                        /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m"/* pName */
 };
 
-static emlrtRTEInfo ok_emlrtRTEI = { 19,/* lineNo */
+static emlrtRTEInfo kl_emlrtRTEI = { 19,/* lineNo */
   15,                                  /* colNo */
   "chiSquared",                        /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m"/* pName */
 };
 
-static emlrtRTEInfo pk_emlrtRTEI = { 16,/* lineNo */
+static emlrtRTEInfo ll_emlrtRTEI = { 16,/* lineNo */
   5,                                   /* colNo */
   "chiSquared",                        /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/chiSquared/chiSquared.m"/* pName */
@@ -136,10 +136,10 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData, const
   /* allChis = zeros(1,numberOfContrasts); */
   /*      thisData = allData{i}; */
   /*      thisFit = allFits{i}; */
-  st.site = &rf_emlrtRSI;
-  b_st.site = &lc_emlrtRSI;
-  c_st.site = &mc_emlrtRSI;
-  d_st.site = &nc_emlrtRSI;
+  st.site = &sf_emlrtRSI;
+  b_st.site = &mc_emlrtRSI;
+  c_st.site = &nc_emlrtRSI;
+  d_st.site = &oc_emlrtRSI;
   if (thisData->size[0] < 1) {
     N = 1.0;
   } else {
@@ -155,12 +155,12 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData, const
       sp);
   }
 
-  emxInit_real_T(sp, &terms, 1, &pk_emlrtRTEI, true);
-  st.site = &sf_emlrtRSI;
+  emxInit_real_T(sp, &terms, 1, &ll_emlrtRTEI, true);
+  st.site = &tf_emlrtRSI;
   loop_ub = thisData->size[0];
   i = terms->size[0];
   terms->size[0] = thisData->size[0];
-  emxEnsureCapacity_real_T(&st, terms, i, &kk_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, terms, i, &gl_emlrtRTEI);
   for (i = 0; i < loop_ub; i++) {
     terms->data[i] = thisData->data[i + thisData->size[0]] - thisFit->data[i +
       thisFit->size[0]];
@@ -188,39 +188,39 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData, const
       "MATLAB:dimagree", 0);
   }
 
-  emxInit_real_T(&st, &b_terms, 1, &lk_emlrtRTEI, true);
+  emxInit_real_T(&st, &b_terms, 1, &hl_emlrtRTEI, true);
   i = b_terms->size[0];
   b_terms->size[0] = terms->size[0];
-  emxEnsureCapacity_real_T(sp, b_terms, i, &lk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_terms, i, &hl_emlrtRTEI);
   loop_ub = terms->size[0];
   for (i = 0; i < loop_ub; i++) {
     b_terms->data[i] = terms->data[i] / thisData->data[i + thisData->size[0] * 2];
   }
 
-  emxInit_boolean_T(sp, &x, 1, &mk_emlrtRTEI, true);
-  st.site = &sf_emlrtRSI;
-  power(&st, b_terms, terms);
+  emxInit_boolean_T(sp, &x, 1, &il_emlrtRTEI, true);
   st.site = &tf_emlrtRSI;
+  power(&st, b_terms, terms);
+  st.site = &uf_emlrtRSI;
   i = x->size[0];
   x->size[0] = terms->size[0];
-  emxEnsureCapacity_boolean_T(&st, x, i, &mk_emlrtRTEI);
+  emxEnsureCapacity_boolean_T(&st, x, i, &il_emlrtRTEI);
   loop_ub = terms->size[0];
   emxFree_real_T(&b_terms);
   for (i = 0; i < loop_ub; i++) {
     x->data[i] = (terms->data[i] == rtInf);
   }
 
-  emxInit_int32_T(&st, &ii, 1, &aj_emlrtRTEI, true);
-  b_st.site = &ed_emlrtRSI;
+  emxInit_int32_T(&st, &ii, 1, &vj_emlrtRTEI, true);
+  b_st.site = &fd_emlrtRSI;
   nx = x->size[0];
-  c_st.site = &fd_emlrtRSI;
+  c_st.site = &gd_emlrtRSI;
   idx = 0;
   i = ii->size[0];
   ii->size[0] = x->size[0];
-  emxEnsureCapacity_int32_T(&c_st, ii, i, &pi_emlrtRTEI);
-  d_st.site = &gd_emlrtRSI;
+  emxEnsureCapacity_int32_T(&c_st, ii, i, &lj_emlrtRTEI);
+  d_st.site = &hd_emlrtRSI;
   if ((1 <= x->size[0]) && (x->size[0] > 2147483646)) {
-    e_st.site = &mb_emlrtRSI;
+    e_st.site = &nb_emlrtRSI;
     check_forloop_overflow_error(&e_st);
   }
 
@@ -258,18 +258,18 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData, const
 
     iv[0] = 1;
     iv[1] = i;
-    d_st.site = &hd_emlrtRSI;
+    d_st.site = &id_emlrtRSI;
     indexShapeCheck(&d_st, ii->size[0], iv);
     loop_ub = ii->size[0];
     ii->size[0] = i;
-    emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &qi_emlrtRTEI);
+    emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &mj_emlrtRTEI);
   }
 
   emxFree_boolean_T(&x);
-  emxInit_uint32_T(&c_st, &n, 1, &nk_emlrtRTEI, true);
+  emxInit_uint32_T(&c_st, &n, 1, &jl_emlrtRTEI, true);
   i = n->size[0];
   n->size[0] = ii->size[0];
-  emxEnsureCapacity_uint32_T(&st, n, i, &nk_emlrtRTEI);
+  emxEnsureCapacity_uint32_T(&st, n, i, &jl_emlrtRTEI);
   loop_ub = ii->size[0];
   for (i = 0; i < loop_ub; i++) {
     n->data[i] = (uint32_T)ii->data[i];
@@ -278,7 +278,7 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData, const
   if (n->size[0] != 0) {
     i = ii->size[0];
     ii->size[0] = n->size[0];
-    emxEnsureCapacity_int32_T(sp, ii, i, &ok_emlrtRTEI);
+    emxEnsureCapacity_int32_T(sp, ii, i, &kl_emlrtRTEI);
     loop_ub = n->size[0];
     for (i = 0; i < loop_ub; i++) {
       if (((int32_T)n->data[i] < 1) || ((int32_T)n->data[i] > terms->size[0])) {
@@ -297,7 +297,7 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData, const
 
   emxFree_int32_T(&ii);
   emxFree_uint32_T(&n);
-  st.site = &uf_emlrtRSI;
+  st.site = &vf_emlrtRSI;
   chi2 = 1.0 / (N - P) * sum(&st, terms);
 
   /* allChis(i) = chi2; */

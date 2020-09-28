@@ -67,14 +67,14 @@ static emlrtBCInfo hf_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo r_emlrtDCI = { 17,  /* lineNo */
+static emlrtDCInfo s_emlrtDCI = { 17,  /* lineNo */
   31,                                  /* colNo */
   "allocateParamsToLayers",            /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateParamsToLayers.m",/* pName */
   1                                    /* checkKind */
 };
 
-static emlrtRTEInfo dh_emlrtRTEI = { 9,/* lineNo */
+static emlrtRTEInfo yh_emlrtRTEI = { 9,/* lineNo */
   20,                                  /* colNo */
   "allocateParamsToLayers",            /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateParamsToLayers.m"/* pName */
@@ -103,7 +103,7 @@ void allocateParamsToLayers(const emlrtStack *sp, const emxArray_real_T *params,
   i = outLayers->size[0] * outLayers->size[1];
   outLayers->size[0] = 1;
   outLayers->size[1] = layersDetails->size[0];
-  emxEnsureCapacity_cell_wrap_17(sp, outLayers, i, &dh_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_17(sp, outLayers, i, &yh_emlrtRTEI);
   i = layersDetails->size[0];
   for (b_i = 0; b_i < i; b_i++) {
     i1 = layersDetails->size[0] - 1;
@@ -124,7 +124,7 @@ void allocateParamsToLayers(const emlrtStack *sp, const emxArray_real_T *params,
       if (!muDoubleScalarIsNaN(layersDetails->data[b_i].f1.data[b_n])) {
         d = layersDetails->data[b_i].f1.data[b_n];
         if (d != (int32_T)muDoubleScalarFloor(d)) {
-          emlrtIntegerCheckR2012b(d, &r_emlrtDCI, sp);
+          emlrtIntegerCheckR2012b(d, &s_emlrtDCI, sp);
         }
 
         i2 = (int32_T)d;

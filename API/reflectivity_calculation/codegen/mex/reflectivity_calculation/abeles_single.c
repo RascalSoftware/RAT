@@ -20,7 +20,7 @@
 #include <string.h>
 
 /* Variable Definitions */
-static emlrtRSInfo nf_emlrtRSI = { 28, /* lineNo */
+static emlrtRSInfo of_emlrtRSI = { 28, /* lineNo */
   "abeles_single",                     /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_single.m"/* pathName */
 };
@@ -91,7 +91,7 @@ static emlrtBCInfo wh_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo ik_emlrtRTEI = { 9,/* lineNo */
+static emlrtRTEInfo el_emlrtRTEI = { 9,/* lineNo */
   7,                                   /* colNo */
   "abeles_single",                     /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Abeles/abeles_single.m"/* pName */
@@ -145,7 +145,7 @@ void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
   i = (int32_T)points;
   i1 = out->size[0];
   out->size[0] = i;
-  emxEnsureCapacity_real_T(sp, out, i1, &ik_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, out, i1, &el_emlrtRTEI);
 
   /* pi = 3.141592653589; */
   snair = 1.0 - nbair * 0.377451863036739;
@@ -165,7 +165,7 @@ void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
       emlrtDynamicBoundsCheckR2012b(i1, 1, x->size[1], &uh_emlrtBCI, sp);
     }
 
-    st.site = &nf_emlrtRSI;
+    st.site = &of_emlrtRSI;
     theta = x->data[loop] * 1.54 / 12.566370614359172;
     if ((theta < -1.0) || (theta > 1.0)) {
       emlrtErrorWithMessageIdR2018a(&st, &tb_emlrtRTEI,

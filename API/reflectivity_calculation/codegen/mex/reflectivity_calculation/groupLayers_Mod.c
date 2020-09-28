@@ -19,17 +19,17 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo r_emlrtRSI = { 57,  /* lineNo */
+static emlrtRSInfo s_emlrtRSI = { 57,  /* lineNo */
   "groupLayers_Mod",                   /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pathName */
 };
 
-static emlrtRSInfo s_emlrtRSI = { 61,  /* lineNo */
+static emlrtRSInfo t_emlrtRSI = { 61,  /* lineNo */
   "groupLayers_Mod",                   /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pathName */
 };
 
-static emlrtRSInfo kh_emlrtRSI = { 63, /* lineNo */
+static emlrtRSInfo lh_emlrtRSI = { 63, /* lineNo */
   "groupLayers_Mod",                   /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pathName */
 };
@@ -94,49 +94,49 @@ static emlrtBCInfo wf_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo fh_emlrtRTEI = { 46,/* lineNo */
+static emlrtRTEInfo bi_emlrtRTEI = { 46,/* lineNo */
   5,                                   /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo gh_emlrtRTEI = { 90,/* lineNo */
+static emlrtRTEInfo ci_emlrtRTEI = { 90,/* lineNo */
   5,                                   /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo hh_emlrtRTEI = { 88,/* lineNo */
+static emlrtRTEInfo di_emlrtRTEI = { 88,/* lineNo */
   5,                                   /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo ih_emlrtRTEI = { 50,/* lineNo */
+static emlrtRTEInfo ei_emlrtRTEI = { 50,/* lineNo */
   17,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo jh_emlrtRTEI = { 57,/* lineNo */
+static emlrtRTEInfo fi_emlrtRTEI = { 57,/* lineNo */
   17,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo kh_emlrtRTEI = { 61,/* lineNo */
+static emlrtRTEInfo gi_emlrtRTEI = { 61,/* lineNo */
   21,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo lh_emlrtRTEI = { 53,/* lineNo */
+static emlrtRTEInfo hi_emlrtRTEI = { 53,/* lineNo */
   17,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
 };
 
-static emlrtRTEInfo an_emlrtRTEI = { 63,/* lineNo */
+static emlrtRTEInfo un_emlrtRTEI = { 63,/* lineNo */
   21,                                  /* colNo */
   "groupLayers_Mod",                   /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"/* pName */
@@ -172,7 +172,7 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_real_T(sp, &layers, 2, &fh_emlrtRTEI, true);
+  emxInit_real_T(sp, &layers, 2, &bi_emlrtRTEI, true);
 
   /* Arrange layers according to geometry and apply any coverage correction. */
   /*  */
@@ -213,7 +213,7 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   i = layers->size[0] * layers->size[1];
   layers->size[0] = (int32_T)unnamed_idx_0;
   layers->size[1] = 3;
-  emxEnsureCapacity_real_T(sp, layers, i, &fh_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, layers, i, &bi_emlrtRTEI);
   loop_ub = (int32_T)unnamed_idx_0 * 3;
   for (i = 0; i < loop_ub; i++) {
     layers->data[i] = 0.0;
@@ -270,7 +270,7 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
     i = layers->size[0] * layers->size[1];
     layers->size[0] = allLayers->size[0];
     layers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layers, i, &ih_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layers, i, &ei_emlrtRTEI);
     loop_ub = allLayers->size[0] * allLayers->size[1];
     for (i = 0; i < loop_ub; i++) {
       layers->data[i] = allLayers->data[i];
@@ -297,22 +297,22 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       }
     }
 
-    emxInit_real_T(sp, &roughs, 1, &lh_emlrtRTEI, true);
+    emxInit_real_T(sp, &roughs, 1, &hi_emlrtRTEI, true);
     iv[0] = 1;
     iv[1] = loop_ub;
-    st.site = &r_emlrtRSI;
+    st.site = &s_emlrtRSI;
     indexShapeCheck(&st, allLayers->size[0], iv);
     i = roughs->size[0];
     roughs->size[0] = loop_ub + 1;
-    emxEnsureCapacity_real_T(sp, roughs, i, &jh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, roughs, i, &fi_emlrtRTEI);
     roughs->data[0] = allRoughs;
     for (i = 0; i < loop_ub; i++) {
       roughs->data[i + 1] = allLayers->data[i + allLayers->size[0] * 2];
     }
 
-    st.site = &kh_emlrtRSI;
-    b_st.site = &u_emlrtRSI;
-    c_st.site = &v_emlrtRSI;
+    st.site = &lh_emlrtRSI;
+    b_st.site = &v_emlrtRSI;
+    c_st.site = &w_emlrtRSI;
     if (roughs->size[0] != allLayers->size[0]) {
       emlrtErrorWithMessageIdR2018a(&c_st, &hb_emlrtRTEI,
         "MATLAB:catenate:matrixDimensionMismatch",
@@ -324,7 +324,7 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
     i = layers->size[0] * layers->size[1];
     layers->size[0] = allLayers->size[0];
     layers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layers, i, &an_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layers, i, &un_emlrtRTEI);
     for (i = 0; i < loop_ub; i++) {
       layers->data[i] = allLayers->data[i];
     }
@@ -349,7 +349,7 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   i = outLayers->size[0] * outLayers->size[1];
   outLayers->size[0] = layers->size[0];
   outLayers->size[1] = 3;
-  emxEnsureCapacity_real_T(sp, outLayers, i, &hh_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, outLayers, i, &di_emlrtRTEI);
   for (i = 0; i < 3; i++) {
     for (kstr = 0; kstr < loop_ub; kstr++) {
       outLayers->data[kstr + outLayers->size[0] * i] = layers->data[kstr +
@@ -391,7 +391,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_real_T(sp, &layers, 2, &fh_emlrtRTEI, true);
+  emxInit_real_T(sp, &layers, 2, &bi_emlrtRTEI, true);
 
   /* Arrange layers according to geometry and apply any coverage correction. */
   /*  */
@@ -432,7 +432,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
   i = layers->size[0] * layers->size[1];
   layers->size[0] = (int32_T)unnamed_idx_0;
   layers->size[1] = 5;
-  emxEnsureCapacity_real_T(sp, layers, i, &fh_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, layers, i, &bi_emlrtRTEI);
   loop_ub = (int32_T)unnamed_idx_0 * 5;
   for (i = 0; i < loop_ub; i++) {
     layers->data[i] = 0.0;
@@ -490,7 +490,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       i = layers->size[0] * layers->size[1];
       layers->size[0] = allLayers->size[0];
       layers->size[1] = 5;
-      emxEnsureCapacity_real_T(sp, layers, i, &ih_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, layers, i, &ei_emlrtRTEI);
       loop_ub = allLayers->size[0] * allLayers->size[1];
       for (i = 0; i < loop_ub; i++) {
         layers->data[i] = allLayers->data[i];
@@ -517,22 +517,22 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
         }
       }
 
-      emxInit_real_T(sp, &roughs, 1, &lh_emlrtRTEI, true);
+      emxInit_real_T(sp, &roughs, 1, &hi_emlrtRTEI, true);
       iv[0] = 1;
       iv[1] = loop_ub;
-      st.site = &r_emlrtRSI;
+      st.site = &s_emlrtRSI;
       indexShapeCheck(&st, allLayers->size[0], iv);
       i = roughs->size[0];
       roughs->size[0] = loop_ub + 1;
-      emxEnsureCapacity_real_T(sp, roughs, i, &jh_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, roughs, i, &fi_emlrtRTEI);
       roughs->data[0] = allRoughs;
       for (i = 0; i < loop_ub; i++) {
         roughs->data[i + 1] = allLayers->data[i + allLayers->size[0] * 2];
       }
 
-      st.site = &s_emlrtRSI;
-      b_st.site = &u_emlrtRSI;
-      c_st.site = &v_emlrtRSI;
+      st.site = &t_emlrtRSI;
+      b_st.site = &v_emlrtRSI;
+      c_st.site = &w_emlrtRSI;
       if (roughs->size[0] != allLayers->size[0]) {
         emlrtErrorWithMessageIdR2018a(&c_st, &hb_emlrtRTEI,
           "MATLAB:catenate:matrixDimensionMismatch",
@@ -545,7 +545,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       i = layers->size[0] * layers->size[1];
       layers->size[0] = allLayers->size[0];
       layers->size[1] = 4;
-      emxEnsureCapacity_real_T(sp, layers, i, &kh_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, layers, i, &gi_emlrtRTEI);
       for (i = 0; i < loop_ub; i++) {
         layers->data[i] = allLayers->data[i];
       }
@@ -615,7 +615,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
     i = outLayers->size[0] * outLayers->size[1];
     outLayers->size[0] = layers->size[0];
     outLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, outLayers, i, &hh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, outLayers, i, &di_emlrtRTEI);
     for (i = 0; i < 3; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
         outLayers->data[i1 + outLayers->size[0] * i] = layers->data[i1 +
@@ -626,7 +626,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
     i = outLayers->size[0] * outLayers->size[1];
     outLayers->size[0] = 1;
     outLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, outLayers, i, &gh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, outLayers, i, &ci_emlrtRTEI);
     outLayers->data[0] = 0.0;
     outLayers->data[1] = 0.0;
     outLayers->data[2] = 0.0;

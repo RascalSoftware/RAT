@@ -19,27 +19,27 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo ob_emlrtRSI = { 70, /* lineNo */
+static emlrtRSInfo pb_emlrtRSI = { 70, /* lineNo */
   "power",                             /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/power.m"/* pathName */
 };
 
-static emlrtRSInfo pb_emlrtRSI = { 79, /* lineNo */
+static emlrtRSInfo qb_emlrtRSI = { 79, /* lineNo */
   "fltpower",                          /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/power.m"/* pathName */
 };
 
-static emlrtRSInfo be_emlrtRSI = { 66, /* lineNo */
+static emlrtRSInfo ce_emlrtRSI = { 66, /* lineNo */
   "applyBinaryScalarFunction",         /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyBinaryScalarFunction.m"/* pathName */
 };
 
-static emlrtRSInfo ce_emlrtRSI = { 188,/* lineNo */
+static emlrtRSInfo de_emlrtRSI = { 188,/* lineNo */
   "flatIter",                          /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyBinaryScalarFunction.m"/* pathName */
 };
 
-static emlrtRTEInfo uj_emlrtRTEI = { 79,/* lineNo */
+static emlrtRTEInfo qk_emlrtRTEI = { 79,/* lineNo */
   5,                                   /* colNo */
   "power",                             /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/power.m"/* pName */
@@ -57,7 +57,7 @@ void power(const emlrtStack *sp, const emxArray_real_T *a, emxArray_real_T *y)
   emlrtStack e_st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &ob_emlrtRSI;
+  st.site = &pb_emlrtRSI;
   b_st.prev = &st;
   b_st.tls = st.tls;
   c_st.prev = &b_st;
@@ -66,15 +66,15 @@ void power(const emlrtStack *sp, const emxArray_real_T *a, emxArray_real_T *y)
   d_st.tls = c_st.tls;
   e_st.prev = &d_st;
   e_st.tls = d_st.tls;
-  b_st.site = &pb_emlrtRSI;
+  b_st.site = &qb_emlrtRSI;
   nx = y->size[0];
   y->size[0] = a->size[0];
-  emxEnsureCapacity_real_T(&b_st, y, nx, &uj_emlrtRTEI);
-  c_st.site = &be_emlrtRSI;
+  emxEnsureCapacity_real_T(&b_st, y, nx, &qk_emlrtRTEI);
+  c_st.site = &ce_emlrtRSI;
   nx = a->size[0];
-  d_st.site = &ce_emlrtRSI;
+  d_st.site = &de_emlrtRSI;
   if ((1 <= a->size[0]) && (a->size[0] > 2147483646)) {
-    e_st.site = &mb_emlrtRSI;
+    e_st.site = &nb_emlrtRSI;
     check_forloop_overflow_error(&e_st);
   }
 

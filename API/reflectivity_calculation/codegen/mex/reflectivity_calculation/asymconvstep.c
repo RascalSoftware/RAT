@@ -17,32 +17,32 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo nb_emlrtRSI = { 45, /* lineNo */
+static emlrtRSInfo ob_emlrtRSI = { 45, /* lineNo */
   "mpower",                            /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/mpower.m"/* pathName */
 };
 
-static emlrtRSInfo sb_emlrtRSI = { 39, /* lineNo */
+static emlrtRSInfo tb_emlrtRSI = { 39, /* lineNo */
   "asymconvstep",                      /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"/* pathName */
 };
 
-static emlrtRSInfo tb_emlrtRSI = { 40, /* lineNo */
+static emlrtRSInfo ub_emlrtRSI = { 40, /* lineNo */
   "asymconvstep",                      /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"/* pathName */
 };
 
-static emlrtRSInfo ub_emlrtRSI = { 45, /* lineNo */
+static emlrtRSInfo vb_emlrtRSI = { 45, /* lineNo */
   "asymconvstep",                      /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"/* pathName */
 };
 
-static emlrtRSInfo vb_emlrtRSI = { 9,  /* lineNo */
+static emlrtRSInfo wb_emlrtRSI = { 9,  /* lineNo */
   "erf",                               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/specfun/erf.m"/* pathName */
 };
 
-static emlrtRSInfo wb_emlrtRSI = { 12, /* lineNo */
+static emlrtRSInfo xb_emlrtRSI = { 12, /* lineNo */
   "eml_erfcore",                       /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/specfun/private/eml_erfcore.m"/* pathName */
 };
@@ -54,25 +54,25 @@ static emlrtECInfo d_emlrtECI = { 2,   /* nDims */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"/* pName */
 };
 
-static emlrtRTEInfo yh_emlrtRTEI = { 42,/* lineNo */
+static emlrtRTEInfo ui_emlrtRTEI = { 42,/* lineNo */
   5,                                   /* colNo */
   "asymconvstep",                      /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"/* pName */
 };
 
-static emlrtRTEInfo ai_emlrtRTEI = { 43,/* lineNo */
+static emlrtRTEInfo vi_emlrtRTEI = { 43,/* lineNo */
   5,                                   /* colNo */
   "asymconvstep",                      /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"/* pName */
 };
 
-static emlrtRTEInfo bi_emlrtRTEI = { 45,/* lineNo */
+static emlrtRTEInfo wi_emlrtRTEI = { 45,/* lineNo */
   1,                                   /* colNo */
   "asymconvstep",                      /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"/* pName */
 };
 
-static emlrtRTEInfo ci_emlrtRTEI = { 1,/* lineNo */
+static emlrtRTEInfo xi_emlrtRTEI = { 1,/* lineNo */
   14,                                  /* colNo */
   "asymconvstep",                      /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"/* pName */
@@ -101,7 +101,7 @@ void asymconvstep(const emlrtStack *sp, const emxArray_real_T *x, real_T xw,
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_real_T(sp, &b_x, 2, &yh_emlrtRTEI, true);
+  emxInit_real_T(sp, &b_x, 2, &ui_emlrtRTEI, true);
 
   /*  Produces a step function convoluted with differnt error functions */
   /*  on each side. */
@@ -137,38 +137,38 @@ void asymconvstep(const emlrtStack *sp, const emxArray_real_T *x, real_T xw,
   /*  end */
   r = xcen + xw / 2.0;
   l = xcen - xw / 2.0;
-  st.site = &sb_emlrtRSI;
-  b_st.site = &nb_emlrtRSI;
-  aFactor = 1.4142135623730951 * s1;
   st.site = &tb_emlrtRSI;
-  b_st.site = &nb_emlrtRSI;
-  bFactor = 1.4142135623730951 * s2;
+  b_st.site = &ob_emlrtRSI;
+  aFactor = 1.4142135623730951 * s1;
   st.site = &ub_emlrtRSI;
-  b_st.site = &vb_emlrtRSI;
+  b_st.site = &ob_emlrtRSI;
+  bFactor = 1.4142135623730951 * s2;
+  st.site = &vb_emlrtRSI;
+  b_st.site = &wb_emlrtRSI;
   i = b_x->size[0] * b_x->size[1];
   b_x->size[0] = 1;
   b_x->size[1] = x->size[1];
-  emxEnsureCapacity_real_T(&b_st, b_x, i, &yh_emlrtRTEI);
+  emxEnsureCapacity_real_T(&b_st, b_x, i, &ui_emlrtRTEI);
   loop_ub = x->size[0] * x->size[1];
   for (i = 0; i < loop_ub; i++) {
     b_x->data[i] = (x->data[i] - l) / aFactor;
   }
 
-  c_st.site = &wb_emlrtRSI;
+  c_st.site = &xb_emlrtRSI;
   applyScalarFunction(&c_st, b_x, f);
-  st.site = &ub_emlrtRSI;
-  b_st.site = &vb_emlrtRSI;
+  st.site = &vb_emlrtRSI;
+  b_st.site = &wb_emlrtRSI;
   i = b_x->size[0] * b_x->size[1];
   b_x->size[0] = 1;
   b_x->size[1] = x->size[1];
-  emxEnsureCapacity_real_T(&b_st, b_x, i, &ai_emlrtRTEI);
+  emxEnsureCapacity_real_T(&b_st, b_x, i, &vi_emlrtRTEI);
   loop_ub = x->size[0] * x->size[1];
   for (i = 0; i < loop_ub; i++) {
     b_x->data[i] = (x->data[i] - r) / bFactor;
   }
 
-  emxInit_real_T(&b_st, &b_r, 2, &ci_emlrtRTEI, true);
-  c_st.site = &wb_emlrtRSI;
+  emxInit_real_T(&b_st, &b_r, 2, &xi_emlrtRTEI, true);
+  c_st.site = &xb_emlrtRSI;
   applyScalarFunction(&c_st, b_x, b_r);
   emlrtSizeEqCheckNDR2012b(*(int32_T (*)[2])f->size, *(int32_T (*)[2])b_r->size,
     &d_emlrtECI, sp);
@@ -176,7 +176,7 @@ void asymconvstep(const emlrtStack *sp, const emxArray_real_T *x, real_T xw,
   i = f->size[0] * f->size[1];
   loop_ub = f->size[0] * f->size[1];
   f->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, f, loop_ub, &bi_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, f, loop_ub, &wi_emlrtRTEI);
   loop_ub = i - 1;
   emxFree_real_T(&b_x);
   for (i = 0; i <= loop_ub; i++) {

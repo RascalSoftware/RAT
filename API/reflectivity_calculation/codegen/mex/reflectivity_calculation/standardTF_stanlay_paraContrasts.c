@@ -27,52 +27,52 @@
 #include "shiftdata.h"
 
 /* Variable Definitions */
-static emlrtRSInfo lg_emlrtRSI = { 78, /* lineNo */
+static emlrtRSInfo mg_emlrtRSI = { 78, /* lineNo */
   "standardTF_stanlay_paraContrasts",  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pathName */
 };
 
-static emlrtRSInfo mg_emlrtRSI = { 81, /* lineNo */
+static emlrtRSInfo ng_emlrtRSI = { 81, /* lineNo */
   "standardTF_stanlay_paraContrasts",  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pathName */
 };
 
-static emlrtRSInfo ng_emlrtRSI = { 84, /* lineNo */
+static emlrtRSInfo og_emlrtRSI = { 84, /* lineNo */
   "standardTF_stanlay_paraContrasts",  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pathName */
 };
 
-static emlrtRSInfo og_emlrtRSI = { 85, /* lineNo */
+static emlrtRSInfo pg_emlrtRSI = { 85, /* lineNo */
   "standardTF_stanlay_paraContrasts",  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pathName */
 };
 
-static emlrtRSInfo pg_emlrtRSI = { 93, /* lineNo */
+static emlrtRSInfo qg_emlrtRSI = { 93, /* lineNo */
   "standardTF_stanlay_paraContrasts",  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pathName */
 };
 
-static emlrtRSInfo qg_emlrtRSI = { 102,/* lineNo */
+static emlrtRSInfo rg_emlrtRSI = { 102,/* lineNo */
   "standardTF_stanlay_paraContrasts",  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pathName */
 };
 
-static emlrtRSInfo rg_emlrtRSI = { 109,/* lineNo */
+static emlrtRSInfo sg_emlrtRSI = { 109,/* lineNo */
   "standardTF_stanlay_paraContrasts",  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pathName */
 };
 
-static emlrtRSInfo sg_emlrtRSI = { 111,/* lineNo */
+static emlrtRSInfo tg_emlrtRSI = { 111,/* lineNo */
   "standardTF_stanlay_paraContrasts",  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pathName */
 };
 
-static emlrtRSInfo tg_emlrtRSI = { 113,/* lineNo */
+static emlrtRSInfo ug_emlrtRSI = { 113,/* lineNo */
   "standardTF_stanlay_paraContrasts",  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pathName */
 };
 
-static emlrtRSInfo ug_emlrtRSI = { 119,/* lineNo */
+static emlrtRSInfo vg_emlrtRSI = { 119,/* lineNo */
   "standardTF_stanlay_paraContrasts",  /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pathName */
 };
@@ -95,7 +95,7 @@ static emlrtRTEInfo ac_emlrtRTEI = { 72,/* lineNo */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtDCInfo ib_emlrtDCI = { 80, /* lineNo */
+static emlrtDCInfo jb_emlrtDCI = { 80, /* lineNo */
   14,                                  /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m",/* pName */
@@ -128,7 +128,7 @@ static emlrtBCInfo oi_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo jb_emlrtDCI = { 46, /* lineNo */
+static emlrtDCInfo kb_emlrtDCI = { 46, /* lineNo */
   16,                                  /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m",/* pName */
@@ -605,109 +605,109 @@ static emlrtBCInfo lk_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo sk_emlrtRTEI = { 15,/* lineNo */
+static emlrtRTEInfo ol_emlrtRTEI = { 15,/* lineNo */
   26,                                  /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo tk_emlrtRTEI = { 63,/* lineNo */
+static emlrtRTEInfo pl_emlrtRTEI = { 63,/* lineNo */
   5,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo uk_emlrtRTEI = { 68,/* lineNo */
+static emlrtRTEInfo ql_emlrtRTEI = { 68,/* lineNo */
   5,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo vk_emlrtRTEI = { 73,/* lineNo */
+static emlrtRTEInfo rl_emlrtRTEI = { 73,/* lineNo */
   5,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo wk_emlrtRTEI = { 46,/* lineNo */
+static emlrtRTEInfo sl_emlrtRTEI = { 46,/* lineNo */
   10,                                  /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo xk_emlrtRTEI = { 96,/* lineNo */
+static emlrtRTEInfo tl_emlrtRTEI = { 96,/* lineNo */
   9,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo yk_emlrtRTEI = { 99,/* lineNo */
+static emlrtRTEInfo ul_emlrtRTEI = { 99,/* lineNo */
   5,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo al_emlrtRTEI = { 93,/* lineNo */
+static emlrtRTEInfo vl_emlrtRTEI = { 93,/* lineNo */
   9,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo bl_emlrtRTEI = { 106,/* lineNo */
+static emlrtRTEInfo wl_emlrtRTEI = { 106,/* lineNo */
   9,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo cl_emlrtRTEI = { 103,/* lineNo */
+static emlrtRTEInfo xl_emlrtRTEI = { 103,/* lineNo */
   9,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo dl_emlrtRTEI = { 109,/* lineNo */
+static emlrtRTEInfo yl_emlrtRTEI = { 109,/* lineNo */
   5,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo el_emlrtRTEI = { 115,/* lineNo */
+static emlrtRTEInfo am_emlrtRTEI = { 115,/* lineNo */
   5,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo fl_emlrtRTEI = { 116,/* lineNo */
+static emlrtRTEInfo bm_emlrtRTEI = { 116,/* lineNo */
   5,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo gl_emlrtRTEI = { 117,/* lineNo */
+static emlrtRTEInfo cm_emlrtRTEI = { 117,/* lineNo */
   5,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo hl_emlrtRTEI = { 93,/* lineNo */
+static emlrtRTEInfo dm_emlrtRTEI = { 93,/* lineNo */
   22,                                  /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo il_emlrtRTEI = { 102,/* lineNo */
+static emlrtRTEInfo em_emlrtRTEI = { 102,/* lineNo */
   9,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo jl_emlrtRTEI = { 84,/* lineNo */
+static emlrtRTEInfo fm_emlrtRTEI = { 84,/* lineNo */
   5,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
 };
 
-static emlrtRTEInfo kl_emlrtRTEI = { 78,/* lineNo */
+static emlrtRTEInfo gm_emlrtRTEI = { 78,/* lineNo */
   1,                                   /* colNo */
   "standardTF_stanlay_paraContrasts",  /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m"/* pName */
@@ -769,7 +769,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
   /* Pre-Allocation... */
   ub_loop = (int32_T)muDoubleScalarFloor(numberOfContrasts);
   if (numberOfContrasts != ub_loop) {
-    emlrtIntegerCheckR2012b(numberOfContrasts, &jb_emlrtDCI, sp);
+    emlrtIntegerCheckR2012b(numberOfContrasts, &kb_emlrtDCI, sp);
   }
 
   /*   */
@@ -778,7 +778,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
     (int32_T)numberOfContrasts, &xb_emlrtRTEI, sp);
   i1 = reflectivity->size[0];
   reflectivity->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_cell_wrap_111(sp, reflectivity, i1, &sk_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_111(sp, reflectivity, i1, &ol_emlrtRTEI);
   for (b_i = 0; b_i < i; b_i++) {
     i1 = reflectivity->size[0] - 1;
     if (b_i > i1) {
@@ -788,7 +788,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
     i1 = reflectivity->data[b_i].f1->size[0] * reflectivity->data[b_i].f1->size
       [1];
     reflectivity->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i1, &tk_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i1, &pl_emlrtRTEI);
     i1 = reflectivity->size[0] - 1;
     if (b_i > i1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &pi_emlrtBCI, sp);
@@ -797,7 +797,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
     i1 = reflectivity->data[b_i].f1->size[0] * reflectivity->data[b_i].f1->size
       [1];
     reflectivity->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i1, &tk_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i1, &pl_emlrtRTEI);
     i1 = reflectivity->size[0] - 1;
     i2 = reflectivity->size[0] - 1;
     if (b_i > i2) {
@@ -835,7 +835,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
     (int32_T)numberOfContrasts, &yb_emlrtRTEI, sp);
   i1 = Simulation->size[0];
   Simulation->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_cell_wrap_6(sp, Simulation, i1, &sk_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_6(sp, Simulation, i1, &ol_emlrtRTEI);
   for (b_i = 0; b_i < i; b_i++) {
     i1 = Simulation->size[0] - 1;
     if (b_i > i1) {
@@ -844,7 +844,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
 
     i1 = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
     Simulation->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i1, &uk_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i1, &ql_emlrtRTEI);
     i1 = Simulation->size[0] - 1;
     if (b_i > i1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &qi_emlrtBCI, sp);
@@ -852,7 +852,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
 
     i1 = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
     Simulation->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i1, &uk_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i1, &ql_emlrtRTEI);
     i1 = Simulation->size[0] - 1;
     i2 = Simulation->size[0] - 1;
     if (b_i > i2) {
@@ -890,7 +890,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
     (int32_T)numberOfContrasts, &ac_emlrtRTEI, sp);
   i1 = allLayers->size[0];
   allLayers->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_cell_wrap_111(sp, allLayers, i1, &sk_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_111(sp, allLayers, i1, &ol_emlrtRTEI);
   for (b_i = 0; b_i < i; b_i++) {
     i1 = allLayers->size[0] - 1;
     if (b_i > i1) {
@@ -899,7 +899,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
 
     i1 = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
     allLayers->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i1, &vk_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i1, &rl_emlrtRTEI);
     i1 = allLayers->size[0] - 1;
     if (b_i > i1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &ri_emlrtBCI, sp);
@@ -907,7 +907,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
 
     i1 = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
     allLayers->data[b_i].f1->size[1] = 1;
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i1, &vk_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i1, &rl_emlrtRTEI);
     i1 = allLayers->size[0] - 1;
     i2 = allLayers->size[0] - 1;
     if (b_i > i2) {
@@ -931,57 +931,57 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
     allLayers->data[b_i].f1->data[1] = 1.0;
   }
 
-  emxInit_cell_wrap_17(sp, &outParameterisedLayers, 2, &kl_emlrtRTEI, true);
-  st.site = &lg_emlrtRSI;
+  emxInit_cell_wrap_17(sp, &outParameterisedLayers, 2, &gm_emlrtRTEI, true);
+  st.site = &mg_emlrtRSI;
   allocateParamsToLayers(&st, params, layersDetails, outParameterisedLayers);
   if ((int32_T)numberOfContrasts != ub_loop) {
-    emlrtIntegerCheckR2012b(numberOfContrasts, &ib_emlrtDCI, sp);
+    emlrtIntegerCheckR2012b(numberOfContrasts, &jb_emlrtDCI, sp);
   }
 
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, numberOfContrasts, mxDOUBLE_CLASS,
     (int32_T)numberOfContrasts, &bc_emlrtRTEI, sp);
   ub_loop = backgs->size[0];
   backgs->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, backgs, ub_loop, &wk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, backgs, ub_loop, &sl_emlrtRTEI);
   ub_loop = qshifts->size[0];
   qshifts->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, qshifts, ub_loop, &wk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, qshifts, ub_loop, &sl_emlrtRTEI);
   ub_loop = sfs->size[0];
   sfs->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, sfs, ub_loop, &wk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, sfs, ub_loop, &sl_emlrtRTEI);
   ub_loop = nbas->size[0];
   nbas->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, nbas, ub_loop, &wk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, nbas, ub_loop, &sl_emlrtRTEI);
   ub_loop = nbss->size[0];
   nbss->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, nbss, ub_loop, &wk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, nbss, ub_loop, &sl_emlrtRTEI);
   ub_loop = resols->size[0];
   resols->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, resols, ub_loop, &wk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, resols, ub_loop, &sl_emlrtRTEI);
   ub_loop = allRoughs->size[0];
   allRoughs->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, allRoughs, ub_loop, &wk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, allRoughs, ub_loop, &sl_emlrtRTEI);
   ub_loop = outSsubs->size[0];
   outSsubs->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, outSsubs, ub_loop, &wk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, outSsubs, ub_loop, &sl_emlrtRTEI);
   ub_loop = sldProfiles->size[0];
   sldProfiles->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_cell_wrap_111(sp, sldProfiles, ub_loop, &sk_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_111(sp, sldProfiles, ub_loop, &ol_emlrtRTEI);
   ub_loop = layerSlds->size[0];
   layerSlds->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_cell_wrap_1(sp, layerSlds, ub_loop, &sk_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_1(sp, layerSlds, ub_loop, &ol_emlrtRTEI);
   ub_loop = shifted_data->size[0];
   shifted_data->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_cell_wrap_1(sp, shifted_data, ub_loop, &sk_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_1(sp, shifted_data, ub_loop, &ol_emlrtRTEI);
   ub_loop = Simulation->size[0];
   Simulation->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_cell_wrap_6(sp, Simulation, ub_loop, &sk_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_6(sp, Simulation, ub_loop, &ol_emlrtRTEI);
   ub_loop = reflectivity->size[0];
   reflectivity->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_cell_wrap_111(sp, reflectivity, ub_loop, &sk_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_111(sp, reflectivity, ub_loop, &ol_emlrtRTEI);
   ub_loop = chis->size[0];
   chis->size[0] = (int32_T)numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, chis, ub_loop, &wk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, chis, ub_loop, &sl_emlrtRTEI);
   ub_loop = (int32_T)numberOfContrasts - 1;
   emlrtEnterParallelRegion(sp, omp_in_parallel());
   emlrtPushJmpBuf(sp, &emlrtJBStack);
@@ -999,12 +999,12 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
       emlrtSetJmpBuf(&b_st, &b_emlrtJBEnviron);
       c_st.prev = &b_st;
       c_st.tls = b_st.tls;
-      emxInit_real_T(&b_st, &thisContrastLayers, 2, &jl_emlrtRTEI, true);
-      emxInit_real_T(&b_st, &sldProfile, 2, &al_emlrtRTEI, true);
-      emxInit_real_T(&b_st, &layerSld, 2, &il_emlrtRTEI, true);
-      emxInit_real_T(&b_st, &reflect, 2, &sk_emlrtRTEI, true);
-      emxInit_real_T(&b_st, &Simul, 2, &hl_emlrtRTEI, true);
-      emxInit_real_T(&b_st, &shifted_dat, 2, &dl_emlrtRTEI, true);
+      emxInit_real_T(&b_st, &thisContrastLayers, 2, &fm_emlrtRTEI, true);
+      emxInit_real_T(&b_st, &sldProfile, 2, &vl_emlrtRTEI, true);
+      emxInit_real_T(&b_st, &layerSld, 2, &em_emlrtRTEI, true);
+      emxInit_real_T(&b_st, &reflect, 2, &ol_emlrtRTEI, true);
+      emxInit_real_T(&b_st, &Simul, 2, &dm_emlrtRTEI, true);
+      emxInit_real_T(&b_st, &shifted_dat, 2, &yl_emlrtRTEI, true);
     } else {
       emlrtHadParallelError = true;
     }
@@ -1046,7 +1046,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
             &b_st);
         }
 
-        c_st.site = &mg_emlrtRSI;
+        c_st.site = &ng_emlrtRSI;
         backSort(&c_st, cBacks->data[i3 - 1], cShifts->data[i3 - 1],
                  cScales->data[i3 - 1], cNbas->data[i3 - 1], cNbss->data[i3 - 1],
                  cRes->data[i3 - 1], backs, shifts, sf, nba, nbs, res, &d4, &d3,
@@ -1102,7 +1102,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &gj_emlrtBCI, &b_st);
         }
 
-        c_st.site = &ng_emlrtRSI;
+        c_st.site = &og_emlrtRSI;
         allocateLayersForContrast(&c_st, contrastLayers->data[c_i].f1,
           outParameterisedLayers, thisContrastLayers);
         i3 = c_i + 1;
@@ -1123,7 +1123,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
             &b_st);
         }
 
-        c_st.site = &og_emlrtRSI;
+        c_st.site = &pg_emlrtRSI;
         groupLayers_Mod(&c_st, thisContrastLayers, allRoughs->data[i3 - 1],
                         geometry, nbas->data[i4 - 1], nbss->data[loop_ub - 1],
                         layerSld, &thisCalcSld);
@@ -1169,14 +1169,14 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
             emlrtDynamicBoundsCheckR2012b(c_i, 0, i5, &pj_emlrtBCI, &b_st);
           }
 
-          c_st.site = &pg_emlrtRSI;
+          c_st.site = &qg_emlrtRSI;
           makeSLDProfiles(&c_st, nbas->data[i3 - 1], nbss->data[i4 - 1],
                           layerSld, outSsubs->data[loop_ub - 1],
                           repeatLayers->data[c_i].f1, Simul);
           i3 = sldProfile->size[0] * sldProfile->size[1];
           sldProfile->size[0] = Simul->size[0];
           sldProfile->size[1] = 2;
-          emxEnsureCapacity_real_T(&b_st, sldProfile, i3, &al_emlrtRTEI);
+          emxEnsureCapacity_real_T(&b_st, sldProfile, i3, &vl_emlrtRTEI);
           loop_ub = Simul->size[0] * Simul->size[1];
           for (i3 = 0; i3 < loop_ub; i3++) {
             sldProfile->data[i3] = Simul->data[i3];
@@ -1185,7 +1185,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           i3 = sldProfile->size[0] * sldProfile->size[1];
           sldProfile->size[0] = 1;
           sldProfile->size[1] = 3;
-          emxEnsureCapacity_real_T(&b_st, sldProfile, i3, &xk_emlrtRTEI);
+          emxEnsureCapacity_real_T(&b_st, sldProfile, i3, &tl_emlrtRTEI);
           sldProfile->data[0] = 0.0;
           sldProfile->data[1] = 0.0;
           sldProfile->data[2] = 0.0;
@@ -1201,7 +1201,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           .f1->size[1];
         sldProfiles->data[c_i].f1->size[0] = sldProfile->size[0];
         emxEnsureCapacity_real_T(&b_st, sldProfiles->data[c_i].f1, i3,
-          &yk_emlrtRTEI);
+          &ul_emlrtRTEI);
         i3 = sldProfiles->size[0] - 1;
         if (c_i > i3) {
           emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &qj_emlrtBCI, &b_st);
@@ -1211,7 +1211,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           .f1->size[1];
         sldProfiles->data[c_i].f1->size[1] = sldProfile->size[1];
         emxEnsureCapacity_real_T(&b_st, sldProfiles->data[c_i].f1, i3,
-          &yk_emlrtRTEI);
+          &ul_emlrtRTEI);
         i3 = sldProfiles->size[0] - 1;
         i4 = sldProfiles->size[0] - 1;
         if (c_i > i4) {
@@ -1238,7 +1238,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
         }
 
         if (resample->data[i3 - 1] == 1.0) {
-          c_st.site = &qg_emlrtRSI;
+          c_st.site = &rg_emlrtRSI;
           resampleLayers(&c_st, sldProfile, layerSld);
           loop_ub = layerSld->size[0] * layerSld->size[1];
           i3 = layerSlds->size[0] - 1;
@@ -1250,7 +1250,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
             [1];
           layerSlds->data[c_i].f1->size[0] = layerSld->size[0];
           emxEnsureCapacity_real_T(&b_st, layerSlds->data[c_i].f1, i3,
-            &cl_emlrtRTEI);
+            &xl_emlrtRTEI);
           i3 = layerSlds->size[0] - 1;
           if (c_i > i3) {
             emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &tj_emlrtBCI, &b_st);
@@ -1260,7 +1260,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
             [1];
           layerSlds->data[c_i].f1->size[1] = 3;
           emxEnsureCapacity_real_T(&b_st, layerSlds->data[c_i].f1, i3,
-            &cl_emlrtRTEI);
+            &xl_emlrtRTEI);
           i3 = layerSlds->size[0] - 1;
           i4 = layerSlds->size[0] - 1;
           if (c_i > i4) {
@@ -1290,7 +1290,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
             [1];
           layerSlds->data[c_i].f1->size[0] = layerSld->size[0];
           emxEnsureCapacity_real_T(&b_st, layerSlds->data[c_i].f1, i3,
-            &bl_emlrtRTEI);
+            &wl_emlrtRTEI);
           i3 = layerSlds->size[0] - 1;
           if (c_i > i3) {
             emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &sj_emlrtBCI, &b_st);
@@ -1300,7 +1300,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
             [1];
           layerSlds->data[c_i].f1->size[1] = 3;
           emxEnsureCapacity_real_T(&b_st, layerSlds->data[c_i].f1, i3,
-            &bl_emlrtRTEI);
+            &wl_emlrtRTEI);
           i3 = layerSlds->size[0] - 1;
           i4 = layerSlds->size[0] - 1;
           if (c_i > i4) {
@@ -1329,7 +1329,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
         i3 = shifted_dat->size[0] * shifted_dat->size[1];
         shifted_dat->size[0] = allData->data[c_i].f1->size[0];
         shifted_dat->size[1] = 3;
-        emxEnsureCapacity_real_T(&b_st, shifted_dat, i3, &dl_emlrtRTEI);
+        emxEnsureCapacity_real_T(&b_st, shifted_dat, i3, &yl_emlrtRTEI);
         i3 = allData->size[1] - 1;
         if (c_i > i3) {
           emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &uj_emlrtBCI, &b_st);
@@ -1382,7 +1382,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           emlrtDynamicBoundsCheckR2012b(c_i, 0, i5, &yj_emlrtBCI, &b_st);
         }
 
-        c_st.site = &rg_emlrtRSI;
+        c_st.site = &sg_emlrtRSI;
         shiftdata(&c_st, sfs->data[i3 - 1], qshifts->data[i4 - 1],
                   dataPresent->data[loop_ub - 1], shifted_dat, dataLimits->
                   data[c_i].f1);
@@ -1426,7 +1426,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
             &b_st);
         }
 
-        c_st.site = &sg_emlrtRSI;
+        c_st.site = &tg_emlrtRSI;
         callReflectivity(&c_st, nbas->data[i3 - 1], nbss->data[i4 - 1],
                          simLimits->data[c_i].f1, repeatLayers->data[c_i].f1,
                          shifted_dat, layerSld, outSsubs->data[loop_ub - 1],
@@ -1443,7 +1443,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
             &b_st);
         }
 
-        c_st.site = &tg_emlrtRSI;
+        c_st.site = &ug_emlrtRSI;
         applyBackgroundCorrection(&c_st, reflect, Simul, shifted_dat,
           backgs->data[i3 - 1], backsType->data[i4 - 1]);
         loop_ub = reflect->size[0] * reflect->size[1];
@@ -1456,7 +1456,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           .f1->size[1];
         reflectivity->data[c_i].f1->size[0] = reflect->size[0];
         emxEnsureCapacity_real_T(&b_st, reflectivity->data[c_i].f1, i3,
-          &el_emlrtRTEI);
+          &am_emlrtRTEI);
         i3 = reflectivity->size[0] - 1;
         if (c_i > i3) {
           emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &ik_emlrtBCI, &b_st);
@@ -1466,7 +1466,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           .f1->size[1];
         reflectivity->data[c_i].f1->size[1] = 2;
         emxEnsureCapacity_real_T(&b_st, reflectivity->data[c_i].f1, i3,
-          &el_emlrtRTEI);
+          &am_emlrtRTEI);
         i3 = reflectivity->size[0] - 1;
         i4 = reflectivity->size[0] - 1;
         if (c_i > i4) {
@@ -1496,7 +1496,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           [1];
         Simulation->data[c_i].f1->size[0] = Simul->size[0];
         emxEnsureCapacity_real_T(&b_st, Simulation->data[c_i].f1, i3,
-          &fl_emlrtRTEI);
+          &bm_emlrtRTEI);
         i3 = Simulation->size[0] - 1;
         if (c_i > i3) {
           emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &jk_emlrtBCI, &b_st);
@@ -1506,7 +1506,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           [1];
         Simulation->data[c_i].f1->size[1] = 2;
         emxEnsureCapacity_real_T(&b_st, Simulation->data[c_i].f1, i3,
-          &fl_emlrtRTEI);
+          &bm_emlrtRTEI);
         i3 = Simulation->size[0] - 1;
         i4 = Simulation->size[0] - 1;
         if (c_i > i4) {
@@ -1536,7 +1536,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           .f1->size[1];
         shifted_data->data[c_i].f1->size[0] = shifted_dat->size[0];
         emxEnsureCapacity_real_T(&b_st, shifted_data->data[c_i].f1, i3,
-          &gl_emlrtRTEI);
+          &cm_emlrtRTEI);
         i3 = shifted_data->size[0] - 1;
         if (c_i > i3) {
           emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &kk_emlrtBCI, &b_st);
@@ -1546,7 +1546,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
           .f1->size[1];
         shifted_data->data[c_i].f1->size[1] = 3;
         emxEnsureCapacity_real_T(&b_st, shifted_data->data[c_i].f1, i3,
-          &gl_emlrtRTEI);
+          &cm_emlrtRTEI);
         i3 = shifted_data->size[0] - 1;
         i4 = shifted_data->size[0] - 1;
         if (c_i > i4) {
@@ -1572,7 +1572,7 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const emxArray_real_T
             &b_st);
         }
 
-        c_st.site = &ug_emlrtRSI;
+        c_st.site = &vg_emlrtRSI;
         chis->data[i3 - 1] = chiSquared(&c_st, shifted_dat, reflect, nParams);
       } else {
         emlrtHadParallelError = true;

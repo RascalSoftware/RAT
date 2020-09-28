@@ -20,12 +20,12 @@
 #include <math.h>
 
 /* Variable Definitions */
-static emlrtRSInfo xb_emlrtRSI = { 61, /* lineNo */
+static emlrtRSInfo yb_emlrtRSI = { 61, /* lineNo */
   "applyScalarFunction",               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyScalarFunction.m"/* pathName */
 };
 
-static emlrtRTEInfo di_emlrtRTEI = { 1,/* lineNo */
+static emlrtRTEInfo yi_emlrtRTEI = { 1,/* lineNo */
   23,                                  /* colNo */
   "applyScalarFunction",               /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyScalarFunction.m"/* pName */
@@ -57,10 +57,10 @@ void applyScalarFunction(const emlrtStack *sp, const emxArray_real_T *x,
   ub_loop = z1->size[0] * z1->size[1];
   z1->size[0] = 1;
   z1->size[1] = x->size[1];
-  emxEnsureCapacity_real_T(sp, z1, ub_loop, &di_emlrtRTEI);
-  st.site = &xb_emlrtRSI;
+  emxEnsureCapacity_real_T(sp, z1, ub_loop, &yi_emlrtRTEI);
+  st.site = &yb_emlrtRSI;
   if ((1 <= x->size[1]) && (x->size[1] > 2147483646)) {
-    b_st.site = &mb_emlrtRSI;
+    b_st.site = &nb_emlrtRSI;
     check_forloop_overflow_error(&b_st);
   }
 

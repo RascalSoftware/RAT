@@ -53,12 +53,12 @@ MEX {
 		emxFree_cell_wrap_3;
 		emxInit_cell_wrap_4;
 		emxFree_cell_wrap_4;
+		emxInitStruct_cell_13;
+		emxFreeStruct_cell_13;
 		emxInit_cell_wrap_14;
 		emxFree_cell_wrap_14;
 		emxInit_cell_wrap_15;
 		emxFree_cell_wrap_15;
-		emxInitStruct_cell_13;
-		emxFreeStruct_cell_13;
 		emxInit_cell_wrap_17;
 		emxFree_cell_wrap_17;
 		emxEnsureCapacity_cell_wrap_17;

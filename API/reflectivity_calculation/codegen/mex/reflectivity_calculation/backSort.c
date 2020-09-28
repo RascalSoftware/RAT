@@ -26,7 +26,7 @@ static emlrtBCInfo if_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo s_emlrtDCI = { 41,  /* lineNo */
+static emlrtDCInfo t_emlrtDCI = { 41,  /* lineNo */
   13,                                  /* colNo */
   "backSort",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/backSorts/backSort.m",/* pName */
@@ -43,7 +43,7 @@ static emlrtBCInfo jf_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo t_emlrtDCI = { 44,  /* lineNo */
+static emlrtDCInfo u_emlrtDCI = { 44,  /* lineNo */
   14,                                  /* colNo */
   "backSort",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/backSorts/backSort.m",/* pName */
@@ -60,7 +60,7 @@ static emlrtBCInfo kf_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo u_emlrtDCI = { 47,  /* lineNo */
+static emlrtDCInfo v_emlrtDCI = { 47,  /* lineNo */
   10,                                  /* colNo */
   "backSort",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/backSorts/backSort.m",/* pName */
@@ -77,7 +77,7 @@ static emlrtBCInfo lf_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo v_emlrtDCI = { 50,  /* lineNo */
+static emlrtDCInfo w_emlrtDCI = { 50,  /* lineNo */
   11,                                  /* colNo */
   "backSort",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/backSorts/backSort.m",/* pName */
@@ -94,7 +94,7 @@ static emlrtBCInfo mf_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo w_emlrtDCI = { 53,  /* lineNo */
+static emlrtDCInfo x_emlrtDCI = { 53,  /* lineNo */
   11,                                  /* colNo */
   "backSort",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/backSorts/backSort.m",/* pName */
@@ -111,7 +111,7 @@ static emlrtBCInfo nf_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtDCInfo x_emlrtDCI = { 56,  /* lineNo */
+static emlrtDCInfo y_emlrtDCI = { 56,  /* lineNo */
   13,                                  /* colNo */
   "backSort",                          /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/backSorts/backSort.m",/* pName */
@@ -163,7 +163,7 @@ void backSort(const emlrtStack *sp, real_T cBacks, real_T cShifts, real_T
   /* for i = 1:nc */
   /* thisBack = cBacks(i); */
   if (cBacks != (int32_T)muDoubleScalarFloor(cBacks)) {
-    emlrtIntegerCheckR2012b(cBacks, &s_emlrtDCI, sp);
+    emlrtIntegerCheckR2012b(cBacks, &t_emlrtDCI, sp);
   }
 
   i = (int32_T)cBacks;
@@ -175,7 +175,7 @@ void backSort(const emlrtStack *sp, real_T cBacks, real_T cShifts, real_T
 
   /* thisShift = cShifts(i); */
   if (cShifts != (int32_T)muDoubleScalarFloor(cShifts)) {
-    emlrtIntegerCheckR2012b(cShifts, &t_emlrtDCI, sp);
+    emlrtIntegerCheckR2012b(cShifts, &u_emlrtDCI, sp);
   }
 
   i = (int32_T)cShifts;
@@ -187,7 +187,7 @@ void backSort(const emlrtStack *sp, real_T cBacks, real_T cShifts, real_T
 
   /* thisScale = cScales(i); */
   if (cScales != (int32_T)muDoubleScalarFloor(cScales)) {
-    emlrtIntegerCheckR2012b(cScales, &u_emlrtDCI, sp);
+    emlrtIntegerCheckR2012b(cScales, &v_emlrtDCI, sp);
   }
 
   i = (int32_T)cScales;
@@ -199,7 +199,7 @@ void backSort(const emlrtStack *sp, real_T cBacks, real_T cShifts, real_T
 
   /* thisNbair = cNbas(i); */
   if (cNbas != (int32_T)muDoubleScalarFloor(cNbas)) {
-    emlrtIntegerCheckR2012b(cNbas, &v_emlrtDCI, sp);
+    emlrtIntegerCheckR2012b(cNbas, &w_emlrtDCI, sp);
   }
 
   i = (int32_T)cNbas;
@@ -211,7 +211,7 @@ void backSort(const emlrtStack *sp, real_T cBacks, real_T cShifts, real_T
 
   /* thisNbsub = cNbss(i); */
   if (cNbss != (int32_T)muDoubleScalarFloor(cNbss)) {
-    emlrtIntegerCheckR2012b(cNbss, &w_emlrtDCI, sp);
+    emlrtIntegerCheckR2012b(cNbss, &x_emlrtDCI, sp);
   }
 
   i = (int32_T)cNbss;
@@ -223,7 +223,7 @@ void backSort(const emlrtStack *sp, real_T cBacks, real_T cShifts, real_T
 
   /* thisResol = cRes(i); */
   if (cRes != (int32_T)muDoubleScalarFloor(cRes)) {
-    emlrtIntegerCheckR2012b(cRes, &x_emlrtDCI, sp);
+    emlrtIntegerCheckR2012b(cRes, &y_emlrtDCI, sp);
   }
 
   i = (int32_T)cRes;

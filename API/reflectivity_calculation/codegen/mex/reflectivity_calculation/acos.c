@@ -19,7 +19,7 @@
 #include "sqrt.h"
 
 /* Variable Definitions */
-static emlrtRSInfo fe_emlrtRSI = { 17, /* lineNo */
+static emlrtRSInfo ge_emlrtRSI = { 17, /* lineNo */
   "acos",                              /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elfun/acos.m"/* pathName */
 };
@@ -47,15 +47,15 @@ void b_acos(const emlrtStack *sp, emxArray_creal_T *x)
   emlrtStack c_st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &fe_emlrtRSI;
+  st.site = &ge_emlrtRSI;
   b_st.prev = &st;
   b_st.tls = st.tls;
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
   nx = x->size[0];
-  b_st.site = &ee_emlrtRSI;
+  b_st.site = &fe_emlrtRSI;
   if ((1 <= x->size[0]) && (x->size[0] > 2147483646)) {
-    c_st.site = &mb_emlrtRSI;
+    c_st.site = &nb_emlrtRSI;
     check_forloop_overflow_error(&c_st);
   }
 

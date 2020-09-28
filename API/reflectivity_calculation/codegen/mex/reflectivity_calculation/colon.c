@@ -17,7 +17,7 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo lf_emlrtRSI = { 288,/* lineNo */
+static emlrtRSInfo mf_emlrtRSI = { 288,/* lineNo */
   "eml_float_colon",                   /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/colon.m"/* pathName */
 };
@@ -28,7 +28,7 @@ static emlrtRTEInfo sb_emlrtRTEI = { 405,/* lineNo */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/colon.m"/* pName */
 };
 
-static emlrtRTEInfo hk_emlrtRTEI = { 279,/* lineNo */
+static emlrtRTEInfo dl_emlrtRTEI = { 279,/* lineNo */
   14,                                  /* colNo */
   "colon",                             /* fName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/colon.m"/* pName */
@@ -71,7 +71,7 @@ void eml_float_colon(const emlrtStack *sp, real_T a, real_T d, real_T b,
     n = 0;
   }
 
-  st.site = &lf_emlrtRSI;
+  st.site = &mf_emlrtRSI;
   if (ndbl > 2.147483647E+9) {
     emlrtErrorWithMessageIdR2018a(&st, &sb_emlrtRTEI, "Coder:MATLAB:pmaxsize",
       "Coder:MATLAB:pmaxsize", 0);
@@ -80,7 +80,7 @@ void eml_float_colon(const emlrtStack *sp, real_T a, real_T d, real_T b,
   nm1d2 = y->size[0] * y->size[1];
   y->size[0] = 1;
   y->size[1] = n;
-  emxEnsureCapacity_real_T(sp, y, nm1d2, &hk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, y, nm1d2, &dl_emlrtRTEI);
   if (n > 0) {
     y->data[0] = a;
     if (n > 1) {

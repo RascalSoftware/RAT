@@ -20,17 +20,17 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo bd_emlrtRSI = { 24, /* lineNo */
+static emlrtRSInfo cd_emlrtRSI = { 24, /* lineNo */
   "sldFunc",                           /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pathName */
 };
 
-static emlrtRSInfo cd_emlrtRSI = { 29, /* lineNo */
+static emlrtRSInfo dd_emlrtRSI = { 29, /* lineNo */
   "sldFunc",                           /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pathName */
 };
 
-static emlrtRSInfo dd_emlrtRSI = { 30, /* lineNo */
+static emlrtRSInfo ed_emlrtRSI = { 30, /* lineNo */
   "sldFunc",                           /* fcnName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pathName */
 };
@@ -115,55 +115,55 @@ static emlrtBCInfo wg_emlrtBCI = { -1, /* iFirst */
   0                                    /* checkKind */
 };
 
-static emlrtRTEInfo oi_emlrtRTEI = { 24,/* lineNo */
+static emlrtRTEInfo kj_emlrtRTEI = { 24,/* lineNo */
   14,                                  /* colNo */
   "sldFunc",                           /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo ri_emlrtRTEI = { 24,/* lineNo */
+static emlrtRTEInfo nj_emlrtRTEI = { 24,/* lineNo */
   1,                                   /* colNo */
   "sldFunc",                           /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo si_emlrtRTEI = { 27,/* lineNo */
+static emlrtRTEInfo oj_emlrtRTEI = { 27,/* lineNo */
   5,                                   /* colNo */
   "sldFunc",                           /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo ti_emlrtRTEI = { 29,/* lineNo */
+static emlrtRTEInfo pj_emlrtRTEI = { 29,/* lineNo */
   22,                                  /* colNo */
   "sldFunc",                           /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo ui_emlrtRTEI = { 29,/* lineNo */
+static emlrtRTEInfo qj_emlrtRTEI = { 29,/* lineNo */
   5,                                   /* colNo */
   "sldFunc",                           /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo vi_emlrtRTEI = { 30,/* lineNo */
+static emlrtRTEInfo rj_emlrtRTEI = { 30,/* lineNo */
   22,                                  /* colNo */
   "sldFunc",                           /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo wi_emlrtRTEI = { 30,/* lineNo */
+static emlrtRTEInfo sj_emlrtRTEI = { 30,/* lineNo */
   5,                                   /* colNo */
   "sldFunc",                           /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo xi_emlrtRTEI = { 48,/* lineNo */
+static emlrtRTEInfo tj_emlrtRTEI = { 48,/* lineNo */
   9,                                   /* colNo */
   "sldFunc",                           /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
 };
 
-static emlrtRTEInfo yi_emlrtRTEI = { 46,/* lineNo */
+static emlrtRTEInfo uj_emlrtRTEI = { 46,/* lineNo */
   9,                                   /* colNo */
   "sldFunc",                           /* fName */
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"/* pName */
@@ -201,7 +201,7 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
   e_st.prev = &d_st;
   e_st.tls = d_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
-  emxInit_boolean_T(sp, &b_x, 1, &oi_emlrtRTEI, true);
+  emxInit_boolean_T(sp, &b_x, 1, &kj_emlrtRTEI, true);
 
   /*  sldVal = sldFunc(x,SLD) */
   /*  SLD = [x rho;....xn rho] */
@@ -219,26 +219,26 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
   /*   */
   /*  SLD = sldProfile; */
   /* SLD = getappdata(0,'sldFuncSLD'); */
-  st.site = &bd_emlrtRSI;
+  st.site = &cd_emlrtRSI;
   loop_ub = SLD->size[0];
   i = b_x->size[0];
   b_x->size[0] = SLD->size[0];
-  emxEnsureCapacity_boolean_T(&st, b_x, i, &oi_emlrtRTEI);
+  emxEnsureCapacity_boolean_T(&st, b_x, i, &kj_emlrtRTEI);
   for (i = 0; i < loop_ub; i++) {
     b_x->data[i] = (SLD->data[i] == x);
   }
 
-  emxInit_int32_T(&st, &ii, 1, &aj_emlrtRTEI, true);
-  b_st.site = &ed_emlrtRSI;
+  emxInit_int32_T(&st, &ii, 1, &vj_emlrtRTEI, true);
+  b_st.site = &fd_emlrtRSI;
   nx = b_x->size[0];
-  c_st.site = &fd_emlrtRSI;
+  c_st.site = &gd_emlrtRSI;
   idx = 0;
   i = ii->size[0];
   ii->size[0] = b_x->size[0];
-  emxEnsureCapacity_int32_T(&c_st, ii, i, &pi_emlrtRTEI);
-  d_st.site = &gd_emlrtRSI;
+  emxEnsureCapacity_int32_T(&c_st, ii, i, &lj_emlrtRTEI);
+  d_st.site = &hd_emlrtRSI;
   if ((1 <= b_x->size[0]) && (b_x->size[0] > 2147483646)) {
-    e_st.site = &mb_emlrtRSI;
+    e_st.site = &nb_emlrtRSI;
     check_forloop_overflow_error(&e_st);
   }
 
@@ -276,17 +276,17 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
 
     iv[0] = 1;
     iv[1] = i;
-    d_st.site = &hd_emlrtRSI;
+    d_st.site = &id_emlrtRSI;
     indexShapeCheck(&d_st, ii->size[0], iv);
     loop_ub = ii->size[0];
     ii->size[0] = i;
-    emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &qi_emlrtRTEI);
+    emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &mj_emlrtRTEI);
   }
 
-  emxInit_uint32_T(&c_st, &where, 1, &ri_emlrtRTEI, true);
+  emxInit_uint32_T(&c_st, &where, 1, &nj_emlrtRTEI, true);
   i = where->size[0];
   where->size[0] = ii->size[0];
-  emxEnsureCapacity_uint32_T(&st, where, i, &ri_emlrtRTEI);
+  emxEnsureCapacity_uint32_T(&st, where, i, &nj_emlrtRTEI);
   loop_ub = ii->size[0];
   for (i = 0; i < loop_ub; i++) {
     where->data[i] = (uint32_T)ii->data[i];
@@ -295,7 +295,7 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
   if (where->size[0] != 0) {
     i = sldVal->size[0];
     sldVal->size[0] = where->size[0];
-    emxEnsureCapacity_real_T(sp, sldVal, i, &si_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, sldVal, i, &oj_emlrtRTEI);
     loop_ub = where->size[0];
     for (i = 0; i < loop_ub; i++) {
       if (((int32_T)where->data[i] < 1) || ((int32_T)where->data[i] > SLD->size
@@ -307,25 +307,25 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
       sldVal->data[i] = SLD->data[((int32_T)where->data[i] + SLD->size[0]) - 1];
     }
   } else {
-    st.site = &cd_emlrtRSI;
+    st.site = &dd_emlrtRSI;
     loop_ub = SLD->size[0];
     i = b_x->size[0];
     b_x->size[0] = SLD->size[0];
-    emxEnsureCapacity_boolean_T(&st, b_x, i, &ti_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(&st, b_x, i, &pj_emlrtRTEI);
     for (i = 0; i < loop_ub; i++) {
       b_x->data[i] = (x > SLD->data[i]);
     }
 
-    b_st.site = &ed_emlrtRSI;
+    b_st.site = &fd_emlrtRSI;
     nx = b_x->size[0];
-    c_st.site = &fd_emlrtRSI;
+    c_st.site = &gd_emlrtRSI;
     idx = 0;
     i = ii->size[0];
     ii->size[0] = b_x->size[0];
-    emxEnsureCapacity_int32_T(&c_st, ii, i, &pi_emlrtRTEI);
-    d_st.site = &gd_emlrtRSI;
+    emxEnsureCapacity_int32_T(&c_st, ii, i, &lj_emlrtRTEI);
+    d_st.site = &hd_emlrtRSI;
     if ((1 <= b_x->size[0]) && (b_x->size[0] > 2147483646)) {
-      e_st.site = &mb_emlrtRSI;
+      e_st.site = &nb_emlrtRSI;
       check_forloop_overflow_error(&e_st);
     }
 
@@ -363,40 +363,40 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
 
       iv[0] = 1;
       iv[1] = i;
-      d_st.site = &hd_emlrtRSI;
+      d_st.site = &id_emlrtRSI;
       indexShapeCheck(&d_st, ii->size[0], iv);
       loop_ub = ii->size[0];
       ii->size[0] = i;
-      emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &qi_emlrtRTEI);
+      emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &mj_emlrtRTEI);
     }
 
     i = where->size[0];
     where->size[0] = ii->size[0];
-    emxEnsureCapacity_uint32_T(&st, where, i, &ui_emlrtRTEI);
+    emxEnsureCapacity_uint32_T(&st, where, i, &qj_emlrtRTEI);
     loop_ub = ii->size[0];
     for (i = 0; i < loop_ub; i++) {
       where->data[i] = (uint32_T)ii->data[i];
     }
 
-    st.site = &dd_emlrtRSI;
+    st.site = &ed_emlrtRSI;
     loop_ub = SLD->size[0];
     i = b_x->size[0];
     b_x->size[0] = SLD->size[0];
-    emxEnsureCapacity_boolean_T(&st, b_x, i, &vi_emlrtRTEI);
+    emxEnsureCapacity_boolean_T(&st, b_x, i, &rj_emlrtRTEI);
     for (i = 0; i < loop_ub; i++) {
       b_x->data[i] = (x < SLD->data[i]);
     }
 
-    b_st.site = &ed_emlrtRSI;
+    b_st.site = &fd_emlrtRSI;
     nx = b_x->size[0];
-    c_st.site = &fd_emlrtRSI;
+    c_st.site = &gd_emlrtRSI;
     idx = 0;
     i = ii->size[0];
     ii->size[0] = b_x->size[0];
-    emxEnsureCapacity_int32_T(&c_st, ii, i, &pi_emlrtRTEI);
-    d_st.site = &gd_emlrtRSI;
+    emxEnsureCapacity_int32_T(&c_st, ii, i, &lj_emlrtRTEI);
+    d_st.site = &hd_emlrtRSI;
     if ((1 <= b_x->size[0]) && (b_x->size[0] > 2147483646)) {
-      e_st.site = &mb_emlrtRSI;
+      e_st.site = &nb_emlrtRSI;
       check_forloop_overflow_error(&e_st);
     }
 
@@ -434,17 +434,17 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
 
       iv[0] = 1;
       iv[1] = i;
-      d_st.site = &hd_emlrtRSI;
+      d_st.site = &id_emlrtRSI;
       indexShapeCheck(&d_st, ii->size[0], iv);
       loop_ub = ii->size[0];
       ii->size[0] = i;
-      emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &qi_emlrtRTEI);
+      emxEnsureCapacity_int32_T(&c_st, ii, loop_ub, &mj_emlrtRTEI);
     }
 
-    emxInit_uint32_T(&c_st, &aboveVals, 1, &wi_emlrtRTEI, true);
+    emxInit_uint32_T(&c_st, &aboveVals, 1, &sj_emlrtRTEI, true);
     i = aboveVals->size[0];
     aboveVals->size[0] = ii->size[0];
-    emxEnsureCapacity_uint32_T(&st, aboveVals, i, &wi_emlrtRTEI);
+    emxEnsureCapacity_uint32_T(&st, aboveVals, i, &sj_emlrtRTEI);
     loop_ub = ii->size[0];
     for (i = 0; i < loop_ub; i++) {
       aboveVals->data[i] = (uint32_T)ii->data[i];
@@ -495,13 +495,13 @@ void sldFunc(const emlrtStack *sp, real_T x, const emxArray_real_T *SLD,
         < deltaY_tmp) {
       i = sldVal->size[0];
       sldVal->size[0] = 1;
-      emxEnsureCapacity_real_T(sp, sldVal, i, &yi_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, sldVal, i, &uj_emlrtRTEI);
       sldVal->data[0] = SLD->data[((int32_T)where->data[where->size[0] - 1] +
         SLD->size[0]) - 1] + deltaY;
     } else {
       i = sldVal->size[0];
       sldVal->size[0] = 1;
-      emxEnsureCapacity_real_T(sp, sldVal, i, &xi_emlrtRTEI);
+      emxEnsureCapacity_real_T(sp, sldVal, i, &tj_emlrtRTEI);
       sldVal->data[0] = SLD->data[((int32_T)where->data[where->size[0] - 1] +
         SLD->size[0]) - 1] - deltaY;
     }

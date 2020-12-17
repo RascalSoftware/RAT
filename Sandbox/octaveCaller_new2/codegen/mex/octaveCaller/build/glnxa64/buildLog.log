@@ -1,0 +1,2579 @@
+[1/11] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  /usr/local/MATLAB/R2020a/extern/version/c_mexapi_version.c -o build/glnxa64/c_mexapi_version.o
+FAILED: build/glnxa64/c_mexapi_version.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  /usr/local/MATLAB/R2020a/extern/version/c_mexapi_version.c -o build/glnxa64/c_mexapi_version.o
+/usr/local/MATLAB/R2020a/extern/version/c_mexapi_version.c:8:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘void’
+ void mexfilerequiredapiversion(unsigned int* built_by_rel, unsigned int* target_api_ver)
+ ^
+[2/11] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  interface/_coder_octaveCaller_info.c -o build/glnxa64/_coder_octaveCaller_info.o
+FAILED: build/glnxa64/_coder_octaveCaller_info.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  interface/_coder_octaveCaller_info.c -o build/glnxa64/_coder_octaveCaller_info.o
+In file included from interface/_coder_octaveCaller_info.c:13:0:
+interface/_coder_octaveCaller_info.h:18:1: error: unknown type name ‘MEXFUNCTION_LINKAGE’
+ MEXFUNCTION_LINKAGE mxArray *emlrtMexFcnProperties(void);
+ ^
+interface/_coder_octaveCaller_info.h:18:29: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+ MEXFUNCTION_LINKAGE mxArray *emlrtMexFcnProperties(void);
+                             ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:834:19: error: conflicting types for ‘mwSize’
+ typedef size_t    mwSize;         /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:93:17: note: previous declaration of ‘mwSize’ was here
+ typedef int64_t mwSize;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:835:19: error: conflicting types for ‘mwIndex’
+ typedef size_t    mwIndex;        /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:94:17: note: previous declaration of ‘mwIndex’ was here
+ typedef int64_t mwIndex;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:156:28: error: conflicting types for ‘mxArray’
+ typedef struct mxArray_tag mxArray;
+                            ^
+In file included from interface/_coder_octaveCaller_info.h:15:0,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mex.h:55:14: note: previous declaration of ‘mxArray’ was here
+ typedef void mxArray;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:171:14: error: conflicting types for ‘mxLogical’
+ typedef bool mxLogical;
+              ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:85:23: note: previous declaration of ‘mxLogical’ was here
+ typedef unsigned char mxLogical;
+                       ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:176:18: error: conflicting types for ‘mxChar’
+ typedef CHAR16_T mxChar;
+                  ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:83:14: note: previous declaration of ‘mxChar’ was here
+ typedef char mxChar;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:182:5: error: redeclaration of enumerator ‘mxUNKNOWN_CLASS’
+     mxUNKNOWN_CLASS = 0,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:54:3: note: previous definition of ‘mxUNKNOWN_CLASS’ was here
+   mxUNKNOWN_CLASS = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:183:5: error: redeclaration of enumerator ‘mxCELL_CLASS’
+     mxCELL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:55:3: note: previous definition of ‘mxCELL_CLASS’ was here
+   mxCELL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:184:5: error: redeclaration of enumerator ‘mxSTRUCT_CLASS’
+     mxSTRUCT_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:56:3: note: previous definition of ‘mxSTRUCT_CLASS’ was here
+   mxSTRUCT_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:185:5: error: redeclaration of enumerator ‘mxLOGICAL_CLASS’
+     mxLOGICAL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:57:3: note: previous definition of ‘mxLOGICAL_CLASS’ was here
+   mxLOGICAL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:186:5: error: redeclaration of enumerator ‘mxCHAR_CLASS’
+     mxCHAR_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:58:3: note: previous definition of ‘mxCHAR_CLASS’ was here
+   mxCHAR_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:187:5: error: redeclaration of enumerator ‘mxVOID_CLASS’
+     mxVOID_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:59:3: note: previous definition of ‘mxVOID_CLASS’ was here
+   mxVOID_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:188:5: error: redeclaration of enumerator ‘mxDOUBLE_CLASS’
+     mxDOUBLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:60:3: note: previous definition of ‘mxDOUBLE_CLASS’ was here
+   mxDOUBLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:189:5: error: redeclaration of enumerator ‘mxSINGLE_CLASS’
+     mxSINGLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:61:3: note: previous definition of ‘mxSINGLE_CLASS’ was here
+   mxSINGLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:190:5: error: redeclaration of enumerator ‘mxINT8_CLASS’
+     mxINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:62:3: note: previous definition of ‘mxINT8_CLASS’ was here
+   mxINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:191:5: error: redeclaration of enumerator ‘mxUINT8_CLASS’
+     mxUINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:63:3: note: previous definition of ‘mxUINT8_CLASS’ was here
+   mxUINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:192:5: error: redeclaration of enumerator ‘mxINT16_CLASS’
+     mxINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:64:3: note: previous definition of ‘mxINT16_CLASS’ was here
+   mxINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:193:5: error: redeclaration of enumerator ‘mxUINT16_CLASS’
+     mxUINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:65:3: note: previous definition of ‘mxUINT16_CLASS’ was here
+   mxUINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:194:5: error: redeclaration of enumerator ‘mxINT32_CLASS’
+     mxINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:66:3: note: previous definition of ‘mxINT32_CLASS’ was here
+   mxINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:195:5: error: redeclaration of enumerator ‘mxUINT32_CLASS’
+     mxUINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:67:3: note: previous definition of ‘mxUINT32_CLASS’ was here
+   mxUINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:196:5: error: redeclaration of enumerator ‘mxINT64_CLASS’
+     mxINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:68:3: note: previous definition of ‘mxINT64_CLASS’ was here
+   mxINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:197:5: error: redeclaration of enumerator ‘mxUINT64_CLASS’
+     mxUINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:69:3: note: previous definition of ‘mxUINT64_CLASS’ was here
+   mxUINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:198:5: error: redeclaration of enumerator ‘mxFUNCTION_CLASS’
+     mxFUNCTION_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:70:3: note: previous definition of ‘mxFUNCTION_CLASS’ was here
+   mxFUNCTION_CLASS
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:206:3: error: conflicting types for ‘mxClassID’
+ } mxClassID;
+   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:72:1: note: previous declaration of ‘mxClassID’ was here
+ mxClassID;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:16: error: redeclaration of enumerator ‘mxREAL’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:76:3: note: previous definition of ‘mxREAL’ was here
+   mxREAL = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:24: error: redeclaration of enumerator ‘mxCOMPLEX’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                        ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:77:3: note: previous definition of ‘mxCOMPLEX’ was here
+   mxCOMPLEX = 1
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:36: error: conflicting types for ‘mxComplexity’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                                    ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:79:1: note: previous declaration of ‘mxComplexity’ was here
+ mxComplexity;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1242:0: warning: "mxAssert" redefined [enabled by default]
+ #define mxAssert(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:339:0: note: this is the location of the previous definition
+ #  define mxAssert(expr, msg)
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_info.c:14:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1243:0: warning: "mxAssertS" redefined [enabled by default]
+ #define mxAssertS(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from interface/_coder_octaveCaller_info.h:15,
+                 from interface/_coder_octaveCaller_info.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:340:0: note: this is the location of the previous definition
+ #  define mxAssertS(expr, msg)
+ ^
+[3/11] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  rt_nonfinite.c -o build/glnxa64/rt_nonfinite.o
+[4/11] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  octaveCaller_data.c -o build/glnxa64/octaveCaller_data.o
+FAILED: build/glnxa64/octaveCaller_data.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  octaveCaller_data.c -o build/glnxa64/octaveCaller_data.o
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:834:19: error: conflicting types for ‘mwSize’
+ typedef size_t    mwSize;         /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:93:17: note: previous declaration of ‘mwSize’ was here
+ typedef int64_t mwSize;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:835:19: error: conflicting types for ‘mwIndex’
+ typedef size_t    mwIndex;        /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:94:17: note: previous declaration of ‘mwIndex’ was here
+ typedef int64_t mwIndex;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:156:28: error: conflicting types for ‘mxArray’
+ typedef struct mxArray_tag mxArray;
+                            ^
+In file included from octaveCaller_data.h:19:0,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mex.h:55:14: note: previous declaration of ‘mxArray’ was here
+ typedef void mxArray;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:171:14: error: conflicting types for ‘mxLogical’
+ typedef bool mxLogical;
+              ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:85:23: note: previous declaration of ‘mxLogical’ was here
+ typedef unsigned char mxLogical;
+                       ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:176:18: error: conflicting types for ‘mxChar’
+ typedef CHAR16_T mxChar;
+                  ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:83:14: note: previous declaration of ‘mxChar’ was here
+ typedef char mxChar;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:182:5: error: redeclaration of enumerator ‘mxUNKNOWN_CLASS’
+     mxUNKNOWN_CLASS = 0,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:54:3: note: previous definition of ‘mxUNKNOWN_CLASS’ was here
+   mxUNKNOWN_CLASS = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:183:5: error: redeclaration of enumerator ‘mxCELL_CLASS’
+     mxCELL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:55:3: note: previous definition of ‘mxCELL_CLASS’ was here
+   mxCELL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:184:5: error: redeclaration of enumerator ‘mxSTRUCT_CLASS’
+     mxSTRUCT_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:56:3: note: previous definition of ‘mxSTRUCT_CLASS’ was here
+   mxSTRUCT_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:185:5: error: redeclaration of enumerator ‘mxLOGICAL_CLASS’
+     mxLOGICAL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:57:3: note: previous definition of ‘mxLOGICAL_CLASS’ was here
+   mxLOGICAL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:186:5: error: redeclaration of enumerator ‘mxCHAR_CLASS’
+     mxCHAR_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:58:3: note: previous definition of ‘mxCHAR_CLASS’ was here
+   mxCHAR_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:187:5: error: redeclaration of enumerator ‘mxVOID_CLASS’
+     mxVOID_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:59:3: note: previous definition of ‘mxVOID_CLASS’ was here
+   mxVOID_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:188:5: error: redeclaration of enumerator ‘mxDOUBLE_CLASS’
+     mxDOUBLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:60:3: note: previous definition of ‘mxDOUBLE_CLASS’ was here
+   mxDOUBLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:189:5: error: redeclaration of enumerator ‘mxSINGLE_CLASS’
+     mxSINGLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:61:3: note: previous definition of ‘mxSINGLE_CLASS’ was here
+   mxSINGLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:190:5: error: redeclaration of enumerator ‘mxINT8_CLASS’
+     mxINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:62:3: note: previous definition of ‘mxINT8_CLASS’ was here
+   mxINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:191:5: error: redeclaration of enumerator ‘mxUINT8_CLASS’
+     mxUINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:63:3: note: previous definition of ‘mxUINT8_CLASS’ was here
+   mxUINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:192:5: error: redeclaration of enumerator ‘mxINT16_CLASS’
+     mxINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:64:3: note: previous definition of ‘mxINT16_CLASS’ was here
+   mxINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:193:5: error: redeclaration of enumerator ‘mxUINT16_CLASS’
+     mxUINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:65:3: note: previous definition of ‘mxUINT16_CLASS’ was here
+   mxUINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:194:5: error: redeclaration of enumerator ‘mxINT32_CLASS’
+     mxINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:66:3: note: previous definition of ‘mxINT32_CLASS’ was here
+   mxINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:195:5: error: redeclaration of enumerator ‘mxUINT32_CLASS’
+     mxUINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:67:3: note: previous definition of ‘mxUINT32_CLASS’ was here
+   mxUINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:196:5: error: redeclaration of enumerator ‘mxINT64_CLASS’
+     mxINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:68:3: note: previous definition of ‘mxINT64_CLASS’ was here
+   mxINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:197:5: error: redeclaration of enumerator ‘mxUINT64_CLASS’
+     mxUINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:69:3: note: previous definition of ‘mxUINT64_CLASS’ was here
+   mxUINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:198:5: error: redeclaration of enumerator ‘mxFUNCTION_CLASS’
+     mxFUNCTION_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:70:3: note: previous definition of ‘mxFUNCTION_CLASS’ was here
+   mxFUNCTION_CLASS
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:206:3: error: conflicting types for ‘mxClassID’
+ } mxClassID;
+   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:72:1: note: previous declaration of ‘mxClassID’ was here
+ mxClassID;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:16: error: redeclaration of enumerator ‘mxREAL’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:76:3: note: previous definition of ‘mxREAL’ was here
+   mxREAL = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:24: error: redeclaration of enumerator ‘mxCOMPLEX’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                        ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:77:3: note: previous definition of ‘mxCOMPLEX’ was here
+   mxCOMPLEX = 1
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:36: error: conflicting types for ‘mxComplexity’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                                    ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:79:1: note: previous declaration of ‘mxComplexity’ was here
+ mxComplexity;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1242:0: warning: "mxAssert" redefined [enabled by default]
+ #define mxAssert(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:339:0: note: this is the location of the previous definition
+ #  define mxAssert(expr, msg)
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_data.h:20,
+                 from octaveCaller_data.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1243:0: warning: "mxAssertS" redefined [enabled by default]
+ #define mxAssertS(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from octaveCaller_data.h:19,
+                 from octaveCaller_data.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:340:0: note: this is the location of the previous definition
+ #  define mxAssertS(expr, msg)
+ ^
+[5/11] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  octaveCaller_initialize.c -o build/glnxa64/octaveCaller_initialize.o
+FAILED: build/glnxa64/octaveCaller_initialize.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  octaveCaller_initialize.c -o build/glnxa64/octaveCaller_initialize.o
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:834:19: error: conflicting types for ‘mwSize’
+ typedef size_t    mwSize;         /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:93:17: note: previous declaration of ‘mwSize’ was here
+ typedef int64_t mwSize;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:835:19: error: conflicting types for ‘mwIndex’
+ typedef size_t    mwIndex;        /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:94:17: note: previous declaration of ‘mwIndex’ was here
+ typedef int64_t mwIndex;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:156:28: error: conflicting types for ‘mxArray’
+ typedef struct mxArray_tag mxArray;
+                            ^
+In file included from octaveCaller_initialize.h:19:0,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mex.h:55:14: note: previous declaration of ‘mxArray’ was here
+ typedef void mxArray;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:171:14: error: conflicting types for ‘mxLogical’
+ typedef bool mxLogical;
+              ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:85:23: note: previous declaration of ‘mxLogical’ was here
+ typedef unsigned char mxLogical;
+                       ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:176:18: error: conflicting types for ‘mxChar’
+ typedef CHAR16_T mxChar;
+                  ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:83:14: note: previous declaration of ‘mxChar’ was here
+ typedef char mxChar;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:182:5: error: redeclaration of enumerator ‘mxUNKNOWN_CLASS’
+     mxUNKNOWN_CLASS = 0,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:54:3: note: previous definition of ‘mxUNKNOWN_CLASS’ was here
+   mxUNKNOWN_CLASS = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:183:5: error: redeclaration of enumerator ‘mxCELL_CLASS’
+     mxCELL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:55:3: note: previous definition of ‘mxCELL_CLASS’ was here
+   mxCELL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:184:5: error: redeclaration of enumerator ‘mxSTRUCT_CLASS’
+     mxSTRUCT_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:56:3: note: previous definition of ‘mxSTRUCT_CLASS’ was here
+   mxSTRUCT_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:185:5: error: redeclaration of enumerator ‘mxLOGICAL_CLASS’
+     mxLOGICAL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:57:3: note: previous definition of ‘mxLOGICAL_CLASS’ was here
+   mxLOGICAL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:186:5: error: redeclaration of enumerator ‘mxCHAR_CLASS’
+     mxCHAR_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:58:3: note: previous definition of ‘mxCHAR_CLASS’ was here
+   mxCHAR_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:187:5: error: redeclaration of enumerator ‘mxVOID_CLASS’
+     mxVOID_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:59:3: note: previous definition of ‘mxVOID_CLASS’ was here
+   mxVOID_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:188:5: error: redeclaration of enumerator ‘mxDOUBLE_CLASS’
+     mxDOUBLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:60:3: note: previous definition of ‘mxDOUBLE_CLASS’ was here
+   mxDOUBLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:189:5: error: redeclaration of enumerator ‘mxSINGLE_CLASS’
+     mxSINGLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:61:3: note: previous definition of ‘mxSINGLE_CLASS’ was here
+   mxSINGLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:190:5: error: redeclaration of enumerator ‘mxINT8_CLASS’
+     mxINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:62:3: note: previous definition of ‘mxINT8_CLASS’ was here
+   mxINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:191:5: error: redeclaration of enumerator ‘mxUINT8_CLASS’
+     mxUINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:63:3: note: previous definition of ‘mxUINT8_CLASS’ was here
+   mxUINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:192:5: error: redeclaration of enumerator ‘mxINT16_CLASS’
+     mxINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:64:3: note: previous definition of ‘mxINT16_CLASS’ was here
+   mxINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:193:5: error: redeclaration of enumerator ‘mxUINT16_CLASS’
+     mxUINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:65:3: note: previous definition of ‘mxUINT16_CLASS’ was here
+   mxUINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:194:5: error: redeclaration of enumerator ‘mxINT32_CLASS’
+     mxINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:66:3: note: previous definition of ‘mxINT32_CLASS’ was here
+   mxINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:195:5: error: redeclaration of enumerator ‘mxUINT32_CLASS’
+     mxUINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:67:3: note: previous definition of ‘mxUINT32_CLASS’ was here
+   mxUINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:196:5: error: redeclaration of enumerator ‘mxINT64_CLASS’
+     mxINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:68:3: note: previous definition of ‘mxINT64_CLASS’ was here
+   mxINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:197:5: error: redeclaration of enumerator ‘mxUINT64_CLASS’
+     mxUINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:69:3: note: previous definition of ‘mxUINT64_CLASS’ was here
+   mxUINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:198:5: error: redeclaration of enumerator ‘mxFUNCTION_CLASS’
+     mxFUNCTION_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:70:3: note: previous definition of ‘mxFUNCTION_CLASS’ was here
+   mxFUNCTION_CLASS
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:206:3: error: conflicting types for ‘mxClassID’
+ } mxClassID;
+   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:72:1: note: previous declaration of ‘mxClassID’ was here
+ mxClassID;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:16: error: redeclaration of enumerator ‘mxREAL’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:76:3: note: previous definition of ‘mxREAL’ was here
+   mxREAL = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:24: error: redeclaration of enumerator ‘mxCOMPLEX’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                        ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:77:3: note: previous definition of ‘mxCOMPLEX’ was here
+   mxCOMPLEX = 1
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:36: error: conflicting types for ‘mxComplexity’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                                    ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:79:1: note: previous declaration of ‘mxComplexity’ was here
+ mxComplexity;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1242:0: warning: "mxAssert" redefined [enabled by default]
+ #define mxAssert(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:339:0: note: this is the location of the previous definition
+ #  define mxAssert(expr, msg)
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_initialize.h:20,
+                 from octaveCaller_initialize.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1243:0: warning: "mxAssertS" redefined [enabled by default]
+ #define mxAssertS(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from octaveCaller_initialize.h:19,
+                 from octaveCaller_initialize.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:340:0: note: this is the location of the previous definition
+ #  define mxAssertS(expr, msg)
+ ^
+In file included from octaveCaller_initialize.c:14:0:
+./interface/_coder_octaveCaller_mex.h:25:21: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘void’
+ MEXFUNCTION_LINKAGE void octaveCaller_mexFunction(int32_T nlhs, int32_T nrhs);
+                     ^
+./interface/_coder_octaveCaller_mex.h:26:21: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘void’
+ MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
+                     ^
+[6/11] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  interface/_coder_octaveCaller_api.c -o build/glnxa64/_coder_octaveCaller_api.o
+FAILED: build/glnxa64/_coder_octaveCaller_api.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  interface/_coder_octaveCaller_api.c -o build/glnxa64/_coder_octaveCaller_api.o
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:834:19: error: conflicting types for ‘mwSize’
+ typedef size_t    mwSize;         /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:93:17: note: previous declaration of ‘mwSize’ was here
+ typedef int64_t mwSize;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:835:19: error: conflicting types for ‘mwIndex’
+ typedef size_t    mwIndex;        /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:94:17: note: previous declaration of ‘mwIndex’ was here
+ typedef int64_t mwIndex;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:156:28: error: conflicting types for ‘mxArray’
+ typedef struct mxArray_tag mxArray;
+                            ^
+In file included from interface/_coder_octaveCaller_api.h:19:0,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mex.h:55:14: note: previous declaration of ‘mxArray’ was here
+ typedef void mxArray;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:171:14: error: conflicting types for ‘mxLogical’
+ typedef bool mxLogical;
+              ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:85:23: note: previous declaration of ‘mxLogical’ was here
+ typedef unsigned char mxLogical;
+                       ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:176:18: error: conflicting types for ‘mxChar’
+ typedef CHAR16_T mxChar;
+                  ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:83:14: note: previous declaration of ‘mxChar’ was here
+ typedef char mxChar;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:182:5: error: redeclaration of enumerator ‘mxUNKNOWN_CLASS’
+     mxUNKNOWN_CLASS = 0,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:54:3: note: previous definition of ‘mxUNKNOWN_CLASS’ was here
+   mxUNKNOWN_CLASS = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:183:5: error: redeclaration of enumerator ‘mxCELL_CLASS’
+     mxCELL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:55:3: note: previous definition of ‘mxCELL_CLASS’ was here
+   mxCELL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:184:5: error: redeclaration of enumerator ‘mxSTRUCT_CLASS’
+     mxSTRUCT_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:56:3: note: previous definition of ‘mxSTRUCT_CLASS’ was here
+   mxSTRUCT_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:185:5: error: redeclaration of enumerator ‘mxLOGICAL_CLASS’
+     mxLOGICAL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:57:3: note: previous definition of ‘mxLOGICAL_CLASS’ was here
+   mxLOGICAL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:186:5: error: redeclaration of enumerator ‘mxCHAR_CLASS’
+     mxCHAR_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:58:3: note: previous definition of ‘mxCHAR_CLASS’ was here
+   mxCHAR_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:187:5: error: redeclaration of enumerator ‘mxVOID_CLASS’
+     mxVOID_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:59:3: note: previous definition of ‘mxVOID_CLASS’ was here
+   mxVOID_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:188:5: error: redeclaration of enumerator ‘mxDOUBLE_CLASS’
+     mxDOUBLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:60:3: note: previous definition of ‘mxDOUBLE_CLASS’ was here
+   mxDOUBLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:189:5: error: redeclaration of enumerator ‘mxSINGLE_CLASS’
+     mxSINGLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:61:3: note: previous definition of ‘mxSINGLE_CLASS’ was here
+   mxSINGLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:190:5: error: redeclaration of enumerator ‘mxINT8_CLASS’
+     mxINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:62:3: note: previous definition of ‘mxINT8_CLASS’ was here
+   mxINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:191:5: error: redeclaration of enumerator ‘mxUINT8_CLASS’
+     mxUINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:63:3: note: previous definition of ‘mxUINT8_CLASS’ was here
+   mxUINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:192:5: error: redeclaration of enumerator ‘mxINT16_CLASS’
+     mxINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:64:3: note: previous definition of ‘mxINT16_CLASS’ was here
+   mxINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:193:5: error: redeclaration of enumerator ‘mxUINT16_CLASS’
+     mxUINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:65:3: note: previous definition of ‘mxUINT16_CLASS’ was here
+   mxUINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:194:5: error: redeclaration of enumerator ‘mxINT32_CLASS’
+     mxINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:66:3: note: previous definition of ‘mxINT32_CLASS’ was here
+   mxINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:195:5: error: redeclaration of enumerator ‘mxUINT32_CLASS’
+     mxUINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:67:3: note: previous definition of ‘mxUINT32_CLASS’ was here
+   mxUINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:196:5: error: redeclaration of enumerator ‘mxINT64_CLASS’
+     mxINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:68:3: note: previous definition of ‘mxINT64_CLASS’ was here
+   mxINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:197:5: error: redeclaration of enumerator ‘mxUINT64_CLASS’
+     mxUINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:69:3: note: previous definition of ‘mxUINT64_CLASS’ was here
+   mxUINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:198:5: error: redeclaration of enumerator ‘mxFUNCTION_CLASS’
+     mxFUNCTION_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:70:3: note: previous definition of ‘mxFUNCTION_CLASS’ was here
+   mxFUNCTION_CLASS
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:206:3: error: conflicting types for ‘mxClassID’
+ } mxClassID;
+   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:72:1: note: previous declaration of ‘mxClassID’ was here
+ mxClassID;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:16: error: redeclaration of enumerator ‘mxREAL’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:76:3: note: previous definition of ‘mxREAL’ was here
+   mxREAL = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:24: error: redeclaration of enumerator ‘mxCOMPLEX’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                        ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:77:3: note: previous definition of ‘mxCOMPLEX’ was here
+   mxCOMPLEX = 1
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:36: error: conflicting types for ‘mxComplexity’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                                    ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:79:1: note: previous declaration of ‘mxComplexity’ was here
+ mxComplexity;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1242:0: warning: "mxAssert" redefined [enabled by default]
+ #define mxAssert(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:339:0: note: this is the location of the previous definition
+ #  define mxAssert(expr, msg)
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_api.h:20,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1243:0: warning: "mxAssertS" redefined [enabled by default]
+ #define mxAssertS(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from interface/_coder_octaveCaller_api.h:19,
+                 from interface/_coder_octaveCaller_api.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:340:0: note: this is the location of the previous definition
+ #  define mxAssertS(expr, msg)
+ ^
+[7/11] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  octaveCaller_terminate.c -o build/glnxa64/octaveCaller_terminate.o
+FAILED: build/glnxa64/octaveCaller_terminate.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  octaveCaller_terminate.c -o build/glnxa64/octaveCaller_terminate.o
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:834:19: error: conflicting types for ‘mwSize’
+ typedef size_t    mwSize;         /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:93:17: note: previous declaration of ‘mwSize’ was here
+ typedef int64_t mwSize;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:835:19: error: conflicting types for ‘mwIndex’
+ typedef size_t    mwIndex;        /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:94:17: note: previous declaration of ‘mwIndex’ was here
+ typedef int64_t mwIndex;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:156:28: error: conflicting types for ‘mxArray’
+ typedef struct mxArray_tag mxArray;
+                            ^
+In file included from octaveCaller_terminate.h:19:0,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mex.h:55:14: note: previous declaration of ‘mxArray’ was here
+ typedef void mxArray;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:171:14: error: conflicting types for ‘mxLogical’
+ typedef bool mxLogical;
+              ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:85:23: note: previous declaration of ‘mxLogical’ was here
+ typedef unsigned char mxLogical;
+                       ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:176:18: error: conflicting types for ‘mxChar’
+ typedef CHAR16_T mxChar;
+                  ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:83:14: note: previous declaration of ‘mxChar’ was here
+ typedef char mxChar;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:182:5: error: redeclaration of enumerator ‘mxUNKNOWN_CLASS’
+     mxUNKNOWN_CLASS = 0,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:54:3: note: previous definition of ‘mxUNKNOWN_CLASS’ was here
+   mxUNKNOWN_CLASS = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:183:5: error: redeclaration of enumerator ‘mxCELL_CLASS’
+     mxCELL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:55:3: note: previous definition of ‘mxCELL_CLASS’ was here
+   mxCELL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:184:5: error: redeclaration of enumerator ‘mxSTRUCT_CLASS’
+     mxSTRUCT_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:56:3: note: previous definition of ‘mxSTRUCT_CLASS’ was here
+   mxSTRUCT_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:185:5: error: redeclaration of enumerator ‘mxLOGICAL_CLASS’
+     mxLOGICAL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:57:3: note: previous definition of ‘mxLOGICAL_CLASS’ was here
+   mxLOGICAL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:186:5: error: redeclaration of enumerator ‘mxCHAR_CLASS’
+     mxCHAR_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:58:3: note: previous definition of ‘mxCHAR_CLASS’ was here
+   mxCHAR_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:187:5: error: redeclaration of enumerator ‘mxVOID_CLASS’
+     mxVOID_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:59:3: note: previous definition of ‘mxVOID_CLASS’ was here
+   mxVOID_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:188:5: error: redeclaration of enumerator ‘mxDOUBLE_CLASS’
+     mxDOUBLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:60:3: note: previous definition of ‘mxDOUBLE_CLASS’ was here
+   mxDOUBLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:189:5: error: redeclaration of enumerator ‘mxSINGLE_CLASS’
+     mxSINGLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:61:3: note: previous definition of ‘mxSINGLE_CLASS’ was here
+   mxSINGLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:190:5: error: redeclaration of enumerator ‘mxINT8_CLASS’
+     mxINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:62:3: note: previous definition of ‘mxINT8_CLASS’ was here
+   mxINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:191:5: error: redeclaration of enumerator ‘mxUINT8_CLASS’
+     mxUINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:63:3: note: previous definition of ‘mxUINT8_CLASS’ was here
+   mxUINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:192:5: error: redeclaration of enumerator ‘mxINT16_CLASS’
+     mxINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:64:3: note: previous definition of ‘mxINT16_CLASS’ was here
+   mxINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:193:5: error: redeclaration of enumerator ‘mxUINT16_CLASS’
+     mxUINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:65:3: note: previous definition of ‘mxUINT16_CLASS’ was here
+   mxUINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:194:5: error: redeclaration of enumerator ‘mxINT32_CLASS’
+     mxINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:66:3: note: previous definition of ‘mxINT32_CLASS’ was here
+   mxINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:195:5: error: redeclaration of enumerator ‘mxUINT32_CLASS’
+     mxUINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:67:3: note: previous definition of ‘mxUINT32_CLASS’ was here
+   mxUINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:196:5: error: redeclaration of enumerator ‘mxINT64_CLASS’
+     mxINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:68:3: note: previous definition of ‘mxINT64_CLASS’ was here
+   mxINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:197:5: error: redeclaration of enumerator ‘mxUINT64_CLASS’
+     mxUINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:69:3: note: previous definition of ‘mxUINT64_CLASS’ was here
+   mxUINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:198:5: error: redeclaration of enumerator ‘mxFUNCTION_CLASS’
+     mxFUNCTION_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:70:3: note: previous definition of ‘mxFUNCTION_CLASS’ was here
+   mxFUNCTION_CLASS
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:206:3: error: conflicting types for ‘mxClassID’
+ } mxClassID;
+   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:72:1: note: previous declaration of ‘mxClassID’ was here
+ mxClassID;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:16: error: redeclaration of enumerator ‘mxREAL’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:76:3: note: previous definition of ‘mxREAL’ was here
+   mxREAL = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:24: error: redeclaration of enumerator ‘mxCOMPLEX’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                        ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:77:3: note: previous definition of ‘mxCOMPLEX’ was here
+   mxCOMPLEX = 1
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:36: error: conflicting types for ‘mxComplexity’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                                    ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:79:1: note: previous declaration of ‘mxComplexity’ was here
+ mxComplexity;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1242:0: warning: "mxAssert" redefined [enabled by default]
+ #define mxAssert(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:339:0: note: this is the location of the previous definition
+ #  define mxAssert(expr, msg)
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller_terminate.h:20,
+                 from octaveCaller_terminate.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1243:0: warning: "mxAssertS" redefined [enabled by default]
+ #define mxAssertS(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from octaveCaller_terminate.h:19,
+                 from octaveCaller_terminate.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:340:0: note: this is the location of the previous definition
+ #  define mxAssertS(expr, msg)
+ ^
+In file included from octaveCaller_terminate.c:14:0:
+./interface/_coder_octaveCaller_mex.h:25:21: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘void’
+ MEXFUNCTION_LINKAGE void octaveCaller_mexFunction(int32_T nlhs, int32_T nrhs);
+                     ^
+./interface/_coder_octaveCaller_mex.h:26:21: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘void’
+ MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
+                     ^
+[8/11] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  octaveCaller.c -o build/glnxa64/octaveCaller.o
+FAILED: build/glnxa64/octaveCaller.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  octaveCaller.c -o build/glnxa64/octaveCaller.o
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:834:19: error: conflicting types for ‘mwSize’
+ typedef size_t    mwSize;         /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:93:17: note: previous declaration of ‘mwSize’ was here
+ typedef int64_t mwSize;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:835:19: error: conflicting types for ‘mwIndex’
+ typedef size_t    mwIndex;        /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:94:17: note: previous declaration of ‘mwIndex’ was here
+ typedef int64_t mwIndex;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:156:28: error: conflicting types for ‘mxArray’
+ typedef struct mxArray_tag mxArray;
+                            ^
+In file included from octaveCaller.h:19:0,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mex.h:55:14: note: previous declaration of ‘mxArray’ was here
+ typedef void mxArray;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:171:14: error: conflicting types for ‘mxLogical’
+ typedef bool mxLogical;
+              ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:85:23: note: previous declaration of ‘mxLogical’ was here
+ typedef unsigned char mxLogical;
+                       ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:176:18: error: conflicting types for ‘mxChar’
+ typedef CHAR16_T mxChar;
+                  ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:83:14: note: previous declaration of ‘mxChar’ was here
+ typedef char mxChar;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:182:5: error: redeclaration of enumerator ‘mxUNKNOWN_CLASS’
+     mxUNKNOWN_CLASS = 0,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:54:3: note: previous definition of ‘mxUNKNOWN_CLASS’ was here
+   mxUNKNOWN_CLASS = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:183:5: error: redeclaration of enumerator ‘mxCELL_CLASS’
+     mxCELL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:55:3: note: previous definition of ‘mxCELL_CLASS’ was here
+   mxCELL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:184:5: error: redeclaration of enumerator ‘mxSTRUCT_CLASS’
+     mxSTRUCT_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:56:3: note: previous definition of ‘mxSTRUCT_CLASS’ was here
+   mxSTRUCT_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:185:5: error: redeclaration of enumerator ‘mxLOGICAL_CLASS’
+     mxLOGICAL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:57:3: note: previous definition of ‘mxLOGICAL_CLASS’ was here
+   mxLOGICAL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:186:5: error: redeclaration of enumerator ‘mxCHAR_CLASS’
+     mxCHAR_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:58:3: note: previous definition of ‘mxCHAR_CLASS’ was here
+   mxCHAR_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:187:5: error: redeclaration of enumerator ‘mxVOID_CLASS’
+     mxVOID_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:59:3: note: previous definition of ‘mxVOID_CLASS’ was here
+   mxVOID_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:188:5: error: redeclaration of enumerator ‘mxDOUBLE_CLASS’
+     mxDOUBLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:60:3: note: previous definition of ‘mxDOUBLE_CLASS’ was here
+   mxDOUBLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:189:5: error: redeclaration of enumerator ‘mxSINGLE_CLASS’
+     mxSINGLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:61:3: note: previous definition of ‘mxSINGLE_CLASS’ was here
+   mxSINGLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:190:5: error: redeclaration of enumerator ‘mxINT8_CLASS’
+     mxINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:62:3: note: previous definition of ‘mxINT8_CLASS’ was here
+   mxINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:191:5: error: redeclaration of enumerator ‘mxUINT8_CLASS’
+     mxUINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:63:3: note: previous definition of ‘mxUINT8_CLASS’ was here
+   mxUINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:192:5: error: redeclaration of enumerator ‘mxINT16_CLASS’
+     mxINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:64:3: note: previous definition of ‘mxINT16_CLASS’ was here
+   mxINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:193:5: error: redeclaration of enumerator ‘mxUINT16_CLASS’
+     mxUINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:65:3: note: previous definition of ‘mxUINT16_CLASS’ was here
+   mxUINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:194:5: error: redeclaration of enumerator ‘mxINT32_CLASS’
+     mxINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:66:3: note: previous definition of ‘mxINT32_CLASS’ was here
+   mxINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:195:5: error: redeclaration of enumerator ‘mxUINT32_CLASS’
+     mxUINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:67:3: note: previous definition of ‘mxUINT32_CLASS’ was here
+   mxUINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:196:5: error: redeclaration of enumerator ‘mxINT64_CLASS’
+     mxINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:68:3: note: previous definition of ‘mxINT64_CLASS’ was here
+   mxINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:197:5: error: redeclaration of enumerator ‘mxUINT64_CLASS’
+     mxUINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:69:3: note: previous definition of ‘mxUINT64_CLASS’ was here
+   mxUINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:198:5: error: redeclaration of enumerator ‘mxFUNCTION_CLASS’
+     mxFUNCTION_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:70:3: note: previous definition of ‘mxFUNCTION_CLASS’ was here
+   mxFUNCTION_CLASS
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:206:3: error: conflicting types for ‘mxClassID’
+ } mxClassID;
+   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:72:1: note: previous declaration of ‘mxClassID’ was here
+ mxClassID;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:16: error: redeclaration of enumerator ‘mxREAL’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:76:3: note: previous definition of ‘mxREAL’ was here
+   mxREAL = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:24: error: redeclaration of enumerator ‘mxCOMPLEX’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                        ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:77:3: note: previous definition of ‘mxCOMPLEX’ was here
+   mxCOMPLEX = 1
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:36: error: conflicting types for ‘mxComplexity’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                                    ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:79:1: note: previous declaration of ‘mxComplexity’ was here
+ mxComplexity;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1242:0: warning: "mxAssert" redefined [enabled by default]
+ #define mxAssert(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:339:0: note: this is the location of the previous definition
+ #  define mxAssert(expr, msg)
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from octaveCaller.h:20,
+                 from octaveCaller.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1243:0: warning: "mxAssertS" redefined [enabled by default]
+ #define mxAssertS(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from octaveCaller.h:19,
+                 from octaveCaller.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:340:0: note: this is the location of the previous definition
+ #  define mxAssertS(expr, msg)
+ ^
+octaveCaller.c: In function ‘octaveCaller’:
+octaveCaller.c:23:3: warning: implicit declaration of function ‘simpleOctave’ [-Wimplicit-function-declaration]
+   simpleOctave();
+   ^
+[9/11] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  interface/_coder_octaveCaller_mex.c -o build/glnxa64/_coder_octaveCaller_mex.o
+FAILED: build/glnxa64/_coder_octaveCaller_mex.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  interface/_coder_octaveCaller_mex.c -o build/glnxa64/_coder_octaveCaller_mex.o
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:834:19: error: conflicting types for ‘mwSize’
+ typedef size_t    mwSize;         /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:93:17: note: previous declaration of ‘mwSize’ was here
+ typedef int64_t mwSize;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/matrix.h:24:0,
+                 from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/tmwtypes.h:835:19: error: conflicting types for ‘mwIndex’
+ typedef size_t    mwIndex;        /* unsigned pointer-width integer */
+                   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:94:17: note: previous declaration of ‘mwIndex’ was here
+ typedef int64_t mwIndex;
+                 ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:156:28: error: conflicting types for ‘mxArray’
+ typedef struct mxArray_tag mxArray;
+                            ^
+In file included from interface/_coder_octaveCaller_mex.h:19:0,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mex.h:55:14: note: previous declaration of ‘mxArray’ was here
+ typedef void mxArray;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:171:14: error: conflicting types for ‘mxLogical’
+ typedef bool mxLogical;
+              ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:85:23: note: previous declaration of ‘mxLogical’ was here
+ typedef unsigned char mxLogical;
+                       ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:176:18: error: conflicting types for ‘mxChar’
+ typedef CHAR16_T mxChar;
+                  ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:83:14: note: previous declaration of ‘mxChar’ was here
+ typedef char mxChar;
+              ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:182:5: error: redeclaration of enumerator ‘mxUNKNOWN_CLASS’
+     mxUNKNOWN_CLASS = 0,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:54:3: note: previous definition of ‘mxUNKNOWN_CLASS’ was here
+   mxUNKNOWN_CLASS = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:183:5: error: redeclaration of enumerator ‘mxCELL_CLASS’
+     mxCELL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:55:3: note: previous definition of ‘mxCELL_CLASS’ was here
+   mxCELL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:184:5: error: redeclaration of enumerator ‘mxSTRUCT_CLASS’
+     mxSTRUCT_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:56:3: note: previous definition of ‘mxSTRUCT_CLASS’ was here
+   mxSTRUCT_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:185:5: error: redeclaration of enumerator ‘mxLOGICAL_CLASS’
+     mxLOGICAL_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:57:3: note: previous definition of ‘mxLOGICAL_CLASS’ was here
+   mxLOGICAL_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:186:5: error: redeclaration of enumerator ‘mxCHAR_CLASS’
+     mxCHAR_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:58:3: note: previous definition of ‘mxCHAR_CLASS’ was here
+   mxCHAR_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:187:5: error: redeclaration of enumerator ‘mxVOID_CLASS’
+     mxVOID_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:59:3: note: previous definition of ‘mxVOID_CLASS’ was here
+   mxVOID_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:188:5: error: redeclaration of enumerator ‘mxDOUBLE_CLASS’
+     mxDOUBLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:60:3: note: previous definition of ‘mxDOUBLE_CLASS’ was here
+   mxDOUBLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:189:5: error: redeclaration of enumerator ‘mxSINGLE_CLASS’
+     mxSINGLE_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:61:3: note: previous definition of ‘mxSINGLE_CLASS’ was here
+   mxSINGLE_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:190:5: error: redeclaration of enumerator ‘mxINT8_CLASS’
+     mxINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:62:3: note: previous definition of ‘mxINT8_CLASS’ was here
+   mxINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:191:5: error: redeclaration of enumerator ‘mxUINT8_CLASS’
+     mxUINT8_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:63:3: note: previous definition of ‘mxUINT8_CLASS’ was here
+   mxUINT8_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:192:5: error: redeclaration of enumerator ‘mxINT16_CLASS’
+     mxINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:64:3: note: previous definition of ‘mxINT16_CLASS’ was here
+   mxINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:193:5: error: redeclaration of enumerator ‘mxUINT16_CLASS’
+     mxUINT16_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:65:3: note: previous definition of ‘mxUINT16_CLASS’ was here
+   mxUINT16_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:194:5: error: redeclaration of enumerator ‘mxINT32_CLASS’
+     mxINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:66:3: note: previous definition of ‘mxINT32_CLASS’ was here
+   mxINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:195:5: error: redeclaration of enumerator ‘mxUINT32_CLASS’
+     mxUINT32_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:67:3: note: previous definition of ‘mxUINT32_CLASS’ was here
+   mxUINT32_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:196:5: error: redeclaration of enumerator ‘mxINT64_CLASS’
+     mxINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:68:3: note: previous definition of ‘mxINT64_CLASS’ was here
+   mxINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:197:5: error: redeclaration of enumerator ‘mxUINT64_CLASS’
+     mxUINT64_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:69:3: note: previous definition of ‘mxUINT64_CLASS’ was here
+   mxUINT64_CLASS,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:198:5: error: redeclaration of enumerator ‘mxFUNCTION_CLASS’
+     mxFUNCTION_CLASS,
+     ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:70:3: note: previous definition of ‘mxFUNCTION_CLASS’ was here
+   mxFUNCTION_CLASS
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:206:3: error: conflicting types for ‘mxClassID’
+ } mxClassID;
+   ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:72:1: note: previous declaration of ‘mxClassID’ was here
+ mxClassID;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:16: error: redeclaration of enumerator ‘mxREAL’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:76:3: note: previous definition of ‘mxREAL’ was here
+   mxREAL = 0,
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:24: error: redeclaration of enumerator ‘mxCOMPLEX’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                        ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:77:3: note: previous definition of ‘mxCOMPLEX’ was here
+   mxCOMPLEX = 1
+   ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:211:36: error: conflicting types for ‘mxComplexity’
+ typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+                                    ^
+In file included from /usr/include/octave-5.2.0/octave/mexproto.h:62:0,
+                 from /usr/include/octave-5.2.0/octave/mex.h:65,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mxarray.h:79:1: note: previous declaration of ‘mxComplexity’ was here
+ mxComplexity;
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1242:0: warning: "mxAssert" redefined [enabled by default]
+ #define mxAssert(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:339:0: note: this is the location of the previous definition
+ #  define mxAssert(expr, msg)
+ ^
+In file included from /usr/local/MATLAB/R2020a/extern/include/emlrt.h:48:0,
+                 from interface/_coder_octaveCaller_mex.h:20,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/local/MATLAB/R2020a/extern/include/matrix.h:1243:0: warning: "mxAssertS" redefined [enabled by default]
+ #define mxAssertS(test, message) ((void)0)
+ ^
+In file included from /usr/include/octave-5.2.0/octave/mex.h:65:0,
+                 from interface/_coder_octaveCaller_mex.h:19,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mexproto.h:340:0: note: this is the location of the previous definition
+ #  define mxAssertS(expr, msg)
+ ^
+In file included from interface/_coder_octaveCaller_mex.c:13:0:
+interface/_coder_octaveCaller_mex.h:25:21: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘void’
+ MEXFUNCTION_LINKAGE void octaveCaller_mexFunction(int32_T nlhs, int32_T nrhs);
+                     ^
+interface/_coder_octaveCaller_mex.h:26:21: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘void’
+ MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
+                     ^
+interface/_coder_octaveCaller_mex.c:21:21: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘void’
+ MEXFUNCTION_LINKAGE void octaveCaller_mexFunction(int32_T nlhs, int32_T nrhs);
+                     ^
+interface/_coder_octaveCaller_mex.c:48:6: error: conflicting types for ‘mexFunction’
+ void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const mxArray
+      ^
+In file included from interface/_coder_octaveCaller_mex.h:19:0,
+                 from interface/_coder_octaveCaller_mex.c:13:
+/usr/include/octave-5.2.0/octave/mex.h:74:6: note: previous declaration of ‘mexFunction’ was here
+ void mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]);
+      ^
+[10/11] g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=octaveCaller_mex -c  /home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller_new2/simpleOctave.cpp -o build/glnxa64/simpleOctave.o
+ninja: build stopped: subcommand failed.

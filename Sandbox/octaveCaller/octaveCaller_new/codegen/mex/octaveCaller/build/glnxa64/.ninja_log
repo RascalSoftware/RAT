@@ -1,0 +1,4 @@
+# ninja log v5
+0	26	1604404018020717651	build/glnxa64/rt_nonfinite.o	f3f03b85a3bcacdb
+0	31	1604404018025717786	build/glnxa64/main.o	33a98981f1f97464
+0	2361	1604404020354780302	build/glnxa64/mexCallOctave.o	2da3409bd1dcd52b

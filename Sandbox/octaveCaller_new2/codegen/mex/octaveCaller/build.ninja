@@ -18,7 +18,7 @@ cflags =  -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMA
 
 cxxflags =  -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c++11 -I "$root" -I "$startdir" -I "/usr/include/octave-5.2.0/octave" -I "/usr/share/octave/5.2.0/etc/tests" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=octaveCaller_mex -c 
 
-ldflags =  -pthread -Wl,--no-undefined -Wl,-rpath-link,$matlabdir/bin/glnxa64 -shared  -L"$matlabdir/bin/glnxa64" -lmx -lmex -lmat -lm -lstdc++  -o octaveCaller_mex.mexa64 -lemlrt -lcovrt -lut -lmwmathutil  "/usr/lib64/octave/5.2.0/octave/liboctave.so" "/usr/lib64/octave/5.2.0/octave/liboctinterp.so" -Wl,--version-script,octaveCaller_mex.map
+ldflags =  -pthread -Wl,--no-undefined -Wl,-rpath-link,$matlabdir/bin/glnxa64 -shared  -L"$matlabdir/bin/glnxa64" -lmx -lmex -lmat -lm -lstdc++  -o octaveCaller_mex.mexa64 -lemlrt -lcovrt -lut -lmwmathutil  -Wl,--version-script,octaveCaller_mex.map
 
 # Build Rules
 rule cc

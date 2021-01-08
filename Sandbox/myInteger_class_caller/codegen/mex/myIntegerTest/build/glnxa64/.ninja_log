@@ -1,0 +1,13 @@
+# ninja log v5
+0	30	1608374138853795297	build/glnxa64/rt_nonfinite.o	f72239c6f4d77b13
+1	31	1608374138854795325	build/glnxa64/c_mexapi_version.o	ae9db81c7ea1140f
+1	38	1608374138861795517	build/glnxa64/_coder_myIntegerTest_info.o	7ef330b8f10d2fb2
+0	38	1608374138861795517	build/glnxa64/myIntegerTest_data.o	9385f2310f1d5087
+1	43	1608374138866795654	build/glnxa64/myIntegerTest_terminate.o	1bc0c22cd4cab155
+1	44	1608374138866795654	build/glnxa64/myIntegerTest.o	42696bb836b5c7cf
+1	44	1608374138867795681	build/glnxa64/_coder_myIntegerTest_api.o	a954dd6e81080e5f
+1	44	1608374138867795681	build/glnxa64/myIntegerTest_initialize.o	a51464661cff4dcc
+1	46	1608374138868795708	build/glnxa64/_coder_myIntegerTest_mex.o	72751f310d23420
+0	147	1608374138970798505	build/glnxa64/MyInteger.o	69d624ac0206d0ee
+0	279	1608374139102802124	build/glnxa64/MyIntegerWrapper.o	85f618df3ab8b7f7
+279	324	1608374139146803330	myIntegerTest_mex.mexa64	cb8da51db21cde79

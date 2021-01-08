@@ -1,0 +1,50 @@
+# CompilerName=gcc
+# Mode=optim
+ninja_required_version = 1.3
+
+# Basic folders
+root = .
+builddir = $root/build/glnxa64
+matlabdir = /usr/local/MATLAB/R2020a
+startdir = /home/arwel/Documents/RascalDev/RAT/Sandbox/myInteger_class_caller
+
+# Toolchain information
+cc = /bin/gcc
+cxx = g++
+linker = /bin/gcc
+linkerxx = g++
+
+cflags =  -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=myIntegerTest_mex -c 
+
+cxxflags =  -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c++11 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=myIntegerTest_mex -c 
+
+ldflags =  -pthread -Wl,--no-undefined -Wl,-rpath-link,$matlabdir/bin/glnxa64 -shared  -L"$matlabdir/bin/glnxa64" -lmx -lmex -lmat -lm -lstdc++  -o myIntegerTest_mex.mexa64 -lemlrt -lcovrt -lut -lmwmathutil  -Wl,--version-script,myIntegerTest_mex.map
+
+# Build Rules
+rule cc
+    command = $cc $cflags $in -o $out
+
+rule cxx
+    command = $cxx $cxxflags $in -o $out
+
+rule link
+    command = $linker $in $ldflags
+
+rule linkxx
+    command = $linkerxx $in $ldflags
+
+# Build
+build $builddir/MyIntegerWrapper.o : cxx $startdir/MyIntegerWrapper.cpp
+build $builddir/MyInteger.o : cxx $startdir/MyInteger.cpp
+build $builddir/rt_nonfinite.o : cc $root/rt_nonfinite.c
+build $builddir/myIntegerTest_data.o : cc $root/myIntegerTest_data.c
+build $builddir/myIntegerTest_initialize.o : cc $root/myIntegerTest_initialize.c
+build $builddir/myIntegerTest_terminate.o : cc $root/myIntegerTest_terminate.c
+build $builddir/myIntegerTest.o : cc $root/myIntegerTest.c
+build $builddir/_coder_myIntegerTest_api.o : cc $root/interface/_coder_myIntegerTest_api.c
+build $builddir/_coder_myIntegerTest_mex.o : cc $root/interface/_coder_myIntegerTest_mex.c
+build $builddir/_coder_myIntegerTest_info.o : cc $root/interface/_coder_myIntegerTest_info.c
+build $builddir/c_mexapi_version.o : cc $matlabdir/extern/version/c_mexapi_version.c
+
+# Link
+build $root/myIntegerTest_mex.mexa64 : linkxx $builddir/MyIntegerWrapper.o $builddir/MyInteger.o $builddir/rt_nonfinite.o $builddir/myIntegerTest_data.o $builddir/myIntegerTest_initialize.o $builddir/myIntegerTest_terminate.o $builddir/myIntegerTest.o $builddir/_coder_myIntegerTest_api.o $builddir/_coder_myIntegerTest_mex.o $builddir/_coder_myIntegerTest_info.o $builddir/c_mexapi_version.o 

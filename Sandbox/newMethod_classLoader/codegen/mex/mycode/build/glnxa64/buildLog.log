@@ -1,0 +1,74 @@
+[1/10] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  /usr/local/MATLAB/R2020a/extern/version/c_mexapi_version.c -o build/glnxa64/c_mexapi_version.o
+[2/10] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  rt_nonfinite.c -o build/glnxa64/rt_nonfinite.o
+[3/10] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  mycode_data.c -o build/glnxa64/mycode_data.o
+FAILED: build/glnxa64/mycode_data.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  mycode_data.c -o build/glnxa64/mycode_data.o
+In file included from mycode.h:25:0,
+                 from mycode_data.c:14:
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:5:1: error: unknown type name ‘class’
+ class MyClass
+ ^
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:6:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ {
+ ^
+[4/10] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  interface/_coder_mycode_api.c -o build/glnxa64/_coder_mycode_api.o
+FAILED: build/glnxa64/_coder_mycode_api.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  interface/_coder_mycode_api.c -o build/glnxa64/_coder_mycode_api.o
+In file included from ./mycode.h:25:0,
+                 from interface/_coder_mycode_api.c:14:
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:5:1: error: unknown type name ‘class’
+ class MyClass
+ ^
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:6:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ {
+ ^
+[5/10] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  mycode_terminate.c -o build/glnxa64/mycode_terminate.o
+FAILED: build/glnxa64/mycode_terminate.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  mycode_terminate.c -o build/glnxa64/mycode_terminate.o
+In file included from mycode.h:25:0,
+                 from mycode_terminate.c:15:
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:5:1: error: unknown type name ‘class’
+ class MyClass
+ ^
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:6:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ {
+ ^
+[6/10] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  interface/_coder_mycode_mex.c -o build/glnxa64/_coder_mycode_mex.o
+FAILED: build/glnxa64/_coder_mycode_mex.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  interface/_coder_mycode_mex.c -o build/glnxa64/_coder_mycode_mex.o
+In file included from ./mycode.h:25:0,
+                 from interface/_coder_mycode_mex.c:15:
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:5:1: error: unknown type name ‘class’
+ class MyClass
+ ^
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:6:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ {
+ ^
+[7/10] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  mycode_initialize.c -o build/glnxa64/mycode_initialize.o
+FAILED: build/glnxa64/mycode_initialize.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  mycode_initialize.c -o build/glnxa64/mycode_initialize.o
+In file included from mycode.h:25:0,
+                 from mycode_initialize.c:15:
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:5:1: error: unknown type name ‘class’
+ class MyClass
+ ^
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:6:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ {
+ ^
+[8/10] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  interface/_coder_mycode_info.c -o build/glnxa64/_coder_mycode_info.o
+[9/10] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  mycode.c -o build/glnxa64/mycode.o
+FAILED: build/glnxa64/mycode.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=mycode_mex -c  mycode.c -o build/glnxa64/mycode.o
+In file included from mycode.h:25:0,
+                 from mycode.c:13:
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:5:1: error: unknown type name ‘class’
+ class MyClass
+ ^
+/home/arwel/Documents/RascalDev/RAT/Sandbox/newMethod_classLoader/myclass.h:6:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ {
+ ^
+mycode.c:16:22: fatal error: functional: No such file or directory
+ #include <functional>
+                      ^
+compilation terminated.
+ninja: build stopped: subcommand failed.

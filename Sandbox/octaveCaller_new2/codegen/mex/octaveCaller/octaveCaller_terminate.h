@@ -18,6 +18,7 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
+#include "covrt.h"
 #include "rtwtypes.h"
 #include "octaveCaller_types.h"
 

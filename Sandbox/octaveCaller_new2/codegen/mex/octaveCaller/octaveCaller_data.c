@@ -27,4 +27,6 @@ emlrtContext emlrtContextGlobal = { true,/* bFirstTime */
   NULL                                 /* fSigMem */
 };
 
+covrtInstance emlrtCoverageInstance;
+
 /* End of code generation (octaveCaller_data.c) */

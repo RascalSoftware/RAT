@@ -1,0 +1,9 @@
+# ninja log v5
+0	26	1608224300087842448	build/glnxa64/rt_nonfinite.o	2018d87127768bad
+1	27	1608224300088842476	build/glnxa64/c_mexapi_version.o	51482b6215f7e83c
+0	36	1608224300097842721	build/glnxa64/callFoo_data.o	f128d9bb87926a48
+1	41	1608224300101842829	build/glnxa64/_coder_callFoo_api.o	6d3b97215c4654d7
+0	42	1608224300103842884	build/glnxa64/callFoo_initialize.o	c688695c579943dd
+1	43	1608224300104842911	build/glnxa64/callFoo_terminate.o	f9d5d899b9aeb3cc
+1	44	1608224300105842938	build/glnxa64/_coder_callFoo_info.o	964769c7b06bbd76
+1	46	1608224300106842965	build/glnxa64/_coder_callFoo_mex.o	b499d751a3a7f6f5

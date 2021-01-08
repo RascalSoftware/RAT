@@ -1,0 +1,12 @@
+MEX {
+	global:
+		mexFunction;
+		mexfilerequiredapiversion;
+		emlrtMexFcnProperties;
+		myIntegerTest_initialize;
+		myIntegerTest_terminate;
+		myIntegerTest_atexit;
+		myIntegerTest;
+	local:
+		*;
+};

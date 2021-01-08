@@ -1,0 +1,12 @@
+MEX {
+	global:
+		mexFunction;
+		mexfilerequiredapiversion;
+		emlrtMexFcnProperties;
+		callFoo_initialize;
+		callFoo_terminate;
+		callFoo_atexit;
+		callFoo;
+	local:
+		*;
+};

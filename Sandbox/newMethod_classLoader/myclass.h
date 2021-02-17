@@ -1,11 +1,8 @@
 // myclass.h
 #ifndef MYCLASS_H
 #define MYCLASS_H
-
 #include <iostream>
 #include <string>
-
-
 class MyClass
 {
 public:
@@ -17,3 +14,4 @@ public:
     };   
 };
 #endif
+

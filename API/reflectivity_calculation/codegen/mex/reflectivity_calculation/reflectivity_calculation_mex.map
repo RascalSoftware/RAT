@@ -9,10 +9,8 @@ MEX {
 		reflectivity_calculation;
 		MEXGlobalSyncInFunction;
 		MEXGlobalSyncOutFunction;
-		emlrtGetRootTLSGlobal;
 		emlrt_synchGlobalsToML;
 		emlrt_synchGlobalsFromML;
-		emlrtLockerFunction;
 		emxEnsureCapacity_real_T;
 		emxFree_real_T;
 		emxInit_real_T;
@@ -22,9 +20,9 @@ MEX {
 		emxEnsureCapacity_cell_wrap_0;
 		emxEnsureCapacity_cell_wrap_6;
 		emxEnsureCapacity_cell_wrap_1;
-		emxCopyStruct_cell_wrap_6;
 		emxCopyStruct_cell_wrap_1;
-		emxEnsureCapacity_cell_wrap_111;
+		emxCopyStruct_cell_wrap_6;
+		emxEnsureCapacity_cell_wrap_11;
 		emxEnsureCapacity_cell_wrap_3;
 		emxFree_char_T;
 		emxInit_char_T;
@@ -59,9 +57,11 @@ MEX {
 		emxFree_cell_wrap_14;
 		emxInit_cell_wrap_15;
 		emxFree_cell_wrap_15;
-		emxInit_cell_wrap_17;
-		emxFree_cell_wrap_17;
-		emxEnsureCapacity_cell_wrap_17;
+		emxInit_cell_wrap_16;
+		emxFree_cell_wrap_16;
+		emxEnsureCapacity_cell_wrap_16;
+		emxInitStruct_cell_18;
+		emxFreeStruct_cell_18;
 		emxEnsureCapacity_boolean_T;
 		emxInit_boolean_T;
 		emxFree_boolean_T;

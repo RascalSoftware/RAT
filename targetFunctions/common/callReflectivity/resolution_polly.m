@@ -30,9 +30,6 @@ for j = 1:points
     if (sumg ~= 0)
         dummydata(j) = dummydata(j) / sumg;
     end
-%     catch
-%         disp('debug!');
-%     end
 end
 
 out = dummydata;

@@ -17,7 +17,7 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRTEInfo sq_emlrtRTEI = { 1,/* lineNo */
+static emlrtRTEInfo dr_emlrtRTEI = { 1,/* lineNo */
   1,                                   /* colNo */
   "_coder_reflectivity_calculation_api",/* fName */
   ""                                   /* pName */
@@ -1121,12 +1121,12 @@ void reflectivity_calculation_api(const mxArray * const prhs[4], int32_T nlhs,
 
   st.tls = emlrtRootTLSGlobal;
   emlrtHeapReferenceStackEnterFcnR2012b(&st);
-  emxInitStruct_struct0_T(&st, &problemDef, &sq_emlrtRTEI, true);
-  emxInitStruct_cell_5(&st, &problemDef_cells, &sq_emlrtRTEI, true);
-  emxInitStruct_struct1_T(&st, &problemDef_limits, &sq_emlrtRTEI, true);
-  emxInitStruct_struct2_T(&st, &controls, &sq_emlrtRTEI, true);
-  emxInitStruct_struct4_T(&st, &problem, &sq_emlrtRTEI, true);
-  emxInitStruct_cell_7(&st, &result, &sq_emlrtRTEI, true);
+  emxInitStruct_struct0_T(&st, &problemDef, &dr_emlrtRTEI, true);
+  emxInitStruct_cell_5(&st, &problemDef_cells, &dr_emlrtRTEI, true);
+  emxInitStruct_struct1_T(&st, &problemDef_limits, &dr_emlrtRTEI, true);
+  emxInitStruct_struct2_T(&st, &controls, &dr_emlrtRTEI, true);
+  emxInitStruct_struct4_T(&st, &problem, &dr_emlrtRTEI, true);
+  emxInitStruct_cell_7(&st, &result, &dr_emlrtRTEI, true);
 
   /* Marshall function inputs */
   emlrt_marshallIn(&st, emlrtAliasP(prhs[0]), "problemDef", &problemDef);

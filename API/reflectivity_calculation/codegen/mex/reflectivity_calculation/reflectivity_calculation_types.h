@@ -206,6 +206,15 @@ typedef struct {
 
 #endif                                 /*typedef_cell_13*/
 
+#ifndef typedef_cell_18
+#define typedef_cell_18
+
+typedef struct {
+  emxArray_real_T *f1;
+} cell_18;
+
+#endif                                 /*typedef_cell_18*/
+
 #ifndef typedef_cell_wrap_2
 #define typedef_cell_wrap_2
 
@@ -312,14 +321,14 @@ typedef struct {
 
 #endif                                 /*typedef_cell_wrap_15*/
 
-#ifndef typedef_cell_wrap_17
-#define typedef_cell_wrap_17
+#ifndef typedef_cell_wrap_16
+#define typedef_cell_wrap_16
 
 typedef struct {
   real_T f1[5];
-} cell_wrap_17;
+} cell_wrap_16;
 
-#endif                                 /*typedef_cell_wrap_17*/
+#endif                                 /*typedef_cell_wrap_16*/
 
 #ifndef typedef_cell_wrap_8
 #define typedef_cell_wrap_8
@@ -399,18 +408,18 @@ typedef struct {
 
 #endif                                 /*typedef_emxArray_cell_wrap_15*/
 
-#ifndef typedef_emxArray_cell_wrap_17
-#define typedef_emxArray_cell_wrap_17
+#ifndef typedef_emxArray_cell_wrap_16
+#define typedef_emxArray_cell_wrap_16
 
 typedef struct {
-  cell_wrap_17 *data;
+  cell_wrap_16 *data;
   int32_T *size;
   int32_T allocatedSize;
   int32_T numDimensions;
   boolean_T canFreeData;
-} emxArray_cell_wrap_17;
+} emxArray_cell_wrap_16;
 
-#endif                                 /*typedef_emxArray_cell_wrap_17*/
+#endif                                 /*typedef_emxArray_cell_wrap_16*/
 
 #ifndef typedef_emxArray_cell_wrap_8
 #define typedef_emxArray_cell_wrap_8

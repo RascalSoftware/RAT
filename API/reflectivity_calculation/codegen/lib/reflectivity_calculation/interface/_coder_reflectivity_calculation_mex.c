@@ -2,24 +2,31 @@
  * Non-Degree Granting Education License -- for use at non-degree
  * granting, nonprofit, educational organizations only. Not for
  * government, commercial, or other organizational use.
+ * File: _coder_reflectivity_calculation_mex.c
  *
- * _coder_reflectivity_calculation_mex.c
- *
- * Code generation for function '_coder_reflectivity_calculation_mex'
- *
+ * MATLAB Coder version            : 5.0
+ * C/C++ source code generated on  : 11-Jan-2021 16:52:33
  */
 
-/* Include files */
-#include "_coder_reflectivity_calculation_api.h"
+/* Include Files */
 #include "_coder_reflectivity_calculation_mex.h"
+#include "_coder_reflectivity_calculation_api.h"
 
 /* Function Declarations */
-static void c_reflectivity_calculation_mexF(int32_T nlhs, mxArray *plhs[2],
-  int32_T nrhs, const mxArray *prhs[4]);
+MEXFUNCTION_LINKAGE void c_reflectivity_calculation_mexF(int32_T nlhs, mxArray
+  *plhs[2], int32_T nrhs, const mxArray *prhs[4]);
 
 /* Function Definitions */
-static void c_reflectivity_calculation_mexF(int32_T nlhs, mxArray *plhs[2],
-  int32_T nrhs, const mxArray *prhs[4])
+
+/*
+ * Arguments    : int32_T nlhs
+ *                mxArray *plhs[2]
+ *                int32_T nrhs
+ *                const mxArray *prhs[4]
+ * Return Type  : void
+ */
+void c_reflectivity_calculation_mexF(int32_T nlhs, mxArray *plhs[2], int32_T
+  nrhs, const mxArray *prhs[4])
 {
   const mxArray *outputs[2];
   int32_T b_nlhs;
@@ -54,10 +61,17 @@ static void c_reflectivity_calculation_mexF(int32_T nlhs, mxArray *plhs[2],
   emlrtReturnArrays(b_nlhs, plhs, outputs);
 }
 
+/*
+ * Arguments    : int32_T nlhs
+ *                mxArray *plhs[]
+ *                int32_T nrhs
+ *                const mxArray *prhs[]
+ * Return Type  : void
+ */
 void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const mxArray
                  *prhs[])
 {
-  mexAtExit(reflectivity_calculation_atexit);
+  mexAtExit(&reflectivity_calculation_atexit);
 
   /* Module initialization. */
   reflectivity_calculation_initialize();
@@ -69,10 +83,18 @@ void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const mxArray
   reflectivity_calculation_terminate();
 }
 
+/*
+ * Arguments    : void
+ * Return Type  : emlrtCTX
+ */
 emlrtCTX mexFunctionCreateRootTLS(void)
 {
   emlrtCreateRootTLS(&emlrtRootTLSGlobal, &emlrtContextGlobal, NULL, 1);
   return emlrtRootTLSGlobal;
 }
 
-/* End of code generation (_coder_reflectivity_calculation_mex.c) */
+/*
+ * File trailer for _coder_reflectivity_calculation_mex.c
+ *
+ * [EOF]
+ */

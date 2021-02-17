@@ -121,7 +121,7 @@ switch para
             numberOfContrasts,geometry,repeatLayers,cBacks,cShifts, ...
             cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res,dataPresent , ...
             allData ,dataLimits ,simLimits ,nParams ,params ,contrastLayers, ...
-            numberOfLayers ,layersDetails,problemDef_limits,backsType,calcSld);      
+            numberOfLayers,layersDetails,problemDef_limits,backsType,calcSld);      
 end
 
 problem.ssubs = outSsubs;
@@ -134,11 +134,5 @@ problem.resolutions = resols;
 problem.calculations.all_chis = chis;
 problem.calculations.sum_chi = sum(chis);
 problem.allSubRough = allRoughs;
-%problem.calculations.reflectivity = reflectivity;
-%problem.calculations.Simulation = Simulation;
-%problem.shifted_data = shifted_data;
-%problem.layers = layerSlds;
-%problem.calculations.slds = sldProfiles;
-%problem.allLayers = allLayers;
 
 end

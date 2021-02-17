@@ -1,50 +1,14 @@
-function [outSsubs,...
-            backgs,...
-            qshifts,...
-            sfs,...
-            nbas,...
-            nbss,...
-            resols,...
-            chis,...
-            reflectivity,...
-            Simulation,...
-            shifted_data,...
-            layerSlds,...
-            sldProfiles,...
-            allLayers,...
-            allRoughs] = standardTF_stanlay_paraContrasts(resample, ...
-            numberOfContrasts, ...
-            geometry, ...
-            repeatLayers , ...
-            cBacks , ...
-            cShifts , ...
-            cScales , ...
-            cNbas , ...
-            cNbss, ...
-            cRes , ...
-            backs , ...
-            shifts , ...
-            sf, ...
-            nba , ...
-            nbs , ...
-            res , ...
-            dataPresent , ...
-            allData , ...
-            dataLimits , ...
-            simLimits , ...
-            nParams , ...
-            params , ...
-            contrastLayers , ...
-            numberOfLayers , ...
-            layersDetails,...
-            problemDef_limits, ...
-            backsType,...
-            calcSld)
+function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+            Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+            allRoughs] = standardTF_stanlay_paraContrasts(resample,...
+            numberOfContrasts,geometry,repeatLayers,cBacks,cShifts,cScales,cNbas,cNbss,cRes, ...
+            backs,shifts,sf,nba,nbs,res,dataPresent,allData,dataLimits, ...
+            simLimits,nParams,params,contrastLayers,numberOfLayers, ...
+            layersDetails,problemDef_limits,backsType,calcSld)
 
          
-%Pre-Allocation...
+% Allocate the memory for the output arrays before the main loop
 backgs = zeros(numberOfContrasts,1);
-backgTypes = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
 sfs = zeros(numberOfContrasts,1);
 nbas = zeros(numberOfContrasts,1);
@@ -53,11 +17,10 @@ resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
 chis =  zeros(numberOfContrasts,1);
-allLayers = cell(numberOfContrasts,1); 
 layerSlds = cell(numberOfContrasts,1);
 sldProfiles = cell(numberOfContrasts,1);
 shifted_data = cell(numberOfContrasts,1);
-% 
+
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
@@ -72,52 +35,70 @@ allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
+% end memory allocation.
 
-boxes = cell(1,1);
 
+% First we need to allocate the absolute values of the input
+% parameters to all the layers in the layers list. This only needs
+% to be done once, and so is done outside the contrasts loop
 outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 
+% Parallel Loop over all the contrasts
 parfor i = 1:numberOfContrasts
-    [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
-
-    allRoughs(i) = params(1);
+    
+    % Extract the relevant parameter values for this contrast
+    % from the input arrays.
+    % First need to decide which values of the backrounds, scalefactors
+    % data shifts and bulk contrasts are associated with this contrast
+    [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+    
+    % Also need to determine which layers from the overall layers list
+    % are required for this contrast, and put them in the correct order 
+    % according to geometry
     thisContrastLayers = allocateLayersForContrast(contrastLayers{i},outParameterisedLayers);
-    [outLayers, outSsubs(i)] = groupLayers_Mod(thisContrastLayers,allRoughs(i),geometry,nbas(i),nbss(i));
     
+    % For the other parameters, we extract the correct ones from the input
+    % arrays
+    thisRough = params(1);      % Substrate roughness is always first parameter for standard layers
+    thisRepeatLayers = repeatLayers{i};
+    thisResample = resample(i);
     thisCalcSld = calcSld;
-    if resample(i) == 1
-        thisCalcSld = 1;
-    end
+    thisData = allData{i};
+    thisDataPresent = dataPresent(i);
+    thisDataLimits = dataLimits{i};
+    thisSimLimits = simLimits{i};
+    thisBacksType = backsType(i);
     
-    if thisCalcSld == 1
-        sldProfile = makeSLDProfiles(nbas(i),nbss(i),outLayers,outSsubs(i),repeatLayers{i});
-
-    else
-        sldProfile = [0 0 0];
-    end
-
-    sldProfiles{i} = sldProfile;
+    % Now call the core standardTF_stanlay reflectivity calculation
+    % In this case we are multi over
+    % points
+    paralellPoints = 'single';
     
-    if resample(i) == 1
-        layerSld = resampleLayers(sldProfile);
-        layerSlds{i} = layerSld;
-    else
-        layerSld = outLayers;
-        layerSlds{i} = layerSld;
-    end
+    % Call the calculation
+    [sldProfile,reflect,Simul,shifted_dat,layerSld,thisChiSquared,thisSsubs] = ...
+    standardTF_stanlay_core(thisContrastLayers, thisRough, ...
+    geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
+    thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
+    thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
    
-    shifted_dat = shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i});
-
-    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),backgs(i),resols(i),'single');
-    
-    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgs(i),backsType(i));
-    
+    % Store returned values for this contrast in the output arrays.
+    % As well as the calculated profiles, we also store a record of 
+    % the other values (background, scalefactors etc) for each contrast
+    % for future use.
+    outSsubs(i) = thisSsubs;
+    sldProfiles{i} = sldProfile;
     reflectivity{i} = reflect;
     Simulation{i} = Simul;
     shifted_data{i} = shifted_dat;
-    
-    chis(i) = chiSquared(shifted_dat,reflect,nParams);
+    layerSlds{i} = layerSld;
+    chis(i) = thisChiSquared;
+    backgs(i) = thisBackground;
+    qshifts(i) = thisQshift;
+    sfs(i) = thisSf;
+    nbas(i) = thisNba;
+    nbss(i) = thisNbs;
+    resols(i) = thisResol;
+    allRoughs(i) = thisRough;
 end
-
 
 end

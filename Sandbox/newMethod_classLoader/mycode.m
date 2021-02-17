@@ -12,4 +12,5 @@ a = int32(5);
 
 ret = coder.nullcopy(int32(0));
 ret = coder.ceval('std::mem_fn(&MyClass::mymethod)',p,a);
+
 end

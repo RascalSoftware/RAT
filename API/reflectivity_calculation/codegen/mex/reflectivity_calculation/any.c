@@ -17,12 +17,12 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo he_emlrtRSI = { 13, /* lineNo */
+static emlrtRSInfo ie_emlrtRSI = { 13, /* lineNo */
   "any",                               /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/any.m"/* pathName */
 };
 
-static emlrtRSInfo ie_emlrtRSI = { 143,/* lineNo */
+static emlrtRSInfo je_emlrtRSI = { 143,/* lineNo */
   "allOrAny",                          /* fcnName */
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/allOrAny.m"/* pathName */
 };
@@ -31,6 +31,7 @@ static emlrtRSInfo ie_emlrtRSI = { 143,/* lineNo */
 boolean_T any(const emlrtStack *sp, const emxArray_boolean_T *x)
 {
   boolean_T y;
+  boolean_T overflow;
   int32_T ix;
   boolean_T exitg1;
   emlrtStack st;
@@ -38,15 +39,16 @@ boolean_T any(const emlrtStack *sp, const emxArray_boolean_T *x)
   emlrtStack c_st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &he_emlrtRSI;
+  st.site = &ie_emlrtRSI;
   b_st.prev = &st;
   b_st.tls = st.tls;
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
   y = false;
-  b_st.site = &ie_emlrtRSI;
-  if ((1 <= x->size[0]) && (x->size[0] > 2147483646)) {
-    c_st.site = &nb_emlrtRSI;
+  b_st.site = &je_emlrtRSI;
+  overflow = ((1 <= x->size[0]) && (x->size[0] > 2147483646));
+  if (overflow) {
+    c_st.site = &ob_emlrtRSI;
     check_forloop_overflow_error(&c_st);
   }
 

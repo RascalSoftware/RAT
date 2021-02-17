@@ -5,7 +5,6 @@ type = problemDef.modelType;
 numberOfContrasts = problemDef.numberOfContrasts;
 preAlloc = zeros(numberOfContrasts,1);
 
-
 % Pre-allocate the output arrays..
 problem = struct('ssubs',preAlloc,...
                  'backgrounds',preAlloc,...

@@ -2,23 +2,21 @@
  * Non-Degree Granting Education License -- for use at non-degree
  * granting, nonprofit, educational organizations only. Not for
  * government, commercial, or other organizational use.
+ * File: _coder_reflectivity_calculation_api.h
  *
- * _coder_reflectivity_calculation_api.h
- *
- * Code generation for function '_coder_reflectivity_calculation_api'
- *
+ * MATLAB Coder version            : 5.0
+ * C/C++ source code generated on  : 11-Jan-2021 16:52:33
  */
 
 #ifndef _CODER_REFLECTIVITY_CALCULATION_API_H
 #define _CODER_REFLECTIVITY_CALCULATION_API_H
 
-/* Include files */
+/* Include Files */
+#include <stddef.h>
+#include <stdlib.h>
 #include "tmwtypes.h"
 #include "mex.h"
 #include "emlrt.h"
-#include <stddef.h>
-#include <stdlib.h>
-#include "_coder_reflectivity_calculation_api.h"
 
 /* Type Definitions */
 #ifndef typedef_cell_wrap_0
@@ -86,6 +84,28 @@ typedef struct {
 
 #endif                                 /*typedef_emxArray_cell_wrap_1*/
 
+#ifndef typedef_cell_wrap_2
+#define typedef_cell_wrap_2
+
+typedef struct {
+  emxArray_real_T *f1;
+} cell_wrap_2;
+
+#endif                                 /*typedef_cell_wrap_2*/
+
+#ifndef typedef_emxArray_cell_wrap_2
+#define typedef_emxArray_cell_wrap_2
+
+typedef struct {
+  cell_wrap_2 *data;
+  int32_T *size;
+  int32_T allocatedSize;
+  int32_T numDimensions;
+  boolean_T canFreeData;
+} emxArray_cell_wrap_2;
+
+#endif                                 /*typedef_emxArray_cell_wrap_2*/
+
 #ifndef struct_emxArray_real_T_1x5
 #define struct_emxArray_real_T_1x5
 
@@ -104,27 +124,27 @@ typedef struct emxArray_real_T_1x5 emxArray_real_T_1x5;
 
 #endif                                 /*typedef_emxArray_real_T_1x5*/
 
-#ifndef typedef_cell_wrap_2
-#define typedef_cell_wrap_2
+#ifndef typedef_cell_wrap_3
+#define typedef_cell_wrap_3
 
 typedef struct {
   emxArray_real_T_1x5 f1;
-} cell_wrap_2;
+} cell_wrap_3;
 
-#endif                                 /*typedef_cell_wrap_2*/
+#endif                                 /*typedef_cell_wrap_3*/
 
-#ifndef typedef_emxArray_cell_wrap_2
-#define typedef_emxArray_cell_wrap_2
+#ifndef typedef_emxArray_cell_wrap_3
+#define typedef_emxArray_cell_wrap_3
 
 typedef struct {
-  cell_wrap_2 *data;
+  cell_wrap_3 *data;
   int32_T *size;
   int32_T allocatedSize;
   int32_T numDimensions;
   boolean_T canFreeData;
-} emxArray_cell_wrap_2;
+} emxArray_cell_wrap_3;
 
-#endif                                 /*typedef_emxArray_cell_wrap_2*/
+#endif                                 /*typedef_emxArray_cell_wrap_3*/
 
 #ifndef struct_emxArray_char_T
 #define struct_emxArray_char_T
@@ -147,70 +167,48 @@ typedef struct emxArray_char_T emxArray_char_T;
 
 #endif                                 /*typedef_emxArray_char_T*/
 
-#ifndef typedef_cell_wrap_3
-#define typedef_cell_wrap_3
+#ifndef typedef_cell_wrap_4
+#define typedef_cell_wrap_4
 
 typedef struct {
   emxArray_char_T *f1;
-} cell_wrap_3;
+} cell_wrap_4;
 
-#endif                                 /*typedef_cell_wrap_3*/
+#endif                                 /*typedef_cell_wrap_4*/
 
-#ifndef typedef_emxArray_cell_wrap_3
-#define typedef_emxArray_cell_wrap_3
+#ifndef typedef_emxArray_cell_wrap_4
+#define typedef_emxArray_cell_wrap_4
 
 typedef struct {
-  cell_wrap_3 *data;
+  cell_wrap_4 *data;
   int32_T *size;
   int32_T allocatedSize;
   int32_T numDimensions;
   boolean_T canFreeData;
-} emxArray_cell_wrap_3;
+} emxArray_cell_wrap_4;
 
-#endif                                 /*typedef_emxArray_cell_wrap_3*/
+#endif                                 /*typedef_emxArray_cell_wrap_4*/
 
-#ifndef typedef_cell_4
-#define typedef_cell_4
+#ifndef typedef_cell_5
+#define typedef_cell_5
 
 typedef struct {
   emxArray_cell_wrap_0 *f1;
   emxArray_cell_wrap_1 *f2;
   emxArray_cell_wrap_0 *f3;
   emxArray_cell_wrap_0 *f4;
-  emxArray_cell_wrap_0 *f5;
-  emxArray_cell_wrap_2 *f6;
-  emxArray_cell_wrap_3 *f7;
-  emxArray_cell_wrap_3 *f8;
-  emxArray_cell_wrap_3 *f9;
-  emxArray_cell_wrap_3 *f10;
-  emxArray_cell_wrap_3 *f11;
-  emxArray_cell_wrap_3 *f12;
-  emxArray_cell_wrap_3 *f13;
-} cell_4;
+  emxArray_cell_wrap_2 *f5;
+  emxArray_cell_wrap_3 *f6;
+  emxArray_cell_wrap_4 *f7;
+  emxArray_cell_wrap_4 *f8;
+  emxArray_cell_wrap_4 *f9;
+  emxArray_cell_wrap_4 *f10;
+  emxArray_cell_wrap_4 *f11;
+  emxArray_cell_wrap_4 *f12;
+  emxArray_cell_wrap_4 *f13;
+} cell_5;
 
-#endif                                 /*typedef_cell_4*/
-
-#ifndef typedef_cell_wrap_5
-#define typedef_cell_wrap_5
-
-typedef struct {
-  emxArray_real_T *f1;
-} cell_wrap_5;
-
-#endif                                 /*typedef_cell_wrap_5*/
-
-#ifndef typedef_emxArray_cell_wrap_5
-#define typedef_emxArray_cell_wrap_5
-
-typedef struct {
-  cell_wrap_5 *data;
-  int32_T *size;
-  int32_T allocatedSize;
-  int32_T numDimensions;
-  boolean_T canFreeData;
-} emxArray_cell_wrap_5;
-
-#endif                                 /*typedef_emxArray_cell_wrap_5*/
+#endif                                 /*typedef_cell_5*/
 
 #ifndef typedef_cell_wrap_6
 #define typedef_cell_wrap_6
@@ -238,11 +236,11 @@ typedef struct {
 #define typedef_cell_7
 
 typedef struct {
-  emxArray_cell_wrap_5 *f1;
-  emxArray_cell_wrap_5 *f2;
-  emxArray_cell_wrap_6 *f3;
-  emxArray_cell_wrap_6 *f4;
-  emxArray_cell_wrap_5 *f5;
+  emxArray_cell_wrap_6 *f1;
+  emxArray_cell_wrap_6 *f2;
+  emxArray_cell_wrap_1 *f3;
+  emxArray_cell_wrap_1 *f4;
+  emxArray_cell_wrap_6 *f5;
   emxArray_real_T *f6;
 } cell_7;
 
@@ -275,7 +273,7 @@ typedef struct {
   emxArray_char_T *modelType;
   emxArray_char_T *modelFilename;
   emxArray_char_T *path;
-  emxArray_real_T *modelLanguage;
+  emxArray_char_T *modelLanguage;
   emxArray_real_T *fitpars;
   emxArray_real_T *otherpars;
   emxArray_real_T *fitconstr;
@@ -284,20 +282,32 @@ typedef struct {
 
 #endif                                 /*typedef_struct0_T*/
 
-#ifndef typedef_struct1_T
-#define typedef_struct1_T
+#ifndef typedef_struct5_T
+#define typedef_struct5_T
 
 typedef struct {
-  emxArray_real_T *params;
-  emxArray_real_T *backs;
-  emxArray_real_T *scales;
-  emxArray_real_T *shifts;
-  emxArray_real_T *nba;
-  emxArray_real_T *nbs;
-  emxArray_real_T *res;
-} struct1_T;
+  emxArray_real_T *all_chis;
+  real_T sum_chi;
+} struct5_T;
 
-#endif                                 /*typedef_struct1_T*/
+#endif                                 /*typedef_struct5_T*/
+
+#ifndef typedef_struct4_T
+#define typedef_struct4_T
+
+typedef struct {
+  emxArray_real_T *ssubs;
+  emxArray_real_T *backgrounds;
+  emxArray_real_T *qshifts;
+  emxArray_real_T *scalefactors;
+  emxArray_real_T *nbairs;
+  emxArray_real_T *nbsubs;
+  emxArray_real_T *resolutions;
+  struct5_T calculations;
+  emxArray_real_T *allSubRough;
+} struct4_T;
+
+#endif                                 /*typedef_struct4_T*/
 
 #ifndef typedef_struct3_T
 #define typedef_struct3_T
@@ -335,44 +345,37 @@ typedef struct {
   real_T nmcmc;
   real_T propScale;
   real_T nsTolerance;
+  real_T calcSld;
   struct3_T checks;
 } struct2_T;
 
 #endif                                 /*typedef_struct2_T*/
 
-#ifndef typedef_struct5_T
-#define typedef_struct5_T
+#ifndef typedef_struct1_T
+#define typedef_struct1_T
 
 typedef struct {
-  emxArray_real_T *all_chis;
-  real_T sum_chi;
-} struct5_T;
+  emxArray_real_T *params;
+  emxArray_real_T *backs;
+  emxArray_real_T *scales;
+  emxArray_real_T *shifts;
+  emxArray_real_T *nba;
+  emxArray_real_T *nbs;
+  emxArray_real_T *res;
+} struct1_T;
 
-#endif                                 /*typedef_struct5_T*/
-
-#ifndef typedef_struct4_T
-#define typedef_struct4_T
-
-typedef struct {
-  emxArray_real_T *ssubs;
-  emxArray_real_T *backgrounds;
-  emxArray_real_T *qshifts;
-  emxArray_real_T *scalefactors;
-  emxArray_real_T *nbairs;
-  emxArray_real_T *nbsubs;
-  emxArray_real_T *resolutions;
-  struct5_T calculations;
-  emxArray_real_T *allSubRough;
-} struct4_T;
-
-#endif                                 /*typedef_struct4_T*/
+#endif                                 /*typedef_struct1_T*/
 
 /* Variable Declarations */
 extern emlrtCTX emlrtRootTLSGlobal;
 extern emlrtContext emlrtContextGlobal;
 
+#define MAX_THREADS                    omp_get_max_threads()
+
 /* Function Declarations */
-extern void reflectivity_calculation(struct0_T *problemDef, cell_4
+extern void MEXGlobalSyncInFunction(void);
+extern void MEXGlobalSyncOutFunction(boolean_T skipDirtyCheck);
+extern void reflectivity_calculation(struct0_T *problemDef, cell_5
   *problemDef_cells, struct1_T *problemDef_limits, struct2_T *controls,
   struct4_T *problem, cell_7 *result);
 extern void reflectivity_calculation_api(const mxArray * const prhs[4], int32_T
@@ -385,4 +388,8 @@ extern void reflectivity_calculation_xil_terminate(void);
 
 #endif
 
-/* End of code generation (_coder_reflectivity_calculation_api.h) */
+/*
+ * File trailer for _coder_reflectivity_calculation_api.h
+ *
+ * [EOF]
+ */

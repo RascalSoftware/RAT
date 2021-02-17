@@ -1,88 +1,45 @@
-/*
- * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
- *
- * reflectivity_calculation_types.h
- *
- * Code generation for function 'reflectivity_calculation'
- *
- */
-
+//
+// Non-Degree Granting Education License -- for use at non-degree
+// granting, nonprofit, educational organizations only. Not for
+// government, commercial, or other organizational use.
+// File: reflectivity_calculation_types.h
+//
+// MATLAB Coder version            : 5.0
+// C/C++ source code generated on  : 11-Jan-2021 16:52:33
+//
 #ifndef REFLECTIVITY_CALCULATION_TYPES_H
 #define REFLECTIVITY_CALCULATION_TYPES_H
 
-/* Include files */
+// Include Files
 #include "rtwtypes.h"
+#include "coder_array.h"
+#ifdef _MSC_VER
 
-/* Type Definitions */
-#ifndef typedef_cell_wrap_0
-#define typedef_cell_wrap_0
+#pragma warning(push)
+#pragma warning(disable : 4251)
 
-typedef struct {
-  double f1[2];
-} cell_wrap_0;
+#endif
 
-#endif                                 /*typedef_cell_wrap_0*/
-
-#ifndef typedef_emxArray_cell_wrap_0
-#define typedef_emxArray_cell_wrap_0
-
-typedef struct {
-  cell_wrap_0 *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-} emxArray_cell_wrap_0;
-
-#endif                                 /*typedef_emxArray_cell_wrap_0*/
-
-#ifndef struct_emxArray_real_T
-#define struct_emxArray_real_T
-
-struct emxArray_real_T
+// Type Definitions
+struct cell_wrap_15
 {
-  double *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
+  coder::array<double, 2U> f1;
 };
 
-#endif                                 /*struct_emxArray_real_T*/
+struct cell_wrap_0
+{
+  double f1[2];
+};
 
-#ifndef typedef_emxArray_real_T
-#define typedef_emxArray_real_T
+struct cell_wrap_1
+{
+  coder::array<double, 2U> f1;
+};
 
-typedef struct emxArray_real_T emxArray_real_T;
-
-#endif                                 /*typedef_emxArray_real_T*/
-
-#ifndef typedef_cell_wrap_1
-#define typedef_cell_wrap_1
-
-typedef struct {
-  emxArray_real_T *f1;
-} cell_wrap_1;
-
-#endif                                 /*typedef_cell_wrap_1*/
-
-#ifndef typedef_emxArray_cell_wrap_1
-#define typedef_emxArray_cell_wrap_1
-
-typedef struct {
-  cell_wrap_1 *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-} emxArray_cell_wrap_1;
-
-#endif                                 /*typedef_emxArray_cell_wrap_1*/
-
-#ifndef struct_emxArray_real_T_1x5
-#define struct_emxArray_real_T_1x5
+struct cell_wrap_11
+{
+  coder::array<double, 2U> f1;
+};
 
 struct emxArray_real_T_1x5
 {
@@ -90,403 +47,74 @@ struct emxArray_real_T_1x5
   int size[2];
 };
 
-#endif                                 /*struct_emxArray_real_T_1x5*/
-
-#ifndef typedef_emxArray_real_T_1x5
-#define typedef_emxArray_real_T_1x5
-
-typedef struct emxArray_real_T_1x5 emxArray_real_T_1x5;
-
-#endif                                 /*typedef_emxArray_real_T_1x5*/
-
-#ifndef typedef_cell_wrap_2
-#define typedef_cell_wrap_2
-
-typedef struct {
+struct cell_wrap_3
+{
   emxArray_real_T_1x5 f1;
-} cell_wrap_2;
-
-#endif                                 /*typedef_cell_wrap_2*/
-
-#ifndef typedef_emxArray_cell_wrap_2
-#define typedef_emxArray_cell_wrap_2
-
-typedef struct {
-  cell_wrap_2 *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-} emxArray_cell_wrap_2;
-
-#endif                                 /*typedef_emxArray_cell_wrap_2*/
-
-#ifndef struct_emxArray_char_T
-#define struct_emxArray_char_T
-
-struct emxArray_char_T
-{
-  char *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
 };
 
-#endif                                 /*struct_emxArray_char_T*/
+struct cell_wrap_4
+{
+  coder::array<char, 2U> f1;
+};
 
-#ifndef typedef_emxArray_char_T
-#define typedef_emxArray_char_T
+struct cell_13
+{
+  coder::array<cell_wrap_0, 2U> f1;
+  coder::array<cell_wrap_1, 2U> f2;
+  coder::array<cell_wrap_0, 2U> f3;
+  coder::array<cell_wrap_0, 2U> f4;
+  coder::array<cell_wrap_11, 2U> f5;
+  coder::array<cell_wrap_3, 1U> f6;
+  coder::array<cell_wrap_4, 2U> f7;
+  coder::array<cell_wrap_4, 2U> f8;
+  coder::array<cell_wrap_4, 2U> f9;
+  coder::array<cell_wrap_4, 2U> f10;
+  coder::array<cell_wrap_4, 2U> f11;
+  coder::array<cell_wrap_4, 2U> f12;
+  coder::array<cell_wrap_4, 2U> f13;
+};
 
-typedef struct emxArray_char_T emxArray_char_T;
+struct cell_wrap_9
+{
+  coder::array<double, 2U> f1;
+};
 
-#endif                                 /*typedef_emxArray_char_T*/
+struct cell_wrap_8
+{
+  coder::array<double, 2U> f1;
+};
 
-#ifndef typedef_cell_wrap_3
-#define typedef_cell_wrap_3
+struct cell_wrap_14
+{
+  coder::array<double, 2U> f1;
+};
 
-typedef struct {
-  emxArray_char_T *f1;
-} cell_wrap_3;
-
-#endif                                 /*typedef_cell_wrap_3*/
-
-#ifndef typedef_emxArray_cell_wrap_3
-#define typedef_emxArray_cell_wrap_3
-
-typedef struct {
-  cell_wrap_3 *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-} emxArray_cell_wrap_3;
-
-#endif                                 /*typedef_emxArray_cell_wrap_3*/
-
-#ifndef typedef_cell_4
-#define typedef_cell_4
-
-typedef struct {
-  emxArray_cell_wrap_0 *f1;
-  emxArray_cell_wrap_1 *f2;
-  emxArray_cell_wrap_0 *f3;
-  emxArray_cell_wrap_0 *f4;
-  emxArray_cell_wrap_0 *f5;
-  emxArray_cell_wrap_2 *f6;
-  emxArray_cell_wrap_3 *f7;
-  emxArray_cell_wrap_3 *f8;
-  emxArray_cell_wrap_3 *f9;
-  emxArray_cell_wrap_3 *f10;
-  emxArray_cell_wrap_3 *f11;
-  emxArray_cell_wrap_3 *f12;
-  emxArray_cell_wrap_3 *f13;
-} cell_4;
-
-#endif                                 /*typedef_cell_4*/
-
-#ifndef typedef_cell_wrap_5
-#define typedef_cell_wrap_5
-
-typedef struct {
-  emxArray_real_T *f1;
-} cell_wrap_5;
-
-#endif                                 /*typedef_cell_wrap_5*/
-
-#ifndef typedef_emxArray_cell_wrap_5
-#define typedef_emxArray_cell_wrap_5
-
-typedef struct {
-  cell_wrap_5 *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-} emxArray_cell_wrap_5;
-
-#endif                                 /*typedef_emxArray_cell_wrap_5*/
-
-#ifndef typedef_cell_wrap_6
-#define typedef_cell_wrap_6
-
-typedef struct {
-  emxArray_real_T *f1;
-} cell_wrap_6;
-
-#endif                                 /*typedef_cell_wrap_6*/
-
-#ifndef typedef_emxArray_cell_wrap_6
-#define typedef_emxArray_cell_wrap_6
-
-typedef struct {
-  cell_wrap_6 *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-} emxArray_cell_wrap_6;
-
-#endif                                 /*typedef_emxArray_cell_wrap_6*/
-
-#ifndef typedef_cell_7
-#define typedef_cell_7
-
-typedef struct {
-  emxArray_cell_wrap_5 *f1;
-  emxArray_cell_wrap_5 *f2;
-  emxArray_cell_wrap_6 *f3;
-  emxArray_cell_wrap_6 *f4;
-  emxArray_cell_wrap_5 *f5;
-  emxArray_real_T *f6;
-} cell_7;
-
-#endif                                 /*typedef_cell_7*/
-
-#ifndef typedef_cell_wrap_13
-#define typedef_cell_wrap_13
-
-typedef struct {
+struct cell_wrap_16
+{
   double f1[5];
-} cell_wrap_13;
-
-#endif                                 /*typedef_cell_wrap_13*/
-
-#ifndef typedef_cell_wrap_8
-#define typedef_cell_wrap_8
-
-typedef struct {
-  emxArray_real_T *f1;
-} cell_wrap_8;
-
-#endif                                 /*typedef_cell_wrap_8*/
-
-#ifndef typedef_cell_wrap_9
-#define typedef_cell_wrap_9
-
-typedef struct {
-  emxArray_real_T *f1;
-} cell_wrap_9;
-
-#endif                                 /*typedef_cell_wrap_9*/
-
-#ifndef struct_emxArray_boolean_T
-#define struct_emxArray_boolean_T
-
-struct emxArray_boolean_T
-{
-  boolean_T *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
 };
 
-#endif                                 /*struct_emxArray_boolean_T*/
-
-#ifndef typedef_emxArray_boolean_T
-#define typedef_emxArray_boolean_T
-
-typedef struct emxArray_boolean_T emxArray_boolean_T;
-
-#endif                                 /*typedef_emxArray_boolean_T*/
-
-#ifndef typedef_emxArray_cell_wrap_13
-#define typedef_emxArray_cell_wrap_13
-
-typedef struct {
-  cell_wrap_13 *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-} emxArray_cell_wrap_13;
-
-#endif                                 /*typedef_emxArray_cell_wrap_13*/
-
-#ifndef typedef_emxArray_cell_wrap_8
-#define typedef_emxArray_cell_wrap_8
-
-typedef struct {
-  cell_wrap_8 *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-} emxArray_cell_wrap_8;
-
-#endif                                 /*typedef_emxArray_cell_wrap_8*/
-
-#ifndef typedef_emxArray_cell_wrap_9
-#define typedef_emxArray_cell_wrap_9
-
-typedef struct {
-  cell_wrap_9 *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-} emxArray_cell_wrap_9;
-
-#endif                                 /*typedef_emxArray_cell_wrap_9*/
-
-#ifndef struct_emxArray_int16_T
-#define struct_emxArray_int16_T
-
-struct emxArray_int16_T
+struct cell_wrap_6
 {
-  short *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
+  coder::array<double, 2U> f1;
 };
 
-#endif                                 /*struct_emxArray_int16_T*/
-
-#ifndef typedef_emxArray_int16_T
-#define typedef_emxArray_int16_T
-
-typedef struct emxArray_int16_T emxArray_int16_T;
-
-#endif                                 /*typedef_emxArray_int16_T*/
-
-#ifndef struct_emxArray_int32_T
-#define struct_emxArray_int32_T
-
-struct emxArray_int32_T
+struct struct3_T
 {
-  int *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
+  coder::array<double, 2U> params_fitYesNo;
+  coder::array<double, 2U> backs_fitYesNo;
+  coder::array<double, 2U> shifts_fitYesNo;
+  coder::array<double, 2U> scales_fitYesNo;
+  coder::array<double, 2U> nbairs_fitYesNo;
+  coder::array<double, 2U> nbsubs_fitYesNo;
+  coder::array<double, 2U> resol_fitYesNo;
 };
 
-#endif                                 /*struct_emxArray_int32_T*/
-
-#ifndef typedef_emxArray_int32_T
-#define typedef_emxArray_int32_T
-
-typedef struct emxArray_int32_T emxArray_int32_T;
-
-#endif                                 /*typedef_emxArray_int32_T*/
-
-#ifndef struct_emxArray_int8_T
-#define struct_emxArray_int8_T
-
-struct emxArray_int8_T
+struct struct2_T
 {
-  signed char *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-};
-
-#endif                                 /*struct_emxArray_int8_T*/
-
-#ifndef typedef_emxArray_int8_T
-#define typedef_emxArray_int8_T
-
-typedef struct emxArray_int8_T emxArray_int8_T;
-
-#endif                                 /*typedef_emxArray_int8_T*/
-
-#ifndef struct_emxArray_uint32_T
-#define struct_emxArray_uint32_T
-
-struct emxArray_uint32_T
-{
-  unsigned int *data;
-  int *size;
-  int allocatedSize;
-  int numDimensions;
-  boolean_T canFreeData;
-};
-
-#endif                                 /*struct_emxArray_uint32_T*/
-
-#ifndef typedef_emxArray_uint32_T
-#define typedef_emxArray_uint32_T
-
-typedef struct emxArray_uint32_T emxArray_uint32_T;
-
-#endif                                 /*typedef_emxArray_uint32_T*/
-
-#ifndef typedef_struct0_T
-#define typedef_struct0_T
-
-typedef struct {
-  emxArray_real_T *contrastBacks;
-  emxArray_real_T *contrastBacksType;
-  emxArray_char_T *TF;
-  emxArray_real_T *resample;
-  emxArray_real_T *dataPresent;
-  double numberOfContrasts;
-  emxArray_char_T *geometry;
-  emxArray_real_T *contrastShifts;
-  emxArray_real_T *contrastScales;
-  emxArray_real_T *contrastNbas;
-  emxArray_real_T *contrastNbss;
-  emxArray_real_T *contrastRes;
-  emxArray_real_T *backs;
-  emxArray_real_T *shifts;
-  emxArray_real_T *sf;
-  emxArray_real_T *nba;
-  emxArray_real_T *nbs;
-  emxArray_real_T *res;
-  emxArray_real_T *params;
-  double numberOfLayers;
-  emxArray_char_T *modelType;
-  emxArray_char_T *modelFilename;
-  emxArray_char_T *path;
-  emxArray_real_T *modelLanguage;
-  emxArray_real_T *fitpars;
-  emxArray_real_T *otherpars;
-  emxArray_real_T *fitconstr;
-  emxArray_real_T *otherconstr;
-} struct0_T;
-
-#endif                                 /*typedef_struct0_T*/
-
-#ifndef typedef_struct1_T
-#define typedef_struct1_T
-
-typedef struct {
-  emxArray_real_T *params;
-  emxArray_real_T *backs;
-  emxArray_real_T *scales;
-  emxArray_real_T *shifts;
-  emxArray_real_T *nba;
-  emxArray_real_T *nbs;
-  emxArray_real_T *res;
-} struct1_T;
-
-#endif                                 /*typedef_struct1_T*/
-
-#ifndef typedef_struct3_T
-#define typedef_struct3_T
-
-typedef struct {
-  emxArray_real_T *params_fitYesNo;
-  emxArray_real_T *backs_fitYesNo;
-  emxArray_real_T *shifts_fitYesNo;
-  emxArray_real_T *scales_fitYesNo;
-  emxArray_real_T *nbairs_fitYesNo;
-  emxArray_real_T *nbsubs_fitYesNo;
-  emxArray_real_T *resol_fitYesNo;
-} struct3_T;
-
-#endif                                 /*typedef_struct3_T*/
-
-#ifndef typedef_struct2_T
-#define typedef_struct2_T
-
-typedef struct {
-  emxArray_char_T *para;
-  emxArray_char_T *proc;
-  emxArray_char_T *display;
+  coder::array<char, 2U> para;
+  coder::array<char, 2U> proc;
+  coder::array<char, 2U> display;
   double tolX;
   double tolFun;
   double maxFunEvals;
@@ -496,42 +124,119 @@ typedef struct {
   double F_CR;
   double VTR;
   double numGen;
-  emxArray_real_T *strategy;
+  coder::array<double, 2U> strategy;
   double Nlive;
   double nmcmc;
   double propScale;
   double nsTolerance;
+  double calcSld;
   struct3_T checks;
-} struct2_T;
+};
 
-#endif                                 /*typedef_struct2_T*/
+struct cell_wrap_2
+{
+  coder::array<double, 2U> f1;
+};
 
-#ifndef typedef_struct5_T
-#define typedef_struct5_T
+struct cell_5
+{
+  coder::array<cell_wrap_0, 2U> f1;
+  coder::array<cell_wrap_1, 2U> f2;
+  coder::array<cell_wrap_0, 2U> f3;
+  coder::array<cell_wrap_0, 2U> f4;
+  coder::array<cell_wrap_2, 2U> f5;
+  coder::array<cell_wrap_3, 1U> f6;
+  coder::array<cell_wrap_4, 2U> f7;
+  coder::array<cell_wrap_4, 2U> f8;
+  coder::array<cell_wrap_4, 2U> f9;
+  coder::array<cell_wrap_4, 2U> f10;
+  coder::array<cell_wrap_4, 2U> f11;
+  coder::array<cell_wrap_4, 2U> f12;
+  coder::array<cell_wrap_4, 2U> f13;
+};
 
-typedef struct {
-  emxArray_real_T *all_chis;
+struct struct0_T
+{
+  coder::array<double, 2U> contrastBacks;
+  coder::array<double, 2U> contrastBacksType;
+  coder::array<char, 2U> TF;
+  coder::array<double, 2U> resample;
+  coder::array<double, 2U> dataPresent;
+  double numberOfContrasts;
+  coder::array<char, 2U> geometry;
+  coder::array<double, 2U> contrastShifts;
+  coder::array<double, 2U> contrastScales;
+  coder::array<double, 2U> contrastNbas;
+  coder::array<double, 2U> contrastNbss;
+  coder::array<double, 2U> contrastRes;
+  coder::array<double, 2U> backs;
+  coder::array<double, 2U> shifts;
+  coder::array<double, 2U> sf;
+  coder::array<double, 2U> nba;
+  coder::array<double, 2U> nbs;
+  coder::array<double, 2U> res;
+  coder::array<double, 2U> params;
+  double numberOfLayers;
+  coder::array<char, 2U> modelType;
+  coder::array<char, 2U> modelFilename;
+  coder::array<char, 2U> path;
+  coder::array<char, 2U> modelLanguage;
+  coder::array<double, 2U> fitpars;
+  coder::array<double, 2U> otherpars;
+  coder::array<double, 2U> fitconstr;
+  coder::array<double, 2U> otherconstr;
+};
+
+struct struct5_T
+{
+  coder::array<double, 1U> all_chis;
   double sum_chi;
-} struct5_T;
+};
 
-#endif                                 /*typedef_struct5_T*/
-
-#ifndef typedef_struct4_T
-#define typedef_struct4_T
-
-typedef struct {
-  emxArray_real_T *ssubs;
-  emxArray_real_T *backgrounds;
-  emxArray_real_T *qshifts;
-  emxArray_real_T *scalefactors;
-  emxArray_real_T *nbairs;
-  emxArray_real_T *nbsubs;
-  emxArray_real_T *resolutions;
+struct struct4_T
+{
+  coder::array<double, 1U> ssubs;
+  coder::array<double, 1U> backgrounds;
+  coder::array<double, 1U> qshifts;
+  coder::array<double, 1U> scalefactors;
+  coder::array<double, 1U> nbairs;
+  coder::array<double, 1U> nbsubs;
+  coder::array<double, 1U> resolutions;
   struct5_T calculations;
-  emxArray_real_T *allSubRough;
-} struct4_T;
+  coder::array<double, 1U> allSubRough;
+};
 
-#endif                                 /*typedef_struct4_T*/
+struct cell_7
+{
+  coder::array<cell_wrap_6, 1U> f1;
+  coder::array<cell_wrap_6, 1U> f2;
+  coder::array<cell_wrap_1, 1U> f3;
+  coder::array<cell_wrap_1, 1U> f4;
+  coder::array<cell_wrap_6, 1U> f5;
+  coder::array<double, 1U> f6;
+};
+
+struct struct1_T
+{
+  coder::array<double, 2U> params;
+  coder::array<double, 2U> backs;
+  coder::array<double, 2U> scales;
+  coder::array<double, 2U> shifts;
+  coder::array<double, 2U> nba;
+  coder::array<double, 2U> nbs;
+  coder::array<double, 2U> res;
+};
+
+#define MAX_THREADS                    omp_get_max_threads()
+#ifdef _MSC_VER
+
+#pragma warning(pop)
+
+#endif
 #endif
 
-/* End of code generation (reflectivity_calculation_types.h) */
+//
+// File trailer for reflectivity_calculation_types.h
+//
+// [EOF]
+//

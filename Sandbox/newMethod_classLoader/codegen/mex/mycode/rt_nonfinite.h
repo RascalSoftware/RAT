@@ -1,13 +1,13 @@
-/*
- * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
- *
- * rt_nonfinite.h
- *
- * Code generation for function 'mycode'
- *
- */
+//
+//  Non-Degree Granting Education License -- for use at non-degree
+//  granting, nonprofit, educational organizations only. Not for
+//  government, commercial, or other organizational use.
+//
+//  rt_nonfinite.h
+//
+//  Code generation for function 'mycode'
+//
+
 
 #pragma once
 
@@ -33,4 +33,4 @@ extern real32_T mex_rtNaNF;
 
 extern void mex_InitInfAndNan(void);
 
-/* End of code generation (rt_nonfinite.h) */
+// End of code generation (rt_nonfinite.h)

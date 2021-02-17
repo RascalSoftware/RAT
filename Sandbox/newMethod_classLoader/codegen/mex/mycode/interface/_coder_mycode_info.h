@@ -15,6 +15,6 @@
 #include "mex.h"
 
 /* Function Declarations */
-MEXFUNCTION_LINKAGE mxArray *emlrtMexFcnProperties(void);
+MEXFUNCTION_LINKAGE mxArray *emlrtMexFcnProperties();
 
 /* End of code generation (_coder_mycode_info.h) */

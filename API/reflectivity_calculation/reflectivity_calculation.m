@@ -1,10 +1,6 @@
 
 function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls)
 
-global RAT_DEBUG DEBUGVARS
-if coder.target('MATLAB')
-    RAT_DEBUG = 0; DEBUGVARS = 0;
-end
 
 %Preallocatin of outputs
 problem.ssubs = 0;
@@ -126,11 +122,4 @@ coder.varsize('problem.calculations.all_chis',[Inf 1],[1 0]);
 coder.varsize('problem.calculations.sum_chi',[1 1],[0 0]);
 coder.varsize('problem.allSubRough',[Inf 1],[1 0]);
 
-
-if coder.target('MATLAB')
-    if RAT_DEBUG
-        DEBUGVARS.reflectivity_calculation.problem = problem;
-        DEBUGVARS.reflectivity_calculation.result = result;
-    end
-end
 end

@@ -18,13 +18,13 @@
 #include <string.h>
 #include "mex.h"
 #include "emlrt.h"
+#include "covrt.h"
 #include "rtwtypes.h"
-#include "omp.h"
 #include "reflectivity_calculation_types.h"
 
 /* Function Declarations */
 void allocateLayersForContrast(const emlrtStack *sp, const emxArray_real_T
-  *contrastLayers, const emxArray_cell_wrap_17 *outParameterisedLayers,
+  *contrastLayers, const emxArray_cell_wrap_16 *outParameterisedLayers,
   emxArray_real_T *thisContrastLayers);
 
 /* End of code generation (allocateLayersForContrast.h) */

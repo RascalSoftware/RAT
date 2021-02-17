@@ -10,7 +10,6 @@ outLayers = cell(1,numberOfLayers);
 
 for i = 1:numberOfLayers
     thisLayer = layersDetails{i};
-    n = 1;
     for n = 1:(length(thisLayer)-1)
         thisVal = thisLayer(n);
         if ~isnan(thisVal)
@@ -19,7 +18,7 @@ for i = 1:numberOfLayers
             thisOutLayer(n) = NaN;
         end
     end
-    thisOutLayer(n+1) = thisLayer(end);
+    thisOutLayer(length(thisLayer)) = thisLayer(end);
     outLayers{i} = thisOutLayer;
 end
 

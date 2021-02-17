@@ -1,0 +1,12 @@
+MEX {
+	global:
+		mexFunction;
+		mexfilerequiredapiversion;
+		emlrtMexFcnProperties;
+		simpleCppCallfun_initialize;
+		simpleCppCallfun_terminate;
+		simpleCppCallfun_atexit;
+		simpleCppCallfun;
+	local:
+		*;
+};

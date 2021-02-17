@@ -53,12 +53,9 @@ repeats = repeatLayers(2);
 switch type
     case 'points'
         simRef = abeles_paraPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
-        simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
+        simRef = resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata));
     
     otherwise
-        %simRef = abeles_single(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
-        %function out = paratt(x,sld,nbair,nbsub,nrepeats,rfinal,layers,points)
-
         simRef = abeles_single(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
         simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
 end
@@ -67,9 +64,7 @@ firstSection = splits(1);
 middleSection = splits(2);
 Ref = simRef;
 Ref = Ref((firstSection+1):(firstSection+middleSection));
-%Ref = Ref + backgrounds;
 reflectivity = [trueXdata(:) Ref(:)];
-%simRef = simRef + backgrounds;
 Simulation = [simXdata' simRef];
 
 

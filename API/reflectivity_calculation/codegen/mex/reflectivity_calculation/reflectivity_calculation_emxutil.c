@@ -12,6 +12,7 @@
 /* Include files */
 #include "reflectivity_calculation_emxutil.h"
 #include "reflectivity_calculation.h"
+#include "reflectivity_calculation_data.h"
 #include "rt_nonfinite.h"
 #include <string.h>
 
@@ -24,8 +25,8 @@ static void emxExpand_cell_wrap_1(const emlrtStack *sp, emxArray_cell_wrap_1
   *emxArray, int32_T fromIndex, int32_T toIndex, const emlrtRTEInfo *srcLocation);
 static void emxExpand_cell_wrap_10(const emlrtStack *sp, emxArray_cell_wrap_10
   *emxArray, int32_T fromIndex, int32_T toIndex, const emlrtRTEInfo *srcLocation);
-static void emxExpand_cell_wrap_111(const emlrtStack *sp, emxArray_cell_wrap_11 *
-  emxArray, int32_T fromIndex, int32_T toIndex, const emlrtRTEInfo *srcLocation);
+static void emxExpand_cell_wrap_11(const emlrtStack *sp, emxArray_cell_wrap_11
+  *emxArray, int32_T fromIndex, int32_T toIndex, const emlrtRTEInfo *srcLocation);
 static void emxExpand_cell_wrap_14(const emlrtStack *sp, emxArray_cell_wrap_14
   *emxArray, int32_T fromIndex, int32_T toIndex, const emlrtRTEInfo *srcLocation);
 static void emxExpand_cell_wrap_15(const emlrtStack *sp, emxArray_cell_wrap_15
@@ -169,8 +170,8 @@ static void emxExpand_cell_wrap_10(const emlrtStack *sp, emxArray_cell_wrap_10
   }
 }
 
-static void emxExpand_cell_wrap_111(const emlrtStack *sp, emxArray_cell_wrap_11 *
-  emxArray, int32_T fromIndex, int32_T toIndex, const emlrtRTEInfo *srcLocation)
+static void emxExpand_cell_wrap_11(const emlrtStack *sp, emxArray_cell_wrap_11
+  *emxArray, int32_T fromIndex, int32_T toIndex, const emlrtRTEInfo *srcLocation)
 {
   int32_T i;
   for (i = fromIndex; i < toIndex; i++) {
@@ -780,8 +781,8 @@ void emxEnsureCapacity_cell_wrap_10(const emlrtStack *sp, emxArray_cell_wrap_10 
   }
 }
 
-void emxEnsureCapacity_cell_wrap_111(const emlrtStack *sp, emxArray_cell_wrap_11
-  *emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation)
+void emxEnsureCapacity_cell_wrap_11(const emlrtStack *sp, emxArray_cell_wrap_11 *
+  emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation)
 {
   int32_T newNumel;
   int32_T i;
@@ -831,7 +832,7 @@ void emxEnsureCapacity_cell_wrap_111(const emlrtStack *sp, emxArray_cell_wrap_11
     emxTrim_cell_wrap_11(emxArray, newNumel, oldNumel);
   } else {
     if (oldNumel < newNumel) {
-      emxExpand_cell_wrap_111(sp, emxArray, oldNumel, newNumel, srcLocation);
+      emxExpand_cell_wrap_11(sp, emxArray, oldNumel, newNumel, srcLocation);
     }
   }
 }
@@ -948,7 +949,7 @@ void emxEnsureCapacity_cell_wrap_15(const emlrtStack *sp, emxArray_cell_wrap_15 
   }
 }
 
-void emxEnsureCapacity_cell_wrap_17(const emlrtStack *sp, emxArray_cell_wrap_17 *
+void emxEnsureCapacity_cell_wrap_16(const emlrtStack *sp, emxArray_cell_wrap_16 *
   emxArray, int32_T oldNumel, const emlrtRTEInfo *srcLocation)
 {
   int32_T newNumel;
@@ -978,19 +979,19 @@ void emxEnsureCapacity_cell_wrap_17(const emlrtStack *sp, emxArray_cell_wrap_17 
       }
     }
 
-    newData = emlrtCallocMex((uint32_T)i, sizeof(cell_wrap_17));
+    newData = emlrtCallocMex((uint32_T)i, sizeof(cell_wrap_16));
     if (newData == NULL) {
       emlrtHeapAllocationErrorR2012b(srcLocation, sp);
     }
 
     if (emxArray->data != NULL) {
-      memcpy(newData, emxArray->data, sizeof(cell_wrap_17) * oldNumel);
+      memcpy(newData, emxArray->data, sizeof(cell_wrap_16) * oldNumel);
       if (emxArray->canFreeData) {
         emlrtFreeMex(emxArray->data);
       }
     }
 
-    emxArray->data = (cell_wrap_17 *)newData;
+    emxArray->data = (cell_wrap_16 *)newData;
     emxArray->allocatedSize = i;
     emxArray->canFreeData = true;
   }
@@ -1633,6 +1634,11 @@ void emxFreeStruct_cell_13(cell_13 *pStruct)
   emxFree_cell_wrap_4(&pStruct->f13);
 }
 
+void emxFreeStruct_cell_18(cell_18 *pStruct)
+{
+  emxFree_real_T(&pStruct->f1);
+}
+
 void emxFreeStruct_cell_5(cell_5 *pStruct)
 {
   emxFree_cell_wrap_0(&pStruct->f1);
@@ -1881,17 +1887,17 @@ void emxFree_cell_wrap_15(emxArray_cell_wrap_15 **pEmxArray)
   }
 }
 
-void emxFree_cell_wrap_17(emxArray_cell_wrap_17 **pEmxArray)
+void emxFree_cell_wrap_16(emxArray_cell_wrap_16 **pEmxArray)
 {
-  if (*pEmxArray != (emxArray_cell_wrap_17 *)NULL) {
-    if (((*pEmxArray)->data != (cell_wrap_17 *)NULL) && (*pEmxArray)
+  if (*pEmxArray != (emxArray_cell_wrap_16 *)NULL) {
+    if (((*pEmxArray)->data != (cell_wrap_16 *)NULL) && (*pEmxArray)
         ->canFreeData) {
       emlrtFreeMex((*pEmxArray)->data);
     }
 
     emlrtFreeMex((*pEmxArray)->size);
     emlrtFreeMex(*pEmxArray);
-    *pEmxArray = (emxArray_cell_wrap_17 *)NULL;
+    *pEmxArray = (emxArray_cell_wrap_16 *)NULL;
   }
 }
 
@@ -2107,6 +2113,12 @@ void emxInitStruct_cell_13(const emlrtStack *sp, cell_13 *pStruct, const
   emxInit_cell_wrap_4(sp, &pStruct->f11, 2, srcLocation, doPush);
   emxInit_cell_wrap_4(sp, &pStruct->f12, 2, srcLocation, doPush);
   emxInit_cell_wrap_4(sp, &pStruct->f13, 2, srcLocation, doPush);
+}
+
+void emxInitStruct_cell_18(const emlrtStack *sp, cell_18 *pStruct, const
+  emlrtRTEInfo *srcLocation, boolean_T doPush)
+{
+  emxInit_real_T(sp, &pStruct->f1, 2, srcLocation, doPush);
 }
 
 void emxInitStruct_cell_5(const emlrtStack *sp, cell_5 *pStruct, const
@@ -2425,25 +2437,25 @@ void emxInit_cell_wrap_15(const emlrtStack *sp, emxArray_cell_wrap_15
   }
 }
 
-void emxInit_cell_wrap_17(const emlrtStack *sp, emxArray_cell_wrap_17
+void emxInit_cell_wrap_16(const emlrtStack *sp, emxArray_cell_wrap_16
   **pEmxArray, int32_T numDimensions, const emlrtRTEInfo *srcLocation, boolean_T
   doPush)
 {
-  emxArray_cell_wrap_17 *emxArray;
+  emxArray_cell_wrap_16 *emxArray;
   int32_T i;
-  *pEmxArray = (emxArray_cell_wrap_17 *)emlrtMallocMex(sizeof
-    (emxArray_cell_wrap_17));
+  *pEmxArray = (emxArray_cell_wrap_16 *)emlrtMallocMex(sizeof
+    (emxArray_cell_wrap_16));
   if ((void *)*pEmxArray == NULL) {
     emlrtHeapAllocationErrorR2012b(srcLocation, sp);
   }
 
   if (doPush) {
     emlrtPushHeapReferenceStackR2012b(sp, (void *)pEmxArray, (void *)
-      &emxFree_cell_wrap_17);
+      &emxFree_cell_wrap_16);
   }
 
   emxArray = *pEmxArray;
-  emxArray->data = (cell_wrap_17 *)NULL;
+  emxArray->data = (cell_wrap_16 *)NULL;
   emxArray->numDimensions = numDimensions;
   emxArray->size = (int32_T *)emlrtMallocMex(sizeof(int32_T) * numDimensions);
   if ((void *)emxArray->size == NULL) {

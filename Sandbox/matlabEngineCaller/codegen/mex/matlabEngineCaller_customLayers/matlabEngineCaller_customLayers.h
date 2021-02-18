@@ -23,8 +23,9 @@
 #include "matlabEngineCaller_customLayers_types.h"
 
 /* Function Declarations */
-void matlabEngineCaller_customLayers(const emlrtStack *sp, const real_T params[4],
-  real_T contrast, const char_T funcName[9], const char_T funcPath[41], real_T
-  bulkIn, real_T bulkOut, emxArray_real_T *output, real_T *sRough);
+void matlabEngineCaller_customLayers(const emlrtStack *sp, const emxArray_real_T
+  *params, real_T contrast, const emxArray_char_T *funcName, const
+  emxArray_char_T *funcPath, real_T bulkIn, real_T bulkOut, emxArray_real_T
+  *output, real_T *sRough);
 
 /* End of code generation (matlabEngineCaller_customLayers.h) */

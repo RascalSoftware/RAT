@@ -23,9 +23,15 @@
 #include "matlabEngineCaller_customLayers_types.h"
 
 /* Function Declarations */
+void emxEnsureCapacity_char_T(const emlrtStack *sp, emxArray_char_T *emxArray,
+  int32_T oldNumel, const emlrtRTEInfo *srcLocation);
 void emxEnsureCapacity_real_T(const emlrtStack *sp, emxArray_real_T *emxArray,
   int32_T oldNumel, const emlrtRTEInfo *srcLocation);
+void emxFree_char_T(emxArray_char_T **pEmxArray);
 void emxFree_real_T(emxArray_real_T **pEmxArray);
+void emxInit_char_T(const emlrtStack *sp, emxArray_char_T **pEmxArray, int32_T
+                    numDimensions, const emlrtRTEInfo *srcLocation, boolean_T
+                    doPush);
 void emxInit_real_T(const emlrtStack *sp, emxArray_real_T **pEmxArray, int32_T
                     numDimensions, const emlrtRTEInfo *srcLocation, boolean_T
                     doPush);

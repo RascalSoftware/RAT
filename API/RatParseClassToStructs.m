@@ -1,8 +1,62 @@
 function [problemDef,problemDef_cells,problemDef_limits,controls] = RatParseClassToStructs(inputProblemDef,inputControls)
 
-%Breaks up the classes into the relevant structures for inputting into C
-%For now, makes the 'old API' versions which are a copy of the original
-%structs. This will change.
+% Breaks up the classes into the relevant structures for inputting into C
+
+% Put the extracted fields into a cell array...
+% Structure of problemDef_cells array.
+%
+% {1} - inputProblemDef.contrastRepeatSLDs
+%       {1 x nContrasts} array of cells
+%       Each cell is {1 x 2 double}.
+%
+% {2} - inputProblemDef.allData
+%       {1 x nContrasts} array of cells
+%       Each cell is {Inf x 3 double}
+%
+% {3} - inputProblemDef.dataLimits
+%       {1 x nContrasts} array of cells
+%       Each cell is {1 x 2 double}
+%
+% {4} - inputProblemDef.simLimits
+%       {1 x nContrasts} array of cells
+%       Each cell is {1 x 2 double}
+%
+% {5} - inputProblemDef.contrastLayers
+%       {1 x nContrasts} array of cells
+%       Each cell is {1 x Inf double}
+%
+% {6} - inputProblemDef.layersDetails
+%       {n x 1} array of cells
+%       Each cell is (1 x 5 double}
+%
+% {7} - inputProblemDef.paramNames
+%       {1 x nParams} array of cells
+%       Each cell is {1 x Inf char}
+%
+% {8} - inputProblemDef.backgroundsNames
+%       {1 x nBackgrounds} array of cells
+%       Each cell is {1 x Inf char}
+% 
+% {9} - inputProblemDef.scalefactorNames
+%       {1 x nScales} array of cells
+%       Each cell is {1 x Inf char}
+% 
+% {10}- inputProblemDef.qzshiftNames
+%       {1 x nShifts} array of cells
+%       Each cell is {1 x Inf char}
+% 
+% {11}- inputProblemDef.nbairNames
+%       {1 x nNba} array of cells
+%       Each cell is {1 x Inf char}
+% 
+% {12}- inputProblemDef.nbsrNames
+%       {1 x nNba} array of cells
+%       Each cell is {1 x Inf char}
+% 
+% {13}- inputProblemDef.resolNames
+%       {1 x nNba} array of cells
+%       Each cell is {1 x Inf char}
+ 
 
 %Start by removing the cell arrays
 repeatLayers = inputProblemDef.contrastRepeatSLDs;
@@ -19,8 +73,7 @@ nbaNames = inputProblemDef.nbairNames;
 nbsNames = inputProblemDef.nbsubNames;
 resolNames = inputProblemDef.resolutionNames;
 
-%***** Old API cells structure******
-%Put the extracted fields into a cell array...
+% Pull out all the cell arrays into one array
 problemDef_cells{1} = repeatLayers;
 problemDef_cells{2} = allData;
 problemDef_cells{3} = dataLimits;
@@ -33,7 +86,6 @@ if strcmpi(inputProblemDef.modelType,'custom layers') || strcmpi(inputProblemDef
         problemDef_cells{5}{i} = 0;
     end
 end
-
 
 problemDef_cells{6} = layersDetails;
 problemDef_cells{7} = paramNames;

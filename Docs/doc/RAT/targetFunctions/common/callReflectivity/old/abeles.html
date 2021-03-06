@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of abeles</title>
+  <meta name="keywords" content="abeles">
+  <meta name="description" content="nbair = nbairs(thisCont);">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../../menu.html common --><!-- ../menu.html callReflectivity --><!-- menu.html old -->
+<h1>abeles
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="box"><strong>nbair = nbairs(thisCont);</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="box"><strong>function out = abeles(x,sld,nbair,nbsub,nrepeats,ssub,layers,points) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> nbair = nbairs(thisCont);
+ nbsub = nbsubs(thisCont);
+ ssub = ssubs(thisCont);
+ nrepeats = nrepeatss(thisCont);
+ resol = resols(thisCont);</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../../matlabicon.gif)">
+<li><a href="../../../../../RAT/targetFunctions/common/reflectivityCalculations/Abeles/old/testAbeles.html" class="code" title="function testAbeles">testAbeles</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/reflectivityCalculations/Abeles/old/testAbeles.html" class="code" title="function testAbeles">testAbeles</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/reflectivityCalculations/Abeles/old/testAbeles.html" class="code" title="function testAbeles">testAbeles</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = abeles(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)</a>
+0002 
+0003     
+0004 <span class="comment">% nbair = nbairs(thisCont);</span>
+0005 <span class="comment">% nbsub = nbsubs(thisCont);</span>
+0006 <span class="comment">% ssub = ssubs(thisCont);</span>
+0007 <span class="comment">% nrepeats = nrepeatss(thisCont);</span>
+0008 <span class="comment">% resol = resols(thisCont);</span>
+0009 out = zeros(points,1);
+0010 
+0011 
+0012 c0 = complex(0,0);
+0013 c1 = complex(1,0);
+0014 ci = complex(0,1);
+0015 plast = complex(0);
+0016 blast = complex(0);
+0017 
+0018 M = [c0 c0; c0 c0];
+0019 
+0020 lam = 1.54;
+0021 rfac = ((4*pi)*(4*pi))/2;
+0022 twopi = 2*pi;
+0023 snair = (1.0 - (nbair*((lam*lam) / twopi)));
+0024 snsub = (1.0 - (nbsub*((lam*lam) / twopi)));
+0025 
+0026 <span class="keyword">for</span> loop = 1:points
+0027     q = x(loop);
+0028     
+0029     N = [c0 c0; c0 c0];
+0030     MI = [c0 c0; c0 c0];
+0031     
+0032     theta = asin(q*lam / (4*pi));
+0033     preal = ((snsub)*(snsub)) - ((snair)*(snair))*(cos(theta)^2);
+0034     psub = sqrt(preal*c1);
+0035     pair = snair*sin(theta)*c1;
+0036     plast = pair;
+0037     blast = 0.0;
+0038     rlast = sld(1,3);
+0039     MI(1,1) = c1;
+0040     MI(2,2) = c1;
+0041     MI(1,2) = c0;
+0042     MI(2,1) = c0;
+0043     <span class="keyword">for</span> reploop = 1:nrepeats
+0044         <span class="keyword">for</span> nl = 1:layers
+0045             thick = sld(nl,1);
+0046             rho = sld(nl,2);
+0047             rough = sld(nl,3);
+0048             snlay = (1 - (rho*((lam*lam) / twopi)));
+0049             preal = (snlay*snlay) - (snair*snair) *cos(theta)^2;
+0050             pimag = sqrt(preal*c1);
+0051             beta = (twopi / lam)*thick*pimag;
+0052             rij = complex(plast - pimag) / complex(plast + pimag);
+0053             rij = rij * exp(-rfac*plast*pimag*(rough*rough)/(lam*lam));
+0054             N(1 , 1) = exp(blast*ci);
+0055             N(2 , 1) = rij * exp( - blast*ci);
+0056             N(2 , 2) = exp( - blast*ci);
+0057             N(1 , 2) = rij * exp(blast*ci);
+0058             plast = pimag;
+0059             blast = beta;
+0060             rlast = rough;
+0061             M = MI;
+0062             MI = M * N;
+0063         <span class="keyword">end</span>
+0064     <span class="keyword">end</span>
+0065     rij = (complex(plast - psub)) / (complex(plast + psub));
+0066     rij = rij * exp(-rfac*plast*psub*(ssub*ssub)/(lam*lam));
+0067     N(1,1) = exp(blast*ci);
+0068     N(2,1) = rij*exp( - blast*ci);
+0069     N(2,2) = exp( - blast*ci);
+0070     N(1,2) = rij*exp(blast*ci);
+0071     M = MI;
+0072     MI = M * N;
+0073     num = MI(2 , 1)*conj(MI(2 , 1));
+0074     den = MI(1 , 1)*conj(MI(1 , 1));
+0075     quo = num/den;
+0076     out(loop) = abs(quo);
+0077 <span class="keyword">end</span>
+0078 
+0079 <span class="keyword">return</span>
+0080 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

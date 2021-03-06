@@ -1,0 +1,12 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  mainCallModules -> legacyChanges;
+  mainCallModules -> legacyChanges;
+  mainCallModules -> legacyChanges;
+  mainCallModules -> legacyChanges;
+
+  legacyChanges [URL="legacyChanges.html"];
+  legacyChanges [URL="legacyChanges.html"];
+  mainCallModules [URL="mainCallModules.html"];
+  mainCallModules [URL="mainCallModules.html"];
+}

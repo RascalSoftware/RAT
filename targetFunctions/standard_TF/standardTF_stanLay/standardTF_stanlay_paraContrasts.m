@@ -8,6 +8,7 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
 
          
 % Allocate the memory for the output arrays before the main loop
+%   --- Begin memory allocation ---
 backgs = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
 sfs = zeros(numberOfContrasts,1);
@@ -35,7 +36,7 @@ allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
-% end memory allocation.
+%   --- End memory allocation ---
 
 
 % First we need to allocate the absolute values of the input
@@ -70,13 +71,12 @@ parfor i = 1:numberOfContrasts
     thisBacksType = backsType(i);
     
     % Now call the core standardTF_stanlay reflectivity calculation
-    % In this case we are multi over
-    % points
+    % In this case we are single cored  over points.
     paralellPoints = 'single';
     
     % Call the calculation
-    [sldProfile,reflect,Simul,shifted_dat,layerSld,thisChiSquared,thisSsubs] = ...
-    standardTF_stanlay_core(thisContrastLayers, thisRough, ...
+    [sldProfile,reflect,Simul,shifted_dat,layerSld,...
+        thisChiSquared,thisSsubs] = standardTF_layers_core(thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,paralellPoints);

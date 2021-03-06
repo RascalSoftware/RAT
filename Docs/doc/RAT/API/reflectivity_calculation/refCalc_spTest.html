@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of refCalc_spTest</title>
+  <meta name="keywords" content="refCalc_spTest">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- ../menu.html API --><!-- menu.html reflectivity_calculation -->
+<h1>refCalc_spTest
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function refCalc_spTest() </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../RAT/API/problemDef_class/problemDef.html" class="code" title="">problemDef</a>	</li><li><a href="reflectivity_calculation.html" class="code" title="function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivity_calculation</a>	Preallocatin of outputs</li><li><a href="reflectivity_calculation.html" class="code" title="function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivity_calculation</a>	Preallocatin of outputs</li><li><a href="../../../RAT/API/reflectivity_calculation_compile/reflectivity_calculation.html" class="code" title="function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivity_calculation</a>	global RAT_DEBUG DEBUGVARS</li><li><a href="../../../RAT/targetFunctions/standard_TF/old/%standardTF_custlay_parallel/reflectivity_calculation.html" class="code" title="function problem = reflectivity_calculation(problem)">reflectivity_calculation</a>	</li><li><a href="../../../RAT/targetFunctions/standard_TF/standardTF_custLay/old/reflectivity_calculation.html" class="code" title="function problem = reflectivity_calculation(problem)">reflectivity_calculation</a>	</li><li><a href="../../../RAT/targetFunctions/standard_TF/standardTF_custLay/old/reflectivity_calculation.html" class="code" title="function problem = reflectivity_calculation(problem)">reflectivity_calculation</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [problemDef,problemDef_cells] = reduceNContrasts(problemDef,problemDef_cells,contrasts);</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function refCalc_spTest()</a>
+0002 <span class="keyword">global</span> RAT_DEBUG DEBUGVARS
+0003 
+0004 RAT_DEBUG = 0;
+0005 DEBUGVARS = 0;
+0006 
+0007 
+0008 <span class="comment">%callParams = load('callParams.mat');</span>
+0009 
+0010 callParams = load(<span class="string">'newInputs_AL.mat'</span>);
+0011 callParams = callParams.newInputs;
+0012 
+0013 <a href="../../../RAT/API/problemDef_class/problemDef.html" class="code" title="">problemDef</a> = callParams.problemDef;
+0014 problemDef_cells = callParams.problemDef_cells;
+0015 problemDef_limits = callParams.problemDef_limits;
+0016 controls = callParams.controls;
+0017 
+0018 N = 3;
+0019 tot = 200;
+0020 
+0021 controls.Para = <span class="string">'multi'</span>;
+0022 <span class="keyword">for</span> contrasts = 1:7
+0023     [newProblemDef,newProblemDef_cells] = <a href="#_sub1" class="code" title="subfunction [problemDef,problemDef_cells] = reduceNContrasts(problemDef,problemDef_cells,contrasts);">reduceNContrasts</a>(<a href="../../../RAT/API/problemDef_class/problemDef.html" class="code" title="">problemDef</a>,problemDef_cells,N);
+0024     tic
+0025     <span class="keyword">for</span> l = 1:tot
+0026         [problem,result] = <a href="reflectivity_calculation.html" class="code" title="function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivity_calculation</a>(newProblemDef,newProblemDef_cells,problemDef_limits,controls);
+0027     <span class="keyword">end</span>
+0028     sTime(contrasts) = toc;
+0029 <span class="keyword">end</span>
+0030 
+0031 controls.Para = <span class="string">'multi'</span>;
+0032 <span class="keyword">for</span> contrasts = 1:7
+0033     [newProblemDef,newProblemDef_cells] = <a href="#_sub1" class="code" title="subfunction [problemDef,problemDef_cells] = reduceNContrasts(problemDef,problemDef_cells,contrasts);">reduceNContrasts</a>(<a href="../../../RAT/API/problemDef_class/problemDef.html" class="code" title="">problemDef</a>,problemDef_cells,N);
+0034     tic
+0035     <span class="keyword">for</span> l = 1:tot
+0036         [problem,result] = <a href="reflectivity_calculation.html" class="code" title="function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivity_calculation</a>(newProblemDef,newProblemDef_cells,problemDef_limits,controls);
+0037     <span class="keyword">end</span>
+0038     mTime(contrasts) = toc;
+0039 <span class="keyword">end</span>
+0040 
+0041 figure(1); clf; hold on
+0042 x = 1:7;
+0043 plot(x,sTime,<span class="string">'bo'</span>);
+0044 plot(x,mTime,<span class="string">'ro'</span>);
+0045 
+0046 disp(<span class="string">'debug'</span>);
+0047 
+0048 <span class="keyword">end</span>
+0049 
+0050 
+0051 
+0052 
+0053 <a name="_sub1" href="#_subfunctions" class="code">function [problemDef,problemDef_cells] = reduceNContrasts(problemDef,problemDef_cells,contrasts);</a>
+0054 
+0055 problemDef.numberOfContrasts = contrasts;
+0056 
+0057 problemDef.resample = problemDef.resample(1:contrasts);
+0058 problemDef.dataPresent = problemDef.dataPresent(1:contrasts);
+0059 problemDef.contrastBacks = problemDef.contrastBacks(1:contrasts);
+0060 problemDef.contrastShifts = problemDef.contrastShifts(1:contrasts);
+0061 problemDef.contrastScales = problemDef.contrastScales(1:contrasts);
+0062 problemDef.contrastNbas = problemDef.contrastNbas(1:contrasts);
+0063 problemDef.contrastNbss = problemDef.contrastNbss(1:contrasts);
+0064 problemDef.contrastRes = problemDef.contrastRes(1:contrasts);
+0065 
+0066 <span class="keyword">for</span> n = 1:5
+0067     a = problemDef_cells{n};
+0068     a = a(1:contrasts);
+0069     problemDef_cells{n} = a;
+0070 <span class="keyword">end</span>
+0071 
+0072 
+0073 
+0074 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

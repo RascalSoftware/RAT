@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of reflectivity_calculation</title>
+  <meta name="keywords" content="reflectivity_calculation">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../../menu.html standard_TF --><!-- # old --><!-- menu.html %standardTF_custlay_parallel -->
+<h1>reflectivity_calculation
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="box"><strong>function problem = reflectivity_calculation(problem) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../../matlabicon.gif)">
+<li><a href="../../../../../RAT/API/reflectivity_calculation/refCalc_callFun.html" class="code" title="">refCalc_callFun</a>	</li><li><a href="../../../../../RAT/API/reflectivity_calculation/refCalc_callFun.html" class="code" title="">refCalc_callFun</a>	</li><li><a href="../../../../../RAT/API/reflectivity_calculation/refCalc_spTest.html" class="code" title="function refCalc_spTest()">refCalc_spTest</a>	</li><li><a href="../../../../../RAT/API/reflectivity_calculation/refCalc_spTest.html" class="code" title="function refCalc_spTest()">refCalc_spTest</a>	</li><li><a href="../../../../../RAT/API/reflectivity_calculation/reflectivity_calculation_wrapper.html" class="code" title="function [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivity_calculation_wrapper</a>	This is just a wrapper function for choosing between</li><li><a href="../../../../../RAT/API/reflectivity_calculation/reflectivity_calculation_wrapper.html" class="code" title="function [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivity_calculation_wrapper</a>	This is just a wrapper function for choosing between</li><li><a href="../../../../../RAT/API/reflectivity_calculation_compile/refCalc_callFun.html" class="code" title="">refCalc_callFun</a>	global RAT_DEBUG DEBUGVARS</li><li><a href="main.html" class="code" title="">main</a>	</li><li><a href="../../../../../RAT/targetFunctions/standard_TF/old/%standardTF_stanLay_parallel/benchMain.html" class="code" title="">benchMain</a>	</li><li><a href="../../../../../RAT/targetFunctions/standard_TF/old/%standardTF_stanLay_parallel/main.html" class="code" title="">main</a>	</li><li><a href="../../../../../RAT/targetFunctions/standard_TF/standardTF_custLay/old/main.html" class="code" title="">main</a>	</li><li><a href="../../../../../RAT/targetFunctions/standard_TF/standardTF_custLay/old/main.html" class="code" title="">main</a>	</li><li><a href="../../../../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/benchMain.html" class="code" title="">benchMain</a>	</li><li><a href="../../../../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/benchMain.html" class="code" title="">benchMain</a>	</li><li><a href="../../../../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/benchMain.html" class="code" title="">benchMain</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function problem = reflectivity_calculation(problem)</a>
+0002 
+0003 resam = problem.resample;
+0004 numberOfContrasts = problem.numberOfContrasts;
+0005 geometry = problem.module.experiment_type;
+0006 nbairs = problem.nbairs;
+0007 nbsubs = problem.nbsubs;
+0008 repeats = problem.repeatLayers;
+0009 cBacks = problem.contrastBacks;
+0010 cShifts = problem.contrastShifts;
+0011 cScales = problem.contrastScales;
+0012 cNbas = problem.contrastNbas;
+0013 cNbss = problem.contrastNbss;
+0014 cRes = problem.contrastResolutions;
+0015 backs = problem.backs;
+0016 shifts = problem.shifts_horisontal;
+0017 sf = problem.scalefac;
+0018 nba = problem.nba;
+0019 nbs = problem.nbs;
+0020 res = problem.resolution;
+0021 dataPresent = problem.dataPresent;
+0022 allData = problem.data;
+0023 dataLimits = problem.dataLimits;
+0024 simLimits = problem.simLimits;
+0025 repeatLayers = problem.repeatLayers;
+0026 nParams = length(problem.params);
+0027 params = problem.params;
+0028 contrastLayers = problem.contrastLayers;
+0029 numberOfLayers = problem.numberOfLayers;
+0030 layersDetails = problem.layersDetails;
+0031 whichType = problem.module.type;
+0032 fileHandle = problem.module.fileHandle;
+0033 path = char(pwd);<span class="comment">%problem.module.path;</span>
+0034 
+0035 
+0036 [outSsubs,<span class="keyword">...</span>
+0037 backgs,<span class="keyword">...</span>
+0038 qshifts,<span class="keyword">...</span>
+0039 sfs,<span class="keyword">...</span>
+0040 nbas,<span class="keyword">...</span>
+0041 nbss,<span class="keyword">...</span>
+0042 resols,<span class="keyword">...</span>
+0043 chis,<span class="keyword">...</span>
+0044 reflectivity,<span class="keyword">...</span>
+0045 Simulation,<span class="keyword">...</span>
+0046 shifted_data,<span class="keyword">...</span>
+0047 layerSlds,<span class="keyword">...</span>
+0048 sldProfiles,<span class="keyword">...</span>
+0049 allLayers,<span class="keyword">...</span>
+0050 allRoughs] = standardTF_custlay_parallel_mex(resam, <span class="keyword">...</span>
+0051                 numberOfContrasts, <span class="keyword">...</span>
+0052                 geometry, <span class="keyword">...</span>
+0053                 nbairs , <span class="keyword">...</span>
+0054                 nbsubs , <span class="keyword">...</span>
+0055                 repeats , <span class="keyword">...</span>
+0056                 cBacks , <span class="keyword">...</span>
+0057                 cShifts , <span class="keyword">...</span>
+0058                 cScales , <span class="keyword">...</span>
+0059                 cNbas , <span class="keyword">...</span>
+0060                 cNbss, <span class="keyword">...</span>
+0061                 cRes , <span class="keyword">...</span>
+0062                 backs , <span class="keyword">...</span>
+0063                 shifts , <span class="keyword">...</span>
+0064                 sf, <span class="keyword">...</span>
+0065                 nba , <span class="keyword">...</span>
+0066                 nbs , <span class="keyword">...</span>
+0067                 res , <span class="keyword">...</span>
+0068                 dataPresent , <span class="keyword">...</span>
+0069                 allData , <span class="keyword">...</span>
+0070                 dataLimits , <span class="keyword">...</span>
+0071                 simLimits , <span class="keyword">...</span>
+0072                 repeatLayers , <span class="keyword">...</span>
+0073                 nParams , <span class="keyword">...</span>
+0074                 params , <span class="keyword">...</span>
+0075                 contrastLayers , <span class="keyword">...</span>
+0076                 numberOfLayers , <span class="keyword">...</span>
+0077                 layersDetails , <span class="keyword">...</span>
+0078                 whichType , <span class="keyword">...</span>
+0079                 fileHandle , <span class="keyword">...</span>
+0080                 path);
+0081 
+0082 
+0083 
+0084 
+0085 
+0086 
+0087 
+0088 
+0089 
+0090 
+0091 problem.ssubs = outSsubs;
+0092 problem.backgrounds = backgs;
+0093 problem.qshifts = qshifts;
+0094 problem.scalefactors = sfs;
+0095 problem.nbairs = nbas;
+0096 problem.nbsubs = nbss;
+0097 problem.resolutions = resols;
+0098 problem.calculations.all_chis = chis;
+0099 problem.calculations.sum_chi = sum(chis);
+0100 problem.calculations.reflectivity = reflectivity;
+0101 problem.calculations.Simulation = Simulation;
+0102 problem.shifted_data = shifted_data;
+0103 problem.layers = layerSlds;
+0104 problem.calculations.slds = sldProfiles;
+0105 problem.allLayers = allLayers;
+0106 problem.allSubrough = allRoughs;
+0107 
+0108 <span class="keyword">end</span>
+0109</pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

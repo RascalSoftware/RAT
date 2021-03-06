@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of abeles_single</title>
+  <meta name="keywords" content="abeles_single">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../../../menu.html common --><!-- # reflectivityCalculations --><!-- ../menu.html Abeles --><!-- menu.html old -->
+<h1>abeles_single
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../../../up.png"></a></h2>
+<div class="box"><strong>function out = abeles(x,sld,nbair,nbsub,nrepeats,ssub,layers,points) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../../../matlabicon.gif)">
+<li><a href="../../../../../../RAT/targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>	nbairs = problem.nbairs;</li><li><a href="../../../../../../RAT/targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>	nbairs = problem.nbairs;</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = abeles(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)</a>
+0002     
+0003 out = zeros(points,1);
+0004 
+0005 lam = 1.54;
+0006 rfac = ((4*pi)^2)/2;
+0007 twopi = 2*pi;
+0008 snair = (1.0 - (nbair*((lam^2) / twopi)));
+0009 snsub = (1.0 - (nbsub*((lam^2) / twopi)));
+0010 <span class="keyword">for</span> loop = 1:points
+0011     q = x(loop);
+0012     
+0013     c0 = complex(0,0);
+0014     c1 = complex(1,0);
+0015     ci = complex(0,1);
+0016     
+0017     N = [c0 c0; c0 c0];
+0018     MI = [c1 c0; c0 c1];
+0019     
+0020     theta = asin(q*lam / (4*pi));
+0021     preal = ((snsub)^2) - ((snair)^2)*(cos(theta)^2);
+0022     psub = sqrt(preal*c1);
+0023     pair = snair*sin(theta)*c1;
+0024     plast = pair;
+0025     blast = complex(0,0);
+0026     <span class="keyword">for</span> reploop = 1:nrepeats
+0027         <span class="keyword">for</span> nl = 1:layers
+0028             thick = sld(nl,1);
+0029             rho = sld(nl,2);
+0030             rough = sld(nl,3);
+0031             snlay = (1 - (rho*((lam^2) / twopi)));
+0032             preal = (snlay^2) - (snair^2) *cos(theta)^2;
+0033             pimag = sqrt(preal*c1);
+0034             beta = (twopi / lam)*thick*pimag;
+0035             rij = complex(plast - pimag) / complex(plast + pimag);
+0036             rij = rij * exp(-rfac*plast*pimag*(rough*rough)/(lam*lam));
+0037             N(1 , 1) = exp(blast*ci);
+0038             N(2 , 1) = rij * exp( - blast*ci);
+0039             N(2 , 2) = exp( - blast*ci);
+0040             N(1 , 2) = rij * exp(blast*ci);
+0041             plast = pimag;
+0042             blast = beta;
+0043             M = MI;
+0044             MI = M * N;
+0045         <span class="keyword">end</span>
+0046     <span class="keyword">end</span>
+0047     rij = (complex(plast - psub)) / (complex(plast + psub));
+0048     rij = rij * exp(-rfac*plast*psub*(ssub^2)/(lam^2));
+0049     N(1,1) = exp(blast*ci);
+0050     N(2,1) = rij*exp(-blast*ci);
+0051     N(2,2) = exp(-blast*ci);
+0052     N(1,2) = rij*exp(blast*ci);
+0053     M = MI;
+0054     MI = M * N;
+0055     num = MI(2,1)*conj(MI(2,1));
+0056     den = MI(1,1)*conj(MI(1,1));
+0057     R = num/den;
+0058     out(loop) = real(R^2);    
+0059 <span class="keyword">end</span>
+0060 
+0061 <span class="keyword">return</span>
+0062 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

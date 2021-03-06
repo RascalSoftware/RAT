@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of mlMain</title>
+  <meta name="keywords" content="mlMain">
+  <meta name="description" content="function mlMain">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../../menu.html common --><!-- ../menu.html matlabEngineCaller_customLayers --><!-- menu.html old -->
+<h1>mlMain
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="box"><strong>function mlMain</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">function mlMain</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../../matlabicon.gif)">
+<li><a href="../../../../../RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.html" class="code" title="function [output,sRough] = matlabEngineCaller_customLayers(params,contrast,funcName,funcPath,bulkIn,bulkOut)">matlabEngineCaller_customLayers</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.html" class="code" title="function [output,sRough] = matlabEngineCaller_customLayers(params,contrast,funcName,funcPath,bulkIn,bulkOut)">matlabEngineCaller_customLayers</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%function mlMain</span>
+0002 clc
+0003 
+0004 type = <span class="string">'layers'</span>;
+0005 params = [1, 2, 3, 4, 5, 6, 7, 8];
+0006 fileName = <span class="string">'debugMfile'</span>;
+0007 filePath  = pwd; <span class="comment">%'/home/arwel/eclipseWorkspace_new/matlabEngine_demo/src';</span>
+0008 bulkIn = 2.073e-6;
+0009 bulkOut = 6.35e-6;
+0010 contrast = 1.0;
+0011 
+0012 [layersList,sRoughs] = <a href="../../../../../RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.html" class="code" title="function [output,sRough] = matlabEngineCaller_customLayers(params,contrast,funcName,funcPath,bulkIn,bulkOut)">matlabEngineCaller_customLayers</a>(params,contrast,fileName,filePath,bulkIn,bulkOut);
+0013 
+0014 disp(layersList);
+0015 
+0016 
+0017 [layersList2,sRoughs] = matlabEngineCaller_customLayers_mex(params,contrast,fileName,filePath,bulkIn,bulkOut);
+0018 <span class="keyword">switch</span> type
+0019     <span class="keyword">case</span> <span class="string">'XY'</span>
+0020         layersList2 = layersList2(:,1:2);
+0021 <span class="keyword">end</span>
+0022 disp(layersList2);</pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

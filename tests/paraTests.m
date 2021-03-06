@@ -1,10 +1,8 @@
+function testParallel(problem);
 
+controls = controlsDef;
 
-
-[problem,controls] = r1ToProblemDef('monolayer_7_contrasts_stanLay.mat');
-%[problem,controls] = r1ToProblemDef('original_dspc_bilayer.mat');
-
- num = 10;
+num = 10;
 
 controls.parallel = 'single';
 disp('Running single');
@@ -12,7 +10,7 @@ tic;
 for i = 1:num
 [outProb,results] = RAT(problem,controls); 
 end
-timSingle = toc;
+timSingle = toc/num;
 
 
 controls.parallel = 'points';
@@ -21,7 +19,7 @@ tic;
 for i = 1:num
 [outProb,results] = RAT(problem,controls); 
 end
-timPoints = toc;
+timPoints = toc/num;
 
 
 controls.parallel = 'contrasts';
@@ -30,14 +28,21 @@ tic;
 for i = 1:num
 [outProb,results] = RAT(problem,controls); 
 end
-timContrasts = toc;
+timContrasts = toc/num;
 
+controls.parallel = 'all';
+disp('Running all');
+tic; 
+for i = 1:num
+[outProb,results] = RAT(problem,controls); 
+end
+timAll = toc/num;
 
-all = [timSingle timPoints timContrasts];
+all = [timSingle timPoints timContrasts timAll];
 
 figure(1)
 clf
 bar(all);
-set(gca,'xticklabel',{'Single', 'Points', 'contrasts'})
+set(gca,'xticklabel',{'Single', 'Points', 'contrasts', 'all'})
 
 

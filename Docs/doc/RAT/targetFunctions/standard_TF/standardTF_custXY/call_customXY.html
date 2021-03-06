@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of call_customXY</title>
+  <meta name="keywords" content="call_customXY">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../menu.html standard_TF --><!-- menu.html standardTF_custXY -->
+<h1>call_customXY
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [output,sRough] = call_customXY(params,contrast,file,callPath,bulkIn,bulkOut) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.html" class="code" title="function [output,sRough] = matlabEngineCaller_customLayers(params,contrast,funcName,funcPath,bulkIn,bulkOut)">matlabEngineCaller_customLayers</a>	</li><li><a href="../../../../RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.html" class="code" title="function [output,sRough] = matlabEngineCaller_customLayers(params,contrast,funcName,funcPath,bulkIn,bulkOut)">matlabEngineCaller_customLayers</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="standardTF_custXY_paraPoints.html" class="code" title="function         [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_paraPoints(resample,numberOfContrasts,geometry,repeatLayers ,cBacks ,cShifts ,cScales ,cNbas ,cNbss,cRes ,backs ,shifts ,sf,nba ,nbs ,res ,dataPresent ,allData ,dataLimits ,simLimits ,nParams ,params ,contrastLayers ,numberOfLayers ,layersDetails,problemDef_limits,fname,lang,path,backsType,calcSLD);">standardTF_custXY_paraPoints</a>	coder.extrinsic('callModules');</li><li><a href="standardTF_custXY_paraPoints.html" class="code" title="function         [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_paraPoints(resample,numberOfContrasts,geometry,repeatLayers ,cBacks ,cShifts ,cScales ,cNbas ,cNbss,cRes ,backs ,shifts ,sf,nba ,nbs ,res ,dataPresent ,allData ,dataLimits ,simLimits ,nParams ,params ,contrastLayers ,numberOfLayers ,layersDetails,problemDef_limits,fname,lang,path,backsType,calcSLD);">standardTF_custXY_paraPoints</a>	coder.extrinsic('callModules');</li><li><a href="standardTF_custXY_single.html" class="code" title="function         [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_single(resample,numberOfContrasts,geometry,repeatLayers ,cBacks ,cShifts ,cScales ,cNbas ,cNbss,cRes ,backs ,shifts ,sf,nba ,nbs ,res ,dataPresent ,allData ,dataLimits ,simLimits ,nParams ,params ,contrastLayers ,numberOfLayers ,layersDetails,problemDef_limits,fname,lang,path,backsType,calcSLD);">standardTF_custXY_single</a>	coder.extrinsic('callModules');</li><li><a href="standardTF_custXY_single.html" class="code" title="function         [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_single(resample,numberOfContrasts,geometry,repeatLayers ,cBacks ,cShifts ,cScales ,cNbas ,cNbss,cRes ,backs ,shifts ,sf,nba ,nbs ,res ,dataPresent ,allData ,dataLimits ,simLimits ,nParams ,params ,contrastLayers ,numberOfLayers ,layersDetails,problemDef_limits,fname,lang,path,backsType,calcSLD);">standardTF_custXY_single</a>	coder.extrinsic('callModules');</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [output,sRough] = call_customXY(params,contrast,file,callPath,bulkIn,bulkOut)</a>
+0002 
+0003 [out,layers] = <a href="../../../../RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabEngineCaller_customLayers.html" class="code" title="function [output,sRough] = matlabEngineCaller_customLayers(params,contrast,funcName,funcPath,bulkIn,bulkOut)">matlabEngineCaller_customLayers</a>(params,contrast,file,callPath,bulkIn,bulkOut);
+0004 
+0005 points = size(out,1);
+0006 output = zeros(points,2);   
+0007 
+0008 <span class="keyword">if</span> size(out,2) == 3
+0009     output = out(:,1:2);
+0010 <span class="keyword">else</span>
+0011     output = out;
+0012 <span class="keyword">end</span>
+0013 
+0014 sRough = params(1);
+0015 
+0016 <span class="keyword">end</span>
+0017 
+0018 
+0019</pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

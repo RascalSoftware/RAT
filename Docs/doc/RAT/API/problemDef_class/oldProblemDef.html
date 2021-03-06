@@ -1,0 +1,1752 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of oldProblemDef</title>
+  <meta name="keywords" content="oldProblemDef">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- ../menu.html API --><!-- menu.html problemDef_class -->
+<h1>oldProblemDef
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="problemDef.html" class="code" title="">problemDef</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function obj = set.experimentType(obj,val)</a></li><li><a href="#_sub2" class="code">function obj = set.experimentGeometry(obj,val)</a></li><li><a href="#_sub3" class="code">function obj = set.nParams(obj,nParams)</a></li><li><a href="#_sub4" class="code">function obj = set.params(obj,val)</a></li><li><a href="#_sub5" class="code">function obj = set.paramNames(obj,val)</a></li><li><a href="#_sub6" class="code">function obj = set.paramFitYesNo(obj,val)</a></li><li><a href="#_sub7" class="code">function obj = set.paramConstr(obj,val)</a></li><li><a href="#_sub8" class="code">function obj = set.nBackgrounds(obj,nBackgrounds)</a></li><li><a href="#_sub9" class="code">function obj = set.backgrounds(obj,val)</a></li><li><a href="#_sub10" class="code">function obj = set.backgroundFitYesNo(obj,val)</a></li><li><a href="#_sub11" class="code">function obj = set.backgroundNames(obj,val)</a></li><li><a href="#_sub12" class="code">function obj = set.backgroundConstr(obj,val)</a></li><li><a href="#_sub13" class="code">function obj = set.nScalefactors(obj,nScalefactors)</a></li><li><a href="#_sub14" class="code">function obj = set.scalefactors(obj,val)</a></li><li><a href="#_sub15" class="code">function obj = set.scalefactorNames(obj,val)</a></li><li><a href="#_sub16" class="code">function obj = set.scalefactorFitYesNo(obj,val)</a></li><li><a href="#_sub17" class="code">function obj = set.scalefactorConstr(obj,val)</a></li><li><a href="#_sub18" class="code">function obj = set.nQzshifts(obj,nQzshifts)</a></li><li><a href="#_sub19" class="code">function obj = set.qzshifts(obj,val)</a></li><li><a href="#_sub20" class="code">function obj = set.qzshiftNames(obj,val)</a></li><li><a href="#_sub21" class="code">function obj = set.qzshiftFitYesNo(obj,val)</a></li><li><a href="#_sub22" class="code">function obj = set.qzshiftConstr(obj,val)</a></li><li><a href="#_sub23" class="code">function obj = set.nNbairs(obj,nNbairs)</a></li><li><a href="#_sub24" class="code">function obj = set.nbairs(obj,val)</a></li><li><a href="#_sub25" class="code">function obj = set.nbairNames(obj,val)</a></li><li><a href="#_sub26" class="code">function obj = set.nbairFitYesNo(obj,val)</a></li><li><a href="#_sub27" class="code">function obj = set.nbairConstr(obj,val)</a></li><li><a href="#_sub28" class="code">function obj = set.nNbsubs(obj,nNbsubs)</a></li><li><a href="#_sub29" class="code">function obj = set.nbsubs(obj,val)</a></li><li><a href="#_sub30" class="code">function obj = set.nbsubNames(obj,val)</a></li><li><a href="#_sub31" class="code">function obj = set.nbsubFitYesNo(obj,val)</a></li><li><a href="#_sub32" class="code">function obj = set.nbsubConstr(obj,val)</a></li><li><a href="#_sub33" class="code">function obj = set.nResolutions(obj,nResolutions)</a></li><li><a href="#_sub34" class="code">function obj = set.resolutions(obj,val)</a></li><li><a href="#_sub35" class="code">function obj = set.resolutionNames(obj,val)</a></li><li><a href="#_sub36" class="code">function obj = set.resolutionFitYesNo(obj,val)</a></li><li><a href="#_sub37" class="code">function obj = set.resolutionConstr(obj,val)</a></li><li><a href="#_sub38" class="code">function obj = set.numberOfContrasts(obj,nContrasts)</a></li><li><a href="#_sub39" class="code">function obj = set.allData(obj,val)</a></li><li><a href="#_sub40" class="code">function obj = set.resample(obj,val)</a></li><li><a href="#_sub41" class="code">function obj = set.dataPresent(obj,val)</a></li><li><a href="#_sub42" class="code">function obj = set.dataLimits(obj,val)</a></li><li><a href="#_sub43" class="code">function obj = set.simLimits(obj,val)</a></li><li><a href="#_sub44" class="code">function obj = set.contrastBacks(obj,val)</a></li><li><a href="#_sub45" class="code">function obj = set.contrastShifts(obj,val)</a></li><li><a href="#_sub46" class="code">function obj = set.contrastScales(obj,val)</a></li><li><a href="#_sub47" class="code">function obj = set.contrastNbas(obj,val)</a></li><li><a href="#_sub48" class="code">function obj = set.contrastNbss(obj,val)</a></li><li><a href="#_sub49" class="code">function obj = set.contrastRes(obj,val)</a></li><li><a href="#_sub50" class="code">function obj = set.contrastRepeatSLDs(obj,val)</a></li><li><a href="#_sub51" class="code">function obj = set.modelType(obj,val)</a></li><li><a href="#_sub52" class="code">function obj = set.numberOfLayers(obj,val)</a></li><li><a href="#_sub53" class="code">function obj = set.layersDetails(obj,val)</a></li><li><a href="#_sub54" class="code">function obj = set.modelFilename(obj,val)</a></li><li><a href="#_sub55" class="code">function obj = set.modelLanguage(obj,val)</a></li><li><a href="#_sub56" class="code">function obj = extendNParams(obj,val)</a></li><li><a href="#_sub57" class="code">function obj = contractNParams(obj,val)</a></li><li><a href="#_sub58" class="code">function obj = extendNResample(obj,val)</a></li><li><a href="#_sub59" class="code">function obj = contractNResample(obj,val)</a></li><li><a href="#_sub60" class="code">function obj = extendNDataPresent(obj,val)</a></li><li><a href="#_sub61" class="code">function obj = contractNDataPresent(obj,val)</a></li><li><a href="#_sub62" class="code">function obj = extendNParamNames(obj,val)</a></li><li><a href="#_sub63" class="code">function obj = contractNParamNames(obj,val)</a></li><li><a href="#_sub64" class="code">function obj = extendNParamConstr(obj,val)</a></li><li><a href="#_sub65" class="code">function obj = contractNParamConstr(obj,val)</a></li><li><a href="#_sub66" class="code">function obj = extendNParamFitYesNo(obj,val)</a></li><li><a href="#_sub67" class="code">function obj = contractNParamFitYesNo(obj,val)</a></li><li><a href="#_sub68" class="code">function obj = extendNBackgrounds(obj,val)</a></li><li><a href="#_sub69" class="code">function obj = contractNBackgrounds(obj,val)</a></li><li><a href="#_sub70" class="code">function obj = extendNBackgroundNames(obj,val)</a></li><li><a href="#_sub71" class="code">function obj = contractNBackgroundNames(obj,val)</a></li><li><a href="#_sub72" class="code">function obj = extendNBackgroundConstr(obj,val)</a></li><li><a href="#_sub73" class="code">function obj = contractNBackgroundConstr(obj,val)</a></li><li><a href="#_sub74" class="code">function obj = extendNBackgroundFitYesNo(obj,val)</a></li><li><a href="#_sub75" class="code">function obj = contractNBackgroundFitYesNo(obj,val)</a></li><li><a href="#_sub76" class="code">function obj = extendNScalefactors(obj,val)</a></li><li><a href="#_sub77" class="code">function obj = contractNScalefactors(obj,val)</a></li><li><a href="#_sub78" class="code">function obj = extendNScalefactorNames(obj,val)</a></li><li><a href="#_sub79" class="code">function obj = contractNScalefactorNames(obj,val)</a></li><li><a href="#_sub80" class="code">function obj = extendNScalefactorConstr(obj,val)</a></li><li><a href="#_sub81" class="code">function obj = contractNScalefactorConstr(obj,val)</a></li><li><a href="#_sub82" class="code">function obj = extendNScalefactorFitYesNo(obj,val)</a></li><li><a href="#_sub83" class="code">function obj = contractNScalefactorFitYesNo(obj,val)</a></li><li><a href="#_sub84" class="code">function obj = extendNQzshifts(obj,val)</a></li><li><a href="#_sub85" class="code">function obj = contractNQzshifts(obj,val)</a></li><li><a href="#_sub86" class="code">function obj = extendNQzshiftNames(obj,val)</a></li><li><a href="#_sub87" class="code">function obj = contractNQzshiftNames(obj,val)</a></li><li><a href="#_sub88" class="code">function obj = extendNQzshiftConstr(obj,val)</a></li><li><a href="#_sub89" class="code">function obj = contractNQzshiftConstr(obj,val)</a></li><li><a href="#_sub90" class="code">function obj = extendNQzshiftFitYesNo(obj,val)</a></li><li><a href="#_sub91" class="code">function obj = contractNQzshiftFitYesNo(obj,val)</a></li><li><a href="#_sub92" class="code">function obj = extendNNbairs(obj,val)</a></li><li><a href="#_sub93" class="code">function obj = contractNNbairs(obj,val)</a></li><li><a href="#_sub94" class="code">function obj = extendNNbairNames(obj,val)</a></li><li><a href="#_sub95" class="code">function obj = contractNNbairNames(obj,val)</a></li><li><a href="#_sub96" class="code">function obj = extendNNbairConstr(obj,val)</a></li><li><a href="#_sub97" class="code">function obj = contractNNbairConstr(obj,val)</a></li><li><a href="#_sub98" class="code">function obj = extendNNbairFitYesNo(obj,val)</a></li><li><a href="#_sub99" class="code">function obj = contractNNbairFitYesNo(obj,val)</a></li><li><a href="#_sub100" class="code">function obj = extendNNbsubs(obj,val)</a></li><li><a href="#_sub101" class="code">function obj = contractNNbsubs(obj,val)</a></li><li><a href="#_sub102" class="code">function obj = extendNNbsubNames(obj,val)</a></li><li><a href="#_sub103" class="code">function obj = contractNNbsubNames(obj,val)</a></li><li><a href="#_sub104" class="code">function obj = extendNNbsubConstr(obj,val)</a></li><li><a href="#_sub105" class="code">function obj = contractNNbsubConstr(obj,val)</a></li><li><a href="#_sub106" class="code">function obj = extendNNbsubFitYesNo(obj,val)</a></li><li><a href="#_sub107" class="code">function obj = contractNNbsubFitYesNo(obj,val)</a></li><li><a href="#_sub108" class="code">function obj = extendNResolutions(obj,val)</a></li><li><a href="#_sub109" class="code">function obj = contractNReslutions(obj,val)</a></li><li><a href="#_sub110" class="code">function obj = extendNResolutionsNames(obj,val)</a></li><li><a href="#_sub111" class="code">function obj = contractNResolutionsNames(obj,val)</a></li><li><a href="#_sub112" class="code">function obj = extendNResolutionsConstr(obj,val)</a></li><li><a href="#_sub113" class="code">function obj = contractNResolutionConstr(obj,val)</a></li><li><a href="#_sub114" class="code">function obj = extendNResolutionFitYesNo(obj,val)</a></li><li><a href="#_sub115" class="code">function obj = contractNResolutionFitYesNo(obj,val)</a></li><li><a href="#_sub116" class="code">function obj = extendAllData(obj,val)</a></li><li><a href="#_sub117" class="code">function obj = contractAllData(obj,val)</a></li><li><a href="#_sub118" class="code">function obj = extendNDataLimits(obj,val)</a></li><li><a href="#_sub119" class="code">function obj = contractNDataLimits(obj,val)</a></li><li><a href="#_sub120" class="code">function obj = extendNSimLimits(obj,val)</a></li><li><a href="#_sub121" class="code">function obj = contractNSimLimits(obj,val)</a></li><li><a href="#_sub122" class="code">function obj = extendNContrastBacks(obj,val)</a></li><li><a href="#_sub123" class="code">function obj = contractNContrastBacks(obj,val)</a></li><li><a href="#_sub124" class="code">function obj = extendNContrastShifts(obj,val)</a></li><li><a href="#_sub125" class="code">function obj = contractNContrastShifts(obj,val)</a></li><li><a href="#_sub126" class="code">function obj = extendNContrastScales(obj,val)</a></li><li><a href="#_sub127" class="code">function obj = contractNContrastScales(obj,val)</a></li><li><a href="#_sub128" class="code">function obj = extendNContrastNbas(obj,val)</a></li><li><a href="#_sub129" class="code">function obj = contractNContrastNbas(obj,val)</a></li><li><a href="#_sub130" class="code">function obj = extendNContrastNbss(obj,val)</a></li><li><a href="#_sub131" class="code">function obj = contractNContrastNbss(obj,val)</a></li><li><a href="#_sub132" class="code">function obj = extendNContrastRes(obj,val)</a></li><li><a href="#_sub133" class="code">function obj = contractNContrastRes(obj,val)</a></li><li><a href="#_sub134" class="code">function obj = extendNContrastRepeatSLDs(obj,val)</a></li><li><a href="#_sub135" class="code">function obj = contractNContrastRepeatSLDs(obj,val)</a></li><li><a href="#_sub136" class="code">function obj = extendNLayersDetails(obj,val)</a></li><li><a href="#_sub137" class="code">function obj = extendNContrastLayers(obj,val)</a></li><li><a href="#_sub138" class="code">function obj = contractNContrastLayers(obj,val)</a></li><li><a href="#_sub139" class="code">function groups = getPropertyGroups(obj)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 classdef <a href="problemDef.html" class="code" title="">problemDef</a> &lt; matlab.mixin.CustomDisplay
+0002     properties
+0003     <span class="comment">%Experiment</span>
+0004         experimentType = <span class="string">'standard'</span>;
+0005         experimentGeometry = <span class="string">'substrate/liquid'</span>;
+0006         <span class="comment">%modelType</span>
+0007         
+0008     <span class="comment">%All parameters</span>
+0009         nParams
+0010         params
+0011         paramNames
+0012         paramConstr
+0013         paramFitYesNo
+0014         
+0015         nBackgrounds = 1
+0016         backgrounds
+0017         backgroundNames
+0018         backgroundConstr
+0019         backgroundFitYesNo
+0020         
+0021         nScalefactors = 1
+0022         scalefactors
+0023         scalefactorNames
+0024         scalefactorConstr
+0025         scalefactorFitYesNo
+0026         
+0027         nQzshifts = 1
+0028         qzshifts
+0029         qzshiftNames
+0030         qzshiftConstr
+0031         qzshiftFitYesNo
+0032         
+0033         nNbairs = 1
+0034         nbairs
+0035         nbairNames
+0036         nbairConstr
+0037         nbairFitYesNo
+0038         
+0039         nNbsubs = 1
+0040         nbsubs
+0041         nbsubNames
+0042         nbsubConstr
+0043         nbsubFitYesNo
+0044         
+0045         nResolutions = 1
+0046         resolutions
+0047         resolutionNames
+0048         resolutionConstr
+0049         resolutionFitYesNo
+0050         
+0051     <span class="comment">%Constrasts and Data</span>
+0052         numberOfContrasts = 1
+0053         resample
+0054         allData
+0055         dataPresent
+0056         dataLimits
+0057         simLimits
+0058         contrastBacks
+0059         contrastShifts
+0060         contrastScales
+0061         contrastNbas
+0062         contrastNbss
+0063         contrastRes
+0064         contrastRepeatSLDs
+0065         
+0066     <span class="comment">%Model</span>
+0067         modelType = <span class="string">'layers'</span>
+0068         numberOfLayers
+0069         layersDetails
+0070         contrastLayers
+0071         modelFilename
+0072         modelLanguage
+0073         
+0074     <span class="keyword">end</span>
+0075     
+0076     methods
+0077         <span class="comment">%Experiment block</span>
+0078         <a name="_sub0" href="#_subfunctions" class="code">function obj = set.experimentType(obj,val)</a>
+0079            <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'standard'</span>,<span class="string">'oil-water'</span>,<span class="string">'PA'</span>,<span class="string">'domains'</span>})
+0080                error(<span class="string">'Type must be ''standard'',''oil-water'',''PA'' or ''domains'' '</span>);
+0081            <span class="keyword">end</span>
+0082            obj.experimentType = val;
+0083         <span class="keyword">end</span>
+0084         
+0085         <a name="_sub1" href="#_subfunctions" class="code">function obj = set.experimentGeometry(obj,val)</a>
+0086            <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'air/substrate'</span>,<span class="string">'substrate/liquid'</span>})
+0087                error(<span class="string">'Type must be ''air/substrate'' or ''substrate/liquid'' '</span>);
+0088            <span class="keyword">end</span>
+0089            obj.experimentGeometry = val; 
+0090         <span class="keyword">end</span>
+0091         
+0092         <span class="comment">%Parameters block</span>
+0093         <a name="_sub2" href="#_subfunctions" class="code">function obj = set.nParams(obj,nParams)</a>
+0094             <span class="keyword">if</span> (isnan(nParams) || isinf(nParams) || mod(nParams,1) ~= 0)
+0095                 error(<span class="string">'nParams must be real integer'</span>);
+0096             <span class="keyword">end</span>
+0097             obj.nParams = nParams;
+0098             
+0099             <span class="keyword">if</span> isempty(obj.params)
+0100                 obj.params = zeros(1,nParams);
+0101             <span class="keyword">elseif</span> (length(obj.params) &lt; nParams)
+0102                 obj = obj.extendNParams(nParams);
+0103             <span class="keyword">elseif</span> (length(obj.params) &gt; nParams)
+0104                 obj = obj.contractNParams(nParams);
+0105             <span class="keyword">end</span>
+0106             
+0107             <span class="keyword">if</span> isempty(obj.paramNames)
+0108                 obj.paramNames = cell(1,nParams);
+0109             <span class="keyword">elseif</span> (length(obj.paramNames) &lt; nParams)
+0110                 obj = obj.extendNParamNames(nParams);
+0111             <span class="keyword">elseif</span> (length(obj.paramNames) &gt; nParams)
+0112                 obj = obj.contractNParamNames(nParams);
+0113             <span class="keyword">end</span>
+0114             
+0115             <span class="keyword">if</span> isempty(obj.paramConstr)
+0116                 obj.paramConstr = cell(1,nParams);            
+0117             <span class="keyword">elseif</span> (length(obj.paramConstr) &lt; nParams)
+0118                 obj = obj.extendNParamConstr(nParams);
+0119             <span class="keyword">elseif</span> (length(obj.paramConstr) &gt; nParams)
+0120                obj = obj.contractNParamConstr(nParams);
+0121             <span class="keyword">end</span> 
+0122             
+0123             <span class="keyword">if</span> isempty(obj.paramFitYesNo)
+0124                 obj.paramFitYesNo = ones(1,nParams);
+0125             <span class="keyword">elseif</span> (length(obj.paramFitYesNo) &lt; nParams)
+0126                 obj = obj.extendNParamFitYesNo(nParams);
+0127             <span class="keyword">elseif</span> (length(obj.paramFitYesNo) &gt; nParams)
+0128                obj = obj.contractNParamFitYesNo(nParams);
+0129             <span class="keyword">end</span> 
+0130             
+0131         <span class="keyword">end</span>
+0132         
+0133         
+0134         <a name="_sub3" href="#_subfunctions" class="code">function obj = set.params(obj,val)</a>
+0135             <span class="keyword">if</span> (length(val) &gt; obj.nParams)
+0136                error(<span class="string">'Length of values vector must be &lt;= nparams'</span>);
+0137             <span class="keyword">elseif</span> (isnumeric(val) == false | isinteger(val) == true)
+0138                 error(<span class="string">'Params must be vector of doubles'</span>);
+0139             <span class="keyword">else</span>
+0140                obj.params = val;
+0141             <span class="keyword">end</span>
+0142         <span class="keyword">end</span>
+0143             
+0144         <a name="_sub4" href="#_subfunctions" class="code">function obj = set.paramNames(obj,val)</a>
+0145             <span class="keyword">if</span> (length(val) &gt; obj.nParams)
+0146                error(<span class="string">'Length of paramNames vector must be &lt;= nparams'</span>);
+0147             <span class="keyword">elseif</span> (iscell(val) == false)
+0148                error(<span class="string">'paramNames must be cell array'</span>);
+0149              <span class="keyword">else</span>
+0150                obj.paramNames = val;
+0151             <span class="keyword">end</span>
+0152         <span class="keyword">end</span>
+0153         
+0154         <a name="_sub5" href="#_subfunctions" class="code">function obj = set.paramFitYesNo(obj,val)  </a>
+0155           <span class="keyword">if</span> (length(val) &gt; obj.nParams)
+0156                error(<span class="string">'Length of paramFitYesNo vector must be &lt;= nparams'</span>);
+0157             <span class="keyword">elseif</span> (isnumeric(val) == false || sum(ismember(val,[0 1]))~= obj.nParams)
+0158                error(<span class="string">'paramsFitYesNo  must be either 0 or 1.'</span>);
+0159              <span class="keyword">else</span>
+0160                obj.paramFitYesNo = val;
+0161             <span class="keyword">end</span>
+0162         <span class="keyword">end</span>
+0163         
+0164         <a name="_sub6" href="#_subfunctions" class="code">function obj = set.paramConstr(obj,val)</a>
+0165             <span class="keyword">if</span> (length(val) &gt; obj.nParams)
+0166                 error(<span class="string">'Length of poramConstr vector must be &lt;= nParams'</span>);
+0167             <span class="keyword">elseif</span> (iscell(val) == false)
+0168                 error(<span class="string">'paramConstr must be cell array'</span>);
+0169             <span class="keyword">else</span>
+0170                 <span class="keyword">for</span> i = 1:length(val)
+0171                     thisVal = val{i};
+0172                     <span class="keyword">if</span> isempty(thisVal)
+0173                         val{i} = [0  0];
+0174                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || (size(thisVal,1)~=1 || size(thisVal,2)~=2) || isinteger(val))
+0175                         error(<span class="string">'value %d in assignment to paramConstr must be 1x2 double'</span>,i);
+0176                     <span class="keyword">end</span>
+0177                 <span class="keyword">end</span>
+0178             <span class="keyword">end</span>
+0179            
+0180             obj.paramConstr = val;
+0181         <span class="keyword">end</span>
+0182         <span class="comment">%End parameters block</span>
+0183         
+0184         <span class="comment">%-----------------------------------------------------------------------</span>
+0185         
+0186         <span class="comment">%Backgrounds block</span>
+0187         <a name="_sub7" href="#_subfunctions" class="code">function obj = set.nBackgrounds(obj,nBackgrounds)</a>
+0188             <span class="keyword">if</span> (isnan(nBackgrounds) || isinf(nBackgrounds) || mod(nBackgrounds,1) ~= 0)
+0189                 error(<span class="string">'nBackgrounds must be real integer'</span>);
+0190             <span class="keyword">end</span>
+0191             obj.nBackgrounds = nBackgrounds;
+0192             
+0193             <span class="keyword">if</span> isempty(obj.backgrounds)
+0194                 obj.backgrounds = zeros(1,nBackgrounds);
+0195             <span class="keyword">elseif</span> (length(obj.backgrounds) &lt; nBackgrounds)
+0196                 obj = obj.extendNBackgrounds(nBackgrounds);
+0197             <span class="keyword">elseif</span> (length(obj.backgrounds) &gt; nBackgrounds)
+0198                 obj = obj.contractNBackgrounds(nBackgrounds);
+0199             <span class="keyword">end</span>
+0200             
+0201             <span class="keyword">if</span> isempty(obj.backgroundNames)
+0202                 obj.backgroundNames = cell(1,nBackgrounds);
+0203             <span class="keyword">elseif</span> (length(obj.backgroundNames) &lt; nBackgrounds)
+0204                 obj = obj.extendNBackgroundNames(nBackgrounds);
+0205             <span class="keyword">elseif</span> (length(obj.backgroundNames) &gt; nBackgrounds)
+0206                 obj = obj.contractNBackgroundNames(nBackgrounds);
+0207             <span class="keyword">end</span>
+0208             
+0209             <span class="keyword">if</span> isempty(obj.backgroundConstr)
+0210                 obj.backgroundConstr = cell(1,nBackgrounds);            
+0211             <span class="keyword">elseif</span> (length(obj.backgroundConstr) &lt; nBackgrounds)
+0212                 obj = obj.extendNBackgroundConstr(nBackgrounds);
+0213             <span class="keyword">elseif</span> (length(obj.backgroundConstr) &gt; nBackgrounds)
+0214                obj = obj.contractNBackgroundConstr(nBackgrounds);
+0215             <span class="keyword">end</span>
+0216             
+0217             <span class="keyword">if</span> isempty(obj.backgroundFitYesNo)
+0218                 obj.backgroundFitYesNo = ones(1,nBackgrounds);
+0219             <span class="keyword">elseif</span> (length(obj.backgroundFitYesNo) &lt; nBackgrounds)
+0220                 obj = obj.extendNBackgroundFitYesNo(nBackgrounds);
+0221             <span class="keyword">elseif</span> (length(obj.backgroundFitYesNo) &gt; nBackgrounds)
+0222                obj = obj.contractNBackgroundFitYesNo(nBackgrounds);
+0223             <span class="keyword">end</span>   
+0224         <span class="keyword">end</span>
+0225         
+0226         <a name="_sub8" href="#_subfunctions" class="code">function obj = set.backgrounds(obj,val)</a>
+0227             <span class="keyword">if</span> (length(val) &gt; obj.nBackgrounds)
+0228                error(<span class="string">'Length of values vector must be &lt;= nbackground'</span>);
+0229             <span class="keyword">elseif</span> (isnumeric(val) == false || isinteger(val) == true)
+0230                 error(<span class="string">'backgrounds must be vector of doubles'</span>);
+0231             <span class="keyword">else</span>
+0232                obj.backgrounds = val;
+0233             <span class="keyword">end</span>
+0234         <span class="keyword">end</span>
+0235         
+0236         <a name="_sub9" href="#_subfunctions" class="code">function obj = set.backgroundFitYesNo(obj,val)</a>
+0237           <span class="keyword">if</span> (length(val) &gt; obj.nBackgrounds)
+0238                error(<span class="string">'Length of backgroundFitYesNo vector must be &lt;= nparams'</span>);
+0239             <span class="keyword">elseif</span> (isnumeric(val) == false || sum(ismember(val,[0 1]))~= obj.nBackgrounds)
+0240                error(<span class="string">'paramsFitYesNo  must be either 0 or 1.'</span>);
+0241              <span class="keyword">else</span>
+0242                obj.backgroundFitYesNo = val;
+0243             <span class="keyword">end</span>
+0244         <span class="keyword">end</span>
+0245             
+0246         <a name="_sub10" href="#_subfunctions" class="code">function obj = set.backgroundNames(obj,val)</a>
+0247             <span class="keyword">if</span> (length(val) &gt; obj.nBackgrounds)
+0248                error(<span class="string">'Length of backgroundNames vector must be &lt;= nbackground'</span>);
+0249             <span class="keyword">elseif</span> (iscell(val) == false)
+0250                error(<span class="string">'backgroundNames must be cell array'</span>);
+0251              <span class="keyword">else</span>
+0252                obj.backgroundNames = val;
+0253             <span class="keyword">end</span>
+0254         <span class="keyword">end</span>
+0255         
+0256         <a name="_sub11" href="#_subfunctions" class="code">function obj = set.backgroundConstr(obj,val)</a>
+0257             <span class="keyword">if</span> (length(val) &gt; obj.nBackgrounds)
+0258                 error(<span class="string">'Length of poramConstr vector must be &lt;= nbackground'</span>);
+0259             <span class="keyword">elseif</span> (iscell(val) == false)
+0260                 error(<span class="string">'backgroundConstr must be cell array'</span>);
+0261             <span class="keyword">else</span>
+0262                 <span class="keyword">for</span> i = 1:length(val)
+0263                     thisVal = val{i};
+0264                     <span class="keyword">if</span> isempty(thisVal)
+0265                         val{i} = [0  0];
+0266                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || (size(thisVal,1)~=1 || size(thisVal,2)~=2) || isinteger(val))
+0267                         error(<span class="string">'value %d in assignment to backgroundConstr must be 1x2 double'</span>,i);
+0268                     <span class="keyword">end</span>
+0269                 <span class="keyword">end</span>
+0270             <span class="keyword">end</span>
+0271            
+0272             obj.backgroundConstr = val;
+0273         <span class="keyword">end</span>
+0274     <span class="comment">%End backgrounds block</span>
+0275         
+0276     <span class="comment">%----------------------------------------------------------------------</span>
+0277     <span class="comment">%scalefactors block</span>
+0278         <a name="_sub12" href="#_subfunctions" class="code">function obj = set.nScalefactors(obj,nScalefactors)</a>
+0279             <span class="keyword">if</span> (isnan(nScalefactors) || isinf(nScalefactors) || mod(nScalefactors,1) ~= 0)
+0280                 error(<span class="string">'nScalefactors must be real integer'</span>);
+0281             <span class="keyword">end</span>
+0282             obj.nScalefactors = nScalefactors;
+0283             
+0284             <span class="keyword">if</span> isempty(obj.scalefactors)
+0285                 obj.scalefactors = zeros(1,nScalefactors);
+0286             <span class="keyword">elseif</span> (length(obj.scalefactors) &lt; nScalefactors)
+0287                 obj = obj.extendnScalefactors(nScalefactors);
+0288             <span class="keyword">elseif</span> (length(obj.scalefactors) &gt; nScalefactors)
+0289                 obj = obj.contractNScalefactors(nScalefactors);
+0290             <span class="keyword">end</span>
+0291             
+0292             <span class="keyword">if</span> isempty(obj.scalefactorNames)
+0293                 obj.scalefactorNames = cell(1,nScalefactors);
+0294             <span class="keyword">elseif</span> (length(obj.scalefactorNames) &lt; nScalefactors)
+0295                 obj = obj.extendNScalefactorNames(nScalefactors);
+0296             <span class="keyword">elseif</span> (length(obj.scalefactorNames) &gt; nScalefactors)
+0297                 obj = obj.contractNScalefactorNames(nScalefactors);
+0298             <span class="keyword">end</span>
+0299             
+0300             <span class="keyword">if</span> isempty(obj.scalefactorConstr)
+0301                 obj.scalefactorConstr = cell(1,nScalefactors);            
+0302             <span class="keyword">elseif</span> (length(obj.scalefactorConstr) &lt; nScalefactors)
+0303                 obj = obj.extendNScalefactorConstr(nScalefactors);
+0304             <span class="keyword">elseif</span> (length(obj.scalefactorConstr) &gt; nScalefactors)
+0305                obj = obj.contractNScalefactorConstr(nScalefactors);
+0306             <span class="keyword">end</span>
+0307             
+0308             <span class="keyword">if</span> isempty(obj.scalefactorFitYesNo)
+0309                 obj.scalefactorFitYesNo = ones(1,nScalefactors);
+0310             <span class="keyword">elseif</span> (length(obj.scalefactorFitYesNo) &lt; nScalefactors)
+0311                 obj = obj.extendNScalefactorFitYesNo(nScalefactors);
+0312             <span class="keyword">elseif</span> (length(obj.scalefactorFitYesNo) &gt; nScalefactors)
+0313                obj = obj.contractNScalefactorFitYesNo(nScalefactors);
+0314             <span class="keyword">end</span>    
+0315         <span class="keyword">end</span>
+0316         
+0317         <a name="_sub13" href="#_subfunctions" class="code">function obj = set.scalefactors(obj,val)</a>
+0318             <span class="keyword">if</span> (length(val) &gt; obj.nScalefactors)
+0319                error(<span class="string">'Length of values vector must be &lt;= nscalefactor'</span>);
+0320             <span class="keyword">elseif</span> (isnumeric(val) == false || isinteger(val) == true)
+0321                 error(<span class="string">'scalefactors must be vector of doubles'</span>);
+0322             <span class="keyword">else</span>
+0323                obj.scalefactors = val;
+0324             <span class="keyword">end</span>
+0325         <span class="keyword">end</span>
+0326             
+0327         <a name="_sub14" href="#_subfunctions" class="code">function obj = set.scalefactorNames(obj,val)</a>
+0328             <span class="keyword">if</span> (length(val) &gt; obj.nScalefactors)
+0329                error(<span class="string">'Length of scalefactorNames vector must be &lt;= nscalefactor'</span>);
+0330             <span class="keyword">elseif</span> (iscell(val) == false)
+0331                error(<span class="string">'scalefactorNames must be cell array'</span>);
+0332              <span class="keyword">else</span>
+0333                obj.scalefactorNames = val;
+0334             <span class="keyword">end</span>
+0335         <span class="keyword">end</span>
+0336         
+0337         <a name="_sub15" href="#_subfunctions" class="code">function obj = set.scalefactorFitYesNo(obj,val)  </a>
+0338           <span class="keyword">if</span> (length(val) &gt; obj.nScalefactors)
+0339                error(<span class="string">'Length of scalefactorFitYesNo vector must be &lt;= nparams'</span>);
+0340             <span class="keyword">elseif</span> (isnumeric(val) == false || sum(ismember(val,[0 1]))~= obj.nScalefactors)
+0341                error(<span class="string">'scalefactorFitYesNo  must be either 0 or 1.'</span>);
+0342              <span class="keyword">else</span>
+0343                obj.scalefactorFitYesNo = val;
+0344             <span class="keyword">end</span>
+0345         <span class="keyword">end</span>
+0346 
+0347         
+0348         <a name="_sub16" href="#_subfunctions" class="code">function obj = set.scalefactorConstr(obj,val)</a>
+0349             <span class="keyword">if</span> (length(val) &gt; obj.nScalefactors)
+0350                 error(<span class="string">'Length of poramConstr vector must be &lt;= nscalefactor'</span>);
+0351             <span class="keyword">elseif</span> (iscell(val) == false)
+0352                 error(<span class="string">'scalefactorConstr must be cell array'</span>);
+0353             <span class="keyword">else</span>
+0354                 <span class="keyword">for</span> i = 1:length(val)
+0355                     thisVal = val{i};
+0356                     <span class="keyword">if</span> isempty(thisVal)
+0357                         val{i} = [0  0];
+0358                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || (size(thisVal,1)~=1 || size(thisVal,2)~=2) || isinteger(val))
+0359                         error(<span class="string">'value %d in assignment to scalefactorConstr must be 1x2 double'</span>,i);
+0360                     <span class="keyword">end</span>
+0361                 <span class="keyword">end</span>
+0362             <span class="keyword">end</span>
+0363            
+0364             obj.scalefactorConstr = val;
+0365         <span class="keyword">end</span>
+0366     <span class="comment">%End scalefactors block</span>
+0367     
+0368     <span class="comment">%----------------------------------------------------------------------</span>
+0369     
+0370     <span class="comment">%qzshifts block</span>
+0371         <a name="_sub17" href="#_subfunctions" class="code">function obj = set.nQzshifts(obj,nQzshifts)</a>
+0372             <span class="keyword">if</span> (isnan(nQzshifts) || isinf(nQzshifts) || mod(nQzshifts,1) ~= 0)
+0373                 error(<span class="string">'nQzshifts must be real integer'</span>);
+0374             <span class="keyword">end</span>
+0375             obj.nQzshifts = nQzshifts;
+0376             
+0377             <span class="keyword">if</span> isempty(obj.qzshifts)
+0378                 obj.qzshifts = zeros(1,nQzshifts);
+0379             <span class="keyword">elseif</span> (length(obj.qzshifts) &lt; nQzshifts)
+0380                 obj = obj.extendnQzshifts(nQzshifts);
+0381             <span class="keyword">elseif</span> (length(obj.qzshifts) &gt; nQzshifts)
+0382                 obj = obj.contractNQzshifts(nQzshifts);
+0383             <span class="keyword">end</span>
+0384             
+0385             <span class="keyword">if</span> isempty(obj.qzshiftNames)
+0386                 obj.qzshiftNames = cell(1,nQzshifts);
+0387             <span class="keyword">elseif</span> (length(obj.qzshiftNames) &lt; nQzshifts)
+0388                 obj = obj.extendNqzshiftNames(nQzshifts);
+0389             <span class="keyword">elseif</span> (length(obj.qzshiftNames) &gt; nQzshifts)
+0390                 obj = obj.contractNQzshiftNames(nQzshifts);
+0391             <span class="keyword">end</span>
+0392             
+0393             <span class="keyword">if</span> isempty(obj.qzshiftConstr)
+0394                 obj.qzshiftConstr = cell(1,nQzshifts);            
+0395             <span class="keyword">elseif</span> (length(obj.qzshiftConstr) &lt; nQzshifts)
+0396                 obj = obj.extendNqzshiftConstr(nQzshifts);
+0397             <span class="keyword">elseif</span> (length(obj.qzshiftConstr) &gt; nQzshifts)
+0398                obj = obj.contractNQzshiftConstr(nQzshifts);
+0399             <span class="keyword">end</span>
+0400             
+0401             <span class="keyword">if</span> isempty(obj.qzshiftFitYesNo)
+0402                 obj.qzshiftFitYesNo = ones(1,nQzshifts);
+0403             <span class="keyword">elseif</span> (length(obj.qzshiftFitYesNo) &lt; nQzshifts)
+0404                 obj = obj.extendNQzShiftFitYesNo(nQzshifts);
+0405             <span class="keyword">elseif</span> (length(obj.qzshiftFitYesNo) &gt; nQzshifts)
+0406                obj = obj.contractNQzshiftFitYesNo(nQzshifts);
+0407             <span class="keyword">end</span>       
+0408         <span class="keyword">end</span>
+0409         
+0410         <a name="_sub18" href="#_subfunctions" class="code">function obj = set.qzshifts(obj,val)</a>
+0411             <span class="keyword">if</span> (length(val) &gt; obj.nQzshifts)
+0412                error(<span class="string">'Length of values vector must be &lt;= nqzshift'</span>);
+0413             <span class="keyword">elseif</span> (isnumeric(val) == false | isinteger(val) == true)
+0414                 error(<span class="string">'qzshifts must be vector of doubles'</span>);
+0415             <span class="keyword">else</span>
+0416                obj.qzshifts = val;
+0417             <span class="keyword">end</span>
+0418         <span class="keyword">end</span>
+0419             
+0420         <a name="_sub19" href="#_subfunctions" class="code">function obj = set.qzshiftNames(obj,val)</a>
+0421             <span class="keyword">if</span> (length(val) &gt; obj.nQzshifts)
+0422                error(<span class="string">'Length of qzshiftNames vector must be &lt;= nqzshift'</span>);
+0423             <span class="keyword">elseif</span> (iscell(val) == false)
+0424                error(<span class="string">'qzshiftNames must be cell array'</span>);
+0425              <span class="keyword">else</span>
+0426                obj.qzshiftNames = val;
+0427             <span class="keyword">end</span>
+0428         <span class="keyword">end</span>
+0429         
+0430         <a name="_sub20" href="#_subfunctions" class="code">function obj = set.qzshiftFitYesNo(obj,val)  </a>
+0431           <span class="keyword">if</span> (length(val) &gt; obj.nQzshifts)
+0432                error(<span class="string">'Length of qzshiftFitYesNo vector must be &lt;= nparams'</span>);
+0433             <span class="keyword">elseif</span> (isnumeric(val) == false || sum(ismember(val,[0 1]))~= obj.nQzshifts)
+0434                error(<span class="string">'qzshiftFitYesNo  must be either 0 or 1.'</span>);
+0435              <span class="keyword">else</span>
+0436                obj.qzshiftFitYesNo = val;
+0437             <span class="keyword">end</span>
+0438         <span class="keyword">end</span>    
+0439         
+0440         <a name="_sub21" href="#_subfunctions" class="code">function obj = set.qzshiftConstr(obj,val)</a>
+0441             <span class="keyword">if</span> (length(val) &gt; obj.nQzshifts)
+0442                 error(<span class="string">'Length of poramConstr vector must be &lt;= nqzshift'</span>);
+0443             <span class="keyword">elseif</span> (iscell(val) == false)
+0444                 error(<span class="string">'qzshiftConstr must be cell array'</span>);
+0445             <span class="keyword">else</span>
+0446                 <span class="keyword">for</span> i = 1:length(val)
+0447                     thisVal = val{i};
+0448                     <span class="keyword">if</span> isempty(thisVal)
+0449                         val{i} = [0  0];
+0450                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || (size(thisVal,1)~=1 || size(thisVal,2)~=2) || isinteger(val))
+0451                         error(<span class="string">'value %d in assignment to qzshiftConstr must be 1x2 double'</span>,i);
+0452                     <span class="keyword">end</span>
+0453                 <span class="keyword">end</span>
+0454             <span class="keyword">end</span>
+0455            
+0456             obj.qzshiftConstr = val;
+0457         <span class="keyword">end</span>
+0458         <span class="comment">%End qzshifts block</span>
+0459         
+0460     <span class="comment">%----------------------------------------------------------------------</span>
+0461     
+0462         <span class="comment">%NBairs block</span>
+0463         <a name="_sub22" href="#_subfunctions" class="code">function obj = set.nNbairs(obj,nNbairs)</a>
+0464             <span class="keyword">if</span> (isnan(nNbairs) || isinf(nNbairs) || mod(nNbairs,1) ~= 0)
+0465                 error(<span class="string">'nNbairs must be real integer'</span>);
+0466             <span class="keyword">end</span>
+0467             obj.nNbairs = nNbairs;
+0468             
+0469             <span class="keyword">if</span> isempty(obj.nbairs)
+0470                 obj.nbairs = zeros(1,nNbairs);
+0471             <span class="keyword">elseif</span> (length(obj.nbairs) &lt; nNbairs)
+0472                 obj = obj.extendNNbairs(nNbairs);
+0473             <span class="keyword">elseif</span> (length(obj.nbairs) &gt; nNbairs)
+0474                 obj = obj.contractNNbairs(nNbairs);
+0475             <span class="keyword">end</span>
+0476             
+0477             <span class="keyword">if</span> isempty(obj.nbairNames)
+0478                 obj.nbairNames = cell(1,nNbairs);
+0479             <span class="keyword">elseif</span> (length(obj.nbairNames) &lt; nNbairs)
+0480                 obj = obj.extendNNbairNames(nNbairs);
+0481             <span class="keyword">elseif</span> (length(obj.nbairNames) &gt; nNbairs)
+0482                 obj = obj.contractNNbairNames(nNbairs);
+0483             <span class="keyword">end</span>
+0484             
+0485             <span class="keyword">if</span> isempty(obj.nbairConstr)
+0486                 obj.nbairConstr = cell(1,nNbairs);            
+0487             <span class="keyword">elseif</span> (length(obj.nbairConstr) &lt; nNbairs)
+0488                 obj = obj.extendNNbairConstr(nNbairs);
+0489             <span class="keyword">elseif</span> (length(obj.nbairConstr) &gt; nNbairs)
+0490                obj = obj.contractNNbairConstr(nNbairs);
+0491             <span class="keyword">end</span>     
+0492             
+0493             <span class="keyword">if</span> isempty(obj.nbairFitYesNo)
+0494                 obj.nbairFitYesNo = ones(1,nNbairs);
+0495             <span class="keyword">elseif</span> (length(obj.nbairFitYesNo) &lt; nNbairs)
+0496                 obj = obj.extendNNbairFitYesNo(nNbairs);
+0497             <span class="keyword">elseif</span> (length(obj.nbairFitYesNo) &gt; nNbairs)
+0498                obj = obj.contractNNbairFitYesNo(nNbairs);
+0499             <span class="keyword">end</span>    
+0500         <span class="keyword">end</span>
+0501         
+0502         <a name="_sub23" href="#_subfunctions" class="code">function obj = set.nbairs(obj,val)</a>
+0503             <span class="keyword">if</span> (length(val) &gt; obj.nNbairs)
+0504                error(<span class="string">'Length of values vector must be &lt;= nnbairs'</span>);
+0505             <span class="keyword">elseif</span> (isnumeric(val) == false || isinteger(val) == true)
+0506                 error(<span class="string">'Nbairs must be vector of doubles'</span>);
+0507             <span class="keyword">else</span>
+0508                obj.nbairs = val;
+0509             <span class="keyword">end</span>
+0510         <span class="keyword">end</span>
+0511             
+0512         <a name="_sub24" href="#_subfunctions" class="code">function obj = set.nbairNames(obj,val)</a>
+0513             <span class="keyword">if</span> (length(val) &gt; obj.nNbairs)
+0514                error(<span class="string">'Length of nbairNames vector must be &lt;= nnbairs'</span>);
+0515             <span class="keyword">elseif</span> (iscell(val) == false)
+0516                error(<span class="string">'nbairNames must be cell array'</span>);
+0517              <span class="keyword">else</span>
+0518                obj.nbairNames = val;
+0519             <span class="keyword">end</span>
+0520         <span class="keyword">end</span>
+0521         
+0522         <a name="_sub25" href="#_subfunctions" class="code">function obj = set.nbairFitYesNo(obj,val)  </a>
+0523           <span class="keyword">if</span> (length(val) &gt; obj.nNbairs)
+0524                error(<span class="string">'Length of nbairFitYesNo vector must be &lt;= nNbairs'</span>);
+0525             <span class="keyword">elseif</span> (isnumeric(val) == false || sum(ismember(val,[0 1]))~= obj.nNbairs)
+0526                error(<span class="string">'nbairFitYesNo  must be either 0 or 1.'</span>);
+0527              <span class="keyword">else</span>
+0528                obj.nbairFitYesNo = val;
+0529             <span class="keyword">end</span>
+0530         <span class="keyword">end</span>
+0531         
+0532         <a name="_sub26" href="#_subfunctions" class="code">function obj = set.nbairConstr(obj,val)</a>
+0533             <span class="keyword">if</span> (length(val) &gt; obj.nNbairs)
+0534                 error(<span class="string">'Length of nbairConstr vector must be &lt;= nNbairs'</span>);
+0535             <span class="keyword">elseif</span> (iscell(val) == false)
+0536                 error(<span class="string">'nbairConstr must be cell array'</span>);
+0537             <span class="keyword">else</span>
+0538                 <span class="keyword">for</span> i = 1:length(val)
+0539                     thisVal = val{i};
+0540                     <span class="keyword">if</span> isempty(thisVal)
+0541                         val{i} = [0  0];
+0542                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || (size(thisVal,1)~=1 || size(thisVal,2)~=2) || isinteger(val))
+0543                         error(<span class="string">'value %d in assignment to nbairConstr must be 1x2 double'</span>,i);
+0544                     <span class="keyword">end</span>
+0545                 <span class="keyword">end</span>
+0546             <span class="keyword">end</span>
+0547            
+0548             obj.nbairConstr = val;
+0549         <span class="keyword">end</span>
+0550         <span class="comment">%End NBairs block</span>
+0551     
+0552         
+0553     <span class="comment">%----------------------------------------------------------------------</span>
+0554     <span class="comment">%NBsubs block</span>
+0555         <a name="_sub27" href="#_subfunctions" class="code">function obj = set.nNbsubs(obj,nNbsubs)</a>
+0556             <span class="keyword">if</span> (isnan(nNbsubs) || isinf(nNbsubs) || mod(nNbsubs,1) ~= 0)
+0557                 error(<span class="string">'nNbsubs must be real integer'</span>);
+0558             <span class="keyword">end</span>
+0559             obj.nNbsubs = nNbsubs;
+0560             
+0561             <span class="keyword">if</span> isempty(obj.nbsubs)
+0562                 obj.nbsubs = zeros(1,nNbsubs);
+0563             <span class="keyword">elseif</span> (length(obj.nbsubs) &lt; nNbsubs)
+0564                 obj = obj.extendNNbsubs(nNbsubs);
+0565             <span class="keyword">elseif</span> (length(obj.nbsubs) &gt; nNbsubs)
+0566                 obj = obj.contractNNbsubs(nNbsubs);
+0567             <span class="keyword">end</span>
+0568             
+0569             <span class="keyword">if</span> isempty(obj.nbsubNames)
+0570                 obj.nbsubNames = cell(1,nNbsubs);
+0571             <span class="keyword">elseif</span> (length(obj.nbsubNames) &lt; nNbsubs)
+0572                 obj = obj.extendNNbsubNames(nNbsubs);
+0573             <span class="keyword">elseif</span> (length(obj.nbsubNames) &gt; nNbsubs)
+0574                 obj = obj.contractNNbsubNames(nNbsubs);
+0575             <span class="keyword">end</span>
+0576             
+0577             <span class="keyword">if</span> isempty(obj.nbsubConstr)
+0578                 obj.nbsubConstr = cell(1,nNbsubs);            
+0579             <span class="keyword">elseif</span> (length(obj.nbsubConstr) &lt; nNbsubs)
+0580                 obj = obj.extendNNbsubConstr(nNbsubs);
+0581             <span class="keyword">elseif</span> (length(obj.nbsubConstr) &gt; nNbsubs)
+0582                obj = obj.contractNNbsubConstr(nNbsubs);
+0583             <span class="keyword">end</span> 
+0584             
+0585             
+0586             <span class="keyword">if</span> isempty(obj.nbsubFitYesNo)
+0587                 obj.nbsubFitYesNo = ones(1,nNbsubs);
+0588             <span class="keyword">elseif</span> (length(obj.nbsubFitYesNo) &lt; nNbsubs)
+0589                 obj = obj.extendNNbsubFitYesNo(nNbsubs);
+0590             <span class="keyword">elseif</span> (length(obj.nbsubFitYesNo) &gt; nNbsubs)
+0591                obj = obj.contractNNbsubFitYesNo(nNbsubs);
+0592             <span class="keyword">end</span>        
+0593         <span class="keyword">end</span>
+0594         
+0595         
+0596         <a name="_sub28" href="#_subfunctions" class="code">function obj = set.nbsubs(obj,val)</a>
+0597             <span class="keyword">if</span> (length(val) &gt; obj.nNbsubs)
+0598                error(<span class="string">'Length of values vector must be &lt;= nnbsubs'</span>);
+0599             <span class="keyword">elseif</span> (isnumeric(val) == false | isinteger(val) == true)
+0600                 error(<span class="string">'Nbsubs must be vector of doubles'</span>);
+0601             <span class="keyword">else</span>        
+0602                obj.nbsubs = val;
+0603             <span class="keyword">end</span>
+0604         <span class="keyword">end</span>
+0605             
+0606         <a name="_sub29" href="#_subfunctions" class="code">function obj = set.nbsubNames(obj,val)</a>
+0607             <span class="keyword">if</span> (length(val) &gt; obj.nNbsubs)
+0608                error(<span class="string">'Length of nbsubNames vector must be &lt;= nnbsubs'</span>);
+0609             <span class="keyword">elseif</span> (iscell(val) == false)
+0610                error(<span class="string">'nbsubNames must be cell array'</span>);
+0611              <span class="keyword">else</span>
+0612                obj.nbsubNames = val;
+0613             <span class="keyword">end</span>
+0614         <span class="keyword">end</span>
+0615         
+0616         <a name="_sub30" href="#_subfunctions" class="code">function obj = set.nbsubFitYesNo(obj,val)  </a>
+0617           <span class="keyword">if</span> (length(val) &gt; obj.nNbsubs)
+0618                error(<span class="string">'Length of nbsubFitYesNo vector must be &lt;= nparams'</span>);
+0619             <span class="keyword">elseif</span> (isnumeric(val) == false || sum(ismember(val,[0 1]))~= obj.nNbsubs)
+0620                error(<span class="string">'nbsubFitYesNo  must be either 0 or 1.'</span>);
+0621              <span class="keyword">else</span>
+0622                obj.nbsubFitYesNo = val;
+0623             <span class="keyword">end</span>
+0624         <span class="keyword">end</span>
+0625             
+0626         <a name="_sub31" href="#_subfunctions" class="code">function obj = set.nbsubConstr(obj,val)</a>
+0627             <span class="keyword">if</span> (length(val) &gt; obj.nNbsubs)
+0628                 error(<span class="string">'Length of poramConstr vector must be &lt;= nNbsubs'</span>);
+0629             <span class="keyword">elseif</span> (iscell(val) == false)
+0630                 error(<span class="string">'nbsubConstr must be cell array'</span>);
+0631             <span class="keyword">else</span>
+0632                 <span class="keyword">for</span> i = 1:length(val)
+0633                     thisVal = val{i};
+0634                     <span class="keyword">if</span> isempty(thisVal)
+0635                         val{i} = [0  0];
+0636                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || (size(thisVal,1)~=1 || size(thisVal,2)~=2) || isinteger(val))
+0637                         error(<span class="string">'value %d in assignment to nbsubConstr must be 1x2 double'</span>,i);
+0638                     <span class="keyword">end</span>
+0639                 <span class="keyword">end</span>
+0640             <span class="keyword">end</span>
+0641            
+0642             obj.nbsubConstr = val;
+0643         <span class="keyword">end</span>
+0644         <span class="comment">%End NBsubs block</span>
+0645         
+0646         
+0647         <span class="comment">%----------------------------------------------------------------------</span>
+0648     <span class="comment">%Resolutions block</span>
+0649         <a name="_sub32" href="#_subfunctions" class="code">function obj = set.nResolutions(obj,nResolutions)</a>
+0650             <span class="keyword">if</span> (isnan(nResolutions) || isinf(nResolutions) || mod(nResolutions,1) ~= 0)
+0651                 error(<span class="string">'nReslutions must be real integer'</span>);
+0652             <span class="keyword">end</span>
+0653             obj.nResolutions = nResolutions;
+0654             
+0655             <span class="keyword">if</span> isempty(obj.resolutions)
+0656                 obj.resolutions = zeros(1,nResolutions);
+0657             <span class="keyword">elseif</span> (length(obj.resolutions) &lt; nResolutions)
+0658                 obj = obj.extendNResolutions(nResolutions);
+0659             <span class="keyword">elseif</span> (length(obj.resolutions) &gt; nResolutions)
+0660                 obj = obj.contractNResolutions(nResolutions);
+0661             <span class="keyword">end</span>
+0662             
+0663             <span class="keyword">if</span> isempty(obj.resolutionNames)
+0664                 obj.resolutionNames = cell(1,nResolutions);
+0665             <span class="keyword">elseif</span> (length(obj.resolutionNames) &lt; nResolutions)
+0666                 obj = obj.extendNresolutionNames(nResolutions);
+0667             <span class="keyword">elseif</span> (length(obj.resolutionNames) &gt; nResolutions)
+0668                 obj = obj.contractNresolutionNames(nResolutions);
+0669             <span class="keyword">end</span>
+0670             
+0671             <span class="keyword">if</span> isempty(obj.resolutionConstr)
+0672                 obj.resolutionConstr = cell(1,nResolutions);            
+0673             <span class="keyword">elseif</span> (length(obj.resolutionConstr) &lt; nResolutions)
+0674                 obj = obj.extendNresolutionConstr(nResolutins);
+0675             <span class="keyword">elseif</span> (length(obj.resolutionConstr) &gt; nResolutions)
+0676                obj = obj.contractNresolutionConstr(nResolutions);
+0677             <span class="keyword">end</span>
+0678             
+0679             <span class="keyword">if</span> isempty(obj.resolutionFitYesNo)
+0680                 obj.resolutionFitYesNo = ones(1,nResolutions);
+0681             <span class="keyword">elseif</span> (length(obj.resolutionFitYesNo) &lt; nResolutions)
+0682                 obj = obj.extendNReslutionFitYesNo(nResolutions);
+0683             <span class="keyword">elseif</span> (length(obj.reslutionFitYesNo) &gt; nResolutions)
+0684                obj = obj.contractNResolutionFitYesNo(nResolutions);
+0685             <span class="keyword">end</span>      
+0686         <span class="keyword">end</span>
+0687        
+0688         <a name="_sub33" href="#_subfunctions" class="code">function obj = set.resolutions(obj,val)</a>
+0689             <span class="keyword">if</span> (length(val) &gt; obj.nResolutions)
+0690                error(<span class="string">'Length of values vector must be &lt;= nResolutions'</span>);
+0691             <span class="keyword">elseif</span> (isnumeric(val) == false || isinteger(val) == true)
+0692                 error(<span class="string">'Resolutins must be vector of doubles'</span>);
+0693             <span class="keyword">else</span>        
+0694                obj.resolutions = val;
+0695             <span class="keyword">end</span>
+0696         <span class="keyword">end</span>
+0697             
+0698         <a name="_sub34" href="#_subfunctions" class="code">function obj = set.resolutionNames(obj,val)</a>
+0699             <span class="keyword">if</span> (length(val) &gt; obj.nResolutions)
+0700                error(<span class="string">'Length of resolutinsNames vector must be &lt;= nResolutions'</span>);
+0701             <span class="keyword">elseif</span> (iscell(val) == false)
+0702                error(<span class="string">'resolutionsNames must be cell array'</span>);
+0703              <span class="keyword">else</span>
+0704                obj.resolutionNames = val;
+0705             <span class="keyword">end</span>
+0706         <span class="keyword">end</span>
+0707         
+0708         <a name="_sub35" href="#_subfunctions" class="code">function obj = set.resolutionFitYesNo(obj,val)  </a>
+0709           <span class="keyword">if</span> (length(val) &gt; obj.nResolutions)
+0710                error(<span class="string">'Length of resolutionFitYesNo vector must be &lt;= nparams'</span>);
+0711             <span class="keyword">elseif</span> (isnumeric(val) == false || sum(ismember(val,[0 1]))~= obj.nResolutions)
+0712                error(<span class="string">'reslutionFitYesNo  must be either 0 or 1.'</span>);
+0713              <span class="keyword">else</span>
+0714                obj.resolutionFitYesNo = val;
+0715             <span class="keyword">end</span>
+0716         <span class="keyword">end</span>
+0717         
+0718         
+0719         
+0720         <a name="_sub36" href="#_subfunctions" class="code">function obj = set.resolutionConstr(obj,val)</a>
+0721             <span class="keyword">if</span> (length(val) &gt; obj.nResolutions)
+0722                 error(<span class="string">'Length of resolutionsConstr vector must be &lt;= nResolutions'</span>);
+0723             <span class="keyword">elseif</span> (iscell(val) == false)
+0724                 error(<span class="string">'resolutionsConstr must be cell array'</span>);
+0725             <span class="keyword">else</span>
+0726                 <span class="keyword">for</span> i = 1:length(val)
+0727                     thisVal = val{i};
+0728                     <span class="keyword">if</span> isempty(thisVal)
+0729                         val{i} = [0  0];
+0730                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || (size(thisVal,1)~=1 || size(thisVal,2)~=2) || isinteger(val))
+0731                         error(<span class="string">'value %d in assignment to resolutionConstr must be 1x2 double'</span>,i);
+0732                     <span class="keyword">end</span>
+0733                 <span class="keyword">end</span>
+0734             <span class="keyword">end</span>
+0735            
+0736             obj.resolutionConstr = val;
+0737         <span class="keyword">end</span>
+0738         <span class="comment">%End resolutions block</span>
+0739 
+0740         
+0741 
+0742         
+0743     <span class="comment">%--------------------Contrasts-----------------------------------------</span>
+0744      <a name="_sub37" href="#_subfunctions" class="code">function obj = set.numberOfContrasts(obj,nContrasts)</a>
+0745          
+0746             <span class="keyword">if</span> (isnan(nContrasts) || isinf(nContrasts) || mod(nContrasts,1) ~= 0)
+0747                 error(<span class="string">'number of contrasts must be real integer'</span>);
+0748             <span class="keyword">end</span>
+0749             obj.numberOfContrasts = nContrasts;
+0750             
+0751             <span class="keyword">if</span> isempty(obj.allData)
+0752                 obj.allData = cell(1,nContrasts);
+0753             <span class="keyword">elseif</span> (length(obj.allData) &lt; nContrasts)
+0754                 obj = obj.extendAllData(nContrasts);
+0755             <span class="keyword">elseif</span> (length(obj.allData) &gt; nContrasts)
+0756                 obj = obj.contractAllData(nContrasts);
+0757             <span class="keyword">end</span>   
+0758             
+0759             <span class="keyword">if</span> isempty(obj.resample)
+0760                 obj.resample = ones(1,nContrasts);
+0761             <span class="keyword">elseif</span> (length(obj.resample) &lt; nContrasts)
+0762                 obj = obj.extendNResample(nContrasts);
+0763             <span class="keyword">elseif</span> (length(obj.resample) &gt; nContrasts)
+0764                 obj = obj.contractNResample(nContrasts);
+0765             <span class="keyword">end</span>
+0766             
+0767             <span class="keyword">if</span> isempty(obj.dataPresent)
+0768                 obj.dataPresent = ones(1,nContrasts);
+0769             <span class="keyword">elseif</span> (length(obj.dataPresent) &lt; nContrasts)
+0770                 obj = obj.extendNDataPresent(nContrasts);
+0771             <span class="keyword">elseif</span> (length(obj.dataPresent) &gt; nContrasts)
+0772                 obj = obj.contractNDataPresent(nContrasts);
+0773             <span class="keyword">end</span>
+0774             
+0775             <span class="keyword">if</span> isempty(obj.dataLimits)
+0776                 obj.dataLimits = cell(1,nContrasts);            
+0777             <span class="keyword">elseif</span> (length(obj.dataLimits) &lt; nContrasts)
+0778                 obj = obj.extendNDataLimits(nContrasts);
+0779             <span class="keyword">elseif</span> (length(obj.dataLimits) &gt; nContrasts)
+0780                obj = obj.contractNDataLimits(nContrasts);
+0781             <span class="keyword">end</span>
+0782             
+0783             <span class="keyword">if</span> isempty(obj.simLimits)
+0784                 obj.simLimits = cell(1,nContrasts);            
+0785             <span class="keyword">elseif</span> (length(obj.simLimits) &lt; nContrasts)
+0786                 obj = obj.extendNSimLimits(nContrasts);
+0787             <span class="keyword">elseif</span> (length(obj.simLimits) &gt; nContrasts)
+0788                obj = obj.contractNSimLimits(nContrasts);
+0789             <span class="keyword">end</span>   
+0790             
+0791             <span class="keyword">if</span> isempty(obj.contrastBacks)
+0792                 obj.contrastBacks = ones(1,nContrasts);
+0793             <span class="keyword">elseif</span> (length(obj.contrastBacks) &lt; nContrasts)
+0794                 obj = obj.extendNContrastBacks(nContrasts);
+0795             <span class="keyword">elseif</span> (length(obj.contrastBacks) &gt; nContrasts)
+0796                obj = obj.contractNContrastBacks(nContrasts);
+0797             <span class="keyword">end</span>  
+0798             
+0799             <span class="keyword">if</span> isempty(obj.contrastShifts)
+0800                 obj.contrastShifts = ones(1,nContrasts);
+0801             <span class="keyword">elseif</span> (length(obj.contrastShifts) &lt; nContrasts)
+0802                 obj = obj.extendNContrastShifts(nContrasts);
+0803             <span class="keyword">elseif</span> (length(obj.contrastShifts) &gt; nContrasts)
+0804                obj = obj.contractNContrastShifts(nContrasts);
+0805             <span class="keyword">end</span>  
+0806             
+0807             <span class="keyword">if</span> isempty(obj.contrastScales)
+0808                 obj.contrastScales = ones(1,nContrasts);
+0809             <span class="keyword">elseif</span> (length(obj.contrastScales) &lt; nContrasts)
+0810                 obj = obj.extendNContrastScales(nContrasts);
+0811             <span class="keyword">elseif</span> (length(obj.contrastScales) &gt; nContrasts)
+0812                obj = obj.contractNContrastScales(nContrasts);
+0813             <span class="keyword">end</span>  
+0814             
+0815             <span class="keyword">if</span> isempty(obj.contrastNbas)
+0816                 obj.contrastNbas = ones(1,nContrasts);
+0817             <span class="keyword">elseif</span> (length(obj.contrastNbas) &lt; nContrasts)
+0818                 obj = obj.extendNContrastNbas(nContrasts);
+0819             <span class="keyword">elseif</span> (length(obj.contrastNbas) &gt; nContrasts)
+0820                obj = obj.contractNContrastNbas(nContrasts);
+0821             <span class="keyword">end</span> 
+0822             
+0823             <span class="keyword">if</span> isempty(obj.contrastNbss)
+0824                 obj.contrastNbss = ones(1,nContrasts);
+0825             <span class="keyword">elseif</span> (length(obj.contrastNbss) &lt; nContrasts)
+0826                 obj = obj.extendNContrastNbss(nContrasts);
+0827             <span class="keyword">elseif</span> (length(obj.contrastNbss) &gt; nContrasts)
+0828                obj = obj.contractNContrastNbss(nContrasts);
+0829             <span class="keyword">end</span> 
+0830  
+0831             <span class="keyword">if</span> isempty(obj.contrastRes)
+0832                 obj.contrastRes = ones(1,nContrasts);
+0833             <span class="keyword">elseif</span> (length(obj.contrastRes) &lt; nContrasts)
+0834                 obj = obj.extendNContrastRes(nContrasts);
+0835             <span class="keyword">elseif</span> (length(obj.contrastRes) &gt; nContrasts)
+0836                obj = obj.contractNContrastRes(nContrasts);
+0837             <span class="keyword">end</span>
+0838             
+0839             <span class="keyword">if</span> isempty(obj.resample)
+0840                 obj.resample = ones(1,nContrasts);
+0841             <span class="keyword">elseif</span> (length(obj.resample) &lt; nContrasts)
+0842                 obj = obj.extendNResample(nContrasts);
+0843             <span class="keyword">elseif</span> (length(obj.resample) &gt; nContrasts)
+0844                 obj = obj.contractNResample(nContrasts);
+0845             <span class="keyword">end</span>
+0846             
+0847             <span class="keyword">if</span> isempty(obj.contrastLayers)
+0848                 obj.contrastLayers = cell(1,nContrasts);            
+0849             <span class="keyword">elseif</span> (length(obj.contrastLayers) &lt; nContrasts)
+0850                 obj = obj.extendNContrastLayers(nContrasts);
+0851             <span class="keyword">elseif</span> (length(obj.contrastLayers) &gt; nContrasts)
+0852                obj = obj.contractNContrastLayers(nContrasts);
+0853             <span class="keyword">end</span>
+0854             
+0855             <span class="keyword">if</span>  isempty(obj.contrastRepeatSLDs)
+0856                 obj.contrastRepeatSLDs = cell(1,nContrasts);
+0857             <span class="keyword">elseif</span> (length(obj.contrastRepeatSLDs) &lt; nContrasts)
+0858                 obj = obj.extendNContrastRepeatSLDs(nContrasts);
+0859             <span class="keyword">elseif</span> (length(obj.contrastRepeatSLDs) &gt; nContrasts)
+0860                 obj = obj.contractNContrastRepeatSLDs(nContrasts);
+0861             <span class="keyword">end</span>
+0862      <span class="keyword">end</span>
+0863     
+0864      <a name="_sub38" href="#_subfunctions" class="code">function obj = set.allData(obj,val)</a>
+0865             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+0866                 error(<span class="string">'Number of datasets must be &lt;= number Of Contrasts'</span>);
+0867             <span class="keyword">elseif</span> (iscell(val) == false)
+0868                 error(<span class="string">'Each dataset must be a cell'</span>);
+0869             <span class="keyword">else</span>
+0870                 <span class="keyword">for</span> i = 1:length(val)
+0871                     thisVal = val{i};
+0872                     <span class="keyword">if</span> iscell(thisVal)
+0873                         <span class="keyword">if</span> length(thisVal) ~= 2
+0874                             error(<span class="string">'Call must be {''fname'' ''type''} pair'</span>);
+0875                         <span class="keyword">end</span>
+0876                     <span class="keyword">elseif</span> isnumeric(thisVal)
+0877                         <span class="keyword">if</span> isempty(thisVal)
+0878                             val{i} = []; 
+0879                         <span class="keyword">elseif</span> (size(thisVal,2)&lt;1 || size(thisVal,2)&gt;4)
+0880                             error(<span class="string">'value %d in assignment to allData must be nx(1:4) double'</span>,i);
+0881                         <span class="keyword">end</span>
+0882                     <span class="keyword">elseif</span> isinteger(thisVal)
+0883                         error(<span class="string">'Numeric values of data cannot be integer'</span>);                     
+0884                     <span class="keyword">end</span>
+0885                 <span class="keyword">end</span>
+0886             <span class="keyword">end</span>
+0887             obj.allData = val;
+0888      <span class="keyword">end</span>
+0889       
+0890      
+0891      <a name="_sub39" href="#_subfunctions" class="code">function obj = set.resample(obj,val)</a>
+0892             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+0893                error(<span class="string">'Length of resample vector must be &lt;= numberOfContrasts'</span>);
+0894             <span class="keyword">elseif</span> (isnumeric(val) == false || sum(ismember(val,[0 1]))~=obj.numberOfContrasts)
+0895                 error(<span class="string">'resample must be 1 or 0'</span>);
+0896             <span class="keyword">elseif</span> (length(val) &lt; obj.numberOfContrasts)
+0897                 error(<span class="string">'Unindexed assignment - total length resample must = numberOfContrasts'</span>);
+0898             <span class="keyword">else</span>
+0899                obj.resample = val;
+0900             <span class="keyword">end</span>
+0901      <span class="keyword">end</span>
+0902  
+0903     <a name="_sub40" href="#_subfunctions" class="code">function obj = set.dataPresent(obj,val)</a>
+0904             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+0905                error(<span class="string">'Length of dataPresent vector must be &lt;= numberOfContrasts'</span>);
+0906             <span class="keyword">elseif</span> (isnumeric(val) == false || sum(ismember(val,[0 1]))~=obj.numberOfContrasts)
+0907                 error(<span class="string">'dataPresent must be 1 or 0'</span>);
+0908             <span class="keyword">elseif</span> (length(val) &lt; obj.numberOfContrasts)
+0909                 error(<span class="string">'Unindexed assignment - total length dataPresent must = numberOfContrasts'</span>);
+0910             <span class="keyword">else</span>
+0911                obj.dataPresent = val;
+0912             <span class="keyword">end</span>
+0913      <span class="keyword">end</span>
+0914      
+0915      <a name="_sub41" href="#_subfunctions" class="code">function obj = set.dataLimits(obj,val)</a>
+0916             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+0917                 error(<span class="string">'Length of dataLimits array must be &lt;= number of contrasts'</span>);
+0918             <span class="keyword">elseif</span> (iscell(val) == false)
+0919                 error(<span class="string">'paramConstr must be cell array'</span>);
+0920             <span class="keyword">else</span>
+0921                 <span class="keyword">for</span> i = 1:length(val)
+0922                     thisVal = val{i};
+0923                     <span class="keyword">if</span> isempty(thisVal)
+0924                         val{i} = [0  0];
+0925                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || (size(thisVal,1)~=1 || size(thisVal,2)~=2) || isinteger(val))
+0926                         error(<span class="string">'value %d in assignment to dataLimits must be 1x2 double'</span>,i);
+0927                     <span class="keyword">end</span>
+0928                 <span class="keyword">end</span>
+0929             <span class="keyword">end</span>
+0930             obj.dataLimits = val;
+0931       <span class="keyword">end</span>
+0932       
+0933       <a name="_sub42" href="#_subfunctions" class="code">function obj = set.simLimits(obj,val)</a>
+0934             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+0935                 error(<span class="string">'Length of simLimits array must be &lt;= numbr of contrasts'</span>);
+0936             <span class="keyword">elseif</span> (iscell(val) == false)
+0937                 error(<span class="string">'simLimits must be cell array'</span>);
+0938             <span class="keyword">else</span>
+0939                 <span class="keyword">for</span> i = 1:length(val)
+0940                     thisVal = val{i};
+0941                     <span class="keyword">if</span> isempty(thisVal)
+0942                         val{i} = [0  0];
+0943                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || (size(thisVal,1)~=1 || size(thisVal,2)~=2) || isinteger(val))
+0944                         error(<span class="string">'value %d in assignment to simLimits must be 1x2 double'</span>,i);
+0945                     <span class="keyword">end</span>
+0946                 <span class="keyword">end</span>
+0947             <span class="keyword">end</span>
+0948             obj.simLimits = val;
+0949         <span class="keyword">end</span>
+0950      
+0951         <a name="_sub43" href="#_subfunctions" class="code">function obj = set.contrastBacks(obj,val)</a>
+0952             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+0953                error(<span class="string">'Length of values vector must be &lt;= numberOfContrasts'</span>);
+0954             <span class="keyword">elseif</span> (isnumeric(val) == false || any(mod(val,1)))
+0955                 error(<span class="string">'backgrounds must be vector of integers'</span>);
+0956             <span class="keyword">elseif</span> (length(val) &lt; obj.numberOfContrasts)
+0957                 error(<span class="string">'Unindexed assignment - total length contrastBacks must = numberOfContrasts'</span>);
+0958             <span class="keyword">else</span>
+0959                obj.contrastBacks = val;
+0960             <span class="keyword">end</span>
+0961         <span class="keyword">end</span>
+0962       
+0963         <a name="_sub44" href="#_subfunctions" class="code">function obj = set.contrastShifts(obj,val)</a>
+0964             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+0965                error(<span class="string">'Length of values vector must be &lt;= numberOfContrasts'</span>);
+0966             <span class="keyword">elseif</span> (isnumeric(val) == false || any(mod(val,1)))
+0967                 error(<span class="string">'contrast shifts must be vector of doubles'</span>);
+0968             <span class="keyword">elseif</span> (length(val) &lt; obj.numberOfContrasts)
+0969                 error(<span class="string">'Unindexed assignment - total length contrastShifts must = numberOfContrasts'</span>);
+0970             <span class="keyword">else</span>
+0971                obj.contrastShifts = val;
+0972             <span class="keyword">end</span>
+0973         <span class="keyword">end</span>
+0974         
+0975         <a name="_sub45" href="#_subfunctions" class="code">function obj = set.contrastScales(obj,val)</a>
+0976             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+0977                error(<span class="string">'Length of values vector must be &lt;= numberOfContrasts'</span>);
+0978             <span class="keyword">elseif</span> (isnumeric(val) == false || any(mod(val,1)))
+0979                 error(<span class="string">'contrast scales must be vector of doubles'</span>);
+0980             <span class="keyword">elseif</span> (length(val) &lt; obj.numberOfContrasts)
+0981                 error(<span class="string">'Unindexed assignment - total length contrastScales must = numberOfContrasts'</span>);
+0982             <span class="keyword">else</span>
+0983                obj.contrastScales = val;
+0984             <span class="keyword">end</span>
+0985         <span class="keyword">end</span>
+0986         
+0987         <a name="_sub46" href="#_subfunctions" class="code">function obj = set.contrastNbas(obj,val)</a>
+0988             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+0989                error(<span class="string">'Length of values vector must be &lt;= numberOfContrasts'</span>);
+0990             <span class="keyword">elseif</span> (isnumeric(val) == false || any(mod(val,1)))
+0991                 error(<span class="string">'contrast Nbas must be vector of doubles'</span>);
+0992             <span class="keyword">elseif</span> (length(val) &lt; obj.numberOfContrasts)
+0993                 error(<span class="string">'Unindexed assignment - total length contrastNbas must = numberOfContrasts'</span>);
+0994             <span class="keyword">else</span>
+0995                obj.contrastNbas = val;
+0996             <span class="keyword">end</span>
+0997         <span class="keyword">end</span>
+0998         
+0999         <a name="_sub47" href="#_subfunctions" class="code">function obj = set.contrastNbss(obj,val)</a>
+1000             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+1001                error(<span class="string">'Length of values vector must be &lt;= numberOfContrasts'</span>);
+1002             <span class="keyword">elseif</span> (isnumeric(val) == false || any(mod(val,1)))
+1003                 error(<span class="string">'contrast Nbas must be vector of doubles'</span>);
+1004             <span class="keyword">elseif</span> (length(val) &lt; obj.numberOfContrasts)
+1005                 error(<span class="string">'Unindexed assignment - total length contrastNbss must = numberOfContrasts'</span>);
+1006             <span class="keyword">else</span>
+1007                obj.contrastNbss = val;
+1008             <span class="keyword">end</span>
+1009         <span class="keyword">end</span>
+1010         
+1011         <a name="_sub48" href="#_subfunctions" class="code">function obj = set.contrastRes(obj,val)</a>
+1012             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+1013                error(<span class="string">'Length of values vector must be &lt;= numberOfContrasts'</span>);
+1014             <span class="keyword">elseif</span> (isnumeric(val) == false || any(mod(val,1)))
+1015                 error(<span class="string">'contrast Nbas must be vector of doubles'</span>);
+1016             <span class="keyword">elseif</span> (length(val) &lt; obj.numberOfContrasts)
+1017                 error(<span class="string">'Unindexed assignment - total length contrastRes must = numberOfContrasts'</span>);
+1018             <span class="keyword">else</span>
+1019                obj.contrastRes = val;
+1020             <span class="keyword">end</span>
+1021         <span class="keyword">end</span>
+1022         
+1023         <a name="_sub49" href="#_subfunctions" class="code">function obj = set.contrastRepeatSLDs(obj,val)</a>
+1024             <span class="keyword">if</span> (length(val) &gt; obj.numberOfContrasts)
+1025                 error(<span class="string">'Length of contrastRepeatSLDs array must be &lt;= number of contrasts'</span>);
+1026             <span class="keyword">elseif</span> (iscell(val) == false)
+1027                 error(<span class="string">'paramConstr must be cell array'</span>);
+1028             <span class="keyword">else</span>
+1029                 <span class="keyword">for</span> i = 1:length(val)
+1030                     thisVal = val{i};
+1031                     <span class="keyword">if</span> isempty(thisVal)
+1032                         val{i} = [0  1];
+1033                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || (size(thisVal,1)~=1 || size(thisVal,2)~=2) || isinteger(val))
+1034                         error(<span class="string">'value %d in assignment to dataLimits must be 1x2 double'</span>,i);
+1035                     <span class="keyword">end</span>
+1036                 <span class="keyword">end</span>
+1037             <span class="keyword">end</span>
+1038             obj.contrastRepeatSLDs = val;
+1039       <span class="keyword">end</span>
+1040         
+1041         
+1042         
+1043         
+1044    <span class="comment">%--------------- End Contrasts Block ----------------------------------</span>
+1045    
+1046    <span class="comment">%Model Block</span>
+1047         
+1048         <a name="_sub50" href="#_subfunctions" class="code">function obj = set.modelType(obj,val)</a>
+1049              <span class="keyword">if</span> ~ischar(val)
+1050                  error(<span class="string">'modelType must be char'</span>);
+1051              <span class="keyword">end</span>
+1052              <span class="keyword">if</span> ~any(strcmpi(val,{<span class="string">'Layers'</span>,<span class="string">'Custom Layers'</span>,<span class="string">'Custom XY'</span>}))
+1053                  error(<span class="string">'modelType must be ''Layers'', ''Custom Layers'' or ''Custom XY'' '</span>);
+1054              <span class="keyword">end</span>
+1055              obj.modelType = val;
+1056         <span class="keyword">end</span>
+1057         
+1058         <a name="_sub51" href="#_subfunctions" class="code">function obj = set.numberOfLayers(obj,val)</a>
+1059             nLayers = val;
+1060             <span class="keyword">if</span> (isnan(nLayers) || isinf(nLayers) || mod(nLayers,1) ~= 0)
+1061                 error(<span class="string">'number of layers must be real integer'</span>);
+1062             <span class="keyword">end</span>
+1063             obj.numberOfLayers = val;
+1064         
+1065             <span class="keyword">if</span> isempty(obj.layersDetails)
+1066                 obj.layersDetails = cell(nLayers,1);
+1067             <span class="keyword">elseif</span> (size(obj.nLayers,1) &lt; nLayers)
+1068                 obj = obj.extendNLayersDetails(nLayers);
+1069             <span class="keyword">elseif</span> (length(obj.nLayers,1) &gt; nLayers)
+1070                 obj = obj.contractNLayersDetails(nLayers);
+1071             <span class="keyword">end</span>
+1072         <span class="keyword">end</span>
+1073          
+1074         <a name="_sub52" href="#_subfunctions" class="code">function obj = set.layersDetails(obj,val)</a>
+1075             <span class="keyword">if</span> (length(val) &gt; obj.numberOfLayers)
+1076                 error(<span class="string">'Length of layersDetails array must be &lt;= number of layers'</span>);
+1077             <span class="keyword">elseif</span> (iscell(val) == false)
+1078                 error(<span class="string">'layersDetails must be cell array'</span>);
+1079             <span class="keyword">else</span>
+1080                 <span class="keyword">for</span> i = 1:length(val)
+1081                     thisVal = val{i};
+1082                     <span class="keyword">if</span> isempty(thisVal)
+1083                         val{i} = [1 1 1 0 1];
+1084                     <span class="keyword">elseif</span> (~isnumeric(thisVal) || size(thisVal,2)~=5 || any(mod(thisVal,1))~=0)
+1085                         error(<span class="string">'value %d in assignment to layersDetails must be 1x5 integer'</span>,i);
+1086                     <span class="keyword">end</span>
+1087                 <span class="keyword">end</span>
+1088             <span class="keyword">end</span>
+1089             obj.layersDetails = val;  
+1090         <span class="keyword">end</span>
+1091         
+1092         <a name="_sub53" href="#_subfunctions" class="code">function obj = set.modelFilename(obj,val)</a>
+1093             <span class="keyword">if</span> ~ischar(val)
+1094                 error(<span class="string">'model filename must be a char'</span>);
+1095             <span class="keyword">end</span>
+1096             obj.modelFilename = val;
+1097         <span class="keyword">end</span>
+1098         
+1099         <a name="_sub54" href="#_subfunctions" class="code">function obj = set.modelLanguage(obj,val)</a>
+1100            <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'matlab'</span>,<span class="string">'python'</span>})
+1101                error(<span class="string">'Model language must be ''matlab'' or ''python'' '</span>);
+1102            <span class="keyword">end</span>
+1103            obj.modelLanguage = val;
+1104         <span class="keyword">end</span>
+1105         
+1106     <span class="keyword">end</span> <span class="comment">%Public Methods end</span>
+1107    
+1108     <span class="comment">%-----------------------------------------------------------------------</span>
+1109     
+1110     <span class="comment">%Utility Functions.</span>
+1111     methods (Access = private) 
+1112             
+1113         
+1114     <span class="comment">%parameters</span>
+1115         <a name="_sub55" href="#_subfunctions" class="code">function obj = extendNParams(obj,val)</a>
+1116            currentLength = length(obj.params);
+1117            new = zeros(1,(val-currentLength));
+1118            new = [obj.params,new];
+1119            obj.params = new;
+1120         <span class="keyword">end</span>
+1121         
+1122         <a name="_sub56" href="#_subfunctions" class="code">function obj = contractNParams(obj,val)</a>
+1123            obj.params = obj.params(1:val);
+1124         <span class="keyword">end</span>
+1125         
+1126         <a name="_sub57" href="#_subfunctions" class="code">function obj = extendNResample(obj,val)</a>
+1127            currentLength = length(obj.resample);
+1128            new = zeros(1,(val-currentLength));
+1129            new = [obj.resample,new];
+1130            obj.resample = new;
+1131         <span class="keyword">end</span>
+1132         
+1133         <a name="_sub58" href="#_subfunctions" class="code">function obj = contractNResample(obj,val)</a>
+1134            obj.resample = obj.resample(1:val);
+1135         <span class="keyword">end</span>
+1136         
+1137         <a name="_sub59" href="#_subfunctions" class="code">function obj = extendNDataPresent(obj,val)</a>
+1138            currentLength = length(obj.dataPresent);
+1139            new = zeros(1,(val-currentLength));
+1140            new = [obj.dataPresent,new];
+1141            obj.dataPresent = new;
+1142         <span class="keyword">end</span>
+1143         
+1144         <a name="_sub60" href="#_subfunctions" class="code">function obj = contractNDataPresent(obj,val)</a>
+1145            obj.dataPresent = obj.dataPresent(1:val);
+1146         <span class="keyword">end</span>
+1147         
+1148         <a name="_sub61" href="#_subfunctions" class="code">function obj = extendNParamNames(obj,val)</a>
+1149            currentLength = length(obj.paramNames);
+1150            new = cell([1,(val-currentLength)]);
+1151            new = horzcat([obj.paramNames],new);
+1152            obj.paramNames = new;
+1153         <span class="keyword">end</span>
+1154         
+1155         <a name="_sub62" href="#_subfunctions" class="code">function obj = contractNParamNames(obj,val)</a>
+1156            obj.paramNames = obj.paramNames(1:val);
+1157         <span class="keyword">end</span>
+1158         
+1159         <a name="_sub63" href="#_subfunctions" class="code">function obj = extendNParamConstr(obj,val)</a>
+1160            currentLength = length(obj.paramConstr);
+1161            new = cell([1,(val-currentLength)]);
+1162            new(:) = {[0 0]};
+1163            new = horzcat([obj.paramConstr],new);
+1164            obj.paramConstr = new;
+1165         <span class="keyword">end</span>
+1166         
+1167         <a name="_sub64" href="#_subfunctions" class="code">function obj = contractNParamConstr(obj,val)</a>
+1168             obj.paramConstr = obj.paramConstr(1:val);
+1169         <span class="keyword">end</span>
+1170         
+1171         <a name="_sub65" href="#_subfunctions" class="code">function obj = extendNParamFitYesNo(obj,val)</a>
+1172            currentLength = length(obj.paramFitYesNo);
+1173            new = zeros(1,(val-currentLength));
+1174            new = [obj.paramFitYesNo,new];
+1175            obj.paramFitYesNo = new;
+1176         <span class="keyword">end</span>
+1177         
+1178         <a name="_sub66" href="#_subfunctions" class="code">function obj = contractNParamFitYesNo(obj,val)</a>
+1179             obj.paramFitYesNo = obj.paramFitYesNo(1:val);
+1180         <span class="keyword">end</span>
+1181         
+1182         
+1183      <span class="comment">%Backgrounds</span>
+1184         <a name="_sub67" href="#_subfunctions" class="code">function obj = extendNBackgrounds(obj,val)</a>
+1185            currentLength = length(obj.backgrounds);
+1186            new = zeros(1,(val-currentLength));
+1187            new = [obj.backgrounds,new];
+1188            obj.backgrounds = new;
+1189         <span class="keyword">end</span>
+1190         
+1191         <a name="_sub68" href="#_subfunctions" class="code">function obj = contractNBackgrounds(obj,val)</a>
+1192            obj.backgrounds = obj.backgrounds(1:val);
+1193         <span class="keyword">end</span>
+1194         
+1195         <a name="_sub69" href="#_subfunctions" class="code">function obj = extendNBackgroundNames(obj,val)</a>
+1196            currentLength = length(obj.backgroundNames);
+1197            new = cell([1,(val-currentLength)]);
+1198            new = horzcat([obj.backgroundNames],new);
+1199            obj.backgroundNames = new;
+1200         <span class="keyword">end</span>
+1201         
+1202         <a name="_sub70" href="#_subfunctions" class="code">function obj = contractNBackgroundNames(obj,val)</a>
+1203            obj.backgroundNames = obj.backgroundNames(1:val);
+1204         <span class="keyword">end</span>
+1205         
+1206         <a name="_sub71" href="#_subfunctions" class="code">function obj = extendNBackgroundConstr(obj,val)</a>
+1207            currentLength = length(obj.backgroundConstr);
+1208            new = cell([1,(val-currentLength)]);
+1209            new(:) = {[0 0]};
+1210            new = horzcat([obj.backgroundConstr],new);
+1211            obj.backgroundConstr = new;
+1212         <span class="keyword">end</span>
+1213         
+1214         <a name="_sub72" href="#_subfunctions" class="code">function obj = contractNBackgroundConstr(obj,val)</a>
+1215             obj.backgroundConstr = obj.backgroundConstr(1:val);
+1216         <span class="keyword">end</span>
+1217           
+1218         <a name="_sub73" href="#_subfunctions" class="code">function obj = extendNBackgroundFitYesNo(obj,val)</a>
+1219            currentLength = length(obj.backgroundFitYesNo);
+1220            new = zeros(1,(val-currentLength));
+1221            new = [obj.backgroundFitYesNo,new];
+1222            obj.backgroundFitYesNo = new;
+1223         <span class="keyword">end</span>
+1224         
+1225         <a name="_sub74" href="#_subfunctions" class="code">function obj = contractNBackgroundFitYesNo(obj,val)</a>
+1226             obj.backgroundFitYesNo = obj.backgroundFitYesNo(1:val);
+1227         <span class="keyword">end</span>
+1228  
+1229         
+1230      <span class="comment">%Scalefactors</span>
+1231         <a name="_sub75" href="#_subfunctions" class="code">function obj = extendNScalefactors(obj,val)</a>
+1232            currentLength = length(obj.scalefactors);
+1233            new = zeros(1,(val-currentLength));
+1234            new = [obj.scalefactors,new];
+1235            obj.scalefactors = new;
+1236         <span class="keyword">end</span>
+1237         
+1238         <a name="_sub76" href="#_subfunctions" class="code">function obj = contractNScalefactors(obj,val)</a>
+1239            obj.scalefactors = obj.scalefactors(1:val);
+1240         <span class="keyword">end</span>
+1241         
+1242         <a name="_sub77" href="#_subfunctions" class="code">function obj = extendNScalefactorNames(obj,val)</a>
+1243            currentLength = length(obj.scalefactorNames);
+1244            new = cell([1,(val-currentLength)]);
+1245            new = horzcat([obj.scalefactorNames],new);
+1246            obj.scalefactorNames = new;
+1247         <span class="keyword">end</span>
+1248         
+1249         <a name="_sub78" href="#_subfunctions" class="code">function obj = contractNScalefactorNames(obj,val)</a>
+1250            obj.scalefactorNames = obj.scalefactorNames(1:val);
+1251         <span class="keyword">end</span>
+1252         
+1253         <a name="_sub79" href="#_subfunctions" class="code">function obj = extendNScalefactorConstr(obj,val)</a>
+1254            currentLength = length(obj.scalefactorConstr);
+1255            new = cell([1,(val-currentLength)]);
+1256            new(:) = {[0 0]};
+1257            new = horzcat([obj.scalefactorConstr],new);
+1258            obj.scalefactorConstr = new;
+1259         <span class="keyword">end</span>
+1260         
+1261         <a name="_sub80" href="#_subfunctions" class="code">function obj = contractNScalefactorConstr(obj,val)</a>
+1262             obj.scalefactorConstr = obj.scalefactorConstr(1:val);
+1263         <span class="keyword">end</span>
+1264 
+1265        <a name="_sub81" href="#_subfunctions" class="code">function obj = extendNScalefactorFitYesNo(obj,val)</a>
+1266            currentLength = length(obj.scalefactorFitYesNo);
+1267            new = zeros(1,(val-currentLength));
+1268            new = [obj.scalefactorFitYesNo,new];
+1269            obj.scalfactorFitYesNo = new;
+1270         <span class="keyword">end</span>
+1271         
+1272         <a name="_sub82" href="#_subfunctions" class="code">function obj = contractNScalefactorFitYesNo(obj,val)</a>
+1273             obj.scalefactorFitYesNo = obj.scalefactorFitYesNo(1:val);
+1274         <span class="keyword">end</span>
+1275 
+1276         
+1277     <span class="comment">%QZ shifts</span>
+1278         <a name="_sub83" href="#_subfunctions" class="code">function obj = extendNQzshifts(obj,val)</a>
+1279            currentLength = length(obj.qzshifts);
+1280            new = zeros(1,(val-currentLength));
+1281            new = [obj.qzshifts,new];
+1282            obj.qzshifts = new;
+1283         <span class="keyword">end</span>
+1284         
+1285         <a name="_sub84" href="#_subfunctions" class="code">function obj = contractNQzshifts(obj,val)</a>
+1286            obj.qzshifts = obj.qzshifts(1:val);
+1287         <span class="keyword">end</span>
+1288         
+1289         <a name="_sub85" href="#_subfunctions" class="code">function obj = extendNQzshiftNames(obj,val)</a>
+1290            currentLength = length(obj.qzshiftNames);
+1291            new = cell([1,(val-currentLength)]);
+1292            new = horzcat([obj.qzshiftNames],new);
+1293            obj.qzshiftNames = new;
+1294         <span class="keyword">end</span>
+1295         
+1296         <a name="_sub86" href="#_subfunctions" class="code">function obj = contractNQzshiftNames(obj,val)</a>
+1297            obj.qzshiftNames = obj.qzshiftNames(1:val);
+1298         <span class="keyword">end</span>
+1299         
+1300         <a name="_sub87" href="#_subfunctions" class="code">function obj = extendNQzshiftConstr(obj,val)</a>
+1301            currentLength = length(obj.qzshiftConstr);
+1302            new = cell([1,(val-currentLength)]);
+1303            new(:) = {[0 0]};
+1304            new = horzcat([obj.qzshiftConstr],new);
+1305            obj.qzshiftConstr = new;
+1306         <span class="keyword">end</span>
+1307         
+1308         <a name="_sub88" href="#_subfunctions" class="code">function obj = contractNQzshiftConstr(obj,val)</a>
+1309             obj.qzshiftConstr = obj.qzshiftConstr(1:val);
+1310         <span class="keyword">end</span>
+1311         
+1312         <a name="_sub89" href="#_subfunctions" class="code">function obj = extendNQzshiftFitYesNo(obj,val)</a>
+1313            currentLength = length(obj.qzshiftFitYesNo);
+1314            new = zeros(1,(val-currentLength));
+1315            new = [obj.qzshiftFitYesNo,new];
+1316            obj.qzshiftFitYesNo = new;
+1317         <span class="keyword">end</span>
+1318         
+1319         <a name="_sub90" href="#_subfunctions" class="code">function obj = contractNQzshiftFitYesNo(obj,val)</a>
+1320             obj.qzshiftFitYesNo = obj.qzshiftFitYesNo(1:val);
+1321         <span class="keyword">end</span>
+1322         
+1323     
+1324     <span class="comment">%nbairs</span>
+1325         <a name="_sub91" href="#_subfunctions" class="code">function obj = extendNNbairs(obj,val)</a>
+1326            currentLength = length(obj.nbairs);
+1327            new = zeros(1,(val-currentLength));
+1328            new = [obj.nbairs,new];
+1329            obj.nbairs = new;
+1330         <span class="keyword">end</span>
+1331         
+1332         <a name="_sub92" href="#_subfunctions" class="code">function obj = contractNNbairs(obj,val)</a>
+1333            obj.nbairs = obj.nbairs(1:val);
+1334         <span class="keyword">end</span>
+1335         
+1336         <a name="_sub93" href="#_subfunctions" class="code">function obj = extendNNbairNames(obj,val)</a>
+1337            currentLength = length(obj.nbairNames);
+1338            new = cell([1,(val-currentLength)]);
+1339            new = horzcat([obj.nbairNames],new);
+1340            obj.nbairNames = new;
+1341         <span class="keyword">end</span>
+1342         
+1343         <a name="_sub94" href="#_subfunctions" class="code">function obj = contractNNbairNames(obj,val)</a>
+1344            obj.nbairNames = obj.nbairNames(1:val);
+1345         <span class="keyword">end</span>
+1346         
+1347         <a name="_sub95" href="#_subfunctions" class="code">function obj = extendNNbairConstr(obj,val)</a>
+1348            currentLength = length(obj.nbairConstr);
+1349            new = cell([1,(val-currentLength)]);
+1350            new(:) = {[0 0]};
+1351            new = horzcat([obj.nbairConstr],new);
+1352            obj.nbairConstr = new;
+1353         <span class="keyword">end</span>
+1354         
+1355         <a name="_sub96" href="#_subfunctions" class="code">function obj = contractNNbairConstr(obj,val)</a>
+1356             obj.nbairConstr = obj.nbairConstr(1:val);
+1357         <span class="keyword">end</span>
+1358         
+1359         <a name="_sub97" href="#_subfunctions" class="code">function obj = extendNNbairFitYesNo(obj,val)</a>
+1360            currentLength = length(obj.nbairFitYesNo);
+1361            new = zeros(1,(val-currentLength));
+1362            new = [obj.nbairFitYesNo,new];
+1363            obj.nbairFitYesNo = new;
+1364         <span class="keyword">end</span>
+1365         
+1366         <a name="_sub98" href="#_subfunctions" class="code">function obj = contractNNbairFitYesNo(obj,val)</a>
+1367             obj.nbairFitYesNo = obj.nbairFitYesNo(1:val);
+1368         <span class="keyword">end</span>
+1369         
+1370         
+1371     <span class="comment">%nbsubs</span>
+1372         <a name="_sub99" href="#_subfunctions" class="code">function obj = extendNNbsubs(obj,val)</a>
+1373            currentLength = length(obj.nbsubs);
+1374            new = zeros(1,(val-currentLength));
+1375            new = [obj.nbsubs,new];
+1376            obj.nbsubs = new;
+1377         <span class="keyword">end</span>
+1378         
+1379         <a name="_sub100" href="#_subfunctions" class="code">function obj = contractNNbsubs(obj,val)</a>
+1380            obj.nbsubs = obj.nbsubs(1:val);
+1381         <span class="keyword">end</span>
+1382         
+1383         <a name="_sub101" href="#_subfunctions" class="code">function obj = extendNNbsubNames(obj,val)</a>
+1384            currentLength = length(obj.nbsubNames);
+1385            new = cell([1,(val-currentLength)]);
+1386            new = horzcat([obj.nbsubNames],new);
+1387            obj.nbsubNames = new;
+1388         <span class="keyword">end</span>
+1389         
+1390         <a name="_sub102" href="#_subfunctions" class="code">function obj = contractNNbsubNames(obj,val)</a>
+1391            obj.nbsubNames = obj.nbsubNames(1:val);
+1392         <span class="keyword">end</span>
+1393         
+1394         <a name="_sub103" href="#_subfunctions" class="code">function obj = extendNNbsubConstr(obj,val)</a>
+1395            currentLength = length(obj.nbsubConstr);
+1396            new = cell([1,(val-currentLength)]);
+1397            new(:) = {[0 0]};
+1398            new = horzcat([obj.nbsubConstr],new);
+1399            obj.nbsubConstr = new;
+1400         <span class="keyword">end</span>
+1401         
+1402         <a name="_sub104" href="#_subfunctions" class="code">function obj = contractNNbsubConstr(obj,val)</a>
+1403             obj.nbsubConstr = obj.nbsubConstr(1:val);
+1404         <span class="keyword">end</span>
+1405         
+1406         <a name="_sub105" href="#_subfunctions" class="code">function obj = extendNNbsubFitYesNo(obj,val)</a>
+1407            currentLength = length(obj.nbsubFitYesNo);
+1408            new = zeros(1,(val-currentLength));
+1409            new = [obj.nbsubFitYesNo,new];
+1410            obj.nbsubFitYesNo = new;
+1411         <span class="keyword">end</span>
+1412         
+1413         <a name="_sub106" href="#_subfunctions" class="code">function obj = contractNNbsubFitYesNo(obj,val)</a>
+1414             obj.nbsubFitYesNo = obj.nbsubFitYesNo(1:val);
+1415         <span class="keyword">end</span>
+1416         
+1417         
+1418         
+1419     <span class="comment">%Resolutins</span>
+1420         <a name="_sub107" href="#_subfunctions" class="code">function obj = extendNResolutions(obj,val)</a>
+1421            currentLength = length(obj.resolutions);
+1422            new = zeros(1,(val-currentLength));
+1423            new = [obj.resolutins,new];
+1424            obj.resolutions = new;
+1425         <span class="keyword">end</span>
+1426         
+1427         <a name="_sub108" href="#_subfunctions" class="code">function obj = contractNReslutions(obj,val)</a>
+1428            obj.resolutions = obj.resolutions(1:val);
+1429         <span class="keyword">end</span>
+1430         
+1431         <a name="_sub109" href="#_subfunctions" class="code">function obj = extendNResolutionsNames(obj,val)</a>
+1432            currentLength = length(obj.resolutionsNames);
+1433            new = cell([1,(val-currentLength)]);
+1434            new = horzcat([obj.resolutinsNames],new);
+1435            obj.reslutionsNames = new;
+1436         <span class="keyword">end</span>
+1437         
+1438         <a name="_sub110" href="#_subfunctions" class="code">function obj = contractNResolutionsNames(obj,val)</a>
+1439            obj.reslutionsNames = obj.resolutionsNames(1:val);
+1440         <span class="keyword">end</span>
+1441         
+1442         <a name="_sub111" href="#_subfunctions" class="code">function obj = extendNResolutionsConstr(obj,val)</a>
+1443            currentLength = length(obj.resolutionsConstr);
+1444            new = cell([1,(val-currentLength)]);
+1445            new(:) = {[0 0]};
+1446            new = horzcat([obj.resolutionsConstr],new);
+1447            obj.resolutionsConstr = new;
+1448         <span class="keyword">end</span>
+1449         
+1450         <a name="_sub112" href="#_subfunctions" class="code">function obj = contractNResolutionConstr(obj,val)</a>
+1451             obj.resolutionConstr = obj.resolutionConstr(1:val);
+1452         <span class="keyword">end</span>
+1453         
+1454         <a name="_sub113" href="#_subfunctions" class="code">function obj = extendNResolutionFitYesNo(obj,val)</a>
+1455            currentLength = length(obj.resolutionFitYesNo);
+1456            new = zeros(1,(val-currentLength));
+1457            new = [obj.resolutionFitYesNo,new];
+1458            obj.resolutionFitYesNo = new;
+1459         <span class="keyword">end</span>
+1460         
+1461         <a name="_sub114" href="#_subfunctions" class="code">function obj = contractNResolutionFitYesNo(obj,val)</a>
+1462             obj.resolutionFitYesNo = obj.resolutionFitYesNo(1:val);
+1463         <span class="keyword">end</span>
+1464         
+1465         
+1466         
+1467         
+1468         
+1469         
+1470 <span class="comment">%--------------------------------------------------------------------------</span>
+1471     <span class="comment">%Data and contrasts</span>
+1472         <a name="_sub115" href="#_subfunctions" class="code">function obj = extendAllData(obj,val)</a>
+1473            currentLength = length(obj.allData);
+1474            new = cell([1,(val-currentLength)]);
+1475            new(:) = {[]};
+1476            new = horzcat([obj.allData],new);
+1477            obj.allData = new;
+1478         <span class="keyword">end</span>
+1479         
+1480         <a name="_sub116" href="#_subfunctions" class="code">function obj = contractAllData(obj,val)</a>
+1481             obj.allData = obj.allData(1:val);
+1482         <span class="keyword">end</span>
+1483 
+1484         <a name="_sub117" href="#_subfunctions" class="code">function obj = extendNDataLimits(obj,val)</a>
+1485            currentLength = length(obj.dataLimits);
+1486            new = cell([1,(val-currentLength)]);
+1487            new(:) = {[0 0]};
+1488            new = horzcat([obj.dataLimits],new);
+1489            obj.dataLimits = new;
+1490         <span class="keyword">end</span>
+1491         
+1492         <a name="_sub118" href="#_subfunctions" class="code">function obj = contractNDataLimits(obj,val)</a>
+1493             obj.dataLimits = obj.dataLimits(1:val);
+1494         <span class="keyword">end</span>
+1495         
+1496         <a name="_sub119" href="#_subfunctions" class="code">function obj = extendNSimLimits(obj,val)</a>
+1497            currentLength = length(obj.simLimits);
+1498            new = cell([1,(val-currentLength)]);
+1499            new(:) = {[0 0]};
+1500            new = horzcat([obj.simLimits],new);
+1501            obj.simLimits = new;
+1502         <span class="keyword">end</span>
+1503         
+1504         <a name="_sub120" href="#_subfunctions" class="code">function obj = contractNSimLimits(obj,val)</a>
+1505             obj.simLimits = obj.simLimits(1:val);
+1506         <span class="keyword">end</span>
+1507         
+1508         <a name="_sub121" href="#_subfunctions" class="code">function obj = extendNContrastBacks(obj,val)</a>
+1509            currentLength = length(obj.contrastBacks);
+1510            new = ones([1,(val-currentLength)]);
+1511            new = horzcat([obj.contrastBacks],new);
+1512            obj.contrastBacks = new;
+1513         <span class="keyword">end</span>
+1514         
+1515         <a name="_sub122" href="#_subfunctions" class="code">function obj = contractNContrastBacks(obj,val)</a>
+1516             obj.contrastBacks = obj.contrastBacks(1:val);
+1517         <span class="keyword">end</span>
+1518         
+1519         <a name="_sub123" href="#_subfunctions" class="code">function obj = extendNContrastShifts(obj,val)</a>
+1520            currentLength = length(obj.contrastShifts);
+1521            new = ones([1,(val-currentLength)]);
+1522            new = horzcat([obj.contrastShifts],new);
+1523            obj.contrastShifts = new;
+1524         <span class="keyword">end</span>
+1525         
+1526         <a name="_sub124" href="#_subfunctions" class="code">function obj = contractNContrastShifts(obj,val)</a>
+1527             obj.contrastShifts = obj.contrastShifts(1:val);
+1528         <span class="keyword">end</span>
+1529         
+1530         <a name="_sub125" href="#_subfunctions" class="code">function obj = extendNContrastScales(obj,val)</a>
+1531            currentLength = length(obj.contrastScales);
+1532            new = ones([1,(val-currentLength)]);
+1533            new = horzcat([obj.contrastScales],new);
+1534            obj.contrastShifts = new;
+1535         <span class="keyword">end</span>
+1536         
+1537         <a name="_sub126" href="#_subfunctions" class="code">function obj = contractNContrastScales(obj,val)</a>
+1538             obj.contrastScales = obj.contrastScales(1:val);
+1539         <span class="keyword">end</span>
+1540         
+1541         <a name="_sub127" href="#_subfunctions" class="code">function obj = extendNContrastNbas(obj,val)</a>
+1542            currentLength = length(obj.contrastNbas);
+1543            new = ones([1,(val-currentLength)]);
+1544            new = horzcat([obj.contrastNbas],new);
+1545            obj.contrastNbas = new;
+1546         <span class="keyword">end</span>
+1547         
+1548         <a name="_sub128" href="#_subfunctions" class="code">function obj = contractNContrastNbas(obj,val)</a>
+1549             obj.contrastNbas = obj.contrastNbas(1:val);
+1550         <span class="keyword">end</span>
+1551         
+1552         <a name="_sub129" href="#_subfunctions" class="code">function obj = extendNContrastNbss(obj,val)</a>
+1553            currentLength = length(obj.contrastNbss);
+1554            new = ones([1,(val-currentLength)]);
+1555            new = horzcat([obj.contrastNbss],new);
+1556            obj.contrastNbss = new;
+1557         <span class="keyword">end</span>
+1558         
+1559         <a name="_sub130" href="#_subfunctions" class="code">function obj = contractNContrastNbss(obj,val)</a>
+1560             obj.contrastNbss = obj.contrastNbss(1:val);
+1561         <span class="keyword">end</span>
+1562         
+1563         <a name="_sub131" href="#_subfunctions" class="code">function obj = extendNContrastRes(obj,val)</a>
+1564            currentLength = length(obj.contrastRes);
+1565            new = ones([1,(val-currentLength)]);
+1566            new = horzcat([obj.contrastRes],new);
+1567            obj.contrastNbss = new;
+1568         <span class="keyword">end</span>
+1569         
+1570         <a name="_sub132" href="#_subfunctions" class="code">function obj = contractNContrastRes(obj,val)</a>
+1571             obj.contrastRes = obj.contrastRes(1:val);
+1572         <span class="keyword">end</span>
+1573         
+1574         <a name="_sub133" href="#_subfunctions" class="code">function obj = extendNContrastRepeatSLDs(obj,val)</a>
+1575            currentLength = length(obj.contrastRepeatSLDs);
+1576            new = cell([1,(val-currentLength)]);
+1577            new(:) = {[0 1]};
+1578            new = horzcat([obj.contrastRepeatSLDs],new);
+1579            obj.contrastRepeatSLDs = new;
+1580         <span class="keyword">end</span>
+1581         
+1582         <a name="_sub134" href="#_subfunctions" class="code">function obj = contractNContrastRepeatSLDs(obj,val)</a>
+1583             obj.contrastRepeatSLDs = obj.contrastRepeatSLDs(1:val);
+1584         <span class="keyword">end</span>
+1585 <span class="comment">%-----------------------------------------------------------------------</span>
+1586 <span class="comment">%Model</span>
+1587         <a name="_sub135" href="#_subfunctions" class="code">function obj = extendNLayersDetails(obj,val)</a>
+1588             currentLength = size(obj.layersDetails,1);
+1589             new = cell((val-currentLength),1);
+1590             new(:) = {[1 1 1 0 1]};
+1591             new = vercat(obj.layersDetails,new);
+1592             obj.layersDetails = new;
+1593         <span class="keyword">end</span>
+1594       
+1595         <a name="_sub136" href="#_subfunctions" class="code">function obj = extendNContrastLayers(obj,val)</a>
+1596            currentLength = length(obj.contrastLayers);
+1597            new = cell([1,(val-currentLength)]);
+1598            new(:) = {[]};
+1599            new = vertcat([obj.contrastLayers],new);
+1600            obj.contrastLayers = new;
+1601         <span class="keyword">end</span>
+1602         
+1603         <a name="_sub137" href="#_subfunctions" class="code">function obj = contractNContrastLayers(obj,val)</a>
+1604             obj.contrastLayers = obj.contrastLayers(1:val);
+1605         <span class="keyword">end</span>
+1606                  
+1607     <span class="keyword">end</span>     <span class="comment">%End Private Methods</span>
+1608     
+1609 <span class="comment">%-------------------------------------------------------------------------</span>
+1610 
+1611 <span class="comment">%Display Methods</span>
+1612 methods (Access = protected)
+1613     
+1614     <a name="_sub138" href="#_subfunctions" class="code">function groups = getPropertyGroups(obj)</a>
+1615         
+1616                masterPropList = struct(  <span class="string">'experimentType'</span>, obj.experimentType,<span class="keyword">...</span>
+1617                      <span class="string">'experimentGeometry'</span>, obj.experimentGeometry    ,<span class="keyword">...</span>
+1618                      <span class="string">'nParams'</span>, obj.nParams,<span class="keyword">...</span>
+1619                      <span class="string">'params'</span>, {obj.params},<span class="keyword">...</span>
+1620                      <span class="string">'paramNames'</span>, {obj.paramNames},<span class="keyword">...</span>
+1621                      <span class="string">'paramConstr'</span>, {obj.paramConstr},<span class="keyword">...</span>
+1622                      <span class="string">'paramFitYesNo'</span>, {obj.paramFitYesNo},<span class="keyword">...</span>
+1623                      <span class="string">'nBackgrounds'</span>, obj.nBackgrounds,<span class="keyword">...</span>
+1624                      <span class="string">'backgrounds'</span>, {obj.backgrounds},<span class="keyword">...</span>
+1625                      <span class="string">'backgroundNames'</span>, {obj.backgroundNames},<span class="keyword">...</span>
+1626                      <span class="string">'backgroundConstr'</span>, {obj.backgroundConstr},<span class="keyword">...</span>
+1627                      <span class="string">'backgroundFitYesNo'</span>,{obj.backgroundFitYesNo},<span class="keyword">...</span>
+1628                      <span class="string">'nScalefactors'</span>, obj.nScalefactors,<span class="keyword">...</span>
+1629                      <span class="string">'scalefactors'</span>, {obj.scalefactors},<span class="keyword">...</span>
+1630                      <span class="string">'scalefactorNames'</span>, {obj.scalefactorNames},<span class="keyword">...</span>
+1631                      <span class="string">'scalefactorConstr'</span>, {obj.scalefactorConstr},<span class="keyword">...</span>
+1632                      <span class="string">'scalefactorFitYesNo'</span>,{obj.scalefactorFitYesNo},<span class="keyword">...</span>
+1633                      <span class="string">'nQzshifts'</span>, obj.nQzshifts,<span class="keyword">...</span>
+1634                      <span class="string">'qzshifts'</span>, {obj.qzshifts},<span class="keyword">...</span>
+1635                      <span class="string">'qzshiftNames'</span>, {obj.qzshiftNames},<span class="keyword">...</span>
+1636                      <span class="string">'qzshiftConstr'</span>, {obj.qzshiftConstr},<span class="keyword">...</span>
+1637                      <span class="string">'qzshiftFitYesNo'</span>,{obj.qzshiftFitYesNo},<span class="keyword">...</span>
+1638                      <span class="string">'nNbairs'</span>, obj.nNbairs,<span class="keyword">...</span>
+1639                      <span class="string">'nbairs'</span>, {obj.nbairs},<span class="keyword">...</span>
+1640                      <span class="string">'nbairNames'</span>, {obj.nbairNames},<span class="keyword">...</span>
+1641                      <span class="string">'nbairConstr'</span>, {obj.nbairConstr},<span class="keyword">...</span>
+1642                      <span class="string">'nbairFitYesNo'</span>,{obj.nbairFitYesNo},<span class="keyword">...</span>
+1643                      <span class="string">'nNbsubs'</span>, obj.nNbsubs,<span class="keyword">...</span>
+1644                      <span class="string">'nbsubs'</span>, {obj.nbsubs},<span class="keyword">...</span>
+1645                      <span class="string">'nbsubNames'</span>, {obj.nbsubNames},<span class="keyword">...</span>
+1646                      <span class="string">'nbsubConstr'</span>, {obj.nbsubConstr},<span class="keyword">...</span>
+1647                      <span class="string">'nbsubFitYesNo'</span>,{obj.nbsubFitYesNo},<span class="keyword">...</span>
+1648                      <span class="string">'numberOfContrasts'</span>, obj.numberOfContrasts,<span class="keyword">...</span>
+1649                      <span class="string">'nResolutions'</span>, obj.nResolutions,<span class="keyword">...</span>
+1650                      <span class="string">'resolutions'</span>, {obj.resolutions},<span class="keyword">...</span>
+1651                      <span class="string">'resolutionNames'</span>, {obj.resolutionNames},<span class="keyword">...</span>
+1652                      <span class="string">'resolutionConstr'</span>, {obj.resolutionConstr},<span class="keyword">...</span>
+1653                      <span class="string">'resolutionFitYesNo'</span>,{obj.resolutionFitYesNo},<span class="keyword">...</span>
+1654                      <span class="string">'allData'</span>, {obj.allData},<span class="keyword">...</span>
+1655                      <span class="string">'dataPresent'</span>, {obj.dataPresent},<span class="keyword">...</span>
+1656                      <span class="string">'resample'</span>, obj.resample,<span class="keyword">...</span>
+1657                      <span class="string">'dataLimits'</span>, {obj.dataLimits},<span class="keyword">...</span>
+1658                      <span class="string">'simLimits'</span>, {obj.simLimits},<span class="keyword">...</span>
+1659                      <span class="string">'contrastBacks'</span>, {obj.contrastBacks},<span class="keyword">...</span>
+1660                      <span class="string">'contrastShifts'</span>, {obj.contrastShifts},<span class="keyword">...</span>
+1661                      <span class="string">'contrastScales'</span>, {obj.contrastScales},<span class="keyword">...</span>
+1662                      <span class="string">'contrastNbas'</span>, {obj.contrastNbas},<span class="keyword">...</span>
+1663                      <span class="string">'contrastNbss'</span>, {obj.contrastNbss},<span class="keyword">...</span>
+1664                      <span class="string">'contrastRes'</span>, {obj.contrastRes},<span class="keyword">...</span>
+1665                      <span class="string">'contrastRepeatSLDs'</span>, {obj.contrastRepeatSLDs},<span class="keyword">...</span>
+1666                      <span class="string">'modelType'</span>, obj.modelType,<span class="keyword">...</span>
+1667                      <span class="string">'numberOfLayers'</span>, obj.numberOfLayers,<span class="keyword">...</span>
+1668                      <span class="string">'layersDetails'</span>, {obj.layersDetails},<span class="keyword">...</span>
+1669                      <span class="string">'contrastLayers'</span>, {obj.contrastLayers},<span class="keyword">...</span>
+1670                      <span class="string">'modelFilename'</span>, obj.modelFilename,<span class="keyword">...</span>
+1671                      <span class="string">'modelLanguage'</span>, obj.modelLanguage);
+1672          <span class="keyword">if</span> isscalar(obj)        
+1673                  <span class="keyword">if</span> strcmpi(obj.experimentGeometry,<span class="string">'substrate/liquid'</span>)
+1674                      dispPropList = masterPropList;
+1675                  <span class="keyword">elseif</span> strcmpi(obj.experimentGeometry,<span class="string">'air/substrate'</span>)
+1676                      dispPropList = rmfield(masterPropList,{<span class="string">'nNbairs'</span>,<span class="string">'nbairs'</span>,<span class="string">'nbairNames'</span>,<span class="string">'nbairConstr'</span>});
+1677                  <span class="keyword">end</span>
+1678                  
+1679                  <span class="keyword">if</span> ~strcmpi(obj.modelType,<span class="string">'layers'</span>)
+1680                      dispPropList = rmfield(dispPropList,{<span class="string">'numberOfLayers'</span>,<span class="string">'layersDetails'</span>,<span class="string">'contrastLayers'</span>});
+1681                  <span class="keyword">else</span>
+1682                      dispPropList = rmfield(dispPropList,{<span class="string">'modelFilename'</span>,<span class="string">'modelLanguage'</span>});
+1683                  <span class="keyword">end</span>
+1684        
+1685                  <span class="keyword">if</span> ~isempty(dispPropList)
+1686                      groups = matlab.mixin.util.PropertyGroup(dispPropList);
+1687                  <span class="keyword">else</span>
+1688                      groups = matlab.mixin.util.PropertyGroup(masterPropList);
+1689                  <span class="keyword">end</span>
+1690         <span class="keyword">else</span>
+1691             groups = <a href="#_sub139" class="code" title="subfunction groups = getPropertyGroups(obj)">getPropertyGroups</a>@matlab.mixin.CustomDisplay(obj);
+1692         <span class="keyword">end</span>       
+1693     
+1694     
+1695     
+1696     <span class="keyword">end</span>
+1697     
+1698 <span class="keyword">end</span>     <span class="comment">%End display methods</span>
+1699     
+1700 <span class="keyword">end</span>     <span class="comment">%End ClassDef</span>
+1701         
+1702  
+1703 
+1704</pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

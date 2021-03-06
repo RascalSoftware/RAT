@@ -1,25 +1,36 @@
-/*
- * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
- *
- * rtGetInf.h
- *
- * Code generation for function 'reflectivity_calculation'
- *
- */
+//
+//  Non-Degree Granting Education License -- for use at non-degree
+//  granting, nonprofit, educational organizations only. Not for
+//  government, commercial, or other organizational use.
+//  File: rtGetInf.h
+//
+//  MATLAB Coder version            : 5.0
+//  C/C++ source code generated on  : 24-Feb-2021 09:15:13
+
 
 #ifndef RTGETINF_H
 #define RTGETINF_H
-#include <stddef.h>
 #include "rtwtypes.h"
 #include "rt_nonfinite.h"
+#ifdef __cplusplus
 
-extern real_T rtGetInf(void);
-extern real32_T rtGetInfF(void);
-extern real_T rtGetMinusInf(void);
-extern real32_T rtGetMinusInfF(void);
+extern "C" {
 
 #endif
 
-/* End of code generation (rtGetInf.h) */
+  extern real_T rtGetInf(void);
+  extern real32_T rtGetInfF(void);
+  extern real_T rtGetMinusInf(void);
+  extern real32_T rtGetMinusInfF(void);
+
+#ifdef __cplusplus
+
+}
+#endif
+#endif
+
+//
+//  File trailer for rtGetInf.h
+//
+//  [EOF]
+

@@ -48,7 +48,7 @@ else
     libPreCompiled = true;
     libLinkOnly = true;
 
-    %coder.cinclude(source2);
+    coder.cinclude('matlabCallFun.h');
     coder.updateBuildInfo('addSourceFiles',source1);
     %coder.updateBuildInfo('addSourceFiles',source2);
     coder.updateBuildInfo('addSourcePaths',path);

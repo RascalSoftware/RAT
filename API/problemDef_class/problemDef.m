@@ -6,70 +6,70 @@ classdef problemDef < matlab.mixin.CustomDisplay
         %modelType
         
     %All parameters    
-        nParams
-        params
-        paramNames
-        paramConstr
-        paramFitYesNo
+        nParams = 1;
+        params = [3];
+        paramNames = {'Substrate Roughness'};
+        paramConstr = {[1 5]};
+        paramFitYesNo = [1];
         
         nBackgrounds = 1
-        backgrounds
-        backgroundNames
-        backgroundConstr
-        backgroundFitYesNo
+        backgrounds = [1e-7];
+        backgroundNames = {'Background 1'};
+        backgroundConstr = {[1e-8 1e-6]};
+        backgroundFitYesNo = [0];
         
         nScalefactors = 1
-        scalefactors
-        scalefactorNames
-        scalefactorConstr
-        scalefactorFitYesNo
+        scalefactors = [1];
+        scalefactorNames = {'Scalefactor 1'};
+        scalefactorConstr = {[0.9 1.0]};
+        scalefactorFitYesNo = [0];
         
         nQzshifts = 1
-        qzshifts
-        qzshiftNames
-        qzshiftConstr
-        qzshiftFitYesNo
+        qzshifts = [0.0];
+        qzshiftNames = {'Qzshift 1'};
+        qzshiftConstr = {[1e-4 1e4]};
+        qzshiftFitYesNo = [0];
         
         nNbairs = 1
-        nbairs
-        nbairNames
-        nbairConstr
-        nbairFitYesNo
+        nbairs = [0];
+        nbairNames = {'Air'};
+        nbairConstr = {[-1e-8 1e-8]};
+        nbairFitYesNo = [0];
         
         nNbsubs = 1
-        nbsubs
-        nbsubNames
-        nbsubConstr
-        nbsubFitYesNo
+        nbsubs = [6.35e-6];
+        nbsubNames = {'D2O'};
+        nbsubConstr = {[6.3e-6 6.4e-6]};
+        nbsubFitYesNo = 0;
         
         nResolutions = 1
-        resolutions
-        resolutionNames
-        resolutionConstr
-        resolutionFitYesNo
+        resolutions = [0.03];
+        resolutionNames = {'Resol 1'};
+        resolutionConstr = {[0.02 0.04]};
+        resolutionFitYesNo = [0];
         
     %Constrasts and Data
         numberOfContrasts = 1
-        resample
-        allData
-        dataPresent
-        dataLimits
-        simLimits
-        contrastBacks
-        contrastShifts
-        contrastScales
-        contrastNbas
-        contrastNbss
-        contrastRes
-        contrastRepeatSLDs
+        resample = [0];
+        allData = {};
+        dataPresent = [0];
+        dataLimits = {};
+        simLimits = {[0.01 0.7]};
+        contrastBacks = {};
+        contrastShifts = [1];
+        contrastScales = [1];
+        contrastNbas = [1];
+        contrastNbss = [1];
+        contrastRes = [1];
+        contrastRepeatSLDs;% = {[0 1]};
         
     %Model
         modelType = 'layers'
-        numberOfLayers
-        layersDetails
-        contrastLayers
-        modelFilename
-        modelLanguage
+        numberOfLayers = 0;
+        layersDetails = {};
+        contrastLayers = {};
+        modelFilename = '';
+        modelLanguage = 'octave';
         
     end
     
@@ -680,7 +680,7 @@ classdef problemDef < matlab.mixin.CustomDisplay
                 obj.resolutionFitYesNo = ones(1,nResolutions);
             elseif (length(obj.resolutionFitYesNo) < nResolutions)
                 obj = obj.extendNReslutionFitYesNo(nResolutions);
-            elseif (length(obj.reslutionFitYesNo) > nResolutions)
+            elseif (length(obj.resolutionFitYesNo) > nResolutions)
                obj = obj.contractNResolutionFitYesNo(nResolutions);
             end      
         end
@@ -1535,7 +1535,7 @@ classdef problemDef < matlab.mixin.CustomDisplay
         function obj = extendNContrastBacks(obj,val)
            currentLength = length(obj.contrastBacks);
            new = cell([1,(val-currentLength)]);
-           new(:) = [0 1];
+           new(:) = {{0 1}};
            new = horzcat([obj.contrastBacks],new);
            obj.contrastBacks = new;
         end

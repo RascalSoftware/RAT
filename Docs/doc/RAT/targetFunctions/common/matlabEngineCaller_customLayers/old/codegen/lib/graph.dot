@@ -1,0 +1,10 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+
+  debugMfile [URL="debugMfile.html"];
+  debugMfile [URL="debugMfile.html"];
+  debugMfile2 [URL="debugMfile2.html"];
+  debugMfile2 [URL="debugMfile2.html"];
+  debugMfileXY [URL="debugMfileXY.html"];
+  debugMfileXY [URL="debugMfileXY.html"];
+}

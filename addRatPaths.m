@@ -1,13 +1,14 @@
 %ratRoot = '/Users/arwelhughes/coding/RAT/'; %OSX
 ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
 
-
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','backSorts');
     fullfile(ratRoot,'targetFunctions','common','callModules');
     fullfile(ratRoot,'targetFunctions','common','callReflectivity');
-    fullfile(ratRoot,'targetFunctions','common','Abeles');
-    fullfile(ratRoot,'targetFunctions','common','chiSquared');
+    fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations');
+    fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations','Abeles');
+    fullfile(ratRoot,'targetFunctions','common','Resolution_Functions','Simple_Gaussian');
+    fullfile(ratRoot,'targetFunctions','common','costFunctions','chiSquared');
     fullfile(ratRoot,'targetFunctions','common','groupLayers');
     fullfile(ratRoot,'targetFunctions','common','makeSLDProfiles');
     fullfile(ratRoot,'targetFunctions','common','shiftData');
@@ -16,12 +17,11 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','legacyChanges');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
     fullfile(ratRoot,'targetFunctions','common','matlabEngineCaller_customLayers');
-    %fullfile(ratRoot,'targetFunctions','common','matlabEngineCaller_customXY');
+
     fullfile(ratRoot,'targetFunctions','standard_TF');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay');
 
-    %fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay_parallel');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custLay');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custXY');    
     fullfile(ratRoot,'API');
@@ -39,9 +39,6 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'utilities','plotting');
     fullfile(ratRoot,'utilities','testing');
 };
-
-%addpath('/home/arwel/eclipseWorkspace_new/matlabEngine_demo/src');
-%addpath('/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/old_standardTF');
 
 for i = 1:length(ratPaths)
     addpath(ratPaths{i});

@@ -2,8 +2,8 @@
 ## Makefile generated for MATLAB file/project 'reflectivity_calculation'. 
 ## 
 ## Makefile     : reflectivity_calculation_rtw.mk
-## Generated on : Tue Sep 03 15:02:08 2019
-## MATLAB Coder version: 4.2 (R2019a)
+## Generated on : Wed Feb 24 09:15:34 2021
+## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:
 ## 
@@ -19,21 +19,23 @@
 # Macro Descriptions:
 # PRODUCT_NAME            Name of the system to build
 # MAKEFILE                Name of this makefile
-# COMPUTER                Computer type. See the MATLAB "computer" command.
+# MODELLIB                Static library target
 
 PRODUCT_NAME              = reflectivity_calculation
 MAKEFILE                  = reflectivity_calculation_rtw.mk
-COMPUTER                  = GLNXA64
-MATLAB_ROOT               = /usr/local/MATLAB/R2019a
-MATLAB_BIN                = /usr/local/MATLAB/R2019a/bin
+MATLAB_ROOT               = /usr/local/MATLAB/R2020a
+MATLAB_BIN                = /usr/local/MATLAB/R2020a/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/glnxa64
 MASTER_ANCHOR_DIR         = 
 START_DIR                 = /home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/codegen/lib/reflectivity_calculation
-ARCH                      = glnxa64
-TGT_FCN_LIB               = ISO_C
+TGT_FCN_LIB               = None
+SOLVER_OBJ                = 
+CLASSIC_INTERFACE         = 0
+MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 
 RELATIVE_PATH_TO_ANCHOR   = .
-C_STANDARD_OPTS           = -std=c99 -pedantic -fwrapv
-CPP_STANDARD_OPTS         = -fwrapv
+C_STANDARD_OPTS           = -fwrapv -ansi -pedantic -Wno-long-long
+CPP_STANDARD_OPTS         = -fwrapv -std=c++03 -pedantic -Wno-long-long
+MODELLIB                  = reflectivity_calculation.a
 
 ###########################################################################
 ## TOOLCHAIN SPECIFICATIONS
@@ -41,7 +43,7 @@ CPP_STANDARD_OPTS         = -fwrapv
 
 # Toolchain Name:          GNU gcc/g++ | gmake (64-bit Linux)
 # Supported Version(s):    
-# ToolchainInfo Version:   R2019a
+# ToolchainInfo Version:   2020a
 # Specification Revision:  1.0
 # 
 #-------------------------------------------
@@ -118,36 +120,24 @@ ECHO                = @echo
 MV                  = @mv
 RUN                 =
 
-#----------------------------------------
-# "Faster Builds" Build Configuration
-#----------------------------------------
+#--------------------------------------
+# "Faster Runs" Build Configuration
+#--------------------------------------
 
 ARFLAGS              = ruvs
 CFLAGS               = -c $(C_STANDARD_OPTS) -fPIC \
-                       -O0
+                       -O3 -fno-loop-optimize -fno-aggressive-loop-optimizations
 CPPFLAGS             = -c $(CPP_STANDARD_OPTS) -fPIC \
-                       -O0
+                       -O3 -fno-loop-optimize -fno-aggressive-loop-optimizations
 CPP_LDFLAGS          = -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)"
 CPP_SHAREDLIB_LDFLAGS  = -shared -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -Wl,--no-undefined
 DOWNLOAD_FLAGS       =
 EXECUTE_FLAGS        =
 LDFLAGS              = -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)"
-MEX_CPPFLAGS         = -R2018a -MATLAB_ARCH=$(ARCH) $(INCLUDES) \
-                         \
-                       CXXOPTIMFLAGS="$(C_STANDARD_OPTS)  \
-                       -O0 \
-                        $(DEFINES)" \
-                         \
-                       -silent
-MEX_CPPLDFLAGS       = LDFLAGS=='$$LDFLAGS'
-MEX_CFLAGS           = -R2018a -MATLAB_ARCH=$(ARCH) $(INCLUDES) \
-                         \
-                       COPTIMFLAGS="$(C_STANDARD_OPTS)  \
-                       -O0 \
-                        $(DEFINES)" \
-                         \
-                       -silent
-MEX_LDFLAGS          = LDFLAGS=='$$LDFLAGS'
+MEX_CPPFLAGS         =
+MEX_CPPLDFLAGS       =
+MEX_CFLAGS           =
+MEX_LDFLAGS          =
 MAKE_FLAGS           = -f $(MAKEFILE)
 SHAREDLIB_LDFLAGS    = -shared -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -Wl,--no-undefined
 
@@ -165,7 +155,7 @@ BUILD_TYPE = "Static Library"
 ## INCLUDE PATHS
 ###########################################################################
 
-INCLUDES_BUILDINFO = -I$(START_DIR) -I/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile -I$(MATLAB_ROOT)/extern/include -I$(MATLAB_ROOT)/simulink/include -I$(MATLAB_ROOT)/rtw/c/src -I$(MATLAB_ROOT)/rtw/c/src/ext_mode/common -I$(MATLAB_ROOT)/rtw/c/ert
+INCLUDES_BUILDINFO = -I$(START_DIR) -I/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile -I$(MATLAB_ROOT)/extern/include
 
 INCLUDES = $(INCLUDES_BUILDINFO)
 
@@ -174,7 +164,7 @@ INCLUDES = $(INCLUDES_BUILDINFO)
 ###########################################################################
 
 DEFINES_CUSTOM = 
-DEFINES_STANDARD = -DMODEL=reflectivity_calculation -DHAVESTDIO -DUSE_RTMODEL -DUNIX
+DEFINES_STANDARD = -DMODEL=reflectivity_calculation
 
 DEFINES = $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
 
@@ -182,7 +172,7 @@ DEFINES = $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)/reflectivity_calculation_rtwutil.c $(START_DIR)/reflectivity_calculation_data.c $(START_DIR)/reflectivity_calculation_initialize.c $(START_DIR)/reflectivity_calculation_terminate.c $(START_DIR)/reflectivity_calculation.c $(START_DIR)/standardTF_stanLay_reflectivityCalculation.c $(START_DIR)/standardTF_stanlay_single.c $(START_DIR)/allocateParamsToLayers.c $(START_DIR)/groupLayers_Mod.c $(START_DIR)/makeSLDProfiles.c $(START_DIR)/sum.c $(START_DIR)/combineVectorElements.c $(START_DIR)/asymconvstep.c $(START_DIR)/sqrt.c $(START_DIR)/erf.c $(START_DIR)/applyScalarFunction.c $(START_DIR)/resampleLayers.c $(START_DIR)/resample_sld.c $(START_DIR)/interp1.c $(START_DIR)/shiftdata.c $(START_DIR)/callReflectivity.c $(START_DIR)/paratt.c $(START_DIR)/reflectivity_calculation_emxutil.c $(START_DIR)/reflectivity_calculation_emxAPI.c $(START_DIR)/rt_nonfinite.c $(START_DIR)/rtGetNaN.c $(START_DIR)/rtGetInf.c
+SRCS = $(START_DIR)/rt_nonfinite.cpp $(START_DIR)/rtGetNaN.cpp $(START_DIR)/rtGetInf.cpp $(START_DIR)/reflectivity_calculation_rtwutil.cpp $(START_DIR)/reflectivity_calculation_data.cpp $(START_DIR)/reflectivity_calculation_initialize.cpp $(START_DIR)/reflectivity_calculation_terminate.cpp $(START_DIR)/reflectivity_calculation.cpp $(START_DIR)/standardTF_stanLay_reflectivityCalculation.cpp $(START_DIR)/allocateParamsToLayers.cpp $(START_DIR)/backSort.cpp $(START_DIR)/allocateLayersForContrast.cpp $(START_DIR)/standardTF_layers_core.cpp $(START_DIR)/groupLayers_Mod.cpp $(START_DIR)/makeSLDProfileXY.cpp $(START_DIR)/sqrt.cpp $(START_DIR)/applyScalarFunction.cpp $(START_DIR)/resampleLayers.cpp $(START_DIR)/adaptive.cpp $(START_DIR)/sldFunc.cpp $(START_DIR)/sortLE.cpp $(START_DIR)/shiftdata.cpp $(START_DIR)/callReflectivity.cpp $(START_DIR)/abeles_single.cpp $(START_DIR)/chiSquared.cpp $(START_DIR)/abeles_paraPoints.cpp $(START_DIR)/resolution_polly_paraPoints.cpp $(START_DIR)/standardTF_stanlay_paraContrasts.cpp $(START_DIR)/standardTF_stanlay_paraAll.cpp
 
 ALL_SRCS = $(SRCS)
 
@@ -190,7 +180,7 @@ ALL_SRCS = $(SRCS)
 ## OBJECTS
 ###########################################################################
 
-OBJS = reflectivity_calculation_rtwutil.o reflectivity_calculation_data.o reflectivity_calculation_initialize.o reflectivity_calculation_terminate.o reflectivity_calculation.o standardTF_stanLay_reflectivityCalculation.o standardTF_stanlay_single.o allocateParamsToLayers.o groupLayers_Mod.o makeSLDProfiles.o sum.o combineVectorElements.o asymconvstep.o sqrt.o erf.o applyScalarFunction.o resampleLayers.o resample_sld.o interp1.o shiftdata.o callReflectivity.o paratt.o reflectivity_calculation_emxutil.o reflectivity_calculation_emxAPI.o rt_nonfinite.o rtGetNaN.o rtGetInf.o
+OBJS = rt_nonfinite.o rtGetNaN.o rtGetInf.o reflectivity_calculation_rtwutil.o reflectivity_calculation_data.o reflectivity_calculation_initialize.o reflectivity_calculation_terminate.o reflectivity_calculation.o standardTF_stanLay_reflectivityCalculation.o allocateParamsToLayers.o backSort.o allocateLayersForContrast.o standardTF_layers_core.o groupLayers_Mod.o makeSLDProfileXY.o sqrt.o applyScalarFunction.o resampleLayers.o adaptive.o sldFunc.o sortLE.o shiftdata.o callReflectivity.o abeles_single.o chiSquared.o abeles_paraPoints.o resolution_polly_paraPoints.o standardTF_stanlay_paraContrasts.o standardTF_stanlay_paraAll.o
 
 ALL_OBJS = $(OBJS)
 
@@ -210,7 +200,7 @@ LIBS =
 ## SYSTEM LIBRARIES
 ###########################################################################
 
-SYSTEM_LIBS =  -L$(MATLAB_ROOT)/sys/os/glnxa64 -lm -liomp5
+SYSTEM_LIBS =  -L"$(MATLAB_ROOT)/sys/os/glnxa64" -lm -lstdc++ -liomp5
 
 ###########################################################################
 ## ADDITIONAL TOOLCHAIN FLAGS
@@ -220,19 +210,19 @@ SYSTEM_LIBS =  -L$(MATLAB_ROOT)/sys/os/glnxa64 -lm -liomp5
 # C Compiler
 #---------------
 
-CFLAGS_ = -fopenmp
+CFLAGS_OPTS = -fopenmp
 CFLAGS_BASIC = $(DEFINES) $(INCLUDES)
 
-CFLAGS += $(CFLAGS_) $(CFLAGS_BASIC)
+CFLAGS += $(CFLAGS_OPTS) $(CFLAGS_BASIC)
 
 #-----------------
 # C++ Compiler
 #-----------------
 
-CPPFLAGS_ = -fopenmp
+CPPFLAGS_OPTS = -fopenmp
 CPPFLAGS_BASIC = $(DEFINES) $(INCLUDES)
 
-CPPFLAGS += $(CPPFLAGS_) $(CPPFLAGS_BASIC)
+CPPFLAGS += $(CPPFLAGS_OPTS) $(CPPFLAGS_BASIC)
 
 ###########################################################################
 ## INLINED COMMANDS
@@ -255,7 +245,7 @@ build : prebuild $(PRODUCT)
 prebuild : 
 
 
-download : build
+download : $(PRODUCT)
 
 
 execute : download
@@ -299,14 +289,6 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(MATLAB_ROOT)/rtw/c/src/%.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
-
-
-%.o : $(MATLAB_ROOT)/rtw/c/src/%.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
 %.o : $(START_DIR)/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
@@ -320,6 +302,122 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 
 
 %.o : /home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/%.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+rt_nonfinite.o : $(START_DIR)/rt_nonfinite.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+rtGetNaN.o : $(START_DIR)/rtGetNaN.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+rtGetInf.o : $(START_DIR)/rtGetInf.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+reflectivity_calculation_rtwutil.o : $(START_DIR)/reflectivity_calculation_rtwutil.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+reflectivity_calculation_data.o : $(START_DIR)/reflectivity_calculation_data.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+reflectivity_calculation_initialize.o : $(START_DIR)/reflectivity_calculation_initialize.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+reflectivity_calculation_terminate.o : $(START_DIR)/reflectivity_calculation_terminate.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+reflectivity_calculation.o : $(START_DIR)/reflectivity_calculation.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+standardTF_stanLay_reflectivityCalculation.o : $(START_DIR)/standardTF_stanLay_reflectivityCalculation.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+allocateParamsToLayers.o : $(START_DIR)/allocateParamsToLayers.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+backSort.o : $(START_DIR)/backSort.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+allocateLayersForContrast.o : $(START_DIR)/allocateLayersForContrast.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+standardTF_layers_core.o : $(START_DIR)/standardTF_layers_core.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+groupLayers_Mod.o : $(START_DIR)/groupLayers_Mod.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+makeSLDProfileXY.o : $(START_DIR)/makeSLDProfileXY.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+sqrt.o : $(START_DIR)/sqrt.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+applyScalarFunction.o : $(START_DIR)/applyScalarFunction.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+resampleLayers.o : $(START_DIR)/resampleLayers.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+adaptive.o : $(START_DIR)/adaptive.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+sldFunc.o : $(START_DIR)/sldFunc.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+sortLE.o : $(START_DIR)/sortLE.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+shiftdata.o : $(START_DIR)/shiftdata.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+callReflectivity.o : $(START_DIR)/callReflectivity.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+abeles_single.o : $(START_DIR)/abeles_single.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+chiSquared.o : $(START_DIR)/chiSquared.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+abeles_paraPoints.o : $(START_DIR)/abeles_paraPoints.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+resolution_polly_paraPoints.o : $(START_DIR)/resolution_polly_paraPoints.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+standardTF_stanlay_paraContrasts.o : $(START_DIR)/standardTF_stanlay_paraContrasts.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+standardTF_stanlay_paraAll.o : $(START_DIR)/standardTF_stanlay_paraAll.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 

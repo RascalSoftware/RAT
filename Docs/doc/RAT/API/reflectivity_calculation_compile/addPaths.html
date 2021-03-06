@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of addPaths</title>
+  <meta name="keywords" content="addPaths">
+  <meta name="description" content="ratRoot = '/Users/arwelhughes/coding/RAT/'; %OSX">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- ../menu.html API --><!-- menu.html reflectivity_calculation_compile -->
+<h1>addPaths
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>ratRoot = '/Users/arwelhughes/coding/RAT/'; %OSX</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">ratRoot = '/Users/arwelhughes/coding/RAT/'; %OSX</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%ratRoot = '/Users/arwelhughes/coding/RAT/'; %OSX</span>
+0002 ratRoot = <span class="string">'/home/arwel/Documents/RascalDev/RAT'</span>; <span class="comment">%Linux</span>
+0003 
+0004 
+0005 ratPaths = {fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>);
+0006     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'backSorts'</span>);
+0007     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'callModules'</span>);
+0008     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'callReflectivity'</span>);
+0009     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'chiSquared'</span>);
+0010     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'groupLayers'</span>);
+0011     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'makeSLDProfiles'</span>);
+0012     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'shiftData'</span>);
+0013     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'standard_layers_mod'</span>);
+0014     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'unpackParams'</span>);
+0015     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'legacyChanges'</span>);
+0016     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'resampleLayers'</span>);
+0017     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'common'</span>,<span class="string">'matlabEngineCaller_customLayers'</span>);
+0018     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'standard_TF'</span>);
+0019     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'standard_TF'</span>,<span class="string">'standardTF_stanLay_single'</span>);
+0020     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'standard_TF'</span>,<span class="string">'standardTF_stanLay_parallel'</span>);
+0021     fullfile(ratRoot,<span class="string">'targetFunctions'</span>,<span class="string">'standard_TF'</span>,<span class="string">'standardTF_custLay_single'</span>);
+0022     fullfile(ratRoot,<span class="string">'API'</span>);
+0023 <span class="comment">%     fullfile(ratRoot,'API','reflectivity_calculation');</span>
+0024     fullfile(ratRoot,<span class="string">'API'</span>,<span class="string">'outputFcn'</span>);
+0025     fullfile(ratRoot,<span class="string">'API'</span>,<span class="string">'problemDef_class'</span>);
+0026     fullfile(ratRoot,<span class="string">'API'</span>,<span class="string">'controlsDef_class'</span>);
+0027 <span class="comment">%     fullfile(ratRoot,'tests');</span>
+0028 <span class="comment">%     fullfile(ratRoot,'minimisers','simplex');</span>
+0029 <span class="comment">%     fullfile(ratRoot,'minimisers','generalUtils');</span>
+0030 <span class="comment">%     fullfile(ratRoot,'minimisers','DE');</span>
+0031 <span class="comment">%     fullfile(ratRoot,'minimisers','NSMain');</span>
+0032 <span class="comment">%     fullfile(ratRoot,'minimisers','mcmcstat');</span>
+0033 <span class="comment">%     fullfile(ratRoot,'utilities');</span>
+0034 <span class="comment">%     fullfile(ratRoot,'utilities','plotting');</span>
+0035 <span class="comment">%     fullfile(ratRoot,'utilities','testing');</span>
+0036 };
+0037 
+0038 <span class="comment">%addpath('/home/arwel/eclipseWorkspace_new/matlabEngine_demo/src');</span>
+0039 <span class="comment">%addpath('/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/old_standardTF');</span>
+0040 
+0041 <span class="keyword">for</span> i = 1:length(ratPaths)
+0042     addpath(ratPaths{i});
+0043 <span class="keyword">end</span>
+0044 
+0045 addpath(ratRoot);
+0046 
+0047 disp(<span class="string">'debug'</span>);
+0048 
+0049 
+0050</pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

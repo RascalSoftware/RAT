@@ -1,0 +1,14 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+
+  abeles [URL="abeles.html"];
+  abeles [URL="abeles.html"];
+  callReflectivityMain [URL="callReflectivityMain.html"];
+  callReflectivityMain [URL="callReflectivityMain.html"];
+  callReflectivity_makeMex [URL="callReflectivity_makeMex.html"];
+  callReflectivity_makeMex [URL="callReflectivity_makeMex.html"];
+  legacyChanges [URL="legacyChanges.html"];
+  legacyChanges [URL="legacyChanges.html"];
+  paratt [URL="paratt.html"];
+  paratt [URL="paratt.html"];
+}

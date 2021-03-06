@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of legacyChanges</title>
+  <meta name="keywords" content="legacyChanges">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- menu.html API -->
+<h1>legacyChanges
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function problem = legacyChanges(problem) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../RAT/targetFunctions/common/backSorts/old/bsMain.html" class="code" title="">bsMain</a>	</li><li><a href="../../RAT/targetFunctions/common/backSorts/old/bsMain.html" class="code" title="">bsMain</a>	</li><li><a href="../../RAT/targetFunctions/common/callModules/old/mainCallModules.html" class="code" title="">mainCallModules</a>	</li><li><a href="../../RAT/targetFunctions/common/callModules/old/mainCallModules.html" class="code" title="">mainCallModules</a>	</li><li><a href="../../RAT/targetFunctions/common/shiftData/shiftDataMain.html" class="code" title="">shiftDataMain</a>	</li><li><a href="../../RAT/targetFunctions/common/shiftData/shiftDataMain.html" class="code" title="">shiftDataMain</a>	</li><li><a href="../../RAT/targetFunctions/common/standard_layers_mod/standardLayersMain.html" class="code" title="">standardLayersMain</a>	</li><li><a href="../../RAT/targetFunctions/common/standard_layers_mod/standardLayersMain.html" class="code" title="">standardLayersMain</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/old/%standardTF_custlay_parallel/main.html" class="code" title="">main</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/old/%standardTF_stanLay_parallel/benchMain.html" class="code" title="">benchMain</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/old/%standardTF_stanLay_parallel/main.html" class="code" title="">main</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/standardTF_custLay/old/main.html" class="code" title="">main</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/standardTF_custLay/old/main.html" class="code" title="">main</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/benchMain.html" class="code" title="">benchMain</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/benchMain.html" class="code" title="">benchMain</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/benchMain.html" class="code" title="">benchMain</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/main.html" class="code" title="">main</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/main.html" class="code" title="">main</a>	</li><li><a href="../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/main.html" class="code" title="">main</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function problem = legacyChanges(problem)</a>
+0002 
+0003 type = problem.module.type;
+0004 <span class="keyword">switch</span> type
+0005     <span class="keyword">case</span> <span class="string">'Standard Layers'</span>
+0006         problem.module.type = 1;
+0007         problem.module.fileHandle = [];
+0008     <span class="keyword">case</span> <span class="string">'Custom Layers'</span>
+0009         problem.module.type = 2;
+0010         name = problem.module.name;
+0011         dot = find(name == <span class="string">'.'</span>);
+0012         <span class="keyword">if</span> ~isempty(dot)
+0013             name = name(1:dot-1);
+0014         <span class="keyword">end</span>
+0015         problem.module.fileHandle = name;<span class="comment">%str2func(name);</span>
+0016     <span class="keyword">case</span> <span class="string">'Custom XY Profile'</span>
+0017         problem.module.type = 3;
+0018         name = problem.module.name;
+0019         dot = find(name == <span class="string">'.'</span>);
+0020         <span class="keyword">if</span> ~isempty(dot)
+0021             name = name(1:dot-1);
+0022         <span class="keyword">end</span>
+0023         problem.module.fileHandle = name;<span class="comment">%str2func(name);</span>
+0024 <span class="keyword">end</span>
+0025 
+0026 
+0027 <span class="keyword">if</span> problem.module.type == 1
+0028     layersDetails = problem.layersDetails;
+0029     <span class="keyword">if</span> ~isempty(layersDetails)
+0030         firstLayer = layersDetails{1};
+0031         <span class="keyword">if</span> iscell(firstLayer)
+0032             <span class="keyword">for</span> i = 1:length(layersDetails)
+0033                 thisLayer = layersDetails{i};
+0034                 <span class="keyword">for</span> n = 1:4
+0035                     thisVal = str2num(thisLayer{n});
+0036                     <span class="keyword">if</span> isempty(thisVal)
+0037                         thisVal = NaN;
+0038                     <span class="keyword">end</span>
+0039                     newLayer(n) = thisVal;
+0040                 <span class="keyword">end</span>
+0041                 <span class="keyword">if</span> strcmp(thisLayer{end},<span class="string">'bulk in'</span>)
+0042                     newLayer(5) = 1;
+0043                 <span class="keyword">else</span>
+0044                     newLayer(5) = 2;
+0045                 <span class="keyword">end</span>
+0046                 layersDetails{i} = newLayer;
+0047                 layersNames{i} = thisLayer{5};
+0048             <span class="keyword">end</span>
+0049         <span class="keyword">end</span>
+0050     <span class="keyword">else</span> 
+0051         layersDetails = {};
+0052         layersNames = {};
+0053     <span class="keyword">end</span>
+0054     problem.layersDetails = layersDetails;
+0055     problem.layersNames = layersNames;
+0056 <span class="keyword">end</span>
+0057 
+0058 
+0059 <span class="comment">% for i = 1:length(layersDetails)</span>
+0060 <span class="comment">%     thisLayer = layersDetails{i};</span>
+0061 <span class="comment">%     for n = 1:4</span>
+0062 <span class="comment">%         thisVal = str2num(thisLayer{n});</span>
+0063 <span class="comment">%         if isempty(thisVal)</span>
+0064 <span class="comment">%             thisVal = NaN;</span>
+0065 <span class="comment">%         end</span>
+0066 <span class="comment">%         newLayer(n) = thisVal;</span>
+0067 <span class="comment">%     end</span>
+0068 <span class="comment">%     if strcmp(thisLayer{end},'bulk in')</span>
+0069 <span class="comment">%         newLayer(5) = 1;</span>
+0070 <span class="comment">%     else</span>
+0071 <span class="comment">%         newLayer(5) = 2;</span>
+0072 <span class="comment">%     end</span>
+0073 <span class="comment">%     layersDetails{i} = newLayer;</span>
+0074 <span class="comment">% end</span>
+0075 <span class="comment">% problem.layersDetails = layersDetails;</span>
+0076 
+0077 
+0078 contrastLayers = problem.contrastLayers;
+0079 numberOfContrasts = problem.numberOfContrasts;<span class="comment">%length(contrastLayers);</span>
+0080 
+0081 <span class="keyword">for</span> n = 1:numberOfContrasts
+0082         thisContrast = contrastLayers{n};
+0083         numLays = length(strfind(thisContrast,<span class="string">','</span>));
+0084         a = zeros(1,numLays);
+0085         count = 1;
+0086         this = <span class="string">''</span>;
+0087         <span class="keyword">for</span> i = 1:length(thisContrast)
+0088             <span class="keyword">if</span> thisContrast(i) ~= <span class="string">','</span>
+0089                 this = [this thisContrast(i)];
+0090             <span class="keyword">elseif</span> thisContrast(i) == <span class="string">','</span>
+0091                 a(count) = str2double(this);
+0092                 count = count + 1;
+0093                 this = <span class="string">''</span>;
+0094             <span class="keyword">end</span>
+0095         <span class="keyword">end</span>
+0096         edited{n} = a;
+0097 <span class="keyword">end</span>
+0098 
+0099 problem.contrastLayers = edited;
+0100 <span class="keyword">if</span> ~isfield(problem,<span class="string">'resample'</span>)
+0101     problem.resample = zeros(problem.numberOfContrasts,1);
+0102 <span class="keyword">end</span>
+0103 
+0104 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

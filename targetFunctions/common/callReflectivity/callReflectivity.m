@@ -1,4 +1,4 @@
-function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,backgrounds,res,type)
+function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)
 
 
 % nbairs = problem.nbairs;
@@ -30,6 +30,7 @@ end
 simXLo = simLimits(1);
 simXHi = simLimits(2);
 middleSection = this_data(:,1);
+split = [0 0];
 
 if simXLo < xdata(1)
     step = (xdata(2)-xdata(1));
@@ -45,28 +46,31 @@ else
     lastSection = [];
 end
 
-simXdata = [firstSection(:) ; middleSection ; lastSection(:)]';
-trueXdata = middleSection(:);
-splits = [length(firstSection) length(middleSection(:,1)) length(lastSection)];
+simXdata = [firstSection(:) ; middleSection(:) ; lastSection(:)];
+splits = [(length(firstSection)+1) ((length(firstSection))+length(middleSection))];
+
+Simulation = zeros(length(simXdata),2);
+Simulation(:,1) = simXdata;
+
 repeats = repeatLayers(2);
 
-switch type
-    case 'points'
-        simRef = abeles_paraPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
-        simRef = resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata));
-    
-    otherwise
-        simRef = abeles_single(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
-        simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
+switch refType
+    case 'standardAbeles_realOnly'
+        switch para
+            case 'points'
+                % Parallelise over points
+                simRef = abeles_paraPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
+                simRef = resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata));
+                
+            otherwise
+                % Single cored over points
+                simRef = abeles_single(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
+                simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
+        end
 end
 
-firstSection = splits(1);
-middleSection = splits(2);
-Ref = simRef;
-Ref = Ref((firstSection+1):(firstSection+middleSection));
-reflectivity = [trueXdata(:) Ref(:)];
-Simulation = [simXdata' simRef];
 
-
+Simulation(:,2) = simRef(:);
+reflectivity = Simulation(splits(1):splits(2),:);
 
 end

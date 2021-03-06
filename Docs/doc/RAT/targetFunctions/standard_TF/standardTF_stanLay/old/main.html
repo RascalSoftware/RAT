@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of main</title>
+  <meta name="keywords" content="main">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../../menu.html standard_TF --><!-- ../menu.html standardTF_stanLay --><!-- menu.html old -->
+<h1>main
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../../matlabicon.gif)">
+<li><a href="../../../../../RAT/API/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/backSorts/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/backSorts/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/callModules/old/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/callModules/old/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/callReflectivity/old/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/callReflectivity/old/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/legacyChanges/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/legacyChanges/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/shiftData/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/common/shiftData/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>	</li><li><a href="../../../../../RAT/targetFunctions/standard_TF/old/%standardTF_stanLay_parallel/test_reflectivity_calculation.html" class="code" title="function problem = reflectivity_calculation(problem)">test_reflectivity_calculation</a>	</li><li><a href="test_reflectivity_calculation.html" class="code" title="function problem = reflectivity_calculation(problem)">test_reflectivity_calculation</a>	</li><li><a href="test_reflectivity_calculation.html" class="code" title="function problem = reflectivity_calculation(problem)">test_reflectivity_calculation</a>	</li><li><a href="test_reflectivity_calculation.html" class="code" title="function problem = reflectivity_calculation(problem)">test_reflectivity_calculation</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 addpath(<span class="string">'/home/arwel/Documents/RascalDev/RAT'</span>); <span class="comment">%linux</span>
+0002 addRatPaths
+0003 
+0004 <span class="comment">%a = load('standardLayersProblem.mat');     %Standard Layers Example</span>
+0005 a = load(<span class="string">'L1 DTSp ANTA hBamAB dCDE POPC +- hSurA.mat'</span>);
+0006 
+0007 
+0008 problem = a.problem;
+0009 problem = <a href="../../../../../RAT/API/legacyChanges.html" class="code" title="function problem = legacyChanges(problem)">legacyChanges</a>(problem);
+0010 
+0011 tic
+0012 problem = <a href="test_reflectivity_calculation.html" class="code" title="function problem = reflectivity_calculation(problem)">test_reflectivity_calculation</a>(problem);
+0013 toc
+0014 
+0015 figure(1); clf; hold on;
+0016 <span class="keyword">for</span> i = 1:problem.numberOfContrasts
+0017     thisData = problem.shifted_data{i};
+0018     mult = 10^(2*i);
+0019     thisData(:,2) = thisData(:,2) / mult;
+0020     thisData(:,3) = thisData(:,3) / mult;
+0021     errorbar(thisData(:,1),thisData(:,2),thisData(:,3),<span class="string">'o'</span>);
+0022     thisFit = problem.calculations.Simulation{i};
+0023     thisFit(:,2) = thisFit(:,2) / mult;
+0024     plot(thisFit(:,1),thisFit(:,2));
+0025 <span class="keyword">end</span>
+0026 set(gca,<span class="string">'YScale'</span>,<span class="string">'log'</span>,<span class="string">'XScale'</span>,<span class="string">'log'</span>,<span class="string">'xlim'</span>,[0.05 0.4]);
+0027 
+0028 
+0029 figure(2); clf; hold on
+0030 <span class="keyword">for</span> i = 1:problem.numberOfContrasts
+0031     thisSld = problem.calculations.slds{i};
+0032     plot(thisSld(:,1),thisSld(:,2));
+0033 <span class="keyword">end</span>
+0034 
+0035 <span class="comment">%rmRatPaths</span>
+0036 
+0037 
+0038 
+0039 
+0040</pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

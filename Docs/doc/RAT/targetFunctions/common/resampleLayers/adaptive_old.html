@@ -1,0 +1,564 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of adaptive_old</title>
+  <meta name="keywords" content="adaptive_old">
+  <meta name="description" content="% adaptive: evaluates a matlab function on a given range">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../menu.html common --><!-- menu.html resampleLayers -->
+<h1>adaptive_old
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>% adaptive: evaluates a matlab function on a given range</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function varargout = adaptive(input_func, initialDomain, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% adaptive: evaluates a matlab function on a given range
+
+ 'adaptive.m' allows to sample a function using a reduced number of
+ points. It works iteratively adding new points where needed.
+ It is especially useful for functions which are computationally intensive
+ (e.g. involve solving a differential equation).
+
+ Usage:
+ XY = adaptive(func, [xstart, xend])
+  evaluates 'func' in the range [xstart, xend]. Key-value arguments are
+  used to control the function evaluation. If the function 'func' returns
+  multiple output values, only the first one is used for the refinement
+  process, but all of them are calculated and returned as additional
+  columns in the output matrix. The output matrix XY contains the new
+  domain points in the first column and the output values in the other
+  columns.
+ [x,yy] = adaptive(func, [xstart, xend])
+   as before but separately returns the array with the domain points and
+   the array/matrix with the function output values.
+ [x,yy] = adaptive(func, xarray, ...)
+   as before but explicitly provide an initial array of domain points.
+
+ Methods:
+   'adaptive' provides three methods for refining the function evaluation:
+   1) add more points near the sharp corners, which are found by
+    considering the triangles formed by three successive points and
+    measuring the central angle.
+   2) measure the area of the same triangles and add more points when the
+    area is bigger than a threshold.
+   3) measure the length of the segments formed by pairs of successive
+    and split the segments which are longer than a threshold.
+   If no methods is explicitly specified, the 'angle' method is used.
+
+% Input parameters
+  - func: input function (function handle)
+  - initialDomain: initial domain points (1D array)
+
+% Optional key-value input parameters
+  - 'nPoints': (default 20)
+       initial number of domain points, only used if an initial domain
+       array is not excplitely provided.
+  - 'maxRefinements': (default 10)
+       Specifies the maximum number of refinement steps.
+  - 'minAngle': (default 0.8*pi)
+       Refine near the  points which forms, together with their left and right
+       neighbours, a triangle with central angle smaller than a given value.
+  - 'maxArea': (default 5e-4)
+       Refine near the points which forms, together with their left and right
+       neighbours, a triangle with area larger than a threshold. The threshold
+       in normalized to the area enclosing th graph:
+       threshold==maxArea*(max(x)-min(x))*(max(f(x))-min(f(x)))
+  - 'maxLength': (default Inf)
+       Refine all the sements which are longer than a given threshold. The
+       threshold is relative to the input and output ranges. Specifically,
+       before applying the threshold, the data are normalized so that
+       max(x)-min(x)==1 and max(f(x))-min(f(x))==1.
+  - 'minLength': (default 0)
+       Exclude from the refinement process the segments which are shorter
+       than a given threshold. The threshold is relative to the input and
+       output ranges. Specifically, before applying the threshold, the
+       data are normalized so that max(x)-min(x)==1 and max(f(x))-min(f(x))==1.
+  - 'minSignal': (default 0.2)
+       Exclude from the refinement process the points where the function is
+       below a threshold. The threshold is relative to the output range: In
+       this example threshold == 0.01*(max(f(x))-min(f(x))).
+  - 'vectorizable': (default false)
+       Specifies whether the input function accepts arrays as input
+       (e.g. f(x)==x.^2).
+  - 'waitbar': (default false)
+       Display a waitbar.
+
+ Output parameters
+  - a NxM array where N is the number of domain points and M is the number
+    of output parameters of the input function.
+
+
+% Examples:
+
+   % Refine a function near sharp corners. The option 'minAngle' is useful
+   % for having more points near the peaks of the function.
+   f = @(x) exp(-x.^2/4).*sin(3*x);
+   % for test-purpose also evaluate the function directly
+   x2 = -10:0.01:10;
+   y2 = f(x2);
+   y = adaptive(f, [-5,5], 'minAngle',0.8*pi);
+   figure(1); plot(x2,f(x2),'k--',y(:,1),y(:,2),'o-');
+   legend('high sampling','adaptive')
+   title('y = adaptive(f, [xstart, xend], ''minAngle'',0.8*pi)')
+   % as before but starting with an inital array of domain points
+   x = -5:5;
+   y = adaptive(f, x, 'minAngle',0.8*pi);
+   figure(2); plot(x,f(x),'s-',x2,f(x2),'k--',y(:,1),y(:,2),'o-');
+   legend('initial sampling','high sampling','adaptive')
+   title('y = adaptive(f, x, ''minAngle'',0.8*pi)')
+
+   % Refine a function near sharp corners, but do not split segments which
+   % are already shorter than 'minLength'.
+   y = adaptive(f, x, 'minAngle',0.8*pi, 'minLength',0.05);
+   figure(3); plot(x,f(x),'s-',x2,f(x2),'k--',y(:,1),y(:,2),'o-');
+   legend('initial sampling','high sampling','adaptive')
+   title('y = adaptive(f, x, ''minAngle'',0.8*pi, ''minLength'',0.05)');
+
+   % Refine a function until the areas of the triangles formed by
+   % triplets of successive points are smaller than 'maxArea'.
+   y = adaptive(f, x, 'maxArea',1e-3);
+   figure(4); plot(x,f(x),'s-',x2,f(x2),'k--',y(:,1),y(:,2),'o-');
+   legend('initial sampling','high sampling','adaptive')
+   title('y = adaptive(f, x, ''maxArea'',1e-3)')
+
+   % Refine a function until the segments formed by pairs of successive
+   % points are shorter than 'maxLength'.
+   y = adaptive(f, x, 'maxLength',0.1);
+   figure(5); plot(x,f(x),'s-',x2,f(x2),'k--',y(:,1),y(:,2),'o-');
+   legend('initial sampling','high sampling','adaptive')
+   title('y = adaptive(f, x, ''maxLength'',0.1)');</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function y = normalizeFunction(x, func, vectorizable)</a></li><li><a href="#_sub2" class="code">function [firstStep,secondStep,longStep] = calculateTrianglesSides(XYdata)</a></li><li><a href="#_sub3" class="code">function cornerAngle = calculateCentralAngles(XYdata, dataBoxSize)</a></li><li><a href="#_sub4" class="code">function triangleArea = calculateTrianglesArea(XYdata)</a></li><li><a href="#_sub5" class="code">function dataPoints = increaseSampling(func, dataPoints, segmentsToSplit)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function varargout = adaptive(input_func, initialDomain, varargin)</a>
+0002 <span class="comment">%% adaptive: evaluates a matlab function on a given range</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% 'adaptive.m' allows to sample a function using a reduced number of</span>
+0005 <span class="comment">% points. It works iteratively adding new points where needed.</span>
+0006 <span class="comment">% It is especially useful for functions which are computationally intensive</span>
+0007 <span class="comment">% (e.g. involve solving a differential equation).</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% Usage:</span>
+0010 <span class="comment">% XY = adaptive(func, [xstart, xend])</span>
+0011 <span class="comment">%  evaluates 'func' in the range [xstart, xend]. Key-value arguments are</span>
+0012 <span class="comment">%  used to control the function evaluation. If the function 'func' returns</span>
+0013 <span class="comment">%  multiple output values, only the first one is used for the refinement</span>
+0014 <span class="comment">%  process, but all of them are calculated and returned as additional</span>
+0015 <span class="comment">%  columns in the output matrix. The output matrix XY contains the new</span>
+0016 <span class="comment">%  domain points in the first column and the output values in the other</span>
+0017 <span class="comment">%  columns.</span>
+0018 <span class="comment">% [x,yy] = adaptive(func, [xstart, xend])</span>
+0019 <span class="comment">%   as before but separately returns the array with the domain points and</span>
+0020 <span class="comment">%   the array/matrix with the function output values.</span>
+0021 <span class="comment">% [x,yy] = adaptive(func, xarray, ...)</span>
+0022 <span class="comment">%   as before but explicitly provide an initial array of domain points.</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">% Methods:</span>
+0025 <span class="comment">%   'adaptive' provides three methods for refining the function evaluation:</span>
+0026 <span class="comment">%   1) add more points near the sharp corners, which are found by</span>
+0027 <span class="comment">%    considering the triangles formed by three successive points and</span>
+0028 <span class="comment">%    measuring the central angle.</span>
+0029 <span class="comment">%   2) measure the area of the same triangles and add more points when the</span>
+0030 <span class="comment">%    area is bigger than a threshold.</span>
+0031 <span class="comment">%   3) measure the length of the segments formed by pairs of successive</span>
+0032 <span class="comment">%    and split the segments which are longer than a threshold.</span>
+0033 <span class="comment">%   If no methods is explicitly specified, the 'angle' method is used.</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">%% Input parameters</span>
+0036 <span class="comment">%  - func: input function (function handle)</span>
+0037 <span class="comment">%  - initialDomain: initial domain points (1D array)</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">%% Optional key-value input parameters</span>
+0040 <span class="comment">%  - 'nPoints': (default 20)</span>
+0041 <span class="comment">%       initial number of domain points, only used if an initial domain</span>
+0042 <span class="comment">%       array is not excplitely provided.</span>
+0043 <span class="comment">%  - 'maxRefinements': (default 10)</span>
+0044 <span class="comment">%       Specifies the maximum number of refinement steps.</span>
+0045 <span class="comment">%  - 'minAngle': (default 0.8*pi)</span>
+0046 <span class="comment">%       Refine near the  points which forms, together with their left and right</span>
+0047 <span class="comment">%       neighbours, a triangle with central angle smaller than a given value.</span>
+0048 <span class="comment">%  - 'maxArea': (default 5e-4)</span>
+0049 <span class="comment">%       Refine near the points which forms, together with their left and right</span>
+0050 <span class="comment">%       neighbours, a triangle with area larger than a threshold. The threshold</span>
+0051 <span class="comment">%       in normalized to the area enclosing th graph:</span>
+0052 <span class="comment">%       threshold==maxArea*(max(x)-min(x))*(max(f(x))-min(f(x)))</span>
+0053 <span class="comment">%  - 'maxLength': (default Inf)</span>
+0054 <span class="comment">%       Refine all the sements which are longer than a given threshold. The</span>
+0055 <span class="comment">%       threshold is relative to the input and output ranges. Specifically,</span>
+0056 <span class="comment">%       before applying the threshold, the data are normalized so that</span>
+0057 <span class="comment">%       max(x)-min(x)==1 and max(f(x))-min(f(x))==1.</span>
+0058 <span class="comment">%  - 'minLength': (default 0)</span>
+0059 <span class="comment">%       Exclude from the refinement process the segments which are shorter</span>
+0060 <span class="comment">%       than a given threshold. The threshold is relative to the input and</span>
+0061 <span class="comment">%       output ranges. Specifically, before applying the threshold, the</span>
+0062 <span class="comment">%       data are normalized so that max(x)-min(x)==1 and max(f(x))-min(f(x))==1.</span>
+0063 <span class="comment">%  - 'minSignal': (default 0.2)</span>
+0064 <span class="comment">%       Exclude from the refinement process the points where the function is</span>
+0065 <span class="comment">%       below a threshold. The threshold is relative to the output range: In</span>
+0066 <span class="comment">%       this example threshold == 0.01*(max(f(x))-min(f(x))).</span>
+0067 <span class="comment">%  - 'vectorizable': (default false)</span>
+0068 <span class="comment">%       Specifies whether the input function accepts arrays as input</span>
+0069 <span class="comment">%       (e.g. f(x)==x.^2).</span>
+0070 <span class="comment">%  - 'waitbar': (default false)</span>
+0071 <span class="comment">%       Display a waitbar.</span>
+0072 <span class="comment">%</span>
+0073 <span class="comment">% Output parameters</span>
+0074 <span class="comment">%  - a NxM array where N is the number of domain points and M is the number</span>
+0075 <span class="comment">%    of output parameters of the input function.</span>
+0076 <span class="comment">%</span>
+0077 <span class="comment">%</span>
+0078 <span class="comment">%% Examples:</span>
+0079 <span class="comment">%</span>
+0080 <span class="comment">%   % Refine a function near sharp corners. The option 'minAngle' is useful</span>
+0081 <span class="comment">%   % for having more points near the peaks of the function.</span>
+0082 <span class="comment">%   f = @(x) exp(-x.^2/4).*sin(3*x);</span>
+0083 <span class="comment">%   % for test-purpose also evaluate the function directly</span>
+0084 <span class="comment">%   x2 = -10:0.01:10;</span>
+0085 <span class="comment">%   y2 = f(x2);</span>
+0086 <span class="comment">%   y = adaptive(f, [-5,5], 'minAngle',0.8*pi);</span>
+0087 <span class="comment">%   figure(1); plot(x2,f(x2),'k--',y(:,1),y(:,2),'o-');</span>
+0088 <span class="comment">%   legend('high sampling','adaptive')</span>
+0089 <span class="comment">%   title('y = adaptive(f, [xstart, xend], ''minAngle'',0.8*pi)')</span>
+0090 <span class="comment">%   % as before but starting with an inital array of domain points</span>
+0091 <span class="comment">%   x = -5:5;</span>
+0092 <span class="comment">%   y = adaptive(f, x, 'minAngle',0.8*pi);</span>
+0093 <span class="comment">%   figure(2); plot(x,f(x),'s-',x2,f(x2),'k--',y(:,1),y(:,2),'o-');</span>
+0094 <span class="comment">%   legend('initial sampling','high sampling','adaptive')</span>
+0095 <span class="comment">%   title('y = adaptive(f, x, ''minAngle'',0.8*pi)')</span>
+0096 <span class="comment">%</span>
+0097 <span class="comment">%   % Refine a function near sharp corners, but do not split segments which</span>
+0098 <span class="comment">%   % are already shorter than 'minLength'.</span>
+0099 <span class="comment">%   y = adaptive(f, x, 'minAngle',0.8*pi, 'minLength',0.05);</span>
+0100 <span class="comment">%   figure(3); plot(x,f(x),'s-',x2,f(x2),'k--',y(:,1),y(:,2),'o-');</span>
+0101 <span class="comment">%   legend('initial sampling','high sampling','adaptive')</span>
+0102 <span class="comment">%   title('y = adaptive(f, x, ''minAngle'',0.8*pi, ''minLength'',0.05)');</span>
+0103 <span class="comment">%</span>
+0104 <span class="comment">%   % Refine a function until the areas of the triangles formed by</span>
+0105 <span class="comment">%   % triplets of successive points are smaller than 'maxArea'.</span>
+0106 <span class="comment">%   y = adaptive(f, x, 'maxArea',1e-3);</span>
+0107 <span class="comment">%   figure(4); plot(x,f(x),'s-',x2,f(x2),'k--',y(:,1),y(:,2),'o-');</span>
+0108 <span class="comment">%   legend('initial sampling','high sampling','adaptive')</span>
+0109 <span class="comment">%   title('y = adaptive(f, x, ''maxArea'',1e-3)')</span>
+0110 <span class="comment">%</span>
+0111 <span class="comment">%   % Refine a function until the segments formed by pairs of successive</span>
+0112 <span class="comment">%   % points are shorter than 'maxLength'.</span>
+0113 <span class="comment">%   y = adaptive(f, x, 'maxLength',0.1);</span>
+0114 <span class="comment">%   figure(5); plot(x,f(x),'s-',x2,f(x2),'k--',y(:,1),y(:,2),'o-');</span>
+0115 <span class="comment">%   legend('initial sampling','high sampling','adaptive')</span>
+0116 <span class="comment">%   title('y = adaptive(f, x, ''maxLength'',0.1)');</span>
+0117 
+0118 
+0119 <span class="comment">%% Copyright</span>
+0120 <span class="comment">% 2017, Alberto Comin -  LMU Muenchen</span>
+0121 
+0122 <span class="comment">% Version changes:</span>
+0123 <span class="comment">%</span>
+0124 <span class="comment">% 24/01/2017: 1) new default: when no optional argument is given, use the</span>
+0125 <span class="comment">%  'angle' method as default 2) it is now possible to provide just the</span>
+0126 <span class="comment">%  start and the end of the function domain, instead of having to</span>
+0127 <span class="comment">%  explicitly provide an initial array 3) a new key-word argument</span>
+0128 <span class="comment">%  'nPoints' controls the number of initial domain points in the cases when</span>
+0129 <span class="comment">%  the initial array is not explicitly provided. 4) it is now possible to</span>
+0130 <span class="comment">%  return the domain points and the function values either as a single 2D</span>
+0131 <span class="comment">%  array or as two separate arrays.</span>
+0132 <span class="comment">% 25/01/2017: fixed defaults for the case when no method is specified</span>
+0133 
+0134 <span class="comment">%% Default settings</span>
+0135 vectorizable = false;
+0136 thresholdingSignal = false;
+0137 thresholdingLength = false;
+0138 thresholdingArea = false;
+0139 thresholdingAngles = false;
+0140 displayWaitbar = false;
+0141 maxRefinements = 10;
+0142 nPoints = 20;
+0143 minAngle = 0.8*pi;
+0144 minSignal = 0.2; <span class="comment">% units normalized to data range</span>
+0145 minLength = 0; <span class="comment">% units normalized to data range</span>
+0146 maxLength = Inf; <span class="comment">% units normalized to data range</span>
+0147 maxArea = 5e-4; <span class="comment">% units normalized to data range</span>
+0148 
+0149 <span class="comment">%% Test-mode</span>
+0150 <span class="comment">% The test mode is activated by calling 'adaptive.m' with no input.</span>
+0151 
+0152 <span class="keyword">if</span> nargin==0
+0153   initialDomain =  -10:10;
+0154   input_func = @(x) 100*exp(-(x+5.2).^2) + 50*exp(-5*(x-0.5).^2)+ 20*exp(-10*(x-5.8).^2);
+0155   thresholdingAngles = true;
+0156   minAngle = 0.8*pi;
+0157   thresholdingLength = true;
+0158   minLength = 0.02;
+0159   disp(<span class="string">'Running adaptive.m in test mode'</span>);
+0160   fprintf(<span class="string">'input function: %s\n'</span>,func2str(input_func));
+0161   disp(<span class="string">'Plotting the function on a initial set of points'</span>);
+0162   testFigureHandle = figure();
+0163   plot(initialDomain, input_func(initialDomain),<span class="string">'bs-'</span>,<span class="string">'LineWidth'</span>,1.5);
+0164   grid on; xlabel(<span class="string">'x'</span>); ylabel(<span class="string">'y'</span>); title(<span class="string">'adaptive.m example'</span>);
+0165 <span class="keyword">end</span>
+0166 
+0167 
+0168 <span class="comment">%% Processing input arguments</span>
+0169 assert(isa(input_func,<span class="string">'function_handle'</span>),<span class="string">'adaptiveFunctionEvaluation:ArgChk'</span>,<span class="keyword">...</span>
+0170   <span class="string">'the first argument must be a function handle'</span>);
+0171 assert(isnumeric(initialDomain) &amp;&amp; isvector(initialDomain),<span class="keyword">...</span>
+0172   <span class="string">'adaptiveFunctionEvaluation:ArgChk'</span>,<span class="string">'initial points must be specified as a numeric vector'</span>);
+0173 
+0174 nExtraArgIn = numel(varargin);
+0175 <span class="keyword">if</span> mod(nExtraArgIn,2)==1
+0176   error(<span class="string">'adaptiveFunctionEvaluation:ArgChk'</span>, <span class="keyword">...</span>
+0177     <span class="string">'At least a key or a value is missing in the key-value arguments list.'</span>);
+0178 <span class="keyword">end</span>
+0179 
+0180 usingDefaultMethod = true;
+0181 n = 1;
+0182 <span class="keyword">while</span> n &lt; nExtraArgIn
+0183   <span class="keyword">switch</span> lower(varargin{n})  
+0184     <span class="keyword">case</span> <span class="string">'minangle'</span>
+0185       minAngle = varargin{n+1};
+0186       thresholdingAngles = true;
+0187       usingDefaultMethod = false;
+0188       n = n+2;
+0189     <span class="keyword">case</span> <span class="string">'maxarea'</span>
+0190       maxArea = varargin{n+1};
+0191       thresholdingArea = true;
+0192       usingDefaultMethod = false;
+0193       n = n+2;
+0194     <span class="keyword">case</span> <span class="string">'maxlength'</span>
+0195       maxLength = varargin{n+1};
+0196       thresholdingLength = true;
+0197       usingDefaultMethod = false;
+0198       n = n+2;
+0199     <span class="keyword">case</span> <span class="string">'minlength'</span>
+0200       minLength = varargin{n+1};
+0201       thresholdingLength = true;
+0202       n = n+2;
+0203     <span class="keyword">case</span> <span class="string">'minsignal'</span>
+0204       minSignal = varargin{n+1};
+0205       thresholdingSignal = true;
+0206       n = n+2;
+0207     <span class="keyword">case</span> <span class="string">'npoints'</span>
+0208       nPoints = varargin{n+1};
+0209       n = n+2;
+0210     <span class="keyword">case</span> <span class="string">'vectorize'</span>
+0211       vectorizable = varargin{n+1};
+0212       n = n+2;
+0213     <span class="keyword">case</span> <span class="string">'maxrefinements'</span>
+0214       maxRefinements = varargin{n+1};
+0215       n = n+2;
+0216     <span class="keyword">case</span> <span class="string">'waitbar'</span>
+0217       displayWaitbar = varargin{n+1};
+0218       n = n+2;
+0219     <span class="keyword">otherwise</span>
+0220       error(<span class="string">'adaptiveFunctionEvaluation:ArgChk'</span>,<span class="keyword">...</span>
+0221         [<span class="string">'unknown keyword argument: '</span>, varargin{n}]);
+0222   <span class="keyword">end</span>
+0223 <span class="keyword">end</span>
+0224 
+0225 <span class="comment">% if no method is specified use the 'angle' method as default</span>
+0226 <span class="keyword">if</span> usingDefaultMethod
+0227   thresholdingAngles = true;
+0228 <span class="keyword">end</span>
+0229 
+0230 <span class="comment">%% Initial function evaluation</span>
+0231 
+0232 <span class="comment">% if initialDomain only contains the start and the end points, create a new</span>
+0233 <span class="comment">% array with 'nPoints' points.</span>
+0234 <span class="keyword">if</span> numel(initialDomain) == 2
+0235   initialDomain = linspace(initialDomain(1),initialDomain(end),nPoints).';
+0236 <span class="keyword">end</span>
+0237 <span class="comment">% Normalize the input function: This step allows to use the same syntax for</span>
+0238 <span class="comment">% functions with single or multiple output parameters.</span>
+0239 func = @(x) <a href="#_sub1" class="code" title="subfunction y = normalizeFunction(x, func, vectorizable)">normalizeFunction</a>(x,input_func,vectorizable);
+0240 <span class="comment">% Evaluate the input function on the initial set of points.</span>
+0241 dataPoints = [initialDomain(:), func(initialDomain(:))];
+0242 
+0243 
+0244 <span class="comment">%% Iterative function refinement</span>
+0245 <span class="comment">% if displayWaitbar</span>
+0246 <span class="comment">%   refinementWaitbar = waitbar(0,['Evaluating function ',func2str(func)],...</span>
+0247 <span class="comment">%     'CreateCancelBtn','setappdata(gcbf,''canceling'',true)');</span>
+0248 <span class="comment">%   setappdata(refinementWaitbar,'canceling',false)</span>
+0249 <span class="comment">% end</span>
+0250 
+0251 <span class="keyword">for</span> nRefinements = 1:maxRefinements
+0252   <span class="comment">% calculate the box which encloses the current data points:</span>
+0253   dataBoxSize = max(dataPoints(:,1:2)) - min(dataPoints(:,1:2));
+0254   dataBoxArea = prod(dataBoxSize);
+0255   
+0256   <span class="comment">% Each point is considered as the central corner of the triangle formed</span>
+0257   <span class="comment">% with its left and right hand side neighbours. The first and the last</span>
+0258   <span class="comment">% points are not the central corner of any triangle, so for N points</span>
+0259   <span class="comment">% there are only N-2 triangles.</span>
+0260   trianglesToRefine = [false(size(dataPoints,1)-2 ,1)];
+0261   <span class="keyword">if</span> thresholdingArea
+0262     triangleArea = <a href="#_sub4" class="code" title="subfunction triangleArea = calculateTrianglesArea(XYdata)">calculateTrianglesArea</a>(dataPoints(:,1:2));
+0263     bigTriangles = triangleArea &gt; (maxArea * dataBoxArea);
+0264     trianglesToRefine = trianglesToRefine | bigTriangles;
+0265   <span class="keyword">end</span>
+0266   <span class="keyword">if</span> thresholdingAngles
+0267     cornerAngle = <a href="#_sub3" class="code" title="subfunction cornerAngle = calculateCentralAngles(XYdata, dataBoxSize)">calculateCentralAngles</a>(dataPoints(:,1:2), dataBoxSize);
+0268     sharpCorners = (cornerAngle&lt;minAngle);
+0269     trianglesToRefine = trianglesToRefine | sharpCorners;
+0270   <span class="keyword">end</span>
+0271   
+0272   <span class="comment">% For N points there are N-2 triangles and N-1 triangle sides. Each</span>
+0273   <span class="comment">% triangle side is a segment, which can be split or not depending on the</span>
+0274   <span class="comment">% refinement parameters.</span>
+0275   segmentsToSplit = [trianglesToRefine; false] | [false; trianglesToRefine];
+0276   <span class="keyword">if</span> thresholdingLength
+0277     dataSegments = diff(dataPoints(:,1:2));
+0278     normalizedSegments = bsxfun(@rdivide, dataSegments, dataBoxSize);
+0279     segmentsLengthNormalized = hypot(normalizedSegments(:,1), normalizedSegments(:,2));
+0280     tooLongSegments = segmentsLengthNormalized &gt; maxLength;
+0281     longEnoughSegments = segmentsLengthNormalized &gt; minLength;
+0282     segmentsToSplit = (segmentsToSplit | tooLongSegments) &amp; longEnoughSegments;
+0283   <span class="keyword">end</span>
+0284   <span class="keyword">if</span> thresholdingSignal
+0285     segmentsCenters = (dataPoints(1:end-1,2)+dataPoints(2:<span class="keyword">end</span>,2))/2;
+0286     centerAboveThreshold = segmentsCenters &gt; minSignal * max(abs(dataPoints(:,2)));
+0287     segmentsToSplit = segmentsToSplit &amp; centerAboveThreshold;
+0288   <span class="keyword">end</span>
+0289   
+0290   <span class="keyword">if</span> any(segmentsToSplit)
+0291     dataPoints = <a href="#_sub5" class="code" title="subfunction dataPoints = increaseSampling(func, dataPoints, segmentsToSplit)">increaseSampling</a>(func, dataPoints, segmentsToSplit);
+0292   <span class="keyword">else</span>
+0293     <span class="keyword">break</span>;
+0294   <span class="keyword">end</span>
+0295   <span class="keyword">if</span> displayWaitbar
+0296     <span class="keyword">if</span> getappdata(refinementWaitbar,<span class="string">'canceling'</span>), <span class="keyword">break</span>; <span class="keyword">end</span>
+0297     waitbar(nRefinements/maxRefinements,refinementWaitbar);
+0298   <span class="keyword">end</span>
+0299 <span class="keyword">end</span>
+0300 
+0301 <span class="keyword">if</span> displayWaitbar
+0302   delete(refinementWaitbar);
+0303 <span class="keyword">end</span>
+0304 
+0305 <span class="comment">%% Plotting refined function</span>
+0306 <span class="keyword">if</span> nargin==0 <span class="comment">% test mode</span>
+0307   figure(testFigureHandle);
+0308   hold on;
+0309   plot(dataPoints(:,1), dataPoints(:,2),<span class="string">'ro-'</span>);
+0310   legend(<span class="string">'initial'</span>, <span class="string">'refiniment'</span>);
+0311 <span class="keyword">end</span>
+0312 
+0313 <span class="keyword">if</span> nargout==1
+0314   varargout{1} = dataPoints;
+0315 <span class="keyword">elseif</span> nargout&gt;1
+0316   varargout{1} = dataPoints(:,1);
+0317   varargout{2} = dataPoints(:,2:end);
+0318 <span class="keyword">end</span>
+0319 <span class="keyword">end</span>
+0320 
+0321 <span class="comment">%% Subfunctions</span>
+0322 
+0323 <a name="_sub1" href="#_subfunctions" class="code">function y = normalizeFunction(x, func, vectorizable)</a>
+0324 <span class="comment">% NORMALIZEFUNCTION evaluates a function and returns a NxM array, where N</span>
+0325 <span class="comment">% is the number of elements of x and M is the number of outputs of func.</span>
+0326 <span class="comment">% All the outputs of func must be scalar.</span>
+0327 <span class="comment">% The optional parameter 'vectorizable' (default false) allows to specify</span>
+0328 <span class="comment">% that the input function can be vectorized.</span>
+0329 
+0330 <span class="keyword">if</span> (~exist(<span class="string">'vectorizable'</span>,<span class="string">'var'</span>) || isempty(vectorizable))
+0331   vectorizable=false;
+0332 <span class="keyword">end</span>
+0333 no_elements = numel(x);
+0334 no_outputs = abs(nargout(func)); <span class="comment">%for anonymous functions nargout&lt;0</span>
+0335 y = zeros(no_elements, no_outputs);
+0336 newValues = cell(1, no_outputs);
+0337 <span class="keyword">if</span> vectorizable
+0338   <span class="comment">% For uniformity reasons, transform the 'x' array into a column vector.</span>
+0339   <span class="comment">% In this way it does not matter if it is given as a column or a row</span>
+0340   <span class="comment">% vector.</span>
+0341   [newValues{:}] = func(x(:));
+0342   y = cell2mat(newValues);
+0343 <span class="keyword">else</span>
+0344   <span class="keyword">for</span> i=1:no_elements
+0345     [newValues{:}] = func(x(i));
+0346     y(i,:) = cell2mat(newValues);
+0347   <span class="keyword">end</span>
+0348 <span class="keyword">end</span>
+0349 <span class="keyword">end</span>
+0350 
+0351 <a name="_sub2" href="#_subfunctions" class="code">function [firstStep,secondStep,longStep] = calculateTrianglesSides(XYdata)</a>
+0352 <span class="comment">% Return the sides (deltaX, deltaY) of the triangles formed by data points.</span>
+0353 <span class="comment">% For input size NxM, the output size is (N-2)xN, because the first and the</span>
+0354 <span class="comment">% last point are not the central corner of any triangle.</span>
+0355 
+0356 firstStep = XYdata(2:end-1,:) - XYdata(1:end-2,:);
+0357 secondStep = XYdata(3:<span class="keyword">end</span>  ,:) - XYdata(2:end-1,:);
+0358 longStep  = XYdata(3:<span class="keyword">end</span>  ,:) - XYdata(1:end-2,:);
+0359 <span class="keyword">end</span>
+0360 
+0361 <a name="_sub3" href="#_subfunctions" class="code">function cornerAngle = calculateCentralAngles(XYdata, dataBoxSize)</a>
+0362 <span class="comment">% Calculate the central angle of the triangles formed by data points.</span>
+0363 <span class="comment">% For input size NxM, the output size is (N-2)xN, because the first and the</span>
+0364 <span class="comment">% last point are not the central corner of any triangle.</span>
+0365 
+0366 <span class="comment">% Normalize data, because angles depend on scaling.</span>
+0367 normalizedData = <span class="keyword">...</span>
+0368   XYdata ./ repmat(dataBoxSize, size(XYdata,1), 1) - <span class="keyword">...</span>
+0369   repmat(min(XYdata), size(XYdata,1), 1);
+0370 <span class="comment">% calculate cosine of central angles</span>
+0371 [firstStep,secondStep,longStep] = <a href="#_sub2" class="code" title="subfunction [firstStep,secondStep,longStep] = calculateTrianglesSides(XYdata)">calculateTrianglesSides</a>(normalizedData);
+0372 <span class="comment">% calculate area of squares of length of triangle sides</span>
+0373 firstStepSquared  = firstStep(:,1).^2  + firstStep(:,2).^2;
+0374 secondStepSquared = secondStep(:,1).^2 + secondStep(:,2).^2;
+0375 longStepSquared   = longStep(:,1).^2   + longStep(:,2).^2;
+0376 cosCornerAngle = <span class="keyword">...</span>
+0377   (firstStepSquared + secondStepSquared - longStepSquared) / 2 ./ <span class="keyword">...</span>
+0378   sqrt(firstStepSquared .* secondStepSquared);
+0379 cornerAngle = real(acos(cosCornerAngle));
+0380 <span class="keyword">end</span>
+0381 
+0382 <a name="_sub4" href="#_subfunctions" class="code">function triangleArea = calculateTrianglesArea(XYdata)</a>
+0383 <span class="comment">% CalculateTrianglesArea of triangles formed by data points using shoelace</span>
+0384 <span class="comment">% formula.</span>
+0385 <span class="comment">% For input size NxM, the output size is (N-2)xN, because the first and the</span>
+0386 <span class="comment">% last point are not the central corner of any triangle.</span>
+0387 
+0388 [firstStep, ~, longStep] = <a href="#_sub2" class="code" title="subfunction [firstStep,secondStep,longStep] = calculateTrianglesSides(XYdata)">calculateTrianglesSides</a>(XYdata);
+0389 triangleArea = 0.5 * abs(-longStep(:,1).*firstStep(:,2) + firstStep(:,1).*longStep(:,2));
+0390 <span class="keyword">end</span>
+0391 
+0392 <a name="_sub5" href="#_subfunctions" class="code">function dataPoints = increaseSampling(func, dataPoints, segmentsToSplit)</a>
+0393 <span class="comment">% increaseSampling increase the sampling of an input function</span>
+0394 
+0395 noPointsToAdd = numel(segmentsToSplit(segmentsToSplit==true));
+0396 newDataPoints = zeros(noPointsToAdd, size(dataPoints,2));
+0397 newDataPoints(:,1) = 0.5 * (dataPoints([segmentsToSplit;false],1) + <span class="keyword">...</span>
+0398   dataPoints([false;segmentsToSplit],1));
+0399 newDataPoints(:,2:end) = func(newDataPoints(:,1));
+0400 <span class="comment">% For simplicity append the new points at the end and then sort.</span>
+0401 dataPoints = sortrows( [ dataPoints; newDataPoints ]);
+0402 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

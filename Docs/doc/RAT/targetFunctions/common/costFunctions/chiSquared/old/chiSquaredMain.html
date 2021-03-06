@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of chiSquaredMain</title>
+  <meta name="keywords" content="chiSquaredMain">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../../../menu.html common --><!-- # costFunctions --><!-- ../menu.html chiSquared --><!-- menu.html old -->
+<h1>chiSquaredMain
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../../../matlabicon.gif)">
+<li><a href="../../../../../../RAT/targetFunctions/common/callReflectivity/chiSquared.html" class="code" title="function chi2 = chi_squared(fit,y,P,eb)">chiSquared</a>	chi_squared(func,data,numparams,errors)</li><li><a href="../../../../../../RAT/targetFunctions/common/callReflectivity/chiSquared.html" class="code" title="function chi2 = chi_squared(fit,y,P,eb)">chiSquared</a>	chi_squared(func,data,numparams,errors)</li><li><a href="../../../../../../RAT/targetFunctions/common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	chi_squared(func,data,numparams,errors)</li><li><a href="../../../../../../RAT/targetFunctions/common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	chi_squared(func,data,numparams,errors)</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 a = load(<span class="string">'testProblem2.mat'</span>);
+0002 problem = a.problem;
+0003 <span class="comment">%problem = legacyChanges(problem);</span>
+0004 
+0005 nbairs = problem.nbairs;
+0006 nbsubs = problem.nbsubs;
+0007 simLimits = problem.simLimits;
+0008 repeatLayers = problem.repeatLayers;
+0009 allData = problem.shifted_data;
+0010 layers = problem.layers;
+0011 ssubs = problem.ssubs;
+0012 numberOfContrasts = problem.numberOfContrasts;
+0013 backs = problem.backgrounds;
+0014 res = problem.resolutions;
+0015 nParams = length(problem.params);
+0016 fits = problem.calculations.reflectivity;
+0017 
+0018 chis = <a href="../../../../../../RAT/targetFunctions/common/callReflectivity/chiSquared.html" class="code" title="function chi2 = chi_squared(fit,y,P,eb)">chiSquared</a>(allData{1},fits{1},nParams);
+0019 <span class="comment">%chis = chiSquared(allData,fits,nParams,numberOfContrasts);</span>
+0020 
+0021 
+0022 
+0023 
+0024 
+0025</pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

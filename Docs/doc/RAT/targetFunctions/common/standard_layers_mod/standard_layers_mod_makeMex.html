@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of standard_layers_mod_makeMex</title>
+  <meta name="keywords" content="standard_layers_mod_makeMex">
+  <meta name="description" content="UNTITLED   Generate static library standard_layers_mod from">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../menu.html common --><!-- menu.html standard_layers_mod -->
+<h1>standard_layers_mod_makeMex
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>UNTITLED   Generate static library standard_layers_mod from</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> UNTITLED   Generate static library standard_layers_mod from
+  standard_layers_mod.
+ 
+ Script generated from project 'standard_layers_mod.prj' on 09-Apr-2017.
+ 
+ See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="standard_layers_mod.html" class="code" title="function [layersOutput,sRoughOutput] = standard_layers_mod(params,contrastLayers,numberOfLayers,layersDetails)">standard_layers_mod</a>	</li><li><a href="standard_layers_mod.html" class="code" title="function [layersOutput,sRoughOutput] = standard_layers_mod(params,contrastLayers,numberOfLayers,layersDetails)">standard_layers_mod</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../RAT/targetFunctions/common/makeAllMexes.html" class="code" title="">makeAllMexes</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% UNTITLED   Generate static library standard_layers_mod from</span>
+0002 <span class="comment">%  standard_layers_mod.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% Script generated from project 'standard_layers_mod.prj' on 09-Apr-2017.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.</span>
+0007 
+0008 <span class="comment">%% Create configuration object of class 'coder.CodeConfig'.</span>
+0009 cfg = coder.config(<span class="string">'lib'</span>,<span class="string">'ecoder'</span>,false);
+0010 cfg.GenerateReport = true;
+0011 cfg.GenCodeOnly = true;
+0012 
+0013 <span class="comment">%% Define argument types for entry-point 'standard_layers_mod'.</span>
+0014 ARGS = cell(1,1);
+0015 ARGS{1} = cell(4,1);
+0016 ARGS{1}{1} = coder.typeof(0,[1 Inf],[0 1]);
+0017 ARGS{1}{2} = coder.typeof(0,[1 2]);
+0018 ARGS{1}{3} = coder.typeof(0);
+0019 ARG = coder.typeof(0,[1 5]);
+0020 ARGS{1}{4} = coder.typeof({ARG}, [1 Inf],[0 1]);
+0021 
+0022 <span class="comment">%% Invoke MATLAB Coder.</span>
+0023 codegen -config cfg <a href="standard_layers_mod.html" class="code" title="function [layersOutput,sRoughOutput] = standard_layers_mod(params,contrastLayers,numberOfLayers,layersDetails)">standard_layers_mod</a> -args ARGS{1}</pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

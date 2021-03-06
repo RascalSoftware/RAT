@@ -1,4 +1,4 @@
-function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers);
+function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers)
 
 % Take the layers list for a contrast and build an
 % array of real valued layers 

@@ -1,31 +1,37 @@
-/*
- * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
- *
- * callReflectivity.h
- *
- * Code generation for function 'callReflectivity'
- *
- */
-
+//
+// Non-Degree Granting Education License -- for use at non-degree
+// granting, nonprofit, educational organizations only. Not for
+// government, commercial, or other organizational use.
+// File: callReflectivity.h
+//
+// MATLAB Coder version            : 5.0
+// C/C++ source code generated on  : 24-Feb-2021 09:15:13
+//
 #ifndef CALLREFLECTIVITY_H
 #define CALLREFLECTIVITY_H
 
-/* Include files */
-#include <stddef.h>
-#include <stdlib.h>
+// Include Files
+#include <cstddef>
+#include <cstdlib>
 #include "rtwtypes.h"
 #include "omp.h"
 #include "reflectivity_calculation_types.h"
+#define MAX_THREADS                    omp_get_max_threads()
 
-/* Function Declarations */
+// Function Declarations
+extern void b_callReflectivity(double nbairs, double nbsubs, const double
+  simLimits[2], const double repeatLayers[2], const coder::array<double, 2U>
+  &this_data, const coder::array<double, 2U> &layers, double ssubs, double res,
+  coder::array<double, 2U> &reflectivity, coder::array<double, 2U> &Simulation);
 extern void callReflectivity(double nbairs, double nbsubs, const double
-  simLimits[2], const double repeatLayers[2], const double this_data_data[],
-  const int this_data_size[2], const emxArray_real_T *layers, double ssubs,
-  double backgrounds, double res, double reflectivity_data[], int
-  reflectivity_size[2], emxArray_real_T *Simulation);
+  simLimits[2], const double repeatLayers[2], const coder::array<double, 2U>
+  &this_data, const coder::array<double, 2U> &layers, double ssubs, double res,
+  coder::array<double, 2U> &reflectivity, coder::array<double, 2U> &Simulation);
 
 #endif
 
-/* End of code generation (callReflectivity.h) */
+//
+// File trailer for callReflectivity.h
+//
+// [EOF]
+//

@@ -2,11 +2,10 @@
  * Non-Degree Granting Education License -- for use at non-degree
  * granting, nonprofit, educational organizations only. Not for
  * government, commercial, or other organizational use.
+ * File: rtwtypes.h
  *
- * rtwtypes.h
- *
- * Code generation for function 'reflectivity_calculation'
- *
+ * MATLAB Coder version            : 5.0
+ * C/C++ source code generated on  : 24-Feb-2021 09:15:13
  */
 
 #ifndef RTWTYPES_H
@@ -40,4 +39,8 @@
 #include "tmwtypes.h"
 #endif
 
-/* End of code generation (rtwtypes.h) */
+/*
+ * File trailer for rtwtypes.h
+ *
+ * [EOF]
+ */

@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of definedLength</title>
+  <meta name="keywords" content="definedLength">
+  <meta name="description" content="MODEL_1  RASCAL Custom Layer Model File.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../../menu.html standard_TF --><!-- ../menu.html standardTF_stanLay --><!-- menu.html old -->
+<h1>definedLength
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="box"><strong>MODEL_1  RASCAL Custom Layer Model File.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="box"><strong>function [output,sub_rough] = definedLength(params,bulk_in,bulk_out,contrast) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">MODEL_1  RASCAL Custom Layer Model File.
+
+
+ This file accepts 3 vectors containing the values for
+ Params, bulk in and bulk out
+ The final parameter is an index of the contrast being calculated
+ The m-file should output a matrix of layer values, in the form..
+ Output = [thick 1, SLD 1, Rough 1, Percent Hydration 1, Hydrate how 1
+           ....
+           thick n, SLD n, Rough n, Percent Hydration n, Hydration how n]
+ The &quot;hydrate how&quot; parameter decides if the layer is hydrated with
+ Bulk out or Bulk in phases. Set to 1 for Bulk out, zero for Bulk in.
+ Alternatively, leave out hydration and just return..
+ Output = [thick 1, SLD 1, Rough 1,
+           ....
+           thick n, SLD n, Rough n] };
+ The second output parameter should be the substrate roughness</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [output,sub_rough] = definedLength(params,bulk_in,bulk_out,contrast)</a>
+0002 <span class="comment">%MODEL_1  RASCAL Custom Layer Model File.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% This file accepts 3 vectors containing the values for</span>
+0006 <span class="comment">% Params, bulk in and bulk out</span>
+0007 <span class="comment">% The final parameter is an index of the contrast being calculated</span>
+0008 <span class="comment">% The m-file should output a matrix of layer values, in the form..</span>
+0009 <span class="comment">% Output = [thick 1, SLD 1, Rough 1, Percent Hydration 1, Hydrate how 1</span>
+0010 <span class="comment">%           ....</span>
+0011 <span class="comment">%           thick n, SLD n, Rough n, Percent Hydration n, Hydration how n]</span>
+0012 <span class="comment">% The &quot;hydrate how&quot; parameter decides if the layer is hydrated with</span>
+0013 <span class="comment">% Bulk out or Bulk in phases. Set to 1 for Bulk out, zero for Bulk in.</span>
+0014 <span class="comment">% Alternatively, leave out hydration and just return..</span>
+0015 <span class="comment">% Output = [thick 1, SLD 1, Rough 1,</span>
+0016 <span class="comment">%           ....</span>
+0017 <span class="comment">%           thick n, SLD n, Rough n] };</span>
+0018 <span class="comment">% The second output parameter should be the substrate roughness</span>
+0019 
+0020 
+0021 Roughness = params(1);
+0022 APM = params(2);
+0023 noWat = params(3);
+0024 theta = params(4);
+0025 <span class="comment">% vTail = params(4);</span>
+0026 <span class="comment">% vHead = params(5);</span>
+0027 
+0028 deb = 0;
+0029 
+0030 <span class="comment">%Make a flag to say which deuteration this is calculating</span>
+0031 <span class="comment">%[subs head tail]</span>
+0032 deut = [0 0 1;
+0033         1 0 1;
+0034         0 1 0;
+0035         1 1 0;
+0036         0 1 1;
+0037         1 1 1;
+0038         1 0 0];
+0039     
+0040 
+0041 <span class="comment">%Neutron b's..</span>
+0042 <span class="comment">%define all the neutron b's.</span>
+0043 bc = 0.6646e-4;     <span class="comment">%Carbon</span>
+0044 bo = 0.5843e-4;     <span class="comment">%Oxygen</span>
+0045 bh = -0.3739e-4;    <span class="comment">%Hydrogen</span>
+0046 bp = 0.513e-4;      <span class="comment">%Phosphorus</span>
+0047 bn = 0.936e-4;      <span class="comment">%Nitrogen</span>
+0048 bd = 0.6671e-4;     <span class="comment">%Deuterium</span>
+0049 
+0050 <span class="comment">%Work out the total scattering length in each fragment....</span>
+0051 <span class="comment">%Define scattering lengths..</span>
+0052 <span class="comment">%Hydrogenated version....</span>
+0053 COO = (4*bo) + (2*bc);
+0054 GLYC = (3*bc) + (5*bh);
+0055 CH3 = (2*bc) + (6*bh);             
+0056 PO4 = (1*bp) + (4*bo);
+0057 CH2 = (1*bc) + (2*bh);
+0058 CHOL = (5*bc) + (12*bh) + (1*bn);
+0059 H2O = (2*bh) + (1*bo);
+0060 
+0061 <span class="comment">%..and deuterated...</span>
+0062 dGLYC = (3*bc) + (5*bd);
+0063 dCH3 = (2*bc) + (6*bd); 
+0064 dCH2 = (1*bc) + (2*bd);
+0065 dCHOL = (5*bc) + (12*bd) + (1*bn);
+0066 D2O = (2*bd) + (1*bo);
+0067 
+0068 <span class="comment">%And also volumes....</span>
+0069 vCH3 = 52.7;
+0070 vCH2 = 28.1;
+0071 vCOO = 39.0;
+0072 vGLYC = 68.8;
+0073 vPO4 = 53.7;
+0074 vCHOL = 120.4;
+0075 vWAT = 30.4;
+0076 
+0077 vHead = vCHOL + vPO4 + vGLYC + 2*vCOO;<span class="comment">%320.9;</span>
+0078 vTail = 2*(16*vCH2)+ 2*(vCH3);<span class="comment">%1005;</span>
+0079 
+0080 
+0081 <span class="comment">%Make the SLD's first...</span>
+0082 thisMask = deut(contrast,:);
+0083 
+0084 <span class="comment">% switch thisMask(1)</span>
+0085 <span class="comment">%     case 0</span>
+0086 <span class="comment">%         thisWater = (H2O * 0.9249) + (D2O * 0.0871);</span>
+0087 <span class="comment">%     case 1</span>
+0088 <span class="comment">%         thisWater = D2O;</span>
+0089 <span class="comment">% end</span>
+0090 
+0091 
+0092 <span class="comment">%Calculate mole fraction of D2O from the bulk SLD..</span>
+0093 Rho_d2o = 6.35e-6;
+0094 Rho_h2o = -0.56e-6;
+0095 Rho_this = bulk_out(contrast);
+0096 d2o_molfr = (Rho_this-Rho_h2o)/(Rho_d2o-Rho_h2o);
+0097 thisWater = (d2o_molfr * D2O) + ((1-d2o_molfr)*H2O);
+0098 
+0099 
+0100 <span class="keyword">switch</span> thisMask(2)
+0101     <span class="keyword">case</span> 0
+0102         thisHead = CHOL + PO4 + GLYC + COO;
+0103     <span class="keyword">case</span> 1
+0104         thisHead = dCHOL + PO4 + GLYC + COO;
+0105 <span class="keyword">end</span>
+0106 
+0107 <span class="keyword">switch</span> thisMask(3);
+0108     <span class="keyword">case</span> 0
+0109         thisTail = (32*CH2) + CH3;
+0110     <span class="keyword">case</span> 1
+0111         thisTail = (32*dCH2) + dCH3;
+0112 <span class="keyword">end</span>
+0113 
+0114 
+0115 
+0116 thisHead = thisHead + noWat*thisWater;
+0117 vHead = vHead + noWat*vWAT;
+0118 
+0119 sldHead = thisHead/vHead;
+0120 thickHead = vHead/APM;
+0121 
+0122 sldTail = thisTail/vTail;
+0123 thickTail = vTail/APM;
+0124 
+0125 <span class="comment">%thickTail = thickTail*cosd(theta);</span>
+0126 thickTail = (1.5 + 16*1.265)*cosd(theta);
+0127 
+0128 <span class="keyword">switch</span> deb
+0129     <span class="keyword">case</span> 1
+0130         <span class="keyword">if</span> (thisMask(2)==0 &amp;&amp; thisMask(1)==0); <span class="comment">%H-Head ACMW</span>
+0131                 addInfoText(sprintf(<span class="string">'Hydr Head / ACMW - Unhydrated is %4.4d '</span>,db_sldHead'));
+0132                 addInfoText(sprintf(<span class="string">'Hydr Head / ACMW -  Hydrated is %4.4d '</span>,sldHead'));
+0133         <span class="keyword">elseif</span> (thisMask(2)==1 &amp;&amp; thisMask(1)==0) <span class="comment">%D head acmw</span>
+0134                 addInfoText(sprintf(<span class="string">'Deut head / ACMW - Unhydrated is %4.4d '</span>,db_sldHead'));
+0135                 addInfoText(sprintf(<span class="string">'Deut head - ACMW - Hydrated is %4.4d '</span>,sldHead'));
+0136         <span class="keyword">elseif</span> (thisMask(2)==0 &amp;&amp; thisMask(1)==1) <span class="comment">%H head D2O</span>
+0137                 addInfoText(sprintf(<span class="string">'Hydr head / D2O - Unhydrated is %4.4d '</span>,db_sldHead'));
+0138                 addInfoText(sprintf(<span class="string">'Hydr head - D2O - Hydrated is %4.4d '</span>,sldHead'));
+0139         <span class="keyword">elseif</span> (thisMask(2)==1 &amp;&amp; thisMask(1)==1) <span class="comment">%D head D2O</span>
+0140                 addInfoText(sprintf(<span class="string">'Deut head / D2O - Unhydrated is %4.4d '</span>,db_sldHead'));
+0141                 addInfoText(sprintf(<span class="string">'Deut head - D2O - Hydrated is %4.4d '</span>,sldHead'));
+0142         <span class="keyword">end</span>
+0143 <span class="keyword">end</span>
+0144 
+0145 output = [thickTail sldTail Roughness;
+0146           thickHead sldHead Roughness;];
+0147       
+0148 
+0149 sub_rough = Roughness;
+0150       
+0151 
+0152 
+0153 
+0154 
+0155</pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

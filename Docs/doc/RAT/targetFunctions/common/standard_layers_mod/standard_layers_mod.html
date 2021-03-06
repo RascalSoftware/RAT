@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of standard_layers_mod</title>
+  <meta name="keywords" content="standard_layers_mod">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../menu.html common --><!-- menu.html standard_layers_mod -->
+<h1>standard_layers_mod
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [layersOutput,sRoughOutput] = standard_layers_mod(params,contrastLayers,numberOfLayers,layersDetails) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../RAT/targetFunctions/common/callModules/callModules.html" class="code" title="function [layersList,sRough] = callModules(params,whichContrast,contrastLayers,numberOfLayers,layersDetails,whichType,fileHandle,nbairs,nbsubs)">callModules</a>	</li><li><a href="../../../../RAT/targetFunctions/common/callModules/callModules.html" class="code" title="function [layersList,sRough] = callModules(params,whichContrast,contrastLayers,numberOfLayers,layersDetails,whichType,fileHandle,nbairs,nbsubs)">callModules</a>	</li><li><a href="standardLayersMain.html" class="code" title="">standardLayersMain</a>	</li><li><a href="standardLayersMain.html" class="code" title="">standardLayersMain</a>	</li><li><a href="standard_layers_mod_makeMex.html" class="code" title="">standard_layers_mod_makeMex</a>	UNTITLED   Generate static library standard_layers_mod from</li><li><a href="standard_layers_mod_makeMex.html" class="code" title="">standard_layers_mod_makeMex</a>	UNTITLED   Generate static library standard_layers_mod from</li><li><a href="../../../../RAT/targetFunctions/standard_TF/old/%standardTF_stanLay_parallel/call_StandardLayers.html" class="code" title="function [layersList,sRough] = call_StandardLayers(params,contrastLayers,layersDetails,whichType)">call_StandardLayers</a>	</li><li><a href="../../../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/call_StandardLayers.html" class="code" title="function [layersList,sRough] = call_StandardLayers(params,whichContrast,contrastLayers,numberOfLayers,layersDetails,whichType,nbairs,nbsubs)">call_StandardLayers</a>	(params,i,contrastLayers{i},numberOfLayers,layersDetails,geometry,nbairs,nbsubs);</li><li><a href="../../../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/call_StandardLayers.html" class="code" title="function [layersList,sRough] = call_StandardLayers(params,whichContrast,contrastLayers,numberOfLayers,layersDetails,whichType,nbairs,nbsubs)">call_StandardLayers</a>	(params,i,contrastLayers{i},numberOfLayers,layersDetails,geometry,nbairs,nbsubs);</li><li><a href="../../../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/call_StandardLayers.html" class="code" title="function [layersList,sRough] = call_StandardLayers(params,whichContrast,contrastLayers,numberOfLayers,layersDetails,whichType,nbairs,nbsubs)">call_StandardLayers</a>	(params,i,contrastLayers{i},numberOfLayers,layersDetails,geometry,nbairs,nbsubs);</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [layersOutput,sRoughOutput] = standard_layers_mod(params,contrastLayers,numberOfLayers,layersDetails)</a>
+0002 
+0003 
+0004 
+0005 sRoughOutput = params(1);
+0006 <span class="keyword">if</span> numberOfLayers == 0
+0007     sub_rough = params(1);
+0008     layersList = [];
+0009 <span class="keyword">else</span>
+0010     layersValues = zeros(numberOfLayers,5);
+0011     <span class="keyword">for</span> n = 1:numberOfLayers
+0012         thisLayer = layersDetails{n};
+0013         <span class="keyword">for</span> m = 1:4
+0014             thisItem = thisLayer(m);
+0015             <span class="keyword">if</span> ~isnan(thisItem)
+0016                 layersValues(n,m) = params(thisItem);
+0017             <span class="keyword">else</span>
+0018                 layersValues(n,m) = NaN;
+0019             <span class="keyword">end</span>
+0020         <span class="keyword">end</span>
+0021         whichBulk = thisLayer(5);
+0022         <span class="keyword">if</span> whichBulk == 2
+0023             layersValues(n,5) = 1;
+0024         <span class="keyword">else</span>
+0025             layersValues(n,5) = 0;
+0026         <span class="keyword">end</span>
+0027     <span class="keyword">end</span>
+0028     
+0029     
+0030     <span class="keyword">if</span> ~isempty(contrastLayers)
+0031         layersList = zeros(length(contrastLayers),5);
+0032         <span class="keyword">for</span> n = 1:length(contrastLayers)
+0033             thisRow = contrastLayers(n);
+0034             layersList(n,:) = layersValues(thisRow,:);
+0035         <span class="keyword">end</span>
+0036     <span class="keyword">else</span>
+0037         layersList = [];
+0038     <span class="keyword">end</span>
+0039 <span class="keyword">end</span>
+0040 sub_rough = params(1);
+0041 layersOutput = layersList;
+0042 sRoughOutput = sub_rough;
+0043 
+0044 
+0045 <span class="keyword">end</span>
+0046 
+0047</pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

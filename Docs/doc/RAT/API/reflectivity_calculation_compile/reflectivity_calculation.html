@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of reflectivity_calculation</title>
+  <meta name="keywords" content="reflectivity_calculation">
+  <meta name="description" content="global RAT_DEBUG DEBUGVARS">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- ../menu.html API --><!-- menu.html reflectivity_calculation_compile -->
+<h1>reflectivity_calculation
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>global RAT_DEBUG DEBUGVARS</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> global RAT_DEBUG DEBUGVARS
+ if coder.target('MATLAB')
+     RAT_DEBUG = 0; DEBUGVARS = 0;
+ end</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../RAT/API/problemDef_class/problemDef.html" class="code" title="">problemDef</a>	</li><li><a href="../../../RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_reflectivityCalculation</a>	Decide what kind of calculation it is and call the appropriate one</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../RAT/API/reflectivity_calculation/refCalc_callFun.html" class="code" title="">refCalc_callFun</a>	</li><li><a href="../../../RAT/API/reflectivity_calculation/refCalc_callFun.html" class="code" title="">refCalc_callFun</a>	</li><li><a href="../../../RAT/API/reflectivity_calculation/refCalc_spTest.html" class="code" title="function refCalc_spTest()">refCalc_spTest</a>	</li><li><a href="../../../RAT/API/reflectivity_calculation/refCalc_spTest.html" class="code" title="function refCalc_spTest()">refCalc_spTest</a>	</li><li><a href="../../../RAT/API/reflectivity_calculation/reflectivity_calculation_wrapper.html" class="code" title="function [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivity_calculation_wrapper</a>	This is just a wrapper function for choosing between</li><li><a href="../../../RAT/API/reflectivity_calculation/reflectivity_calculation_wrapper.html" class="code" title="function [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivity_calculation_wrapper</a>	This is just a wrapper function for choosing between</li><li><a href="refCalc_callFun.html" class="code" title="">refCalc_callFun</a>	global RAT_DEBUG DEBUGVARS</li><li><a href="../../../RAT/targetFunctions/standard_TF/old/%standardTF_custlay_parallel/main.html" class="code" title="">main</a>	</li><li><a href="../../../RAT/targetFunctions/standard_TF/old/%standardTF_stanLay_parallel/benchMain.html" class="code" title="">benchMain</a>	</li><li><a href="../../../RAT/targetFunctions/standard_TF/old/%standardTF_stanLay_parallel/main.html" class="code" title="">main</a>	</li><li><a href="../../../RAT/targetFunctions/standard_TF/standardTF_custLay/old/main.html" class="code" title="">main</a>	</li><li><a href="../../../RAT/targetFunctions/standard_TF/standardTF_custLay/old/main.html" class="code" title="">main</a>	</li><li><a href="../../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/benchMain.html" class="code" title="">benchMain</a>	</li><li><a href="../../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/benchMain.html" class="code" title="">benchMain</a>	</li><li><a href="../../../RAT/targetFunctions/standard_TF/standardTF_stanLay/old/benchMain.html" class="code" title="">benchMain</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 
+0002 <a name="_sub0" href="#_subfunctions" class="code">function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls)</a>
+0003 
+0004 <span class="comment">% global RAT_DEBUG DEBUGVARS</span>
+0005 <span class="comment">% if coder.target('MATLAB')</span>
+0006 <span class="comment">%     RAT_DEBUG = 0; DEBUGVARS = 0;</span>
+0007 <span class="comment">% end</span>
+0008 
+0009 <span class="comment">%Preallocatin of outputs</span>
+0010 chis = struct(<span class="string">'all_chis'</span>,0,<span class="string">'sum_chi'</span>,0);
+0011 
+0012 problem = struct(<span class="string">'ssubs'</span>,0,<span class="keyword">...</span>
+0013 <span class="string">'backgrounds'</span>, 0,<span class="keyword">...</span>
+0014 <span class="string">'qshifts'</span>, 0,<span class="keyword">...</span>
+0015 <span class="string">'scalefactors'</span>, 0,<span class="keyword">...</span>
+0016 <span class="string">'nbairs'</span>, 0,<span class="keyword">...</span>
+0017 <span class="string">'nbsubs'</span>, 0,<span class="keyword">...</span>
+0018 <span class="string">'resolutions'</span>,0,<span class="keyword">...</span>
+0019 <span class="string">'calculations'</span>,chis,<span class="keyword">...</span>
+0020 <span class="string">'allSubRough'</span>, 0);
+0021 
+0022 
+0023 numberOfContrasts = problemDef.numberOfContrasts;
+0024 reflectivity = cell(numberOfContrasts,1);
+0025 <span class="keyword">for</span> i = 1:numberOfContrasts
+0026     reflectivity{i} = [1 1 ; 1 1];
+0027 <span class="keyword">end</span>
+0028 coder.varsize(<span class="string">'reflectivity{:}'</span>,[Inf 2],[1 0]);
+0029 
+0030 Simulation = cell(numberOfContrasts,1);
+0031 <span class="keyword">for</span> i = 1:numberOfContrasts
+0032     Simulation{i} = [1 1 ; 1 1];
+0033 <span class="keyword">end</span>
+0034 coder.varsize(<span class="string">'Simulation{:}'</span>,[Inf 2],[1 0]);
+0035 
+0036 shifted_data = cell(numberOfContrasts,1);
+0037 <span class="keyword">for</span> i = 1:numberOfContrasts
+0038     shifted_data{i} = [1 1 1 ; 1 1 1];
+0039 <span class="keyword">end</span>
+0040 coder.varsize(<span class="string">'shifted_data{:}'</span>,[Inf 3],[1 0]);
+0041 
+0042 layerSlds = cell(numberOfContrasts,1);
+0043 <span class="keyword">for</span> i = 1:numberOfContrasts
+0044     layerSlds{i} = [1 1 1 ; 1 1 1];
+0045 <span class="keyword">end</span>
+0046 coder.varsize(<span class="string">'layerSlds{:}'</span>,[Inf 3],[1 0]);
+0047 
+0048 sldProfiles = cell(numberOfContrasts,1);
+0049 <span class="keyword">for</span> i = 1:numberOfContrasts
+0050     sldProfiles{i} = [1 1 ; 1 1];
+0051 <span class="keyword">end</span>
+0052 coder.varsize(<span class="string">'sldProfiles{:}'</span>,[Inf 2],[1 0]);
+0053 
+0054 allLayers = cell(numberOfContrasts,1);
+0055 <span class="keyword">for</span> i = 1:numberOfContrasts
+0056     allLayers{i} = [1 ; 1];
+0057 <span class="keyword">end</span>
+0058 coder.varsize(<span class="string">'allLayers{:}'</span>,[Inf 1],[1 0]);
+0059 
+0060 <span class="comment">%Decide which target function we are calling</span>
+0061 whichTF = problemDef.TF;
+0062 <span class="keyword">switch</span> whichTF
+0063     <span class="keyword">case</span> <span class="string">'standardTF'</span>
+0064         [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = <a href="../../../RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_reflectivityCalculation</a>(<a href="../../../RAT/API/problemDef_class/problemDef.html" class="code" title="">problemDef</a>,problemDef_cells,problemDef_limits,controls);
+0065     <span class="comment">%case 'oilWaterTF'</span>
+0066         <span class="comment">%problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);</span>
+0067     <span class="comment">%case 'polarisedTF'</span>
+0068         <span class="comment">%problem = polarisedTF_reflectivityCalculation(problemDef,problemDef_cells,controls);</span>
+0069     <span class="comment">%case 'domainsTF'</span>
+0070         <span class="comment">%problem = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,controls);</span>
+0071 <span class="keyword">end</span>
+0072 
+0073 
+0074 result = cell(1,6);
+0075 <span class="comment">%cell1Length = numberOfContrasts;</span>
+0076 cell1 = cell(numberOfContrasts,1);
+0077 <span class="keyword">for</span> i = 1:numberOfContrasts
+0078     cell1{i} = reflectivity{i};
+0079 <span class="keyword">end</span>
+0080 result{1} = cell1;
+0081 
+0082 <span class="comment">% cell2Length = 7;</span>
+0083 cell2 = cell(numberOfContrasts,1);
+0084 <span class="keyword">for</span> i = 1:numberOfContrasts
+0085     cell2{i} = Simulation{i};
+0086 <span class="keyword">end</span>
+0087 result{2} = cell2;
+0088 <span class="comment">%</span>
+0089 <span class="comment">% cell3Length = 7;</span>
+0090 cell3 = cell(numberOfContrasts,1);
+0091 <span class="keyword">for</span> i = 1:numberOfContrasts
+0092     cell3{i} = shifted_data{i}; 
+0093 <span class="keyword">end</span>
+0094 result{3} = cell3;
+0095 <span class="comment">%</span>
+0096 <span class="comment">% cell4Length = 7;</span>
+0097 cell4 = cell(numberOfContrasts,1);
+0098 <span class="keyword">for</span> i = 1:numberOfContrasts
+0099     cell4{i} = layerSlds{i};
+0100 <span class="keyword">end</span>
+0101 result{4} = cell4;
+0102 <span class="comment">%</span>
+0103 <span class="comment">% cell5Length = 7;</span>
+0104 cell5 = cell(numberOfContrasts,1);
+0105 <span class="keyword">for</span> i = 1:numberOfContrasts
+0106     cell5{i} = sldProfiles{i}; 
+0107 <span class="keyword">end</span>
+0108 result{5} = cell5;
+0109 <span class="comment">%</span>
+0110 <span class="comment">% cell6Length = 7;</span>
+0111 cell6 = cell(numberOfContrasts,1);
+0112 <span class="keyword">for</span> i = 1:numberOfContrasts
+0113     cell6{i} = [0]; 
+0114 <span class="keyword">end</span>
+0115 result{6} = cell6;
+0116 
+0117 
+0118 <span class="comment">% coder.varsize('problem.ssubs',[Inf 1],[1 0]);</span>
+0119 <span class="comment">% coder.varsize('problem.backgrounds',[Inf 1],[1 0]);</span>
+0120 <span class="comment">% coder.varsize('problem.qshifts',[Inf 1],[1 0]);</span>
+0121 <span class="comment">% coder.varsize('problem.scalefactors',[Inf 1],[1 0]);</span>
+0122 <span class="comment">% coder.varsize('problem.nbairs',[Inf 1],[1 0]);</span>
+0123 <span class="comment">% coder.varsize('problem.nbsubs',[Inf 1],[1 0]);</span>
+0124 <span class="comment">% coder.varsize('problem.resolutions',[Inf 1],[1 0]);</span>
+0125 <span class="comment">% coder.varsize('problem.ssubs',[Inf 1],[1 0]);</span>
+0126 <span class="comment">% coder.varsize('problem.calculations.all_chis',[Inf 1],[1 0]);</span>
+0127 <span class="comment">% coder.varsize('problem.calculations.sum_chi',[1 1],[0 0]);</span>
+0128 <span class="comment">% coder.varsize('problem.allSubRough',[Inf 1],[1 0]);</span>
+0129 
+0130 
+0131 <span class="comment">% if coder.target('MATLAB')</span>
+0132 <span class="comment">%     if RAT_DEBUG</span>
+0133 <span class="comment">%         DEBUGVARS.reflectivity_calculation.problem = problem;</span>
+0134 <span class="comment">%         DEBUGVARS.reflectivity_calculation.result = result;</span>
+0135 <span class="comment">%     end</span>
+0136 <span class="comment">% end</span>
+0137 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sat 20-Feb-2021 16:50:51 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -303,8 +303,8 @@ for nRefinements = 1:maxRefinements
   
   if any(segmentsToSplit)
     dataPoints = increaseSampling(dataPoints, segmentsToSplit, sldProfile);
-  else
-    break;
+%   else
+%     break;
   end
   
   % Removed waitbar for compile - AVH

@@ -42,14 +42,10 @@ classdef controlsDef < matlab.mixin.CustomDisplay
     %------------------------- Set and Get ------------------------------
     methods
         function obj = set.parallel(obj,val)
-            if ~strcmpi(val,{'single', 'points', 'contrasts', 'parallelAlg'})
-                error('Type must be ''single'', ''points'', ''contrasts'', ''parallelAlg'' ');
+            if ~strcmpi(val,{'single', 'points', 'contrasts', 'all'})
+                error('Type must be ''single'', ''points'', ''contrasts'', ''all'' ');
             end
-            
-            if strcmpi(val,'parallelAlg')
-                error('No parallel algorithms implemented yet!');
-            end
-            
+
             obj.parallel = val;
         end
         

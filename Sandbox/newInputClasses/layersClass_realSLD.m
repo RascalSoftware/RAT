@@ -127,6 +127,12 @@ classdef layersClass_realSLD < handle
             obj.layersTable(row,col) = {string(val)};
             
         end
+        
+        function layersNames = getLayersNames(obj)
+            
+            layersNames = obj.layersTable{:,1};
+            
+        end
 
         
         function displayLayersTable(obj)

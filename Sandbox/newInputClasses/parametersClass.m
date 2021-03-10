@@ -33,6 +33,12 @@ classdef parametersClass < handle
             obj.paramAutoNameCounter = 1;
         end
         
+        function names = getParamNames(obj)
+            
+            names = obj.paramsTable{:,1}; 
+            
+        end
+        
         function obj = addParam(obj,varargin)
             
             if isempty(varargin)

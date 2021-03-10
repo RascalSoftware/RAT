@@ -46,6 +46,14 @@ classdef resolutionsClass < handle
 
         end
         
+        function names = getResolNames(obj)
+            
+            resolTable = obj.resolutions.typesTable;
+            names = resolTable{:,1};
+            
+        end
+
+        
         % --- resolParams table edit methods -----------------------
         
         function obj = addResolPar(obj,varargin)
@@ -190,13 +198,13 @@ classdef resolutionsClass < handle
         
         function displayResolutionsObject(obj)
             
-            fprintf('    Resolutions: ----------------------------------------------------------------------- \n\n');
+            fprintf('    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
             fprintf('    (a) Resolutions Parameters: \n');
             obj.resolPars.displayParametersTable;
             
             fprintf('    (b) Resolutions:  \n')
             obj.resolutions.displayTypesTable;
-            fprintf('\n    ----------------------------------------------------------------------------------- \n\n');
+            %fprintf('\n    ----------------------------------------------------------------------------------- \n\n');
             
         end
       

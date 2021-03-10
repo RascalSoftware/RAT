@@ -46,6 +46,14 @@ classdef backgroundsClass < handle
 
         end
         
+        function names = getBackgroundNames(obj)
+            
+            backsTable = obj.backgrounds.typesTable;
+            names = backsTable{:,1};
+    
+        end
+        
+
         % --- BackParams table edit methods -----------------------
         
         function obj = addBacksPar(obj,varargin)
@@ -184,13 +192,25 @@ classdef backgroundsClass < handle
         
         function obj = setBackgroundName(obj,varargin)
             
-            disp('todo');
+            in = varargin{:};
+            if length(in) ~= 2
+                error('Expect two inputs into setBackgroundName');
+            end
+            
+            % Need to check that param 2 is allowed
+            % Must be a char value
+            name = in{2};
+            if ~ischar(name)
+                error('Name must be a character array');
+            end
+
+            obj.backgrounds.setValue(in);
             
         end
         
         function displayBackgroundsObject(obj)
             
-            fprintf('    Backgrounds: ----------------------------------------------------------------------- \n\n');
+            fprintf('    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
             fprintf('    (a) Background Parameters: \n');
             obj.backPars.displayParametersTable;
             

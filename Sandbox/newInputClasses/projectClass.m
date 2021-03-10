@@ -43,7 +43,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.bulkIn = parametersClass({'SLD Air',0,0,0,false,'uniform',0,Inf});
             
             % Initialise bulkOut table
-            obj.bulkOut = parametersClass({'SLD D2O',0,0,0,false,'uniform',0,Inf});
+            obj.bulkOut = parametersClass({'SLD D2O',6.2e-6,6.35e-6,6.35e-6,false,'uniform',0,Inf});
             
             % Initialise backs object
             backPars = {'Backs par 1',1e-8,1e-7,1e-6,false,'uniform',0,Inf};
@@ -54,6 +54,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             resolPars = {'Resolution par 1',0.01,0.03,0.05,true,'uniform',0,Inf};
             resolutions = {'Resolution 1','gaussian','Resolution par 1','','','',''};
             obj.resolution = resolutionsClass(resolPars,resolutions);
+            
+            % Initialise data object
+            
+            % Initialise Contrasts object.
+            %allowedNames = obj.getAllAllowedNames();
+            obj.contrasts = contrastsClass();
             
         end
         
@@ -95,6 +101,18 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             obj.geometry = val;
           
+        end
+        
+        function names = getAllAllowedNames(obj)
+            
+            % Returns a cell array of all currently
+            % set parameter names for the project.
+            names.backsNames = obj.background.getBackgroundNames();
+            names.bulkInNames = obj.bulkIn.getParamNames();
+            names.bulkOutNames = obj.bulkOut.getParamNames();
+            names.resolsNames = obj.resolution.getResolNames();
+            names.layersNames = obj.layers.getLayersNames();
+
         end
         
         % ---------------------------------
@@ -297,6 +315,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % ---------------------------------------------------------------
         
         % Editing of Backgrounds block
+        
+        
         %(1) Backgound Parameters
         function obj = addBacksPar(obj, varargin)
            % Add a background parameter to the background parameters table
@@ -335,9 +355,76 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.setBackgroundValue(varargin);
         end
         
+        function obj = setBackgroundName(obj,varargin)
+            %S Swt the name of an existing Background parameter
+            obj.background.setBackgroundName(varargin);
+        end
         
-    end         % end public methods
+
+        
+    % ---------------------------------------------------------------
+    %   Editing of Bulk out block
+        
+        function obj = addBulkOut(obj,varargin)
+        
+            obj.bulkOut.addParam(varargin{:});
+        end
+        
+        
+        
+        
     
+    % ----------------------------------------------------------------
+    %
+    %   Editing of Contrasts Block
+    
+        function obj = addContrast(obj,varargin)
+            
+            allowedNames = obj.getAllAllowedNames();
+            obj.contrasts.addContrast(allowedNames,varargin);
+    
+        end
+        
+        
+        function obj = setContrast(obj,varargin)
+            
+            % Allow setting of all parameters in terms of name value pairs.
+            % First input must be contrast number or name, subsequent
+            % inputs are name / value pairs for the parts involved
+            
+            firstInput = varargin{1};
+            inputVals = varargin(2:end);
+            
+            contrastNames = obj.contrasts.getAllContrastNames();
+            numberOfContrasts = obj.contrasts.numberOfContrasts;
+            
+            % Find if we are referencing and existing contrast
+            if isnumeric(firstInput) 
+                if (firstInput < numberOfContrasts || firstInput > numberOfContrasts)
+                    error('Contrast number %d is out of range',firstInput);
+                end
+                thisContrast = firstInput;
+                
+            elseif ischar(firstInput)
+                [present,idx] = ismember(firstInput, contrastNames);
+                if ~present
+                    error('Contrast %s is not recognised',firstInput)
+                end
+                thisContrast = idx;
+                
+            end
+            
+            % Get the list of allowed values depending on what is 
+            % set for the other contrasts.
+            allowedValues = obj.getAllAllowedNames;    
+            
+            % Call the setContrast method
+            obj.contrasts.setContrast(thisContrast,allowedValues,inputVals);
+            
+        end
+
+    end     % end public methods
+  
     % ------------------------------------------------------------------
     
     methods (Access = protected)
@@ -375,19 +462,19 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             matlab.mixin.CustomDisplay.displayPropertyGroups(obj,startProps);
             
             % Display the parameters table
-            fprintf('    Parameters: -------------------------------------------------- \n\n');
+            fprintf('    Parameters: ---------------------------------------------------------------------------------------------- \n\n');
             obj.parameters.displayParametersTable;
             
             % Display the layers table
-            fprintf('    Layers: ------------------------------------------------------ \n\n');
+            fprintf('    Layers: -------------------------------------------------------------------------------------------------- \n\n');
             obj.layers.displayLayersTable;
             
             % Display the Bulk In table
-            fprintf('    Bulk In: ----------------------------------------------------- \n\n');
+            fprintf('    Bulk In: -------------------------------------------------------------------------------------------------- \n\n');
             obj.bulkIn.displayParametersTable;
 
             % Display the Bulk Out table
-            fprintf('    Bulk Out: ---------------------------------------------------- \n\n');
+            fprintf('    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n');
             obj.bulkOut.displayParametersTable;
 
             % Display the backgrounds object
@@ -396,6 +483,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Display the resolutions object
             obj.resolution.displayResolutionsObject;
             
+            % Display the contrasts object
+            obj.contrasts.displayContrastsObject;
             
             %matlab.mixin.CustomDisplay.displayPropertyGroups(obj,endProps);
         end

@@ -46,6 +46,14 @@ classdef backgroundsClass < handle
 
         end
         
+        function names = getBackgroundNames(obj)
+            
+            backsTable = obj.backgrounds.typesTable;
+            names = backsTable{:,1};
+    
+        end
+        
+
         % --- BackParams table edit methods -----------------------
         
         function obj = addBacksPar(obj,varargin)
@@ -151,10 +159,9 @@ classdef backgroundsClass < handle
             end
             
             % Need to check that param 3 is allowed
-            % If it's col 1, anything is allowed
+            % If it's col 1 or 3, anything is allowed
             % If it's col(2) must be in allowed type of table
-            % If It's col 3, must be existing param name or number,
-            % Except if type is a function
+            % Other cols must be existing param name or number,
             col = in{2};
             
             if isnumeric(col)
@@ -167,7 +174,7 @@ classdef backgroundsClass < handle
                 end
             end
                     
-            if strcmpi(col,'name') 
+            if strcmpi(col,'name') || strcmpi(col,'Value 1')
                 % Do Nothing - any value is allowed so use as is 
                 inputPar = in{3};
             elseif strcmpi(col,'type') 
@@ -185,19 +192,52 @@ classdef backgroundsClass < handle
         
         function obj = setBackgroundName(obj,varargin)
             
-            disp('todo');
+            in = varargin{:};
+            if length(in) ~= 2
+                error('Expect two inputs into setBackgroundValue');
+            end
+            
+            % Need to check that param 3 is allowed
+            % If it's col 1 or 3, anything is allowed
+            % If it's col(2) must be in allowed type of table
+            % Other cols must be existing param name or number,
+            col = in{2};
+            
+            if isnumeric(col)
+                if col == 2
+                    col = 'type';
+                elseif col == 1
+                    col = 'name';
+                elseif col == 3
+                    col = 'Value 1';
+                end
+            end
+                    
+            if strcmpi(col,'name') || strcmpi(col,'Value 1')
+                % Do Nothing - any value is allowed so use as is 
+                inputPar = in{3};
+            elseif strcmpi(col,'type') 
+                allowedList = {'constant','data','function'};
+                inputPar = parseParam(in{3},allowedList);
+            else
+                allowedList = obj.backPars.paramsTable{:,1};
+                inputPar = parseParam(in{3},allowedList);
+            end
+            
+            in{3} = inputPar;
+            obj.backgrounds.setValue(in);
             
         end
         
         function displayBackgroundsObject(obj)
             
-            fprintf('    Backgrounds: ----------------------------------------------------------------------- \n\n');
+            fprintf('    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
             fprintf('    (a) Background Parameters: \n');
             obj.backPars.displayParametersTable;
             
             fprintf('    (b) Backgrounds:  \n')
             obj.backgrounds.displayTypesTable;
-            fprintf('\n    ----------------------------------------------------------------------------------- \n\n');
+            %fprintf('\n    ----------------------------------------------------------------------------------- \n\n');
             
         end
       

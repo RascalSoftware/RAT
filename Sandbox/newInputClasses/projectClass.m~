@@ -57,7 +57,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution = resolutionsClass(resolPars,resolutions);
             
             % Initialise data object
-            obj.data = dataClass();
+            obj.data = dataClass({'Data 1',{[]},[{]},{[0.01 0.7]});
             
             % Initialise Contrasts object.
             %allowedNames = obj.getAllAllowedNames();

@@ -13,7 +13,7 @@ for i = 1:num
     [outProb,results] = RAT(problem,controls); 
     timeThese(i) = toc;
 end
-timSingle = sum(timeThese(50:end))/50;
+timSingle = timeThese(50:end)/num;
 
 
 controls.parallel = 'points';
@@ -24,18 +24,16 @@ for i = 1:num
     [outProb,results] = RAT(problem,controls); 
     timeThese(i) = toc;
 end
-timPoints = sum(timeThese(50:end))/50;
+timSingle = timeThese(50:end)/num;
 
 
 controls.parallel = 'contrasts';
 disp('Running contrasts');
-timeThese = zeros(1,num);
+tic; 
 for i = 1:num
-    tic
-    [outProb,results] = RAT(problem,controls); 
-    timeThese(i) = toc;
+[outProb,results] = RAT(problem,controls); 
 end
-timContrasts = sum(timeThese(50:end))/50;
+timContrasts = toc/num;
 
 % controls.parallel = 'all';
 % disp('Running all');

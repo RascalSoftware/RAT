@@ -92,10 +92,9 @@ classdef contrastsClass < handle
         
         function obj = setContrast(obj, whichContrast, allowedNames, varargin)
             
-            % Set a given value of a contrast
-            disp('debug');
-            
-            % Set the value of whichever inputs have been set
+            % Set a value within a contrast.
+
+            % Determine which contrast is being set
             thisContrast = obj.contrasts{whichContrast};
 
             % Check to see if the inputs are valid
@@ -166,6 +165,26 @@ classdef contrastsClass < handle
             end
         end
         
+        function obj = updateContrastName(obj,nameChange)
+           
+            % This function is only really called from 
+            % projectClass is a data name has been updated.
+            % Looks through the name value of the contrasts
+            % and if it maches nameChange.oldName then 
+            % nameChange.newName
+            
+            oldName = nameChange.oldName;
+            newName = nameChange.newName;
+            
+            for i = 1:numberOfContrasts
+                thisContrast = contrasts{i};
+                if strcmpi(oldName,)
+            
+            
+            
+            
+        end
+        
         
         function displayContrastsObject(obj)
             makeContrastsTable(obj);
@@ -218,8 +237,8 @@ classdef contrastsClass < handle
             if ~isempty(modelRows)
                 modelRows{:} = '';
             end
-            column1 = [val ; modelRows];
-            totalRows = length(column1);
+            p = [val ; modelRows];
+            totalRows = length(p);
             contrastsCell = cell(totalRows,nContrasts);
             %contrastsCell(:,1) = column1;
             
@@ -249,13 +268,13 @@ classdef contrastsClass < handle
             % char arrays or they will not be valid table elements
             for n = 1:sz(1)
                 for m = 1:sz(2)
-                    if (isempty(contrastsCell{m,n}))
-                        contrastsCell{m,n} = '';
+                    if (isempty(contrastsCell{n,m}))
+                        contrastsCell{n,m} = '';
                     end
                 end
             end
             thisTable(:,:) = contrastsCell;
-            valTable = table(column1);
+            valTable = table(p);
             totalTable = [valTable thisTable];
             obj.contrastsTable = totalTable;
             
@@ -276,7 +295,7 @@ function inputBlock = parseContrastInput(allowedNames,inputVals)
     defaultModel = '';
 
     expectedBacks = cellstr(allowedNames.backsNames);
-    expectedData = cellstr('');
+    expectedData = cellstr(allowedNames.dataNames);
     expectedBulkin = cellstr(allowedNames.bulkInNames);
     expectedBulkout = cellstr(allowedNames.bulkOutNames);
     expectedResols = cellstr(allowedNames.resolsNames);

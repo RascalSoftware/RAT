@@ -92,10 +92,9 @@ classdef contrastsClass < handle
         
         function obj = setContrast(obj, whichContrast, allowedNames, varargin)
             
-            % Set a given value of a contrast
-            disp('debug');
-            
-            % Set the value of whichever inputs have been set
+            % Set a value within a contrast.
+
+            % Determine which contrast is being set
             thisContrast = obj.contrasts{whichContrast};
 
             % Check to see if the inputs are valid
@@ -164,6 +163,26 @@ classdef contrastsClass < handle
                 thisContrast = obj.contrasts{i};
                 contrastNames{i} = thisContrast.name;
             end
+        end
+        
+        function obj = updateContrastName(obj,nameChange)
+           
+            % This function is only really called from 
+            % projectClass if a data name has been updated.
+            % Looks through the 'data' field of the contrasts
+            % and if it maches nameChange.oldName then 
+            % this is updated to nameChange.newName
+            
+            oldName = nameChange.oldName;
+            newName = nameChange.newName;
+            
+            for i = 1:obj.numberOfContrasts
+                thisContrast = obj.contrasts{i};
+                if strcmpi(oldName,thisContrast.data)
+                    obj.contrasts{i}.data = newName;
+                end
+            end
+            
         end
         
         
@@ -276,7 +295,7 @@ function inputBlock = parseContrastInput(allowedNames,inputVals)
     defaultModel = '';
 
     expectedBacks = cellstr(allowedNames.backsNames);
-    expectedData = cellstr('');
+    expectedData = cellstr(allowedNames.dataNames);
     expectedBulkin = cellstr(allowedNames.bulkInNames);
     expectedBulkout = cellstr(allowedNames.bulkOutNames);
     expectedResols = cellstr(allowedNames.resolsNames);

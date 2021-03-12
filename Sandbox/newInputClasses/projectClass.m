@@ -57,10 +57,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution = resolutionsClass(resolPars,resolutions);
             
             % Initialise data object
-            obj.data = dataClass();
+            obj.data = dataClass({'Data 1',{[]},{[]}, {[]}});
             
             % Initialise Contrasts object.
-            %allowedNames = obj.getAllAllowedNames();
             obj.contrasts = contrastsClass();
             
         end
@@ -114,6 +113,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             names.bulkOutNames = obj.bulkOut.getParamNames();
             names.resolsNames = obj.resolution.getResolNames();
             names.layersNames = obj.layers.getLayersNames();
+            names.dataNames = obj.data.getDataNames();
 
         end
         
@@ -358,11 +358,27 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         end
         
         function obj = setBackgroundName(obj,varargin)
-            %S Swt the name of an existing Background parameter
+            % Set the name of an existing Background parameter
             obj.background.setBackgroundName(varargin);
         end
         
 
+    % ------------------------------------------------------------
+    %   Editing of Data block 
+        
+        function obj = addData(obj, varargin)
+            
+            % Add a new data parameter
+            obj.data.addData(varargin);
+        end
+        
+        function obj = setData(obj, varargin)
+            
+           % Edit an existing data parameter
+           nameChanged = obj.data.setData(varargin);
+           obj.contrasts.updateContrastName(nameChanged);
+        end
+        
         
     % ---------------------------------------------------------------
     %   Editing of Bulk out block
@@ -371,11 +387,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
             obj.bulkOut.addParam(varargin{:});
         end
+
         
         
         
-        
-    
     % ----------------------------------------------------------------
     %
     %   Editing of Contrasts Block
@@ -402,7 +417,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Find if we are referencing and existing contrast
             if isnumeric(firstInput) 
-                if (firstInput < numberOfContrasts || firstInput > numberOfContrasts)
+                if (firstInput < 1 || firstInput > numberOfContrasts)
                     error('Contrast number %d is out of range',firstInput);
                 end
                 thisContrast = firstInput;
@@ -491,8 +506,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Display the contrasts object
             obj.contrasts.displayContrastsObject;
 
-            
-            %matlab.mixin.CustomDisplay.displayPropertyGroups(obj,endProps);
         end
         
     end

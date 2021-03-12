@@ -57,10 +57,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution = resolutionsClass(resolPars,resolutions);
             
             % Initialise data object
-            obj.data = dataClass({'Data 1',{[]},[{]},{[0.01 0.7]});
+            obj.data = dataClass({'Data 1',{[]},{[]}, {[]}});
             
             % Initialise Contrasts object.
-            %allowedNames = obj.getAllAllowedNames();
             obj.contrasts = contrastsClass();
             
         end
@@ -363,6 +362,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         end
         
 
+    % ------------------------------------------------------------
+    %   Editing of Data block 
+        
+        function obj = addData(obj. varargin)
+            
+            
+             
+        end
         
     % ---------------------------------------------------------------
     %   Editing of Bulk out block

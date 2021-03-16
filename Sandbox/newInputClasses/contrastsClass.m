@@ -185,6 +185,35 @@ classdef contrastsClass < handle
             
         end
         
+        function contrastStruct = toStruct(obj,allowedNames)
+            
+            nContrasts = obj.numberOfContrasts;
+            
+            for i = 1:nContrasts
+               
+                % Parse the contrast details into individual arrays
+%                 allData: {[51×3 double]  [51×3 double]  [51×3 double]  [51×3 double]  [51×3 double]  [51×3 double]  [51×3 double]}
+%             dataPresent: [1 1 1 1 1 1 1]
+%                resample: [0 0 0 0 0 0 0]
+%              dataLimits: {[0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]}
+%               simLimits: {[0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]}
+%           contrastBacks: {[2 1]  [1 1]  [2 1]  [1 1]  [2 1]  [1 1]  [1 1]}
+%          contrastShifts: [1 1 1 1 1 1 1]
+%          contrastScales: [1 1 1 1 1 1 1]
+%            contrastNbas: [1 1 1 1 1 1 1]
+%            contrastNbss: [2 1 2 1 2 1 1]
+%             contrastRes: [1 1 1 1 1 1 1]
+%      contrastRepeatSLDs: {[0 1]  [0 1]  [0 1]  [0 1]  [0 1]  [0 1]  [0 1]}
+                
+                thisContrast = contrasts{i};
+                
+                
+                
+                
+                
+            end
+            
+        end
         
         function displayContrastsObject(obj)
             makeContrastsTable(obj);

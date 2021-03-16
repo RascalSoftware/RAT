@@ -200,12 +200,43 @@ classdef resolutionsClass < handle
     
             resolParamsStruct = obj.resolPars.toStruct();
             
-            resolStruct.resolParNames = resolParamsStruct.paramNames;
-            resolStruct.resolParConstr = resolParamsStruct.paramConstr;
-            resolStruct.resolPars = resolParamsStruct.params;
-            resolStruct.resolFitYesNo = resolParamsStruct.fitYesNo;
-            resolStruct.nResolPars = resolParamsStruct.nParams;
-            resolStruct.resolParPriors = resolParamsStruct.priors;
+%             backParNames = obj.backPars.paramsTable{:,1};
+%             mins = obj.backPars.paramsTable{:,2};
+%             maxs = obj.backPars.paramsTable{:,4};
+%             backParVals = obj.backPars.paramsTable{:,3};
+%             backParFitYesNo = obj.backPars.paramsTable{:,5};
+            
+%             backStruct.backsParNames = backParNames;
+%             backStruct.backParconstr = [mins maxs];
+%             backStruct.backParVals = backParVals;
+%             backStruct.backParFitYesNo = backParFitYesNo;
+%             backStruct.nBackPars = length(backParNames);
+%             backStruct.backsPriors = table2cell(obj.backPars.paramsTable(:,6:8));
+            
+            resolStruct.resolutionNames = resolParamsStruct.paramNames;
+            resolStruct.resolutionConstr = resolParamsStruct.paramConstr;
+            resolStruct.resolutions = resolParamsStruct.params;
+            resolStruct.resolutionFitYesNo = resolParamsStruct.fitYesNo;
+            resolStruct.nResolutions = resolParamsStruct.nParams;
+            resolStruct.backsPriors = resolParamsStruct.paramNames;
+            
+            
+            
+            
+            
+            
+%             resolParNames = obj.resolPars.paramsTable{:,1};
+%             mins = obj.resolPars.paramsTable{:,2};
+%             maxs = obj.resolPars.paramsTable{:,4};
+%             resolParVals = obj.resolPars.paramsTable{:,3};
+%             resolParFitYesNo = obj.resolPars.paramsTable{:,5};
+%             
+%             resolStruct.resolParNames = resolParNames;
+%             resolStruct.resolParconstr = [mins maxs];
+%             resolStruct.resolParVals = resolParVals;
+%             resolStruct.resolParFitYesNo = resolParFitYesNo;
+%             resolStruct.nResolPars = length(resolParNames);
+%             resolStruct.resolPriors = table2cell(obj.resolPars.paramsTable(:,6:8));
             
             resolutionNames = obj.resolutions.typesTable{:,1};
             resolutionTypes = obj.resolutions.typesTable{:,2};

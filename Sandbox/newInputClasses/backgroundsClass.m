@@ -219,9 +219,30 @@ classdef backgroundsClass < handle
             %fprintf('\n    ----------------------------------------------------------------------------------- \n\n');
             
         end
-      
-    end
+        
+        function backStruct = toStruct(obj)
     
+            backParamsStruct = obj.backPars.toStruct();
+            
+            backStruct.backParNames = backParamsStruct.paramNames;
+            backStruct.backParconstr = backParamsStruct.paramConstr;
+            backStruct.backParVals = backParamsStruct.params;
+            backStruct.backParFitYesNo = backParamsStruct.fitYesNo;
+            backStruct.nBackPars = backParamsStruct.nParams;
+            backStruct.backsPriors = backParamsStruct.paramNames;
+            
+            backgroundNames = obj.backgrounds.typesTable{:,1};
+            backgroundTypes = obj.backgrounds.typesTable{:,2};
+            backgroundValues = table2cell(obj.backgrounds.typesTable(:,3:7));
+            
+            backStruct.backgroundNames = backgroundNames;
+            backStruct.backgroundTypes = backgroundTypes;
+            backStruct.backgroundValues = backgroundValues;
+            
+         end
+    
+    end
+
 end
 
 function thisPar = parseParam(par,parList)

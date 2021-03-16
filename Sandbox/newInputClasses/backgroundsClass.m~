@@ -1,24 +1,23 @@
-classdef resolutionsClass < handle
+classdef backgroundsClass < handle
     
-       
-    % This makes the rosolutions class.
+    % This makes the backgrounds class.
     % Backgrounds are defined in a two stage process. Firstly we define the
     % actual fitted parameters. These are held in a 'ParametersClass'
-    % table. Then, we group these into the resolutions themselves using a
-    % multiTypeTable. So, we can then use th eresolution parameters to
-    % either define resolution as  constant, data or a function. For
+    % table. Then, we group these into the backgrounds themselves using a
+    % multiTypeTable. So, we can then use th ebackground parameters to
+    % either define background as  constant, data or a function. For
     % constant only one parameter is supplied to multi type table. For data
     % only the itself is supplied as a cell. For function, the function
     % name is supplied, allong with up to three parameters (from the
     % parameters table) which are then supplied to the function to
-    % calculate the resolution. 
-    % In each case, the resolution can either be added to the simulation or
+    % calculate the background. 
+    % In each case, the background can either be added to the simulation or
     % subtracted from the data.
     
     properties
         
-       resolPars 
-       resolutions
+       backPars 
+       backgrounds
        showPriors = false
        
     end
@@ -31,80 +30,81 @@ classdef resolutionsClass < handle
     
 
     methods
-        function  obj = resolutionsClass(varargin) 
+        function  obj = backgroundsClass(varargin) 
             
-            startResolPars = varargin{1};
-            startResolutions = varargin{2};
+            startBackPars = varargin{1};
+            startBackgrounds = varargin{2};
             
             % Make a table to hold the fittable variables
-            obj.resolPars = parametersClass(startResolPars);
+            obj.backPars = parametersClass(startBackPars);
             
-            % Make a multiType table to define the actual resolutions
-            obj.resolutions = multiTypeTable(startResolutions);
-            obj.resolutions.allowedTypes = obj.allowedTypes;
-            obj.resolutions.typesAutoNameString = 'New Resolution';
+            % Make a multiType table to define the actual backgrounds
+            obj.backgrounds = multiTypeTable(startBackgrounds);
+            obj.backgrounds.allowedTypes = obj.allowedTypes;
+            obj.backgrounds.allowedActions = {'add','subtract'};
+            obj.backgrounds.typesAutoNameString = 'New background';
 
         end
         
-        function names = getResolNames(obj)
+        function names = getBackgroundNames(obj)
             
-            resolTable = obj.resolutions.typesTable;
-            names = resolTable{:,1};
-            
+            backsTable = obj.backgrounds.typesTable;
+            names = backsTable{:,1};
+    
         end
+        
 
+        % --- BackParams table edit methods -----------------------
         
-        % --- resolParams table edit methods -----------------------
-        
-        function obj = addResolPar(obj,varargin)
+        function obj = addBacksPar(obj,varargin)
             
             % Add a parameter to the backs parameter table
             in = varargin{:};
-            resolParsTable = obj.resolPars;
+            backParsTable = obj.backPars;
             if isempty(in)
                 % Empty call - pass no parameter
-                resolParsTable = resolParsTable.addParam();
+                backParsTable = backParsTable.addParam();
             elseif length(in) == 1
                 % Name only being passed
-                resolParsTable = resolParsTable.addParam(in);
+                backParsTable = backParsTable.addParam(in);
             else
                 % Passing a fuller expression - pass it all
-                resolParsTable = resolParsTable.addParam(in);
+                backParsTable = backParsTable.addParam(in);
             end
-            obj.resolPars = resolParsTable;    
+            obj.backPars = backParsTable;    
 
         end
         
-        function obj = setResolParValue(obj,varargin)
-            % Set a parameter value in the resol parameter table
-            obj.resolPars.setValue(varargin{:});
+        function obj = setBacksParValue(obj,varargin)
+            % Set a parameter value in the backs parameter table
+            obj.backPars.setValue(varargin{:});
         end
         
-        function obj = setResolParConstr(obj,varargin)
-            % Set a parameter constraint in the resol parameter table
-            obj.resolPars.setConstr(varargin{:});
+        function obj = setBacksParConstr(obj,varargin)
+            % Set a parameter constraint in the backs parameter table
+            obj.backPars.setConstr(varargin{:});
         end
         
         function obj = setBacksParName(obj,varargin)
-           % Set a parameter name in the resol parameter table 
-           obj.resolPars.setName(varargin{:});
+           % Set a parameter name in the backs parameter table 
+           obj.backPars.setName(varargin{:});
         end
         
-        function obj = removeResolPar(obj,varargin)
-            % Remove a parameter from the resolPar table
+        function obj = removeBacksPar(obj,varargin)
+            % Remove a parameter from the backsPar table
             disp('Todo');
         end
         
         % ---------------------------------------------------------
          
-        function obj = addResolution(obj,varargin)
+        function obj = addBackground(obj,varargin)
             
             % Decide on what type of set we are
             % doing, make sure the inputs are valid and build the row cell
             % to be added
             
             in = varargin{:};
-            paramNames = obj.resolPars.paramsTable{:,1};
+            paramNames = obj.backPars.paramsTable{:,1};
             
             if isempty(in)
                 thisRow = {};
@@ -122,14 +122,14 @@ classdef resolutionsClass < handle
                % Check that second param is legal
                typeVal = in{2};
                if ~strcmpi(typeVal,obj.allowedTypes)
-                    error('Unrecognised resolution type %s. Must be ''constant'',''data'', or ''function''', typeVal);
+                    error('Unrecognised background type %s. Must be ''constant'',''data'', or ''function''', typeVal);
                end
 
                thisRow{1} = in{1};
                thisRow{2} = in{2};
 
                % Check that the other params inputted are either valid
-               % resolution names, or numbers in range..
+               % background names, or numbers in range..
                switch typeVal
                    case 'constant'
                        % Param 3 must be a valid parameter
@@ -147,15 +147,15 @@ classdef resolutionsClass < handle
                        end
                 end
             end
-            obj.resolutions.addRow(thisRow);
+            obj.backgrounds.addRow(thisRow);
                 
         end
         
-        function obj = setResolutionValue(obj,varargin)
+        function obj = setBackgroundValue(obj,varargin)
             
             in = varargin{:};
             if length(in) ~= 3
-                error('Expect three inputs into setResolutionValue');
+                error('Expect three inputs into setBackgroundValue');
             end
             
             % Need to check that param 3 is allowed
@@ -181,57 +181,72 @@ classdef resolutionsClass < handle
                 allowedList = {'constant','data','function'};
                 inputPar = parseParam(in{3},allowedList);
             else
-                allowedList = obj.resolPars.paramsTable{:,1};
+                allowedList = obj.backPars.paramsTable{:,1};
                 inputPar = parseParam(in{3},allowedList);
             end
             
             in{3} = inputPar;
-            obj.resolutions.setValue(in);
+            obj.backgrounds.setValue(in);
         
         end
         
-        function obj = setResolutionName(obj,varargin)
+        function obj = setBackgroundName(obj,varargin)
             
-            disp('todo');
+            in = varargin{:};
+            if length(in) ~= 2
+                error('Expect two inputs into setBackgroundName');
+            end
             
-        end
-        
-        function resolStruct = toStruct(obj)
-    
-            resolParamsStruct = obj.resolPars.toStruct();
-            
-            resolStruct.resolParNames = resolParamsStruct.paramNames;
-            resolStruct.resolParConstr = resolParamsStruct.paramConstr;
-            resolStruct.resolPars = resolParamsStruct.params;
-            resolStruct.resolFitYesNo = resolParamsStruct.fitYesNo;
-            resolStruct.nResolPars = resolParamsStruct.nParams;
-            resolStruct.resolParPriors = resolParamsStruct.priors;
-            
-            resolutionNames = obj.resolutions.typesTable{:,1};
-            resolutionTypes = obj.resolutions.typesTable{:,2};
-            resolutionValues = table2cell(obj.resolutions.typesTable(:,3:7));
-            
-            resolStruct.resolutionNames = resolutionNames;
-            resolStruct.resolutionTypes = resolutionTypes;
-            resolStruct.resolutionValues = resolutionValues;
-            
-         end
+            % Need to check that param 2 is allowed
+            % Must be a char value
+            name = in{2};
+            if ~ischar(name)
+                error('Name must be a character array');
+            end
 
+            obj.backgrounds.setValue(in);
+            
+        end
         
-        function displayResolutionsObject(obj)
+        function displayBackgroundsObject(obj)
             
-            fprintf('    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
-            fprintf('    (a) Resolutions Parameters: \n');
-            obj.resolPars.displayParametersTable;
+            fprintf('    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
+            fprintf('    (a) Background Parameters: \n');
+            obj.backPars.displayParametersTable;
             
-            fprintf('    (b) Resolutions:  \n')
-            obj.resolutions.displayTypesTable;
+            fprintf('    (b) Backgrounds:  \n')
+            obj.backgrounds.displayTypesTable;
             %fprintf('\n    ----------------------------------------------------------------------------------- \n\n');
             
         end
-      
-    end
+        
+        function backStruct = toStruct(obj)
     
+%             backParNames = obj.backPars.paramsTable{:,1};
+%             mins = obj.backPars.paramsTable{:,2};
+%             maxs = obj.backPars.paramsTable{:,4};
+%             backParVals = obj.backPars.paramsTable{:,3};
+%             backParFitYesNo = obj.backPars.paramsTable{:,5};
+            
+            backStruct.backsParNames = backParNames;
+            backStruct.backParconstr = [mins maxs];
+            backStruct.backParVals = backParVals;
+            backStruct.backParFitYesNo = backParFitYesNo;
+            backStruct.nBackPars = length(backParNames);
+            backStruct.backsPriors = table2cell(obj.backPars.paramsTable(:,6:8));
+            
+            backgroundNames = obj.backgrounds.typesTable{:,1};
+            backgroundTypes = obj.backgrounds.typesTable{:,2};
+            backgroundValues = table2cell(obj.backgrounds.typesTable(:,3:7));
+            
+            backStruct.backgroundNames = backgroundNames;
+            backStruct.backgroundTypes = backgroundTypes;
+            backStruct.backgroundValues = backgroundValues;
+            
+         end
+    
+    end
+
 end
 
 function thisPar = parseParam(par,parList)
@@ -242,7 +257,7 @@ function thisPar = parseParam(par,parList)
 
     if isnumeric(par)
         if (par < 1) || (par > length(parList))
-            error('Resolution Parameter %d is out of range',par);
+            error('Background Parameter %d is out of range',par);
         else
             thisPar = parList(par);
         end
@@ -253,26 +268,7 @@ function thisPar = parseParam(par,parList)
             thisPar = par;
         end
     elseif isempty(par)
-        error('Resolution parameter not recognised');
+        error('Background parameter not recognised');
     end
     
-end 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
+end

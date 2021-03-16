@@ -245,23 +245,18 @@ classdef parametersClass < handle
             % Convert the class parameters into
             % a structure array.
             
-            outStruct.paramNames = table2cell(obj.paramsTable(:,1));
-            outStruct.nParams = size(obj.paramsTable,1);
+            outStruct.paramNames = obj.paramsTable{:,1};
             
             mins = obj.paramsTable{:,2};
             maxs = obj.paramsTable{:,4};
-            for i = 1:length(mins)
-                constr{i} = [mins(i) maxs(i)];
-            end
-            
-            %constr = [mins maxs];
+            constr = [mins maxs];
             outStruct.paramConstr = constr;
-            
             outStruct.params = obj.paramsTable{:,3};
+            outStruct.fitYesNo = obj.paramsTable{:,5};
             
-            outStruct.fitYesNo = double(obj.paramsTable{:,5});
+            outStruct.p
             
-            outStruct.priors = table2cell(obj.paramsTable(:,6:8));
+            disp('debug');
             
         end
         

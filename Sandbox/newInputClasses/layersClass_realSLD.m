@@ -133,8 +133,15 @@ classdef layersClass_realSLD < handle
             layersNames = obj.layersTable{:,1};
             
         end
-
         
+        function outStruct = toStruct(obj)
+            
+            disp('debug');
+            outStruct = table2cell(obj.layersTable);
+            
+        end
+        
+
         function displayLayersTable(obj)
             
             % Displays the layers table with numbered rows

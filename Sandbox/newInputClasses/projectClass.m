@@ -87,6 +87,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % (4) Backgrounds (parameters table)
             obj.background.backPars.showPriors = true;
             
+            % (5) Resolutions (parameters table)
+            obj.resolution.resolPars.showPriors = true;
+            
         end
         
         function obj = setGeometry(obj,val)
@@ -372,6 +375,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.data.addData(varargin);
         end
         
+        function obj.removeData(obj,varargin)
+            
+            disp('Todo');
+        end
+        
         function obj = setData(obj, varargin)
             
            % Edit an existing data parameter
@@ -438,6 +446,85 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Call the setContrast method
             obj.contrasts.setContrast(thisContrast,allowedValues,inputVals);
             
+        end
+        
+        function outStruct = toStruct(obj)
+            
+            % Converts the class parameters 
+            % into a struct array for input into
+            % the RAT toolbox
+            
+            % Add the 'general' fields
+            generalStruct.modelType = 'layers';
+            generalStruct.experimentType = 'Standard';
+            generalStruct.geometry = obj.Geometry;
+            
+            % Parameters
+            params = obj.parameters.toStruct();
+            paramStruct = cell2struct(struct2cell(params),{'paramNames',...
+                'nParams','paramConstr','params','paramFitYesNo','paramPriors'});
+            
+            % Backgrounds
+            backgroundStruct = obj.background.toStruct();
+            
+            % Resolutions
+            resolutionStruct = obj.resolution.toStruct();
+            
+            % Bulk in
+            bulkInStruct = obj.bulkIn.toStruct();
+            bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'nbaNames',...
+                'nNba','nbaConstr','nbairs','nbaFitYesNo','nbaPriors'});
+            
+            % Bulk out
+            bulkOutStruct = obj.bulkOut.toStruct();
+            bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'nbsNames',...
+                'nNbs','nbsConstr','nbsubs','nbsFitYesNo','nbsPriors'});
+            
+            % Layers
+            layersCell = obj.layers.toStruct();
+            layersStruct.numberOfLayers = size(layersCell,1);
+            layersStruct.layersnames = layersCell(:,1);
+            
+            % parse the layers details
+            layersValues = layersCell(:,2:end);
+            
+            paramNames = paramStruct.paramNames;
+            for i = 1:layersStruct.numberOfLayers
+                thisLayer = layersValues(i,:);
+                min = find(strcmpi(thisLayer{1},paramNames));
+                val = find(strcmpi(thisLayer{2},paramNames));
+                max = find(strcmpi(thisLayer{3},paramNames));
+                if isempty(thisLayer{4})
+                    hydr = Nan;
+                else
+                    hydr = find(strcmpi(thisLayer{4},paramNames));
+                end
+                if strcmpi(thisLayer{5},'bulk in')
+                    hydrWhat = 1;
+                else
+                    hydrWhat = 2;
+                end
+                layersDetails{i} = {min val max hydr hydrWhat};
+            end
+            
+            layersStruct.layersDetails = layersDetails;
+            
+            % Contrasts.
+            allNames = obj.getAllAllowedNames;
+            contrastStruct = obj.contrasts.toStruct(allNames);
+            
+                
+
+            % Merge all the outputs into one large structure
+            outStruct = mergeStructs(generalStruct,...
+                paramStruct,...
+                backgroundStruct,...
+                resolutionStruct,...
+                bulkInStruct,...
+                bulkOutStruct,...
+                layersStruct);
+            
+
         end
 
     end     % end public methods
@@ -508,6 +595,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
         end
         
+
     end
   
 end

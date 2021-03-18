@@ -137,7 +137,8 @@ classdef layersClass_realSLD < handle
         function outStruct = toStruct(obj)
             
             disp('debug');
-            outStruct = table2cell(obj.layersTable);
+            %outStruct = table2cell(obj.layersTable);
+            outStruct = obj.layersTable{:,:};
             
         end
         

@@ -245,7 +245,14 @@ classdef parametersClass < handle
             % Convert the class parameters into
             % a structure array.
             
-            outStruct.paramNames = table2cell(obj.paramsTable(:,1));
+            paramNames = table2cell(obj.paramsTable(:,1));
+            
+            % Want these to be class 'char' rather than 'string'
+            for n = 1:length(paramNames)
+                paramNames{n} = char(paramNames{n});
+            end
+            outStruct.paramNames = paramNames;
+            
             outStruct.nParams = size(obj.paramsTable,1);
             
             mins = obj.paramsTable{:,2};
@@ -262,6 +269,22 @@ classdef parametersClass < handle
             outStruct.fitYesNo = double(obj.paramsTable{:,5});
             
             outStruct.priors = table2cell(obj.paramsTable(:,6:8));
+            
+            % Need to force some of the outputs
+            % to be row vectors, so transpose them
+            outStruct.paramNames = outStruct.paramNames';
+            %outStruct.paramConstr = outStruct.paramConstr;
+            outStruct.params = outStruct.params';
+            outStruct.fitYesNo = outStruct.fitYesNo';
+            
+            % Fields order needs to be...
+            
+            % paramNames
+            % nParams
+            % paramConstr
+            % params
+            % fitYesNo
+            % priors
             
         end
         

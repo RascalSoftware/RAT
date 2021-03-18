@@ -6,7 +6,7 @@ function [problem,result] = reflectivity_calculation_wrapper(problemDef,problemD
 % This is for development and will be removed for the 
 % eventual fully compiled toolbox
 
-type = 'mex';
+type = 'matlab';
 
  switch type
      case 'mex'

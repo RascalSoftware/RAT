@@ -45,11 +45,10 @@ coder.varsize('layers',[Inf,5],[1 1]);
     outSsubs = allRoughs;
     layers = zeros(size(output));
     if ~isempty(output)
-        switch geometry
-            case 'air/substrate'
+        if strcmpi(geometry,'air/substrate')
                 layers = output;
                 %s_sub = rsub;
-            case 'substrate/liquid'
+        else
                 roughs = output(:,3);
                 sldss = output(:,2);
                 thicks = output(:,1);

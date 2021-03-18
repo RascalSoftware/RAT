@@ -185,9 +185,19 @@ classdef contrastsClass < handle
             
         end
         
-        function contrastStruct = toStruct(obj,allowedNames)
+        function contrastStruct = toStruct(obj,allowedNames,dataTable)
             
             nContrasts = obj.numberOfContrasts;
+            contrastBacks = cell(1,nContrasts);
+            contrastLayers = cell(1,nContrasts);
+            contrastShifts = ones(1,nContrasts);
+            contrastScales = ones(1,nContrasts);
+            contrastNbas = ones(1,nContrasts);
+            contrastNbss = ones(1,nContrasts);
+            contrastRes = ones(1,nContrasts);
+            resample = ones(1,nContrasts);
+            contrastRepeatSLDs = cell(1,nContrasts);
+            contrastData = cell(1,nContrasts);
             
             for i = 1:nContrasts
                
@@ -204,15 +214,58 @@ classdef contrastsClass < handle
 %            contrastNbss: [2 1 2 1 2 1 1]
 %             contrastRes: [1 1 1 1 1 1 1]
 %      contrastRepeatSLDs: {[0 1]  [0 1]  [0 1]  [0 1]  [0 1]  [0 1]  [0 1]}
+%          contrastLayers: {[1 4]  [1 4]  [2 3]  [2 3]  [1 3]  [1 3]  [2 4]}
                 
-                thisContrast = contrasts{i};
+                thisContrast = obj.contrasts{i};
                 
+                contrastBacks{i} =  [find(strcmpi(thisContrast.background,allowedNames.backsNames)), 1];
+                contrastShifts(i) = 1;  %Todo
+                contrastScales(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefacNames));
+                contrastNbas(i) = find(strcmpi(thisContrast.nba,allowedNames.bulkInNames));
+                contrastNbss(i) = find(strcmpi(thisContrast.nbs,allowedNames.bulkOutNames));
+                contrastRes(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolsNames));
+                resample(i) = 0; % Todo
+                contrastRepeatSLDs{i} = [0 1]; % todo
                 
+                thisModel = thisContrast.model;
+                thisLayerArray = [];
+                for n = 1:length(thisModel)
+                    thisLayer = thisModel{n};
+                    thisLayerNum = find(strcmpi(thisLayer,allowedNames.layersNames));
+                    thisLayerArray(n) = thisLayerNum;
+                end
+                contrastLayers{i} = thisLayerArray;
                 
-                
-                
+                thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
+                if ~isempty(thisDataVal)
+                    dataPresent(i) = 1;
+                    dataLimits{i} = dataTable{thisDataVal,3}{:};
+                    simLimits{i} = dataTable{thisDataVal,4}{:};
+                    allData{i} = dataTable{thisDataVal,2}{:};
+                else
+                    dataPresent(i) = 0;
+                    dataLimits{i} = [];
+                    simLimits{i} = [];
+                    allData{i} = [];
+                end
             end
-            
+
+            contrastStruct.contrastBacks = contrastBacks;
+            contrastStruct.contrastShifts = contrastShifts;
+            contrastStruct.contrastScales = contrastScales;
+            contrastStruct.contrastNbas = contrastNbas;
+            contrastStruct.contrastNbss = contrastNbss;
+            contrastStruct.contrastRes = contrastRes;
+            contrastStruct.contrastLayers = contrastLayers;
+            contrastStruct.resample = resample;
+            contrastStruct.contrastRepeatSLDs = contrastRepeatSLDs;
+            contrastStruct.dataPresent = dataPresent;
+            contrastStruct.dataLimits = dataLimits;
+            contrastStruct.simLimits = simLimits;
+            contrastStruct.allData = allData;
+            contrastStruct.contrastLayers = contrastLayers;
+            contrastStruct.numberOfContrasts = nContrasts;
+                
         end
         
         function displayContrastsObject(obj)
@@ -233,6 +286,7 @@ classdef contrastsClass < handle
                 'Bulk in',...
                 'Bulk out',...
                 'Resolution',...
+                'Scalefactor',...
                 'Model');
             
         end
@@ -250,7 +304,7 @@ classdef contrastsClass < handle
                 end
             end
             
-            sz = [(maxModelSize+6) nContrasts];
+            sz = [(maxModelSize+7) nContrasts];
             varTypes = cell(1,nContrasts);
             varNames = cell(1,nContrasts);
             for i = 1:nContrasts
@@ -261,7 +315,7 @@ classdef contrastsClass < handle
             
             %obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             
-            val = ["name";"Data";"Background";"Bulk in";"Bulk out";"Resolution";"Model"];
+            val = ["name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Model"];
             modelRows = cell((maxModelSize-1),1);
             if ~isempty(modelRows)
                 modelRows{:} = '';
@@ -278,14 +332,15 @@ classdef contrastsClass < handle
                 contrastsCell(3,i) = {thisContrast.background};
                 contrastsCell(4,i) = {thisContrast.nba};
                 contrastsCell(5,i) = {thisContrast.nbs};
-                contrastsCell(6,i) = {thisContrast.resolution};
+                contrastsCell(6,i) = {thisContrast.scalefactor};
+                contrastsCell(7,i) = {thisContrast.resolution};
                 
                 thisModel = thisContrast.model;
                 if isempty(thisModel)
-                    contrastsCell(7,i) = {' '};
+                    contrastsCell(8,i) = {' '};
                 else
                     for n = 1:length(thisModel)
-                        contrastsCell(7+(n-1),i) = {thisModel(n)};
+                        contrastsCell(8+(n-1),i) = {thisModel(n)};
                     end
                 end
             end
@@ -320,6 +375,7 @@ function inputBlock = parseContrastInput(allowedNames,inputVals)
     defaultData = '';   
     defaultNba = '';
     defaultNbs = '';
+    defaultScalefac = '';
     defaultResol = '';
     defaultModel = '';
 
@@ -329,15 +385,17 @@ function inputBlock = parseContrastInput(allowedNames,inputVals)
     expectedBulkout = cellstr(allowedNames.bulkOutNames);
     expectedResols = cellstr(allowedNames.resolsNames);
     expectedLayers = cellstr(allowedNames.layersNames);
+    expectedScalefac = cellstr(allowedNames.scalefacNames);
 
     p = inputParser;
-    addParameter(p,'name',          defaultName,    @ischar);
-    addParameter(p,'background',    defaultBack,    @(x) any(validatestring(x,expectedBacks)));
-    addParameter(p,'data',          defaultData,    @(x) any(validatestring(x,expectedData)));
-    addParameter(p,'nba',           defaultNba,     @(x) any(validatestring(x,expectedBulkin)));
-    addParameter(p,'nbs',           defaultNbs,     @(x) any(validatestring(x,expectedBulkout)));
-    addParameter(p,'resolution',    defaultResol,   @(x) any(validatestring(x,expectedResols)));
-    addParameter(p,'model',         defaultModel,   @(x) any(validatestring(x,expectedLayers)));
+    addParameter(p,'name',          defaultName,        @ischar);
+    addParameter(p,'background',    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
+    addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
+    addParameter(p,'nba',           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
+    addParameter(p,'nbs',           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
+    addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
+    addParameter(p,'scalefactor',   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
+    addParameter(p,'model',         defaultModel,       @(x) any(validatestring(x,expectedLayers)));
         
     parse(p,inputVals{:});
     inputBlock = p.Results;

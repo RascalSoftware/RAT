@@ -1,4 +1,4 @@
-classdef projectClass < handle & matlab.mixin.CustomDisplay 
+classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     % Class definition for Standard Layers with no absorption.
     % Layers defined in terms of thickness, roughness, real SLD and
@@ -10,12 +10,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     properties
         experimentName
-        Geometry            
+        Geometry
         parameters          % parametersClass object
         layers              % layersClass_realSLD object
         bulkIn              % parametersClass object
         bulkOut             % parametersClass object
         background          % backgroundsClass object
+        scalefactors        % parametersClass object
+        qzshifts             % parametersClass object
         resolution          % resolutionClass object
         contrasts           % contrastsClass object
         data                % dataClass object
@@ -46,8 +48,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Initialise bulkOut table
             obj.bulkOut = parametersClass({'SLD D2O',6.2e-6,6.35e-6,6.35e-6,false,'uniform',0,Inf});
             
+            % Initialise scalefactors table
+            obj.scalefactors = parametersClass({'Scalefactor 1',0.02,0.23,0.25,false,'uniform',0,Inf});
+            
+            % Initialise qzshifts table
+            obj.qzshifts = parametersClass({'Qz shift 1',-1e-4,0,1e-4,false,'uniform',0,Inf});
+            
             % Initialise backs object
-            backPars = {'Backs par 1',1e-8,1e-7,1e-6,false,'uniform',0,Inf};
+            backPars = {'Backs par 1',1e-7,1e-6,1e-5,false,'uniform',0,Inf};
             backgrounds = {'Background 1','constant','Backs Par 1','','','',''};
             obj.background = backgroundsClass(backPars,backgrounds);
             
@@ -66,14 +74,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         
         function obj = setUsePriors(obj,showFlag)
-            % Sets the priors flag 
+            % Sets the priors flag
             
             if ~islogical(showFlag)
                 error('usePriors must be logical ''true'' or ''false''');
             end
             obj.UsePriors = showFlag;
-
-            % Also need to set the flag in sub-objects 
+            
+            % Also need to set the flag in sub-objects
             % where relevant..
             % (1) Parameters
             obj.parameters.showPriors = true;
@@ -84,10 +92,16 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % (3) Bulk out
             obj.bulkOut.showPriors = true;
             
-            % (4) Backgrounds (parameters table)
+            % (4) Scalefactors
+            obj.scalefactors.showPriors = true;
+            
+            % (5) Qz shifts
+            obj.qzshifts.showPriors = true;
+            
+            % (6) Backgrounds (parameters table)
             obj.background.backPars.showPriors = true;
             
-            % (5) Resolutions (parameters table)
+            % (7) Resolutions (parameters table)
             obj.resolution.resolPars.showPriors = true;
             
         end
@@ -104,7 +118,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
             
             obj.geometry = val;
-          
+            
         end
         
         function names = getAllAllowedNames(obj)
@@ -117,7 +131,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             names.resolsNames = obj.resolution.getResolNames();
             names.layersNames = obj.layers.getLayersNames();
             names.dataNames = obj.data.getDataNames();
-
+            names.scalefacNames = obj.scalefactors.getParamNames();
+            names.qzShiftNames = obj.qzshifts.getParamNames();
+            
         end
         
         % ---------------------------------
@@ -125,9 +141,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % Editing Parameters Block
         
         function obj = addParamGroup(obj,varargin)
-            % Add a group of parameters to the 
+            % Add a group of parameters to the
             % parameters object. Expects a cell
-            % array of parameter cell arrays 
+            % array of parameter cell arrays
             
             input = varargin{:};
             if ~iscell(input)
@@ -139,7 +155,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
         end
         
-       
+        
         function obj = addParam(obj,varargin)
             % Adds an individual parameter to
             % the parameters object.
@@ -158,75 +174,75 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 end
                 obj.parameters.addParam(thisParam);
             end
-
+            
         end
         
         
         function obj = removeParam(obj,varargin)
-           % Removes a parameter from the parameters
-           % object. The parameter will also be removed 
-           % from the layers array if it is in use
-           
-           removing = varargin;
-           numberOfParams = length(removing);
-           
-           % Remove the param
-           for i = 1:numberOfParams
-               thisParam = varargin{i};
-               
-               % Make sure we don't remove substrate roughness
-               if (isequal(thisParam{1},1)) || (strcmpi(thisParam{1},'Substrate Roughness'))
-                   error('Can''t remove protected parameter Substrate Roughness');
-               end
-              
-               % No need to check validity of the parameter
-               % as this is done in the parameters class
-               obj.parameters.removeParam(thisParam);
-               
-               % Need to chack if it is used in the layers
-               % array and remove it if so. Should be able
-               % to do this with array indexing, but can't quite figure
-               % that out atm, so just use a (dirty) loop over all 
-               % the elementsfor now..
-               
-               findParam = string(thisParam);
-               laysTable = obj.layers.layersTable;
-               dims = size(laysTable);
-               for m = 1:dims(1)
-                   for n = 1:dims(2)
-                       tablePar = laysTable{m,n};   % Should be a string
-                       if isequal(findParam,tablePar)
-                           obj.layers.layersTable(m,n) = {""};
-                       end
-                   end
-               end
-           end
-           
+            % Removes a parameter from the parameters
+            % object. The parameter will also be removed
+            % from the layers array if it is in use
+            
+            removing = varargin;
+            numberOfParams = length(removing);
+            
+            % Remove the param
+            for i = 1:numberOfParams
+                thisParam = varargin{i};
+                
+                % Make sure we don't remove substrate roughness
+                if (isequal(thisParam{1},1)) || (strcmpi(thisParam{1},'Substrate Roughness'))
+                    error('Can''t remove protected parameter Substrate Roughness');
+                end
+                
+                % No need to check validity of the parameter
+                % as this is done in the parameters class
+                obj.parameters.removeParam(thisParam);
+                
+                % Need to chack if it is used in the layers
+                % array and remove it if so. Should be able
+                % to do this with array indexing, but can't quite figure
+                % that out atm, so just use a (dirty) loop over all
+                % the elementsfor now..
+                
+                findParam = string(thisParam);
+                laysTable = obj.layers.layersTable;
+                dims = size(laysTable);
+                for m = 1:dims(1)
+                    for n = 1:dims(2)
+                        tablePar = laysTable{m,n};   % Should be a string
+                        if isequal(findParam,tablePar)
+                            obj.layers.layersTable(m,n) = {""};
+                        end
+                    end
+                end
+            end
+            
         end
         
         
-        function obj = setParamValue(obj,varargin) 
-           % Set the value of a given parameter
-           obj.parameters.setValue(varargin);
+        function obj = setParamValue(obj,varargin)
+            % Set the value of a given parameter
+            obj.parameters.setValue(varargin);
         end
         
         function obj = setParamConstr(obj,varargin)
-           % Set the constraints of an existing parameter
-           obj.parameters.setConstr(varargin);
+            % Set the constraints of an existing parameter
+            obj.parameters.setConstr(varargin);
         end
         
         function obj = setParamName(obj,varargin)
-           % Set the name of an existing parameter
-           inputValue = varargin;
-           if (isequal(inputValue{1},1)) || (strcmpi(inputValue{1},'Substrate Roughness'))
-               error('Can''t rename protected parameter Substrate Roughness');
-           end
-           obj.parameters.setName(varargin); %= updatedParams;
+            % Set the name of an existing parameter
+            inputValue = varargin;
+            if (isequal(inputValue{1},1)) || (strcmpi(inputValue{1},'Substrate Roughness'))
+                error('Can''t rename protected parameter Substrate Roughness');
+            end
+            obj.parameters.setName(varargin); %= updatedParams;
         end
         
         function obj = setParamFit(obj,varargin)
-           % Set the 'fit' to off or on for parameter
-           obj.parameters.setFit(varargin);
+            % Set the 'fit' to off or on for parameter
+            obj.parameters.setFit(varargin);
         end
         
         function obj = setParamPrior(obj,varargin)
@@ -239,9 +255,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         % Editing of layers block
         function obj = addLayerGroup(obj,varargin)
-            % Add a group of layers to the 
+            % Add a group of layers to the
             % layers object. Expects a cell
-            % array of layer cell arrays 
+            % array of layer cell arrays
             
             input = varargin{:};
             if ~iscell(input)
@@ -253,8 +269,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
             
         end
-       
-       
+        
+        
         function obj = addLayer(obj,varargin)
             
             
@@ -324,14 +340,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         %(1) Backgound Parameters
         function obj = addBacksPar(obj, varargin)
-           % Add a background parameter to the background parameters table
+            % Add a background parameter to the background parameters table
             obj.background.addBacksPar(varargin);
         end
         
         function obj = removeBacksPar(obj, varargin)
-           % Remove a background parameter from the backgrounds parameters
-           % table
-           obj.background.removeBacksPar(obj, varargin);
+            % Remove a background parameter from the backgrounds parameters
+            % table
+            obj.background.removeBacksPar(obj, varargin);
         end
         
         function obj = setBacksParValue(obj,varargin)
@@ -346,13 +362,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         function obj = setBacksParName(obj,varargin)
             % Set the name of existing backsPar
-            obj.background.setBacksParName(varargin);   
+            obj.background.setBacksParName(varargin);
         end
-
+        
         % (2) Backgrounds
         function obj = addBackground(obj,varargin)
-           % Add a background to the multi-table
-           obj.background.addBackground(varargin);
+            % Add a background to the multi-table
+            obj.background.addBackground(varargin);
         end
         
         function obj = setBackgroundValue(obj,varargin)
@@ -365,9 +381,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.setBackgroundName(varargin);
         end
         
-
-    % ------------------------------------------------------------
-    %   Editing of Data block 
+        
+        % ------------------------------------------------------------
+        %   Editing of Data block
         
         function obj = addData(obj, varargin)
             
@@ -375,39 +391,68 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.data.addData(varargin);
         end
         
-        function obj.removeData(obj,varargin)
+        function obj = removeData(obj,varargin)
             
             disp('Todo');
         end
         
         function obj = setData(obj, varargin)
             
-           % Edit an existing data parameter
-           nameChanged = obj.data.setData(varargin);
-           obj.contrasts.updateContrastName(nameChanged);
+            % Edit an existing data parameter
+            nameChanged = obj.data.setData(varargin);
+            obj.contrasts.updateContrastName(nameChanged);
         end
         
         
-    % ---------------------------------------------------------------
-    %   Editing of Bulk out block
+        % ---------------------------------------------------------------
+        %   Editing of Bulk out block
         
         function obj = addBulkOut(obj,varargin)
-        
+            
             obj.bulkOut.addParam(varargin{:});
+            
         end
-
         
         
         
-    % ----------------------------------------------------------------
-    %
-    %   Editing of Contrasts Block
-    
+        % ------------------------------------------------------------------
+        % Editing of bulk in block
+        
+        function obj = addBulkIn(obj,varargin)
+            
+            obj.bulkIn.addParam(varargin{:});
+            
+        end
+        
+        
+        % -------------------------------------------------------------------
+        % Editing of scalefactors block
+        
+        function obj = addScalefactor(obj,varargin)
+            
+            obj.scalefactor.addParam(varargin{:});
+            
+        end
+        
+        % -------------------------------------------------------------------
+        % Editing of qzshifts block
+        
+        function obj = addQzshift(obj,varargin)
+            
+            obj.qzshifts.addParam(varargin{:});
+            
+        end
+        
+        
+        % ----------------------------------------------------------------
+        %
+        %   Editing of Contrasts Block
+        
         function obj = addContrast(obj,varargin)
             
             allowedNames = obj.getAllAllowedNames();
             obj.contrasts.addContrast(allowedNames,varargin);
-    
+            
         end
         
         
@@ -424,7 +469,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             numberOfContrasts = obj.contrasts.numberOfContrasts;
             
             % Find if we are referencing and existing contrast
-            if isnumeric(firstInput) 
+            if isnumeric(firstInput)
                 if (firstInput < 1 || firstInput > numberOfContrasts)
                     error('Contrast number %d is out of range',firstInput);
                 end
@@ -439,9 +484,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 
             end
             
-            % Get the list of allowed values depending on what is 
+            % Get the list of allowed values depending on what is
             % set for the other contrasts.
-            allowedValues = obj.getAllAllowedNames;    
+            allowedValues = obj.getAllAllowedNames;
             
             % Call the setContrast method
             obj.contrasts.setContrast(thisContrast,allowedValues,inputVals);
@@ -450,7 +495,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         function outStruct = toStruct(obj)
             
-            % Converts the class parameters 
+            % Converts the class parameters
             % into a struct array for input into
             % the RAT toolbox
             
@@ -465,20 +510,30 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 'nParams','paramConstr','params','paramFitYesNo','paramPriors'});
             
             % Backgrounds
-            backgroundStruct = obj.background.toStruct();
+             backgroundStruct = obj.background.toStruct();
             
             % Resolutions
             resolutionStruct = obj.resolution.toStruct();
             
             % Bulk in
             bulkInStruct = obj.bulkIn.toStruct();
-            bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'nbaNames',...
-                'nNba','nbaConstr','nbairs','nbaFitYesNo','nbaPriors'});
+            bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'nbairNames',...
+                'nNba','nbairConstr','nbairs','nbaFitYesNo','nbaPriors'});
             
             % Bulk out
             bulkOutStruct = obj.bulkOut.toStruct();
-            bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'nbsNames',...
-                'nNbs','nbsConstr','nbsubs','nbsFitYesNo','nbsPriors'});
+            bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'nbsubNames',...
+                'nNbs','nbsubConstr','nbsubs','nbsFitYesNo','nbsPriors'});
+            
+            % Scalefactors
+            scalefactorStruct = obj.scalefactors.toStruct();
+            scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{'scalefactorNames',...
+                'nScalefcators','scalefactorConstr','scalefactors','scalefactorFitYesNo','scalefactorPriors'});
+            
+            % Qzshifts
+            qzshiftStruct = obj.qzshifts.toStruct();
+            qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{'qzshiftNames',...
+                'nQzshifts','qzshiftConstr','qzshifts','qzshiftFitYesNo','qzshiftPriors'});
             
             % Layers
             layersCell = obj.layers.toStruct();
@@ -488,7 +543,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % parse the layers details
             layersValues = layersCell(:,2:end);
             
-            paramNames = paramStruct.paramNames;
+            paramNames = string(paramStruct.paramNames);
             for i = 1:layersStruct.numberOfLayers
                 thisLayer = layersValues(i,:);
                 min = find(strcmpi(thisLayer{1},paramNames));
@@ -504,17 +559,16 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 else
                     hydrWhat = 2;
                 end
-                layersDetails{i} = {min val max hydr hydrWhat};
+                layersDetails{i} = [min val max hydr hydrWhat];
             end
             
-            layersStruct.layersDetails = layersDetails;
+            layersStruct.layersDetails = layersDetails(:);
             
             % Contrasts.
             allNames = obj.getAllAllowedNames;
-            contrastStruct = obj.contrasts.toStruct(allNames);
+            dataTable = obj.data.dataTable;
+            contrastStruct = obj.contrasts.toStruct(allNames,dataTable);
             
-                
-
             % Merge all the outputs into one large structure
             outStruct = mergeStructs(generalStruct,...
                 paramStruct,...
@@ -522,17 +576,19 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 resolutionStruct,...
                 bulkInStruct,...
                 bulkOutStruct,...
-                layersStruct);
+                scalefactorStruct,...
+                qzshiftStruct,...
+                layersStruct,...
+                contrastStruct);
             
-
         end
-
+        
     end     % end public methods
-  
+    
     % ------------------------------------------------------------------
     
     methods (Access = protected)
-      
+        
         function paramNum = findPar(paramName)
             existingNames = obj.parameters.paramsTable{:,1};
             index = strcmp(paramName, existingNames);
@@ -576,27 +632,31 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Display the Bulk In table
             fprintf('    Bulk In: -------------------------------------------------------------------------------------------------- \n\n');
             obj.bulkIn.displayParametersTable;
-
+            
             % Display the Bulk Out table
             fprintf('    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n');
             obj.bulkOut.displayParametersTable;
+            
+            % Display the Scalefactors table
+            fprintf('    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n');
+            obj.scalefactors.displayParametersTable;
 
             % Display the backgrounds object
             obj.background.displayBackgroundsObject;
             
             % Display the resolutions object
             obj.resolution.displayResolutionsObject;
-                    
+            
             % Display the data object
             obj.data.displayDataObject;
             
             % Display the contrasts object
             obj.contrasts.displayContrastsObject;
-
+            
         end
         
-
+        
     end
-  
+    
 end
 

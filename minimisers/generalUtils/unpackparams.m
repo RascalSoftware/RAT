@@ -1,4 +1,4 @@
-function problemDef = unpackparams(problemDef,controls);
+function problemDef = unpackparams(problemDef,controls)
 
 %Unpack the params out of the fitparsma and otherparams arrays
 %back into problem.params

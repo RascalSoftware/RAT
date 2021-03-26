@@ -25,6 +25,6 @@
 
 // Function Declarations
 void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
-              const real_T startDomain[2], cell_19 *out);
+              const real_T startDomain[2], cell_21 *out);
 
 // End of code generation (adaptive.h)

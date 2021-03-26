@@ -20,22 +20,22 @@
 #include "rt_nonfinite.h"
 
 // Variable Definitions
-static emlrtRSInfo cd_emlrtRSI = { 24, // lineNo
+static emlrtRSInfo kd_emlrtRSI = { 24, // lineNo
   "sldFunc",                           // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pathName 
 };
 
-static emlrtRSInfo dd_emlrtRSI = { 29, // lineNo
+static emlrtRSInfo ld_emlrtRSI = { 29, // lineNo
   "sldFunc",                           // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pathName 
 };
 
-static emlrtRSInfo ed_emlrtRSI = { 30, // lineNo
+static emlrtRSInfo md_emlrtRSI = { 30, // lineNo
   "sldFunc",                           // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pathName 
 };
 
-static emlrtBCInfo if_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo gf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   27,                                  // lineNo
   18,                                  // colNo
@@ -45,7 +45,7 @@ static emlrtBCInfo if_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo jf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo hf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   31,                                  // lineNo
   23,                                  // colNo
@@ -55,7 +55,7 @@ static emlrtBCInfo jf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo kf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo if_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   32,                                  // lineNo
   23,                                  // colNo
@@ -65,7 +65,7 @@ static emlrtBCInfo kf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo lf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo jf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   34,                                  // lineNo
   18,                                  // colNo
@@ -75,7 +75,7 @@ static emlrtBCInfo lf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo mf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo kf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   35,                                  // lineNo
   18,                                  // colNo
@@ -85,7 +85,7 @@ static emlrtBCInfo mf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo nf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo lf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   38,                                  // lineNo
   15,                                  // colNo
@@ -95,7 +95,7 @@ static emlrtBCInfo nf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo of_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo mf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   38,                                  // lineNo
   26,                                  // colNo
@@ -105,7 +105,7 @@ static emlrtBCInfo of_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo pf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo nf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   42,                                  // lineNo
   20,                                  // colNo
@@ -115,55 +115,55 @@ static emlrtBCInfo pf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtRTEInfo fg_emlrtRTEI = { 24,// lineNo
+static emlrtRTEInfo dg_emlrtRTEI = { 24,// lineNo
   14,                                  // colNo
   "sldFunc",                           // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pName 
 };
 
-static emlrtRTEInfo ig_emlrtRTEI = { 24,// lineNo
+static emlrtRTEInfo gg_emlrtRTEI = { 24,// lineNo
   1,                                   // colNo
   "sldFunc",                           // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pName 
 };
 
-static emlrtRTEInfo jg_emlrtRTEI = { 29,// lineNo
+static emlrtRTEInfo hg_emlrtRTEI = { 29,// lineNo
   22,                                  // colNo
   "sldFunc",                           // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pName 
 };
 
-static emlrtRTEInfo kg_emlrtRTEI = { 29,// lineNo
+static emlrtRTEInfo ig_emlrtRTEI = { 29,// lineNo
   5,                                   // colNo
   "sldFunc",                           // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pName 
 };
 
-static emlrtRTEInfo lg_emlrtRTEI = { 30,// lineNo
+static emlrtRTEInfo jg_emlrtRTEI = { 30,// lineNo
   22,                                  // colNo
   "sldFunc",                           // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pName 
 };
 
-static emlrtRTEInfo mg_emlrtRTEI = { 30,// lineNo
+static emlrtRTEInfo kg_emlrtRTEI = { 30,// lineNo
   5,                                   // colNo
   "sldFunc",                           // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pName 
 };
 
-static emlrtRTEInfo ng_emlrtRTEI = { 48,// lineNo
+static emlrtRTEInfo lg_emlrtRTEI = { 48,// lineNo
   9,                                   // colNo
   "sldFunc",                           // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pName 
 };
 
-static emlrtRTEInfo og_emlrtRTEI = { 46,// lineNo
+static emlrtRTEInfo mg_emlrtRTEI = { 46,// lineNo
   9,                                   // colNo
   "sldFunc",                           // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pName 
 };
 
-static emlrtRTEInfo pg_emlrtRTEI = { 27,// lineNo
+static emlrtRTEInfo ng_emlrtRTEI = { 27,// lineNo
   5,                                   // colNo
   "sldFunc",                           // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/sldFunc.m"// pName 
@@ -215,21 +215,21 @@ void sldFunc(const emlrtStack *sp, real_T x, const coder::array<real_T, 2U> &SLD
   //
   //  SLD = sldProfile;
   // SLD = getappdata(0,'sldFuncSLD');
-  st.site = &cd_emlrtRSI;
+  st.site = &kd_emlrtRSI;
   nx = SLD.size(0);
-  b_x.set_size((&fg_emlrtRTEI), (&st), SLD.size(0));
+  b_x.set_size((&dg_emlrtRTEI), (&st), SLD.size(0));
   for (idx = 0; idx < nx; idx++) {
     b_x[idx] = (SLD[idx] == x);
   }
 
-  b_st.site = &fd_emlrtRSI;
+  b_st.site = &nd_emlrtRSI;
   nx = b_x.size(0);
-  c_st.site = &gd_emlrtRSI;
+  c_st.site = &od_emlrtRSI;
   idx = 0;
-  ii.set_size((&gg_emlrtRTEI), (&c_st), b_x.size(0));
-  d_st.site = &hd_emlrtRSI;
+  ii.set_size((&eg_emlrtRTEI), (&c_st), b_x.size(0));
+  d_st.site = &pd_emlrtRSI;
   if ((1 <= b_x.size(0)) && (b_x.size(0) > 2147483646)) {
-    e_st.site = &nb_emlrtRSI;
+    e_st.site = &vb_emlrtRSI;
     check_forloop_overflow_error(&e_st);
   }
 
@@ -250,13 +250,13 @@ void sldFunc(const emlrtStack *sp, real_T x, const coder::array<real_T, 2U> &SLD
   }
 
   if (idx > b_x.size(0)) {
-    emlrtErrorWithMessageIdR2018a(&c_st, &ob_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&c_st, &pb_emlrtRTEI,
       "Coder:builtins:AssertionFailed", "Coder:builtins:AssertionFailed", 0);
   }
 
   if (b_x.size(0) == 1) {
     if (idx == 0) {
-      ii.set_size((&hg_emlrtRTEI), (&c_st), 0);
+      ii.set_size((&fg_emlrtRTEI), (&c_st), 0);
     }
   } else {
     if (1 > idx) {
@@ -265,25 +265,25 @@ void sldFunc(const emlrtStack *sp, real_T x, const coder::array<real_T, 2U> &SLD
 
     iv[0] = 1;
     iv[1] = idx;
-    d_st.site = &id_emlrtRSI;
+    d_st.site = &qd_emlrtRSI;
     indexShapeCheck(&d_st, ii.size(0), iv);
-    ii.set_size((&hg_emlrtRTEI), (&c_st), idx);
+    ii.set_size((&fg_emlrtRTEI), (&c_st), idx);
   }
 
-  where.set_size((&ig_emlrtRTEI), (&st), ii.size(0));
+  where.set_size((&gg_emlrtRTEI), (&st), ii.size(0));
   nx = ii.size(0);
   for (idx = 0; idx < nx; idx++) {
     where[idx] = static_cast<uint32_T>(ii[idx]);
   }
 
   if (where.size(0) != 0) {
-    sldVal.set_size((&pg_emlrtRTEI), sp, where.size(0));
+    sldVal.set_size((&ng_emlrtRTEI), sp, where.size(0));
     nx = where.size(0);
     for (idx = 0; idx < nx; idx++) {
       if ((static_cast<int32_T>(where[idx]) < 1) || (static_cast<int32_T>
            (where[idx]) > SLD.size(0))) {
         emlrtDynamicBoundsCheckR2012b(static_cast<int32_T>(where[idx]), 1,
-          SLD.size(0), &if_emlrtBCI, sp);
+          SLD.size(0), &gf_emlrtBCI, sp);
       }
 
       sldVal[idx] = SLD[(static_cast<int32_T>(where[idx]) + SLD.size(0)) - 1];
@@ -291,21 +291,21 @@ void sldFunc(const emlrtStack *sp, real_T x, const coder::array<real_T, 2U> &SLD
   } else {
     real_T deltaY_tmp;
     real_T deltaY;
-    st.site = &dd_emlrtRSI;
+    st.site = &ld_emlrtRSI;
     nx = SLD.size(0);
-    b_x.set_size((&jg_emlrtRTEI), (&st), SLD.size(0));
+    b_x.set_size((&hg_emlrtRTEI), (&st), SLD.size(0));
     for (idx = 0; idx < nx; idx++) {
       b_x[idx] = (x > SLD[idx]);
     }
 
-    b_st.site = &fd_emlrtRSI;
+    b_st.site = &nd_emlrtRSI;
     nx = b_x.size(0);
-    c_st.site = &gd_emlrtRSI;
+    c_st.site = &od_emlrtRSI;
     idx = 0;
-    ii.set_size((&gg_emlrtRTEI), (&c_st), b_x.size(0));
-    d_st.site = &hd_emlrtRSI;
+    ii.set_size((&eg_emlrtRTEI), (&c_st), b_x.size(0));
+    d_st.site = &pd_emlrtRSI;
     if ((1 <= b_x.size(0)) && (b_x.size(0) > 2147483646)) {
-      e_st.site = &nb_emlrtRSI;
+      e_st.site = &vb_emlrtRSI;
       check_forloop_overflow_error(&e_st);
     }
 
@@ -326,13 +326,13 @@ void sldFunc(const emlrtStack *sp, real_T x, const coder::array<real_T, 2U> &SLD
     }
 
     if (idx > b_x.size(0)) {
-      emlrtErrorWithMessageIdR2018a(&c_st, &ob_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&c_st, &pb_emlrtRTEI,
         "Coder:builtins:AssertionFailed", "Coder:builtins:AssertionFailed", 0);
     }
 
     if (b_x.size(0) == 1) {
       if (idx == 0) {
-        ii.set_size((&hg_emlrtRTEI), (&c_st), 0);
+        ii.set_size((&fg_emlrtRTEI), (&c_st), 0);
       }
     } else {
       if (1 > idx) {
@@ -341,32 +341,32 @@ void sldFunc(const emlrtStack *sp, real_T x, const coder::array<real_T, 2U> &SLD
 
       iv[0] = 1;
       iv[1] = idx;
-      d_st.site = &id_emlrtRSI;
+      d_st.site = &qd_emlrtRSI;
       indexShapeCheck(&d_st, ii.size(0), iv);
-      ii.set_size((&hg_emlrtRTEI), (&c_st), idx);
+      ii.set_size((&fg_emlrtRTEI), (&c_st), idx);
     }
 
-    where.set_size((&kg_emlrtRTEI), (&st), ii.size(0));
+    where.set_size((&ig_emlrtRTEI), (&st), ii.size(0));
     nx = ii.size(0);
     for (idx = 0; idx < nx; idx++) {
       where[idx] = static_cast<uint32_T>(ii[idx]);
     }
 
-    st.site = &ed_emlrtRSI;
+    st.site = &md_emlrtRSI;
     nx = SLD.size(0);
-    b_x.set_size((&lg_emlrtRTEI), (&st), SLD.size(0));
+    b_x.set_size((&jg_emlrtRTEI), (&st), SLD.size(0));
     for (idx = 0; idx < nx; idx++) {
       b_x[idx] = (x < SLD[idx]);
     }
 
-    b_st.site = &fd_emlrtRSI;
+    b_st.site = &nd_emlrtRSI;
     nx = b_x.size(0);
-    c_st.site = &gd_emlrtRSI;
+    c_st.site = &od_emlrtRSI;
     idx = 0;
-    ii.set_size((&gg_emlrtRTEI), (&c_st), b_x.size(0));
-    d_st.site = &hd_emlrtRSI;
+    ii.set_size((&eg_emlrtRTEI), (&c_st), b_x.size(0));
+    d_st.site = &pd_emlrtRSI;
     if ((1 <= b_x.size(0)) && (b_x.size(0) > 2147483646)) {
-      e_st.site = &nb_emlrtRSI;
+      e_st.site = &vb_emlrtRSI;
       check_forloop_overflow_error(&e_st);
     }
 
@@ -387,13 +387,13 @@ void sldFunc(const emlrtStack *sp, real_T x, const coder::array<real_T, 2U> &SLD
     }
 
     if (idx > b_x.size(0)) {
-      emlrtErrorWithMessageIdR2018a(&c_st, &ob_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&c_st, &pb_emlrtRTEI,
         "Coder:builtins:AssertionFailed", "Coder:builtins:AssertionFailed", 0);
     }
 
     if (b_x.size(0) == 1) {
       if (idx == 0) {
-        ii.set_size((&hg_emlrtRTEI), (&c_st), 0);
+        ii.set_size((&fg_emlrtRTEI), (&c_st), 0);
       }
     } else {
       if (1 > idx) {
@@ -402,12 +402,12 @@ void sldFunc(const emlrtStack *sp, real_T x, const coder::array<real_T, 2U> &SLD
 
       iv[0] = 1;
       iv[1] = idx;
-      d_st.site = &id_emlrtRSI;
+      d_st.site = &qd_emlrtRSI;
       indexShapeCheck(&d_st, ii.size(0), iv);
-      ii.set_size((&hg_emlrtRTEI), (&c_st), idx);
+      ii.set_size((&fg_emlrtRTEI), (&c_st), idx);
     }
 
-    aboveVals.set_size((&mg_emlrtRTEI), (&st), ii.size(0));
+    aboveVals.set_size((&kg_emlrtRTEI), (&st), ii.size(0));
     nx = ii.size(0);
     for (idx = 0; idx < nx; idx++) {
       aboveVals[idx] = static_cast<uint32_T>(ii[idx]);
@@ -415,36 +415,36 @@ void sldFunc(const emlrtStack *sp, real_T x, const coder::array<real_T, 2U> &SLD
 
     if (where.size(0) < 1) {
       emlrtDynamicBoundsCheckR2012b(where.size(0), 1, where.size(0),
-        &jf_emlrtBCI, sp);
+        &hf_emlrtBCI, sp);
     }
 
     if (1 > aboveVals.size(0)) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, aboveVals.size(0), &kf_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(1, 1, aboveVals.size(0), &if_emlrtBCI, sp);
     }
 
     idx = static_cast<int32_T>(where[where.size(0) - 1]);
+    if ((idx < 1) || (idx > SLD.size(0))) {
+      emlrtDynamicBoundsCheckR2012b(idx, 1, SLD.size(0), &jf_emlrtBCI, sp);
+    }
+
+    idx = static_cast<int32_T>(aboveVals[0]);
+    if ((idx < 1) || (idx > SLD.size(0))) {
+      emlrtDynamicBoundsCheckR2012b(idx, 1, SLD.size(0), &kf_emlrtBCI, sp);
+    }
+
+    idx = static_cast<int32_T>(aboveVals[0]);
     if ((idx < 1) || (idx > SLD.size(0))) {
       emlrtDynamicBoundsCheckR2012b(idx, 1, SLD.size(0), &lf_emlrtBCI, sp);
     }
 
-    idx = static_cast<int32_T>(aboveVals[0]);
+    idx = static_cast<int32_T>(where[where.size(0) - 1]);
     if ((idx < 1) || (idx > SLD.size(0))) {
       emlrtDynamicBoundsCheckR2012b(idx, 1, SLD.size(0), &mf_emlrtBCI, sp);
     }
 
-    idx = static_cast<int32_T>(aboveVals[0]);
+    idx = static_cast<int32_T>(where[where.size(0) - 1]);
     if ((idx < 1) || (idx > SLD.size(0))) {
       emlrtDynamicBoundsCheckR2012b(idx, 1, SLD.size(0), &nf_emlrtBCI, sp);
-    }
-
-    idx = static_cast<int32_T>(where[where.size(0) - 1]);
-    if ((idx < 1) || (idx > SLD.size(0))) {
-      emlrtDynamicBoundsCheckR2012b(idx, 1, SLD.size(0), &of_emlrtBCI, sp);
-    }
-
-    idx = static_cast<int32_T>(where[where.size(0) - 1]);
-    if ((idx < 1) || (idx > SLD.size(0))) {
-      emlrtDynamicBoundsCheckR2012b(idx, 1, SLD.size(0), &pf_emlrtBCI, sp);
     }
 
     nx = static_cast<int32_T>(aboveVals[0]) - 1;
@@ -455,11 +455,11 @@ void sldFunc(const emlrtStack *sp, real_T x, const coder::array<real_T, 2U> &SLD
         (where[where.size(0) - 1]) - 1]));
     if (SLD[(static_cast<int32_T>(where[where.size(0) - 1]) + SLD.size(0)) - 1] <
         deltaY_tmp) {
-      sldVal.set_size((&og_emlrtRTEI), sp, 1);
+      sldVal.set_size((&mg_emlrtRTEI), sp, 1);
       sldVal[0] = SLD[(static_cast<int32_T>(where[where.size(0) - 1]) + SLD.size
                        (0)) - 1] + deltaY;
     } else {
-      sldVal.set_size((&ng_emlrtRTEI), sp, 1);
+      sldVal.set_size((&lg_emlrtRTEI), sp, 1);
       sldVal[0] = SLD[(static_cast<int32_T>(where[where.size(0) - 1]) + SLD.size
                        (0)) - 1] - deltaY;
     }

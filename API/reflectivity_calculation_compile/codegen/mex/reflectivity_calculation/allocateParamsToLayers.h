@@ -25,7 +25,7 @@
 
 // Function Declarations
 void allocateParamsToLayers(const emlrtStack *sp, const coder::array<real_T, 2U>
-  &params, const coder::array<cell_wrap_12, 1U> &layersDetails, coder::array<
-  cell_wrap_17, 2U> &outLayers);
+  &params, const coder::array<cell_wrap_3, 1U> &layersDetails, coder::array<
+  cell_wrap_19, 2U> &outLayers);
 
 // End of code generation (allocateParamsToLayers.h)

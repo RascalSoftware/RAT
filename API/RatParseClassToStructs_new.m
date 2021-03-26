@@ -240,6 +240,9 @@ switch inputControls.calcSldDuringFit
     otherwise
         controls.calcSld = 1;
 end
+controls.repeats = inputControls.repeats;
+controls.nsimu = inputControls.nsimu;
+controls.burnin = inputControls.burnin;
 
 %Also need to deal with the checks...
 

@@ -20,18 +20,18 @@
 #include <string.h>
 
 // Variable Definitions
-static emlrtRSInfo ag_emlrtRSI = { 31, // lineNo
+static emlrtRSInfo ig_emlrtRSI = { 31, // lineNo
   "abeles_paraPoints",                 // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_paraPoints.m"// pathName 
 };
 
-static emlrtRTEInfo wb_emlrtRTEI = { 42,// lineNo
+static emlrtRTEInfo xb_emlrtRTEI = { 42,// lineNo
   19,                                  // colNo
   "abeles_paraPoints",                 // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_paraPoints.m"// pName 
 };
 
-static emlrtBCInfo gh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ah_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   37,                                  // lineNo
   17,                                  // colNo
@@ -41,7 +41,7 @@ static emlrtBCInfo gh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo hh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo bh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   30,                                  // lineNo
   11,                                  // colNo
@@ -51,7 +51,7 @@ static emlrtBCInfo hh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ih_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ch_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   44,                                  // lineNo
   21,                                  // colNo
@@ -61,7 +61,7 @@ static emlrtBCInfo ih_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo jh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo dh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   45,                                  // lineNo
   19,                                  // colNo
@@ -71,7 +71,7 @@ static emlrtBCInfo jh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo kh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo eh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   46,                                  // lineNo
   21,                                  // colNo
@@ -81,7 +81,7 @@ static emlrtBCInfo kh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo lh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo fh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   75,                                  // lineNo
   5,                                   // colNo
@@ -91,7 +91,7 @@ static emlrtBCInfo lh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtRTEInfo bi_emlrtRTEI = { 9,// lineNo
+static emlrtRTEInfo yh_emlrtRTEI = { 9,// lineNo
   7,                                   // colNo
   "abeles_paraPoints",                 // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_paraPoints.m"// pName 
@@ -142,7 +142,7 @@ void abeles_paraPoints(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
   //  nrepeats = nrepeatss(thisCont);
   //  resol = resols(thisCont);
   ub_loop = static_cast<int32_T>(points);
-  out.set_size((&bi_emlrtRTEI), sp, ub_loop);
+  out.set_size((&yh_emlrtRTEI), sp, ub_loop);
 
   // pi = 3.141592653589;
   snair = 1.0 - nbair * 0.377451863036739;
@@ -174,13 +174,13 @@ void abeles_paraPoints(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
       try {
         i = loop + 1;
         if ((i < 1) || (i > x.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i, 1, x.size(0), &hh_emlrtBCI, &st);
+          emlrtDynamicBoundsCheckR2012b(i, 1, x.size(0), &bh_emlrtBCI, &st);
         }
 
-        b_st.site = &ag_emlrtRSI;
+        b_st.site = &ig_emlrtRSI;
         thick = x[loop] * 1.54 / 12.566370614359172;
         if ((thick < -1.0) || (thick > 1.0)) {
-          emlrtErrorWithMessageIdR2018a(&b_st, &ub_emlrtRTEI,
+          emlrtErrorWithMessageIdR2018a(&b_st, &vb_emlrtRTEI,
             "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError",
             3, 4, 4, "asin");
         }
@@ -198,7 +198,7 @@ void abeles_paraPoints(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
         blast.re = 0.0;
         blast.im = 0.0;
         if (1 > sld.size(0)) {
-          emlrtDynamicBoundsCheckR2012b(1, 1, sld.size(0), &gh_emlrtBCI, &st);
+          emlrtDynamicBoundsCheckR2012b(1, 1, sld.size(0), &ah_emlrtBCI, &st);
         }
 
         MI[0].re = 1.0;
@@ -211,7 +211,7 @@ void abeles_paraPoints(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
         MI[1].im = 0.0;
         i = static_cast<int32_T>(nrepeats);
         emlrtForLoopVectorCheckR2012b(1.0, 1.0, nrepeats, mxDOUBLE_CLASS,
-          static_cast<int32_T>(nrepeats), &wb_emlrtRTEI, &st);
+          static_cast<int32_T>(nrepeats), &xb_emlrtRTEI, &st);
         if (0 <= i - 1) {
           i1 = static_cast<int32_T>(layers);
         }
@@ -220,19 +220,19 @@ void abeles_paraPoints(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
           for (nl = 0; nl < i1; nl++) {
             i2 = static_cast<int32_T>(nl + 1U);
             if ((i2 < 1) || (i2 > sld.size(0))) {
-              emlrtDynamicBoundsCheckR2012b(i2, 1, sld.size(0), &ih_emlrtBCI,
+              emlrtDynamicBoundsCheckR2012b(i2, 1, sld.size(0), &ch_emlrtBCI,
                 &st);
             }
 
             thick = sld[i2 - 1];
             if (i2 > sld.size(0)) {
-              emlrtDynamicBoundsCheckR2012b(i2, 1, sld.size(0), &jh_emlrtBCI,
+              emlrtDynamicBoundsCheckR2012b(i2, 1, sld.size(0), &dh_emlrtBCI,
                 &st);
             }
 
             preal = sld[(i2 + sld.size(0)) - 1];
             if (i2 > sld.size(0)) {
-              emlrtDynamicBoundsCheckR2012b(i2, 1, sld.size(0), &kh_emlrtBCI,
+              emlrtDynamicBoundsCheckR2012b(i2, 1, sld.size(0), &eh_emlrtBCI,
                 &st);
             }
 
@@ -599,7 +599,7 @@ void abeles_paraPoints(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
 
         i = static_cast<int32_T>(loop + 1U);
         if ((i < 1) || (i > out.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i, 1, out.size(0), &lh_emlrtBCI, &st);
+          emlrtDynamicBoundsCheckR2012b(i, 1, out.size(0), &fh_emlrtBCI, &st);
         }
 
         out[i - 1] = muDoubleScalarHypot(quo.re, quo.im);

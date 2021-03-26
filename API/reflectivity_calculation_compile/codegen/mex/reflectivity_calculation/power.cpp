@@ -19,27 +19,27 @@
 #include "sum.h"
 
 // Variable Definitions
-static emlrtRSInfo pb_emlrtRSI = { 70, // lineNo
+static emlrtRSInfo xb_emlrtRSI = { 70, // lineNo
   "power",                             // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/power.m"// pathName
 };
 
-static emlrtRSInfo qb_emlrtRSI = { 79, // lineNo
+static emlrtRSInfo yb_emlrtRSI = { 79, // lineNo
   "fltpower",                          // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/power.m"// pathName
 };
 
-static emlrtRSInfo ce_emlrtRSI = { 66, // lineNo
+static emlrtRSInfo ke_emlrtRSI = { 66, // lineNo
   "applyBinaryScalarFunction",         // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyBinaryScalarFunction.m"// pathName 
 };
 
-static emlrtRSInfo de_emlrtRSI = { 188,// lineNo
+static emlrtRSInfo le_emlrtRSI = { 188,// lineNo
   "flatIter",                          // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/applyBinaryScalarFunction.m"// pathName 
 };
 
-static emlrtRTEInfo gh_emlrtRTEI = { 79,// lineNo
+static emlrtRTEInfo eh_emlrtRTEI = { 79,// lineNo
   5,                                   // colNo
   "power",                             // fName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/power.m"// pName
@@ -57,7 +57,7 @@ void power(const emlrtStack *sp, const coder::array<real_T, 1U> &a, coder::array
   emlrtStack e_st;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &pb_emlrtRSI;
+  st.site = &xb_emlrtRSI;
   b_st.prev = &st;
   b_st.tls = st.tls;
   c_st.prev = &b_st;
@@ -66,13 +66,13 @@ void power(const emlrtStack *sp, const coder::array<real_T, 1U> &a, coder::array
   d_st.tls = c_st.tls;
   e_st.prev = &d_st;
   e_st.tls = d_st.tls;
-  b_st.site = &qb_emlrtRSI;
-  y.set_size((&gh_emlrtRTEI), (&b_st), a.size(0));
-  c_st.site = &ce_emlrtRSI;
+  b_st.site = &yb_emlrtRSI;
+  y.set_size((&eh_emlrtRTEI), (&b_st), a.size(0));
+  c_st.site = &ke_emlrtRSI;
   nx = a.size(0);
-  d_st.site = &de_emlrtRSI;
+  d_st.site = &le_emlrtRSI;
   if ((1 <= a.size(0)) && (a.size(0) > 2147483646)) {
-    e_st.site = &nb_emlrtRSI;
+    e_st.site = &vb_emlrtRSI;
     check_forloop_overflow_error(&e_st);
   }
 

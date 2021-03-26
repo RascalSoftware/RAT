@@ -25,10 +25,10 @@
 
 // Function Declarations
 void c_standardTF_stanLay_reflectivi(const emlrtStack *sp, const struct0_T
-  *problemDef, const cell_13 *problemDef_cells, const struct2_T *controls,
-  struct4_T *problem, coder::array<cell_wrap_6, 1U> &reflectivity, coder::array<
-  cell_wrap_6, 1U> &Simulation, coder::array<cell_wrap_12, 1U> &shifted_data,
-  coder::array<cell_wrap_7, 1U> &layerSlds, coder::array<cell_wrap_12, 1U>
+  *problemDef, const cell_15 *problemDef_cells, const struct2_T *controls,
+  struct4_T *problem, coder::array<cell_wrap_7, 1U> &reflectivity, coder::array<
+  cell_wrap_7, 1U> &Simulation, coder::array<cell_wrap_1, 1U> &shifted_data,
+  coder::array<cell_wrap_1, 1U> &layerSlds, coder::array<cell_wrap_12, 1U>
   &sldProfiles, coder::array<cell_wrap_11, 1U> &allLayers);
 
 // End of code generation (standardTF_stanLay_reflectivityCalculation.h)

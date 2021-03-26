@@ -34,7 +34,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Class constructor
             obj.experimentName = name;
-            obj.Geometry = 'Air/substrate';
+            obj.Geometry = 'air/substrate';
             
             % Initailise the Parameters Table
             obj.parameters = parametersClass({'Substrate Roughness',1 3 5,true,'uniform',0,Inf});
@@ -60,7 +60,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background = backgroundsClass(backPars,backgrounds);
             
             % Initialise resolution object
-            resolPars = {'Resolution par 1',0.01,0.03,0.05,true,'uniform',0,Inf};
+            resolPars = {'Resolution par 1',0.01,0.03,0.05,false,'uniform',0,Inf};
             resolutions = {'Resolution 1','gaussian','Resolution par 1','','','',''};
             obj.resolution = resolutionsClass(resolPars,resolutions);
             
@@ -117,7 +117,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 error('Expecting Air/Substrate or Substrate/Liquid')
             end
             
-            obj.geometry = val;
+            if strcmpi(val,'air/substrate')
+                obj.geometry = 'air/substrate';
+            elseif strcmpi(val,'substrate/liquid')
+                obj.geometry = 'substrate/liquid';
+            end
             
         end
         
@@ -218,6 +222,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 end
             end
             
+        end
+        
+        function obj = setParameter(obj,varargin)
+            % Gerenal purpose st parameter method
+            obj.parameters.setParameter(varargin);
         end
         
         
@@ -381,6 +390,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.setBackgroundName(varargin);
         end
         
+        function obj = setBacksPar(obj,varargin);
+            % Set back par with name value pairs
+            obj.background.setBacksPar(varargin);
+        end
         
         % ------------------------------------------------------------
         %   Editing of Data block
@@ -413,6 +426,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
         end
         
+        function obj = setBulkOut(obj,varargin)
+            % Gerenal purpose set scalefactor method
+            obj.bulkOut.setParameter(varargin);
+        end
         
         
         % ------------------------------------------------------------------
@@ -424,15 +441,24 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
         end
         
+        function obj = setBulkIn(obj,varargin)
+            % Gerenal purpose set scalefactor method
+            obj.bulkIn.setParameter(varargin);
+        end
         
         % -------------------------------------------------------------------
         % Editing of scalefactors block
         
         function obj = addScalefactor(obj,varargin)
             
-            obj.scalefactor.addParam(varargin{:});
-            
+            obj.scalefactors.addParam(varargin{:});
         end
+        
+        function obj = setScalefactor(obj,varargin)
+            % Gerenal purpose set scalefactor method
+            obj.scalefactors.setParameter(varargin);
+        end
+        
         
         % -------------------------------------------------------------------
         % Editing of qzshifts block
@@ -549,8 +575,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 min = find(strcmpi(thisLayer{1},paramNames));
                 val = find(strcmpi(thisLayer{2},paramNames));
                 max = find(strcmpi(thisLayer{3},paramNames));
-                if isempty(thisLayer{4})
-                    hydr = Nan;
+                if ismissing(thisLayer(4))
+                    hydr = NaN;
                 else
                     hydr = find(strcmpi(thisLayer{4},paramNames));
                 end

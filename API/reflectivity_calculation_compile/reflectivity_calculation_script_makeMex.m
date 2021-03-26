@@ -1,7 +1,7 @@
 % REFLECTIVITY_CALCULATION_SCRIPT_MAKEMEX   Generate MEX-function
 %  reflectivity_calculation_mex from reflectivity_calculation.
 % 
-% Script generated from project 'reflectivity_calculation.prj' on 22-Feb-2021.
+% Script generated from project 'reflectivity_calculation.prj' on 25-Mar-2021.
 % 
 % See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.
 
@@ -38,9 +38,9 @@ ARGS_1_1.res = coder.typeof(0,[1 Inf],[0 1]);
 ARGS_1_1.params = coder.typeof(0,[1 Inf],[0 1]);
 ARGS_1_1.numberOfLayers = coder.typeof(0);
 ARGS_1_1.modelType = coder.typeof('X',[1 Inf],[0 1]);
-ARGS_1_1.modelFilename = coder.typeof('X',[1 Inf],[0 1]);
+ARGS_1_1.modelFilename = coder.typeof('X',[1 Inf],[1 1]);
 ARGS_1_1.path = coder.typeof('X',[1 Inf],[0 1]);
-ARGS_1_1.modelLanguage = coder.typeof('X',[1 Inf],[0 1]);
+ARGS_1_1.modelLanguage = coder.typeof('X',[1 Inf],[1 1]);
 ARGS_1_1.fitpars = coder.typeof(0,[Inf Inf],[1 1]);
 ARGS_1_1.otherpars = coder.typeof(0,[Inf Inf],[1 1]);
 ARGS_1_1.fitconstr = coder.typeof(0,[Inf Inf],[1 1]);
@@ -49,7 +49,7 @@ ARGS{1}{1} = coder.typeof(ARGS_1_1);
 ARGS_1_2 = cell([1 13]);
 ARG = coder.typeof(0,[1 2]);
 ARGS_1_2{1} = coder.typeof({ARG}, [1 Inf],[0 1]);
-ARG = coder.typeof(0,[Inf  3],[1 1]);
+ARG = coder.typeof(0,[Inf  3],[1 0]);
 ARGS_1_2{2} = coder.typeof({ARG}, [1 Inf],[0 1]);
 ARG = coder.typeof(0,[1 2]);
 ARGS_1_2{3} = coder.typeof({ARG}, [1 Inf],[0 1]);
@@ -57,7 +57,7 @@ ARG = coder.typeof(0,[1 2]);
 ARGS_1_2{4} = coder.typeof({ARG}, [1 Inf],[0 1]);
 ARG = coder.typeof(0,[1 Inf],[1 1]);
 ARGS_1_2{5} = coder.typeof({ARG}, [1 Inf],[0 1]);
-ARG = coder.typeof(0,[1 5],[1 1]);
+ARG = coder.typeof(0,[1 5],[0 1]);
 ARGS_1_2{6} = coder.typeof({ARG}, [Inf  1],[1 0]);
 ARG = coder.typeof('X',[1 Inf],[0 1]);
 ARGS_1_2{7} = coder.typeof({ARG}, [1 Inf],[0 1]);
@@ -65,7 +65,7 @@ ARG = coder.typeof('X',[1 Inf],[0 1]);
 ARGS_1_2{8} = coder.typeof({ARG}, [1 Inf],[0 1]);
 ARG = coder.typeof('X',[1 Inf],[0 1]);
 ARGS_1_2{9} = coder.typeof({ARG}, [1 Inf],[0 1]);
-ARG = coder.typeof('X',[1 Inf],[0 1]);
+ARG = coder.typeof('X',[1 Inf],[1 1]);
 ARGS_1_2{10} = coder.typeof({ARG}, [1 Inf],[0 1]);
 ARG = coder.typeof('X',[1 Inf],[0 1]);
 ARGS_1_2{11} = coder.typeof({ARG}, [1 Inf],[0 1]);
@@ -103,6 +103,9 @@ ARGS_1_4.nmcmc = coder.typeof(0);
 ARGS_1_4.propScale = coder.typeof(0);
 ARGS_1_4.nsTolerance = coder.typeof(0);
 ARGS_1_4.calcSld = coder.typeof(0);
+ARGS_1_4.repeats = coder.typeof(0);
+ARGS_1_4.nsimu = coder.typeof(0);
+ARGS_1_4.burnin = coder.typeof(0);
 ARGS_1_4_checks = struct;
 ARGS_1_4_checks.params_fitYesNo = coder.typeof(0,[1 Inf],[0 1]);
 ARGS_1_4_checks.backs_fitYesNo = coder.typeof(0,[1 Inf],[0 1]);

@@ -1,7 +1,4 @@
-function [problem,result] = RAT_new(problemDefInput,controls)
-
-
-
+function [outProblemDef,result] = RAT_new(problemDefInput,controls)
 
 [problemDef,problemDef_cells,problemDef_limits,controls] = RatParseClassToStructs_new(problemDefInput,controls);
 
@@ -55,21 +52,41 @@ setappdata(0,'ratOut',{ratOut ; ratListener});
 
 
 %Call the main RAT routine...
-[outProblemStruct,problem,result] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls);
 
-% Then just do a final calculation to fill in SLD if necessary 
-% if controls.calcSld == 0
-%     controls.calcSld = 1;
-%     controls.proc = 'calculate';
-%     [outProblemStruct,problem,result] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,controls);
-% end
 
-if ~ any((strcmpi(controls.proc,{'NS','bayes'})))
-    result = parseResultToStruct(outProblemStruct,problem,result);
+fprintf('Starting RAT ________________________________________________________________________________________________ \n');
+
+tic
+[outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls);
+fprintf('\n');
+toc
+
+% Then just do a final calculation to fill in SLD if necessary (i.e. if
+% calSLD is no for fit)
+if controls.calcSld == 0
+    originalProc = controls.proc;
+    controls.calcSld = 1;
+    controls.proc = 'calculate';
+    [outProblemStruct,problem,result,bRes] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,controls);
+    controls.proc = originalProc;
 end
-%outProblemDef = RATparseOutToProblemDef2(problemDefInput,outProblemStruct,problem,result);
 
-problem = outProblemDef;
+result = parseResultToStruct(problem,result);
+if any((strcmpi(controls.proc,{'NS','bayes'})))
+   result.chain = bayesResults.chain;
+   result.bayesRes = bayesResults.bestPars;
+   result.sschain = bayesResults.sschain;
+%   result.posteriors = bayesResults.posteriors;
+%   result.best = bayesResults.best;
+%   result.posteriors = bayesResults.posteriors;
+end
+
+
+
+outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result);
+
+fprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n');
+
 
 end
 

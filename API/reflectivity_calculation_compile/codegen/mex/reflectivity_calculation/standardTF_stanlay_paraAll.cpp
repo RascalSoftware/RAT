@@ -21,39 +21,39 @@
 #include "sum.h"
 
 // Variable Definitions
-static emlrtRSInfo ig_emlrtRSI = { 45, // lineNo
+static emlrtRSInfo qg_emlrtRSI = { 45, // lineNo
   "standardTF_stanlay_paraAll",        // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pathName 
 };
 
-static emlrtRSInfo jg_emlrtRSI = { 54, // lineNo
+static emlrtRSInfo rg_emlrtRSI = { 54, // lineNo
   "standardTF_stanlay_paraAll",        // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pathName 
 };
 
-static emlrtRSInfo kg_emlrtRSI = { 59, // lineNo
+static emlrtRSInfo sg_emlrtRSI = { 59, // lineNo
   "standardTF_stanlay_paraAll",        // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pathName 
 };
 
-static emlrtRSInfo lg_emlrtRSI = { 78, // lineNo
+static emlrtRSInfo tg_emlrtRSI = { 78, // lineNo
   "standardTF_stanlay_paraAll",        // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pathName 
 };
 
-static emlrtRTEInfo dc_emlrtRTEI = { 26,// lineNo
+static emlrtRTEInfo ec_emlrtRTEI = { 26,// lineNo
   9,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo ec_emlrtRTEI = { 31,// lineNo
+static emlrtRTEInfo fc_emlrtRTEI = { 31,// lineNo
   9,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo fc_emlrtRTEI = { 36,// lineNo
+static emlrtRTEInfo gc_emlrtRTEI = { 36,// lineNo
   9,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
@@ -66,13 +66,13 @@ static emlrtDCInfo mb_emlrtDCI = { 48, // lineNo
   1                                    // checkKind
 };
 
-static emlrtRTEInfo gc_emlrtRTEI = { 48,// lineNo
+static emlrtRTEInfo hc_emlrtRTEI = { 48,// lineNo
   12,                                  // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtBCInfo cj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo vi_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   63,                                  // lineNo
   24,                                  // colNo
@@ -82,7 +82,7 @@ static emlrtBCInfo cj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo dj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo wi_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   65,                                  // lineNo
   29,                                  // colNo
@@ -92,7 +92,7 @@ static emlrtBCInfo dj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ej_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo xi_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   68,                                  // lineNo
   35,                                  // colNo
@@ -102,7 +102,7 @@ static emlrtBCInfo ej_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo fj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo yi_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   71,                                  // lineNo
   31,                                  // colNo
@@ -112,7 +112,7 @@ static emlrtBCInfo fj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo gj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo aj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   64,                                  // lineNo
   37,                                  // colNo
@@ -122,7 +122,7 @@ static emlrtBCInfo gj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo hj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo bj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   67,                                  // lineNo
   24,                                  // colNo
@@ -132,7 +132,7 @@ static emlrtBCInfo hj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ij_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo cj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   69,                                  // lineNo
   33,                                  // colNo
@@ -142,7 +142,7 @@ static emlrtBCInfo ij_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo jj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo dj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   70,                                  // lineNo
   31,                                  // colNo
@@ -159,7 +159,7 @@ static emlrtDCInfo nb_emlrtDCI = { 12, // lineNo
   1                                    // checkKind
 };
 
-static emlrtBCInfo kj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ej_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   27,                                  // lineNo
   5,                                   // colNo
@@ -169,7 +169,7 @@ static emlrtBCInfo kj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo lj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo fj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   32,                                  // lineNo
   5,                                   // colNo
@@ -179,7 +179,7 @@ static emlrtBCInfo lj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo mj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo gj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   37,                                  // lineNo
   5,                                   // colNo
@@ -189,7 +189,7 @@ static emlrtBCInfo mj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo nj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo hj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   54,                                  // lineNo
   77,                                  // colNo
@@ -199,7 +199,7 @@ static emlrtBCInfo nj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo oj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ij_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   54,                                  // lineNo
   87,                                  // colNo
@@ -209,7 +209,7 @@ static emlrtBCInfo oj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo pj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo jj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   54,                                  // lineNo
   98,                                  // colNo
@@ -219,7 +219,7 @@ static emlrtBCInfo pj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo qj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo kj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   54,                                  // lineNo
   109,                                 // colNo
@@ -229,7 +229,7 @@ static emlrtBCInfo qj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo rj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo lj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   54,                                  // lineNo
   118,                                 // colNo
@@ -239,7 +239,7 @@ static emlrtBCInfo rj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo sj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo mj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   54,                                  // lineNo
   127,                                 // colNo
@@ -249,7 +249,7 @@ static emlrtBCInfo sj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo tj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo nj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   59,                                  // lineNo
   52,                                  // colNo
@@ -259,7 +259,7 @@ static emlrtBCInfo tj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo uj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo oj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   88,                                  // lineNo
   5,                                   // colNo
@@ -269,7 +269,7 @@ static emlrtBCInfo uj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo vj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo pj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   89,                                  // lineNo
   5,                                   // colNo
@@ -279,7 +279,7 @@ static emlrtBCInfo vj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo wj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo qj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   90,                                  // lineNo
   5,                                   // colNo
@@ -289,7 +289,7 @@ static emlrtBCInfo wj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo xj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo rj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   91,                                  // lineNo
   5,                                   // colNo
@@ -299,7 +299,7 @@ static emlrtBCInfo xj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo yj_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo sj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   92,                                  // lineNo
   5,                                   // colNo
@@ -309,7 +309,7 @@ static emlrtBCInfo yj_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ak_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo tj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   93,                                  // lineNo
   5,                                   // colNo
@@ -319,7 +319,7 @@ static emlrtBCInfo ak_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo bk_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo uj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   94,                                  // lineNo
   5,                                   // colNo
@@ -329,7 +329,7 @@ static emlrtBCInfo bk_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ck_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo vj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   95,                                  // lineNo
   5,                                   // colNo
@@ -339,7 +339,7 @@ static emlrtBCInfo ck_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo dk_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo wj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   96,                                  // lineNo
   5,                                   // colNo
@@ -349,7 +349,7 @@ static emlrtBCInfo dk_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ek_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo xj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   97,                                  // lineNo
   5,                                   // colNo
@@ -359,7 +359,7 @@ static emlrtBCInfo ek_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo fk_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo yj_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   98,                                  // lineNo
   5,                                   // colNo
@@ -369,7 +369,7 @@ static emlrtBCInfo fk_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo gk_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ak_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   99,                                  // lineNo
   5,                                   // colNo
@@ -379,7 +379,7 @@ static emlrtBCInfo gk_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo hk_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo bk_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   100,                                 // lineNo
   5,                                   // colNo
@@ -389,7 +389,7 @@ static emlrtBCInfo hk_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ik_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ck_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   101,                                 // lineNo
   5,                                   // colNo
@@ -399,61 +399,61 @@ static emlrtBCInfo ik_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtRTEInfo oi_emlrtRTEI = { 3,// lineNo
+static emlrtRTEInfo mi_emlrtRTEI = { 3,// lineNo
   26,                                  // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo pi_emlrtRTEI = { 27,// lineNo
+static emlrtRTEInfo ni_emlrtRTEI = { 27,// lineNo
   5,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo qi_emlrtRTEI = { 32,// lineNo
+static emlrtRTEInfo oi_emlrtRTEI = { 32,// lineNo
   5,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo ri_emlrtRTEI = { 37,// lineNo
+static emlrtRTEInfo pi_emlrtRTEI = { 37,// lineNo
   5,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo si_emlrtRTEI = { 19,// lineNo
+static emlrtRTEInfo qi_emlrtRTEI = { 19,// lineNo
   12,                                  // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo ti_emlrtRTEI = { 89,// lineNo
+static emlrtRTEInfo ri_emlrtRTEI = { 89,// lineNo
   5,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo ui_emlrtRTEI = { 90,// lineNo
+static emlrtRTEInfo si_emlrtRTEI = { 90,// lineNo
   5,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo vi_emlrtRTEI = { 91,// lineNo
+static emlrtRTEInfo ti_emlrtRTEI = { 91,// lineNo
   5,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo wi_emlrtRTEI = { 92,// lineNo
+static emlrtRTEInfo ui_emlrtRTEI = { 92,// lineNo
   5,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
 };
 
-static emlrtRTEInfo xi_emlrtRTEI = { 93,// lineNo
+static emlrtRTEInfo vi_emlrtRTEI = { 93,// lineNo
   5,                                   // colNo
   "standardTF_stanlay_paraAll",        // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.m"// pName 
@@ -469,17 +469,17 @@ void standardTF_stanlay_paraAll(const emlrtStack *sp, const coder::array<real_T,
   const coder::array<real_T, 2U> &backs, const coder::array<real_T, 2U> &shifts,
   const coder::array<real_T, 2U> &sf, const coder::array<real_T, 2U> &nba, const
   coder::array<real_T, 2U> &nbs, const coder::array<real_T, 2U> &res, const
-  coder::array<real_T, 2U> &dataPresent, const coder::array<cell_wrap_12, 2U>
+  coder::array<real_T, 2U> &dataPresent, const coder::array<cell_wrap_1, 2U>
   &allData, const coder::array<cell_wrap_0, 2U> &dataLimits, const coder::array<
   cell_wrap_0, 2U> &simLimits, real_T nParams, const coder::array<real_T, 2U>
   &params, const coder::array<cell_wrap_12, 2U> &contrastLayers, const coder::
-  array<cell_wrap_12, 1U> &layersDetails, const coder::array<real_T, 2U>
+  array<cell_wrap_3, 1U> &layersDetails, const coder::array<real_T, 2U>
   &backsType, real_T calcSld, coder::array<real_T, 1U> &outSsubs, coder::array<
   real_T, 1U> &backgs, coder::array<real_T, 1U> &qshifts, coder::array<real_T,
   1U> &sfs, coder::array<real_T, 1U> &nbas, coder::array<real_T, 1U> &nbss,
   coder::array<real_T, 1U> &resols, coder::array<real_T, 1U> &chis, coder::array<
-  cell_wrap_6, 1U> &reflectivity, coder::array<cell_wrap_6, 1U> &Simulation,
-  coder::array<cell_wrap_12, 1U> &shifted_data, coder::array<cell_wrap_7, 1U>
+  cell_wrap_7, 1U> &reflectivity, coder::array<cell_wrap_7, 1U> &Simulation,
+  coder::array<cell_wrap_1, 1U> &shifted_data, coder::array<cell_wrap_1, 1U>
   &layerSlds, coder::array<cell_wrap_12, 1U> &sldProfiles, coder::array<
   cell_wrap_11, 1U> &allLayers, coder::array<real_T, 1U> &allRoughs)
 {
@@ -488,14 +488,14 @@ void standardTF_stanlay_paraAll(const emlrtStack *sp, const coder::array<real_T,
   int32_T b_i;
   int32_T i1;
   int32_T i2;
-  coder::array<cell_wrap_17, 2U> outParameterisedLayers;
+  coder::array<cell_wrap_19, 2U> outParameterisedLayers;
   int32_T c_i;
   coder::array<real_T, 2U> thisContrastLayers;
   coder::array<real_T, 2U> sldProfile;
   coder::array<real_T, 2U> reflect;
   coder::array<real_T, 2U> Simul;
+  coder::array<real_T, 2U> shifted_dat;
   coder::array<real_T, 2U> thisData;
-  coder::array<real_T, 2U> layerSld;
   real_T thisSsubs;
   real_T thisChiSquared;
   real_T thisResol;
@@ -524,125 +524,125 @@ void standardTF_stanlay_paraAll(const emlrtStack *sp, const coder::array<real_T,
 
   i = static_cast<int32_T>(numberOfContrasts);
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, numberOfContrasts, mxDOUBLE_CLASS,
-    static_cast<int32_T>(numberOfContrasts), &dc_emlrtRTEI, sp);
-  reflectivity.set_size((&oi_emlrtRTEI), sp, i);
+    static_cast<int32_T>(numberOfContrasts), &ec_emlrtRTEI, sp);
+  reflectivity.set_size((&mi_emlrtRTEI), sp, i);
   for (b_i = 0; b_i < i; b_i++) {
     i1 = reflectivity.size(0) - 1;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &kj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &ej_emlrtBCI, sp);
     }
 
-    reflectivity[b_i].f1.set_size((&pi_emlrtRTEI), sp, 2, reflectivity[b_i].
+    reflectivity[b_i].f1.set_size((&ni_emlrtRTEI), sp, 2, reflectivity[b_i].
       f1.size(1));
     i1 = reflectivity.size(0) - 1;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &kj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &ej_emlrtBCI, sp);
     }
 
-    reflectivity[b_i].f1.set_size((&pi_emlrtRTEI), sp, reflectivity[b_i].f1.size
+    reflectivity[b_i].f1.set_size((&ni_emlrtRTEI), sp, reflectivity[b_i].f1.size
       (0), 2);
     i1 = reflectivity.size(0) - 1;
     i2 = reflectivity.size(0) - 1;
     if (b_i > i2) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &kj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &ej_emlrtBCI, sp);
     }
 
     i2 = reflectivity.size(0) - 1;
     if (b_i > i2) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &kj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &ej_emlrtBCI, sp);
     }
 
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &kj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &ej_emlrtBCI, sp);
     }
 
     reflectivity[b_i].f1[0] = 1.0;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &kj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &ej_emlrtBCI, sp);
     }
 
     reflectivity[b_i].f1[1] = 1.0;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &kj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &ej_emlrtBCI, sp);
     }
 
     reflectivity[b_i].f1[2] = 1.0;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &kj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &ej_emlrtBCI, sp);
     }
 
     reflectivity[b_i].f1[3] = 1.0;
   }
 
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, numberOfContrasts, mxDOUBLE_CLASS,
-    static_cast<int32_T>(numberOfContrasts), &ec_emlrtRTEI, sp);
-  Simulation.set_size((&oi_emlrtRTEI), sp, i);
+    static_cast<int32_T>(numberOfContrasts), &fc_emlrtRTEI, sp);
+  Simulation.set_size((&mi_emlrtRTEI), sp, i);
   for (b_i = 0; b_i < i; b_i++) {
     i1 = Simulation.size(0) - 1;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &lj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &fj_emlrtBCI, sp);
     }
 
-    Simulation[b_i].f1.set_size((&qi_emlrtRTEI), sp, 2, Simulation[b_i].f1.size
+    Simulation[b_i].f1.set_size((&oi_emlrtRTEI), sp, 2, Simulation[b_i].f1.size
       (1));
     i1 = Simulation.size(0) - 1;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &lj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &fj_emlrtBCI, sp);
     }
 
-    Simulation[b_i].f1.set_size((&qi_emlrtRTEI), sp, Simulation[b_i].f1.size(0),
+    Simulation[b_i].f1.set_size((&oi_emlrtRTEI), sp, Simulation[b_i].f1.size(0),
       2);
     i1 = Simulation.size(0) - 1;
     i2 = Simulation.size(0) - 1;
     if (b_i > i2) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &lj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &fj_emlrtBCI, sp);
     }
 
     i2 = Simulation.size(0) - 1;
     if (b_i > i2) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &lj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &fj_emlrtBCI, sp);
     }
 
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &lj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &fj_emlrtBCI, sp);
     }
 
     Simulation[b_i].f1[0] = 1.0;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &lj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &fj_emlrtBCI, sp);
     }
 
     Simulation[b_i].f1[1] = 1.0;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &lj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &fj_emlrtBCI, sp);
     }
 
     Simulation[b_i].f1[2] = 1.0;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &lj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &fj_emlrtBCI, sp);
     }
 
     Simulation[b_i].f1[3] = 1.0;
   }
 
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, numberOfContrasts, mxDOUBLE_CLASS,
-    static_cast<int32_T>(numberOfContrasts), &fc_emlrtRTEI, sp);
-  allLayers.set_size((&oi_emlrtRTEI), sp, i);
+    static_cast<int32_T>(numberOfContrasts), &gc_emlrtRTEI, sp);
+  allLayers.set_size((&mi_emlrtRTEI), sp, i);
   for (b_i = 0; b_i < i; b_i++) {
     i1 = allLayers.size(0) - 1;
     i2 = allLayers.size(0) - 1;
     if (b_i > i2) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &mj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &gj_emlrtBCI, sp);
     }
 
-    allLayers[b_i].f1.set_size((&ri_emlrtRTEI), sp, 2);
+    allLayers[b_i].f1.set_size((&pi_emlrtRTEI), sp, 2);
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &mj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &gj_emlrtBCI, sp);
     }
 
     allLayers[b_i].f1[0] = 1.0;
     if (b_i > i1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &mj_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1, &gj_emlrtBCI, sp);
     }
 
     allLayers[b_i].f1[1] = 1.0;
@@ -652,34 +652,34 @@ void standardTF_stanlay_paraAll(const emlrtStack *sp, const coder::array<real_T,
   //  First we need to allocate the absolute values of the input
   //  parameters to all the layers in the layers list. This only needs
   //  to be done once, and so is done outside the contrasts loop
-  st.site = &ig_emlrtRSI;
+  st.site = &qg_emlrtRSI;
   allocateParamsToLayers(&st, params, layersDetails, outParameterisedLayers);
   if (static_cast<int32_T>(numberOfContrasts) != ub_loop) {
     emlrtIntegerCheckR2012b(numberOfContrasts, &mb_emlrtDCI, sp);
   }
 
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, numberOfContrasts, mxDOUBLE_CLASS,
-    static_cast<int32_T>(numberOfContrasts), &gc_emlrtRTEI, sp);
-  outSsubs.set_size((&si_emlrtRTEI), sp, i);
-  sldProfiles.set_size((&oi_emlrtRTEI), sp, i);
-  reflectivity.set_size((&oi_emlrtRTEI), sp, i);
-  Simulation.set_size((&oi_emlrtRTEI), sp, i);
-  shifted_data.set_size((&oi_emlrtRTEI), sp, i);
-  layerSlds.set_size((&oi_emlrtRTEI), sp, i);
-  chis.set_size((&si_emlrtRTEI), sp, i);
-  backgs.set_size((&si_emlrtRTEI), sp, i);
-  qshifts.set_size((&si_emlrtRTEI), sp, i);
-  sfs.set_size((&si_emlrtRTEI), sp, i);
-  nbas.set_size((&si_emlrtRTEI), sp, i);
-  nbss.set_size((&si_emlrtRTEI), sp, i);
-  resols.set_size((&si_emlrtRTEI), sp, i);
-  allRoughs.set_size((&si_emlrtRTEI), sp, i);
+    static_cast<int32_T>(numberOfContrasts), &hc_emlrtRTEI, sp);
+  outSsubs.set_size((&qi_emlrtRTEI), sp, i);
+  sldProfiles.set_size((&mi_emlrtRTEI), sp, i);
+  reflectivity.set_size((&mi_emlrtRTEI), sp, i);
+  Simulation.set_size((&mi_emlrtRTEI), sp, i);
+  shifted_data.set_size((&mi_emlrtRTEI), sp, i);
+  layerSlds.set_size((&mi_emlrtRTEI), sp, i);
+  chis.set_size((&qi_emlrtRTEI), sp, i);
+  backgs.set_size((&qi_emlrtRTEI), sp, i);
+  qshifts.set_size((&qi_emlrtRTEI), sp, i);
+  sfs.set_size((&qi_emlrtRTEI), sp, i);
+  nbas.set_size((&qi_emlrtRTEI), sp, i);
+  nbss.set_size((&qi_emlrtRTEI), sp, i);
+  resols.set_size((&qi_emlrtRTEI), sp, i);
+  allRoughs.set_size((&qi_emlrtRTEI), sp, i);
   ub_loop = static_cast<int32_T>(numberOfContrasts) - 1;
   emlrtEnterParallelRegion(sp, omp_in_parallel());
 
 #pragma omp parallel \
  num_threads(emlrtAllocRegionTLSs(sp->tls, omp_in_parallel(), omp_get_max_threads(), omp_get_num_procs())) \
- private(thisContrastLayers,sldProfile,reflect,Simul,thisData,layerSld,thisSsubs,thisChiSquared,thisResol,thisNbs,thisNba,thisSf,thisQshift,thisBackground,c_st,i3,c_i,loop_ub,i4) \
+ private(thisContrastLayers,sldProfile,reflect,Simul,shifted_dat,thisData,thisSsubs,thisChiSquared,thisResol,thisNbs,thisNba,thisSf,thisQshift,thisBackground,c_st,i3,c_i,loop_ub,i4) \
  firstprivate(b_st,emlrtHadParallelError)
 
   {
@@ -706,35 +706,35 @@ void standardTF_stanlay_paraAll(const emlrtStack *sp, const coder::array<real_T,
         //  data shifts and bulk contrasts are associated with this contrast
         i3 = static_cast<int32_T>(c_i + 1U);
         if ((i3 < 1) || (i3 > cBacks.size(1))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, cBacks.size(1), &nj_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, cBacks.size(1), &hj_emlrtBCI,
             &b_st);
         }
 
         if (i3 > cShifts.size(1)) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, cShifts.size(1), &oj_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, cShifts.size(1), &ij_emlrtBCI,
             &b_st);
         }
 
         if (i3 > cScales.size(1)) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, cScales.size(1), &pj_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, cScales.size(1), &jj_emlrtBCI,
             &b_st);
         }
 
         if (i3 > cNbas.size(1)) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, cNbas.size(1), &qj_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, cNbas.size(1), &kj_emlrtBCI,
             &b_st);
         }
 
         if (i3 > cNbss.size(1)) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, cNbss.size(1), &rj_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, cNbss.size(1), &lj_emlrtBCI,
             &b_st);
         }
 
         if (i3 > cRes.size(1)) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, cRes.size(1), &sj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(i3, 1, cRes.size(1), &mj_emlrtBCI, &b_st);
         }
 
-        c_st.site = &jg_emlrtRSI;
+        c_st.site = &rg_emlrtRSI;
         backSort(&c_st, cBacks[i3 - 1], cShifts[i3 - 1], cScales[i3 - 1],
                  cNbas[i3 - 1], cNbss[i3 - 1], cRes[i3 - 1], backs, shifts, sf,
                  nba, nbs, res, &thisBackground, &thisQshift, &thisSf, &thisNba,
@@ -745,68 +745,68 @@ void standardTF_stanlay_paraAll(const emlrtStack *sp, const coder::array<real_T,
         //  according to geometry
         i3 = contrastLayers.size(1) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &tj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &nj_emlrtBCI, &b_st);
         }
 
-        c_st.site = &kg_emlrtRSI;
+        c_st.site = &sg_emlrtRSI;
         allocateLayersForContrast(&c_st, contrastLayers[c_i].f1,
           outParameterisedLayers, thisContrastLayers);
 
         //  For the other parameters, we extract the correct ones from the input 
         //  arrays
         if (1 > params.size(1)) {
-          emlrtDynamicBoundsCheckR2012b(1, 1, params.size(1), &cj_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(1, 1, params.size(1), &vi_emlrtBCI,
             &b_st);
         }
 
         //  Substrate roughness is always first parameter for standard layers
         i3 = repeatLayers.size(1) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &gj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &aj_emlrtBCI, &b_st);
         }
 
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > resample.size(1))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, resample.size(1), &dj_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, resample.size(1), &wi_emlrtBCI,
             &b_st);
         }
 
         i3 = allData.size(1) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &hj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &bj_emlrtBCI, &b_st);
         }
 
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > dataPresent.size(1))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, dataPresent.size(1), &ej_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, dataPresent.size(1), &xi_emlrtBCI,
             &b_st);
         }
 
         i3 = dataLimits.size(1) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &ij_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &cj_emlrtBCI, &b_st);
         }
 
         i3 = simLimits.size(1) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &jj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &dj_emlrtBCI, &b_st);
         }
 
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > backsType.size(1))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, backsType.size(1), &fj_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, backsType.size(1), &yi_emlrtBCI,
             &b_st);
         }
 
         //  Now call the core standardTF_stanlay reflectivity calculation
         //  In this case we parallelise over points.
         //  Call the calculation
-        c_st.site = &lg_emlrtRSI;
+        c_st.site = &tg_emlrtRSI;
         b_standardTF_layers_core(&c_st, thisContrastLayers, params[0], geometry,
           thisNba, thisNbs, resample[c_i], calcSld, thisSf, thisQshift,
           dataPresent[c_i], allData[c_i].f1, dataLimits[c_i].f1, simLimits[c_i].
           f1, repeatLayers[c_i].f1, thisBackground, thisResol, backsType[c_i],
-          nParams, sldProfile, reflect, Simul, thisData, layerSld,
+          nParams, sldProfile, reflect, Simul, shifted_dat, thisData,
           &thisChiSquared, &thisSsubs);
 
         //  Store returned values for this contrast in the output arrays.
@@ -815,7 +815,7 @@ void standardTF_stanlay_paraAll(const emlrtStack *sp, const coder::array<real_T,
         //  for future use.
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > outSsubs.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, outSsubs.size(0), &uj_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, outSsubs.size(0), &oj_emlrtBCI,
             &b_st);
         }
 
@@ -823,32 +823,32 @@ void standardTF_stanlay_paraAll(const emlrtStack *sp, const coder::array<real_T,
         loop_ub = sldProfile.size(0) * sldProfile.size(1);
         i3 = sldProfiles.size(0) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &vj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &pj_emlrtBCI, &b_st);
         }
 
-        sldProfiles[c_i].f1.set_size((&ti_emlrtRTEI), (&b_st), sldProfile.size(0),
+        sldProfiles[c_i].f1.set_size((&ri_emlrtRTEI), (&b_st), sldProfile.size(0),
           sldProfiles[c_i].f1.size(1));
         i3 = sldProfiles.size(0) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &vj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &pj_emlrtBCI, &b_st);
         }
 
-        sldProfiles[c_i].f1.set_size((&ti_emlrtRTEI), (&b_st), sldProfiles[c_i].
+        sldProfiles[c_i].f1.set_size((&ri_emlrtRTEI), (&b_st), sldProfiles[c_i].
           f1.size(0), sldProfile.size(1));
         i3 = sldProfiles.size(0) - 1;
         i4 = sldProfiles.size(0) - 1;
         if (c_i > i4) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &vj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &pj_emlrtBCI, &b_st);
         }
 
         i4 = sldProfiles.size(0) - 1;
         if (c_i > i4) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &vj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &pj_emlrtBCI, &b_st);
         }
 
         for (i4 = 0; i4 < loop_ub; i4++) {
           if (c_i > i3) {
-            emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &vj_emlrtBCI, &b_st);
+            emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &pj_emlrtBCI, &b_st);
           }
 
           sldProfiles[c_i].f1[i4] = sldProfile[i4];
@@ -857,32 +857,32 @@ void standardTF_stanlay_paraAll(const emlrtStack *sp, const coder::array<real_T,
         loop_ub = reflect.size(0) * reflect.size(1);
         i3 = reflectivity.size(0) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &wj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &qj_emlrtBCI, &b_st);
         }
 
-        reflectivity[c_i].f1.set_size((&ui_emlrtRTEI), (&b_st), reflect.size(0),
+        reflectivity[c_i].f1.set_size((&si_emlrtRTEI), (&b_st), reflect.size(0),
           reflectivity[c_i].f1.size(1));
         i3 = reflectivity.size(0) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &wj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &qj_emlrtBCI, &b_st);
         }
 
-        reflectivity[c_i].f1.set_size((&ui_emlrtRTEI), (&b_st), reflectivity[c_i]
+        reflectivity[c_i].f1.set_size((&si_emlrtRTEI), (&b_st), reflectivity[c_i]
           .f1.size(0), 2);
         i3 = reflectivity.size(0) - 1;
         i4 = reflectivity.size(0) - 1;
         if (c_i > i4) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &wj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &qj_emlrtBCI, &b_st);
         }
 
         i4 = reflectivity.size(0) - 1;
         if (c_i > i4) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &wj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &qj_emlrtBCI, &b_st);
         }
 
         for (i4 = 0; i4 < loop_ub; i4++) {
           if (c_i > i3) {
-            emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &wj_emlrtBCI, &b_st);
+            emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &qj_emlrtBCI, &b_st);
           }
 
           reflectivity[c_i].f1[i4] = reflect[i4];
@@ -891,153 +891,153 @@ void standardTF_stanlay_paraAll(const emlrtStack *sp, const coder::array<real_T,
         loop_ub = Simul.size(0) * Simul.size(1);
         i3 = Simulation.size(0) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &xj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &rj_emlrtBCI, &b_st);
         }
 
-        Simulation[c_i].f1.set_size((&vi_emlrtRTEI), (&b_st), Simul.size(0),
+        Simulation[c_i].f1.set_size((&ti_emlrtRTEI), (&b_st), Simul.size(0),
           Simulation[c_i].f1.size(1));
         i3 = Simulation.size(0) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &xj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &rj_emlrtBCI, &b_st);
         }
 
-        Simulation[c_i].f1.set_size((&vi_emlrtRTEI), (&b_st), Simulation[c_i].
+        Simulation[c_i].f1.set_size((&ti_emlrtRTEI), (&b_st), Simulation[c_i].
           f1.size(0), 2);
         i3 = Simulation.size(0) - 1;
         i4 = Simulation.size(0) - 1;
         if (c_i > i4) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &xj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &rj_emlrtBCI, &b_st);
         }
 
         i4 = Simulation.size(0) - 1;
         if (c_i > i4) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &xj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &rj_emlrtBCI, &b_st);
         }
 
         for (i4 = 0; i4 < loop_ub; i4++) {
           if (c_i > i3) {
-            emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &xj_emlrtBCI, &b_st);
+            emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &rj_emlrtBCI, &b_st);
           }
 
           Simulation[c_i].f1[i4] = Simul[i4];
         }
 
-        loop_ub = thisData.size(0) * thisData.size(1);
+        loop_ub = shifted_dat.size(0) * shifted_dat.size(1);
         i3 = shifted_data.size(0) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &yj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &sj_emlrtBCI, &b_st);
         }
 
-        shifted_data[c_i].f1.set_size((&wi_emlrtRTEI), (&b_st), thisData.size(0),
-          shifted_data[c_i].f1.size(1));
+        shifted_data[c_i].f1.set_size((&ui_emlrtRTEI), (&b_st), shifted_dat.size
+          (0), shifted_data[c_i].f1.size(1));
         i3 = shifted_data.size(0) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &yj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &sj_emlrtBCI, &b_st);
         }
 
-        shifted_data[c_i].f1.set_size((&wi_emlrtRTEI), (&b_st), shifted_data[c_i]
-          .f1.size(0), thisData.size(1));
+        shifted_data[c_i].f1.set_size((&ui_emlrtRTEI), (&b_st), shifted_data[c_i]
+          .f1.size(0), 3);
         i3 = shifted_data.size(0) - 1;
         i4 = shifted_data.size(0) - 1;
         if (c_i > i4) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &yj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &sj_emlrtBCI, &b_st);
         }
 
         i4 = shifted_data.size(0) - 1;
         if (c_i > i4) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &yj_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &sj_emlrtBCI, &b_st);
         }
 
         for (i4 = 0; i4 < loop_ub; i4++) {
           if (c_i > i3) {
-            emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &yj_emlrtBCI, &b_st);
+            emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &sj_emlrtBCI, &b_st);
           }
 
-          shifted_data[c_i].f1[i4] = thisData[i4];
+          shifted_data[c_i].f1[i4] = shifted_dat[i4];
         }
 
-        loop_ub = layerSld.size(0) * layerSld.size(1);
+        loop_ub = thisData.size(0) * thisData.size(1);
         i3 = layerSlds.size(0) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &ak_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &tj_emlrtBCI, &b_st);
         }
 
-        layerSlds[c_i].f1.set_size((&xi_emlrtRTEI), (&b_st), layerSld.size(0),
+        layerSlds[c_i].f1.set_size((&vi_emlrtRTEI), (&b_st), thisData.size(0),
           layerSlds[c_i].f1.size(1));
         i3 = layerSlds.size(0) - 1;
         if (c_i > i3) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &ak_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &tj_emlrtBCI, &b_st);
         }
 
-        layerSlds[c_i].f1.set_size((&xi_emlrtRTEI), (&b_st), layerSlds[c_i].
+        layerSlds[c_i].f1.set_size((&vi_emlrtRTEI), (&b_st), layerSlds[c_i].
           f1.size(0), 3);
         i3 = layerSlds.size(0) - 1;
         i4 = layerSlds.size(0) - 1;
         if (c_i > i4) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &ak_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &tj_emlrtBCI, &b_st);
         }
 
         i4 = layerSlds.size(0) - 1;
         if (c_i > i4) {
-          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &ak_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(c_i, 0, i4, &tj_emlrtBCI, &b_st);
         }
 
         for (i4 = 0; i4 < loop_ub; i4++) {
           if (c_i > i3) {
-            emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &ak_emlrtBCI, &b_st);
+            emlrtDynamicBoundsCheckR2012b(c_i, 0, i3, &tj_emlrtBCI, &b_st);
           }
 
-          layerSlds[c_i].f1[i4] = layerSld[i4];
+          layerSlds[c_i].f1[i4] = thisData[i4];
         }
 
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > chis.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, chis.size(0), &bk_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(i3, 1, chis.size(0), &uj_emlrtBCI, &b_st);
         }
 
         chis[i3 - 1] = thisChiSquared;
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > backgs.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, backgs.size(0), &ck_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, backgs.size(0), &vj_emlrtBCI,
             &b_st);
         }
 
         backgs[i3 - 1] = thisBackground;
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > qshifts.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, qshifts.size(0), &dk_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, qshifts.size(0), &wj_emlrtBCI,
             &b_st);
         }
 
         qshifts[i3 - 1] = thisQshift;
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > sfs.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, sfs.size(0), &ek_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(i3, 1, sfs.size(0), &xj_emlrtBCI, &b_st);
         }
 
         sfs[i3 - 1] = thisSf;
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > nbas.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, nbas.size(0), &fk_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(i3, 1, nbas.size(0), &yj_emlrtBCI, &b_st);
         }
 
         nbas[i3 - 1] = thisNba;
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > nbss.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, nbss.size(0), &gk_emlrtBCI, &b_st);
+          emlrtDynamicBoundsCheckR2012b(i3, 1, nbss.size(0), &ak_emlrtBCI, &b_st);
         }
 
         nbss[i3 - 1] = thisNbs;
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > resols.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, resols.size(0), &hk_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, resols.size(0), &bk_emlrtBCI,
             &b_st);
         }
 
         resols[i3 - 1] = thisResol;
         i3 = c_i + 1;
         if ((i3 < 1) || (i3 > allRoughs.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, allRoughs.size(0), &ik_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(i3, 1, allRoughs.size(0), &ck_emlrtBCI,
             &b_st);
         }
 

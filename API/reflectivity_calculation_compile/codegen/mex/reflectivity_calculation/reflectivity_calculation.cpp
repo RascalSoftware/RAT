@@ -11,6 +11,7 @@
 
 // Include files
 #include "reflectivity_calculation.h"
+#include "allocateParamsToLayers.h"
 #include "groupLayers_Mod.h"
 #include "mwmathutil.h"
 #include "rt_nonfinite.h"
@@ -23,17 +24,17 @@ struct cell_wrap_10
   coder::array<real_T, 2U> f1;
 };
 
-struct cell_wrap_16
+struct cell_wrap_18
 {
   real_T f1[2];
 };
 
-struct cell_wrap_15
+struct cell_wrap_17
 {
   real_T f1[6];
 };
 
-struct cell_wrap_14
+struct cell_wrap_16
 {
   real_T f1[4];
 };
@@ -434,134 +435,128 @@ static emlrtBCInfo w_emlrtBCI = { -1,  // iFirst
   0                                    // checkKind
 };
 
-static emlrtRTEInfo hc_emlrtRTEI = { 6,// lineNo
+static emlrtRTEInfo ic_emlrtRTEI = { 6,// lineNo
   1,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo ic_emlrtRTEI = { 7,// lineNo
+static emlrtRTEInfo jc_emlrtRTEI = { 7,// lineNo
   1,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo jc_emlrtRTEI = { 8,// lineNo
+static emlrtRTEInfo kc_emlrtRTEI = { 8,// lineNo
   1,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo kc_emlrtRTEI = { 9,// lineNo
+static emlrtRTEInfo lc_emlrtRTEI = { 9,// lineNo
   1,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo lc_emlrtRTEI = { 10,// lineNo
+static emlrtRTEInfo mc_emlrtRTEI = { 10,// lineNo
   1,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo mc_emlrtRTEI = { 11,// lineNo
+static emlrtRTEInfo nc_emlrtRTEI = { 11,// lineNo
   1,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo nc_emlrtRTEI = { 12,// lineNo
+static emlrtRTEInfo oc_emlrtRTEI = { 12,// lineNo
   1,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo oc_emlrtRTEI = { 13,// lineNo
+static emlrtRTEInfo pc_emlrtRTEI = { 13,// lineNo
   1,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo pc_emlrtRTEI = { 15,// lineNo
+static emlrtRTEInfo qc_emlrtRTEI = { 15,// lineNo
   1,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo qc_emlrtRTEI = { 2,// lineNo
+static emlrtRTEInfo rc_emlrtRTEI = { 2,// lineNo
   29,                                  // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo rc_emlrtRTEI = { 21,// lineNo
+static emlrtRTEInfo sc_emlrtRTEI = { 21,// lineNo
   5,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo sc_emlrtRTEI = { 27,// lineNo
+static emlrtRTEInfo tc_emlrtRTEI = { 27,// lineNo
   5,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo tc_emlrtRTEI = { 33,// lineNo
+static emlrtRTEInfo uc_emlrtRTEI = { 33,// lineNo
   5,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo uc_emlrtRTEI = { 39,// lineNo
+static emlrtRTEInfo vc_emlrtRTEI = { 39,// lineNo
   5,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo vc_emlrtRTEI = { 45,// lineNo
+static emlrtRTEInfo wc_emlrtRTEI = { 45,// lineNo
   5,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo wc_emlrtRTEI = { 51,// lineNo
+static emlrtRTEInfo xc_emlrtRTEI = { 51,// lineNo
   5,                                   // colNo
-  "reflectivity_calculation",          // fName
-  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
-};
-
-static emlrtRTEInfo xc_emlrtRTEI = { 59,// lineNo
-  136,                                 // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
 static emlrtRTEInfo yc_emlrtRTEI = { 59,// lineNo
+  136,                                 // colNo
+  "reflectivity_calculation",          // fName
+  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
+};
+
+static emlrtRTEInfo ad_emlrtRTEI = { 59,// lineNo
   9,                                   // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo ad_emlrtRTEI = { 51,// lineNo
+static emlrtRTEInfo bd_emlrtRTEI = { 51,// lineNo
   9,                                   // colNo
   "standardTF_reflectivityCalculation",// fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m"// pName 
 };
 
-static emlrtRTEInfo bd_emlrtRTEI = { 59,// lineNo
+static emlrtRTEInfo cd_emlrtRTEI = { 59,// lineNo
   18,                                  // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
 
-static emlrtRTEInfo cd_emlrtRTEI = { 59,// lineNo
-  42,                                  // colNo
-  "reflectivity_calculation",          // fName
-  "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
-};
-
 static emlrtRTEInfo dd_emlrtRTEI = { 59,// lineNo
-  55,                                  // colNo
+  42,                                  // colNo
   "reflectivity_calculation",          // fName
   "/home/arwel/Documents/RascalDev/RAT/API/reflectivity_calculation_compile/reflectivity_calculation.m"// pName 
 };
@@ -640,7 +635,7 @@ static emlrtRTEInfo pd_emlrtRTEI = { 110,// lineNo
 
 // Function Definitions
 void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
-  const cell_5 *problemDef_cells, const struct1_T *, const struct2_T *controls,
+  const cell_6 *problemDef_cells, const struct1_T *, const struct2_T *controls,
   struct4_T *problem, cell_8 *result)
 {
   int32_T i;
@@ -660,26 +655,27 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     'F' };
 
   coder::array<cell_wrap_0, 2U> t0_f1;
-  coder::array<cell_wrap_6, 1U> cell1;
-  coder::array<cell_wrap_12, 2U> t0_f2;
+  coder::array<cell_wrap_7, 1U> cell1;
+  coder::array<cell_wrap_1, 2U> t0_f2;
   coder::array<cell_wrap_0, 2U> t0_f3;
   coder::array<cell_wrap_0, 2U> t0_f4;
   coder::array<cell_wrap_12, 2U> t0_f5;
-  coder::array<cell_wrap_12, 1U> t0_f6;
-  coder::array<cell_wrap_7, 1U> cell3;
+  coder::array<cell_wrap_3, 1U> t0_f6;
+  coder::array<cell_wrap_1, 1U> cell3;
   coder::array<cell_wrap_4, 2U> t0_f7;
   coder::array<cell_wrap_4, 2U> t0_f8;
   coder::array<cell_wrap_4, 2U> t0_f9;
-  coder::array<cell_wrap_4, 2U> t0_f10;
+  coder::array<cell_wrap_5, 2U> t0_f10;
   coder::array<cell_wrap_4, 2U> t0_f11;
   coder::array<cell_wrap_4, 2U> t0_f12;
   coder::array<cell_wrap_4, 2U> t0_f13;
   coder::array<int8_T, 1U> cell6;
-  coder::array<cell_wrap_14, 1U> b_reflectivity;
-  coder::array<cell_wrap_15, 1U> b_shifted_data;
-  coder::array<cell_wrap_16, 1U> b_allLayers;
-  cell_13 expl_temp;
-  coder::array<cell_wrap_6, 1U> b_Simulation;
+  coder::array<cell_wrap_16, 1U> b_reflectivity;
+  coder::array<cell_wrap_17, 1U> b_shifted_data;
+  coder::array<cell_wrap_18, 1U> b_allLayers;
+  cell_15 expl_temp;
+  coder::array<cell_wrap_7, 1U> b_Simulation;
+  coder::array<cell_wrap_1, 1U> b_layerSlds;
   coder::array<cell_wrap_12, 1U> b_sldProfiles;
   emlrtStack st;
   emlrtStack b_st;
@@ -690,24 +686,24 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
 
   // Preallocatin of outputs
-  problem->ssubs.set_size((&hc_emlrtRTEI), sp, 1);
+  problem->ssubs.set_size((&ic_emlrtRTEI), sp, 1);
   problem->ssubs[0] = 0.0;
-  problem->backgrounds.set_size((&ic_emlrtRTEI), sp, 1);
+  problem->backgrounds.set_size((&jc_emlrtRTEI), sp, 1);
   problem->backgrounds[0] = 0.0;
-  problem->qshifts.set_size((&jc_emlrtRTEI), sp, 1);
+  problem->qshifts.set_size((&kc_emlrtRTEI), sp, 1);
   problem->qshifts[0] = 0.0;
-  problem->scalefactors.set_size((&kc_emlrtRTEI), sp, 1);
+  problem->scalefactors.set_size((&lc_emlrtRTEI), sp, 1);
   problem->scalefactors[0] = 0.0;
-  problem->nbairs.set_size((&lc_emlrtRTEI), sp, 1);
+  problem->nbairs.set_size((&mc_emlrtRTEI), sp, 1);
   problem->nbairs[0] = 0.0;
-  problem->nbsubs.set_size((&mc_emlrtRTEI), sp, 1);
+  problem->nbsubs.set_size((&nc_emlrtRTEI), sp, 1);
   problem->nbsubs[0] = 0.0;
-  problem->resolutions.set_size((&nc_emlrtRTEI), sp, 1);
+  problem->resolutions.set_size((&oc_emlrtRTEI), sp, 1);
   problem->resolutions[0] = 0.0;
-  problem->calculations.all_chis.set_size((&oc_emlrtRTEI), sp, 1);
+  problem->calculations.all_chis.set_size((&pc_emlrtRTEI), sp, 1);
   problem->calculations.all_chis[0] = 0.0;
   problem->calculations.sum_chi = 0.0;
-  problem->allSubRough.set_size((&pc_emlrtRTEI), sp, 1);
+  problem->allSubRough.set_size((&qc_emlrtRTEI), sp, 1);
   problem->allSubRough[0] = 0.0;
   if (!(problemDef->numberOfContrasts >= 0.0)) {
     emlrtNonNegativeCheckR2012b(problemDef->numberOfContrasts, &emlrtDCI, sp);
@@ -722,21 +718,21 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &emlrtRTEI, sp);
-  reflectivity.set_size((&qc_emlrtRTEI), sp, i1);
+  reflectivity.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i2 = reflectivity.size(0) - 1;
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &emlrtBCI, sp);
     }
 
-    reflectivity[b_i].f1.set_size((&rc_emlrtRTEI), sp, 2, reflectivity[b_i].
+    reflectivity[b_i].f1.set_size((&sc_emlrtRTEI), sp, 2, reflectivity[b_i].
       f1.size(1));
     i2 = reflectivity.size(0) - 1;
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &emlrtBCI, sp);
     }
 
-    reflectivity[b_i].f1.set_size((&rc_emlrtRTEI), sp, reflectivity[b_i].f1.size
+    reflectivity[b_i].f1.set_size((&sc_emlrtRTEI), sp, reflectivity[b_i].f1.size
       (0), 2);
     i2 = reflectivity.size(0) - 1;
     i3 = reflectivity.size(0) - 1;
@@ -778,21 +774,21 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &b_emlrtRTEI, sp);
-  Simulation.set_size((&qc_emlrtRTEI), sp, i1);
+  Simulation.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i2 = Simulation.size(0) - 1;
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &b_emlrtBCI, sp);
     }
 
-    Simulation[b_i].f1.set_size((&sc_emlrtRTEI), sp, 2, Simulation[b_i].f1.size
+    Simulation[b_i].f1.set_size((&tc_emlrtRTEI), sp, 2, Simulation[b_i].f1.size
       (1));
     i2 = Simulation.size(0) - 1;
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &b_emlrtBCI, sp);
     }
 
-    Simulation[b_i].f1.set_size((&sc_emlrtRTEI), sp, Simulation[b_i].f1.size(0),
+    Simulation[b_i].f1.set_size((&tc_emlrtRTEI), sp, Simulation[b_i].f1.size(0),
       2);
     i2 = Simulation.size(0) - 1;
     i3 = Simulation.size(0) - 1;
@@ -830,21 +826,21 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &c_emlrtRTEI, sp);
-  shifted_data.set_size((&qc_emlrtRTEI), sp, i1);
+  shifted_data.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i2 = shifted_data.size(0) - 1;
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &c_emlrtBCI, sp);
     }
 
-    shifted_data[b_i].f1.set_size((&tc_emlrtRTEI), sp, 2, shifted_data[b_i].
+    shifted_data[b_i].f1.set_size((&uc_emlrtRTEI), sp, 2, shifted_data[b_i].
       f1.size(1));
     i2 = shifted_data.size(0) - 1;
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &c_emlrtBCI, sp);
     }
 
-    shifted_data[b_i].f1.set_size((&tc_emlrtRTEI), sp, shifted_data[b_i].f1.size
+    shifted_data[b_i].f1.set_size((&uc_emlrtRTEI), sp, shifted_data[b_i].f1.size
       (0), 3);
     i2 = shifted_data.size(0) - 1;
     i3 = shifted_data.size(0) - 1;
@@ -869,20 +865,20 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &d_emlrtRTEI, sp);
-  layerSlds.set_size((&qc_emlrtRTEI), sp, i1);
+  layerSlds.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i2 = layerSlds.size(0) - 1;
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &d_emlrtBCI, sp);
     }
 
-    layerSlds[b_i].f1.set_size((&uc_emlrtRTEI), sp, 2, layerSlds[b_i].f1.size(1));
+    layerSlds[b_i].f1.set_size((&vc_emlrtRTEI), sp, 2, layerSlds[b_i].f1.size(1));
     i2 = layerSlds.size(0) - 1;
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &d_emlrtBCI, sp);
     }
 
-    layerSlds[b_i].f1.set_size((&uc_emlrtRTEI), sp, layerSlds[b_i].f1.size(0), 3);
+    layerSlds[b_i].f1.set_size((&vc_emlrtRTEI), sp, layerSlds[b_i].f1.size(0), 3);
     i2 = layerSlds.size(0) - 1;
     i3 = layerSlds.size(0) - 1;
     if (b_i > i3) {
@@ -906,21 +902,21 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &e_emlrtRTEI, sp);
-  sldProfiles.set_size((&qc_emlrtRTEI), sp, i1);
+  sldProfiles.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i2 = sldProfiles.size(0) - 1;
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &e_emlrtBCI, sp);
     }
 
-    sldProfiles[b_i].f1.set_size((&vc_emlrtRTEI), sp, 2, sldProfiles[b_i].
+    sldProfiles[b_i].f1.set_size((&wc_emlrtRTEI), sp, 2, sldProfiles[b_i].
       f1.size(1));
     i2 = sldProfiles.size(0) - 1;
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &e_emlrtBCI, sp);
     }
 
-    sldProfiles[b_i].f1.set_size((&vc_emlrtRTEI), sp, sldProfiles[b_i].f1.size(0),
+    sldProfiles[b_i].f1.set_size((&wc_emlrtRTEI), sp, sldProfiles[b_i].f1.size(0),
       2);
     i2 = sldProfiles.size(0) - 1;
     i3 = sldProfiles.size(0) - 1;
@@ -958,7 +954,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &f_emlrtRTEI, sp);
-  allLayers.set_size((&qc_emlrtRTEI), sp, i1);
+  allLayers.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i2 = allLayers.size(0) - 1;
     i3 = allLayers.size(0) - 1;
@@ -966,7 +962,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i3, &f_emlrtBCI, sp);
     }
 
-    allLayers[b_i].f1.set_size((&wc_emlrtRTEI), sp, 2);
+    allLayers[b_i].f1.set_size((&xc_emlrtRTEI), sp, 2);
     if (b_i > i2) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, i2, &f_emlrtBCI, sp);
     }
@@ -1007,41 +1003,34 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
 
   switch (kstr) {
    case 0:
-    t0_f1.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f1.size(1));
+    t0_f1.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f1.size(1));
     kstr = problemDef_cells->f1.size(0) * problemDef_cells->f1.size(1);
     for (i2 = 0; i2 < kstr; i2++) {
       t0_f1[i2] = problemDef_cells->f1[i2];
     }
 
-    t0_f2.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f2.size(1));
-    i2 = problemDef_cells->f2.size(1) - 1;
-    for (i3 = 0; i3 <= i2; i3++) {
-      t0_f2[t0_f2.size(0) * i3].f1.set_size((&xc_emlrtRTEI), sp,
-        problemDef_cells->f2[problemDef_cells->f2.size(0) * i3].f1.size(0),
-        problemDef_cells->f2[problemDef_cells->f2.size(0) * i3].f1.size(1));
-      kstr = problemDef_cells->f2[i3].f1.size(0) * problemDef_cells->f2[i3].
-        f1.size(1);
-      for (b_i = 0; b_i < kstr; b_i++) {
-        t0_f2[i3].f1[b_i] = problemDef_cells->f2[i3].f1[b_i];
-      }
+    t0_f2.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f2.size(1));
+    kstr = problemDef_cells->f2.size(0) * problemDef_cells->f2.size(1);
+    for (i2 = 0; i2 < kstr; i2++) {
+      t0_f2[i2] = problemDef_cells->f2[i2];
     }
 
-    t0_f3.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f3.size(1));
+    t0_f3.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f3.size(1));
     kstr = problemDef_cells->f3.size(0) * problemDef_cells->f3.size(1);
     for (i2 = 0; i2 < kstr; i2++) {
       t0_f3[i2] = problemDef_cells->f3[i2];
     }
 
-    t0_f4.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f4.size(1));
+    t0_f4.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f4.size(1));
     kstr = problemDef_cells->f4.size(0) * problemDef_cells->f4.size(1);
     for (i2 = 0; i2 < kstr; i2++) {
       t0_f4[i2] = problemDef_cells->f4[i2];
     }
 
-    t0_f5.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f5.size(1));
+    t0_f5.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f5.size(1));
     i2 = problemDef_cells->f5.size(1) - 1;
     for (i3 = 0; i3 <= i2; i3++) {
-      t0_f5[t0_f5.size(0) * i3].f1.set_size((&xc_emlrtRTEI), sp,
+      t0_f5[t0_f5.size(0) * i3].f1.set_size((&yc_emlrtRTEI), sp,
         problemDef_cells->f5[problemDef_cells->f5.size(0) * i3].f1.size(0),
         problemDef_cells->f5[problemDef_cells->f5.size(0) * i3].f1.size(1));
       kstr = problemDef_cells->f5[i3].f1.size(0) * problemDef_cells->f5[i3].
@@ -1051,55 +1040,49 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       }
     }
 
-    t0_f6.set_size((&xc_emlrtRTEI), sp, problemDef_cells->f6.size(0));
-    i2 = problemDef_cells->f6.size(0);
-    for (i3 = 0; i3 < i2; i3++) {
-      t0_f6[i3].f1.set_size((&xc_emlrtRTEI), sp, problemDef_cells->f6[i3].
-                            f1.size[0], problemDef_cells->f6[i3].f1.size[1]);
-      kstr = problemDef_cells->f6[i3].f1.size[0] * problemDef_cells->f6[i3].
-        f1.size[1];
-      for (b_i = 0; b_i < kstr; b_i++) {
-        t0_f6[i3].f1[b_i] = problemDef_cells->f6[i3].f1.data[b_i];
-      }
+    t0_f6.set_size((&yc_emlrtRTEI), sp, problemDef_cells->f6.size(0));
+    kstr = problemDef_cells->f6.size(0);
+    for (i2 = 0; i2 < kstr; i2++) {
+      t0_f6[i2] = problemDef_cells->f6[i2];
     }
 
-    t0_f7.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f7.size(1));
+    t0_f7.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f7.size(1));
     kstr = problemDef_cells->f7.size(0) * problemDef_cells->f7.size(1);
     for (i2 = 0; i2 < kstr; i2++) {
       t0_f7[i2] = problemDef_cells->f7[i2];
     }
 
-    t0_f8.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f8.size(1));
+    t0_f8.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f8.size(1));
     kstr = problemDef_cells->f8.size(0) * problemDef_cells->f8.size(1);
     for (i2 = 0; i2 < kstr; i2++) {
       t0_f8[i2] = problemDef_cells->f8[i2];
     }
 
-    t0_f9.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f9.size(1));
+    t0_f9.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f9.size(1));
     kstr = problemDef_cells->f9.size(0) * problemDef_cells->f9.size(1);
     for (i2 = 0; i2 < kstr; i2++) {
       t0_f9[i2] = problemDef_cells->f9[i2];
     }
 
-    t0_f10.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f10.size(1));
+    t0_f10.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f10.size(1));
     kstr = problemDef_cells->f10.size(0) * problemDef_cells->f10.size(1);
     for (i2 = 0; i2 < kstr; i2++) {
       t0_f10[i2] = problemDef_cells->f10[i2];
     }
 
-    t0_f11.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f11.size(1));
+    t0_f11.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f11.size(1));
     kstr = problemDef_cells->f11.size(0) * problemDef_cells->f11.size(1);
     for (i2 = 0; i2 < kstr; i2++) {
       t0_f11[i2] = problemDef_cells->f11[i2];
     }
 
-    t0_f12.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f12.size(1));
+    t0_f12.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f12.size(1));
     kstr = problemDef_cells->f12.size(0) * problemDef_cells->f12.size(1);
     for (i2 = 0; i2 < kstr; i2++) {
       t0_f12[i2] = problemDef_cells->f12[i2];
     }
 
-    t0_f13.set_size((&xc_emlrtRTEI), sp, 1, problemDef_cells->f13.size(1));
+    t0_f13.set_size((&yc_emlrtRTEI), sp, 1, problemDef_cells->f13.size(1));
     kstr = problemDef_cells->f13.size(0) * problemDef_cells->f13.size(1);
     for (i2 = 0; i2 < kstr; i2++) {
       t0_f13[i2] = problemDef_cells->f13[i2];
@@ -1125,7 +1108,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
       mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
       &m_emlrtRTEI, &st);
-    b_reflectivity.set_size((&yc_emlrtRTEI), (&st), i1);
+    b_reflectivity.set_size((&ad_emlrtRTEI), (&st), i1);
     for (b_i = 0; b_i < i1; b_i++) {
       i = b_reflectivity.size(0) - 1;
       if (b_i > i) {
@@ -1153,7 +1136,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
       mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
       &n_emlrtRTEI, &st);
-    b_reflectivity.set_size((&yc_emlrtRTEI), (&st), i1);
+    b_reflectivity.set_size((&ad_emlrtRTEI), (&st), i1);
     for (b_i = 0; b_i < i1; b_i++) {
       i = b_reflectivity.size(0) - 1;
       if (b_i > i) {
@@ -1181,7 +1164,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
       mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
       &o_emlrtRTEI, &st);
-    b_shifted_data.set_size((&yc_emlrtRTEI), (&st), i1);
+    b_shifted_data.set_size((&ad_emlrtRTEI), (&st), i1);
     for (b_i = 0; b_i < i1; b_i++) {
       i = b_shifted_data.size(0) - 1;
       for (i2 = 0; i2 < 6; i2++) {
@@ -1196,7 +1179,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
       mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
       &p_emlrtRTEI, &st);
-    b_shifted_data.set_size((&yc_emlrtRTEI), (&st), i1);
+    b_shifted_data.set_size((&ad_emlrtRTEI), (&st), i1);
     for (b_i = 0; b_i < i1; b_i++) {
       i = b_shifted_data.size(0) - 1;
       for (i2 = 0; i2 < 6; i2++) {
@@ -1211,7 +1194,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
       mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
       &q_emlrtRTEI, &st);
-    b_reflectivity.set_size((&yc_emlrtRTEI), (&st), i1);
+    b_reflectivity.set_size((&ad_emlrtRTEI), (&st), i1);
     for (b_i = 0; b_i < i1; b_i++) {
       i = b_reflectivity.size(0) - 1;
       if (b_i > i) {
@@ -1239,7 +1222,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
       mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
       &r_emlrtRTEI, &st);
-    b_allLayers.set_size((&yc_emlrtRTEI), (&st), i1);
+    b_allLayers.set_size((&ad_emlrtRTEI), (&st), i1);
     for (b_i = 0; b_i < i1; b_i++) {
       i = b_allLayers.size(0) - 1;
       if (b_i > i) {
@@ -1256,79 +1239,79 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
 
     //  switch type
     //      case 'layers'
-    expl_temp.f13.set_size((&ad_emlrtRTEI), (&st), 1, t0_f13.size(1));
+    expl_temp.f13.set_size((&bd_emlrtRTEI), (&st), 1, t0_f13.size(1));
     kstr = t0_f13.size(0) * t0_f13.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f13[i] = t0_f13[i];
     }
 
-    expl_temp.f12.set_size((&ad_emlrtRTEI), (&st), 1, t0_f12.size(1));
+    expl_temp.f12.set_size((&bd_emlrtRTEI), (&st), 1, t0_f12.size(1));
     kstr = t0_f12.size(0) * t0_f12.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f12[i] = t0_f12[i];
     }
 
-    expl_temp.f11.set_size((&ad_emlrtRTEI), (&st), 1, t0_f11.size(1));
+    expl_temp.f11.set_size((&bd_emlrtRTEI), (&st), 1, t0_f11.size(1));
     kstr = t0_f11.size(0) * t0_f11.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f11[i] = t0_f11[i];
     }
 
-    expl_temp.f10.set_size((&ad_emlrtRTEI), (&st), 1, t0_f10.size(1));
+    expl_temp.f10.set_size((&bd_emlrtRTEI), (&st), 1, t0_f10.size(1));
     kstr = t0_f10.size(0) * t0_f10.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f10[i] = t0_f10[i];
     }
 
-    expl_temp.f9.set_size((&ad_emlrtRTEI), (&st), 1, t0_f9.size(1));
+    expl_temp.f9.set_size((&bd_emlrtRTEI), (&st), 1, t0_f9.size(1));
     kstr = t0_f9.size(0) * t0_f9.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f9[i] = t0_f9[i];
     }
 
-    expl_temp.f8.set_size((&ad_emlrtRTEI), (&st), 1, t0_f8.size(1));
+    expl_temp.f8.set_size((&bd_emlrtRTEI), (&st), 1, t0_f8.size(1));
     kstr = t0_f8.size(0) * t0_f8.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f8[i] = t0_f8[i];
     }
 
-    expl_temp.f7.set_size((&ad_emlrtRTEI), (&st), 1, t0_f7.size(1));
+    expl_temp.f7.set_size((&bd_emlrtRTEI), (&st), 1, t0_f7.size(1));
     kstr = t0_f7.size(0) * t0_f7.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f7[i] = t0_f7[i];
     }
 
-    expl_temp.f6.set_size((&ad_emlrtRTEI), (&st), t0_f6.size(0));
+    expl_temp.f6.set_size((&bd_emlrtRTEI), (&st), t0_f6.size(0));
     kstr = t0_f6.size(0);
     for (i = 0; i < kstr; i++) {
       expl_temp.f6[i] = t0_f6[i];
     }
 
-    expl_temp.f5.set_size((&ad_emlrtRTEI), (&st), 1, t0_f5.size(1));
+    expl_temp.f5.set_size((&bd_emlrtRTEI), (&st), 1, t0_f5.size(1));
     kstr = t0_f5.size(0) * t0_f5.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f5[i] = t0_f5[i];
     }
 
-    expl_temp.f4.set_size((&ad_emlrtRTEI), (&st), 1, t0_f4.size(1));
+    expl_temp.f4.set_size((&bd_emlrtRTEI), (&st), 1, t0_f4.size(1));
     kstr = t0_f4.size(0) * t0_f4.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f4[i] = t0_f4[i];
     }
 
-    expl_temp.f3.set_size((&ad_emlrtRTEI), (&st), 1, t0_f3.size(1));
+    expl_temp.f3.set_size((&bd_emlrtRTEI), (&st), 1, t0_f3.size(1));
     kstr = t0_f3.size(0) * t0_f3.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f3[i] = t0_f3[i];
     }
 
-    expl_temp.f2.set_size((&ad_emlrtRTEI), (&st), 1, t0_f2.size(1));
+    expl_temp.f2.set_size((&bd_emlrtRTEI), (&st), 1, t0_f2.size(1));
     kstr = t0_f2.size(0) * t0_f2.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f2[i] = t0_f2[i];
     }
 
-    expl_temp.f1.set_size((&ad_emlrtRTEI), (&st), 1, t0_f1.size(1));
+    expl_temp.f1.set_size((&bd_emlrtRTEI), (&st), 1, t0_f1.size(1));
     kstr = t0_f1.size(0) * t0_f1.size(1);
     for (i = 0; i < kstr; i++) {
       expl_temp.f1[i] = t0_f1[i];
@@ -1336,7 +1319,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
 
     b_st.site = &b_emlrtRSI;
     c_standardTF_stanLay_reflectivi(&b_st, problemDef, &expl_temp, controls,
-      problem, cell1, b_Simulation, t0_f6, cell3, b_sldProfiles, allLayers);
+      problem, cell1, b_Simulation, cell3, b_layerSlds, b_sldProfiles, allLayers);
 
     //      case 'Custom Layers'
     //          [problem,reflectivity,Simulation,...
@@ -1347,20 +1330,20 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     //             shifted_data,layerSlds,sldProfiles,...
     //             allLayers] = standardTF_custXY_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls); 
     //  end
-    reflectivity.set_size((&bd_emlrtRTEI), sp, cell1.size(0));
+    reflectivity.set_size((&cd_emlrtRTEI), sp, cell1.size(0));
     i = cell1.size(0);
     for (i2 = 0; i2 < i; i2++) {
-      reflectivity[i2].f1.set_size((&bd_emlrtRTEI), sp, cell1[i2].f1.size(0), 2);
+      reflectivity[i2].f1.set_size((&cd_emlrtRTEI), sp, cell1[i2].f1.size(0), 2);
       kstr = cell1[i2].f1.size(0) * cell1[i2].f1.size(1);
       for (i3 = 0; i3 < kstr; i3++) {
         reflectivity[i2].f1[i3] = cell1[i2].f1[i3];
       }
     }
 
-    Simulation.set_size((&bd_emlrtRTEI), sp, b_Simulation.size(0));
+    Simulation.set_size((&cd_emlrtRTEI), sp, b_Simulation.size(0));
     i = b_Simulation.size(0);
     for (i2 = 0; i2 < i; i2++) {
-      Simulation[i2].f1.set_size((&bd_emlrtRTEI), sp, b_Simulation[i2].f1.size(0),
+      Simulation[i2].f1.set_size((&cd_emlrtRTEI), sp, b_Simulation[i2].f1.size(0),
         2);
       kstr = b_Simulation[i2].f1.size(0) * b_Simulation[i2].f1.size(1);
       for (i3 = 0; i3 < kstr; i3++) {
@@ -1368,24 +1351,24 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       }
     }
 
-    shifted_data.set_size((&cd_emlrtRTEI), sp, t0_f6.size(0));
-    i = t0_f6.size(0);
+    shifted_data.set_size((&dd_emlrtRTEI), sp, cell3.size(0));
+    i = cell3.size(0);
     for (i2 = 0; i2 < i; i2++) {
-      shifted_data[i2].f1.set_size((&cd_emlrtRTEI), sp, t0_f6[i2].f1.size(0),
-        t0_f6[i2].f1.size(1));
-      kstr = t0_f6[i2].f1.size(0) * t0_f6[i2].f1.size(1);
+      shifted_data[i2].f1.set_size((&dd_emlrtRTEI), sp, cell3[i2].f1.size(0), 3);
+      kstr = cell3[i2].f1.size(0) * cell3[i2].f1.size(1);
       for (i3 = 0; i3 < kstr; i3++) {
-        shifted_data[i2].f1[i3] = t0_f6[i2].f1[i3];
+        shifted_data[i2].f1[i3] = cell3[i2].f1[i3];
       }
     }
 
-    layerSlds.set_size((&dd_emlrtRTEI), sp, cell3.size(0));
-    i = cell3.size(0);
+    layerSlds.set_size((&dd_emlrtRTEI), sp, b_layerSlds.size(0));
+    i = b_layerSlds.size(0);
     for (i2 = 0; i2 < i; i2++) {
-      layerSlds[i2].f1.set_size((&dd_emlrtRTEI), sp, cell3[i2].f1.size(0), 3);
-      kstr = cell3[i2].f1.size(0) * cell3[i2].f1.size(1);
+      layerSlds[i2].f1.set_size((&dd_emlrtRTEI), sp, b_layerSlds[i2].f1.size(0),
+        3);
+      kstr = b_layerSlds[i2].f1.size(0) * b_layerSlds[i2].f1.size(1);
       for (i3 = 0; i3 < kstr; i3++) {
-        layerSlds[i2].f1[i3] = cell3[i2].f1[i3];
+        layerSlds[i2].f1[i3] = b_layerSlds[i2].f1[i3];
       }
     }
 
@@ -1413,7 +1396,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &g_emlrtRTEI, sp);
-  cell1.set_size((&qc_emlrtRTEI), sp, i1);
+  cell1.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i = reflectivity.size(0) - 1;
     if (b_i > i) {
@@ -1479,7 +1462,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &h_emlrtRTEI, sp);
-  cell1.set_size((&qc_emlrtRTEI), sp, i1);
+  cell1.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i = Simulation.size(0) - 1;
     if (b_i > i) {
@@ -1546,7 +1529,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &i_emlrtRTEI, sp);
-  cell3.set_size((&qc_emlrtRTEI), sp, i1);
+  cell3.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i = shifted_data.size(0) - 1;
     if (b_i > i) {
@@ -1613,7 +1596,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &j_emlrtRTEI, sp);
-  cell3.set_size((&qc_emlrtRTEI), sp, i1);
+  cell3.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i = layerSlds.size(0) - 1;
     if (b_i > i) {
@@ -1680,7 +1663,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &k_emlrtRTEI, sp);
-  cell1.set_size((&qc_emlrtRTEI), sp, i1);
+  cell1.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i = sldProfiles.size(0) - 1;
     if (b_i > i) {
@@ -1747,7 +1730,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   emlrtForLoopVectorCheckR2012b(1.0, 1.0, problemDef->numberOfContrasts,
     mxDOUBLE_CLASS, static_cast<int32_T>(problemDef->numberOfContrasts),
     &l_emlrtRTEI, sp);
-  cell6.set_size((&qc_emlrtRTEI), sp, i1);
+  cell6.set_size((&rc_emlrtRTEI), sp, i1);
   for (b_i = 0; b_i < i1; b_i++) {
     i = cell6.size(0) - 1;
     if (b_i > i) {

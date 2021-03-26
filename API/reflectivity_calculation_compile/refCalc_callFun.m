@@ -10,8 +10,10 @@ DEBUGVARS = 0;
 %callParams = callParams.newInputs;
 % callParams = load('newVars.mat');
 % callParams = callParams.newVars;
-callParams = load('callVars_latest.mat');
+%callParams = load('callVars_latest.mat');
+callParams = load('callVars_22_3.mat');
 %callParams.callVars.problemDef.modelLanguage = 'matlab';
+%callParams = callParams.callVars;
 callParams = callParams.callVars;
 
 
@@ -22,12 +24,12 @@ callParams = callParams.callVars;
 problemDef = callParams.problemDef;
 problemDef_cells = callParams.problemDef_cells;
 problemDef_limits = callParams.problemDef_limits;
-controls = callParams.controls;
+controls = callParams.problemDef_controls;
 probleDef.modelFilename = ' ';
 
 %controls.para = 'all';
 
-[problem,result] = reflectivity_calculation_gpu(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 disp('debug');
 

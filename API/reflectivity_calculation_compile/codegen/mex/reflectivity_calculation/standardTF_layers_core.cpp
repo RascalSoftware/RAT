@@ -58,7 +58,7 @@ static emlrtRSInfo r_emlrtRSI = { 97,  // lineNo
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_layers_core.m"// pathName 
 };
 
-static emlrtRSInfo x_emlrtRSI = { 12,  // lineNo
+static emlrtRSInfo gb_emlrtRSI = { 12, // lineNo
   "makeSLDProfiles",                   // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfiles.m"// pathName 
 };
@@ -70,26 +70,6 @@ static emlrtDCInfo bb_emlrtDCI = { 3,  // lineNo
   1                                    // checkKind
 };
 
-static emlrtBCInfo je_emlrtBCI = { -1, // iFirst
-  -1,                                  // iLast
-  10,                                  // lineNo
-  42,                                  // colNo
-  "shifted_dat",                       // aName
-  "applyBackgroundCorrection",         // fName
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m",// pName 
-  0                                    // checkKind
-};
-
-static emlrtBCInfo ke_emlrtBCI = { -1, // iFirst
-  -1,                                  // iLast
-  10,                                  // lineNo
-  23,                                  // colNo
-  "shifted_dat",                       // aName
-  "applyBackgroundCorrection",         // fName
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m",// pName 
-  0                                    // checkKind
-};
-
 static emlrtECInfo emlrtECI = { -1,    // nDims
   10,                                  // lineNo
   9,                                   // colNo
@@ -97,37 +77,37 @@ static emlrtECInfo emlrtECI = { -1,    // nDims
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"// pName 
 };
 
-static emlrtRTEInfo ue_emlrtRTEI = { 76,// lineNo
+static emlrtRTEInfo se_emlrtRTEI = { 76,// lineNo
   5,                                   // colNo
   "standardTF_layers_core",            // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_layers_core.m"// pName 
 };
 
-static emlrtRTEInfo ve_emlrtRTEI = { 74,// lineNo
+static emlrtRTEInfo te_emlrtRTEI = { 74,// lineNo
   5,                                   // colNo
   "standardTF_layers_core",            // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_layers_core.m"// pName 
 };
 
-static emlrtRTEInfo we_emlrtRTEI = { 87,// lineNo
+static emlrtRTEInfo ue_emlrtRTEI = { 87,// lineNo
   1,                                   // colNo
   "standardTF_layers_core",            // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/standardTF_layers_core.m"// pName 
 };
 
-static emlrtRTEInfo xe_emlrtRTEI = { 6,// lineNo
+static emlrtRTEInfo ve_emlrtRTEI = { 6,// lineNo
   9,                                   // colNo
   "applyBackgroundCorrection",         // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"// pName 
 };
 
-static emlrtRTEInfo ye_emlrtRTEI = { 7,// lineNo
+static emlrtRTEInfo we_emlrtRTEI = { 7,// lineNo
   9,                                   // colNo
   "applyBackgroundCorrection",         // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"// pName 
 };
 
-static emlrtRTEInfo af_emlrtRTEI = { 10,// lineNo
+static emlrtRTEInfo xe_emlrtRTEI = { 10,// lineNo
   28,                                  // colNo
   "applyBackgroundCorrection",         // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m"// pName 
@@ -231,16 +211,16 @@ void b_standardTF_layers_core(const emlrtStack *sp, const coder::array<real_T,
       b_repeatLayers = repeatLayers[1];
     }
 
-    b_st.site = &x_emlrtRSI;
+    b_st.site = &gb_emlrtRSI;
     makeSLDProfileXY(&b_st, nba, nbs, *ssubs, layerSld, static_cast<real_T>
                      (layerSld.size(0)), b_repeatLayers, b_sldProfile);
-    sldProfile.set_size((&ve_emlrtRTEI), sp, b_sldProfile.size(0), 2);
+    sldProfile.set_size((&te_emlrtRTEI), sp, b_sldProfile.size(0), 2);
     loop_ub = b_sldProfile.size(0) * b_sldProfile.size(1);
     for (i = 0; i < loop_ub; i++) {
       sldProfile[i] = b_sldProfile[i];
     }
   } else {
-    sldProfile.set_size((&ue_emlrtRTEI), sp, 1, 3);
+    sldProfile.set_size((&se_emlrtRTEI), sp, 1, 3);
     sldProfile[0] = 0.0;
     sldProfile[1] = 0.0;
     sldProfile[2] = 0.0;
@@ -253,7 +233,7 @@ void b_standardTF_layers_core(const emlrtStack *sp, const coder::array<real_T,
   }
 
   //  Apply scale factors and q shifts to the data
-  shifted_dat.set_size((&we_emlrtRTEI), sp, data.size(0), data.size(1));
+  shifted_dat.set_size((&ue_emlrtRTEI), sp, data.size(0), 3);
   loop_ub = data.size(0) * data.size(1);
   for (i = 0; i < loop_ub; i++) {
     shifted_dat[i] = data[i];
@@ -277,13 +257,13 @@ void b_standardTF_layers_core(const emlrtStack *sp, const coder::array<real_T,
    case 1:
     // Add background to the simulation
     loop_ub = reflect.size(0) * reflect.size(1);
-    reflect.set_size((&xe_emlrtRTEI), (&st), reflect.size(0), 2);
+    reflect.set_size((&ve_emlrtRTEI), (&st), reflect.size(0), 2);
     for (i = 0; i < loop_ub; i++) {
       reflect[i] = reflect[i] + background;
     }
 
     loop_ub = Simul.size(0) * Simul.size(1);
-    Simul.set_size((&ye_emlrtRTEI), (&st), Simul.size(0), 2);
+    Simul.set_size((&we_emlrtRTEI), (&st), Simul.size(0), 2);
     for (i = 0; i < loop_ub; i++) {
       Simul[i] = Simul[i] + background;
     }
@@ -291,18 +271,10 @@ void b_standardTF_layers_core(const emlrtStack *sp, const coder::array<real_T,
 
    case 2:
     //          %Subtract the background from the data..
-    if (2 > shifted_dat.size(1)) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, shifted_dat.size(1), &ke_emlrtBCI, &st);
-    }
-
-    if (2 > shifted_dat.size(1)) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, shifted_dat.size(1), &je_emlrtBCI, &st);
-    }
-
     emlrtSubAssignSizeCheckR2012b(shifted_dat.size(), 1, shifted_dat.size(), 1,
       &emlrtECI, &st);
     loop_ub = shifted_dat.size(0) - 1;
-    b_shifted_dat.set_size((&af_emlrtRTEI), (&st), shifted_dat.size(0));
+    b_shifted_dat.set_size((&xe_emlrtRTEI), (&st), shifted_dat.size(0));
     for (i = 0; i <= loop_ub; i++) {
       b_shifted_dat[i] = shifted_dat[i + shifted_dat.size(0)] - background;
     }
@@ -419,16 +391,16 @@ void standardTF_layers_core(const emlrtStack *sp, const coder::array<real_T, 2U>
       b_repeatLayers = repeatLayers[1];
     }
 
-    b_st.site = &x_emlrtRSI;
+    b_st.site = &gb_emlrtRSI;
     makeSLDProfileXY(&b_st, nba, nbs, *ssubs, layerSld, static_cast<real_T>
                      (layerSld.size(0)), b_repeatLayers, b_sldProfile);
-    sldProfile.set_size((&ve_emlrtRTEI), sp, b_sldProfile.size(0), 2);
+    sldProfile.set_size((&te_emlrtRTEI), sp, b_sldProfile.size(0), 2);
     loop_ub = b_sldProfile.size(0) * b_sldProfile.size(1);
     for (i = 0; i < loop_ub; i++) {
       sldProfile[i] = b_sldProfile[i];
     }
   } else {
-    sldProfile.set_size((&ue_emlrtRTEI), sp, 1, 3);
+    sldProfile.set_size((&se_emlrtRTEI), sp, 1, 3);
     sldProfile[0] = 0.0;
     sldProfile[1] = 0.0;
     sldProfile[2] = 0.0;
@@ -441,7 +413,7 @@ void standardTF_layers_core(const emlrtStack *sp, const coder::array<real_T, 2U>
   }
 
   //  Apply scale factors and q shifts to the data
-  shifted_dat.set_size((&we_emlrtRTEI), sp, data.size(0), data.size(1));
+  shifted_dat.set_size((&ue_emlrtRTEI), sp, data.size(0), 3);
   loop_ub = data.size(0) * data.size(1);
   for (i = 0; i < loop_ub; i++) {
     shifted_dat[i] = data[i];
@@ -465,13 +437,13 @@ void standardTF_layers_core(const emlrtStack *sp, const coder::array<real_T, 2U>
    case 1:
     // Add background to the simulation
     loop_ub = reflect.size(0) * reflect.size(1);
-    reflect.set_size((&xe_emlrtRTEI), (&st), reflect.size(0), 2);
+    reflect.set_size((&ve_emlrtRTEI), (&st), reflect.size(0), 2);
     for (i = 0; i < loop_ub; i++) {
       reflect[i] = reflect[i] + background;
     }
 
     loop_ub = Simul.size(0) * Simul.size(1);
-    Simul.set_size((&ye_emlrtRTEI), (&st), Simul.size(0), 2);
+    Simul.set_size((&we_emlrtRTEI), (&st), Simul.size(0), 2);
     for (i = 0; i < loop_ub; i++) {
       Simul[i] = Simul[i] + background;
     }
@@ -479,18 +451,10 @@ void standardTF_layers_core(const emlrtStack *sp, const coder::array<real_T, 2U>
 
    case 2:
     //          %Subtract the background from the data..
-    if (2 > shifted_dat.size(1)) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, shifted_dat.size(1), &ke_emlrtBCI, &st);
-    }
-
-    if (2 > shifted_dat.size(1)) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, shifted_dat.size(1), &je_emlrtBCI, &st);
-    }
-
     emlrtSubAssignSizeCheckR2012b(shifted_dat.size(), 1, shifted_dat.size(), 1,
       &emlrtECI, &st);
     loop_ub = shifted_dat.size(0) - 1;
-    b_shifted_dat.set_size((&af_emlrtRTEI), (&st), shifted_dat.size(0));
+    b_shifted_dat.set_size((&xe_emlrtRTEI), (&st), shifted_dat.size(0));
     for (i = 0; i <= loop_ub; i++) {
       b_shifted_dat[i] = shifted_dat[i + shifted_dat.size(0)] - background;
     }

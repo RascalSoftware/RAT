@@ -17,18 +17,18 @@
 #include "sum.h"
 
 // Variable Definitions
-static emlrtRSInfo dg_emlrtRSI = { 26, // lineNo
+static emlrtRSInfo lg_emlrtRSI = { 26, // lineNo
   "resolution_polly_paraPoints",       // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.m"// pathName 
 };
 
-static emlrtRTEInfo xb_emlrtRTEI = { 25,// lineNo
+static emlrtRTEInfo yb_emlrtRTEI = { 25,// lineNo
   13,                                  // colNo
   "resolution_polly_paraPoints",       // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.m"// pName 
 };
 
-static emlrtBCInfo mh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo gh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   10,                                  // lineNo
   5,                                   // colNo
@@ -38,7 +38,7 @@ static emlrtBCInfo mh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo nh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo hh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   31,                                  // lineNo
   24,                                  // colNo
@@ -48,7 +48,7 @@ static emlrtBCInfo nh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo oh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ih_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   31,                                  // lineNo
   9,                                   // colNo
@@ -58,7 +58,7 @@ static emlrtBCInfo oh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ph_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo jh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   26,                                  // lineNo
   22,                                  // colNo
@@ -68,7 +68,7 @@ static emlrtBCInfo ph_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo qh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo kh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   26,                                  // lineNo
   33,                                  // colNo
@@ -78,7 +78,7 @@ static emlrtBCInfo qh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo rh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo lh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   28,                                  // lineNo
   24,                                  // colNo
@@ -88,7 +88,7 @@ static emlrtBCInfo rh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo sh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo mh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   28,                                  // lineNo
   39,                                  // colNo
@@ -98,7 +98,7 @@ static emlrtBCInfo sh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo th_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo nh_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   28,                                  // lineNo
   9,                                   // colNo
@@ -108,13 +108,13 @@ static emlrtBCInfo th_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtRTEInfo ci_emlrtRTEI = { 5,// lineNo
+static emlrtRTEInfo ai_emlrtRTEI = { 5,// lineNo
   1,                                   // colNo
   "resolution_polly_paraPoints",       // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.m"// pName 
 };
 
-static emlrtRTEInfo di_emlrtRTEI = { 6,// lineNo
+static emlrtRTEInfo bi_emlrtRTEI = { 6,// lineNo
   1,                                   // colNo
   "resolution_polly_paraPoints",       // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.m"// pName 
@@ -143,12 +143,12 @@ void resolution_polly_paraPoints(const emlrtStack *sp, const coder::array<real_T
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
   res += 0.0001;
   loop_ub = static_cast<int32_T>(points);
-  out.set_size((&ci_emlrtRTEI), sp, loop_ub);
+  out.set_size((&ai_emlrtRTEI), sp, loop_ub);
   for (i = 0; i < loop_ub; i++) {
     out[i] = 0.0;
   }
 
-  dummyref.set_size((&di_emlrtRTEI), sp, ydata.size(0));
+  dummyref.set_size((&bi_emlrtRTEI), sp, ydata.size(0));
   b_loop_ub = ydata.size(0);
   for (i = 0; i < b_loop_ub; i++) {
     dummyref[i] = ydata[i];
@@ -182,7 +182,7 @@ void resolution_polly_paraPoints(const emlrtStack *sp, const coder::array<real_T
         sumg = 0.0;
         i1 = static_cast<int32_T>(j + 1U);
         if ((i1 < 1) || (i1 > out.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, out.size(0), &mh_emlrtBCI, &st);
+          emlrtDynamicBoundsCheckR2012b(i1, 1, out.size(0), &gh_emlrtBCI, &st);
         }
 
         out[i1 - 1] = 0.0;
@@ -201,19 +201,19 @@ void resolution_polly_paraPoints(const emlrtStack *sp, const coder::array<real_T
         //     try
         i2 = static_cast<int32_T>(g + (1.0 - static_cast<real_T>(ilow)));
         emlrtForLoopVectorCheckR2012b(static_cast<real_T>(ilow), 1.0, g,
-          mxDOUBLE_CLASS, i2, &xb_emlrtRTEI, &st);
+          mxDOUBLE_CLASS, i2, &yb_emlrtRTEI, &st);
         for (c_i = 0; c_i < i2; c_i++) {
           b_i = ilow + c_i;
-          b_st.site = &dg_emlrtRSI;
+          b_st.site = &lg_emlrtRSI;
           b_i = static_cast<int32_T>((static_cast<real_T>(j) + 1.0) +
             static_cast<real_T>(b_i));
           if ((b_i < 1) || (b_i > xdata.size(0))) {
-            emlrtDynamicBoundsCheckR2012b(b_i, 1, xdata.size(0), &ph_emlrtBCI,
+            emlrtDynamicBoundsCheckR2012b(b_i, 1, xdata.size(0), &jh_emlrtBCI,
               &b_st);
           }
 
           if (i1 > xdata.size(0)) {
-            emlrtDynamicBoundsCheckR2012b(i1, 1, xdata.size(0), &qh_emlrtBCI,
+            emlrtDynamicBoundsCheckR2012b(i1, 1, xdata.size(0), &kh_emlrtBCI,
               &b_st);
           }
 
@@ -221,16 +221,16 @@ void resolution_polly_paraPoints(const emlrtStack *sp, const coder::array<real_T
           g = muDoubleScalarExp(-(g * g));
           sumg += g;
           if (i1 > out.size(0)) {
-            emlrtDynamicBoundsCheckR2012b(i1, 1, out.size(0), &rh_emlrtBCI, &st);
+            emlrtDynamicBoundsCheckR2012b(i1, 1, out.size(0), &lh_emlrtBCI, &st);
           }
 
           if (b_i > dummyref.size(0)) {
-            emlrtDynamicBoundsCheckR2012b(b_i, 1, dummyref.size(0), &sh_emlrtBCI,
+            emlrtDynamicBoundsCheckR2012b(b_i, 1, dummyref.size(0), &mh_emlrtBCI,
               &st);
           }
 
           if (i1 > out.size(0)) {
-            emlrtDynamicBoundsCheckR2012b(i1, 1, out.size(0), &th_emlrtBCI, &st);
+            emlrtDynamicBoundsCheckR2012b(i1, 1, out.size(0), &nh_emlrtBCI, &st);
           }
 
           out[i1 - 1] = out[i1 - 1] + dummyref[b_i - 1] * g;
@@ -238,11 +238,11 @@ void resolution_polly_paraPoints(const emlrtStack *sp, const coder::array<real_T
 
         if (sumg != 0.0) {
           if (i1 > out.size(0)) {
-            emlrtDynamicBoundsCheckR2012b(i1, 1, out.size(0), &nh_emlrtBCI, &st);
+            emlrtDynamicBoundsCheckR2012b(i1, 1, out.size(0), &hh_emlrtBCI, &st);
           }
 
           if (i1 > out.size(0)) {
-            emlrtDynamicBoundsCheckR2012b(i1, 1, out.size(0), &oh_emlrtBCI, &st);
+            emlrtDynamicBoundsCheckR2012b(i1, 1, out.size(0), &ih_emlrtBCI, &st);
           }
 
           out[i1 - 1] = out[i1 - 1] / sumg;

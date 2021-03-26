@@ -19,19 +19,45 @@
 #include "sum.h"
 
 // Variable Definitions
-static emlrtRSInfo s_emlrtRSI = { 57,  // lineNo
+static emlrtRSInfo s_emlrtRSI = { 48,  // lineNo
   "groupLayers_Mod",                   // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"// pathName 
 };
 
-static emlrtRSInfo t_emlrtRSI = { 61,  // lineNo
+static emlrtRSInfo t_emlrtRSI = { 56,  // lineNo
   "groupLayers_Mod",                   // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"// pathName 
 };
 
-static emlrtBCInfo le_emlrtBCI = { -1, // iFirst
+static emlrtRSInfo u_emlrtRSI = { 60,  // lineNo
+  "groupLayers_Mod",                   // fcnName
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"// pathName 
+};
+
+static emlrtRSInfo v_emlrtRSI = { 63,  // lineNo
+  "strcmp",                            // fcnName
+  "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/strcmp.m"// pathName 
+};
+
+static emlrtRSInfo w_emlrtRSI = { 138, // lineNo
+  "loc_strcmp",                        // fcnName
+  "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/strcmp.m"// pathName 
+};
+
+static emlrtRSInfo x_emlrtRSI = { 216, // lineNo
+  "charcmp",                           // fcnName
+  "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/strcmp.m"// pathName 
+};
+
+static emlrtRTEInfo hb_emlrtRTEI = { 15,// lineNo
+  9,                                   // colNo
+  "assertSupportedString",             // fName
+  "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/assertSupportedString.m"// pName 
+};
+
+static emlrtBCInfo je_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
-  57,                                  // lineNo
+  56,                                  // lineNo
   44,                                  // colNo
   "roughs",                            // aName
   "groupLayers_Mod",                   // fName
@@ -39,9 +65,9 @@ static emlrtBCInfo le_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo me_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ke_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
-  56,                                  // lineNo
+  55,                                  // lineNo
   24,                                  // colNo
   "roughs",                            // aName
   "groupLayers_Mod",                   // fName
@@ -49,9 +75,9 @@ static emlrtBCInfo me_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ne_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo le_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
-  73,                                  // lineNo
+  72,                                  // lineNo
   28,                                  // colNo
   "output",                            // aName
   "groupLayers_Mod",                   // fName
@@ -59,9 +85,9 @@ static emlrtBCInfo ne_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo oe_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo me_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
-  74,                                  // lineNo
+  73,                                  // lineNo
   20,                                  // colNo
   "output",                            // aName
   "groupLayers_Mod",                   // fName
@@ -69,9 +95,9 @@ static emlrtBCInfo oe_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo pe_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ne_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
-  80,                                  // lineNo
+  79,                                  // lineNo
   78,                                  // colNo
   "layers",                            // aName
   "groupLayers_Mod",                   // fName
@@ -79,9 +105,9 @@ static emlrtBCInfo pe_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo qe_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo oe_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
-  80,                                  // lineNo
+  79,                                  // lineNo
   21,                                  // colNo
   "layers",                            // aName
   "groupLayers_Mod",                   // fName
@@ -89,37 +115,37 @@ static emlrtBCInfo qe_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtRTEInfo bf_emlrtRTEI = { 46,// lineNo
+static emlrtRTEInfo ye_emlrtRTEI = { 46,// lineNo
   5,                                   // colNo
   "groupLayers_Mod",                   // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"// pName 
 };
 
-static emlrtRTEInfo cf_emlrtRTEI = { 50,// lineNo
+static emlrtRTEInfo af_emlrtRTEI = { 56,// lineNo
   17,                                  // colNo
   "groupLayers_Mod",                   // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"// pName 
 };
 
-static emlrtRTEInfo df_emlrtRTEI = { 57,// lineNo
-  17,                                  // colNo
-  "groupLayers_Mod",                   // fName
-  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"// pName 
-};
-
-static emlrtRTEInfo ef_emlrtRTEI = { 61,// lineNo
+static emlrtRTEInfo bf_emlrtRTEI = { 60,// lineNo
   21,                                  // colNo
   "groupLayers_Mod",                   // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"// pName 
 };
 
-static emlrtRTEInfo ff_emlrtRTEI = { 90,// lineNo
+static emlrtRTEInfo cf_emlrtRTEI = { 49,// lineNo
+  17,                                  // colNo
+  "groupLayers_Mod",                   // fName
+  "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"// pName 
+};
+
+static emlrtRTEInfo df_emlrtRTEI = { 89,// lineNo
   5,                                   // colNo
   "groupLayers_Mod",                   // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"// pName 
 };
 
-static emlrtRTEInfo gf_emlrtRTEI = { 88,// lineNo
+static emlrtRTEInfo ef_emlrtRTEI = { 87,// lineNo
   5,                                   // colNo
   "groupLayers_Mod",                   // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m"// pName 
@@ -135,24 +161,36 @@ void groupLayers_Mod(const emlrtStack *sp, const coder::array<real_T, 2U>
   coder::array<real_T, 2U> layers;
   int32_T loop_ub;
   int32_T i;
-  static const char_T cv[13] = { 'a', 'i', 'r', '/', 's', 'u', 'b', 's', 't',
-    'r', 'a', 't', 'e' };
-
   int32_T i1;
-  static const char_T cv1[16] = { 's', 'u', 'b', 's', 't', 'r', 'a', 't', 'e',
-    '/', 'l', 'i', 'q', 'u', 'i', 'd' };
-
   int32_T iv[2];
   coder::array<real_T, 1U> roughs;
+  static const char_T cv[128] = { '\x00', '\x01', '\x02', '\x03', '\x04', '\x05',
+    '\x06', '\x07', '\x08', '\x09', '\x0a', '\x0b', '\x0c', '\x0d', '\x0e',
+    '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17',
+    '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!',
+    '\"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', '0',
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?',
+    '@', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+    'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '[', '\\', ']',
+    '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+    'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{',
+    '|', '}', '~', '\x7f' };
+
+  static const char_T cv1[13] = { 'a', 'i', 'r', '/', 's', 'u', 'b', 's', 't',
+    'r', 'a', 't', 'e' };
+
   emlrtStack st;
   emlrtStack b_st;
   emlrtStack c_st;
+  emlrtStack d_st;
   st.prev = sp;
   st.tls = sp->tls;
   b_st.prev = &st;
   b_st.tls = st.tls;
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
+  d_st.prev = &c_st;
+  d_st.tls = c_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b(sp);
 
   // Arrange layers according to geometry and apply any coverage correction.
@@ -191,7 +229,7 @@ void groupLayers_Mod(const emlrtStack *sp, const coder::array<real_T, 2U>
   // for i = 1:numberOfContrasts
   *outSsubs = allRoughs;
   unnamed_idx_0 = static_cast<uint32_T>(allLayers.size(0));
-  layers.set_size((&bf_emlrtRTEI), sp, (static_cast<int32_T>(unnamed_idx_0)), 5);
+  layers.set_size((&ye_emlrtRTEI), sp, (static_cast<int32_T>(unnamed_idx_0)), 5);
   loop_ub = static_cast<int32_T>(unnamed_idx_0) * 5;
   for (i = 0; i < loop_ub; i++) {
     layers[i] = 0.0;
@@ -200,15 +238,26 @@ void groupLayers_Mod(const emlrtStack *sp, const coder::array<real_T, 2U>
   if (allLayers.size(0) != 0) {
     boolean_T b_bool;
     int32_T kstr;
-    int32_T exitg1;
     int32_T b_loop_ub;
+    st.site = &s_emlrtRSI;
+    b_st.site = &v_emlrtRSI;
+    c_st.site = &w_emlrtRSI;
     b_bool = false;
     if (geometry.size(1) == 13) {
       kstr = 0;
+      int32_T exitg1;
       do {
         exitg1 = 0;
         if (kstr < 13) {
-          if (geometry[kstr] != cv[kstr]) {
+          d_st.site = &x_emlrtRSI;
+          i = static_cast<uint8_T>(geometry[kstr]);
+          if (i > 127) {
+            emlrtErrorWithMessageIdR2018a(&d_st, &hb_emlrtRTEI,
+              "Coder:toolbox:unsupportedString",
+              "Coder:toolbox:unsupportedString", 2, 12, 127);
+          }
+
+          if (cv[i] != cv[static_cast<int32_T>(cv1[kstr])]) {
             exitg1 = 1;
           } else {
             kstr++;
@@ -221,35 +270,6 @@ void groupLayers_Mod(const emlrtStack *sp, const coder::array<real_T, 2U>
     }
 
     if (b_bool) {
-      kstr = 0;
-    } else {
-      b_bool = false;
-      if (geometry.size(1) == 16) {
-        kstr = 0;
-        do {
-          exitg1 = 0;
-          if (kstr < 16) {
-            if (geometry[kstr] != cv1[kstr]) {
-              exitg1 = 1;
-            } else {
-              kstr++;
-            }
-          } else {
-            b_bool = true;
-            exitg1 = 1;
-          }
-        } while (exitg1 == 0);
-      }
-
-      if (b_bool) {
-        kstr = 1;
-      } else {
-        kstr = -1;
-      }
-    }
-
-    switch (kstr) {
-     case 0:
       layers.set_size((&cf_emlrtRTEI), sp, allLayers.size(0), 5);
       loop_ub = allLayers.size(0) * allLayers.size(1);
       for (i = 0; i < loop_ub; i++) {
@@ -257,12 +277,10 @@ void groupLayers_Mod(const emlrtStack *sp, const coder::array<real_T, 2U>
       }
 
       // s_sub = rsub;
-      break;
-
-     case 1:
+    } else {
       if (allLayers.size(0) < 1) {
         emlrtDynamicBoundsCheckR2012b(allLayers.size(0), 1, allLayers.size(0),
-          &me_emlrtBCI, sp);
+          &ke_emlrtBCI, sp);
       }
 
       *outSsubs = allLayers[(allLayers.size(0) + allLayers.size(0) * 2) - 1];
@@ -272,25 +290,25 @@ void groupLayers_Mod(const emlrtStack *sp, const coder::array<real_T, 2U>
         loop_ub = allLayers.size(0) - 1;
         if ((loop_ub < 1) || (loop_ub > allLayers.size(0))) {
           emlrtDynamicBoundsCheckR2012b(loop_ub, 1, allLayers.size(0),
-            &le_emlrtBCI, sp);
+            &je_emlrtBCI, sp);
         }
       }
 
       iv[0] = 1;
       iv[1] = loop_ub;
-      st.site = &s_emlrtRSI;
+      st.site = &t_emlrtRSI;
       indexShapeCheck(&st, allLayers.size(0), iv);
-      roughs.set_size((&df_emlrtRTEI), sp, (loop_ub + 1));
+      roughs.set_size((&af_emlrtRTEI), sp, (loop_ub + 1));
       roughs[0] = allRoughs;
       for (i = 0; i < loop_ub; i++) {
         roughs[i + 1] = allLayers[i + allLayers.size(0) * 2];
       }
 
-      st.site = &t_emlrtRSI;
-      b_st.site = &v_emlrtRSI;
-      c_st.site = &w_emlrtRSI;
+      st.site = &u_emlrtRSI;
+      b_st.site = &eb_emlrtRSI;
+      c_st.site = &fb_emlrtRSI;
       if (roughs.size(0) != allLayers.size(0)) {
-        emlrtErrorWithMessageIdR2018a(&c_st, &hb_emlrtRTEI,
+        emlrtErrorWithMessageIdR2018a(&c_st, &ib_emlrtRTEI,
           "MATLAB:catenate:matrixDimensionMismatch",
           "MATLAB:catenate:matrixDimensionMismatch", 0);
       }
@@ -298,7 +316,7 @@ void groupLayers_Mod(const emlrtStack *sp, const coder::array<real_T, 2U>
       loop_ub = allLayers.size(0);
       kstr = allLayers.size(0);
       b_loop_ub = allLayers.size(0);
-      layers.set_size((&ef_emlrtRTEI), sp, allLayers.size(0), 4);
+      layers.set_size((&bf_emlrtRTEI), sp, allLayers.size(0), 4);
       for (i = 0; i < loop_ub; i++) {
         layers[i] = allLayers[i];
       }
@@ -315,7 +333,6 @@ void groupLayers_Mod(const emlrtStack *sp, const coder::array<real_T, 2U>
       for (i = 0; i < b_loop_ub; i++) {
         layers[i + layers.size(0) * 3] = allLayers[i + allLayers.size(0) * 3];
       }
-      break;
     }
 
     // Deal with the %coverage if present
@@ -325,30 +342,30 @@ void groupLayers_Mod(const emlrtStack *sp, const coder::array<real_T, 2U>
       real_T pc_add;
       i1 = b_loop_ub + 1;
       if ((i1 < 1) || (i1 > allLayers.size(0))) {
-        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers.size(0), &ne_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers.size(0), &le_emlrtBCI, sp);
       }
 
       this_pcw = allLayers[(i1 + allLayers.size(0) * 3) - 1];
       i1 = b_loop_ub + 1;
       if ((i1 < 1) || (i1 > allLayers.size(0))) {
-        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers.size(0), &oe_emlrtBCI, sp);
+        emlrtDynamicBoundsCheckR2012b(i1, 1, allLayers.size(0), &me_emlrtBCI, sp);
       }
 
       if (allLayers[(i1 + allLayers.size(0) * 4) - 1] == 1.0) {
-        pc_add = nbsubs;
-      } else {
         pc_add = nbair;
+      } else {
+        pc_add = nbsubs;
       }
 
       if (!muDoubleScalarIsNaN(this_pcw)) {
         i1 = b_loop_ub + 1;
         if ((i1 < 1) || (i1 > layers.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i1, 1, layers.size(0), &pe_emlrtBCI, sp);
+          emlrtDynamicBoundsCheckR2012b(i1, 1, layers.size(0), &ne_emlrtBCI, sp);
         }
 
         kstr = b_loop_ub + 1;
         if ((kstr < 1) || (kstr > layers.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(kstr, 1, layers.size(0), &qe_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(kstr, 1, layers.size(0), &oe_emlrtBCI,
             sp);
         }
 
@@ -362,14 +379,14 @@ void groupLayers_Mod(const emlrtStack *sp, const coder::array<real_T, 2U>
   //      problem.ssubs(i) = s_sub;
   if (layers.size(0) != 0) {
     loop_ub = layers.size(0);
-    outLayers.set_size((&gf_emlrtRTEI), sp, layers.size(0), 3);
+    outLayers.set_size((&ef_emlrtRTEI), sp, layers.size(0), 3);
     for (i = 0; i < 3; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
         outLayers[i1 + outLayers.size(0) * i] = layers[i1 + layers.size(0) * i];
       }
     }
   } else {
-    outLayers.set_size((&ff_emlrtRTEI), sp, 1, 3);
+    outLayers.set_size((&df_emlrtRTEI), sp, 1, 3);
     outLayers[0] = 0.0;
     outLayers[1] = 0.0;
     outLayers[2] = 0.0;

@@ -10,7 +10,7 @@ disp('Running single');
 timeThese = zeros(1,num);
 for i = 1:num
     tic
-    [outProb,results] = RAT(problem,controls); 
+    [outProb,results] = RAT_new(problem,controls); 
     timeThese(i) = toc;
 end
 timSingle = sum(timeThese(50:end))/50;
@@ -21,7 +21,7 @@ disp('Running points');
 timeThese = zeros(1,num);
 for i = 1:num
     tic
-    [outProb,results] = RAT(problem,controls); 
+    [outProb,results] = RAT_new(problem,controls); 
     timeThese(i) = toc;
 end
 timPoints = sum(timeThese(50:end))/50;
@@ -32,7 +32,7 @@ disp('Running contrasts');
 timeThese = zeros(1,num);
 for i = 1:num
     tic
-    [outProb,results] = RAT(problem,controls); 
+    [outProb,results] = RAT_new(problem,controls); 
     timeThese(i) = toc;
 end
 timContrasts = sum(timeThese(50:end))/50;

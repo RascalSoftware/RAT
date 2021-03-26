@@ -20,12 +20,12 @@
 #include <string.h>
 
 // Variable Definitions
-static emlrtRSInfo lf_emlrtRSI = { 28, // lineNo
+static emlrtRSInfo tf_emlrtRSI = { 28, // lineNo
   "abeles_single",                     // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_single.m"// pathName 
 };
 
-static emlrtBCInfo wg_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo sg_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   42,                                  // lineNo
   23,                                  // colNo
@@ -35,7 +35,7 @@ static emlrtBCInfo wg_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo xg_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo tg_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   41,                                  // lineNo
   25,                                  // colNo
@@ -45,13 +45,13 @@ static emlrtBCInfo xg_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtRTEInfo vb_emlrtRTEI = { 39,// lineNo
+static emlrtRTEInfo wb_emlrtRTEI = { 39,// lineNo
   19,                                  // colNo
   "abeles_single",                     // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_single.m"// pName 
 };
 
-static emlrtBCInfo yg_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ug_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   34,                                  // lineNo
   17,                                  // colNo
@@ -61,7 +61,7 @@ static emlrtBCInfo yg_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ah_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo vg_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   27,                                  // lineNo
   11,                                  // colNo
@@ -71,7 +71,7 @@ static emlrtBCInfo ah_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo bh_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo wg_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   43,                                  // lineNo
   21,                                  // colNo
@@ -81,7 +81,7 @@ static emlrtBCInfo bh_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ch_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo xg_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   72,                                  // lineNo
   5,                                   // colNo
@@ -91,7 +91,7 @@ static emlrtBCInfo ch_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtRTEInfo sh_emlrtRTEI = { 9,// lineNo
+static emlrtRTEInfo qh_emlrtRTEI = { 9,// lineNo
   7,                                   // colNo
   "abeles_single",                     // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_single.m"// pName 
@@ -124,7 +124,7 @@ void abeles_single(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
   //  nrepeats = nrepeatss(thisCont);
   //  resol = resols(thisCont);
   i = static_cast<int32_T>(points);
-  out.set_size((&sh_emlrtRTEI), sp, i);
+  out.set_size((&qh_emlrtRTEI), sp, i);
 
   // pi = 3.141592653589;
   snair = 1.0 - nbair * 0.377451863036739;
@@ -157,13 +157,13 @@ void abeles_single(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
     real_T x_im;
     i3 = loop + 1;
     if ((i3 < 1) || (i3 > x.size(0))) {
-      emlrtDynamicBoundsCheckR2012b(i3, 1, x.size(0), &ah_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(i3, 1, x.size(0), &vg_emlrtBCI, sp);
     }
 
-    st.site = &lf_emlrtRSI;
+    st.site = &tf_emlrtRSI;
     theta = x[loop] * 1.54 / 12.566370614359172;
     if ((theta < -1.0) || (theta > 1.0)) {
-      emlrtErrorWithMessageIdR2018a(&st, &ub_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&st, &vb_emlrtRTEI,
         "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3, 4,
         4, "asin");
     }
@@ -180,7 +180,7 @@ void abeles_single(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
     blast_re = 0.0;
     blast_im = 0.0;
     if (1 > sld.size(0)) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, sld.size(0), &yg_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(1, 1, sld.size(0), &ug_emlrtBCI, sp);
     }
 
     MI[0].re = 1.0;
@@ -192,22 +192,22 @@ void abeles_single(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
     MI[1].re = 0.0;
     MI[1].im = 0.0;
     emlrtForLoopVectorCheckR2012b(1.0, 1.0, nrepeats, mxDOUBLE_CLASS,
-      static_cast<int32_T>(nrepeats), &vb_emlrtRTEI, sp);
+      static_cast<int32_T>(nrepeats), &wb_emlrtRTEI, sp);
     for (int32_T reploop = 0; reploop < i1; reploop++) {
       for (int32_T nl = 0; nl < i2; nl++) {
         i3 = nl + 1;
         if ((i3 < 1) || (i3 > sld.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, sld.size(0), &xg_emlrtBCI, sp);
+          emlrtDynamicBoundsCheckR2012b(i3, 1, sld.size(0), &tg_emlrtBCI, sp);
         }
 
         i3 = nl + 1;
         if ((i3 < 1) || (i3 > sld.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, sld.size(0), &wg_emlrtBCI, sp);
+          emlrtDynamicBoundsCheckR2012b(i3, 1, sld.size(0), &sg_emlrtBCI, sp);
         }
 
         i3 = static_cast<int32_T>(nl + 1U);
         if ((i3 < 1) || (i3 > sld.size(0))) {
-          emlrtDynamicBoundsCheckR2012b(i3, 1, sld.size(0), &bh_emlrtBCI, sp);
+          emlrtDynamicBoundsCheckR2012b(i3, 1, sld.size(0), &wg_emlrtBCI, sp);
         }
 
         rough = sld[(i3 + sld.size(0) * 2) - 1];
@@ -554,7 +554,7 @@ void abeles_single(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
 
     i3 = static_cast<int32_T>(loop + 1U);
     if ((i3 < 1) || (i3 > out.size(0))) {
-      emlrtDynamicBoundsCheckR2012b(i3, 1, out.size(0), &ch_emlrtBCI, sp);
+      emlrtDynamicBoundsCheckR2012b(i3, 1, out.size(0), &xg_emlrtBCI, sp);
     }
 
     out[i3 - 1] = muDoubleScalarHypot(pair_re, pair_im);

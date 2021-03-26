@@ -25,7 +25,7 @@
 
 // Function Declarations
 void allocateLayersForContrast(const emlrtStack *sp, const coder::array<real_T,
-  2U> &contrastLayers, const coder::array<cell_wrap_17, 2U>
+  2U> &contrastLayers, const coder::array<cell_wrap_19, 2U>
   &outParameterisedLayers, coder::array<real_T, 2U> &thisContrastLayers);
 
 // End of code generation (allocateLayersForContrast.h)

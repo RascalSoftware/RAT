@@ -47,10 +47,10 @@ build $builddir/backSort.o : cxx $root/backSort.cpp
 build $builddir/allocateLayersForContrast.o : cxx $root/allocateLayersForContrast.cpp
 build $builddir/standardTF_layers_core.o : cxx $root/standardTF_layers_core.cpp
 build $builddir/groupLayers_Mod.o : cxx $root/groupLayers_Mod.cpp
+build $builddir/colon.o : cxx $root/colon.cpp
 build $builddir/indexShapeCheck.o : cxx $root/indexShapeCheck.cpp
 build $builddir/makeSLDProfileXY.o : cxx $root/makeSLDProfileXY.cpp
 build $builddir/sum.o : cxx $root/sum.cpp
-build $builddir/colon.o : cxx $root/colon.cpp
 build $builddir/asymconvstep.o : cxx $root/asymconvstep.cpp
 build $builddir/power.o : cxx $root/power.cpp
 build $builddir/sqrt.o : cxx $root/sqrt.cpp
@@ -76,4 +76,4 @@ build $builddir/_coder_reflectivity_calculation_info.o : cxx $root/interface/_co
 build $builddir/cpp_mexapi_version.o : cxx $matlabdir/extern/version/cpp_mexapi_version.cpp
 
 # Link
-build $root/reflectivity_calculation_mex.mexa64 : linkxx $builddir/rt_nonfinite.o $builddir/reflectivity_calculation_mexutil.o $builddir/reflectivity_calculation_data.o $builddir/reflectivity_calculation_initialize.o $builddir/reflectivity_calculation_terminate.o $builddir/reflectivity_calculation.o $builddir/eml_int_forloop_overflow_check.o $builddir/standardTF_stanLay_reflectivityCalculation.o $builddir/allocateParamsToLayers.o $builddir/backSort.o $builddir/allocateLayersForContrast.o $builddir/standardTF_layers_core.o $builddir/groupLayers_Mod.o $builddir/indexShapeCheck.o $builddir/makeSLDProfileXY.o $builddir/sum.o $builddir/colon.o $builddir/asymconvstep.o $builddir/power.o $builddir/sqrt.o $builddir/applyScalarFunction.o $builddir/resampleLayers.o $builddir/adaptive.o $builddir/sldFunc.o $builddir/repmat.o $builddir/acos.o $builddir/sortrows.o $builddir/sortLE.o $builddir/shiftdata.o $builddir/callReflectivity.o $builddir/abeles_single.o $builddir/chiSquared.o $builddir/abeles_paraPoints.o $builddir/resolution_polly_paraPoints.o $builddir/standardTF_stanlay_paraContrasts.o $builddir/standardTF_stanlay_paraAll.o $builddir/_coder_reflectivity_calculation_api.o $builddir/_coder_reflectivity_calculation_mex.o $builddir/_coder_reflectivity_calculation_info.o $builddir/cpp_mexapi_version.o 
+build $root/reflectivity_calculation_mex.mexa64 : linkxx $builddir/rt_nonfinite.o $builddir/reflectivity_calculation_mexutil.o $builddir/reflectivity_calculation_data.o $builddir/reflectivity_calculation_initialize.o $builddir/reflectivity_calculation_terminate.o $builddir/reflectivity_calculation.o $builddir/eml_int_forloop_overflow_check.o $builddir/standardTF_stanLay_reflectivityCalculation.o $builddir/allocateParamsToLayers.o $builddir/backSort.o $builddir/allocateLayersForContrast.o $builddir/standardTF_layers_core.o $builddir/groupLayers_Mod.o $builddir/colon.o $builddir/indexShapeCheck.o $builddir/makeSLDProfileXY.o $builddir/sum.o $builddir/asymconvstep.o $builddir/power.o $builddir/sqrt.o $builddir/applyScalarFunction.o $builddir/resampleLayers.o $builddir/adaptive.o $builddir/sldFunc.o $builddir/repmat.o $builddir/acos.o $builddir/sortrows.o $builddir/sortLE.o $builddir/shiftdata.o $builddir/callReflectivity.o $builddir/abeles_single.o $builddir/chiSquared.o $builddir/abeles_paraPoints.o $builddir/resolution_polly_paraPoints.o $builddir/standardTF_stanlay_paraContrasts.o $builddir/standardTF_stanlay_paraAll.o $builddir/_coder_reflectivity_calculation_api.o $builddir/_coder_reflectivity_calculation_mex.o $builddir/_coder_reflectivity_calculation_info.o $builddir/cpp_mexapi_version.o 

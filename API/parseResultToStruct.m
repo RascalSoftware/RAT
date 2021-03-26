@@ -1,4 +1,4 @@
-function result = parseResultToStruct(outProblemDef,problem,results)
+function result = parseResultToStruct(problem,results)
 
 result.reflectivity = results{1};
 result.Simulation = results{2};

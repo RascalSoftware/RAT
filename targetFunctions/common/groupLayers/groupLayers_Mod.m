@@ -71,9 +71,9 @@ coder.varsize('layers',[Inf,5],[1 1]);
             for j = 1:l
                 this_pcw = output(j,4);
                 if output(j,5) == 1
-                    pc_add = nbsubs;
-                else
                     pc_add = nbair;
+                else
+                    pc_add = nbsubs;
                 end
                 if ~isnan(this_pcw)
                     layers(j,2) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,2);

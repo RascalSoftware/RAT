@@ -33,17 +33,17 @@ void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const coder::array<
   const coder::array<real_T, 2U> &backs, const coder::array<real_T, 2U> &shifts,
   const coder::array<real_T, 2U> &sf, const coder::array<real_T, 2U> &nba, const
   coder::array<real_T, 2U> &nbs, const coder::array<real_T, 2U> &res, const
-  coder::array<real_T, 2U> &dataPresent, const coder::array<cell_wrap_12, 2U>
+  coder::array<real_T, 2U> &dataPresent, const coder::array<cell_wrap_1, 2U>
   &allData, const coder::array<cell_wrap_0, 2U> &dataLimits, const coder::array<
   cell_wrap_0, 2U> &simLimits, real_T nParams, const coder::array<real_T, 2U>
   &params, const coder::array<cell_wrap_12, 2U> &contrastLayers, const coder::
-  array<cell_wrap_12, 1U> &layersDetails, const coder::array<real_T, 2U>
+  array<cell_wrap_3, 1U> &layersDetails, const coder::array<real_T, 2U>
   &backsType, real_T calcSld, coder::array<real_T, 1U> &outSsubs, coder::array<
   real_T, 1U> &backgs, coder::array<real_T, 1U> &qshifts, coder::array<real_T,
   1U> &sfs, coder::array<real_T, 1U> &nbas, coder::array<real_T, 1U> &nbss,
   coder::array<real_T, 1U> &resols, coder::array<real_T, 1U> &chis, coder::array<
-  cell_wrap_6, 1U> &reflectivity, coder::array<cell_wrap_6, 1U> &Simulation,
-  coder::array<cell_wrap_12, 1U> &shifted_data, coder::array<cell_wrap_7, 1U>
+  cell_wrap_7, 1U> &reflectivity, coder::array<cell_wrap_7, 1U> &Simulation,
+  coder::array<cell_wrap_1, 1U> &shifted_data, coder::array<cell_wrap_1, 1U>
   &layerSlds, coder::array<cell_wrap_12, 1U> &sldProfiles, coder::array<
   cell_wrap_11, 1U> &allLayers, coder::array<real_T, 1U> &allRoughs);
 

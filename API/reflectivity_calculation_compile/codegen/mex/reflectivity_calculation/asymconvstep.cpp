@@ -17,32 +17,32 @@
 #include "standardTF_layers_core.h"
 
 // Variable Definitions
-static emlrtRSInfo ob_emlrtRSI = { 45, // lineNo
+static emlrtRSInfo wb_emlrtRSI = { 45, // lineNo
   "mpower",                            // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/mpower.m"// pathName
 };
 
-static emlrtRSInfo tb_emlrtRSI = { 39, // lineNo
+static emlrtRSInfo cc_emlrtRSI = { 39, // lineNo
   "asymconvstep",                      // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"// pathName 
 };
 
-static emlrtRSInfo ub_emlrtRSI = { 40, // lineNo
+static emlrtRSInfo dc_emlrtRSI = { 40, // lineNo
   "asymconvstep",                      // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"// pathName 
 };
 
-static emlrtRSInfo vb_emlrtRSI = { 45, // lineNo
+static emlrtRSInfo ec_emlrtRSI = { 45, // lineNo
   "asymconvstep",                      // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"// pathName 
 };
 
-static emlrtRSInfo wb_emlrtRSI = { 9,  // lineNo
+static emlrtRSInfo fc_emlrtRSI = { 9,  // lineNo
   "erf",                               // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/specfun/erf.m"// pathName
 };
 
-static emlrtRSInfo xb_emlrtRSI = { 12, // lineNo
+static emlrtRSInfo gc_emlrtRSI = { 12, // lineNo
   "eml_erfcore",                       // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/specfun/private/eml_erfcore.m"// pathName 
 };
@@ -54,19 +54,19 @@ static emlrtECInfo e_emlrtECI = { 2,   // nDims
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"// pName 
 };
 
-static emlrtRTEInfo rf_emlrtRTEI = { 42,// lineNo
+static emlrtRTEInfo pf_emlrtRTEI = { 42,// lineNo
   5,                                   // colNo
   "asymconvstep",                      // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"// pName 
 };
 
-static emlrtRTEInfo sf_emlrtRTEI = { 43,// lineNo
+static emlrtRTEInfo qf_emlrtRTEI = { 43,// lineNo
   5,                                   // colNo
   "asymconvstep",                      // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"// pName 
 };
 
-static emlrtRTEInfo tf_emlrtRTEI = { 45,// lineNo
+static emlrtRTEInfo rf_emlrtRTEI = { 45,// lineNo
   1,                                   // colNo
   "asymconvstep",                      // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m"// pName 
@@ -130,36 +130,36 @@ void asymconvstep(const emlrtStack *sp, const coder::array<real_T, 2U> &x,
   //  end
   r = xcen + xw / 2.0;
   l = xcen - xw / 2.0;
-  st.site = &tb_emlrtRSI;
-  b_st.site = &ob_emlrtRSI;
-  aFactor = 1.4142135623730951 * s1;
-  st.site = &ub_emlrtRSI;
-  b_st.site = &ob_emlrtRSI;
-  bFactor = 1.4142135623730951 * s2;
-  st.site = &vb_emlrtRSI;
+  st.site = &cc_emlrtRSI;
   b_st.site = &wb_emlrtRSI;
-  b_x.set_size((&rf_emlrtRTEI), (&b_st), 1, x.size(1));
+  aFactor = 1.4142135623730951 * s1;
+  st.site = &dc_emlrtRSI;
+  b_st.site = &wb_emlrtRSI;
+  bFactor = 1.4142135623730951 * s2;
+  st.site = &ec_emlrtRSI;
+  b_st.site = &fc_emlrtRSI;
+  b_x.set_size((&pf_emlrtRTEI), (&b_st), 1, x.size(1));
   loop_ub = x.size(0) * x.size(1);
   for (i = 0; i < loop_ub; i++) {
     b_x[i] = (x[i] - l) / aFactor;
   }
 
-  c_st.site = &xb_emlrtRSI;
+  c_st.site = &gc_emlrtRSI;
   applyScalarFunction(&c_st, b_x, f);
-  st.site = &vb_emlrtRSI;
-  b_st.site = &wb_emlrtRSI;
-  b_x.set_size((&sf_emlrtRTEI), (&b_st), 1, x.size(1));
+  st.site = &ec_emlrtRSI;
+  b_st.site = &fc_emlrtRSI;
+  b_x.set_size((&qf_emlrtRTEI), (&b_st), 1, x.size(1));
   loop_ub = x.size(0) * x.size(1);
   for (i = 0; i < loop_ub; i++) {
     b_x[i] = (x[i] - r) / bFactor;
   }
 
-  c_st.site = &xb_emlrtRSI;
+  c_st.site = &gc_emlrtRSI;
   applyScalarFunction(&c_st, b_x, b_r);
   emlrtSizeEqCheckNDR2012b(f.size(), b_r.size(), &e_emlrtECI, sp);
   r = h / 2.0;
   i = f.size(0) * f.size(1);
-  f.set_size((&tf_emlrtRTEI), sp, 1, f.size(1));
+  f.set_size((&rf_emlrtRTEI), sp, 1, f.size(1));
   loop_ub = i - 1;
   for (i = 0; i <= loop_ub; i++) {
     f[i] = r * (f[i] - b_r[i]);

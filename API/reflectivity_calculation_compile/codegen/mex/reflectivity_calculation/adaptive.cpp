@@ -27,137 +27,137 @@
 #include "sum.h"
 
 // Variable Definitions
-static emlrtRSInfo vc_emlrtRSI = { 252,// lineNo
+static emlrtRSInfo ed_emlrtRSI = { 252,// lineNo
   "adaptive",                          // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo wc_emlrtRSI = { 267,// lineNo
+static emlrtRSInfo fd_emlrtRSI = { 267,// lineNo
   "adaptive",                          // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo xc_emlrtRSI = { 281,// lineNo
+static emlrtRSInfo gd_emlrtRSI = { 281,// lineNo
   "adaptive",                          // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo yc_emlrtRSI = { 304,// lineNo
+static emlrtRSInfo hd_emlrtRSI = { 304,// lineNo
   "adaptive",                          // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo ad_emlrtRSI = { 305,// lineNo
+static emlrtRSInfo id_emlrtRSI = { 305,// lineNo
   "adaptive",                          // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo bd_emlrtRSI = { 376,// lineNo
+static emlrtRSInfo jd_emlrtRSI = { 376,// lineNo
   "normalizeFunction",                 // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo jd_emlrtRSI = { 167,// lineNo
+static emlrtRSInfo rd_emlrtRSI = { 167,// lineNo
   "unaryMinOrMax",                     // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"// pathName 
 };
 
-static emlrtRSInfo kd_emlrtRSI = { 326,// lineNo
+static emlrtRSInfo sd_emlrtRSI = { 326,// lineNo
   "unaryMinOrMaxDispatch",             // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"// pathName 
 };
 
-static emlrtRSInfo ld_emlrtRSI = { 394,// lineNo
+static emlrtRSInfo td_emlrtRSI = { 394,// lineNo
   "minOrMax2D",                        // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"// pathName 
 };
 
-static emlrtRSInfo md_emlrtRSI = { 476,// lineNo
+static emlrtRSInfo ud_emlrtRSI = { 476,// lineNo
   "minOrMax2DColumnMajorDim1",         // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"// pathName 
 };
 
-static emlrtRSInfo nd_emlrtRSI = { 14, // lineNo
+static emlrtRSInfo vd_emlrtRSI = { 14, // lineNo
   "min",                               // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/datafun/min.m"// pathName
 };
 
-static emlrtRSInfo od_emlrtRSI = { 46, // lineNo
+static emlrtRSInfo wd_emlrtRSI = { 46, // lineNo
   "minOrMax",                          // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/minOrMax.m"// pathName 
 };
 
-static emlrtRSInfo pd_emlrtRSI = { 92, // lineNo
+static emlrtRSInfo xd_emlrtRSI = { 92, // lineNo
   "minimum",                           // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/minOrMax.m"// pathName 
 };
 
-static emlrtRSInfo qd_emlrtRSI = { 398,// lineNo
+static emlrtRSInfo yd_emlrtRSI = { 398,// lineNo
   "calculateCentralAngles",            // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo rd_emlrtRSI = { 399,// lineNo
+static emlrtRSInfo ae_emlrtRSI = { 399,// lineNo
   "calculateCentralAngles",            // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo sd_emlrtRSI = { 401,// lineNo
+static emlrtRSInfo be_emlrtRSI = { 401,// lineNo
   "calculateCentralAngles",            // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo td_emlrtRSI = { 403,// lineNo
+static emlrtRSInfo ce_emlrtRSI = { 403,// lineNo
   "calculateCentralAngles",            // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo ud_emlrtRSI = { 404,// lineNo
+static emlrtRSInfo de_emlrtRSI = { 404,// lineNo
   "calculateCentralAngles",            // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo vd_emlrtRSI = { 405,// lineNo
+static emlrtRSInfo ee_emlrtRSI = { 405,// lineNo
   "calculateCentralAngles",            // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo wd_emlrtRSI = { 408,// lineNo
+static emlrtRSInfo fe_emlrtRSI = { 408,// lineNo
   "calculateCentralAngles",            // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo xd_emlrtRSI = { 407,// lineNo
+static emlrtRSInfo ge_emlrtRSI = { 407,// lineNo
   "calculateCentralAngles",            // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo yd_emlrtRSI = { 409,// lineNo
+static emlrtRSInfo he_emlrtRSI = { 409,// lineNo
   "calculateCentralAngles",            // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo ee_emlrtRSI = { 16, // lineNo
+static emlrtRSInfo me_emlrtRSI = { 16, // lineNo
   "sqrt",                              // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elfun/sqrt.m"// pathName
 };
 
-static emlrtRSInfo he_emlrtRSI = { 13, // lineNo
+static emlrtRSInfo pe_emlrtRSI = { 13, // lineNo
   "any",                               // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/any.m"// pathName
 };
 
-static emlrtRSInfo ie_emlrtRSI = { 143,// lineNo
+static emlrtRSInfo qe_emlrtRSI = { 143,// lineNo
   "allOrAny",                          // fcnName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/allOrAny.m"// pathName 
 };
 
-static emlrtRSInfo je_emlrtRSI = { 431,// lineNo
+static emlrtRSInfo re_emlrtRSI = { 431,// lineNo
   "increaseSampling",                  // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
 
-static emlrtRSInfo ke_emlrtRSI = { 433,// lineNo
+static emlrtRSInfo se_emlrtRSI = { 433,// lineNo
   "increaseSampling",                  // fcnName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pathName 
 };
@@ -183,13 +183,13 @@ static emlrtECInfo g_emlrtECI = { -1,  // nDims
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo mb_emlrtRTEI = { 26,// lineNo
+static emlrtRTEInfo nb_emlrtRTEI = { 26,// lineNo
   27,                                  // colNo
   "unaryMinOrMax",                     // fName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"// pName 
 };
 
-static emlrtRTEInfo nb_emlrtRTEI = { 95,// lineNo
+static emlrtRTEInfo ob_emlrtRTEI = { 95,// lineNo
   27,                                  // colNo
   "unaryMinOrMax",                     // fName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/unaryMinOrMax.m"// pName 
@@ -244,7 +244,7 @@ static emlrtECInfo n_emlrtECI = { -1,  // nDims
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtBCInfo qf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo of_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   386,                                 // lineNo
   20,                                  // colNo
@@ -254,7 +254,7 @@ static emlrtBCInfo qf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo rf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo pf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   386,                                 // lineNo
   22,                                  // colNo
@@ -264,7 +264,7 @@ static emlrtBCInfo rf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo sf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo qf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   386,                                 // lineNo
   40,                                  // colNo
@@ -274,7 +274,7 @@ static emlrtBCInfo sf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo tf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo rf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   386,                                 // lineNo
   42,                                  // colNo
@@ -291,7 +291,7 @@ static emlrtECInfo o_emlrtECI = { 2,   // nDims
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtBCInfo uf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo sf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   387,                                 // lineNo
   23,                                  // colNo
@@ -301,7 +301,7 @@ static emlrtBCInfo uf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo vf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo tf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   387,                                 // lineNo
   41,                                  // colNo
@@ -311,7 +311,7 @@ static emlrtBCInfo vf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo wf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo uf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   387,                                 // lineNo
   43,                                  // colNo
@@ -328,7 +328,7 @@ static emlrtECInfo p_emlrtECI = { 2,   // nDims
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtBCInfo xf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo vf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   388,                                 // lineNo
   22,                                  // colNo
@@ -338,7 +338,7 @@ static emlrtBCInfo xf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo yf_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo wf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   388,                                 // lineNo
   40,                                  // colNo
@@ -348,7 +348,7 @@ static emlrtBCInfo yf_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo ag_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo xf_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   388,                                 // lineNo
   42,                                  // colNo
@@ -365,7 +365,7 @@ static emlrtECInfo q_emlrtECI = { 2,   // nDims
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo qb_emlrtRTEI = { 13,// lineNo
+static emlrtRTEInfo rb_emlrtRTEI = { 13,// lineNo
   9,                                   // colNo
   "sqrt",                              // fName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/elfun/sqrt.m"// pName
@@ -392,7 +392,7 @@ static emlrtECInfo w_emlrtECI = { -1,  // nDims
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtBCInfo jk_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo dk_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   425,                                 // lineNo
   39,                                  // colNo
@@ -402,7 +402,7 @@ static emlrtBCInfo jk_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo kk_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo ek_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   429,                                 // lineNo
   40,                                  // colNo
@@ -412,7 +412,7 @@ static emlrtBCInfo kk_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo lk_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo fk_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   430,                                 // lineNo
   14,                                  // colNo
@@ -422,7 +422,7 @@ static emlrtBCInfo lk_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo mk_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo gk_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   376,                                 // lineNo
   20,                                  // colNo
@@ -432,7 +432,7 @@ static emlrtBCInfo mk_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtBCInfo nk_emlrtBCI = { -1, // iFirst
+static emlrtBCInfo hk_emlrtBCI = { -1, // iFirst
   -1,                                  // iLast
   376,                                 // lineNo
   5,                                   // colNo
@@ -442,169 +442,169 @@ static emlrtBCInfo nk_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtRTEInfo xf_emlrtRTEI = { 255,// lineNo
+static emlrtRTEInfo vf_emlrtRTEI = { 255,// lineNo
   1,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo yf_emlrtRTEI = { 281,// lineNo
+static emlrtRTEInfo wf_emlrtRTEI = { 281,// lineNo
   42,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo ag_emlrtRTEI = { 282,// lineNo
+static emlrtRTEInfo xf_emlrtRTEI = { 282,// lineNo
   5,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo bg_emlrtRTEI = { 283,// lineNo
+static emlrtRTEInfo yf_emlrtRTEI = { 283,// lineNo
   5,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo cg_emlrtRTEI = { 289,// lineNo
+static emlrtRTEInfo ag_emlrtRTEI = { 289,// lineNo
   21,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo dg_emlrtRTEI = { 289,// lineNo
+static emlrtRTEInfo bg_emlrtRTEI = { 289,// lineNo
   50,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo eg_emlrtRTEI = { 334,// lineNo
+static emlrtRTEInfo cg_emlrtRTEI = { 334,// lineNo
   3,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo qg_emlrtRTEI = { 398,// lineNo
+static emlrtRTEInfo og_emlrtRTEI = { 398,// lineNo
   3,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo rg_emlrtRTEI = { 397,// lineNo
+static emlrtRTEInfo pg_emlrtRTEI = { 397,// lineNo
   1,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo sg_emlrtRTEI = { 386,// lineNo
+static emlrtRTEInfo qg_emlrtRTEI = { 386,// lineNo
   1,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo tg_emlrtRTEI = { 387,// lineNo
+static emlrtRTEInfo rg_emlrtRTEI = { 387,// lineNo
   1,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo ug_emlrtRTEI = { 388,// lineNo
+static emlrtRTEInfo sg_emlrtRTEI = { 388,// lineNo
   1,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo vg_emlrtRTEI = { 403,// lineNo
+static emlrtRTEInfo tg_emlrtRTEI = { 403,// lineNo
   21,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo wg_emlrtRTEI = { 403,// lineNo
+static emlrtRTEInfo ug_emlrtRTEI = { 403,// lineNo
   42,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo xg_emlrtRTEI = { 404,// lineNo
+static emlrtRTEInfo vg_emlrtRTEI = { 404,// lineNo
   21,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo yg_emlrtRTEI = { 404,// lineNo
+static emlrtRTEInfo wg_emlrtRTEI = { 404,// lineNo
   42,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo ah_emlrtRTEI = { 405,// lineNo
+static emlrtRTEInfo xg_emlrtRTEI = { 405,// lineNo
   21,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo bh_emlrtRTEI = { 405,// lineNo
+static emlrtRTEInfo yg_emlrtRTEI = { 405,// lineNo
   42,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo ch_emlrtRTEI = { 407,// lineNo
+static emlrtRTEInfo ah_emlrtRTEI = { 407,// lineNo
   3,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo dh_emlrtRTEI = { 409,// lineNo
+static emlrtRTEInfo bh_emlrtRTEI = { 409,// lineNo
   20,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo eh_emlrtRTEI = { 409,// lineNo
+static emlrtRTEInfo ch_emlrtRTEI = { 409,// lineNo
   1,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo yi_emlrtRTEI = { 426,// lineNo
+static emlrtRTEInfo wi_emlrtRTEI = { 426,// lineNo
   1,                                   // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo aj_emlrtRTEI = { 429,// lineNo
+static emlrtRTEInfo xi_emlrtRTEI = { 429,// lineNo
   40,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo bj_emlrtRTEI = { 430,// lineNo
+static emlrtRTEInfo yi_emlrtRTEI = { 430,// lineNo
   14,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo cj_emlrtRTEI = { 422,// lineNo
+static emlrtRTEInfo aj_emlrtRTEI = { 422,// lineNo
   23,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo dj_emlrtRTEI = { 429,// lineNo
+static emlrtRTEInfo bj_emlrtRTEI = { 429,// lineNo
   22,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo ej_emlrtRTEI = { 431,// lineNo
+static emlrtRTEInfo cj_emlrtRTEI = { 431,// lineNo
   22,                                  // colNo
   "adaptive",                          // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/adaptive.m"// pName 
 };
 
-static emlrtRTEInfo fj_emlrtRTEI = { 303,// lineNo
+static emlrtRTEInfo dj_emlrtRTEI = { 303,// lineNo
   14,                                  // colNo
   "cat",                               // fName
   "/usr/local/MATLAB/R2020a/toolbox/eml/eml/+coder/+internal/cat.m"// pName
@@ -679,8 +679,8 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
   //  For input size NxM, the output size is (N-2)xN, because the first and the
   //  last point are not the central corner of any triangle.
   //  Normalize data, because angles depend on scaling.
-  st.site = &qd_emlrtRSI;
-  b_st.site = &qd_emlrtRSI;
+  st.site = &yd_emlrtRSI;
+  b_st.site = &yd_emlrtRSI;
   repmat(&b_st, dataBoxSize, static_cast<real_T>(XYdata.size(0)), normalizedData);
   varargin_1[0] = XYdata.size(0);
   varargin_2[0] = static_cast<uint32_T>(normalizedData.size(0));
@@ -701,41 +701,41 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
 
   overflow = p;
   if (!overflow) {
-    emlrtErrorWithMessageIdR2018a(&st, &pb_emlrtRTEI, "MATLAB:dimagree",
+    emlrtErrorWithMessageIdR2018a(&st, &qb_emlrtRTEI, "MATLAB:dimagree",
       "MATLAB:dimagree", 0);
   }
 
   m = XYdata.size(0) * XYdata.size(1);
-  normalizedData.set_size((&qg_emlrtRTEI), (&st), XYdata.size(0), 2);
+  normalizedData.set_size((&og_emlrtRTEI), (&st), XYdata.size(0), 2);
   for (i = 0; i < m; i++) {
     normalizedData[i] = XYdata[i] / normalizedData[i];
   }
 
-  st.site = &rd_emlrtRSI;
-  b_st.site = &nd_emlrtRSI;
-  c_st.site = &od_emlrtRSI;
-  d_st.site = &pd_emlrtRSI;
+  st.site = &ae_emlrtRSI;
+  b_st.site = &vd_emlrtRSI;
+  c_st.site = &wd_emlrtRSI;
+  d_st.site = &xd_emlrtRSI;
   if (XYdata.size(0) == 1) {
-    emlrtErrorWithMessageIdR2018a(&d_st, &mb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
       "Coder:toolbox:autoDimIncompatibility",
       "Coder:toolbox:autoDimIncompatibility", 0);
   }
 
   if (XYdata.size(0) < 1) {
-    emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&d_st, &ob_emlrtRTEI,
       "Coder:toolbox:eml_min_or_max_varDimZero",
       "Coder:toolbox:eml_min_or_max_varDimZero", 0);
   }
 
-  e_st.site = &jd_emlrtRSI;
-  f_st.site = &kd_emlrtRSI;
-  g_st.site = &ld_emlrtRSI;
+  e_st.site = &rd_emlrtRSI;
+  f_st.site = &sd_emlrtRSI;
+  g_st.site = &td_emlrtRSI;
   m = XYdata.size(0);
   overflow = ((2 <= XYdata.size(0)) && (XYdata.size(0) > 2147483646));
   varargin_1[0] = XYdata[0];
-  h_st.site = &md_emlrtRSI;
+  h_st.site = &ud_emlrtRSI;
   if (overflow) {
-    i_st.site = &nb_emlrtRSI;
+    i_st.site = &vb_emlrtRSI;
     check_forloop_overflow_error(&i_st);
   }
 
@@ -748,7 +748,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
   }
 
   varargin_1[1] = XYdata[XYdata.size(0)];
-  h_st.site = &md_emlrtRSI;
+  h_st.site = &ud_emlrtRSI;
   for (b_i = 2; b_i <= m; b_i++) {
     b = XYdata[(b_i + XYdata.size(0)) - 1];
     if ((!muDoubleScalarIsNaN(b)) && (muDoubleScalarIsNaN(varargin_1[1]) ||
@@ -757,18 +757,18 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
     }
   }
 
-  st.site = &rd_emlrtRSI;
+  st.site = &ae_emlrtRSI;
   repmat(&st, varargin_1, static_cast<real_T>(XYdata.size(0)), longStep);
   emlrtSizeEqCheckNDR2012b(normalizedData.size(), longStep.size(), &i_emlrtECI,
     sp);
   m = normalizedData.size(0) * normalizedData.size(1);
-  normalizedData.set_size((&rg_emlrtRTEI), sp, normalizedData.size(0), 2);
+  normalizedData.set_size((&pg_emlrtRTEI), sp, normalizedData.size(0), 2);
   for (i = 0; i < m; i++) {
     normalizedData[i] = normalizedData[i] - longStep[i];
   }
 
   //  calculate cosine of central angles
-  st.site = &sd_emlrtRSI;
+  st.site = &be_emlrtRSI;
 
   //  Return the sides (deltaX, deltaY) of the triangles formed by data points.
   //  For input size NxM, the output size is (N-2)xN, because the first and the
@@ -778,14 +778,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
     i1 = -1;
   } else {
     if (2 > normalizedData.size(0)) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData.size(0), &qf_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData.size(0), &of_emlrtBCI,
         &st);
     }
 
     i = 0;
     i1 = normalizedData.size(0) - 1;
     if ((i1 < 1) || (i1 > normalizedData.size(0))) {
-      emlrtDynamicBoundsCheckR2012b(i1, 1, normalizedData.size(0), &rf_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i1, 1, normalizedData.size(0), &pf_emlrtBCI,
         &st);
     }
 
@@ -796,13 +796,13 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
     b_i = 0;
   } else {
     if (1 > normalizedData.size(0)) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData.size(0), &sf_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData.size(0), &qf_emlrtBCI,
         &st);
     }
 
     b_i = normalizedData.size(0) - 2;
     if ((b_i < 1) || (b_i > normalizedData.size(0))) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 1, normalizedData.size(0), &tf_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i, 1, normalizedData.size(0), &rf_emlrtBCI,
         &st);
     }
   }
@@ -816,7 +816,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
     emlrtSizeEqCheckNDR2012b(&iv[0], &iv1[0], &o_emlrtECI, &st);
   }
 
-  firstStep.set_size((&sg_emlrtRTEI), (&st), m, 2);
+  firstStep.set_size((&qg_emlrtRTEI), (&st), m, 2);
   for (i1 = 0; i1 < m; i1++) {
     firstStep[i1] = normalizedData[(i + i1) + 1] - normalizedData[i1];
   }
@@ -833,7 +833,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
     i = 1;
     if (normalizedData.size(0) < 1) {
       emlrtDynamicBoundsCheckR2012b(normalizedData.size(0), 1,
-        normalizedData.size(0), &uf_emlrtBCI, &st);
+        normalizedData.size(0), &sf_emlrtBCI, &st);
     }
 
     i1 = normalizedData.size(0) - 1;
@@ -844,14 +844,14 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
     k = 0;
   } else {
     if (2 > normalizedData.size(0)) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData.size(0), &vf_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, normalizedData.size(0), &tf_emlrtBCI,
         &st);
     }
 
     b_i = 0;
     k = normalizedData.size(0) - 1;
     if ((k < 1) || (k > normalizedData.size(0))) {
-      emlrtDynamicBoundsCheckR2012b(k, 1, normalizedData.size(0), &wf_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(k, 1, normalizedData.size(0), &uf_emlrtBCI,
         &st);
     }
   }
@@ -865,7 +865,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
     emlrtSizeEqCheckNDR2012b(&iv[0], &iv1[0], &p_emlrtECI, &st);
   }
 
-  secondStep.set_size((&tg_emlrtRTEI), (&st), m, 2);
+  secondStep.set_size((&rg_emlrtRTEI), (&st), m, 2);
   for (i1 = 0; i1 < m; i1++) {
     secondStep[i1] = normalizedData[(i + i1) + 1] - normalizedData[(b_i + i1) +
       1];
@@ -884,7 +884,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
     i = 1;
     if (normalizedData.size(0) < 1) {
       emlrtDynamicBoundsCheckR2012b(normalizedData.size(0), 1,
-        normalizedData.size(0), &xf_emlrtBCI, &st);
+        normalizedData.size(0), &vf_emlrtBCI, &st);
     }
 
     i1 = normalizedData.size(0) - 1;
@@ -894,13 +894,13 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
     b_i = 0;
   } else {
     if (1 > normalizedData.size(0)) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData.size(0), &yf_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, normalizedData.size(0), &wf_emlrtBCI,
         &st);
     }
 
     b_i = normalizedData.size(0) - 2;
     if ((b_i < 1) || (b_i > normalizedData.size(0))) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 1, normalizedData.size(0), &ag_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i, 1, normalizedData.size(0), &xf_emlrtBCI,
         &st);
     }
   }
@@ -914,7 +914,7 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
     emlrtSizeEqCheckNDR2012b(&iv[0], &iv1[0], &q_emlrtECI, &st);
   }
 
-  longStep.set_size((&ug_emlrtRTEI), (&st), m, 2);
+  longStep.set_size((&sg_emlrtRTEI), (&st), m, 2);
   for (i1 = 0; i1 < m; i1++) {
     longStep[i1] = normalizedData[(i + i1) + 1] - normalizedData[i1];
   }
@@ -926,20 +926,20 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
 
   //  calculate area of squares of length of triangle sides
   m = firstStep.size(0);
-  b_firstStep.set_size((&vg_emlrtRTEI), sp, firstStep.size(0));
+  b_firstStep.set_size((&tg_emlrtRTEI), sp, firstStep.size(0));
   for (i = 0; i < m; i++) {
     b_firstStep[i] = firstStep[i];
   }
 
-  st.site = &td_emlrtRSI;
+  st.site = &ce_emlrtRSI;
   power(&st, b_firstStep, firstStepSquared);
   m = firstStep.size(0);
-  b_firstStep.set_size((&wg_emlrtRTEI), sp, firstStep.size(0));
+  b_firstStep.set_size((&ug_emlrtRTEI), sp, firstStep.size(0));
   for (i = 0; i < m; i++) {
     b_firstStep[i] = firstStep[i + firstStep.size(0)];
   }
 
-  st.site = &td_emlrtRSI;
+  st.site = &ce_emlrtRSI;
   power(&st, b_firstStep, r);
   if (firstStepSquared.size(0) != r.size(0)) {
     emlrtSizeEqCheck1DR2012b(firstStepSquared.size(0), r.size(0), &j_emlrtECI,
@@ -952,20 +952,20 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
   }
 
   m = secondStep.size(0);
-  b_firstStep.set_size((&xg_emlrtRTEI), sp, secondStep.size(0));
+  b_firstStep.set_size((&vg_emlrtRTEI), sp, secondStep.size(0));
   for (i = 0; i < m; i++) {
     b_firstStep[i] = secondStep[i];
   }
 
-  st.site = &ud_emlrtRSI;
+  st.site = &de_emlrtRSI;
   power(&st, b_firstStep, secondStepSquared);
   m = secondStep.size(0);
-  b_firstStep.set_size((&yg_emlrtRTEI), sp, secondStep.size(0));
+  b_firstStep.set_size((&wg_emlrtRTEI), sp, secondStep.size(0));
   for (i = 0; i < m; i++) {
     b_firstStep[i] = secondStep[i + secondStep.size(0)];
   }
 
-  st.site = &ud_emlrtRSI;
+  st.site = &de_emlrtRSI;
   power(&st, b_firstStep, r);
   if (secondStepSquared.size(0) != r.size(0)) {
     emlrtSizeEqCheck1DR2012b(secondStepSquared.size(0), r.size(0), &k_emlrtECI,
@@ -978,20 +978,20 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
   }
 
   m = longStep.size(0);
-  b_firstStep.set_size((&ah_emlrtRTEI), sp, longStep.size(0));
+  b_firstStep.set_size((&xg_emlrtRTEI), sp, longStep.size(0));
   for (i = 0; i < m; i++) {
     b_firstStep[i] = longStep[i];
   }
 
-  st.site = &vd_emlrtRSI;
+  st.site = &ee_emlrtRSI;
   power(&st, b_firstStep, longStepSquared);
   m = longStep.size(0);
-  b_firstStep.set_size((&bh_emlrtRTEI), sp, longStep.size(0));
+  b_firstStep.set_size((&yg_emlrtRTEI), sp, longStep.size(0));
   for (i = 0; i < m; i++) {
     b_firstStep[i] = longStep[i + longStep.size(0)];
   }
 
-  st.site = &vd_emlrtRSI;
+  st.site = &ee_emlrtRSI;
   power(&st, b_firstStep, r);
   if (longStepSquared.size(0) != r.size(0)) {
     emlrtSizeEqCheck1DR2012b(longStepSquared.size(0), r.size(0), &l_emlrtECI, sp);
@@ -1017,15 +1017,15 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
       &n_emlrtECI, sp);
   }
 
-  st.site = &xd_emlrtRSI;
-  longStepSquared.set_size((&ch_emlrtRTEI), (&st), firstStepSquared.size(0));
+  st.site = &ge_emlrtRSI;
+  longStepSquared.set_size((&ah_emlrtRTEI), (&st), firstStepSquared.size(0));
   m = firstStepSquared.size(0);
   for (i = 0; i < m; i++) {
     longStepSquared[i] = ((firstStepSquared[i] + secondStepSquared[i]) -
                           longStepSquared[i]) / 2.0;
   }
 
-  b_st.site = &wd_emlrtRSI;
+  b_st.site = &fe_emlrtRSI;
   m = firstStepSquared.size(0);
   for (i = 0; i < m; i++) {
     firstStepSquared[i] = firstStepSquared[i] * secondStepSquared[i];
@@ -1040,17 +1040,17 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
   }
 
   if (overflow) {
-    emlrtErrorWithMessageIdR2018a(&b_st, &qb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&b_st, &rb_emlrtRTEI,
       "Coder:toolbox:ElFunDomainError", "Coder:toolbox:ElFunDomainError", 3, 4,
       4, "sqrt");
   }
 
-  c_st.site = &ee_emlrtRSI;
+  c_st.site = &me_emlrtRSI;
   m = firstStepSquared.size(0);
-  d_st.site = &fe_emlrtRSI;
+  d_st.site = &ne_emlrtRSI;
   if ((1 <= firstStepSquared.size(0)) && (firstStepSquared.size(0) > 2147483646))
   {
-    e_st.site = &nb_emlrtRSI;
+    e_st.site = &vb_emlrtRSI;
     check_forloop_overflow_error(&e_st);
   }
 
@@ -1077,20 +1077,20 @@ static void calculateCentralAngles(const emlrtStack *sp, const coder::array<
 
   overflow = p;
   if (!overflow) {
-    emlrtErrorWithMessageIdR2018a(&st, &pb_emlrtRTEI, "MATLAB:dimagree",
+    emlrtErrorWithMessageIdR2018a(&st, &qb_emlrtRTEI, "MATLAB:dimagree",
       "MATLAB:dimagree", 0);
   }
 
-  r1.set_size((&dh_emlrtRTEI), sp, longStepSquared.size(0));
+  r1.set_size((&bh_emlrtRTEI), sp, longStepSquared.size(0));
   m = longStepSquared.size(0);
   for (i = 0; i < m; i++) {
     r1[i].re = longStepSquared[i] / firstStepSquared[i];
     r1[i].im = 0.0;
   }
 
-  st.site = &yd_emlrtRSI;
+  st.site = &he_emlrtRSI;
   b_acos(&st, r1);
-  cornerAngle.set_size((&eh_emlrtRTEI), sp, r1.size(0));
+  cornerAngle.set_size((&ch_emlrtRTEI), sp, r1.size(0));
   m = r1.size(0);
   for (i = 0; i < m; i++) {
     cornerAngle[i] = r1[i].re;
@@ -1133,7 +1133,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
       b_i = i + 1;
       if ((b_i < 1) || (b_i > segmentsToSplit.size(0))) {
         emlrtDynamicBoundsCheckR2012b(b_i, 1, segmentsToSplit.size(0),
-          &jk_emlrtBCI, sp);
+          &dk_emlrtBCI, sp);
       }
     }
   }
@@ -1146,13 +1146,13 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
     }
   }
 
-  newDataPoints.set_size((&yi_emlrtRTEI), sp, trueCount, 2);
+  newDataPoints.set_size((&wi_emlrtRTEI), sp, trueCount, 2);
   input_sizes_idx_0 = trueCount << 1;
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
     newDataPoints[b_i] = 0.0;
   }
 
-  r.set_size((&aj_emlrtRTEI), sp, (segmentsToSplit.size(0) + 1));
+  r.set_size((&xi_emlrtRTEI), sp, (segmentsToSplit.size(0) + 1));
   input_sizes_idx_0 = segmentsToSplit.size(0);
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
     r[b_i] = segmentsToSplit[b_i];
@@ -1165,13 +1165,13 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
       b_i = dataPoints.size(0);
       input_sizes_idx_0 = i + 1;
       if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > b_i)) {
-        emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, b_i, &kk_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, b_i, &ek_emlrtBCI,
           sp);
       }
     }
   }
 
-  r1.set_size((&bj_emlrtRTEI), sp, (segmentsToSplit.size(0) + 1));
+  r1.set_size((&yi_emlrtRTEI), sp, (segmentsToSplit.size(0) + 1));
   r1[0] = false;
   input_sizes_idx_0 = segmentsToSplit.size(0);
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
@@ -1184,7 +1184,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
       b_i = dataPoints.size(0);
       input_sizes_idx_0 = i + 1;
       if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > b_i)) {
-        emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, b_i, &lk_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, b_i, &fk_emlrtBCI,
           sp);
       }
     }
@@ -1198,7 +1198,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
     }
   }
 
-  r2.set_size((&cj_emlrtRTEI), sp, input_sizes_idx_0);
+  r2.set_size((&aj_emlrtRTEI), sp, input_sizes_idx_0);
   input_sizes_idx_0 = 0;
   for (i = 0; i <= end; i++) {
     if (r[i]) {
@@ -1215,7 +1215,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
     }
   }
 
-  r3.set_size((&cj_emlrtRTEI), sp, input_sizes_idx_0);
+  r3.set_size((&aj_emlrtRTEI), sp, input_sizes_idx_0);
   input_sizes_idx_0 = 0;
   for (i = 0; i <= end; i++) {
     if (r1[i]) {
@@ -1236,7 +1236,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
     }
   }
 
-  r4.set_size((&cj_emlrtRTEI), sp, input_sizes_idx_0);
+  r4.set_size((&aj_emlrtRTEI), sp, input_sizes_idx_0);
   input_sizes_idx_0 = 0;
   for (i = 0; i <= end; i++) {
     if (r[i]) {
@@ -1253,7 +1253,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
     }
   }
 
-  r5.set_size((&cj_emlrtRTEI), sp, input_sizes_idx_0);
+  r5.set_size((&aj_emlrtRTEI), sp, input_sizes_idx_0);
   input_sizes_idx_0 = 0;
   for (i = 0; i <= end; i++) {
     if (r1[i]) {
@@ -1262,7 +1262,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
     }
   }
 
-  r6.set_size((&dj_emlrtRTEI), sp, r4.size(0));
+  r6.set_size((&bj_emlrtRTEI), sp, r4.size(0));
   input_sizes_idx_0 = r4.size(0);
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
     r6[b_i] = 0.5 * (dataPoints[r4[b_i] - 1] + dataPoints[r5[b_i] - 1]);
@@ -1274,7 +1274,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
     newDataPoints[b_i] = r6[b_i];
   }
 
-  st.site = &je_emlrtRSI;
+  st.site = &re_emlrtRSI;
 
   //  Subfunctions
   //  NORMALIZEFUNCTION evaluates a function and returns a NxM array, where N
@@ -1286,7 +1286,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
   // if (~exist('vectorizable','var') || isempty(vectorizable))
   //  end
   // abs(nargout(func)); %for anonymous functions nargout<0
-  r7.set_size((&ej_emlrtRTEI), (&st), newDataPoints.size(0));
+  r7.set_size((&cj_emlrtRTEI), (&st), newDataPoints.size(0));
 
   //  if vectorizable
   //    % For uniformity reasons, transform the 'x' array into a column vector.
@@ -1305,10 +1305,10 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
     if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > newDataPoints.size(0)))
     {
       emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, newDataPoints.size(0),
-        &mk_emlrtBCI, &st);
+        &gk_emlrtBCI, &st);
     }
 
-    b_st.site = &bd_emlrtRSI;
+    b_st.site = &jd_emlrtRSI;
     sldFunc(&b_st, newDataPoints[input_sizes_idx_0 - 1], sldProfile, r6);
     if (1 != r6.size(0)) {
       emlrtSubAssignSizeCheck1dR2017a(1, r6.size(0), &h_emlrtECI, &st);
@@ -1317,7 +1317,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
     input_sizes_idx_0 = i + 1;
     if ((input_sizes_idx_0 < 1) || (input_sizes_idx_0 > r7.size(0))) {
       emlrtDynamicBoundsCheckR2012b(input_sizes_idx_0, 1, r7.size(0),
-        &nk_emlrtBCI, &st);
+        &hk_emlrtBCI, &st);
     }
 
     r7[input_sizes_idx_0 - 1] = r6[0];
@@ -1332,7 +1332,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
   }
 
   //  For simplicity append the new points at the end and then sort.
-  st.site = &ke_emlrtRSI;
+  st.site = &se_emlrtRSI;
   if (newDataPoints.size(0) != 0) {
     input_sizes_idx_0 = newDataPoints.size(0);
   } else {
@@ -1345,7 +1345,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
     end = 0;
   }
 
-  b_dataPoints.set_size((&fj_emlrtRTEI), sp, (end + input_sizes_idx_0), 2);
+  b_dataPoints.set_size((&dj_emlrtRTEI), sp, (end + input_sizes_idx_0), 2);
   for (b_i = 0; b_i < end; b_i++) {
     b_dataPoints[b_i] = dataPoints[b_i];
   }
@@ -1364,7 +1364,7 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
       newDataPoints.size(0)];
   }
 
-  dataPoints.set_size((&cj_emlrtRTEI), sp, b_dataPoints.size(0), 2);
+  dataPoints.set_size((&aj_emlrtRTEI), sp, b_dataPoints.size(0), 2);
   input_sizes_idx_0 = b_dataPoints.size(0);
   for (b_i = 0; b_i < input_sizes_idx_0; b_i++) {
     dataPoints[b_i] = b_dataPoints[b_i];
@@ -1375,13 +1375,13 @@ static void increaseSampling(const emlrtStack *sp, coder::array<real_T, 2U>
       (0)];
   }
 
-  st.site = &ke_emlrtRSI;
+  st.site = &se_emlrtRSI;
   sortrows(&st, dataPoints);
   emlrtHeapReferenceStackLeaveFcnR2012b(sp);
 }
 
 void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
-              const real_T startDomain[2], cell_19 *out)
+              const real_T startDomain[2], cell_21 *out)
 {
   real_T d1;
   real_T y[50];
@@ -1657,7 +1657,7 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
   //  Remove this syntax for compile - AVH
   // func = @(x) normalizeFunction(x,sldProfile,vectorizable);
   //  Evaluate the input function on the initial set of points.
-  st.site = &vc_emlrtRSI;
+  st.site = &ed_emlrtRSI;
 
   //  Subfunctions
   //  NORMALIZEFUNCTION evaluates a function and returns a NxM array, where N
@@ -1681,7 +1681,7 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
     //  which won't compile - AVH
     // [newValues{:}] = func(x(i));
     // y(i,:) = cell2mat(newValues);
-    b_st.site = &bd_emlrtRSI;
+    b_st.site = &jd_emlrtRSI;
     sldFunc(&b_st, y[k], sldProfile, cornerAngle);
     if (1 != cornerAngle.size(0)) {
       emlrtSubAssignSizeCheck1dR2017a(1, cornerAngle.size(0), &h_emlrtECI, &st);
@@ -1697,7 +1697,7 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
     b_y[i + 50] = hiVal[i];
   }
 
-  dataPoints.set_size((&xf_emlrtRTEI), sp, 50, 2);
+  dataPoints.set_size((&vf_emlrtRTEI), sp, 50, 2);
   for (i = 0; i < 100; i++) {
     dataPoints[i] = b_y[i];
   }
@@ -1713,31 +1713,31 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
     boolean_T exitg1;
 
     //  calculate the box which encloses the current data points:
-    st.site = &wc_emlrtRSI;
-    b_st.site = &mc_emlrtRSI;
-    c_st.site = &nc_emlrtRSI;
-    d_st.site = &oc_emlrtRSI;
+    st.site = &fd_emlrtRSI;
+    b_st.site = &uc_emlrtRSI;
+    c_st.site = &vc_emlrtRSI;
+    d_st.site = &wc_emlrtRSI;
     i = dataPoints.size(0);
     if (dataPoints.size(0) == 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &mb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
         "Coder:toolbox:autoDimIncompatibility",
         "Coder:toolbox:autoDimIncompatibility", 0);
     }
 
     if (dataPoints.size(0) < 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&d_st, &ob_emlrtRTEI,
         "Coder:toolbox:eml_min_or_max_varDimZero",
         "Coder:toolbox:eml_min_or_max_varDimZero", 0);
     }
 
-    e_st.site = &jd_emlrtRSI;
-    f_st.site = &kd_emlrtRSI;
-    g_st.site = &ld_emlrtRSI;
+    e_st.site = &rd_emlrtRSI;
+    f_st.site = &sd_emlrtRSI;
+    g_st.site = &td_emlrtRSI;
     overflow = ((2 <= dataPoints.size(0)) && (dataPoints.size(0) > 2147483646));
     maxval[0] = dataPoints[0];
-    h_st.site = &md_emlrtRSI;
+    h_st.site = &ud_emlrtRSI;
     if (overflow) {
-      i_st.site = &nb_emlrtRSI;
+      i_st.site = &vb_emlrtRSI;
       check_forloop_overflow_error(&i_st);
     }
 
@@ -1750,7 +1750,7 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
     }
 
     maxval[1] = dataPoints[dataPoints.size(0)];
-    h_st.site = &md_emlrtRSI;
+    h_st.site = &ud_emlrtRSI;
     for (k = 2; k <= i; k++) {
       d1 = dataPoints[(k + dataPoints.size(0)) - 1];
       if ((!muDoubleScalarIsNaN(d1)) && (muDoubleScalarIsNaN(maxval[1]) ||
@@ -1759,31 +1759,31 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
       }
     }
 
-    st.site = &wc_emlrtRSI;
-    b_st.site = &nd_emlrtRSI;
-    c_st.site = &od_emlrtRSI;
-    d_st.site = &pd_emlrtRSI;
+    st.site = &fd_emlrtRSI;
+    b_st.site = &vd_emlrtRSI;
+    c_st.site = &wd_emlrtRSI;
+    d_st.site = &xd_emlrtRSI;
     i = dataPoints.size(0);
     if (dataPoints.size(0) == 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &mb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
         "Coder:toolbox:autoDimIncompatibility",
         "Coder:toolbox:autoDimIncompatibility", 0);
     }
 
     if (dataPoints.size(0) < 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&d_st, &ob_emlrtRTEI,
         "Coder:toolbox:eml_min_or_max_varDimZero",
         "Coder:toolbox:eml_min_or_max_varDimZero", 0);
     }
 
-    e_st.site = &jd_emlrtRSI;
-    f_st.site = &kd_emlrtRSI;
-    g_st.site = &ld_emlrtRSI;
+    e_st.site = &rd_emlrtRSI;
+    f_st.site = &sd_emlrtRSI;
+    g_st.site = &td_emlrtRSI;
     overflow = ((2 <= dataPoints.size(0)) && (dataPoints.size(0) > 2147483646));
     delta1 = dataPoints[0];
-    h_st.site = &md_emlrtRSI;
+    h_st.site = &ud_emlrtRSI;
     if (overflow) {
-      i_st.site = &nb_emlrtRSI;
+      i_st.site = &vb_emlrtRSI;
       check_forloop_overflow_error(&i_st);
     }
 
@@ -1796,7 +1796,7 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
     }
 
     delta2 = dataPoints[dataPoints.size(0)];
-    h_st.site = &md_emlrtRSI;
+    h_st.site = &ud_emlrtRSI;
     for (k = 2; k <= i; k++) {
       d1 = dataPoints[(k + dataPoints.size(0)) - 1];
       if ((!muDoubleScalarIsNaN(d1)) && (muDoubleScalarIsNaN(delta2) || (delta2 >
@@ -1815,7 +1815,7 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
         &jb_emlrtDCI, sp);
     }
 
-    b_dataPoints.set_size((&yf_emlrtRTEI), sp, dataPoints.size(0), 2);
+    b_dataPoints.set_size((&wf_emlrtRTEI), sp, dataPoints.size(0), 2);
     for (i = 0; i < k; i++) {
       b_dataPoints[i] = dataPoints[i];
     }
@@ -1826,9 +1826,9 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
     }
 
     maxval[1] -= delta2;
-    st.site = &xc_emlrtRSI;
+    st.site = &gd_emlrtRSI;
     calculateCentralAngles(&st, b_dataPoints, maxval, cornerAngle);
-    sharpCorners.set_size((&ag_emlrtRTEI), sp, cornerAngle.size(0));
+    sharpCorners.set_size((&xf_emlrtRTEI), sp, cornerAngle.size(0));
     k = cornerAngle.size(0);
     for (i = 0; i < k; i++) {
       sharpCorners[i] = (cornerAngle[i] < 2.1991148575128552);
@@ -1839,19 +1839,19 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
       emlrtSizeEqCheck1DR2012b(i, sharpCorners.size(0), &f_emlrtECI, sp);
     }
 
-    sharpCorners.set_size((&bg_emlrtRTEI), sp, (dataPoints.size(0) - 2));
+    sharpCorners.set_size((&yf_emlrtRTEI), sp, (dataPoints.size(0) - 2));
 
     //  For N points there are N-2 triangles and N-1 triangle sides. Each
     //  triangle side is a segment, which can be split or not depending on the
     //  refinement parameters.
-    segmentsToSplit.set_size((&cg_emlrtRTEI), sp, (dataPoints.size(0) - 1));
+    segmentsToSplit.set_size((&ag_emlrtRTEI), sp, (dataPoints.size(0) - 1));
     k = dataPoints.size(0) - 2;
     for (i = 0; i < k; i++) {
       segmentsToSplit[i] = sharpCorners[i];
     }
 
     segmentsToSplit[dataPoints.size(0) - 2] = false;
-    r.set_size((&dg_emlrtRTEI), sp, (dataPoints.size(0) - 1));
+    r.set_size((&bg_emlrtRTEI), sp, (dataPoints.size(0) - 1));
     r[0] = false;
     k = dataPoints.size(0) - 2;
     for (i = 0; i < k; i++) {
@@ -1868,12 +1868,12 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
       segmentsToSplit[i] = (segmentsToSplit[i] || r[i]);
     }
 
-    st.site = &yc_emlrtRSI;
-    b_st.site = &he_emlrtRSI;
+    st.site = &hd_emlrtRSI;
+    b_st.site = &pe_emlrtRSI;
     overflow = false;
-    c_st.site = &ie_emlrtRSI;
+    c_st.site = &qe_emlrtRSI;
     if (segmentsToSplit.size(0) > 2147483646) {
-      d_st.site = &nb_emlrtRSI;
+      d_st.site = &vb_emlrtRSI;
       check_forloop_overflow_error(&d_st);
     }
 
@@ -1889,7 +1889,7 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
     }
 
     if (overflow) {
-      st.site = &ad_emlrtRSI;
+      st.site = &id_emlrtRSI;
       increaseSampling(&st, dataPoints, segmentsToSplit, sldProfile);
 
       //    else
@@ -1914,7 +1914,7 @@ void adaptive(const emlrtStack *sp, const coder::array<real_T, 2U> &sldProfile,
   //    plot(dataPoints(:,1), dataPoints(:,2),'ro-');
   //    legend('initial', 'refiniment');
   //  end
-  out->f1.set_size((&eg_emlrtRTEI), sp, dataPoints.size(0), 2);
+  out->f1.set_size((&cg_emlrtRTEI), sp, dataPoints.size(0), 2);
   k = dataPoints.size(0) * dataPoints.size(1);
   for (i = 0; i < k; i++) {
     out->f1[i] = dataPoints[i];

@@ -17,7 +17,7 @@
 #include "rt_nonfinite.h"
 
 // Variable Definitions
-static emlrtRTEInfo rh_emlrtRTEI = { 279,// lineNo
+static emlrtRTEInfo ph_emlrtRTEI = { 279,// lineNo
   14,                                  // colNo
   "colon",                             // fName
   "/usr/local/MATLAB/R2020a/toolbox/eml/lib/matlab/ops/colon.m"// pName
@@ -58,13 +58,13 @@ void eml_float_colon(const emlrtStack *sp, real_T a, real_T d, real_T b, coder::
     n = 0;
   }
 
-  st.site = &jf_emlrtRSI;
+  st.site = &rf_emlrtRSI;
   if (ndbl > 2.147483647E+9) {
-    emlrtErrorWithMessageIdR2018a(&st, &tb_emlrtRTEI, "Coder:MATLAB:pmaxsize",
+    emlrtErrorWithMessageIdR2018a(&st, &ub_emlrtRTEI, "Coder:MATLAB:pmaxsize",
       "Coder:MATLAB:pmaxsize", 0);
   }
 
-  y.set_size((&rh_emlrtRTEI), sp, 1, n);
+  y.set_size((&ph_emlrtRTEI), sp, 1, n);
   if (n > 0) {
     y[0] = a;
     if (n > 1) {

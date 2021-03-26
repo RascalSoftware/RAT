@@ -81,6 +81,7 @@ for i = 1:numberOfContrasts
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
    
+
     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 
     % the other values (background, scalefactors etc) for each contrast
@@ -100,6 +101,15 @@ for i = 1:numberOfContrasts
     resols(i) = thisResol;
     allRoughs(i) = thisRough;
 end
+
+% Debug plotting
+% figure(1);clf; hold on
+% for i = 1:length(sldProfiles)
+%     thisProfile = sldProfiles{i};
+%     plot(thisProfile(:,1),thisProfile(:,2))
+%     drawnow
+% end
+
 
 end
 

@@ -25,7 +25,7 @@
 
 // Function Declarations
 CODEGEN_EXPORT_SYM void reflectivity_calculation(const emlrtStack *sp, const
-  struct0_T *problemDef, const cell_5 *problemDef_cells, const struct1_T
+  struct0_T *problemDef, const cell_6 *problemDef_cells, const struct1_T
   *problemDef_limits, const struct2_T *controls, struct4_T *problem, cell_8
   *result);
 

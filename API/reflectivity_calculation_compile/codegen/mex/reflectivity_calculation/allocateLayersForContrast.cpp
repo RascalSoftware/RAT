@@ -53,7 +53,7 @@ static emlrtBCInfo ie_emlrtBCI = { -1, // iFirst
   0                                    // checkKind
 };
 
-static emlrtRTEInfo te_emlrtRTEI = { 7,// lineNo
+static emlrtRTEInfo re_emlrtRTEI = { 7,// lineNo
   1,                                   // colNo
   "allocateLayersForContrast",         // fName
   "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m"// pName 
@@ -61,7 +61,7 @@ static emlrtRTEInfo te_emlrtRTEI = { 7,// lineNo
 
 // Function Definitions
 void allocateLayersForContrast(const emlrtStack *sp, const coder::array<real_T,
-  2U> &contrastLayers, const coder::array<cell_wrap_17, 2U>
+  2U> &contrastLayers, const coder::array<cell_wrap_19, 2U>
   &outParameterisedLayers, coder::array<real_T, 2U> &thisContrastLayers)
 {
   int32_T n;
@@ -75,7 +75,7 @@ void allocateLayersForContrast(const emlrtStack *sp, const coder::array<real_T,
     n = contrastLayers.size(1);
   }
 
-  thisContrastLayers.set_size((&te_emlrtRTEI), sp, n, 5);
+  thisContrastLayers.set_size((&re_emlrtRTEI), sp, n, 5);
   n *= 5;
   for (i = 0; i < n; i++) {
     thisContrastLayers[i] = 0.0;

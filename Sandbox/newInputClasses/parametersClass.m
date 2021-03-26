@@ -124,6 +124,44 @@ classdef parametersClass < handle
             end
         end
         
+        function obj = setParameter(obj,varargin)
+            % General purpose set method using name value pairs
+            
+            inputValues = varargin{:};
+            
+            if ischar(inputValues{1})
+                name = string(inputValues{1});
+                row = findRowIndex(name,tab);
+            else
+                row = inputValues{1};
+            end
+           
+            inputBlock = parseParameterInput(inputValues(2:end));
+            
+            if ~isempty(inputBlock.name)
+                obj.setName({row,inputBlock.name});
+            end
+            
+            if ~isempty(inputBlock.min)
+                max = obj.paramsTable{row,4};
+                obj.setConstr({row,inputBlock.min,max});
+            end
+            
+            if ~isempty(inputBlock.max)
+                min = obj.paramsTable{row,2};
+                obj.setConstr({row,min,inputBlock.max});
+            end
+            
+            if ~isempty(inputBlock.value)
+                obj.setValue({row,inputBlock.value});
+            end
+            
+            if ~isempty(inputBlock.fit)
+                obj.setFit(row,inputBlock.fit);
+            end
+
+        end
+            
         function obj = setValue(obj,varargin)
             inputValues = varargin{:};
             tab = obj.paramsTable;
@@ -360,6 +398,29 @@ function row = findRowIndex(name,tab)
     
     % Non-zero value in array is the row index
     row = find(index);
+end
+
+
+function inputBlock = parseParameterInput(varargin)
+
+    defaultName = '';
+    defaultMin = [];
+    defaultMax = [];   
+    defaultValue = [];
+    defaultFit = [];
+
+    p = inputParser;
+    addParameter(p,'name',  defaultName,   @ischar);
+    addParameter(p,'min',   defaultMin,    @isnumeric);
+    addParameter(p,'value', defaultValue,  @isnumeric);
+    addParameter(p,'max',   defaultMax,    @isnumeric);
+    addParameter(p,'fit',   defaultFit,    @islogical);
+    
+    inputVals = varargin{:};
+    
+    parse(p,inputVals{:});
+    inputBlock = p.Results;
+
 end
 
 

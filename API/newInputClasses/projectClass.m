@@ -17,7 +17,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         bulkOut             % parametersClass object
         background          % backgroundsClass object
         scalefactors        % parametersClass object
-        qzshifts             % parametersClass object
+        qzshifts            % parametersClass object
         resolution          % resolutionClass object
         contrasts           % contrastsClass object
         data                % dataClass object

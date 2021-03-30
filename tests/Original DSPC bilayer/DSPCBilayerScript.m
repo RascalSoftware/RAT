@@ -161,28 +161,42 @@ problem
 controls = controlsDef;
 controls.procedure = 'bayes';
 controls.calcSldDuringFit = 'no';
-controls.nsimu = 3000;
-controls.repeats = 3;
+controls.nsimu = 4000;
+controls.repeats = 4;
 controls.parallel = 'points';
+[outProb,results] = RAT(problem,controls);
 
-
-% [problem,results] = RAT_new(problem,controls);
-% [problem,results] = RAT_new(problem,controls);
-% [problem,results] = RAT_new(problem,controls);
-% [problem,results] = RAT_new(problem,controls);
-
-controls.procedure = 'calculate';
-[outProb,results] = RAT_new(problem,controls);
-
-% h = figure(1); clf
-% sf = results.contrastParams.scalefactors;
-% bayesShadedPlot(h,results.predlims,results.shifted_data,sf)
+% controls.procedure = 'simplex';
+% [problem,results] = RAT(problem,controls);
 % 
-% h1 = figure(2); clf
-% mcmcplot(results.chain,[],results.fitNames,'hist');
 % 
-% h2 = figure(3); clf
-% mcmcplot(results.chain,[],results.fitNames);
+% [problem,results] = RAT(problem,controls);
+% [problem,results] = RAT(problem,controls);
+% [problem,results] = RAT(problem,controls);
+% figure(1); clf; hold on
+% plotRefSLD(problem,results);
+
+% controls.procedure = 'calculate';
+% [outProb,results] = RAT_new(problem,controls);
+
+h = figure(1); clf
+sf = results.contrastParams.scalefactors;
+bayesShadedPlot(h,results.predlims,results.shifted_data,sf)
+
+h1 = figure(2); clf
+mcmcplot(results.chain,[],results.fitNames,'hist');
+
+h2 = figure(3); clf
+mcmcplot(results.chain,[],results.fitNames);
+
+h3 = figure(4); clf
+mcmcplot(results.chain,[],results.fitNames,'pairs');
+
+
+
+
+
+
 
 
 

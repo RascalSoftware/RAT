@@ -162,7 +162,13 @@ classdef parametersClass < handle
             end
 
         end
+        
+        function obj = setParamPrior(obj,varargin)
             
+            
+            
+        end
+        
         function obj = setValue(obj,varargin)
             inputValues = varargin{:};
             tab = obj.paramsTable;

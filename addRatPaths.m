@@ -19,6 +19,8 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','matlabEngineCaller_customLayers');
     fullfile(ratRoot,'targetFunctions','common','jacobianEst');
 
+    %/home/arwel/Documents/RascalDev/RAT/targetFunctions/reflectivity_calculation
+    fullfile(ratRoot,'targetFunctions','reflectivity_calculation');
     fullfile(ratRoot,'targetFunctions','standard_TF');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay');
@@ -26,7 +28,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custLay');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custXY');    
     fullfile(ratRoot,'API');
-    fullfile(ratRoot,'API','reflectivity_calculation');
+
     fullfile(ratRoot,'API','outputFcn');
     %fullfile(ratRoot,'API','problemDef_class');
     fullfile(ratRoot,'API','controlsDef_class');

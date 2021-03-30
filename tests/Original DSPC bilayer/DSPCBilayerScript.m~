@@ -171,20 +171,12 @@ controls.parallel = 'points';
 % [problem,results] = RAT_new(problem,controls);
 % [problem,results] = RAT_new(problem,controls);
 
-controls.procedure = 'calculate';
 [outProb,results] = RAT_new(problem,controls);
 
-% h = figure(1); clf
-% sf = results.contrastParams.scalefactors;
-% bayesShadedPlot(h,results.predlims,results.shifted_data,sf)
-% 
-% h1 = figure(2); clf
-% mcmcplot(results.chain,[],results.fitNames,'hist');
-% 
-% h2 = figure(3); clf
-% mcmcplot(results.chain,[],results.fitNames);
 
+figure(1); clf
+plotRefSLD(outProb,results);
 
-
-
+% h = figure(2); clf
+% plotBayesCorrFig(results.chain,h);
 

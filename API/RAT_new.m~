@@ -76,16 +76,12 @@ if any((strcmpi(controls.proc,{'NS','bayes'})))
    result.chain = bayesResults.chain;
    result.bayesRes = bayesResults.res;
    result.sschain = bayesResults.sschain;
-   result.predlims = bayesResults.predlims;
-   
 %   result.posteriors = bayesResults.posteriors;
 %   result.best = bayesResults.best;
 %   result.posteriors = bayesResults.posteriors;
 end
 
-[~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
-result.fitNames = fitNames;
-
+[problemDef,fitNames] = packparams(problemDef,problemDef_cells,limits,checks);
 outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result);
 
 

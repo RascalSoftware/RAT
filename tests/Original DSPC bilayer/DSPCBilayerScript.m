@@ -189,8 +189,8 @@ mcmcplot(results.chain,[],results.fitNames,'hist');
 h2 = figure(3); clf
 mcmcplot(results.chain,[],results.fitNames);
 
-h3 = figure(4); clf
-mcmcplot(results.chain,[],results.fitNames,'pairs');
+% h3 = figure(4); clf
+% mcmcplot(results.chain,[],results.fitNames,'pairs');
 
 
 

@@ -163,7 +163,7 @@ classdef parametersClass < handle
 
         end
         
-        function obj = setPrior(obj,varargin)
+        function obj = setParamPrior(obj,varargin)
             
             inputValues = varargin{:};
             tab = obj.paramsTable;
@@ -180,19 +180,18 @@ classdef parametersClass < handle
                 error('Prior needs to be ''unifom'',''gaussian'', or ''jeffreys''');
             end
             
-            priorType = lower(priorType);
             switch priorType
                 case 'uniform'
                     tab(row,6) = {'uniform'};
                     tab(row,7) = {0};
                     tab(row,8) = {Inf};
                     
-                case 'gaussian'
-                    tab(row,6) = {'gaussian'};             
-                    tab(row,7) = inputValues(3);
-                    tab(row,8) = inputValues(4);
+                case 
+
             end
     
+            
+            
             obj.paramsTable = tab;
             
         end

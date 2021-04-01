@@ -1,6 +1,6 @@
 function [outProblemDef,result] = RAT_new(problemDefInput,controls)
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(problemDefInput,controls);
+[problemDef,problemDef_cells,problemDef_limits,problemDef_priors,controls] = RatParseClassToStructs_new(problemDefInput,controls);
 
 % %Define variable size for code generation
 % coder.varsize('problemDef.resample',[Inf,1],[1 0]);
@@ -57,7 +57,7 @@ setappdata(0,'ratOut',{ratOut ; ratListener});
 fprintf('Starting RAT ________________________________________________________________________________________________ \n');
 
 tic
-[outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls);
+[outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls);
 fprintf('\n');
 toc
 
@@ -67,7 +67,7 @@ if controls.calcSld == 0
     originalProc = controls.proc;
     controls.calcSld = 1;
     controls.proc = 'calculate';
-    [outProblemStruct,problem,result,bRes] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,priors,controls);
+    [outProblemStruct,problem,result,bRes] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,controls);
     controls.proc = originalProc;
 end
 

@@ -1,4 +1,4 @@
-function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls)
+function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls)
 
 
 result = cell(6,1);
@@ -35,7 +35,7 @@ switch action
         [outProblemDef,problem,results] = runDE(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'bayes'
         fprintf('\nRunning DRAM \n\n');
-        [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,controls);
+        [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls);
 %         [best, intervals, posteriors] = calcMCMCstatRefErrors(bayesResults,outProblemDef,problemDef_cells,problemDef_limits,controls);
 %         bayesResults.best = best;
 %         bayesResults.posteriors = posteriors;

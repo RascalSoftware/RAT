@@ -13,7 +13,7 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  contrastLayers,...
  layersDetails] = RAT_parse_cells(problemDef_cells);
 
-% Extract individual parameters from problemDef
+% Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
 numberOfLayers, resample, backsType] =  extractProblemParams(problemDef);
@@ -94,7 +94,6 @@ for i = 1:numberOfContrasts
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
    
-
     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 
     % the other values (background, scalefactors etc) for each contrast

@@ -173,7 +173,7 @@ classdef dataClass < handle
         function obj = setDataRange(obj,whichData,range)
             
             r = [range(1) range(2)];
-            obj.dataTable{whichData,3} = {range};
+            obj.dataTable(whichData,3) = cell(range);
         
         end
         

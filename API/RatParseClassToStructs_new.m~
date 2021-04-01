@@ -76,9 +76,9 @@ sfNames = inputStruct.scalefactorNames;
 shiftsNames = inputStruct.qzshiftNames; % TODO
 shiftPriors = inputStruct.qzshiftPriors;
 nbaNames = inputStruct.nbairNames;
-nbaPriors = inputStruct.nbaPriors;
+nbaPriors = input
 nbsNames = inputStruct.nbsubNames;
-nbsPriors = inputStruct.nbsPriors;
+nbsPriors = inputStruct.
 resolNames = inputStruct.resolParNames;         % ******* ToDo
 resolParPriors = inputStruct.resolParPriors;
 
@@ -107,12 +107,12 @@ problemDef_cells{12} = nbsNames;
 problemDef_cells{13} = resolNames;
 
 % Put the priors into their own array
-priors.paramPriors = paramPriors;
-priors.backsPriors = backsPriors;
-priors.resolPriors = resolParPriors;
-priors.nbaPriors = nbaPriors;
-priors.nbsPriors = nbsPriors;
-priors.shiftPriors = shiftPriors;
+priors{1} = paramPriors;
+priors{2} = backsPriors;
+priors{3} = resolParPriors;
+priors{4} = nbaPriors;
+priors{5} = nbsPriors;
+priors{6} = shiftPriors;
 
 %Split up the contrastBacks array
 contrastBacks = inputStruct.contrastBacks;

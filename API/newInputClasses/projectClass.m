@@ -254,10 +254,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.parameters.setFit(varargin);
         end
         
-        function obj = setParamPrior(obj,varargin)
-            
-            disp('Todo');
-            
+        function obj = setParamPrior(obj,varargin)        
+            obj.parameters.setPrior(varargin);  
         end
         
         % -----------------------------------------------------
@@ -413,7 +411,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Edit an existing data parameter
             nameChanged = obj.data.setData(varargin);
-            obj.contrasts.updateContrastName(nameChanged);
+            
+            if ~isempty(nameChanged)
+                obj.contrasts.updateContrastName(nameChanged);
+            end
         end
         
         

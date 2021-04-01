@@ -235,7 +235,7 @@ classdef backgroundsClass < handle
             backStruct.backParVals = backParamsStruct.params;
             backStruct.backParFitYesNo = backParamsStruct.fitYesNo;
             backStruct.nBackPars = backParamsStruct.nParams;
-            backStruct.backsPriors = backParamsStruct.paramNames;
+            backStruct.backsPriors = backParamsStruct.priors;
             
             backgroundNames = obj.backgrounds.typesTable{:,1};
             backgroundTypes = obj.backgrounds.typesTable{:,2};

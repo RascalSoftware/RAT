@@ -1,6 +1,9 @@
 function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_stanLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
 
-%Pre-allocation
+% Pre-allocation - It's necessary to
+% pre-allocate the memory for all the arrays
+% for compilation, so do this in this block.
+
 numberOfContrasts = problemDef.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
 backgs = zeros(numberOfContrasts,1);
@@ -59,7 +62,6 @@ switch para
              allRoughs] = standardTF_stanlay_paraPoints(problemDef,problemDef_cells,...
              problemDef_limits,controls);
 
-
     case 'contrasts'
         
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
@@ -73,7 +75,6 @@ switch para
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
              allRoughs] = standardTF_stanlay_paraAll(problemDef,problemDef_cells,...
              problemDef_limits,controls); 
-
 end
 
 problem.ssubs = outSsubs;

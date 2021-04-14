@@ -1,107 +1,118 @@
-//
-//  Non-Degree Granting Education License -- for use at non-degree
-//  granting, nonprofit, educational organizations only. Not for
-//  government, commercial, or other organizational use.
-//
-//  reflectivity_calculation_data.h
-//
-//  Code generation for function 'reflectivity_calculation_data'
-//
-
+/*
+ * Non-Degree Granting Education License -- for use at non-degree
+ * granting, nonprofit, educational organizations only. Not for
+ * government, commercial, or other organizational use.
+ *
+ * reflectivity_calculation_data.h
+ *
+ * Code generation for function 'reflectivity_calculation_data'
+ *
+ */
 
 #pragma once
 
-// Include files
-#include <cmath>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+/* Include files */
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "mex.h"
 #include "emlrt.h"
+#include "covrt.h"
 #include "rtwtypes.h"
-#include "omp.h"
 #include "reflectivity_calculation_types.h"
 
-// Variable Declarations
+/* Variable Declarations */
 extern emlrtCTX emlrtRootTLSGlobal;
-extern omp_lock_t emlrtLockGlobal;
-extern omp_nest_lock_t emlrtNestLockGlobal;
 extern emlrtContext emlrtContextGlobal;
-extern emlrtRSInfo y_emlrtRSI;
-extern emlrtRSInfo ab_emlrtRSI;
-extern emlrtRSInfo bb_emlrtRSI;
+extern emlrtRSInfo i_emlrtRSI;
+extern emlrtRSInfo j_emlrtRSI;
+extern emlrtRSInfo o_emlrtRSI;
+extern emlrtRSInfo p_emlrtRSI;
+extern emlrtRSInfo q_emlrtRSI;
+extern emlrtRSInfo r_emlrtRSI;
+extern emlrtRSInfo s_emlrtRSI;
+extern emlrtRSInfo t_emlrtRSI;
+extern emlrtRSInfo u_emlrtRSI;
 extern emlrtRSInfo cb_emlrtRSI;
+extern emlrtRSInfo db_emlrtRSI;
 extern emlrtRSInfo eb_emlrtRSI;
 extern emlrtRSInfo fb_emlrtRSI;
-extern emlrtRSInfo rb_emlrtRSI;
-extern emlrtRSInfo sb_emlrtRSI;
-extern emlrtRSInfo tb_emlrtRSI;
-extern emlrtRSInfo ub_emlrtRSI;
-extern emlrtRSInfo vb_emlrtRSI;
+extern emlrtRSInfo hb_emlrtRSI;
+extern emlrtRSInfo ib_emlrtRSI;
+extern emlrtRSInfo jb_emlrtRSI;
+extern emlrtRSInfo yb_emlrtRSI;
 extern emlrtRSInfo ac_emlrtRSI;
-extern emlrtRSInfo bc_emlrtRSI;
-extern emlrtRSInfo ic_emlrtRSI;
-extern emlrtRSInfo jc_emlrtRSI;
-extern emlrtRSInfo kc_emlrtRSI;
-extern emlrtRSInfo lc_emlrtRSI;
+extern emlrtRSInfo dc_emlrtRSI;
+extern emlrtRSInfo ec_emlrtRSI;
+extern emlrtRSInfo fc_emlrtRSI;
+extern emlrtRSInfo gc_emlrtRSI;
 extern emlrtRSInfo mc_emlrtRSI;
 extern emlrtRSInfo nc_emlrtRSI;
 extern emlrtRSInfo oc_emlrtRSI;
 extern emlrtRSInfo pc_emlrtRSI;
 extern emlrtRSInfo qc_emlrtRSI;
 extern emlrtRSInfo rc_emlrtRSI;
+extern emlrtRSInfo sc_emlrtRSI;
+extern emlrtRSInfo tc_emlrtRSI;
 extern emlrtRSInfo uc_emlrtRSI;
-extern emlrtRSInfo vc_emlrtRSI;
-extern emlrtRSInfo wc_emlrtRSI;
+extern emlrtRSInfo xc_emlrtRSI;
 extern emlrtRSInfo yc_emlrtRSI;
 extern emlrtRSInfo ad_emlrtRSI;
-extern emlrtRSInfo bd_emlrtRSI;
-extern emlrtRSInfo cd_emlrtRSI;
-extern emlrtRSInfo nd_emlrtRSI;
-extern emlrtRSInfo od_emlrtRSI;
-extern emlrtRSInfo pd_emlrtRSI;
+extern emlrtRSInfo ed_emlrtRSI;
+extern emlrtRSInfo fd_emlrtRSI;
 extern emlrtRSInfo qd_emlrtRSI;
-extern emlrtRSInfo ne_emlrtRSI;
-extern emlrtRSInfo te_emlrtRSI;
-extern emlrtRSInfo ff_emlrtRSI;
-extern emlrtRSInfo gf_emlrtRSI;
-extern emlrtRSInfo rf_emlrtRSI;
-extern emlrtRSInfo sf_emlrtRSI;
-extern emlrtRSInfo uf_emlrtRSI;
+extern emlrtRSInfo rd_emlrtRSI;
+extern emlrtRSInfo sd_emlrtRSI;
+extern emlrtRSInfo td_emlrtRSI;
+extern emlrtRSInfo qe_emlrtRSI;
+extern emlrtRSInfo we_emlrtRSI;
+extern emlrtRSInfo if_emlrtRSI;
+extern emlrtRSInfo jf_emlrtRSI;
 extern emlrtRSInfo vf_emlrtRSI;
-extern emlrtRSInfo jg_emlrtRSI;
-extern emlrtRSInfo kg_emlrtRSI;
-extern emlrtRTEInfo ib_emlrtRTEI;
+extern emlrtRSInfo xf_emlrtRSI;
+extern emlrtRSInfo yf_emlrtRSI;
+extern emlrtRSInfo fg_emlrtRSI;
+extern emlrtRSInfo gg_emlrtRSI;
+extern emlrtRSInfo og_emlrtRSI;
+extern emlrtRSInfo pg_emlrtRSI;
+extern emlrtRSInfo rg_emlrtRSI;
+extern emlrtRSInfo sg_emlrtRSI;
+extern emlrtRSInfo xg_emlrtRSI;
+extern emlrtRSInfo yg_emlrtRSI;
+extern emlrtRSInfo eh_emlrtRSI;
+extern emlrtRSInfo mh_emlrtRSI;
+extern emlrtDCInfo r_emlrtDCI;
+extern emlrtBCInfo sb_emlrtBCI;
+extern emlrtDCInfo s_emlrtDCI;
+extern emlrtBCInfo tb_emlrtBCI;
+extern emlrtDCInfo t_emlrtDCI;
+extern emlrtBCInfo ub_emlrtBCI;
+extern emlrtDCInfo u_emlrtDCI;
+extern emlrtBCInfo vb_emlrtBCI;
+extern emlrtDCInfo v_emlrtDCI;
+extern emlrtBCInfo wb_emlrtBCI;
+extern emlrtDCInfo w_emlrtDCI;
+extern emlrtBCInfo xb_emlrtBCI;
+extern emlrtRTEInfo db_emlrtRTEI;
+extern emlrtRTEInfo hb_emlrtRTEI;
 extern emlrtRTEInfo lb_emlrtRTEI;
-extern emlrtRTEInfo pb_emlrtRTEI;
+extern emlrtRTEInfo mb_emlrtRTEI;
 extern emlrtRTEInfo qb_emlrtRTEI;
-extern emlrtRTEInfo ub_emlrtRTEI;
-extern emlrtRTEInfo vb_emlrtRTEI;
-extern emlrtRTEInfo eg_emlrtRTEI;
-extern emlrtRTEInfo fg_emlrtRTEI;
-extern emlrtRTEInfo ci_emlrtRTEI;
-extern emlrtRTEInfo di_emlrtRTEI;
-extern emlrtRTEInfo ei_emlrtRTEI;
-extern emlrtRTEInfo fi_emlrtRTEI;
-extern emlrtRTEInfo gi_emlrtRTEI;
-extern emlrtRTEInfo hi_emlrtRTEI;
-extern emlrtRTEInfo ii_emlrtRTEI;
-extern emlrtRTEInfo ji_emlrtRTEI;
-extern emlrtRTEInfo ki_emlrtRTEI;
-extern emlrtRTEInfo li_emlrtRTEI;
+extern emlrtBCInfo xk_emlrtBCI;
+extern emlrtRTEInfo ge_emlrtRTEI;
+extern emlrtRTEInfo he_emlrtRTEI;
+extern emlrtRTEInfo ie_emlrtRTEI;
+extern emlrtRTEInfo kf_emlrtRTEI;
+extern emlrtRTEInfo nf_emlrtRTEI;
+extern emlrtRTEInfo vg_emlrtRTEI;
+extern emlrtRTEInfo wg_emlrtRTEI;
+extern emlrtRTEInfo xg_emlrtRTEI;
+extern emlrtRTEInfo yg_emlrtRTEI;
 extern emlrtRTEInfo mi_emlrtRTEI;
-extern emlrtRTEInfo ni_emlrtRTEI;
 extern emlrtRTEInfo oi_emlrtRTEI;
-extern emlrtRTEInfo pi_emlrtRTEI;
-extern emlrtRTEInfo qi_emlrtRTEI;
-extern emlrtRTEInfo ri_emlrtRTEI;
-extern emlrtRTEInfo si_emlrtRTEI;
-extern emlrtRTEInfo ti_emlrtRTEI;
-extern emlrtRTEInfo ui_emlrtRTEI;
-extern emlrtRTEInfo vi_emlrtRTEI;
 extern emlrtRTEInfo wi_emlrtRTEI;
-extern emlrtRTEInfo xi_emlrtRTEI;
+extern const char_T cv[9];
+extern covrtInstance emlrtCoverageInstance;
 
-#define MAX_THREADS                    omp_get_max_threads()
-
-// End of code generation (reflectivity_calculation_data.h)
+/* End of code generation (reflectivity_calculation_data.h) */

@@ -1,16 +1,18 @@
-function testMain;
+function testMain
 
 global problemDef problemDef_cells problemDef_limits controls
 
 
 % Load in the test inputPars
 inputPars = load('inputPars');
-inputPars = inputPars.inputPars;
+inputPars = inputPars.inputpars;
 
 problemDef = inputPars.problemDef;
 problemDef_cells = inputPars.problemDef_cells;
 problemDef_limits = inputPars.problemDef_limits;
 controls = inputPars.controls;
+
+problemDef_limits.nbs(1,2) = 7e-6;
 
 [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
@@ -22,7 +24,7 @@ fitPars = problemDef.fitpars;
 
 initVal = fitPars(:);
 for i = 1:length(fitPars)*2
-    shakeVal = randn(1,length(fitPars))./10;
+    shakeVal = randn(1,length(fitPars))./100;
     nextLine = fitPars + (shakeVal.*fitPars);
     initVal = [initVal , nextLine(:)];
 end
@@ -40,7 +42,7 @@ logl = @(x) logLike(x);
 
 
 tic
-m = gwmcmc(initVal,{logpr logl},30000,'burnin',0.3,'stepsize',1);
+m = gwmcmc(initVal,{logpr logl},30000,'burnin',0.3,'stepsize',2,'parallel',false);
 toc
 
 disp('debug');
@@ -78,17 +80,26 @@ global problemDef problemDef_cells problemDef_limits controls
 % e.g. logprior =@(m) (m(1)>-5)&&(m(1)<0.5) && (m(2)>0)&&(m(2)<10) && (m(3)>-10)&&(m(3)<1) ;
 
 
-% nPars = length(m);
-% fitConstr = problemDef.fitconstr;
-% fitPars = m;
-% 
-% for i = 1:length(fitPars)
-%     thisConstr = fitConstr(i,:);
-%     thisLogical = (thisConstr(1)<m(i)) && (thisConstr(2)>m(i));
-% end
-% 
-% logPrior = any(thisLogical);
-logPrior = 0;
+nPars = length(m);
+try
+fitConstr = problemDef.fitconstr;
+catch
+    disp('uh oh');
+end
+    
+fitPars = m;
+
+for i = 1:length(fitPars)
+    try
+        thisConstr = fitConstr(i,:);
+    catch
+        disp('fitconstr missing');
+    end
+    thisLogical(i) = (thisConstr(1)<m(i)) && (thisConstr(2)>m(i));
+end
+
+logPrior = any(thisLogical);
+%logPrior = thisLogical;
 
 end
 

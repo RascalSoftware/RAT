@@ -148,7 +148,11 @@ for wix=1:Nwalkers
     for fix=1:NPfun
         v=logPfuns{fix}(minit(:,wix));
         if islogical(v) %reformulate function so that false=-inf for logical constraints.
-            v=-1/v;logPfuns{fix}=@(m)-1/logPfuns{fix}(m); %experimental implementation of experimental feature
+            try
+                v=-1/v;logPfuns{fix}=@(m)-1/logPfuns{fix}(m); %experimental implementation of experimental feature
+            catch
+                disp('debug catch!');
+            end
         end
         logP(fix,wix,1)=v;
     end
@@ -267,6 +271,7 @@ if (cputime-lasttime>0.1)
     %progressmsg=['-'-uint8((1:40)<=(pct*40)).*('-'-'•') ''];
     %progressmsg=[uint8((1:40)<=(pct*40)).*'#' ''];
     curmtxt=sprintf('% 9.3g\n',curm(1:min(end,20),1));
+    curmtxt = '';
     %curmtxt=mat2str(curm);
     progressmsg=sprintf('\nGWMCMC %5.1f%% [%s] %s\n%3.0f%% rejected\n%s\n',pct*100,progressmsg,ETA,rejectpct*100,curmtxt);
 

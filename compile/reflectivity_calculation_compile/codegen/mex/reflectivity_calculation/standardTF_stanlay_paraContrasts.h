@@ -1,38 +1,35 @@
-//
-//  Non-Degree Granting Education License -- for use at non-degree
-//  granting, nonprofit, educational organizations only. Not for
-//  government, commercial, or other organizational use.
-//
-//  standardTF_stanlay_paraContrasts.h
-//
-//  Code generation for function 'standardTF_stanlay_paraContrasts'
-//
-
+/*
+ * Non-Degree Granting Education License -- for use at non-degree
+ * granting, nonprofit, educational organizations only. Not for
+ * government, commercial, or other organizational use.
+ *
+ * standardTF_stanlay_paraContrasts.h
+ *
+ * Code generation for function 'standardTF_stanlay_paraContrasts'
+ *
+ */
 
 #pragma once
 
-// Include files
-#include <cmath>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+/* Include files */
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "mex.h"
 #include "emlrt.h"
+#include "covrt.h"
 #include "rtwtypes.h"
-#include "omp.h"
 #include "reflectivity_calculation_types.h"
-#define MAX_THREADS                    omp_get_max_threads()
 
-// Function Declarations
+/* Function Declarations */
 void c_standardTF_stanlay_paraContra(const emlrtStack *sp, const struct0_T
-  *problemDef, const cell_15 *problemDef_cells, const struct2_T *controls, coder::
-  array<real_T, 1U> &outSsubs, coder::array<real_T, 1U> &backgs, coder::array<
-  real_T, 1U> &qshifts, coder::array<real_T, 1U> &sfs, coder::array<real_T, 1U>
-  &nbas, coder::array<real_T, 1U> &nbss, coder::array<real_T, 1U> &resols, coder::
-  array<real_T, 1U> &chis, coder::array<cell_wrap_7, 1U> &reflectivity, coder::
-  array<cell_wrap_7, 1U> &Simulation, coder::array<cell_wrap_1, 1U>
-  &shifted_data, coder::array<cell_wrap_1, 1U> &layerSlds, coder::array<
-  cell_wrap_12, 1U> &sldProfiles, coder::array<cell_wrap_11, 1U> &allLayers,
-  coder::array<real_T, 1U> &allRoughs);
+  *problemDef, const cell_15 *problemDef_cells, const struct2_T *controls,
+  emxArray_real_T *outSsubs, emxArray_real_T *backgs, emxArray_real_T *qshifts,
+  emxArray_real_T *sfs, emxArray_real_T *nbas, emxArray_real_T *nbss,
+  emxArray_real_T *resols, emxArray_real_T *chis, emxArray_cell_wrap_12
+  *reflectivity, emxArray_cell_wrap_7 *Simulation, emxArray_cell_wrap_1
+  *shifted_data, emxArray_cell_wrap_1 *layerSlds, emxArray_cell_wrap_12
+  *sldProfiles, emxArray_cell_wrap_12 *allLayers, emxArray_real_T *allRoughs);
 
-// End of code generation (standardTF_stanlay_paraContrasts.h)
+/* End of code generation (standardTF_stanlay_paraContrasts.h) */

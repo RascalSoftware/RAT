@@ -46,13 +46,11 @@ else
   UB = UB(:);
 end
 
-
-
 % stuff into a struct to pass around
 params.args = [];%varargin;
 params.LB = LB;
 params.UB = UB;
-params.fun = problemDef.modelFilename;%fun;
+params.fun = '';%problemDef.modelFilename;%fun;
 
 % 0 --> unconstrained variable
 % 1 --> lower bound only

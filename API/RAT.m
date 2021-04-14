@@ -1,4 +1,4 @@
-function [outProblemDef,result] = RAT_new(problemDefInput,controls)
+function [outProblemDef,result] = RAT(problemDefInput,controls)
 
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(problemDefInput,controls);
 

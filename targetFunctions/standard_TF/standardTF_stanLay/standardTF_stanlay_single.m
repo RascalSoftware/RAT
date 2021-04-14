@@ -11,12 +11,13 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  dataLimits,...
  simLimits,...
  contrastLayers,...
- layersDetails] = RAT_parse_cells(problemDef_cells);
+ layersDetails...
+ customFiles] = RAT_parse_cells(problemDef_cells);
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-numberOfLayers, resample, backsType] =  extractProblemParams(problemDef);
+numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
 
 calcSld = controls.calcSld;      
 
@@ -113,15 +114,6 @@ for i = 1:numberOfContrasts
     resols(i) = thisResol;
     allRoughs(i) = thisRough;
 end
-
-% Debug plotting
-% figure(1);clf; hold on
-% for i = 1:length(sldProfiles)
-%     thisProfile = sldProfiles{i};
-%     plot(thisProfile(:,1),thisProfile(:,2))
-%     drawnow
-% end
-
 
 end
 

@@ -162,9 +162,9 @@ controls = controlsDef;
 controls.procedure = 'bayes';
 controls.calcSldDuringFit = 'no';
 controls.nsimu = 4000;
-controls.repeats = 4;
-controls.parallel = 'points';
-[outProb,results] = RAT(problem,controls);
+controls.repeats = 1;
+controls.parallel = 'single';
+%[outProb,results] = RAT(problem,controls);
 
 % controls.procedure = 'simplex';
 % [problem,results] = RAT(problem,controls);
@@ -179,15 +179,15 @@ controls.parallel = 'points';
 % controls.procedure = 'calculate';
 % [outProb,results] = RAT_new(problem,controls);
 
-h = figure(1); clf
-sf = results.contrastParams.scalefactors;
-bayesShadedPlot(h,results.predlims,results.shifted_data,sf)
-
-h1 = figure(2); clf
-mcmcplot(results.chain,[],results.fitNames,'hist');
-
-h2 = figure(3); clf
-mcmcplot(results.chain,[],results.fitNames);
+% h = figure(1); clf
+% sf = results.contrastParams.scalefactors;
+% bayesShadedPlot(h,results.predlims,results.shifted_data,sf)
+% 
+% h1 = figure(2); clf
+% mcmcplot(results.chain,[],results.fitNames,'hist');
+% 
+% h2 = figure(3); clf
+% mcmcplot(results.chain,[],results.fitNames);
 
 % h3 = figure(4); clf
 % mcmcplot(results.chain,[],results.fitNames,'pairs');

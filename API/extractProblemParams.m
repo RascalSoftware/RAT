@@ -1,6 +1,6 @@
 function [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-numberOfLayers, resample, backsType] =  extractProblemParams(problemDef)
+numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)
 
 %Extract individual parameters from problemDef
 
@@ -24,6 +24,7 @@ params = problemDef.params;
 numberOfLayers = problemDef.numberOfLayers;
 resample = problemDef.resample;
 backsType = problemDef.contrastBacksType;
+cFiles = problemDef.contrastCustomFiles;
 
 
 end

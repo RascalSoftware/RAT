@@ -46,12 +46,12 @@ for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
            
-% switch type
-%     case 'layers'
+switch type
+    case 'layers'
         [problem,reflectivity,Simulation,...
          shifted_data,layerSlds,sldProfiles,...
          allLayers]= standardTF_stanLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-%     case 'Custom Layers'
+%     case 'custom layers'
 %         [problem,reflectivity,Simulation,...
 %             shifted_data,layerSlds,sldProfiles,...
 %             allLayers] = standardTF_custLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -59,6 +59,6 @@ end
 %        [problem,reflectivity,Simulation,...
 %            shifted_data,layerSlds,sldProfiles,...
 %            allLayers] = standardTF_custXY_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-% end
+end
 
 end

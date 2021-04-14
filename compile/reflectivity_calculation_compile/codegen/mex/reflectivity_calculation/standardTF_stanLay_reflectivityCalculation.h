@@ -1,34 +1,33 @@
-//
-//  Non-Degree Granting Education License -- for use at non-degree
-//  granting, nonprofit, educational organizations only. Not for
-//  government, commercial, or other organizational use.
-//
-//  standardTF_stanLay_reflectivityCalculation.h
-//
-//  Code generation for function 'standardTF_stanLay_reflectivityCalculation'
-//
-
+/*
+ * Non-Degree Granting Education License -- for use at non-degree
+ * granting, nonprofit, educational organizations only. Not for
+ * government, commercial, or other organizational use.
+ *
+ * standardTF_stanLay_reflectivityCalculation.h
+ *
+ * Code generation for function 'standardTF_stanLay_reflectivityCalculation'
+ *
+ */
 
 #pragma once
 
-// Include files
-#include <cmath>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+/* Include files */
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "mex.h"
 #include "emlrt.h"
+#include "covrt.h"
 #include "rtwtypes.h"
-#include "omp.h"
 #include "reflectivity_calculation_types.h"
-#define MAX_THREADS                    omp_get_max_threads()
 
-// Function Declarations
+/* Function Declarations */
 void c_standardTF_stanLay_reflectivi(const emlrtStack *sp, const struct0_T
   *problemDef, const cell_15 *problemDef_cells, const struct2_T *controls,
-  struct4_T *problem, coder::array<cell_wrap_7, 1U> &reflectivity, coder::array<
-  cell_wrap_7, 1U> &Simulation, coder::array<cell_wrap_1, 1U> &shifted_data,
-  coder::array<cell_wrap_1, 1U> &layerSlds, coder::array<cell_wrap_12, 1U>
-  &sldProfiles, coder::array<cell_wrap_11, 1U> &allLayers);
+  struct4_T *problem, emxArray_cell_wrap_12 *reflectivity, emxArray_cell_wrap_7 *
+  Simulation, emxArray_cell_wrap_1 *shifted_data, emxArray_cell_wrap_1
+  *layerSlds, emxArray_cell_wrap_12 *sldProfiles, emxArray_cell_wrap_12
+  *allLayers);
 
-// End of code generation (standardTF_stanLay_reflectivityCalculation.h)
+/* End of code generation (standardTF_stanLay_reflectivityCalculation.h) */

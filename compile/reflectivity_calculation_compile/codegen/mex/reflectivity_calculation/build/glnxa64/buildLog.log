@@ -1,41 +1,902 @@
-[1/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  rt_nonfinite.cpp -o build/glnxa64/rt_nonfinite.o
-[2/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  /usr/local/MATLAB/R2020a/extern/version/cpp_mexapi_version.cpp -o build/glnxa64/cpp_mexapi_version.o
-[3/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  interface/_coder_reflectivity_calculation_info.cpp -o build/glnxa64/_coder_reflectivity_calculation_info.o
-[4/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  reflectivity_calculation_data.cpp -o build/glnxa64/reflectivity_calculation_data.o
-[5/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  reflectivity_calculation_initialize.cpp -o build/glnxa64/reflectivity_calculation_initialize.o
-[6/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  eml_int_forloop_overflow_check.cpp -o build/glnxa64/eml_int_forloop_overflow_check.o
-[7/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  sortLE.cpp -o build/glnxa64/sortLE.o
-[8/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  interface/_coder_reflectivity_calculation_mex.cpp -o build/glnxa64/_coder_reflectivity_calculation_mex.o
-[9/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  sqrt.cpp -o build/glnxa64/sqrt.o
-[10/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  reflectivity_calculation_terminate.cpp -o build/glnxa64/reflectivity_calculation_terminate.o
-[11/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  sum.cpp -o build/glnxa64/sum.o
-[12/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  power.cpp -o build/glnxa64/power.o
-[13/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  allocateParamsToLayers.cpp -o build/glnxa64/allocateParamsToLayers.o
-[14/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  repmat.cpp -o build/glnxa64/repmat.o
-[15/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  applyScalarFunction.cpp -o build/glnxa64/applyScalarFunction.o
-[16/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  colon.cpp -o build/glnxa64/colon.o
-[17/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  allocateLayersForContrast.cpp -o build/glnxa64/allocateLayersForContrast.o
-[18/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  reflectivity_calculation_mexutil.cpp -o build/glnxa64/reflectivity_calculation_mexutil.o
-[19/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  indexShapeCheck.cpp -o build/glnxa64/indexShapeCheck.o
-[20/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  backSort.cpp -o build/glnxa64/backSort.o
-[21/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  resampleLayers.cpp -o build/glnxa64/resampleLayers.o
-[22/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  acos.cpp -o build/glnxa64/acos.o
-[23/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  groupLayers_Mod.cpp -o build/glnxa64/groupLayers_Mod.o
-[24/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  abeles_single.cpp -o build/glnxa64/abeles_single.o
-[25/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  asymconvstep.cpp -o build/glnxa64/asymconvstep.o
-[26/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  resolution_polly_paraPoints.cpp -o build/glnxa64/resolution_polly_paraPoints.o
-[27/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  abeles_paraPoints.cpp -o build/glnxa64/abeles_paraPoints.o
-[28/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  makeSLDProfileXY.cpp -o build/glnxa64/makeSLDProfileXY.o
-[29/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  sortrows.cpp -o build/glnxa64/sortrows.o
-[30/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  standardTF_layers_core.cpp -o build/glnxa64/standardTF_layers_core.o
-[31/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  chiSquared.cpp -o build/glnxa64/chiSquared.o
-[32/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  shiftdata.cpp -o build/glnxa64/shiftdata.o
-[33/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  sldFunc.cpp -o build/glnxa64/sldFunc.o
-[34/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  callReflectivity.cpp -o build/glnxa64/callReflectivity.o
-[35/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  adaptive.cpp -o build/glnxa64/adaptive.o
-[36/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  standardTF_stanlay_paraContrasts.cpp -o build/glnxa64/standardTF_stanlay_paraContrasts.o
-[37/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  interface/_coder_reflectivity_calculation_api.cpp -o build/glnxa64/_coder_reflectivity_calculation_api.o
-[38/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  standardTF_stanlay_paraAll.cpp -o build/glnxa64/standardTF_stanlay_paraAll.o
-[39/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  standardTF_stanLay_reflectivityCalculation.cpp -o build/glnxa64/standardTF_stanLay_reflectivityCalculation.o
-[40/41] /bin/g++ -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "./interface" -I "/usr/local/MATLAB/R2020a/extern/include" -I "." -DMODEL=reflectivity_calculation_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="/usr/local/MATLAB/R2020a/sys/os/glnxa64/libiomp5.so"  reflectivity_calculation.cpp -o build/glnxa64/reflectivity_calculation.o
-[41/41] /bin/g++ build/glnxa64/rt_nonfinite.o build/glnxa64/reflectivity_calculation_mexutil.o build/glnxa64/reflectivity_calculation_data.o build/glnxa64/reflectivity_calculation_initialize.o build/glnxa64/reflectivity_calculation_terminate.o build/glnxa64/reflectivity_calculation.o build/glnxa64/eml_int_forloop_overflow_check.o build/glnxa64/standardTF_stanLay_reflectivityCalculation.o build/glnxa64/allocateParamsToLayers.o build/glnxa64/backSort.o build/glnxa64/allocateLayersForContrast.o build/glnxa64/standardTF_layers_core.o build/glnxa64/groupLayers_Mod.o build/glnxa64/colon.o build/glnxa64/indexShapeCheck.o build/glnxa64/makeSLDProfileXY.o build/glnxa64/sum.o build/glnxa64/asymconvstep.o build/glnxa64/power.o build/glnxa64/sqrt.o build/glnxa64/applyScalarFunction.o build/glnxa64/resampleLayers.o build/glnxa64/adaptive.o build/glnxa64/sldFunc.o build/glnxa64/repmat.o build/glnxa64/acos.o build/glnxa64/sortrows.o build/glnxa64/sortLE.o build/glnxa64/shiftdata.o build/glnxa64/callReflectivity.o build/glnxa64/abeles_single.o build/glnxa64/chiSquared.o build/glnxa64/abeles_paraPoints.o build/glnxa64/resolution_polly_paraPoints.o build/glnxa64/standardTF_stanlay_paraContrasts.o build/glnxa64/standardTF_stanlay_paraAll.o build/glnxa64/_coder_reflectivity_calculation_api.o build/glnxa64/_coder_reflectivity_calculation_mex.o build/glnxa64/_coder_reflectivity_calculation_info.o build/glnxa64/cpp_mexapi_version.o -pthread -Wl,--no-undefined  -shared -Wl,--as-needed -Wl,-rpath-link,/usr/local/MATLAB/R2020a/bin/glnxa64 -L"/usr/local/MATLAB/R2020a/bin/glnxa64" -Wl,-rpath-link,/usr/local/MATLAB/R2020a/extern/bin/glnxa64 -L"/usr/local/MATLAB/R2020a/extern/bin/glnxa64" -lMatlabDataArray -lmx -lmex -lmat -lm -lstdc++  -o reflectivity_calculation_mex.mexa64 -lemlrt -lcovrt -lut -lmwmathutil -fPIC -L"/usr/local/MATLAB/R2020a/sys/os/glnxa64" -liomp5
+[1/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  rt_nonfinite.c -o build/glnxa64/rt_nonfinite.o
+[2/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  /usr/local/MATLAB/R2020a/extern/version/c_mexapi_version.c -o build/glnxa64/c_mexapi_version.o
+[3/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  eml_int_forloop_overflow_check.c -o build/glnxa64/eml_int_forloop_overflow_check.o
+[4/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  /home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabCallFun.c -o build/glnxa64/matlabCallFun.o
+[5/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  reflectivity_calculation_data.c -o build/glnxa64/reflectivity_calculation_data.o
+[6/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  sqrt.c -o build/glnxa64/sqrt.o
+[7/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  reflectivity_calculation_terminate.c -o build/glnxa64/reflectivity_calculation_terminate.o
+[8/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  indexShapeCheck.c -o build/glnxa64/indexShapeCheck.o
+[9/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  strcmp.c -o build/glnxa64/strcmp.o
+[10/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  complexTimes.c -o build/glnxa64/complexTimes.o
+[11/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  applyBackgroundCorrection.c -o build/glnxa64/applyBackgroundCorrection.o
+[12/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  power.c -o build/glnxa64/power.o
+[13/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  matlabEngineCaller_customLayers.c -o build/glnxa64/matlabEngineCaller_customLayers.o
+FAILED: build/glnxa64/matlabEngineCaller_customLayers.o 
+/bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  matlabEngineCaller_customLayers.c -o build/glnxa64/matlabEngineCaller_customLayers.o
+In file included from matlabEngineCaller_customLayers.c:15:0:
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h: In function ‘matlabCallFun’:
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:27:17: error: storage class specified for parameter ‘muDoubleScalarAbs’
+ EXTERN_C double muDoubleScalarAbs(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:31:17: error: storage class specified for parameter ‘muDoubleScalarCeil’
+ EXTERN_C double muDoubleScalarCeil(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:35:17: error: storage class specified for parameter ‘muDoubleScalarFloor’
+ EXTERN_C double muDoubleScalarFloor(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:39:17: error: storage class specified for parameter ‘muDoubleScalarRound’
+ EXTERN_C double muDoubleScalarRound(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:43:17: error: storage class specified for parameter ‘muDoubleScalarFix’
+ EXTERN_C double muDoubleScalarFix(double xr);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:47:17: error: storage class specified for parameter ‘muDoubleScalarAcos’
+ EXTERN_C double muDoubleScalarAcos(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:51:17: error: storage class specified for parameter ‘muDoubleScalarAcosh’
+ EXTERN_C double muDoubleScalarAcosh(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:55:17: error: storage class specified for parameter ‘muDoubleScalarAsin’
+ EXTERN_C double muDoubleScalarAsin(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:59:17: error: storage class specified for parameter ‘muDoubleScalarAsinh’
+ EXTERN_C double muDoubleScalarAsinh(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:63:17: error: storage class specified for parameter ‘muDoubleScalarAtan’
+ EXTERN_C double muDoubleScalarAtan(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:67:17: error: storage class specified for parameter ‘muDoubleScalarAtanh’
+ EXTERN_C double muDoubleScalarAtanh(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:71:17: error: storage class specified for parameter ‘muDoubleScalarCos’
+ EXTERN_C double muDoubleScalarCos(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:74:17: error: storage class specified for parameter ‘muDoubleScalarCosh’
+ EXTERN_C double muDoubleScalarCosh(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:78:17: error: storage class specified for parameter ‘muDoubleScalarExp’
+ EXTERN_C double muDoubleScalarExp(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:83:17: error: storage class specified for parameter ‘muDoubleScalarLog’
+ EXTERN_C double muDoubleScalarLog(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:88:17: error: storage class specified for parameter ‘muDoubleScalarLog10’
+ EXTERN_C double muDoubleScalarLog10(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:92:17: error: storage class specified for parameter ‘muDoubleScalarAtan2’
+ EXTERN_C double muDoubleScalarAtan2(double a, double b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:96:17: error: storage class specified for parameter ‘muDoubleScalarMax’
+ EXTERN_C double muDoubleScalarMax(double a, double b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:100:17: error: storage class specified for parameter ‘muDoubleScalarMin’
+ EXTERN_C double muDoubleScalarMin(double a, double b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:104:17: error: storage class specified for parameter ‘muDoubleScalarPower’
+ EXTERN_C double muDoubleScalarPower(double a, double b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:108:17: error: storage class specified for parameter ‘muDoubleScalarSin’
+ EXTERN_C double muDoubleScalarSin(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:112:15: error: storage class specified for parameter ‘muDoubleScalarSinCos’
+ EXTERN_C void muDoubleScalarSinCos(double a, double* s, double* c);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:116:17: error: storage class specified for parameter ‘muDoubleScalarSign’
+ EXTERN_C double muDoubleScalarSign(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:120:17: error: storage class specified for parameter ‘muDoubleScalarSinh’
+ EXTERN_C double muDoubleScalarSinh(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:124:17: error: storage class specified for parameter ‘muDoubleScalarSqrt’
+ EXTERN_C double muDoubleScalarSqrt(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:128:17: error: storage class specified for parameter ‘muDoubleScalarTan’
+ EXTERN_C double muDoubleScalarTan(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:132:17: error: storage class specified for parameter ‘muDoubleScalarTanh’
+ EXTERN_C double muDoubleScalarTanh(double a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:136:17: error: storage class specified for parameter ‘muDoubleScalarMod’
+ EXTERN_C double muDoubleScalarMod(double a, double b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:140:17: error: storage class specified for parameter ‘muDoubleScalarRem’
+ EXTERN_C double muDoubleScalarRem(double a, double b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:144:17: error: storage class specified for parameter ‘muDoubleScalarHypot’
+ EXTERN_C double muDoubleScalarHypot(double a,double b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:147:17: error: storage class specified for parameter ‘muDoubleScalarFrexp’
+ EXTERN_C double muDoubleScalarFrexp(double x, int *eptr);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:151:17: error: storage class specified for parameter ‘muDoubleComplexScalarAbs’
+ EXTERN_C double muDoubleComplexScalarAbs(double xr, double xi);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:154:15: error: storage class specified for parameter ‘muDoubleComplexScalarExp’
+ EXTERN_C void muDoubleComplexScalarExp(double *pyr, double *pyi, double xr, double xi);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:157:17: error: storage class specified for parameter ‘muDoubleComplexScalarHypot’
+ EXTERN_C double muDoubleComplexScalarHypot(double ar, double ai, double br, double bi);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:160:15: error: storage class specified for parameter ‘muDoubleComplexScalarLog’
+ EXTERN_C void muDoubleComplexScalarLog(double *pyr, double *pyi, double xr, double xi);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:163:15: error: storage class specified for parameter ‘muDoubleComplexScalarPower’
+ EXTERN_C void muDoubleComplexScalarPower(double *cr, double *ci, double ar, double ai, double br, double bi);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:166:15: error: storage class specified for parameter ‘muDoubleComplexScalarSqrt’
+ EXTERN_C void muDoubleComplexScalarSqrt(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:169:15: error: storage class specified for parameter ‘muDoubleComplexScalarSign’
+ EXTERN_C void muDoubleComplexScalarSign(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:172:15: error: storage class specified for parameter ‘muDoubleComplexScalarSin’
+ EXTERN_C void muDoubleComplexScalarSin(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:175:15: error: storage class specified for parameter ‘muDoubleComplexScalarCos’
+ EXTERN_C void muDoubleComplexScalarCos(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:178:15: error: storage class specified for parameter ‘muDoubleComplexScalarCos2’
+ EXTERN_C void muDoubleComplexScalarCos2(creal_T* y, creal_T* x);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:181:15: error: storage class specified for parameter ‘muDoubleComplexScalarSinCos’
+ EXTERN_C void muDoubleComplexScalarSinCos(double *pySr, double *pySi, double *pyCr, double *pyCi,
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:185:15: error: storage class specified for parameter ‘muDoubleComplexScalarTan’
+ EXTERN_C void muDoubleComplexScalarTan(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:188:15: error: storage class specified for parameter ‘muDoubleComplexScalarAtan’
+ EXTERN_C void muDoubleComplexScalarAtan(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:191:15: error: storage class specified for parameter ‘muDoubleComplexScalarAsin’
+ EXTERN_C void muDoubleComplexScalarAsin(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:194:15: error: storage class specified for parameter ‘muDoubleComplexScalarAcos’
+ EXTERN_C void muDoubleComplexScalarAcos(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:197:15: error: storage class specified for parameter ‘muDoubleComplexScalarSinh’
+ EXTERN_C void muDoubleComplexScalarSinh(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:200:15: error: storage class specified for parameter ‘muDoubleComplexScalarCosh’
+ EXTERN_C void muDoubleComplexScalarCosh(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:203:15: error: storage class specified for parameter ‘muDoubleComplexScalarTanh’
+ EXTERN_C void muDoubleComplexScalarTanh(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:206:15: error: storage class specified for parameter ‘muDoubleComplexScalarAsinh’
+ EXTERN_C void muDoubleComplexScalarAsinh(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:209:15: error: storage class specified for parameter ‘muDoubleComplexScalarAcosh’
+ EXTERN_C void muDoubleComplexScalarAcosh(double *br, double *bi, double ar, double ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:212:15: error: storage class specified for parameter ‘muDoubleComplexScalarMultiply’
+ EXTERN_C void muDoubleComplexScalarMultiply(creal_T *y, const creal_T *u1, const creal_T *u2); 
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:219:16: error: storage class specified for parameter ‘muSingleScalarAbs’
+ EXTERN_C float muSingleScalarAbs(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:223:16: error: storage class specified for parameter ‘muSingleScalarCeil’
+ EXTERN_C float muSingleScalarCeil(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:227:16: error: storage class specified for parameter ‘muSingleScalarFloor’
+ EXTERN_C float muSingleScalarFloor(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:231:16: error: storage class specified for parameter ‘muSingleScalarRound’
+ EXTERN_C float muSingleScalarRound(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:235:16: error: storage class specified for parameter ‘muSingleScalarFix’
+ EXTERN_C float muSingleScalarFix(float xr);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:239:16: error: storage class specified for parameter ‘muSingleScalarAcos’
+ EXTERN_C float muSingleScalarAcos(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:243:16: error: storage class specified for parameter ‘muSingleScalarAcosh’
+ EXTERN_C float muSingleScalarAcosh(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:247:16: error: storage class specified for parameter ‘muSingleScalarAsin’
+ EXTERN_C float muSingleScalarAsin(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:251:16: error: storage class specified for parameter ‘muSingleScalarAsinh’
+ EXTERN_C float muSingleScalarAsinh(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:255:16: error: storage class specified for parameter ‘muSingleScalarAtan’
+ EXTERN_C float muSingleScalarAtan(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:259:16: error: storage class specified for parameter ‘muSingleScalarAtanh’
+ EXTERN_C float muSingleScalarAtanh(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:263:16: error: storage class specified for parameter ‘muSingleScalarCos’
+ EXTERN_C float muSingleScalarCos(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:267:16: error: storage class specified for parameter ‘muSingleScalarCosh’
+ EXTERN_C float muSingleScalarCosh(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:271:16: error: storage class specified for parameter ‘muSingleScalarExp’
+ EXTERN_C float muSingleScalarExp(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:276:16: error: storage class specified for parameter ‘muSingleScalarLog’
+ EXTERN_C float muSingleScalarLog(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:281:16: error: storage class specified for parameter ‘muSingleScalarLog10’
+ EXTERN_C float muSingleScalarLog10(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:285:16: error: storage class specified for parameter ‘muSingleScalarAtan2’
+ EXTERN_C float muSingleScalarAtan2(float a, float b);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:289:16: error: storage class specified for parameter ‘muSingleScalarMax’
+ EXTERN_C float muSingleScalarMax(float a, float b);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:293:16: error: storage class specified for parameter ‘muSingleScalarMin’
+ EXTERN_C float muSingleScalarMin(float a, float b);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:297:16: error: storage class specified for parameter ‘muSingleScalarPower’
+ EXTERN_C float muSingleScalarPower(float a, float b);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:301:16: error: storage class specified for parameter ‘muSingleScalarSin’
+ EXTERN_C float muSingleScalarSin(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:305:15: error: storage class specified for parameter ‘muSingleScalarSinCos’
+ EXTERN_C void muSingleScalarSinCos(float a, float* s, float* c);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:309:16: error: storage class specified for parameter ‘muSingleScalarSign’
+ EXTERN_C float muSingleScalarSign(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:313:16: error: storage class specified for parameter ‘muSingleScalarSinh’
+ EXTERN_C float muSingleScalarSinh(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:317:16: error: storage class specified for parameter ‘muSingleScalarSqrt’
+ EXTERN_C float muSingleScalarSqrt(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:321:16: error: storage class specified for parameter ‘muSingleScalarTan’
+ EXTERN_C float muSingleScalarTan(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:325:16: error: storage class specified for parameter ‘muSingleScalarTanh’
+ EXTERN_C float muSingleScalarTanh(float a);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:329:16: error: storage class specified for parameter ‘muSingleScalarMod’
+ EXTERN_C float muSingleScalarMod(float a, float b);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:333:16: error: storage class specified for parameter ‘muSingleScalarRem’
+ EXTERN_C float muSingleScalarRem(float a, float b);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:337:16: error: storage class specified for parameter ‘muSingleScalarHypot’
+ EXTERN_C float muSingleScalarHypot(float a,float b);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:340:16: error: storage class specified for parameter ‘muSingleScalarFrexp’
+ EXTERN_C float muSingleScalarFrexp(float x, int *eptr);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:343:16: error: storage class specified for parameter ‘muSingleComplexScalarAbs’
+ EXTERN_C float muSingleComplexScalarAbs(float xr, float xi);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:346:15: error: storage class specified for parameter ‘muSingleComplexScalarExp’
+ EXTERN_C void muSingleComplexScalarExp(float *pyr, float *pyi, float xr, float xi);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:349:16: error: storage class specified for parameter ‘muSingleComplexScalarHypot’
+ EXTERN_C float muSingleComplexScalarHypot(float ar, float ai, float br, float bi);
+                ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:352:15: error: storage class specified for parameter ‘muSingleComplexScalarLog’
+ EXTERN_C void muSingleComplexScalarLog(float *pyr, float *pyi, float xr, float xi);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:355:15: error: storage class specified for parameter ‘muSingleComplexScalarPower’
+ EXTERN_C void muSingleComplexScalarPower(float *cr, float *ci, float ar, float ai, float br, float bi);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:358:15: error: storage class specified for parameter ‘muSingleComplexScalarSqrt’
+ EXTERN_C void muSingleComplexScalarSqrt(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:361:15: error: storage class specified for parameter ‘muSingleComplexScalarSign’
+ EXTERN_C void muSingleComplexScalarSign(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:364:15: error: storage class specified for parameter ‘muSingleComplexScalarSin’
+ EXTERN_C void muSingleComplexScalarSin(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:367:15: error: storage class specified for parameter ‘muSingleComplexScalarCos’
+ EXTERN_C void muSingleComplexScalarCos(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:370:15: error: storage class specified for parameter ‘muSingleComplexScalarCos2’
+ EXTERN_C void muSingleComplexScalarCos2(creal32_T* y, creal32_T* x);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:373:15: error: storage class specified for parameter ‘muSingleComplexScalarSinCos’
+ EXTERN_C void muSingleComplexScalarSinCos(float *pySr, float *pySi, float *pyCr, float *pyCi,
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:377:15: error: storage class specified for parameter ‘muSingleComplexScalarTan’
+ EXTERN_C void muSingleComplexScalarTan(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:380:15: error: storage class specified for parameter ‘muSingleComplexScalarAtan’
+ EXTERN_C void muSingleComplexScalarAtan(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:383:15: error: storage class specified for parameter ‘muSingleComplexScalarAsin’
+ EXTERN_C void muSingleComplexScalarAsin(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:386:15: error: storage class specified for parameter ‘muSingleComplexScalarAcos’
+ EXTERN_C void muSingleComplexScalarAcos(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:389:15: error: storage class specified for parameter ‘muSingleComplexScalarSinh’
+ EXTERN_C void muSingleComplexScalarSinh(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:392:15: error: storage class specified for parameter ‘muSingleComplexScalarCosh’
+ EXTERN_C void muSingleComplexScalarCosh(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:395:15: error: storage class specified for parameter ‘muSingleComplexScalarTanh’
+ EXTERN_C void muSingleComplexScalarTanh(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:398:15: error: storage class specified for parameter ‘muSingleComplexScalarAsinh’
+ EXTERN_C void muSingleComplexScalarAsinh(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:401:15: error: storage class specified for parameter ‘muSingleComplexScalarAcosh’
+ EXTERN_C void muSingleComplexScalarAcosh(float *br, float *bi, float ar, float ai);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:404:15: error: storage class specified for parameter ‘muSingleComplexScalarMultiply’
+ EXTERN_C void muSingleComplexScalarMultiply(creal32_T *y, const creal32_T *u1, const creal32_T *u2);
+               ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:511:18: error: storage class specified for parameter ‘muIntScalarAbs_uint8’
+ EXTERN_C uint8_T muIntScalarAbs_uint8(uint8_T a);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:513:17: error: storage class specified for parameter ‘muIntScalarAbs_sint8’
+ EXTERN_C int8_T muIntScalarAbs_sint8(int8_T a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:515:19: error: storage class specified for parameter ‘muIntScalarAbs_uint16’
+ EXTERN_C uint16_T muIntScalarAbs_uint16(uint16_T a);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:517:18: error: storage class specified for parameter ‘muIntScalarAbs_sint16’
+ EXTERN_C int16_T muIntScalarAbs_sint16(int16_T a);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:519:19: error: storage class specified for parameter ‘muIntScalarAbs_uint32’
+ EXTERN_C uint32_T muIntScalarAbs_uint32(uint32_T a);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:521:18: error: storage class specified for parameter ‘muIntScalarAbs_sint32’
+ EXTERN_C int32_T muIntScalarAbs_sint32(int32_T a);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:524:18: error: storage class specified for parameter ‘muIntScalarMax_uint8’
+ EXTERN_C uint8_T muIntScalarMax_uint8(uint8_T a, uint8_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:526:17: error: storage class specified for parameter ‘muIntScalarMax_sint8’
+ EXTERN_C int8_T muIntScalarMax_sint8(int8_T a, int8_T b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:528:19: error: storage class specified for parameter ‘muIntScalarMax_uint16’
+ EXTERN_C uint16_T muIntScalarMax_uint16(uint16_T a, uint16_T b);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:530:18: error: storage class specified for parameter ‘muIntScalarMax_sint16’
+ EXTERN_C int16_T muIntScalarMax_sint16(int16_T a, int16_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:532:19: error: storage class specified for parameter ‘muIntScalarMax_uint32’
+ EXTERN_C uint32_T muIntScalarMax_uint32(uint32_T a, uint32_T b);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:534:18: error: storage class specified for parameter ‘muIntScalarMax_sint32’
+ EXTERN_C int32_T muIntScalarMax_sint32(int32_T a, int32_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:537:18: error: storage class specified for parameter ‘muIntScalarMin_uint8’
+ EXTERN_C uint8_T muIntScalarMin_uint8(uint8_T a, uint8_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:539:17: error: storage class specified for parameter ‘muIntScalarMin_sint8’
+ EXTERN_C int8_T muIntScalarMin_sint8(int8_T a, int8_T b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:541:19: error: storage class specified for parameter ‘muIntScalarMin_uint16’
+ EXTERN_C uint16_T muIntScalarMin_uint16(uint16_T a, uint16_T b);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:543:18: error: storage class specified for parameter ‘muIntScalarMin_sint16’
+ EXTERN_C int16_T muIntScalarMin_sint16(int16_T a, int16_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:545:19: error: storage class specified for parameter ‘muIntScalarMin_uint32’
+ EXTERN_C uint32_T muIntScalarMin_uint32(uint32_T a, uint32_T b);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:547:18: error: storage class specified for parameter ‘muIntScalarMin_sint32’
+ EXTERN_C int32_T muIntScalarMin_sint32(int32_T a, int32_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:550:18: error: storage class specified for parameter ‘muIntScalarMod_uint8’
+ EXTERN_C uint8_T muIntScalarMod_uint8(uint8_T a, uint8_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:552:17: error: storage class specified for parameter ‘muIntScalarMod_sint8’
+ EXTERN_C int8_T muIntScalarMod_sint8(int8_T a, int8_T b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:554:19: error: storage class specified for parameter ‘muIntScalarMod_uint16’
+ EXTERN_C uint16_T muIntScalarMod_uint16(uint16_T a, uint16_T b);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:556:18: error: storage class specified for parameter ‘muIntScalarMod_sint16’
+ EXTERN_C int16_T muIntScalarMod_sint16(int16_T a, int16_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:558:19: error: storage class specified for parameter ‘muIntScalarMod_uint32’
+ EXTERN_C uint32_T muIntScalarMod_uint32(uint32_T a, uint32_T b);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:560:18: error: storage class specified for parameter ‘muIntScalarMod_sint32’
+ EXTERN_C int32_T muIntScalarMod_sint32(int32_T a, int32_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:563:18: error: storage class specified for parameter ‘muIntScalarRem_uint8’
+ EXTERN_C uint8_T muIntScalarRem_uint8(uint8_T a, uint8_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:565:17: error: storage class specified for parameter ‘muIntScalarRem_sint8’
+ EXTERN_C int8_T muIntScalarRem_sint8(int8_T a, int8_T b);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:567:19: error: storage class specified for parameter ‘muIntScalarRem_uint16’
+ EXTERN_C uint16_T muIntScalarRem_uint16(uint16_T a, uint16_T b);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:569:18: error: storage class specified for parameter ‘muIntScalarRem_sint16’
+ EXTERN_C int16_T muIntScalarRem_sint16(int16_T a, int16_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:571:19: error: storage class specified for parameter ‘muIntScalarRem_uint32’
+ EXTERN_C uint32_T muIntScalarRem_uint32(uint32_T a, uint32_T b);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:573:18: error: storage class specified for parameter ‘muIntScalarRem_sint32’
+ EXTERN_C int32_T muIntScalarRem_sint32(int32_T a, int32_T b);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:576:18: error: storage class specified for parameter ‘muIntScalarSign_uint8’
+ EXTERN_C uint8_T muIntScalarSign_uint8(uint8_T a);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:578:17: error: storage class specified for parameter ‘muIntScalarSign_sint8’
+ EXTERN_C int8_T muIntScalarSign_sint8(int8_T a);
+                 ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:580:19: error: storage class specified for parameter ‘muIntScalarSign_uint16’
+ EXTERN_C uint16_T muIntScalarSign_uint16(uint16_T a);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:582:18: error: storage class specified for parameter ‘muIntScalarSign_sint16’
+ EXTERN_C int16_T muIntScalarSign_sint16(int16_T a);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:584:19: error: storage class specified for parameter ‘muIntScalarSign_uint32’
+ EXTERN_C uint32_T muIntScalarSign_uint32(uint32_T a);
+                   ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:586:18: error: storage class specified for parameter ‘muIntScalarSign_sint32’
+ EXTERN_C int32_T muIntScalarSign_sint32(int32_T a);
+                  ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:589:20: error: storage class specified for parameter ‘muDoubleScalarIsFinite’
+ EXTERN_C boolean_T muDoubleScalarIsFinite(double a);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:592:20: error: storage class specified for parameter ‘muDoubleScalarIsNaN’
+ EXTERN_C boolean_T muDoubleScalarIsNaN(double a);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:595:20: error: storage class specified for parameter ‘muDoubleScalarIsInf’
+ EXTERN_C boolean_T muDoubleScalarIsInf(double a);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:598:20: error: storage class specified for parameter ‘muDoubleComplexScalarIsFinite’
+ EXTERN_C boolean_T muDoubleComplexScalarIsFinite(double ar, double ai);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:601:20: error: storage class specified for parameter ‘muDoubleComplexScalarIsNaN’
+ EXTERN_C boolean_T muDoubleComplexScalarIsNaN(double ar, double ai);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:604:20: error: storage class specified for parameter ‘muDoubleComplexScalarIsInf’
+ EXTERN_C boolean_T muDoubleComplexScalarIsInf(double ar, double ai);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:610:20: error: storage class specified for parameter ‘muSingleScalarIsFinite’
+ EXTERN_C boolean_T muSingleScalarIsFinite(float a);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:613:20: error: storage class specified for parameter ‘muSingleScalarIsNaN’
+ EXTERN_C boolean_T muSingleScalarIsNaN(float a);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:616:20: error: storage class specified for parameter ‘muSingleScalarIsInf’
+ EXTERN_C boolean_T muSingleScalarIsInf(float a);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:619:20: error: storage class specified for parameter ‘muSingleComplexScalarIsFinite’
+ EXTERN_C boolean_T muSingleComplexScalarIsFinite(float ar, float ai);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:622:20: error: storage class specified for parameter ‘muSingleComplexScalarIsNaN’
+ EXTERN_C boolean_T muSingleComplexScalarIsNaN(float ar, float ai);
+                    ^
+/usr/local/MATLAB/R2020a/extern/include/mwmathutil.h:625:20: error: storage class specified for parameter ‘muSingleComplexScalarIsInf’
+ EXTERN_C boolean_T muSingleComplexScalarIsInf(float ar, float ai);
+                    ^
+In file included from matlabEngineCaller_customLayers.c:17:0:
+reflectivity_calculation_data.h:26:17: error: storage class specified for parameter ‘emlrtRootTLSGlobal’
+ extern emlrtCTX emlrtRootTLSGlobal;
+                 ^
+reflectivity_calculation_data.h:27:21: error: storage class specified for parameter ‘emlrtContextGlobal’
+ extern emlrtContext emlrtContextGlobal;
+                     ^
+reflectivity_calculation_data.h:28:20: error: storage class specified for parameter ‘i_emlrtRSI’
+ extern emlrtRSInfo i_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:29:20: error: storage class specified for parameter ‘j_emlrtRSI’
+ extern emlrtRSInfo j_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:30:20: error: storage class specified for parameter ‘o_emlrtRSI’
+ extern emlrtRSInfo o_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:31:20: error: storage class specified for parameter ‘p_emlrtRSI’
+ extern emlrtRSInfo p_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:32:20: error: storage class specified for parameter ‘q_emlrtRSI’
+ extern emlrtRSInfo q_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:33:20: error: storage class specified for parameter ‘r_emlrtRSI’
+ extern emlrtRSInfo r_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:34:20: error: storage class specified for parameter ‘s_emlrtRSI’
+ extern emlrtRSInfo s_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:35:20: error: storage class specified for parameter ‘t_emlrtRSI’
+ extern emlrtRSInfo t_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:36:20: error: storage class specified for parameter ‘u_emlrtRSI’
+ extern emlrtRSInfo u_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:37:20: error: storage class specified for parameter ‘cb_emlrtRSI’
+ extern emlrtRSInfo cb_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:38:20: error: storage class specified for parameter ‘db_emlrtRSI’
+ extern emlrtRSInfo db_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:39:20: error: storage class specified for parameter ‘eb_emlrtRSI’
+ extern emlrtRSInfo eb_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:40:20: error: storage class specified for parameter ‘fb_emlrtRSI’
+ extern emlrtRSInfo fb_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:41:20: error: storage class specified for parameter ‘hb_emlrtRSI’
+ extern emlrtRSInfo hb_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:42:20: error: storage class specified for parameter ‘ib_emlrtRSI’
+ extern emlrtRSInfo ib_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:43:20: error: storage class specified for parameter ‘jb_emlrtRSI’
+ extern emlrtRSInfo jb_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:44:20: error: storage class specified for parameter ‘yb_emlrtRSI’
+ extern emlrtRSInfo yb_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:45:20: error: storage class specified for parameter ‘ac_emlrtRSI’
+ extern emlrtRSInfo ac_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:46:20: error: storage class specified for parameter ‘dc_emlrtRSI’
+ extern emlrtRSInfo dc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:47:20: error: storage class specified for parameter ‘ec_emlrtRSI’
+ extern emlrtRSInfo ec_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:48:20: error: storage class specified for parameter ‘fc_emlrtRSI’
+ extern emlrtRSInfo fc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:49:20: error: storage class specified for parameter ‘gc_emlrtRSI’
+ extern emlrtRSInfo gc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:50:20: error: storage class specified for parameter ‘mc_emlrtRSI’
+ extern emlrtRSInfo mc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:51:20: error: storage class specified for parameter ‘nc_emlrtRSI’
+ extern emlrtRSInfo nc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:52:20: error: storage class specified for parameter ‘oc_emlrtRSI’
+ extern emlrtRSInfo oc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:53:20: error: storage class specified for parameter ‘pc_emlrtRSI’
+ extern emlrtRSInfo pc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:54:20: error: storage class specified for parameter ‘qc_emlrtRSI’
+ extern emlrtRSInfo qc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:55:20: error: storage class specified for parameter ‘rc_emlrtRSI’
+ extern emlrtRSInfo rc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:56:20: error: storage class specified for parameter ‘sc_emlrtRSI’
+ extern emlrtRSInfo sc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:57:20: error: storage class specified for parameter ‘tc_emlrtRSI’
+ extern emlrtRSInfo tc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:58:20: error: storage class specified for parameter ‘uc_emlrtRSI’
+ extern emlrtRSInfo uc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:59:20: error: storage class specified for parameter ‘xc_emlrtRSI’
+ extern emlrtRSInfo xc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:60:20: error: storage class specified for parameter ‘yc_emlrtRSI’
+ extern emlrtRSInfo yc_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:61:20: error: storage class specified for parameter ‘ad_emlrtRSI’
+ extern emlrtRSInfo ad_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:62:20: error: storage class specified for parameter ‘ed_emlrtRSI’
+ extern emlrtRSInfo ed_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:63:20: error: storage class specified for parameter ‘fd_emlrtRSI’
+ extern emlrtRSInfo fd_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:64:20: error: storage class specified for parameter ‘qd_emlrtRSI’
+ extern emlrtRSInfo qd_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:65:20: error: storage class specified for parameter ‘rd_emlrtRSI’
+ extern emlrtRSInfo rd_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:66:20: error: storage class specified for parameter ‘sd_emlrtRSI’
+ extern emlrtRSInfo sd_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:67:20: error: storage class specified for parameter ‘td_emlrtRSI’
+ extern emlrtRSInfo td_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:68:20: error: storage class specified for parameter ‘qe_emlrtRSI’
+ extern emlrtRSInfo qe_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:69:20: error: storage class specified for parameter ‘we_emlrtRSI’
+ extern emlrtRSInfo we_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:70:20: error: storage class specified for parameter ‘if_emlrtRSI’
+ extern emlrtRSInfo if_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:71:20: error: storage class specified for parameter ‘jf_emlrtRSI’
+ extern emlrtRSInfo jf_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:72:20: error: storage class specified for parameter ‘vf_emlrtRSI’
+ extern emlrtRSInfo vf_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:73:20: error: storage class specified for parameter ‘xf_emlrtRSI’
+ extern emlrtRSInfo xf_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:74:20: error: storage class specified for parameter ‘yf_emlrtRSI’
+ extern emlrtRSInfo yf_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:75:20: error: storage class specified for parameter ‘fg_emlrtRSI’
+ extern emlrtRSInfo fg_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:76:20: error: storage class specified for parameter ‘gg_emlrtRSI’
+ extern emlrtRSInfo gg_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:77:20: error: storage class specified for parameter ‘og_emlrtRSI’
+ extern emlrtRSInfo og_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:78:20: error: storage class specified for parameter ‘pg_emlrtRSI’
+ extern emlrtRSInfo pg_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:79:20: error: storage class specified for parameter ‘rg_emlrtRSI’
+ extern emlrtRSInfo rg_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:80:20: error: storage class specified for parameter ‘sg_emlrtRSI’
+ extern emlrtRSInfo sg_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:81:20: error: storage class specified for parameter ‘xg_emlrtRSI’
+ extern emlrtRSInfo xg_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:82:20: error: storage class specified for parameter ‘yg_emlrtRSI’
+ extern emlrtRSInfo yg_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:83:20: error: storage class specified for parameter ‘eh_emlrtRSI’
+ extern emlrtRSInfo eh_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:84:20: error: storage class specified for parameter ‘mh_emlrtRSI’
+ extern emlrtRSInfo mh_emlrtRSI;
+                    ^
+reflectivity_calculation_data.h:85:20: error: storage class specified for parameter ‘r_emlrtDCI’
+ extern emlrtDCInfo r_emlrtDCI;
+                    ^
+reflectivity_calculation_data.h:86:20: error: storage class specified for parameter ‘sb_emlrtBCI’
+ extern emlrtBCInfo sb_emlrtBCI;
+                    ^
+reflectivity_calculation_data.h:87:20: error: storage class specified for parameter ‘s_emlrtDCI’
+ extern emlrtDCInfo s_emlrtDCI;
+                    ^
+reflectivity_calculation_data.h:88:20: error: storage class specified for parameter ‘tb_emlrtBCI’
+ extern emlrtBCInfo tb_emlrtBCI;
+                    ^
+reflectivity_calculation_data.h:89:20: error: storage class specified for parameter ‘t_emlrtDCI’
+ extern emlrtDCInfo t_emlrtDCI;
+                    ^
+reflectivity_calculation_data.h:90:20: error: storage class specified for parameter ‘ub_emlrtBCI’
+ extern emlrtBCInfo ub_emlrtBCI;
+                    ^
+reflectivity_calculation_data.h:91:20: error: storage class specified for parameter ‘u_emlrtDCI’
+ extern emlrtDCInfo u_emlrtDCI;
+                    ^
+reflectivity_calculation_data.h:92:20: error: storage class specified for parameter ‘vb_emlrtBCI’
+ extern emlrtBCInfo vb_emlrtBCI;
+                    ^
+reflectivity_calculation_data.h:93:20: error: storage class specified for parameter ‘v_emlrtDCI’
+ extern emlrtDCInfo v_emlrtDCI;
+                    ^
+reflectivity_calculation_data.h:94:20: error: storage class specified for parameter ‘wb_emlrtBCI’
+ extern emlrtBCInfo wb_emlrtBCI;
+                    ^
+reflectivity_calculation_data.h:95:20: error: storage class specified for parameter ‘w_emlrtDCI’
+ extern emlrtDCInfo w_emlrtDCI;
+                    ^
+reflectivity_calculation_data.h:96:20: error: storage class specified for parameter ‘xb_emlrtBCI’
+ extern emlrtBCInfo xb_emlrtBCI;
+                    ^
+reflectivity_calculation_data.h:97:21: error: storage class specified for parameter ‘db_emlrtRTEI’
+ extern emlrtRTEInfo db_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:98:21: error: storage class specified for parameter ‘hb_emlrtRTEI’
+ extern emlrtRTEInfo hb_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:99:21: error: storage class specified for parameter ‘lb_emlrtRTEI’
+ extern emlrtRTEInfo lb_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:100:21: error: storage class specified for parameter ‘mb_emlrtRTEI’
+ extern emlrtRTEInfo mb_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:101:21: error: storage class specified for parameter ‘qb_emlrtRTEI’
+ extern emlrtRTEInfo qb_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:102:20: error: storage class specified for parameter ‘xk_emlrtBCI’
+ extern emlrtBCInfo xk_emlrtBCI;
+                    ^
+reflectivity_calculation_data.h:103:21: error: storage class specified for parameter ‘ge_emlrtRTEI’
+ extern emlrtRTEInfo ge_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:104:21: error: storage class specified for parameter ‘he_emlrtRTEI’
+ extern emlrtRTEInfo he_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:105:21: error: storage class specified for parameter ‘ie_emlrtRTEI’
+ extern emlrtRTEInfo ie_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:106:21: error: storage class specified for parameter ‘kf_emlrtRTEI’
+ extern emlrtRTEInfo kf_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:107:21: error: storage class specified for parameter ‘nf_emlrtRTEI’
+ extern emlrtRTEInfo nf_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:108:21: error: storage class specified for parameter ‘vg_emlrtRTEI’
+ extern emlrtRTEInfo vg_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:109:21: error: storage class specified for parameter ‘wg_emlrtRTEI’
+ extern emlrtRTEInfo wg_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:110:21: error: storage class specified for parameter ‘xg_emlrtRTEI’
+ extern emlrtRTEInfo xg_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:111:21: error: storage class specified for parameter ‘yg_emlrtRTEI’
+ extern emlrtRTEInfo yg_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:112:21: error: storage class specified for parameter ‘mi_emlrtRTEI’
+ extern emlrtRTEInfo mi_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:113:21: error: storage class specified for parameter ‘oi_emlrtRTEI’
+ extern emlrtRTEInfo oi_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:114:21: error: storage class specified for parameter ‘wi_emlrtRTEI’
+ extern emlrtRTEInfo wi_emlrtRTEI;
+                     ^
+reflectivity_calculation_data.h:115:21: error: storage class specified for parameter ‘cv’
+ extern const char_T cv[9];
+                     ^
+reflectivity_calculation_data.h:116:22: error: storage class specified for parameter ‘emlrtCoverageInstance’
+ extern covrtInstance emlrtCoverageInstance;
+                      ^
+In file included from matlabEngineCaller_customLayers.c:19:0:
+rt_nonfinite.h:16:15: error: storage class specified for parameter ‘mex_rtInf’
+ extern real_T mex_rtInf;
+               ^
+rt_nonfinite.h:17:15: error: storage class specified for parameter ‘mex_rtMinusInf’
+ extern real_T mex_rtMinusInf;
+               ^
+rt_nonfinite.h:18:15: error: storage class specified for parameter ‘mex_rtNaN’
+ extern real_T mex_rtNaN;
+               ^
+rt_nonfinite.h:19:17: error: storage class specified for parameter ‘mex_rtInfF’
+ extern real32_T mex_rtInfF;
+                 ^
+rt_nonfinite.h:20:17: error: storage class specified for parameter ‘mex_rtMinusInfF’
+ extern real32_T mex_rtMinusInfF;
+                 ^
+rt_nonfinite.h:21:17: error: storage class specified for parameter ‘mex_rtNaNF’
+ extern real32_T mex_rtNaNF;
+                 ^
+rt_nonfinite.h:34:13: error: storage class specified for parameter ‘mex_InitInfAndNan’
+ extern void mex_InitInfAndNan(void);
+             ^
+matlabEngineCaller_customLayers.c:22:20: error: storage class specified for parameter ‘nh_emlrtRSI’
+ static emlrtRSInfo nh_emlrtRSI = { 10, /* lineNo */
+                    ^
+matlabEngineCaller_customLayers.c:22:1: error: parameter ‘nh_emlrtRSI’ is initialized
+ static emlrtRSInfo nh_emlrtRSI = { 10, /* lineNo */
+ ^
+matlabEngineCaller_customLayers.c:27:20: error: storage class specified for parameter ‘sl_emlrtBCI’
+ static emlrtBCInfo sl_emlrtBCI = { 1,  /* iFirst */
+                    ^
+matlabEngineCaller_customLayers.c:27:1: error: parameter ‘sl_emlrtBCI’ is initialized
+ static emlrtBCInfo sl_emlrtBCI = { 1,  /* iFirst */
+ ^
+matlabEngineCaller_customLayers.c:37:20: error: storage class specified for parameter ‘tl_emlrtBCI’
+ static emlrtBCInfo tl_emlrtBCI = { -1, /* iFirst */
+                    ^
+matlabEngineCaller_customLayers.c:37:1: error: parameter ‘tl_emlrtBCI’ is initialized
+ static emlrtBCInfo tl_emlrtBCI = { -1, /* iFirst */
+ ^
+matlabEngineCaller_customLayers.c:47:20: error: storage class specified for parameter ‘ul_emlrtBCI’
+ static emlrtBCInfo ul_emlrtBCI = { 1,  /* iFirst */
+                    ^
+matlabEngineCaller_customLayers.c:47:1: error: parameter ‘ul_emlrtBCI’ is initialized
+ static emlrtBCInfo ul_emlrtBCI = { 1,  /* iFirst */
+ ^
+matlabEngineCaller_customLayers.c:57:20: error: storage class specified for parameter ‘ic_emlrtDCI’
+ static emlrtDCInfo ic_emlrtDCI = { 77, /* lineNo */
+                    ^
+matlabEngineCaller_customLayers.c:57:1: error: parameter ‘ic_emlrtDCI’ is initialized
+ static emlrtDCInfo ic_emlrtDCI = { 77, /* lineNo */
+ ^
+matlabEngineCaller_customLayers.c:64:20: error: storage class specified for parameter ‘jc_emlrtDCI’
+ static emlrtDCInfo jc_emlrtDCI = { 77, /* lineNo */
+                    ^
+matlabEngineCaller_customLayers.c:64:1: error: parameter ‘jc_emlrtDCI’ is initialized
+ static emlrtDCInfo jc_emlrtDCI = { 77, /* lineNo */
+ ^
+matlabEngineCaller_customLayers.c:71:20: error: storage class specified for parameter ‘vl_emlrtBCI’
+ static emlrtBCInfo vl_emlrtBCI = { -1, /* iFirst */
+                    ^
+matlabEngineCaller_customLayers.c:71:1: error: parameter ‘vl_emlrtBCI’ is initialized
+ static emlrtBCInfo vl_emlrtBCI = { -1, /* iFirst */
+ ^
+matlabEngineCaller_customLayers.c:81:21: error: storage class specified for parameter ‘sc_emlrtRTEI’
+ static emlrtRTEInfo sc_emlrtRTEI = { 78,/* lineNo */
+                     ^
+matlabEngineCaller_customLayers.c:81:1: error: parameter ‘sc_emlrtRTEI’ is initialized
+ static emlrtRTEInfo sc_emlrtRTEI = { 78,/* lineNo */
+ ^
+matlabEngineCaller_customLayers.c:87:21: error: storage class specified for parameter ‘um_emlrtRTEI’
+ static emlrtRTEInfo um_emlrtRTEI = { 10,/* lineNo */
+                     ^
+matlabEngineCaller_customLayers.c:87:1: error: parameter ‘um_emlrtRTEI’ is initialized
+ static emlrtRTEInfo um_emlrtRTEI = { 10,/* lineNo */
+ ^
+matlabEngineCaller_customLayers.c:93:21: error: storage class specified for parameter ‘vm_emlrtRTEI’
+ static emlrtRTEInfo vm_emlrtRTEI = { 13,/* lineNo */
+                     ^
+matlabEngineCaller_customLayers.c:93:1: error: parameter ‘vm_emlrtRTEI’ is initialized
+ static emlrtRTEInfo vm_emlrtRTEI = { 13,/* lineNo */
+ ^
+matlabEngineCaller_customLayers.c:99:21: error: storage class specified for parameter ‘wm_emlrtRTEI’
+ static emlrtRTEInfo wm_emlrtRTEI = { 67,/* lineNo */
+                     ^
+matlabEngineCaller_customLayers.c:99:1: error: parameter ‘wm_emlrtRTEI’ is initialized
+ static emlrtRTEInfo wm_emlrtRTEI = { 67,/* lineNo */
+ ^
+matlabEngineCaller_customLayers.c:105:21: error: storage class specified for parameter ‘xm_emlrtRTEI’
+ static emlrtRTEInfo xm_emlrtRTEI = { 88,/* lineNo */
+                     ^
+matlabEngineCaller_customLayers.c:105:1: error: parameter ‘xm_emlrtRTEI’ is initialized
+ static emlrtRTEInfo xm_emlrtRTEI = { 88,/* lineNo */
+ ^
+matlabEngineCaller_customLayers.c:111:21: error: storage class specified for parameter ‘ym_emlrtRTEI’
+ static emlrtRTEInfo ym_emlrtRTEI = { 77,/* lineNo */
+                     ^
+matlabEngineCaller_customLayers.c:111:1: error: parameter ‘ym_emlrtRTEI’ is initialized
+ static emlrtRTEInfo ym_emlrtRTEI = { 77,/* lineNo */
+ ^
+matlabEngineCaller_customLayers.c:117:21: error: storage class specified for parameter ‘an_emlrtRTEI’
+ static emlrtRTEInfo an_emlrtRTEI = { 1,/* lineNo */
+                     ^
+matlabEngineCaller_customLayers.c:117:1: error: parameter ‘an_emlrtRTEI’ is initialized
+ static emlrtRTEInfo an_emlrtRTEI = { 1,/* lineNo */
+ ^
+matlabEngineCaller_customLayers.c:128:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+ {
+ ^
+In file included from matlabEngineCaller_customLayers.c:14:0:
+/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers/matlabCallFun.h:1:6: error: old-style parameter declarations in prototyped function definition
+ void matlabCallFun(double params[], int arrayLen, char *funName, char *pathCall, double bulkIn, double bulkOut, double contrast, double *sum, double *ans)
+      ^
+matlabEngineCaller_customLayers.c:314:1: error: expected ‘{’ at end of input
+ }
+ ^
+[14/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  asymconvstep.c -o build/glnxa64/asymconvstep.o
+[15/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  interface/_coder_reflectivity_calculation_info.c -o build/glnxa64/_coder_reflectivity_calculation_info.o
+[16/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  repmat.c -o build/glnxa64/repmat.o
+[17/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  sortLE.c -o build/glnxa64/sortLE.o
+[18/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  allocateLayersForContrast.c -o build/glnxa64/allocateLayersForContrast.o
+[19/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  resampleLayers.c -o build/glnxa64/resampleLayers.o
+[20/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  interface/_coder_reflectivity_calculation_mex.c -o build/glnxa64/_coder_reflectivity_calculation_mex.o
+[21/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  sum.c -o build/glnxa64/sum.o
+[22/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  allocateParamsToLayers.c -o build/glnxa64/allocateParamsToLayers.o
+[23/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  resolution_polly.c -o build/glnxa64/resolution_polly.o
+[24/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  acos.c -o build/glnxa64/acos.o
+[25/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  erf.c -o build/glnxa64/erf.o
+[26/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  resolution_polly_paraPoints.c -o build/glnxa64/resolution_polly_paraPoints.o
+[27/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  sortrows.c -o build/glnxa64/sortrows.o
+[28/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  chiSquared.c -o build/glnxa64/chiSquared.o
+[29/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  groupLayers_Mod.c -o build/glnxa64/groupLayers_Mod.o
+[30/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  abeles_single.c -o build/glnxa64/abeles_single.o
+[31/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_layers_core.c -o build/glnxa64/standardTF_layers_core.o
+[32/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  makeSLDProfileXY.c -o build/glnxa64/makeSLDProfileXY.o
+[33/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  shiftdata.c -o build/glnxa64/shiftdata.o
+[34/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  sldFunc.c -o build/glnxa64/sldFunc.o
+[35/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_stanlay_paraPoints.c -o build/glnxa64/standardTF_stanlay_paraPoints.o
+[36/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_stanlay_paraContrasts.c -o build/glnxa64/standardTF_stanlay_paraContrasts.o
+[37/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_stanLay_reflectivityCalculation.c -o build/glnxa64/standardTF_stanLay_reflectivityCalculation.o
+[38/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  abeles_paraPoints.c -o build/glnxa64/abeles_paraPoints.o
+[39/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  reflectivity_calculation_initialize.c -o build/glnxa64/reflectivity_calculation_initialize.o
+[40/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_reflectivityCalculation.c -o build/glnxa64/standardTF_reflectivityCalculation.o
+[41/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_stanlay_single.c -o build/glnxa64/standardTF_stanlay_single.o
+[42/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_stanlay_paraAll.c -o build/glnxa64/standardTF_stanlay_paraAll.o
+[43/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_custlay_single.c -o build/glnxa64/standardTF_custlay_single.o
+[44/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  callReflectivity.c -o build/glnxa64/callReflectivity.o
+[45/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_custlay_paraPoints.c -o build/glnxa64/standardTF_custlay_paraPoints.o
+[46/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_custlay_paraContrasts.c -o build/glnxa64/standardTF_custlay_paraContrasts.o
+[47/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  interface/_coder_reflectivity_calculation_api.c -o build/glnxa64/_coder_reflectivity_calculation_api.o
+[48/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  adaptive.c -o build/glnxa64/adaptive.o
+[49/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  reflectivity_calculation.c -o build/glnxa64/reflectivity_calculation.o
+[50/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  standardTF_custLay_reflectivityCalculation.c -o build/glnxa64/standardTF_custLay_reflectivityCalculation.o
+[51/52] /bin/gcc -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -std=c99 -I "." -I "/home/arwel/Documents/RascalDev/RAT/compile/reflectivity_calculation_compile" -I "/usr/local/MATLAB/R2020a/extern/include" -I "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/matlabEngineCaller_customLayers" -I "./interface" -I "." -DMODEL=reflectivity_calculation_mex -c  reflectivity_calculation_emxutil.c -o build/glnxa64/reflectivity_calculation_emxutil.o
+ninja: build stopped: subcommand failed.

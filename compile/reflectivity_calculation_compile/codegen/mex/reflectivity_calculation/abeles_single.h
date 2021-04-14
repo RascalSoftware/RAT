@@ -1,32 +1,31 @@
-//
-//  Non-Degree Granting Education License -- for use at non-degree
-//  granting, nonprofit, educational organizations only. Not for
-//  government, commercial, or other organizational use.
-//
-//  abeles_single.h
-//
-//  Code generation for function 'abeles_single'
-//
-
+/*
+ * Non-Degree Granting Education License -- for use at non-degree
+ * granting, nonprofit, educational organizations only. Not for
+ * government, commercial, or other organizational use.
+ *
+ * abeles_single.h
+ *
+ * Code generation for function 'abeles_single'
+ *
+ */
 
 #pragma once
 
-// Include files
-#include <cmath>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+/* Include files */
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "mex.h"
 #include "emlrt.h"
+#include "covrt.h"
 #include "rtwtypes.h"
-#include "omp.h"
 #include "reflectivity_calculation_types.h"
-#define MAX_THREADS                    omp_get_max_threads()
 
-// Function Declarations
-void abeles_single(const emlrtStack *sp, const coder::array<real_T, 1U> &x,
-                   const coder::array<real_T, 2U> &sld, real_T nbair, real_T
-                   nbsub, real_T nrepeats, real_T rfinal, real_T layers, real_T
-                   points, coder::array<real_T, 1U> &out);
+/* Function Declarations */
+void abeles_single(const emlrtStack *sp, const emxArray_real_T *x, const
+                   emxArray_real_T *sld, real_T nbair, real_T nbsub, real_T
+                   nrepeats, real_T rfinal, real_T layers, real_T points,
+                   emxArray_real_T *out);
 
-// End of code generation (abeles_single.h)
+/* End of code generation (abeles_single.h) */

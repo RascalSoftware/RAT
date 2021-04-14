@@ -21,12 +21,17 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         resolution          % resolutionClass object
         contrasts           % contrastsClass object
         data                % dataClass object
+        customFile          % Custom file object (TODO)
         
         UsePriors = false
+
+        ModelType = 'Standard Layers'
     end
     
-    properties (Constant)
-        experimentType = 'Standard Layers with (d,rho,rough) layers'
+    properties (Access = private)
+        
+        experimentType = 'Non polarised no absorption';
+        
     end
     
     methods
@@ -69,6 +74,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Initialise Contrasts object.
             obj.contrasts = contrastsClass();
+            
+            % Initialise custom file object
+            obj.customFile = customFileClass();
             
         end
         
@@ -122,9 +130,24 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             elseif strcmpi(val,'substrate/liquid')
                 obj.Geometry = 'substrate/liquid';
             end
+        end
+        
+        function obj = setModelType(obj,val)
+            % Sets the experiment type
+            
+            if ~ischar(val)
+                error('Expecting a char array');
+            end
+            
+            if ~any(strcmpi(val,{'standard layers','custom layers','custom xy'}))
+                error('experiment type has to be Standard Layers, Custom Layers or Custom XY');
+            end
+            
+            obj.ModelType = val;
             
         end
         
+
         function names = getAllAllowedNames(obj)
             
             % Returns a cell array of all currently
@@ -137,6 +160,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             names.dataNames = obj.data.getDataNames();
             names.scalefacNames = obj.scalefactors.getParamNames();
             names.qzShiftNames = obj.qzshifts.getParamNames();
+            names.customNames = obj.customFile.getCustomNames();
             
         end
         
@@ -472,6 +496,21 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         
         % ----------------------------------------------------------------
+        % editing of custom models block
+        
+        function obj = addCustomFile(obj, varargin)
+            
+            obj.customFile.addFile(varargin{:});
+           
+        end
+        
+        function obj = setCustomFile(obj,varargin)
+            % Gerenal purpose set scalefactor method
+            obj.customFile.setCustomFile(varargin);
+        end
+        
+        
+        % ----------------------------------------------------------------
         %
         %   Editing of Contrasts Block
         
@@ -520,15 +559,71 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
         end
         
+        function obj = setContrastModel(obj,varargin)
+            
+            firstInput = varargin{1};
+            inputVals = varargin(2:end);
+            
+            contrastNames = obj.contrasts.getAllContrastNames();
+            numberOfContrasts = obj.contrasts.numberOfContrasts;
+            
+            % Find if we are referencing and existing contrast
+            if isnumeric(firstInput)
+                if (firstInput < 1 || firstInput > numberOfContrasts)
+                    error('Contrast number %d is out of range',firstInput);
+                end
+                thisContrast = firstInput;
+                
+            elseif ischar(firstInput)
+                [present,idx] = ismember(firstInput, contrastNames);
+                if ~present
+                    error('Contrast %s is not recognised',firstInput)
+                end
+                thisContrast = idx;
+                
+            end
+            
+            % Make a different allowed list depending on whether 
+            % it is custom or layers
+            ModelType = obj.ModelType;
+            
+            if ~strcmpi(ModelType,{'custom layers','custom xy'})
+                % Standard Layers
+                allowedValues = obj.layers.getLayersNames();
+                ModelType = 'standard';
+                inputVals = inputVals{:};
+            else
+                % Custom models
+                allowedValues = obj.customFile.getCustomNames();
+                ModelType = 'custom';
+            end
+            
+            % Call the setContrastModel method
+            obj.contrasts.setContrastModel(thisContrast,ModelType,allowedValues,inputVals);
+
+        end
+        
         function outStruct = toStruct(obj)
             
             % Converts the class parameters
             % into a struct array for input into
             % the RAT toolbox
             
+            % Set which typr of experiment this is
+            generalStruct.TF = 'standardTF';
+            
             % Add the 'general' fields
-            generalStruct.modelType = 'layers';
-            generalStruct.experimentType = 'Standard';
+            thisType = obj.ModelType;
+            
+            switch lower(thisType)
+                case 'standard layers'
+                    generalStruct.ModelType = 'layers';
+                case 'custom layers'
+                    generalStruct.ModelType = 'custom layers';
+                case 'custom xy'
+                    generalStruct.ModelType = 'standard layers';
+            end
+                     
             generalStruct.geometry = obj.Geometry;
             
             % Parameters
@@ -569,32 +664,43 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % parse the layers details
             layersValues = layersCell(:,2:end);
-            
             paramNames = string(paramStruct.paramNames);
-            for i = 1:layersStruct.numberOfLayers
-                thisLayer = layersValues(i,:);
-                min = find(strcmpi(thisLayer{1},paramNames));
-                val = find(strcmpi(thisLayer{2},paramNames));
-                max = find(strcmpi(thisLayer{3},paramNames));
-                if ismissing(thisLayer(4))
-                    hydr = NaN;
-                else
-                    hydr = find(strcmpi(thisLayer{4},paramNames));
-                end
-                if strcmpi(thisLayer{5},'bulk in')
-                    hydrWhat = 1;
-                else
-                    hydrWhat = 2;
-                end
-                layersDetails{i} = [min val max hydr hydrWhat];
+            
+            switch generalStruct.ModelType
+                case 'layers'
+                    
+                    for i = 1:layersStruct.numberOfLayers
+                        thisLayer = layersValues(i,:);
+                        min = find(strcmpi(thisLayer{1},paramNames));
+                        val = find(strcmpi(thisLayer{2},paramNames));
+                        max = find(strcmpi(thisLayer{3},paramNames));
+                        if ismissing(thisLayer(4))
+                            hydr = NaN;
+                        else
+                            hydr = find(strcmpi(thisLayer{4},paramNames));
+                        end
+                        if strcmpi(thisLayer{5},'bulk in')
+                            hydrWhat = 1;
+                        else
+                            hydrWhat = 2;
+                        end
+                        layersDetails{i} = [min val max hydr hydrWhat];
+                    end
+                    layersStruct.layersDetails = layersDetails(:);
+                    
+                otherwise
+                    layersStruct.layersDetails = {};
             end
             
-            layersStruct.layersDetails = layersDetails(:);
+            % Custom files
+            customFileStruct = obj.customFile.toStruct();
             
             % Contrasts.
             allNames = obj.getAllAllowedNames;
             dataTable = obj.data.dataTable;
-            contrastStruct = obj.contrasts.toStruct(allNames,dataTable);
+            
+            modelType = generalStruct.ModelType;
+            contrastStruct = obj.contrasts.toStruct(allNames,modelType,dataTable);
             
             % Merge all the outputs into one large structure
             outStruct = mergeStructs(generalStruct,...
@@ -606,6 +712,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 scalefactorStruct,...
                 qzshiftStruct,...
                 layersStruct,...
+                customFileStruct,...
                 contrastStruct);
             
         end
@@ -629,7 +736,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % Display methods
         function group = getPropertyGroup1(obj)
             % Initial Parameters at the start of the class
-            masterPropList = struct('experimentType',{obj.experimentType},...
+            masterPropList = struct('ModelType',{obj.ModelType},...
                 'experimentName',{obj.experimentName},...
                 'Geometry', obj.Geometry);
             
@@ -644,6 +751,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Display the whole class. Call the display methods for
             % the sub-classes where appropriate
             
+            % There are two versions, depending on whether the model
+            % is standard layers or custom, the difference being
+            % the display of the layers table..
+            
             % Display initial properties
             startProps = getPropertyGroup1(obj);
             matlab.mixin.CustomDisplay.displayPropertyGroups(obj,startProps);
@@ -652,9 +763,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             fprintf('    Parameters: ---------------------------------------------------------------------------------------------- \n\n');
             obj.parameters.displayParametersTable;
             
-            % Display the layers table
-            fprintf('    Layers: -------------------------------------------------------------------------------------------------- \n\n');
-            obj.layers.displayLayersTable;
+            % Display the layers table if not a custom model
+            val = obj.ModelType;
+            if ~any(strcmpi(val,{'custom layers','custom xy'}))
+                fprintf('    Layers: -------------------------------------------------------------------------------------------------- \n\n');
+                obj.layers.displayLayersTable;
+            end
             
             % Display the Bulk In table
             fprintf('    Bulk In: -------------------------------------------------------------------------------------------------- \n\n');
@@ -676,6 +790,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Display the data object
             obj.data.displayDataObject;
+            
+            % Display custome files object
+            obj.customFile.displayCustomFileObject;
             
             % Display the contrasts object
             obj.contrasts.displayContrastsObject;

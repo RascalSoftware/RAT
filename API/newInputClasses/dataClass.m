@@ -165,7 +165,7 @@ classdef dataClass < handle
             end
             
             if ~isempty(results.dataRange)
-                obj.setDataRange(whichData,results.dataRange)
+                obj.setDataRange(whichData,results.dataRange);
             end
 
         end

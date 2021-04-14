@@ -13,9 +13,8 @@
 
 /* Include files */
 #include "mex.h"
-#define MAX_THREADS                    omp_get_max_threads()
 
 /* Function Declarations */
-MEXFUNCTION_LINKAGE mxArray *emlrtMexFcnProperties();
+MEXFUNCTION_LINKAGE mxArray *emlrtMexFcnProperties(void);
 
 /* End of code generation (_coder_reflectivity_calculation_info.h) */

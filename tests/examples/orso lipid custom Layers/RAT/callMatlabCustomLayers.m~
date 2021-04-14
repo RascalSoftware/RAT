@@ -1,0 +1,32 @@
+function [output,sRough] = callMatlabCustomLayers(params,contrast,funcName,path,bulkIn,bulkOut);
+
+persistent fileHandle
+
+
+if coder.target('MATLAB')
+
+    if isempty(fileHandle)
+        
+        dotM = strfind(funcName,'.m');
+        if ~isempty(dotM)
+            funcName = funcName(1:dotM-1);
+        end
+        
+        % Need to add the path of the function to the Matlab path
+        addPath(path);
+        
+        fileHandle = str2func(funcName);
+    end
+    
+    [output,sRough] = fileHandle(params,bulkIn,bulkOut,contrast);
+else
+
+    % Use a coder.extrinsic call here.
+
+
+
+
+
+
+
+end

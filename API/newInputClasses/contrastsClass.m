@@ -88,7 +88,35 @@ classdef contrastsClass < handle
             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
         
         end
-
+        
+        function obj = setContrastModel(obj, whichContrast, modelType, allowedNames, varargin)
+            
+            % Determine which contrast is being set
+            thisContrast = obj.contrasts{whichContrast};
+            modelArray = varargin{:};
+            
+            switch modelType
+                case 'standard'
+                    modelArray = cellstr(modelArray);
+                    for i = 1:length(modelArray)
+                        if ~strcmpi(modelArray{i},allowedNames)
+                            error('Layer %s is not recognised',modelArray{i});
+                        end
+                    end
+                    
+                case 'custom'
+                    modelArray = cellstr(modelArray);
+                    if length(modelArray) > 1
+                        error('Only 1 model value allowed for ''custom''');
+                    end
+                    
+                    if ~strcmpi(modelArray,allowedNames)
+                        error('Custom name is not recognised');
+                    end
+            end
+            thisContrast.model = modelArray;
+            obj.contrasts{whichContrast} = thisContrast;
+        end
         
         function obj = setContrast(obj, whichContrast, allowedNames, varargin)
             
@@ -100,18 +128,18 @@ classdef contrastsClass < handle
             % Check to see if the inputs are valid
             % Do something slightly different if we are setting
             % model because we have to check a larger array
-            switch varargin{1}{1}
+            %switch varargin{1}{1}
                 
-                case 'model'
-                    modelArray = varargin{1}{2};
-                    modelArray = cellstr(modelArray);
-                    for i = 1:length(modelArray)
-                        if ~strcmpi(modelArray{i},allowedNames.layersNames)
-                            error('Layer %s is not recognised',modelArray{i});
-                        end
-                    end
-                    thisContrast.model = modelArray;
-                otherwise
+                %case 'model'
+%                     modelArray = varargin{1}{2};
+%                     modelArray = cellstr(modelArray);
+%                     for i = 1:length(modelArray)
+%                         if ~strcmpi(modelArray{i},allowedNames.layersNames)
+%                             error('Layer %s is not recognised',modelArray{i});
+%                         end
+%                     end
+%                     thisContrast.model = modelArray;
+                %otherwise
                     
                     inputBlock = parseContrastInput(allowedNames,varargin{:});
                     
@@ -143,7 +171,7 @@ classdef contrastsClass < handle
                         thisContrast.resolution = inputBlock.resolution;
                     end
                     
-            end
+            %end
             
             obj.contrasts{whichContrast} = thisContrast;
             
@@ -185,7 +213,7 @@ classdef contrastsClass < handle
             
         end
         
-        function contrastStruct = toStruct(obj,allowedNames,dataTable)
+        function contrastStruct = toStruct(obj,allowedNames,modelType,dataTable)
             
             nContrasts = obj.numberOfContrasts;
             contrastBacks = cell(1,nContrasts);
@@ -227,14 +255,24 @@ classdef contrastsClass < handle
                 resample(i) = 0; % Todo
                 contrastRepeatSLDs{i} = [0 1]; % todo
                 
-                thisModel = thisContrast.model;
-                thisLayerArray = [];
-                for n = 1:length(thisModel)
-                    thisLayer = thisModel{n};
-                    thisLayerNum = find(strcmpi(thisLayer,allowedNames.layersNames));
-                    thisLayerArray(n) = thisLayerNum;
+                
+                switch modelType
+                    case 'layers'
+                        thisModel = thisContrast.model;
+                        thisLayerArray = [];
+                        for n = 1:length(thisModel)
+                            thisLayer = thisModel{n};
+                            thisLayerNum = find(strcmpi(thisLayer,allowedNames.layersNames));
+                            thisLayerArray(n) = thisLayerNum;
+                        end
+                        contrastLayers{i} = thisLayerArray;
+                        contrastCustomFile(i) = NaN;
+                    otherwise
+                        contrastLayers{i} = {};
+                        whichFile = thisContrast.model;
+                        thisContrastFileNum = find(strcmpi(whichFile,allowedNames.customNames));
+                        contrastCustomFile(i) = thisContrastFileNum;
                 end
-                contrastLayers{i} = thisLayerArray;
                 
                 thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
                 if ~isempty(thisDataVal)
@@ -264,6 +302,7 @@ classdef contrastsClass < handle
             contrastStruct.simLimits = simLimits;
             contrastStruct.allData = allData;
             contrastStruct.contrastLayers = contrastLayers;
+            contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.numberOfContrasts = nContrasts;
                 
         end

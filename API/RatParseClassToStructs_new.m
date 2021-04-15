@@ -88,6 +88,16 @@ resolNames = inputStruct.resolParNames;         % ******* ToDo
 resolParPriors = inputStruct.resolParPriors;
 customFiles = inputStruct.files;
 
+% When there are custom files, we need to strip the file extension
+% from the filename if it's present
+for i = 1:length(customFiles)
+    thisCustomFileCell = customFiles{i};
+    [~,name,~] = fileparts(thisCustomFileCell{1});
+    thisCustomFileCell{1} = name;
+    customFiles{i} = thisCustomFileCell;
+end
+
+
 
 % Pull out all the cell arrays (except priors) into one array
 problemDef_cells{1} = repeatLayers;
@@ -95,14 +105,6 @@ problemDef_cells{2} = allData;
 problemDef_cells{3} = dataLimits;
 problemDef_cells{4} = simLimits;
 problemDef_cells{5} = contrastLayers;
-
-% Fix for cell array bug with custom layers - is this needed still??
-if strcmpi(inputStruct.ModelType,'custom layers') || strcmpi(inputStruct.ModelType,'Custom XY')
-    for i = 1:length(problemDef_cells{5})
-        problemDef_cells{5}{i} = 0;
-    end
-end
-
 problemDef_cells{6} = layersDetails;
 problemDef_cells{7} = paramNames;
 problemDef_cells{8} = backsNames;             % ****** Todo
@@ -112,6 +114,18 @@ problemDef_cells{11} = nbaNames;
 problemDef_cells{12} = nbsNames;
 problemDef_cells{13} = resolNames;
 problemDef_cells{14} = customFiles;
+
+% Fix for cell array bug with custom layers - is this needed still??
+if strcmpi(inputStruct.ModelType,'custom layers') || strcmpi(inputStruct.ModelType,'Custom XY')
+    for i = 1:length(problemDef_cells{5})
+        problemDef_cells{5}{i} = 0;
+    end
+    
+    problemDef_cells{6} = {0};
+    
+end
+
+
 
 % Put the priors into their own array
 priors.paramPriors = paramPriors;

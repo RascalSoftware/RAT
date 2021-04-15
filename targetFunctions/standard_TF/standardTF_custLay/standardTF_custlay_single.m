@@ -21,7 +21,7 @@ numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problem
 calcSld = controls.calcSld;      
                      
 % Pre-Allocation of output arrays...
-%   --- Begin Memory Allocation ---
+
 backgs = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
 sfs = zeros(numberOfContrasts,1);
@@ -53,7 +53,10 @@ for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
 coder.varsize('allLayers{:}',[10000 3],[1 1]);
+
 %   --- End Memory Allocation ---
+
+
 
 % Single cored over all contrasts
 for i = 1:numberOfContrasts

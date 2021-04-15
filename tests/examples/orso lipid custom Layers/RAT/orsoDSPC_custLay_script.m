@@ -50,6 +50,8 @@ problem.setBulkIn(1,'name','Silicon','min',2.07e-6,'value',2.073e-6,'max',2.08e-
 problem.addBulkOut({'SLD SMW',2e-6,2.073e-6,3e-6,true});
 problem.addBulkOut({'SLD H2O',-0.6e-6,-0.56e-6,-0.3e-6,true});
 
+problem.setBulkOut(1,'fit',true);
+
 %% 
 % Now add the datafiles.  We have three datasets we need to consider - the bilayer 
 % against D2O, Silicon Matched water and H2O. Load these datafiles in and put 
@@ -145,13 +147,24 @@ problem.setContrastModel(3,'DSPC Model');
 % Make a controls block....
 
 controls = controlsDef();
-controls.calcSldDuringFit = 'no'
-controls.procedure = 'simplex'
+controls.calcSldDuringFit = 'yes';
+% controls.procedure = 'bayes';
+% controls.nsimu = 3000;
+% controls.repeats = 3;
+
 %% 
 % And send this to RAT...
 
 [problem,results] = RAT(problem,controls);
 
 
-figure(1); clf
-plotRefSLD(problem,results)
+% h2 = figure(2); clf
+% sf = results.contrastParams.scalefactors;
+% bayesShadedPlot(h2,results.predlims,results.shifted_data,sf);
+% 
+% 
+% h3 = figure(3); clf
+% mcmcplot(results.chain,[],results.fitNames,'hist');
+
+
+

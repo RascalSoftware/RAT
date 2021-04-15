@@ -1,0 +1,11 @@
+# ninja log v5
+0	30	1618407822684548585	build/glnxa64/rt_nonfinite.o	d860667c2e70e49d
+1	31	1618407822685548613	build/glnxa64/cpp_mexapi_version.o	f654f8eeea205e0a
+0	39	1618407822693548837	build/glnxa64/_coder_callTestFun_info.o	4036c6e676cd549d
+0	47	1618407822701549061	build/glnxa64/callTestFun_data.o	87d0de90255f5dc1
+0	58	1618407822712549368	build/glnxa64/callTestFun_initialize.o	d91f5ab5bc9e46ab
+0	60	1618407822714549424	build/glnxa64/callTestFun_terminate.o	af988859685b326e
+0	65	1618407822718549536	build/glnxa64/callTestFun.o	8962b4b512711fa4
+0	65	1618407822719549564	build/glnxa64/_coder_callTestFun_mex.o	dd492c4fa892c502
+0	66	1618407822720549592	build/glnxa64/_coder_callTestFun_api.o	903c031e3c2d22d2
+66	116	1618407822769550963	callTestFun_mex.mexa64	3adb878061481f03

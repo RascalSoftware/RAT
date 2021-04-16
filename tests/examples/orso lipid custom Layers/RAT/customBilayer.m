@@ -81,6 +81,5 @@ tail = [tailThick tailSLD bilayerRough];
 
 output = [oxide ; water ; head ; tail ; tail ; head];
 
-sub_rough = params(1);
 
 

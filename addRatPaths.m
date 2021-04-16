@@ -19,6 +19,8 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     %fullfile(ratRoot,'targetFunctions','common','matlabEngineCaller_customLayers');
     fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
     fullfile(ratRoot,'targetFunctions','common','jacobianEst');
+    fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
+
 
     %/home/arwel/Documents/RascalDev/RAT/targetFunctions/reflectivity_calculation
     fullfile(ratRoot,'targetFunctions','reflectivity_calculation');

@@ -13,11 +13,11 @@ problem.setGeometry('Substrate/liquid');
 %% 
 % 
 % 
-% First we need to set up a parameters group. We will be using a pre-prepared 
-% custom model file, so it's useful to look at this to check which parameters 
-% we are going to need:
-
-type customBilayer.m
+% % First we need to set up a parameters group. We will be using a pre-prepared 
+% % custom model file, so it's useful to look at this to check which parameters 
+% % we are going to need:
+% 
+% type customBilayer.m
 %% 
 % 
 % 
@@ -36,6 +36,7 @@ Parameters = {
         };
     
  problem.addParamGroup(Parameters);
+ problem.setParameter(1,'min',1,'max',10);
  
 %% 
 % 
@@ -47,10 +48,10 @@ Parameters = {
 problem.setBulkIn(1,'name','Silicon','min',2.07e-6,'value',2.073e-6,'max',2.08e-6,'fit',false);
 
 % Add two more values for bulk out....
-problem.addBulkOut({'SLD SMW',2e-6,2.073e-6,3e-6,true});
+problem.addBulkOut({'SLD SMW',1e-6,2.073e-6,3e-6,true});
 problem.addBulkOut({'SLD H2O',-0.6e-6,-0.56e-6,-0.3e-6,true});
 
-problem.setBulkOut(1,'fit',true);
+problem.setBulkOut(1,'fit',true,'min',5e-6);
 
 %% 
 % Now add the datafiles.  We have three datasets we need to consider - the bilayer 
@@ -67,9 +68,9 @@ problem.addData('Bilayer / D2O', D2O_data(:,1:3));
 problem.addData('Bilayer / SMW', SMW_data(:,1:3));
 problem.addData('Bilayer / H2O', H2O_data(:,1:3));
 
-problem.setData(2,'dataRange',[0.01 0.37]);
-problem.setData(2,'dataRange',[0.01 0.37]);
-problem.setData(2,'dataRange',[0.01 0.37]);
+problem.setData(2,'dataRange',[0.013 0.37]);
+problem.setData(3,'dataRange',[0.013 0.37]);
+problem.setData(4,'dataRange',[0.013 0.37]);
 
 %% 
 % 
@@ -83,11 +84,11 @@ problem.addCustomFile({'DSPC Model','customBilayer.m','matlab','pwd'});
 % Also, add the relevant background parameters - one each for each contrast:
 
 % Change the name of the existing parameters to refer to D2O
-problem.setBacksPar(1,'name','Backs par D2O','fit',true,'min',1e-8,'max',1e-5);
+problem.setBacksPar(1,'name','Backs par D2O','fit',true,'min',1e-10,'max',1e-5);
 
 % Add two new backs parameters for the other two..
-problem.addBacksPar('Backs par SMW',1e-8,1e-8,1e-5,true);
-problem.addBacksPar('Backs par H2O',1e-8,1e-8,1e-5,true);
+problem.addBacksPar('Backs par SMW',1e-10,1e-8,1e-5,true);
+problem.addBacksPar('Backs par H2O',1e-10,1e-8,1e-5,true);
 
 % And add the two new constant backgrounds..
 problem.addBackground('Background SMW','constant','Backs par SMW');
@@ -101,7 +102,7 @@ problem.setBackgroundValue(1,'value','Backs par D2O');
 % for a solid / liquid experiment.
 
 % Set the scalefactor...
-problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',false);
+problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',true);
 
 %% 
 % 
@@ -147,24 +148,30 @@ problem.setContrastModel(3,'DSPC Model');
 % Make a controls block....
 
 controls = controlsDef();
-controls.calcSldDuringFit = 'yes';
-% controls.procedure = 'bayes';
-% controls.nsimu = 3000;
-% controls.repeats = 3;
+controls.calcSldDuringFit = 'no';
+controls.procedure = 'bayes';
+controls.nsimu = 6000;
+controls.repeats = 2;
+controls.parallel = 'points';
 
 %% 
 % And send this to RAT...
 
 [problem,results] = RAT(problem,controls);
 
-
-% h2 = figure(2); clf
-% sf = results.contrastParams.scalefactors;
-% bayesShadedPlot(h2,results.predlims,results.shifted_data,sf);
-% 
-% 
-% h3 = figure(3); clf
-% mcmcplot(results.chain,[],results.fitNames,'hist');
+switch controls.procedure
+    case 'bayes'
+        h2 = figure(2); clf
+        sf = results.contrastParams.scalefactors;
+        bayesShadedPlot(h2,results.predlims,results.shifted_data,sf);
+        
+        
+        h3 = figure(3); clf
+        mcmcplot(results.chain,[],results.fitNames,'hist');
+    otherwise
+        h2 = figure(2); clf
+        plotRefSLD(problem,results)
+end
 
 
 

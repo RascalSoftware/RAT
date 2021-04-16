@@ -11,7 +11,7 @@ if coder.target('MATLAB')
         fileHandle = str2func(funcName);
     end
 
-    [output,sRough] = fileHandle(params,bulkIn,bulkOut,contrast);
+    output = fileHandle(params,bulkIn,bulkOut,contrast);
     
 else
     
@@ -26,13 +26,30 @@ else
     % https://www.mathworks.com/help/matlab/calling-matlab-engine-from-cpp-programs.html
     
     % Pre-define the outputs to keep the compiler happy
-    output = [0 0 0];
-    sRough = 3;
+    % Need to define the size of the outputs with coder preprocessor
+    % directives
     
-    % Need to define the size of the outpts with coder prepr
+%     coder.varsize('output',[1000 7],[1 1]);
+%     coder.varsize('sRough',[1 1],[0 0]);
     
     
+    % Fix output variable type by defining example values
+%     coder.varsize('output',[10 3],[1 1]);
+%     output = [0 0 0];
+    %sRough = 3;
+
     % feval the function (automatically passed back to Matlab)
-    [output,sRough] = feval(funcName,params,bulkIn,bulkOut,contrast);
+    
+    coder.varsize('output');
+    [mxOutput,mxRough] = feval(funcName,params,bulkIn,bulkOut,contrast);
+    
+    output = [0 0];
+    n = size('mxOutput');
+    
+    nRows = size(mxOutput,1);
+    output = zeros(nRows,3);
+
+    sRough = mxRough;
+    output = mxOutput;
 
 end

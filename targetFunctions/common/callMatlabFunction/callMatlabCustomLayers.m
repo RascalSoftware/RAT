@@ -1,15 +1,15 @@
 function [output,sRough] = callMatlabCustomLayers(params,contrast,funcName,path,bulkIn,bulkOut)
 
-persistent fileHandle
-
+%persistent fileHandle
+coder.extrinsic('customFileWrapper')
 
 if coder.target('MATLAB')
 
-    if isempty(fileHandle)
+    %if isempty(fileHandle)
     % Make the fileHandle on the first pass through the function only
     % for performance
         fileHandle = str2func(funcName);
-    end
+    %end
 
     [output,sRough] = fileHandle(params,bulkIn,bulkOut,contrast);
     
@@ -29,15 +29,25 @@ else
     % Need to define the size of the outputs with coder preprocessor
     % directives
     
-    % Fix variable types by defining example values
-    output = [0 0 0];
+%     coder.varsize('output',[1000 7],[1 1]);
+%     coder.varsize('sRough',[1 1],[0 0]);
+    
+    
+    % Fix output variable type by defining example values
+%     coder.varsize('output',[10 3],[1 1]);
+%     output = [0 0 0];
+    %sRough = 3;
+
     sRough = 3;
+    coder.varsize('output');
+
+    [tempOut,tempRough] = customFileWrapper(funcName,params,bulkIn,bulkOut,contrast);
     
-    % Then define sizes..
-    coder.varsize('output',[1000 7],[1 1]);
-    coder.varsize('sRough',[1 1],[0 0]);
-    
-    % feval the function (automatically passed back to Matlab)
-    [output,sRough] = feval(funcName,params,bulkIn,bulkOut,contrast);
+    n = [0 0];
+    n = size(tempOut);
+    output = zeros(n);
+
+    sRough = tempRough;
+    output = tempOut;
 
 end

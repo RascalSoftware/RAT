@@ -1,5 +1,5 @@
-%ratRoot = '/Users/arwelhughes/coding/RAT/'; %OSX
-ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
+ratRoot = '/Users/arwel/Documents/coding/RAT'; %OSX
+%ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
 
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','backSorts');
@@ -41,7 +41,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'minimisers','generalUtils');
     fullfile(ratRoot,'minimisers','DE');
     fullfile(ratRoot,'minimisers','NSMain');
-    fullfile(ratRoot,'minimisers','mcmcstat');
+    fullfile(ratRoot,'minimisers','mcmcstat_new');
     fullfile(ratRoot,'minimisers','generalUtils','bayesStats');
     fullfile(ratRoot,'utilities');
     fullfile(ratRoot,'utilities','plotting');

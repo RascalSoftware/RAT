@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of callMatlabCustomLayers</title>
+  <meta name="keywords" content="callMatlabCustomLayers">
+  <meta name="description" content="persistent fileHandle">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- # common --><!-- menu.html callMatlabFunction -->
+<h1>callMatlabCustomLayers
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>persistent fileHandle</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [output,sRough] = callMatlabCustomLayers(params,contrast,funcName,path,bulkIn,bulkOut) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">persistent fileHandle</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../RAT/targetFunctions/standard_TF/standardTF_custLay/customFileWrapper.html" class="code" title="function [out, srough] = customFileWrapper(fname,params,bulkIn,bulkOut,contrast)">customFileWrapper</a>	</li><li><a href="../../../../RAT/targetFunctions/standard_TF/standardTF_custLay/customFileWrapper.html" class="code" title="function [out, srough] = customFileWrapper(fname,params,bulkIn,bulkOut,contrast)">customFileWrapper</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../RAT/targetFunctions/standard_TF/standardTF_custLay/call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>	Split up the custom file array</li><li><a href="../../../../RAT/targetFunctions/standard_TF/standardTF_custLay/call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>	Split up the custom file array</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [output,sRough] = callMatlabCustomLayers(params,contrast,funcName,path,bulkIn,bulkOut)</a>
+0002 
+0003 <span class="comment">%persistent fileHandle</span>
+0004 coder.extrinsic(<span class="string">'customFileWrapper'</span>)
+0005 
+0006 <span class="keyword">if</span> coder.target(<span class="string">'MATLAB'</span>)
+0007 
+0008     <span class="comment">%if isempty(fileHandle)</span>
+0009     <span class="comment">% Make the fileHandle on the first pass through the function only</span>
+0010     <span class="comment">% for performance</span>
+0011         fileHandle = str2func(funcName);
+0012     <span class="comment">%end</span>
+0013 
+0014     [output,sRough] = fileHandle(params,bulkIn,bulkOut,contrast);
+0015     
+0016 <span class="keyword">else</span>
+0017     
+0018     <span class="comment">% Use a coder.extrinsic call here. There is no need to explicitly</span>
+0019     <span class="comment">% define the 'coder.extrinsic' call, as Coder will automatically</span>
+0020     <span class="comment">% pass the excecution of the function back to the calling Matlab</span>
+0021     <span class="comment">% session when it encountes feval in a function to be generated.</span>
+0022     
+0023     <span class="comment">% Ultimately, we will replace this with a C++ class calling a</span>
+0024     <span class="comment">% separate Matlab engine so that Matlab custom model functions are</span>
+0025     <span class="comment">% still usable when the generated code is used from Python.</span>
+0026     <span class="comment">% https://www.mathworks.com/help/matlab/calling-matlab-engine-from-cpp-programs.html</span>
+0027     
+0028     <span class="comment">% Pre-define the outputs to keep the compiler happy</span>
+0029     <span class="comment">% Need to define the size of the outputs with coder preprocessor</span>
+0030     <span class="comment">% directives</span>
+0031     
+0032 <span class="comment">%     coder.varsize('output',[1000 7],[1 1]);</span>
+0033 <span class="comment">%     coder.varsize('sRough',[1 1],[0 0]);</span>
+0034     
+0035     
+0036     <span class="comment">% Fix output variable type by defining example values</span>
+0037 <span class="comment">%     coder.varsize('output',[10 3],[1 1]);</span>
+0038 <span class="comment">%     output = [0 0 0];</span>
+0039     <span class="comment">%sRough = 3;</span>
+0040 
+0041     sRough = 3;
+0042     coder.varsize(<span class="string">'output'</span>);
+0043 
+0044     [tempOut,tempRough] = <a href="../../../../RAT/targetFunctions/standard_TF/standardTF_custLay/customFileWrapper.html" class="code" title="function [out, srough] = customFileWrapper(fname,params,bulkIn,bulkOut,contrast)">customFileWrapper</a>(funcName,params,bulkIn,bulkOut,contrast);
+0045     
+0046     n = [0 0];
+0047     n = size(tempOut);
+0048     output = zeros(n);
+0049 
+0050     sRough = tempRough;
+0051     output = tempOut;
+0052 
+0053 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sun 18-Apr-2021 20:40:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -5,6 +5,9 @@ checks = controls.checks;
 [problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,checks);
 %fitPriors = packPriors(priors,checks);
 
+% Seed the Random Number Generator
+rng(0);
+
 
 %fitPriors = packpriors(priors,checks);
 

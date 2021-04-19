@@ -1,4 +1,4 @@
-function plotBayesCorrFig(chain, hFig)
+function plotBayesCorrFig(chain, fitNames, hFig)
 
 x = chain;
 y = chain;
@@ -6,7 +6,7 @@ y = chain;
 nPars = size(chain,2);
 for i = 1:nPars
     
-    [N,edges] = histcounts(chain(:,i),20, 'Normalization','pdf');
+    [N,edges] = histcounts(chain(:,i),15, 'Normalization','pdf');
     edges2 = edges(2:end) - (edges(2)-edges(1))/2;
     N2 = smoothdata(N, 'movmean');
     newDists{i} = [N2(:) edges2(:)];
@@ -121,12 +121,18 @@ ylimmin = min(ylim(:,:,1),[],2); ylimmax = max(ylim(:,:,2),[],2);
 % end
 % dx = zeros(1,cols);
 % for j=1:cols
-%     set(ax(1,j),'xlim',[xlimmin(1,j) xlimmax(1,j)])
-%     dx(j) = diff(get(ax(1,j),'xlim'))*inset;
-%     set(ax(:,j),'xlim',[xlimmin(1,j)-dx(j) xlimmax(1,j)+dx(j)])
+%     if strcmpi(class(ax(1,j)),'matlab.graphics.axis.Axes')
+%         set(ax(1,j),'xlim',[xlimmin(1,j) xlimmax(1,j)])
+%         dx(j) = diff(get(ax(1,j),'xlim'))*inset;
+%         set(ax(:,j),'xlim',[xlimmin(1,j)-dx(j) xlimmax(1,j)+dx(j)])
+%     end
 % end
 
-% set(ax(1:rows-1,:),'xticklabel','')
+% for n = 1:rows-1
+%     if strcmpi(class(ax(1,j)),'matlab.graphics.axis.Axes')
+%         set(ax(n,:),'xticklabel','')
+%     end
+% end
 % set(ax(:,2:cols),'yticklabel','')
 % set(BigAx,'XTick',get(ax(rows,1),'xtick'),'YTick',get(ax(rows,1),'ytick'), ...
 %     'YLim',get(ax(rows,1),'ylim'),... %help Axes make room for y-label
@@ -155,7 +161,9 @@ if dohist % Put a histogram on the diagonal for plotmatrix(y) case
         %hhist(i) = histogram(histax,y(:,i,:));
 %         set(histax,'xtick',[],'ytick',[],'xgrid','off','ygrid','off');
 %         set(histax,'xlim',[xlimmin(1,i)-dx(i) xlimmax(1,i)+dx(i)])
-        set(histax,'tag','PlotMatrixHistAx','YTick',[]);
+        set(histax,'tag','PlotMatrixHistAx','YTick',[],'TitleFontSizeMultiplier',0.8);
+        ht = title(histax,split(fitNames{i}));
+        
         
         if i ~= rows
             set(histax,'XTick',[]);

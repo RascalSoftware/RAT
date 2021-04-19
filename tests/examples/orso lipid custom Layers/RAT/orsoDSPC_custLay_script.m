@@ -84,11 +84,11 @@ problem.addCustomFile({'DSPC Model','customBilayer.m','matlab','pwd'});
 % Also, add the relevant background parameters - one each for each contrast:
 
 % Change the name of the existing parameters to refer to D2O
-problem.setBacksPar(1,'name','Backs par D2O','fit',true,'min',1e-10,'max',1e-5);
+problem.setBacksPar(1,'name','Backs par D2O','fit',true,'min',0,'max',1e-5,'val',0.0);
 
 % Add two new backs parameters for the other two..
-problem.addBacksPar('Backs par SMW',1e-10,1e-8,1e-5,true);
-problem.addBacksPar('Backs par H2O',1e-10,1e-8,1e-5,true);
+problem.addBacksPar('Backs par SMW',0,0,1e-5,true);
+problem.addBacksPar('Backs par H2O',0,0,1e-5,true);
 
 % And add the two new constant backgrounds..
 problem.addBackground('Background SMW','constant','Backs par SMW');
@@ -151,7 +151,7 @@ controls = controlsDef();
 controls.calcSldDuringFit = 'no';
 controls.procedure = 'bayes';
 controls.nsimu = 6000;
-controls.repeats = 2;
+controls.repeats = 5;
 controls.parallel = 'points';
 
 %% 
@@ -168,6 +168,10 @@ switch controls.procedure
         
         h3 = figure(3); clf
         mcmcplot(results.chain,[],results.fitNames,'hist');
+        
+        h4 = figure(4); clf; 
+        plotBayesCorrFig(results.chain,results.fitNames,h4)
+
     otherwise
         h2 = figure(2); clf
         plotRefSLD(problem,results)

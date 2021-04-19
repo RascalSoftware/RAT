@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of standardTF_custlay_paraPoints</title>
+  <meta name="keywords" content="standardTF_custlay_paraPoints">
+  <meta name="description" content="Extract individual cell arrays">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- # targetFunctions --><!-- ../menu.html standard_TF --><!-- menu.html standardTF_custLay -->
+<h1>standardTF_custlay_paraPoints
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>Extract individual cell arrays</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Extract individual cell arrays</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../RAT/API/RAT_parse_cells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = RAT_parse_cells(problemDef_cells)">RAT_parse_cells</a>	</li><li><a href="../../../../RAT/API/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>	Extract individual parameters from problemDef</li><li><a href="../../../../RAT/API/old/problemDef_class/problemDef.html" class="code" title="">problemDef</a>	</li><li><a href="../../../../RAT/targetFunctions/common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts.</li><li><a href="../../../../RAT/targetFunctions/common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts.</li><li><a href="call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>	Split up the custom file array</li><li><a href="call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>	Split up the custom file array</li><li><a href="../../../../RAT/targetFunctions/standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints)">standardTF_layers_core</a>	function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSquared,ssubs] = ...</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../RAT/targetFunctions/standard_TF/standardTF_custLay_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custLay_reflectivityCalculation</a>	Pre-allocation - It's necessary to</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,</a><span class="keyword">...</span>
+0002     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0003     allRoughs] = standardTF_custlay_paraPoints(<a href="../../../../RAT/API/old/problemDef_class/problemDef.html" class="code" title="">problemDef</a>,problemDef_cells,<span class="keyword">...</span>
+0004     problemDef_limits,controls)
+0005 
+0006 
+0007 <span class="comment">% Extract individual cell arrays</span>
+0008 [repeatLayers,<span class="keyword">...</span>
+0009  allData,<span class="keyword">...</span>
+0010  dataLimits,<span class="keyword">...</span>
+0011  simLimits,<span class="keyword">...</span>
+0012  contrastLayers,<span class="keyword">...</span>
+0013  layersDetails<span class="keyword">...</span>
+0014  customFiles] = <a href="../../../../RAT/API/RAT_parse_cells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = RAT_parse_cells(problemDef_cells)">RAT_parse_cells</a>(problemDef_cells);
+0015 
+0016 <span class="comment">% Extract individual parameters from problemDef struct</span>
+0017 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,<span class="keyword">...</span>
+0018 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,<span class="keyword">...</span>
+0019 numberOfLayers, resample, backsType, cCustFiles] =  <a href="../../../../RAT/API/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>(<a href="../../../../RAT/API/old/problemDef_class/problemDef.html" class="code" title="">problemDef</a>);
+0020 
+0021 calcSld = controls.calcSld;      
+0022                      
+0023 <span class="comment">% Pre-Allocation of output arrays...</span>
+0024 <span class="comment">%   --- Begin Memory Allocation ---</span>
+0025 backgs = zeros(numberOfContrasts,1);
+0026 qshifts = zeros(numberOfContrasts,1);
+0027 sfs = zeros(numberOfContrasts,1);
+0028 nbas = zeros(numberOfContrasts,1);
+0029 nbss = zeros(numberOfContrasts,1);
+0030 resols = zeros(numberOfContrasts,1);
+0031 allRoughs = zeros(numberOfContrasts,1);
+0032 outSsubs = zeros(numberOfContrasts,1);
+0033 chis =  zeros(numberOfContrasts,1);
+0034 allLayers = cell(numberOfContrasts,1); 
+0035 layerSlds = cell(numberOfContrasts,1);
+0036 sldProfiles = cell(numberOfContrasts,1);
+0037 shifted_data = cell(numberOfContrasts,1);
+0038 
+0039 reflectivity = cell(numberOfContrasts,1);
+0040 <span class="keyword">for</span> i = 1:numberOfContrasts
+0041     reflectivity{i} = [1 1 ; 1 1];
+0042 <span class="keyword">end</span>
+0043 coder.varsize(<span class="string">'reflectivity{:}'</span>,[10000 2],[1 0]);
+0044 
+0045 Simulation = cell(numberOfContrasts,1);
+0046 <span class="keyword">for</span> i = 1:numberOfContrasts
+0047     Simulation{i} = [1 1 ; 1 1];
+0048 <span class="keyword">end</span>
+0049 coder.varsize(<span class="string">'Simulation{:}'</span>,[10000 2],[1 0]);
+0050 
+0051 allLayers = cell(numberOfContrasts,1);
+0052 <span class="keyword">for</span> i = 1:numberOfContrasts
+0053     allLayers{i} = [1 ; 1];
+0054 <span class="keyword">end</span>
+0055 coder.varsize(<span class="string">'allLayers{:}'</span>,[10000 3],[1 1]);
+0056 <span class="comment">%   --- End Memory Allocation ---</span>
+0057 
+0058 <span class="comment">% Single cored over all contrasts</span>
+0059 <span class="keyword">for</span> i = 1:numberOfContrasts
+0060     <span class="comment">% Extract the relevant parameter values for this contrast</span>
+0061     <span class="comment">% from the input arrays.</span>
+0062     <span class="comment">% First need to decide which values of the backrounds, scalefactors</span>
+0063     <span class="comment">% data shifts and bulk contrasts are associated with this contrast</span>
+0064     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = <a href="../../../../RAT/targetFunctions/common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+0065     
+0066     <span class="comment">% Call the custom layers function to get the layers array...</span>
+0067     thisCustomFile = customFiles{cCustFiles(i)};
+0068     [outLayers,allRoughs(i)] = <a href="call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>(params,i,thisCustomFile,nba,nbs);
+0069     allLayers{i} = outLayers;
+0070     thisContrastLayers = outLayers;
+0071     
+0072     <span class="comment">% For the other parameters, we extract the correct ones from the input</span>
+0073     <span class="comment">% arrays</span>
+0074     thisRough = allRoughs(i);      
+0075     thisRepeatLayers = repeatLayers{i};
+0076     thisResample = resample(i);
+0077     thisCalcSld = calcSld;
+0078     thisData = allData{i};
+0079     thisDataPresent = dataPresent(i);
+0080     thisDataLimits = dataLimits{i};
+0081     thisSimLimits = simLimits{i};
+0082     thisBacksType = backsType(i);
+0083     
+0084     <span class="comment">% Now call the core standardTF_stanlay reflectivity calculation</span>
+0085     <span class="comment">% In this case we are multi threaded over</span>
+0086     <span class="comment">% points</span>
+0087     paralellPoints = <span class="string">'points'</span>;
+0088     
+0089     <span class="comment">% Call the reflectivity calculation</span>
+0090     [sldProfile,reflect,Simul,shifted_dat,layerSld,thisChiSquared,thisSsubs] = <span class="keyword">...</span>
+0091     <a href="../../../../RAT/targetFunctions/standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints)">standardTF_layers_core</a><span class="keyword">...</span>
+0092     (thisContrastLayers, thisRough, <span class="keyword">...</span>
+0093     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,<span class="keyword">...</span>
+0094     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
+0095     thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
+0096    
+0097     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
+0098     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
+0099     <span class="comment">% the other values (background, scalefactors etc) for each contrast</span>
+0100     <span class="comment">% for future use.</span>
+0101     outSsubs(i) = thisSsubs;
+0102     sldProfiles{i} = sldProfile;
+0103     reflectivity{i} = reflect;
+0104     Simulation{i} = Simul;
+0105     shifted_data{i} = shifted_dat;
+0106     layerSlds{i} = layerSld;
+0107     chis(i) = thisChiSquared;
+0108     backgs(i) = thisBackground;
+0109     qshifts(i) = thisQshift;
+0110     sfs(i) = thisSf;
+0111     nbas(i) = thisNba;
+0112     nbss(i) = thisNbs;
+0113     resols(i) = thisResol;
+0114     allRoughs(i) = thisRough;
+0115 
+0116 <span class="keyword">end</span>
+0117 
+0118 
+0119 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sun 18-Apr-2021 20:40:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

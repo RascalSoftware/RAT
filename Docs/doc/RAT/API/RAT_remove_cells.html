@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of RAT_remove_cells</title>
+  <meta name="keywords" content="RAT_remove_cells">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # RAT --><!-- menu.html API -->
+<h1>RAT_remove_cells
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [problemDef,problemDef_cells,problemDef_limits] = RAT_remove_cells(problemDef,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../RAT/API/old/problemDef_class/problemDef.html" class="code" title="">problemDef</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problemDef,problemDef_cells,problemDef_limits] = RAT_remove_cells(problemDef,controls)</a>
+0002 
+0003 repeatLayers = problemDef.repeatLayers;
+0004 allData = problemDef.allData;
+0005 dataLimits = problemDef.dataLimits;
+0006 simLimits = problemDef.simLimits;
+0007 contrastLayers = problemDef.contrastLayers;
+0008 layersDetails = problemDef.layersDetails;
+0009 paramNames = problemDef.paramNames;
+0010 backsNames = problemDef.backsNames;
+0011 sfNames = problemDef.sfNames;
+0012 shiftsNames = problemDef.shiftsNames;
+0013 nbaNames = problemDef.nbaNames;
+0014 nbsNames = problemDef.nbsNames;
+0015 resolNames = problemDef.resolNames;
+0016 fitNames = problemDef.fitNames;
+0017 
+0018 
+0019 <span class="comment">%Put the extracted fields into a cell array...</span>
+0020 problemDef_cells{1} = repeatLayers;
+0021 problemDef_cells{2} = allData;
+0022 problemDef_cells{3} = dataLimits;
+0023 problemDef_cells{4} = simLimits;
+0024 problemDef_cells{5} = contrastLayers;
+0025 problemDef_cells{6} = layersDetails;
+0026 problemDef_cells{7} = paramNames;
+0027 problemDef_cells{8} = backsNames;
+0028 problemDef_cells{9} = sfNames;
+0029 problemDef_cells{10} = shiftsNames;
+0030 problemDef_cells{11} = nbaNames;
+0031 problemDef_cells{12} = nbsNames;
+0032 problemDef_cells{13} = resolNames;
+0033 problemDef_cells{14} = fitNames;
+0034 
+0035 problemDef_limits = problemDef.limits;
+0036 
+0037 
+0038 fields = {<span class="string">'allData'</span>,<span class="string">'dataLimits'</span>,<span class="string">'simLimits'</span>,<span class="string">'contrastLayers'</span>,<span class="string">'layersDetails'</span>,<span class="string">'repeatLayers'</span>,<span class="string">'paramNames'</span>,<span class="string">'backsNames'</span>,<span class="string">'sfNames'</span>,<span class="string">'shiftsNames'</span>,<span class="string">'nbaNames'</span>,<span class="string">'nbsNames'</span>,<span class="string">'resolNames'</span>,<span class="string">'limits'</span>,<span class="string">'fitNames'</span>};
+0039 <a href="../../RAT/API/old/problemDef_class/problemDef.html" class="code" title="">problemDef</a> = rmfield(<a href="../../RAT/API/old/problemDef_class/problemDef.html" class="code" title="">problemDef</a>,fields);
+0040 
+0041 checks = controls.checks;
+0042 
+0043 <span class="comment">%Add the fields ready for fitting....</span>
+0044 numberOfFitted = sum(checks.params_fitYesNo) + <span class="keyword">...</span>
+0045                  sum(checks.backs_fitYesNo) + <span class="keyword">...</span>
+0046                  sum(checks.scales_fitYesNo) + <span class="keyword">...</span>
+0047                  sum(checks.shifts_fitYesNo) + <span class="keyword">...</span>
+0048                  sum(checks.nbairs_fitYesNo) + <span class="keyword">...</span>
+0049                  sum(checks.nbsubs_fitYesNo) + <span class="keyword">...</span>
+0050                  sum(checks.resol_fitYesNo);
+0051              
+0052 numberOfTotal = length(problemDef.params) + <span class="keyword">...</span>
+0053                 length(problemDef.backs) + <span class="keyword">...</span>
+0054                 length(problemDef.sf) + <span class="keyword">...</span>
+0055                 length(problemDef.shifts) + <span class="keyword">...</span>
+0056                 length(problemDef.nba) + <span class="keyword">...</span>
+0057                 length(problemDef.nbs) + <span class="keyword">...</span>
+0058                 length(problemDef.res);
+0059    
+0060 problemDef.fitpars = zeros(numberOfFitted,1);
+0061 problemDef.otherpars = zeros((numberOfTotal-numberOfFitted),1);
+0062 problemDef.fitconstr = zeros(numberOfFitted,2);
+0063 problemDef.otherconstr = zeros((numberOfTotal-numberOfFitted),2);
+0064 
+0065 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sun 18-Apr-2021 20:40:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

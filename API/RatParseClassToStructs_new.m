@@ -97,8 +97,6 @@ for i = 1:length(customFiles)
     customFiles{i} = thisCustomFileCell;
 end
 
-
-
 % Pull out all the cell arrays (except priors) into one array
 problemDef_cells{1} = repeatLayers;
 problemDef_cells{2} = allData;

@@ -149,10 +149,10 @@ problem.setContrastModel(3,'DSPC Model');
 
 controls = controlsDef();
 controls.calcSldDuringFit = 'no';
-controls.procedure = 'bayes';
+controls.procedure = 'simplex';
 controls.nsimu = 6000;
 controls.repeats = 5;
-controls.parallel = 'points';
+controls.parallel = 'single';
 
 %% 
 % And send this to RAT...

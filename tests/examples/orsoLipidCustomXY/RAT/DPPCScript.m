@@ -10,7 +10,7 @@ problem.setGeometry('Substrate/liquid');
 Parameters = {
     %       Name                min         val         max     fit? 
         {'Oxide thick',         5,          20,         60,     true   };
-        {'Oxide Coverage'       0,          0.2,        0.5,    true   };
+        {'Oxide Coverage'       0.7,        0.8,        1,    true   };
         {'Bilayer Position'     45          60          90      true   };
         {'Bilayer Coverage'     0.8         0.99        1.0     true   };
         {'Bilayer Roughness'    3           5           9       true   };
@@ -106,8 +106,9 @@ controls = controlsDef();
 % Send this to RAT
 [problem,results] = RAT(problem,controls);
 
-
-
+% Plot the results....
+figure(1); clf
+plotRefSLD(problem,results);
 
 
 

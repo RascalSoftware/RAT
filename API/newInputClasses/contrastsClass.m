@@ -276,15 +276,24 @@ classdef contrastsClass < handle
                 
                 thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
                 if ~isempty(thisDataVal)
-                    dataPresent(i) = 1;
-                    dataLimits{i} = dataTable{thisDataVal,3}{:};
+                    actualData = dataTable{thisDataVal,2}{:};
+                    if isempty(actualData)
+                        dataPresent(i) = 0;
+                    else
+                        dataPresent(i) = 1;
+                    end
+                    thisDataLimit = dataTable{thisDataVal,3}{:};
+                    if isempty(thisDataLimit)
+                        thisDataLimit = [0 0];
+                    end
+                    dataLimits{i} = thisDataLimit;
                     simLimits{i} = dataTable{thisDataVal,4}{:};
                     allData{i} = dataTable{thisDataVal,2}{:};
                 else
                     dataPresent(i) = 0;
-                    dataLimits{i} = [];
-                    simLimits{i} = [];
-                    allData{i} = [];
+                    dataLimits{i} = [0 0];
+                    simLimits{i} = [0 0];
+                    allData{i} = [0 0 0];
                 end
             end
 

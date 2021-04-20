@@ -105,7 +105,7 @@ result{5} = cell5;
 % cell6Length = 7;
 cell6 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    cell6{i} = [0]; 
+    cell6{i} = allLayers{i}; 
 end
 result{6} = cell6;
 

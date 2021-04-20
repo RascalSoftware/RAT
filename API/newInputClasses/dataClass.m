@@ -167,6 +167,10 @@ classdef dataClass < handle
             if ~isempty(results.dataRange)
                 obj.setDataRange(whichData,results.dataRange);
             end
+            
+            if ~isempty(results.simRange)
+                obj.setSimRange(whichData,results.dataRange);
+            end
 
         end
         
@@ -177,6 +181,14 @@ classdef dataClass < handle
         
         end
         
+        function obj = setSimRange(obj,whichData,range)
+            
+            r = [range(1) range(2)];
+            obj.dataTable{whichData,4} = {range};           
+            
+            
+        end
+
         
         function nameChanged = setDataName(obj,whichData,name)
             

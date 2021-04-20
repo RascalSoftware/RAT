@@ -44,6 +44,6 @@ switch action
         [outProblemDef,results] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
 end
 
-disp('debug');
+%disp('debug');
 
 end

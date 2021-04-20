@@ -103,9 +103,9 @@ problem.addData('Bilayer / D2O', D2O_data(:,1:3));
 problem.addData('Bilayer / SMW', SMW_data(:,1:3));
 problem.addData('Bilayer / H2O', H2O_data(:,1:3));
 
-problem.setData(2,'dataRange',[0.013 0.35]);
-problem.setData(3,'dataRange',[0.013 0.35]);
-problem.setData(4,'dataRange',[0.013 0.35]);
+problem.setData(2,'dataRange',[0.013 0.35],'simRange',[0.013 0.35]);
+problem.setData(3,'dataRange',[0.013 0.35],'simRange',[0.013 0.35]);
+problem.setData(4,'dataRange',[0.013 0.35],'simRange',[0.013 0.35]);
 
 
 % We also need the correct SLD's for the bulk phases.....

@@ -5,10 +5,17 @@ function plotRefSLD(problem,result)
 controls = controlsDef();
 [problemDef,~,~,~,~] = RatParseClassToStructs_new(problem,controls);
 
+
+
 reflectivity = result.reflectivity;
 shifted_data = result.shifted_data;
 slds = result.sldProfiles;
-dataPresent = problemDef.dataPresent;
+dataPresent = problemDef.dataPrsesent
+
+
+
+
+
 
 numberOfContrasts = length(reflectivity);
 
@@ -25,10 +32,11 @@ for i = 1:numberOfContrasts
         mult = 2^(4*i);
     end
     
+    
     % If there is data present
     % plot it - size of shifted_data
     % will be [n x 3] if so
-    if dataPresent(i)
+    if size(thisData,2) >= 3
         errorbar(thisData(:,1),thisData(:,2)./mult,thisData(:,3)./mult,'.','MarkerSize',2.5);
     end
     

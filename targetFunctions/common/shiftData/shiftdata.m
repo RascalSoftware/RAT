@@ -40,24 +40,14 @@ switch dataPresent
         shifted_data = data(lowIndex:hiIndex,:);
     otherwise
         simPoints = 100;
-        simXData = linspace(simLimits(1),simLimits(2),simPoints;
-        shifted_data = simXData(:);
+        simLo = simLimits(1);
+        simHi = simLimits(2);
+        simXData = linspace(simLo,simHi,simPoints);
+        simYData = zeros(length(simXData),1);
+        shifted_data = [simXData(:) simYData(:) simYData(:)];
 end
 
- 
 
-% function Ref = makeFresnelData(problem,contrast)
-% 
-%     this_data = problem.shifted_data{contrast};
-%     xdata = this_data(:,1);
-%     nbair = problem.nbairs(contrast);
-%     nbsub = problem.nbsubs(contrast);
-%     slds = [0 0 0];
-%     resol = problem.resolution;
-%     resolType = problem.resolType;
-%     %abeles(xdata,SLDs,nbair,nbsub,ssub,nrepeats,sinter,resol)
-%     %Ref = abeles_new_2(xdata,slds,nbair,nbsub,s_sub,repeats,
-%     Ref = abeles_new_2(xdata,slds,nbair,nbsub,0,1,resolType,resol);
 
 
 

@@ -1,4 +1,4 @@
-function outSLD = DPPC_customXY(params,bulkIn,bulkOut,contrast)
+function [outSLD,sub_rough] = DPPC_customXY(params,bulkIn,bulkOut,contrast)
 
 % We need to load in the existing
 % DPPC number densities and
@@ -91,7 +91,7 @@ waterVF = 1 - totalVF;
 % No deal with the SLD's
 siSLD = siVF * 2.073e-6;
 oxSLD = oxVF * 3.41e-6;
-waterSLD = waterVF * bulkOut;
+waterSLD = waterVF * bulkOut(contrast);
 
 totalSLD = siSLD + oxSLD + newBilSLD + waterSLD;
 outSLD = [z(:) totalSLD(:)];

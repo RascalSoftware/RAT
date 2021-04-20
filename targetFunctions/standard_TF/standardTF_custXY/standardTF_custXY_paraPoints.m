@@ -71,17 +71,23 @@ for i = 1:numberOfContrasts
     %   layerSld = outLayers;
     %   layerSlds{i} = layerSld;
     %end
-   
-    shifted_data{i} = shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i});
+    shifted_dat =  shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
+    shifted_data{i} = shifted_dat;
     
-    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),backgs(i),resols(i),'points');
+    reflectivityType = 'standardAbeles_realOnly';
+    %[reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)
+    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'points',reflectivityType);
     
     [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgs(i),backsType(i));
     
     reflectivity{i} = reflect;
     Simulation{i} = Simul;
     
-    chis(i) = chiSquared(shifted_dat,reflect,nParams);
+    if dataPresent(i)
+        chis(i) = chiSquared(shifted_dat,reflect,nParams);
+    else
+        chis(i) = 0;
+    end
 end
 
 

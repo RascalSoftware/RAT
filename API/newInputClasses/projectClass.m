@@ -70,7 +70,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution = resolutionsClass(resolPars,resolutions);
             
             % Initialise data object
-            obj.data = dataClass({'Data 1',{[]},{[]}, {[]}});
+            obj.data = dataClass({'Simulation',{[]},{[]}, {[]}});
             
             % Initialise Contrasts object.
             obj.contrasts = contrastsClass();
@@ -621,7 +621,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 case 'custom layers'
                     generalStruct.ModelType = 'custom layers';
                 case 'custom xy'
-                    generalStruct.ModelType = 'standard layers';
+                    generalStruct.ModelType = 'custom xy';
             end
                      
             generalStruct.geometry = obj.Geometry;

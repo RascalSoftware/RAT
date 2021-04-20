@@ -84,7 +84,7 @@ else
 end
 
 % Apply scale factors and q shifts to the data
-shifted_dat = shiftdata(sf,qshift,dataPresent,data,dataLimits);
+shifted_dat = shiftdata(sf,qshift,dataPresent,data,dataLimits,simLimits);
 
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles_realOnly';

@@ -169,8 +169,8 @@ switch controls.procedure
         h3 = figure(3); clf
         mcmcplot(results.chain,[],results.fitNames,'hist');
         
-        h4 = figure(4); clf; 
-        plotBayesCorrFig(results.chain,results.fitNames,h4)
+%         h4 = figure(4); clf; 
+%         plotBayesCorrFig(results.chain,results.fitNames,h4)
 
     otherwise
         h2 = figure(2); clf

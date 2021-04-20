@@ -114,7 +114,7 @@ problemDef_cells{13} = resolNames;
 problemDef_cells{14} = customFiles;
 
 % Fix for cell array bug with custom layers - is this needed still??
-if strcmpi(inputStruct.ModelType,'custom layers') || strcmpi(inputStruct.ModelType,'Custom XY')
+if strcmpi(inputStruct.ModelType,'custom layers') || strcmpi(inputStruct.ModelType,'custom xy')
     for i = 1:length(problemDef_cells{5})
         problemDef_cells{5}{i} = 0;
     end

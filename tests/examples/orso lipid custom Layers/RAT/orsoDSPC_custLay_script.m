@@ -17,7 +17,7 @@ problem.setGeometry('Substrate/liquid');
 % % custom model file, so it's useful to look at this to check which parameters 
 % % we are going to need:
 % 
-% type customBilayer.m
+type customBilayer.m
 %% 
 % 
 % 
@@ -149,10 +149,10 @@ problem.setContrastModel(3,'DSPC Model');
 
 controls = controlsDef();
 controls.calcSldDuringFit = 'no';
-controls.procedure = 'simplex';
+controls.procedure = 'bayes';
 controls.nsimu = 6000;
-controls.repeats = 5;
-controls.parallel = 'single';
+controls.repeats = 3;
+controls.parallel = 'points';
 
 %% 
 % And send this to RAT...
@@ -169,8 +169,8 @@ switch controls.procedure
         h3 = figure(3); clf
         mcmcplot(results.chain,[],results.fitNames,'hist');
         
-%         h4 = figure(4); clf; 
-%         plotBayesCorrFig(results.chain,results.fitNames,h4)
+         h4 = figure(4); clf; 
+         plotBayesCorrFig(results.chain,results.fitNames,h4)
 
     otherwise
         h2 = figure(2); clf

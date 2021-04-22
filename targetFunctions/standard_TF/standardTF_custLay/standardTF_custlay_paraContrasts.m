@@ -3,6 +3,13 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     allRoughs] = standardTF_custlay_paraContrasts(problemDef,problemDef_cells,...
     problemDef_limits,controls)
 
+% Multi threaded version of the custom layers over reflectivity contrasts
+% for standardTF reflectivity calculation. 
+% The function extracts the relevant parameters from the input
+% arrays, allocates these on a pre-contrast basis, then calls the 'core' 
+% calculation (the core layers standardTf calc is shared between multiple
+% calculation types).
+
 
 % Extract individual cell arrays
 [repeatLayers,...

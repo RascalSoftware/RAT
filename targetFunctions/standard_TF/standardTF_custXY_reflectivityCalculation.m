@@ -1,5 +1,15 @@
 function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custXY_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
 
+% Custom XP profile reflectivity calculation for standardTF
+
+% This function decides on parallelisation options before calling the
+% relevant version of the main custom XY calculation. It is more
+% efficient to have multiple versions of the core calculation, each dealing
+% with a different scheme for paralellisation. These are:
+% single    - single threaded teflectivity calculation
+% points    - parallelise over points in the reflectivity calculation
+% contrasts - parallelise over contrasts.
+
 
 % Pre-allocation - It's necessary to
 % pre-allocate the memory for all the arrays
@@ -82,47 +92,6 @@ problem.resolutions = resols;
 problem.calculations.all_chis = chis;
 problem.calculations.sum_chi = sum(chis);
 problem.allSubRough = allRoughs;
-%problem.calculations.reflectivity = reflectivity;
-%problem.calculations.Simulation = Simulation;
-%problem.shifted_data = shifted_data;
-%problem.layers = layerSlds;
-%problem.calculations.slds = sldProfiles;
-%problem.allLayers = allLayers;
-
-
-
-% result = cell(1,6);
-% 
-% 
-% 
-% %result = {{};{};{};{};{};{};{}};
-% result{1} = reflectivity;
-% result{2} = Simulation;
-% result{3} = shifted_data;
-% result{4} = layerSlds;
-% result{5} = sldProfiles;
-% result{6} = allLayers;
-% 
-% 
-% %Result coder definitions....
-%  coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
-%  coder.varsize('result{1}{:}',[Inf 2],[1 0]);        
-% % 
-%  coder.varsize('result{2}',[Inf 1],[1 0]);           %Simulatin
-%  coder.varsize('result{2}{:}',[Inf 2],[1 0]);
-% % 
-%  coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
-%  coder.varsize('result{3}{:}',[Inf 3],[1 0]);
-% % 
-%  coder.varsize('result{4}',[Inf 1],[1 0]);           %Layers slds
-%  coder.varsize('result{4}{:}',[Inf 3],[1 0]);
-% % 
-%  coder.varsize('result{5}',[Inf 1],[1 0]);           %Sld profiles
-%  coder.varsize('results{5}{:}',[Inf 2],[1 0]);
-% % 
-%  coder.varsize('result{6}',[Inf 1],[1 0]);           %All layers 
-%  coder.varsize('result{6}{:}',[Inf 1],[1 0]);
-
 
 
 end

@@ -1,5 +1,5 @@
-%ratRoot = '/Users/arwel/Documents/coding/RAT'; %OSX
-ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
+ratRoot = '/Users/arwel/Documents/coding/RAT'; %OSX
+%ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
 
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','backSorts');
@@ -13,7 +13,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','makeSLDProfiles');
     fullfile(ratRoot,'targetFunctions','common','shiftData');
     fullfile(ratRoot,'targetFunctions','common','standard_layers_mod');
-    fullfile(ratRoot,'targetFunctions','common','unpackParams');
+    %fullfile(ratRoot,'targetFunctions','common','unpackParams');
     fullfile(ratRoot,'targetFunctions','common','legacyChanges');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
     %fullfile(ratRoot,'targetFunctions','common','matlabEngineCaller_customLayers');

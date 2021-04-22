@@ -4,6 +4,11 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     problemDef_limits,controls)
 
 
+
+
+
+
+
 % Extract individual cell arrays
 [repeatLayers,...
  allData,...
@@ -58,24 +63,16 @@ for i = 1:numberOfContrasts
     thisCustomFile = customFiles{cCustFiles(i)};
     [sldProfile,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,nba,nbs);
     
-    %[outLayers, outSsubs(i)] = groupLayers_Mod(outLayers,allRoughs(i),geometry,nbas(i),nbss(i));
-    
-    %sldProfile = makeSLDProfiles(nbas(i),nbss(i),outLayers,outSsubs(i),repeatLayers{i});
     sldProfiles{i} = sldProfile;
 
-    %if resample(i) == 1
     layerSld = resampleLayers(sldProfile);
     layerSlds{i} = layerSld;
     allLayers{i} = layerSld;
-    %else
-    %   layerSld = outLayers;
-    %   layerSlds{i} = layerSld;
-    %end
+
     shifted_dat =  shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
     shifted_data{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles_realOnly';
-    %[reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)
     [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'single',reflectivityType);
     
     [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgs(i),backsType(i));

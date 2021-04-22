@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of standardTF_custXY_single</title>
+  <meta name="keywords" content="standardTF_custXY_single">
+  <meta name="description" content="Extract individual cell arrays">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html standard_TF --><!-- menu.html standardTF_custXY -->
+<h1>standardTF_custXY_single
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Extract individual cell arrays</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_single(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Extract individual cell arrays</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts.</li><li><a href="../../common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>	</li><li><a href="../../common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>	nbairs = problem.nbairs;</li><li><a href="../../common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	chi_squared(func,data,numparams,errors)</li><li><a href="../../common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile)">resampleLayers</a>	Function handle for adaptive resampling</li><li><a href="../../common/shiftData/shiftdata.html" class="code" title="function shifted_data = shiftdata(scalefac,horshift,dataPresent,data,dataLimits,simLimits)">shiftdata</a>	Shifts the data according to scale factor. If there is no data, makes</li><li><a href="../../standard_TF/call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>	Call a custom layers function</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../standard_TF/standardTF_custXY_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custXY_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_reflectivityCalculation</a>	Custom XP profile reflectivity calculation for standardTF</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,</a><span class="keyword">...</span>
+0002     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0003     allRoughs] = standardTF_custXY_single(problemDef,problemDef_cells,<span class="keyword">...</span>
+0004     problemDef_limits,controls)
+0005 
+0006 
+0007 
+0008 
+0009 
+0010 
+0011 
+0012 <span class="comment">% Extract individual cell arrays</span>
+0013 [repeatLayers,<span class="keyword">...</span>
+0014  allData,<span class="keyword">...</span>
+0015  dataLimits,<span class="keyword">...</span>
+0016  simLimits,<span class="keyword">...</span>
+0017  contrastLayers,<span class="keyword">...</span>
+0018  layersDetails,<span class="keyword">...</span>
+0019  customFiles] = RAT_parse_cells(problemDef_cells);
+0020 
+0021 <span class="comment">% Extract individual parameters from problemDef struct</span>
+0022 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,<span class="keyword">...</span>
+0023 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,<span class="keyword">...</span>
+0024 numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);      
+0025             
+0026 <span class="comment">%Pre-Allocation...</span>
+0027 backgs = zeros(numberOfContrasts,1);
+0028 qshifts = zeros(numberOfContrasts,1);
+0029 sfs = zeros(numberOfContrasts,1);
+0030 nbas = zeros(numberOfContrasts,1);
+0031 nbss = zeros(numberOfContrasts,1);
+0032 resols = zeros(numberOfContrasts,1);
+0033 allRoughs = zeros(numberOfContrasts,1);
+0034 outSsubs = zeros(numberOfContrasts,1);
+0035 chis =  zeros(numberOfContrasts,1);
+0036 allLayers = cell(numberOfContrasts,1); 
+0037 layerSlds = cell(numberOfContrasts,1);
+0038 sldProfiles = cell(numberOfContrasts,1);
+0039 shifted_data = cell(numberOfContrasts,1);
+0040 
+0041 reflectivity = cell(numberOfContrasts,1);
+0042 <span class="keyword">for</span> i = 1:numberOfContrasts
+0043     reflectivity{i} = [1 1 ; 1 1];
+0044 <span class="keyword">end</span>
+0045 coder.varsize(<span class="string">'reflectivity{:}'</span>,[10000 2],[1 0]);
+0046 
+0047 Simulation = cell(numberOfContrasts,1);
+0048 <span class="keyword">for</span> i = 1:numberOfContrasts
+0049     Simulation{i} = [1 1 ; 1 1];
+0050 <span class="keyword">end</span>
+0051 coder.varsize(<span class="string">'Simulation{:}'</span>,[10000 2],[1 0]);
+0052 
+0053 allLayers = cell(numberOfContrasts,1);
+0054 <span class="keyword">for</span> i = 1:numberOfContrasts
+0055     allLayers{i} = [1 ; 1];
+0056 <span class="keyword">end</span>
+0057 coder.varsize(<span class="string">'allLayers{:}'</span>,[10000 3],[1 1]);
+0058 
+0059 
+0060 <span class="keyword">for</span> i = 1:numberOfContrasts
+0061     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = <a href="../../common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+0062     
+0063     thisCustomFile = customFiles{cCustFiles(i)};
+0064     [sldProfile,allRoughs(i)] = <a href="../../standard_TF/call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>(params,i,thisCustomFile,nba,nbs);
+0065     
+0066     sldProfiles{i} = sldProfile;
+0067 
+0068     layerSld = <a href="../../common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile)">resampleLayers</a>(sldProfile);
+0069     layerSlds{i} = layerSld;
+0070     allLayers{i} = layerSld;
+0071 
+0072     shifted_dat =  <a href="../../common/shiftData/shiftdata.html" class="code" title="function shifted_data = shiftdata(scalefac,horshift,dataPresent,data,dataLimits,simLimits)">shiftdata</a>(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
+0073     shifted_data{i} = shifted_dat;
+0074     
+0075     reflectivityType = <span class="string">'standardAbeles_realOnly'</span>;
+0076     [reflect,Simul] = <a href="../../common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),<span class="string">'single'</span>,reflectivityType);
+0077     
+0078     [reflect,Simul,shifted_dat] = <a href="../../common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>(reflect,Simul,shifted_dat,backgs(i),backsType(i));
+0079     
+0080     reflectivity{i} = reflect;
+0081     Simulation{i} = Simul;
+0082     
+0083     <span class="keyword">if</span> dataPresent(i)
+0084         chis(i) = <a href="../../common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shifted_dat,reflect,nParams);
+0085     <span class="keyword">else</span>
+0086         chis(i) = 0;
+0087     <span class="keyword">end</span>
+0088 <span class="keyword">end</span>
+0089 
+0090 
+0091 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 22-Apr-2021 08:42:28 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

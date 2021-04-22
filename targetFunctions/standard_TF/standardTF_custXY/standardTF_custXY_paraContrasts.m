@@ -10,18 +10,15 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  dataLimits,...
  simLimits,...
  contrastLayers,...
- layersDetails...
+ layersDetails,...
  customFiles] = RAT_parse_cells(problemDef_cells);
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
-
-calcSld = controls.calcSld;      
-                     
-% Pre-Allocation of output arrays...
-
+numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);      
+            
+%Pre-Allocation...
 backgs = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
 sfs = zeros(numberOfContrasts,1);
@@ -54,68 +51,35 @@ for i = 1:numberOfContrasts
 end
 coder.varsize('allLayers{:}',[10000 3],[1 1]);
 
-%   --- End Memory Allocation ---
 
-
-
-% Single cored over all contrasts
-parfor i = 1:numberOfContrasts
-    % Extract the relevant parameter values for this contrast
-    % from the input arrays.
-    % First need to decide which values of the backrounds, scalefactors
-    % data shifts and bulk contrasts are associated with this contrast
-    [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+for i = 1:numberOfContrasts
+    [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
     
-    % Call the custom layers function to get the layers array...
     thisCustomFile = customFiles{cCustFiles(i)};
-    [outLayers,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,nba,nbs);
-    allLayers{i} = outLayers;
-    thisContrastLayers = outLayers;
+    [sldProfile,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,nba,nbs);
     
-    % For the other parameters, we extract the correct ones from the input
-    % arrays
-    thisRough = allRoughs(i);      
-    thisRepeatLayers = repeatLayers{i};
-    thisResample = resample(i);
-    thisCalcSld = calcSld;
-    thisData = allData{i};
-    thisDataPresent = dataPresent(i);
-    thisDataLimits = dataLimits{i};
-    thisSimLimits = simLimits{i};
-    thisBacksType = backsType(i);
-    
-    % Now call the core standardTF_stanlay reflectivity calculation
-    % In this case we are single cored, so we do not parallelise over
-    % points
-    paralellPoints = 'single';
-    
-    % Call the reflectivity calculation
-    [sldProfile,reflect,Simul,shifted_dat,layerSld,thisChiSquared,thisSsubs] = ...
-    standardTF_layers_core...
-    (thisContrastLayers, thisRough, ...
-    geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
-    thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
-   
-    % Store returned values for this contrast in the output arrays.
-    % As well as the calculated profiles, we also store a record of 
-    % the other values (background, scalefactors etc) for each contrast
-    % for future use.
-    outSsubs(i) = thisSsubs;
     sldProfiles{i} = sldProfile;
+
+    layerSld = resampleLayers(sldProfile);
+    layerSlds{i} = layerSld;
+    allLayers{i} = layerSld;
+
+    shifted_dat =  shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
+    shifted_data{i} = shifted_dat;
+    
+    reflectivityType = 'standardAbeles_realOnly';
+    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'single',reflectivityType);
+    
+    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgs(i),backsType(i));
+    
     reflectivity{i} = reflect;
     Simulation{i} = Simul;
-    shifted_data{i} = shifted_dat;
-    layerSlds{i} = layerSld;
-    chis(i) = thisChiSquared;
-    backgs(i) = thisBackground;
-    qshifts(i) = thisQshift;
-    sfs(i) = thisSf;
-    nbas(i) = thisNba;
-    nbss(i) = thisNbs;
-    resols(i) = thisResol;
-    allRoughs(i) = thisRough;
-
+    
+    if dataPresent(i)
+        chis(i) = chiSquared(shifted_dat,reflect,nParams);
+    else
+        chis(i) = 0;
+    end
 end
 
 

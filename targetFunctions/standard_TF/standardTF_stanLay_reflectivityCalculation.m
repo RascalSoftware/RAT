@@ -1,5 +1,15 @@
 function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_stanLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
 
+% Standard layers reflectivity calculation for standardTF
+
+% This function decides on parallelisation options before calling the
+% relevant version ofthe main standard layers calculation. It is more
+% efficient to have multiple versions of the core calculation, each dealing
+% with a different scheme for paralellisation. There are:
+% points    - parallelise over points in the reflectivity calculation
+% contrasts - parallelise over contrasts.
+
+
 % Pre-allocation - It's necessary to
 % pre-allocate the memory for all the arrays
 % for compilation, so do this in this block.
@@ -49,28 +59,24 @@ para = controls.para;
 
 switch para
     case 'single'
-            
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
              allRoughs] = standardTF_stanlay_single(problemDef,problemDef_cells,...
              problemDef_limits,controls);
 
      case 'points'
-
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
              allRoughs] = standardTF_stanlay_paraPoints(problemDef,problemDef_cells,...
              problemDef_limits,controls);
 
     case 'contrasts'
-        
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
              allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,...
              problemDef_limits,controls);        
         
     case 'all'
-
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
              allRoughs] = standardTF_stanlay_paraAll(problemDef,problemDef_cells,...

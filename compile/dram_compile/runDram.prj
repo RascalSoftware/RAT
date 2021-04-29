@@ -1,7 +1,7 @@
 <deployment-project plugin="plugin.coder" plugin-version="R2021a">
-  <configuration file="/Users/arwel/Documents/coding/RAT/Sandbox/newMethod_classLoader/addNumbers_example/callAddNumbers.prj" location="/Users/arwel/Documents/coding/RAT/Sandbox/newMethod_classLoader/addNumbers_example" name="callAddNumbers" target="target.unifiedcoder" target-name="MATLAB Coder">
+  <configuration file="/Users/arwel/Documents/coding/RAT/compile/dram_compile/runDram.prj" location="/Users/arwel/Documents/coding/RAT/compile/dram_compile" name="runDram" target="target.unifiedcoder" target-name="MATLAB Coder">
     <profile key="profile.mex">
-      <param.BuiltInstrumentedMex />
+      <param.BuiltInstrumentedMex>false</param.BuiltInstrumentedMex>
       <param.RanInstrumentedMex>false</param.RanInstrumentedMex>
       <param.WorkingFolder>option.WorkingFolder.Project</param.WorkingFolder>
       <param.SpecifiedWorkingFolder />
@@ -31,7 +31,7 @@
       <param.CppStyleConst>false</param.CppStyleConst>
       <param.EnableDebugging>false</param.EnableDebugging>
       <param.Verbosity>option.Verbosity.Info</param.Verbosity>
-      <param.ReportPotentialDifferences>false</param.ReportPotentialDifferences>
+      <param.ReportPotentialDifferences>true</param.ReportPotentialDifferences>
       <param.GenerateReport>true</param.GenerateReport>
       <param.LaunchReport>false</param.LaunchReport>
       <param.ReportInfoVarName />
@@ -69,7 +69,7 @@
       <param.EnableCRICodeCoverage>true</param.EnableCRICodeCoverage>
       <param.EnableAutoParallelizationReporting>true</param.EnableAutoParallelizationReporting>
       <param.EnableJIT>false</param.EnableJIT>
-      <param.EnableJITSilentBailOut />
+      <param.EnableJITSilentBailOut>false</param.EnableJITSilentBailOut>
       <param.CheckForIssuesJIT>true</param.CheckForIssuesJIT>
       <param.EnableGitSupport>false</param.EnableGitSupport>
       <param.EnableAutoCommit>false</param.EnableAutoCommit>
@@ -180,7 +180,7 @@
       <param.EnableSignedLeftShifts>true</param.EnableSignedLeftShifts>
       <param.EnableSignedRightShifts>true</param.EnableSignedRightShifts>
       <param.ParenthesesLevel>option.ParenthesesLevel.Nominal</param.ParenthesesLevel>
-      <param.MaxIdLength>1024</param.MaxIdLength>
+      <param.MaxIdLength>31</param.MaxIdLength>
       <param.HeaderGuardStyle>option.HeaderGuardStyle.UseIncludeGuard</param.HeaderGuardStyle>
       <param.CodeFormattingTool>option.CodeFormattingTool.Auto</param.CodeFormattingTool>
       <param.ClangFormatFile>option.ClangFormatFile.Generate</param.ClangFormatFile>
@@ -214,9 +214,9 @@
       <param.ReservedNameArray />
       <param.CppStyleConst>false</param.CppStyleConst>
       <param.RuntimeChecks>false</param.RuntimeChecks>
-      <param.Verbose>false</param.Verbose>
+      <param.Verbose />
       <param.Verbosity>option.Verbosity.Info</param.Verbosity>
-      <param.ReportPotentialDifferences>false</param.ReportPotentialDifferences>
+      <param.ReportPotentialDifferences>true</param.ReportPotentialDifferences>
       <param.GenerateReport>true</param.GenerateReport>
       <param.GenerateCodeMetricsReport>false</param.GenerateCodeMetricsReport>
       <param.GenerateCodeReplacementReport>false</param.GenerateCodeReplacementReport>
@@ -243,7 +243,7 @@
       <param.PostCodeGenCommand />
       <param.TargetLangStandard>Auto</param.TargetLangStandard>
       <param.CodeReplacementLibrary>None</param.CodeReplacementLibrary>
-      <param.DeprecatedCRLFlag>false</param.DeprecatedCRLFlag>
+      <param.DeprecatedCRLFlag />
       <param.SameHardware>true</param.SameHardware>
       <param.Toolchain>Automatically locate an installed toolchain</param.Toolchain>
       <param.BuildConfiguration>Faster Runs</param.BuildConfiguration>
@@ -254,7 +254,7 @@
       <param.target.ActiveTarget />
       <param.HardwareVendor.Production>Generic</param.HardwareVendor.Production>
       <param.HardwareType.Production>MATLAB Host Computer</param.HardwareType.Production>
-      <param.HWDeviceType.Production>Generic-&gt;MATLAB Host Computer</param.HWDeviceType.Production>
+      <param.HWDeviceType.Production />
       <var.instance.enabled.Production>true</var.instance.enabled.Production>
       <param.HardwareSizeChar.Production>8</param.HardwareSizeChar.Production>
       <param.HardwareSizeShort.Production>16</param.HardwareSizeShort.Production>
@@ -275,7 +275,7 @@
       <param.HardwareDivisionRounding.Production>option.HardwareDivisionRounding.Zero</param.HardwareDivisionRounding.Production>
       <param.HardwareVendor.Target>Generic</param.HardwareVendor.Target>
       <param.HardwareType.Target>MATLAB Host Computer</param.HardwareType.Target>
-      <param.HWDeviceType.Target>Generic-&gt;MATLAB Host Computer</param.HWDeviceType.Target>
+      <param.HWDeviceType.Target />
       <var.instance.enabled.Target>false</var.instance.enabled.Target>
       <param.HardwareSizeChar.Target>8</param.HardwareSizeChar.Target>
       <param.HardwareSizeShort.Target>16</param.HardwareSizeShort.Target>
@@ -334,14 +334,14 @@
       <param.EnableGitSupport>false</param.EnableGitSupport>
       <param.EnableAutoCommit>false</param.EnableAutoCommit>
       <param.RepositoryStyle>option.RepositoryStyle.Auto</param.RepositoryStyle>
-      <param.psCustomPrjState>false</param.psCustomPrjState>
+      <param.psCustomPrjState />
       <param.psCustomProjectFile />
-      <param.psCheckConfValue>option.psCheckConfValue.onWarnCheckConfDlg</param.psCheckConfValue>
-      <param.psUniqueOutPutState>true</param.psUniqueOutPutState>
-      <param.psOpenResultsState>true</param.psOpenResultsState>
-      <param.psProductModeValue>option.psProductModeValue.codeProver</param.psProductModeValue>
-      <param.psQuickConfValue>option.psQuickConfValue.proj</param.psQuickConfValue>
-      <param.psOutputFolder>results_$codegenName$</param.psOutputFolder>
+      <param.psCheckConfValue />
+      <param.psUniqueOutPutState />
+      <param.psOpenResultsState />
+      <param.psProductModeValue />
+      <param.psQuickConfValue />
+      <param.psOutputFolder />
       <unset>
         <param.WorkingFolder />
         <param.SpecifiedWorkingFolder />
@@ -866,13 +866,13 @@
       </unset>
     </profile>
     <param.objective>option.objective.c</param.objective>
-    <param.WorkflowStep>generateCode</param.WorkflowStep>
+    <param.WorkflowStep>verifyCompatibility</param.WorkflowStep>
     <param.TestSnippets>
-      <item>addNumbersMain</item>
+      <item>testMain</item>
     </param.TestSnippets>
     <param.ExternalFcnMajority>column</param.ExternalFcnMajority>
     <param.UseGlobals>option.UseGlobals.No</param.UseGlobals>
-    <param.outputfile>${PROJECT_ROOT}/codegen/lib/callAddNumbers/callAddNumbers.a</param.outputfile>
+    <param.outputfile>${PROJECT_ROOT}/codegen/lib/runDram/runDram.a</param.outputfile>
     <param.version>R2012a</param.version>
     <param.HasECoderFeatures>false</param.HasECoderFeatures>
     <param.HasGpuCoder>false</param.HasGpuCoder>
@@ -892,16 +892,16 @@
     <var.MirrorOnOpen>false</var.MirrorOnOpen>
     <param.FixedPointEnabled>false</param.FixedPointEnabled>
     <var.redirectedInputTypeData />
-    <var.DismissScreener>false</var.DismissScreener>
+    <var.DismissScreener>true</var.DismissScreener>
     <param.unifiedParamStorage />
-    <var.gc.lastOutputRoot>codegen/lib/callAddNumbers</var.gc.lastOutputRoot>
-    <var.gc.lastOutputType>C_CODE</var.gc.lastOutputType>
-    <var.gc.preBuildChecksum>1305968046</var.gc.preBuildChecksum>
-    <var.cfi.lastOutputRoot>codegen/mex/callAddNumbers</var.cfi.lastOutputRoot>
-    <var.cfi.preBuildChecksum>2960122840</var.cfi.preBuildChecksum>
+    <var.gc.lastOutputRoot />
+    <var.gc.lastOutputType />
+    <var.gc.preBuildChecksum />
+    <var.cfi.lastOutputRoot>codegen/mex/runDram</var.cfi.lastOutputRoot>
+    <var.cfi.preBuildChecksum>2582189256</var.cfi.preBuildChecksum>
     <var.outdatedOnRestore>false</var.outdatedOnRestore>
-    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/Sandbox/newMethod_classLoader/addNumbers_example/callAddNumbers.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;4109904462&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
-    <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/Sandbox/newMethod_classLoader/addNumbers_example/callAddNumbers.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
+    <var.lastUserSourceChecksum />
+    <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/compile/dram_compile/runDram.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/minimisers/generalUtils/packparams.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/minimisers/generalUtils/unpackparams.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/minimisers/mcmcstat_new/runBayes.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/reflectivity_calculation/reflectivity_calculation_wrapper.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
     <param.forceMexBuild>false</param.forceMexBuild>
     <param.NoDefaultJIT>false</param.NoDefaultJIT>
     <param.configImportActive>false</param.configImportActive>
@@ -910,10 +910,10 @@
     <var.boundToGui>true</var.boundToGui>
     <var.isConfigDialog>false</var.isConfigDialog>
     <var.ecoderEnabled>false</var.ecoderEnabled>
-    <param.mex.outputfile>callAddNumbers_mex</param.mex.outputfile>
-    <param.grt.outputfile>callAddNumbers</param.grt.outputfile>
+    <param.mex.outputfile>runDram_mex</param.mex.outputfile>
+    <param.grt.outputfile>runDram</param.grt.outputfile>
     <param.artifact>option.target.artifact.lib</param.artifact>
-    <param.outputfile>${PROJECT_ROOT}/codegen/lib/callAddNumbers/callAddNumbers.a</param.outputfile>
+    <param.outputfile>${PROJECT_ROOT}/codegen/lib/runDram/runDram.a</param.outputfile>
     <param.CppNamespace />
     <param.CppPackagesToNamespaces>true</param.CppPackagesToNamespaces>
     <param.CppNamespaceForMathworksCode>coder</param.CppNamespaceForMathworksCode>
@@ -927,7 +927,7 @@
     <param.gpu.StackLimitPerThread>1024</param.gpu.StackLimitPerThread>
     <param.gpu.MaximumBlocksPerKernel>0</param.gpu.MaximumBlocksPerKernel>
     <param.gpu.Benchmarking>false</param.gpu.Benchmarking>
-    <param.gpu.SafeBuild>false</param.gpu.SafeBuild>
+    <param.gpu.SafeBuild>true</param.gpu.SafeBuild>
     <param.gpu.KernelNamePrefix />
     <param.gpu.CompilerFlags />
     <param.gpu.EnableCUBLAS>false</param.gpu.EnableCUBLAS>
@@ -938,9 +938,9 @@
     <var.isDeepLearningForMatlabCoderEnabled>true</var.isDeepLearningForMatlabCoderEnabled>
     <param.deeplearning.EnableDeepLearning>false</param.deeplearning.EnableDeepLearning>
     <param.deeplearning.TargetLib>option.deeplearning.targetlibrary.none</param.deeplearning.TargetLib>
-    <var.cfiTargetLibSuppression>false</var.cfiTargetLibSuppression>
-    <var.hasMatlabDeepLearningSupportPackage>false</var.hasMatlabDeepLearningSupportPackage>
-    <var.hasGpuDeepLearningSupportPackage>false</var.hasGpuDeepLearningSupportPackage>
+    <var.cfiTargetLibSuppression>true</var.cfiTargetLibSuppression>
+    <var.hasMatlabDeepLearningSupportPackage>true</var.hasMatlabDeepLearningSupportPackage>
+    <var.hasGpuDeepLearningSupportPackage>true</var.hasGpuDeepLearningSupportPackage>
     <param.tensorrt.DataType>option.tensorrt.datatype.fp32</param.tensorrt.DataType>
     <param.tensorrt.DataPath />
     <param.tensorrt.NumCalibrationBatches>0</param.tensorrt.NumCalibrationBatches>
@@ -951,7 +951,7 @@
     <param.arm-compute.ArmArchitecture>option.arm-compute.architecture.unspecified</param.arm-compute.ArmArchitecture>
     <param.arm-compute.DataType>option.arm-compute.datatype.fp32</param.arm-compute.DataType>
     <param.arm-compute.CalibrationResultFile />
-    <param.TargetLang>option.TargetLang.CPP</param.TargetLang>
+    <param.TargetLang>option.TargetLang.C</param.TargetLang>
     <param.EnableAutoExtrinsicCalls>true</param.EnableAutoExtrinsicCalls>
     <param.EnableImplicitExpansion>false</param.EnableImplicitExpansion>
     <param.UsePreconditions>false</param.UsePreconditions>
@@ -1023,9 +1023,12 @@
       <var.MirrorOnOpen />
       <param.FixedPointEnabled />
       <var.redirectedInputTypeData />
-      <var.DismissScreener />
       <param.unifiedParamStorage />
+      <var.gc.lastOutputRoot />
+      <var.gc.lastOutputType />
+      <var.gc.preBuildChecksum />
       <var.outdatedOnRestore />
+      <var.lastUserSourceChecksum />
       <param.forceMexBuild />
       <param.NoDefaultJIT />
       <param.configImportActive />
@@ -1059,7 +1062,8 @@
       <var.isDeepLearningForMatlabCoderEnabled />
       <param.deeplearning.EnableDeepLearning />
       <param.deeplearning.TargetLib />
-      <var.cfiTargetLibSuppression />
+      <var.hasMatlabDeepLearningSupportPackage />
+      <var.hasGpuDeepLearningSupportPackage />
       <param.tensorrt.DataType />
       <param.tensorrt.DataPath />
       <param.tensorrt.NumCalibrationBatches />
@@ -1070,6 +1074,7 @@
       <param.arm-compute.ArmArchitecture />
       <param.arm-compute.DataType />
       <param.arm-compute.CalibrationResultFile />
+      <param.TargetLang />
       <param.EnableAutoExtrinsicCalls />
       <param.EnableImplicitExpansion />
       <param.UsePreconditions />
@@ -1118,20 +1123,261 @@
       <param.FixedPointUseDesignRanges />
     </unset>
     <fileset.entrypoints>
-      <file custom-data-expanded="false" value="${PROJECT_ROOT}/callAddNumbers.m">
-        <Marker>1610121690944</Marker>
+      <file custom-data-expanded="false" value="${PROJECT_ROOT}/runDram.m">
+        <Marker>1619690247891</Marker>
       </file>
     </fileset.entrypoints>
     <fileset.testbench>
-      <file>${PROJECT_ROOT}/addNumbersMain.m</file>
+      <file>${PROJECT_ROOT}/testMain.m</file>
     </fileset.testbench>
     <fileset.inputtypes>
-      <file custom-data-expanded="false" value="${PROJECT_ROOT}/callAddNumbers.m">
-        <Inputs fileName="callAddNumbers.m" functionName="callAddNumbers">
-          <Input Name="number1" typeId="0" />
-          <Input Name="number2" typeId="0" />
+      <file custom-data-expanded="false" value="${PROJECT_ROOT}/runDram.m">
+        <Inputs fileName="runDram.m" functionName="runDram">
+          <Input Name="problemDef" typeId="0">
+            <Field Name="contrastBacks" typeId="1" />
+            <Field Name="contrastBacksType" typeId="1" />
+            <Field Name="TF" typeId="2" />
+            <Field Name="resample" typeId="1" />
+            <Field Name="dataPresent" typeId="1" />
+            <Field Name="numberOfContrasts" typeId="3" />
+            <Field Name="geometry" typeId="2" />
+            <Field Name="contrastShifts" typeId="1" />
+            <Field Name="contrastScales" typeId="1" />
+            <Field Name="contrastNbas" typeId="1" />
+            <Field Name="contrastNbss" typeId="1" />
+            <Field Name="contrastRes" typeId="1" />
+            <Field Name="backs" typeId="1" />
+            <Field Name="shifts" typeId="1" />
+            <Field Name="sf" typeId="1" />
+            <Field Name="nba" typeId="1" />
+            <Field Name="nbs" typeId="1" />
+            <Field Name="res" typeId="1" />
+            <Field Name="params" typeId="1" />
+            <Field Name="numberOfLayers" typeId="3" />
+            <Field Name="modelType" typeId="2" />
+            <Field Name="contrastCustomFiles" typeId="1" />
+            <Field Name="fitpars" typeId="4" />
+            <Field Name="otherpars" typeId="4" />
+            <Field Name="fitconstr" typeId="5" />
+            <Field Name="otherconstr" typeId="5" />
+          </Input>
+          <Input Name="problemDef_cells" typeId="6">
+            <Field Name="{1, 1}" typeId="7">
+              <Field Name="{:}" typeId="8" />
+            </Field>
+            <Field Name="{1, 2}" typeId="9">
+              <Field Name="{:}" typeId="10" />
+            </Field>
+            <Field Name="{1, 3}" typeId="7">
+              <Field Name="{:}" typeId="8" />
+            </Field>
+            <Field Name="{1, 4}" typeId="7">
+              <Field Name="{:}" typeId="8" />
+            </Field>
+            <Field Name="{1, 5}" typeId="9">
+              <Field Name="{:}" typeId="1" />
+            </Field>
+            <Field Name="{1, 6}" typeId="7">
+              <Field Name="{:}" typeId="11" />
+            </Field>
+            <Field Name="{1, 7}" typeId="12">
+              <Field Name="{:}" typeId="2" />
+            </Field>
+            <Field Name="{1, 8}" typeId="7">
+              <Field Name="{:}" typeId="2" />
+            </Field>
+            <Field Name="{1, 9}" typeId="7">
+              <Field Name="{:}" typeId="2" />
+            </Field>
+            <Field Name="{1, 10}" typeId="13">
+              <Field Name="{:}" typeId="2" />
+            </Field>
+            <Field Name="{1, 11}" typeId="7">
+              <Field Name="{:}" typeId="14" />
+            </Field>
+            <Field Name="{1, 12}" typeId="7">
+              <Field Name="{:}" typeId="2" />
+            </Field>
+            <Field Name="{1, 13}" typeId="7">
+              <Field Name="{:}" typeId="2" />
+            </Field>
+            <Field Name="{1, 14}" typeId="7">
+              <Field Name="{:}" typeId="15">
+                <Field Name="{1, 1}" typeId="2" />
+                <Field Name="{1, 2}" typeId="2" />
+                <Field Name="{1, 3}" typeId="2" />
+              </Field>
+            </Field>
+          </Input>
+          <Input Name="problemDef_limits" typeId="0">
+            <Field Name="params" typeId="5" />
+            <Field Name="backs" typeId="5" />
+            <Field Name="scales" typeId="5" />
+            <Field Name="shifts" typeId="5" />
+            <Field Name="nba" typeId="5" />
+            <Field Name="nbs" typeId="5" />
+            <Field Name="res" typeId="5" />
+          </Input>
+          <Input Name="priors" typeId="0">
+            <Field Name="paramPriors" typeId="16">
+              <Field Name="{1, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{2, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{3, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{4, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{5, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{6, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{7, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{8, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{1, 2}" typeId="3" />
+              <Field Name="{2, 2}" typeId="3" />
+              <Field Name="{3, 2}" typeId="3" />
+              <Field Name="{4, 2}" typeId="3" />
+              <Field Name="{5, 2}" typeId="3" />
+              <Field Name="{6, 2}" typeId="3" />
+              <Field Name="{7, 2}" typeId="3" />
+              <Field Name="{8, 2}" typeId="3" />
+              <Field Name="{1, 3}" typeId="3" />
+              <Field Name="{2, 3}" typeId="3" />
+              <Field Name="{3, 3}" typeId="3" />
+              <Field Name="{4, 3}" typeId="3" />
+              <Field Name="{5, 3}" typeId="3" />
+              <Field Name="{6, 3}" typeId="3" />
+              <Field Name="{7, 3}" typeId="3" />
+              <Field Name="{8, 3}" typeId="3" />
+            </Field>
+            <Field Name="backsPriors" typeId="18">
+              <Field Name="{1, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{2, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{3, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{1, 2}" typeId="3" />
+              <Field Name="{2, 2}" typeId="3" />
+              <Field Name="{3, 2}" typeId="3" />
+              <Field Name="{1, 3}" typeId="3" />
+              <Field Name="{2, 3}" typeId="3" />
+              <Field Name="{3, 3}" typeId="3" />
+            </Field>
+            <Field Name="resolPriors" typeId="15">
+              <Field Name="{1, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{1, 2}" typeId="3" />
+              <Field Name="{1, 3}" typeId="3" />
+            </Field>
+            <Field Name="nbaPriors" typeId="15">
+              <Field Name="{1, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{1, 2}" typeId="3" />
+              <Field Name="{1, 3}" typeId="3" />
+            </Field>
+            <Field Name="nbsPriors" typeId="18">
+              <Field Name="{1, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{2, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{3, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{1, 2}" typeId="3" />
+              <Field Name="{2, 2}" typeId="3" />
+              <Field Name="{3, 2}" typeId="3" />
+              <Field Name="{1, 3}" typeId="3" />
+              <Field Name="{2, 3}" typeId="3" />
+              <Field Name="{3, 3}" typeId="3" />
+            </Field>
+            <Field Name="shiftPriors" typeId="15">
+              <Field Name="{1, 1}" typeId="17">
+                <Field Name="{1}" typeId="14" />
+              </Field>
+              <Field Name="{1, 2}" typeId="3" />
+              <Field Name="{1, 3}" typeId="3" />
+            </Field>
+          </Input>
+          <Input Name="controls" typeId="0">
+            <Field Name="para" typeId="2" />
+            <Field Name="proc" typeId="2" />
+            <Field Name="display" typeId="2" />
+            <Field Name="tolX" typeId="3" />
+            <Field Name="tolFun" typeId="3" />
+            <Field Name="maxFunEvals" typeId="3" />
+            <Field Name="maxIter" typeId="3" />
+            <Field Name="populationSize" typeId="3" />
+            <Field Name="F_weight" typeId="3" />
+            <Field Name="F_CR" typeId="3" />
+            <Field Name="VTR" typeId="3" />
+            <Field Name="numGen" typeId="3" />
+            <Field Name="strategy" typeId="3" />
+            <Field Name="Nlive" typeId="3" />
+            <Field Name="nmcmc" typeId="3" />
+            <Field Name="propScale" typeId="3" />
+            <Field Name="nsTolerance" typeId="3" />
+            <Field Name="calcSld" typeId="3" />
+            <Field Name="repeats" typeId="3" />
+            <Field Name="nsimu" typeId="3" />
+            <Field Name="burnin" typeId="3" />
+            <Field Name="checks" typeId="0">
+              <Field Name="params_fitYesNo" typeId="1" />
+              <Field Name="backs_fitYesNo" typeId="1" />
+              <Field Name="shifts_fitYesNo" typeId="1" />
+              <Field Name="scales_fitYesNo" typeId="1" />
+              <Field Name="nbairs_fitYesNo" typeId="1" />
+              <Field Name="nbsubs_fitYesNo" typeId="1" />
+              <Field Name="resol_fitYesNo" typeId="1" />
+            </Field>
+          </Input>
           <idpTable>
             <type typeId="0">
+              <Class>struct</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <TypeName />
+              <Extern>false</Extern>
+              <HeaderFile />
+              <Alignment>-1</Alignment>
+            </type>
+            <type typeId="1">
+              <Class>double</Class>
+              <Size>1 x :inf</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
+              <Complex>false</Complex>
+              <Sparse>false</Sparse>
+            </type>
+            <type typeId="2">
+              <Class>char</Class>
+              <Size>1 x :inf</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
+            </type>
+            <type typeId="3">
               <Class>double</Class>
               <Size>1 x 1</Size>
               <Value />
@@ -1140,12 +1386,152 @@
               <Complex>false</Complex>
               <Sparse>false</Sparse>
             </type>
+            <type typeId="4">
+              <Class>double</Class>
+              <Size>:inf x :inf</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
+              <Complex>false</Complex>
+              <Sparse>false</Sparse>
+            </type>
+            <type typeId="5">
+              <Class>double</Class>
+              <Size>:inf x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
+              <Complex>false</Complex>
+              <Sparse>false</Sparse>
+            </type>
+            <type typeId="6">
+              <Class>cell</Class>
+              <Size>1 x 14</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <TypeName />
+              <Extern>false</Extern>
+              <HeaderFile />
+              <Alignment>-1</Alignment>
+              <Homogeneous>false</Homogeneous>
+            </type>
+            <type typeId="7">
+              <Class>cell</Class>
+              <Size>1 x :inf</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
+              <Homogeneous>true</Homogeneous>
+            </type>
+            <type typeId="8">
+              <Class>double</Class>
+              <Size>1 x 2</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+              <Sparse>false</Sparse>
+            </type>
+            <type typeId="9">
+              <Class>cell</Class>
+              <Size>1 x 3</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Homogeneous>true</Homogeneous>
+            </type>
+            <type typeId="10">
+              <Class>double</Class>
+              <Size>:inf x 3</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
+              <Complex>false</Complex>
+              <Sparse>false</Sparse>
+            </type>
+            <type typeId="11">
+              <Class>double</Class>
+              <Size>1 x :5</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>true</UserDefined>
+              <Complex>false</Complex>
+              <Sparse>false</Sparse>
+            </type>
+            <type typeId="12">
+              <Class>cell</Class>
+              <Size>1 x 8</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Homogeneous>true</Homogeneous>
+            </type>
+            <type typeId="13">
+              <Class>cell</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Homogeneous>true</Homogeneous>
+            </type>
+            <type typeId="14">
+              <Class>char</Class>
+              <Size>1 x 7</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+            </type>
+            <type typeId="15">
+              <Class>cell</Class>
+              <Size>1 x 3</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <TypeName />
+              <Extern>false</Extern>
+              <HeaderFile />
+              <Alignment>-1</Alignment>
+              <Homogeneous>false</Homogeneous>
+            </type>
+            <type typeId="16">
+              <Class>cell</Class>
+              <Size>8 x 3</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <TypeName />
+              <Extern>false</Extern>
+              <HeaderFile />
+              <Alignment>-1</Alignment>
+              <Homogeneous>false</Homogeneous>
+            </type>
+            <type typeId="17">
+              <Class>string</Class>
+              <Size>1 x 1</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <Complex>false</Complex>
+            </type>
+            <type typeId="18">
+              <Class>cell</Class>
+              <Size>3 x 3</Size>
+              <Value />
+              <InitialValue />
+              <UserDefined>false</UserDefined>
+              <TypeName />
+              <Extern>false</Extern>
+              <HeaderFile />
+              <Alignment>-1</Alignment>
+              <Homogeneous>false</Homogeneous>
+            </type>
           </idpTable>
         </Inputs>
       </file>
     </fileset.inputtypes>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}/codegen/lib/callAddNumbers" name="callAddNumbers.a" optional="false">/Users/arwel/Documents/coding/RAT/Sandbox/newMethod_classLoader/addNumbers_example/codegen/lib/callAddNumbers/callAddNumbers.a</file>
+      <file location="${PROJECT_ROOT}/codegen/lib/runDram" name="runDram.a" optional="false">/Users/arwel/Documents/coding/RAT/compile/dram_compile/codegen/lib/runDram/runDram.a</file>
     </build-deliverables>
     <workflow />
     <matlab>

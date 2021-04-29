@@ -35,7 +35,7 @@ else
     % so we need to do some work afterwards casting these to doubles (below)
     [tempOut,tempRough] = feval(funcName,params,bulkIn,bulkOut,contrast);
     
-    % Tell coder n is doubles by defining it (otherwise 'size(n)' returns
+    % Tell coder n is doubles by defining it (otherwise 'size(n)' seems to return
     % [mxArray mxArray] not [double double]!), fill n with the size of the mxArray
     % 'tempOut', and use n to allocate the correct number of elements to 'output'
     % by filling output with zeros (i.e. output is an array of doubles)

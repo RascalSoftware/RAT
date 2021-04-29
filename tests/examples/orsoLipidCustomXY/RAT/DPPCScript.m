@@ -9,13 +9,14 @@ problem.setGeometry('Substrate/liquid');
 % Add some parameters....
 Parameters = {
     %       Name                min         val         max     fit? 
-        {'Oxide thick',         5,          20,         60,     true   };
-        {'Oxide Coverage'       0.7,        0.8,        1,    true   };
+        {'Oxide thick',         5,          15,         60,     true   };
+        {'Oxide Coverage'       0.7,        0.9,        1,      true   };
         {'Bilayer Position'     45          60          90      true   };
         {'Bilayer Coverage'     0.8         0.99        1.0     true   };
-        {'Bilayer Roughness'    3           5           9       true   };
+        {'Bilayer Roughness'    3           6           9       true   };
         };
 problem.addParamGroup(Parameters);
+problem.setParameter(1,'value',5);
 
 %%
 % Need to add the relevant Bulk SLD's. Change the bulk in from air to silicon, 
@@ -41,8 +42,8 @@ problem.addCustomFile({'DPPC Model','DPPC_customXY.m','matlab','pwd'});
 problem.setBacksPar(1,'name','Backs par D2O','fit',true,'min',1e-7,'max',1e-5,'val',1e-6);
 
 % Add two new backs parameters for the other two..
-problem.addBacksPar('Backs par SMW',1e-7,1e-6,1e-5,true);
-problem.addBacksPar('Backs par H2O',1e-7,1e-6,1e-5,true);
+problem.addBacksPar('Backs par SMW',1e-7,1e-7,1e-5,true);
+problem.addBacksPar('Backs par H2O',1e-7,1e-7,1e-5,true);
 
 % And add the two new constant backgrounds..
 problem.addBackground('Background SMW','constant','Backs par SMW');
@@ -96,13 +97,12 @@ problem.setContrastModel(3,'DPPC Model');
 disp('debug');
 
 %%
-%
+
 % Make a controls block
 controls = controlsDef();
 
-
 %%
-%
+
 % Send this to RAT
 [problem,results] = RAT(problem,controls);
 

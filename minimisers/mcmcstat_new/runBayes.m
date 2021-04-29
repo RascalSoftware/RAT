@@ -1,7 +1,7 @@
 function output = runBayes(loop,nsimu,burnin,adaptint,params,problem)
 
 % Clear any values from previous runs if prsent
-clear model data options
+%clear model data options
 
 problemDef = problem{1};
 controls = problem{2};
@@ -14,6 +14,14 @@ problemDef_cells = problem{4};
 % Also need to pass problem in order to access this
 % from the subfunctions.
 numberOfContrasts = problemDef.numberOfContrasts;
+
+% Pre-allocate data to keep the compiler happy
+% data = cell(1,numberOfContrasts);
+% structDefineType = struct('ydata',[],'problem',problem);
+% for i = 1:numberOfContrasts
+%     data{i} =  structDefineType;
+% end
+
 for i = 1:numberOfContrasts
     thisData = problemDef_cells{2}{i};
     data{i}.ydata = [thisData(:,1:2)];
@@ -88,11 +96,6 @@ output.predlims = out;
 
 
 
-
-disp('debug');
-
-
-
 end
 
 %-------------------------------------------------------
@@ -108,7 +111,6 @@ problemDef = allProblem{1};
 controls = allProblem{2};
 problemDef_limits = allProblem{3};
 problemDef_cells = allProblem{4};
-
 
 
 problemDef.fitpars = pars;

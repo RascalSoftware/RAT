@@ -149,7 +149,7 @@ problem.setContrastModel(3,'DSPC Model');
 
 controls = controlsDef();
 controls.calcSldDuringFit = 'no';
-controls.procedure = 'bayes';
+controls.procedure = 'calculate';
 controls.nsimu = 6000;
 controls.repeats = 3;
 controls.parallel = 'points';

@@ -3,7 +3,7 @@ ratRoot = '/Users/arwel/Documents/coding/RAT'; %OSX
 
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','backSorts');
-    fullfile(ratRoot,'targetFunctions','common','callModules');
+    %fullfile(ratRoot,'targetFunctions','common','callModules');
     fullfile(ratRoot,'targetFunctions','common','callReflectivity');
     fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations');
     fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations','Abeles');
@@ -12,7 +12,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','groupLayers');
     fullfile(ratRoot,'targetFunctions','common','makeSLDProfiles');
     fullfile(ratRoot,'targetFunctions','common','shiftData');
-    fullfile(ratRoot,'targetFunctions','common','standard_layers_mod');
+    %fullfile(ratRoot,'targetFunctions','common','standard_layers_mod');
     %fullfile(ratRoot,'targetFunctions','common','unpackParams');
     fullfile(ratRoot,'targetFunctions','common','legacyChanges');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
@@ -20,7 +20,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
     fullfile(ratRoot,'targetFunctions','common','jacobianEst');
     fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
-
+    fullfile(ratRoot,'compile','dram_compile');
 
     %/home/arwel/Documents/RascalDev/RAT/targetFunctions/reflectivity_calculation
     fullfile(ratRoot,'targetFunctions','reflectivity_calculation');

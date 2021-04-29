@@ -69,21 +69,40 @@ problemDef.fitpars = output.bestPars;
 problemDef = unpackparams(problemDef,controls);
 [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
+% Pre-processor directives for Matlab Coder.
+coder.varsize('problem.ssubs',[Inf 1],[1 0]);
+coder.varsize('problem.backgrounds',[Inf 1],[1 0]);
+coder.varsize('problem.qshifts',[Inf 1],[1 0]);
+coder.varsize('problem.scalefactors',[Inf 1],[1 0]);
+coder.varsize('problem.nbairs',[Inf 1],[1 0]);
+coder.varsize('problem.nbsubs',[Inf 1],[1 0]);
+coder.varsize('problem.resolutions',[Inf 1],[1 0]);
+coder.varsize('problem.ssubs',[Inf 1],[1 0]);
+coder.varsize('problem.calculations.all_chis',[Inf 1],[1 0]);
+coder.varsize('problem.calculations.sum_chi',[1 1],[0 0]);
+coder.varsize('problem.allSubRough',[Inf 1],[1 0]);
+
+%Result coder definitions....
+coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
+coder.varsize('result{1}{:}',[Inf 2],[1 0]);
+
+coder.varsize('result{2}',[Inf 1],[1 0]);           %Simulatin
+coder.varsize('result{2}{:}',[Inf 2],[1 0]);
+
+coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
+coder.varsize('result{3}{:}',[Inf 3],[1 0]);
+
+coder.varsize('result{4}',[Inf 1],[1 0]);           %Layers slds
+coder.varsize('result{4}{:}',[Inf 3],[1 0]);
+
+coder.varsize('result{5}',[Inf 1],[1 0]);           %Sld profiles
+coder.varsize('result{5}{:}',[Inf 2],[1 0]);
+
+coder.varsize('result{6}',[Inf 1],[1 0]);           %All layers
+coder.varsize('result{6}{:}',[Inf 1],[1 0]);
+
+
 end
-
-
-%-------------------------------------------------------
-function LogLike = MCMC_Intrafun(pars,data)
-
-
-%First calculate chisquared
-
-chisq = fitfun(data,[],[],pars);
-LogLike = log(exp(-chisq/2));
-LogLike = -2*LogLike;
-
-end
-
 
 
 

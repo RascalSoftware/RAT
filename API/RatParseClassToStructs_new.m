@@ -123,7 +123,10 @@ if strcmpi(inputStruct.ModelType,'custom layers') || strcmpi(inputStruct.ModelTy
     
 end
 
-
+% Also the custom files array..
+if isempty(problemDef_cells{14})
+    problemDef_cells{14} = {{'','',''}};
+end
 
 % Put the priors into their own array
 priors.paramPriors = paramPriors;

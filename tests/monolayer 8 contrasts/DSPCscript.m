@@ -15,7 +15,7 @@ Parameters = {
     {'Hydrogenated Tails SLD', -0.6e-6, -0.4e-6, 0,     true};
     {'Deuterated Heads SLD',    1e-6,   3e-6,   8e-6,   true};
     {'Hydrogenated Heads SLD',  0.1e-6,   1.4e-6, 3e-6,   true};
-    {'Heads Hydration',         0,      0.3,   0.5,    true};
+    {'Heads Hydration',         0,      10,   0.5,    true};
     };
 
 % Group these into layers:
@@ -93,7 +93,7 @@ problem.addContrast('name','H-tail/H-Head/D2O',...
     'nbs', 'SLD D2O',...
     'nba', 'SLD air',...
     'data', 'H-tail / H-head / D2O');
-problem.setContrast(1,'model',{'hydrogenated tails','hydrogenated heads'});
+problem.setContrastModel(1,{'Hydrogenated tails','Hydrogenated heads'});
 
 problem.addContrast('name','D-tail/H-Head/ACMW',...
     'background','Background ACMW',...
@@ -102,7 +102,7 @@ problem.addContrast('name','D-tail/H-Head/ACMW',...
     'nbs', 'SLD ACMW',...
     'nba', 'SLD air',...
     'data', 'D-tail / H-head / ACMW');
-problem.setContrast(2,'model',{'deuterated tails','hydrogenated heads'});
+problem.setContrastModel(2,{'deuterated tails','hydrogenated heads'});
 
 problem.addContrast('name','H-tail/D-Head/D2O',...
     'background','Background D2O',...
@@ -111,7 +111,7 @@ problem.addContrast('name','H-tail/D-Head/D2O',...
     'nbs', 'SLD D2O',...
     'nba', 'SLD air',...
     'data', 'H-tail / D-head / D2O');
-problem.setContrast(3,'model',{'hydrogenated tails','deuterated heads'});
+problem.setContrastModel(3,{'hydrogenated tails','deuterated heads'});
 
 % problem.addContrast('name','D-tail/D-Head/D2O',...
 %     'background','Background D2O',...
@@ -129,8 +129,7 @@ problem.addContrast('name','H-tail/D-Head/ACMW',...
     'nbs', 'SLD ACMW',...
     'nba', 'SLD air',...
     'data', 'H-tail / D-head / ACMW');
-problem.setContrast(4,'model',{'hydrogenated tails','deuterated heads'})
-% 
+problem.setContrastModel(4,{'hydrogenated tails','deuterated heads'})
 
 % Set the fitting fitting flag on some parameters we need to fit
 problem.setBacksPar(1,'fit',true);
@@ -142,19 +141,22 @@ problem
 
 % Make the controls class...
 controls = controlsDef();
-controls.calcSldDuringFit = 'no';
-controls.procedure = 'bayes';
-controls.parallel = 'contrasts';
-controls.maxIter = 1e9;
-controls.repeats = 3;
-controls.nsimu = 5000;
-controls.burnin = 1000;
+% controls.calcSldDuringFit = 'no';
+% controls.procedure = 'bayes';
+% controls.parallel = 'contrasts';
+% controls.maxIter = 1e9;
+% controls.repeats = 3;
+% controls.nsimu = 5000;
+% controls.burnin = 1000;
 
 
-%[outProb,results] = RAT_new(problem,controls);
+[problem,results] = RAT(problem,controls);
 
-% figure(1); clf
-% plotRefSLD(outProb,results)
+
+controls.procedure = 'simplex';
+
+figure(1); clf
+plotRefSLD(problem,results)
 % 
 % figure(2); clf; drawnow
 % plotmatrix(results.chain)

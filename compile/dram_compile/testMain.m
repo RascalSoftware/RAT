@@ -14,6 +14,11 @@ priors = t.priors;
 
 [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls);
 
+figure(3);
+clf
+mcmcplot(bayesResults.chain,[],bayesResults.res.names,'hist');
+
+
 
 
 %           contrastBacks: [1 2 3]

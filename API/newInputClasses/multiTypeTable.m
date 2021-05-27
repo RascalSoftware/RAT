@@ -107,6 +107,14 @@ classdef multiTypeTable < handle
             obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
         end
         
+        function removeRow(obj,row)
+            tab = obj.typesTable;
+            thisRow = row{:};
+            tab(thisRow,:) = [];
+            obj.typesTable = tab;
+            obj.typesCount = obj.typesCount - 1;
+        end
+        
         function displayTypesTable(obj)
             
             array = obj.typesTable;

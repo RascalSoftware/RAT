@@ -21,17 +21,18 @@ numberOfContrasts = problemDef.numberOfContrasts;
 % for i = 1:numberOfContrasts
 %     data{i} =  structDefineType;
 % end
-
+data = cell(1,numberOfContrasts);
 for i = 1:numberOfContrasts
     thisData = problemDef_cells{2}{i};
-    data{i}.ydata = [thisData(:,1:2)];
-    data{i}.problem = problem;
+    data{i} = [thisData(:,1:2)];
+    %data{i}.problem = problem;
 end
 
 fitConstr = problemDef.fitconstr;
 nPars = size(fitConstr,1);
 
 % Make qcov based on the ranges of the parameters
+qcov = [];
 for i = 1:nPars
     thisConstr = fitConstr(i,:);
     qcov(i) = (abs(thisConstr(2) - thisConstr(1))*0.01)^2;
@@ -39,8 +40,8 @@ end
 qcov = diag(qcov);
 
 % Define model and method options.
-model.modelfun      = @refModel;     % will return a reflectivity curve
-model.ssfun         = @fitModel;     % will return chi squared
+model.modelfun      = 'refModel';     % will return a reflectivity curve
+model.ssfun         = 'reflectivity_fitModel';     % will return chi squared
 model.nbatch        = numberOfContrasts;
 
 options.method      = 'dram';          % adaptation method (mh, am, dr, dram)
@@ -57,9 +58,10 @@ options.burnintime  = burnin;          % burn in time..
 options.ntry = 1;
 
 results = [];
+loop = int32(loop);
 for i = 1:loop
     fprintf('Running loop %d of %d ',i,loop);
-    [results,chain,s2chain,sschain] = mcmcrun(model, data, params, options, results);
+    [results,chain,s2chain,sschain] = mcmcrun_compile(model, data, problem, params, options, results);
     fprintf('\n');
 end
 
@@ -78,7 +80,7 @@ output.data = data;
 % mcmcplot(chain,[],results,'hist');
 % 
 % figure(202); clf; hold on
-out = mcmcpred(results,chain,[],data,@refModel,700);
+out = mcmcpred_compile(results,chain,[],data,problem,700);
 
 problemDef.fitpars = output.bestPars;
 problemDef = unpackparams(problemDef,controls);
@@ -98,92 +100,6 @@ output.predlims = out;
 
 end
 
-%-------------------------------------------------------
-function ss = fitModel(theta,data)
-
-% Sum of squares function used in the calculation
-% Calls reflectivity calculation and returns the value of chisquared
-
-pars = theta;                               % Current parameter values from mcmcstat
-%problem = data{1}.problem{1};               % Struct needed for the calculation
-allProblem = data{1}.problem;
-problemDef = allProblem{1};
-controls = allProblem{2};
-problemDef_limits = allProblem{3};
-problemDef_cells = allProblem{4};
-
-
-problemDef.fitpars = pars;
-problemDef = unpackparams(problemDef,controls);
-%setappdata(0,'problem',problem);
-%problem = reflectivity_calculation(problem);
-[problemDef,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
-
-%problem = getappdata(0,'problem');
-ss = problemDef.calculations.sum_chi;
-
-end
-
-
-%---------------------------------------------------------
-function ymod = refModel(data,theta,varargin)
-
-% Returns the reflectivity profile. Need to do some extra work because
-% 'reflectivity-calculation' adjusts the data according to scalefactor.
-% We need to reverse this correction, and actually return the simulation
-% corrected for the scalefactor. We have to do this because the scalefactor 
-% is in itself one of our fitting parameters (no need to correct the data -
-% problem.shifted_data contains the corrected data, but
-% problem.data is a record of the original).
-
-if isempty(varargin)
-    contrast = 1;
-else
-    contrast = varargin{1};
-end
-
-if iscell(data)
-    thisData = data{contrast}.ydata;
-    problem = data{contrast}.problem;
-else
-    thisData = data.ydata;
-    problem = data.problem;
-end
-
-if nargin == 4
-    debugPlot = varargin{2};
-else
-    debugPlot = 0;
-end
-
-pars = theta;
-
-problemDef = problem{1};
-controls = problem{2};
-problemDef_limits = problem{3};
-problemDef_cells = problem{4};
-
-problemDef.fitpars = pars;
-problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
-
-ySim = result{1}{contrast};
-
-% Need to correct the simulation for the scalefactor (i.e. move the sim to
-% the data, unlike what we normally do)
-scale = problem.scalefactors(contrast);        
-ymod = ySim(:,2).*scale;        % Do something more flashy here for multiple contrasts
-
-% Debug plot to check that everything works..
-%debugPlot = 0;
-if debugPlot
-    plot(thisData(:,1),thisData(:,2),'o');
-    hold on
-    plot(ySim(:,1),ymod,'-');
-    hold off
-end
-
-end
 
 %-------------------------------------------------------------------------
 

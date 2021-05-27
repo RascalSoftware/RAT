@@ -1,4 +1,4 @@
-function out=mcmcpred(results,chain,s2chain,data,modelfun,nsample,varargin)
+function out=mcmcpred(results,chain,s2chain,data,problem,modelfun,nsample,varargin)
 %MCMCPRED predictive calculations from the mcmcrun chain
 % out = mcmcpred(results,chain,s2chain,data,modelfun,nsample,varargin)
 % Calls modelfun(data,theta,varargin{:})

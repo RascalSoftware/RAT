@@ -1,5 +1,7 @@
 function [names,value,parind,local,upper,lower,thetamu,thetasig,hpar] = ...
     openparstruct(parstruct,nbatch)
+%#codegen
+
 %OPENPARSTRUCT parameter struct utility for mcmc tbx
 % [names,value,parind,local,upper,lower,thetamu,thetasig] = ...
 %    openparstruct(parstruct,nbatch)
@@ -102,7 +104,7 @@ for i=1:ntheta
     
     iii = ii:(ii+nbatch-1);
     if nbatch==1
-        names(iii(1))    = {sprintf('%s',parstruct{i}{1})};
+        names(iii{1})    = {sprintf('%s',parstruct{i}{1})};
     else
       for k=1:nbatch
         names(iii(k))    = {sprintf('%s[%d]',parstruct{i}{1},k)};

@@ -92,7 +92,7 @@ classdef backgroundsClass < handle
         
         function obj = removeBacksPar(obj,varargin)
             % Remove a parameter from the backsPar table
-            disp('Todo');
+            obj.backPars.removeParam(varargin{:});
         end
         
         function obj = setBacksPar(obj, varargin)
@@ -155,6 +155,11 @@ classdef backgroundsClass < handle
             end
             obj.backgrounds.addRow(thisRow);
                 
+        end
+        
+        function obj = removeBackground(obj, varargin)
+            thisRow = varargin{:};
+            obj.backgrounds.removeRow(thisRow);
         end
         
         function obj = setBackgroundValue(obj,varargin)

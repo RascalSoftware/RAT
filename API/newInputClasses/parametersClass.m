@@ -21,7 +21,7 @@ classdef parametersClass < handle
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
             obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.paramsTable(1,:) = startCell;%{'Substrate Roughness',1 3 5,true,'uniform',0,Inf};
+            obj.paramsTable(1,:) = startCell;
             obj.paramCount = 1;
             obj.paramAutoNameCounter = 1;
         end
@@ -269,6 +269,10 @@ classdef parametersClass < handle
         
         function obj = setFit(obj, varargin)
             
+            if iscell(varargin) && length(varargin) == 1
+                varargin = varargin{:};
+            end
+            
             tab = obj.paramsTable;
             if length(varargin) ~= 2
                 error('Need p (or name) / val pair set');
@@ -380,7 +384,6 @@ classdef parametersClass < handle
         
         function removeRow(obj, row)
             tab = obj.paramsTable;
-            disp('debug');
             
             if ischar(row)
                 % Assume a row name

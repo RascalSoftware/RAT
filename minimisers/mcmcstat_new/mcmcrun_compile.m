@@ -1,4 +1,4 @@
-function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)
+function [results,chain,s2chain,sschain, hchain]=mcmcrun_compile(model,data,problem,params,options,res)
 %MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models
 % properties:
 %  multiple y-columns, sigma2-sampling, adaptation,
@@ -77,6 +77,11 @@ function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,optio
 % Marko Laine  2003 <marko.laine@fmi.fi>
 % $Revision: 1.63 $  $Date: 2017/03/30 07:09:39 $
 
+%#codegen
+%global invR
+
+
+
 %% check input structs
 goodopt={'nsimu','adaptint','ntry','method','printint',...
         'adaptend','lastadapt','burnintime','waitbar',...
@@ -118,7 +123,7 @@ end
 %%% mcmc options
 % some predefined methods
 doram = 0;
-method = getpar(options,'method','dram');
+method = options.method;%getpar(options,'method','dram');
 switch lower(method)
  case 'mh'
   nsimu    = getpar(options,'nsimu',10000);  % length of the chain to simulate
@@ -133,35 +138,35 @@ switch lower(method)
   adaptint = 0;
   Ntry     = getpar(options,'ntry',4);       % DR tries (1 = no extra try)
  case 'dram'
-  nsimu    = getpar(options,'nsimu',10000);
-  adaptint = getpar(options,'adaptint',100);
-  Ntry     = getpar(options,'ntry',2);
+  nsimu    = options.nsimu;
+  adaptint = options.adaptint;
+  Ntry     = options.ntry;
  case 'ram'
   nsimu    = getpar(options,'nsimu',10000);
   adaptint = 1;
   Ntry     = 1;
   doram    = 1;
-  options.adascale = 1;
+  % options.adascale = 1;
  otherwise
   error(sprintf('unknown mcmc method: %s',method));
 end
-printint    = getpar(options,'printint',NaN); % print interval
+printint    = options.printint; % print interval
 lastadapt   = getpar(options,'lastadapt',0);  % last adapt
 lastadapt   = getpar(options,'adaptend',lastadapt);%  the same
-burnintime  = getpar(options,'burnintime',0);
-wbarupd     = getpar(options,'waitbar',1);    % use graphical waitbar
+burnintime  = options.burnintime;
+wbarupd     = options.waitbar;%;    % use graphical waitbar
 verbosity   = getpar(options,'verbosity',1);  % amout of info to print
 shdebug     = getpar(options,'debug',0);      % show some debug information
-qcov        = getpar(options,'qcov',[]);      % proposal covariance
+qcov        = options.qcov;      % proposal covariance
 initqcovn   = getpar(options,'initqcovn',[]);      % proposal covariance weight in update
 qcov_adjust = getpar(options,'qcov_adjust',1e-8); % eps adjustment
 burnin_scale= getpar(options,'burnin_scale',10); % scale in burn-in down/up
-updatesigma = getpar(options,'updatesigma',0);
+updatesigma = options.updatesigma;
 noadaptind  = getpar(options,'noadaptind',[]); % do not adapt these indeses
-dostats     = getpar(options,'stats',0);       % convergence statistics
+dostats     = options.stats;       % convergence statistics
 dostats2    = getpar(options,'stats2',0);       % convergence statistics
 % DR options
-dodram   = getpar(options,'dram',0); % DR (not used, use ntry instead)
+dodram   = 1;%getpar(options,'dram',0); % DR (not used, use ntry instead)
 %DR_scale = getpar(options,'drscale',[60 30 15]);
 DR_scale = getpar(options,'drscale',[5 4 3]);
 adascale = getpar(options,'adascale',[]); % qcov_scale
@@ -171,24 +176,24 @@ alphatarget = getpar(options,'alphatarget',0.234); % acceptance ratio target
 etaparam = getpar(options,'etaparam',0.7); %
 
 % save options
-savesize   = getpar(options,'savesize',0); % rows of the chain in memory
-if savesize <= 0 || savesize > nsimu
-  savesize = nsimu;
-end
-maxmem      = getpar(options,'maxmem',0); % memory available in mega bytes
+% savesize   = getpar(options,'savesize',0); % rows of the chain in memory
+% if savesize <= 0 || savesize > nsimu
+   savesize = nsimu;
+% end
+% maxmem      = getpar(options,'maxmem',0); % memory available in mega bytes
 % temporary files if dumping to file
-savedir     = getpar(options,'savedir',tempdir);
-fnum = fix(rand*100000); % random number for the default filename
-chainfile   = getpar(options,'chainfile',sprintf('chain_%05d.mat',fnum));
-s2chainfile = getpar(options,'s2chainfile',sprintf('s2chain_%05d.mat',fnum));
-sschainfile = getpar(options,'sschainfile',sprintf('sschain_%05d.mat',fnum));
-skip        = getpar(options,'skip',1);
-if ~isempty(savedir)
-  chainfile   = [savedir,chainfile];
-  s2chainfile = [savedir,s2chainfile];
-  sschainfile = [savedir,sschainfile];
-end
-label = getpar(options,'label',sprintf('MCMC run at %s',date));
+% savedir     = '';% getpar(options,'savedir',tempdir);
+% fnum = fix(rand*100000); % random number for the default filename
+% chainfile   = getpar(options,'chainfile',sprintf('chain_%05d.mat',fnum));
+% s2chainfile = getpar(options,'s2chainfile',sprintf('s2chain_%05d.mat',fnum));
+% sschainfile = getpar(options,'sschainfile',sprintf('sschain_%05d.mat',fnum));
+% skip        = getpar(options,'skip',1);
+% if ~isempty(savedir)
+%   chainfile   = [savedir,chainfile];
+%   s2chainfile = [savedir,s2chainfile];
+%   sschainfile = [savedir,sschainfile];
+% end
+% label = getpar(options,'label',sprintf('MCMC run at %s',date));
 
 % save -2*log(ss/sigma2+prior) in sschain instead of ss
 savepostinss = getpar(options,'savepostinss',0);
@@ -198,7 +203,7 @@ sigma2  = getpar(model,'sigma2',[]);     % initial value for the error variance
 N       = getpar(model,'N',getN(data));  % no of obs
 ssfun   = getpar(model,'ssfun',[]);      % sum of squares function
 modelfun= getpar(model,'modelfun',[]);   % model function
-priorfun= getpar(model,'priorfun',[]);   % prior function
+%priorfun= getpar(model,'priorfun',[]);   % prior function
 priortype= getpar(model,'priortype',1);  % prior type, 1 = Gaussian
 priorupdatefun = getpar(model,'priorupdatefun',[]); % prior parameter update
 priorpars = getpar(model,'priorpars',[]); % prior parameter for priorupdatefun
@@ -206,23 +211,23 @@ priorupdatestart = getpar(options,'priorupdatestart',burnintime);
 %ssstyle = getpar(model,'ssstyle',1);
 ssstyle = 1;
 % error variance prior
-S20     = getpar(model,'S20',NaN);
+S20     = getpar(model,'S20',1);
 N0      = getpar(model,'N0',[]);
 nbatch  = getpar(model,'nbatch',getnbatch(data)); % number of batches
 
 % This is for backward compatibility
 % if sigma2 given then default N0=1, else default N0=0
-if isempty(N0)
-  if isempty(sigma2)
+% if isempty(N0)
+%   if isempty(sigma2)
     sigma2 = 1;
     N0 = 0;
-  else
-    N0 = 1;
-  end
-else
+%   else
+%     N0 = 1;
+%   end
+% else
   % if N0 given, then also check updatesigma
-  updatesigma = 1;
-end
+  updatesigma = 0;
+%end
 
 if isempty(N)
   if updatesigma
@@ -246,8 +251,14 @@ if nargin > 4 && ~isempty(res)
 end
 
 % open and parse the parameter structure
+% [names,value,parind,local,upp,low,thetamu,thetasig,hyperpars] = ...
+%     openparstruct(params,nbatch);
+
+% Use a stripped down version of 'openparstruct' for RAT
+% comiple.
 [names,value,parind,local,upp,low,thetamu,thetasig,hyperpars] = ...
-    openparstruct(params,nbatch);
+    openparstruct_compile(params,nbatch);
+
 
 if any(thetasig<=0)
   disp('some prior variances <=0, setting those to Inf')
@@ -255,27 +266,31 @@ if any(thetasig<=0)
 end
 
 % hyper prior parameters
-hchain = []; % it is allocated after the first call inside the simuloop
-if hyperpars.nhpar > 0
-  fprintf('NOTE: n:o of parameters with hyper priors is %d\n',hyperpars.nhpar);
-  if isempty(priorpars), priorpars=hyperpars;end
-  if isempty(priorupdatefun), priorupdatefun=@hyperpriorupdate;disp('  using the default hyper update method');end
-end
+% hchain = []; % it is allocated after the first call inside the simuloop
+% nhpar = int32(hyperpars.nhpar);
+% if hyperpars.nhpar > 0
+%   fprintf('NOTE: n:o of parameters with hyper priors is %d\n',nhpar);
+%   if isempty(priorpars), priorpars=hyperpars;end
+%   if isempty(priorupdatefun), priorupdatefun=@hyperpriorupdate;disp('  using the default hyper update method');end
+% end
 
 % default for sigma2 is S20 or 1
-if isempty(sigma2)
-  if not(isnan(S20))
-    sigma2=S20;
-  else
-    sigma2=1;
-  end
-end
-if isnan(S20)
-  S20 = sigma2; % prior parameters for the error variance
-end
-if isnan(N0)
-  N0 = 1;
-end
+% if isempty(sigma2)
+%   if not(isnan(S20))
+%     sigma2=S20;
+%   else
+%     sigma2=1;
+%   end
+% end
+% if isnan(S20)
+%   S20 = sigma2; % prior parameters for the error variance
+% end
+% if isnan(N0)
+%   N0 = 1;
+% end
+
+S20 = 1;
+
 if lastadapt<1
   lastadapt=nsimu;
 end
@@ -304,41 +319,45 @@ par0 = value(parind);
 npar = length(par0);
 
 % check ssfun type
-if isempty(ssfun)
-  if isempty(modelfun)
-    error('no ssfun or modelfun!')
-  end
-  ssstyle = 4;
-  ni = 4;
-else
-  if isa(ssfun,'function_handle')
-%    ni = nargin(func2str(ssfun)); % is this needed?
-    ni = nargin(ssfun);
-  elseif isa(ssfun,'inline') || exist(ssfun) == 2 % ssfun is an mfile
-    ni = nargin(ssfun);
-  else
-    ni = 2;
-  end
-  if ni == 3
-    ssstyle=2;
-  end
-end
+% Don't need to do this as always the same
+% type
+ssstyle = 1;
+% if isempty(ssfun)
+%   if isempty(modelfun)
+%     error('no ssfun or modelfun!')
+%   end
+%   ssstyle = 4;
+%   ni = 4;
+% else
+%   if isa(ssfun,'function_handle')
+% %    ni = nargin(func2str(ssfun)); % is this needed?
+%     ni = nargin(ssfun);
+%   elseif isa(ssfun,'inline') || exist(ssfun) == 2 % ssfun is an mfile
+%     ni = nargin(ssfun);
+%   else
+%     ni = 2;
+%   end
+%   if ni == 3
+%     ssstyle=2;
+%   end
+% end
 
-if isempty(qcov)
-  qcov = thetasig.^2;
-  ii = isinf(qcov)|isnan(qcov);
-%  qcov(ii) = [abs(par0(ii))*0.05].^2; % default is 5% std
-  qcov(ii) = [abs(value(ii))*0.05].^2; % default is 5% std
-  qcov(qcov==0) = 1e-6; % .. or one if we start from zero
-  % If any are zero, use value of high limit instead
-%   for n = 1:length(qcov);
-%       if iszero(qcov(n))
-%           thisPar = params{n};
-%           thisPar = thisPar{4};
-          
-  
-  qcov = diag(qcov);
-end
+% We allways input qcov
+% if isempty(qcov)
+%   qcov = thetasig.^2;
+%   ii = isinf(qcov)|isnan(qcov);
+% %  qcov(ii) = [abs(par0(ii))*0.05].^2; % default is 5% std
+%   qcov(ii) = [abs(value(ii))*0.05].^2; % default is 5% std
+%   qcov(qcov==0) = 1e-6; % .. or one if we start from zero
+%   % If any are zero, use value of high limit instead
+% %   for n = 1:length(qcov);
+% %       if iszero(qcov(n))
+% %           thisPar = params{n};
+% %           thisPar = thisPar{4};
+%           
+%   
+%   qcov = diag(qcov);
+% end
 
 if isempty(adascale)||adascale<=0
   qcov_scale = 2.4 / sqrt(npar) ; % scale factor in R
@@ -346,29 +365,40 @@ else
   qcov_scale = adascale;
 end
 
-[cm,cn]=size(qcov);
-if min([cm cn]) == 1 % qcov contains variances!
-  s = sqrt(qcov(parind));
-  R = diag(s); % *qcov_scale; % do NOT scale the initial qcov
-  qcovorig = diag(qcov); % save qcov
-  qcov = diag(qcov(parind));
-else %  qcov has covariance matrix in it
+% [cm,cn]=size(qcov);
+% if min([cm cn]) == 1 % qcov contains variances!
+%   s = sqrt(qcov(parind));
+%   R = diag(s); % *qcov_scale; % do NOT scale the initial qcov
+%   qcovorig = diag(qcov); % save qcov
+%   qcov = diag(qcov(parind));
+% else %  qcov has covariance matrix in it
   qcovorig = qcov; % save qcov
   qcov = qcov(parind,parind);
   R    = chol(qcov); % *qcov_scale;
-end
+%end
 %R0 = R; % save R
-global invR
+
 global A_count
 A_count = 0; % alphafun count
+RDR = cell(1,Ntry);
+RDR{1} = [];
+
+define_invR = cell(1,Ntry);
+for i = 1:Ntry
+    define_invR{i} = i;
+end
+
+invR = define_invR;
+
+%invR{1} = [];
 if dodram
-  RDR = getpar(options,'RDR',[]); % RDR qiven in ooptions
-  if ~isempty(RDR)
-    for i=1:Ntry
-      invR{i} = RDR{i}\eye(npar);
-    end
-    R = RDR{1};
-  else
+%   RDR = getpar(options,'RDR',{}); % RDR qiven in ooptions
+%   if ~isempty(RDR)
+%     for i=1:Ntry
+%       invR{i} = RDR{i}\eye(npar);
+%     end
+%     R = RDR{1};
+%   else
     % DR strategy: just scale R's down by DR_scale
     RDR{1} = R;
     invR{1} = R\eye(npar);
@@ -376,14 +406,14 @@ if dodram
       RDR{i}  = RDR{i-1}./DR_scale(min(i-1,length(DR_scale)));
       invR{i} = RDR{i}\eye(npar);
     end
-  end
+  %end
   iacce = zeros(1,Ntry);
 end
 
-starttime=clock;
+%starttime=clock;
 
 oldpar=par0(:)';
-ss = sseval(ssfun,ssstyle,oldpar,parind,value,local,data,modelfun);
+ss = sseval(ssfun,ssstyle,oldpar,parind,value,local,data,problem,modelfun);
 ss1 = ss;
 ss2 = ss;
 
@@ -402,23 +432,23 @@ if length(N0)==1
 end
 
 % default prior function calculates Gaussian sum of squares
-if isempty(priorfun)
-  priorfun = @(th,mu,sig) sum(((th-mu)./sig).^2);
-end
+%if isempty(priorfun)
+%  priorfun = @(th,mu,sig) sum(((th-mu)./sig).^2);
+%end
 
-oldprior = feval(priorfun,oldpar,thetamu(parind),thetasig(parind));
+oldprior = priorfun(oldpar,thetamu(parind),thetasig(parind));
 
 %memory calculations
-memneeded = savesize*(npar+2*ny)*8*1e-6;
-if (maxmem > 0) && (memneeded > maxmem)
-  savesize = max(1000,floor(maxmem/(npar+2*ny)/8*1e6));
-  message(verbosity,0,'savesize decreased to %d\n',savesize);
-end
-if (savesize < nsimu) || (nargout < 2)
-  saveit = 1;
-else
-  saveit = 0;
-end
+% memneeded = savesize*(npar+2*ny)*8*1e-6;
+% if (maxmem > 0) && (memneeded > maxmem)
+%   savesize = max(1000,floor(maxmem/(npar+2*ny)/8*1e6));
+%   message(verbosity,0,'savesize decreased to %d\n',savesize);
+% end
+% if (savesize < nsimu) || (nargout < 2)
+%   saveit = 1;
+% else
+%   saveit = 0;
+% end
 % save parameters, error variance, and SS
 chain   = zeros(savesize,npar);
 if updatesigma
@@ -428,14 +458,14 @@ else
 end
 sschain = zeros(savesize,ny);
 
-%% save chain
-if saveit == 1
-  savebin(chainfile,[],'chain');
-  savebin(sschainfile,[],'sschain');
-  if updatesigma
-    savebin(s2chainfile,[],'s2chain');
-  end
-end
+% %% save chain
+% if saveit == 1
+%   savebin(chainfile,[],'chain');
+%   savebin(sschainfile,[],'sschain');
+%   if updatesigma
+%     savebin(s2chainfile,[],'s2chain');
+%   end
+% end
 
 chain(1,:)   = oldpar;
 if updatesigma
@@ -511,11 +541,11 @@ for isimu=2:nsimu % simulation loop
   else
     outbound = 0;
     % prior SS for the new theta
-    newprior = feval(priorfun,newpar,thetamu(parind),thetasig(parind));
+    newprior = priorfun(newpar,thetamu(parind),thetasig(parind));
 
     % calculate ss
     ss2 = ss;             % old ss
-    ss1 = sseval(ssfun,ssstyle,newpar,parind,value,local,data,modelfun);
+    ss1 = sseval(ssfun,ssstyle,newpar,parind,value,local,data,problem,modelfun);
 
     tst = exp(-0.5*( sum((ss1-ss2)./sigma2) + newprior-oldprior) );
 
@@ -532,6 +562,13 @@ for isimu=2:nsimu % simulation loop
       fprintf('%d: pri: %g, tst: %g, ss: %g\n',isimu, newprior,tst, ss1);
     end
   end
+  
+  
+  str = struct('p',{0},'ss',{0},'pri',{0},'s2',{0},'a',{0});
+  x = str;
+  y = str;
+  z = str;
+  
   %%% DR -----------------------------------------------------
   if dodram == 1 && accept == 0 % & outbound == 0
     % we do a new try according to delayed rejection
@@ -545,8 +582,16 @@ for isimu=2:nsimu % simulation loop
     y.pri = newprior;
     y.s2  = sigma2;
     y.a   = tst;
-
-    trypath = {x,y};
+    
+    z.p = zeros(1,npar);
+    coder.varsize('zs2');
+    zs2 = 0;
+    z.s2 = zs2;
+    z.a = 0;
+    z.pri = 0;
+    z.ss = 0;
+    
+    trypath = {x,y,z};
     itry    = 1;
     while accept == 0 && itry < Ntry
       itry = itry+1;
@@ -556,15 +601,15 @@ for isimu=2:nsimu % simulation loop
         z.a   = 0;
         z.pri = 0;
         z.ss  = Inf;
-        trypath = {trypath{:},z};
+        trypath = {trypath{1:2},z};
         outbound = 1;
         continue
       end
 
       outbound = 0;
-      z.ss = sseval(ssfun,ssstyle,z.p,parind,value,local,data,modelfun);
-      z.pri = feval(priorfun,z.p,thetamu(parind),thetasig(parind));
-      trypath = {trypath{:},z};
+      z.ss = sseval(ssfun,ssstyle,z.p,parind,value,local,data,problem,modelfun);
+      z.pri = priorfun(z.p,thetamu(parind),thetasig(parind));
+      trypath = {trypath{1:2},z};
       alpha = alphafun(trypath{:});
       trypath{end}.a = alpha;
       if alpha >= 1 || rand(1,1) < alpha     %  accept
@@ -719,6 +764,7 @@ for isimu=2:nsimu % simulation loop
   end
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %%% save chain
+  saveit = 0;
   if chainind == savesize && saveit == 1
     message(verbosity,2,'saving chains\n');
     addbin(chainfile,chain');
@@ -754,7 +800,7 @@ value(parind) = oldpar; % update the initial value to the final value
 %% build the results structure
 if nargout>0
   results.class = 'MCMC';
-  results.label = label;
+  results.label = '';%label;
   results.method = method;
   results.rejected   = rej/nsimu;
   results.ulrejected = rejl/nsimu;
@@ -783,15 +829,15 @@ if nargout>0
   end
   results.modelfun = modelfun;
   results.ssfun    = ssfun;
-  results.priorfun = priorfun;
+  %results.priorfun = priorfun;
   results.priortype= priortype;
   results.priorpars= priorpars;
   results.nsimu    = nsimu;
   results.adaptint = adaptint;
   results.adaptend = lastadapt;
   results.adascale = qcov_scale;
-  results.skip     = skip;
-  results.simutime = etime(clock,starttime);
+  results.skip     = 0;%skip;
+  %results.simutime = etime(clock,starttime);
   results.ntry     = Ntry;
   if dostats2
     results.accechain = accechain;
@@ -810,23 +856,23 @@ if nargout>0
 end
 
 % check if we need to read the generated chain from binary dump files
-if saveit == 1 && savesize < nsimu
-  if nargout > 1
-    chain = readbin(chainfile,1,skip);
-  end
-  if nargout > 2 && updatesigma
-    s2chain = readbin(s2chainfile,1,skip);
-  end
-  if nargout > 3
-    sschain = readbin(sschainfile,1,skip);
-  end
-elseif skip>1&&skip<=nsimu
-  chain = chain(1:skip:end,:);
-  if updatesigma
-    s2chain = s2chain(1:skip:end,:);
-  end
-  sschain = sschain(1:skip:end,:);
-end
+% if saveit == 1 && savesize < nsimu
+%   if nargout > 1
+%     chain = readbin(chainfile,1,skip);
+%   end
+%   if nargout > 2 && updatesigma
+%     s2chain = readbin(s2chainfile,1,skip);
+%   end
+%   if nargout > 3
+%     sschain = readbin(sschainfile,1,skip);
+%   end
+% elseif skip>1&&skip<=nsimu
+%   chain = chain(1:skip:end,:);
+%   if updatesigma
+%     s2chain = s2chain(1:skip:end,:);
+%   end
+%   sschain = sschain(1:skip:end,:);
+% end
 % calculate some extra statistics (we need the whole chain to do this)
 if dostats && (saveit == 1 || savesize >= nsimu)
   results.tau    = iact(chain);
@@ -834,7 +880,7 @@ if dostats && (saveit == 1 || savesize >= nsimu)
   results.rldiag = rldiag(chain);
   %% calculate DIC = 2*mean(ss)-ss(mean(chain))
   if not(savepostinss) % can not do if this is set
-    ss = sseval(ssfun,ssstyle,meanchain,parind,value,local,data,modelfun);
+    ss = sseval(ssfun,ssstyle,meanchain,parind,value,local,data,problem,modelfun);
     D = mean(sschain);
     results.dic  = 2*D-ss; % Deviance Information Criterion
     results.pdic = D-ss;   % Effective number of parameters
@@ -847,15 +893,16 @@ textProgressBar('end',1);
 
 %% end of main function
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function ss = sseval(ssfun,ssstyle,theta,parind,value,local,data,modelfun)
+function ss = sseval(ssfun,ssstyle,theta,parind,value,local,data,problem,modelfun)
 % evaluate the "sum-of-squares" function
 value(parind) = theta;
-if ssstyle == 1
-  ss = feval(ssfun,value(:)',data);
-elseif ssstyle == 4
-  ss = mcmcssfun(value(:)',data,local,modelfun);
-else
-  ss = feval(ssfun,value(:)',data,local);
+%if ssstyle == 1
+%  ss = feval(ssfun,value(:)',data);
+%elseif ssstyle == 4
+%  ss = mcmcssfun(value(:)',data,local,modelfun);
+%else
+  ss = reflectivity_fitModel(value(:)',data,problem);
+%end
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function y=alphafun(varargin)
@@ -867,33 +914,54 @@ function y=alphafun(varargin)
 
 % ML 2003
 
-global A_count
+%global A_count
 A_count = A_count+1;
+y = 0;
 
 stage = nargin - 1; % The stage we're in, elements in varargin - 1
 % recursively compute past alphas
+coder.varsize('a1');
+coder.varsize('a2');
 a1 = 1; a2=1;
-for k=1:stage-1
+for kk=1:stage-1
 %  a1 = a1*(1-varargin{k+1}.a); % already have these alphas
 % Thanks to E. Prudencio for pointing out an error here
-  a1 = a1*(1-alphafun(varargin{1:(k+1)}));
-  a2 = a2*(1-alphafun(varargin{(stage+1):-1:(stage+1-k)}));
+  a1 = a1*(1-alphafun(varargin{1:(kk+1)}));
+  a2 = a2*(1-alphafun(varargin{(stage+1):-1:(stage+1-kk)}));
   if  a2==0  % we will came back with prob 1
     y = 0;
     return
   end
 end
 y = lfun(varargin{1},varargin{end});
-for k=1:stage
-  y = y + qfun(k,varargin{:});
+for kk=1:stage
+  y = y + qfun(kk,varargin{:});
 end
 y = min(1, exp(y).*a2./a1);
+
+end
 %************************************************************%
 function z=qfun(iq,varargin)
 % Gaussian n:th stage log proposal ratio
 % log of q_i(y_n,..,y_n-j) / q_i(x,y_1,...,y_j)
 
-global invR
+% ----------------------------------
+% Try to pre set variables to get past 'non constant expression'
+% error in coder.....
+coder.varsize('y1',[100 100]);
+coder.varsize('y2',[100 100]);
+coder.varsize('y3',[100 100]);
+coder.varsize('y4',[100 100]);
+coder.varsize('z',[100 100]);
+coder.varsize('iR',[100,100]);
+
+y1 = zeros(1,npar);
+y2 = zeros(1,npar);
+y3 = zeros(1,npar);
+y4 = zeros(1,npar);
+iR = zeros(npar,npar);
+z = 0;
+% -----------------------------
 
 stage = nargin-1-1;
 if stage == iq
@@ -906,10 +974,13 @@ else
   y4 = varargin{stage-iq+1}.p;  % y_(n-i)
   z = -0.5*(norm((y4-y3)*iR)^2-norm((y2-y1)*iR)^2);
 end
+
+end
 %************************************************************%
 function z=lfun(x,y)
 % log posterior ratio,  log( pi(y)/pi(x) * p(y)/p(x) )
 z = -0.5*( sum((y.ss./y.s2-x.ss./x.s2)) + y.pri - x.pri );
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function message(verbosity,level,fmt,varargin)
 if verbosity>=level
@@ -918,6 +989,7 @@ end
 % if verbosity>1&&level<=2&&~strcmp(fmt,'\n')
 %   wbar('message',sprintf(fmt,varargin{:}));
 % end
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function status=wbar(i,nsimu)
     
@@ -978,5 +1050,14 @@ function status=wbar(i,nsimu)
 %     drawnow
 %     tl = clock; % last time updated
    %end
+end
+
+
+
+end
+
+function out = priorfun(th,mu,sig)
+  out = sum(((th-mu)./sig).^2);
+end
 
 %%%%% EOF %%%%

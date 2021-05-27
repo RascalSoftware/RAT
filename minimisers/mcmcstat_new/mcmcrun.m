@@ -161,7 +161,7 @@ noadaptind  = getpar(options,'noadaptind',[]); % do not adapt these indeses
 dostats     = getpar(options,'stats',0);       % convergence statistics
 dostats2    = getpar(options,'stats2',0);       % convergence statistics
 % DR options
-dodram   = getpar(options,'dram',0); % DR (not used, use ntry instead)
+dodram   = 1;%getpar(options,'dram',0); % DR (not used, use ntry instead)
 %DR_scale = getpar(options,'drscale',[60 30 15]);
 DR_scale = getpar(options,'drscale',[5 4 3]);
 adascale = getpar(options,'adascale',[]); % qcov_scale

@@ -1,4 +1,3 @@
-/* Copyright 2019-2020 The MathWorks, Inc. */
 /* Copied from fullfile(matlabroot,'extern','include','coder','coder_array','coder_array_mex.h') */
 #pragma once
 
@@ -51,7 +50,7 @@
 #include <vector>
 #include "mex.h"
 #include "emlrt.h"
-#include "tmwtypes.h"
+#include "rtwtypes.h"
 
 namespace coder {
 
@@ -944,7 +943,7 @@ class array_base {
         ensureCapacity(numel());
     }
 
-    template <SizeType N1>
+    template <size_t N1>
     array_base<T, SZ, N1> reshape_n(const SZ (&_ns)[N1]) const {
         array_base<T, SZ, N1> reshaped(const_cast<T*>(&data_[0]), _ns);
         return reshaped;
@@ -1354,6 +1353,7 @@ class array<T, 1> : public array_base<T, SizeType, 1> {
         return std::vector<T>(p, p + Base::numel());
     }
 };
+
 } // namespace coder
 
 #endif

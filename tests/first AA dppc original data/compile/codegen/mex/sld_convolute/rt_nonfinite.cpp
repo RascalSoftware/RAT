@@ -1,14 +1,14 @@
 //
-// Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+//  Non-Degree Granting Education License -- for use at non-degree
+//  granting, nonprofit, educational organizations only. Not for
+//  government, commercial, or other organizational use.
 //
-// rt_nonfinite.cpp
+//  rt_nonfinite.cpp
 //
-// Code generation for function 'sld_convolute'
+//  Code generation for function 'sld_convolute'
 //
 
-// Include files
+
 #include "rt_nonfinite.h"
 #include "matrix.h"
 
@@ -18,7 +18,6 @@ real_T mex_rtNaN;
 real32_T mex_rtInfF;
 real32_T mex_rtMinusInfF;
 real32_T mex_rtNaNF;
-
 void mex_InitInfAndNan(void)
 {
   mex_rtInf = mxGetInf();
@@ -28,4 +27,5 @@ void mex_InitInfAndNan(void)
   mex_rtNaN = mxGetNaN();
   mex_rtNaNF = (real32_T)rtNaN;
 }
+
 // End of code generation (rt_nonfinite.cpp)

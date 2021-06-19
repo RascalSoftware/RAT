@@ -1,24 +1,24 @@
-# CompilerName=clang
+# CompilerName=gcc
 # Mode=optim
 ninja_required_version = 1.3
 
 # Basic folders
 root = .
-builddir = $root/build/maci64
-matlabdir = /Applications/MATLAB_R2021a.app
-startdir = /Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile
+builddir = $root/build/glnxa64
+matlabdir = /usr/local/MATLAB/R2020a
+startdir = /home/arwel/Documents/RascalDev/RAT/tests/first AA dppc original data/compile
 
 # Toolchain information
-cc = /usr/bin/xcrun -sdk macosx10.15 clang
-cxx = /usr/bin/xcrun -sdk macosx10.15 clang++
-linker = /usr/bin/xcrun -sdk macosx10.15 clang
-linkerxx = /usr/bin/xcrun -sdk macosx10.15 clang++
+cc = gcc
+cxx = /bin/g++
+linker = gcc
+linkerxx = /bin/g++
 
-cflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c99 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=interpolateOnToZ_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I "$matlabdir/toolbox/eml/externalDependency/omp/maci64/include" -DOpenMP_omp_LIBRARY="$matlabdir/sys/os/maci64/libiomp5.dylib" 
+cflags =  -fexceptions -fPIC -fno-omit-frame-pointer -pthread -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c99 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=interpolateOnToZ_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="$matlabdir/sys/os/glnxa64/libiomp5.so" 
 
-cxxflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=interpolateOnToZ_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I "$matlabdir/toolbox/eml/externalDependency/omp/maci64/include" -DOpenMP_omp_LIBRARY="$matlabdir/sys/os/maci64/libiomp5.dylib" 
+cxxflags =  -fexceptions -fPIC -fno-omit-frame-pointer -pthread -std=c++11 -D_GNU_SOURCE -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=interpolateOnToZ_mex -DMW_NEEDS_VERSION_H -c -fopenmp -DOMPLIBNAME="$matlabdir/sys/os/glnxa64/libiomp5.so" 
 
-ldflags =  -Wl,-twolevel_namespace -undefined error -arch x86_64 -mmacosx-version-min=10.9 -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -framework Cocoa -bundle  -stdlib=libc++ -L"$matlabdir/bin/maci64" -lmx -lmex -lmat -L"$matlabdir/extern/bin/maci64" -lMatlabDataArray -lMatlabEngine  -Wl,-rpath,@loader_path -o interpolateOnToZ_mex.mexmaci64 -lemlrt -lcovrt -lut -lmwmathutil -fPIC -L"$matlabdir/sys/os/maci64" -liomp5
+ldflags =  -pthread -Wl,--no-undefined  -shared -Wl,--as-needed -Wl,-rpath-link,$matlabdir/bin/glnxa64 -L"$matlabdir/bin/glnxa64" -Wl,-rpath-link,$matlabdir/extern/bin/glnxa64 -L"$matlabdir/extern/bin/glnxa64" -lMatlabDataArray -lmx -lmex -lmat -lm -lstdc++  -o interpolateOnToZ_mex.mexa64 -lemlrt -lcovrt -lut -lmwmathutil -fPIC -L"$matlabdir/sys/os/glnxa64" -liomp5
 
 # Build Rules
 rule cc
@@ -34,8 +34,9 @@ rule linkxx
     command = $linkerxx $in $ldflags
 
 # Build
-build $builddir/interpolateOnToZ_data.o : cxx $root/interpolateOnToZ_data.cpp
 build $builddir/rt_nonfinite.o : cxx $root/rt_nonfinite.cpp
+build $builddir/interpolateOnToZ_mexutil.o : cxx $root/interpolateOnToZ_mexutil.cpp
+build $builddir/interpolateOnToZ_data.o : cxx $root/interpolateOnToZ_data.cpp
 build $builddir/interpolateOnToZ_initialize.o : cxx $root/interpolateOnToZ_initialize.cpp
 build $builddir/interpolateOnToZ_terminate.o : cxx $root/interpolateOnToZ_terminate.cpp
 build $builddir/interpolateOnToZ.o : cxx $root/interpolateOnToZ.cpp
@@ -48,4 +49,4 @@ build $builddir/_coder_interpolateOnToZ_info.o : cxx $root/interface/_coder_inte
 build $builddir/cpp_mexapi_version.o : cxx $matlabdir/extern/version/cpp_mexapi_version.cpp
 
 # Link
-build $root/interpolateOnToZ_mex.mexmaci64 : linkxx $builddir/interpolateOnToZ_data.o $builddir/rt_nonfinite.o $builddir/interpolateOnToZ_initialize.o $builddir/interpolateOnToZ_terminate.o $builddir/interpolateOnToZ.o $builddir/linspace.o $builddir/eml_int_forloop_overflow_check.o $builddir/interp1.o $builddir/_coder_interpolateOnToZ_api.o $builddir/_coder_interpolateOnToZ_mex.o $builddir/_coder_interpolateOnToZ_info.o $builddir/cpp_mexapi_version.o 
+build $root/interpolateOnToZ_mex.mexa64 : linkxx $builddir/rt_nonfinite.o $builddir/interpolateOnToZ_mexutil.o $builddir/interpolateOnToZ_data.o $builddir/interpolateOnToZ_initialize.o $builddir/interpolateOnToZ_terminate.o $builddir/interpolateOnToZ.o $builddir/linspace.o $builddir/eml_int_forloop_overflow_check.o $builddir/interp1.o $builddir/_coder_interpolateOnToZ_api.o $builddir/_coder_interpolateOnToZ_mex.o $builddir/_coder_interpolateOnToZ_info.o $builddir/cpp_mexapi_version.o 

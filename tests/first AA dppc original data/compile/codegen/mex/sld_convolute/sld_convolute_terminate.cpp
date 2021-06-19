@@ -1,27 +1,29 @@
 //
-// Non-Degree Granting Education License -- for use at non-degree
-// granting, nonprofit, educational organizations only. Not for
-// government, commercial, or other organizational use.
+//  Non-Degree Granting Education License -- for use at non-degree
+//  granting, nonprofit, educational organizations only. Not for
+//  government, commercial, or other organizational use.
 //
-// sld_convolute_terminate.cpp
+//  sld_convolute_terminate.cpp
 //
-// Code generation for function 'sld_convolute_terminate'
+//  Code generation for function 'sld_convolute_terminate'
 //
+
 
 // Include files
 #include "sld_convolute_terminate.h"
 #include "_coder_sld_convolute_mex.h"
 #include "rt_nonfinite.h"
+#include "sld_convolute.h"
 #include "sld_convolute_data.h"
 
 // Function Definitions
 void sld_convolute_atexit()
 {
-  emlrtStack st{
-      nullptr, // site
-      nullptr, // tls
-      nullptr  // prev
+  emlrtStack st = { NULL,              // site
+    NULL,                              // tls
+    NULL                               // prev
   };
+
   mexFunctionCreateRootTLS();
   st.tls = emlrtRootTLSGlobal;
   emlrtEnterRtStackR2012b(&st);
@@ -32,11 +34,11 @@ void sld_convolute_atexit()
 
 void sld_convolute_terminate()
 {
-  emlrtStack st{
-      nullptr, // site
-      nullptr, // tls
-      nullptr  // prev
+  emlrtStack st = { NULL,              // site
+    NULL,                              // tls
+    NULL                               // prev
   };
+
   st.tls = emlrtRootTLSGlobal;
   emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);

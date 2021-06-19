@@ -9,6 +9,7 @@
 cfg = coder.config('mex');
 cfg.GenerateReport = true;
 cfg.EnableJIT = true;
+cfg.EnableOpenMP = true;
 
 %% Define argument types for entry-point 'reflectivity_calculation'.
 ARGS = cell(1,1);

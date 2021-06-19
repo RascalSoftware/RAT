@@ -13,16 +13,16 @@ Parameters = {
         {'Alloy thick'          120,        135,        200,        true   };
         {'Allot SLD up'         5e-6,       9.9e-6,     11e-6,      true   };
         {'Alloy SLD down'       5e-6,       7e-6,       11e-6,      true   };
-        {'Alloy rough',         5,          7,          11,         true   };
+        {'Alloy rough',         1,          7,          11,         true   };
         {'Gold thick',          100,        153,        200,        true   };
-        {'Gold rough',          3,          9,          15,         true   };
+        {'Gold rough',          1,          9,          15,         true   };
         {'SAM tails thick',     10,         15,         21,         true   };
-        {'SAM tails SLD',       -0.5e-6,    -0.4e-6,    -0.1e-6,    true   };
+        {'SAM tails SLD',       -1e-6,    -0.4e-6,    -0.1e-6,    true   };
         {'SAM tails Coveraage', 0.8,        0.9,        1.0,        true   };
         {'SAM heads thick',     7,          11,         15,         true   };
-        {'SAM heads SLD',       1e-6,       1.7e-6,     2e-6,       true   };
+        {'SAM heads SLD',       1e-6,       1.7e-6,     3e-6,       true   };
         {'SAM heads coverage'   0.6,        0.7,        1.0,        true   };
-        {'SAM rough',           3,          7,          15,         true   };
+        {'SAM rough',           1,          7,          15,         true   };
         {'Bilayer Position'     25          45          90          true   };
         {'Bilayer Coverage'     0.8         0.99        1.0         true   };
         {'Bilayer Roughness'    0.1           6           9           true   };
@@ -137,15 +137,16 @@ controls = controlsDef();
 % Send this to RAT
 [problem,results] = RAT(problem,controls);
 
-% Plot the results....
-figure(1); clf
-plotRefSLD(problem,results);
-
-controls.procedure = 'bayes';
-controls.nsimu = 5000;
-controls.repeats = 3;
-[problem,results] = RAT(problem,controls);
-plotBayes(problem,results)
+% % Plot the results....
+% figure(1); clf
+% plotRefSLD(problem,results);
+% 
+% controls.procedure = 'bayes';
+% controls.nsimu = 5000;
+% controls.repeats = 3;
+% controls.parallel = 'contrasts';
+% [problem,results] = RAT(problem,controls);
+% plotBayes(problem,results)
 
 
 

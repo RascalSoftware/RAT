@@ -3,9 +3,9 @@
 //  granting, nonprofit, educational organizations only. Not for
 //  government, commercial, or other organizational use.
 //
-//  interp1.h
+//  sld_convolute_mexutil.h
 //
-//  Code generation for function 'interp1'
+//  Code generation for function 'sld_convolute_mexutil'
 //
 
 
@@ -20,12 +20,12 @@
 #include "emlrt.h"
 #include "rtwtypes.h"
 #include "omp.h"
-#include "interpolateOnToZ_types.h"
+#include "sld_convolute_types.h"
 #define MAX_THREADS                    omp_get_max_threads()
 
 // Function Declarations
-void interp1(const emlrtStack *sp, const coder::array<real_T, 1U> &varargin_1,
-             const coder::array<real_T, 1U> &varargin_2, const coder::array<
-             real_T, 2U> &varargin_3, coder::array<real_T, 2U> &Vq);
+CODEGEN_EXPORT_SYM emlrtCTX emlrtGetRootTLSGlobal();
+CODEGEN_EXPORT_SYM void emlrtLockerFunction(EmlrtLockeeFunction aLockee, const
+  emlrtConstCTX aTLS, void *aData);
 
-// End of code generation (interp1.h)
+// End of code generation (sld_convolute_mexutil.h)

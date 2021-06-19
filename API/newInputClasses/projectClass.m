@@ -35,9 +35,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     end
     
     methods
+
         function obj = projectClass(name)
-            
             % Class constructor
+            
             obj.experimentName = name;
             obj.Geometry = 'air/substrate';
             

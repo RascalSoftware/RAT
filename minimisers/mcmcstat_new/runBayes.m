@@ -55,7 +55,7 @@ options.waitbar     = 1;               % show graphical waitbar
 options.updatesigma = 0;               % update error variance
 options.stats       = 1;               % save extra statistics in result
 options.burnintime  = burnin;          % burn in time..
-options.ntry = 1;
+options.ntry = 2;
 
 results = [];
 loop = int32(loop);

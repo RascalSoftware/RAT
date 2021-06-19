@@ -1,0 +1,92 @@
+[
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sld_convolute_data.cpp -o build/maci64/sld_convolute_data.o",
+    "file": "sld_convolute_data.cpp",
+    "output": "build/maci64/sld_convolute_data.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  rt_nonfinite.cpp -o build/maci64/rt_nonfinite.o",
+    "file": "rt_nonfinite.cpp",
+    "output": "build/maci64/rt_nonfinite.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sld_convolute_initialize.cpp -o build/maci64/sld_convolute_initialize.o",
+    "file": "sld_convolute_initialize.cpp",
+    "output": "build/maci64/sld_convolute_initialize.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sld_convolute_terminate.cpp -o build/maci64/sld_convolute_terminate.o",
+    "file": "sld_convolute_terminate.cpp",
+    "output": "build/maci64/sld_convolute_terminate.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sld_convolute.cpp -o build/maci64/sld_convolute.o",
+    "file": "sld_convolute.cpp",
+    "output": "build/maci64/sld_convolute.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  linspace.cpp -o build/maci64/linspace.o",
+    "file": "linspace.cpp",
+    "output": "build/maci64/linspace.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  eml_int_forloop_overflow_check.cpp -o build/maci64/eml_int_forloop_overflow_check.o",
+    "file": "eml_int_forloop_overflow_check.cpp",
+    "output": "build/maci64/eml_int_forloop_overflow_check.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  interp1.cpp -o build/maci64/interp1.o",
+    "file": "interp1.cpp",
+    "output": "build/maci64/interp1.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sum.cpp -o build/maci64/sum.o",
+    "file": "sum.cpp",
+    "output": "build/maci64/sum.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sumMatrixIncludeNaN.cpp -o build/maci64/sumMatrixIncludeNaN.o",
+    "file": "sumMatrixIncludeNaN.cpp",
+    "output": "build/maci64/sumMatrixIncludeNaN.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  anyNonFinite.cpp -o build/maci64/anyNonFinite.o",
+    "file": "anyNonFinite.cpp",
+    "output": "build/maci64/anyNonFinite.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  interface/_coder_sld_convolute_api.cpp -o build/maci64/_coder_sld_convolute_api.o",
+    "file": "interface/_coder_sld_convolute_api.cpp",
+    "output": "build/maci64/_coder_sld_convolute_api.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  interface/_coder_sld_convolute_mex.cpp -o build/maci64/_coder_sld_convolute_mex.o",
+    "file": "interface/_coder_sld_convolute_mex.cpp",
+    "output": "build/maci64/_coder_sld_convolute_mex.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  interface/_coder_sld_convolute_info.cpp -o build/maci64/_coder_sld_convolute_info.o",
+    "file": "interface/_coder_sld_convolute_info.cpp",
+    "output": "build/maci64/_coder_sld_convolute_info.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile/codegen/mex/sld_convolute",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.9 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/gwaith/MD_bilayers_work/ALC collaboration/Fits/first AA dppc original data/compile\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=sld_convolute_mex -DMW_NEEDS_VERSION_H -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  /Applications/MATLAB_R2021a.app/extern/version/cpp_mexapi_version.cpp -o build/maci64/cpp_mexapi_version.o",
+    "file": "/Applications/MATLAB_R2021a.app/extern/version/cpp_mexapi_version.cpp",
+    "output": "build/maci64/cpp_mexapi_version.o"
+  }
+]

@@ -57,7 +57,7 @@ end
 loop = controls.repeats;
 nsimu =  controls.nsimu;
 burnin = controls.burnin;
-adaptint = 100;%controls.adaptint;
+adaptint = 10;%controls.adaptint;
 
 problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 

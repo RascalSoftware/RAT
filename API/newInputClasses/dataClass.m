@@ -169,7 +169,7 @@ classdef dataClass < handle
             end
             
             if ~isempty(results.simRange)
-                obj.setSimRange(whichData,results.dataRange);
+                obj.setSimRange(whichData,results.simRange);
             end
 
         end

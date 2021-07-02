@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of sldFunc</title>
+  <meta name="keywords" content="sldFunc">
+  <meta name="description" content="sldVal = sldFunc(x,SLD)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # common --><!-- menu.html resampleLayers -->
+<h1>sldFunc
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>sldVal = sldFunc(x,SLD)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function sldVal = sldFunc(x,SLD) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> sldVal = sldFunc(x,SLD)
+ SLD = [x rho;....xn rho]
+   x = value in Angstrom.
+
+ This function returns the SLD (y) value associated with the
+ supplied value of x. SLD is a two column, XY array defining an
+ SLD profile. This function interpolates the SLD profile
+ to return the SLD at the specific value of X. X can be a vector of
+ multiple points.
+
+ (c) Arwel Hughes 2019.
+ Last modified - AVH, 26/11/19.
+ global sldProfile
+ 
+ SLD = sldProfile;</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="adaptive.html" class="code" title="function out = adaptive_new(sldProfile, startDomain, varargin)">adaptive</a>	% adaptive: evaluates a matlab function on a given range</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function sldVal = sldFunc(x,SLD)</a>
+0002 
+0003 <span class="comment">% sldVal = sldFunc(x,SLD)</span>
+0004 <span class="comment">% SLD = [x rho;....xn rho]</span>
+0005 <span class="comment">%   x = value in Angstrom.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This function returns the SLD (y) value associated with the</span>
+0008 <span class="comment">% supplied value of x. SLD is a two column, XY array defining an</span>
+0009 <span class="comment">% SLD profile. This function interpolates the SLD profile</span>
+0010 <span class="comment">% to return the SLD at the specific value of X. X can be a vector of</span>
+0011 <span class="comment">% multiple points.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% (c) Arwel Hughes 2019.</span>
+0014 <span class="comment">% Last modified - AVH, 26/11/19.</span>
+0015 <span class="comment">% global sldProfile</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% SLD = sldProfile;</span>
+0018 
+0019 <span class="comment">%SLD = getappdata(0,'sldFuncSLD');</span>
+0020 
+0021 z = SLD(:,1);
+0022 rho = SLD(:,2);
+0023 
+0024 where = find(z == x);
+0025 
+0026 <span class="keyword">if</span> ~isempty(where)
+0027     sldVal = rho(where);
+0028 <span class="keyword">else</span>
+0029     belowVals = find(x &gt; z);
+0030     aboveVals = find(x &lt; z);
+0031     below = belowVals(end);
+0032     above = aboveVals(1);
+0033     
+0034     belowY = rho(below);
+0035     aboveY = rho(above);
+0036     
+0037     yDiff = abs(aboveY-belowY);
+0038     xDiff = z(above) - z(below);
+0039     
+0040     tanTheta = yDiff/xDiff;
+0041     
+0042     deltaX = x - z(below);
+0043     deltaY = deltaX * tanTheta;
+0044     
+0045     <span class="keyword">if</span> belowY &lt; aboveY
+0046         sldVal = belowY + deltaY;
+0047     <span class="keyword">else</span>
+0048         sldVal = belowY - deltaY;
+0049     <span class="keyword">end</span>
+0050     
+0051     <span class="comment">%sldVal = interp1(z,rho,x);</span>
+0052 <span class="keyword">end</span>
+0053 
+0054</pre></div>
+<hr><address>Generated on Fri 25-Jun-2021 13:32:14 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

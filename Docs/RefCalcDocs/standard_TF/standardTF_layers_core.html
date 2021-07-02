@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of standardTF_layers_core</title>
+  <meta name="keywords" content="standardTF_layers_core">
+  <meta name="description" content="This is the main reflectivity calculation for all Layers models in the">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html standard_TF -->
+<h1>standardTF_layers_core
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>This is the main reflectivity calculation for all Layers models in the</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">   This is the main reflectivity calculation for all Layers models in the 
+   standard target function. 
+
+   The function first arranges the 
+   roughness' in the correct order according
+   to geometry. Then, if required it calculates the SLD profile and if
+   requested resamples this into a number of zero-roughness layers
+   (roughness resampling). It the applies any scalefactors and qz shifts
+   the data requires. This is done before calculating the reflectivity to
+   ensure that the reflectivity is calculated over the same range in qz as
+   the shifted datapoints. The main reflectivity calculation is then
+   called, including the resolution function. The calculation outputs two
+   profiles - 'reflect' which is the same range as the points, and
+   'Simulation' which can be a different range to allow extrapolation.
+   The background correction is the applied, and finally chi-squared is 
+   calculated.
+
+ Inputs:
+   contrastLayers  :
+   rough           :
+   geometry        :
+   nba             :
+   nbs             :
+   resample        :
+   calcSld         :
+   sf              :
+   qshift          :
+   dataPresent     :
+   data            :
+   dataLimits      :
+   simLimits       :
+   repeatLayers    :
+   background      :
+   resol           :
+   backsType       :
+   params          :
+   paralellPoints  :
+
+ Outputs:
+
+
+
+ ------------------------------------------------------------------------
+
+       (c) Arwel Hughes  -   12/1/21
+
+       Last Modified: 12/1/21 by Arwel Hughes.
+
+ ------------------------------------------------------------------------</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>	</li><li><a href="../common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>	nbairs = problem.nbairs;</li><li><a href="../common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	chi_squared(func,data,numparams,errors)</li><li><a href="../common/groupLayers/groupLayers_Mod.html" class="code" title="function [outLayers, outSsubs] = groupLayers_Mod(allLayers,allRoughs,geometry,nbair,nbsubs)">groupLayers_Mod</a>	Arrange layers according to geometry and apply any coverage correction.</li><li><a href="../common/makeSLDProfiles/makeSLDProfiles.html" class="code" title="function sldProfile= makeSLDProfiles(nbair,nbsub,sld,ssub,repeats)">makeSLDProfiles</a>	</li><li><a href="../common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile)">resampleLayers</a>	Function handle for adaptive resampling</li><li><a href="../common/shiftData/shiftdata.html" class="code" title="function shifted_data = shiftdata(scalefac,horshift,dataPresent,data,dataLimits,simLimits)">shiftdata</a>	Shifts the data according to scale factor. If there is no data, makes</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../standard_TF/standardTF_custLay/standardTF_custlay_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_paraContrasts</a>	Multi threaded version of the custom layers over reflectivity contrasts</li><li><a href="../standard_TF/standardTF_custLay/standardTF_custlay_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_paraPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li><li><a href="../standard_TF/standardTF_custLay/standardTF_custlay_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_single(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_single</a>	Single threaded version of the custom layers, standardTF reflectivity</li><li><a href="../standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraAll(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_paraAll</a>	Extract individual cell arrays</li><li><a href="../standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_paraContrasts</a>	Standard Layers calculation paralelised over the outer loop</li><li><a href="../standard_TF/standardTF_stanLay/standardTF_stanlay_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_paraPoints</a>	Standard Layers calculation paralelised over the inner loop</li><li><a href="../standard_TF/standardTF_stanLay/standardTF_stanlay_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_single(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_single</a>	Single theraded version of the Standard Layers calculation</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] = </a><span class="keyword">...</span>
+0002     standardTF_layers_core(contrastLayers, rough, <span class="keyword">...</span>
+0003     geometry, nba, nbs, resample, calcSld, sf, qshift,<span class="keyword">...</span>
+0004     dataPresent, data, dataLimits, simLimits, repeatLayers,<span class="keyword">...</span>
+0005     background,resol,backsType,params,paralellPoints)
+0006 
+0007 <span class="comment">%   This is the main reflectivity calculation for all Layers models in the</span>
+0008 <span class="comment">%   standard target function.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%   The function first arranges the</span>
+0011 <span class="comment">%   roughness' in the correct order according</span>
+0012 <span class="comment">%   to geometry. Then, if required it calculates the SLD profile and if</span>
+0013 <span class="comment">%   requested resamples this into a number of zero-roughness layers</span>
+0014 <span class="comment">%   (roughness resampling). It the applies any scalefactors and qz shifts</span>
+0015 <span class="comment">%   the data requires. This is done before calculating the reflectivity to</span>
+0016 <span class="comment">%   ensure that the reflectivity is calculated over the same range in qz as</span>
+0017 <span class="comment">%   the shifted datapoints. The main reflectivity calculation is then</span>
+0018 <span class="comment">%   called, including the resolution function. The calculation outputs two</span>
+0019 <span class="comment">%   profiles - 'reflect' which is the same range as the points, and</span>
+0020 <span class="comment">%   'Simulation' which can be a different range to allow extrapolation.</span>
+0021 <span class="comment">%   The background correction is the applied, and finally chi-squared is</span>
+0022 <span class="comment">%   calculated.</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">% Inputs:</span>
+0025 <span class="comment">%   contrastLayers  :</span>
+0026 <span class="comment">%   rough           :</span>
+0027 <span class="comment">%   geometry        :</span>
+0028 <span class="comment">%   nba             :</span>
+0029 <span class="comment">%   nbs             :</span>
+0030 <span class="comment">%   resample        :</span>
+0031 <span class="comment">%   calcSld         :</span>
+0032 <span class="comment">%   sf              :</span>
+0033 <span class="comment">%   qshift          :</span>
+0034 <span class="comment">%   dataPresent     :</span>
+0035 <span class="comment">%   data            :</span>
+0036 <span class="comment">%   dataLimits      :</span>
+0037 <span class="comment">%   simLimits       :</span>
+0038 <span class="comment">%   repeatLayers    :</span>
+0039 <span class="comment">%   background      :</span>
+0040 <span class="comment">%   resol           :</span>
+0041 <span class="comment">%   backsType       :</span>
+0042 <span class="comment">%   params          :</span>
+0043 <span class="comment">%   paralellPoints  :</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">% Outputs:</span>
+0046 <span class="comment">%</span>
+0047 <span class="comment">%</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">% ------------------------------------------------------------------------</span>
+0050 <span class="comment">%</span>
+0051 <span class="comment">%       (c) Arwel Hughes  -   12/1/21</span>
+0052 <span class="comment">%</span>
+0053 <span class="comment">%       Last Modified: 12/1/21 by Arwel Hughes.</span>
+0054 <span class="comment">%</span>
+0055 <span class="comment">% ------------------------------------------------------------------------</span>
+0056 
+0057 <span class="comment">% Bulid up the layers matrix for this contrast</span>
+0058 [theseLayers, ssubs] = <a href="../common/groupLayers/groupLayers_Mod.html" class="code" title="function [outLayers, outSsubs] = groupLayers_Mod(allLayers,allRoughs,geometry,nbair,nbsubs)">groupLayers_Mod</a>(contrastLayers,rough,geometry,nba,nbs);
+0059 
+0060 <span class="comment">% Make the SLD profiles.</span>
+0061 <span class="comment">% If resampling is needed, then enforce the calcSLD flag, so as to catch</span>
+0062 <span class="comment">% the error af trying to resample a non-existent profile.</span>
+0063 <span class="keyword">if</span> (resample == 1 &amp;&amp; calcSld == 0)
+0064     calcSld = 1;
+0065 <span class="keyword">end</span>
+0066 
+0067 <span class="comment">% If cal SLD flag is set, then calculate the SLD profile</span>
+0068 <span class="keyword">if</span> calcSld == 1
+0069     sldProfile = <a href="../common/makeSLDProfiles/makeSLDProfiles.html" class="code" title="function sldProfile= makeSLDProfiles(nbair,nbsub,sld,ssub,repeats)">makeSLDProfiles</a>(nba,nbs,theseLayers,ssubs,repeatLayers);
+0070 <span class="keyword">else</span>
+0071     sldProfile = [0 0 0];
+0072 <span class="keyword">end</span>
+0073 
+0074 <span class="comment">% If required, then resample the SLD</span>
+0075 <span class="keyword">if</span> resample == 1
+0076     layerSld = <a href="../common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile)">resampleLayers</a>(sldProfile);
+0077 <span class="keyword">else</span>
+0078     layerSld = theseLayers;
+0079 <span class="keyword">end</span>
+0080 
+0081 <span class="comment">% Apply scale factors and q shifts to the data</span>
+0082 shifted_dat = <a href="../common/shiftData/shiftdata.html" class="code" title="function shifted_data = shiftdata(scalefac,horshift,dataPresent,data,dataLimits,simLimits)">shiftdata</a>(sf,qshift,dataPresent,data,dataLimits,simLimits);
+0083 
+0084 <span class="comment">% Calculate the reflectivity</span>
+0085 reflectivityType = <span class="string">'standardAbeles_realOnly'</span>;
+0086 [reflect,Simul] = <a href="../common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,paralellPoints,reflectivityType);
+0087 
+0088 <span class="comment">% Apply background correction, either to the simulation or the data</span>
+0089 [reflect,Simul,shifted_dat] = <a href="../common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>(reflect,Simul,shifted_dat,background,backsType);
+0090 
+0091 <span class="comment">% Calculate chi squared.</span>
+0092 chiSq = <a href="../common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shifted_dat,reflect,params);
+0093 
+0094 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Fri 25-Jun-2021 13:32:14 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

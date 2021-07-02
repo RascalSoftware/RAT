@@ -1,0 +1,15 @@
+function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers)
+
+% Decide which layers are needed fro a particular contrast
+% Thsi function takes the master array of all layers
+% and extracts array of real valued layers 
+
+
+thisContrastLayers = zeros(length(contrastLayers),5);
+
+for i = 1:length(contrastLayers)
+    thisLayer = outParameterisedLayers{contrastLayers(i)};
+    thisContrastLayers(i,:) = thisLayer;
+end
+
+end

@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of standardTF_stanlay_paraContrasts</title>
+  <meta name="keywords" content="standardTF_stanlay_paraContrasts">
+  <meta name="description" content="Standard Layers calculation paralelised over the outer loop">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html standard_TF --><!-- menu.html standardTF_stanLay -->
+<h1>standardTF_stanlay_paraContrasts
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Standard Layers calculation paralelised over the outer loop</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Standard Layers calculation paralelised over the outer loop
+ This is the main reflectivity calculation of the standard layers
+ calculation type. It extracts the required paramters for the contrasts
+ from the input arrays, then passes the main calculation to
+ 'standardLayersCore', which carries out the calculation iteslf. 
+ The core calculation is common for both standard and custom layers.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts.</li><li><a href="../../common/groupLayers/allocateLayersForContrast.html" class="code" title="function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers)">allocateLayersForContrast</a>	Decide which layers are needed for a particular contrast</li><li><a href="../../common/groupLayers/allocateParamsToLayers.html" class="code" title="function outLayers = allocateParamsToLayers(params, layersDetails);">allocateParamsToLayers</a>	Allocates parameters from the parameter array to the correct layers</li><li><a href="../../standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints)">standardTF_layers_core</a>	This is the main reflectivity calculation for all Layers models in the</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../standard_TF/standardTF_stanLay_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_stanLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanLay_reflectivityCalculation</a>	Standard layers reflectivity calculation for standardTF</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 
+0002 <a name="_sub0" href="#_subfunctions" class="code">function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,</a><span class="keyword">...</span>
+0003     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0004     allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,<span class="keyword">...</span>
+0005     problemDef_limits,controls)
+0006 
+0007 <span class="comment">% Standard Layers calculation paralelised over the outer loop</span>
+0008 <span class="comment">% This is the main reflectivity calculation of the standard layers</span>
+0009 <span class="comment">% calculation type. It extracts the required paramters for the contrasts</span>
+0010 <span class="comment">% from the input arrays, then passes the main calculation to</span>
+0011 <span class="comment">% 'standardLayersCore', which carries out the calculation iteslf.</span>
+0012 <span class="comment">% The core calculation is common for both standard and custom layers.</span>
+0013 
+0014 <span class="comment">% Extract individual cell arrays</span>
+0015 [repeatLayers,<span class="keyword">...</span>
+0016  allData,<span class="keyword">...</span>
+0017  dataLimits,<span class="keyword">...</span>
+0018  simLimits,<span class="keyword">...</span>
+0019  contrastLayers,<span class="keyword">...</span>
+0020  layersDetails] = RAT_parse_cells(problemDef_cells);
+0021 
+0022 <span class="comment">% Extract individual parameters from problemDef</span>
+0023 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,<span class="keyword">...</span>
+0024 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,<span class="keyword">...</span>
+0025 numberOfLayers, resample, backsType] =  extractProblemParams(problemDef);
+0026 
+0027 calcSld = controls.calcSld;    
+0028 
+0029 <span class="comment">% Allocate the memory for the output arrays before the main loop</span>
+0030 <span class="comment">%   --- Begin memory allocation ---</span>
+0031 backgs = zeros(numberOfContrasts,1);
+0032 qshifts = zeros(numberOfContrasts,1);
+0033 sfs = zeros(numberOfContrasts,1);
+0034 nbas = zeros(numberOfContrasts,1);
+0035 nbss = zeros(numberOfContrasts,1);
+0036 resols = zeros(numberOfContrasts,1);
+0037 allRoughs = zeros(numberOfContrasts,1);
+0038 outSsubs = zeros(numberOfContrasts,1);
+0039 chis =  zeros(numberOfContrasts,1);
+0040 layerSlds = cell(numberOfContrasts,1);
+0041 sldProfiles = cell(numberOfContrasts,1);
+0042 shifted_data = cell(numberOfContrasts,1);
+0043 
+0044 reflectivity = cell(numberOfContrasts,1);
+0045 <span class="keyword">for</span> i = 1:numberOfContrasts
+0046     reflectivity{i} = [1 1 ; 1 1];
+0047 <span class="keyword">end</span>
+0048 
+0049 Simulation = cell(numberOfContrasts,1);
+0050 <span class="keyword">for</span> i = 1:numberOfContrasts
+0051     Simulation{i} = [1 1 ; 1 1];
+0052 <span class="keyword">end</span>
+0053 
+0054 allLayers = cell(numberOfContrasts,1);
+0055 <span class="keyword">for</span> i = 1:numberOfContrasts
+0056     allLayers{i} = [1 ; 1];
+0057 <span class="keyword">end</span>
+0058 <span class="comment">%   --- End memory allocation ---</span>
+0059 
+0060 
+0061 <span class="comment">% First we need to allocate the absolute values of the input</span>
+0062 <span class="comment">% parameters to all the layers in the layers list. This only needs</span>
+0063 <span class="comment">% to be done once, and so is done outside the contrasts loop</span>
+0064 outParameterisedLayers = <a href="../../common/groupLayers/allocateParamsToLayers.html" class="code" title="function outLayers = allocateParamsToLayers(params, layersDetails);">allocateParamsToLayers</a>(params, layersDetails);
+0065 
+0066 <span class="comment">% Parallel Loop over all the contrasts</span>
+0067 parfor i = 1:numberOfContrasts
+0068     
+0069     <span class="comment">% Extract the relevant parameter values for this contrast</span>
+0070     <span class="comment">% from the input arrays.</span>
+0071     <span class="comment">% First need to decide which values of the backrounds, scalefactors</span>
+0072     <span class="comment">% data shifts and bulk contrasts are associated with this contrast</span>
+0073     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = <a href="../../common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+0074     
+0075     <span class="comment">% Also need to determine which layers from the overall layers list</span>
+0076     <span class="comment">% are required for this contrast, and put them in the correct order</span>
+0077     <span class="comment">% according to geometry</span>
+0078     thisContrastLayers = <a href="../../common/groupLayers/allocateLayersForContrast.html" class="code" title="function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers)">allocateLayersForContrast</a>(contrastLayers{i},outParameterisedLayers);
+0079     
+0080     <span class="comment">% For the other parameters, we extract the correct ones from the input</span>
+0081     <span class="comment">% arrays</span>
+0082     thisRough = params(1);      <span class="comment">% Substrate roughness is always first parameter for standard layers</span>
+0083     thisRepeatLayers = repeatLayers{i};
+0084     thisResample = resample(i);
+0085     thisCalcSld = calcSld;
+0086     thisData = allData{i};
+0087     thisDataPresent = dataPresent(i);
+0088     thisDataLimits = dataLimits{i};
+0089     thisSimLimits = simLimits{i};
+0090     thisBacksType = backsType(i);
+0091     
+0092     <span class="comment">% Now call the core standardTF_stanlay reflectivity calculation</span>
+0093     <span class="comment">% In this case we are single cored  over points.</span>
+0094     paralellPoints = <span class="string">'single'</span>;
+0095     
+0096     <span class="comment">% Call the calculation</span>
+0097     [sldProfile,reflect,Simul,shifted_dat,layerSld,<span class="keyword">...</span>
+0098         thisChiSquared,thisSsubs] = <a href="../../standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints)">standardTF_layers_core</a>(thisContrastLayers, thisRough, <span class="keyword">...</span>
+0099     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,<span class="keyword">...</span>
+0100     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
+0101     thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
+0102    
+0103     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
+0104     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
+0105     <span class="comment">% the other values (background, scalefactors etc) for each contrast</span>
+0106     <span class="comment">% for future use.</span>
+0107     outSsubs(i) = thisSsubs;
+0108     sldProfiles{i} = sldProfile;
+0109     reflectivity{i} = reflect;
+0110     Simulation{i} = Simul;
+0111     shifted_data{i} = shifted_dat;
+0112     layerSlds{i} = layerSld;
+0113     chis(i) = thisChiSquared;
+0114     backgs(i) = thisBackground;
+0115     qshifts(i) = thisQshift;
+0116     sfs(i) = thisSf;
+0117     nbas(i) = thisNba;
+0118     nbss(i) = thisNbs;
+0119     resols(i) = thisResol;
+0120     allRoughs(i) = thisRough;
+0121 <span class="keyword">end</span>
+0122 
+0123 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Fri 25-Jun-2021 13:32:14 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

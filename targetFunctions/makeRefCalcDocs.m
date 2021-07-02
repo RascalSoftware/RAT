@@ -3,6 +3,8 @@
 addpath('/Users/arwel/Documents/coding/RAT/Docs/m2html');
 
 rootDir = '/Users/arwel/Documents/coding/RAT/targetFunctions';
+ratRoot = '/Users/arwel/Documents/coding/RAT';
+
 dirs = {fullfile(rootDir,'common');
     fullfile('common','backSorts');
     fullfile('common','callReflectivity');
@@ -24,7 +26,8 @@ dirs = {fullfile(rootDir,'common');
     %fullfile('standard_TF','standardTF_custXY'); 
     };
 
-m2html('mfiles',dirs,'htmldir',docDir,'recursive','on','global','on',... 
+docDir = fullfile(ratRoot,'Docs','RefCalcDocs');
+m2html_modified('mfiles',dirs,'htmldir',docDir,'recursive','on','global','on',... 
           'template','frame', 'index','menu','graph','on','source','on');
 
 

@@ -40,7 +40,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
 
 docDir = fullfile(ratRoot,'reflectivity_calculation''Docs','reflectivityCalcDocs');
 
-m2html('mfiles',ratPaths,'htmldir',docDir, 'recursive','on', 'global','on',... 
+m2html_modified('mfiles',ratPaths,'htmldir',docDir, 'recursive','on', 'global','on',... 
           'template','frame', 'index','menu','graph','on','source','on');
 
 

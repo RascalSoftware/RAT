@@ -1,8 +1,11 @@
 function outLayers = allocateParamsToLayers(params, layersDetails);
 
-%This function takes the list of all layers (in terms of parameter
-%numbers) in layersDetails, and loops through putting in the correct
-%parameter value from the parameter array in each layer. 
+% Allocates parameters from the parameter array to the correct layers
+%
+% This function takes the list of all layers in 'layersDetails', 
+% then loops over all the layers, putting in the correct
+% parameter value from the parameters array into each layer in
+% the 'outLayers' cell array
 
 numberOfLayers = length(layersDetails);
 thisOutLayer = zeros(1,5);

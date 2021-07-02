@@ -95,6 +95,14 @@ classdef resolutionsClass < handle
             disp('Todo');
         end
         
+        function obj = setResolPar(obj, varargin)
+           % General purpose backPar set using name / value pairs
+           obj.resolPars.setParameter(varargin{:});
+            
+        end
+        
+        
+        
         % ---------------------------------------------------------
          
         function obj = addResolution(obj,varargin)

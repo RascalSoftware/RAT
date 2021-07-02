@@ -1,13 +1,14 @@
 function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_stanLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
 
 % Standard layers reflectivity calculation for standardTF
-
 % This function decides on parallelisation options before calling the
-% relevant version ofthe main standard layers calculation. It is more
-% efficient to have multiple versions of the core calculation, each dealing
-% with a different scheme for paralellisation. There are:
+% relevant version ofthe main standard layers calculation. Parallelisation 
+% is either over the outer loop ('contrasts'), or the inner loop
+% ('points'). The easiest way to do this is to have multiple versions of 
+% the same core calculation, rather than trying to make the paralell
+% for loops conditional (although that would be much neater) There are:
 % points    - parallelise over points in the reflectivity calculation
-% contrasts - parallelise over contrasts.
+% contrasts - parallelise over contrasts (outer for loop)
 
 
 % Pre-allocation - It's necessary to
@@ -54,6 +55,8 @@ allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
+% ------- End memory allocation -------------
+
 
 para = controls.para;
 
@@ -76,11 +79,11 @@ switch para
              allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,...
              problemDef_limits,controls);        
         
-    case 'all'
-          [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = standardTF_stanlay_paraAll(problemDef,problemDef_cells,...
-             problemDef_limits,controls); 
+%     case 'all'
+%           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+%              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+%              allRoughs] = standardTF_stanlay_paraAll(problemDef,problemDef_cells,...
+%              problemDef_limits,controls); 
 end
 
 problem.ssubs = outSsubs;
@@ -95,3 +98,4 @@ problem.calculations.sum_chi = sum(chis);
 problem.allSubRough = allRoughs;
 
 end
+

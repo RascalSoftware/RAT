@@ -40,9 +40,11 @@ for i = 1:length(nbsubs)
 end
 
 %(5) Resolutions
-% resol = outProblemStruct.res;
-% 
-% outProblemDef.resolutions = resol;
+resol = outProblemStruct.res;
+for i = 1:length(resol)
+    outProblemDef.setResolPar(1,'value',resol(i));
+end
+
 
 % resolNames = problemDef_cells{13};
 % outProblemDef.resolutionNames = resolNames;

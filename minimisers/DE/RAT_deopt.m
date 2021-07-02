@@ -99,10 +99,6 @@ coder.varsize('FVr_bestmemit',[1 2],[0 0]);
 stopflag = 0;
 I_best_index = 1;      
 
-
-%S_val = [0 0];
-disp('***Starting Differential Evolution***');
-
 I_NP         = S_struct.I_NP;
 F_weight     = S_struct.F_weight;
 F_CR         = S_struct.F_CR;
@@ -337,7 +333,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
 %----Output section----------------------------------------------------------
 
   if (I_refresh > 0)
-     if ((rem(I_iter,I_refresh) == 0) | I_iter == 1)
+     if ((rem(I_iter,I_refresh) == 0) | I_iter == 1) && strcmpi(controls.display,'iter')
        fprintf('Iteration: %d,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %d\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP);
        %disp(S_bestval);
        %var(FM_pop)
@@ -358,6 +354,8 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
       I_iter = I_itermax + 1;
   end
 end %---end while ((I_iter < I_itermax) ...
+
+
 
 % problemDef.fitpars = x;
 % problemDef = unpackparams(problemDef,controls);

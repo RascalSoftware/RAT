@@ -29,19 +29,29 @@ switch action
         [problem,results] = singleCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
         outProblemDef = problemDef;
     case 'simplex'
-        fprintf('\nRunning Sinplex \n');
+        if ~strcmpi(controls.display,'off')
+            fprintf('\nRunning simplex\n\n');
+        end
         [outProblemDef,problem,results] = runSimplex(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'DE'
+        if ~strcmpi(controls.display,'off')
+            fprintf('\nRunning Differential Evolution\n\n');
+        end
         [outProblemDef,problem,results] = runDE(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'bayes'
-        fprintf('\nRunning DRAM \n\n');
+        if ~strcmpi(controls.display,'off')
+            fprintf('\nRunning DRAM\n\n');
+        end        
         [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls);
 %         [best, intervals, posteriors] = calcMCMCstatRefErrors(bayesResults,outProblemDef,problemDef_cells,problemDef_limits,controls);
 %         bayesResults.best = best;
 %         bayesResults.posteriors = posteriors;
 %         bayesResults.intervals = intervals;
     case 'NS'
-        [outProblemDef,results] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
+        if ~strcmpi(controls.display,'off')
+            fprintf('\nRunning Nested Sampler\n\n');
+        end            
+        [outProblemDef,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
 end
 
 %disp('debug');

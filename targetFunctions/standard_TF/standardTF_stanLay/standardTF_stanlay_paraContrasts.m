@@ -4,6 +4,12 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,...
     problemDef_limits,controls)
 
+% Standard Layers calculation paralelised over the outer loop
+% This is the main reflectivity calculation of the standard layers
+% calculation type. It extracts the required paramters for the contrasts
+% from the input arrays, then passes the main calculation to
+% 'standardLayersCore', which carries out the calculation iteslf. 
+% The core calculation is common for both standard and custom layers.
 
 % Extract individual cell arrays
 [repeatLayers,...

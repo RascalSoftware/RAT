@@ -27,7 +27,6 @@ Parameters = {
         {'Bilayer tails thick', 10,         15,         20,     true    };
         {'Bilayer tails SLD',   -5e07,      -4e-7,      -1e-7,   false   };
         {'Bilayer tails hydr',  0,          10,         20,     true   };
-
         };
     
     
@@ -122,7 +121,7 @@ problem.addContrast('name','Bilayer / D2O',...
     'data', 'Bilayer / D2O');
 
 % Set the model
-problem.setContrast(1,'model', {'Oxide Layer',...
+problem.setContrastModel(1,{'Oxide Layer',...
               'Sam Tails',...
               'Sam heads',...
               'Central water',...
@@ -139,7 +138,7 @@ problem.addContrast('name','Bilayer / SMW',...
     'nba', 'Silicon',...
     'data', 'Bilayer / SMW');
 
-problem.setContrast(2,'model', {'Oxide Layer',...
+problem.setContrastModel(2,{'Oxide Layer',...
               'Sam Tails',...
               'Sam heads',...
               'Central water',...
@@ -159,12 +158,24 @@ problem.setBulkOut(2,'fit',true);
 problem
 
 controls = controlsDef;
-controls.procedure = 'bayes';
-controls.calcSldDuringFit = 'no';
-controls.nsimu = 4000;
-controls.repeats = 1;
-controls.parallel = 'single';
-%[outProb,results] = RAT(problem,controls);
+[problem,results] = RAT(problem,controls);
+clf;plotRefSLD(problem,results);
+
+
+
+% controls.procedure = 'simplex';
+% controls.calcSldDuringFit = 'no';
+% controls.maxIter = 1000;
+% % controls.repeats = 1;
+% controls.parallel = 'single';
+% controls.display = 'final';
+% 
+% % Run the simplex 4 times
+% for i = 1:4
+%     [problem,results] = RAT(problem,controls);
+% end
+% 
+% clf;plotRefSLD(problem,results);
 
 % controls.procedure = 'simplex';
 % [problem,results] = RAT(problem,controls);

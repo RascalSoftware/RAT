@@ -105,6 +105,9 @@ problemDef.fitpars = res;
 problemDef = unpackparams(problemDef,controls);
 [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
+if ~strcmpi(controls.display,'off')
+    fprintf('Final chi squared is %d\n',problem.calculations.sum_chi);
+end
 
 end
 

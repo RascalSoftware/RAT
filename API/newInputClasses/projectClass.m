@@ -427,6 +427,21 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.setBacksPar(varargin);
         end
         
+        % -------------------------------------------------------------
+        %   Editing of Resolutions block
+        
+       function obj = setResolParValue(obj,varargin)
+            % Set the value of existing backsPar
+            obj.resolution.setResolParValue(varargin);
+        end
+        
+       function obj = setResolPar(obj,varargin)
+            % Set the value of existing backsPar
+            obj.resolution.setResolPar(varargin);
+        end
+        
+        
+        
         % ------------------------------------------------------------
         %   Editing of Data block
         
@@ -500,6 +515,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Gerenal purpose set scalefactor method
             obj.scalefactors.setParameter(varargin);
         end
+        
+        
         
         
         % -------------------------------------------------------------------

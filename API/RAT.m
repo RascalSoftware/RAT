@@ -50,16 +50,28 @@ setappdata(0,'ratOut',{ratOut ; ratListener});
 % ratOut.customEventData.textUpdate = 'new text';
 % ratOut.triggerEvent;
 
+% Set controls.calCls always to 1
+% if we are doing customXY
+switch lower(problemDef.modelType)
+    case 'custom xy'
+        controls.calcSld = 1;
+end
 
 %Call the main RAT routine...
 
-
-fprintf('Starting RAT ________________________________________________________________________________________________ \n');
+% If display is not silent print a
+% line confirminf RAT is starting
+if ~strcmpi(controls.display,'off')
+    fprintf('Starting RAT ________________________________________________________________________________________________ \n');
+end
 
 tic
 [outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls);
 fprintf('\n');
-toc
+
+if ~strcmpi(controls.display,'off')
+    toc
+end
 
 % Then just do a final calculation to fill in SLD if necessary (i.e. if
 % calSLD is no for fit)
@@ -67,12 +79,12 @@ if controls.calcSld == 0
     originalProc = controls.proc;
     controls.calcSld = 1;
     controls.proc = 'calculate';
-    [outProblemStruct,problem,result,bRes] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,priors,controls);
+    [outProblemStruct,problem,result,~ ] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,priors,controls);
     controls.proc = originalProc;
 end
 
 result = parseResultToStruct(problem,result);
-if any((strcmpi(controls.proc,{'NS','bayes'})))
+if any((strcmpi(controls.proc,{'bayes'})))
    result.chain = bayesResults.chain;
    result.bayesRes = bayesResults.res;
    result.sschain = bayesResults.sschain;
@@ -88,10 +100,9 @@ result.fitNames = fitNames;
 
 outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result);
 
-
-
-fprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n');
-
+if ~strcmpi(controls.display,'off')
+    fprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n');
+end
 
 end
 

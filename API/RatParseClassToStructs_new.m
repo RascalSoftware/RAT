@@ -76,8 +76,9 @@ layersDetails = inputStruct.layersDetails;
 paramNames = inputStruct.paramNames;
 paramPriors = inputStruct.paramPriors;
 backsNames = inputStruct.backParNames;
-backsPriors = inputStruct.backsPriors; % *****8 ToDo
+backsPriors = inputStruct.backsPriors; % 
 sfNames = inputStruct.scalefactorNames;
+scalesPriors = inputStruct.scalefactorPriors;
 shiftsNames = inputStruct.qzshiftNames; % TODO
 shiftPriors = inputStruct.qzshiftPriors;
 nbaNames = inputStruct.nbairNames;
@@ -105,13 +106,13 @@ problemDef_cells{4} = simLimits;
 problemDef_cells{5} = contrastLayers;
 problemDef_cells{6} = layersDetails;
 problemDef_cells{7} = paramNames;
-problemDef_cells{8} = backsNames;             % ****** Todo
+problemDef_cells{8} = backsNames;             
 problemDef_cells{9} = sfNames;
 problemDef_cells{10} = shiftsNames;
 problemDef_cells{11} = nbaNames;
 problemDef_cells{12} = nbsNames;
 problemDef_cells{13} = resolNames;
-problemDef_cells{14} = customFiles;
+problemDef_cells{14} = customFiles';
 
 % Fix for cell array bug with custom layers - is this needed still??
 if strcmpi(inputStruct.ModelType,'custom layers') || strcmpi(inputStruct.ModelType,'custom xy')
@@ -135,6 +136,7 @@ priors.resolPriors = resolParPriors;
 priors.nbaPriors = nbaPriors;
 priors.nbsPriors = nbsPriors;
 priors.shiftPriors = shiftPriors;
+priors.scalesPriors = scalesPriors;
 
 %Split up the contrastBacks array
 contrastBacks = inputStruct.contrastBacks;
@@ -143,6 +145,31 @@ for i = 1:length(contrastBacks)
     problemDef.contrastBacksType(i) = contrastBacks{i}(2);
 end
     
+% Here we need to do the same with the contrastResolutions array
+contrastResols = inputStruct.contrastRes;
+resolTypes = inputStruct.resolutionTypes;
+for i = 1:length(contrastResols)
+    % Check the type of the resolution that each contrast is pointing to.
+    % If it is a constant, point to the number of the corresponding
+    % resolution par. If it's data, then set it to zero
+    thisResol = contrastResols(i);      % Which reolution
+    thisType = resolTypes{thisResol};   % What type is it?
+    
+    if strcmpi(thisType,'data')
+        % Resolution is in the datafile. Set contrastRes to zero
+        contrastRes(i) = -1;
+    else
+        % Resolution is a resolParam, the nname of which should
+        % be in the first column of resolutionValues
+        whichResolParName = inputStruct.resolutionValues{thisResol,1};
+        
+        % Find which resolPar this is, and set contrastRes to this number
+        resolParNumber = find(strcmpi(whichResolParName,resolNames));
+        contrastRes(i) = resolParNumber;
+    end
+end
+        
+
 %Now make the limits array
 for i = 1:length(inputStruct.paramConstr)
     problemDef_limits.params(i,:) = inputStruct.paramConstr{i};
@@ -213,7 +240,7 @@ problemDef.contrastShifts = inputStruct.contrastShifts;
 problemDef.contrastScales = inputStruct.contrastScales;
 problemDef.contrastNbas = inputStruct.contrastNbas;
 problemDef.contrastNbss = inputStruct.contrastNbss;
-problemDef.contrastRes = inputStruct.contrastRes;
+problemDef.contrastRes = contrastRes;
 problemDef.backs = inputStruct.backParVals; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
 problemDef.shifts = inputStruct.qzshifts;
 problemDef.sf = inputStruct.scalefactors;
@@ -282,6 +309,10 @@ end
 controls.repeats = inputControls.repeats;
 controls.nsimu = inputControls.nsimu;
 controls.burnin = inputControls.burnin;
+controls.resamPars = [0.4 50];
+
+
+
 
 %Also need to deal with the checks...
 checks.params_fitYesNo = inputStruct.paramFitYesNo;

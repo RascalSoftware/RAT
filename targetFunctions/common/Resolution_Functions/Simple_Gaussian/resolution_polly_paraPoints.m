@@ -1,7 +1,7 @@
 function out = resolution_polly_paraPoints(xdata,ydata,res,points)
 
 
-res = res + 0.0001;
+%res = res + 0.0001;
 dummydata = zeros(points,1);
 dummyref = ydata;
 

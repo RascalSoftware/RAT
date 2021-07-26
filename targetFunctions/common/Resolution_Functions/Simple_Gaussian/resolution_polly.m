@@ -1,4 +1,6 @@
 function out = resolution_polly(xdata,ydata,res,points)
+% Apply resolution correction
+
 
 
 res = res + 0.0001;
@@ -6,6 +8,7 @@ dummydata = zeros(points,1);
 dummyref = ydata;
 
 for j = 1:points
+    
     sumg = 0;
     dummydata(j) = 0;
     

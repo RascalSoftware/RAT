@@ -1,0 +1,195 @@
+/* Created by mdot for Matlab */
+/* Modified for groupings by AVH */
+
+
+digraph m2html {
+    
+    compound=true;
+    subgraph cluster_calcType {
+
+        color=brown2;
+
+        standardTF_custLay_reflectivityCalculation;
+        standardTF_stanLay_reflectivityCalculation;
+        standardTF_custXY_reflectivityCalculation;
+    }
+
+    subgraph cluster_stanLay {
+
+        color=red;
+    
+        standardTF_stanlay_single;
+        standardTF_stanlay_paraPoints;
+        standardTF_stanlay_paraContrasts;
+        standardTF_stanlay_paraAll;
+    }
+
+
+    subgraph cluster_custLay {
+
+        color=blue;
+
+        standardTF_custlay_single;
+        standardTF_custlay_paraPoints;
+        standardTF_custlay_paraContrasts;
+    
+    }
+
+
+    subgraph cluster_custXY {
+
+        color=chartreuse2;
+
+        standardTF_custXY_single;
+        standardTF_custXY_paraPoints;
+        standardTF_custXY_paraContrasts;
+
+    }
+
+
+    subgraph cluster_common {
+
+        color=aquamarine4;
+
+        backSort;
+        abeles_single;
+        abeles_paraPoints;
+        resolution_polly;
+        resolution_polly_paraPoints;
+        makeSLDProfileXY;
+        call_customLayers;
+        applyBackgroundCorrection;
+        callReflectivity;
+        chiSquared;
+        resampleLayers;
+        shiftdata;
+        groupLayers_Mod;
+        makeSldProfiles;
+    }
+
+
+
+  callReflectivity -> resolution_polly;
+  callReflectivity -> resolution_polly_paraPoints;
+  callReflectivity -> abeles_paraPoints;
+  callReflectivity -> abeles_single;
+  makeSLDProfileXY -> asymconvstep;
+  makeSLDProfiles -> makeSLDProfileXY;
+  adaptive -> sldFunc;
+  resampleLayers -> adaptive;
+  reflectivity_calculation -> standardTF_reflectivityCalculation;
+  reflectivity_calculation_wrapper -> reflectivity_calculation;
+  call_customLayers -> callMatlabCustomLayers;
+  standardTF_custlay_paraContrasts -> backSort;
+  standardTF_custlay_paraContrasts -> call_customLayers;
+  standardTF_custlay_paraContrasts -> standardTF_layers_core;
+  standardTF_custlay_paraPoints -> backSort;
+  standardTF_custlay_paraPoints -> call_customLayers;
+  standardTF_custlay_paraPoints -> standardTF_layers_core;
+  standardTF_custlay_single -> backSort;
+  standardTF_custlay_single -> call_customLayers;
+  standardTF_custlay_single -> standardTF_layers_core;
+
+  standardTF_custLay_reflectivityCalculation -> standardTF_custlay_paraContrasts;
+  standardTF_custLay_reflectivityCalculation -> standardTF_custlay_paraPoints;
+  standardTF_custLay_reflectivityCalculation -> standardTF_custlay_single [lhead=cluster_custLay] [color=chartreuse2];
+
+
+  standardTF_custXY_paraContrasts -> backSort;
+  standardTF_custXY_paraContrasts -> applyBackgroundCorrection;
+  standardTF_custXY_paraContrasts -> callReflectivity;
+  standardTF_custXY_paraContrasts -> chiSquared;
+  standardTF_custXY_paraContrasts -> resampleLayers;
+  standardTF_custXY_paraContrasts -> shiftdata;
+  standardTF_custXY_paraContrasts -> call_customLayers;
+  standardTF_custXY_paraPoints -> backSort;
+  standardTF_custXY_paraPoints -> applyBackgroundCorrection;
+  standardTF_custXY_paraPoints -> callReflectivity;
+  standardTF_custXY_paraPoints -> chiSquared;
+  standardTF_custXY_paraPoints -> resampleLayers;
+  standardTF_custXY_paraPoints -> shiftdata;
+  standardTF_custXY_paraPoints -> call_customLayers;
+  standardTF_custXY_single -> backSort;
+  standardTF_custXY_single -> applyBackgroundCorrection;
+  standardTF_custXY_single -> callReflectivity;
+  standardTF_custXY_single -> chiSquared;
+  standardTF_custXY_single -> resampleLayers;
+  standardTF_custXY_single -> shiftdata;
+  standardTF_custXY_single -> call_customLayers;
+  standardTF_custXY_reflectivityCalculation -> standardTF_custXY_paraContrasts;
+  standardTF_custXY_reflectivityCalculation -> standardTF_custXY_paraPoints;
+  standardTF_custXY_reflectivityCalculation -> standardTF_custXY_single;
+  standardTF_layers_core -> applyBackgroundCorrection;
+  standardTF_layers_core -> callReflectivity;
+  standardTF_layers_core -> chiSquared;
+  standardTF_layers_core -> groupLayers_Mod;
+  standardTF_layers_core -> makeSLDProfiles;
+  standardTF_layers_core -> resampleLayers;
+  standardTF_layers_core -> shiftdata;
+  standardTF_reflectivityCalculation -> standardTF_custLay_reflectivityCalculation;
+  standardTF_reflectivityCalculation -> standardTF_custXY_reflectivityCalculation;
+  standardTF_reflectivityCalculation -> standardTF_stanLay_reflectivityCalculation;
+  standardTF_stanlay_paraAll -> backSort;
+  standardTF_stanlay_paraAll -> allocateLayersForContrast;
+  standardTF_stanlay_paraAll -> allocateParamsToLayers;
+  standardTF_stanlay_paraAll -> standardTF_layers_core;
+  standardTF_stanlay_paraContrasts -> backSort;
+  standardTF_stanlay_paraContrasts -> allocateLayersForContrast;
+  standardTF_stanlay_paraContrasts -> allocateParamsToLayers;
+  standardTF_stanlay_paraContrasts -> standardTF_layers_core;
+  standardTF_stanlay_paraPoints -> backSort;
+  standardTF_stanlay_paraPoints -> allocateLayersForContrast;
+  standardTF_stanlay_paraPoints -> allocateParamsToLayers;
+  standardTF_stanlay_paraPoints -> standardTF_layers_core;
+  standardTF_stanlay_single -> backSort;
+  standardTF_stanlay_single -> allocateLayersForContrast;
+  standardTF_stanlay_single -> allocateParamsToLayers;
+  standardTF_stanlay_single -> standardTF_layers_core;
+
+  /* standardTF_stanLay_reflectivityCalculation -> standardTF_stanlay_paraContrasts; */
+
+  standardTF_stanLay_reflectivityCalculation -> standardTF_stanlay_paraPoints [lhead=cluster_stanLay] [color=red];
+
+  /* standardTF_stanLay_reflectivityCalculation -> standardTF_stanlay_single; */
+
+  resolution_polly [URL="common/Resolution_Functions/Simple_Gaussian/resolution_polly.html"];
+  resolution_polly_paraPoints [URL="common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.html"];
+  backSort [URL="common/backSorts/backSort.html"];
+  callMatlabCustomLayers [URL="common/callMatlabFunction/callMatlabCustomLayers.html"];
+  matlabFunctionWrapper [URL="common/callMatlabFunction/matlabFunctionWrapper.html"];
+  applyBackgroundCorrection [URL="common/callReflectivity/applyBackgroundCorrection.html"];
+  callReflectivity [URL="common/callReflectivity/callReflectivity.html"];
+  chiSquared [URL="common/costFunctions/chiSquared/chiSquared.html"];
+  allocateLayersForContrast [URL="common/groupLayers/allocateLayersForContrast.html"];
+  allocateParamsToLayers [URL="common/groupLayers/allocateParamsToLayers.html"];
+  groupLayers_Mod [URL="common/groupLayers/groupLayers_Mod.html"];
+  jacobianest [URL="common/jacobianEst/jacobianest.html"];
+  asymconvstep [URL="common/makeSLDProfiles/asymconvstep.html"];
+  makeSLDProfileXY [URL="common/makeSLDProfiles/makeSLDProfileXY.html"];
+  makeSLDProfiles [URL="common/makeSLDProfiles/makeSLDProfiles.html"];
+  abeles_paraPoints [URL="common/reflectivityCalculations/Abeles/abeles_paraPoints.html"];
+  abeles_single [URL="common/reflectivityCalculations/Abeles/abeles_single.html"];
+  adaptive [URL="common/resampleLayers/adaptive.html"];
+  resampleLayers [URL="common/resampleLayers/resampleLayers.html"];
+  sldFunc [URL="common/resampleLayers/sldFunc.html"];
+  shiftdata [URL="common/shiftData/shiftdata.html"];
+  reflectivity_calculation [URL="reflectivity_calculation/reflectivity_calculation.html"];
+  reflectivity_calculation_wrapper [URL="reflectivity_calculation/reflectivity_calculation_wrapper.html"];
+  call_customLayers [URL="standard_TF/call_customLayers.html"];
+  customFileWrapper [URL="standard_TF/standardTF_custLay/customFileWrapper.html"];
+  standardTF_custlay_paraContrasts [URL="standard_TF/standardTF_custLay/standardTF_custlay_paraContrasts.html"];
+  standardTF_custlay_paraPoints [URL="standard_TF/standardTF_custLay/standardTF_custlay_paraPoints.html"];
+  standardTF_custlay_single [URL="standard_TF/standardTF_custLay/standardTF_custlay_single.html"];
+  standardTF_custLay_reflectivityCalculation [URL="standard_TF/standardTF_custLay_reflectivityCalculation.html"];
+  standardTF_custXY_paraContrasts [URL="standard_TF/standardTF_custXY/standardTF_custXY_paraContrasts.html"];
+  standardTF_custXY_paraPoints [URL="standard_TF/standardTF_custXY/standardTF_custXY_paraPoints.html"];
+  standardTF_custXY_single [URL="standard_TF/standardTF_custXY/standardTF_custXY_single.html"];
+  standardTF_custXY_reflectivityCalculation [URL="standard_TF/standardTF_custXY_reflectivityCalculation.html"];
+  standardTF_layers_core [URL="standard_TF/standardTF_layers_core.html"];
+  standardTF_reflectivityCalculation [URL="standard_TF/standardTF_reflectivityCalculation.html"];
+  standardTF_stanlay_paraAll [URL="standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.html"];
+  standardTF_stanlay_paraContrasts [URL="standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.html"];
+  standardTF_stanlay_paraPoints [URL="standard_TF/standardTF_stanLay/standardTF_stanlay_paraPoints.html"];
+  standardTF_stanlay_single [URL="standard_TF/standardTF_stanLay/standardTF_stanlay_single.html"];
+  standardTF_stanLay_reflectivityCalculation [URL="standard_TF/standardTF_stanLay_reflectivityCalculation.html"];
+}

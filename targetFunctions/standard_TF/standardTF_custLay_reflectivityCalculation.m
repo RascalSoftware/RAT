@@ -53,7 +53,7 @@ end
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 ; 1];
+    allLayers{i} = [1 1 1; 1 1 1];
 end
 % End pre-allocation
 
@@ -93,5 +93,6 @@ problem.resolutions = resols;
 problem.calculations.all_chis = chis;
 problem.calculations.sum_chi = sum(chis);
 problem.allSubRough = allRoughs;
+problem.resample = problemDef.resample;
 
 end

@@ -2,94 +2,89 @@
 // Non-Degree Granting Education License -- for use at non-degree
 // granting, nonprofit, educational organizations only. Not for
 // government, commercial, or other organizational use.
-// File: abeles_paraPoints.cpp
 //
-// MATLAB Coder version            : 5.0
-// C/C++ source code generated on  : 15-Apr-2021 10:46:16
+// abeles_paraPoints.cpp
+//
+// Code generation for function 'abeles_paraPoints'
 //
 
-// Include Files
+// Include files
 #include "abeles_paraPoints.h"
-#include "reflectivity_calculation.h"
-#include "reflectivity_calculation_rtwutil.h"
+#include "abs.h"
+#include "asin.h"
+#include "cos.h"
+#include "exp.h"
+#include "reflectivity_calculation_data.h"
 #include "rt_nonfinite.h"
+#include "sin.h"
 #include "sqrt.h"
-#include "standardTF_stanLay_reflectivityCalculation.h"
+#include "coder_array.h"
+#include <algorithm>
 #include <cmath>
-#include <cstring>
 
 // Function Definitions
-
-//
-// nbair = nbairs(thisCont);
-//  nbsub = nbsubs(thisCont);
-//  ssub = ssubs(thisCont);
-//  nrepeats = nrepeatss(thisCont);
-//  resol = resols(thisCont);
-// Arguments    : const coder::array<double, 1U> *x
-//                const coder::array<double, 2U> *sld
-//                double nbair
-//                double nbsub
-//                double nrepeats
-//                double rfinal
-//                double layers
-//                double points
-//                coder::array<double, 1U> *out
-// Return Type  : void
-//
-void abeles_paraPoints(const coder::array<double, 1U> &x, const coder::array<
-  double, 2U> &sld, double nbair, double nbsub, double nrepeats, double rfinal,
-  double layers, double points, coder::array<double, 1U> &out)
+void abeles_paraPoints(const coder::array<double, 1U> &x,
+                       const coder::array<double, 2U> &sld, double nbair,
+                       double nbsub, double nrepeats, double rsub,
+                       double layers, double points,
+                       coder::array<double, 1U> &out)
 {
-  int ub_loop;
+  creal_T MI[4];
+  creal_T N[4];
+  creal_T b_MI[4];
+  creal_T beta;
+  creal_T blast;
+  creal_T num;
+  creal_T pimag;
+  creal_T psub;
+  creal_T quo;
+  double ai;
+  double ar;
+  double brm;
+  double d;
+  double d1;
+  double preal;
+  double preal_tmp;
+  double quo_re;
+  double re;
+  double rough;
   double snair;
   double snsub;
-  creal_T quo;
-  creal_T num;
-  creal_T MI[4];
-  creal_T beta;
-  creal_T pimag;
-  double preal;
-  double rough;
   double thick;
-  creal_T blast;
-  creal_T psub;
-  creal_T N[4];
-  double preal_tmp;
   int i;
   int i1;
-  int reploop;
-  double re;
-  int nl;
-  double im;
-  double ar;
-  double quo_re;
-  double brm;
-  double x_re;
-  double x_im;
-  creal_T b_MI[4];
   int i2;
-  ub_loop = static_cast<int>(points);
-  out.set_size(ub_loop);
-
+  int loop;
+  int nl;
+  int reploop;
+  int ub_loop;
+  //  nbair = nbairs(thisCont);
+  //  nbsub = nbsubs(thisCont);
+  //  ssub = ssubs(thisCont);
+  //  nrepeats = nrepeatss(thisCont);
+  //  resol = resols(thisCont);
+  out.set_size(static_cast<int>(points));
   // pi = 3.141592653589;
   snair = 1.0 - nbair * 0.377451863036739;
   snsub = 1.0 - nbsub * 0.377451863036739;
-  ub_loop--;
+  ub_loop = static_cast<int>(points) - 1;
+#pragma omp parallel for num_threads(omp_get_max_threads()) private(           \
+    quo, num, MI, beta, pimag, preal, rough, thick, blast, psub, N, loop,      \
+    preal_tmp, i, i1, reploop, re, nl, ar, ai, quo_re, d, d1, i2, brm)         \
+    firstprivate(b_MI)
 
-#pragma omp parallel for \
- num_threads(omp_get_max_threads()) \
- private(quo,num,MI,beta,pimag,preal,rough,thick,blast,psub,N,preal_tmp,i,i1,reploop,re,nl,im,ar,quo_re,x_re,x_im,brm,i2,b_MI)
-
-  for (int loop = 0; loop <= ub_loop; loop++) {
-    thick = std::asin(x[loop] * 1.54 / 12.566370614359172);
-    preal = std::cos(thick);
+  for (loop = 0; loop <= ub_loop; loop++) {
+    thick = x[loop] * 1.54 / 12.566370614359172;
+    coder::b_asin(&thick);
+    preal = thick;
+    coder::b_cos(&preal);
     preal_tmp = snair * snair * (preal * preal);
     preal = snsub * snsub - preal_tmp;
     psub.re = preal;
     psub.im = preal * 0.0;
-    b_sqrt(&psub);
-    preal = snair * std::sin(thick);
+    coder::b_sqrt(&psub);
+    coder::b_sin(&thick);
+    preal = snair * thick;
     quo.re = preal;
     quo.im = preal * 0.0;
     blast.re = 0.0;
@@ -106,7 +101,6 @@ void abeles_paraPoints(const coder::array<double, 1U> &x, const coder::array<
     if (0 <= i - 1) {
       i1 = static_cast<int>(layers);
     }
-
     for (reploop = 0; reploop < i; reploop++) {
       for (nl = 0; nl < i1; nl++) {
         thick = sld[nl];
@@ -116,297 +110,205 @@ void abeles_paraPoints(const coder::array<double, 1U> &x, const coder::array<
         preal = preal * preal - preal_tmp;
         pimag.re = preal;
         pimag.im = preal * 0.0;
-        b_sqrt(&pimag);
+        coder::b_sqrt(&pimag);
         beta.re = 4.0799904592075231 * thick * pimag.re;
         beta.im = 4.0799904592075231 * thick * pimag.im;
         re = -78.956835208714864 * quo.re;
-        im = -78.956835208714864 * quo.im;
+        preal = -78.956835208714864 * quo.im;
         thick = rough * rough;
-        ar = (re * pimag.re - im * pimag.im) * thick;
-        re = (re * pimag.im + im * pimag.re) * thick;
-        if (re == 0.0) {
+        ar = (re * pimag.re - preal * pimag.im) * thick;
+        ai = (re * pimag.im + preal * pimag.re) * thick;
+        if (ai == 0.0) {
           num.re = ar / 2.3716;
           num.im = 0.0;
         } else if (ar == 0.0) {
           num.re = 0.0;
-          num.im = re / 2.3716;
+          num.im = ai / 2.3716;
         } else {
           num.re = ar / 2.3716;
-          num.im = re / 2.3716;
+          num.im = ai / 2.3716;
         }
-
-        if (num.im == 0.0) {
-          quo_re = num.re;
-          num.re = std::exp(quo_re);
-          num.im = 0.0;
-        } else if (rtIsInf(num.im) && rtIsInf(num.re) && (num.re < 0.0)) {
-          num.re = 0.0;
-          num.im = 0.0;
-        } else {
-          preal = std::exp(num.re / 2.0);
-          quo_re = num.im;
-          ar = num.im;
-          num.re = preal * (preal * std::cos(quo_re));
-          num.im = preal * (preal * std::sin(ar));
-        }
-
+        coder::b_exp(&num);
         ar = quo.re - pimag.re;
-        re = quo.im - pimag.im;
+        ai = quo.im - pimag.im;
         preal = quo.re + pimag.re;
-        im = quo.im + pimag.im;
-        if (im == 0.0) {
-          if (re == 0.0) {
+        re = quo.im + pimag.im;
+        if (re == 0.0) {
+          if (ai == 0.0) {
             quo_re = ar / preal;
             preal = 0.0;
           } else if (ar == 0.0) {
             quo_re = 0.0;
-            preal = re / preal;
+            preal = ai / preal;
           } else {
             quo_re = ar / preal;
-            preal = re / preal;
+            preal = ai / preal;
           }
         } else if (preal == 0.0) {
           if (ar == 0.0) {
-            quo_re = re / im;
+            quo_re = ai / re;
             preal = 0.0;
-          } else if (re == 0.0) {
+          } else if (ai == 0.0) {
             quo_re = 0.0;
-            preal = -(ar / im);
+            preal = -(ar / re);
           } else {
-            quo_re = re / im;
-            preal = -(ar / im);
+            quo_re = ai / re;
+            preal = -(ar / re);
           }
         } else {
           brm = std::abs(preal);
-          rough = std::abs(im);
+          rough = std::abs(re);
           if (brm > rough) {
-            rough = im / preal;
-            preal += rough * im;
-            quo_re = (ar + rough * re) / preal;
-            preal = (re - rough * ar) / preal;
+            rough = re / preal;
+            preal += rough * re;
+            quo_re = (ar + rough * ai) / preal;
+            preal = (ai - rough * ar) / preal;
           } else if (rough == brm) {
             if (preal > 0.0) {
               thick = 0.5;
             } else {
               thick = -0.5;
             }
-
-            if (im > 0.0) {
+            if (re > 0.0) {
               preal = 0.5;
             } else {
               preal = -0.5;
             }
-
-            quo_re = (ar * thick + re * preal) / brm;
-            preal = (re * thick - ar * preal) / brm;
+            quo_re = (ar * thick + ai * preal) / brm;
+            preal = (ai * thick - ar * preal) / brm;
           } else {
-            rough = preal / im;
-            preal = im + rough * preal;
-            quo_re = (rough * ar + re) / preal;
-            preal = (rough * re - ar) / preal;
+            rough = preal / re;
+            preal = re + rough * preal;
+            quo_re = (rough * ar + ai) / preal;
+            preal = (rough * ai - ar) / preal;
           }
         }
-
         re = quo_re * num.re - preal * num.im;
-        im = quo_re * num.im + preal * num.re;
-        x_re = blast.re * 0.0 - blast.im;
-        x_im = blast.re + blast.im * 0.0;
-        if (x_im == 0.0) {
-          x_re = std::exp(x_re);
-          x_im = 0.0;
-        } else if (rtIsInf(x_im) && rtIsInf(x_re) && (x_re < 0.0)) {
-          x_re = 0.0;
-          x_im = 0.0;
-        } else {
-          preal = std::exp(x_re / 2.0);
-          x_re = preal * (preal * std::cos(x_im));
-          x_im = preal * (preal * std::sin(x_im));
-        }
-
-        quo_re = -blast.re * 0.0 - (-blast.im);
-        ar = -blast.re + -blast.im * 0.0;
-        if (ar == 0.0) {
-          quo_re = std::exp(quo_re);
-          quo.re = quo_re;
-          ar = 0.0;
-          quo.im = 0.0;
-        } else if (rtIsInf(ar) && rtIsInf(quo_re) && (quo_re < 0.0)) {
-          quo_re = 0.0;
-          quo.re = 0.0;
-          ar = 0.0;
-          quo.im = 0.0;
-        } else {
-          preal = std::exp(quo_re / 2.0);
-          quo_re = preal * (preal * std::cos(ar));
-          quo.re = quo_re;
-          ar = preal * (preal * std::sin(ar));
-          quo.im = ar;
-        }
-
-        brm = re * quo_re - im * ar;
-        quo_re = re * ar + im * quo_re;
+        preal = quo_re * num.im + preal * num.re;
+        num.re = blast.re * 0.0 - blast.im;
+        num.im = blast.re + blast.im * 0.0;
+        coder::b_exp(&num);
+        quo.re = -blast.re * 0.0 - (-blast.im);
+        quo.im = -blast.re + -blast.im * 0.0;
+        coder::b_exp(&quo);
+        ar = re * quo.re - preal * quo.im;
+        d = re * quo.im + preal * quo.re;
         N[3] = quo;
-        ar = re * x_re - im * x_im;
-        preal = re * x_im + im * x_re;
+        d1 = re * num.re - preal * num.im;
+        preal = re * num.im + preal * num.re;
         quo = pimag;
         blast = beta;
         thick = N[3].re;
         rough = N[3].im;
         for (i2 = 0; i2 < 2; i2++) {
-          im = MI[i2 + 2].re;
-          re = MI[i2 + 2].im;
-          b_MI[i2].re = (MI[i2].re * x_re - MI[i2].im * x_im) + (im * brm - re *
-            quo_re);
-          b_MI[i2].im = (MI[i2].re * x_im + MI[i2].im * x_re) + (im * quo_re +
-            re * brm);
-          b_MI[i2 + 2].re = (MI[i2].re * ar - MI[i2].im * preal) + (im * thick -
-            re * rough);
-          b_MI[i2 + 2].im = (MI[i2].re * preal + MI[i2].im * ar) + (im * rough +
-            re * thick);
+          re = MI[i2].re;
+          ai = MI[i2].im;
+          brm = MI[i2 + 2].re;
+          quo_re = MI[i2 + 2].im;
+          b_MI[i2].re = (re * num.re - ai * num.im) + (brm * ar - quo_re * d);
+          b_MI[i2].im = (re * num.im + ai * num.re) + (brm * d + quo_re * ar);
+          b_MI[i2 + 2].re =
+              (re * d1 - ai * preal) + (brm * thick - quo_re * rough);
+          b_MI[i2 + 2].im =
+              (re * preal + ai * d1) + (brm * rough + quo_re * thick);
         }
-
-        std::memcpy(&MI[0], &b_MI[0], 4U * sizeof(creal_T));
+        std::copy(&b_MI[0], &b_MI[4], &MI[0]);
       }
     }
-
     re = -78.956835208714864 * quo.re;
-    im = -78.956835208714864 * quo.im;
-    thick = rfinal * rfinal;
-    ar = (re * psub.re - im * psub.im) * thick;
-    re = (re * psub.im + im * psub.re) * thick;
-    if (re == 0.0) {
+    preal = -78.956835208714864 * quo.im;
+    thick = rsub * rsub;
+    ar = (re * psub.re - preal * psub.im) * thick;
+    ai = (re * psub.im + preal * psub.re) * thick;
+    if (ai == 0.0) {
       num.re = ar / 2.3716;
       num.im = 0.0;
     } else if (ar == 0.0) {
       num.re = 0.0;
-      num.im = re / 2.3716;
+      num.im = ai / 2.3716;
     } else {
       num.re = ar / 2.3716;
-      num.im = re / 2.3716;
+      num.im = ai / 2.3716;
     }
-
-    if (num.im == 0.0) {
-      quo_re = num.re;
-      num.re = std::exp(quo_re);
-      num.im = 0.0;
-    } else if (rtIsInf(num.im) && rtIsInf(num.re) && (num.re < 0.0)) {
-      num.re = 0.0;
-      num.im = 0.0;
-    } else {
-      preal = std::exp(num.re / 2.0);
-      quo_re = num.im;
-      ar = num.im;
-      num.re = preal * (preal * std::cos(quo_re));
-      num.im = preal * (preal * std::sin(ar));
-    }
-
+    coder::b_exp(&num);
     ar = quo.re - psub.re;
-    re = quo.im - psub.im;
+    ai = quo.im - psub.im;
     preal = quo.re + psub.re;
-    im = quo.im + psub.im;
-    if (im == 0.0) {
-      if (re == 0.0) {
+    re = quo.im + psub.im;
+    if (re == 0.0) {
+      if (ai == 0.0) {
         quo_re = ar / preal;
         preal = 0.0;
       } else if (ar == 0.0) {
         quo_re = 0.0;
-        preal = re / preal;
+        preal = ai / preal;
       } else {
         quo_re = ar / preal;
-        preal = re / preal;
+        preal = ai / preal;
       }
     } else if (preal == 0.0) {
       if (ar == 0.0) {
-        quo_re = re / im;
+        quo_re = ai / re;
         preal = 0.0;
-      } else if (re == 0.0) {
+      } else if (ai == 0.0) {
         quo_re = 0.0;
-        preal = -(ar / im);
+        preal = -(ar / re);
       } else {
-        quo_re = re / im;
-        preal = -(ar / im);
+        quo_re = ai / re;
+        preal = -(ar / re);
       }
     } else {
       brm = std::abs(preal);
-      rough = std::abs(im);
+      rough = std::abs(re);
       if (brm > rough) {
-        rough = im / preal;
-        preal += rough * im;
-        quo_re = (ar + rough * re) / preal;
-        preal = (re - rough * ar) / preal;
+        rough = re / preal;
+        preal += rough * re;
+        quo_re = (ar + rough * ai) / preal;
+        preal = (ai - rough * ar) / preal;
       } else if (rough == brm) {
         if (preal > 0.0) {
           thick = 0.5;
         } else {
           thick = -0.5;
         }
-
-        if (im > 0.0) {
+        if (re > 0.0) {
           preal = 0.5;
         } else {
           preal = -0.5;
         }
-
-        quo_re = (ar * thick + re * preal) / brm;
-        preal = (re * thick - ar * preal) / brm;
+        quo_re = (ar * thick + ai * preal) / brm;
+        preal = (ai * thick - ar * preal) / brm;
       } else {
-        rough = preal / im;
-        preal = im + rough * preal;
-        quo_re = (rough * ar + re) / preal;
-        preal = (rough * re - ar) / preal;
+        rough = preal / re;
+        preal = re + rough * preal;
+        quo_re = (rough * ar + ai) / preal;
+        preal = (rough * ai - ar) / preal;
       }
     }
-
     re = quo_re * num.re - preal * num.im;
-    im = quo_re * num.im + preal * num.re;
-    x_re = blast.re * 0.0 - blast.im;
-    x_im = blast.re + blast.im * 0.0;
-    if (x_im == 0.0) {
-      x_re = std::exp(x_re);
-      x_im = 0.0;
-    } else if (rtIsInf(x_im) && rtIsInf(x_re) && (x_re < 0.0)) {
-      x_re = 0.0;
-      x_im = 0.0;
-    } else {
-      preal = std::exp(x_re / 2.0);
-      x_re = preal * (preal * std::cos(x_im));
-      x_im = preal * (preal * std::sin(x_im));
-    }
-
+    preal = quo_re * num.im + preal * num.re;
+    num.re = blast.re * 0.0 - blast.im;
+    num.im = blast.re + blast.im * 0.0;
+    coder::b_exp(&num);
     quo.re = -blast.re * 0.0 - (-blast.im);
     quo.im = -blast.re + -blast.im * 0.0;
-    if (quo.im == 0.0) {
-      quo_re = quo.re;
-      quo.re = std::exp(quo_re);
-      quo.im = 0.0;
-    } else if (rtIsInf(quo.im) && rtIsInf(quo.re) && (quo.re < 0.0)) {
-      quo.re = 0.0;
-      quo.im = 0.0;
-    } else {
-      preal = std::exp(quo.re / 2.0);
-      quo_re = quo.im;
-      ar = quo.im;
-      quo.re = preal * (preal * std::cos(quo_re));
-      quo.im = preal * (preal * std::sin(ar));
-    }
-
-    quo_re = re * quo.re - im * quo.im;
-    ar = re * quo.im + im * quo.re;
-    brm = re * x_re - im * x_im;
-    preal = re * x_im + im * x_re;
-    thick = quo.re;
-    rough = quo.im;
+    coder::b_exp(&quo);
+    ar = re * quo.re - preal * quo.im;
+    d = re * quo.im + preal * quo.re;
+    d1 = re * num.re - preal * num.im;
+    preal = re * num.im + preal * num.re;
     for (i = 0; i < 2; i++) {
-      im = MI[i + 2].re;
-      re = MI[i + 2].im;
-      b_MI[i].re = (MI[i].re * x_re - MI[i].im * x_im) + (im * quo_re - re * ar);
-      b_MI[i].im = (MI[i].re * x_im + MI[i].im * x_re) + (im * ar + re * quo_re);
-      b_MI[i + 2].re = (MI[i].re * brm - MI[i].im * preal) + (im * thick - re *
-        rough);
-      b_MI[i + 2].im = (MI[i].re * preal + MI[i].im * brm) + (im * rough + re *
-        thick);
+      thick = MI[i].re;
+      rough = MI[i].im;
+      re = MI[i + 2].re;
+      ai = MI[i + 2].im;
+      b_MI[i].re = (thick * num.re - rough * num.im) + (re * ar - ai * d);
+      b_MI[i].im = (thick * num.im + rough * num.re) + (re * d + ai * ar);
+      b_MI[i + 2].re =
+          (thick * d1 - rough * preal) + (re * quo.re - ai * quo.im);
+      b_MI[i + 2].im =
+          (thick * preal + rough * d1) + (re * quo.im + ai * quo.re);
     }
-
     num.re = b_MI[1].re * b_MI[1].re - b_MI[1].im * -b_MI[1].im;
     num.im = b_MI[1].re * -b_MI[1].im + b_MI[1].im * b_MI[1].re;
     thick = b_MI[0].re * b_MI[0].re - b_MI[0].im * -b_MI[0].im;
@@ -447,13 +349,11 @@ void abeles_paraPoints(const coder::array<double, 1U> &x, const coder::array<
         } else {
           thick = -0.5;
         }
-
         if (preal > 0.0) {
           preal = 0.5;
         } else {
           preal = -0.5;
         }
-
         quo.re = (num.re * thick + num.im * preal) / brm;
         quo.im = (num.im * thick - num.re * preal) / brm;
       } else {
@@ -463,13 +363,8 @@ void abeles_paraPoints(const coder::array<double, 1U> &x, const coder::array<
         quo.im = (rough * num.im - num.re) / preal;
       }
     }
-
-    out[loop] = rt_hypotd_snf(quo.re, quo.im);
+    out[loop] = coder::b_abs(quo);
   }
 }
 
-//
-// File trailer for abeles_paraPoints.cpp
-//
-// [EOF]
-//
+// End of code generation (abeles_paraPoints.cpp)

@@ -1,21 +1,5 @@
 function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)
 
-
-% nbairs = problem.nbairs;
-% nbsubs = problem.nbsubs;
-% simLimits = problem.simLimits;
-% repeatLayers = problem.repeatLayers;
-% allData = problem.shifted_data;
-% layers = problem.layers;
-% ssubs = problem.ssubs;
-% numberOfContrasts = problem.numberOfContrasts;
-
-% reflectivity = cell(numberOfContrasts,1);
-% Simulation = cell(numberOfContrasts,1);
-% 
-% parfor i = 1:numberOfContrasts
-
-%this_data = allData{i};
 xdata = this_data(:,1);
 output = layers;
 
@@ -52,6 +36,19 @@ splits = [(length(firstSection)+1) ((length(firstSection))+length(middleSection)
 Simulation = zeros(length(simXdata),2);
 Simulation(:,1) = simXdata;
 
+% If we are using data resolutions, then we also need to adjust the length
+% of the reolution column. We do thit by just extending with the rosolution
+% values at the ends of the curve.
+simResolData = 0;
+if res == -1
+    thisDataResol = this_data(:,4);
+    minVal = thisDataResol(1);
+    maxVal = thisDataResol(end);
+    startResol = ones((length(firstSection)),1) .* minVal;
+    endResol = ones((length(lastSection)),1) .* maxVal;
+    simResolData = [startResol(:) ; thisDataResol(:) ; endResol(:)];
+end
+
 repeats = repeatLayers(2);
 
 switch refType
@@ -59,16 +56,31 @@ switch refType
         switch para
             case 'points'
                 % Parallelise over points
+                
+                % Calculate reflectivity....
                 simRef = abeles_paraPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
-                simRef = resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata));
+                
+                % Apply resolution
+                if res == -1
+                    simRef = data_resolution_polly_paraPoints(simXdata,simRef,simResolData,length(simXdata));
+                else
+                    simRef = resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata));
+                end
                 
             otherwise
                 % Single cored over points
+                
+                % Calculate reflectivity.....
                 simRef = abeles_single(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
-                simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
+                
+                % Apply resolution correction...
+                if res == -1
+                    simRef = data_resolution_polly(simXdata,simRef,simResolData,length(simXdata));
+                else
+                    simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
+                end
         end
 end
-
 
 Simulation(:,2) = simRef(:);
 reflectivity = Simulation(splits(1):splits(2),:);

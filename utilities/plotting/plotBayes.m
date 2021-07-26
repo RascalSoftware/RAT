@@ -1,4 +1,4 @@
-function plotBayes(problem,results);
+function plotBayes(problem,results)
 
         figure(1); clf; plotRefSLD(problem,results)
 

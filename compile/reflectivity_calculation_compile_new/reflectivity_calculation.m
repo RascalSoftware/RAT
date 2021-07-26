@@ -13,8 +13,11 @@ problem.resolutions = 0;
 problem.calculations.all_chis = 0;
 problem.calculations.sum_chi = 0;
 problem.allSubRough = 0;
+problem.resample = 0;
 
-
+% We need to fill the sub-arrays of the outputs
+% with dummy arguments of the correct type. This is 
+% how Coder knows how much memory to allocate
 numberOfContrasts = problemDef.numberOfContrasts;
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -50,7 +53,7 @@ allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
-coder.varsize('allLayers{:}',[10000 1],[1 0]);
+coder.varsize('allLayers{:}',[10000 3],[1 1]);
 
 %Decide which target function we are calling
 whichTF = problemDef.TF;
@@ -65,47 +68,43 @@ switch whichTF
         %problem = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,controls);
 end
 
-
+% Now package all the outputs into one 'result' array, which is a 
+% cell array of cell arrays..
 result = cell(1,6);
-%cell1Length = numberOfContrasts;
+
 cell1 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell1{i} = reflectivity{i};
 end
 result{1} = cell1;
 
-% cell2Length = 7;
 cell2 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell2{i} = Simulation{i};
 end
 result{2} = cell2;
-% 
-% cell3Length = 7;
+
 cell3 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell3{i} = shifted_data{i}; 
 end
 result{3} = cell3;
-% 
-% cell4Length = 7;
+
 cell4 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell4{i} = layerSlds{i};
 end
 result{4} = cell4;
-% 
-% cell5Length = 7;
+
 cell5 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell5{i} = sldProfiles{i}; 
 end
 result{5} = cell5;
-% 
-% cell6Length = 7;
+
 cell6 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    cell6{i} = [0]; 
+    cell6{i} = allLayers{i}; 
 end
 result{6} = cell6;
 

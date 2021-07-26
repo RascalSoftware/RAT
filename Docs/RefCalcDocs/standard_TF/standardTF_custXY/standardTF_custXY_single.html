@@ -85,19 +85,19 @@ This function is called by:
 0042 <span class="keyword">for</span> i = 1:numberOfContrasts
 0043     reflectivity{i} = [1 1 ; 1 1];
 0044 <span class="keyword">end</span>
-0045 coder.varsize(<span class="string">'reflectivity{:}'</span>,[10000 2],[1 0]);
+0045 <span class="comment">%coder.varsize('reflectivity{:}',[10000 2],[1 0]);</span>
 0046 
 0047 Simulation = cell(numberOfContrasts,1);
 0048 <span class="keyword">for</span> i = 1:numberOfContrasts
 0049     Simulation{i} = [1 1 ; 1 1];
 0050 <span class="keyword">end</span>
-0051 coder.varsize(<span class="string">'Simulation{:}'</span>,[10000 2],[1 0]);
+0051 <span class="comment">%coder.varsize('Simulation{:}',[10000 2],[1 0]);</span>
 0052 
 0053 allLayers = cell(numberOfContrasts,1);
 0054 <span class="keyword">for</span> i = 1:numberOfContrasts
 0055     allLayers{i} = [1 ; 1];
 0056 <span class="keyword">end</span>
-0057 coder.varsize(<span class="string">'allLayers{:}'</span>,[10000 3],[1 1]);
+0057 <span class="comment">%coder.varsize('allLayers{:}',[10000 3],[1 1]);</span>
 0058 
 0059 
 0060 <span class="keyword">for</span> i = 1:numberOfContrasts
@@ -132,6 +132,6 @@ This function is called by:
 0089 
 0090 
 0091 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Fri 25-Jun-2021 13:32:14 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 21-Jul-2021 09:14:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

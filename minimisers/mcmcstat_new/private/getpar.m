@@ -2,8 +2,11 @@ function y=getpar(options,par,default)
 %GETPAR get parameter value from a struct
 
 % $Revision: 1.1 $  $Date: 2005/02/11 13:24:53 $
-
-y = default;
+if isfield(options,par)
+    y = getfield(options,par);
+else
+    y = default;
+end
 
 % defaults = {
 %     {'nsimu'} , {1000}

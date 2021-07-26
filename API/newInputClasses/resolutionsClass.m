@@ -1,19 +1,17 @@
 classdef resolutionsClass < handle
-    
-       
+     
     % This makes the rosolutions class.
-    % Backgrounds are defined in a two stage process. Firstly we define the
+    % Like Backgrounds, reolutions are defined in a two stage process. Firstly we define the
     % actual fitted parameters. These are held in a 'ParametersClass'
     % table. Then, we group these into the resolutions themselves using a
-    % multiTypeTable. So, we can then use th eresolution parameters to
+    % multiTypeTable. So, we can then use the resolution parameters to
     % either define resolution as  constant, data or a function. For
     % constant only one parameter is supplied to multi type table. For data
-    % only the itself is supplied as a cell. For function, the function
+    % the name is supplied, along with the name of the data in the 
+    % data table. For function, the function
     % name is supplied, allong with up to three parameters (from the
     % parameters table) which are then supplied to the function to
     % calculate the resolution. 
-    % In each case, the resolution can either be added to the simulation or
-    % subtracted from the data.
     
     properties
         
@@ -24,9 +22,7 @@ classdef resolutionsClass < handle
     end
     
     properties (Access = private)
-        
        allowedTypes = {'constant', 'data', 'function'};
-        
     end
     
 
@@ -58,7 +54,7 @@ classdef resolutionsClass < handle
         
         function obj = addResolPar(obj,varargin)
             
-            % Add a parameter to the backs parameter table
+            % Add a parameter to the resol parameter table
             in = varargin{:};
             resolParsTable = obj.resolPars;
             if isempty(in)
@@ -85,7 +81,7 @@ classdef resolutionsClass < handle
             obj.resolPars.setConstr(varargin{:});
         end
         
-        function obj = setBacksParName(obj,varargin)
+        function obj = setResolParName(obj,varargin)
            % Set a parameter name in the resol parameter table 
            obj.resolPars.setName(varargin{:});
         end
@@ -101,8 +97,6 @@ classdef resolutionsClass < handle
             
         end
         
-        
-        
         % ---------------------------------------------------------
          
         function obj = addResolution(obj,varargin)
@@ -116,11 +110,8 @@ classdef resolutionsClass < handle
             
             if isempty(in)
                 thisRow = {};
-            else
-                thisRow = {'','','','','','',''};
             end
             
-
             if length(in) == 1
                 % Assume the input is just a name
                 thisRow{1} = in;
@@ -153,6 +144,13 @@ classdef resolutionsClass < handle
                           thisParam = parseParam(in(i),paramNames);
                           thisRow{i} = thisParam;
                        end
+                       
+                   case 'data'
+                       % Resolution is assumed to be given by a 4th column 
+                       % of a datafile. We don't have access to the
+                       % datafiles at this point so this (i.e. that data is
+                       % [n x 4] ) will be chacked downstream
+                       thisRow = {in(1), in(2), '', '', '', '', ''};
                 end
             end
             obj.resolutions.addRow(thisRow);

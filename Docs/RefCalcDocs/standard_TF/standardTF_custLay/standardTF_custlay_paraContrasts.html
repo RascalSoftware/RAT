@@ -37,7 +37,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts.</li><li><a href="../../standard_TF/call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>	Call a custom layers function</li><li><a href="../../standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints)">standardTF_layers_core</a>	This is the main reflectivity calculation for all Layers models in the</li></ul>
+<li><a href="../../common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts.</li><li><a href="../../standard_TF/call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>	Call a custom layers function</li><li><a href="../../standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints)">standardTF_layers_core</a>	This is the main reflectivity calculation for all Layers models in the</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="../../standard_TF/standardTF_custLay_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custLay_reflectivityCalculation</a>	Custom layers reflectivity calculation for standardTF</li></ul>
@@ -95,86 +95,85 @@ This function is called by:
 0047 <span class="keyword">for</span> i = 1:numberOfContrasts
 0048     reflectivity{i} = [1 1 ; 1 1];
 0049 <span class="keyword">end</span>
-0050 coder.varsize(<span class="string">'reflectivity{:}'</span>,[10000 2],[1 0]);
-0051 
-0052 Simulation = cell(numberOfContrasts,1);
-0053 <span class="keyword">for</span> i = 1:numberOfContrasts
-0054     Simulation{i} = [1 1 ; 1 1];
-0055 <span class="keyword">end</span>
-0056 coder.varsize(<span class="string">'Simulation{:}'</span>,[10000 2],[1 0]);
-0057 
-0058 allLayers = cell(numberOfContrasts,1);
-0059 <span class="keyword">for</span> i = 1:numberOfContrasts
-0060     allLayers{i} = [1 ; 1];
-0061 <span class="keyword">end</span>
-0062 coder.varsize(<span class="string">'allLayers{:}'</span>,[10000 3],[1 1]);
+0050 
+0051 Simulation = cell(numberOfContrasts,1);
+0052 <span class="keyword">for</span> i = 1:numberOfContrasts
+0053     Simulation{i} = [1 1 ; 1 1];
+0054 <span class="keyword">end</span>
+0055 
+0056 allLayers = cell(numberOfContrasts,1);
+0057 <span class="keyword">for</span> i = 1:numberOfContrasts
+0058     allLayers{i} = [1 ; 1];
+0059 <span class="keyword">end</span>
+0060 
+0061 <span class="comment">%   --- End Memory Allocation ---</span>
+0062 
 0063 
-0064 <span class="comment">%   --- End Memory Allocation ---</span>
-0065 
-0066 
-0067 
-0068 <span class="comment">% Single cored over all contrasts</span>
-0069 parfor i = 1:numberOfContrasts
-0070     <span class="comment">% Extract the relevant parameter values for this contrast</span>
-0071     <span class="comment">% from the input arrays.</span>
-0072     <span class="comment">% First need to decide which values of the backrounds, scalefactors</span>
-0073     <span class="comment">% data shifts and bulk contrasts are associated with this contrast</span>
-0074     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = <a href="../../common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
-0075     
-0076     <span class="comment">% Call the custom layers function to get the layers array...</span>
-0077     thisCustomFile = customFiles{cCustFiles(i)};
-0078     [outLayers,allRoughs(i)] = <a href="../../standard_TF/call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>(params,i,thisCustomFile,nba,nbs);
-0079     allLayers{i} = outLayers;
-0080     thisContrastLayers = outLayers;
-0081     
-0082     <span class="comment">% For the other parameters, we extract the correct ones from the input</span>
-0083     <span class="comment">% arrays</span>
-0084     thisRough = allRoughs(i);      
-0085     thisRepeatLayers = repeatLayers{i};
-0086     thisResample = resample(i);
-0087     thisCalcSld = calcSld;
-0088     thisData = allData{i};
-0089     thisDataPresent = dataPresent(i);
-0090     thisDataLimits = dataLimits{i};
-0091     thisSimLimits = simLimits{i};
-0092     thisBacksType = backsType(i);
-0093     
-0094     <span class="comment">% Now call the core standardTF_stanlay reflectivity calculation</span>
-0095     <span class="comment">% In this case we are single cored, so we do not parallelise over</span>
-0096     <span class="comment">% points</span>
-0097     paralellPoints = <span class="string">'single'</span>;
-0098     
-0099     <span class="comment">% Call the reflectivity calculation</span>
-0100     [sldProfile,reflect,Simul,shifted_dat,layerSld,thisChiSquared,thisSsubs] = <span class="keyword">...</span>
-0101     <a href="../../standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints)">standardTF_layers_core</a><span class="keyword">...</span>
-0102     (thisContrastLayers, thisRough, <span class="keyword">...</span>
-0103     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,<span class="keyword">...</span>
-0104     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
-0105     thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
-0106    
-0107     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
-0108     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
-0109     <span class="comment">% the other values (background, scalefactors etc) for each contrast</span>
-0110     <span class="comment">% for future use.</span>
-0111     outSsubs(i) = thisSsubs;
-0112     sldProfiles{i} = sldProfile;
-0113     reflectivity{i} = reflect;
-0114     Simulation{i} = Simul;
-0115     shifted_data{i} = shifted_dat;
-0116     layerSlds{i} = layerSld;
-0117     chis(i) = thisChiSquared;
-0118     backgs(i) = thisBackground;
-0119     qshifts(i) = thisQshift;
-0120     sfs(i) = thisSf;
-0121     nbas(i) = thisNba;
-0122     nbss(i) = thisNbs;
-0123     resols(i) = thisResol;
-0124     allRoughs(i) = thisRough;
-0125 
-0126 <span class="keyword">end</span>
+0064 
+0065 <span class="comment">% Multi cored over all contrasts</span>
+0066 parfor i = 1:numberOfContrasts
+0067     <span class="comment">% Extract the relevant parameter values for this contrast</span>
+0068     <span class="comment">% from the input arrays.</span>
+0069     <span class="comment">% First need to decide which values of the backrounds, scalefactors</span>
+0070     <span class="comment">% data shifts and bulk contrasts are associated with this contrast</span>
+0071     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = <a href="../../common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+0072     
+0073     <span class="comment">% Call the custom layers function to get the layers array...</span>
+0074     thisCustomFile = customFiles{cCustFiles(i)};
+0075     [outLayers,allRoughs(i)] = <a href="../../standard_TF/call_customLayers.html" class="code" title="function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut)">call_customLayers</a>(params,i,thisCustomFile,nba,nbs);
+0076     allLayers{i} = outLayers;
+0077     thisContrastLayers = outLayers;
+0078     
+0079     <span class="comment">% For the other parameters, we extract the correct ones from the input</span>
+0080     <span class="comment">% arrays</span>
+0081     thisRough = allRoughs(i);      
+0082     thisRepeatLayers = repeatLayers{i};
+0083     thisResample = resample(i);
+0084     thisCalcSld = calcSld;
+0085     thisData = allData{i};
+0086     thisDataPresent = dataPresent(i);
+0087     thisDataLimits = dataLimits{i};
+0088     thisSimLimits = simLimits{i};
+0089     thisBacksType = backsType(i);
+0090     
+0091     <span class="comment">% Now call the core standardTF_stanlay reflectivity calculation</span>
+0092     <span class="comment">% In this case we are single cored, so we do not parallelise over</span>
+0093     <span class="comment">% points</span>
+0094     paralellPoints = <span class="string">'single'</span>;
+0095     
+0096     <span class="comment">% Call the reflectivity calculation</span>
+0097     [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = <span class="keyword">...</span>
+0098     <a href="../../standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints)">standardTF_layers_core</a><span class="keyword">...</span>
+0099     (thisContrastLayers, thisRough, <span class="keyword">...</span>
+0100     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,<span class="keyword">...</span>
+0101     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
+0102     thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
+0103    
+0104     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
+0105     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
+0106     <span class="comment">% the other values (background, scalefactors etc) for each contrast</span>
+0107     <span class="comment">% for future use.</span>
+0108     outSsubs(i) = thisSsubs;
+0109     sldProfiles{i} = sldProfile;
+0110     reflectivity{i} = reflect;
+0111     Simulation{i} = Simul;
+0112     shifted_data{i} = shifted_dat;
+0113     layerSlds{i} = layerSld;
+0114     allLayers{i} = resamLayers;
+0115     
+0116     chis(i) = thisChiSquared;
+0117     backgs(i) = thisBackground;
+0118     qshifts(i) = thisQshift;
+0119     sfs(i) = thisSf;
+0120     nbas(i) = thisNba;
+0121     nbss(i) = thisNbs;
+0122     resols(i) = thisResol;
+0123     allRoughs(i) = thisRough;
+0124 
+0125 <span class="keyword">end</span>
+0126 
 0127 
-0128 
-0129 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Fri 25-Jun-2021 13:32:14 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0128 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 21-Jul-2021 09:14:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

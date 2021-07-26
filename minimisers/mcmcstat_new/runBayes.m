@@ -38,6 +38,7 @@ for i = 1:nPars
     qcov(i) = (abs(thisConstr(2) - thisConstr(1))*0.01)^2;
 end
 qcov = diag(qcov);
+%qcov = eye(nPars)*5^2;
 
 % Define model and method options.
 model.modelfun      = 'refModel';     % will return a reflectivity curve
@@ -55,7 +56,10 @@ options.waitbar     = 1;               % show graphical waitbar
 options.updatesigma = 0;               % update error variance
 options.stats       = 1;               % save extra statistics in result
 options.burnintime  = burnin;          % burn in time..
-options.ntry = 2;
+options.ntry = 5;
+options.drscale = [3 2 1];
+%options.adascale = 2.4 / sqrt(nPars) * 5;
+
 
 results = [];
 loop = int32(loop);

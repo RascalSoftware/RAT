@@ -171,6 +171,10 @@ classdef contrastsClass < handle
                         thisContrast.resolution = inputBlock.resolution;
                     end
                     
+                    if ~isempty(inputBlock.resample)
+                        thisContrast.resample = inputBlock.resample;
+                    end
+                    
             %end
             
             obj.contrasts{whichContrast} = thisContrast;
@@ -252,7 +256,7 @@ classdef contrastsClass < handle
                 contrastNbas(i) = find(strcmpi(thisContrast.nba,allowedNames.bulkInNames));
                 contrastNbss(i) = find(strcmpi(thisContrast.nbs,allowedNames.bulkOutNames));
                 contrastRes(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolsNames));
-                resample(i) = 0; % Todo
+                resample(i) = thisContrast.resample; 
                 contrastRepeatSLDs{i} = [0 1]; % todo
                 
                 
@@ -335,6 +339,7 @@ classdef contrastsClass < handle
                 'Bulk out',...
                 'Resolution',...
                 'Scalefactor',...
+                'Resample',...
                 'Model');
             
         end
@@ -352,7 +357,7 @@ classdef contrastsClass < handle
                 end
             end
             
-            sz = [(maxModelSize+7) nContrasts];
+            sz = [(maxModelSize+8) nContrasts];
             varTypes = cell(1,nContrasts);
             varNames = cell(1,nContrasts);
             for i = 1:nContrasts
@@ -363,7 +368,7 @@ classdef contrastsClass < handle
             
             %obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             
-            val = ["name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Model"];
+            val = ["name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Model"];
             modelRows = cell((maxModelSize-1),1);
             if ~isempty(modelRows)
                 for n = 1:length(modelRows)
@@ -384,13 +389,14 @@ classdef contrastsClass < handle
                 contrastsCell(5,i) = {thisContrast.nbs};
                 contrastsCell(6,i) = {thisContrast.scalefactor};
                 contrastsCell(7,i) = {thisContrast.resolution};
+                contrastsCell(8,i) = {thisContrast.resample};
                 
                 thisModel = thisContrast.model;
                 if isempty(thisModel)
-                    contrastsCell(8,i) = {' '};
+                    contrastsCell(9,i) = {' '};
                 else
                     for n = 1:length(thisModel)
-                        contrastsCell(8+(n-1),i) = {thisModel(n)};
+                        contrastsCell(9+(n-1),i) = {thisModel(n)};
                     end
                 end
             end
@@ -427,6 +433,7 @@ function inputBlock = parseContrastInput(allowedNames,inputVals)
     defaultNbs = '';
     defaultScalefac = '';
     defaultResol = '';
+    defaultResample = false;
     defaultModel = '';
 
     expectedBacks = cellstr(allowedNames.backsNames);
@@ -445,6 +452,7 @@ function inputBlock = parseContrastInput(allowedNames,inputVals)
     addParameter(p,'nbs',           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
     addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
     addParameter(p,'scalefactor',   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
+    addParameter(p,'resample',      defaultResample,    @islogical);
     addParameter(p,'model',         defaultModel,       @(x) any(validatestring(x,expectedLayers)));
         
     parse(p,inputVals{:});

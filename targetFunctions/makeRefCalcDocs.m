@@ -27,6 +27,7 @@ dirs = {fullfile(rootDir,'common');
     };
 
 docDir = fullfile(ratRoot,'Docs','RefCalcDocs');
+
 m2html_modified('mfiles',dirs,'htmldir',docDir,'recursive','on','global','on',... 
           'template','frame', 'index','menu','graph','on','source','on');
 

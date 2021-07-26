@@ -10,6 +10,8 @@ cfg = coder.config('mex');
 cfg.GenerateReport = true;
 cfg.EnableJIT = true;
 cfg.EnableOpenMP = true;
+% cfg.TargetLang = 'C++';
+% cfg.TargetLangStandard = 'C++11 (ISO)';
 
 %% Define argument types for entry-point 'reflectivity_calculation'.
 ARGS = cell(1,1);
@@ -105,6 +107,7 @@ ARGS_1_4.calcSld = coder.typeof(0);
 ARGS_1_4.repeats = coder.typeof(0);
 ARGS_1_4.nsimu = coder.typeof(0);
 ARGS_1_4.burnin = coder.typeof(0);
+ARGS_1_4.resamPars = coder.typeof(0,[1 2]);
 ARGS_1_4_checks = struct;
 ARGS_1_4_checks.params_fitYesNo = coder.typeof(0,[1 Inf],[0 1]);
 ARGS_1_4_checks.backs_fitYesNo = coder.typeof(0,[1 Inf],[0 1]);
@@ -115,6 +118,7 @@ ARGS_1_4_checks.nbsubs_fitYesNo = coder.typeof(0,[1 Inf],[0 1]);
 ARGS_1_4_checks.resol_fitYesNo = coder.typeof(0,[1 Inf],[0 1]);
 ARGS_1_4.checks = coder.typeof(ARGS_1_4_checks);
 ARGS{1}{4} = coder.typeof(ARGS_1_4);
+
 
 %% Invoke MATLAB Coder.
 codegen -config cfg reflectivity_calculation -args ARGS{1}

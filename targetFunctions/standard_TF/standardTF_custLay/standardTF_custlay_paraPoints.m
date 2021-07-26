@@ -46,19 +46,17 @@ reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
-coder.varsize('reflectivity{:}',[10000 2],[1 0]);
 
 Simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     Simulation{i} = [1 1 ; 1 1];
 end
-coder.varsize('Simulation{:}',[10000 2],[1 0]);
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
-coder.varsize('allLayers{:}',[10000 3],[1 1]);
+
 %   --- End Memory Allocation ---
 
 % Single cored over all contrasts
@@ -88,12 +86,12 @@ for i = 1:numberOfContrasts
     thisBacksType = backsType(i);
     
     % Now call the core standardTF_stanlay reflectivity calculation
-    % In this case we are multi threaded over
+    % In this case we are single cored, so we do not parallelise over
     % points
     paralellPoints = 'points';
     
     % Call the reflectivity calculation
-    [sldProfile,reflect,Simul,shifted_dat,layerSld,thisChiSquared,thisSsubs] = ...
+    [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
     standardTF_layers_core...
     (thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
@@ -110,6 +108,8 @@ for i = 1:numberOfContrasts
     Simulation{i} = Simul;
     shifted_data{i} = shifted_dat;
     layerSlds{i} = layerSld;
+    allLayers{i} = resamLayers;
+    
     chis(i) = thisChiSquared;
     backgs(i) = thisBackground;
     qshifts(i) = thisQshift;

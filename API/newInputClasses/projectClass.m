@@ -7,6 +7,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     % Sub objects used are:
     % parametersClass       - parameter definition with priors
     % layersClass_realSLD   - layers defined as (d,rho_real,rough,hydration)
+    % backgroundsClass      - 
+    % resolutionsClass      -
+    % dataClass             -
+    % contrastsClass        -
+    % customFileClass       -
     
     properties
         experimentName
@@ -209,7 +214,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         function obj = removeParam(obj,varargin)
             % Removes a parameter from the parameters
-            % object. The parameter will also be removed
+            % object. The parameter will also be removed 
             % from the layers array if it is in use
             
             removing = varargin;
@@ -430,17 +435,22 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % -------------------------------------------------------------
         %   Editing of Resolutions block
         
-       function obj = setResolParValue(obj,varargin)
+        % Resol Pars
+        function obj = setResolParValue(obj,varargin)
             % Set the value of existing backsPar
             obj.resolution.setResolParValue(varargin);
         end
         
-       function obj = setResolPar(obj,varargin)
+        function obj = setResolPar(obj,varargin)
             % Set the value of existing backsPar
             obj.resolution.setResolPar(varargin);
         end
         
-        
+        % Resolutions
+        function obj = addResolution(obj,varargin)
+            % Add a resolution to the multi-table
+            obj.resolution.addResolution(varargin);
+        end
         
         % ------------------------------------------------------------
         %   Editing of Data block
@@ -516,10 +526,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.scalefactors.setParameter(varargin);
         end
         
-        
-        
-        
-        % -------------------------------------------------------------------
+
+        % -----------------------------------------------------------------
         % Editing of qzshifts block
         
         function obj = addQzshift(obj,varargin)
@@ -527,7 +535,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         end
         
         
-        % ----------------------------------------------------------------
+        % -----------------------------------------------------------------
         % editing of custom models block
         
         function obj = addCustomFile(obj, varargin)

@@ -42,19 +42,19 @@ reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
-coder.varsize('reflectivity{:}',[10000 2],[1 0]);
+%coder.varsize('reflectivity{:}',[10000 2],[1 0]);
 
 Simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     Simulation{i} = [1 1 ; 1 1];
 end
-coder.varsize('Simulation{:}',[10000 2],[1 0]);
+%coder.varsize('Simulation{:}',[10000 2],[1 0]);
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
-coder.varsize('allLayers{:}',[10000 3],[1 1]);
+%coder.varsize('allLayers{:}',[10000 3],[1 1]);
 
 
 for i = 1:numberOfContrasts

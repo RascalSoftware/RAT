@@ -42,7 +42,6 @@ coder.varsize('layers',[Inf,5],[1 1]);
 %for i = 1:numberOfContrasts
     output = allLayers;
     s_sub = allRoughs;
-    outSsubs = allRoughs;
     layers = zeros(size(output));
     if ~isempty(output)
         if strcmpi(geometry,'air/substrate')

@@ -2,30 +2,30 @@
 // Non-Degree Granting Education License -- for use at non-degree
 // granting, nonprofit, educational organizations only. Not for
 // government, commercial, or other organizational use.
-// File: applyScalarFunction.h
 //
-// MATLAB Coder version            : 5.0
-// C/C++ source code generated on  : 15-Apr-2021 10:46:16
+// applyScalarFunction.h
 //
+// Code generation for function 'applyScalarFunction'
+//
+
 #ifndef APPLYSCALARFUNCTION_H
 #define APPLYSCALARFUNCTION_H
 
-// Include Files
+// Include files
+#include "rtwtypes.h"
+#include "coder_array.h"
+#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
-#include "rtwtypes.h"
-#include "omp.h"
-#include "reflectivity_calculation_types.h"
-#define MAX_THREADS                    omp_get_max_threads()
 
 // Function Declarations
-extern void applyScalarFunction(const coder::array<double, 2U> &x, coder::array<
-  double, 2U> &z1);
+namespace coder {
+namespace internal {
+void applyScalarFunction(const ::coder::array<double, 2U> &x,
+                         ::coder::array<double, 2U> &z1);
+
+}
+} // namespace coder
 
 #endif
-
-//
-// File trailer for applyScalarFunction.h
-//
-// [EOF]
-//
+// End of code generation (applyScalarFunction.h)

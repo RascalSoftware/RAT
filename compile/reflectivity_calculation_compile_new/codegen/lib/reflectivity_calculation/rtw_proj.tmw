@@ -1,1 +1,1 @@
-Code generation project for reflectivity_calculation using toolchain "GNU gcc/g++ | gmake (64-bit Linux)". MATLAB root = /usr/local/MATLAB/R2020a.
+Code generation project for reflectivity_calculation using toolchain "Clang v3.1 | gmake (64-bit Mac)". MATLAB root = /Applications/MATLAB_R2021a.app.

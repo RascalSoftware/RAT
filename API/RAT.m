@@ -39,6 +39,11 @@ ratListener = listener(ratOut,'ratUpdate',@defaultRatOutputFunction);
 %ratListener = listener(ratOut,'ratUpdate',@bayesAddInfoText);
 setappdata(0,'ratOut',{ratOut ; ratListener});
 
+% -------- The output fcn is not currently in use  
+%          - outputs are currently just fprintf from the 
+%            minimisers
+% --------------------------------------------------
+
 % This creates an output class from RAT from which updates are sent.
 % To use it, register an output function with ratOut using the listener
 % class. To supress the default listener (outputs to command window only)
@@ -89,6 +94,7 @@ if any((strcmpi(controls.proc,{'bayes'})))
    result.bayesRes = bayesResults.res;
    result.sschain = bayesResults.sschain;
    result.predlims = bayesResults.predlims;
+   result.paramConfInts = bayesResults.parConfInts;
    
 %   result.posteriors = bayesResults.posteriors;
 %   result.best = bayesResults.best;

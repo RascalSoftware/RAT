@@ -2,29 +2,29 @@
 // Non-Degree Granting Education License -- for use at non-degree
 // granting, nonprofit, educational organizations only. Not for
 // government, commercial, or other organizational use.
-// File: sqrt.h
 //
-// MATLAB Coder version            : 5.0
-// C/C++ source code generated on  : 15-Apr-2021 10:46:16
+// sqrt.h
 //
+// Code generation for function 'sqrt'
+//
+
 #ifndef SQRT_H
 #define SQRT_H
 
-// Include Files
+// Include files
+#include "rtwtypes.h"
+#include "coder_array.h"
+#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
-#include "rtwtypes.h"
-#include "omp.h"
-#include "reflectivity_calculation_types.h"
-#define MAX_THREADS                    omp_get_max_threads()
 
 // Function Declarations
-extern void b_sqrt(creal_T *x);
+namespace coder {
+void b_sqrt(::coder::array<double, 1U> &x);
+
+void b_sqrt(creal_T *x);
+
+} // namespace coder
 
 #endif
-
-//
-// File trailer for sqrt.h
-//
-// [EOF]
-//
+// End of code generation (sqrt.h)

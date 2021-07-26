@@ -18,13 +18,51 @@ lang = thisCustomFile{2};
 path = thisCustomFile{3};
 
 % Call the relevant routines depending on the language required
+%
+% (1) Note that in order to generate code for use outside Matlab, it is
+% necessary to comment out the 'callMatlabCustomLayers' option as this 
+% will throw an error. To create the source code uncomment the dummy output
+% for 'output' and 'sRough'. To create the mexy file, comment out the
+% dummy returns and uncomment 'callMatlabCustomLayers which executes the
+% Matlab custom codes in the base matlab workspace using 'feval.
+% This option (i.e. using 'feval') will eventually
+% be replaced by a dedicated C++ class which will instantiate and call
+% an external Matlab session (or the base workspace) using the 'Matlab Engine 
+% for C++' API...  
+% https://uk.mathworks.com/help/matlab/calling-matlab-engine-from-cpp-programs.html
+%
+% (2) It is not possible to build the full Library from Coder when using the Octave 
+% interpreter, as there are name clashes between mex.h (Matlab) and 'oct.h'
+% (Octave). To use Octave, comment out the Octave option, generate the code
+% only using Matlab Coder, then manually include the Octave calling
+% function, and the use external tools to build the dynamic library.
+%
+% (3) Embedding the Python interpreter has not yet been done
+
+
 % switch lang
 %     case 'matlab'
+        % Send the calculation to the base Matlab workspace. This call must
+        % be commented out for source code generation or it throws and
+        % error, but required for mex generation.      
+        % Use the dummy values of 'outPut' and 'sRough' instead to keep the
+        % translator happy for source code generation.
+        %
+        % Use this line for mex generation:
         [output,sRough] = callMatlabCustomLayers(params,contrast,fName,path,bulkIn,bulkOut);
+        %
+        % Use these dummy outputs for souce code generation:
+%         output = [10 1e-6 3 ; 50 2e-6 4; 100 1e-6 4];
+%         sRough = 3;
+        
     %case 'octave'
-    %    [output,layers] = octaveCaller_customLayers(params,contrast,file,callPath,bulkIn,bulkOut);
+        % Use the embedded Octave interpreter. 
+        % [output,layers] = octaveCaller_customLayers(params,contrast,file,callPath,bulkIn,bulkOut);
+        %
+        %
     %case 'python'
-    %    [output,layers] = pythonCaller_customLayers(params,contrast,file,callPath,bulkIn,bulkOut);
+        % This has not been implemented yet
+        %[output,layers] = pythonCaller_customLayers(params,contrast,file,callPath,bulkIn,bulkOut);
 %end
 
 end

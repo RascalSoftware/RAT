@@ -23,7 +23,7 @@
 <div class="box"><strong>This is the main reflectivity calculation for all Layers models in the</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints) </strong></div>
+<div class="box"><strong>function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre class="comment">   This is the main reflectivity calculation for all Layers models in the 
@@ -89,7 +89,7 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] = </a><span class="keyword">...</span>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] = </a><span class="keyword">...</span>
 0002     standardTF_layers_core(contrastLayers, rough, <span class="keyword">...</span>
 0003     geometry, nba, nbs, resample, calcSld, sf, qshift,<span class="keyword">...</span>
 0004     dataPresent, data, dataLimits, simLimits, repeatLayers,<span class="keyword">...</span>
@@ -165,24 +165,26 @@ This function is called by:
 0074 <span class="comment">% If required, then resample the SLD</span>
 0075 <span class="keyword">if</span> resample == 1
 0076     layerSld = <a href="../common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile)">resampleLayers</a>(sldProfile);
-0077 <span class="keyword">else</span>
-0078     layerSld = theseLayers;
-0079 <span class="keyword">end</span>
-0080 
-0081 <span class="comment">% Apply scale factors and q shifts to the data</span>
-0082 shifted_dat = <a href="../common/shiftData/shiftdata.html" class="code" title="function shifted_data = shiftdata(scalefac,horshift,dataPresent,data,dataLimits,simLimits)">shiftdata</a>(sf,qshift,dataPresent,data,dataLimits,simLimits);
-0083 
-0084 <span class="comment">% Calculate the reflectivity</span>
-0085 reflectivityType = <span class="string">'standardAbeles_realOnly'</span>;
-0086 [reflect,Simul] = <a href="../common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,paralellPoints,reflectivityType);
-0087 
-0088 <span class="comment">% Apply background correction, either to the simulation or the data</span>
-0089 [reflect,Simul,shifted_dat] = <a href="../common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>(reflect,Simul,shifted_dat,background,backsType);
-0090 
-0091 <span class="comment">% Calculate chi squared.</span>
-0092 chiSq = <a href="../common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shifted_dat,reflect,params);
-0093 
-0094 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Fri 25-Jun-2021 13:32:14 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0077     resamLayers = layerSld;
+0078 <span class="keyword">else</span>
+0079     layerSld = theseLayers;
+0080     resamLayers = [0 0 0];
+0081 <span class="keyword">end</span>
+0082 
+0083 <span class="comment">% Apply scale factors and q shifts to the data</span>
+0084 shifted_dat = <a href="../common/shiftData/shiftdata.html" class="code" title="function shifted_data = shiftdata(scalefac,horshift,dataPresent,data,dataLimits,simLimits)">shiftdata</a>(sf,qshift,dataPresent,data,dataLimits,simLimits);
+0085 
+0086 <span class="comment">% Calculate the reflectivity</span>
+0087 reflectivityType = <span class="string">'standardAbeles_realOnly'</span>;
+0088 [reflect,Simul] = <a href="../common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,paralellPoints,reflectivityType);
+0089 
+0090 <span class="comment">% Apply background correction, either to the simulation or the data</span>
+0091 [reflect,Simul,shifted_dat] = <a href="../common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>(reflect,Simul,shifted_dat,background,backsType);
+0092 
+0093 <span class="comment">% Calculate chi squared.</span>
+0094 chiSq = <a href="../common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shifted_dat,reflect,params);
+0095 
+0096 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 21-Jul-2021 09:14:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

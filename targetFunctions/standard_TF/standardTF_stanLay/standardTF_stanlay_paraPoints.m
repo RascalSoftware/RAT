@@ -18,17 +18,17 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  dataLimits,...
  simLimits,...
  contrastLayers,...
- layersDetails] = RAT_parse_cells(problemDef_cells);
+ layersDetails...
+ customFiles] = RAT_parse_cells(problemDef_cells);
 
-% Extract individual parameters from problemDef
+% Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-numberOfLayers, resample, backsType] =  extractProblemParams(problemDef);
+numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
 
-calcSld = controls.calcSld;     
-         
+calcSld = controls.calcSld;      
+
 % Allocate the memory for the output arrays before the main loop
-%   --- Begin memory allocation ---
 backgs = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
 sfs = zeros(numberOfContrasts,1);
@@ -54,9 +54,9 @@ end
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 ; 1];
+    allLayers{i} = [1 1 ; 1 1];
 end
-% ---end memory allocation---
+% end memory allocation.
 
 
 % First we need to allocate the absolute values of the input
@@ -64,7 +64,7 @@ end
 % to be done once, and so is done outside the contrasts loop
 outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 
-% Single Loop over all the contrasts
+% Loop over all the contrasts
 for i = 1:numberOfContrasts
     
     % Extract the relevant parameter values for this contrast
@@ -91,11 +91,12 @@ for i = 1:numberOfContrasts
     thisBacksType = backsType(i);
     
     % Now call the core standardTF_stanlay reflectivity calculation
-    % In this case we parallelise over points.
+    % In this case we are single cored, so we do not parallelise over
+    % points
     paralellPoints = 'points';
     
-    % Call the calculation
-    [sldProfile,reflect,Simul,shifted_dat,layerSld,...
+    % Call the core layers calculation
+    [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,...
         thisChiSquared,thisSsubs] = standardTF_layers_core(thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
@@ -119,6 +120,7 @@ for i = 1:numberOfContrasts
     nbss(i) = thisNbs;
     resols(i) = thisResol;
     allRoughs(i) = thisRough;
+    allLayers{i} = resampledLayers;
 end
 
 end

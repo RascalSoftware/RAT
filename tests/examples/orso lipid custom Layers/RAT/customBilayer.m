@@ -26,6 +26,17 @@ bilayerHydration = params(6);
 bilayerRough = params(7);
 waterThick = params(8);
 
+switch contrast
+    case 1
+        % Show some of the params for Max.....
+        p = params(1:5);
+        disp(p);
+end
+
+
+
+
+
 % We have a constant SLD for the bilayer
 oxide_SLD = 3.41e-6;
 

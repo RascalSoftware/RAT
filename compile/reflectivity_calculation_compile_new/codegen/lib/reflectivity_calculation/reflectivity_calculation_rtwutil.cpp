@@ -2,100 +2,61 @@
 // Non-Degree Granting Education License -- for use at non-degree
 // granting, nonprofit, educational organizations only. Not for
 // government, commercial, or other organizational use.
-// File: reflectivity_calculation_rtwutil.cpp
 //
-// MATLAB Coder version            : 5.0
-// C/C++ source code generated on  : 15-Apr-2021 10:46:16
+// reflectivity_calculation_rtwutil.cpp
+//
+// Code generation for function 'reflectivity_calculation_rtwutil'
 //
 
-// Include Files
+// Include files
 #include "reflectivity_calculation_rtwutil.h"
-#include "reflectivity_calculation.h"
+#include "reflectivity_calculation_types.h"
 #include "rt_nonfinite.h"
-#include <cmath>
-#include <math.h>
+#include "coder_array.h"
 
 // Function Definitions
-
-//
-// Arguments    : double u0
-//                double u1
-// Return Type  : double
-//
-double rt_hypotd_snf(double u0, double u1)
+void b_cast(const coder::array<double, 2U> &t7_f1,
+            coder::array<double, 2U> &t8_f1)
 {
-  double y;
-  double a;
-  a = std::abs(u0);
-  y = std::abs(u1);
-  if (a < y) {
-    a /= y;
-    y *= std::sqrt(a * a + 1.0);
-  } else if (a > y) {
-    y /= a;
-    y = a * std::sqrt(y * y + 1.0);
-  } else {
-    if (!rtIsNaN(y)) {
-      y = a * 1.4142135623730951;
-    }
+  int loop_ub;
+  t8_f1.set_size(t7_f1.size(0), t7_f1.size(1));
+  loop_ub = t7_f1.size(0) * t7_f1.size(1);
+  for (int i{0}; i < loop_ub; i++) {
+    t8_f1[i] = t7_f1[i];
   }
-
-  return y;
 }
 
-//
-// Arguments    : double u0
-//                double u1
-// Return Type  : double
-//
-double rt_powd_snf(double u0, double u1)
+void cast(const coder::array<cell_wrap_10, 1U> &b,
+          coder::array<cell_wrap_7, 1U> &c)
 {
-  double y;
-  if (rtIsNaN(u0) || rtIsNaN(u1)) {
-    y = rtNaN;
-  } else {
-    double d;
-    double d1;
-    d = std::abs(u0);
-    d1 = std::abs(u1);
-    if (rtIsInf(u1)) {
-      if (d == 1.0) {
-        y = 1.0;
-      } else if (d > 1.0) {
-        if (u1 > 0.0) {
-          y = rtInf;
-        } else {
-          y = 0.0;
-        }
-      } else if (u1 > 0.0) {
-        y = 0.0;
-      } else {
-        y = rtInf;
-      }
-    } else if (d1 == 0.0) {
-      y = 1.0;
-    } else if (d1 == 1.0) {
-      if (u1 > 0.0) {
-        y = u0;
-      } else {
-        y = 1.0 / u0;
-      }
-    } else if (u1 == 2.0) {
-      y = u0 * u0;
-    } else if ((u1 == 0.5) && (u0 >= 0.0)) {
-      y = std::sqrt(u0);
-    } else if ((u0 < 0.0) && (u1 > std::floor(u1))) {
-      y = rtNaN;
-    } else {
-      y = pow(u0, u1);
-    }
+  int i;
+  c.set_size(b.size(0));
+  i = b.size(0);
+  for (int i1{0}; i1 < i; i1++) {
+    cast(b[i1].f1, c[i1].f1);
   }
-
-  return y;
 }
 
-//
-// File trailer for reflectivity_calculation_rtwutil.cpp
-//
-// [EOF]
-//
+void cast(const coder::array<cell_wrap_23, 1U> &b,
+          coder::array<cell_wrap_1, 1U> &c)
+{
+  int i;
+  c.set_size(b.size(0));
+  i = b.size(0);
+  for (int i1{0}; i1 < i; i1++) {
+    b_cast(b[i1].f1, c[i1].f1);
+  }
+}
+
+void cast(const coder::array<double, 2U> &t9_f1,
+          coder::array<double, 2U> &t10_f1)
+{
+  int loop_ub;
+  t10_f1.set_size(t9_f1.size(0), 2);
+  loop_ub = t9_f1.size(0) * 2;
+  for (int i{0}; i < loop_ub; i++) {
+    t10_f1[i] = t9_f1[i];
+  }
+}
+
+// End of code generation (reflectivity_calculation_rtwutil.cpp)

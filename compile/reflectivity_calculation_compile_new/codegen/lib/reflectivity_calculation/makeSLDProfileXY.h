@@ -2,31 +2,27 @@
 // Non-Degree Granting Education License -- for use at non-degree
 // granting, nonprofit, educational organizations only. Not for
 // government, commercial, or other organizational use.
-// File: makeSLDProfileXY.h
 //
-// MATLAB Coder version            : 5.0
-// C/C++ source code generated on  : 15-Apr-2021 10:46:16
+// makeSLDProfileXY.h
 //
+// Code generation for function 'makeSLDProfileXY'
+//
+
 #ifndef MAKESLDPROFILEXY_H
 #define MAKESLDPROFILEXY_H
 
-// Include Files
+// Include files
+#include "rtwtypes.h"
+#include "coder_array.h"
+#include "omp.h"
 #include <cstddef>
 #include <cstdlib>
-#include "rtwtypes.h"
-#include "omp.h"
-#include "reflectivity_calculation_types.h"
-#define MAX_THREADS                    omp_get_max_threads()
 
 // Function Declarations
-extern void makeSLDProfileXY(double nbair, double nbsub, double ssub, const
-  coder::array<double, 2U> &layers, double numberOfLayers, double nrepeats,
-  coder::array<double, 2U> &out);
+void makeSLDProfileXY(double nbair, double nbsub, double ssub,
+                      const coder::array<double, 2U> &layers,
+                      double numberOfLayers, double nrepeats,
+                      coder::array<double, 2U> &out);
 
 #endif
-
-//
-// File trailer for makeSLDProfileXY.h
-//
-// [EOF]
-//
+// End of code generation (makeSLDProfileXY.h)

@@ -46,6 +46,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'utilities');
     fullfile(ratRoot,'utilities','plotting');
     fullfile(ratRoot,'utilities','testing');
+    fullfile(ratRoot,'utilities','misc');
 };
 
 for i = 1:length(ratPaths)

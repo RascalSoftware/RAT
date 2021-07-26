@@ -886,9 +886,17 @@ if options.graph
         mdotfile = fullfile(options.htmlDir,[dotbase '.dot']);
         if options.verbose
 			fprintf('Creating full dependency graph %s...',mdotfile);
-		end
+        end
+        
+        % This line creates graph.dot
         mdot({hrefs, names, options, mdirs}, mdotfile); %mfiles
-        calldot(dot_exec, mdotfile, ...
+        
+        % Call dot itself
+        % We can use our custom .dot file at this point.....
+        
+        newMdotFile = fullfile(options.htmlDir,'organisedGraph.dot');
+        
+        calldot(dot_exec, newMdotFile, ...
                 fullfile(options.htmlDir,[dotbase '.map']), ...
                 fullfile(options.htmlDir,[dotbase '.png']));
         if options.verbose, fprintf('\n'); end

@@ -3,6 +3,8 @@
 % First make an instance of the project class
 problem = projectClass('DSPC monolayers');
 
+problem.setGeometry('substrate/liquid');
+
 
 % Define the parameters:
 Parameters = {
@@ -10,13 +12,15 @@ Parameters = {
     {'Tails Thickness',         10,     20,     30,     true};
     {'Heads Thickness',          3,     11,     16,     true};
     {'Tails Roughness',          2,     5,      9,      true};
-    {'Heads Roughness',          2,     5,      9,      true};
+    {'Heads Roughness',          2,     7,      9,      true};
     {'Deuterated Tails SLD',    4e-6,   6e-6,   2e-5,   true};
     {'Hydrogenated Tails SLD', -0.6e-6, -0.4e-6, 0,     true};
     {'Deuterated Heads SLD',    1e-6,   3e-6,   8e-6,   true};
     {'Hydrogenated Heads SLD',  0.1e-6,   1.4e-6, 3e-6,   true};
     {'Heads Hydration',         0,      10,   0.5,    true};
     };
+
+problem.setParameter(1,'value',3);     % Sub rough
 
 % Group these into layers:
 H_Heads = {'Hydrogenated Heads',...
@@ -149,17 +153,54 @@ controls = controlsDef();
 % controls.nsimu = 5000;
 % controls.burnin = 1000;
 
-
 [problem,results] = RAT(problem,controls);
-
-
-controls.procedure = 'simplex';
-
-figure(1); clf
-plotRefSLD(problem,results)
 % 
 % figure(2); clf; drawnow
 % plotmatrix(results.chain)
+
+% controls.procedure = 'calculate';
+% [problem,results] = RAT(problem,controls);
+% chiSq = results.calculationResults.sum_chi;
+% 
+figure(1); clf
+plotRefSLD(problem,results)
+
+% for i = 1:4
+%     problem.setContrast(i,'resample',false);
+% end
+
+% controls.procedure = 'calculate';
+% [problem,results] = RAT(problem,controls);
+% resChiSq = results.calculationResults.sum_chi;
+% 
+% fprintf('Normal Chi Squared is %f \n', chiSq);
+% fprintf('Resampled Ch Squared is %f \n', resChiSq);
+
+figure(1); clf
+plotRefSLD(problem,results);
+
+% layerSLDs = results.layerSlds;
+% sldProfiles = results.sldProfiles;
+% ssub = results.contrastParams.ssubs(1);
+
+% figure(2); clf; hold on
+% for i = 1:length(sldProfiles)
+%     thisSld = sldProfiles{i};
+%     
+%     thisLayers = layerSLDs{i};
+%     nbair = thisLayers(1,2);
+%     nbsub = thisLayers(end,2);
+%     numberOfLayers = size(thisLayers,1);
+%     nrepeats = 1;
+%     
+%     newProf = makeSLDProfileXY(nbair,nbsub,ssub,thisLayers,numberOfLayers,nrepeats);
+%     
+%     plot(thisSld(:,1),thisSld(:,2));
+%     plot(newProf(:,1)-50,newProf(:,2));
+%     
+% end
+% xlim([0 150]);
+
 
 
 

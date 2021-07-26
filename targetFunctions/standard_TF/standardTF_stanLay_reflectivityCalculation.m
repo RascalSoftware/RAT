@@ -12,9 +12,8 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,all
 
 
 % Pre-allocation - It's necessary to
-% pre-allocate the memory for all the arrays
+% pre-define the types for all the arrays
 % for compilation, so do this in this block.
-
 numberOfContrasts = problemDef.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
 backgs = zeros(numberOfContrasts,1);
@@ -53,9 +52,9 @@ end
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 ; 1];
+    allLayers{i} = [1 1 1; 1 1 1];
 end
-% ------- End memory allocation -------------
+% ------- End type definitions -------------
 
 
 para = controls.para;
@@ -66,7 +65,7 @@ switch para
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
              allRoughs] = standardTF_stanlay_single(problemDef,problemDef_cells,...
              problemDef_limits,controls);
-
+         
      case 'points'
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
@@ -78,14 +77,9 @@ switch para
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
              allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,...
              problemDef_limits,controls);        
-        
-%     case 'all'
-%           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
-%              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-%              allRoughs] = standardTF_stanlay_paraAll(problemDef,problemDef_cells,...
-%              problemDef_limits,controls); 
 end
 
+% Package everything into one array for tidy output
 problem.ssubs = outSsubs;
 problem.backgrounds = backgs;
 problem.qshifts = qshifts;
@@ -96,6 +90,7 @@ problem.resolutions = resols;
 problem.calculations.all_chis = chis;
 problem.calculations.sum_chi = sum(chis);
 problem.allSubRough = allRoughs;
+problem.resample = problemDef.resample;
 
 end
 

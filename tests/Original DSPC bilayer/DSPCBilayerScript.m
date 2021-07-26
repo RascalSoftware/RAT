@@ -118,6 +118,7 @@ problem.addContrast('name','Bilayer / D2O',...
     'scalefactor', 'Scalefactor 1',...
     'nbs', 'SLD D2O',...
     'nba', 'Silicon',...
+    'resample',false,...
     'data', 'Bilayer / D2O');
 
 % Set the model
@@ -134,6 +135,7 @@ problem.addContrast('name','Bilayer / SMW',...
     'background','Background ACMW',...
     'resolution','Resolution 1',...
     'scalefactor', 'Scalefactor 1',...
+    'resample',false,...
     'nbs', 'SLD SMW',...
     'nba', 'Silicon',...
     'data', 'Bilayer / SMW');
@@ -159,49 +161,21 @@ problem
 
 controls = controlsDef;
 [problem,results] = RAT(problem,controls);
-clf;plotRefSLD(problem,results);
+figure(1); clf; plotRefSLD(problem,results);
+
+controls.procedure = 'simplex';
+controls.calcSldDuringFit = 'no';
+controls.maxIter = 2000;
+controls.parallel = 'single';
+controls.display = 'final'; 
+ 
+[problem,results] = RAT(problem,controls);
+[problem,results] = RAT(problem,controls);
+[problem,results] = RAT(problem,controls);
+figure(1); clf; hold on
+plotRefSLD(problem,results);
 
 
-
-% controls.procedure = 'simplex';
-% controls.calcSldDuringFit = 'no';
-% controls.maxIter = 1000;
-% % controls.repeats = 1;
-% controls.parallel = 'single';
-% controls.display = 'final';
-% 
-% % Run the simplex 4 times
-% for i = 1:4
-%     [problem,results] = RAT(problem,controls);
-% end
-% 
-% clf;plotRefSLD(problem,results);
-
-% controls.procedure = 'simplex';
-% [problem,results] = RAT(problem,controls);
-% 
-% 
-% [problem,results] = RAT(problem,controls);
-% [problem,results] = RAT(problem,controls);
-% [problem,results] = RAT(problem,controls);
-% figure(1); clf; hold on
-% plotRefSLD(problem,results);
-
-% controls.procedure = 'calculate';
-% [outProb,results] = RAT_new(problem,controls);
-
-% h = figure(1); clf
-% sf = results.contrastParams.scalefactors;
-% bayesShadedPlot(h,results.predlims,results.shifted_data,sf)
-% 
-% h1 = figure(2); clf
-% mcmcplot(results.chain,[],results.fitNames,'hist');
-% 
-% h2 = figure(3); clf
-% mcmcplot(results.chain,[],results.fitNames);
-
-% h3 = figure(4); clf
-% mcmcplot(results.chain,[],results.fitNames,'pairs');
 
 
 

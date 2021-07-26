@@ -23,7 +23,7 @@
 <div class="box"><strong>nbair = nbairs(thisCont);</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rfinal,layers,points) </strong></div>
+<div class="box"><strong>function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> nbair = nbairs(thisCont);
@@ -45,7 +45,7 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rfinal,layers,points)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)</a>
 0002 
 0003     
 0004 <span class="comment">% nbair = nbairs(thisCont);</span>
@@ -109,7 +109,7 @@ This function is called by:
 0062         <span class="keyword">end</span>
 0063     <span class="keyword">end</span>
 0064     rij = (complex(plast - psub)) / (complex(plast + psub));
-0065     rij = rij * exp(-rfac*plast*psub*(rfinal*rfinal)/(lam*lam));
+0065     rij = rij * exp(-rfac*plast*psub*(rsub*rsub)/(lam*lam));
 0066     N(1,1) = exp(blast*ci);
 0067     N(2,1) = rij*exp( - blast*ci);
 0068     N(2,2) = exp( - blast*ci);
@@ -124,6 +124,6 @@ This function is called by:
 0077 
 0078 <span class="keyword">return</span>
 0079 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Fri 25-Jun-2021 13:32:14 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Wed 21-Jul-2021 09:14:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

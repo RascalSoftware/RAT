@@ -2,7 +2,7 @@ classdef multiTypeTable < handle
     
     
     % This is the class definition for
-    % the backgrounds table.
+    % the backgrounds and reolutions tables.
     
     properties
         typesTable = table;
@@ -27,7 +27,6 @@ classdef multiTypeTable < handle
         end
         
         function obj = addRow(obj,addParams)
-            
             switch length(addParams)
                 case 0
                     % No Parameter. Add empty row

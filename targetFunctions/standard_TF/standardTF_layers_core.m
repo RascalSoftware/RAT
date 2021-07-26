@@ -1,4 +1,4 @@
-function [sldProfile,reflect,Simul,shifted_dat,layerSld,chiSq,ssubs] = ...
+function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] = ...
     standardTF_layers_core(contrastLayers, rough, ...
     geometry, nba, nbs, resample, calcSld, sf, qshift,...
     dataPresent, data, dataLimits, simLimits, repeatLayers,...
@@ -74,8 +74,10 @@ end
 % If required, then resample the SLD
 if resample == 1
     layerSld = resampleLayers(sldProfile);
+    resamLayers = layerSld;
 else
     layerSld = theseLayers;
+    resamLayers = [0 0 0];
 end
 
 % Apply scale factors and q shifts to the data

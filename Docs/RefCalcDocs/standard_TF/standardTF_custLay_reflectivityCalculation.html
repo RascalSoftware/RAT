@@ -96,7 +96,7 @@ This function is called by:
 0053 
 0054 allLayers = cell(numberOfContrasts,1);
 0055 <span class="keyword">for</span> i = 1:numberOfContrasts
-0056     allLayers{i} = [1 ; 1];
+0056     allLayers{i} = [1 1 1; 1 1 1];
 0057 <span class="keyword">end</span>
 0058 <span class="comment">% End pre-allocation</span>
 0059 
@@ -136,8 +136,9 @@ This function is called by:
 0093 problem.calculations.all_chis = chis;
 0094 problem.calculations.sum_chi = sum(chis);
 0095 problem.allSubRough = allRoughs;
-0096 
-0097 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Fri 25-Jun-2021 13:32:14 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0096 problem.resample = problemDef.resample;
+0097 
+0098 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 21-Jul-2021 09:14:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

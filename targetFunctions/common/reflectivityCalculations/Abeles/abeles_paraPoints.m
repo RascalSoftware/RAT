@@ -1,4 +1,4 @@
-function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rfinal,layers,points)
+function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)
 
 	
 % nbair = nbairs(thisCont);
@@ -62,7 +62,7 @@ parfor loop = 1:points
         end
     end
     rij = (complex(plast - psub)) / (complex(plast + psub));
-    rij = rij * exp(-rfac*plast*psub*(rfinal*rfinal)/(lam*lam));
+    rij = rij * exp(-rfac*plast*psub*(rsub*rsub)/(lam*lam));
     N(1,1) = exp(blast*ci);
     N(2,1) = rij*exp( - blast*ci);
     N(2,2) = exp( - blast*ci);

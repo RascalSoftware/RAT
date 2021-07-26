@@ -2,143 +2,65 @@
 // Non-Degree Granting Education License -- for use at non-degree
 // granting, nonprofit, educational organizations only. Not for
 // government, commercial, or other organizational use.
-// File: chiSquared.cpp
 //
-// MATLAB Coder version            : 5.0
-// C/C++ source code generated on  : 15-Apr-2021 10:46:16
+// chiSquared.cpp
+//
+// Code generation for function 'chiSquared'
 //
 
-// Include Files
+// Include files
 #include "chiSquared.h"
-#include "reflectivity_calculation.h"
-#include "reflectivity_calculation_rtwutil.h"
+#include "find.h"
+#include "minOrMax.h"
+#include "power.h"
 #include "rt_nonfinite.h"
-#include "standardTF_stanLay_reflectivityCalculation.h"
+#include "sum.h"
+#include "coder_array.h"
 
 // Function Definitions
-
-//
-// chi_squared(func,data,numparams,errors)
-// Arguments    : const coder::array<double, 2U> *thisData
-//                const coder::array<double, 2U> *thisFit
-//                double P
-// Return Type  : double
-//
-double chiSquared(const coder::array<double, 2U> &thisData, const coder::array<
-                  double, 2U> &thisFit, double P)
+double chiSquared(const coder::array<double, 2U> &thisData,
+                  const coder::array<double, 2U> &thisFit, double P)
 {
-  double chi2;
-  double N;
-  int idx;
-  coder::array<double, 1U> n;
-  int k;
+  coder::array<double, 1U> b_thisData;
   coder::array<double, 1U> terms;
-  int nx;
-  coder::array<boolean_T, 1U> x;
-  coder::array<int, 1U> ii;
-  boolean_T exitg1;
-  double y;
-
+  coder::array<int, 1U> n;
+  coder::array<boolean_T, 1U> b_terms;
+  double b_dv[2];
+  double N;
+  int i;
+  int loop_ub;
+  // chi_squared(func,data,numparams,errors)
   // allChis = zeros(1,numberOfContrasts);
   //      thisData = allData{i};
   //      thisFit = allFits{i};
-  if (thisData.size(0) < 1) {
-    N = 1.0;
-  } else {
-    N = static_cast<unsigned int>(thisData.size(0));
-  }
-
+  b_dv[0] = thisData.size(0);
+  b_dv[1] = 1.0;
+  N = coder::internal::b_maximum(b_dv);
   if (N <= P) {
     N = P + 1.0;
   }
-
-  idx = thisData.size(0);
-  n.set_size(thisData.size(0));
-  for (k = 0; k < idx; k++) {
-    n[k] = (thisData[k + thisData.size(0)] - thisFit[k + thisFit.size(0)]) /
-      thisData[k + thisData.size(0) * 2];
+  loop_ub = thisData.size(0);
+  b_thisData.set_size(thisData.size(0));
+  for (i = 0; i < loop_ub; i++) {
+    b_thisData[i] =
+        (thisData[i + thisData.size(0)] - thisFit[i + thisFit.size(0)]) /
+        thisData[i + thisData.size(0) * 2];
   }
-
-  terms.set_size(n.size(0));
-  nx = n.size(0);
-  for (k = 0; k < nx; k++) {
-    terms[k] = rt_powd_snf(n[k], 2.0);
+  coder::power(b_thisData, terms);
+  b_terms.set_size(terms.size(0));
+  loop_ub = terms.size(0);
+  for (i = 0; i < loop_ub; i++) {
+    b_terms[i] = (terms[i] == rtInf);
   }
-
-  x.set_size(terms.size(0));
-  idx = terms.size(0);
-  for (k = 0; k < idx; k++) {
-    x[k] = (terms[k] == rtInf);
-  }
-
-  nx = x.size(0);
-  idx = 0;
-  ii.set_size(x.size(0));
-  k = 0;
-  exitg1 = false;
-  while ((!exitg1) && (k <= nx - 1)) {
-    if (x[k]) {
-      idx++;
-      ii[idx - 1] = k + 1;
-      if (idx >= nx) {
-        exitg1 = true;
-      } else {
-        k++;
-      }
-    } else {
-      k++;
-    }
-  }
-
-  if (x.size(0) == 1) {
-    if (idx == 0) {
-      ii.set_size(0);
-    }
-  } else {
-    if (1 > idx) {
-      idx = 0;
-    }
-
-    ii.set_size(idx);
-  }
-
-  n.set_size(ii.size(0));
-  idx = ii.size(0);
-  for (k = 0; k < idx; k++) {
-    n[k] = ii[k];
-  }
-
+  coder::eml_find(b_terms, n);
   if (n.size(0) != 0) {
-    ii.set_size(n.size(0));
-    idx = n.size(0);
-    for (k = 0; k < idx; k++) {
-      ii[k] = static_cast<int>(n[k]);
-    }
-
-    idx = ii.size(0);
-    for (k = 0; k < idx; k++) {
-      terms[ii[k] - 1] = 0.0;
+    loop_ub = n.size(0);
+    for (i = 0; i < loop_ub; i++) {
+      terms[n[i] - 1] = 0.0;
     }
   }
-
-  idx = terms.size(0);
-  if (terms.size(0) == 0) {
-    y = 0.0;
-  } else {
-    y = terms[0];
-    for (k = 2; k <= idx; k++) {
-      y += terms[k - 1];
-    }
-  }
-
-  chi2 = 1.0 / (N - P) * y;
-
+  return 1.0 / (N - P) * coder::sum(terms);
   // allChis(i) = chi2;
-  return chi2;
 }
 
-//
-// File trailer for chiSquared.cpp
-//
-// [EOF]
-//
+// End of code generation (chiSquared.cpp)

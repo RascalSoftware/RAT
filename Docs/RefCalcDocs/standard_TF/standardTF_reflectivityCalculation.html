@@ -71,67 +71,69 @@ This function is called by:
 0018 numberOfContrasts = problemDef.numberOfContrasts;
 0019 
 0020 <span class="comment">% Pre-allocate the output arrays.. this is necessary because otherwise</span>
-0021 <span class="comment">% the compiler complains</span>
-0022 preAlloc = zeros(numberOfContrasts,1);
-0023 problem = struct(<span class="string">'ssubs'</span>,preAlloc,<span class="keyword">...</span>
-0024                  <span class="string">'backgrounds'</span>,preAlloc,<span class="keyword">...</span>
-0025                  <span class="string">'qshifts'</span>,preAlloc,<span class="keyword">...</span>
-0026                  <span class="string">'scalefactors'</span>,preAlloc,<span class="keyword">...</span>
-0027                  <span class="string">'nbairs'</span>,preAlloc,<span class="keyword">...</span>
-0028                  <span class="string">'nbsubs'</span>,preAlloc,<span class="keyword">...</span>
-0029                  <span class="string">'resolutions'</span>,preAlloc,<span class="keyword">...</span>
-0030                  <span class="string">'calculations'</span>,struct(<span class="string">'all_chis'</span>,preAlloc,<span class="string">'sum_chi'</span>,0),<span class="keyword">...</span>
-0031                  <span class="string">'allSubRough'</span>,preAlloc);
-0032 
-0033 reflectivity = cell(numberOfContrasts,1);
-0034 <span class="keyword">for</span> i = 1:numberOfContrasts
-0035     reflectivity{i} = [1 1 ; 1 1];
-0036 <span class="keyword">end</span>
-0037 
-0038 Simulation = cell(numberOfContrasts,1);
-0039 <span class="keyword">for</span> i = 1:numberOfContrasts
-0040     Simulation{i} = [1 1 ; 1 1];
-0041 <span class="keyword">end</span>
-0042 
-0043 shifted_data = cell(numberOfContrasts,1);
-0044 <span class="keyword">for</span> i = 1:numberOfContrasts
-0045     shifted_data{i} = [1 1 1 ; 1 1 1];
-0046 <span class="keyword">end</span>
-0047 
-0048 layerSlds = cell(numberOfContrasts,1);
-0049 <span class="keyword">for</span> i = 1:numberOfContrasts
-0050     layerSlds{i} = [1 1 1 ; 1 1 1];
-0051 <span class="keyword">end</span>
-0052 
-0053 sldProfiles = cell(numberOfContrasts,1);
-0054 <span class="keyword">for</span> i = 1:numberOfContrasts
-0055     sldProfiles{i} = [1 1 ; 1 1];
-0056 <span class="keyword">end</span>
-0057 
-0058 allLayers = cell(numberOfContrasts,1);
-0059 <span class="keyword">for</span> i = 1:numberOfContrasts
-0060     allLayers{i} = [1 ; 1];
-0061 <span class="keyword">end</span>
-0062            
-0063 <span class="keyword">switch</span> lower(type)
-0064     <span class="keyword">case</span> <span class="string">'layers'</span>
-0065         <span class="comment">% Standard layers calculation</span>
-0066         [problem,reflectivity,Simulation,<span class="keyword">...</span>
-0067          shifted_data,layerSlds,sldProfiles,<span class="keyword">...</span>
-0068          allLayers]= <a href="standardTF_stanLay_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_stanLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanLay_reflectivityCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
-0069     <span class="keyword">case</span> <span class="string">'custom layers'</span>
-0070         <span class="comment">% Custom layers with user supplied custom model file</span>
-0071         [problem,reflectivity,Simulation,<span class="keyword">...</span>
-0072             shifted_data,layerSlds,sldProfiles,<span class="keyword">...</span>
-0073             allLayers] = <a href="standardTF_custLay_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custLay_reflectivityCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
-0074     <span class="keyword">case</span> <span class="string">'custom xy'</span>
-0075         <span class="comment">% Custom SLD profile with user defined model file</span>
-0076         [problem,reflectivity,Simulation,<span class="keyword">...</span>
-0077            shifted_data,layerSlds,sldProfiles,<span class="keyword">...</span>
-0078            allLayers] = <a href="standardTF_custXY_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custXY_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_reflectivityCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
-0079 <span class="keyword">end</span>
-0080 
-0081 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Fri 25-Jun-2021 13:32:14 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0021 <span class="comment">% the compiler complains with 'Output argument &lt;....&gt; is not assigned on</span>
+0022 <span class="comment">% some execution paths' error.</span>
+0023 preAlloc = zeros(numberOfContrasts,1);
+0024 problem = struct(<span class="string">'ssubs'</span>,preAlloc,<span class="keyword">...</span>
+0025                  <span class="string">'backgrounds'</span>,preAlloc,<span class="keyword">...</span>
+0026                  <span class="string">'qshifts'</span>,preAlloc,<span class="keyword">...</span>
+0027                  <span class="string">'scalefactors'</span>,preAlloc,<span class="keyword">...</span>
+0028                  <span class="string">'nbairs'</span>,preAlloc,<span class="keyword">...</span>
+0029                  <span class="string">'nbsubs'</span>,preAlloc,<span class="keyword">...</span>
+0030                  <span class="string">'resolutions'</span>,preAlloc,<span class="keyword">...</span>
+0031                  <span class="string">'calculations'</span>,struct(<span class="string">'all_chis'</span>,preAlloc,<span class="string">'sum_chi'</span>,0),<span class="keyword">...</span>
+0032                  <span class="string">'allSubRough'</span>,preAlloc,<span class="keyword">...</span>
+0033                  <span class="string">'resample'</span>,preAlloc);
+0034 
+0035 reflectivity = cell(numberOfContrasts,1);
+0036 <span class="keyword">for</span> i = 1:numberOfContrasts
+0037     reflectivity{i} = [1 1 ; 1 1];
+0038 <span class="keyword">end</span>
+0039 
+0040 Simulation = cell(numberOfContrasts,1);
+0041 <span class="keyword">for</span> i = 1:numberOfContrasts
+0042     Simulation{i} = [1 1 ; 1 1];
+0043 <span class="keyword">end</span>
+0044 
+0045 shifted_data = cell(numberOfContrasts,1);
+0046 <span class="keyword">for</span> i = 1:numberOfContrasts
+0047     shifted_data{i} = [1 1 1 ; 1 1 1];
+0048 <span class="keyword">end</span>
+0049 
+0050 layerSlds = cell(numberOfContrasts,1);
+0051 <span class="keyword">for</span> i = 1:numberOfContrasts
+0052     layerSlds{i} = [1 1 1 ; 1 1 1];
+0053 <span class="keyword">end</span>
+0054 
+0055 sldProfiles = cell(numberOfContrasts,1);
+0056 <span class="keyword">for</span> i = 1:numberOfContrasts
+0057     sldProfiles{i} = [1 1 ; 1 1];
+0058 <span class="keyword">end</span>
+0059 
+0060 allLayers = cell(numberOfContrasts,1);
+0061 <span class="keyword">for</span> i = 1:numberOfContrasts
+0062     allLayers{i} = [1 1 1 ; 1 1 1];
+0063 <span class="keyword">end</span>
+0064            
+0065 <span class="keyword">switch</span> lower(type)
+0066     <span class="keyword">case</span> <span class="string">'layers'</span>
+0067         <span class="comment">% Standard layers calculation</span>
+0068         [problem,reflectivity,Simulation,<span class="keyword">...</span>
+0069          shifted_data,layerSlds,sldProfiles,<span class="keyword">...</span>
+0070          allLayers]= <a href="standardTF_stanLay_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_stanLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanLay_reflectivityCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
+0071     <span class="keyword">case</span> <span class="string">'custom layers'</span>
+0072         <span class="comment">% Custom layers with user supplied custom model file</span>
+0073         [problem,reflectivity,Simulation,<span class="keyword">...</span>
+0074             shifted_data,layerSlds,sldProfiles,<span class="keyword">...</span>
+0075             allLayers] = <a href="standardTF_custLay_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custLay_reflectivityCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
+0076     <span class="keyword">case</span> <span class="string">'custom xy'</span>
+0077         <span class="comment">% Custom SLD profile with user defined model file</span>
+0078         [problem,reflectivity,Simulation,<span class="keyword">...</span>
+0079            shifted_data,layerSlds,sldProfiles,<span class="keyword">...</span>
+0080            allLayers] = <a href="standardTF_custXY_reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custXY_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_reflectivityCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
+0081 <span class="keyword">end</span>
+0082 
+0083 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 21-Jul-2021 09:14:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

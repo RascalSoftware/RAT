@@ -18,7 +18,8 @@ type = problemDef.modelType;
 numberOfContrasts = problemDef.numberOfContrasts;
 
 % Pre-allocate the output arrays.. this is necessary because otherwise
-% the compiler complains
+% the compiler complains with 'Output argument <....> is not assigned on 
+% some execution paths' error.
 preAlloc = zeros(numberOfContrasts,1);
 problem = struct('ssubs',preAlloc,...
                  'backgrounds',preAlloc,...
@@ -28,7 +29,8 @@ problem = struct('ssubs',preAlloc,...
                  'nbsubs',preAlloc,...
                  'resolutions',preAlloc,...
                  'calculations',struct('all_chis',preAlloc,'sum_chi',0),...
-                 'allSubRough',preAlloc);
+                 'allSubRough',preAlloc,...
+                 'resample',preAlloc);
 
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -57,7 +59,7 @@ end
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 ; 1];
+    allLayers{i} = [1 1 1 ; 1 1 1];
 end
            
 switch lower(type)

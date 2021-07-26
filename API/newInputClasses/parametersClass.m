@@ -345,7 +345,8 @@ classdef parametersClass < handle
             
             outStruct.fitYesNo = double(obj.paramsTable{:,5});
             
-            outStruct.priors = table2cell(obj.paramsTable(:,6:8));
+            priors = table2cell(obj.paramsTable(:,6:8));
+            outStruct.priors = [outStruct.paramNames priors];
             
             % Need to force some of the outputs
             % to be row vectors, so transpose them

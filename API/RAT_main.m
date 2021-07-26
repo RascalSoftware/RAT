@@ -47,13 +47,14 @@ switch action
 %         bayesResults.best = best;
 %         bayesResults.posteriors = posteriors;
 %         bayesResults.intervals = intervals;
+
     case 'NS'
         if ~strcmpi(controls.display,'off')
             fprintf('\nRunning Nested Sampler\n\n');
         end            
         [outProblemDef,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
+        % TODO: The outputs aren't in the ciorrect format yet, so NS crashes
+        % at this point.
 end
-
-%disp('debug');
 
 end

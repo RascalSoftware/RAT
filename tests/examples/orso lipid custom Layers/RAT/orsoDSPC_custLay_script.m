@@ -149,33 +149,44 @@ problem.setContrastModel(3,'DSPC Model');
 
 controls = controlsDef();
 controls.calcSldDuringFit = 'no';
-controls.procedure = 'bayes';
-controls.nsimu = 6000;
-controls.repeats = 3;
-controls.parallel = 'points';
+controls.procedure = 'simplex';
+controls.display = 'final';
+% % controls.maxIter = 200;
 
-%% 
-% And send this to RAT...
+% Run the fit
+[problam,results] = RAT(problem,controls);
+figure(1); clf
+plotRefSLD(problem,results);
 
-[problem,results] = RAT(problem,controls);
 
-switch controls.procedure
-    case 'bayes'
-        h2 = figure(2); clf
-        sf = results.contrastParams.scalefactors;
-        bayesShadedPlot(h2,results.predlims,results.shifted_data,sf);
-        
-        
-        h3 = figure(3); clf
-        mcmcplot(results.chain,[],results.fitNames,'hist');
-        
-         h4 = figure(4); clf; 
-         plotBayesCorrFig(results.chain,results.fitNames,h4)
-
-    otherwise
-        h2 = figure(2); clf
-        plotRefSLD(problem,results)
-end
+%%
+% controls.procedure = 'bayes';
+% controls.nsimu = 2000;
+% controls.repeats = 1;
+% %controls.parallel = 'points';
+% problem.setParamPrior(1,'gaussian',3.5,0.03)
+% % 
+% % % And send this to RAT...
+% 
+% [problem,results] = RAT(problem,controls);
+% % 
+% switch controls.procedure
+%     case 'bayes'
+%         h2 = figure(2); clf
+%         sf = results.contrastParams.scalefactors;
+%         bayesShadedPlot(h2,results.predlims,results.shifted_data,sf);
+%         
+%         
+%         h3 = figure(3); clf
+%         mcmcplot(results.chain,[],results.fitNames,'hist');
+%         
+%          h4 = figure(4); clf; 
+%          plotBayesCorrFig(results.chain,results.fitNames,h4)
+% 
+%     otherwise
+%         h2 = figure(2); clf
+%         plotRefSLD(problem,results)
+% end
 
 
 

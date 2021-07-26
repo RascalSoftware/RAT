@@ -35,6 +35,13 @@ problem.resolutions = 0;
 problem.calculations.all_chis = 0;
 problem.calculations.sum_chi = 0;
 problem.allSubRough = 0;
+problem.resample = 0;
+
+% We also foll the results arrays to define their
+% type and size. (NOTE: at the moment we have a 'coder.varsize'
+% pre-processor directives for the compiler here and at the 
+% end for the results block. We are unlikely to need both
+% TODO: Find out which is necessary and tidy this up.
 
 numberOfContrasts = problemDef.numberOfContrasts;
 reflectivity = cell(numberOfContrasts,1);
@@ -69,9 +76,10 @@ coder.varsize('sldProfiles{:}',[10000 2],[1 0]);
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 ; 1];
+    allLayers{i} = [1 1 1; 1 1 1];
 end
-coder.varsize('allLayers{:}',[10000 1],[1 0]);
+coder.varsize('allLayers{:}',[10000 3],[1 0]);
+
 
 %Decide which target function we are calling ans call the relevant routines
 whichTF = problemDef.TF;
@@ -126,7 +134,8 @@ for i = 1:numberOfContrasts
 end
 result{6} = cell6;
 
-% Pre-processor directives for Matlab Coder.
+% Pre-processor directives for Matlab Coder
+% to define the size of the output array
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
 coder.varsize('problem.backgrounds',[Inf 1],[1 0]);
 coder.varsize('problem.qshifts',[Inf 1],[1 0]);
@@ -155,7 +164,7 @@ coder.varsize('result{4}{:}',[Inf 3],[1 0]);
 coder.varsize('result{5}',[Inf 1],[1 0]);           %Sld profiles
 coder.varsize('results{5}{:}',[Inf 2],[1 0]);
 
-coder.varsize('result{6}',[Inf 1],[1 0]);           %All layers
-coder.varsize('result{6}{:}',[Inf 1],[1 0]);
+coder.varsize('result{6}',[Inf 1],[1 0]);           %All layers (resampled)
+coder.varsize('result{6}{:}',[Inf 3],[1 0]);
 
 end

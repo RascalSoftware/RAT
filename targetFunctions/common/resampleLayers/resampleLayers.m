@@ -15,7 +15,7 @@ xend = x(end);
 % will fix later
 
 newX = linspace(xstart,xend,100);
-out = adaptive(sldProfile, [xstart xend], 'minAngle',0.7*pi, 'nPoints', 50);
+out = adaptive(sldProfile, [xstart xend], 'minAngle',0.95*pi);%, 'nPoints', 50);
 yy = out{1};
 
 newX = yy(:,1);

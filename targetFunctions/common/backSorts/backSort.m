@@ -53,7 +53,11 @@ function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas
     nbs = nbs(cNbss);
     
     %thisResol = cRes(i);
-    resol = res(cRes);
+    if cRes ~= -1
+        resol = res(cRes);
+    else
+        resol = -1;     % Negative value means we have a data resolution..
+    end
 %end
    
     

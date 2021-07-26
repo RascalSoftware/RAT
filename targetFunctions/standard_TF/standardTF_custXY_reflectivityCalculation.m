@@ -92,6 +92,7 @@ problem.resolutions = resols;
 problem.calculations.all_chis = chis;
 problem.calculations.sum_chi = sum(chis);
 problem.allSubRough = allRoughs;
+problem.resample = ones(1,length(allRoughs));
 
 
 end

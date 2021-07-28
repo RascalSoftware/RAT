@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of gewekeplot</title>
+  <meta name="keywords" content="gewekeplot">
+  <meta name="description" content="GEWEKEPLOT Plot Geweke's diagnostic">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>gewekeplot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>GEWEKEPLOT Plot Geweke's diagnostic</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function zz=gewekeplot(chain) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">GEWEKEPLOT Plot Geweke's diagnostic
+ gewekeplot(chain) plots Geweke's diagnostic for increasing number of 
+ iterations. See geweke.m</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/geweke.html" class="code" title="function [z,p]=geweke(chain,a,b)">geweke</a>	GEWEKE Geweke's MCMC convergence diagnostic</li><li><a href="geweke.html" class="code" title="function [z,p]=geweke(chain,a,b)">geweke</a>	GEWEKE Geweke's MCMC convergence diagnostic</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function zz=gewekeplot(chain)</a>
+0002 <span class="comment">%GEWEKEPLOT Plot Geweke's diagnostic</span>
+0003 <span class="comment">% gewekeplot(chain) plots Geweke's diagnostic for increasing number of</span>
+0004 <span class="comment">% iterations. See geweke.m</span>
+0005 
+0006 <span class="comment">% ML, 2002</span>
+0007 <span class="comment">% $Revision: 1.3 $  $Date: 2003/05/07 12:22:19 $</span>
+0008 
+0009 [nsimu,npar]=size(chain);
+0010 
+0011 n  = 40;
+0012 e  = fix(nsimu/2);
+0013 l  = fix(e/n);
+0014 ii = 1:l:e;
+0015 
+0016 z = zeros(length(ii),npar);
+0017 <span class="keyword">for</span> i=1:length(ii)
+0018   z(i,:) = <a href="geweke.html" class="code" title="function [z,p]=geweke(chain,a,b)">geweke</a>(chain(ii(i):<span class="keyword">end</span>,:));
+0019 <span class="keyword">end</span>
+0020 
+0021 <span class="keyword">for</span> i=1:npar
+0022   h = subplot(npar,1,i);
+0023   plot(ii,z(:,i));
+0024   set(h,<span class="string">'XLim'</span>,[1 e]);
+0025   <span class="keyword">if</span> i==1
+0026     title(<span class="string">'Geweke diagnostics'</span>);
+0027   <span class="keyword">end</span>
+0028   <span class="keyword">if</span> i==npar
+0029     xlabel(<span class="string">'first iteration used'</span>);
+0030   <span class="keyword">end</span>
+0031 <span class="keyword">end</span>  
+0032 
+0033 <span class="keyword">if</span> nargout &gt; 0
+0034   zz=z;
+0035 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

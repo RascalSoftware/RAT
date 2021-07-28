@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of packPriors</title>
+  <meta name="keywords" content="packPriors">
+  <meta name="description" content="We need to pack the parameters into seperate vectors">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html minimisers --><!-- ../menu.html generalUtils --><!-- menu.html bayesStats -->
+<h1>packPriors
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>We need to pack the parameters into seperate vectors</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function fitPriors = packPriors(priors,checks) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">We need to pack the parameters into seperate vectors
+of those that are being fitted, and those that are
+held constant.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function fitPriors = packPriors(priors,checks)</a>
+0002 
+0003 <span class="comment">%We need to pack the parameters into seperate vectors</span>
+0004 <span class="comment">%of those that are being fitted, and those that are</span>
+0005 <span class="comment">%held constant.</span>
+0006 numberOfFitted = sum(checks.params_fitYesNo) + <span class="keyword">...</span>
+0007                  sum(checks.backs_fitYesNo) + <span class="keyword">...</span>
+0008                  sum(checks.scales_fitYesNo) + <span class="keyword">...</span>
+0009                  sum(checks.shifts_fitYesNo) + <span class="keyword">...</span>
+0010                  sum(checks.nbairs_fitYesNo) + <span class="keyword">...</span>
+0011                  sum(checks.nbsubs_fitYesNo) + <span class="keyword">...</span>
+0012                  sum(checks.resol_fitYesNo);
+0013              
+0014 <span class="comment">% numberOfTotal = length(problemDef.params) + ...</span>
+0015 <span class="comment">%                 length(problemDef.backs) + ...</span>
+0016 <span class="comment">%                 length(problemDef.sf) + ...</span>
+0017 <span class="comment">%                 length(problemDef.shifts) + ...</span>
+0018 <span class="comment">%                 length(problemDef.nba) + ...</span>
+0019 <span class="comment">%                 length(problemDef.nbs) + ...</span>
+0020 <span class="comment">%                 length(problemDef.res);</span>
+0021    
+0022 <span class="comment">% fitpars = problemDef.fitpars;%zeros(numberOfFitted,1);</span>
+0023 <span class="comment">% otherpars = zeros((numberOfTotal-numberOfFitted),1);</span>
+0024 <span class="comment">% fitconstr = zeros(numberOfFitted,2);</span>
+0025 <span class="comment">% otherconstr = zeros((numberOfTotal-numberOfFitted),2);</span>
+0026 <span class="comment">% %limits = problemDef.limits;</span>
+0027 <span class="comment">% fitNames = cell(numberOfFitted,1);</span>
+0028 fitCounter = 1;
+0029 <span class="comment">% otherCounter = 1;</span>
+0030 thesePriors = priors.paramPriors;
+0031 <span class="keyword">for</span> n = 1:length(checks.params_fitYesNo)
+0032     <span class="keyword">if</span> checks.params_fitYesNo(n) == 1
+0033         fitPriors{fitCounter} = thesePriors(n,:);
+0034         fitCounter = fitCounter + 1;
+0035         
+0036 <span class="comment">%         fitpars(fitCounter) = problemDef.params(n);</span>
+0037 <span class="comment">%         fitconstr(fitCounter,1) = limits.params(n,1);</span>
+0038 <span class="comment">%         fitconstr(fitCounter,2) = limits.params(n,2);</span>
+0039 <span class="comment">%         fitNames{fitCounter} = problemDef_cells{7}{n};</span>
+0040 <span class="comment">%         fitCounter = fitCounter + 1;</span>
+0041 <span class="comment">%</span>
+0042 <span class="comment">%     else</span>
+0043 <span class="comment">%         otherpars(otherCounter) = problemDef.params(n);</span>
+0044 <span class="comment">%         otherconstr(otherCounter,1) = limits.params(n,1);</span>
+0045 <span class="comment">%         otherconstr(otherCounter,2) = limits.params(n,2);</span>
+0046 <span class="comment">%         otherCounter = otherCounter + 1;</span>
+0047     <span class="keyword">end</span>
+0048 <span class="keyword">end</span>
+0049 
+0050 <span class="comment">% backs</span>
+0051 
+0052 <span class="comment">% scales</span>
+0053 
+0054 <span class="comment">% shifts</span>
+0055 
+0056 <span class="comment">% nba</span>
+0057 
+0058 <span class="comment">% nbs</span>
+0059 
+0060 <span class="comment">% resol</span>
+0061 
+0062 
+0063 
+0064 
+0065 
+0066 
+0067 
+0068 
+0069 
+0070 
+0071 
+0072 
+0073 
+0074 
+0075 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

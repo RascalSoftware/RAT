@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of hyperpriorupdate</title>
+  <meta name="keywords" content="hyperpriorupdate">
+  <meta name="description" content="hyperpriorupdate - default hyper prior update function for mcmcrun">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>hyperpriorupdate
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>hyperpriorupdate - default hyper prior update function for mcmcrun</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [mu,sig,parrow] = hyperpriorupdate(theta,thetamu,thetasig,params) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> hyperpriorupdate - default hyper prior update function for mcmcrun</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/invchir.html" class="code" title="function r=invchir(m,n,N0,S2)">invchir</a>	INVCHIR(m,n,N0,S2) inverse scaled chi squared random numbers</li><li><a href="../../minimisers/mcmcstat/norr.html" class="code" title="function r=norr(m,n,mu,sigma2)">norr</a>	NORR(m,n,mu,sigma2)  Normal (Gaussian) random numbers</li><li><a href="invchir.html" class="code" title="function r=invchir(m,n,N0,S2)">invchir</a>	INVCHIR(m,n,N0,S2) inverse scaled chi squared random numbers</li><li><a href="norr.html" class="code" title="function r=norr(m,n,mu,sigma2)">norr</a>	NORR(m,n,mu,sigma2)  Normal (Gaussian) random numbers</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [muout,sig2out] = updatesmusig2(mu, sig2, theta, mu0, tau20, sig20, n0)</a></li><li><a href="#_sub2" class="code">function [m,s2] = nornor(theta,sig2,mu0,tau20)</a></li><li><a href="#_sub3" class="code">function [s2new,nnew] = ichichi(theta, mu, sig20, n0)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [mu,sig,parrow] = hyperpriorupdate(theta,thetamu,thetasig,params)</a>
+0002 <span class="comment">% hyperpriorupdate - default hyper prior update function for mcmcrun</span>
+0003 
+0004 <span class="comment">% assumes:</span>
+0005 <span class="comment">% theta  ~ N(mu,sig2)</span>
+0006 <span class="comment">% mu     ~ N(mu0, tau20)</span>
+0007 <span class="comment">% sig2   ~ invchi(n0, sig20)</span>
+0008 
+0009 <span class="comment">% needs in params structure</span>
+0010 <span class="comment">% nhpar, number of parameter sets with hyper priors</span>
+0011 <span class="comment">% ind, which parameters go together, like [0 0 0 1 1 1 2 2 2 3 3 3 4 4 4]</span>
+0012 <span class="comment">% mu0, tau20 1:nhpar</span>
+0013 <span class="comment">% sig20, n0 1:nhpar</span>
+0014 
+0015 <span class="comment">% $Revision: 1.2 $  $Date: 2011/01/26 10:20:46 $</span>
+0016 
+0017 ind = params.ind;
+0018 mu0 = params.mu0;
+0019 tau20 = params.tau20;
+0020 sig20 = params.sig20;
+0021 n0 = params.n0;
+0022 
+0023 
+0024 <span class="comment">%nhpar = length(setdiff(unique(ind),[0]));</span>
+0025 nhpar = max(ind);
+0026 
+0027 <span class="keyword">if</span> nhpar&lt;=0
+0028 <span class="comment">%  disp('NOTE: hpriorupdate called, but no hyper priors found')</span>
+0029   mu = thetamu; sig=thetasig; parrow=NaN;
+0030   <span class="keyword">return</span>
+0031 <span class="keyword">end</span>
+0032 
+0033 mu = thetamu;
+0034 sig2 = thetasig.^2;
+0035 
+0036 parrow = zeros(1,nhpar*2);  <span class="comment">% collect hyper parameters here</span>
+0037 <span class="comment">% update all hierarchical parameters</span>
+0038 <span class="keyword">for</span> ipar=1:nhpar
+0039   ii  = find(ind == ipar);
+0040   thi = theta(ii);
+0041   ni  = length(thi); <span class="comment">% should be nbatch</span>
+0042     
+0043 <span class="comment">%    [mu(ipar),sig2(ipar)] = updatesmusig2(mu(ipar), sig2(ipar), theta(ii), mu0(ipar), tau20(ipar), sig20(ipar) , n0(ipar))</span>
+0044     
+0045   <span class="comment">% update the mean on the parameter from N( mean(theta), sig2theta/ntheta )</span>
+0046   [m,s2] = <a href="#_sub2" class="code" title="subfunction [m,s2] = nornor(theta,sig2,mu0,tau20)">nornor</a>(thi, sig2(ii(1)), mu0(ipar), tau20(ipar));
+0047   mu(ii) = <a href="norr.html" class="code" title="function r=norr(m,n,mu,sigma2)">norr</a>(1, 1, m, s2);
+0048 
+0049   <span class="comment">% update the variance of the parameters from invchi()</span>
+0050   sspri = sum((thi-mu(ii(1))).^2);
+0051   s2new = (sspri+sig20(ipar)*n0(ipar))/(n0(ipar)+ni);
+0052   nnew  = ni+n0(ipar);
+0053   <span class="keyword">if</span> abs(s2new) &gt; 1e-10 <span class="comment">% update only if thetas differ, not(sspri=0&amp;n0=0)</span>
+0054     sig2(ii) = <a href="invchir.html" class="code" title="function r=invchir(m,n,N0,S2)">invchir</a>(1,1,nnew,s2new); 
+0055   <span class="keyword">else</span>
+0056     sig2(ii) = sig20(ipar);
+0057     disp(<span class="string">'Warning: too uninformative prior'</span>) <span class="comment">% use options.priorupdatestart</span>
+0058   <span class="keyword">end</span>
+0059     
+0060   iii = ipar*2-1;
+0061   parrow(iii:(iii+1)) = [mu(ii(1)),sqrt(sig2(ii(1)))]; <span class="comment">% save updated parameters</span>
+0062 <span class="keyword">end</span>
+0063 
+0064 sig = sqrt(sig2);
+0065 
+0066 <a name="_sub1" href="#_subfunctions" class="code">function [muout,sig2out] = updatesmusig2(mu, sig2, theta, mu0, tau20, sig20, n0)</a>
+0067 <span class="comment">%</span>
+0068 [m,s2] = <a href="#_sub2" class="code" title="subfunction [m,s2] = nornor(theta,sig2,mu0,tau20)">nornor</a>(theta, sig2, mu0, tau20);
+0069 muout = <a href="norr.html" class="code" title="function r=norr(m,n,mu,sigma2)">norr</a>(1, 1, m, s2);
+0070 [s2new,nnew] = <a href="#_sub3" class="code" title="subfunction [s2new,nnew] = ichichi(theta, mu, sig20, n0)">ichichi</a>(theta, muout, sig20, n0);
+0071 sig2out = <a href="invchir.html" class="code" title="function r=invchir(m,n,N0,S2)">invchir</a>(1,1,nnew,s2new); 
+0072 
+0073 <a name="_sub2" href="#_subfunctions" class="code">function [m,s2] = nornor(theta,sig2,mu0,tau20)</a>
+0074 <span class="comment">%</span>
+0075 n = length(theta);
+0076 m = mean(theta);
+0077 s2  = 1./( n./sig2 + 1./tau20 );
+0078 m   = (m./(sig2./n) + mu0./tau20).*s2; 
+0079 
+0080 <a name="_sub3" href="#_subfunctions" class="code">function [s2new,nnew] = ichichi(theta, mu, sig20, n0)</a>
+0081 <span class="comment">%</span>
+0082 sspri = sum((theta-mu).^2);
+0083 n = length(theta);
+0084 nnew  = n + n0;
+0085 s2new = (sspri+sig20*n0)/nnew;</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

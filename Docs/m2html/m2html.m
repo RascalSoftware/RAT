@@ -906,27 +906,27 @@ if options.graph
 		fprintf(fid,'%s', get(tpl,'OUT'));
         fclose(fid);
     end
-    
-    % ----------------------------------
-    % 
-    % Modified by AVH, 20-7-2021
-    % 
-    % Save the variables required to build an updated dot graph
-    % from a modifed dot file..
-    %
-    gv.options = options;
-    gv.tpl_graph = tpl_graph;
-    gv.tpl = tpl;
-    gv.dot_excec = dot_excec;
-    gv.mdir = mdir;
-    gv.dotbase = dotbase;
-    gv.mdotfile = mdotfile;
-    gv.hrefs = hrefs;
-    gv.names = names;
-    gv.mdirs = mdirs;
-    save('gvVars','gv');
-    
-    % ------ end mod -------------------
+%     
+%     % ----------------------------------
+%     % 
+%     % Modified by AVH, 20-7-2021
+%     % 
+%     % Save the variables required to build an updated dot graph
+%     % from a modifed dot file..
+%     %
+%     gv.options = options;
+%     gv.tpl_graph = tpl_graph;
+%     gv.tpl = tpl;
+%     gv.dot_excec = dot_excec;
+%     gv.mdir = mdir;
+%     gv.dotbase = dotbase;
+%     gv.mdotfile = mdotfile;
+%     gv.hrefs = hrefs;
+%     gv.names = names;
+%     gv.mdirs = mdirs;
+%     save('gvVars','gv');
+%     
+%     % ------ end mod -------------------
     
     
     

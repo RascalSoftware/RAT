@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of mcmcssfun</title>
+  <meta name="keywords" content="mcmcssfun">
+  <meta name="description" content="MCMCSSFUN general Gaussian sum of squares function for mcmcrun">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>mcmcssfun
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>MCMCSSFUN general Gaussian sum of squares function for mcmcrun</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function ss=mcmcssfun(par,data,local,modelfun) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">MCMCSSFUN general Gaussian sum of squares function for mcmcrun
+ calls modelfun(data,theta) or modelfun(data{ibatch},theta) and
+ needs data.ydata or data{ibatch}.ydata depending if data is cell
+ array or not
+ uses weights in data{ibatch}.weights if available</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/private/getnbatch.html" class="code" title="function n=getnbatch(data)">getnbatch</a>	try to guess number of batches of mcmc data</li><li><a href="../../minimisers/mcmcstat_new/private/getnbatch.html" class="code" title="function n=getnbatch(data)">getnbatch</a>	try to guess number of batches of mcmc data</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function ss=mcmcssfun(par,data,local,modelfun)</a>
+0002 <span class="comment">%MCMCSSFUN general Gaussian sum of squares function for mcmcrun</span>
+0003 <span class="comment">% calls modelfun(data,theta) or modelfun(data{ibatch},theta) and</span>
+0004 <span class="comment">% needs data.ydata or data{ibatch}.ydata depending if data is cell</span>
+0005 <span class="comment">% array or not</span>
+0006 <span class="comment">% uses weights in data{ibatch}.weights if available</span>
+0007 
+0008 <span class="comment">% $Revision: 1.2 $  $Date: 2007/08/22 15:57:33 $</span>
+0009 
+0010 nbatch = <a href="../../minimisers/mcmcstat/private/getnbatch.html" class="code" title="function n=getnbatch(data)">getnbatch</a>(data);
+0011 
+0012 ss = 0;
+0013 
+0014 <span class="keyword">for</span> ibatch = 1:nbatch
+0015 
+0016   <span class="keyword">if</span> iscell(data)
+0017     datai = data{ibatch};
+0018   <span class="keyword">else</span>
+0019     datai = data;
+0020   <span class="keyword">end</span>
+0021 
+0022   theta = par(local==0|local==ibatch);
+0023   ymodel = feval(modelfun,datai,theta);
+0024   ydata  = datai.ydata;
+0025   <span class="keyword">if</span> size(ydata,2) == size(ymodel,2)+1
+0026     ydata = ydata(:,2:end); <span class="comment">% remove 1st &quot;time&quot; columns</span>
+0027   <span class="keyword">end</span>
+0028   
+0029   <span class="keyword">if</span> isfield(datai,<span class="string">'weights'</span>)    
+0030     ydata(~datai.weights) = 0;
+0031     ss = ss + sum(datai.weights.*(ydata-ymodel).^2);
+0032   <span class="keyword">else</span>
+0033     ss = ss + sum((ydata-ymodel).^2);
+0034   <span class="keyword">end</span>
+0035     
+0036 <span class="keyword">end</span>
+0037</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

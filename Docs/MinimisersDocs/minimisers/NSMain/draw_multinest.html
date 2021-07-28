@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of draw_multinest</title>
+  <meta name="keywords" content="draw_multinest">
+  <meta name="description" content="function [sample, logL] = draw_multinest(fracvol, Bs, mus, ...">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html NSMain -->
+<h1>draw_multinest
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [sample, logL] = draw_multinest(fracvol, Bs, mus, ...</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [sample, logL] = draw_multinest(fracvol, Bs, mus,logLmin, prior, data, likelihood, model, parnames, extraparvals) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> function [sample, logL] = draw_multinest(fracvol, Bs, mus, ...
+     logLmin, prior, data, likelihood, model, parnames, extraparvals)
+
+ This function draws a multi-dimensional sample from the prior volume
+ for use in the nested sampling algorithm. The new point will have a
+ likelihood greater than the value logLmin. The new point will be found by
+ drawing a random multi-dimensional sample from within the set of optimal
+ ellipsoids constructed using the MultiNest algorithm.  The bounding 
+ ellipsoids are defined by their bounding matrices Bs and centroids mus.
+ extraparvals is a vector of additional parameters needed by the model.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="draw_from_ellipsoid.html" class="code" title="function pnts = draw_from_ellipsoid(B, mu, N )">draw_from_ellipsoid</a>	function pnts = draw_from_ellipsoid(B, mu, N )</li><li><a href="in_ellipsoids.html" class="code" title="function N = in_ellipsoids(pnt, Bs, mus)">in_ellipsoids</a>	function N = in_ellipsoids(pnt, Bs, mus)</li><li><a href="loopcell.html" class="code" title="function c = loopcell(array);">loopcell</a>	</li><li><a href="rescale_parameters.html" class="code" title="function scaled = rescale_parameters(prior, params)">rescale_parameters</a>	scaled = rescale_parameters(prior, params)</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="nested_sampler.html" class="code" title="function [logZ, nest_samples, post_samples,H] = nested_sampler(data,Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)">nested_sampler</a>	function [logZ, nest_samples, post_samples] = nested_sampler(data, ...</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [sample, logL] = draw_multinest(fracvol, Bs, mus, </a><span class="keyword">...</span><span class="comment"> </span>
+0002     logLmin, prior, data, likelihood, model, parnames, extraparvals)
+0003 
+0004 <span class="comment">% function [sample, logL] = draw_multinest(fracvol, Bs, mus, ...</span>
+0005 <span class="comment">%     logLmin, prior, data, likelihood, model, parnames, extraparvals)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This function draws a multi-dimensional sample from the prior volume</span>
+0008 <span class="comment">% for use in the nested sampling algorithm. The new point will have a</span>
+0009 <span class="comment">% likelihood greater than the value logLmin. The new point will be found by</span>
+0010 <span class="comment">% drawing a random multi-dimensional sample from within the set of optimal</span>
+0011 <span class="comment">% ellipsoids constructed using the MultiNest algorithm.  The bounding</span>
+0012 <span class="comment">% ellipsoids are defined by their bounding matrices Bs and centroids mus.</span>
+0013 <span class="comment">% extraparvals is a vector of additional parameters needed by the model.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0016 <span class="keyword">global</span> DEBUG
+0017 
+0018 <span class="comment">% extra number of ellipsoids, number of dimensions</span>
+0019 K = size(mus, 1);
+0020 ndims = size(mus,2);
+0021 
+0022 <span class="keyword">while</span> 1
+0023     <span class="comment">% find the ellipsoid from which to draw a new point</span>
+0024     rval = rand;
+0025             
+0026     <span class="keyword">for</span> k=1:K
+0027         <span class="keyword">if</span> rval &lt; fracvol(k)
+0028             <span class="keyword">continue</span>
+0029         <span class="keyword">else</span>
+0030             <span class="keyword">break</span>
+0031         <span class="keyword">end</span>
+0032     <span class="keyword">end</span>
+0033     k0 = k;
+0034     
+0035     <span class="comment">% extract bounding matrix and centroid for that ellipsoid</span>
+0036     B = Bs((k0-1)*ndims+1:k0*ndims,:);
+0037     mu = mus(k0,:);
+0038 
+0039     <span class="comment">% draw points from that ellipsoid until logL &gt;= logLmin</span>
+0040     logL = -inf;
+0041     <span class="keyword">while</span> logL &lt; logLmin
+0042         in_range = 1; <span class="comment">% default value</span>
+0043 
+0044         <span class="comment">% draw one point from the ellipsoid</span>
+0045         pnt = <a href="draw_from_ellipsoid.html" class="code" title="function pnts = draw_from_ellipsoid(B, mu, N )">draw_from_ellipsoid</a>(B, mu, 1);
+0046 
+0047         <span class="comment">% make sure that the point lies in unit hypercube</span>
+0048         <span class="keyword">for</span> ii=1:ndims
+0049              <span class="keyword">if</span> pnt(ii)&lt;0 || pnt(ii)&gt;1
+0050                  in_range = 0;
+0051                  <span class="keyword">if</span> DEBUG; fprintf(<span class="string">'new point not in range!!!!\n'</span>); <span class="keyword">end</span>
+0052              <span class="keyword">end</span>
+0053         <span class="keyword">end</span>
+0054             
+0055         <span class="keyword">if</span> in_range 
+0056             <span class="comment">% assign as candidate replacement live point</span>
+0057             sample = pnt;
+0058                
+0059             <span class="comment">% rescale point back to full range</span>
+0060             rescaledpnt = <a href="rescale_parameters.html" class="code" title="function scaled = rescale_parameters(prior, params)">rescale_parameters</a>(prior, pnt); 
+0061                 
+0062             <span class="comment">% get new likelihood</span>
+0063             logL = likelihood(data, model, parnames, <span class="keyword">...</span>
+0064                          cat(1, <a href="loopcell.html" class="code" title="function c = loopcell(array);">loopcell</a>(rescaledpnt), extraparvals));
+0065         <span class="keyword">end</span>
+0066         
+0067     <span class="keyword">end</span>
+0068        
+0069     <span class="comment">% check how many ellipsoids this point lies in</span>
+0070     inN = <a href="in_ellipsoids.html" class="code" title="function N = in_ellipsoids(pnt, Bs, mus)">in_ellipsoids</a>(pnt, Bs, mus);
+0071             
+0072     <span class="comment">% only accept sample with 1/inN probability</span>
+0073     <span class="keyword">if</span> rand &lt; 1/inN
+0074         <span class="keyword">break</span>
+0075     <span class="keyword">end</span>
+0076 <span class="keyword">end</span>
+0077 
+0078 <span class="keyword">return</span>
+0079</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

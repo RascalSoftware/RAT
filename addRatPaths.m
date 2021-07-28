@@ -33,9 +33,8 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'API');
 
     fullfile(ratRoot,'API','outputFcn');
-    %fullfile(ratRoot,'API','problemDef_class');
     fullfile(ratRoot,'API','controlsDef_class');
-    fullfile(ratRoot,'API','newInputClasses');
+    fullfile(ratRoot,'API','projectClass');
     fullfile(ratRoot,'tests');
     fullfile(ratRoot,'minimisers','simplex');
     fullfile(ratRoot,'minimisers','generalUtils');

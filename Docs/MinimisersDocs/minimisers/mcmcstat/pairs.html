@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of pairs</title>
+  <meta name="keywords" content="pairs">
+  <meta name="description" content="PAIRS pairs plot like in R">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>pairs
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>PAIRS pairs plot like in R</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function pairs(x,panelfun,names,skip,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">PAIRS pairs plot like in R
+ PAIRS(X,PANELFUN,NAMES) pairs plot of matrix X
+ PANELFUN(X(:,i),X(:,j)) if exists is applied to every panel
+ NAMES is a shell array of column names</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../minimisers/mcmcstat_new/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function pairs(x,panelfun,names,skip,varargin)</a>
+0002 <span class="comment">%PAIRS pairs plot like in R</span>
+0003 <span class="comment">% PAIRS(X,PANELFUN,NAMES) pairs plot of matrix X</span>
+0004 <span class="comment">% PANELFUN(X(:,i),X(:,j)) if exists is applied to every panel</span>
+0005 <span class="comment">% NAMES is a shell array of column names</span>
+0006 
+0007 <span class="comment">% ML 2000</span>
+0008 
+0009 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0010 <span class="comment">% $Revision: 1.4 $  $Date: 2012/09/27 11:47:38 $</span>
+0011 
+0012 [n,p] = size(x);
+0013 
+0014 <span class="keyword">if</span> p&gt;30
+0015    error(<span class="string">'too many pairs'</span>)
+0016 <span class="keyword">end</span>
+0017 
+0018 <span class="keyword">if</span> nargin&lt;4 | isempty(skip)
+0019   skip=1;
+0020 <span class="keyword">end</span>
+0021 inds=1:skip:n;
+0022 
+0023 <span class="comment">%clf</span>
+0024 <span class="keyword">for</span> j=2:p
+0025   <span class="keyword">for</span> i=1:j-1
+0026     <span class="keyword">if</span> p==2
+0027       h=gca;
+0028     <span class="keyword">else</span>
+0029       h=subplot(p-1,p-1,(j-2)*(p-1)+i);
+0030     <span class="keyword">end</span>
+0031     plot(x(inds,i),x(inds,j),<span class="string">'.'</span>);
+0032     <span class="keyword">if</span> j~=p
+0033       set(h,<span class="string">'xtick'</span>,[])
+0034     <span class="keyword">end</span>
+0035     <span class="keyword">if</span> i~=1
+0036       set(h,<span class="string">'ytick'</span>,[])
+0037     <span class="keyword">end</span>
+0038     <span class="keyword">if</span> i==1 &amp; nargin&gt;2 &amp; ~isempty(names)
+0039       ylabel(names{j})
+0040     <span class="keyword">end</span>
+0041     <span class="keyword">if</span> i==j-1 &amp; nargin&gt;2 &amp; ~isempty(names)
+0042       <span class="keyword">if</span> p==2
+0043         xlabel(names{i});
+0044       <span class="keyword">else</span>
+0045         title(names{i})
+0046       <span class="keyword">end</span>
+0047     <span class="keyword">end</span>
+0048     <span class="keyword">if</span> nargin&gt;1 &amp; ~isempty(panelfun)
+0049       feval(panelfun,x(:,i),x(:,j),varargin{:});
+0050     <span class="keyword">end</span>
+0051   <span class="keyword">end</span>   
+0052 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

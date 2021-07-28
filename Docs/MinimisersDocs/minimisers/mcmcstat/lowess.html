@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of lowess</title>
+  <meta name="keywords" content="lowess">
+  <meta name="description" content="ys=lowess(x,y,f,nsteps,delta)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>lowess
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>ys=lowess(x,y,f,nsteps,delta)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [ys,rw,res]=lowess(x,y,f,nsteps,delta) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> ys=lowess(x,y,f,nsteps,delta)
+ lowess smooth for scatter plot points in x,y
+ x should be sorted</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../minimisers/mcmcstat_new/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [ys,rw,res]=lowess(x,y,f,nsteps,delta)</a>
+0002 <span class="comment">% ys=lowess(x,y,f,nsteps,delta)</span>
+0003 <span class="comment">% lowess smooth for scatter plot points in x,y</span>
+0004 <span class="comment">% x should be sorted</span>
+0005 
+0006 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0007 <span class="comment">% $Revision: 1.4 $  $Date: 2012/09/27 11:47:38 $</span>
+0008 
+0009 <span class="keyword">if</span> any(isnan(y)) | length(y) == 0
+0010   error(<span class="string">'NaNs not allowed in lowess'</span>);
+0011 <span class="keyword">end</span>
+0012 
+0013 <span class="comment">% sort x</span>
+0014 [x,i]=sort(x);
+0015 y = y(i);
+0016 
+0017 n = length(x);
+0018 <span class="keyword">if</span> length(y) ~= n
+0019   error(<span class="string">'length(x) should be length(y)'</span>)
+0020 <span class="keyword">end</span>
+0021 <span class="keyword">if</span> nargin &lt; 3
+0022   f=0.5;
+0023 <span class="keyword">end</span>
+0024 <span class="keyword">if</span> nargin &lt; 4
+0025   nsteps=2;
+0026 <span class="keyword">end</span>
+0027 <span class="keyword">if</span> nargin &lt; 5
+0028   <span class="keyword">if</span> n&lt;100
+0029     delta=0;
+0030   <span class="keyword">else</span>
+0031     delta=(x(n)-x(1))/50;
+0032   <span class="keyword">end</span>
+0033 <span class="keyword">end</span>
+0034 [ys,rw,res]=lowess_mexgw(x,y,f,nsteps,delta);</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

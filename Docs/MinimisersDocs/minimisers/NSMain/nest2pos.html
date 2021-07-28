@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of nest2pos</title>
+  <meta name="keywords" content="nest2pos">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html NSMain -->
+<h1>nest2pos
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function post_samples = nest2pos(nest_samples, Nlive) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">
+ post_samples = nest2pos(nest_samples, Nlive)
+ 
+ Convert nested samples with Nlive livepoints
+ to samples from the posterior distribution
+ (logL values in last column of nest_samples)
+
+ John Veitch 2009 (modified by J. Romano 2012)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="nested_sampler.html" class="code" title="function [logZ, nest_samples, post_samples,H] = nested_sampler(data,Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)">nested_sampler</a>	function [logZ, nest_samples, post_samples] = nested_sampler(data, ...</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function post_samples = nest2pos(nest_samples, Nlive)</a>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% post_samples = nest2pos(nest_samples, Nlive)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% Convert nested samples with Nlive livepoints</span>
+0006 <span class="comment">% to samples from the posterior distribution</span>
+0007 <span class="comment">% (logL values in last column of nest_samples)</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% John Veitch 2009 (modified by J. Romano 2012)</span>
+0010 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0011 
+0012 N=size(nest_samples, 1);
+0013 Ncol=size(nest_samples, 2);
+0014 
+0015 <span class="comment">% calculate logWt = log(L*w) = logL + logw = logL - i/Nlive</span>
+0016 logL = nest_samples(:,end);
+0017 logw = -[(1:N-Nlive)' ; (N-Nlive)*ones(Nlive,1)]/Nlive;
+0018 logWt = logL + logw; 
+0019 
+0020 <span class="comment">% posterior samples are given by the normalized weight</span>
+0021 logWtmax = max(logWt);
+0022 logWt = logWt - logWtmax; <span class="comment">% Wt -&gt; Wt/Wtmax</span>
+0023 
+0024 <span class="comment">% accept a nested sample as a posterior sample only if its</span>
+0025 <span class="comment">% value is &gt; than a random number drawn from a unif distribution</span>
+0026 logrand = log(rand(N,1));
+0027 idx = find(logWt&gt;logrand);
+0028 post_samples = nest_samples(idx,:);
+0029 
+0030 <span class="comment">% attach log of posterior probabilities as final column of</span>
+0031 <span class="comment">% the posterior samples</span>
+0032 post_samples(:,Ncol+1) = logWt(idx); 
+0033 
+0034 <span class="keyword">return</span>
+0035</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

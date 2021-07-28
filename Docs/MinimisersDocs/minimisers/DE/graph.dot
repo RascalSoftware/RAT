@@ -1,0 +1,12 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  RAT_deopt -> getStopFlag;
+  RAT_deopt -> left_win;
+  runDE -> RAT_deopt;
+
+  RAT_deopt [URL="RAT_deopt.html"];
+  addInfoText [URL="addInfoText.html"];
+  getStopFlag [URL="getStopFlag.html"];
+  left_win [URL="left_win.html"];
+  runDE [URL="runDE.html"];
+}

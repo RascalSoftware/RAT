@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of bootstrap</title>
+  <meta name="keywords" content="bootstrap">
+  <meta name="description" content="BOOTSTRAP Generate bootstrap sample">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>bootstrap
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>BOOTSTRAP Generate bootstrap sample</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function res=bootstrap(data,nboot,bootfun,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">BOOTSTRAP Generate bootstrap sample
+
+ BOOTSTRAP(DATA,NBOOT,BOOTFUN,P1,P2,...)
+ BOOTFUN is called as BOOTFUN(BOOTDATA,P1,P2,...), 
+   where BOOTDATA is the current bootstrap sample from DATA
+
+ Examples:
+
+ 1. bootstrap variance
+
+    x = randn(100,1);  % data
+    b = bootstrap(x,1000,@var);
+    hist(b)
+
+ 2. bootstrap residuals to sample regression coefficients
+
+    x = [ones(10,1) (0:9)']; 
+    y = x*[1;2] + randn(10,1)*5; 
+    yfit = x*(x\y);
+    bootfun = inline('(x\(yfit+r))''','r','x','yfit')
+    b = bootstrap(y-yfit,1000,bootfun,x,yfit);
+    plot(b)
+    cov(b)   % compare covariance to one obtained from normal inference
+   inv(x'*x)*sum((y-yfit).^2)/(size(x,1)-2)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function res=bootstrap(data,nboot,bootfun,varargin)</a>
+0002 <span class="comment">%BOOTSTRAP Generate bootstrap sample</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% BOOTSTRAP(DATA,NBOOT,BOOTFUN,P1,P2,...)</span>
+0005 <span class="comment">% BOOTFUN is called as BOOTFUN(BOOTDATA,P1,P2,...),</span>
+0006 <span class="comment">%   where BOOTDATA is the current bootstrap sample from DATA</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% Examples:</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% 1. bootstrap variance</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%    x = randn(100,1);  % data</span>
+0013 <span class="comment">%    b = bootstrap(x,1000,@var);</span>
+0014 <span class="comment">%    hist(b)</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% 2. bootstrap residuals to sample regression coefficients</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%    x = [ones(10,1) (0:9)'];</span>
+0019 <span class="comment">%    y = x*[1;2] + randn(10,1)*5;</span>
+0020 <span class="comment">%    yfit = x*(x\y);</span>
+0021 <span class="comment">%    bootfun = inline('(x\(yfit+r))''','r','x','yfit')</span>
+0022 <span class="comment">%    b = bootstrap(y-yfit,1000,bootfun,x,yfit);</span>
+0023 <span class="comment">%    plot(b)</span>
+0024 <span class="comment">%    cov(b)   % compare covariance to one obtained from normal inference</span>
+0025 <span class="comment">%   inv(x'*x)*sum((y-yfit).^2)/(size(x,1)-2)</span>
+0026 
+0027 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0028 <span class="comment">% $Revision: 1.2 $  $Date: 2012/09/27 11:47:34 $</span>
+0029 
+0030 ndata = size(data,1);
+0031 nx    = length(feval(bootfun,data,varargin{:}));
+0032 res   = zeros(nboot,nx);
+0033 
+0034 <span class="keyword">for</span> i=1:nboot
+0035    bdata    = data(ceil(rand(ndata,1)*ndata),:);
+0036    res(i,:) = feval(bootfun,bdata,varargin{:});
+0037 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

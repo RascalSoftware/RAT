@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of spectrum0</title>
+  <meta name="keywords" content="spectrum0">
+  <meta name="description" content="SPECTRUM0 Spectral density at frequency zero">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>spectrum0
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>SPECTRUM0 Spectral density at frequency zero</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function s=spectrum0(x) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">SPECTRUM0 Spectral density at frequency zero
+ spectrum0(x) spectral density at zero for columns of x</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="spectrum.html" class="code" title="function [y,f]=spectrum(x,nfft,nw)">spectrum</a>	SPECTRUM Power spectral density using Hanning window</li><li><a href="../../minimisers/mcmcstat_new/spectrum.html" class="code" title="function [y,f]=spectrum(x,nfft,nw)">spectrum</a>	SPECTRUM Power spectral density using Hanning window</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="geweke.html" class="code" title="function [z,p]=geweke(chain,a,b)">geweke</a>	GEWEKE Geweke's MCMC convergence diagnostic</li><li><a href="hwdiag.html" class="code" title="function [B,pB]=hwdiag(chain,ns)">hwdiag</a>	HWDIAG  Heidelberger-Welch MCMC convergence diagnostics</li><li><a href="../../minimisers/mcmcstat_new/geweke.html" class="code" title="function [z,p]=geweke(chain,a,b)">geweke</a>	GEWEKE Geweke's MCMC convergence diagnostic</li><li><a href="../../minimisers/mcmcstat_new/hwdiag.html" class="code" title="function [B,pB]=hwdiag(chain,ns)">hwdiag</a>	HWDIAG  Heidelberger-Welch MCMC convergence diagnostics</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function s=spectrum0(x)</a>
+0002 <span class="comment">%SPECTRUM0 Spectral density at frequency zero</span>
+0003 <span class="comment">% spectrum0(x) spectral density at zero for columns of x</span>
+0004 
+0005 <span class="comment">% ML, 2002</span>
+0006 <span class="comment">% $Revision: 1.3 $  $Date: 2003/05/07 12:22:19 $</span>
+0007 
+0008 [m,n]= size(x);
+0009 s = zeros(1,n);
+0010 <span class="keyword">for</span> i=1:n
+0011   spec = <a href="spectrum.html" class="code" title="function [y,f]=spectrum(x,nfft,nw)">spectrum</a>(x(:,i),m);
+0012   s(i) = spec(1);
+0013 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

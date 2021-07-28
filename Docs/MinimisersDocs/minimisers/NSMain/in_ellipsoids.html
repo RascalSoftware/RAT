@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of in_ellipsoids</title>
+  <meta name="keywords" content="in_ellipsoids">
+  <meta name="description" content="function N = in_ellipsoids(pnt, Bs, mus)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html NSMain -->
+<h1>in_ellipsoids
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function N = in_ellipsoids(pnt, Bs, mus)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function N = in_ellipsoids(pnt, Bs, mus) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> function N = in_ellipsoids(pnt, Bs, mus)
+
+ This function works out how many of the ellipsoids (defined by the 
+ bounding matrices Bs and centroids mus) contain the point pnt.  
+ This number is returned in N.
+
+ Bs is a [(Kxndims) x ndims] array, where K=total number of ellipsoids 
+ and ndims = dimension of the parameter space.  
+ mus is a [K x ndims] array.
+ pnt is a ndims-dimensional vector.
+
+ NOTE: in the future it may be quicker to input precalculated eigenvalues
+ and eigenvectors into this function rather than the bounding matrices
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="draw_multinest.html" class="code" title="function [sample, logL] = draw_multinest(fracvol, Bs, mus,logLmin, prior, data, likelihood, model, parnames, extraparvals)">draw_multinest</a>	function [sample, logL] = draw_multinest(fracvol, Bs, mus, ...</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function N = in_ellipsoids(pnt, Bs, mus)</a>
+0002 
+0003 <span class="comment">% function N = in_ellipsoids(pnt, Bs, mus)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% This function works out how many of the ellipsoids (defined by the</span>
+0006 <span class="comment">% bounding matrices Bs and centroids mus) contain the point pnt.</span>
+0007 <span class="comment">% This number is returned in N.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% Bs is a [(Kxndims) x ndims] array, where K=total number of ellipsoids</span>
+0010 <span class="comment">% and ndims = dimension of the parameter space.</span>
+0011 <span class="comment">% mus is a [K x ndims] array.</span>
+0012 <span class="comment">% pnt is a ndims-dimensional vector.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">% NOTE: in the future it may be quicker to input precalculated eigenvalues</span>
+0015 <span class="comment">% and eigenvectors into this function rather than the bounding matrices</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0018 N = 0;
+0019 
+0020 <span class="comment">% total number of ellipsoids and number of dimensions</span>
+0021 K = size(mus,1);
+0022 ndims = size(mus,2);
+0023 
+0024 <span class="comment">% loop over number of ellipsiods and work out whether it contains the point</span>
+0025 <span class="keyword">for</span> k=1:K
+0026     <span class="comment">% set the point to have the same origin as the ellipsoid</span>
+0027     pntnew = pnt - mus(k,:);
+0028     
+0029     <span class="comment">% extract the bounding matrix</span>
+0030     B = Bs((k-1)*ndims+1:k*ndims,:);
+0031 
+0032     <span class="comment">% get the eigenvalues and eigenvectors of the ellipsoid</span>
+0033     [V, E] = eig(B); <span class="comment">% V is matrix of eigenvectors (as columns)</span>
+0034     D = sqrt(diag(E));
+0035 
+0036     <span class="comment">% rotate points to be on coordinate axes of the ellipsiod</span>
+0037     pntnew = pntnew * V;
+0038     
+0039     <span class="comment">% scale points so that it's equivalent to having unit hyper-spheroids</span>
+0040     <span class="comment">% rather than ellipsiods</span>
+0041     pntnew = pntnew ./ D';
+0042     
+0043     <span class="comment">% get distance to point from centre of hyper-sphere</span>
+0044     dpnt = sqrt(sum(pntnew.^2));
+0045     
+0046     <span class="keyword">if</span> dpnt &lt;= 1
+0047         <span class="comment">% values is within the ellipsiod</span>
+0048         N = N + 1;
+0049     <span class="keyword">end</span>
+0050 <span class="keyword">end</span>
+0051 
+0052 <span class="keyword">return</span>
+0053</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

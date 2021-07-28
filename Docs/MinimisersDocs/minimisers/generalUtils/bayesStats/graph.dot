@@ -1,0 +1,16 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  calcMCMCstatRefErrors -> confIntervals;
+  calcMCMCstatRefErrors -> findPosteriorsMax;
+  calcMCMCstatRefErrors -> refPredInterval;
+  confIntervals -> iterShortest;
+  ratTest -> calcMCMCstatRefErrors;
+
+  calcMCMCstatRefErrors [URL="calcMCMCstatRefErrors.html"];
+  confIntervals [URL="confIntervals.html"];
+  findPosteriorsMax [URL="findPosteriorsMax.html"];
+  iterShortest [URL="iterShortest.html"];
+  packPriors [URL="packPriors.html"];
+  ratTest [URL="ratTest.html"];
+  refPredInterval [URL="refPredInterval.html"];
+}

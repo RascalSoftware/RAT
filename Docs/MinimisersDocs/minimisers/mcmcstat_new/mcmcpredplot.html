@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of mcmcpredplot</title>
+  <meta name="keywords" content="mcmcpredplot">
+  <meta name="description" content="MCMCPREDPLOT - predictive plot for mcmc results">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>mcmcpredplot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>MCMCPREDPLOT - predictive plot for mcmc results</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function h=mcmcpredplot(out,data,adddata) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">MCMCPREDPLOT - predictive plot for mcmc results
+ Creates predictive figures for each batch in the data set using
+ mcmc chain. Needs input from the function mcmcpred.
+ Example:
+  out=mcmcpred(results,chain,s2chain,data,modelfun);
+  mcmcpredplot(out)
+
+ If s2chain has been given to mcmcpred, then the plot shows 95%
+ probability limits for new observations and for model parameter
+ uncertainty. If s2chain is not used then the plot contains 50%,
+ 90%, 95%, and 99% predictive probability limits due parameter uncertainty.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/fillyy.html" class="code" title="function out=fillyy(x,y1,y2,col)">fillyy</a>	FILLYY  Fills space between lines</li><li><a href="fillyy.html" class="code" title="function out=fillyy(x,y1,y2,col)">fillyy</a>	FILLYY  Fills space between lines</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/examples/algaeex.html" class="code" title="">algaeex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/beetleex.html" class="code" title="">beetleex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/boxoex.html" class="code" title="">boxoex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/monodex.html" class="code" title="">monodex</a>	%</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function h=mcmcpredplot(out,data,adddata)</a>
+0002 <span class="comment">%MCMCPREDPLOT - predictive plot for mcmc results</span>
+0003 <span class="comment">% Creates predictive figures for each batch in the data set using</span>
+0004 <span class="comment">% mcmc chain. Needs input from the function mcmcpred.</span>
+0005 <span class="comment">% Example:</span>
+0006 <span class="comment">%  out=mcmcpred(results,chain,s2chain,data,modelfun);</span>
+0007 <span class="comment">%  mcmcpredplot(out)</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% If s2chain has been given to mcmcpred, then the plot shows 95%</span>
+0010 <span class="comment">% probability limits for new observations and for model parameter</span>
+0011 <span class="comment">% uncertainty. If s2chain is not used then the plot contains 50%,</span>
+0012 <span class="comment">% 90%, 95%, and 99% predictive probability limits due parameter uncertainty.</span>
+0013 
+0014 <span class="comment">% $Revision: 1.5 $  $Date: 2013/04/17 08:45:40 $</span>
+0015 
+0016 <span class="keyword">if</span> nargin &lt; 2
+0017   data = out.data;
+0018 <span class="keyword">end</span>
+0019 
+0020 <span class="keyword">if</span> nargin &lt; 3
+0021   adddata = 0; <span class="comment">% add data.ydata datapoints to the figures</span>
+0022 <span class="keyword">end</span>
+0023 
+0024 nbatch = length(out.predlims);
+0025 
+0026 <span class="keyword">if</span> ~iscell(data)
+0027   d=data; data=[]; data{1}=d; clear d
+0028 <span class="keyword">end</span>
+0029 
+0030 np = size(out.predlims{1}{1},1);
+0031 nn = (np+1)/2; <span class="comment">% median</span>
+0032 np = nn-1;
+0033 
+0034 hh = zeros(nbatch,1);
+0035 
+0036 <span class="keyword">for</span> i=1:nbatch
+0037   <span class="keyword">if</span> nbatch &gt; 1; hh(i) = figure;<span class="keyword">else</span> hh(1)=gcf; <span class="keyword">end</span>; <span class="comment">% create new figures</span>
+0038   plimi = out.predlims{i};
+0039   ny = size(plimi,2);
+0040   
+0041   datai = data{i};
+0042   
+0043   <span class="keyword">if</span> isnumeric(datai)
+0044     time = datai(:,1); <span class="comment">% time is the first columd of data</span>
+0045   <span class="keyword">elseif</span> isfield(datai,<span class="string">'ydata'</span>)
+0046     time = datai.ydata(:,1); <span class="comment">% first column of ydata</span>
+0047   <span class="keyword">elseif</span> isfield(datai,<span class="string">'xdata'</span>)
+0048     time = datai.xdata(:,1); <span class="comment">% first column of xdata</span>
+0049   <span class="keyword">else</span>
+0050     error(<span class="string">'dont know the x axis of the plots'</span>)
+0051   <span class="keyword">end</span>
+0052     
+0053   <span class="keyword">for</span> j=1:ny
+0054     dimc = [0.9 0.9 0.9]; <span class="comment">% dimmest (lightest) color</span>
+0055     <span class="keyword">if</span> ny&gt;1;subplot(ny,1,j);<span class="keyword">end</span>
+0056     <span class="keyword">if</span> ~isempty(out.obslims)
+0057       <a href="fillyy.html" class="code" title="function out=fillyy(x,y1,y2,col)">fillyy</a>(time,out.obslims{i}{j}(1,:),out.obslims{i}{j}(3,:),dimc);
+0058       hold on
+0059       dimc = [0.8,0.8,0.8];
+0060     <span class="keyword">end</span>
+0061     <a href="fillyy.html" class="code" title="function out=fillyy(x,y1,y2,col)">fillyy</a>(time,plimi{j}(1,:),plimi{j}(2*nn-1,:),dimc);
+0062     hold on
+0063     <span class="keyword">for</span> k=2:(nn-1)
+0064       <a href="fillyy.html" class="code" title="function out=fillyy(x,y1,y2,col)">fillyy</a>(time,plimi{j}(k,:),plimi{j}(2*nn-k,:),dimc.*0.9.^(k-1));
+0065     <span class="keyword">end</span>
+0066     plot(time,plimi{j}(nn,:),<span class="string">'-k'</span>);
+0067     <span class="keyword">if</span> adddata
+0068       plot(datai.ydata(:,1), datai.ydata(:,j+1),<span class="string">'sk'</span>);
+0069     <span class="keyword">end</span>
+0070     hold off
+0071     <span class="keyword">if</span> nbatch &gt; 1
+0072       title(sprintf(<span class="string">'Data set %d, y[%d]'</span>,i,j));
+0073     <span class="keyword">elseif</span> ny &gt; 1
+0074       title(sprintf(<span class="string">'y[%d]'</span>,j));
+0075     <span class="keyword">end</span>
+0076   <span class="keyword">end</span>
+0077   
+0078 <span class="keyword">end</span>
+0079 
+0080 <span class="keyword">if</span> nargout &gt; 0
+0081   h=hh;
+0082 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

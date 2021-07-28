@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of draw_from_ellipsoid</title>
+  <meta name="keywords" content="draw_from_ellipsoid">
+  <meta name="description" content="function pnts = draw_from_ellipsoid(B, mu, N )">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html NSMain -->
+<h1>draw_from_ellipsoid
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function pnts = draw_from_ellipsoid(B, mu, N )</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function pnts = draw_from_ellipsoid(B, mu, N ) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> function pnts = draw_from_ellipsoid(B, mu, N )
+
+ This function draws points uniformly from an ndims-dimensional ellipsoid
+ with edges and orientation defined by the the bounding matrix B and
+ centroid mu.  The output is a Nxndims dimensional array pnts.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ get number of dimensions from the bounding matrix B</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="draw_multinest.html" class="code" title="function [sample, logL] = draw_multinest(fracvol, Bs, mus,logLmin, prior, data, likelihood, model, parnames, extraparvals)">draw_multinest</a>	function [sample, logL] = draw_multinest(fracvol, Bs, mus, ...</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function pnts = draw_from_ellipsoid(B, mu, N )</a>
+0002 
+0003 <span class="comment">% function pnts = draw_from_ellipsoid(B, mu, N )</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% This function draws points uniformly from an ndims-dimensional ellipsoid</span>
+0006 <span class="comment">% with edges and orientation defined by the the bounding matrix B and</span>
+0007 <span class="comment">% centroid mu.  The output is a Nxndims dimensional array pnts.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0010 <span class="comment">% get number of dimensions from the bounding matrix B</span>
+0011 ndims = size(B,1);
+0012 
+0013 <span class="comment">% calculate eigenvalues and vectors of the bounding matrix</span>
+0014 [V, E] = eig(B);
+0015 D = sqrt(diag(E));
+0016 
+0017 <span class="comment">% check size of mu and transpose if necessary</span>
+0018 <span class="keyword">if</span> size(mu,1) &gt; 1
+0019     mu = mu';
+0020 <span class="keyword">end</span> 
+0021 
+0022 <span class="comment">% generate radii of hyperspheres</span>
+0023 rs = rand(N,1);
+0024 
+0025 <span class="comment">% generate points</span>
+0026 pt = randn(N,ndims);
+0027 
+0028 <span class="comment">% get scalings for each point onto the surface of a unit hypersphere</span>
+0029 fac = sum(pt.^2, 2);
+0030 
+0031 <span class="comment">% calculate scaling for each point to be within the unit hypersphere</span>
+0032 <span class="comment">% with radii rs</span>
+0033 fac = (rs.^(1/ndims)) ./ sqrt(fac);
+0034 
+0035 pnts = zeros(N,ndims);
+0036 
+0037 <span class="comment">% scale points to the ellipsoid using the eigenvalues and rotate with</span>
+0038 <span class="comment">% the eigenvectors and add centroid</span>
+0039 <span class="keyword">for</span> i=1:N
+0040     <span class="comment">% scale points to a uniform distribution within unit hypersphere</span>
+0041     pnts(i,:) = fac(i)*pt(i,:);
+0042 
+0043     <span class="comment">% scale and rotate to ellipsoid</span>
+0044     pnts(i,:) = (pnts(i,:) .* D' * V') + mu;
+0045 <span class="keyword">end</span>
+0046 
+0047 <span class="keyword">return</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

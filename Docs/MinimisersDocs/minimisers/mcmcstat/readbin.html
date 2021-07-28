@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of readbin</title>
+  <meta name="keywords" content="readbin">
+  <meta name="description" content="READBIN  read V4 binary mat file">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>readbin
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>READBIN  read V4 binary mat file</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [x,status]=readbin(filename,trans,skip) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">READBIN  read V4 binary mat file
+ Usage_ readbin(filename,trans,skip)
+ filename - mat file to read
+ trans    - ~=0 means transpose the result while reading
+ skip     - skip columns ( rows if trans )
+ This is used in MCMCRUN to read temporary mcmc
+ chains from binary files.
+ See also <a href="savebin.html" class="code" title="function s=savebin(filename,x,name)">SAVEBIN</a> and <a href="addbin.html" class="code" title="function status=addbin(filename,x)">ADDBIN</a>.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [x,status]=readbin(filename,trans,skip)</a>
+0002 <span class="comment">%READBIN  read V4 binary mat file</span>
+0003 <span class="comment">% Usage_ readbin(filename,trans,skip)</span>
+0004 <span class="comment">% filename - mat file to read</span>
+0005 <span class="comment">% trans    - ~=0 means transpose the result while reading</span>
+0006 <span class="comment">% skip     - skip columns ( rows if trans )</span>
+0007 <span class="comment">% This is used in MCMCRUN to read temporary mcmc</span>
+0008 <span class="comment">% chains from binary files.</span>
+0009 <span class="comment">% See also SAVEBIN and ADDBIN.</span>
+0010 
+0011 <span class="comment">% $Revision: 1.3 $  $Date: 2007/09/27 11:19:47 $</span>
+0012 
+0013 <span class="keyword">if</span> nargin&lt;2
+0014   trans = 0;
+0015 <span class="keyword">end</span>
+0016 <span class="keyword">if</span> nargin&lt;3|skip&lt;1
+0017   skip = 1;
+0018 <span class="keyword">end</span>
+0019 
+0020 fid = fopen(filename,<span class="string">'rb'</span>);
+0021 <span class="keyword">if</span> fid == -1 
+0022   error(sprintf(<span class="string">'error opening binary file %s'</span>,filename));
+0023 <span class="keyword">end</span>
+0024 
+0025 type = fread(fid,1,<span class="string">'integer*4'</span>);
+0026 <span class="keyword">if</span> type ~= 0
+0027   error(<span class="string">'Something wrong with binary file, type ~= 0?'</span>);
+0028   fclose(fid);
+0029 <span class="keyword">end</span>
+0030 mrows   = fread(fid,1,<span class="string">'integer*4'</span>);
+0031 mcols   = fread(fid,1,<span class="string">'integer*4'</span>);
+0032 imagf   = fread(fid,1,<span class="string">'integer*4'</span>);
+0033 namelen = fread(fid,1,<span class="string">'integer*4'</span>);
+0034 name    = fread(fid,namelen-1,<span class="string">'uchar'</span>);
+0035 fseek(fid,1,<span class="string">'cof'</span>); <span class="comment">% skip \0</span>
+0036 
+0037 <span class="keyword">if</span> trans==0 &amp; skip == 1
+0038   x = reshape(fread(fid,mrows*mcols,<span class="string">'real*8'</span>),mrows,mcols);
+0039 <span class="keyword">else</span>
+0040   <span class="keyword">if</span> trans
+0041     nr = floor(mcols/skip);
+0042     x = zeros(nr,mrows);
+0043     <span class="keyword">for</span> i = 1:nr
+0044       x(i,:)=fread(fid,mrows,<span class="string">'real*8'</span>)';
+0045       <span class="keyword">if</span> i &lt; nr
+0046         fseek(fid,(skip-1)*mrows*8,<span class="string">'cof'</span>);
+0047       <span class="keyword">end</span>
+0048     <span class="keyword">end</span>
+0049   <span class="keyword">else</span>
+0050     nc = floor(mcols/skip);
+0051     x = zeros(mrows,nc);
+0052     <span class="keyword">for</span> i = 1:nc
+0053       x(:,i)=fread(fid,mrows,<span class="string">'real*8'</span>);
+0054       <span class="keyword">if</span> i &lt; nc
+0055         fseek(fid,(skip-1)*mrows*8,<span class="string">'cof'</span>);
+0056       <span class="keyword">end</span>
+0057     <span class="keyword">end</span>
+0058   <span class="keyword">end</span>
+0059 <span class="keyword">end</span>
+0060 
+0061 fclose(fid);
+0062 
+0063 <span class="keyword">if</span> nargout &gt; 1
+0064   status = 1;
+0065 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

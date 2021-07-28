@@ -1,0 +1,1103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of mcmcrun</title>
+  <meta name="keywords" content="mcmcrun">
+  <meta name="description" content="MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>mcmcrun
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models
+ properties:
+  multiple y-columns, sigma2-sampling, adaptation,
+  Gaussian prior, parameter limits, delayed rejection, dram
+
+ [RESULTS,CHAIN,S2CHAIN,SSCHAIN] = MCMCRUN(MODEL,DATA,PARAMS,OPTIONS)
+ MODEL   model options structure
+    model.ssfun    -2*log(likelihood) function
+    model.priorfun -2*log(pior) prior function
+    model.sigma2   initial error variance
+    model.N        total number of observations
+    model.S20      prior for sigma2
+    model.N0       prior accuracy for S20
+    model.nbatch   number of datasets
+
+     sum-of-squares function 'model.ssfun' is called as
+     ss = ssfun(par,data) or
+     ss = ssfun(par,data,local)
+     instead of ssfun, you can use model.modelfun as
+     ymodel = modelfun(data{ibatch},theta_local)
+
+     prior function is called as priorfun(par,pri_mu,pri_sig) it
+     defaults to Gaussian prior with infinite variance
+
+     The parameter sigma2 gives the variances of measured components,
+     one for each. If the default options.updatesigma = 0 (see below) is
+     used, sigma2 is fixed, as typically estimated from the fitted residuals.
+     If opions.updatesigma = 1, the variances are sampled as conjugate priors
+     specified by the parameters S20 and N0 of the inverse gamma
+     distribution, with the 'noninformative' defaults
+          S20 = sigma2   (as given by the user)
+          N0  = 1
+     Larger values of N0 limit the samples closer to S20
+     (see,e.g., A.Gelman et all:
+     Bayesian Data Analysis, http://www.stat.columbia.edu/~gelman/book/)
+
+ DATA the data, passed directly to ssfun. The structure of DATA is given
+      by the user. Typically, it contains the measurements
+
+      data.xdata
+      data.ydata,
+
+      A possible 'time' variable must be given in the first column of
+      xdata. Note that only data.xdata is needed for model simulations.
+      In addition, DATA may include any user defined structure needed by
+      |modelfun| or |ssfun|
+
+ PARAMS  theta structure
+   {  {'par1',initial, min, max, pri_mu, pri_sig, targetflag, localflag}
+      {'par2',initial, min, max, pri_mu, pri_sig, targetflag, localflag}
+      ... }
+
+   'name' and initial are compulsary, other values default to
+   {'name', initial,  -Inf, Inf,  NaN, Inf,  1,  0}
+
+ OPTIONS mcmc run options
+    options.nsimu            number of simulations
+    options.qcov             proposal covariance
+    options.method           'dram','am','dr', 'ram' or 'mh'
+    options.adaptint         interval for adaptation, if 'dram' or 'am' used
+                             DEFAULT adaptint = 100
+    options.drscale          scaling for proposal stages of dr
+                             DEFAULT 3 stages, drscale = [5 4 3]
+    options.updatesigma      update error variance. Sigma2 sampled with updatesigma=1
+                             DEFAULT updatesigma=0
+    options.verbosity        level of information printed
+    options.waitbar          use graphical waitbar?
+    options.burnintime       burn in before adaptation starts
+
+ Output:
+  RESULTS   structure that contains results and information about
+            the simulations
+  CHAIN, S2CHAIN, SSCHAIN
+           parameter, sigma2 and sum-of-squares chains</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/addbin.html" class="code" title="function status=addbin(filename,x)">addbin</a>	ADDBIN add columns to a V4 matfile</li><li><a href="../../minimisers/mcmcstat/covupd.html" class="code" title="function [xcov,xmean,wsum,R]=covupd(x,w,oldcov,oldmean,oldwsum,oldR)">covupd</a>	COVUPD covariance update</li><li><a href="../../minimisers/mcmcstat/gammar.html" class="code" title="function y=gammar(m,n,a,b)">gammar</a>	GAMMAR random deviates from gamma distribution</li><li><a href="../../minimisers/mcmcstat/geweke.html" class="code" title="function [z,p]=geweke(chain,a,b)">geweke</a>	GEWEKE Geweke's MCMC convergence diagnostic</li><li><a href="../../minimisers/mcmcstat/hyperpriorupdate.html" class="code" title="function [mu,sig,parrow] = hyperpriorupdate(theta,thetamu,thetasig,params)">hyperpriorupdate</a>	hyperpriorupdate - default hyper prior update function for mcmcrun</li><li><a href="../../minimisers/mcmcstat/iact.html" class="code" title="function [tau,m] = iact(dati)">iact</a>	IACT estimates the integrated autocorrelation time</li><li><a href="../../minimisers/mcmcstat/mcmcssfun.html" class="code" title="function ss=mcmcssfun(par,data,local,modelfun)">mcmcssfun</a>	MCMCSSFUN general Gaussian sum of squares function for mcmcrun</li><li><a href="../../minimisers/mcmcstat/openparstruct.html" class="code" title="function [names,value,parind,local,upper,lower,thetamu,thetasig,hpar] =openparstruct(parstruct,nbatch)">openparstruct</a>	#codegen</li><li><a href="../../minimisers/mcmcstat/private/checkoptions.html" class="code" title="function [yesno,bad] = checkoptions(options,goodopts)">checkoptions</a>	CHECKOPIONS check option structure</li><li><a href="../../minimisers/mcmcstat/private/getN.html" class="code" title="function n=getN(data)">getN</a>	try to guess number of data lines of data for mcmcrun</li><li><a href="../../minimisers/mcmcstat/private/getnbatch.html" class="code" title="function n=getnbatch(data)">getnbatch</a>	try to guess number of batches of mcmc data</li><li><a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>	GETPAR get parameter value from a struct</li><li><a href="../../minimisers/mcmcstat/readbin.html" class="code" title="function [x,status]=readbin(filename,trans,skip)">readbin</a>	READBIN  read V4 binary mat file</li><li><a href="../../minimisers/mcmcstat/res2par.html" class="code" title="function params = res2par(res,params,loc)">res2par</a>	RES2PAR utility for mcmc tbx</li><li><a href="../../minimisers/mcmcstat/rldiag.html" class="code" title="function y=rldiag(chain,q,r,s,e)">rldiag</a>	RLDIAG   Raftery-Lewis MCMC convergence diagnostic</li><li><a href="../../minimisers/mcmcstat/savebin.html" class="code" title="function s=savebin(filename,x,name)">savebin</a>	SAVEBIN write data to Matlab V4 mat file</li><li><a href="addbin.html" class="code" title="function status=addbin(filename,x)">addbin</a>	ADDBIN add columns to a V4 matfile</li><li><a href="covupd.html" class="code" title="function [xcov,xmean,wsum,R]=covupd(x,w,oldcov,oldmean,oldwsum,oldR)">covupd</a>	COVUPD covariance update</li><li><a href="gammar.html" class="code" title="function y=gammar(m,n,a,b)">gammar</a>	GAMMAR random deviates from gamma distribution</li><li><a href="geweke.html" class="code" title="function [z,p]=geweke(chain,a,b)">geweke</a>	GEWEKE Geweke's MCMC convergence diagnostic</li><li><a href="hyperpriorupdate.html" class="code" title="function [mu,sig,parrow] = hyperpriorupdate(theta,thetamu,thetasig,params)">hyperpriorupdate</a>	hyperpriorupdate - default hyper prior update function for mcmcrun</li><li><a href="iact.html" class="code" title="function [tau,m] = iact(dati)">iact</a>	IACT estimates the integrated autocorrelation time</li><li><a href="mcmcssfun.html" class="code" title="function ss=mcmcssfun(par,data,local,modelfun)">mcmcssfun</a>	MCMCSSFUN general Gaussian sum of squares function for mcmcrun</li><li><a href="openparstruct.html" class="code" title="function [names,value,parind,local,upper,lower,thetamu,thetasig,hpar] =openparstruct(parstruct,nbatch)">openparstruct</a>	#codegen</li><li><a href="../../minimisers/mcmcstat_new/private/checkoptions.html" class="code" title="function [yesno,bad] = checkoptions(options,goodopts)">checkoptions</a>	CHECKOPIONS check option structure</li><li><a href="../../minimisers/mcmcstat_new/private/getN.html" class="code" title="function n=getN(data)">getN</a>	try to guess number of data lines of data for mcmcrun</li><li><a href="../../minimisers/mcmcstat_new/private/getnbatch.html" class="code" title="function n=getnbatch(data)">getnbatch</a>	try to guess number of batches of mcmc data</li><li><a href="../../minimisers/mcmcstat_new/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>	GETPAR get parameter value from a struct</li><li><a href="readbin.html" class="code" title="function [x,status]=readbin(filename,trans,skip)">readbin</a>	READBIN  read V4 binary mat file</li><li><a href="res2par.html" class="code" title="function params = res2par(res,params,loc)">res2par</a>	RES2PAR utility for mcmc tbx</li><li><a href="rldiag.html" class="code" title="function y=rldiag(chain,q,r,s,e)">rldiag</a>	RLDIAG   Raftery-Lewis MCMC convergence diagnostic</li><li><a href="savebin.html" class="code" title="function s=savebin(filename,x,name)">savebin</a>	SAVEBIN write data to Matlab V4 mat file</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/examples/algaeex.html" class="code" title="">algaeex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/bananaex.html" class="code" title="">bananaex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/beetleex.html" class="code" title="">beetleex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/boxoex.html" class="code" title="">boxoex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/cauchyex.html" class="code" title="">cauchyex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/himmelex.html" class="code" title="">himmelex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/monodex.html" class="code" title="">monodex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/normalex.html" class="code" title="">normalex</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/normalex50.html" class="code" title="">normalex50</a>	%</li><li><a href="../../minimisers/mcmcstat/examples/threemodesex.html" class="code" title="">threemodesex</a>	%</li><li><a href="../../minimisers/mcmcstat/runBayes.html" class="code" title="function output = runBayes(loop,nsimu,burnin,adaptint,params,problem)">runBayes</a>	Clear any values from previous runs if prsent</li><li><a href="../../minimisers/runBayesCalc.html" class="code" title="function output = runBayes(loop,nsimu,burnin,params)">runBayesCalc</a>	Clear any values from previous runs if prsent</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function ss = sseval(ssfun,ssstyle,theta,parind,value,local,data,modelfun)</a></li><li><a href="#_sub2" class="code">function y=alphafun(varargin)</a></li><li><a href="#_sub3" class="code">function z=qfun(iq,varargin)</a></li><li><a href="#_sub4" class="code">function z=lfun(x,y)</a></li><li><a href="#_sub5" class="code">function message(verbosity,level,fmt,varargin)</a></li><li><a href="#_sub6" class="code">function status=wbar(i,nsimu)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)</a>
+0002 <span class="comment">%MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</span>
+0003 <span class="comment">% properties:</span>
+0004 <span class="comment">%  multiple y-columns, sigma2-sampling, adaptation,</span>
+0005 <span class="comment">%  Gaussian prior, parameter limits, delayed rejection, dram</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% [RESULTS,CHAIN,S2CHAIN,SSCHAIN] = MCMCRUN(MODEL,DATA,PARAMS,OPTIONS)</span>
+0008 <span class="comment">% MODEL   model options structure</span>
+0009 <span class="comment">%    model.ssfun    -2*log(likelihood) function</span>
+0010 <span class="comment">%    model.priorfun -2*log(pior) prior function</span>
+0011 <span class="comment">%    model.sigma2   initial error variance</span>
+0012 <span class="comment">%    model.N        total number of observations</span>
+0013 <span class="comment">%    model.S20      prior for sigma2</span>
+0014 <span class="comment">%    model.N0       prior accuracy for S20</span>
+0015 <span class="comment">%    model.nbatch   number of datasets</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%     sum-of-squares function 'model.ssfun' is called as</span>
+0018 <span class="comment">%     ss = ssfun(par,data) or</span>
+0019 <span class="comment">%     ss = ssfun(par,data,local)</span>
+0020 <span class="comment">%     instead of ssfun, you can use model.modelfun as</span>
+0021 <span class="comment">%     ymodel = modelfun(data{ibatch},theta_local)</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%     prior function is called as priorfun(par,pri_mu,pri_sig) it</span>
+0024 <span class="comment">%     defaults to Gaussian prior with infinite variance</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%     The parameter sigma2 gives the variances of measured components,</span>
+0027 <span class="comment">%     one for each. If the default options.updatesigma = 0 (see below) is</span>
+0028 <span class="comment">%     used, sigma2 is fixed, as typically estimated from the fitted residuals.</span>
+0029 <span class="comment">%     If opions.updatesigma = 1, the variances are sampled as conjugate priors</span>
+0030 <span class="comment">%     specified by the parameters S20 and N0 of the inverse gamma</span>
+0031 <span class="comment">%     distribution, with the 'noninformative' defaults</span>
+0032 <span class="comment">%          S20 = sigma2   (as given by the user)</span>
+0033 <span class="comment">%          N0  = 1</span>
+0034 <span class="comment">%     Larger values of N0 limit the samples closer to S20</span>
+0035 <span class="comment">%     (see,e.g., A.Gelman et all:</span>
+0036 <span class="comment">%     Bayesian Data Analysis, http://www.stat.columbia.edu/~gelman/book/)</span>
+0037 <span class="comment">%</span>
+0038 <span class="comment">% DATA the data, passed directly to ssfun. The structure of DATA is given</span>
+0039 <span class="comment">%      by the user. Typically, it contains the measurements</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">%      data.xdata</span>
+0042 <span class="comment">%      data.ydata,</span>
+0043 <span class="comment">%</span>
+0044 <span class="comment">%      A possible 'time' variable must be given in the first column of</span>
+0045 <span class="comment">%      xdata. Note that only data.xdata is needed for model simulations.</span>
+0046 <span class="comment">%      In addition, DATA may include any user defined structure needed by</span>
+0047 <span class="comment">%      |modelfun| or |ssfun|</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">% PARAMS  theta structure</span>
+0050 <span class="comment">%   {  {'par1',initial, min, max, pri_mu, pri_sig, targetflag, localflag}</span>
+0051 <span class="comment">%      {'par2',initial, min, max, pri_mu, pri_sig, targetflag, localflag}</span>
+0052 <span class="comment">%      ... }</span>
+0053 <span class="comment">%</span>
+0054 <span class="comment">%   'name' and initial are compulsary, other values default to</span>
+0055 <span class="comment">%   {'name', initial,  -Inf, Inf,  NaN, Inf,  1,  0}</span>
+0056 <span class="comment">%</span>
+0057 <span class="comment">% OPTIONS mcmc run options</span>
+0058 <span class="comment">%    options.nsimu            number of simulations</span>
+0059 <span class="comment">%    options.qcov             proposal covariance</span>
+0060 <span class="comment">%    options.method           'dram','am','dr', 'ram' or 'mh'</span>
+0061 <span class="comment">%    options.adaptint         interval for adaptation, if 'dram' or 'am' used</span>
+0062 <span class="comment">%                             DEFAULT adaptint = 100</span>
+0063 <span class="comment">%    options.drscale          scaling for proposal stages of dr</span>
+0064 <span class="comment">%                             DEFAULT 3 stages, drscale = [5 4 3]</span>
+0065 <span class="comment">%    options.updatesigma      update error variance. Sigma2 sampled with updatesigma=1</span>
+0066 <span class="comment">%                             DEFAULT updatesigma=0</span>
+0067 <span class="comment">%    options.verbosity        level of information printed</span>
+0068 <span class="comment">%    options.waitbar          use graphical waitbar?</span>
+0069 <span class="comment">%    options.burnintime       burn in before adaptation starts</span>
+0070 <span class="comment">%</span>
+0071 <span class="comment">% Output:</span>
+0072 <span class="comment">%  RESULTS   structure that contains results and information about</span>
+0073 <span class="comment">%            the simulations</span>
+0074 <span class="comment">%  CHAIN, S2CHAIN, SSCHAIN</span>
+0075 <span class="comment">%           parameter, sigma2 and sum-of-squares chains</span>
+0076 
+0077 <span class="comment">% Marko Laine  2003 &lt;marko.laine@fmi.fi&gt;</span>
+0078 <span class="comment">% $Revision: 1.63 $  $Date: 2017/03/30 07:09:39 $</span>
+0079 
+0080 <span class="comment">%% check input structs</span>
+0081 goodopt={<span class="string">'nsimu'</span>,<span class="string">'adaptint'</span>,<span class="string">'ntry'</span>,<span class="string">'method'</span>,<span class="string">'printint'</span>,<span class="keyword">...</span>
+0082         <span class="string">'adaptend'</span>,<span class="string">'lastadapt'</span>,<span class="string">'burnintime'</span>,<span class="string">'waitbar'</span>,<span class="keyword">...</span>
+0083         <span class="string">'debug'</span>,<span class="string">'qcov'</span>,<span class="string">'updatesigma'</span>,<span class="string">'noadaptind'</span>,<span class="string">'stats'</span>,<span class="string">'stats2'</span>,<span class="keyword">...</span>
+0084         <span class="string">'drscale'</span>,<span class="string">'adascale'</span>,<span class="string">'savesize'</span>,<span class="string">'maxmem'</span>,<span class="string">'chainfile'</span>,<span class="string">'s2chainfile'</span>,<span class="keyword">...</span>
+0085         <span class="string">'sschainfile'</span>,<span class="string">'savedir'</span>,<span class="string">'skip'</span>,<span class="string">'label'</span>,<span class="string">'RDR'</span>,<span class="string">'verbosity'</span>,<span class="string">'maxiter'</span>,<span class="keyword">...</span>
+0086     <span class="string">'priorupdatestart'</span>,<span class="string">'qcov_adjust'</span>,<span class="string">'burnin_scale'</span>,<span class="string">'alphatarget'</span>,<span class="string">'etaparam'</span>,<span class="keyword">...</span>
+0087     <span class="string">'initqcovn'</span>,<span class="string">'savepostinss'</span>};
+0088 goodmod={<span class="string">'sigma2'</span>,<span class="string">'N'</span>,<span class="string">'ssfun'</span>,<span class="string">'modelfun'</span>,<span class="string">'priorfun'</span>,<span class="keyword">...</span>
+0089      <span class="string">'priortype'</span>,<span class="string">'priorupdatefun'</span>,<span class="string">'priorpars'</span>,<span class="string">'nbatch'</span>,<span class="string">'S20'</span>,<span class="string">'N0'</span>};
+0090 [yn,bad]=<a href="../../minimisers/mcmcstat/private/checkoptions.html" class="code" title="function [yesno,bad] = checkoptions(options,goodopts)">checkoptions</a>(options,goodopt);
+0091 <span class="keyword">if</span> yn==0
+0092   fprintf(<span class="string">'bad options for mcmcrun:\n'</span>);
+0093   <span class="keyword">for</span> i=1:length(bad)
+0094     fprintf(<span class="string">'\t%s\n'</span>,bad{i});
+0095   <span class="keyword">end</span>
+0096   fprintf(<span class="string">'available options are:\n'</span>);
+0097   <span class="keyword">for</span> i=1:length(goodopt)
+0098     fprintf(<span class="string">'\t%s\n'</span>,goodopt{i});
+0099   <span class="keyword">end</span>
+0100   error(<span class="string">'please check options'</span>);
+0101   <span class="keyword">return</span>;
+0102 <span class="keyword">end</span>
+0103 [yn,bad]=<a href="../../minimisers/mcmcstat/private/checkoptions.html" class="code" title="function [yesno,bad] = checkoptions(options,goodopts)">checkoptions</a>(model,goodmod);
+0104 <span class="keyword">if</span> yn==0
+0105   fprintf(<span class="string">'bad model options for mcmcrun:\n'</span>);
+0106   <span class="keyword">for</span> i=1:length(bad)
+0107     fprintf(<span class="string">'\t%s\n'</span>,bad{i});
+0108   <span class="keyword">end</span>
+0109   fprintf(<span class="string">'available options are:\n'</span>);
+0110   <span class="keyword">for</span> i=1:length(goodmod)
+0111     fprintf(<span class="string">'\t%s\n'</span>,goodmod{i});
+0112   <span class="keyword">end</span>
+0113   error(<span class="string">'please check model options'</span>);
+0114   <span class="keyword">return</span>;
+0115 <span class="keyword">end</span>
+0116 
+0117 <span class="comment">%% set parameter defaults</span>
+0118 <span class="comment">%%% mcmc options</span>
+0119 <span class="comment">% some predefined methods</span>
+0120 doram = 0;
+0121 method = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'method'</span>,<span class="string">'dram'</span>);
+0122 <span class="keyword">switch</span> lower(method)
+0123  <span class="keyword">case</span> <span class="string">'mh'</span>
+0124   nsimu    = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'nsimu'</span>,10000);  <span class="comment">% length of the chain to simulate</span>
+0125   adaptint = 0;
+0126   Ntry     = 1;
+0127  <span class="keyword">case</span> <span class="string">'am'</span>
+0128   nsimu    = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'nsimu'</span>,10000);
+0129   adaptint = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'adaptint'</span>,100); <span class="comment">% update interval for adaptation</span>
+0130   Ntry     = 1;
+0131  <span class="keyword">case</span> <span class="string">'dr'</span>
+0132   nsimu    = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'nsimu'</span>,10000);
+0133   adaptint = 0;
+0134   Ntry     = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'ntry'</span>,4);       <span class="comment">% DR tries (1 = no extra try)</span>
+0135  <span class="keyword">case</span> <span class="string">'dram'</span>
+0136   nsimu    = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'nsimu'</span>,10000);
+0137   adaptint = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'adaptint'</span>,100);
+0138   Ntry     = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'ntry'</span>,2);
+0139  <span class="keyword">case</span> <span class="string">'ram'</span>
+0140   nsimu    = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'nsimu'</span>,10000);
+0141   adaptint = 1;
+0142   Ntry     = 1;
+0143   doram    = 1;
+0144   options.adascale = 1;
+0145  <span class="keyword">otherwise</span>
+0146   error(sprintf(<span class="string">'unknown mcmc method: %s'</span>,method));
+0147 <span class="keyword">end</span>
+0148 printint    = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'printint'</span>,NaN); <span class="comment">% print interval</span>
+0149 lastadapt   = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'lastadapt'</span>,0);  <span class="comment">% last adapt</span>
+0150 lastadapt   = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'adaptend'</span>,lastadapt);<span class="comment">%  the same</span>
+0151 burnintime  = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'burnintime'</span>,0);
+0152 wbarupd     = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'waitbar'</span>,1);    <span class="comment">% use graphical waitbar</span>
+0153 verbosity   = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'verbosity'</span>,1);  <span class="comment">% amout of info to print</span>
+0154 shdebug     = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'debug'</span>,0);      <span class="comment">% show some debug information</span>
+0155 qcov        = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'qcov'</span>,[]);      <span class="comment">% proposal covariance</span>
+0156 initqcovn   = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'initqcovn'</span>,[]);      <span class="comment">% proposal covariance weight in update</span>
+0157 qcov_adjust = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'qcov_adjust'</span>,1e-8); <span class="comment">% eps adjustment</span>
+0158 burnin_scale= <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'burnin_scale'</span>,10); <span class="comment">% scale in burn-in down/up</span>
+0159 updatesigma = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'updatesigma'</span>,0);
+0160 noadaptind  = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'noadaptind'</span>,[]); <span class="comment">% do not adapt these indeses</span>
+0161 dostats     = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'stats'</span>,0);       <span class="comment">% convergence statistics</span>
+0162 dostats2    = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'stats2'</span>,0);       <span class="comment">% convergence statistics</span>
+0163 <span class="comment">% DR options</span>
+0164 dodram   = 1;<span class="comment">%getpar(options,'dram',0); % DR (not used, use ntry instead)</span>
+0165 <span class="comment">%DR_scale = getpar(options,'drscale',[60 30 15]);</span>
+0166 DR_scale = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'drscale'</span>,[5 4 3]);
+0167 adascale = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'adascale'</span>,[]); <span class="comment">% qcov_scale</span>
+0168 <span class="keyword">if</span> Ntry &gt; 1, dodram=1; <span class="keyword">end</span>
+0169 <span class="comment">% RAM options</span>
+0170 alphatarget = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'alphatarget'</span>,0.234); <span class="comment">% acceptance ratio target</span>
+0171 etaparam = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'etaparam'</span>,0.7); <span class="comment">%</span>
+0172 
+0173 <span class="comment">% save options</span>
+0174 savesize   = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'savesize'</span>,0); <span class="comment">% rows of the chain in memory</span>
+0175 <span class="keyword">if</span> savesize &lt;= 0 || savesize &gt; nsimu
+0176   savesize = nsimu;
+0177 <span class="keyword">end</span>
+0178 maxmem      = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'maxmem'</span>,0); <span class="comment">% memory available in mega bytes</span>
+0179 <span class="comment">% temporary files if dumping to file</span>
+0180 savedir     = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'savedir'</span>,tempdir);
+0181 fnum = fix(rand*100000); <span class="comment">% random number for the default filename</span>
+0182 chainfile   = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'chainfile'</span>,sprintf(<span class="string">'chain_%05d.mat'</span>,fnum));
+0183 s2chainfile = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'s2chainfile'</span>,sprintf(<span class="string">'s2chain_%05d.mat'</span>,fnum));
+0184 sschainfile = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'sschainfile'</span>,sprintf(<span class="string">'sschain_%05d.mat'</span>,fnum));
+0185 skip        = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'skip'</span>,1);
+0186 <span class="keyword">if</span> ~isempty(savedir)
+0187   chainfile   = [savedir,chainfile];
+0188   s2chainfile = [savedir,s2chainfile];
+0189   sschainfile = [savedir,sschainfile];
+0190 <span class="keyword">end</span>
+0191 label = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'label'</span>,sprintf(<span class="string">'MCMC run at %s'</span>,date));
+0192 
+0193 <span class="comment">% save -2*log(ss/sigma2+prior) in sschain instead of ss</span>
+0194 savepostinss = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'savepostinss'</span>,0);
+0195 
+0196 <span class="comment">% Model options</span>
+0197 sigma2  = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(model,<span class="string">'sigma2'</span>,[]);     <span class="comment">% initial value for the error variance</span>
+0198 N       = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(model,<span class="string">'N'</span>,<a href="../../minimisers/mcmcstat/private/getN.html" class="code" title="function n=getN(data)">getN</a>(data));  <span class="comment">% no of obs</span>
+0199 ssfun   = model.ssfun;<span class="comment">%getpar(model,'ssfun',[]);      % sum of squares function</span>
+0200 modelfun= <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(model,<span class="string">'modelfun'</span>,[]);   <span class="comment">% model function</span>
+0201 priorfun= <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(model,<span class="string">'priorfun'</span>,[]);   <span class="comment">% prior function</span>
+0202 priortype= <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(model,<span class="string">'priortype'</span>,1);  <span class="comment">% prior type, 1 = Gaussian</span>
+0203 priorupdatefun = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(model,<span class="string">'priorupdatefun'</span>,[]); <span class="comment">% prior parameter update</span>
+0204 priorpars = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(model,<span class="string">'priorpars'</span>,[]); <span class="comment">% prior parameter for priorupdatefun</span>
+0205 priorupdatestart = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'priorupdatestart'</span>,burnintime);
+0206 <span class="comment">%ssstyle = getpar(model,'ssstyle',1);</span>
+0207 ssstyle = 1;
+0208 <span class="comment">% error variance prior</span>
+0209 S20     = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(model,<span class="string">'S20'</span>,NaN);
+0210 N0      = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(model,<span class="string">'N0'</span>,[]);
+0211 nbatch  = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(model,<span class="string">'nbatch'</span>,<a href="../../minimisers/mcmcstat/private/getnbatch.html" class="code" title="function n=getnbatch(data)">getnbatch</a>(data)); <span class="comment">% number of batches</span>
+0212 
+0213 <span class="comment">% This is for backward compatibility</span>
+0214 <span class="comment">% if sigma2 given then default N0=1, else default N0=0</span>
+0215 <span class="keyword">if</span> isempty(N0)
+0216   <span class="keyword">if</span> isempty(sigma2)
+0217     sigma2 = 1;
+0218     N0 = 0;
+0219   <span class="keyword">else</span>
+0220     N0 = 1;
+0221   <span class="keyword">end</span>
+0222 <span class="keyword">else</span>
+0223   <span class="comment">% if N0 given, then also check updatesigma</span>
+0224   updatesigma = 1;
+0225 <span class="keyword">end</span>
+0226 
+0227 <span class="keyword">if</span> isempty(N)
+0228   <span class="keyword">if</span> updatesigma
+0229     error(<span class="string">'could not determine number of data points, please specify model.N'</span>);
+0230   <span class="keyword">end</span>
+0231 <span class="keyword">end</span>
+0232 <span class="keyword">if</span> isempty(nbatch)
+0233   <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,1,<span class="string">'Setting nbatch to 1\n'</span>);
+0234   nbatch = 1;
+0235 <span class="keyword">end</span>
+0236 
+0237 
+0238 <span class="comment">% some values from the previous run</span>
+0239 <span class="keyword">if</span> nargin &gt; 4 &amp;&amp; ~isempty(res)
+0240   <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,0,<span class="string">'Using values from the previous run\n'</span>)
+0241   params = <a href="res2par.html" class="code" title="function params = res2par(res,params,loc)">res2par</a>(res,params, 1 ); <span class="comment">% 1 = do local parameters</span>
+0242   qcov   = res.qcov2;
+0243   <span class="keyword">if</span> isempty(initqcovn)
+0244     initqcovn = res.nsimu;
+0245   <span class="keyword">end</span>
+0246 <span class="keyword">end</span>
+0247 
+0248 <span class="comment">% open and parse the parameter structure</span>
+0249 [names,value,parind,local,upp,low,thetamu,thetasig,hyperpars] = <span class="keyword">...</span>
+0250     <a href="openparstruct.html" class="code" title="function [names,value,parind,local,upper,lower,thetamu,thetasig,hpar] =openparstruct(parstruct,nbatch)">openparstruct</a>(params,nbatch);
+0251 
+0252 <span class="keyword">if</span> any(thetasig&lt;=0)
+0253   disp(<span class="string">'some prior variances &lt;=0, setting those to Inf'</span>)
+0254   thetasig(thetasig&lt;=0) = Inf;
+0255 <span class="keyword">end</span>
+0256 
+0257 <span class="comment">% hyper prior parameters</span>
+0258 hchain = []; <span class="comment">% it is allocated after the first call inside the simuloop</span>
+0259 <span class="keyword">if</span> hyperpars.nhpar &gt; 0
+0260   fprintf(<span class="string">'NOTE: n:o of parameters with hyper priors is %d\n'</span>,hyperpars.nhpar);
+0261   <span class="keyword">if</span> isempty(priorpars), priorpars=hyperpars;<span class="keyword">end</span>
+0262   <span class="keyword">if</span> isempty(priorupdatefun), priorupdatefun=@<a href="hyperpriorupdate.html" class="code" title="function [mu,sig,parrow] = hyperpriorupdate(theta,thetamu,thetasig,params)">hyperpriorupdate</a>;disp(<span class="string">'  using the default hyper update method'</span>);<span class="keyword">end</span>
+0263 <span class="keyword">end</span>
+0264 
+0265 <span class="comment">% default for sigma2 is S20 or 1</span>
+0266 <span class="keyword">if</span> isempty(sigma2)
+0267   <span class="keyword">if</span> not(isnan(S20))
+0268     sigma2=S20;
+0269   <span class="keyword">else</span>
+0270     sigma2=1;
+0271   <span class="keyword">end</span>
+0272 <span class="keyword">end</span>
+0273 <span class="keyword">if</span> isnan(S20)
+0274   S20 = sigma2; <span class="comment">% prior parameters for the error variance</span>
+0275 <span class="keyword">end</span>
+0276 <span class="keyword">if</span> isnan(N0)
+0277   N0 = 1;
+0278 <span class="keyword">end</span>
+0279 <span class="keyword">if</span> lastadapt&lt;1
+0280   lastadapt=nsimu;
+0281 <span class="keyword">end</span>
+0282 <span class="keyword">if</span> isnan(printint)
+0283   printint = max(100,min(1000,adaptint));
+0284 <span class="keyword">end</span>
+0285 
+0286 <span class="comment">% if verbosity&gt;0</span>
+0287 <span class="comment">%   fprintf('Sampling these parameters:\nname   start [min,max] N(mu,s^2)\n');</span>
+0288 <span class="comment">%   nprint = length(parind);</span>
+0289 <span class="comment">%   if verbosity == 1</span>
+0290 <span class="comment">%     nprint = min(nprint,40);</span>
+0291 <span class="comment">%   end</span>
+0292 <span class="comment">%   for i=1:nprint</span>
+0293 <span class="comment">%     if ismember(i,noadaptind), st=' (*)'; else st='';end</span>
+0294 <span class="comment">%     if isinf(thetasig(parind(i))), h2=''; else h2='^2';end</span>
+0295 <span class="comment">%     fprintf('%s: %g [%g,%g] N(%g,%g%s)%s\n',...</span>
+0296 <span class="comment">%             names{parind(i)},value(parind(i)),...</span>
+0297 <span class="comment">%             low(parind(i)),upp(parind(i)),...</span>
+0298 <span class="comment">%             thetamu(parind(i)),thetasig(parind(i)),h2,st);</span>
+0299 <span class="comment">%   end</span>
+0300 <span class="comment">%   if nprint &lt; length(parind), fprintf('...\n'); end</span>
+0301 <span class="comment">% end</span>
+0302 
+0303 par0 = value(parind);
+0304 npar = length(par0);
+0305 
+0306 <span class="comment">% check ssfun type</span>
+0307 <span class="keyword">if</span> isempty(ssfun)
+0308   <span class="keyword">if</span> isempty(modelfun)
+0309     error(<span class="string">'no ssfun or modelfun!'</span>)
+0310   <span class="keyword">end</span>
+0311   ssstyle = 4;
+0312   ni = 4;
+0313 <span class="keyword">else</span>
+0314   <span class="keyword">if</span> isa(ssfun,<span class="string">'function_handle'</span>)
+0315 <span class="comment">%    ni = nargin(func2str(ssfun)); % is this needed?</span>
+0316     ni = nargin(ssfun);
+0317   <span class="keyword">elseif</span> isa(ssfun,<span class="string">'inline'</span>) || exist(ssfun) == 2 <span class="comment">% ssfun is an mfile</span>
+0318     ni = nargin(ssfun);
+0319   <span class="keyword">else</span>
+0320     ni = 2;
+0321   <span class="keyword">end</span>
+0322   <span class="keyword">if</span> ni == 3
+0323     ssstyle=2;
+0324   <span class="keyword">end</span>
+0325 <span class="keyword">end</span>
+0326 
+0327 <span class="keyword">if</span> isempty(qcov)
+0328   qcov = thetasig.^2;
+0329   ii = isinf(qcov)|isnan(qcov);
+0330 <span class="comment">%  qcov(ii) = [abs(par0(ii))*0.05].^2; % default is 5% std</span>
+0331   qcov(ii) = [abs(value(ii))*0.05].^2; <span class="comment">% default is 5% std</span>
+0332   qcov(qcov==0) = 1e-6; <span class="comment">% .. or one if we start from zero</span>
+0333   <span class="comment">% If any are zero, use value of high limit instead</span>
+0334 <span class="comment">%   for n = 1:length(qcov);</span>
+0335 <span class="comment">%       if iszero(qcov(n))</span>
+0336 <span class="comment">%           thisPar = params{n};</span>
+0337 <span class="comment">%           thisPar = thisPar{4};</span>
+0338           
+0339   
+0340   qcov = diag(qcov);
+0341 <span class="keyword">end</span>
+0342 
+0343 <span class="keyword">if</span> isempty(adascale)||adascale&lt;=0
+0344   qcov_scale = 2.4 / sqrt(npar) ; <span class="comment">% scale factor in R</span>
+0345 <span class="keyword">else</span>
+0346   qcov_scale = adascale;
+0347 <span class="keyword">end</span>
+0348 
+0349 [cm,cn]=size(qcov);
+0350 <span class="keyword">if</span> min([cm cn]) == 1 <span class="comment">% qcov contains variances!</span>
+0351   s = sqrt(qcov(parind));
+0352   R = diag(s); <span class="comment">% *qcov_scale; % do NOT scale the initial qcov</span>
+0353   qcovorig = diag(qcov); <span class="comment">% save qcov</span>
+0354   qcov = diag(qcov(parind));
+0355 <span class="keyword">else</span> <span class="comment">%  qcov has covariance matrix in it</span>
+0356   qcovorig = qcov; <span class="comment">% save qcov</span>
+0357   qcov = qcov(parind,parind);
+0358   R    = chol(qcov); <span class="comment">% *qcov_scale;</span>
+0359 <span class="keyword">end</span>
+0360 <span class="comment">%R0 = R; % save R</span>
+0361 <span class="keyword">global</span> invR
+0362 <span class="keyword">global</span> A_count
+0363 A_count = 0; <span class="comment">% alphafun count</span>
+0364 <span class="keyword">if</span> dodram
+0365   RDR = <a href="../../minimisers/mcmcstat/private/getpar.html" class="code" title="function y=getpar(options,par,default)">getpar</a>(options,<span class="string">'RDR'</span>,[]); <span class="comment">% RDR qiven in ooptions</span>
+0366   <span class="keyword">if</span> ~isempty(RDR)
+0367     <span class="keyword">for</span> i=1:Ntry
+0368       invR{i} = RDR{i}\eye(npar);
+0369     <span class="keyword">end</span>
+0370     R = RDR{1};
+0371   <span class="keyword">else</span>
+0372     <span class="comment">% DR strategy: just scale R's down by DR_scale</span>
+0373     RDR{1} = R;
+0374     invR{1} = R\eye(npar);
+0375     <span class="keyword">for</span> i=2:Ntry
+0376       RDR{i}  = RDR{i-1}./DR_scale(min(i-1,length(DR_scale)));
+0377       invR{i} = RDR{i}\eye(npar);
+0378     <span class="keyword">end</span>
+0379   <span class="keyword">end</span>
+0380   iacce = zeros(1,Ntry);
+0381 <span class="keyword">end</span>
+0382 
+0383 starttime=clock;
+0384 
+0385 oldpar=par0(:)';
+0386 ss = <a href="#_sub1" class="code" title="subfunction ss = sseval(ssfun,ssstyle,theta,parind,value,local,data,modelfun)">sseval</a>(ssfun,ssstyle,oldpar,parind,value,local,data,modelfun);
+0387 ss1 = ss;
+0388 ss2 = ss;
+0389 
+0390 ny = length(ss);
+0391 <span class="keyword">if</span> length(S20)==1
+0392   S20 = ones(1,ny)*S20;
+0393 <span class="keyword">end</span>
+0394 <span class="keyword">if</span> length(N)==1
+0395   N = ones(1,ny)*N;
+0396 <span class="keyword">end</span>
+0397 <span class="keyword">if</span> length(N)==ny+1
+0398   N = N(2:end); <span class="comment">% remove first columns FIXME</span>
+0399 <span class="keyword">end</span>
+0400 <span class="keyword">if</span> length(N0)==1
+0401   N0 = ones(1,ny)*N0;
+0402 <span class="keyword">end</span>
+0403 
+0404 <span class="comment">% default prior function calculates Gaussian sum of squares</span>
+0405 <span class="keyword">if</span> isempty(priorfun)
+0406   priorfun = @(th,mu,sig) sum(((th-mu)./sig).^2);
+0407 <span class="keyword">end</span>
+0408 
+0409 oldprior = feval(priorfun,oldpar,thetamu(parind),thetasig(parind));
+0410 
+0411 <span class="comment">%memory calculations</span>
+0412 memneeded = savesize*(npar+2*ny)*8*1e-6;
+0413 <span class="keyword">if</span> (maxmem &gt; 0) &amp;&amp; (memneeded &gt; maxmem)
+0414   savesize = max(1000,floor(maxmem/(npar+2*ny)/8*1e6));
+0415   <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,0,<span class="string">'savesize decreased to %d\n'</span>,savesize);
+0416 <span class="keyword">end</span>
+0417 <span class="keyword">if</span> (savesize &lt; nsimu) || (nargout &lt; 2)
+0418   saveit = 1;
+0419 <span class="keyword">else</span>
+0420   saveit = 0;
+0421 <span class="keyword">end</span>
+0422 <span class="comment">% save parameters, error variance, and SS</span>
+0423 chain   = zeros(savesize,npar);
+0424 <span class="keyword">if</span> updatesigma
+0425   s2chain = zeros(savesize,ny);
+0426 <span class="keyword">else</span>
+0427   s2chain = [];
+0428 <span class="keyword">end</span>
+0429 sschain = zeros(savesize,ny);
+0430 
+0431 <span class="comment">%% save chain</span>
+0432 <span class="keyword">if</span> saveit == 1
+0433   <a href="savebin.html" class="code" title="function s=savebin(filename,x,name)">savebin</a>(chainfile,[],<span class="string">'chain'</span>);
+0434   <a href="savebin.html" class="code" title="function s=savebin(filename,x,name)">savebin</a>(sschainfile,[],<span class="string">'sschain'</span>);
+0435   <span class="keyword">if</span> updatesigma
+0436     <a href="savebin.html" class="code" title="function s=savebin(filename,x,name)">savebin</a>(s2chainfile,[],<span class="string">'s2chain'</span>);
+0437   <span class="keyword">end</span>
+0438 <span class="keyword">end</span>
+0439 
+0440 chain(1,:)   = oldpar;
+0441 <span class="keyword">if</span> updatesigma
+0442   s2chain(1,:) = sigma2;
+0443 <span class="keyword">end</span>
+0444 <span class="keyword">if</span> savepostinss
+0445   sschain(1,:) = ss./sigma2 + oldprior;
+0446 <span class="keyword">else</span>
+0447   sschain(1,:) = ss;
+0448 <span class="keyword">end</span>
+0449 
+0450 rej=0; reju=0; ii=1; rejl = 0;
+0451 <span class="comment">%% setup waitbar</span>
+0452 <span class="keyword">if</span> wbarupd; textProgressBar(<span class="string">'init'</span>,0); <span class="keyword">end</span>
+0453 
+0454 <span class="comment">% covariance update uses these to store previous values</span>
+0455 covchain = []; meanchain = []; wsum = initqcovn; lasti = 0;
+0456 <span class="keyword">if</span> not(isempty(wsum))
+0457   covchain = qcov;
+0458   meanchain = oldpar;
+0459 <span class="keyword">end</span>
+0460 <span class="comment">% no update for these indeses</span>
+0461 noupd = logical(zeros(1,npar));
+0462 noupd(intersect(parind,noadaptind)) = 1;
+0463 
+0464 <span class="comment">% extra statistics for method testing</span>
+0465 <span class="keyword">if</span> dostats2
+0466   accechain = zeros(nsimu,1); <span class="comment">% for cumulative acceptance</span>
+0467   accechain(1) = 1;
+0468   <span class="keyword">if</span> dodram
+0469     evalchain = ones(nsimu,1); <span class="comment">% for likelihood evaluations</span>
+0470   <span class="keyword">end</span>
+0471 <span class="keyword">end</span>
+0472 
+0473 chainind = 1; <span class="comment">% where we are in chain</span>
+0474 <span class="keyword">for</span> isimu=2:nsimu <span class="comment">% simulation loop</span>
+0475   ii = ii+1; <span class="comment">% local adaptation index (?)</span>
+0476   chainind = chainind+1;
+0477 
+0478   <span class="comment">% waitbar</span>
+0479   <span class="keyword">if</span> wbarupd
+0480     <span class="comment">%status = wbar(isimu,nsimu);</span>
+0481 <span class="comment">%     if status == -1 % waitbar killed, cancel the run and keep</span>
+0482 <span class="comment">%                     % the chain so far</span>
+0483 <span class="comment">%       message(verbosity,1,'Cancelling...\n');</span>
+0484 <span class="comment">%       chainind = chainind-1;</span>
+0485 <span class="comment">%       nsimu = isimu;</span>
+0486 <span class="comment">%       chain = chain(1:chainind,:);</span>
+0487 <span class="comment">%       sschain = sschain(1:chainind,:);</span>
+0488 <span class="comment">%       if updatesigma</span>
+0489 <span class="comment">%         s2chain = s2chain(1:chainind,:);</span>
+0490 <span class="comment">%       end</span>
+0491 <span class="comment">%       if size(hchain,1)&gt;1</span>
+0492 <span class="comment">%         hchain = hchain(1:chainind,:);</span>
+0493 <span class="comment">%       end</span>
+0494 <span class="comment">%       break % break the nsimu loop</span>
+0495 <span class="comment">%     end</span>
+0496   <span class="keyword">end</span>
+0497   <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,100,<span class="string">'i:%d/%d\n'</span>,isimu,nsimu);
+0498 
+0499   <span class="comment">% sample new candidate from Gaussian proposal</span>
+0500   u = randn(1,npar);
+0501   newpar=oldpar+u*R;
+0502 
+0503   <span class="comment">% reject points outside boundaries</span>
+0504   <span class="keyword">if</span> any(newpar&lt;low(parind)) || any(newpar&gt;upp(parind))
+0505     accept = 0;
+0506     newprior = 0;
+0507     tst      = 0;
+0508     ss1      = Inf;
+0509     ss2      = ss;
+0510     outbound = 1;
+0511   <span class="keyword">else</span>
+0512     outbound = 0;
+0513     <span class="comment">% prior SS for the new theta</span>
+0514     newprior = feval(priorfun,newpar,thetamu(parind),thetasig(parind));
+0515 
+0516     <span class="comment">% calculate ss</span>
+0517     ss2 = ss;             <span class="comment">% old ss</span>
+0518     ss1 = <a href="#_sub1" class="code" title="subfunction ss = sseval(ssfun,ssstyle,theta,parind,value,local,data,modelfun)">sseval</a>(ssfun,ssstyle,newpar,parind,value,local,data,modelfun);
+0519 
+0520     tst = exp(-0.5*( sum((ss1-ss2)./sigma2) + newprior-oldprior) );
+0521 
+0522     <span class="keyword">if</span> tst &lt;= 0
+0523       accept = 0;
+0524     <span class="keyword">elseif</span> tst &gt;= 1
+0525       accept = 1;
+0526     <span class="keyword">elseif</span> tst &gt; rand(1,1)
+0527       accept = 1;
+0528     <span class="keyword">else</span>
+0529       accept = 0;
+0530     <span class="keyword">end</span>
+0531     <span class="keyword">if</span> shdebug &amp;&amp; fix(isimu/shdebug) == isimu/shdebug
+0532       fprintf(<span class="string">'%d: pri: %g, tst: %g, ss: %g\n'</span>,isimu, newprior,tst, ss1);
+0533     <span class="keyword">end</span>
+0534   <span class="keyword">end</span>
+0535   <span class="comment">%%% DR -----------------------------------------------------</span>
+0536   <span class="keyword">if</span> dodram == 1 &amp;&amp; accept == 0 <span class="comment">% &amp; outbound == 0</span>
+0537     <span class="comment">% we do a new try according to delayed rejection</span>
+0538     x.p   = oldpar;
+0539     x.ss  = ss2;
+0540     x.pri = oldprior;
+0541     x.s2  = sigma2;
+0542 
+0543     y.p   = newpar;
+0544     y.ss  = ss1;
+0545     y.pri = newprior;
+0546     y.s2  = sigma2;
+0547     y.a   = tst;
+0548 
+0549     trypath = {x,y};
+0550     itry    = 1;
+0551     <span class="keyword">while</span> accept == 0 &amp;&amp; itry &lt; Ntry
+0552       itry = itry+1;
+0553       z.p  = x.p + randn(1,npar)*RDR{itry};
+0554       z.s2 = sigma2;
+0555       <span class="keyword">if</span> any(z.p&lt;low(parind)) || any(z.p&gt;upp(parind))
+0556         z.a   = 0;
+0557         z.pri = 0;
+0558         z.ss  = Inf;
+0559         trypath = {trypath{:},z};
+0560         outbound = 1;
+0561         <span class="keyword">continue</span>
+0562       <span class="keyword">end</span>
+0563 
+0564       outbound = 0;
+0565       z.ss = <a href="#_sub1" class="code" title="subfunction ss = sseval(ssfun,ssstyle,theta,parind,value,local,data,modelfun)">sseval</a>(ssfun,ssstyle,z.p,parind,value,local,data,modelfun);
+0566       z.pri = feval(priorfun,z.p,thetamu(parind),thetasig(parind));
+0567       trypath = {trypath{:},z};
+0568       alpha = <a href="#_sub2" class="code" title="subfunction y=alphafun(varargin)">alphafun</a>(trypath{:});
+0569       trypath{end}.a = alpha;
+0570       <span class="keyword">if</span> alpha &gt;= 1 || rand(1,1) &lt; alpha     <span class="comment">%  accept</span>
+0571         accept   = 1;
+0572         newpar   = z.p;
+0573         ss1      = z.ss;
+0574         newprior = z.pri;
+0575         iacce(itry) = iacce(itry) + 1;
+0576       <span class="keyword">end</span>
+0577       <span class="keyword">if</span> shdebug &amp;&amp; fix(isimu/shdebug) == isimu/shdebug
+0578         fprintf(<span class="string">'try %d: pri: %g, alpha: %g\n'</span>,itry, z.pri, alpha);
+0579         fprintf(<span class="string">' p: %g\n'</span>,z.p);
+0580       <span class="keyword">end</span>
+0581     <span class="keyword">end</span>
+0582     <span class="keyword">if</span> dostats2
+0583       evalchain(chainind) = itry;
+0584     <span class="keyword">end</span>
+0585   <span class="keyword">end</span> <span class="comment">% DR --------------------------------------------------------</span>
+0586   <span class="comment">%%% save chain</span>
+0587   <span class="keyword">if</span> accept
+0588     <span class="comment">%%% accept</span>
+0589     chain(chainind,:) = newpar;
+0590     oldpar     = newpar;
+0591     oldprior   = newprior;
+0592     ss         = ss1;
+0593     <span class="keyword">if</span> dostats2
+0594       accechain(chainind) = 1;
+0595     <span class="keyword">end</span>
+0596   <span class="keyword">else</span>
+0597     <span class="comment">%%%% reject</span>
+0598     chain(chainind,:) = oldpar;
+0599     rej        = rej + 1;
+0600     reju       = reju + 1;
+0601     <span class="keyword">if</span> outbound
+0602       rejl     = rejl + 1;
+0603     <span class="keyword">end</span>
+0604   <span class="keyword">end</span>
+0605   <span class="comment">%%% Possibly update the prior parameters (for testing hiearchical hyper priors)</span>
+0606   <span class="comment">%%% [mu,sig]=priorupdatefun(theta, mu, sig, priorpars)</span>
+0607   <span class="keyword">if</span> not(isempty(priorupdatefun)) &amp;&amp; hyperpars.nhpar &gt; 0
+0608     <span class="keyword">if</span> isimu==2 || isimu&gt;=priorupdatestart
+0609       [muout,sigout,hrowout] = <span class="keyword">...</span>
+0610       feval(priorupdatefun,oldpar,thetamu(parind),thetasig(parind),priorpars);
+0611       <span class="keyword">if</span> isimu==2 <span class="comment">% set up hchain</span>
+0612         hchain = zeros(nsimu,length(hrowout));
+0613     <span class="keyword">if</span> isfield(priorpars,<span class="string">'mu0'</span>) &amp;&amp; isfield(priorpars,<span class="string">'sig20'</span>) &amp;&amp; <span class="keyword">...</span>
+0614           length([priorpars.mu0,priorpars.sig20]) == length(hrowout)
+0615       hchain(1,1:2:end) = priorpars.mu0;
+0616       hchain(1,2:2:end) = sqrt(priorpars.sig20);
+0617       hrow = hchain(1,:);
+0618     <span class="keyword">end</span>
+0619       <span class="keyword">end</span>
+0620       <span class="keyword">if</span> isimu&gt;=priorupdatestart; <span class="comment">% update mu and theta</span>
+0621     thetamu(parind)  = muout;
+0622     thetasig(parind) = sigout;
+0623     hrow = hrowout;
+0624     <span class="comment">% need to update the prior ss value</span>
+0625     oldprior = feval(priorfun,oldpar,thetamu(parind),thetasig(parind));
+0626       <span class="keyword">end</span>
+0627     <span class="keyword">end</span>
+0628     hchain(isimu,:) = hrow;
+0629     <span class="comment">%% fix this:</span>
+0630     <span class="comment">%% (do?) we need &quot;sum of squares&quot; of the hyper parameters for the observation</span>
+0631     <span class="comment">%% noise sigma2 update</span>
+0632 <span class="comment">%    sig2s = hrow(2:2:end).^2; % now assumes that we are using the default function</span>
+0633 <span class="comment">%    sssig = sum(sig2s);</span>
+0634 <span class="comment">%    sign = length(sig2s)*nbatch;</span>
+0635   <span class="keyword">else</span>
+0636 <span class="comment">%    sssig = 0;</span>
+0637 <span class="comment">%    sign = 0;</span>
+0638   <span class="keyword">end</span>
+0639   <span class="comment">%%%</span>
+0640   <span class="comment">%%% update sigma2</span>
+0641   <span class="keyword">if</span> updatesigma
+0642     <span class="keyword">for</span> j=1:ny
+0643      sigma2(j) = 1./<a href="gammar.html" class="code" title="function y=gammar(m,n,a,b)">gammar</a>(1,1,(N0(j)+N(j))/2,2./(N0(j).*S20(j)+ss(j)));
+0644  <span class="comment">%     nn = N0(j)+N(j)+sign;</span>
+0645  <span class="comment">%     sigma2(j) = invchir(1,1, nn , (N0(j).*S20(j)+ss(j) + sssig)./nn);</span>
+0646  <span class="comment">%     sigma2(j) =  1./gammar(1,1,(N0(j)+N(j)+sign)/2,2./(N0(j).*S20(j)+ss(j)+sssig ));</span>
+0647     <span class="keyword">end</span>
+0648     s2chain(chainind,:) = sigma2;
+0649   <span class="keyword">end</span>
+0650   <span class="comment">%%%</span>
+0651   <span class="keyword">if</span> savepostinss
+0652     sschain(chainind,:) = ss./sigma2 + oldprior;
+0653   <span class="keyword">else</span>
+0654     sschain(chainind,:) = ss;
+0655   <span class="keyword">end</span>
+0656   <span class="comment">%</span>
+0657   <span class="keyword">if</span> printint &amp;&amp; fix(isimu/printint) == isimu/printint
+0658 <span class="comment">%     message(verbosity,2,'i:%g (%3.2f,%3.2f,%3.2f)\n', ...</span>
+0659 <span class="comment">%             isimu,rej/isimu*100,reju/ii*100,rejl/isimu*100);</span>
+0660     <a href="#_sub6" class="code" title="subfunction status=wbar(i,nsimu)">wbar</a>(isimu,nsimu);
+0661   <span class="keyword">end</span>
+0662 
+0663   <span class="comment">%% adaptation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0664   <span class="keyword">if</span> adaptint&gt;0 &amp;&amp; isimu&lt;=lastadapt &amp;&amp; fix(isimu/adaptint) == isimu/adaptint
+0665     <span class="keyword">if</span> isimu &lt; burnintime
+0666       <span class="comment">% During burnin no adaptation, just scaling up/down</span>
+0667       <span class="keyword">if</span> reju/ii &gt; 0.95
+0668         <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,2,<span class="string">' (burnin/down) %3.2f'</span>,reju/ii*100);
+0669         R = R./burnin_scale;
+0670       <span class="keyword">elseif</span> reju/ii &lt; 0.05
+0671         <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,2,<span class="string">' (burnin/up) %3.2f'</span>,reju/ii*100)
+0672         R = R.*burnin_scale;
+0673       <span class="keyword">end</span>
+0674     <span class="keyword">else</span>
+0675       <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,2,<span class="string">'i:%g adapting (%3.2f,%3.2f,%3.2f)'</span>, <span class="keyword">...</span>
+0676               isimu,rej/isimu*100,reju/ii*100,rejl/isimu*100);
+0677       [covchain,meanchain,wsum] = <a href="covupd.html" class="code" title="function [xcov,xmean,wsum,R]=covupd(x,w,oldcov,oldmean,oldwsum,oldR)">covupd</a>(chain((lasti+1):chainind,1:npar),1, <span class="keyword">...</span>
+0678                                          covchain,meanchain,wsum);
+0679       lasti = chainind;
+0680 
+0681       <span class="comment">%%% ram</span>
+0682       <span class="keyword">if</span> doram
+0683     uu = u./norm(u);
+0684     eta = 1/isimu.^etaparam;
+0685     ram = eye(npar) + eta*(min(1,tst)-alphatarget)*(uu'*uu);
+0686     upcov = R'*ram*R;
+0687       <span class="keyword">else</span>
+0688     upcov          = covchain;
+0689     upcov(noupd,:) = qcov(noupd,:);
+0690     upcov(:,noupd) = qcov(:,noupd);
+0691       <span class="keyword">end</span>
+0692       <span class="comment">%%%</span>
+0693       [Ra,p] = chol(upcov);
+0694       <span class="keyword">if</span> p <span class="comment">% singular cmat</span>
+0695         <span class="comment">% try to blow it</span>
+0696         [Ra,p] = chol(upcov + eye(npar)*qcov_adjust);
+0697         <span class="keyword">if</span> p <span class="comment">% stil singular</span>
+0698           <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,0,<span class="string">' (cmat singular, no adapt) %3.2f'</span>,reju/ii*100);
+0699         <span class="keyword">else</span>
+0700           <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,2,<span class="string">' [adjusted cmat]'</span>);
+0701           <span class="comment">% scale R</span>
+0702           R = Ra * qcov_scale;
+0703         <span class="keyword">end</span>
+0704       <span class="keyword">else</span>
+0705         R = Ra * qcov_scale;
+0706       <span class="keyword">end</span>
+0707       lasti = isimu;
+0708       <span class="keyword">if</span> dodram  <span class="comment">%%%% delayed rejection</span>
+0709         RDR{1} = R;
+0710         invR{1} = RDR{1}\eye(npar);
+0711         <span class="keyword">for</span> k=2:Ntry
+0712           RDR{k}  = RDR{k-1}./DR_scale(min(k-1,length(DR_scale)));
+0713           invR{k} = invR{k-1}.*DR_scale(min(k-1,length(DR_scale)));
+0714         <span class="keyword">end</span>
+0715       <span class="keyword">end</span>
+0716     <span class="keyword">end</span>
+0717     <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,2,<span class="string">'\n'</span>);
+0718     reju = 0; ii = 0;
+0719   <span class="keyword">end</span>
+0720   <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0721   <span class="comment">%%% save chain</span>
+0722   <span class="keyword">if</span> chainind == savesize &amp;&amp; saveit == 1
+0723     <a href="#_sub5" class="code" title="subfunction message(verbosity,level,fmt,varargin)">message</a>(verbosity,2,<span class="string">'saving chains\n'</span>);
+0724     <a href="addbin.html" class="code" title="function status=addbin(filename,x)">addbin</a>(chainfile,chain');
+0725     <a href="addbin.html" class="code" title="function status=addbin(filename,x)">addbin</a>(sschainfile,sschain');
+0726     <span class="keyword">if</span> updatesigma
+0727       <a href="addbin.html" class="code" title="function status=addbin(filename,x)">addbin</a>(s2chainfile,s2chain');
+0728     <span class="keyword">end</span>
+0729     chainind = 0;
+0730     <span class="comment">% update covariance</span>
+0731     [covchain,meanchain,wsum] = <a href="covupd.html" class="code" title="function [xcov,xmean,wsum,R]=covupd(x,w,oldcov,oldmean,oldwsum,oldR)">covupd</a>(chain((lasti+1):chainind,1:npar),1, <span class="keyword">...</span>
+0732                                        covchain,meanchain,wsum);
+0733     lasti = 0;
+0734   <span class="keyword">end</span>
+0735 
+0736 <span class="keyword">end</span> <span class="comment">% nsimu</span>
+0737 
+0738 <span class="comment">% save the rest</span>
+0739 <span class="keyword">if</span> chainind&gt;0 &amp;&amp; saveit == 1
+0740   <a href="addbin.html" class="code" title="function status=addbin(filename,x)">addbin</a>(chainfile,chain(1:chainind,:)');
+0741   <a href="addbin.html" class="code" title="function status=addbin(filename,x)">addbin</a>(sschainfile,sschain(1:chainind,:)');
+0742   <span class="keyword">if</span> updatesigma
+0743     <a href="addbin.html" class="code" title="function status=addbin(filename,x)">addbin</a>(s2chainfile,s2chain(1:chainind,:)');
+0744   <span class="keyword">end</span>
+0745   <span class="comment">% update covariance</span>
+0746   [covchain,meanchain,wsum] = <a href="covupd.html" class="code" title="function [xcov,xmean,wsum,R]=covupd(x,w,oldcov,oldmean,oldwsum,oldR)">covupd</a>(chain((lasti+1):chainind,1:npar),1, <span class="keyword">...</span>
+0747                                      covchain,meanchain,wsum);
+0748 <span class="keyword">end</span>
+0749 
+0750 <span class="comment">%if wbarupd; wbar('close'); end</span>
+0751 
+0752 value(parind) = oldpar; <span class="comment">% update the initial value to the final value</span>
+0753 
+0754 <span class="comment">%% build the results structure</span>
+0755 <span class="keyword">if</span> nargout&gt;0
+0756   results.class = <span class="string">'MCMC'</span>;
+0757   results.label = label;
+0758   results.method = method;
+0759   results.rejected   = rej/nsimu;
+0760   results.ulrejected = rejl/nsimu;
+0761   results.R      = R;
+0762   results.qcov   = R'*R; <span class="comment">% with scale %  ./ qcov_scale.^2 ;</span>
+0763   qcovorig(parind,parind) = results.qcov;
+0764   results.qcov2  = qcovorig; <span class="comment">% original size</span>
+0765   results.cov    = covchain;
+0766   results.mean   = meanchain;
+0767   results.names  = names(parind);
+0768   results.limits = [low(parind)',upp(parind)'];
+0769   results.prior  = [thetamu(parind)',thetasig(parind)'];
+0770   results.theta  = value; <span class="comment">% last values</span>
+0771   results.parind = parind;
+0772   results.local  = local;
+0773   results.nbatch = nbatch;
+0774   results.N      = N;
+0775   <span class="keyword">if</span> updatesigma
+0776     results.sigma2 = NaN;
+0777     results.S20    = S20;
+0778     results.N0     = N0;
+0779   <span class="keyword">else</span>
+0780     results.sigma2 = sigma2;
+0781     results.S20    = NaN;
+0782     results.N0     = NaN;
+0783   <span class="keyword">end</span>
+0784   results.modelfun = modelfun;
+0785   results.ssfun    = ssfun;
+0786   results.priorfun = priorfun;
+0787   results.priortype= priortype;
+0788   results.priorpars= priorpars;
+0789   results.nsimu    = nsimu;
+0790   results.adaptint = adaptint;
+0791   results.adaptend = lastadapt;
+0792   results.adascale = qcov_scale;
+0793   results.skip     = skip;
+0794   results.simutime = etime(clock,starttime);
+0795   results.ntry     = Ntry;
+0796   <span class="keyword">if</span> dostats2
+0797     results.accechain = accechain;
+0798   <span class="keyword">end</span>
+0799   <span class="keyword">if</span> dodram
+0800     results.ntry  = Ntry;
+0801     results.drscale = DR_scale; <span class="comment">% .^2;</span>
+0802     iacce(1) = nsimu-rej-sum(iacce(2:end));
+0803     results.iacce = iacce;
+0804     results.alpha_count = A_count;
+0805     results.RDR = RDR;
+0806     <span class="keyword">if</span> dostats2
+0807       results.evalchain = evalchain;
+0808     <span class="keyword">end</span>
+0809   <span class="keyword">end</span>
+0810 <span class="keyword">end</span>
+0811 
+0812 <span class="comment">% check if we need to read the generated chain from binary dump files</span>
+0813 <span class="keyword">if</span> saveit == 1 &amp;&amp; savesize &lt; nsimu
+0814   <span class="keyword">if</span> nargout &gt; 1
+0815     chain = <a href="readbin.html" class="code" title="function [x,status]=readbin(filename,trans,skip)">readbin</a>(chainfile,1,skip);
+0816   <span class="keyword">end</span>
+0817   <span class="keyword">if</span> nargout &gt; 2 &amp;&amp; updatesigma
+0818     s2chain = <a href="readbin.html" class="code" title="function [x,status]=readbin(filename,trans,skip)">readbin</a>(s2chainfile,1,skip);
+0819   <span class="keyword">end</span>
+0820   <span class="keyword">if</span> nargout &gt; 3
+0821     sschain = <a href="readbin.html" class="code" title="function [x,status]=readbin(filename,trans,skip)">readbin</a>(sschainfile,1,skip);
+0822   <span class="keyword">end</span>
+0823 <span class="keyword">elseif</span> skip&gt;1&amp;&amp;skip&lt;=nsimu
+0824   chain = chain(1:skip:<span class="keyword">end</span>,:);
+0825   <span class="keyword">if</span> updatesigma
+0826     s2chain = s2chain(1:skip:<span class="keyword">end</span>,:);
+0827   <span class="keyword">end</span>
+0828   sschain = sschain(1:skip:<span class="keyword">end</span>,:);
+0829 <span class="keyword">end</span>
+0830 <span class="comment">% calculate some extra statistics (we need the whole chain to do this)</span>
+0831 <span class="keyword">if</span> dostats &amp;&amp; (saveit == 1 || savesize &gt;= nsimu)
+0832   results.tau    = <a href="iact.html" class="code" title="function [tau,m] = iact(dati)">iact</a>(chain);
+0833   results.geweke = <a href="geweke.html" class="code" title="function [z,p]=geweke(chain,a,b)">geweke</a>(chain);
+0834   results.rldiag = <a href="rldiag.html" class="code" title="function y=rldiag(chain,q,r,s,e)">rldiag</a>(chain);
+0835   <span class="comment">%% calculate DIC = 2*mean(ss)-ss(mean(chain))</span>
+0836   <span class="keyword">if</span> not(savepostinss) <span class="comment">% can not do if this is set</span>
+0837     ss = <a href="#_sub1" class="code" title="subfunction ss = sseval(ssfun,ssstyle,theta,parind,value,local,data,modelfun)">sseval</a>(ssfun,ssstyle,meanchain,parind,value,local,data,modelfun);
+0838     D = mean(sschain);
+0839     results.dic  = 2*D-ss; <span class="comment">% Deviance Information Criterion</span>
+0840     results.pdic = D-ss;   <span class="comment">% Effective number of parameters</span>
+0841   <span class="keyword">end</span>
+0842 <span class="keyword">end</span>
+0843 
+0844 textProgressBar(<span class="string">'end'</span>,1);
+0845 
+0846 
+0847 
+0848 <span class="comment">%% end of main function</span>
+0849 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0850 <a name="_sub1" href="#_subfunctions" class="code">function ss = sseval(ssfun,ssstyle,theta,parind,value,local,data,modelfun)</a>
+0851 <span class="comment">% evaluate the &quot;sum-of-squares&quot; function</span>
+0852 value(parind) = theta;
+0853 <span class="keyword">if</span> ssstyle == 1
+0854   ss = feval(ssfun,value(:)',data);
+0855 <span class="keyword">elseif</span> ssstyle == 4
+0856   ss = <a href="mcmcssfun.html" class="code" title="function ss=mcmcssfun(par,data,local,modelfun)">mcmcssfun</a>(value(:)',data,local,modelfun);
+0857 <span class="keyword">else</span>
+0858   ss = feval(ssfun,value(:)',data,local);
+0859 <span class="keyword">end</span>
+0860 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0861 <a name="_sub2" href="#_subfunctions" class="code">function y=alphafun(varargin)</a>
+0862 <span class="comment">% alphafun(x,y1,y2,y3,...)</span>
+0863 <span class="comment">% recursive acceptance function for delayed rejection</span>
+0864 <span class="comment">% x.p, y1.p, ... contain the parameter value</span>
+0865 <span class="comment">% x.ss, y1.ss, ... the sum of squares</span>
+0866 <span class="comment">% x.a, y1.a, ... past alpha probabilities</span>
+0867 
+0868 <span class="comment">% ML 2003</span>
+0869 
+0870 <span class="keyword">global</span> A_count
+0871 A_count = A_count+1;
+0872 
+0873 stage = nargin - 1; <span class="comment">% The stage we're in, elements in varargin - 1</span>
+0874 <span class="comment">% recursively compute past alphas</span>
+0875 a1 = 1; a2=1;
+0876 <span class="keyword">for</span> k=1:stage-1
+0877 <span class="comment">%  a1 = a1*(1-varargin{k+1}.a); % already have these alphas</span>
+0878 <span class="comment">% Thanks to E. Prudencio for pointing out an error here</span>
+0879   a1 = a1*(1-<a href="#_sub2" class="code" title="subfunction y=alphafun(varargin)">alphafun</a>(varargin{1:(k+1)}));
+0880   a2 = a2*(1-<a href="#_sub2" class="code" title="subfunction y=alphafun(varargin)">alphafun</a>(varargin{(stage+1):-1:(stage+1-k)}));
+0881   <span class="keyword">if</span>  a2==0  <span class="comment">% we will came back with prob 1</span>
+0882     y = 0;
+0883     <span class="keyword">return</span>
+0884   <span class="keyword">end</span>
+0885 <span class="keyword">end</span>
+0886 y = <a href="#_sub4" class="code" title="subfunction z=lfun(x,y)">lfun</a>(varargin{1},varargin{end});
+0887 <span class="keyword">for</span> k=1:stage
+0888   y = y + <a href="#_sub3" class="code" title="subfunction z=qfun(iq,varargin)">qfun</a>(k,varargin{:});
+0889 <span class="keyword">end</span>
+0890 y = min(1, exp(y).*a2./a1);
+0891 <span class="comment">%************************************************************%</span>
+0892 <a name="_sub3" href="#_subfunctions" class="code">function z=qfun(iq,varargin)</a>
+0893 <span class="comment">% Gaussian n:th stage log proposal ratio</span>
+0894 <span class="comment">% log of q_i(y_n,..,y_n-j) / q_i(x,y_1,...,y_j)</span>
+0895 
+0896 <span class="keyword">global</span> invR
+0897 
+0898 stage = nargin-1-1;
+0899 <span class="keyword">if</span> stage == iq
+0900   z = 0;                                <span class="comment">% we are symmetric</span>
+0901 <span class="keyword">else</span>
+0902   iR = invR{iq};                        <span class="comment">% proposal^(-1/2)</span>
+0903   y1 = varargin{1}.p;           <span class="comment">% y1</span>
+0904   y2 = varargin{iq+1}.p;        <span class="comment">% y_i</span>
+0905   y3 = varargin{stage+1}.p;     <span class="comment">% y_n</span>
+0906   y4 = varargin{stage-iq+1}.p;  <span class="comment">% y_(n-i)</span>
+0907   z = -0.5*(norm((y4-y3)*iR)^2-norm((y2-y1)*iR)^2);
+0908 <span class="keyword">end</span>
+0909 <span class="comment">%************************************************************%</span>
+0910 <a name="_sub4" href="#_subfunctions" class="code">function z=lfun(x,y)</a>
+0911 <span class="comment">% log posterior ratio,  log( pi(y)/pi(x) * p(y)/p(x) )</span>
+0912 z = -0.5*( sum((y.ss./y.s2-x.ss./x.s2)) + y.pri - x.pri );
+0913 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0914 <a name="_sub5" href="#_subfunctions" class="code">function message(verbosity,level,fmt,varargin)</a>
+0915 <span class="keyword">if</span> verbosity&gt;=level
+0916   fprintf(fmt,varargin{:})
+0917 <span class="keyword">end</span>
+0918 <span class="comment">% if verbosity&gt;1&amp;&amp;level&lt;=2&amp;&amp;~strcmp(fmt,'\n')</span>
+0919 <span class="comment">%   wbar('message',sprintf(fmt,varargin{:}));</span>
+0920 <span class="comment">% end</span>
+0921 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0922 <a name="_sub6" href="#_subfunctions" class="code">function status=wbar(i,nsimu)</a>
+0923     
+0924     pct = i/nsimu;
+0925     textProgressBar(<span class="string">'Bayes:'</span>,pct);
+0926     status = 1;
+0927     
+0928     
+0929     
+0930 <span class="comment">% %%%% waitbar update</span>
+0931 <span class="comment">% persistent hdl t0 tl hmsg</span>
+0932 <span class="comment">%</span>
+0933 <span class="comment">% status = 1;</span>
+0934 <span class="comment">%</span>
+0935 <span class="comment">% switch lower(task)</span>
+0936 <span class="comment">%  case 'init'</span>
+0937 <span class="comment">% %   hdl=waitbar(0,'Generating chain...','CreateCancelBtn','delete(gcbf)');</span>
+0938 <span class="comment">% %   set(hdl,'Name','MCMC status');</span>
+0939 <span class="comment">%   textProgressBar('Bayes:',0);</span>
+0940 <span class="comment">%</span>
+0941 <span class="comment">%</span>
+0942 <span class="comment">%</span>
+0943 <span class="comment">%   t0=clock;</span>
+0944 <span class="comment">%   tl=t0;</span>
+0945 <span class="comment">% %   hmsg=get(findobj(hdl,'Type','Axes'),'xlabel');</span>
+0946 <span class="comment">% %   set(hmsg,'HorizontalAlignment','left');</span>
+0947 <span class="comment">% %   set(hmsg,'Position',[0,-1]);</span>
+0948 <span class="comment">%  case 'close'</span>
+0949 <span class="comment">%   %if ishandle(hdl);delete(hdl);end</span>
+0950 <span class="comment">%  case 'message'</span>
+0951 <span class="comment">% %   if ishandle(hdl)</span>
+0952 <span class="comment">% %     txt = i;</span>
+0953 <span class="comment">% %     set(hmsg,'String',txt);</span>
+0954 <span class="comment">% %     drawnow</span>
+0955 <span class="comment">%   end</span>
+0956 <span class="comment">%  otherwise</span>
+0957 <span class="comment">% %   if ~ishandle(hdl) % cancel pressed</span>
+0958 <span class="comment">% %     status = -1;</span>
+0959 <span class="comment">% %     return</span>
+0960 <span class="comment">%   end</span>
+0961 <span class="comment">%   if (i/50==fix(i/50))</span>
+0962 <span class="comment">%     % too slow</span>
+0963 <span class="comment">% %  if etime(clock,tl) &gt;= 1 | i &lt; 10 % update every 1 secs</span>
+0964 <span class="comment">%     hh=i/nsimu;</span>
+0965 <span class="comment">%     %    htitle=get(findobj(hdl,'Type','Axes'),'title');</span>
+0966 <span class="comment">%     secs = etime(clock,t0)*(1-hh)/hh;</span>
+0967 <span class="comment">%     mins = floor(secs/60);</span>
+0968 <span class="comment">%     secs = ceil(secs - 60*mins);</span>
+0969 <span class="comment">%     hrs  = floor(mins/60);</span>
+0970 <span class="comment">%     mins = mins - hrs*60;</span>
+0971 <span class="comment">%     %   if wbarupd</span>
+0972 <span class="comment">%     waitbar(hh,hdl, ...</span>
+0973 <span class="comment">%             sprintf('Generating chain, eta: %g:%02g:%02g', ...</span>
+0974 <span class="comment">%                     hrs,mins,secs));</span>
+0975 <span class="comment">% %    set(htitle,'String', ...</span>
+0976 <span class="comment">% %               sprintf('Generating chain, eta: %g:%02g:%02g', ...</span>
+0977 <span class="comment">% %                       hrs,mins,secs));</span>
+0978 <span class="comment">%     drawnow</span>
+0979 <span class="comment">%     tl = clock; % last time updated</span>
+0980    <span class="comment">%end</span>
+0981 
+0982 <span class="comment">%%%%% EOF %%%%</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,5 +1,7 @@
 /* Created by mdot for Matlab */
 digraph m2html {
+  callReflectivity -> data_resolution_polly;
+  callReflectivity -> data_resolution_polly_paraPoints;
   callReflectivity -> resolution_polly;
   callReflectivity -> resolution_polly_paraPoints;
   callReflectivity -> abeles_paraPoints;
@@ -77,6 +79,8 @@ digraph m2html {
   standardTF_stanLay_reflectivityCalculation -> standardTF_stanlay_paraPoints;
   standardTF_stanLay_reflectivityCalculation -> standardTF_stanlay_single;
 
+  data_resolution_polly [URL="common/Resolution_Functions/Simple_Gaussian/data_resolution_polly.html"];
+  data_resolution_polly_paraPoints [URL="common/Resolution_Functions/Simple_Gaussian/data_resolution_polly_paraPoints.html"];
   resolution_polly [URL="common/Resolution_Functions/Simple_Gaussian/resolution_polly.html"];
   resolution_polly_paraPoints [URL="common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.html"];
   backSort [URL="common/backSorts/backSort.html"];

@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of openparstruct</title>
+  <meta name="keywords" content="openparstruct">
+  <meta name="description" content="#codegen">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>openparstruct
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>#codegen</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [names,value,parind,local,upper,lower,thetamu,thetasig,hpar] =openparstruct(parstruct,nbatch) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">#codegen</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="showparams.html" class="code" title="function showparams(param,nbatch,texfile)">showparams</a>	SHOWPARAMS mcmc utility</li><li><a href="../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../minimisers/mcmcstat_new/showparams.html" class="code" title="function showparams(param,nbatch,texfile)">showparams</a>	SHOWPARAMS mcmc utility</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [names,value,parind,local,upper,lower,thetamu,thetasig,hpar] = </a><span class="keyword">...</span>
+0002     openparstruct(parstruct,nbatch)
+0003 <span class="comment">%#codegen</span>
+0004 
+0005 <span class="comment">%OPENPARSTRUCT parameter struct utility for mcmc tbx</span>
+0006 <span class="comment">% [names,value,parind,local,upper,lower,thetamu,thetasig] = ...</span>
+0007 <span class="comment">%    openparstruct(parstruct,nbatch)</span>
+0008 
+0009 <span class="comment">% $Revision: 1.9 $  $Date: 2014/09/02 08:19:16 $</span>
+0010 
+0011 ntheta    = length(parstruct);
+0012 local     = [];
+0013 npar      = ntheta;
+0014 
+0015 <span class="comment">% parstruct has</span>
+0016 <span class="comment">%    1       2      3    4   5    6     7       8</span>
+0017 <span class="comment">% {'name', theta0, min, max, mu, sig, sample, local}</span>
+0018 
+0019 <span class="comment">% for hyperpriors, local = 2</span>
+0020 <span class="comment">%    1       2      3    4      5         6       7       8</span>
+0021 <span class="comment">% {'name', theta0, min, max, [mu,tau], [sig,n], sample, local}</span>
+0022 <span class="comment">% and set up hpar</span>
+0023 <span class="comment">% hpar.ind, hpar.mu0, hpar.tau20, hpar.sig20, hpar.n0</span>
+0024 
+0025 ii = 0; nhpar = 0;
+0026 <span class="comment">%% scan for local variables</span>
+0027 <span class="keyword">for</span> i=1:length(parstruct)
+0028   ii = ii+1;
+0029   local(ii) = 0;
+0030   <span class="keyword">if</span> length(parstruct{i})&gt;7
+0031     <span class="keyword">if</span> parstruct{i}{8}
+0032       <span class="keyword">if</span> parstruct{i}{8}==2 
+0033     nhpar=nhpar+1;
+0034       <span class="keyword">end</span>
+0035       local(ii:(ii+nbatch-1)) = 1:nbatch;
+0036 <span class="comment">%     ntheta=ntheta+nbatch-1;</span>
+0037       npar=npar+nbatch-1;
+0038       ii = ii+nbatch-1;
+0039       <span class="keyword">for</span> k=2:7
+0040     <span class="keyword">if</span> parstruct{i}{8}==2 &amp; (k==5|k==6)
+0041       <span class="keyword">if</span> not(length(parstruct{i}{k})==1|length(parstruct{i}{k})==2)
+0042         error(sprintf(<span class="string">'Error in hyper parameters for %s'</span>,parstruct{i}{1}))
+0043       <span class="keyword">end</span>
+0044     <span class="keyword">else</span>
+0045       <span class="keyword">if</span> length(parstruct{i}{k})~=nbatch
+0046         <span class="keyword">if</span> length(parstruct{i}{k})==1
+0047           parstruct{i}{k} = parstruct{i}{k}*ones(1,nbatch);
+0048         <span class="keyword">else</span>
+0049           error(sprintf(<span class="string">'Length of some input for %s does not match nbatch'</span>,parstruct{i}{1}))
+0050         <span class="keyword">end</span>
+0051       <span class="keyword">end</span>
+0052     <span class="keyword">end</span>
+0053       <span class="keyword">end</span>
+0054     <span class="keyword">end</span>
+0055   <span class="keyword">end</span>
+0056 <span class="keyword">end</span>
+0057 
+0058 <span class="comment">%local</span>
+0059 
+0060 value     = zeros(npar,1);
+0061 names     = cell(npar,1);
+0062 upper     = ones(1,npar)*Inf;
+0063 lower     = -ones(1,npar)*Inf;
+0064 thetamu   = zeros(1,npar);
+0065 thetasig  = ones(1,npar)*Inf;
+0066 parind    = ones(npar,1);
+0067 
+0068 hpar.ind = zeros(1,npar);
+0069 hpar.mu0 = zeros(1,nhpar);
+0070 hpar.tau20 = zeros(1,nhpar);
+0071 hpar.sig20 = zeros(1,nhpar);
+0072 hpar.n0 = zeros(1,nhpar);
+0073 hpar.names = {};
+0074 
+0075 ii = 0; ihpar = 1;
+0076 <span class="keyword">for</span> i=1:ntheta
+0077   ii = ii+1;
+0078   <span class="comment">%  assignin('base',parstruct{i}{1},parstruct{i}{2});</span>
+0079   <span class="keyword">if</span> local(ii) == 0
+0080     names{ii}   = parstruct{i}{1};
+0081     value(ii)   = parstruct{i}{2};
+0082     
+0083     <span class="keyword">if</span> length(parstruct{i})&gt;2 &amp; ~isempty(parstruct{i}{3})
+0084       lower(ii)    = parstruct{i}{3};
+0085     <span class="keyword">end</span>
+0086     <span class="keyword">if</span> length(parstruct{i})&gt;3 &amp; ~isempty(parstruct{i}{4})
+0087       upper(ii)    = parstruct{i}{4};
+0088     <span class="keyword">end</span>
+0089     <span class="keyword">if</span> length(parstruct{i})&gt;=6 
+0090       thetamu(ii)  = parstruct{i}{5};
+0091       thetasig(ii) = parstruct{i}{6};
+0092       <span class="keyword">if</span> isnan(thetamu(ii))
+0093         thetamu(ii)=value(ii);
+0094       <span class="keyword">end</span>
+0095       <span class="keyword">if</span> thetasig(ii) == 0
+0096         thetasig(ii) = Inf;
+0097       <span class="keyword">end</span>
+0098     <span class="keyword">end</span>
+0099     <span class="keyword">if</span> length(parstruct{i})&gt;=7 &amp; parstruct{i}{7}==0<span class="comment">% parind-flagi</span>
+0100       parind(ii) = 0;
+0101     <span class="keyword">end</span>
+0102   
+0103   <span class="keyword">else</span>
+0104     
+0105     iii = ii:(ii+nbatch-1);
+0106     <span class="keyword">if</span> nbatch==1
+0107         names(iii{1})    = {sprintf(<span class="string">'%s'</span>,parstruct{i}{1})};
+0108     <span class="keyword">else</span>
+0109       <span class="keyword">for</span> k=1:nbatch
+0110         names(iii(k))    = {sprintf(<span class="string">'%s[%d]'</span>,parstruct{i}{1},k)};
+0111       <span class="keyword">end</span>
+0112     <span class="keyword">end</span>
+0113     value(iii)    = parstruct{i}{2};
+0114 
+0115     <span class="keyword">if</span> length(parstruct{i})&gt;2 &amp; ~isempty(parstruct{i}{3})
+0116       lower(iii)    = parstruct{i}{3};
+0117     <span class="keyword">end</span>
+0118     <span class="keyword">if</span> length(parstruct{i})&gt;3 &amp;~isempty(parstruct{i}{4})
+0119       upper(iii)    = parstruct{i}{4};
+0120     <span class="keyword">end</span>
+0121     <span class="keyword">if</span> length(parstruct{i})&gt;=6 
+0122       <span class="keyword">if</span> length(parstruct{i})&gt;=8 &amp; parstruct{i}{8}==2 <span class="comment">% hyperprior</span>
+0123     <span class="keyword">if</span> isnan(parstruct{i}{5}(1))
+0124       hpar.mu0(ihpar) = parstruct{i}{2}(1);
+0125     <span class="keyword">else</span>
+0126       hpar.mu0(ihpar) = parstruct{i}{5}(1);
+0127     <span class="keyword">end</span>
+0128         <span class="keyword">if</span> length(parstruct{i}{5})&gt;1;
+0129           hpar.tau20(ihpar) = parstruct{i}{5}(2)^2;
+0130         <span class="keyword">else</span>
+0131           hpar.tau20(ihpar) = Inf;
+0132         <span class="keyword">end</span>
+0133     hpar.sig20(ihpar) = parstruct{i}{6}(1)^2;
+0134         <span class="keyword">if</span> length(parstruct{i}{6})&gt;1;
+0135           hpar.n0(ihpar) = parstruct{i}{6}(2);
+0136         <span class="keyword">else</span>
+0137           hpar.n0(ihpar) = 0;
+0138         <span class="keyword">end</span>
+0139     hpar.ind(iii) = ihpar;
+0140     hpar.names = {hpar.names{:},sprintf(<span class="string">'mu(%s)'</span>,parstruct{i}{1}),sprintf(<span class="string">'sig(%s)'</span>,parstruct{i}{1})};
+0141     <span class="comment">% initial values as mu0 and sig20</span>
+0142     thetamu(iii)  = hpar.mu0(ihpar);
+0143     thetasig(iii) = sqrt(hpar.sig20(ihpar)); <span class="comment">%%%</span>
+0144     ihpar = ihpar+1;
+0145       <span class="keyword">else</span>
+0146       thetamu(iii)  = parstruct{i}{5};
+0147       thetasig(iii) = parstruct{i}{6};
+0148       <span class="keyword">for</span> i2=iii
+0149         <span class="keyword">if</span> isnan(thetamu(i2))
+0150           thetamu(i2)=value(i2);
+0151         <span class="keyword">end</span>
+0152         <span class="keyword">if</span> thetasig(i2) == 0
+0153           thetasig(i2) = Inf;
+0154         <span class="keyword">end</span>
+0155       <span class="keyword">end</span>
+0156       <span class="keyword">end</span>
+0157     <span class="keyword">end</span>
+0158 <span class="comment">%    if length(parstruct{i})&gt;=7 &amp; parstruct{i}{7}==0% parind-flagi</span>
+0159 <span class="comment">%      parind(iii) = 0;</span>
+0160 <span class="comment">%    end</span>
+0161     <span class="comment">% sample can be vector, also</span>
+0162     <span class="keyword">if</span> length(parstruct{i})&gt;=7  <span class="comment">% parind-flagi</span>
+0163       <span class="keyword">if</span> length(parstruct{i}{7}) == 1 &amp; parstruct{i}{7}==0
+0164         parind(iii) = 0;
+0165       <span class="keyword">elseif</span> length(parstruct{i}{7}) == length(iii)
+0166         parind(iii) = parstruct{i}{7};
+0167       <span class="keyword">else</span>
+0168         error(<span class="string">'Error in setting up sampled indeses for local parameters'</span>)
+0169       <span class="keyword">end</span>
+0170     <span class="keyword">end</span>
+0171 
+0172     ii = ii + nbatch - 1 ;
+0173     
+0174   <span class="keyword">end</span>
+0175   
+0176 <span class="keyword">end</span>
+0177 parind = find(parind);
+0178 
+0179 hpar.ind = hpar.ind(parind);
+0180 hpar.nhpar = nhpar;
+0181 
+0182 <span class="comment">%local=0; %%%%%% not implemented yet</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

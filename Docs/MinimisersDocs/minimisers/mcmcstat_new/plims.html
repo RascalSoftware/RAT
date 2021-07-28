@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of plims</title>
+  <meta name="keywords" content="plims">
+  <meta name="description" content="PLIMS Empirical quantiles">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>plims
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>PLIMS Empirical quantiles</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function y=plims(x,p) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">PLIMS Empirical quantiles
+ plims(x,p)  calculates p quantiles from columns of x</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/chainstats.html" class="code" title="function y=chainstats(chain,results,fid)">chainstats</a>	CHAINSTATS some statistics from the MCMC chain</li><li><a href="../../minimisers/mcmcstat/mcmcpred.html" class="code" title="function out=mcmcpred(results,chain,s2chain,data,problem,modelfun,nsample,varargin)">mcmcpred</a>	MCMCPRED predictive calculations from the mcmcrun chain</li><li><a href="../../minimisers/mcmcstat/mcmcpred_compile.html" class="code" title="function out=mcmcpred_compile(results,chain,s2chain,data,problem,nsample,varargin)">mcmcpred_compile</a>	MCMCPRED predictive calculations from the mcmcrun chain</li><li><a href="../../minimisers/mcmcstat/psrf.html" class="code" title="function [R,y1,y2]=psrf(chain,a,s,e)">psrf</a>	PSRF  Gelman-Rubin-Brooks psrf MCMC convergence diagnostic</li><li><a href="../../minimisers/mcmcstat/qqnor.html" class="code" title="function [norq,empq] = qqnor(x)">qqnor</a>	QQNOR  Q - Q plot for normality.</li><li><a href="../../minimisers/mcmcstat/qqplot.html" class="code" title="function out=qqplot(x,dist,varargin)">qqplot</a>	QQPLOT quantile - quantile plot</li><li><a href="chainstats.html" class="code" title="function y=chainstats(chain,results,fid)">chainstats</a>	CHAINSTATS some statistics from the MCMC chain</li><li><a href="mcmcpred.html" class="code" title="function out=mcmcpred(results,chain,s2chain,data,problem,modelfun,nsample,varargin)">mcmcpred</a>	MCMCPRED predictive calculations from the mcmcrun chain</li><li><a href="psrf.html" class="code" title="function [R,y1,y2]=psrf(chain,a,s,e)">psrf</a>	PSRF  Gelman-Rubin-Brooks psrf MCMC convergence diagnostic</li><li><a href="qqnor.html" class="code" title="function [norq,empq] = qqnor(x)">qqnor</a>	QQNOR  Q - Q plot for normality.</li><li><a href="qqplot.html" class="code" title="function out=qqplot(x,dist,varargin)">qqplot</a>	QQPLOT quantile - quantile plot</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function y=plims(x,p)</a>
+0002 <span class="comment">%PLIMS Empirical quantiles</span>
+0003 <span class="comment">% plims(x,p)  calculates p quantiles from columns of x</span>
+0004 
+0005 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0006 <span class="comment">% $Revision: 1.5 $  $Date: 2012/09/27 11:47:39 $</span>
+0007 
+0008 <span class="keyword">if</span> nargin&lt;2
+0009 <span class="comment">%  p = [0.025,0.975];</span>
+0010    p = [0.25,0.5,0.75];
+0011 <span class="keyword">end</span>
+0012 [n,m] = size(x); <span class="keyword">if</span> n==1; n=m;<span class="keyword">end</span>
+0013 y = interp1(sort(x),(n-1)*p+1);</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

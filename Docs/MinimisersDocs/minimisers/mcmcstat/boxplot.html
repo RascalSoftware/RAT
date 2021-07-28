@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of boxplot</title>
+  <meta name="keywords" content="boxplot">
+  <meta name="description" content="BOXPLOT Draws a boxplot">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>boxplot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>BOXPLOT Draws a boxplot</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function h=boxplot(y,names,outliers) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">BOXPLOT Draws a boxplot
+ boxplot(y)  - draws boxplots for the columns of y</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="range.html" class="code" title="function y=range(x)">range</a>	Y=RANGE(X) range of columns of X</li><li><a href="../../minimisers/mcmcstat_new/range.html" class="code" title="function y=range(x)">range</a>	Y=RANGE(X) range of columns of X</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function h=boxplot(y,names,outliers)</a>
+0002 <span class="comment">%BOXPLOT Draws a boxplot</span>
+0003 <span class="comment">% boxplot(y)  - draws boxplots for the columns of y</span>
+0004 
+0005 <span class="comment">% ML 2002</span>
+0006 <span class="comment">% testaus : boxplot(randn(20,7))</span>
+0007 
+0008 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0009 <span class="comment">% $Revision: 1.10 $  $Date: 2012/09/27 11:47:34 $</span>
+0010 
+0011 <span class="keyword">if</span> nargin&lt;2
+0012   names=[];
+0013 <span class="keyword">end</span>
+0014 
+0015 <span class="keyword">if</span> nargin&lt;3
+0016   outliers=1;
+0017 <span class="keyword">end</span>
+0018 
+0019 [n,m]=size(y);
+0020 
+0021 <span class="keyword">if</span> n==1
+0022   y=y';
+0023   n = m;
+0024   m = 1;
+0025 <span class="keyword">end</span>
+0026 
+0027 <span class="keyword">if</span> n&lt;5
+0028 <span class="comment">%  error('Must have at least 5 data points to draw a boxplot');</span>
+0029 <span class="keyword">end</span>
+0030 
+0031 <span class="keyword">if</span> strcmp(get(gca,<span class="string">'NextPlot'</span>),<span class="string">'replace'</span>);cla;<span class="keyword">end</span>
+0032 xlim([0 100]);
+0033 set(gca,<span class="string">'XTick'</span>,[]);
+0034 
+0035 c  = linspace(0,100,2*m+1);             <span class="comment">% centers of the boxplots</span>
+0036 c  = c(2:2:end-1);
+0037 w1 = 5/m;                               <span class="comment">% width of the narrow rectangle</span>
+0038 w2 = 50/m;                              <span class="comment">% width of the wide rectangle</span>
+0039 
+0040 <span class="keyword">if</span> length(names)&gt;0
+0041   set(gca,<span class="string">'XTick'</span>,c);
+0042   set(gca,<span class="string">'XTickLabel'</span>,names);
+0043   <span class="comment">%tl = get(gca,'TickLength');set(gca,'TickLength',[0 tl(2)]);</span>
+0044 <span class="keyword">end</span>
+0045 
+0046 <span class="keyword">for</span> i=1:m
+0047   yi  = y(isfinite(y(:,i)),i);
+0048   n=length(yi);
+0049   <span class="keyword">if</span> n&lt;5|<a href="range.html" class="code" title="function y=range(x)">range</a>(yi)&lt;10*eps
+0050     hold on; plot(c(i)*ones(n,1),yi,<span class="string">'.k'</span>); hold off
+0051     <span class="keyword">continue</span>;
+0052   <span class="keyword">end</span>
+0053   q   = [0.025,0.25,0.5,0.75,0.975];
+0054   l5  = interp1(sort(yi),(n-1)*q+1);<span class="comment">% quantiles</span>
+0055   med = l5(3);                          <span class="comment">% median</span>
+0056   iq  = (l5(4)-l5(2))*1.5;              <span class="comment">% inter quantile range * 1.5</span>
+0057 <span class="comment">%% largest y not over 1.5*IQR</span>
+0058   l5(1) = min(yi(yi&gt;=med-iq));
+0059   l5(5) = max(yi(yi&lt;=med+iq));
+0060 
+0061   p = [c(i)-w1/2,w1,c(i)-w2/2,w2];
+0062 
+0063   <span class="keyword">if</span> l5(2)&gt;l5(1)
+0064     rectangle(<span class="string">'Position'</span>,[p(1),l5(1),p(2),l5(2)-l5(1)],<span class="string">'FaceColor'</span>,<span class="string">'k'</span>);
+0065   <span class="keyword">end</span>
+0066   <span class="keyword">if</span> l5(3)&gt;l5(2)
+0067     rectangle(<span class="string">'Position'</span>,[p(3),l5(2),p(4),l5(3)-l5(2)],<span class="string">'FaceColor'</span>,<span class="string">'w'</span>);
+0068   <span class="keyword">end</span>
+0069   <span class="keyword">if</span> l5(4)&gt;l5(3)
+0070     rectangle(<span class="string">'Position'</span>,[p(3),l5(3),p(4),l5(4)-l5(3)],<span class="string">'FaceColor'</span>,<span class="string">'w'</span>);
+0071   <span class="keyword">end</span>
+0072   <span class="keyword">if</span> l5(5)&gt;l5(4)
+0073     rectangle(<span class="string">'Position'</span>,[p(1),l5(4),p(2),l5(5)-l5(4)],<span class="string">'FaceColor'</span>,<span class="string">'k'</span>);
+0074   <span class="keyword">end</span>
+0075     
+0076 <span class="comment">%%% outliers</span>
+0077  <span class="keyword">if</span> outliers
+0078    ol = find(abs(yi-med)&gt;iq);
+0079    <span class="keyword">if</span> length(ol)&gt;0
+0080      hold on
+0081      plot(c(i)*ones(size(ol)),yi(ol),<span class="string">'.k'</span>);
+0082      hold off
+0083    <span class="keyword">end</span>
+0084  <span class="keyword">end</span>
+0085 
+0086  <span class="comment">%% debug</span>
+0087 <span class="comment">% hold on; plot(c(i)*ones(n),y(:,i),'*b'); hold off</span>
+0088  
+0089 <span class="keyword">end</span>
+0090 
+0091 <span class="keyword">if</span> nargout&gt;0
+0092   h = gca;
+0093 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

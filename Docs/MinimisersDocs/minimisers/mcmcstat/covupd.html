@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of covupd</title>
+  <meta name="keywords" content="covupd">
+  <meta name="description" content="COVUPD covariance update">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>covupd
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>COVUPD covariance update</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [xcov,xmean,wsum,R]=covupd(x,w,oldcov,oldmean,oldwsum,oldR) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">COVUPD covariance update
+ [xcov,xmean,wsum]=covupd(x,w,oldcov,oldmean,oldwsum)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="mcmcrun_compile.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun_compile(model,data,problem,params,options,res)">mcmcrun_compile</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [xcov,xmean,wsum,R]=covupd(x,w,oldcov,oldmean,oldwsum,oldR)</a>
+0002 <span class="comment">%COVUPD covariance update</span>
+0003 <span class="comment">% [xcov,xmean,wsum]=covupd(x,w,oldcov,oldmean,oldwsum)</span>
+0004 
+0005 <span class="comment">% optionally updates also the Cholesky factor R</span>
+0006 
+0007 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0008 <span class="comment">% $Revision: 1.4 $  $Date: 2012/09/27 11:47:34 $</span>
+0009 
+0010 [n,p]=size(x);
+0011 <span class="keyword">if</span> n == 0 <span class="comment">% nothing to update with</span>
+0012   xcov = oldcov; xmean = oldmean; wsum = oldwsum;
+0013   <span class="keyword">return</span>
+0014 <span class="keyword">end</span>
+0015 
+0016 <span class="keyword">if</span> nargin&lt;2 | isempty(w)
+0017   w = 1;
+0018 <span class="keyword">end</span>
+0019 <span class="keyword">if</span> length(w) == 1
+0020   w = ones(n,1)*w;
+0021 <span class="keyword">end</span>
+0022 
+0023 <span class="keyword">if</span> nargin &lt; 6 | isempty(oldR)
+0024   R = [];
+0025 <span class="keyword">else</span>
+0026   R = oldR;
+0027 <span class="keyword">end</span>
+0028 
+0029 <span class="keyword">if</span> nargin&gt;2 &amp; ~isempty(oldcov) <span class="comment">% update</span>
+0030 
+0031   <span class="keyword">for</span> i=1:n
+0032     xi     = x(i,:);
+0033     wsum   = w(i);
+0034     xmeann = xi;
+0035     xmean  = oldmean + wsum/(wsum+oldwsum)*(xmeann-oldmean);
+0036 
+0037     <span class="keyword">if</span> ~isempty(R)
+0038       R = cholupdate(sqrt((oldwsum-1)/(wsum+oldwsum-1))*R, <span class="keyword">...</span>
+0039                      (xi-oldmean)'* <span class="keyword">...</span>
+0040                      sqrt((wsum*oldwsum)/(wsum+oldwsum-1)/(wsum+oldwsum)));
+0041     <span class="keyword">end</span>
+0042     
+0043     xcov =  (oldwsum-1)./(wsum+oldwsum-1).*oldcov + <span class="keyword">...</span>
+0044             wsum.*oldwsum/(wsum+oldwsum-1)./(wsum+oldwsum) .* <span class="keyword">...</span>
+0045              ((xi-oldmean)' *(xi-oldmean));
+0046     wsum    = wsum+oldwsum;
+0047     oldcov  = xcov;
+0048     oldmean = xmean;
+0049     oldwsum = wsum;
+0050   <span class="keyword">end</span>
+0051   
+0052 <span class="keyword">else</span> <span class="comment">% no update</span>
+0053 
+0054   wsum  = sum(w);
+0055   xmean = zeros(1,p);
+0056   xcov  = zeros(p,p);
+0057   <span class="keyword">for</span> i=1:p
+0058     xmean(i) = sum(x(:,i).*w)./wsum;
+0059   <span class="keyword">end</span>
+0060   <span class="keyword">if</span> wsum&gt;1
+0061     <span class="comment">%%% (wsum-oldwsum/wsum)</span>
+0062     <span class="keyword">for</span> i=1:p
+0063       <span class="keyword">for</span> j=1:i
+0064         xcov(i,j) = (x(:,i)-xmean(i))' * ((x(:,j)-xmean(j)).*w)./(wsum-1);
+0065         <span class="keyword">if</span> (i ~= j)
+0066           xcov(j,i) = xcov(i,j);
+0067         <span class="keyword">end</span>
+0068       <span class="keyword">end</span>
+0069     <span class="keyword">end</span>
+0070   <span class="keyword">end</span>
+0071 
+0072   <span class="keyword">if</span> nargout&gt;3
+0073     [R,p] = chol(xcov);
+0074     <span class="keyword">if</span> p~=0
+0075       R=[];
+0076     <span class="keyword">end</span>
+0077   <span class="keyword">end</span>
+0078   
+0079 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

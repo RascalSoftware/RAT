@@ -1,0 +1,627 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of simplex</title>
+  <meta name="keywords" content="simplex">
+  <meta name="description" content="FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html simplex -->
+<h1>simplex
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [x,fval,exitflag,output] = simplex(funfcn,x,problem,problemDef_cells,problemDef_limits,controls,options,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
+   X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer 
+   X of the function FUN.  FUN is a function handle.  FUN accepts input X and 
+   returns a scalar function value F evaluated at X. X0 can be a scalar, vector 
+   or matrix.
+
+   X = FMINSEARCH(FUN,X0,OPTIONS)  minimizes with the default optimization
+   parameters replaced by values in the structure OPTIONS, created
+   with the OPTIMSET function.  See OPTIMSET for details.  FMINSEARCH uses
+   these options: Display, TolX, TolFun, MaxFunEvals, MaxIter, FunValCheck,
+   and OutputFcn.
+
+   [X,FVAL]= FMINSEARCH(...) returns the value of the objective function,
+   described in FUN, at X.
+
+   [X,FVAL,EXITFLAG] = FMINSEARCH(...) returns an EXITFLAG that describes 
+   the exit condition of FMINSEARCH. Possible values of EXITFLAG and the 
+   corresponding exit conditions are
+
+    1  FMINSEARCH converged to a solution X.
+    0  Maximum number of function evaluations or iterations reached.
+   -1  Algorithm terminated by the output function.
+
+   [X,FVAL,EXITFLAG,OUTPUT] = FMINSEARCH(...) returns a structure
+   OUTPUT with the number of iterations taken in OUTPUT.iterations, the
+   number of function evaluations in OUTPUT.funcCount, the algorithm name 
+   in OUTPUT.algorithm, and the exit message in OUTPUT.message.
+
+   Examples
+     FUN can be specified using @:
+        X = fminsearch(@sin,3)
+     finds a minimum of the SIN function near 3.
+     In this case, SIN is a function that returns a scalar function value
+     SIN evaluated at X.
+
+     FUN can also be an anonymous function:
+        X = fminsearch(@(x) norm(x),[1;2;3])
+     returns a point near the minimizer [0;0;0].
+
+   If FUN is parameterized, you can use anonymous functions to capture the 
+   problem-dependent parameters. Suppose you want to optimize the objective     
+   given in the function myfun, which is parameterized by its second argument c. 
+   Here myfun is an M-file function such as
+
+     function f = myfun(x,c)
+     f = x(1)^2 + c*x(2)^2;
+
+   To optimize for a specific value of c, first assign the value to c. Then 
+   create a one-argument anonymous function that captures that value of c 
+   and calls myfun with two arguments. Finally, pass this anonymous function 
+   to FMINSEARCH:
+    
+     c = 1.5; % define parameter first
+     x = fminsearch(@(x) myfun(x,c),[0.3;1])
+
+   FMINSEARCH uses the Nelder-Mead simplex (direct search) method.
+
+   See also OPTIMSET, FMINBND, FUNCTION_HANDLE.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [xOutputfcn, optimValues, stop] = callOutputFcn(outputfcn,x,xOutputfcn,state,iter,</a></li><li><a href="#_sub2" class="code">function [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)</a></li><li><a href="#_sub3" class="code">function f = checkfun(x,userfcn,varargin)</a></li><li><a href="#_sub4" class="code">function strfcn = localChar(fcn)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [x,fval,exitflag,output] = simplex(funfcn,x,problem,problemDef_cells,problemDef_limits,controls,options,varargin)</a>
+0002 <span class="comment">%FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).</span>
+0003 <span class="comment">%   X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer</span>
+0004 <span class="comment">%   X of the function FUN.  FUN is a function handle.  FUN accepts input X and</span>
+0005 <span class="comment">%   returns a scalar function value F evaluated at X. X0 can be a scalar, vector</span>
+0006 <span class="comment">%   or matrix.</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%   X = FMINSEARCH(FUN,X0,OPTIONS)  minimizes with the default optimization</span>
+0009 <span class="comment">%   parameters replaced by values in the structure OPTIONS, created</span>
+0010 <span class="comment">%   with the OPTIMSET function.  See OPTIMSET for details.  FMINSEARCH uses</span>
+0011 <span class="comment">%   these options: Display, TolX, TolFun, MaxFunEvals, MaxIter, FunValCheck,</span>
+0012 <span class="comment">%   and OutputFcn.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%   [X,FVAL]= FMINSEARCH(...) returns the value of the objective function,</span>
+0015 <span class="comment">%   described in FUN, at X.</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%   [X,FVAL,EXITFLAG] = FMINSEARCH(...) returns an EXITFLAG that describes</span>
+0018 <span class="comment">%   the exit condition of FMINSEARCH. Possible values of EXITFLAG and the</span>
+0019 <span class="comment">%   corresponding exit conditions are</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">%    1  FMINSEARCH converged to a solution X.</span>
+0022 <span class="comment">%    0  Maximum number of function evaluations or iterations reached.</span>
+0023 <span class="comment">%   -1  Algorithm terminated by the output function.</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">%   [X,FVAL,EXITFLAG,OUTPUT] = FMINSEARCH(...) returns a structure</span>
+0026 <span class="comment">%   OUTPUT with the number of iterations taken in OUTPUT.iterations, the</span>
+0027 <span class="comment">%   number of function evaluations in OUTPUT.funcCount, the algorithm name</span>
+0028 <span class="comment">%   in OUTPUT.algorithm, and the exit message in OUTPUT.message.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">%   Examples</span>
+0031 <span class="comment">%     FUN can be specified using @:</span>
+0032 <span class="comment">%        X = fminsearch(@sin,3)</span>
+0033 <span class="comment">%     finds a minimum of the SIN function near 3.</span>
+0034 <span class="comment">%     In this case, SIN is a function that returns a scalar function value</span>
+0035 <span class="comment">%     SIN evaluated at X.</span>
+0036 <span class="comment">%</span>
+0037 <span class="comment">%     FUN can also be an anonymous function:</span>
+0038 <span class="comment">%        X = fminsearch(@(x) norm(x),[1;2;3])</span>
+0039 <span class="comment">%     returns a point near the minimizer [0;0;0].</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">%   If FUN is parameterized, you can use anonymous functions to capture the</span>
+0042 <span class="comment">%   problem-dependent parameters. Suppose you want to optimize the objective</span>
+0043 <span class="comment">%   given in the function myfun, which is parameterized by its second argument c.</span>
+0044 <span class="comment">%   Here myfun is an M-file function such as</span>
+0045 <span class="comment">%</span>
+0046 <span class="comment">%     function f = myfun(x,c)</span>
+0047 <span class="comment">%     f = x(1)^2 + c*x(2)^2;</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">%   To optimize for a specific value of c, first assign the value to c. Then</span>
+0050 <span class="comment">%   create a one-argument anonymous function that captures that value of c</span>
+0051 <span class="comment">%   and calls myfun with two arguments. Finally, pass this anonymous function</span>
+0052 <span class="comment">%   to FMINSEARCH:</span>
+0053 <span class="comment">%</span>
+0054 <span class="comment">%     c = 1.5; % define parameter first</span>
+0055 <span class="comment">%     x = fminsearch(@(x) myfun(x,c),[0.3;1])</span>
+0056 <span class="comment">%</span>
+0057 <span class="comment">%   FMINSEARCH uses the Nelder-Mead simplex (direct search) method.</span>
+0058 <span class="comment">%</span>
+0059 <span class="comment">%   See also OPTIMSET, FMINBND, FUNCTION_HANDLE.</span>
+0060 
+0061 <span class="comment">%   Reference: Jeffrey C. Lagarias, James A. Reeds, Margaret H. Wright,</span>
+0062 <span class="comment">%   Paul E. Wright, &quot;Convergence Properties of the Nelder-Mead Simplex</span>
+0063 <span class="comment">%   Method in Low Dimensions&quot;, SIAM Journal of Optimization, 9(1):</span>
+0064 <span class="comment">%   p.112-147, 1998.</span>
+0065 
+0066 <span class="comment">%   Copyright 1984-2004 The MathWorks, Inc.</span>
+0067 <span class="comment">%   $Revision: 1.21.4.8 $  $Date: 2004/12/06 16:34:21 $</span>
+0068 
+0069 <span class="comment">%***To Be Changed***</span>
+0070 iterUpdate = 10;<span class="comment">%problem.update;</span>
+0071 <span class="comment">%****************</span>
+0072 
+0073 
+0074 coder.varsize(<span class="string">'how'</span>);
+0075 
+0076 defaultopt = struct(<span class="string">'Display'</span>,<span class="string">'Iter'</span>,<span class="string">'MaxIter'</span>,<span class="string">'200*numberOfVariables'</span>,<span class="keyword">...</span>
+0077     <span class="string">'MaxFunEvals'</span>,1e10,<span class="string">'TolX'</span>,1e-4,<span class="string">'TolFun'</span>,1e-4, <span class="keyword">...</span>
+0078     <span class="string">'FunValCheck'</span>,<span class="string">'off'</span>,<span class="string">'OutputFcn'</span>,[]);
+0079 
+0080 <span class="comment">% If just 'defaults' passed in, return the default options in X</span>
+0081 <span class="keyword">if</span> nargin==1 &amp;&amp; nargout &lt;= 1 &amp;&amp; isequal(funfcn,<span class="string">'defaults'</span>)
+0082     x = defaultopt;
+0083     <span class="keyword">return</span>
+0084 <span class="keyword">end</span>
+0085 
+0086 <span class="keyword">if</span> nargin &lt; 2,
+0087     error(<span class="string">'MATLAB:fminsearch:NotEnoughInputs'</span>,<span class="keyword">...</span>
+0088         <span class="string">'FMINSEARCH requires at least two input arguments'</span>);
+0089 <span class="keyword">end</span>
+0090 
+0091 <span class="keyword">if</span> nargin&lt;3, options = []; <span class="keyword">end</span>
+0092 
+0093 <span class="comment">% Check for non-double inputs</span>
+0094 <span class="keyword">if</span> ~isa(x,<span class="string">'double'</span>)
+0095   error(<span class="string">'MATLAB:fminsearch:NonDoubleInput'</span>, <span class="keyword">...</span>
+0096          <span class="string">'FMINSEARCH only accepts inputs of data type double.'</span>)
+0097 <span class="keyword">end</span>
+0098 
+0099 n = numel(x);
+0100 numberOfVariables = n;
+0101 
+0102 printtype = <span class="string">'iter'</span>;<span class="comment">%optimget(options,'Display',defaultopt,'iter');</span>
+0103 tolx = optimget(options,<span class="string">'TolX'</span>,defaultopt,<span class="string">'fast'</span>);
+0104 tolf = optimget(options,<span class="string">'TolFun'</span>,defaultopt,<span class="string">'fast'</span>);
+0105 maxfun = optimget(options,<span class="string">'MaxFunEvals'</span>,defaultopt,<span class="string">'fast'</span>);
+0106 maxiter = optimget(options,<span class="string">'MaxIter'</span>,defaultopt,<span class="string">'fast'</span>);
+0107 funValCheck = strcmp(optimget(options,<span class="string">'FunValCheck'</span>,defaultopt,<span class="string">'fast'</span>),<span class="string">'on'</span>);
+0108 
+0109 <span class="comment">%*******************************</span>
+0110 stopflag = 0;<span class="comment">%getStopFlag();</span>
+0111 
+0112 <span class="comment">% In case the defaults were gathered from calling: optimset('fminsearch'):</span>
+0113 <span class="keyword">if</span> ischar(maxfun)
+0114     <span class="keyword">if</span> isequal(lower(maxfun),<span class="string">'200*numberofvariables'</span>)
+0115         maxfun = 200*numberOfVariables;
+0116     <span class="keyword">else</span>
+0117         error(<span class="string">'MATLAB:fminsearch:OptMaxFunEvalsNotInteger'</span>,<span class="keyword">...</span>
+0118             <span class="string">'Option ''MaxFunEvals'' must be an integer value if not the default.'</span>)
+0119     <span class="keyword">end</span>
+0120 <span class="keyword">end</span>
+0121 <span class="keyword">if</span> ischar(maxiter)
+0122     <span class="keyword">if</span> isequal(lower(maxiter),<span class="string">'200*numberofvariables'</span>)
+0123         maxiter = 200*numberOfVariables;
+0124     <span class="keyword">else</span>
+0125         error(<span class="string">'MATLAB:fminsearch:OptMaxIterNotInteger'</span>,<span class="keyword">...</span>
+0126             <span class="string">'Option ''MaxIter'' must be an integer value if not the default.'</span>)
+0127     <span class="keyword">end</span>
+0128 <span class="keyword">end</span>
+0129 
+0130 <span class="keyword">switch</span> printtype
+0131     <span class="keyword">case</span> <span class="string">'notify'</span>
+0132         prnt = 1;
+0133     <span class="keyword">case</span> {<span class="string">'none'</span>,<span class="string">'off'</span>}
+0134         prnt = 0;
+0135     <span class="keyword">case</span> <span class="string">'iter'</span>
+0136         prnt = 3;
+0137     <span class="keyword">case</span> <span class="string">'final'</span>
+0138         prnt = 2;
+0139     <span class="keyword">case</span> <span class="string">'simplex'</span>
+0140         prnt = 4;
+0141     <span class="keyword">otherwise</span>
+0142         prnt = 1;
+0143 <span class="keyword">end</span>
+0144 <span class="comment">% Handle the output</span>
+0145 outputfcn = optimget(options,<span class="string">'OutputFcn'</span>,defaultopt,<span class="string">'fast'</span>);
+0146 <span class="keyword">if</span> isempty(outputfcn)
+0147     haveoutputfcn = false;
+0148 <span class="keyword">else</span>
+0149     haveoutputfcn = true;
+0150     xOutputfcn = x; <span class="comment">% Last x passed to outputfcn; has the input x's shape</span>
+0151     <span class="comment">% Convert to function handle as needed.</span>
+0152     <span class="comment">%outputfcn = fcnchk(outputfcn,length(varargin));</span>
+0153 <span class="keyword">end</span>
+0154 
+0155 header = <span class="string">' Iteration   Func-count     min f(x)         Procedure'</span>;
+0156 
+0157 <span class="comment">% Convert to function handle as needed.</span>
+0158 <span class="comment">%funfcn = fcnchk(funfcn,length(varargin));</span>
+0159 <span class="comment">% Add a wrapper function to check for Inf/NaN/complex values</span>
+0160 <span class="keyword">if</span> funValCheck
+0161     <span class="comment">% Add a wrapper function, CHECKFUN, to check for NaN/complex values without</span>
+0162     <span class="comment">% having to change the calls that look like this:</span>
+0163     <span class="comment">% f = funfcn(x,varargin{:});</span>
+0164     <span class="comment">% x is the first argument to CHECKFUN, then the user's function,</span>
+0165     <span class="comment">% then the elements of varargin. To accomplish this we need to add the</span>
+0166     <span class="comment">% user's function to the beginning of varargin, and change funfcn to be</span>
+0167     <span class="comment">% CHECKFUN.</span>
+0168     varargin = {funfcn, varargin{:}};
+0169     funfcn = @<a href="#_sub3" class="code" title="subfunction f = checkfun(x,userfcn,varargin)">checkfun</a>;
+0170 <span class="keyword">end</span>
+0171 
+0172 n = numel(x);
+0173 
+0174 <span class="comment">% Initialize parameters</span>
+0175 rho = 1; chi = 2; psi = 0.5; sigma = 0.5;
+0176 onesn = ones(1,n);
+0177 two2np1 = 2:n+1;
+0178 one2n = 1:n;
+0179 
+0180 <span class="comment">% Set up a simplex near the initial guess.</span>
+0181 xin = x(:); <span class="comment">% Force xin to be a column vector</span>
+0182 v = zeros(n,n+1); fv = zeros(1,n+1);
+0183 v(:,1) = xin;    <span class="comment">% Place input guess in the simplex! (credit L.Pfeffer at Stanford)</span>
+0184 x(:) = xin;    <span class="comment">% Change x to the form expected by funfcn</span>
+0185 itercount = 0;
+0186 func_evals = 0;
+0187 fv(:,1) = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
+0188 func_evals = 1;
+0189 how = <span class="string">''</span>;
+0190 
+0191 <span class="comment">% Initialize the output function.</span>
+0192 <span class="keyword">if</span> haveoutputfcn
+0193     [xOutputfcn, optimValues, stop] = <a href="#_sub1" class="code" title="subfunction [xOutputfcn, optimValues, stop] = callOutputFcn(outputfcn,x,xOutputfcn,state,iter,">callOutputFcn</a>(outputfcn,x,xOutputfcn,<span class="string">'init'</span>,itercount, <span class="keyword">...</span>
+0194         func_evals, how, fv(:,1),varargin{:});
+0195     <span class="keyword">if</span> stop
+0196         [x,fval,exitflag,output] = <a href="#_sub2" class="code" title="subfunction [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)">cleanUpInterrupt</a>(xOutputfcn,optimValues);
+0197         <span class="keyword">if</span>  prnt &gt; 0
+0198             disp(output.message)
+0199         <span class="keyword">end</span>
+0200         <span class="keyword">return</span>;
+0201     <span class="keyword">end</span>
+0202 <span class="keyword">end</span>
+0203 
+0204 <span class="comment">% Print out initial f(x) as 0th iteration</span>
+0205 <span class="keyword">if</span> prnt == 3
+0206     disp(<span class="string">' '</span>)
+0207     disp(header)
+0208     disp(fprintf(<span class="string">' %5.0f        %5.0f     %12.6g         %s'</span>, itercount, func_evals, fv(1), how));
+0209 <span class="keyword">elseif</span> prnt == 4
+0210     <span class="comment">%clc</span>
+0211 <span class="comment">%     formatsave = get(0,{'format','formatspacing'});</span>
+0212 <span class="comment">%     format compact</span>
+0213 <span class="comment">%     format short e</span>
+0214 <span class="comment">%     disp(' ')</span>
+0215 <span class="comment">%     disp(how)</span>
+0216     <span class="comment">%v</span>
+0217     <span class="comment">%fv</span>
+0218     <span class="comment">%func_evals</span>
+0219 <span class="keyword">end</span>
+0220 <span class="comment">% OutputFcn call</span>
+0221 <span class="keyword">if</span> haveoutputfcn
+0222     [xOutputfcn, optimValues, stop] = <a href="#_sub1" class="code" title="subfunction [xOutputfcn, optimValues, stop] = callOutputFcn(outputfcn,x,xOutputfcn,state,iter,">callOutputFcn</a>(outputfcn,x,xOutputfcn,<span class="string">'iter'</span>,itercount, <span class="keyword">...</span>
+0223         func_evals, how, fv(:,1),varargin{:});
+0224     <span class="keyword">if</span> stop  <span class="comment">% Stop per user request.</span>
+0225         [x,fval,exitflag,output] = <a href="#_sub2" class="code" title="subfunction [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)">cleanUpInterrupt</a>(xOutputfcn,optimValues);
+0226         <span class="keyword">if</span>  prnt &gt; 0
+0227             disp(output.message)
+0228         <span class="keyword">end</span>
+0229         <span class="keyword">return</span>;
+0230     <span class="keyword">end</span>
+0231 <span class="keyword">end</span>
+0232 
+0233 <span class="comment">% Following improvement suggested by L.Pfeffer at Stanford</span>
+0234 usual_delta = 0.05;             <span class="comment">% 5 percent deltas for non-zero terms</span>
+0235 zero_term_delta = 0.00025;      <span class="comment">% Even smaller delta for zero elements of x</span>
+0236 <span class="keyword">for</span> j = 1:n
+0237     y = xin;
+0238     <span class="keyword">if</span> y(j) ~= 0
+0239         y(j) = (1 + usual_delta)*y(j);
+0240     <span class="keyword">else</span>
+0241         y(j) = zero_term_delta;
+0242     <span class="keyword">end</span>
+0243     v(:,j+1) = y;
+0244     x(:) = y; f = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
+0245     func_evals = func_evals + 1;
+0246     fv(1,j+1) = f;
+0247 <span class="keyword">end</span>
+0248 
+0249 <span class="comment">% sort so v(1,:) has the lowest function value</span>
+0250 [fv,j] = sort(fv);
+0251 v = v(:,j);
+0252 
+0253 how = <span class="string">'initial simplex'</span>;
+0254 itercount = itercount + 1;
+0255 func_evals = n+1;
+0256 <span class="keyword">if</span> prnt == 3
+0257     disp(fprintf(<span class="string">' %5.0f        %5.0f     %12.6g         %s'</span>, itercount, func_evals, fv(1), how))
+0258 <span class="keyword">elseif</span> prnt == 4
+0259     disp(<span class="string">' '</span>)
+0260     disp(how)
+0261     v
+0262     fv
+0263     func_evals
+0264 <span class="keyword">end</span>
+0265 <span class="comment">% OutputFcn call</span>
+0266 <span class="keyword">if</span> haveoutputfcn
+0267     [xOutputfcn, optimValues, stop] = <a href="#_sub1" class="code" title="subfunction [xOutputfcn, optimValues, stop] = callOutputFcn(outputfcn,x,xOutputfcn,state,iter,">callOutputFcn</a>(outputfcn,x,xOutputfcn,<span class="string">'iter'</span>,itercount, <span class="keyword">...</span>
+0268         func_evals, how, fv(:,1),varargin{:});
+0269     <span class="keyword">if</span> stop  <span class="comment">% Stop per user request.</span>
+0270         [x,fval,exitflag,output] = <a href="#_sub2" class="code" title="subfunction [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)">cleanUpInterrupt</a>(xOutputfcn,optimValues);
+0271         <span class="keyword">if</span>  prnt &gt; 0
+0272             disp(output.message)
+0273         <span class="keyword">end</span>
+0274         <span class="keyword">return</span>;
+0275     <span class="keyword">end</span>
+0276 <span class="keyword">end</span>
+0277 exitflag = 1;
+0278 
+0279 <span class="comment">% Main algorithm</span>
+0280 <span class="comment">% Iterate until the diameter of the simplex is less than tolx</span>
+0281 <span class="comment">%   AND the function values differ from the min by less than tolf,</span>
+0282 <span class="comment">%   or the max function evaluations are exceeded. (Cannot use OR instead of</span>
+0283 <span class="comment">%   AND.)</span>
+0284 
+0285 <span class="keyword">while</span> func_evals &lt; maxfun &amp;&amp; itercount &lt; maxiter &amp;&amp; stopflag == 0
+0286     
+0287     <span class="keyword">if</span> rem(itercount,20)==0
+0288         stopflag = 0;<span class="comment">%getStopFlag();</span>
+0289         <span class="keyword">switch</span> stopflag
+0290             <span class="keyword">case</span> 1
+0291                 disp(<span class="string">'User Interrupt!'</span>);
+0292                 exitflag = 1;
+0293         <span class="keyword">end</span>
+0294     <span class="keyword">end</span>
+0295     
+0296     <span class="keyword">if</span> max(abs(fv(1)-fv(two2np1))) &lt;= tolf &amp;&amp; <span class="keyword">...</span>
+0297             max(max(abs(v(:,two2np1)-v(:,onesn)))) &lt;= tolx
+0298         <span class="keyword">break</span>
+0299     <span class="keyword">end</span>
+0300     
+0301     <span class="comment">% Compute the reflection point</span>
+0302     
+0303     <span class="comment">% xbar = average of the n (NOT n+1) best points</span>
+0304     xbar = sum(v(:,one2n), 2)/n;
+0305     xr = (1 + rho)*xbar - rho*v(:,end);
+0306     x(:) = xr; fxr = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
+0307     func_evals = func_evals+1;
+0308     
+0309     <span class="keyword">if</span> fxr &lt; fv(:,1)
+0310         <span class="comment">% Calculate the expansion point</span>
+0311         xe = (1 + rho*chi)*xbar - rho*chi*v(:,end);
+0312         x(:) = xe; fxe = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
+0313         func_evals = func_evals+1;
+0314         <span class="keyword">if</span> fxe &lt; fxr
+0315             v(:,end) = xe;
+0316             fv(:,end) = fxe;
+0317             how = <span class="string">'expand'</span>;
+0318         <span class="keyword">else</span>
+0319             v(:,end) = xr;
+0320             fv(:,end) = fxr;
+0321             how = <span class="string">'reflect'</span>;
+0322         <span class="keyword">end</span>
+0323     <span class="keyword">else</span> <span class="comment">% fv(:,1) &lt;= fxr</span>
+0324         <span class="keyword">if</span> fxr &lt; fv(:,n)
+0325             v(:,end) = xr;
+0326             fv(:,end) = fxr;
+0327             how = <span class="string">'reflect'</span>;
+0328         <span class="keyword">else</span> <span class="comment">% fxr &gt;= fv(:,n)</span>
+0329             <span class="comment">% Perform contraction</span>
+0330             <span class="keyword">if</span> fxr &lt; fv(:,end)
+0331                 <span class="comment">% Perform an outside contraction</span>
+0332                 xc = (1 + psi*rho)*xbar - psi*rho*v(:,end);
+0333                 x(:) = xc; fxc = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
+0334                 func_evals = func_evals+1;
+0335                 
+0336                 <span class="keyword">if</span> fxc &lt;= fxr
+0337                     v(:,end) = xc;
+0338                     fv(:,end) = fxc;
+0339                     how = <span class="string">'contract outside'</span>;
+0340                 <span class="keyword">else</span>
+0341                     <span class="comment">% perform a shrink</span>
+0342                     how = <span class="string">'shrink'</span>;
+0343                 <span class="keyword">end</span>
+0344             <span class="keyword">else</span>
+0345                 <span class="comment">% Perform an inside contraction</span>
+0346                 xcc = (1-psi)*xbar + psi*v(:,end);
+0347                 x(:) = xcc; fxcc = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
+0348                 func_evals = func_evals+1;
+0349                 
+0350                 <span class="keyword">if</span> fxcc &lt; fv(:,end)
+0351                     v(:,end) = xcc;
+0352                     fv(:,end) = fxcc;
+0353                     how = <span class="string">'contract inside'</span>;
+0354                 <span class="keyword">else</span>
+0355                     <span class="comment">% perform a shrink</span>
+0356                     how = <span class="string">'shrink'</span>;
+0357                 <span class="keyword">end</span>
+0358             <span class="keyword">end</span>
+0359             <span class="keyword">if</span> strcmp(how,<span class="string">'shrink'</span>)
+0360                 <span class="keyword">for</span> j=two2np1
+0361                     v(:,j)=v(:,1)+sigma*(v(:,j) - v(:,1));
+0362                     x(:) = v(:,j); 
+0363                     fv(:,j) = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
+0364                 <span class="keyword">end</span>
+0365                 func_evals = func_evals + n;
+0366             <span class="keyword">end</span>
+0367         <span class="keyword">end</span>
+0368     <span class="keyword">end</span>
+0369     [fv,j] = sort(fv);
+0370     v = v(:,j);
+0371     itercount = itercount + 1;
+0372     <span class="keyword">if</span> prnt == 3 &amp;&amp; (rem(itercount,iterUpdate) == 0)
+0373         disp(fprintf(<span class="string">' %5.0f        %5.0f     %12.6g         %s'</span>, itercount, func_evals, fv(1), how))
+0374     <span class="keyword">elseif</span> prnt == 4
+0375         disp(<span class="string">' '</span>)
+0376         disp(how)
+0377         v
+0378         fv
+0379         func_evals
+0380     <span class="keyword">end</span>
+0381     <span class="comment">% OutputFcn call</span>
+0382     <span class="keyword">if</span> haveoutputfcn
+0383         [xOutputfcn, optimValues, stop] = <a href="#_sub1" class="code" title="subfunction [xOutputfcn, optimValues, stop] = callOutputFcn(outputfcn,x,xOutputfcn,state,iter,">callOutputFcn</a>(outputfcn,x,xOutputfcn,<span class="string">'iter'</span>,itercount, <span class="keyword">...</span>
+0384             func_evals, how, fv(:,1),varargin{:});
+0385         <span class="keyword">if</span> stop  <span class="comment">% Stop per user request.</span>
+0386             [x,fval,exitflag,output] = <a href="#_sub2" class="code" title="subfunction [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)">cleanUpInterrupt</a>(xOutputfcn,optimValues);
+0387             <span class="keyword">if</span>  prnt &gt; 0
+0388                 disp(output.message)
+0389             <span class="keyword">end</span>
+0390             <span class="keyword">return</span>;
+0391         <span class="keyword">end</span>
+0392     <span class="keyword">end</span>
+0393 <span class="keyword">end</span>   <span class="comment">% while</span>
+0394 
+0395 x(:) = v(:,1);
+0396 <span class="keyword">if</span> prnt == 4,
+0397     <span class="comment">% reset format</span>
+0398     set(0,{<span class="string">'format'</span>,<span class="string">'formatspacing'</span>},formatsave);
+0399 <span class="keyword">end</span>
+0400 output.iterations = itercount;
+0401 output.funcCount = func_evals;
+0402 output.algorithm = <span class="string">'Nelder-Mead simplex direct search'</span>;
+0403 
+0404 fval = min(fv);
+0405 
+0406 <span class="comment">% OutputFcn call</span>
+0407 <span class="keyword">if</span> haveoutputfcn
+0408     <a href="#_sub1" class="code" title="subfunction [xOutputfcn, optimValues, stop] = callOutputFcn(outputfcn,x,xOutputfcn,state,iter,">callOutputFcn</a>(outputfcn,x,xOutputfcn,<span class="string">'done'</span>,itercount, func_evals, how, f, varargin{:});
+0409 <span class="keyword">end</span>
+0410 
+0411 <span class="keyword">if</span> func_evals &gt;= maxfun
+0412     msg = fprintf([<span class="string">'Exiting: Maximum number of function evaluations has been exceeded\n'</span> <span class="keyword">...</span>
+0413                    <span class="string">'         - increase MaxFunEvals option.\n'</span> <span class="keyword">...</span>
+0414                    <span class="string">'         Current function value: %f \n'</span>], fval);
+0415     <span class="keyword">if</span> prnt &gt; 0
+0416         disp(<span class="string">' '</span>)
+0417         disp(msg)
+0418     <span class="keyword">end</span>
+0419     exitflag = 0;
+0420 <span class="keyword">elseif</span> itercount &gt;= maxiter
+0421     msg = fprintf([<span class="string">'Exiting: Maximum number of iterations has been exceeded\n'</span> <span class="keyword">...</span><span class="comment"> </span>
+0422                    <span class="string">'         - increase MaxIter option.\n'</span> <span class="keyword">...</span>
+0423                    <span class="string">'         Current function value: %f \n'</span>], fval);
+0424     <span class="keyword">if</span> prnt &gt; 0
+0425         disp(<span class="string">' '</span>)
+0426         disp(msg)
+0427     <span class="keyword">end</span>
+0428     exitflag = 0;
+0429 <span class="keyword">else</span>
+0430     msg = <span class="keyword">...</span>
+0431       fprintf([<span class="string">'Optimization terminated:\n'</span>, <span class="keyword">...</span>
+0432                <span class="string">' the current x satisfies the termination criteria using OPTIONS.TolX of %e \n'</span> <span class="keyword">...</span>
+0433                <span class="string">' and F(X) satisfies the convergence criteria using OPTIONS.TolFun of %e \n'</span>], <span class="keyword">...</span>
+0434                tolx, tolf);
+0435     <span class="keyword">if</span> prnt &gt; 1
+0436         disp(<span class="string">' '</span>)
+0437         disp(msg)
+0438     <span class="keyword">end</span>
+0439     exitflag = 1;
+0440 <span class="keyword">end</span>
+0441 
+0442 output.message = msg;
+0443 
+0444 <span class="comment">%--------------------------------------------------------------------------</span>
+0445 <a name="_sub1" href="#_subfunctions" class="code">function [xOutputfcn, optimValues, stop] = callOutputFcn(outputfcn,x,xOutputfcn,state,iter,</a><span class="keyword">...</span>
+0446     numf,how,f,varargin)
+0447 <span class="comment">% CALLOUTPUTFCN assigns values to the struct OptimValues and then calls the</span>
+0448 <span class="comment">% outputfcn.</span>
+0449 <span class="comment">%</span>
+0450 <span class="comment">% state - can have the values 'init','iter', or 'done'.</span>
+0451 <span class="comment">% We do not handle the case 'interrupt' because we do not want to update</span>
+0452 <span class="comment">% xOutputfcn or optimValues (since the values could be inconsistent) before calling</span>
+0453 <span class="comment">% the outputfcn; in that case the outputfcn is called directly rather than</span>
+0454 <span class="comment">% calling it inside callOutputFcn.</span>
+0455 
+0456 <span class="comment">% For the 'done' state we do not check the value of 'stop' because the</span>
+0457 <span class="comment">% optimization is already done.</span>
+0458 optimValues.iteration = iter;
+0459 optimValues.funccount = numf;
+0460 optimValues.fval = f;
+0461 optimValues.procedure = how;
+0462 
+0463 xOutputfcn(:) = x;  <span class="comment">% Set x to have user expected size</span>
+0464 <span class="keyword">switch</span> state
+0465     <span class="keyword">case</span> {<span class="string">'iter'</span>,<span class="string">'init'</span>}
+0466         stop = outputfcn(xOutputfcn,optimValues,state,varargin{:});
+0467     <span class="keyword">case</span> <span class="string">'done'</span>
+0468         stop = false;
+0469         outputfcn(xOutputfcn,optimValues,state,varargin{:});
+0470     <span class="keyword">otherwise</span>
+0471         error(<span class="string">'MATLAB:fminsearch:InvalidState'</span>, <span class="keyword">...</span>
+0472             <span class="string">'Unknown state in CALLOUTPUTFCN.'</span>)
+0473 <span class="keyword">end</span>
+0474 
+0475 <span class="comment">%--------------------------------------------------------------------------</span>
+0476 <a name="_sub2" href="#_subfunctions" class="code">function [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)</a>
+0477 <span class="comment">% CLEANUPINTERRUPT updates or sets all the output arguments of FMINBND when the optimization</span>
+0478 <span class="comment">% is interrupted.</span>
+0479 
+0480 x = xOutputfcn;
+0481 FVAL = optimValues.fval;
+0482 EXITFLAG = -1;
+0483 OUTPUT.iterations = optimValues.iteration;
+0484 OUTPUT.funcCount = optimValues.funccount;
+0485 OUTPUT.algorithm = <span class="string">'golden section search, parabolic interpolation'</span>;
+0486 OUTPUT.message = <span class="string">'Optimization terminated prematurely by user.'</span>;
+0487 
+0488 <span class="comment">%--------------------------------------------------------------------------</span>
+0489 <a name="_sub3" href="#_subfunctions" class="code">function f = checkfun(x,userfcn,varargin)</a>
+0490 <span class="comment">% CHECKFUN checks for complex or NaN results from userfcn.</span>
+0491 
+0492 f = userfcn(x,varargin{:});
+0493 <span class="comment">% Note: we do not check for Inf as FMINSEARCH handles it naturally.</span>
+0494 <span class="keyword">if</span> isnan(f)
+0495     error(<span class="string">'MATLAB:fminsearch:checkfun:NaNFval'</span>, <span class="keyword">...</span>
+0496         <span class="string">'User function ''%s'' returned NaN when evaluated at %g;\n FMINSEARCH cannot continue.'</span>, <span class="keyword">...</span>
+0497         <a href="#_sub4" class="code" title="subfunction strfcn = localChar(fcn)">localChar</a>(userfcn), x);  
+0498 <span class="keyword">elseif</span> ~isreal(f)
+0499     error(<span class="string">'MATLAB:fminsearch:checkfun:ComplexFval'</span>, <span class="keyword">...</span>
+0500         <span class="string">'User function ''%s'' returned a complex value when evaluated at %g;\n FMINSEARCH cannot continue.'</span>, <span class="keyword">...</span>
+0501         <a href="#_sub4" class="code" title="subfunction strfcn = localChar(fcn)">localChar</a>(userfcn),x);  
+0502 <span class="keyword">end</span>
+0503 
+0504 <span class="comment">%--------------------------------------------------------------------------</span>
+0505 <a name="_sub4" href="#_subfunctions" class="code">function strfcn = localChar(fcn)</a>
+0506 <span class="comment">% Convert the fcn to a string for printing</span>
+0507 
+0508 <span class="comment">% if ischar(fcn)</span>
+0509 <span class="comment">%     strfcn = fcn;</span>
+0510 <span class="comment">% elseif isa(fcn,'inline')</span>
+0511 <span class="comment">%     strfcn = char(fcn);</span>
+0512 <span class="comment">% elseif isa(fcn,'function_handle')</span>
+0513 <span class="comment">%     strfcn = func2str(fcn);</span>
+0514 <span class="comment">% else</span>
+0515 <span class="comment">%     try</span>
+0516 <span class="comment">%         strfcn = char(fcn);</span>
+0517 <span class="comment">%     catch</span>
+0518 <span class="comment">%         strfcn = '(name not printable)';</span>
+0519 <span class="comment">%     end</span>
+0520 <span class="comment">% end</span>
+0521 
+0522</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

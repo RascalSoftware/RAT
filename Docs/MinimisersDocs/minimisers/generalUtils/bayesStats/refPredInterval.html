@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of refPredInterval</title>
+  <meta name="keywords" content="refPredInterval">
+  <meta name="description" content="problemDef = problem.problemDef;">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html minimisers --><!-- ../menu.html generalUtils --><!-- menu.html bayesStats -->
+<h1>refPredInterval
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>problemDef = problem.problemDef;</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [refShadedIntervals, sldShadedIntervals, outMessage, boxEndValue] = refPredInterval(chain,bestFit,bestSld,intervals,valRange,problemDef, problemDef_cells,problemDef_limits,controls,result) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> problemDef = problem.problemDef;
+ problemDef_limits = problem.problemDef_limits;
+ problemDef_cells = problem.problemDef_cells;
+ controls = problem.controls;</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../minimisers/generalUtils/unpackparams.html" class="code" title="function problemDef = unpackparams(problemDef,controls)">unpackparams</a>	Unpack the params out of the fitparsma and otherparams arrays</li><li><a href="../../../minimisers/mcmcstat/range.html" class="code" title="function y=range(x)">range</a>	Y=RANGE(X) range of columns of X</li><li><a href="../../../minimisers/mcmcstat_new/range.html" class="code" title="function y=range(x)">range</a>	Y=RANGE(X) range of columns of X</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="calcMCMCstatRefErrors.html" class="code" title="function [ref, intervals, posteriors] = calcMCMCstatRefErrors(bayesResults,problemDef,problemDef_cells,problemDef_limits,controls,bestFitMax)">calcMCMCstatRefErrors</a>	Calculates fits and confidence intervals</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [refShadedIntervals, sldShadedIntervals, outMessage, boxEndValue] = refPredInterval(chain,bestFit,bestSld,intervals,</a><span class="keyword">...</span>
+0002     valRange,problemDef, problemDef_cells,problemDef_limits,controls,result)
+0003 
+0004 
+0005 <span class="comment">% problemDef = problem.problemDef;</span>
+0006 <span class="comment">% problemDef_limits = problem.problemDef_limits;</span>
+0007 <span class="comment">% problemDef_cells = problem.problemDef_cells;</span>
+0008 <span class="comment">% controls = problem.controls;</span>
+0009 
+0010 debugPlot = true;
+0011 <span class="keyword">if</span> debugPlot; figure(50); clf; hold on; <span class="keyword">end</span>
+0012 
+0013 outMessage = <span class="string">'ok'</span>;
+0014 
+0015 controls.proc = <span class="string">'calculate'</span>;
+0016 <span class="comment">% Load in problem</span>
+0017 <span class="comment">% problem = getappdata(0,'problem');</span>
+0018 <span class="comment">% originalProblem = problem;</span>
+0019 data = result.shifted_data;
+0020 
+0021 <span class="comment">% Find out how many params and contrasts there are</span>
+0022 numberOfParams = size(chain,2);
+0023 numberOfContrasts = problemDef.numberOfContrasts;
+0024 
+0025 <span class="comment">% We aim to make a dummy set of datasets drawn from within</span>
+0026 <span class="comment">% the interval ranges.</span>
+0027 nSamples = 500;
+0028 <span class="keyword">for</span> i = 1:numberOfParams
+0029    thisParInt = intervals(i,:); 
+0030    thisSamp = (thisParInt(2)-thisParInt(1)).*rand(nSamples,1)+thisParInt(1);
+0031    chainSample(:,i) = thisSamp;
+0032 <span class="keyword">end</span>
+0033 
+0034 <span class="comment">% value range for progress box</span>
+0035 minVal = valRange(1);
+0036 maxVal = valRange(2);
+0037 <span class="comment">%msgBoxTest('update','',minVal);</span>
+0038 
+0039 <a href="../../../minimisers/mcmcstat/range.html" class="code" title="function y=range(x)">range</a> = maxVal - minVal;
+0040 increment = 1/((numberOfContrasts * nSamples)/<a href="../../../minimisers/mcmcstat/range.html" class="code" title="function y=range(x)">range</a>);
+0041 currentVal = minVal;
+0042 
+0043 <span class="comment">% Loop over the number of contrasts</span>
+0044 <span class="keyword">for</span> n = 1:numberOfContrasts
+0045     
+0046     <span class="comment">% Calulate the reflectivity for a randomly selected subset of the rows</span>
+0047     <span class="comment">% that are in range. Use the xdata values from bestFit and interpolate</span>
+0048     <span class="comment">% ydata from  all other ranges on to this.</span>
+0049     <span class="comment">%</span>
+0050     <span class="comment">% Get the xdata for the current contrast.</span>
+0051     xData = bestFit{n}(:,1);
+0052     xDataSld = bestSld{n}(:,1);
+0053     
+0054     <span class="comment">% Pre-allocation for memory management</span>
+0055     allCalcsRef = ones(length(xData),size(chainSample,1));
+0056     allCalcsSld = ones(length(xDataSld),size(chainSample,1));
+0057     
+0058     <span class="comment">% Loop over all rows in chainsample and</span>
+0059     <span class="comment">% calculate the reflectivity and SLD</span>
+0060     <span class="keyword">for</span> i = 1:size(chainSample,1)
+0061         <span class="keyword">try</span>
+0062             thisRow = chainSample(i,:);
+0063         <span class="keyword">catch</span>
+0064             disp(<span class="string">'problem here!'</span>);
+0065         <span class="keyword">end</span>
+0066         
+0067 <span class="comment">%         problem.fitpars = thisRow;</span>
+0068 <span class="comment">%         problem = unpackparams(problem);</span>
+0069 <span class="comment">%         % setappdata(0,'problem',problem);</span>
+0070 <span class="comment">%         problem = reflectivity_calculation(problem);</span>
+0071         <span class="comment">% problem = getappdata(0,'problem');</span>
+0072         problemDef.fitpars = thisRow;
+0073         problemDef = <a href="../../../minimisers/generalUtils/unpackparams.html" class="code" title="function problemDef = unpackparams(problemDef,controls)">unpackparams</a>(problemDef,controls);
+0074         [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+0075         result = parseResultToStruct(problem,result);
+0076 
+0077 <span class="comment">%         ref.bestSlds = result.sldProfiles;</span>
+0078 <span class="comment">%         ref.bestRefs = result.reflectivity;</span>
+0079         
+0080 
+0081         <span class="comment">% Get the calculated curves</span>
+0082         thisCalcRef = result.reflectivity{n};
+0083         thisInterpCalc = interp1(thisCalcRef(:,1),thisCalcRef(:,2),xData);
+0084         allCalcsRef(:,i) = thisInterpCalc(:);
+0085         
+0086         thisCalcSld = result.sldProfiles{n};
+0087         thisInterpCalcSld = interp1(thisCalcSld(:,1),thisCalcSld(:,2),xDataSld);
+0088         allCalcsSld(:,i) = thisInterpCalcSld(:);
+0089         
+0090 <span class="comment">%         msgBoxTest('update','',currentVal);</span>
+0091 <span class="comment">%         currentVal = currentVal + increment;</span>
+0092     <span class="keyword">end</span>
+0093     
+0094     <span class="comment">% Find the minimum and maximum values in each row</span>
+0095     <span class="comment">% of our calculated reflectivities.</span>
+0096     minBound = min(allCalcsRef,[],2);
+0097     maxBound = max(allCalcsRef,[],2);
+0098     
+0099     minBound = [xData(:) minBound];
+0100     maxBound = [xData(:) maxBound];
+0101     
+0102     <span class="comment">%.. also do the same for SLD..</span>
+0103     minBoundSld = min(allCalcsSld,[],2);
+0104     maxBoundSld = max(allCalcsSld,[],2);
+0105     
+0106     minBoundSld = [xDataSld(:) minBoundSld];
+0107     maxBoundSld = [xDataSld(:) maxBoundSld];
+0108     
+0109     <span class="comment">% Plot this if asked.</span>
+0110     <span class="keyword">if</span> debugPlot
+0111         figure(50);
+0112         
+0113         <span class="keyword">if</span> n&gt;1
+0114             mult = 10.^((n/100)*150);
+0115         <span class="keyword">else</span>
+0116             mult=1;
+0117         <span class="keyword">end</span>
+0118         
+0119         thisData = data{n};
+0120         <span class="keyword">if</span> ~isempty(data)
+0121             x = thisData(:,1);
+0122             y = thisData(:,2) ./ mult;
+0123             e = thisData(:,3) ./ mult;
+0124             errorbar(x,y,e,<span class="string">'k.'</span>);
+0125         <span class="keyword">end</span>
+0126     
+0127         plot(minBound(:,1),minBound(:,2)./mult,<span class="string">'r-'</span>);
+0128         plot(maxBound(:,1),maxBound(:,2)./mult,<span class="string">'r-'</span>);
+0129         plot(bestFit{n}(:,1),bestFit{n}(:,2)./mult,<span class="string">'k-'</span>);
+0130         set(gca,<span class="string">'YScale'</span>,<span class="string">'log'</span>,<span class="string">'XScale'</span>,<span class="string">'log'</span>);
+0131     <span class="keyword">end</span>
+0132     
+0133     <span class="comment">% store the results</span>
+0134     refShadedIntervals{n} = [xData(:) bestFit{n}(:,2) minBound(:,2) maxBound(:,2)];
+0135     sldShadedIntervals{n} = [xDataSld(:) bestSld{n}(:,2) minBoundSld(:,2) maxBoundSld(:,2)];
+0136     
+0137 <span class="keyword">end</span>
+0138 
+0139 <span class="comment">% Re-set problem back to it's original state</span>
+0140 <span class="comment">%setappdata(0,'problem',originalProblem);</span>
+0141 boxEndValue = currentVal;
+0142 
+0143 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

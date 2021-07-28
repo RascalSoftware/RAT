@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of multiTypeTable</title>
+  <meta name="keywords" content="multiTypeTable">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html API --><!-- menu.html projectClass -->
+<h1>multiTypeTable
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="multiTypeTable.html" class="code" title="">multiTypeTable</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="backgroundsClass.html" class="code" title="">backgroundsClass</a>	</li><li><a href="multiTypeTable.html" class="code" title="">multiTypeTable</a>	</li><li><a href="resolutionsClass.html" class="code" title="">resolutionsClass</a>	</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function obj = multiTypeTable(startCell)</a></li><li><a href="#_sub2" class="code">function obj = addRow(obj,addParams)</a></li><li><a href="#_sub3" class="code">function obj = setValue(obj,varargin)</a></li><li><a href="#_sub4" class="code">function appendNewRow(obj,row)</a></li><li><a href="#_sub5" class="code">function removeRow(obj,row)</a></li><li><a href="#_sub6" class="code">function displayTypesTable(obj)</a></li><li><a href="#_sub7" class="code">function row = findIndex(name, namesList)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 classdef <a href="multiTypeTable.html" class="code" title="">multiTypeTable</a> &lt; handle
+0002     
+0003     
+0004     <span class="comment">% This is the class definition for</span>
+0005     <span class="comment">% the backgrounds and reolutions tables.</span>
+0006     
+0007     properties
+0008         typesTable = table;
+0009         allowedTypes = {<span class="string">'constant'</span>,<span class="string">'data'</span>,<span class="string">'function'</span>};
+0010         allowedActions = {<span class="string">'add'</span>,<span class="string">'subtract'</span>};
+0011         typesCount;
+0012         typesAutoNameCounter
+0013         typesAutoNameString
+0014     <span class="keyword">end</span>
+0015     
+0016     methods
+0017        
+0018         <a name="_sub0" href="#_subfunctions" class="code">function obj = multiTypeTable(startCell)</a>
+0019         <span class="comment">% Constructor</span>
+0020             sz = [1 7];
+0021             varTypes = {<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>};
+0022             varNames = {<span class="string">'Name'</span>,<span class="string">'Type'</span>,<span class="string">'Value 1'</span>,<span class="string">'Value 2'</span>,<span class="string">'Value 3'</span>,<span class="string">'Value 4'</span>,<span class="string">'Value 5'</span>};
+0023             obj.typesTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,varTypes,<span class="string">'VariableNames'</span>,varNames);
+0024             obj.typesTable(1,:) = startCell;
+0025             obj.typesCount = 1;
+0026             obj.typesAutoNameCounter = 1;
+0027         <span class="keyword">end</span>
+0028         
+0029         <a name="_sub1" href="#_subfunctions" class="code">function obj = addRow(obj,addParams)</a>
+0030             <span class="keyword">switch</span> length(addParams)
+0031                 <span class="keyword">case</span> 0
+0032                     <span class="comment">% No Parameter. Add empty row</span>
+0033                     thisName = char(obj.typesAutoNameString);
+0034                     thisNum = obj.typesAutoNameCounter;
+0035                     name = sprintf(<span class="string">'%s %d'</span>,thisName,thisNum);
+0036                     newRow = {name,<span class="string">'constant'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+0037                     <a href="#_sub4" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
+0038                     
+0039                 <span class="keyword">case</span> 1
+0040                     <span class="comment">% One parameter: assume this is a name</span>
+0041                     newRow = {addParams,<span class="string">'constant'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+0042                     <a href="#_sub4" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
+0043                     
+0044                 <span class="keyword">otherwise</span>
+0045                     <span class="comment">% More than one parameter. Parsed externally in call so just build</span>
+0046                     <span class="comment">% the row</span>
+0047                     newRow = addParams;
+0048                     <a href="#_sub4" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
+0049             <span class="keyword">end</span>
+0050         <span class="keyword">end</span>
+0051         
+0052         <a name="_sub2" href="#_subfunctions" class="code">function obj = setValue(obj,varargin)</a>
+0053             
+0054             in = varargin{:};
+0055             tab = obj.typesTable;
+0056             
+0057             <span class="comment">% First parameter needs to be either a row name or number</span>
+0058             rowNames = obj.typesTable{:,1};
+0059             rowPar = in{1};
+0060             
+0061             <span class="keyword">if</span> ischar(rowPar)
+0062                 row = <a href="#_sub7" class="code" title="subfunction row = findIndex(name, namesList)">findIndex</a>(rowPar, rowNames);
+0063             <span class="keyword">elseif</span> isnumeric(rowPar)
+0064                 <span class="keyword">if</span> (rowPar &lt; 1) || (rowPar &gt; length(rowNames))
+0065                    error(<span class="string">'Row number out of range'</span>)  
+0066                 <span class="keyword">else</span>
+0067                     row = rowPar;
+0068                 <span class="keyword">end</span>
+0069             <span class="keyword">else</span>
+0070                 error(<span class="string">'Unrecognised row index'</span>);
+0071             <span class="keyword">end</span>
+0072             
+0073             <span class="comment">% Second parameter needs to be either a column name or</span>
+0074             <span class="comment">% number.</span>
+0075             colPar = in{2};
+0076             colNames = obj.typesTable.Properties.VariableNames;
+0077 
+0078             <span class="keyword">if</span> ischar(colPar)
+0079                 col = <a href="#_sub7" class="code" title="subfunction row = findIndex(name, namesList)">findIndex</a>(colPar,colNames);
+0080             <span class="keyword">elseif</span> isnumeric(colPar)
+0081                 <span class="keyword">if</span> (colPar &lt; 1) || (colPar &gt; length(colNames))
+0082                     error(<span class="string">'Column number out out of range'</span>);
+0083                 <span class="keyword">else</span>
+0084                     col = colPar;
+0085                 <span class="keyword">end</span>
+0086             <span class="keyword">else</span>
+0087                 error(<span class="string">'Unrecognised column index'</span>);
+0088             <span class="keyword">end</span>
+0089             
+0090            <span class="comment">% Set the value</span>
+0091             tab(row,col) = in(3);
+0092             obj.typesTable = tab;
+0093 
+0094         <span class="keyword">end</span>
+0095   
+0096         
+0097         <a name="_sub3" href="#_subfunctions" class="code">function appendNewRow(obj,row)</a>
+0098             tab = obj.typesTable;
+0099             newName = row{1};
+0100             <span class="keyword">if</span> any(strcmp(newName,tab{:,1}))
+0101                 error(<span class="string">'Duplicate parameter names not allowed'</span>);
+0102             <span class="keyword">end</span>
+0103             tab = [tab ; row];
+0104             obj.typesTable = tab;
+0105             obj.typesCount = obj.typesCount + 1;
+0106             obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
+0107         <span class="keyword">end</span>
+0108         
+0109         <a name="_sub4" href="#_subfunctions" class="code">function removeRow(obj,row)</a>
+0110             tab = obj.typesTable;
+0111             thisRow = row{:};
+0112             tab(thisRow,:) = [];
+0113             obj.typesTable = tab;
+0114             obj.typesCount = obj.typesCount - 1;
+0115         <span class="keyword">end</span>
+0116         
+0117         <a name="_sub5" href="#_subfunctions" class="code">function displayTypesTable(obj)</a>
+0118             
+0119             array = obj.typesTable;
+0120             p = [1:size(array,1)];
+0121             p = p(:);
+0122             p = table(p);
+0123             all = [p array];
+0124             disp(all);
+0125 
+0126         <span class="keyword">end</span>
+0127     
+0128     <span class="keyword">end</span>
+0129     
+0130 <span class="keyword">end</span>
+0131 
+0132 <a name="_sub6" href="#_subfunctions" class="code">function row = findIndex(name, namesList)</a>
+0133 
+0134     <span class="comment">% Strip leading or trailing whitaspaces from names..</span>
+0135     namesList = strip(namesList);
+0136     name = strip(name);
+0137     
+0138     <span class="comment">% Compare 'name' to list ignoring case</span>
+0139     index = strcmpi(name, namesList);
+0140     <span class="keyword">if</span> isempty(index)
+0141         error(<span class="string">'Unrecognised parameter name'</span>);
+0142     <span class="keyword">end</span>
+0143     
+0144     <span class="comment">% Non-zero value in array is the row index</span>
+0145     row = find(index);
+0146 
+0147 <span class="keyword">end</span>
+0148 
+0149 
+0150 <span class="comment">%function con = findColIndex(name, namesList)</span>
+0151 
+0152</pre></div>
+<hr><address>Generated on Mon 26-Jul-2021 16:46:03 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

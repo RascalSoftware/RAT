@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of plims2d</title>
+  <meta name="keywords" content="plims2d">
+  <meta name="description" content="PLIMS2D  2 dimensional HPD limits">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>plims2d
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>PLIMS2D  2 dimensional HPD limits</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function varargout=plims2d(xy,lims,smo,rho,xo,yo) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">PLIMS2D  2 dimensional HPD limits
+ Calculated 2d highest posterior density probability limits.
+ This is used by PANELLIMS.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/density2d.html" class="code" title="function [z,xo,yo,s]=density2d(x,xout,yout,ss,rho,plotit)">density2d</a>	DENSITY2D   2 dimensinal density estimator</li><li><a href="density2d.html" class="code" title="function [z,xo,yo,s]=density2d(x,xout,yout,ss,rho,plotit)">density2d</a>	DENSITY2D   2 dimensinal density estimator</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/panellims.html" class="code" title="function panellims(x,y,smo,rho,dens,ccolor)">panellims</a>	PANELLIMS 2d density with probability limits added to pairs plot. See PAIRS.</li><li><a href="panellims.html" class="code" title="function panellims(x,y,smo,rho,dens,ccolor)">panellims</a>	PANELLIMS 2d density with probability limits added to pairs plot. See PAIRS.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function varargout=plims2d(xy,lims,smo,rho,xo,yo)</a>
+0002 <span class="comment">%PLIMS2D  2 dimensional HPD limits</span>
+0003 <span class="comment">% Calculated 2d highest posterior density probability limits.</span>
+0004 <span class="comment">% This is used by PANELLIMS.</span>
+0005 
+0006 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0007 <span class="comment">% $Revision: 1.5 $  $Date: 2012/09/27 11:47:39 $</span>
+0008 
+0009 <span class="keyword">if</span> nargin &lt; 3
+0010    smo = 1;
+0011 <span class="keyword">end</span>
+0012 <span class="keyword">if</span> nargin &lt; 4
+0013    rho = [];
+0014 <span class="keyword">end</span>
+0015 <span class="keyword">if</span> nargin &lt; 5
+0016    xo=[];
+0017 <span class="keyword">end</span>
+0018 <span class="keyword">if</span> nargin &lt; 6
+0019    yo=[];
+0020 <span class="keyword">end</span>
+0021 
+0022 [z,xo,yo]=<a href="density2d.html" class="code" title="function [z,xo,yo,s]=density2d(x,xout,yout,ss,rho,plotit)">density2d</a>(xy,xo,yo,smo,rho);
+0023 
+0024 <span class="comment">%c=cumsum(sort(z(:).*diff(xo).*diff(yo)));</span>
+0025 
+0026 <span class="comment">% locate the confidence regions</span>
+0027  d  = (xo(2)-xo(1))*(yo(2)-yo(1));
+0028  zs = sort(z(:));
+0029  g  = zs*d;
+0030  cumu = cumsum(g);
+0031  <span class="comment">%disp(sprintf('Total mass: %g\n',cumu(length(cumu))))</span>
+0032  
+0033  sc = zeros(length(lims),1);
+0034  <span class="keyword">for</span> j=1:length(lims)
+0035       i = find(cumu&lt;(1-lims(j)));
+0036       sc(j) = zs(length(i));
+0037  <span class="keyword">end</span>
+0038  
+0039  <span class="keyword">if</span> nargout==1
+0040     varargout{1}=sc;
+0041  <span class="keyword">elseif</span> nargout==4
+0042     varargout{1}=xo;
+0043     varargout{2}=yo;
+0044     varargout{3}=z;
+0045     varargout{4}=sc;
+0046  <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

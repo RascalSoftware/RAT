@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of cauchyex</title>
+  <meta name="keywords" content="cauchyex">
+  <meta name="description" content="%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html minimisers --><!-- ../menu.html mcmcstat --><!-- menu.html examples -->
+<h1>cauchyex
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%
+ &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Cauchy distribution&lt;/html&gt;</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../minimisers/mcmcstat/cauchypf.html" class="code" title="function y=cauchypf(x,a,b)">cauchypf</a>	CAUCHYPF Cauchy probability density function</li><li><a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../../minimisers/mcmcstat_new/cauchypf.html" class="code" title="function y=cauchypf(x,a,b)">cauchypf</a>	CAUCHYPF Cauchy probability density function</li><li><a href="../../../minimisers/mcmcstat_new/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%</span>
+0002 <span class="comment">% &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Cauchy distribution&lt;/html&gt;</span>
+0003 
+0004 <span class="comment">%% MCMC toolbox example</span>
+0005 <span class="comment">% This example targets 10 dimensional Cauchy distribution. Cauchy</span>
+0006 <span class="comment">% distribution does not have finite second moment, so the AM method,</span>
+0007 <span class="comment">% which calculates chain variance will have troubles. In practice, it</span>
+0008 <span class="comment">% gives good results. Here, we use RAM adaptation, which does not use</span>
+0009 <span class="comment">% variance information (http://dx.doi.org/10.1007/s11222-011-9269-5).</span>
+0010 
+0011 clear model options params
+0012 
+0013 nsimu = 40000;
+0014 npar = 10;
+0015 
+0016 model.ssfun    = @(x,d) 2*sum(log(1+x.^2));
+0017 options.nsimu  = nsimu;
+0018 options.method = <span class="string">'ram'</span>;
+0019 <span class="keyword">for</span> i=1:npar, params{i} = {sprintf(<span class="string">'x_{%d}'</span>,i), 0}; <span class="keyword">end</span>
+0020 
+0021 [res,chain] = <a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>(model,[],params,options);
+0022 
+0023 <span class="comment">%% Plot the chain</span>
+0024 
+0025 iii = 1:min(npar,4); <span class="comment">% plot first 4 chain columns</span>
+0026 
+0027 figure(1); clf
+0028 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,iii,res);
+0029 figure(2); clf
+0030 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,iii,res,<span class="string">'hist'</span>);
+0031 <span class="keyword">for</span> i=iii
+0032   subplot(2,2,i)
+0033   xlim([-10,10]);
+0034   xx = linspace(-10,10);
+0035   yy = <a href="../../../minimisers/mcmcstat/cauchypf.html" class="code" title="function y=cauchypf(x,a,b)">cauchypf</a>(xx);
+0036   hold on
+0037   plot(xx,yy)
+0038   hold off
+0039 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of cramerdf</title>
+  <meta name="keywords" content="cramerdf">
+  <meta name="description" content="CRAMERDF  Distribution function of the Cramer-von Mises statistic">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>cramerdf
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>CRAMERDF  Distribution function of the Cramer-von Mises statistic</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function y=cramerdf(q) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CRAMERDF  Distribution function of the Cramer-von Mises statistic
+ y = cramerdf(q), q quantile, y cumulative probability</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/hwdiag.html" class="code" title="function [B,pB]=hwdiag(chain,ns)">hwdiag</a>	HWDIAG  Heidelberger-Welch MCMC convergence diagnostics</li><li><a href="hwdiag.html" class="code" title="function [B,pB]=hwdiag(chain,ns)">hwdiag</a>	HWDIAG  Heidelberger-Welch MCMC convergence diagnostics</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function y=cramerdf(q)</a>
+0002 <span class="comment">% CRAMERDF  Distribution function of the Cramer-von Mises statistic</span>
+0003 <span class="comment">% y = cramerdf(q), q quantile, y cumulative probability</span>
+0004 
+0005 <span class="comment">% based on the corresponding R version</span>
+0006 
+0007 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0008 <span class="comment">% $Revision: 1.4 $  $Date: 2012/09/27 11:47:34 $</span>
+0009 
+0010 logeps = log(1e-5);
+0011 y = zeros(4,length(q));
+0012 <span class="keyword">for</span> k = 0:3 
+0013   z =  gamma(k+0.5)*sqrt(4*k+1)./(gamma(k+1)*pi^(3/2).*sqrt(q));
+0014   u = (4 *k+1)^2./(16*q);
+0015   ind = (u&lt;=-logeps);
+0016   y(k+1,~ind) = 0;
+0017   y(k+1, ind) = z(ind).*exp(-u(ind)).*besselk(1/4,u(ind));
+0018 <span class="keyword">end</span>
+0019 y = sum(y);</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

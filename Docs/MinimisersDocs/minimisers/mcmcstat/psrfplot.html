@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of psrfplot</title>
+  <meta name="keywords" content="psrfplot">
+  <meta name="description" content="PSRFPLOT  Plot psrf MCMC diagnostics with increasing number of iterations.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>psrfplot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>PSRFPLOT  Plot psrf MCMC diagnostics with increasing number of iterations.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [h,rr]=psrfplot(chain,n) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">PSRFPLOT  Plot psrf MCMC diagnostics with increasing number of iterations.
+ see prsf.m</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="psrf.html" class="code" title="function [R,y1,y2]=psrf(chain,a,s,e)">psrf</a>	PSRF  Gelman-Rubin-Brooks psrf MCMC convergence diagnostic</li><li><a href="../../minimisers/mcmcstat_new/psrf.html" class="code" title="function [R,y1,y2]=psrf(chain,a,s,e)">psrf</a>	PSRF  Gelman-Rubin-Brooks psrf MCMC convergence diagnostic</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [h,rr]=psrfplot(chain,n)</a>
+0002 <span class="comment">%PSRFPLOT  Plot psrf MCMC diagnostics with increasing number of iterations.</span>
+0003 <span class="comment">% see prsf.m</span>
+0004 
+0005 <span class="comment">% ML, 2002</span>
+0006 <span class="comment">% $Revision: 1.3 $  $Date: 2003/05/07 12:22:19 $</span>
+0007 
+0008 <span class="keyword">if</span> iscell(chain)
+0009   nchain = length(chain);
+0010   [nsimu,npar1] = size(chain{1});
+0011 <span class="keyword">elseif</span> isnumeric(chain)
+0012   [nsimu,npar1,nchain] = size(chain);
+0013 <span class="keyword">end</span>
+0014 
+0015 <span class="keyword">if</span> nargin&lt;2
+0016   n=50;
+0017 <span class="keyword">end</span>
+0018 
+0019 l = fix(nsimu/n);
+0020 e = l:l:nsimu;
+0021 
+0022 rr975 = zeros(n,npar1);
+0023 rr50  = zeros(n,npar1);
+0024 
+0025 <span class="keyword">for</span> i=1:n
+0026   rr975(i,:) = <a href="psrf.html" class="code" title="function [R,y1,y2]=psrf(chain,a,s,e)">psrf</a>(chain,0.05,[],e(i));
+0027   rr50(i,:)  = <a href="psrf.html" class="code" title="function [R,y1,y2]=psrf(chain,a,s,e)">psrf</a>(chain,0.5,[],e(i));
+0028 <span class="comment">%  keyboard</span>
+0029 <span class="keyword">end</span>
+0030 
+0031 <span class="keyword">for</span> i=1:npar1
+0032   h1  = subplot(npar1,1,i);
+0033   h2 = plot(e,rr50(:,i),<span class="string">'-b'</span>, e,rr975(:,i),<span class="string">'--r'</span>);
+0034   set(h1,<span class="string">'XLim'</span>,[1 nsimu]);
+0035   <span class="keyword">if</span> i==1
+0036     title(<span class="string">'psrf plot'</span>);
+0037     legend(<span class="string">'50%'</span>,<span class="string">'97.5%'</span>);
+0038   <span class="keyword">end</span>
+0039   <span class="keyword">if</span> i==npar1
+0040     xlabel(<span class="string">'last iteration used'</span>);
+0041   <span class="keyword">end</span>
+0042 <span class="keyword">end</span>
+0043 
+0044 <span class="keyword">if</span> nargout&gt;1
+0045   h=h1;
+0046 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

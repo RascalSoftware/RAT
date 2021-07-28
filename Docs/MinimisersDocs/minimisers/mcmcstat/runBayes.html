@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of runBayes</title>
+  <meta name="keywords" content="runBayes">
+  <meta name="description" content="Clear any values from previous runs if prsent">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>runBayes
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Clear any values from previous runs if prsent</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function output = runBayes(loop,nsimu,burnin,adaptint,params,problem) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Clear any values from previous runs if prsent
+clear model data options</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/generalUtils/unpackparams.html" class="code" title="function problemDef = unpackparams(problemDef,controls)">unpackparams</a>	Unpack the params out of the fitparsma and otherparams arrays</li><li><a href="mcmcpred_compile.html" class="code" title="function out=mcmcpred_compile(results,chain,s2chain,data,problem,nsample,varargin)">mcmcpred_compile</a>	MCMCPRED predictive calculations from the mcmcrun chain</li><li><a href="mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="%runDram.html" class="code" title="function  [problemDef,problem,result,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls)">%runDram</a>	</li><li><a href="../../minimisers/mcmcstat_new/%runDram.html" class="code" title="function  [problemDef,problem,result,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls)">%runDram</a>	</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function makePredPlot(out,data,problem,bestFit,scalefac)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function output = runBayes(loop,nsimu,burnin,adaptint,params,problem)</a>
+0002 
+0003 <span class="comment">% Clear any values from previous runs if prsent</span>
+0004 <span class="comment">%clear model data options</span>
+0005 
+0006 problemDef = problem{1};
+0007 controls = problem{2};
+0008 problemDef_limits = problem{3};
+0009 problemDef_cells = problem{4};
+0010 
+0011 <span class="comment">%data = problem.data;</span>
+0012 <span class="comment">% Arrange the data into the format mcmcstat requires</span>
+0013 <span class="comment">% We have the same number of 'batches' as contrasts.</span>
+0014 <span class="comment">% Also need to pass problem in order to access this</span>
+0015 <span class="comment">% from the subfunctions.</span>
+0016 numberOfContrasts = problemDef.numberOfContrasts;
+0017 
+0018 <span class="comment">% Pre-allocate data to keep the compiler happy</span>
+0019 <span class="comment">% data = cell(1,numberOfContrasts);</span>
+0020 <span class="comment">% structDefineType = struct('ydata',[],'problem',problem);</span>
+0021 <span class="comment">% for i = 1:numberOfContrasts</span>
+0022 <span class="comment">%     data{i} =  structDefineType;</span>
+0023 <span class="comment">% end</span>
+0024 data = cell(1,numberOfContrasts);
+0025 <span class="keyword">for</span> i = 1:numberOfContrasts
+0026     thisData = problemDef_cells{2}{i};
+0027     data{i} = [thisData(:,1:2)];
+0028     <span class="comment">%data{i}.problem = problem;</span>
+0029 <span class="keyword">end</span>
+0030 
+0031 fitConstr = problemDef.fitconstr;
+0032 nPars = size(fitConstr,1);
+0033 
+0034 <span class="comment">% Make qcov based on the ranges of the parameters</span>
+0035 qcov = [];
+0036 <span class="keyword">for</span> i = 1:nPars
+0037     thisConstr = fitConstr(i,:);
+0038     qcov(i) = (abs(thisConstr(2) - thisConstr(1))*0.01)^2;
+0039 <span class="keyword">end</span>
+0040 qcov = diag(qcov);
+0041 
+0042 <span class="comment">% Define model and method options.</span>
+0043 model.modelfun      = <span class="string">'refModel'</span>;     <span class="comment">% will return a reflectivity curve</span>
+0044 model.ssfun         = <span class="string">'reflectivity_fitModel'</span>;     <span class="comment">% will return chi squared</span>
+0045 model.nbatch        = numberOfContrasts;
+0046 
+0047 options.method      = <span class="string">'dram'</span>;          <span class="comment">% adaptation method (mh, am, dr, dram)</span>
+0048 options.nsimu       = nsimu;           <span class="comment">% no of simulation%</span>
+0049 <span class="comment">%options.qcov        = qcov;            % proposal covariance (not sure why 11....)</span>
+0050 
+0051 options.adaptint    = adaptint;        <span class="comment">% adaptation interval</span>
+0052 options.printint    = 200;             <span class="comment">% how often to show info of acceptance ratios</span>
+0053 options.verbosity   = 1;               <span class="comment">% how much to show output</span>
+0054 options.waitbar     = 1;               <span class="comment">% show graphical waitbar</span>
+0055 options.updatesigma = 0;               <span class="comment">% update error variance</span>
+0056 options.stats       = 1;               <span class="comment">% save extra statistics in result</span>
+0057 options.burnintime  = burnin;          <span class="comment">% burn in time..</span>
+0058 options.ntry = 1;
+0059 
+0060 results = [];
+0061 loop = int32(loop);
+0062 <span class="keyword">for</span> i = 1:loop
+0063     fprintf(<span class="string">'Running loop %d of %d '</span>,i,loop);
+0064     <span class="comment">%[results,chain,s2chain,sschain] = mcmcrun_compile(model, data, problem, params, options, results);</span>
+0065     [results,chain,s2chain,sschain] = <a href="mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>(model, data, problem, params, options, results);
+0066     fprintf(<span class="string">'\n'</span>);
+0067 <span class="keyword">end</span>
+0068 
+0069 output.results = results;
+0070 output.chain = chain;
+0071 output.s2chain = s2chain;
+0072 output.sschain = sschain;
+0073 output.bestPars = results.mean;
+0074 output.data = data;
+0075 
+0076 
+0077 <span class="comment">% figure(200); clf; hold on</span>
+0078 <span class="comment">% mcmcplot(chain,[],results,'chainpanel');</span>
+0079 <span class="comment">%</span>
+0080 <span class="comment">% figure(201); clf; hold on</span>
+0081 <span class="comment">% mcmcplot(chain,[],results,'hist');</span>
+0082 <span class="comment">%</span>
+0083 <span class="comment">% figure(202); clf; hold on</span>
+0084 out = <a href="mcmcpred_compile.html" class="code" title="function out=mcmcpred_compile(results,chain,s2chain,data,problem,nsample,varargin)">mcmcpred_compile</a>(results,chain,[],data,problem,700);
+0085 
+0086 problemDef.fitpars = output.bestPars;
+0087 problemDef = <a href="../../minimisers/generalUtils/unpackparams.html" class="code" title="function problemDef = unpackparams(problemDef,controls)">unpackparams</a>(problemDef,controls);
+0088 [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+0089 
+0090 output.bestFits = result{1};
+0091 output.shiftedData = problemDef_cells{2};
+0092 output.predlims = out;
+0093 
+0094 <span class="comment">% for i = 1:numberOfContrasts</span>
+0095 <span class="comment">%     makePredPlot(predlims{i}{:},shiftedData{i},problem,bestFits{i},problem.scalefactors(i));</span>
+0096 <span class="comment">% %     figure(hSld);</span>
+0097 <span class="comment">% %     makeSldPredPlot(outSld.predlims{i}{:},bestSld{i},hSld);</span>
+0098 <span class="comment">% end</span>
+0099 
+0100 
+0101 
+0102 <span class="keyword">end</span>
+0103 
+0104 
+0105 <span class="comment">%-------------------------------------------------------------------------</span>
+0106 
+0107 <a name="_sub1" href="#_subfunctions" class="code">function makePredPlot(out,data,problem,bestFit,scalefac)</a>
+0108 
+0109 
+0110 <span class="comment">% figure(refFig);</span>
+0111 <span class="comment">% clf;</span>
+0112 <span class="comment">% hold on;</span>
+0113 
+0114 <span class="comment">%data = problem.data;</span>
+0115 
+0116 thisData = data;
+0117 
+0118 <span class="comment">%figure(refFig); clf; hold on</span>
+0119 errorbar(thisData(:,1),thisData(:,2),thisData(:,3),<span class="string">'.'</span>);
+0120 set(gca,<span class="string">'YScale'</span>,<span class="string">'log'</span>,<span class="string">'XScale'</span>,<span class="string">'log'</span>);
+0121 hold on
+0122 plot(bestFit(:,1),bestFit(:,2).*scalefac,<span class="string">'k-'</span>);
+0123 
+0124 numRanges = 1;
+0125 <span class="keyword">for</span> i = 1:numRanges
+0126     thisMin = out(2,:);
+0127     thisMax = out(8,:);
+0128     
+0129     numPoints = size(thisData,1);
+0130     
+0131     plot(thisData(:,1),thisMin(1:numPoints),<span class="string">'-'</span>)
+0132     plot(thisData(:,1),thisMax(1:numPoints),<span class="string">'-'</span>)
+0133 <span class="keyword">end</span>
+0134 
+0135 <span class="keyword">end</span>
+0136 
+0137 
+0138 
+0139</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

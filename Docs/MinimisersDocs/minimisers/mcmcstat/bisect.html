@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of bisect</title>
+  <meta name="keywords" content="bisect">
+  <meta name="description" content="BISECT find zero by bisection">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>bisect
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>BISECT find zero by bisection</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [x,y]=bisect(fun,a,b,options,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">BISECT find zero by bisection
+ Usage: x0 = bisect(fun,a,b,options,varargin)
+ Function must change signs between a and b.
+ Use options field 'TolX' to set the 'x' tolerance.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="betaqf.html" class="code" title="function y=betaqf(p,a,b)">betaqf</a>	BETAQF  Beta inverse cumulative density function</li><li><a href="invbetainc.html" class="code" title="function y=invbetainc(p,a,b)">invbetainc</a>	INVBETAINC inverse incomplete Beta function</li><li><a href="../../minimisers/mcmcstat_new/betaqf.html" class="code" title="function y=betaqf(p,a,b)">betaqf</a>	BETAQF  Beta inverse cumulative density function</li><li><a href="../../minimisers/mcmcstat_new/invbetainc.html" class="code" title="function y=invbetainc(p,a,b)">invbetainc</a>	INVBETAINC inverse incomplete Beta function</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [x,y]=bisect(fun,a,b,options,varargin)</a>
+0002 <span class="comment">%BISECT find zero by bisection</span>
+0003 <span class="comment">% Usage: x0 = bisect(fun,a,b,options,varargin)</span>
+0004 <span class="comment">% Function must change signs between a and b.</span>
+0005 <span class="comment">% Use options field 'TolX' to set the 'x' tolerance.</span>
+0006 
+0007 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0008 <span class="comment">% $Revision: 1.3 $  $Date: 2012/09/27 11:47:34 $</span>
+0009 
+0010 <span class="keyword">if</span> nargin &lt; 4, options=[]; <span class="keyword">end</span>
+0011 
+0012 tolf   = optimget(options,<span class="string">'TolFun'</span>,1e-12);
+0013 tolx   = optimget(options,<span class="string">'TolX'</span>,1e-6);
+0014 maxiter = optimget(options,<span class="string">'MaxIter'</span>,40);
+0015 
+0016 
+0017 fa = feval(fun,a,varargin{:});
+0018 fb = feval(fun,b,varargin{:});
+0019 
+0020 <span class="keyword">if</span> (fa*fb) &gt;= 0
+0021    error <span class="string">'f(a)*f(b) not negative'</span>
+0022 <span class="keyword">end</span>
+0023 
+0024 x = (a+b)/2;
+0025 y = feval(fun,x,varargin{:});
+0026 
+0027 <span class="keyword">for</span> i=1:maxiter
+0028    <span class="keyword">if</span> abs(b-a)/max(abs(b),1) &lt; tolx || abs(y) &lt; tolf
+0029       <span class="keyword">return</span>
+0030    <span class="keyword">end</span>
+0031    <span class="keyword">if</span> (fa*y)&lt;0
+0032       b = x;
+0033       fb = feval(fun,b,varargin{:});
+0034    <span class="keyword">else</span>
+0035       a = x;
+0036       fa = feval(fun,a,varargin{:});
+0037    <span class="keyword">end</span>
+0038    x = (a+b)/2;
+0039    y = feval(fun,x,varargin{:});
+0040 <span class="keyword">end</span>
+0041 
+0042 warning(<span class="string">'Maxiter exceeded'</span>)</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of normalex</title>
+  <meta name="keywords" content="normalex">
+  <meta name="description" content="%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html minimisers --><!-- ../menu.html mcmcstat --><!-- menu.html examples -->
+<h1>normalex
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%
+ &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Normal distribution&lt;/html&gt;</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../minimisers/mcmcstat/chiqf.html" class="code" title="function x=chiqf(p,df,nc)">chiqf</a>	CHIQF  Inverse of chi squared distribution</li><li><a href="../../../minimisers/mcmcstat/covcond.html" class="code" title="function [Sig,Lam] = covcond(c,a)">covcond</a>	COVCOND covariance matrix with given condition number</li><li><a href="../../../minimisers/mcmcstat/ellipse.html" class="code" title="function [o1,o2]=ellipse(mu,cmat,varargin)">ellipse</a>	ELLIPSE Draws a probability contour ellipse</li><li><a href="../../../minimisers/mcmcstat/iact.html" class="code" title="function [tau,m] = iact(dati)">iact</a>	IACT estimates the integrated autocorrelation time</li><li><a href="../../../minimisers/mcmcstat/mahalanobis.html" class="code" title="function d=mahalanobis(x,mu,cmat,inverted)">mahalanobis</a>	MAHALANOBIS Malalanobis distance of rows in x</li><li><a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../../minimisers/mcmcstat_new/chiqf.html" class="code" title="function x=chiqf(p,df,nc)">chiqf</a>	CHIQF  Inverse of chi squared distribution</li><li><a href="../../../minimisers/mcmcstat_new/covcond.html" class="code" title="function [Sig,Lam] = covcond(c,a)">covcond</a>	COVCOND covariance matrix with given condition number</li><li><a href="../../../minimisers/mcmcstat_new/ellipse.html" class="code" title="function [o1,o2]=ellipse(mu,cmat,varargin)">ellipse</a>	ELLIPSE Draws a probability contour ellipse</li><li><a href="../../../minimisers/mcmcstat_new/iact.html" class="code" title="function [tau,m] = iact(dati)">iact</a>	IACT estimates the integrated autocorrelation time</li><li><a href="../../../minimisers/mcmcstat_new/mahalanobis.html" class="code" title="function d=mahalanobis(x,mu,cmat,inverted)">mahalanobis</a>	MAHALANOBIS Malalanobis distance of rows in x</li><li><a href="../../../minimisers/mcmcstat_new/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%</span>
+0002 <span class="comment">% &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Normal distribution&lt;/html&gt;</span>
+0003 
+0004 <span class="comment">%% MCMC toolbox example</span>
+0005 <span class="comment">% In this example, we generate Gaussian target with known covariance</span>
+0006 <span class="comment">% matrix. The target distribution has a known form and could be</span>
+0007 <span class="comment">% calculated analytically, so this simulation is mainly for testing of</span>
+0008 <span class="comment">% the algorithms. We study the correctness of the chain by</span>
+0009 <span class="comment">% calculating points that lie inside 50% and 95% probability contours.</span>
+0010 
+0011 clear model data params options
+0012 
+0013 nsimu = 10000;  <span class="comment">% number of simulations</span>
+0014 npar  = 100;     <span class="comment">% dimension of the unknown</span>
+0015 
+0016 data.x0 = zeros(1,npar); <span class="comment">% mean vector</span>
+0017 
+0018 <span class="comment">%%</span>
+0019 <span class="comment">% We create the needed prameter structure in a loop</span>
+0020 <span class="keyword">for</span> i=1:npar
+0021   <span class="comment">%            'name'                     initial</span>
+0022   params{i} = {sprintf(<span class="string">'\\theta_{%d}'</span>,i), data.x0(i)};
+0023 <span class="keyword">end</span>
+0024 
+0025 <span class="comment">%%</span>
+0026 <span class="comment">% Create covariance and precision matrises. Function |covcond|</span>
+0027 <span class="comment">% creates a covariance matrix with given condition number and a</span>
+0028 <span class="comment">% direction of the first principal axis. It returns the covariance</span>
+0029 <span class="comment">% matrix and its inverse, the precision matrix.</span>
+0030 [Sig,Lam] = <a href="../../../minimisers/mcmcstat/covcond.html" class="code" title="function [Sig,Lam] = covcond(c,a)">covcond</a>(100,ones(npar,1));
+0031 
+0032 <span class="comment">%%</span>
+0033 <span class="comment">% Store the precision matrix in |data| structure  so we can use it in the</span>
+0034 <span class="comment">% |ssfun|.</span>
+0035 data.Lam = Lam;
+0036 
+0037 <span class="comment">%%</span>
+0038 <span class="comment">% The function |ssfun| for |mcmcrun| is the quadratic form in the Gaussian</span>
+0039 <span class="comment">% distribution.</span>
+0040 
+0041 model.ssfun     = @(x,data) (x-data.x0)*data.Lam*(x-data.x0)';
+0042 model.N         = 1;
+0043 
+0044 <span class="comment">%%</span>
+0045 <span class="comment">% For |mcmcrun| we use scaled version of the known target</span>
+0046 <span class="comment">% covariance as the proposal covariance. This scaling is known to</span>
+0047 <span class="comment">% produce an optimal proposal.</span>
+0048 options.nsimu   = nsimu;
+0049 options.qcov    = 2.4^2/npar*Sig;
+0050 options.method  = <span class="string">'ram'</span>;  <span class="comment">% use the (default) DRAM method</span>
+0051 options.verbosity = 1;
+0052 
+0053 <span class="comment">%%</span>
+0054 <span class="comment">% Generate the MCMC chain.</span>
+0055 [results,chain] = <a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>(model,data,params,options);
+0056 
+0057 <span class="comment">%%</span>
+0058 figure(1); clf
+0059 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,[1:4],results.names,<span class="string">'chainpanel'</span>)
+0060 
+0061 <span class="comment">%%</span>
+0062 <span class="comment">% From the generated chain we calculate the relative distances of the</span>
+0063 <span class="comment">% chain points from the origin and count the points that are inside</span>
+0064 <span class="comment">% given probability limits. Then we plot the first two dimensions of the</span>
+0065 <span class="comment">% chain together with the correct probability contours.</span>
+0066 <span class="comment">%</span>
+0067 <span class="comment">% The title of the 2d plot shows the rejection rate and the propotion of</span>
+0068 <span class="comment">% points inside the ellipsoids. Number tau*t in the title tells how many</span>
+0069 <span class="comment">% seconds it takes to generate 1000 independent samples according to</span>
+0070 <span class="comment">% the integrated autocorrelation time (|iact|) estimate.</span>
+0071 
+0072 d    = <a href="../../../minimisers/mcmcstat/mahalanobis.html" class="code" title="function d=mahalanobis(x,mu,cmat,inverted)">mahalanobis</a>(chain(:,1:npar),data.x0,Lam,1);
+0073 c50  = <a href="../../../minimisers/mcmcstat/chiqf.html" class="code" title="function x=chiqf(p,df,nc)">chiqf</a>(0.50,npar);
+0074 c95  = <a href="../../../minimisers/mcmcstat/chiqf.html" class="code" title="function x=chiqf(p,df,nc)">chiqf</a>(0.95,npar);
+0075 cc50 = sum(d&lt;c50)./nsimu;
+0076 cc95 = sum(d&lt;c95)./nsimu;
+0077 
+0078 figure(2); clf
+0079 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,[1,2],results.names,<span class="string">'pairs'</span>,0)
+0080 
+0081 title(sprintf(<span class="string">'Rejected = %.1f%%, c50 = %.1f%%, c95 = %.1f%%, \\tau*t=%.1f'</span>, <span class="keyword">...</span>
+0082               results.rejected*100, cc50*100, cc95*100, <span class="keyword">...</span>
+0083               results.simutime/results.nsimu*1000*mean(<a href="../../../minimisers/mcmcstat/iact.html" class="code" title="function [tau,m] = iact(dati)">iact</a>(chain))))
+0084 
+0085 c50  = <a href="../../../minimisers/mcmcstat/chiqf.html" class="code" title="function x=chiqf(p,df,nc)">chiqf</a>(0.50,2);
+0086 c95  = <a href="../../../minimisers/mcmcstat/chiqf.html" class="code" title="function x=chiqf(p,df,nc)">chiqf</a>(0.95,2);
+0087 
+0088 hold on
+0089 <a href="../../../minimisers/mcmcstat/ellipse.html" class="code" title="function [o1,o2]=ellipse(mu,cmat,varargin)">ellipse</a>(data.x0(1:2),c50*Sig(1:2,1:2),<span class="string">'r--'</span>,<span class="string">'LineWidth'</span>,2);
+0090 <a href="../../../minimisers/mcmcstat/ellipse.html" class="code" title="function [o1,o2]=ellipse(mu,cmat,varargin)">ellipse</a>(data.x0(1:2),c95*Sig(1:2,1:2),<span class="string">'r-'</span>,<span class="string">'LineWidth'</span>,2);
+0091 axis equal
+0092 hold off</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

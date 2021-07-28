@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of hist2d</title>
+  <meta name="keywords" content="hist2d">
+  <meta name="description" content="HIST2D 2d smoothed histogram calculations">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>hist2d
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>HIST2D 2d smoothed histogram calculations</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [y,xx,yy]=hist2d(x,mxmy,nbin,lam,plots) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">HIST2D 2d smoothed histogram calculations
+ [z,xout,yout] = hist2d(xy,[xmin xmax ymin ymax],nbin)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/hline.html" class="code" title="function out=hline(h,v)">hline</a>	HLINE  Adds a horizontal/vertical line to current figure</li><li><a href="../../minimisers/mcmcstat/smooth2d.html" class="code" title="function Z = smooth2d(X,lam,order)">smooth2d</a>	SMOOTH2D - smooth matrix rows and columns</li><li><a href="../../minimisers/mcmcstat/xyplot.html" class="code" title="function h=xyplot(xy,varargin)">xyplot</a>	XYPLOT  Plot two first columns of a matrix</li><li><a href="hline.html" class="code" title="function out=hline(h,v)">hline</a>	HLINE  Adds a horizontal/vertical line to current figure</li><li><a href="smooth2d.html" class="code" title="function Z = smooth2d(X,lam,order)">smooth2d</a>	SMOOTH2D - smooth matrix rows and columns</li><li><a href="xyplot.html" class="code" title="function h=xyplot(xy,varargin)">xyplot</a>	XYPLOT  Plot two first columns of a matrix</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [y,xx,yy]=hist2d(x,mxmy,nbin,lam,plots)</a>
+0002 <span class="comment">%HIST2D 2d smoothed histogram calculations</span>
+0003 <span class="comment">% [z,xout,yout] = hist2d(xy,[xmin xmax ymin ymax],nbin)</span>
+0004 
+0005 <span class="comment">% todo: how to set the default smoothing parameter?</span>
+0006 <span class="comment">% how to set the default nbin?</span>
+0007 
+0008 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0009 <span class="comment">% $Revision: 1.6 $  $Date: 2013/07/12 07:34:03 $</span>
+0010 
+0011 <span class="keyword">if</span> nargin&lt;2 | isempty(mxmy)
+0012   mxmy = [min(x(:,1)),max(x(:,1)),min(x(:,2)),max(x(:,2))];
+0013 <span class="keyword">end</span>
+0014 
+0015 <span class="keyword">if</span> nargin&lt;3|isempty(nbin)
+0016   n = 10; <span class="comment">% default number of intervals</span>
+0017 <span class="keyword">else</span>
+0018   n = nbin;
+0019 <span class="keyword">end</span>
+0020 <span class="keyword">if</span> nargin&lt;4|isempty(lam)
+0021   lam = 25;
+0022 <span class="keyword">end</span>
+0023 <span class="keyword">if</span> nargin&lt;5
+0024   <span class="keyword">if</span> nargout&lt;1
+0025     plots=1;
+0026   <span class="keyword">else</span>
+0027     plots=0;
+0028   <span class="keyword">end</span>
+0029 <span class="keyword">end</span>
+0030 xi = linspace(mxmy(1),mxmy(2),n+1);
+0031 yi = linspace(mxmy(3),mxmy(4),n+1);
+0032 xx = xi(1:end-1)+diff(xi)./2;
+0033 yy = yi(1:end-1)+diff(yi)./2;
+0034 
+0035 zz = [];
+0036 <span class="keyword">for</span> i=1:(n-1)
+0037   z = hist(x(find( x(:,1) &gt;= xi(i) &amp; x(:,1) &lt; xi(i+1) ),2),n);
+0038   zz = [zz,z'];
+0039 <span class="keyword">end</span>
+0040 z = hist(x(find( x(:,1) &gt;= xi(n) &amp; x(:,1) &lt;= xi(n+1) ),2),n);
+0041 zz = [zz,z'];
+0042 
+0043 <span class="keyword">if</span> lam==0
+0044   C = zz;
+0045 <span class="keyword">else</span>
+0046   C = <a href="smooth2d.html" class="code" title="function Z = smooth2d(X,lam,order)">smooth2d</a>(zz,lam);
+0047 <span class="keyword">end</span>
+0048 <span class="keyword">if</span> nargout &gt; 0
+0049   y = C;
+0050 <span class="keyword">end</span>
+0051 
+0052 <span class="comment">% some debugging, if plots &gt; 1</span>
+0053 <span class="keyword">if</span> plots&gt;1
+0054   figure(1);
+0055   <a href="xyplot.html" class="code" title="function h=xyplot(xy,varargin)">xyplot</a>(x);
+0056   <span class="keyword">for</span> i=1:(n+1)
+0057     <a href="hline.html" class="code" title="function out=hline(h,v)">hline</a>(yi(i));
+0058     <a href="hline.html" class="code" title="function out=hline(h,v)">hline</a>([],xi(i));
+0059   <span class="keyword">end</span>
+0060 <span class="keyword">end</span>
+0061 <span class="keyword">if</span> plots
+0062   <span class="comment">% figure(2); mesh(xx,yy,C);</span>
+0063   <span class="keyword">if</span> plots&gt;1, figure(2); <span class="keyword">end</span>
+0064   contour(xx,yy,C);
+0065   <span class="keyword">if</span> plots&gt;1
+0066     figure(3); 
+0067     contour(xx,yy,zz);
+0068   <span class="keyword">end</span>
+0069 <span class="keyword">end</span>
+0070</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

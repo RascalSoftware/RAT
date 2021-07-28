@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of runDE</title>
+  <meta name="keywords" content="runDE">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html DE -->
+<h1>runDE
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [problemDef,problem,result] = runDE(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="RAT_deopt.html" class="code" title="function [FVr_bestmem,problem] = RAT_deopt(fname,problem,problemDef_limits,problemDef_cells,plotIt,controls,S_struct)">RAT_deopt</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li><li><a href="../../minimisers/generalUtils/fitsetup.html" class="code" title="function [problemDef,out] = fitsetup(problemDef,problemDef_cells,problemDef_limits,controls)">fitsetup</a>	</li><li><a href="../../minimisers/generalUtils/unpackparams.html" class="code" title="function problemDef = unpackparams(problemDef,controls)">unpackparams</a>	Unpack the params out of the fitparsma and otherparams arrays</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function S_MSE = intrafun(p,problemDef,controls,problemDef_cells,problemDef_limits);</a></li><li><a href="#_sub2" class="code">function PlotIt(FVr_bestmem,problem)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problemDef,problem,result] = runDE(problemDef,problemDef_cells,problemDef_limits,controls)</a>
+0002 
+0003 
+0004 [problemDef,fitNames] = <a href="../../minimisers/generalUtils/fitsetup.html" class="code" title="function [problemDef,out] = fitsetup(problemDef,problemDef_cells,problemDef_limits,controls)">fitsetup</a>(problemDef,problemDef_cells,problemDef_limits,controls);
+0005 F_VTR = controls.VTR; <span class="comment">%Value to reach</span>
+0006 I_D = length(problemDef.fitpars);
+0007 
+0008 FVr_minbound = problemDef.fitconstr(:,1)'; 
+0009 FVr_maxbound = problemDef.fitconstr(:,2)'; 
+0010 I_bnd_constr = 1;  <span class="comment">%1: use bounds as bound constraints, 0: no bound constraints</span>
+0011 
+0012 <span class="comment">% I_NP            number of population members</span>
+0013 I_NP = controls.populationSize; 
+0014 
+0015 <span class="comment">% I_itermax       maximum number of iterations (generations)</span>
+0016 I_itermax = controls.numGen;
+0017 
+0018 <span class="comment">% F_weight        DE-stepsize F_weight ex [0, 2]</span>
+0019 F_weight = controls.F_weight; 
+0020 
+0021 <span class="comment">% F_CR            crossover probabililty constant ex [0, 1]</span>
+0022 F_CR = controls.F_CR; 
+0023 
+0024 <span class="comment">% I_strategy     1 --&gt; DE/rand/1:</span>
+0025 <span class="comment">%                      the classical version of DE.</span>
+0026 <span class="comment">%                2 --&gt; DE/local-to-best/1:</span>
+0027 <span class="comment">%                      a version which has been used by quite a number</span>
+0028 <span class="comment">%                      of scientists. Attempts a balance between robustness</span>
+0029 <span class="comment">%                      and fast convergence.</span>
+0030 <span class="comment">%                3 --&gt; DE/best/1 with jitter:</span>
+0031 <span class="comment">%                      taylored for small population sizes and fast convergence.</span>
+0032 <span class="comment">%                      Dimensionality should not be too high.</span>
+0033 <span class="comment">%                4 --&gt; DE/rand/1 with per-vector-dither:</span>
+0034 <span class="comment">%                      Classical DE with dither to become even more robust.</span>
+0035 <span class="comment">%                5 --&gt; DE/rand/1 with per-generation-dither:</span>
+0036 <span class="comment">%                      Classical DE with dither to become even more robust.</span>
+0037 <span class="comment">%                      Choosing F_weight = 0.3 is a good start here.</span>
+0038 <span class="comment">%                6 --&gt; DE/rand/1 either-or-algorithm:</span>
+0039 <span class="comment">%                      Alternates between differential mutation and three-point-</span>
+0040 <span class="comment">%                      recombination.</span>
+0041 
+0042 I_strategy = 5;
+0043 
+0044 <span class="comment">% I_refresh     intermediate output will be produced after &quot;I_refresh&quot;</span>
+0045 <span class="comment">%               iterations. No intermediate output will be produced</span>
+0046 <span class="comment">%               if I_refresh is &lt; 1</span>
+0047 I_refresh = 1;
+0048 
+0049 <span class="comment">% I_plotting    Will use plotting if set to 1. Will skip plotting otherwise.</span>
+0050 I_plotting = 0;
+0051 
+0052 <span class="comment">%-----Definition of tolerance scheme--------------------------------------</span>
+0053 <span class="comment">%-----The scheme is sampled at I_lentol points----------------------------</span>
+0054 I_lentol   = 50;
+0055 FVr_x      = linspace(-1,1,I_lentol); <span class="comment">%ordinate running from -1 to +1</span>
+0056 FVr_lim_up = ones(1,I_lentol);   <span class="comment">%upper limit is 1</span>
+0057 FVr_lim_lo = -ones(1,I_lentol);  <span class="comment">%lower limit is -1</span>
+0058 
+0059 <span class="comment">%Tell comiler abut variable sizes</span>
+0060 coder.varsize(<span class="string">'S_struct.I_lentol'</span>, [Inf 1],[1 0]);
+0061 coder.varsize(<span class="string">'S_struct.FVr_x'</span>, [1 Inf],[0 1]);
+0062 coder.varsize(<span class="string">'S_struct.FVr_lim_up'</span>, [1 Inf],[0 1]);
+0063 coder.varsize(<span class="string">'S_struct.FVr_lim_lo'</span>, [1 Inf],[0 1]);
+0064 
+0065 coder.varsize(<span class="string">'S_struct.I_NP'</span>, [1 1],[0 0]);
+0066 coder.varsize(<span class="string">'S_struct.F_weight'</span>, [1 1],[0 0]);
+0067 coder.varsize(<span class="string">'S_struct.F_CR'</span>, [1 1],[0 0]);
+0068 coder.varsize(<span class="string">'S_struct.I_D'</span>, [1 1],[0 0]);
+0069 coder.varsize(<span class="string">'S_struct.FVr_minbound'</span>, [1 2],[0 0]);
+0070 coder.varsize(<span class="string">'S_struct.FVr_maxbound'</span>, [1 2],[0 0]);
+0071 coder.varsize(<span class="string">'S_struct.I_bnd_constr'</span>, [1 1],[0 0]);
+0072 coder.varsize(<span class="string">'S_struct.I_itermax'</span>, [1 1],[0 0]);
+0073 coder.varsize(<span class="string">'S_struct.F_VTR'</span>, [1 1],[0 0]);
+0074 coder.varsize(<span class="string">'S_struct.I_strategy'</span>, [1 1],[0 0]);
+0075 coder.varsize(<span class="string">'S_struct.I_refresh'</span>, [1 1],[0 0]);
+0076 coder.varsize(<span class="string">'S_struct.I_plotting'</span>, [1 1],[0 0]);
+0077 coder.varsize(<span class="string">'S_struct.FM_pop'</span>,[Inf 2],[1 0]);
+0078 coder.varsize(<span class="string">'FVr_bestmem'</span>,[1 2],[0 0]);
+0079 
+0080 <span class="comment">%-----tie all important values to a structure that can be passed along----</span>
+0081 S_struct.I_lentol   = I_lentol;
+0082 S_struct.FVr_x      = FVr_x;
+0083 S_struct.FVr_lim_up = FVr_lim_up;
+0084 S_struct.FVr_lim_lo = FVr_lim_lo;
+0085 
+0086 S_struct.I_NP         = I_NP;
+0087 S_struct.F_weight     = F_weight;
+0088 S_struct.F_CR         = F_CR;
+0089 S_struct.I_D          = I_D;
+0090 S_struct.FVr_minbound = FVr_minbound;
+0091 S_struct.FVr_maxbound = FVr_maxbound;
+0092 S_struct.I_bnd_constr = I_bnd_constr;
+0093 S_struct.I_itermax    = I_itermax;
+0094 S_struct.F_VTR        = F_VTR;
+0095 S_struct.I_strategy   = I_strategy;
+0096 S_struct.I_refresh    = I_refresh;
+0097 S_struct.I_plotting   = I_plotting;
+0098 S_struct.FM_pop = zeros(I_NP,2);
+0099 S_struct.FVr_bestmem = [0 0];
+0100 
+0101 <span class="comment">%res = RAT_deopt(@intrafun,problemDef,@PlotIt,controls,S_struct);</span>
+0102 
+0103 [res,problemDef] = <a href="RAT_deopt.html" class="code" title="function [FVr_bestmem,problem] = RAT_deopt(fname,problem,problemDef_limits,problemDef_cells,plotIt,controls,S_struct)">RAT_deopt</a>(@<a href="#_sub1" class="code" title="subfunction S_MSE = intrafun(p,problemDef,controls,problemDef_cells,problemDef_limits);">intrafun</a>,problemDef,problemDef_limits,problemDef_cells,@plotIt,controls,S_struct);
+0104 problemDef.fitpars = res;
+0105 problemDef = <a href="../../minimisers/generalUtils/unpackparams.html" class="code" title="function problemDef = unpackparams(problemDef,controls)">unpackparams</a>(problemDef,controls);
+0106 [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+0107 
+0108 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0109     fprintf(<span class="string">'Final chi squared is %d\n'</span>,problem.calculations.sum_chi);
+0110 <span class="keyword">end</span>
+0111 
+0112 <span class="keyword">end</span>
+0113 
+0114 
+0115 <a name="_sub1" href="#_subfunctions" class="code">function S_MSE = intrafun(p,problemDef,controls,problemDef_cells,problemDef_limits);</a>
+0116 
+0117 <span class="comment">% S_MSE.I_nc      = [];</span>
+0118 <span class="comment">% S_MSE.FVr_ca    = [];</span>
+0119 <span class="comment">% S_MSE.I_no      = [];</span>
+0120 <span class="comment">% S_MSE.FVr_oa(1) = [];</span>
+0121 
+0122 coder.varsize(<span class="string">'S_MSE.I_nc'</span>,[1 1],[0 0]);
+0123 coder.varsize(<span class="string">'S_MSE.FVr_ca'</span>,[1 1],[0 0]);
+0124 coder.varsize(<span class="string">'S_MSE.I_no'</span>,[1 1],[0 0]);
+0125 coder.varsize(<span class="string">'S_MSE.FVr_oa'</span>,[1 1],[0 0]);
+0126 
+0127 <span class="comment">% data = problem.data;</span>
+0128 <span class="comment">% x = data(:,1);</span>
+0129 <span class="comment">% y = data(:,2);</span>
+0130 <span class="comment">% e = data(:,3);</span>
+0131 <span class="comment">%</span>
+0132 <span class="comment">% line = (p(1)*x) + p(2);</span>
+0133 <span class="comment">%</span>
+0134 <span class="comment">% fval = sum(((y-line).^2)./e);</span>
+0135 
+0136 problemDef.fitpars = p;
+0137 problemDef = <a href="../../minimisers/generalUtils/unpackparams.html" class="code" title="function problemDef = unpackparams(problemDef,controls)">unpackparams</a>(problemDef,controls);
+0138 [problemDef,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+0139 fval = problemDef.calculations.sum_chi;
+0140 
+0141 S_MSE.I_nc      = 0;<span class="comment">%no constraints                 THESE FIRST FEW VALS MAY BE WRONG</span>
+0142 S_MSE.FVr_ca    = 0;<span class="comment">%no constraint array</span>
+0143 S_MSE.I_no      = 1;<span class="comment">%number of objectives (costs)</span>
+0144 S_MSE.FVr_oa = fval;
+0145 
+0146 <span class="keyword">end</span>
+0147 
+0148 
+0149 <a name="_sub2" href="#_subfunctions" class="code">function PlotIt(FVr_bestmem,problem)</a>
+0150 
+0151 <span class="comment">% problem.fitpars = FVr_bestmem;</span>
+0152 <span class="comment">% setappdata(0,'problem',problem);</span>
+0153 
+0154 p = FVr_bestmem;
+0155 
+0156 data = problem.data;
+0157 x = data(:,1);
+0158 y = data(:,2);
+0159 e = data(:,3);
+0160 
+0161 line = (p(1)*x) + p(2);
+0162 
+0163 figure(1)
+0164 clf;hold on
+0165 <span class="comment">%errorbar(x,y,e,'bo');</span>
+0166 plot(x,line);
+0167 
+0168 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

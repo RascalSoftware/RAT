@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of negbinpf</title>
+  <meta name="keywords" content="negbinpf">
+  <meta name="description" content="NEGBINPF Negative biomial probability function">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>negbinpf
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>NEGBINPF Negative biomial probability function</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function y=negbinpf(x,lam,om) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> NEGBINPF Negative biomial probability function
+ y = negbinpf(x,lam,om)
+ 'Poisson' parametrization
+ E(x) = lam, D^2 = lam + lam^2/om
+ negbin(lam,om) -&gt; poisson(lam), if om-&gt;infinity</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function y=negbinpf(x,lam,om)</a>
+0002 <span class="comment">% NEGBINPF Negative biomial probability function</span>
+0003 <span class="comment">% y = negbinpf(x,lam,om)</span>
+0004 <span class="comment">% 'Poisson' parametrization</span>
+0005 <span class="comment">% E(x) = lam, D^2 = lam + lam^2/om</span>
+0006 <span class="comment">% negbin(lam,om) -&gt; poisson(lam), if om-&gt;infinity</span>
+0007 
+0008 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0009 <span class="comment">% $Revision: 1.2 $  $Date: 2012/09/27 11:47:38 $</span>
+0010 y = gammaln(om+x)-gammaln(om)-gammaln(x+1) + <span class="keyword">...</span>
+0011     x.*log(lam./(lam+om)) + om.*log(om./(om+lam));
+0012 y = exp(y);</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

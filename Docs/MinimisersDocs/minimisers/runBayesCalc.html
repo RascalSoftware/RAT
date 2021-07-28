@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of runBayesCalc</title>
+  <meta name="keywords" content="runBayesCalc">
+  <meta name="description" content="Clear any values from previous runs if prsent">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html minimisers -->
+<h1>runBayesCalc
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Clear any values from previous runs if prsent</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function output = runBayes(loop,nsimu,burnin,params) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Clear any values from previous runs if prsent</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../minimisers/generalUtils/packparams.html" class="code" title="function [problemDef,fitNames] = packparams(problemDef,problemDef_cells,limits,checks)">packparams</a>	Separate out the params array into fitting</li><li><a href="../minimisers/generalUtils/unpackparams.html" class="code" title="function problemDef = unpackparams(problemDef,controls)">unpackparams</a>	Unpack the params out of the fitparsma and otherparams arrays</li><li><a href="../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../minimisers/mcmcstat/refModel.html" class="code" title="function ymod = refModel(data,problem,theta,varargin)">refModel</a>	Returns the reflectivity profile. Need to do some extra work because</li><li><a href="../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../minimisers/mcmcstat_new/refModel.html" class="code" title="function ymod = refModel(data,problem,theta,varargin)">refModel</a>	Returns the reflectivity profile. Need to do some extra work because</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function ss = fitModel(theta,data)</a></li><li><a href="#_sub2" class="code">function ymod = refModel(data,theta,varargin)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function output = runBayes(loop,nsimu,burnin,params)</a>
+0002 
+0003 <span class="comment">% Clear any values from previous runs if prsent</span>
+0004 clear model data options
+0005 
+0006 problem = getappdata(0,<span class="string">'problem'</span>);
+0007 oldCalcSLD = problem.calcSLD;
+0008 problem.calcSLD = 0;
+0009 problem = <a href="../minimisers/generalUtils/packparams.html" class="code" title="function [problemDef,fitNames] = packparams(problemDef,problemDef_cells,limits,checks)">packparams</a>(problem);
+0010 
+0011 <span class="comment">% fitpars = problem.fitpars;</span>
+0012 <span class="comment">% fitNames = problem.fitNames;</span>
+0013 <span class="comment">% limits = problem.fitconstr;</span>
+0014 
+0015 <span class="comment">%data = problem.data;</span>
+0016 <span class="comment">% Arrange the data into the format mcmcstat requires</span>
+0017 <span class="comment">% We have the same number of 'batches' as contrasts.</span>
+0018 <span class="comment">% Also need to pass problem in order to access this</span>
+0019 <span class="comment">% from the subfunctions.</span>
+0020 numberOfContrasts = problem.numberOfContrasts;
+0021 <span class="keyword">for</span> i = 1:numberOfContrasts
+0022     thisData = problem.data{i};
+0023     data{i}.ydata = [thisData(:,1:2)];
+0024     data{i}.problem = problem;
+0025 <span class="keyword">end</span>
+0026 
+0027 
+0028 <span class="comment">% Define model and method options.</span>
+0029 model.modelfun      =   @<a href="../minimisers/mcmcstat/refModel.html" class="code" title="function ymod = refModel(data,problem,theta,varargin)">refModel</a>;     <span class="comment">% will return a reflectivity curve</span>
+0030 model.ssfun         =   @<a href="#_sub1" class="code" title="subfunction ss = fitModel(theta,data)">fitModel</a>;     <span class="comment">% will return chi squared</span>
+0031 <span class="comment">%model.sigma2        =   1;          % initial error variance</span>
+0032 <span class="comment">%model.N0            =   1;             % prior (invchisq) weight for sigma2</span>
+0033 model.nbatch        = numberOfContrasts;
+0034 
+0035 options.method      = <span class="string">'dram'</span>;          <span class="comment">% adaptation method (mh, am, dr, dram)</span>
+0036 options.nsimu       = nsimu;           <span class="comment">% no of simulation</span>
+0037 <span class="comment">%options.qcov        = eye(3)*0.001;    % proposal covariance (not sure why 11....)</span>
+0038 <span class="comment">%options.adaptint    = adaptint;        % adaptation interval</span>
+0039 options.printint    = 200;             <span class="comment">% how often to show info of acceptance ratios</span>
+0040 options.verbosity   = 1;               <span class="comment">% how much to show output</span>
+0041 options.waitbar     = 1;               <span class="comment">% show graphical waitbar</span>
+0042 options.updatesigma = 0;               <span class="comment">% update error variance</span>
+0043 options.stats       = 1;               <span class="comment">% save extra statistics in result</span>
+0044 options.burnintime  = burnin;      <span class="comment">% burn in time..</span>
+0045 
+0046 <span class="comment">% options.method = 'dram';</span>
+0047 <span class="comment">% options.nsimu = nsimu;%50000;</span>
+0048 <span class="comment">% options.verbosity = 1;</span>
+0049 <span class="comment">% options.adaptint = 500;</span>
+0050 <span class="comment">% options.burnintime = burnin;</span>
+0051 <span class="comment">%</span>
+0052 <span class="comment">% model.ssfun = @MCMC_Intrafun;</span>
+0053 
+0054 res = [];
+0055 <span class="keyword">for</span> i = 1:loop
+0056     bayesInfoText(sprintf(<span class="string">'Running loop %d of %d'</span>,i,loop));
+0057     [results,chain,s2chain,sschain] = <a href="../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>(model, data, params, options, res);
+0058 <span class="keyword">end</span>
+0059 
+0060 output.results = results;
+0061 output.chain = chain;
+0062 output.s2chain = s2chain;
+0063 output.sschain = sschain;
+0064 output.bestPars = results.mean;
+0065 output.data = data;
+0066 
+0067 problem.calcSLD = oldCalcSLD;
+0068 setappdata(0,<span class="string">'problem'</span>,problem)
+0069 
+0070 <span class="keyword">end</span>
+0071 
+0072 <span class="comment">%-------------------------------------------------------</span>
+0073 <a name="_sub1" href="#_subfunctions" class="code">function ss = fitModel(theta,data)</a>
+0074 
+0075 <span class="comment">% Sum of squares function used in the calculation</span>
+0076 <span class="comment">% Calls reflectivity calculation and returns the value of chisquared</span>
+0077 
+0078 pars = theta;                         <span class="comment">% Current parameter values from mcmcstat</span>
+0079 problem = data{1}.problem;              <span class="comment">% Struct needed for the calculation</span>
+0080 
+0081 problem.fitpars = pars;
+0082 problem = <a href="../minimisers/generalUtils/unpackparams.html" class="code" title="function problemDef = unpackparams(problemDef,controls)">unpackparams</a>(problem);
+0083 <span class="comment">%setappdata(0,'problem',problem);</span>
+0084 problem = reflectivity_calculation(problem);
+0085 <span class="comment">%problem = getappdata(0,'problem');</span>
+0086 ss = problem.calculations.sum_chi;
+0087 
+0088 <span class="keyword">end</span>
+0089 
+0090 
+0091 <span class="comment">%---------------------------------------------------------</span>
+0092 <a name="_sub2" href="#_subfunctions" class="code">function ymod = refModel(data,theta,varargin)</a>
+0093 
+0094 <span class="comment">% Returns the reflectivity profile. Need to do some extra work because</span>
+0095 <span class="comment">% 'reflectivity-calculation' adjusts the data according to scalefactor.</span>
+0096 <span class="comment">% We need to reverse this correction, and actually return the simulation</span>
+0097 <span class="comment">% corrected for the scalefactor. We have to do this because the scalefactor</span>
+0098 <span class="comment">% is in itself one of our fitting parameters (no need to correct the data -</span>
+0099 <span class="comment">% problem.shifted_data contains the corrected data, but</span>
+0100 <span class="comment">% problem.data is a record of the original).</span>
+0101 
+0102 <span class="keyword">if</span> isempty(varargin)
+0103     contrast = 1;
+0104 <span class="keyword">else</span>
+0105     contrast = varargin{1};
+0106 <span class="keyword">end</span>
+0107 
+0108 <span class="keyword">if</span> iscell(data)
+0109     thisData = data{contrast}.ydata;
+0110     problem = data{contrast}.problem;
+0111 <span class="keyword">else</span>
+0112     thisData = data.ydata;
+0113     problem = data.problem;
+0114 <span class="keyword">end</span>
+0115 
+0116 <span class="keyword">if</span> nargin == 4
+0117     debugPlot = varargin{2};
+0118 <span class="keyword">else</span>
+0119     debugPlot = 0;
+0120 <span class="keyword">end</span>
+0121 
+0122 params = theta;
+0123 
+0124 problem.fitpars = params;
+0125 problem = <a href="../minimisers/generalUtils/unpackparams.html" class="code" title="function problemDef = unpackparams(problemDef,controls)">unpackparams</a>(problem);
+0126 <span class="comment">%setappdata(0,'problem',problem);</span>
+0127 problem = reflectivity_calculation(problem);
+0128 <span class="comment">%problem = getappdata(0,'problem');</span>
+0129 ySim = problem.calculations.Simulation{contrast};
+0130 
+0131 <span class="comment">% Need to correct the simulation for the scalefactor (i.e. move the sim to</span>
+0132 <span class="comment">% the data, unlike what we normally do)</span>
+0133 scale = problem.scalefactors(1);        
+0134 ymod = ySim(:,2).*scale;        <span class="comment">% Do something more flashy here for multiple contrasts</span>
+0135 
+0136 <span class="comment">% Debug plot to check that everything works..</span>
+0137 <span class="comment">%debugPlot = 0;</span>
+0138 <span class="keyword">if</span> debugPlot
+0139     plot(thisData(:,1),thisData(:,2),<span class="string">'o'</span>);
+0140     hold on
+0141     plot(ySim(:,1),ymod,<span class="string">'-'</span>);
+0142     hold off
+0143 <span class="keyword">end</span>
+0144 
+0145 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

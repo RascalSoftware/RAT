@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of getN</title>
+  <meta name="keywords" content="getN">
+  <meta name="description" content="try to guess number of data lines of data for mcmcrun">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html minimisers --><!-- ../menu.html mcmcstat_new --><!-- menu.html private -->
+<h1>getN
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>try to guess number of data lines of data for mcmcrun</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function n=getN(data) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> try to guess number of data lines of data for mcmcrun</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../../minimisers/mcmcstat/mcmcrun_compile.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun_compile(model,data,problem,params,options,res)">mcmcrun_compile</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function n=getN(data)</a>
+0002 <span class="comment">% try to guess number of data lines of data for mcmcrun</span>
+0003 
+0004 <span class="comment">% $Revision: 1.3 $  $Date: 2014/12/15 20:01:12 $</span>
+0005 
+0006 <span class="comment">%try</span>
+0007 
+0008 <span class="keyword">if</span> isnumeric(data)
+0009   n = size(data,1);
+0010 <span class="keyword">elseif</span> iscell(data)
+0011   nb = length(data);
+0012   n = 0;
+0013   <span class="keyword">for</span> i=1:nb
+0014     <span class="keyword">if</span> isfield(data{i},<span class="string">'ydata'</span>)
+0015       ydata = data{i};<span class="comment">%.ydata;</span>
+0016     <span class="comment">% first column is &quot;time&quot; FIXME</span>
+0017 <span class="comment">%      if size(ydata,2)&gt;1, beg=2; else, beg=1; end</span>
+0018 <span class="comment">%      n = n + sum(isfinite(ydata(:,beg:end)));</span>
+0019       n = n + sum(isfinite(ydata));
+0020     <span class="keyword">else</span>
+0021       n = [];
+0022       <span class="keyword">return</span>; <span class="comment">% no 'ydata' found in some batch, return</span>
+0023     <span class="keyword">end</span>
+0024   <span class="keyword">end</span>
+0025 <span class="keyword">elseif</span> isstruct(data)
+0026 <span class="comment">%   if isfield(data,'ydata')</span>
+0027 <span class="comment">%     if isnumeric(data.ydata)</span>
+0028 <span class="comment">%       % first column is &quot;time&quot;</span>
+0029 <span class="comment">%       %    if size(data.ydata,2)&gt;1, beg=2; else, beg=1; end</span>
+0030 <span class="comment">%       %    n = sum(isfinite(data.ydata(:,beg:end)));</span>
+0031 <span class="comment">%       n = sum(isfinite(data.ydata));</span>
+0032 <span class="comment">%     else</span>
+0033 <span class="comment">%       % data.ydata{i}</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">%         nb = length(data.ydata);</span>
+0036 <span class="comment">%         n = 0;</span>
+0037 <span class="comment">%         for i=1:nb</span>
+0038 <span class="comment">%           ydata = data.ydata{i};</span>
+0039 <span class="comment">%           n = n + sum(isfinite(ydata));</span>
+0040 <span class="comment">%         end</span>
+0041 <span class="comment">%     end</span>
+0042 <span class="comment">%   else</span>
+0043 <span class="comment">%     n = [];</span>
+0044 <span class="comment">%   end</span>
+0045 <span class="keyword">else</span>
+0046   n = [];
+0047 <span class="keyword">end</span>
+0048 
+0049 <span class="comment">% catch</span>
+0050 <span class="comment">%   n = [];</span>
+0051 <span class="comment">%   return;</span>
+0052 <span class="comment">% end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

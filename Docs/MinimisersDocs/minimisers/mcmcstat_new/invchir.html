@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of invchir</title>
+  <meta name="keywords" content="invchir">
+  <meta name="description" content="INVCHIR(m,n,N0,S2) inverse scaled chi squared random numbers">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>invchir
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>INVCHIR(m,n,N0,S2) inverse scaled chi squared random numbers</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function r=invchir(m,n,N0,S2) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> INVCHIR(m,n,N0,S2) inverse scaled chi squared random numbers</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/chir.html" class="code" title="function r=chir(m,n,df)">chir</a>	CHIR    Chi squared random numbers</li><li><a href="chir.html" class="code" title="function r=chir(m,n,df)">chir</a>	CHIR    Chi squared random numbers</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/hyperpriorupdate.html" class="code" title="function [mu,sig,parrow] = hyperpriorupdate(theta,thetamu,thetasig,params)">hyperpriorupdate</a>	hyperpriorupdate - default hyper prior update function for mcmcrun</li><li><a href="../../minimisers/mcmcstat/invchi1r.html" class="code" title="function r=invchi1r(m,n,N0,S)">invchi1r</a>	INVCHI1R(m,n,N0,S2) inverse scaled chi random numbers</li><li><a href="hyperpriorupdate.html" class="code" title="function [mu,sig,parrow] = hyperpriorupdate(theta,thetamu,thetasig,params)">hyperpriorupdate</a>	hyperpriorupdate - default hyper prior update function for mcmcrun</li><li><a href="invchi1r.html" class="code" title="function r=invchi1r(m,n,N0,S)">invchi1r</a>	INVCHI1R(m,n,N0,S2) inverse scaled chi random numbers</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function r=invchir(m,n,N0,S2)</a>
+0002 <span class="comment">% INVCHIR(m,n,N0,S2) inverse scaled chi squared random numbers</span>
+0003 
+0004 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0005 <span class="comment">% $Revision: 1.4 $  $Date: 2012/09/27 11:47:37 $</span>
+0006 
+0007 r = N0.*S2./<a href="chir.html" class="code" title="function r=chir(m,n,df)">chir</a>(m,n,N0);</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

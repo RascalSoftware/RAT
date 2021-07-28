@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of psrf</title>
+  <meta name="keywords" content="psrf">
+  <meta name="description" content="PSRF  Gelman-Rubin-Brooks psrf MCMC convergence diagnostic">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat -->
+<h1>psrf
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>PSRF  Gelman-Rubin-Brooks psrf MCMC convergence diagnostic</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [R,y1,y2]=psrf(chain,a,s,e) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">PSRF  Gelman-Rubin-Brooks psrf MCMC convergence diagnostic
+ Gelman-Rubin-Brooks potential scale reduction factor MCMC convergence diagnostic
+ Returns (length of total sequence (1-a)% interval)/
+         (average length of within sequence intervals)
+ This is Brooks - Gelman modification of the original psrf
+ of Gelman and Rubin.
+
+ Reference:  S. Brooks and G. Roberts, Assessing Convergence of 
+             Markov Chain Monte Carlo Algorithms,
+             Statistics and Computing 8, 319-335, 1998.
+
+ Parallel chains must be given in chain{1}, chain{2}, ...
+ or as 3 dimensional array: chain(nsimu,npar,nchain).</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="plims.html" class="code" title="function y=plims(x,p)">plims</a>	PLIMS Empirical quantiles</li><li><a href="../../minimisers/mcmcstat_new/plims.html" class="code" title="function y=plims(x,p)">plims</a>	PLIMS Empirical quantiles</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="psrfplot.html" class="code" title="function [h,rr]=psrfplot(chain,n)">psrfplot</a>	PSRFPLOT  Plot psrf MCMC diagnostics with increasing number of iterations.</li><li><a href="../../minimisers/mcmcstat_new/psrfplot.html" class="code" title="function [h,rr]=psrfplot(chain,n)">psrfplot</a>	PSRFPLOT  Plot psrf MCMC diagnostics with increasing number of iterations.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [R,y1,y2]=psrf(chain,a,s,e)</a>
+0002 <span class="comment">%PSRF  Gelman-Rubin-Brooks psrf MCMC convergence diagnostic</span>
+0003 <span class="comment">% Gelman-Rubin-Brooks potential scale reduction factor MCMC convergence diagnostic</span>
+0004 <span class="comment">% Returns (length of total sequence (1-a)% interval)/</span>
+0005 <span class="comment">%         (average length of within sequence intervals)</span>
+0006 <span class="comment">% This is Brooks - Gelman modification of the original psrf</span>
+0007 <span class="comment">% of Gelman and Rubin.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% Reference:  S. Brooks and G. Roberts, Assessing Convergence of</span>
+0010 <span class="comment">%             Markov Chain Monte Carlo Algorithms,</span>
+0011 <span class="comment">%             Statistics and Computing 8, 319-335, 1998.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% Parallel chains must be given in chain{1}, chain{2}, ...</span>
+0014 <span class="comment">% or as 3 dimensional array: chain(nsimu,npar,nchain).</span>
+0015 
+0016 <span class="comment">% ML, 2002</span>
+0017 <span class="comment">% $Revision: 1.3 $  $Date: 2003/05/07 12:22:19 $</span>
+0018 
+0019 nchain = 0;
+0020 <span class="keyword">if</span> iscell(chain)
+0021   nchain = length(chain);
+0022   [nsimu,npar1] = size(chain{1});
+0023 <span class="keyword">elseif</span> isnumeric(chain)
+0024   [nsimu,npar1,nchain] = size(chain);
+0025 <span class="keyword">end</span>
+0026 
+0027 <span class="keyword">if</span> nchain&lt;2
+0028   error(<span class="string">'Chain must be 3d-matrix or a cell array with at least 2 chains.'</span>);
+0029 <span class="keyword">end</span>
+0030 
+0031 <span class="keyword">if</span> nargin &lt; 4 | isempty(e); e = nsimu; <span class="keyword">end</span>
+0032 <span class="keyword">if</span> nargin &lt; 3 | isempty(s); s = fix(e/2)+1; <span class="keyword">end</span>
+0033 nsimu = e-s+1;
+0034 
+0035 
+0036 <span class="keyword">if</span> nargin &lt; 2
+0037   a = 0.1;
+0038 <span class="keyword">end</span>
+0039 p = [a/2,1-a/2];
+0040 quant = zeros(1,npar1);
+0041 <span class="keyword">for</span> i=1:nchain
+0042   <span class="keyword">if</span> isnumeric(chain)
+0043     quant = quant +  diff(<a href="plims.html" class="code" title="function y=plims(x,p)">plims</a>(chain(s:e,:,i),p));
+0044   <span class="keyword">else</span>
+0045     quant = quant +  diff(<a href="plims.html" class="code" title="function y=plims(x,p)">plims</a>(chain{i}(s:e,:),p));
+0046   <span class="keyword">end</span>
+0047 <span class="keyword">end</span>
+0048 quant = quant./nchain;
+0049 
+0050 <span class="keyword">if</span> isnumeric(chain)
+0051   chaincat = [];
+0052   <span class="keyword">for</span> i=1:nchain <span class="comment">% how to catenate?</span>
+0053     chaincat = [chaincat;chain(s:e,:,i)];
+0054   <span class="keyword">end</span>
+0055   quant2 = diff(<a href="plims.html" class="code" title="function y=plims(x,p)">plims</a>(chaincat,p));
+0056 <span class="keyword">else</span>
+0057   chaincat = [];
+0058   <span class="keyword">for</span> i=1:nchain <span class="comment">% how to catenate?</span>
+0059     chaincat = [chaincat;chain{i}(s:e,:)];
+0060   <span class="keyword">end</span>
+0061   quant2 = diff(<a href="plims.html" class="code" title="function y=plims(x,p)">plims</a>(chaincat,p));
+0062 <span class="comment">% quant2 = diff(plims(cat(1,chain{:}),p));</span>
+0063 <span class="keyword">end</span>
+0064 
+0065 y1 = quant;
+0066 y2 = quant2;
+0067 R  = quant2./quant;</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of beetleex</title>
+  <meta name="keywords" content="beetleex">
+  <meta name="description" content="%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html minimisers --><!-- ../menu.html mcmcstat --><!-- menu.html examples -->
+<h1>beetleex
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%
+ &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Beetle&lt;/html&gt;</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="beetless.html" class="code" title="function ss = beetless(theta,data)">beetless</a>	Beatle mortality example binomial -2*log(likelihood) function</li><li><a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat/mcmcpred.html" class="code" title="function out=mcmcpred(results,chain,s2chain,data,problem,modelfun,nsample,varargin)">mcmcpred</a>	MCMCPRED predictive calculations from the mcmcrun chain</li><li><a href="../../../minimisers/mcmcstat/mcmcpredplot.html" class="code" title="function h=mcmcpredplot(out,data,adddata)">mcmcpredplot</a>	MCMCPREDPLOT - predictive plot for mcmc results</li><li><a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../../minimisers/mcmcstat/nordf.html" class="code" title="function y=nordf(x,mu,sigma2)">nordf</a>	NORDF the standard normal (Gaussian) cumulative distribution.</li><li><a href="../../../minimisers/mcmcstat_new/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat_new/mcmcpred.html" class="code" title="function out=mcmcpred(results,chain,s2chain,data,problem,modelfun,nsample,varargin)">mcmcpred</a>	MCMCPRED predictive calculations from the mcmcrun chain</li><li><a href="../../../minimisers/mcmcstat_new/mcmcpredplot.html" class="code" title="function h=mcmcpredplot(out,data,adddata)">mcmcpredplot</a>	MCMCPREDPLOT - predictive plot for mcmc results</li><li><a href="../../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../../minimisers/mcmcstat_new/nordf.html" class="code" title="function y=nordf(x,mu,sigma2)">nordf</a>	NORDF the standard normal (Gaussian) cumulative distribution.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%</span>
+0002 <span class="comment">% &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Beetle&lt;/html&gt;</span>
+0003 
+0004 <span class="comment">%% Beetle mortality data</span>
+0005 <span class="comment">% From A. Dobson, _An Introduction to Generalized Linear Models_,</span>
+0006 <span class="comment">% Chapman &amp; Hall/CRC, 2002.</span>
+0007 <span class="comment">% Binomial logistic regression example with dose-response data.</span>
+0008 <span class="comment">% See &lt;beetless.html beetless.m&gt; for -2log(likelihood) function.</span>
+0009 
+0010 clear model data params options
+0011 
+0012 data = [
+0013 <span class="comment">% dose   n  y</span>
+0014   1.6907 59  6
+0015   1.7242 60 13
+0016   1.7552 62 18
+0017   1.7842 56 28
+0018   1.8113 63 52
+0019   1.8369 59 53
+0020   1.8610 62 61
+0021   1.8839 60 60
+0022     ];
+0023 
+0024 <span class="keyword">global</span> BEETLE_LINK
+0025 BEETLE_LINK = 2; <span class="comment">% 1=logit, 2=loglog, 3=probit</span>
+0026 
+0027 <span class="comment">% the &quot;sum-of-squares&quot; is now -2log(likelihood) of the binomial model</span>
+0028 model.ssfun = @<a href="beetless.html" class="code" title="function ss = beetless(theta,data)">beetless</a>;
+0029 
+0030 <span class="comment">% initial values and model function according to the link function</span>
+0031 <span class="keyword">switch</span> BEETLE_LINK
+0032  <span class="keyword">case</span> 1
+0033   b = [ 60,-35]; <span class="comment">% logit</span>
+0034   modelfun = @(d,th) 1./(1+exp(th(1)+th(2).*d));
+0035   label = <span class="string">'Beetle data with logit link'</span>; 
+0036  <span class="keyword">case</span> 2
+0037   b = [-40, 22]; <span class="comment">% logog</span>
+0038   modelfun = @(d,th) 1-exp(-exp(th(1)+th(2).*d));
+0039   label = <span class="string">'Beetle data with loglog link'</span>; 
+0040  <span class="keyword">case</span> 3
+0041   b = [-35, 20]; <span class="comment">% probit</span>
+0042   modelfun = @(d,th) <a href="../../../minimisers/mcmcstat/nordf.html" class="code" title="function y=nordf(x,mu,sigma2)">nordf</a>(th(1)+th(2).*d);
+0043   label = <span class="string">'Beetle data with probit link'</span>; 
+0044 <span class="keyword">end</span>
+0045 
+0046 <span class="comment">% model parameters</span>
+0047 params = {
+0048     {<span class="string">'b_0'</span>, b(1)}
+0049     {<span class="string">'b_1'</span>, b(2)}
+0050     };
+0051 
+0052 options.nsimu = 5000;
+0053 
+0054 [res,chain] = <a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>(model,data,params, options);
+0055 
+0056 <span class="comment">% plot the chain</span>
+0057 figure
+0058 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,[],res)
+0059 figure
+0060 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,[],res,<span class="string">'pairs'</span>)
+0061 
+0062 <span class="comment">% sample the predicted mean respose</span>
+0063 out = <a href="../../../minimisers/mcmcstat/mcmcpred.html" class="code" title="function out=mcmcpred(results,chain,s2chain,data,problem,modelfun,nsample,varargin)">mcmcpred</a>(res,chain,[],linspace(1.5,2)',modelfun,500);
+0064 figure
+0065 <a href="../../../minimisers/mcmcstat/mcmcpredplot.html" class="code" title="function h=mcmcpredplot(out,data,adddata)">mcmcpredplot</a>(out)
+0066 hold on <span class="comment">% add data points</span>
+0067 plot(data(:,1),data(:,3)./data(:,2),<span class="string">'ok'</span>)
+0068 hold off
+0069 title(label)
+0070 ylabel(<span class="string">'proportion killed'</span>)
+0071 xlabel(<span class="string">'log dose'</span>)</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

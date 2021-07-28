@@ -1,0 +1,23 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  RAT -> RAT_main;
+  RAT -> RATparseOutToProjectClass;
+  RAT -> RatParseClassToStructs_new;
+  RAT -> parseResultToStruct;
+  RAT_main -> singleCalculation;
+
+  RAT [URL="RAT.html"];
+  RAT_main [URL="RAT_main.html"];
+  RAT_parse_cells [URL="RAT_parse_cells.html"];
+  RAT_remove_cells [URL="RAT_remove_cells.html"];
+  RATparseOutToProblemDef [URL="RATparseOutToProblemDef.html"];
+  RATparseOutToProblemDef2 [URL="RATparseOutToProblemDef2.html"];
+  RATparseOutToProjectClass [URL="RATparseOutToProjectClass.html"];
+  RatParseClassToStructs [URL="RatParseClassToStructs.html"];
+  RatParseClassToStructs_new [URL="RatParseClassToStructs_new.html"];
+  extractProblemParams [URL="extractProblemParams.html"];
+  legacyChanges [URL="legacyChanges.html"];
+  parseResultToStruct [URL="parseResultToStruct.html"];
+  singleCalculation [URL="singleCalculation.html"];
+  textProgressBar [URL="textProgressBar.html"];
+}

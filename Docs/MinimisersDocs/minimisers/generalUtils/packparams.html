@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of packparams</title>
+  <meta name="keywords" content="packparams">
+  <meta name="description" content="Separate out the params array into fitting">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html generalUtils -->
+<h1>packparams
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Separate out the params array into fitting</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [problemDef,fitNames] = packparams(problemDef,problemDef_cells,limits,checks) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Separate out the params array into fitting
+and unfitting arrays.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/NSMain/runNestedSampler.html" class="code" title="function  [problemDef,result] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls)">runNestedSampler</a>	</li><li><a href="fitsetup.html" class="code" title="function [problemDef,out] = fitsetup(problemDef,problemDef_cells,problemDef_limits,controls)">fitsetup</a>	</li><li><a href="../../minimisers/mcmcstat/%runDram.html" class="code" title="function  [problemDef,problem,result,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls)">%runDram</a>	</li><li><a href="../../minimisers/mcmcstat_new/%runDram.html" class="code" title="function  [problemDef,problem,result,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls)">%runDram</a>	</li><li><a href="../../minimisers/runBayesCalc.html" class="code" title="function output = runBayes(loop,nsimu,burnin,params)">runBayesCalc</a>	Clear any values from previous runs if prsent</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problemDef,fitNames] = packparams(problemDef,problemDef_cells,limits,checks)</a>
+0002 
+0003 <span class="comment">%Separate out the params array into fitting</span>
+0004 <span class="comment">%and unfitting arrays.</span>
+0005 
+0006 
+0007 <span class="comment">%problem = getappdata(0,'problem');</span>
+0008 
+0009 <span class="comment">% controls.checks.params_fitYesNo = ones(length(problem.params),1);</span>
+0010 <span class="comment">% controls.checks.backs_fitYesNo = ones(length(problem.backs),1);</span>
+0011 <span class="comment">% controls.checks.scales_fitYesNo = ones(length(problem.scalefac),1);</span>
+0012 <span class="comment">% controls.checks.nbairs_fitYesNo = ones(length(problem.nba),1);</span>
+0013 <span class="comment">% controls.checks.nbsubs_fitYesNo = ones(length(problem.nbs),1);</span>
+0014 <span class="comment">% controls.checks.resol_fitYesNo = ones(length(problem.resolution),1);</span>
+0015 
+0016 <span class="comment">% calculation.limits.params = problem.constr;</span>
+0017 <span class="comment">% calculation.limits.backs = problem.backs_constr;</span>
+0018 <span class="comment">% calculation.limits.scales = problem.scale_constr;</span>
+0019 <span class="comment">% calculation.limits.shifts = problem.shifts_constr;</span>
+0020 <span class="comment">% calculation.limits.nba = problem.nbairs_constr;</span>
+0021 <span class="comment">% calculation.limits.nbs = problem.nbsubs_constr;</span>
+0022 <span class="comment">% calculation.limits.res = problem.resolution_constr;</span>
+0023 
+0024 
+0025 
+0026 <span class="comment">%We need to pack the parameters into seperate vectors</span>
+0027 <span class="comment">%of those that are being fitted, and those that are</span>
+0028 <span class="comment">%held constant.</span>
+0029 numberOfFitted = sum(checks.params_fitYesNo) + <span class="keyword">...</span>
+0030                  sum(checks.backs_fitYesNo) + <span class="keyword">...</span>
+0031                  sum(checks.scales_fitYesNo) + <span class="keyword">...</span>
+0032                  sum(checks.shifts_fitYesNo) + <span class="keyword">...</span>
+0033                  sum(checks.nbairs_fitYesNo) + <span class="keyword">...</span>
+0034                  sum(checks.nbsubs_fitYesNo) + <span class="keyword">...</span>
+0035                  sum(checks.resol_fitYesNo);
+0036              
+0037 numberOfTotal = length(problemDef.params) + <span class="keyword">...</span>
+0038                 length(problemDef.backs) + <span class="keyword">...</span>
+0039                 length(problemDef.sf) + <span class="keyword">...</span>
+0040                 length(problemDef.shifts) + <span class="keyword">...</span>
+0041                 length(problemDef.nba) + <span class="keyword">...</span>
+0042                 length(problemDef.nbs) + <span class="keyword">...</span>
+0043                 length(problemDef.res);
+0044    
+0045 fitpars = problemDef.fitpars;<span class="comment">%zeros(numberOfFitted,1);</span>
+0046 otherpars = zeros((numberOfTotal-numberOfFitted),1);
+0047 fitconstr = zeros(numberOfFitted,2);
+0048 otherconstr = zeros((numberOfTotal-numberOfFitted),2);
+0049 <span class="comment">%limits = problemDef.limits;</span>
+0050 fitNames = cell(numberOfFitted,1);
+0051 fitCounter = 1;
+0052 otherCounter = 1;
+0053 <span class="keyword">for</span> n = 1:length(checks.params_fitYesNo)
+0054     <span class="keyword">if</span> checks.params_fitYesNo(n) == 1
+0055         fitpars(fitCounter) = problemDef.params(n);
+0056         fitconstr(fitCounter,1) = limits.params(n,1);
+0057         fitconstr(fitCounter,2) = limits.params(n,2);        
+0058         fitNames{fitCounter} = problemDef_cells{7}{n};
+0059         fitCounter = fitCounter + 1;
+0060 
+0061     <span class="keyword">else</span>
+0062         otherpars(otherCounter) = problemDef.params(n);
+0063         otherconstr(otherCounter,1) = limits.params(n,1);
+0064         otherconstr(otherCounter,2) = limits.params(n,2);
+0065         otherCounter = otherCounter + 1;
+0066     <span class="keyword">end</span>
+0067 <span class="keyword">end</span>
+0068 
+0069 <span class="comment">%Also do the same for backgrounds...</span>
+0070 <span class="keyword">for</span> n = 1:length(checks.backs_fitYesNo)
+0071     <span class="keyword">if</span> checks.backs_fitYesNo(n) == 1
+0072         fitpars(fitCounter) = problemDef.backs(n);
+0073         fitconstr(fitCounter,1) = limits.backs(n,1);
+0074         fitconstr(fitCounter,2) = limits.backs(n,2);
+0075         fitNames{fitCounter} = problemDef_cells{8}{n};
+0076         fitCounter = fitCounter + 1;
+0077     <span class="keyword">else</span>
+0078         otherpars(otherCounter) = problemDef.backs(n);
+0079         otherconstr(otherCounter,1) = limits.backs(n,1);
+0080         otherconstr(otherCounter,2) = limits.backs(n,2);
+0081         otherCounter = otherCounter + 1;
+0082     <span class="keyword">end</span>
+0083 <span class="keyword">end</span>
+0084 
+0085 <span class="comment">%..also for the scale factors</span>
+0086 <span class="keyword">for</span> n = 1:length(checks.scales_fitYesNo)
+0087     <span class="keyword">if</span> checks.scales_fitYesNo(n) == 1
+0088         fitpars(fitCounter) = problemDef.sf(n);
+0089         fitconstr(fitCounter,1) = limits.scales(n,1);
+0090         fitconstr(fitCounter,2) = limits.scales(n,2);
+0091         fitNames{fitCounter} = problemDef_cells{9}{n};
+0092         fitCounter = fitCounter + 1;
+0093     <span class="keyword">else</span>
+0094         otherpars(otherCounter) = problemDef.sf(n);
+0095         otherconstr(otherCounter,1) = limits.scales(n,1);
+0096         otherconstr(otherCounter,2) = limits.scales(n,2);
+0097         otherCounter = otherCounter + 1;
+0098     <span class="keyword">end</span>
+0099 <span class="keyword">end</span>    
+0100 
+0101 <span class="comment">%Need qshifts</span>
+0102 <span class="keyword">for</span> n = 1:length(checks.shifts_fitYesNo)
+0103     <span class="keyword">if</span> checks.shifts_fitYesNo(n) == 1
+0104         fitpars(fitCounter) = problemDef.shifts(n);
+0105         fitconstr(fitCounter,1) = limits.shifts(n,1);
+0106         fitconstr(fitCounter,2) = limits.shifts(n,2);
+0107         fitNames{fitCounter} = problemDef_cells{10}{n};
+0108         fitCounter = fitCounter + 1;
+0109     <span class="keyword">else</span>
+0110         otherpars(otherCounter) = problemDef.shifts(n);
+0111         otherconstr(otherCounter,1) = limits.shifts(n,1);
+0112         otherconstr(otherCounter,2) = limits.shifts(n,2);
+0113         otherCounter = otherCounter + 1;
+0114     <span class="keyword">end</span>
+0115 <span class="keyword">end</span> 
+0116 
+0117 <span class="comment">%Nbairs</span>
+0118 <span class="keyword">for</span> n = 1:length(checks.nbairs_fitYesNo)
+0119     <span class="keyword">if</span> checks.nbairs_fitYesNo(n) == 1
+0120         fitpars(fitCounter) = problemDef.nba(n);
+0121         fitconstr(fitCounter,1) = limits.nba(n,1);
+0122         fitconstr(fitCounter,2) = limits.nba(n,2);
+0123         fitNames{fitCounter} = problemDef_cells{11}{n};
+0124         fitCounter = fitCounter + 1;
+0125     <span class="keyword">else</span>
+0126         otherpars(otherCounter) = problemDef.nba(n);
+0127         otherconstr(otherCounter,1) = limits.nba(n,1);
+0128         otherconstr(otherCounter,2) = limits.nba(n,2);
+0129         otherCounter = otherCounter + 1;
+0130     <span class="keyword">end</span>
+0131 <span class="keyword">end</span> 
+0132 
+0133 <span class="comment">%NBsubs</span>
+0134 <span class="keyword">for</span> n = 1:length(checks.nbsubs_fitYesNo)
+0135     <span class="keyword">if</span> checks.nbsubs_fitYesNo(n) == 1
+0136         fitpars(fitCounter) = problemDef.nbs(n);
+0137         fitconstr(fitCounter,1) = limits.nbs(n,1);
+0138         fitconstr(fitCounter,2) = limits.nbs(n,2);
+0139         fitNames{fitCounter} = problemDef_cells{12}{n};
+0140         fitCounter = fitCounter + 1;
+0141     <span class="keyword">else</span>
+0142         otherpars(otherCounter) = problemDef.nbs(n);
+0143         otherconstr(otherCounter,1) = limits.nbs(n,1);
+0144         otherconstr(otherCounter,2) = limits.nbs(n,2);
+0145         otherCounter = otherCounter + 1;
+0146     <span class="keyword">end</span>
+0147 <span class="keyword">end</span> 
+0148 
+0149 <span class="comment">%Resolution.....</span>
+0150 <span class="keyword">for</span> n = 1:length(checks.resol_fitYesNo)
+0151     <span class="keyword">if</span> checks.resol_fitYesNo(n) == 1
+0152         fitpars(fitCounter) = problemDef.res(n);
+0153         fitconstr(fitCounter,1) = limits.res(n,1);
+0154         fitconstr(fitCounter,2) = limits.res(n,2);
+0155         fitNames{fitCounter} = problemDef_cells{13}{n};
+0156         fitCounter = fitCounter + 1;
+0157     <span class="keyword">else</span>
+0158         otherpars(otherCounter) = problemDef.res(n);
+0159         otherconstr(otherCounter,1) = limits.res(n,1);
+0160         otherconstr(otherCounter,2) = limits.res(n,2);
+0161         otherCounter = otherCounter + 1;
+0162     <span class="keyword">end</span>
+0163 <span class="keyword">end</span> 
+0164 
+0165 problemDef.fitpars = fitpars;
+0166 problemDef.otherpars = otherpars;
+0167 problemDef.fitconstr = fitconstr;
+0168 problemDef.otherconstr = otherconstr;
+0169 
+0170 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

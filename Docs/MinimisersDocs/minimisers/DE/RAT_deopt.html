@@ -1,0 +1,488 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of RAT_deopt</title>
+  <meta name="keywords" content="RAT_deopt">
+  <meta name="description" content="%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html DE -->
+<h1>RAT_deopt
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [FVr_bestmem,problem] = RAT_deopt(fname,problem,problemDef_limits,problemDef_cells,plotIt,controls,S_struct) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ Function:         [FVr_bestmem,S_bestval,I_nfeval] = deopt(fname,S_struct)
+                    
+ Author:           Rainer Storn, Ken Price, Arnold Neumaier, Jim Van Zandt
+ Description:      Minimization of a user-supplied function with respect to x(1:I_D),
+                   using the differential evolution (DE) algorithm.
+                   DE works best if [FVr_minbound,FVr_maxbound] covers the region where the
+                   global minimum is expected. DE is also somewhat sensitive to
+                   the choice of the stepsize F_weight. A good initial guess is to
+                   choose F_weight from interval [0.5, 1], e.g. 0.8. F_CR, the crossover
+                   probability constant from interval [0, 1] helps to maintain
+                   the diversity of the population but should be close to 1 for most. 
+                   practical cases. Only separable problems do better with CR close to 0.
+                   If the parameters are correlated, high values of F_CR work better.
+                   The reverse is true for no correlation.
+
+                   The number of population members I_NP is also not very critical. A
+                   good initial guess is 10*I_D. Depending on the difficulty of the
+                   problem I_NP can be lower than 10*I_D or must be higher than 10*I_D
+                   to achieve convergence.
+
+                   deopt is a vectorized variant of DE which, however, has a
+                   property which differs from the original version of DE:
+                   The random selection of vectors is performed by shuffling the
+                   population array. Hence a certain vector can't be chosen twice
+                   in the same term of the perturbation expression.
+                   Due to the vectorized expressions deopt executes fairly fast
+                   in MATLAB's interpreter environment.
+
+ Parameters:       fname        (I)    String naming a function f(x,y) to minimize.
+                   S_struct     (I)    Problem data vector (must remain fixed during the
+                                       minimization). For details see Rundeopt.m.
+                   ---------members of S_struct----------------------------------------------------
+                   F_VTR        (I)    &quot;Value To Reach&quot;. deopt will stop its minimization
+                                       if either the maximum number of iterations &quot;I_itermax&quot;
+                                       is reached or the best parameter vector &quot;FVr_bestmem&quot; 
+                                       has found a value f(FVr_bestmem,y) &lt;= F_VTR.
+                   FVr_minbound (I)    Vector of lower bounds FVr_minbound(1) ... FVr_minbound(I_D)
+                                       of initial population.
+                                       *** note: these are not bound constraints!! ***
+                   FVr_maxbound (I)    Vector of upper bounds FVr_maxbound(1) ... FVr_maxbound(I_D)
+                                       of initial population.
+                   I_D          (I)    Number of parameters of the objective function. 
+                   I_NP         (I)    Number of population members.
+                   I_itermax    (I)    Maximum number of iterations (generations).
+                   F_weight     (I)    DE-stepsize F_weight from interval [0, 2].
+                   F_CR         (I)    Crossover probability constant from interval [0, 1].
+                   I_strategy   (I)    1 --&gt; DE/rand/1             
+                                       2 --&gt; DE/local-to-best/1             
+                                       3 --&gt; DE/best/1 with jitter  
+                                       4 --&gt; DE/rand/1 with per-vector-dither           
+                                       5 --&gt; DE/rand/1 with per-generation-dither
+                                       6 --&gt; DE/rand/1 either-or-algorithm
+                   I_refresh     (I)   Intermediate output will be produced after &quot;I_refresh&quot;
+                                       iterations. No intermediate output will be produced
+                                       if I_refresh is &lt; 1.
+                                       
+ Return value:     FVr_bestmem      (O)    Best parameter vector.
+                   S_bestval.I_nc   (O)    Number of constraints
+                   S_bestval.FVr_ca (O)    Constraint values. 0 means the constraints
+                                           are met. Values &gt; 0 measure the distance
+                                           to a particular constraint.
+                   S_bestval.I_no   (O)    Number of objectives.
+                   S_bestval.FVr_oa (O)    Objective function values.
+                   I_nfeval         (O)    Number of function evaluations.
+
+ Note:
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 1, or (at your option)
+ any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details. A copy of the GNU 
+ General Public License can be obtained from the 
+ Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="getStopFlag.html" class="code" title="function out = getStopFlag();">getStopFlag</a>	</li><li><a href="left_win.html" class="code" title="function I_z = left_win(S_x,S_y);">left_win</a>	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="runDE.html" class="code" title="function [problemDef,problem,result] = runDE(problemDef,problemDef_cells,problemDef_limits,controls)">runDE</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0002 <span class="comment">% Function:         [FVr_bestmem,S_bestval,I_nfeval] = deopt(fname,S_struct)</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% Author:           Rainer Storn, Ken Price, Arnold Neumaier, Jim Van Zandt</span>
+0005 <span class="comment">% Description:      Minimization of a user-supplied function with respect to x(1:I_D),</span>
+0006 <span class="comment">%                   using the differential evolution (DE) algorithm.</span>
+0007 <span class="comment">%                   DE works best if [FVr_minbound,FVr_maxbound] covers the region where the</span>
+0008 <span class="comment">%                   global minimum is expected. DE is also somewhat sensitive to</span>
+0009 <span class="comment">%                   the choice of the stepsize F_weight. A good initial guess is to</span>
+0010 <span class="comment">%                   choose F_weight from interval [0.5, 1], e.g. 0.8. F_CR, the crossover</span>
+0011 <span class="comment">%                   probability constant from interval [0, 1] helps to maintain</span>
+0012 <span class="comment">%                   the diversity of the population but should be close to 1 for most.</span>
+0013 <span class="comment">%                   practical cases. Only separable problems do better with CR close to 0.</span>
+0014 <span class="comment">%                   If the parameters are correlated, high values of F_CR work better.</span>
+0015 <span class="comment">%                   The reverse is true for no correlation.</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%                   The number of population members I_NP is also not very critical. A</span>
+0018 <span class="comment">%                   good initial guess is 10*I_D. Depending on the difficulty of the</span>
+0019 <span class="comment">%                   problem I_NP can be lower than 10*I_D or must be higher than 10*I_D</span>
+0020 <span class="comment">%                   to achieve convergence.</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%                   deopt is a vectorized variant of DE which, however, has a</span>
+0023 <span class="comment">%                   property which differs from the original version of DE:</span>
+0024 <span class="comment">%                   The random selection of vectors is performed by shuffling the</span>
+0025 <span class="comment">%                   population array. Hence a certain vector can't be chosen twice</span>
+0026 <span class="comment">%                   in the same term of the perturbation expression.</span>
+0027 <span class="comment">%                   Due to the vectorized expressions deopt executes fairly fast</span>
+0028 <span class="comment">%                   in MATLAB's interpreter environment.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% Parameters:       fname        (I)    String naming a function f(x,y) to minimize.</span>
+0031 <span class="comment">%                   S_struct     (I)    Problem data vector (must remain fixed during the</span>
+0032 <span class="comment">%                                       minimization). For details see Rundeopt.m.</span>
+0033 <span class="comment">%                   ---------members of S_struct----------------------------------------------------</span>
+0034 <span class="comment">%                   F_VTR        (I)    &quot;Value To Reach&quot;. deopt will stop its minimization</span>
+0035 <span class="comment">%                                       if either the maximum number of iterations &quot;I_itermax&quot;</span>
+0036 <span class="comment">%                                       is reached or the best parameter vector &quot;FVr_bestmem&quot;</span>
+0037 <span class="comment">%                                       has found a value f(FVr_bestmem,y) &lt;= F_VTR.</span>
+0038 <span class="comment">%                   FVr_minbound (I)    Vector of lower bounds FVr_minbound(1) ... FVr_minbound(I_D)</span>
+0039 <span class="comment">%                                       of initial population.</span>
+0040 <span class="comment">%                                       *** note: these are not bound constraints!! ***</span>
+0041 <span class="comment">%                   FVr_maxbound (I)    Vector of upper bounds FVr_maxbound(1) ... FVr_maxbound(I_D)</span>
+0042 <span class="comment">%                                       of initial population.</span>
+0043 <span class="comment">%                   I_D          (I)    Number of parameters of the objective function.</span>
+0044 <span class="comment">%                   I_NP         (I)    Number of population members.</span>
+0045 <span class="comment">%                   I_itermax    (I)    Maximum number of iterations (generations).</span>
+0046 <span class="comment">%                   F_weight     (I)    DE-stepsize F_weight from interval [0, 2].</span>
+0047 <span class="comment">%                   F_CR         (I)    Crossover probability constant from interval [0, 1].</span>
+0048 <span class="comment">%                   I_strategy   (I)    1 --&gt; DE/rand/1</span>
+0049 <span class="comment">%                                       2 --&gt; DE/local-to-best/1</span>
+0050 <span class="comment">%                                       3 --&gt; DE/best/1 with jitter</span>
+0051 <span class="comment">%                                       4 --&gt; DE/rand/1 with per-vector-dither</span>
+0052 <span class="comment">%                                       5 --&gt; DE/rand/1 with per-generation-dither</span>
+0053 <span class="comment">%                                       6 --&gt; DE/rand/1 either-or-algorithm</span>
+0054 <span class="comment">%                   I_refresh     (I)   Intermediate output will be produced after &quot;I_refresh&quot;</span>
+0055 <span class="comment">%                                       iterations. No intermediate output will be produced</span>
+0056 <span class="comment">%                                       if I_refresh is &lt; 1.</span>
+0057 <span class="comment">%</span>
+0058 <span class="comment">% Return value:     FVr_bestmem      (O)    Best parameter vector.</span>
+0059 <span class="comment">%                   S_bestval.I_nc   (O)    Number of constraints</span>
+0060 <span class="comment">%                   S_bestval.FVr_ca (O)    Constraint values. 0 means the constraints</span>
+0061 <span class="comment">%                                           are met. Values &gt; 0 measure the distance</span>
+0062 <span class="comment">%                                           to a particular constraint.</span>
+0063 <span class="comment">%                   S_bestval.I_no   (O)    Number of objectives.</span>
+0064 <span class="comment">%                   S_bestval.FVr_oa (O)    Objective function values.</span>
+0065 <span class="comment">%                   I_nfeval         (O)    Number of function evaluations.</span>
+0066 <span class="comment">%</span>
+0067 <span class="comment">% Note:</span>
+0068 <span class="comment">% This program is free software; you can redistribute it and/or modify</span>
+0069 <span class="comment">% it under the terms of the GNU General Public License as published by</span>
+0070 <span class="comment">% the Free Software Foundation; either version 1, or (at your option)</span>
+0071 <span class="comment">% any later version.</span>
+0072 <span class="comment">%</span>
+0073 <span class="comment">% This program is distributed in the hope that it will be useful,</span>
+0074 <span class="comment">% but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0075 <span class="comment">% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0076 <span class="comment">% GNU General Public License for more details. A copy of the GNU</span>
+0077 <span class="comment">% General Public License can be obtained from the</span>
+0078 <span class="comment">% Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.</span>
+0079 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0080 <a name="_sub0" href="#_subfunctions" class="code">function [FVr_bestmem,problem] = RAT_deopt(fname,problem,problemDef_limits,problemDef_cells,plotIt,controls,S_struct)</a>
+0081 
+0082 
+0083 <span class="comment">%function FVr_bestmem = rascal_deopt(fname,problem,PlotIt,controls,S_struct)</span>
+0084 
+0085 <span class="comment">%[FVr_bestmem,S_bestval,I_nfeval]</span>
+0086 str = struct(<span class="string">'I_nc'</span>,0,<span class="string">'FVr_ca'</span>,0,<span class="string">'I_no'</span>,0,<span class="string">'FVr_oa'</span>,0);
+0087 S_val = repmat(str,S_struct.I_NP,1);
+0088 <span class="comment">%coder.varsize(S_val(:),[Inf 1],[1 0]);</span>
+0089 
+0090 <span class="comment">%-----This is just for notational convenience and to keep the code uncluttered.--------</span>
+0091 
+0092 
+0093 coder.varsize(<span class="string">'problemDef.resample'</span>,[Inf,1],[1 0]);          
+0094 coder.varsize(<span class="string">'FVr_bestmem'</span>,[1 2],[0 0]);
+0095 coder.varsize(<span class="string">'FVr_bestmemit'</span>,[1 2],[0 0]);
+0096 <span class="comment">%coder.varsize('FM_pop',[S_struct.I_NP,2],[1 0]);</span>
+0097 
+0098 
+0099 stopflag = 0;
+0100 I_best_index = 1;      
+0101 
+0102 I_NP         = S_struct.I_NP;
+0103 F_weight     = S_struct.F_weight;
+0104 F_CR         = S_struct.F_CR;
+0105 I_D          = S_struct.I_D;
+0106 FVr_minbound = S_struct.FVr_minbound;
+0107 FVr_maxbound = S_struct.FVr_maxbound;
+0108 I_bnd_constr = S_struct.I_bnd_constr;
+0109 I_itermax    = S_struct.I_itermax;
+0110 F_VTR        = S_struct.F_VTR;
+0111 I_strategy   = S_struct.I_strategy;
+0112 I_refresh    = S_struct.I_refresh;
+0113 I_plotting   = S_struct.I_plotting;
+0114 <span class="comment">%coder.varsize('FM_pop',[20,2],[0 0]);</span>
+0115 <span class="comment">%FM_pop = zeros(I_NP,2);</span>
+0116 
+0117 
+0118 <span class="comment">%-----Check input variables---------------------------------------------</span>
+0119 <span class="keyword">if</span> (I_NP &lt; 5)
+0120    I_NP=5;
+0121    fprintf(1,<span class="string">' I_NP increased to minimal value 5\n'</span>);
+0122 <span class="keyword">end</span>
+0123 <span class="keyword">if</span> ((F_CR &lt; 0) | (F_CR &gt; 1))
+0124    F_CR=0.5;
+0125    fprintf(1,<span class="string">'F_CR should be from interval [0,1]; set to default value 0.5\n'</span>);
+0126 <span class="keyword">end</span>
+0127 <span class="keyword">if</span> (I_itermax &lt;= 0)
+0128    I_itermax = 200;
+0129    fprintf(1,<span class="string">'I_itermax should be &gt; 0; set to default value 200\n'</span>);
+0130 <span class="keyword">end</span>
+0131 I_refresh = floor(I_refresh);
+0132 
+0133 <span class="comment">%-----Initialize population and some arrays-------------------------------</span>
+0134 FM_pop = zeros(I_NP,I_D); <span class="comment">%initialize FM_pop to gain speed</span>
+0135 
+0136 <span class="comment">%----FM_pop is a matrix of size I_NPx(I_D+1). It will be initialized------</span>
+0137 <span class="comment">%----with random values between the min and max values of the-------------</span>
+0138 <span class="comment">%----parameters-----------------------------------------------------------</span>
+0139 
+0140 <span class="keyword">for</span> k=1:I_NP
+0141    FM_pop(k,:) = FVr_minbound + rand(1,I_D).*(FVr_maxbound - FVr_minbound);
+0142 <span class="keyword">end</span>
+0143 
+0144 <span class="comment">%FM_popold     = zeros(size(FM_pop));  % toggle population</span>
+0145 <span class="comment">%FVr_bestmemit = zeros(1,2);% best population member in iteration</span>
+0146 I_nfeval      = 0;                    <span class="comment">% number of function evaluations</span>
+0147 
+0148 <span class="comment">%------Evaluate the best member after initialization----------------------</span>
+0149 <span class="comment">%str = struct('I_nc',0,'FVr_ca',0,'I_no',0,'FVr_oa',0);</span>
+0150 <span class="comment">% S_MSE.FVr_ca    = [];</span>
+0151 <span class="comment">% S_MSE.I_no      = [];</span>
+0152 <span class="comment">% S_MSE.FVr_oa(1) = [];</span>
+0153 
+0154 str = struct(<span class="string">'I_nc'</span>,0,<span class="string">'FVr_ca'</span>,0,<span class="string">'I_no'</span>,0,<span class="string">'FVr_oa'</span>,0);      
+0155 S_val = repmat(str,I_NP,1);
+0156 
+0157 
+0158 <span class="comment">%intrafun(p,problemDef,controls,problemDef_cells,problemDef_limits);</span>
+0159 
+0160 coder.varsize(<span class="string">'I_best_index'</span>,[1 1],[0 0]);
+0161 I_best_index   = 1;                   <span class="comment">% start with first population member</span>
+0162 S_val(1)       = fname(FM_pop(I_best_index,:),problem,controls,problemDef_cells,problemDef_limits);
+0163 S_bestval = S_val(1);                 <span class="comment">% best objective function value so far</span>
+0164 I_nfeval  = I_nfeval + 1;
+0165 <span class="keyword">for</span> k=2:I_NP                          <span class="comment">% check the remaining members</span>
+0166   S_val(k)  = fname(FM_pop(k,:),problem,controls,problemDef_cells,problemDef_limits);
+0167   I_nfeval  = I_nfeval + 1;
+0168   <span class="keyword">if</span> (<a href="left_win.html" class="code" title="function I_z = left_win(S_x,S_y);">left_win</a>(S_val(k),S_bestval) == 1)
+0169      I_best_index   = k;              <span class="comment">% save its location</span>
+0170      S_bestval      = S_val(k);
+0171   <span class="keyword">end</span>   
+0172 <span class="keyword">end</span>
+0173 <span class="comment">%val = [0 0];</span>
+0174 val = FM_pop(I_best_index,:);
+0175 FVr_bestmemit = val; <span class="comment">% best member of current iteration</span>
+0176 
+0177 <span class="comment">% FVr_bestmemit = FM_pop(I_best_index,:);</span>
+0178 <span class="comment">% S_bestvalit   = S_bestval;              % best value of current iteration</span>
+0179 
+0180 FVr_bestmem = FVr_bestmemit;            <span class="comment">% best member ever</span>
+0181 
+0182 <span class="comment">%------DE-Minimization---------------------------------------------</span>
+0183 <span class="comment">%------FM_popold is the population which has to compete. It is--------</span>
+0184 <span class="comment">%------static through one iteration. FM_pop is the newly--------------</span>
+0185 <span class="comment">%------emerging population.----------------------------------------</span>
+0186 
+0187 FM_pm1   = zeros(I_NP,I_D);   <span class="comment">% initialize population matrix 1</span>
+0188 FM_pm2   = zeros(I_NP,I_D);   <span class="comment">% initialize population matrix 2</span>
+0189 FM_pm3   = zeros(I_NP,I_D);   <span class="comment">% initialize population matrix 3</span>
+0190 FM_pm4   = zeros(I_NP,I_D);   <span class="comment">% initialize population matrix 4</span>
+0191 FM_pm5   = zeros(I_NP,I_D);   <span class="comment">% initialize population matrix 5</span>
+0192 FM_bm    = zeros(I_NP,I_D);   <span class="comment">% initialize FVr_bestmember  matrix</span>
+0193 FM_ui    = zeros(I_NP,I_D);   <span class="comment">% intermediate population of perturbed vectors</span>
+0194 FM_mui   = zeros(I_NP,I_D);   <span class="comment">% mask for intermediate population</span>
+0195 FM_mpo   = zeros(I_NP,I_D);   <span class="comment">% mask for old population</span>
+0196 FVr_rot  = (0:1:I_NP-1);               <span class="comment">% rotating index array (size I_NP)</span>
+0197 FVr_rotd = (0:1:I_D-1);       <span class="comment">% rotating index array (size I_D)</span>
+0198 FVr_rt   = zeros(I_NP);                <span class="comment">% another rotating index array</span>
+0199 FVr_rtd  = zeros(I_D);                 <span class="comment">% rotating index array for exponential crossover</span>
+0200 FVr_a1   = zeros(I_NP);                <span class="comment">% index array</span>
+0201 FVr_a2   = zeros(I_NP);                <span class="comment">% index array</span>
+0202 FVr_a3   = zeros(I_NP);                <span class="comment">% index array</span>
+0203 FVr_a4   = zeros(I_NP);                <span class="comment">% index array</span>
+0204 FVr_a5   = zeros(I_NP);                <span class="comment">% index array</span>
+0205 FVr_ind  = zeros(4);
+0206 FVr_bestmem = zeros(1,I_D);            
+0207 <span class="comment">%</span>
+0208 
+0209 FM_meanv = ones(I_NP,I_D);
+0210 
+0211 <span class="comment">%</span>
+0212 <span class="comment">%FM_pop = zeros(I_NP,2);</span>
+0213 I_iter = 1;
+0214 <span class="keyword">while</span> ((I_iter &lt; I_itermax) &amp; (S_bestval.FVr_oa(1) &gt; F_VTR))
+0215   FM_popold = FM_pop;                  <span class="comment">% save the old population</span>
+0216   <span class="comment">%S_struct.FM_pop = FM_pop;</span>
+0217   S_struct.FVr_bestmem = FVr_bestmem;
+0218   
+0219   FVr_ind = randperm(4);               <span class="comment">% index pointer array</span>
+0220 
+0221   FVr_a1  = randperm(I_NP);                   <span class="comment">% shuffle locations of vectors</span>
+0222   FVr_rt  = rem(FVr_rot+FVr_ind(1),I_NP);     <span class="comment">% rotate indices by ind(1) positions</span>
+0223   FVr_a2  = FVr_a1(FVr_rt+1);                 <span class="comment">% rotate vector locations</span>
+0224   FVr_rt  = rem(FVr_rot+FVr_ind(2),I_NP);
+0225   FVr_a3  = FVr_a2(FVr_rt+1);                
+0226   FVr_rt  = rem(FVr_rot+FVr_ind(3),I_NP);
+0227   FVr_a4  = FVr_a3(FVr_rt+1);               
+0228   FVr_rt  = rem(FVr_rot+FVr_ind(4),I_NP);
+0229   FVr_a5  = FVr_a4(FVr_rt+1);                
+0230 
+0231   FM_pm1 = FM_popold(FVr_a1,:);             <span class="comment">% shuffled population 1</span>
+0232   FM_pm2 = FM_popold(FVr_a2,:);             <span class="comment">% shuffled population 2</span>
+0233   FM_pm3 = FM_popold(FVr_a3,:);             <span class="comment">% shuffled population 3</span>
+0234   FM_pm4 = FM_popold(FVr_a4,:);             <span class="comment">% shuffled population 4</span>
+0235   FM_pm5 = FM_popold(FVr_a5,:);             <span class="comment">% shuffled population 5</span>
+0236 
+0237   <span class="keyword">for</span> k=1:I_NP  <span class="comment">% population filled with the best member</span>
+0238       
+0239     <span class="keyword">try</span>  
+0240     FM_bm(k,:) = FVr_bestmemit;             <span class="comment">% of the last iteration</span>
+0241     <span class="keyword">catch</span>
+0242         disp(<span class="string">'debug'</span>);
+0243     <span class="keyword">end</span>
+0244   <span class="keyword">end</span>
+0245 
+0246   FM_mui = rand(I_NP,I_D) &lt; F_CR;  <span class="comment">% all random numbers &lt; F_CR are 1, 0 otherwise</span>
+0247   
+0248   <span class="comment">%----Insert this if you want exponential crossover.----------------</span>
+0249   <span class="comment">%FM_mui = sort(FM_mui');      % transpose, collect 1's in each column</span>
+0250   <span class="comment">%for k  = 1:I_NP</span>
+0251   <span class="comment">%  n = floor(rand*I_D);</span>
+0252   <span class="comment">%  if (n &gt; 0)</span>
+0253   <span class="comment">%     FVr_rtd     = rem(FVr_rotd+n,I_D);</span>
+0254   <span class="comment">%     FM_mui(:,k) = FM_mui(FVr_rtd+1,k); %rotate column k by n</span>
+0255   <span class="comment">%  end</span>
+0256   <span class="comment">%end</span>
+0257   <span class="comment">%FM_mui = FM_mui';              % transpose back</span>
+0258   <span class="comment">%----End: exponential crossover------------------------------------</span>
+0259   
+0260   FM_mpo = FM_mui &lt; 0.5;    <span class="comment">% inverse mask to FM_mui</span>
+0261   FM_origin = zeros(I_NP,2);
+0262   <span class="keyword">if</span> (I_strategy == 1)
+0263     <span class="comment">%fprintf('Iteration: %d,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %d\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP));rategy == 1)                             % DE/rand/1</span>
+0264     FM_ui = FM_pm3 + F_weight*(FM_pm1 - FM_pm2);   <span class="comment">% differential variation</span>
+0265     FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;     <span class="comment">% crossover</span>
+0266     FM_origin = FM_pm3;
+0267   <span class="keyword">elseif</span> (I_strategy == 2)                         <span class="comment">% DE/local-to-best/1</span>
+0268     FM_ui = FM_popold + F_weight*(FM_bm-FM_popold) + F_weight*(FM_pm1 - FM_pm2);
+0269     FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;
+0270     FM_origin = FM_popold;
+0271   <span class="keyword">elseif</span> (I_strategy == 3)                         <span class="comment">% DE/best/1 with jitter</span>
+0272     FM_ui = FM_bm + (FM_pm1 - FM_pm2).*((1-0.9999)*rand(I_NP,I_D)+F_weight);               
+0273     FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;
+0274     FM_origin = FM_bm;
+0275   <span class="keyword">elseif</span> (I_strategy == 4)                         <span class="comment">% DE/rand/1 with per-vector-dither</span>
+0276      f1 = ((1-F_weight)*rand(I_NP,1)+F_weight);
+0277      <span class="keyword">for</span> k=1:I_D
+0278         FM_pm5(:,k)=f1;
+0279      <span class="keyword">end</span>
+0280      FM_ui = FM_pm3 + (FM_pm1 - FM_pm2).*FM_pm5;    <span class="comment">% differential variation</span>
+0281      FM_origin = FM_pm3;
+0282      FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;     <span class="comment">% crossover</span>
+0283   <span class="keyword">elseif</span> (I_strategy == 5)                          <span class="comment">% DE/rand/1 with per-vector-dither</span>
+0284      f1 = ((1-F_weight)*rand+F_weight);
+0285      FM_ui = FM_pm3 + (FM_pm1 - FM_pm2)*f1;         <span class="comment">% differential variation</span>
+0286      FM_origin = FM_pm3;
+0287      FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;     <span class="comment">% crossover</span>
+0288   <span class="keyword">else</span>                                              <span class="comment">% either-or-algorithm</span>
+0289      <span class="keyword">if</span> (rand &lt; 0.5);                               <span class="comment">% Pmu = 0.5</span>
+0290         FM_ui = FM_pm3 + F_weight*(FM_pm1 - FM_pm2);<span class="comment">% differential variation</span>
+0291         FM_origin = FM_pm3;
+0292      <span class="keyword">else</span>                                           <span class="comment">% use F-K-Rule: K = 0.5(F+1)</span>
+0293         FM_ui = FM_pm3 + 0.5*(F_weight+1.0)*(FM_pm1 + FM_pm2 - 2*FM_pm3);
+0294      <span class="keyword">end</span>
+0295      FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;     <span class="comment">% crossover</span>
+0296   <span class="keyword">end</span>
+0297   
+0298 <span class="comment">%-----Optional parent+child selection-----------------------------------------</span>
+0299   
+0300 <span class="comment">%-----Select which vectors are allowed to enter the new population------------</span>
+0301   <span class="keyword">for</span> k=1:I_NP
+0302    
+0303       <span class="comment">%=====Only use this if boundary constraints are needed==================</span>
+0304       <span class="keyword">if</span> (I_bnd_constr == 1)
+0305          <span class="keyword">for</span> j=1:I_D <span class="comment">%----boundary constraints via bounce back-------</span>
+0306             <span class="keyword">if</span> (FM_ui(k,j) &gt; FVr_maxbound(j))
+0307                FM_ui(k,j) = FVr_maxbound(j) + rand*(FM_origin(k,j) - FVr_maxbound(j));
+0308             <span class="keyword">end</span>
+0309             <span class="keyword">if</span> (FM_ui(k,j) &lt; FVr_minbound(j))
+0310                FM_ui(k,j) = FVr_minbound(j) + rand*(FM_origin(k,j) - FVr_minbound(j));
+0311             <span class="keyword">end</span>   
+0312          <span class="keyword">end</span>
+0313       <span class="keyword">end</span>
+0314       <span class="comment">%=====End boundary constraints==========================================</span>
+0315   
+0316       S_tempval = fname(FM_ui(k,:),problem, controls,problemDef_cells,problemDef_limits);  <span class="comment">% check cost of competitor</span>
+0317       I_nfeval  = I_nfeval + 1;
+0318       <span class="keyword">if</span> (<a href="left_win.html" class="code" title="function I_z = left_win(S_x,S_y);">left_win</a>(S_tempval,S_val(k)) == 1)   
+0319          FM_pop(k,:) = FM_ui(k,:);                    <span class="comment">% replace old vector with new one (for new iteration)</span>
+0320          S_val(k)   = S_tempval;                      <span class="comment">% save value in &quot;cost array&quot;</span>
+0321       
+0322          <span class="comment">%----we update S_bestval only in case of success to save time-----------</span>
+0323          <span class="keyword">if</span> (<a href="left_win.html" class="code" title="function I_z = left_win(S_x,S_y);">left_win</a>(S_tempval,S_bestval) == 1)   
+0324             S_bestval = S_tempval;                    <span class="comment">% new best value</span>
+0325             FVr_bestmem = FM_ui(k,:);                 <span class="comment">% new best parameter vector ever</span>
+0326          <span class="keyword">end</span>
+0327       <span class="keyword">end</span>
+0328    <span class="keyword">end</span> <span class="comment">% for k = 1:NP</span>
+0329 
+0330   FVr_bestmemit = FVr_bestmem;       <span class="comment">% freeze the best member of this iteration for the coming</span>
+0331                                      <span class="comment">% iteration. This is needed for some of the strategies.</span>
+0332 
+0333 <span class="comment">%----Output section----------------------------------------------------------</span>
+0334 
+0335   <span class="keyword">if</span> (I_refresh &gt; 0)
+0336      <span class="keyword">if</span> ((rem(I_iter,I_refresh) == 0) | I_iter == 1) &amp;&amp; strcmpi(controls.display,<span class="string">'iter'</span>)
+0337        fprintf(<span class="string">'Iteration: %d,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %d\n'</span>,I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP);
+0338        <span class="comment">%disp(S_bestval);</span>
+0339        <span class="comment">%var(FM_pop)</span>
+0340 <span class="comment">%        format long e;</span>
+0341 <span class="comment">%        for n=1:I_D</span>
+0342 <span class="comment">%           fprintf('best(%d) = %g\n',n,FVr_bestmem(n));</span>
+0343 <span class="comment">%        end</span>
+0344         <span class="keyword">if</span> (I_plotting == 1)
+0345            PlotIt(FVr_bestmem,problem); 
+0346         <span class="keyword">end</span>
+0347         stopflag = <a href="getStopFlag.html" class="code" title="function out = getStopFlag();">getStopFlag</a>();
+0348         
+0349     <span class="keyword">end</span>
+0350   <span class="keyword">end</span>
+0351   <span class="keyword">if</span> stopflag == 0
+0352     I_iter = I_iter + 1;
+0353   <span class="keyword">else</span>
+0354       I_iter = I_itermax + 1;
+0355   <span class="keyword">end</span>
+0356 <span class="keyword">end</span> <span class="comment">%---end while ((I_iter &lt; I_itermax) ...</span>
+0357 
+0358 
+0359 
+0360 <span class="comment">% problemDef.fitpars = x;</span>
+0361 <span class="comment">% problemDef = unpackparams(problemDef,controls);</span>
+0362 <span class="comment">% [problem,res] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);</span>
+0363 
+0364</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

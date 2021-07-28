@@ -147,10 +147,10 @@ problem.setContrastModel(3,'DSPC Model');
 %% 
 % Make a controls block....
 
-controls = controlsDef();
-controls.calcSldDuringFit = 'no';
-controls.procedure = 'simplex';
-controls.display = 'final';
+% controls = controlsDef();
+% controls.calcSldDuringFit = 'no';
+% controls.procedure = 'simplex';
+% controls.display = 'final';
 % % controls.maxIter = 200;
 
 % Run the fit

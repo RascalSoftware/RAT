@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of scale_parameters</title>
+  <meta name="keywords" content="scale_parameters">
+  <meta name="description" content="scaled = scale_parameters(prior, params)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html NSMain -->
+<h1>scale_parameters
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>scaled = scale_parameters(prior, params)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function scaled = scale_parameters(prior, params) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> scaled = scale_parameters(prior, params)
+
+ This function will scale parameters based on their priors. If a prior is
+ uniform over a range then the parameter will be scaled, such that the
+ range covers 0-&gt;1. If a prior is Gaussian then the parameter will be
+ scaled such that it will be a Gaussian with zero mean and unit variance.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="nested_sampler.html" class="code" title="function [logZ, nest_samples, post_samples,H] = nested_sampler(data,Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)">nested_sampler</a>	function [logZ, nest_samples, post_samples] = nested_sampler(data, ...</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function scaled = scale_parameters(prior, params)</a>
+0002 
+0003 <span class="comment">% scaled = scale_parameters(prior, params)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% This function will scale parameters based on their priors. If a prior is</span>
+0006 <span class="comment">% uniform over a range then the parameter will be scaled, such that the</span>
+0007 <span class="comment">% range covers 0-&gt;1. If a prior is Gaussian then the parameter will be</span>
+0008 <span class="comment">% scaled such that it will be a Gaussian with zero mean and unit variance.</span>
+0009 
+0010 lp = length(params);
+0011 
+0012 scaled = zeros(lp,1);
+0013 
+0014 <span class="keyword">for</span> i=1:lp
+0015     priortype = char(prior(i,2));
+0016     p3 = prior{i,3};
+0017     p4 = prior{i,4};
+0018     
+0019     <span class="comment">% currently only handles uniform or Gaussian priors</span>
+0020     <span class="keyword">if</span> strcmp(priortype, <span class="string">'uniform'</span>)
+0021         scaled(i) = (params(i) - p3)/(p4 - p3);
+0022     <span class="keyword">elseif</span> strcmp(priortype, <span class="string">'gaussian'</span>)
+0023         scaled(i) = (params(i) - p3)/p4;
+0024     <span class="keyword">elseif</span> strcmp(priortype, <span class="string">'jeffreys'</span>)
+0025         scaled(i) = (log10(params(i)) - log10(p3))/(log10(p4) - log10(p3));
+0026     <span class="keyword">end</span>
+0027 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

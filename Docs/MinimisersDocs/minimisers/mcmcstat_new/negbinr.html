@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of negbinr</title>
+  <meta name="keywords" content="negbinr">
+  <meta name="description" content="NEGBINR random deviates from negative binomial distribution">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>negbinr
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>NEGBINR random deviates from negative binomial distribution</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function y=negbinr(m,n,lam,om) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> NEGBINR random deviates from negative binomial distribution
+ negbinr(m,n,lam,om)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/gammar.html" class="code" title="function y=gammar(m,n,a,b)">gammar</a>	GAMMAR random deviates from gamma distribution</li><li><a href="../../minimisers/mcmcstat/poir.html" class="code" title="function y=poir(m,n,a)">poir</a>	POIR random deviates from poisson distribution</li><li><a href="gammar.html" class="code" title="function y=gammar(m,n,a,b)">gammar</a>	GAMMAR random deviates from gamma distribution</li><li><a href="poir.html" class="code" title="function y=poir(m,n,a)">poir</a>	POIR random deviates from poisson distribution</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function y=negbinr(m,n,lam,om)</a>
+0002 <span class="comment">% NEGBINR random deviates from negative binomial distribution</span>
+0003 <span class="comment">% negbinr(m,n,lam,om)</span>
+0004 
+0005 <span class="comment">% sample l ~ gamma(om,lam/om)</span>
+0006 <span class="comment">% sample x ~ poi(l)</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% or</span>
+0009 <span class="comment">% sample s2 ~ gamma(N0/2, S02/N0*2)</span>
+0010 <span class="comment">% sample x ~ poi(s2)</span>
+0011 
+0012 
+0013 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0014 <span class="comment">% $Revision: 1.2 $  $Date: 2012/09/27 11:47:38 $</span>
+0015 
+0016 y = zeros(m,n);
+0017 
+0018 l = <a href="gammar.html" class="code" title="function y=gammar(m,n,a,b)">gammar</a>(m,n,om,lam./om);
+0019 <span class="keyword">for</span> i=1:m*n
+0020   y(i) = <a href="poir.html" class="code" title="function y=poir(m,n,a)">poir</a>(1,1,l(i));
+0021 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

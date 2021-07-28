@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of threemodesex</title>
+  <meta name="keywords" content="threemodesex">
+  <meta name="description" content="%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html minimisers --><!-- ../menu.html mcmcstat --><!-- menu.html examples -->
+<h1>threemodesex
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%
+ &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Three modes example&lt;/html&gt;</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../../minimisers/mcmcstat/mvnorpf.html" class="code" title="function y = mvnorpf(x,mu,sig,L)">mvnorpf</a>	MVNORPF multivariate normal density function</li><li><a href="../../../minimisers/mcmcstat/norpf.html" class="code" title="function y=norpf(x,mu,sigma2)">norpf</a>	NORPF(x,mu,sigma2)  Normal (Gaussian) density function</li><li><a href="../../../minimisers/mcmcstat_new/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../../minimisers/mcmcstat_new/mvnorpf.html" class="code" title="function y = mvnorpf(x,mu,sig,L)">mvnorpf</a>	MVNORPF multivariate normal density function</li><li><a href="../../../minimisers/mcmcstat_new/norpf.html" class="code" title="function y=norpf(x,mu,sigma2)">norpf</a>	NORPF(x,mu,sigma2)  Normal (Gaussian) density function</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%</span>
+0002 <span class="comment">% &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Three modes example&lt;/html&gt;</span>
+0003 
+0004 <span class="comment">%%</span>
+0005 <span class="comment">% Metropolis-Hastings MCMC may have troubles if the target</span>
+0006 <span class="comment">% distributio has multiple modes. Here we test with a target, which is</span>
+0007 <span class="comment">% 4 dimensional mixed Gaussian with 3 distinct modes. By changing the</span>
+0008 <span class="comment">% scaling of DRAM, we find all the modes of this example.</span>
+0009 
+0010 clear model options params
+0011 
+0012 nsimu = 50000; <span class="comment">% how many simulations</span>
+0013 npar = 4;
+0014 mu1  = [-8,-8,-8,-8];
+0015 mu2  = [ 0, 0, 0, 0];
+0016 mu3  = [ 8, 8, 8, 8];
+0017 sigs = [ 1, 1, 1, 1];
+0018 w    = [0.1, 0.3, 0.6]; <span class="comment">% 3 mixture weights</span>
+0019 
+0020 model.ssfun= @(x,d) -2*log(w(1)*<a href="../../../minimisers/mcmcstat/mvnorpf.html" class="code" title="function y = mvnorpf(x,mu,sig,L)">mvnorpf</a>(x,mu1,sigs)+w(2)*<a href="../../../minimisers/mcmcstat/mvnorpf.html" class="code" title="function y = mvnorpf(x,mu,sig,L)">mvnorpf</a>(x,mu2,sigs)+w(3)*<a href="../../../minimisers/mcmcstat/mvnorpf.html" class="code" title="function y = mvnorpf(x,mu,sig,L)">mvnorpf</a>(x,mu3,sigs));
+0021 
+0022 <span class="comment">% DRAM, first large, then small</span>
+0023 options.nsimu    = nsimu;
+0024 options.method   = <span class="string">'dram'</span>;
+0025 options.qcov     = eye(npar)*5^2;
+0026 options.drscale  = 5;
+0027 options.adascale = 2.4 / sqrt(npar) * 5;
+0028 <span class="keyword">for</span> i=1:npar, params{i} = {sprintf(<span class="string">'x_{%d}'</span>,i), 0}; <span class="keyword">end</span>
+0029 
+0030 [res,chain] = <a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>(model,[],params,options);
+0031 
+0032 <span class="comment">%%</span>
+0033 figure(1); clf; <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,[],res,<span class="string">'chainpanel'</span>)
+0034 figure(2); clf; <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,[],res,<span class="string">'denspanel'</span>)
+0035 figure(3); clf
+0036 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,[1],res,<span class="string">'hist'</span>)
+0037 xx = linspace(-14,14,200)';
+0038 yy = w(1)*<a href="../../../minimisers/mcmcstat/norpf.html" class="code" title="function y=norpf(x,mu,sigma2)">norpf</a>(xx,mu1(1),sigs(1)) + w(2)*<a href="../../../minimisers/mcmcstat/norpf.html" class="code" title="function y=norpf(x,mu,sigma2)">norpf</a>(xx,mu2(1),sigs(1)) + w(3)*<a href="../../../minimisers/mcmcstat/norpf.html" class="code" title="function y=norpf(x,mu,sigma2)">norpf</a>(xx,mu3(1),sigs(1));
+0039 hold on
+0040 plot(xx,yy,<span class="string">'-'</span>)
+0041 hold off
+0042 xlabel(<span class="string">'x_1'</span>)
+0043 title(<span class="string">'3 modes in 4 dimensional Gaussian mixtures'</span>)</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

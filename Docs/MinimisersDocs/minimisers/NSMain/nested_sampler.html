@@ -1,0 +1,385 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of nested_sampler</title>
+  <meta name="keywords" content="nested_sampler">
+  <meta name="description" content="function [logZ, nest_samples, post_samples] = nested_sampler(data, ...">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html NSMain -->
+<h1>nested_sampler
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [logZ, nest_samples, post_samples] = nested_sampler(data, ...</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [logZ, nest_samples, post_samples,H] = nested_sampler(data,Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> function [logZ, nest_samples, post_samples] = nested_sampler(data, ...
+           Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)
+
+ This function performs nested sampling of the likelihood function from
+ the given prior (given a set of data, a model, and a set of extra model 
+ parameters).
+ 
+ If Nmcmc &gt; 0, new samples will be drawn from a proposal using an MCMC 
+ and differential evolution. The sampling will stop once the 
+ tolerance critereon has been reached. This method is that of Veitch &amp; 
+ Vecchio.
+
+ If Nmcmc = 0, new samples will be drawn from a set of bounding ellipsoids 
+ constructed using the MultiNest algorithm for partitioning live points.
+
+ The likelihood should be the function handle of a likelihood function to
+ use. This should return the log likelihood of the model parameters given
+ the data.
+ 
+ The model should be the function handle of the model function to be
+ passed to the likelihood function.
+
+ The prior should be a cell array with each cell containing five values:
+   parameter name (string)
+   prior type (string) e.g. 'uniform', 'gaussian' of 'jeffreys'
+   minimum value (for uniform prior), or mean value (for Gaussian prior)
+   maximum value (for uniform prior), or width (for Gaussian prior)
+   parameter behaviour (string):
+       'reflect' - if the parameters reflect off the boundaries
+       'cyclic'  - if the parameter space is cyclic
+       'fixed'   - if the parameters have fixe boundaries
+       ''        - for gaussian priors
+   e.g., prior = {'h0', 'uniform', 0, 1, 'reflect'; 
+                  'r', 'gaussian', 0, 5, '';
+                  'phi', 'uniform', 0, 2*pi, 'cyclic'};
+
+ extraparams is a cell array of fixed extra parameters (in addition
+ to those specified by prior) used by the model 
+ e.g.  extraparams = {'phi', 2;
+                      'x', 4};
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="draw_mcmc.html" class="code" title="function [sample, logL] = draw_mcmc(livepoints, cholmat, logLmin,prior, data, likelihood, model, Nmcmc, parnames, extraparvals)">draw_mcmc</a>	function [sample, logL] = draw_mcmc(livepoints, cholmat, logLmin, ...</li><li><a href="draw_multinest.html" class="code" title="function [sample, logL] = draw_multinest(fracvol, Bs, mus,logLmin, prior, data, likelihood, model, parnames, extraparvals)">draw_multinest</a>	function [sample, logL] = draw_multinest(fracvol, Bs, mus, ...</li><li><a href="logplus.html" class="code" title="function logz  = logplus(logx, logy)">logplus</a>	</li><li><a href="loopcell.html" class="code" title="function c = loopcell(array);">loopcell</a>	</li><li><a href="mchol.html" class="code" title="function [L,D,E,pneg]=mchol(G)">mchol</a>	[L,D,E,pneg]=mchol(G)</li><li><a href="nest2pos.html" class="code" title="function post_samples = nest2pos(nest_samples, Nlive)">nest2pos</a>	</li><li><a href="optimal_ellipsoids.html" class="code" title="function [Bs, mus, VEs, ns] = optimal_ellipsoids(u, VS)">optimal_ellipsoids</a>	function [Bs, mus, VEs, ns] = optimal_ellipsoids(u, VS)</li><li><a href="plot_2d_livepoints_with_ellipses.html" class="code" title="function plot_2d_livepoints_with_ellipses(livepoints, Bs, mus)">plot_2d_livepoints_with_ellipses</a>	</li><li><a href="rescale_parameters.html" class="code" title="function scaled = rescale_parameters(prior, params)">rescale_parameters</a>	scaled = rescale_parameters(prior, params)</li><li><a href="scale_parameters.html" class="code" title="function scaled = scale_parameters(prior, params)">scale_parameters</a>	scaled = scale_parameters(prior, params)</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="runNestedSampler.html" class="code" title="function  [problemDef,result] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls)">runNestedSampler</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [logZ, nest_samples, post_samples,H] = nested_sampler(data, </a><span class="keyword">...</span>
+0002           Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)
+0003 
+0004 <span class="comment">% function [logZ, nest_samples, post_samples] = nested_sampler(data, ...</span>
+0005 <span class="comment">%           Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This function performs nested sampling of the likelihood function from</span>
+0008 <span class="comment">% the given prior (given a set of data, a model, and a set of extra model</span>
+0009 <span class="comment">% parameters).</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% If Nmcmc &gt; 0, new samples will be drawn from a proposal using an MCMC</span>
+0012 <span class="comment">% and differential evolution. The sampling will stop once the</span>
+0013 <span class="comment">% tolerance critereon has been reached. This method is that of Veitch &amp;</span>
+0014 <span class="comment">% Vecchio.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% If Nmcmc = 0, new samples will be drawn from a set of bounding ellipsoids</span>
+0017 <span class="comment">% constructed using the MultiNest algorithm for partitioning live points.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% The likelihood should be the function handle of a likelihood function to</span>
+0020 <span class="comment">% use. This should return the log likelihood of the model parameters given</span>
+0021 <span class="comment">% the data.</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% The model should be the function handle of the model function to be</span>
+0024 <span class="comment">% passed to the likelihood function.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% The prior should be a cell array with each cell containing five values:</span>
+0027 <span class="comment">%   parameter name (string)</span>
+0028 <span class="comment">%   prior type (string) e.g. 'uniform', 'gaussian' of 'jeffreys'</span>
+0029 <span class="comment">%   minimum value (for uniform prior), or mean value (for Gaussian prior)</span>
+0030 <span class="comment">%   maximum value (for uniform prior), or width (for Gaussian prior)</span>
+0031 <span class="comment">%   parameter behaviour (string):</span>
+0032 <span class="comment">%       'reflect' - if the parameters reflect off the boundaries</span>
+0033 <span class="comment">%       'cyclic'  - if the parameter space is cyclic</span>
+0034 <span class="comment">%       'fixed'   - if the parameters have fixe boundaries</span>
+0035 <span class="comment">%       ''        - for gaussian priors</span>
+0036 <span class="comment">%   e.g., prior = {'h0', 'uniform', 0, 1, 'reflect';</span>
+0037 <span class="comment">%                  'r', 'gaussian', 0, 5, '';</span>
+0038 <span class="comment">%                  'phi', 'uniform', 0, 2*pi, 'cyclic'};</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">% extraparams is a cell array of fixed extra parameters (in addition</span>
+0041 <span class="comment">% to those specified by prior) used by the model</span>
+0042 <span class="comment">% e.g.  extraparams = {'phi', 2;</span>
+0043 <span class="comment">%                      'x', 4};</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0046 <span class="keyword">global</span> verbose;
+0047 <span class="keyword">global</span> DEBUG;
+0048 
+0049 verbose = 1;
+0050 DEBUG = 0;
+0051 
+0052 <span class="comment">% get the number of parameters from the prior array</span>
+0053 D = size(prior,1);
+0054 
+0055 <span class="comment">% get all parameter names</span>
+0056 parnames = prior(:,1);
+0057 
+0058 <span class="comment">% if ~isempty(extraparams)</span>
+0059 <span class="comment">%     extraparnames = extraparams{1};</span>
+0060 <span class="comment">%     extraparvals = extraparams{2};</span>
+0061 <span class="comment">%     parnames = [];%cat(1, parnames, extraparnames);</span>
+0062 <span class="comment">% else</span>
+0063 <span class="comment">%     extraparvals = [];</span>
+0064 <span class="comment">% end</span>
+0065     
+0066 <span class="comment">% draw the set of initial live points from the prior</span>
+0067 livepoints = zeros(Nlive, D);
+0068 
+0069 <span class="keyword">for</span> i=1:D
+0070     priortype = char(prior(i,2));
+0071     p3 = prior{i,3};
+0072     p4 = prior{i,4};
+0073     
+0074     <span class="comment">% currently only handles uniform or Gaussian priors</span>
+0075     <span class="keyword">if</span> strcmp(priortype, <span class="string">'uniform'</span>)
+0076         livepoints(:,i) = p3 + (p4-p3)*rand(Nlive,1);
+0077     <span class="keyword">elseif</span> strcmp(priortype, <span class="string">'gaussian'</span>)
+0078         livepoints(:,i) = p3 + p4*randn(Nlive,1);
+0079     <span class="keyword">elseif</span> strcmp(priortype, <span class="string">'jeffreys'</span>)
+0080         <span class="comment">% uniform in log space</span>
+0081         livepoints(:,i) = 10.^(log10(p3) + (log10(p4)-log10(p3))*rand(Nlive,1));
+0082     <span class="keyword">end</span>
+0083 <span class="keyword">end</span>
+0084 
+0085 <span class="comment">% check whether likelihood is a function handle, or a string that is a</span>
+0086 <span class="comment">% function name</span>
+0087 <span class="keyword">if</span> ischar(likelihood)
+0088     flike = str2func(likelihood);
+0089 <span class="keyword">elseif</span> isa(likelihood, <span class="string">'function_handle'</span>)
+0090     flike = likelihood;
+0091 <span class="keyword">else</span>
+0092     error(<span class="string">'Error... Expecting a model function!'</span>);
+0093 <span class="keyword">end</span>
+0094 
+0095 <span class="comment">% calculate the log likelihood of all the live points</span>
+0096 logL = zeros(Nlive,1);
+0097 extraparvals = [];
+0098 <span class="keyword">for</span> i=1:Nlive
+0099     parvals = cat(1, <a href="loopcell.html" class="code" title="function c = loopcell(array);">loopcell</a>(livepoints(i,:))', extraparvals);
+0100     logL(i) = flike(data, model, parnames, parvals);
+0101 <span class="keyword">end</span>
+0102 
+0103 <span class="comment">% now scale the parameters, so that uniform parameters range from 0-&gt;1,</span>
+0104 <span class="comment">% and Gaussian parameters have a mean of zero and unit standard deviation</span>
+0105 <span class="keyword">for</span> i=1:Nlive
+0106     livepoints(i,:) = <a href="scale_parameters.html" class="code" title="function scaled = scale_parameters(prior, params)">scale_parameters</a>(prior, livepoints(i,:));
+0107 <span class="keyword">end</span>
+0108 
+0109 <span class="comment">% initial tolerance</span>
+0110 tol = inf;
+0111 
+0112 <span class="comment">% initial width of prior volume (from X_0=1 to X_1=exp(-1/N))</span>
+0113 logw = log(1 - exp(-1/Nlive));
+0114 
+0115 <span class="comment">% initial log evidence (Z=0)</span>
+0116 logZ = -inf; 
+0117 
+0118 <span class="comment">% initial information</span>
+0119 H = 0; 
+0120 
+0121 <span class="comment">% initialize array of samples for posterior</span>
+0122 nest_samples = zeros(1,D+1);
+0123 
+0124 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0125 <span class="comment">% some initial values if MCMC nested sampling is used</span>
+0126 <span class="comment">% value to scale down the covariance matrix - CAN CHANGE THIS IF REQUIRED</span>
+0127 propscale = 0.1; 
+0128 
+0129 <span class="comment">%%%%%%%%%%%%%%%</span>
+0130 <span class="comment">% some initial values if MultiNest sampling is used</span>
+0131 h = 1.1; <span class="comment">% h values from bottom of p. 1605 of Feroz and Hobson</span>
+0132 FS = h; <span class="comment">% start FS at h, so ellipsoidal partitioning is done first time</span>
+0133 K = 1; <span class="comment">% start with one cluster of live points</span>
+0134 
+0135 <span class="comment">% get maximum likelihood</span>
+0136 logLmax = max(logL);
+0137 Bs = zeros(D,D);
+0138 VEs = zeros(D,1);
+0139 
+0140 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0141 <span class="comment">% initialize iteration counter</span>
+0142 j = 1;
+0143 
+0144 <span class="comment">%figure;</span>
+0145 
+0146 <span class="comment">% MAIN LOOP</span>
+0147 <span class="keyword">while</span> tol &gt; tolerance || j &lt;= Nlive
+0148 
+0149     <span class="comment">% expected value of true remaining prior volume X</span>
+0150     VS = exp(-j/Nlive);
+0151 
+0152     <span class="comment">% find minimum of likelihoods</span>
+0153     [logLmin, idx] = min(logL);
+0154     
+0155     <span class="comment">% set the sample to the minimum value</span>
+0156     nest_samples(j,:) = [livepoints(idx, :) logLmin];
+0157 
+0158     <span class="comment">% get the log weight (Wt = L*w)</span>
+0159     logWt = logLmin + logw;
+0160     
+0161     <span class="comment">% save old evidence and information</span>
+0162     logZold = logZ;
+0163     Hold = H;
+0164     <span class="keyword">if</span> isnan(H)
+0165         Hold = 0;
+0166     <span class="keyword">else</span>
+0167         Hold = H;
+0168     <span class="keyword">end</span>
+0169     
+0170     <span class="comment">% update evidence, information, and width</span>
+0171     logZ = <a href="logplus.html" class="code" title="function logz  = logplus(logx, logy)">logplus</a>(logZ, logWt);
+0172     H = exp(logWt - logZ)*logLmin + <span class="keyword">...</span>
+0173         exp(logZold - logZ)*(Hold + logZold) - logZ;
+0174     <span class="comment">%logw = logw - logt(Nlive);</span>
+0175     logw = logw - 1/Nlive;
+0176     
+0177     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0178     <span class="keyword">if</span> Nmcmc &gt; 0
+0179  
+0180         <span class="comment">% do MCMC nested sampling</span>
+0181  
+0182         <span class="comment">% get the Cholesky decomposed covariance of the live points</span>
+0183         <span class="comment">% (do every 100th iteration - CAN CHANGE THIS IF REQUIRED)</span>
+0184         <span class="keyword">if</span> mod(j-1, 100) == 0
+0185             <span class="comment">% NOTE that for numbers of parameters &gt;~10 covariances are often</span>
+0186             <span class="comment">% not positive definite and cholcov will have &quot;problems&quot;.</span>
+0187             <span class="comment">%cholmat = cholcov(propscale*cov(livepoints));</span>
+0188         
+0189             <span class="comment">% use modified Cholesky decomposition, which works even for</span>
+0190             <span class="comment">% matrices that are not quite positive definite</span>
+0191             <span class="comment">% from http://infohost.nmt.edu/~borchers/ldlt.html</span>
+0192             <span class="comment">% (via http://stats.stackexchange.com/questions/6364</span>
+0193             <span class="comment">% /making-square-root-of-covariance-matrix-positive-definite-matlab</span>
+0194             cv = cov(livepoints);
+0195             [l, d] = <a href="mchol.html" class="code" title="function [L,D,E,pneg]=mchol(G)">mchol</a>(propscale*cv);
+0196             cholmat = l.'*sqrt(d);
+0197             
+0198             <span class="comment">%plot3(livepoints(:,1), livepoints(:,2), livepoints(:,3), 'r.');</span>
+0199             <span class="comment">%drawnow();</span>
+0200         <span class="keyword">end</span>
+0201     
+0202         <span class="comment">% draw a new sample using mcmc algorithm</span>
+0203         [livepoints(idx, :), logL(idx)] = <a href="draw_mcmc.html" class="code" title="function [sample, logL] = draw_mcmc(livepoints, cholmat, logLmin,prior, data, likelihood, model, Nmcmc, parnames, extraparvals)">draw_mcmc</a>(livepoints, cholmat, <span class="keyword">...</span>
+0204               logLmin, prior, data, flike, model, Nmcmc, parnames, extraparvals);
+0205 
+0206     <span class="keyword">else</span> 
+0207 
+0208         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0209         <span class="comment">% do MultiNest nested sampling</span>
+0210         
+0211         <span class="comment">% separate out ellipsoids</span>
+0212         <span class="keyword">if</span> FS &gt;= h
+0213             <span class="comment">% NOTE: THIS CODE IS GUARANTEED TO RUN THE 1ST TIME THROUGH</span>
+0214             <span class="comment">% calculate optimal ellipsoids</span>
+0215             [Bs, mus, VEs, ns] = <a href="optimal_ellipsoids.html" class="code" title="function [Bs, mus, VEs, ns] = optimal_ellipsoids(u, VS)">optimal_ellipsoids</a>(livepoints, VS);
+0216             K = length(VEs); <span class="comment">% number of ellipsoids (subclusters)</span>
+0217 
+0218         <span class="keyword">else</span>
+0219             <span class="comment">% simply rescale the bounding ellipsoids</span>
+0220             <span class="keyword">for</span> k=1:K
+0221                 scalefac = max([1 (exp(-(j+1)/Nlive)*ns(k)/Nlive)/VEs(k)]);
+0222  
+0223                 <span class="comment">% scale bounding matrix and volume</span>
+0224                 <span class="keyword">if</span> scalefac ~= 1
+0225                     Bs((k-1)*D+1:k*D,:) = Bs((k-1)*D+1:k*D,:)*scalefac^(2/D);
+0226                     VEs(k) = scalefac*VEs(k);
+0227                 <span class="keyword">end</span>
+0228            <span class="keyword">end</span>
+0229 
+0230         <span class="keyword">end</span>
+0231 
+0232         <span class="keyword">if</span> DEBUG &amp;&amp; D==2
+0233            <span class="comment">% plot 2-dimensionsal live points and bounding ellipses</span>
+0234            <a href="plot_2d_livepoints_with_ellipses.html" class="code" title="function plot_2d_livepoints_with_ellipses(livepoints, Bs, mus)">plot_2d_livepoints_with_ellipses</a>(livepoints, Bs, mus);
+0235         <span class="keyword">end</span>
+0236 
+0237         <span class="comment">% calculate ratio of volumes (FS&gt;=1) and cumulative fractional volume</span>
+0238         Vtot = sum(VEs);
+0239         FS = Vtot/VS;
+0240         fracvol = cumsum(VEs)/Vtot;
+0241         
+0242         <span class="comment">% draw a new sample using multinest algorithm</span>
+0243         [livepoints(idx, :), logL(idx)] = <a href="draw_multinest.html" class="code" title="function [sample, logL] = draw_multinest(fracvol, Bs, mus,logLmin, prior, data, likelihood, model, parnames, extraparvals)">draw_multinest</a>(fracvol, <span class="keyword">...</span>
+0244               Bs, mus, logLmin, prior, data, flike, model, <span class="keyword">...</span>
+0245               parnames, extraparvals);
+0246 
+0247     <span class="keyword">end</span>
+0248 
+0249     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0250     <span class="comment">% update maximum likelihood if appropriate</span>
+0251     <span class="keyword">if</span> logL(idx) &gt; logLmax
+0252         logLmax = logL(idx);
+0253     <span class="keyword">end</span>
+0254     
+0255     <span class="comment">% work out tolerance for stopping criterion</span>
+0256     tol = <a href="logplus.html" class="code" title="function logz  = logplus(logx, logy)">logplus</a>(logZ, logLmax - (j/Nlive)) - logZ;
+0257     
+0258     <span class="comment">% display progress (optional)</span>
+0259     <span class="comment">%.....MODIFIED FOR RAT......AVH</span>
+0260 <span class="comment">%</span>
+0261 <span class="keyword">if</span> verbose
+0262       out = sprintf(<span class="string">'log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %d'</span>, <span class="keyword">...</span>
+0263                  logZ, tol, K, j, H);
+0264       ratSendTextOutput(out);
+0265 <span class="comment">%             drawnow;</span>
+0266      <span class="keyword">end</span>
+0267     
+0268     
+0269     <span class="comment">%............Modify end......AVH...</span>
+0270     
+0271     <span class="comment">% update counter</span>
+0272     j = j+1;
+0273 
+0274 <span class="keyword">end</span>
+0275 
+0276 <span class="comment">% sort the remaining points (in order of likelihood) and add them on to</span>
+0277 <span class="comment">% the evidence</span>
+0278 [logL_sorted, isort] = sort(logL);
+0279 livepoints_sorted = livepoints(isort, :);
+0280 
+0281 <span class="keyword">for</span> i=1:Nlive
+0282     logZ = <a href="logplus.html" class="code" title="function logz  = logplus(logx, logy)">logplus</a>(logZ, logL_sorted(i) + logw);
+0283 <span class="keyword">end</span>
+0284 
+0285 <span class="comment">% append the additional livepoints to the nested samples</span>
+0286 nest_samples = [nest_samples; livepoints_sorted logL_sorted];
+0287 
+0288 <span class="comment">% rescale the samples back to their true ranges</span>
+0289 <span class="keyword">for</span> i=1:length(nest_samples)
+0290     nest_samples(i,1:end-1) = <span class="keyword">...</span>
+0291      <a href="rescale_parameters.html" class="code" title="function scaled = rescale_parameters(prior, params)">rescale_parameters</a>(prior, nest_samples(i,1:end-1));
+0292 <span class="keyword">end</span>
+0293 
+0294 <span class="comment">% convert nested samples into posterior samples - nest2pos assumes that the</span>
+0295 <span class="comment">% final column in the sample chain is the log likelihood</span>
+0296 post_samples = <a href="nest2pos.html" class="code" title="function post_samples = nest2pos(nest_samples, Nlive)">nest2pos</a>(nest_samples, Nlive);
+0297 
+0298 <span class="keyword">return</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of gammar</title>
+  <meta name="keywords" content="gammar">
+  <meta name="description" content="GAMMAR random deviates from gamma distribution">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>gammar
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>GAMMAR random deviates from gamma distribution</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function y=gammar(m,n,a,b) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">GAMMAR random deviates from gamma distribution
+  GAMMAR(M,N,A,B) returns a M*N matrix of random deviates from the Gamma
+  distribution with shape parameter A and scale parameter B:
+
+  p(x|A,B) = B^-A/gamma(A)*x^(A-1)*exp(-x/B)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/chir.html" class="code" title="function r=chir(m,n,df)">chir</a>	CHIR    Chi squared random numbers</li><li><a href="../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../minimisers/mcmcstat/mcmcrun_compile.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun_compile(model,data,problem,params,options,res)">mcmcrun_compile</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../minimisers/mcmcstat/negbinr.html" class="code" title="function y=negbinr(m,n,lam,om)">negbinr</a>	NEGBINR random deviates from negative binomial distribution</li><li><a href="chir.html" class="code" title="function r=chir(m,n,df)">chir</a>	CHIR    Chi squared random numbers</li><li><a href="mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="negbinr.html" class="code" title="function y=negbinr(m,n,lam,om)">negbinr</a>	NEGBINR random deviates from negative binomial distribution</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function y=gammar_mt(m,n,a,b)</a></li><li><a href="#_sub2" class="code">function y=gammar_mt1(a,b)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function y=gammar(m,n,a,b)</a>
+0002 <span class="comment">%GAMMAR random deviates from gamma distribution</span>
+0003 <span class="comment">%  GAMMAR(M,N,A,B) returns a M*N matrix of random deviates from the Gamma</span>
+0004 <span class="comment">%  distribution with shape parameter A and scale parameter B:</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%  p(x|A,B) = B^-A/gamma(A)*x^(A-1)*exp(-x/B)</span>
+0007 
+0008 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0009 <span class="comment">% $Revision: 1.6 $  $Date: 2012/09/27 11:47:36 $</span>
+0010 <span class="keyword">if</span> nargin&lt;4, b=1; <span class="keyword">end</span>
+0011 
+0012 <span class="keyword">if</span> a&lt;=0 <span class="comment">% special case of a&lt;=0</span>
+0013   y = zeros(m,n);
+0014   <span class="keyword">return</span>;
+0015 <span class="keyword">end</span>
+0016 
+0017 <span class="keyword">if</span> exist(<span class="string">'distribs'</span>) == 3 <span class="comment">% mex version</span>
+0018   y = distribs(<span class="string">'gammar'</span>,m,n,a).*b;
+0019 <span class="keyword">else</span>
+0020   y = <a href="#_sub1" class="code" title="subfunction y=gammar_mt(m,n,a,b)">gammar_mt</a>(m,n,a,b);
+0021 <span class="keyword">end</span>
+0022 
+0023 <a name="_sub1" href="#_subfunctions" class="code">function y=gammar_mt(m,n,a,b)</a>
+0024 <span class="comment">%GAMMAR_MT random deviates from gamma distribution</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%  GAMMAR_MT(M,N,A,B) returns a M*N matrix of random deviates from the Gamma</span>
+0027 <span class="comment">%  distribution with shape parameter A and scale parameter B:</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">%  p(x|A,B) = B^-A/gamma(A)*x^(A-1)*exp(-x/B)</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">%  Uses method of Marsaglia and Tsang (2000)</span>
+0032 
+0033 <span class="comment">% G. Marsaglia and W. W. Tsang:</span>
+0034 <span class="comment">% A Simple Method for Generating Gamma Variables,</span>
+0035 <span class="comment">% ACM Transactions on Mathematical Software, Vol. 26, No. 3,</span>
+0036 <span class="comment">% September 2000, 363-372.</span>
+0037 
+0038 <span class="keyword">if</span> nargin &lt; 4, b=1; <span class="keyword">end</span>
+0039 y = zeros(m,n);
+0040 <span class="keyword">for</span> j=1:n
+0041   <span class="keyword">for</span> i=1:m
+0042     y(i,j) = <a href="#_sub2" class="code" title="subfunction y=gammar_mt1(a,b)">gammar_mt1</a>(a,b);
+0043   <span class="keyword">end</span>
+0044 <span class="keyword">end</span>
+0045 <span class="comment">%</span>
+0046 <a name="_sub2" href="#_subfunctions" class="code">function y=gammar_mt1(a,b)</a>
+0047 <span class="keyword">if</span> a&lt;1
+0048   y = <a href="#_sub2" class="code" title="subfunction y=gammar_mt1(a,b)">gammar_mt1</a>(1+a,b)*rand(1)^(1/a);
+0049 <span class="keyword">else</span>
+0050   d = a-1/3;
+0051   c = 1/sqrt(9*d);
+0052   <span class="keyword">while</span>(1)
+0053     <span class="keyword">while</span>(1)
+0054       x = randn(1);
+0055       v = 1+c*x;
+0056       <span class="keyword">if</span> v &gt; 0, <span class="keyword">break</span>, <span class="keyword">end</span>
+0057     <span class="keyword">end</span>
+0058     v = v^3;
+0059     u = rand(1);
+0060     <span class="keyword">if</span> u &lt; 1-0.0331*x^4, <span class="keyword">break</span>, <span class="keyword">end</span>
+0061     <span class="keyword">if</span> log(u) &lt; 0.5*x^2+d*(1-v+log(v)), <span class="keyword">break</span>, <span class="keyword">end</span>
+0062   <span class="keyword">end</span>
+0063   y = b*d*v;
+0064 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

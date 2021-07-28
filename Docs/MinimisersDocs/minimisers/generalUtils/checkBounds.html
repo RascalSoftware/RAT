@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of checkBounds</title>
+  <meta name="keywords" content="checkBounds">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html generalUtils -->
+<h1>checkBounds
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function out = checkBounds(problem) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/DE/addInfoText.html" class="code" title="function addInfoText(text)">addInfoText</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = checkBounds(problem)</a>
+0002 
+0003 out{1} = <span class="string">'ok'</span>;
+0004 
+0005 fitWhichParams = problem.fityesno;
+0006 fittingParams = problem.params(find(fitWhichParams));
+0007 fittingConstr = problem.constr(find(fitWhichParams),:);
+0008 fittingNames = problem.paramnames(find(fitWhichParams));
+0009 
+0010 fitWhichBacks = problem.backgrounds_fityesno;
+0011 fittingBacks = problem.backs(find(fitWhichBacks));
+0012 fittingBacksConstr = problem.backs_constr(find(fitWhichBacks),:);
+0013 fittingBacksNames = problem.backsNames(find(fitWhichBacks));
+0014 
+0015 fitWhichScales = problem.scalefac_fityesno;
+0016 fittingScales = problem.scalefac(find(fitWhichScales));
+0017 fittingScalesConstr = problem.scale_constr(find(fitWhichScales),:);
+0018 fittingScalesNames = problem.scalesNames(find(fitWhichScales));
+0019 
+0020 fitWhichShifts = problem.shifts_fityesno;
+0021 fittingShifts = problem.shifts_horisontal(find(fitWhichShifts));
+0022 fittingShiftsConstr = problem.shifts_constr(find(fitWhichShifts),:);
+0023 fittingShiftsNames = problem.shiftsNames(find(fitWhichShifts));
+0024 
+0025 fitWhichNbas = problem.nbairs_fityesno;
+0026 fittingNbas = problem.nba(find(fitWhichNbas));
+0027 fittingNbaConstr = problem.nbairs_constr(find(fitWhichNbas),:);
+0028 fittingNbaNames = problem.nbaNames(find(fitWhichNbas));
+0029 
+0030 
+0031 fittingParams = [fittingParams(:) ; fittingBacks(:) ; fittingScales(:) ; fittingShifts(:) ; fittingNbas(:)];
+0032 fittingConstr = [fittingConstr ; fittingBacksConstr ; fittingScalesConstr ; fittingShiftsConstr ; fittingNbaConstr];
+0033 fittingNames = [fittingNames(:) ; fittingBacksNames(:) ; fittingScalesNames(:) ; fittingShiftsNames(:) ; fittingNbaNames(:)];
+0034 
+0035 <span class="keyword">if</span> isempty(fittingParams)
+0036     out{1} = <span class="string">'fail'</span>;
+0037     beep
+0038     <a href="../../minimisers/DE/addInfoText.html" class="code" title="function addInfoText(text)">addInfoText</a>(sprintf(<span class="string">'No parameters selected!'</span>));
+0039 <span class="keyword">end</span>
+0040 
+0041 
+0042 loBounds = fittingConstr(:,1);
+0043 hiBounds = fittingConstr(:,2);
+0044 
+0045 <span class="comment">%Distinct Bounds Check..</span>
+0046 areEqual = find(hiBounds==loBounds);
+0047 <span class="keyword">if</span> ~isempty(areEqual)
+0048     out{1} = <span class="string">'fail'</span>;
+0049     beep
+0050     <a href="../../minimisers/DE/addInfoText.html" class="code" title="function addInfoText(text)">addInfoText</a>(sprintf(<span class="string">'Bounds must be distinct for '</span>));
+0051     <span class="keyword">for</span> i = 1:length(areEqual)
+0052         <a href="../../minimisers/DE/addInfoText.html" class="code" title="function addInfoText(text)">addInfoText</a>(sprintf(fittingNames{areEqual(i)}));
+0053     <span class="keyword">end</span>
+0054 <span class="keyword">end</span>
+0055 
+0056 <span class="comment">%Out of range check....</span>
+0057 outOfRange = find(fittingParams(:) &lt; loBounds(:) | fittingParams(:) &gt; hiBounds(:));
+0058 <span class="keyword">if</span> ~isempty(outOfRange)
+0059     out{1} = <span class="string">'fail'</span>;
+0060     beep
+0061     <a href="../../minimisers/DE/addInfoText.html" class="code" title="function addInfoText(text)">addInfoText</a>(sprintf(<span class="string">'Parameter must be between bounds for '</span>));
+0062     <span class="keyword">for</span> i = 1:length(outOfRange)
+0063         <a href="../../minimisers/DE/addInfoText.html" class="code" title="function addInfoText(text)">addInfoText</a>(sprintf(fittingNames{outOfRange(i)}));
+0064     <span class="keyword">end</span>
+0065 <span class="keyword">end</span>
+0066     
+0067</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

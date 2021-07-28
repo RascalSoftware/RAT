@@ -1,0 +1,36 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  algaeex -> algaefun;
+  algaeex -> algaess;
+  algaefun -> algaesys;
+  algaess -> algaefun;
+  beetleex -> beetless;
+  boxoM -> boxoODE;
+  boxoSS -> boxoM;
+  boxoex -> boxoM;
+  boxoex -> boxoODE;
+  himmelex -> himmelode;
+  himmelex -> himmelss;
+  himmelss -> himmelode;
+
+  algaeex [URL="algaeex.html"];
+  algaefun [URL="algaefun.html"];
+  algaess [URL="algaess.html"];
+  algaesys [URL="algaesys.html"];
+  bananaex [URL="bananaex.html"];
+  beetleex [URL="beetleex.html"];
+  beetless [URL="beetless.html"];
+  boxoM [URL="boxoM.html"];
+  boxoODE [URL="boxoODE.html"];
+  boxoSS [URL="boxoSS.html"];
+  boxoex [URL="boxoex.html"];
+  cauchyex [URL="cauchyex.html"];
+  himmelex [URL="himmelex.html"];
+  himmelode [URL="himmelode.html"];
+  himmelss [URL="himmelss.html"];
+  monodex [URL="monodex.html"];
+  normalex [URL="normalex.html"];
+  normalex50 [URL="normalex50.html"];
+  puboptions [URL="puboptions.html"];
+  threemodesex [URL="threemodesex.html"];
+}

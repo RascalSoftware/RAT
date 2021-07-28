@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of himmelex</title>
+  <meta name="keywords" content="himmelex">
+  <meta name="description" content="%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html minimisers --><!-- ../menu.html mcmcstat --><!-- menu.html examples -->
+<h1>himmelex
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%
+ &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Himmelblau&lt;/html&gt;</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../minimisers/mcmcstat/chainstats.html" class="code" title="function y=chainstats(chain,results,fid)">chainstats</a>	CHAINSTATS some statistics from the MCMC chain</li><li><a href="himmelode.html" class="code" title="function ydot = himmelode(t,y,k)">himmelode</a>	Himmelblau 9.9 odefile</li><li><a href="himmelss.html" class="code" title="function ss = himmelss(k,data)">himmelss</a>	sum-of-squares for Himmelblau 9.9</li><li><a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../../minimisers/mcmcstat_new/chainstats.html" class="code" title="function y=chainstats(chain,results,fid)">chainstats</a>	CHAINSTATS some statistics from the MCMC chain</li><li><a href="../../../minimisers/mcmcstat_new/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%</span>
+0002 <span class="comment">% &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Himmelblau&lt;/html&gt;</span>
+0003 
+0004 <span class="comment">%% Himmelblau exercise 9.9</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% This is exercise 9.9 from</span>
+0007 <span class="comment">% David M. Himmelblau, _Process Analysis by Statistical Methods_,</span>
+0008 <span class="comment">% Wiley, 1970.</span>
+0009 
+0010 <span class="comment">%%</span>
+0011 <span class="comment">% We model the reactions</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%   A + B  (k1)-&gt; C + F</span>
+0014 <span class="comment">%   A + C  (k2)-&gt; D + F</span>
+0015 <span class="comment">%   A + D  (k3)-&gt; E + F</span>
+0016 
+0017 <span class="comment">%%</span>
+0018 <span class="comment">% The derivatives can be written as</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">%   dA/dt = -k1 AB - k2 AC - k3 AD</span>
+0021 <span class="comment">%   dB/dt = -k1 AB</span>
+0022 <span class="comment">%   dC/dt =  k1 AB - k2 AC</span>
+0023 <span class="comment">%   dD/dt =          k2 AC - k3 AD</span>
+0024 <span class="comment">%   dE/dt =                  k3 AD</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% The system is written in file &lt;himmelode.html |himmelode.m|&gt; and the</span>
+0027 <span class="comment">% sum of squares function in &lt;himmelss.html |himmelss.m|&gt;.</span>
+0028 
+0029 clear model data parama options
+0030 
+0031 data.ydata = [
+0032 <span class="comment">%  Time (min)     [A] (mole/liter)</span>
+0033             0     0.02090
+0034          4.50     0.01540
+0035          8.67     0.01422
+0036         12.67     0.01335
+0037         17.75     0.01232
+0038         22.67     0.01181
+0039         27.08     0.01139
+0040         32.00     0.01092
+0041         36.00     0.01054
+0042         46.33     0.00978
+0043         57.00     0.009157
+0044         69.00     0.008594
+0045         76.75     0.008395
+0046         90.00     0.007891
+0047        102.00     0.007510
+0048        108.00     0.007370
+0049        147.92     0.006646
+0050        198.00     0.005883
+0051        241.75     0.005322
+0052        270.25     0.004960
+0053        326.25     0.004518
+0054        418.00     0.004075
+0055        501.00     0.003715
+0056     ];
+0057 
+0058 <span class="comment">%%</span>
+0059 <span class="comment">% Initial concentrations are saved in |data| to be used in sum of</span>
+0060 <span class="comment">% squares function.</span>
+0061 A0 = 0.02090; B0 = A0/3; C0 = 0; D0 = 0; E0 = 0;
+0062 data.y0 = [A0;B0;C0;D0;E0];
+0063 
+0064 <span class="comment">%%</span>
+0065 <span class="comment">% Refine the first guess for the parameters with |fminseacrh| and</span>
+0066 <span class="comment">% calculate residual variance as an estimate of the model error variance.</span>
+0067 k00 = [15,1.5,0.3]';
+0068 [k0,ss0] = fminsearch(@<a href="himmelss.html" class="code" title="function ss = himmelss(k,data)">himmelss</a>,k00,[],data)
+0069 mse = ss0/(length(data.ydata)-4);
+0070 
+0071 <span class="comment">%%</span>
+0072 params = {
+0073     {<span class="string">'k1'</span>, k0(1), 0}
+0074     {<span class="string">'k2'</span>, k0(2), 0}
+0075     {<span class="string">'k3'</span>, k0(3), 0}
+0076     };
+0077 
+0078 model.ssfun = @<a href="himmelss.html" class="code" title="function ss = himmelss(k,data)">himmelss</a>;
+0079 model.sigma2 = mse;
+0080 
+0081 options.nsimu = 1000;
+0082 options.updatesigma = 1;
+0083 
+0084 <span class="comment">%%</span>
+0085 [results,chain,s2chain] = <a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>(model,data,params,options);
+0086 
+0087 <span class="comment">%%</span>
+0088 figure(1); clf
+0089 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,[],results,<span class="string">'chainpanel'</span>)
+0090 subplot(2,2,4)
+0091 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(sqrt(s2chain),[],[],<span class="string">'dens'</span>,2)
+0092 title(<span class="string">'error std'</span>)
+0093 
+0094 <span class="comment">%%</span>
+0095 <span class="comment">% Function |chainstats| lists some statistics, including the</span>
+0096 <span class="comment">% estimated Monte Carlo error of the estimates.</span>
+0097 <a href="../../../minimisers/mcmcstat/chainstats.html" class="code" title="function y=chainstats(chain,results,fid)">chainstats</a>(chain,results)
+0098 
+0099 <span class="comment">%%</span>
+0100 figure(2); clf
+0101 [t,y] = ode45(@<a href="himmelode.html" class="code" title="function ydot = himmelode(t,y,k)">himmelode</a>,linspace(0,600),data.y0,[],mean(chain));
+0102 plot(data.ydata(:,1),data.ydata(:,2),<span class="string">'s'</span>,t,y,<span class="string">'-'</span>)
+0103 ylim([0,0.021])
+0104 legend({<span class="string">'Aobs'</span>,<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>,<span class="string">'E'</span>},<span class="string">'Location'</span>,<span class="string">'best'</span>)
+0105 title(<span class="string">'Data and fitted model'</span>)</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

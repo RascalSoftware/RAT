@@ -4,7 +4,7 @@
 <head>
   <title>Description of callReflectivity</title>
   <meta name="keywords" content="callReflectivity">
-  <meta name="description" content="nbairs = problem.nbairs;">
+  <meta name="description" content="">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,26 +20,19 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>nbairs = problem.nbairs;</strong></div>
+<div class="box"><strong></strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="box"><strong>function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre class="comment"> nbairs = problem.nbairs;
- nbsubs = problem.nbsubs;
- simLimits = problem.simLimits;
- repeatLayers = problem.repeatLayers;
- allData = problem.shifted_data;
- layers = problem.layers;
- ssubs = problem.ssubs;
- numberOfContrasts = problem.numberOfContrasts;</pre></div>
+<div class="fragment"><pre class="comment"></pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../common/Resolution_Functions/Simple_Gaussian/resolution_polly.html" class="code" title="function out = resolution_polly(xdata,ydata,res,points)">resolution_polly</a>	</li><li><a href="../../common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.html" class="code" title="function out = resolution_polly_paraPoints(xdata,ydata,res,points)">resolution_polly_paraPoints</a>	</li><li><a href="../../common/reflectivityCalculations/Abeles/abeles_paraPoints.html" class="code" title="function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_paraPoints</a>	nbair = nbairs(thisCont);</li><li><a href="../../common/reflectivityCalculations/Abeles/abeles_single.html" class="code" title="function out = abeles_single(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_single</a>	nbair = nbairs(thisCont);</li></ul>
+<li><a href="../../common/Resolution_Functions/Simple_Gaussian/data_resolution_polly.html" class="code" title="function out = data_resolution_polly(xdata,ydata,resData,points)">data_resolution_polly</a>	Apply resolution correction</li><li><a href="../../common/Resolution_Functions/Simple_Gaussian/data_resolution_polly_paraPoints.html" class="code" title="function out = data_resolution_polly_paraPoints(xdata,ydata,resData,points)">data_resolution_polly_paraPoints</a>	</li><li><a href="../../common/Resolution_Functions/Simple_Gaussian/resolution_polly.html" class="code" title="function out = resolution_polly(xdata,ydata,res,points)">resolution_polly</a>	Apply resolution correction</li><li><a href="../../common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.html" class="code" title="function out = resolution_polly_paraPoints(xdata,ydata,res,points)">resolution_polly_paraPoints</a>	res = res + 0.0001;</li><li><a href="../../common/reflectivityCalculations/Abeles/abeles_paraPoints.html" class="code" title="function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_paraPoints</a>	nbair = nbairs(thisCont);</li><li><a href="../../common/reflectivityCalculations/Abeles/abeles_single.html" class="code" title="function out = abeles_single(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_single</a>	nbair = nbairs(thisCont);</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="../../standard_TF/standardTF_custXY/standardTF_custXY_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_paraContrasts</a>	Extract individual cell arrays</li><li><a href="../../standard_TF/standardTF_custXY/standardTF_custXY_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_paraPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li><li><a href="../../standard_TF/standardTF_custXY/standardTF_custXY_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_single(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_single</a>	Extract individual cell arrays</li><li><a href="../../standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints)">standardTF_layers_core</a>	This is the main reflectivity calculation for all Layers models in the</li></ul>
@@ -50,90 +43,92 @@ This function is called by:
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)</a>
 0002 
-0003 
-0004 <span class="comment">% nbairs = problem.nbairs;</span>
-0005 <span class="comment">% nbsubs = problem.nbsubs;</span>
-0006 <span class="comment">% simLimits = problem.simLimits;</span>
-0007 <span class="comment">% repeatLayers = problem.repeatLayers;</span>
-0008 <span class="comment">% allData = problem.shifted_data;</span>
-0009 <span class="comment">% layers = problem.layers;</span>
-0010 <span class="comment">% ssubs = problem.ssubs;</span>
-0011 <span class="comment">% numberOfContrasts = problem.numberOfContrasts;</span>
-0012 
-0013 <span class="comment">% reflectivity = cell(numberOfContrasts,1);</span>
-0014 <span class="comment">% Simulation = cell(numberOfContrasts,1);</span>
-0015 <span class="comment">%</span>
-0016 <span class="comment">% parfor i = 1:numberOfContrasts</span>
-0017 
-0018 <span class="comment">% ------ TODO - Add the data resolution calculation</span>
-0019 <span class="comment">%        But set res to 0.03 if it's a data</span>
-0020 <span class="comment">%        background until this is fixed:</span>
-0021 
-0022 <span class="keyword">if</span> res == -1
-0023     res = 0.03;
+0003 xdata = this_data(:,1);
+0004 output = layers;
+0005 
+0006 <span class="keyword">if</span> isempty(output)
+0007     slds = [0 nbairs 0];
+0008     lays = 0;
+0009 <span class="keyword">else</span>
+0010     slds = output(:,1:3);
+0011     lays = size(slds,1);
+0012 <span class="keyword">end</span>
+0013 
+0014 simXLo = simLimits(1);
+0015 simXHi = simLimits(2);
+0016 middleSection = this_data(:,1);
+0017 split = [0 0];
+0018 
+0019 <span class="keyword">if</span> simXLo &lt; xdata(1)
+0020     step = (xdata(2)-xdata(1));
+0021     firstSection = [simXLo:step:(xdata(1)-step)];
+0022 <span class="keyword">else</span>
+0023     firstSection = [];
 0024 <span class="keyword">end</span>
 0025 
-0026 <span class="comment">% ----- End TODO -------------</span>
-0027 
-0028 <span class="comment">%this_data = allData{i};</span>
-0029 xdata = this_data(:,1);
-0030 output = layers;
-0031 
-0032 <span class="keyword">if</span> isempty(output)
-0033     slds = [0 nbairs 0];
-0034     lays = 0;
-0035 <span class="keyword">else</span>
-0036     slds = output(:,1:3);
-0037     lays = size(slds,1);
-0038 <span class="keyword">end</span>
-0039 
-0040 simXLo = simLimits(1);
-0041 simXHi = simLimits(2);
-0042 middleSection = this_data(:,1);
-0043 split = [0 0];
-0044 
-0045 <span class="keyword">if</span> simXLo &lt; xdata(1)
-0046     step = (xdata(2)-xdata(1));
-0047     firstSection = [simXLo:step:(xdata(1)-step)];
-0048 <span class="keyword">else</span>
-0049     firstSection = [];
+0026 <span class="keyword">if</span> simXHi &gt; xdata(end)
+0027     step = (xdata(end)-xdata(end-1,1));
+0028     lastSection = [xdata(<span class="keyword">end</span>,1)+step:step:simXHi];
+0029 <span class="keyword">else</span>
+0030     lastSection = [];
+0031 <span class="keyword">end</span>
+0032 
+0033 simXdata = [firstSection(:) ; middleSection(:) ; lastSection(:)];
+0034 splits = [(length(firstSection)+1) ((length(firstSection))+length(middleSection))];
+0035 
+0036 Simulation = zeros(length(simXdata),2);
+0037 Simulation(:,1) = simXdata;
+0038 
+0039 <span class="comment">% If we are using data resolutions, then we also need to adjust the length</span>
+0040 <span class="comment">% of the reolution column. We do thit by just extending with the rosolution</span>
+0041 <span class="comment">% values at the ends of the curve.</span>
+0042 simResolData = 0;
+0043 <span class="keyword">if</span> res == -1
+0044     thisDataResol = this_data(:,4);
+0045     minVal = thisDataResol(1);
+0046     maxVal = thisDataResol(end);
+0047     startResol = ones((length(firstSection)),1) .* minVal;
+0048     endResol = ones((length(lastSection)),1) .* maxVal;
+0049     simResolData = [startResol(:) ; thisDataResol(:) ; endResol(:)];
 0050 <span class="keyword">end</span>
 0051 
-0052 <span class="keyword">if</span> simXHi &gt; xdata(end)
-0053     step = (xdata(end)-xdata(end-1,1));
-0054     lastSection = [xdata(<span class="keyword">end</span>,1)+step:step:simXHi];
-0055 <span class="keyword">else</span>
-0056     lastSection = [];
-0057 <span class="keyword">end</span>
-0058 
-0059 simXdata = [firstSection(:) ; middleSection(:) ; lastSection(:)];
-0060 splits = [(length(firstSection)+1) ((length(firstSection))+length(middleSection))];
-0061 
-0062 Simulation = zeros(length(simXdata),2);
-0063 Simulation(:,1) = simXdata;
-0064 
-0065 repeats = repeatLayers(2);
-0066 
-0067 <span class="keyword">switch</span> refType
-0068     <span class="keyword">case</span> <span class="string">'standardAbeles_realOnly'</span>
-0069         <span class="keyword">switch</span> para
-0070             <span class="keyword">case</span> <span class="string">'points'</span>
-0071                 <span class="comment">% Parallelise over points</span>
-0072                 simRef = <a href="../../common/reflectivityCalculations/Abeles/abeles_paraPoints.html" class="code" title="function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_paraPoints</a>(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); <span class="comment">%(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)</span>
-0073                 simRef = <a href="../../common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.html" class="code" title="function out = resolution_polly_paraPoints(xdata,ydata,res,points)">resolution_polly_paraPoints</a>(simXdata,simRef,res,length(simXdata));
-0074                 
-0075             <span class="keyword">otherwise</span>
-0076                 <span class="comment">% Single cored over points</span>
-0077                 simRef = <a href="../../common/reflectivityCalculations/Abeles/abeles_single.html" class="code" title="function out = abeles_single(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_single</a>(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
-0078                 simRef = <a href="../../common/Resolution_Functions/Simple_Gaussian/resolution_polly.html" class="code" title="function out = resolution_polly(xdata,ydata,res,points)">resolution_polly</a>(simXdata,simRef,res,length(simXdata));
-0079         <span class="keyword">end</span>
-0080 <span class="keyword">end</span>
-0081 
-0082 
-0083 Simulation(:,2) = simRef(:);
-0084 reflectivity = Simulation(splits(1):splits(2),:);
-0085 
-0086 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Wed 21-Jul-2021 09:14:41 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0052 repeats = repeatLayers(2);
+0053 
+0054 <span class="keyword">switch</span> refType
+0055     <span class="keyword">case</span> <span class="string">'standardAbeles_realOnly'</span>
+0056         <span class="keyword">switch</span> para
+0057             <span class="keyword">case</span> <span class="string">'points'</span>
+0058                 <span class="comment">% Parallelise over points</span>
+0059                 
+0060                 <span class="comment">% Calculate reflectivity....</span>
+0061                 simRef = <a href="../../common/reflectivityCalculations/Abeles/abeles_paraPoints.html" class="code" title="function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_paraPoints</a>(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); <span class="comment">%(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)</span>
+0062                 
+0063                 <span class="comment">% Apply resolution</span>
+0064                 <span class="keyword">if</span> res == -1
+0065                     simRef = <a href="../../common/Resolution_Functions/Simple_Gaussian/data_resolution_polly_paraPoints.html" class="code" title="function out = data_resolution_polly_paraPoints(xdata,ydata,resData,points)">data_resolution_polly_paraPoints</a>(simXdata,simRef,simResolData,length(simXdata));
+0066                 <span class="keyword">else</span>
+0067                     simRef = <a href="../../common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.html" class="code" title="function out = resolution_polly_paraPoints(xdata,ydata,res,points)">resolution_polly_paraPoints</a>(simXdata,simRef,res,length(simXdata));
+0068                 <span class="keyword">end</span>
+0069                 
+0070             <span class="keyword">otherwise</span>
+0071                 <span class="comment">% Single cored over points</span>
+0072                 
+0073                 <span class="comment">% Calculate reflectivity.....</span>
+0074                 simRef = <a href="../../common/reflectivityCalculations/Abeles/abeles_single.html" class="code" title="function out = abeles_single(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_single</a>(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
+0075                 
+0076                 <span class="comment">% Apply resolution correction...</span>
+0077                 <span class="keyword">if</span> res == -1
+0078                     simRef = <a href="../../common/Resolution_Functions/Simple_Gaussian/data_resolution_polly.html" class="code" title="function out = data_resolution_polly(xdata,ydata,resData,points)">data_resolution_polly</a>(simXdata,simRef,simResolData,length(simXdata));
+0079                 <span class="keyword">else</span>
+0080                     simRef = <a href="../../common/Resolution_Functions/Simple_Gaussian/resolution_polly.html" class="code" title="function out = resolution_polly(xdata,ydata,res,points)">resolution_polly</a>(simXdata,simRef,res,length(simXdata));
+0081                 <span class="keyword">end</span>
+0082         <span class="keyword">end</span>
+0083 <span class="keyword">end</span>
+0084 
+0085 Simulation(:,2) = simRef(:);
+0086 reflectivity = Simulation(splits(1):splits(2),:);
+0087 
+0088 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 26-Jul-2021 14:52:47 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

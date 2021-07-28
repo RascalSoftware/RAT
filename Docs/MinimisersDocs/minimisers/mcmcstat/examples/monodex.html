@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of monodex</title>
+  <meta name="keywords" content="monodex">
+  <meta name="description" content="%">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html minimisers --><!-- ../menu.html mcmcstat --><!-- menu.html examples -->
+<h1>monodex
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>%</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">%
+ &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Monod model&lt;/html&gt;</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../minimisers/mcmcstat/invchi1pf.html" class="code" title="function y=invchi1pf(x,N0,S)">invchi1pf</a>	INVCHI1PF inverse scaled chi density function</li><li><a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat/mcmcpred.html" class="code" title="function out=mcmcpred(results,chain,s2chain,data,problem,modelfun,nsample,varargin)">mcmcpred</a>	MCMCPRED predictive calculations from the mcmcrun chain</li><li><a href="../../../minimisers/mcmcstat/mcmcpredplot.html" class="code" title="function h=mcmcpredplot(out,data,adddata)">mcmcpredplot</a>	MCMCPREDPLOT - predictive plot for mcmc results</li><li><a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../../minimisers/mcmcstat_new/invchi1pf.html" class="code" title="function y=invchi1pf(x,N0,S)">invchi1pf</a>	INVCHI1PF inverse scaled chi density function</li><li><a href="../../../minimisers/mcmcstat_new/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>	MCMCPLOT Plot mcmc chain</li><li><a href="../../../minimisers/mcmcstat_new/mcmcpred.html" class="code" title="function out=mcmcpred(results,chain,s2chain,data,problem,modelfun,nsample,varargin)">mcmcpred</a>	MCMCPRED predictive calculations from the mcmcrun chain</li><li><a href="../../../minimisers/mcmcstat_new/mcmcpredplot.html" class="code" title="function h=mcmcpredplot(out,data,adddata)">mcmcpredplot</a>	MCMCPREDPLOT - predictive plot for mcmc results</li><li><a href="../../../minimisers/mcmcstat_new/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%%</span>
+0002 <span class="comment">% &lt;html&gt;&lt;a href=&quot;../index.html&quot;&gt;MCMC toolbox&lt;/a&gt; » &lt;a href=&quot;../examples.html&quot;&gt;Examples&lt;/a&gt; » Monod model&lt;/html&gt;</span>
+0003 
+0004 <span class="comment">%% MCMC toolbox examples</span>
+0005 <span class="comment">% This example is from</span>
+0006 <span class="comment">% P. M. Berthouex and L. C. Brown:</span>
+0007 <span class="comment">% _Statistics for Environmental Engineers_, CRC Press, 2002.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% We fit the Monod model</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% $$ y = \theta_1 \frac{t}{\theta_2 + t} + \epsilon \quad \epsilon\sim N(0,I\sigma^2) $$</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% to observations</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%   x (mg / L COD):  28    55    83    110   138   225   375</span>
+0016 <span class="comment">%   y (1 / h):       0.053 0.060 0.112 0.105 0.099 0.122 0.125</span>
+0017 <span class="comment">%</span>
+0018 
+0019 <span class="comment">%%</span>
+0020 <span class="comment">% First clear some variables from possible previous runs.</span>
+0021 clear data model options
+0022 
+0023 <span class="comment">%%</span>
+0024 <span class="comment">% Next, create a data structure for the observations and control</span>
+0025 <span class="comment">% variables. Typically one could make a structure |data| that</span>
+0026 <span class="comment">% contains fields |xdata| and |ydata|.</span>
+0027 
+0028 data.xdata = [28    55    83    110   138   225   375]';   <span class="comment">% x (mg / L COD)</span>
+0029 data.ydata = [0.053 0.060 0.112 0.105 0.099 0.122 0.125]'; <span class="comment">% y (1 / h)</span>
+0030 
+0031 <span class="comment">%%</span>
+0032 <span class="comment">% Here is a plot of the data set.</span>
+0033 figure(1); clf
+0034 plot(data.xdata,data.ydata,<span class="string">'s'</span>);
+0035 xlim([0 400]); xlabel(<span class="string">'x [mg/L COD]'</span>); ylabel(<span class="string">'y [1/h]'</span>);
+0036 
+0037 <span class="comment">%%</span>
+0038 <span class="comment">% For the MCMC run we need the sum of squares function. For the</span>
+0039 <span class="comment">% plots we shall also need a function that returns the model.</span>
+0040 <span class="comment">% Both the model and the sum of squares functions are</span>
+0041 <span class="comment">% easy to write as one line anonymous functions using the @</span>
+0042 <span class="comment">% construct.</span>
+0043 
+0044 modelfun = @(x,theta) theta(1)*x./(theta(2)+x);
+0045 ssfun    = @(theta,data) sum((data.ydata-modelfun(data.xdata,theta)).^2);
+0046 
+0047 
+0048 <span class="comment">%%</span>
+0049 <span class="comment">% In this case the initial values for the parameters are easy to guess</span>
+0050 <span class="comment">% by looking at the plotted data. As we alredy have the sum-of-squares</span>
+0051 <span class="comment">% function, we might as well try to minimize it using |fminsearch|.</span>
+0052 [tmin,ssmin]=fminsearch(ssfun,[0.15;100],[],data)
+0053 n = length(data.xdata);
+0054 p = 2;
+0055 mse = ssmin/(n-p) <span class="comment">% estimate for the error variance</span>
+0056 <span class="comment">%%</span>
+0057 <span class="comment">% The Jacobian matrix of the model function is easy to calculate so we use</span>
+0058 <span class="comment">% it to produce estimate of the covariance of theta. This can be</span>
+0059 <span class="comment">% used as the initial proposal covariance for the MCMC samples by</span>
+0060 <span class="comment">% option |options.qcov| below.</span>
+0061 J = [data.xdata./(tmin(2)+data.xdata), <span class="keyword">...</span>
+0062      -tmin(1).*data.xdata./(tmin(2)+data.xdata).^2];
+0063 tcov = inv(J'*J)*mse
+0064 
+0065 
+0066 <span class="comment">%%</span>
+0067 <span class="comment">% We have to define three structures for inputs of the |mcmcrun|</span>
+0068 <span class="comment">% function: parameter, model, and options.  Parameter structure has a</span>
+0069 <span class="comment">% special form and it is constructed as Matlab cell array with curly</span>
+0070 <span class="comment">% brackets. At least the structure has, for each parameter, the name</span>
+0071 <span class="comment">% of the parameter and the initial value of it. Third optional</span>
+0072 <span class="comment">% parameter given below is the minimal accepted value. With it we set</span>
+0073 <span class="comment">% a positivity constraits for both of the parameters.</span>
+0074 
+0075 params = {
+0076     {<span class="string">'theta1'</span>, tmin(1), 0}
+0077     {<span class="string">'theta2'</span>, tmin(2), 0}
+0078     };
+0079 
+0080 <span class="comment">%%</span>
+0081 <span class="comment">% In general, each parameter line can have up to 7 elements: 'name',</span>
+0082 <span class="comment">% initial_value, min_value, max_value, prior_mu, prior_sigma, and</span>
+0083 <span class="comment">% targetflag</span>
+0084 
+0085 <span class="comment">%%</span>
+0086 <span class="comment">% The |model| structure holds information about the model. Minimally</span>
+0087 <span class="comment">% we need to set |ssfun| for the sum of squares function and the</span>
+0088 <span class="comment">% initial estimate of the error variance |sigma2|.</span>
+0089 
+0090 model.ssfun  = ssfun;
+0091 model.sigma2 = mse; <span class="comment">% (initial) error variance from residuals of the lsq fit</span>
+0092 
+0093 <span class="comment">%%</span>
+0094 <span class="comment">% If we want to sample the error variance sigma2 as an extra model</span>
+0095 <span class="comment">% parameter, we need to set a prior distribution for it. A convenient</span>
+0096 <span class="comment">% choice is the conjugate inverse chi-squared distribution, which</span>
+0097 <span class="comment">% allows Gibbs sampling step for sigma2 after every</span>
+0098 <span class="comment">% Metropolis-Hastings update for the other parameters. This is</span>
+0099 <span class="comment">% acchieved by |options.updatesigma=1|, below. The default prior is</span>
+0100 <span class="comment">% uninformative, but we can set the prior parameters with the</span>
+0101 <span class="comment">% following options. Option |model.N| for the number of observatios is</span>
+0102 <span class="comment">% needed for 'updatesigma', if it is not given, the code tries to</span>
+0103 <span class="comment">% guess |N| from the data.</span>
+0104 
+0105 model.N = length(data.ydata);  <span class="comment">% total number of observations</span>
+0106 model.S20 = model.sigma2;      <span class="comment">% prior mean for sigma2</span>
+0107 model.N0  = 4;                 <span class="comment">% prior accuracy for sigma2</span>
+0108 
+0109 <span class="comment">%%</span>
+0110 <span class="comment">% The |options| structure has settings for the MCMC run. We need at</span>
+0111 <span class="comment">% least the number of simulations in |nsimu|. Here we also set the</span>
+0112 <span class="comment">% option |updatesigma| to allow automatic sampling and estimation of the</span>
+0113 <span class="comment">% error variance. The option |qcov| sets the initial covariance for</span>
+0114 <span class="comment">% the Gaussian proposal density of the MCMC sampler.</span>
+0115 
+0116 options.nsimu = 4000;
+0117 options.updatesigma = 1;
+0118 options.qcov = tcov; <span class="comment">% covariance from the initial fit</span>
+0119 
+0120 
+0121 <span class="comment">%%</span>
+0122 <span class="comment">% The actual MCMC simulation run is done using the function</span>
+0123 <span class="comment">% |mcmcrun|.</span>
+0124 
+0125 [res,chain,s2chain] = <a href="../../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>(model,data,params,options);
+0126 
+0127 <span class="comment">%%</span>
+0128 <span class="comment">% &lt;&lt;mcmcstatus.png&gt;&gt;</span>
+0129 <span class="comment">%</span>
+0130 <span class="comment">% During the run, a status window is showing the estimated time to</span>
+0131 <span class="comment">% the end of the simulation. The simulation can be ended by Cancel</span>
+0132 <span class="comment">% button and the chain generated so far is returned.</span>
+0133 
+0134 <span class="comment">%%</span>
+0135 <span class="comment">% After the run the we have a structure |res| that contains some</span>
+0136 <span class="comment">% information about the run and a matrix outputs |chain| and</span>
+0137 <span class="comment">% |s2chain| that contain the actual MCMC chains for the parameters</span>
+0138 <span class="comment">% and for the observation error variance.</span>
+0139 
+0140 <span class="comment">%%</span>
+0141 <span class="comment">% The |chain| variable is |nsimu| × |npar| matrix and it can be</span>
+0142 <span class="comment">% plotted and manipulated with standard Matlab functions. MCMC toolbox</span>
+0143 <span class="comment">% function |mcmcplot| can be used to make some useful chain plots and</span>
+0144 <span class="comment">% also to plot 1 and 2 dimensional marginal kernel density estimates of</span>
+0145 <span class="comment">% the posterior distributions.</span>
+0146 <span class="comment">%</span>
+0147 figure(2); clf
+0148 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,[],res,<span class="string">'chainpanel'</span>);
+0149 
+0150 <span class="comment">%%</span>
+0151 <span class="comment">% The |'pairs'| options makes pairwise scatterplots of the columns of</span>
+0152 <span class="comment">% the |chain|.</span>
+0153 
+0154 figure(3); clf
+0155 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(chain,[],res,<span class="string">'pairs'</span>);
+0156 
+0157 <span class="comment">%%</span>
+0158 <span class="comment">% If we take square root of the |s2chain| we get the chain for error</span>
+0159 <span class="comment">% standard deviation. Here we use |'hist'| option for the histogram of</span>
+0160 <span class="comment">% the chain.</span>
+0161 
+0162 figure(4); clf
+0163 <a href="../../../minimisers/mcmcstat/mcmcplot.html" class="code" title="function mcmcplot(chain,inds,names,plottype,varargin)">mcmcplot</a>(sqrt(s2chain),[],[],<span class="string">'hist'</span>)
+0164 title(<span class="string">'Error std posterior'</span>)
+0165 
+0166 <span class="comment">% add prior distribution to the plot, if it was informative</span>
+0167 <span class="keyword">if</span> res.N0&gt;0
+0168   xl = xlim; xx = linspace(xl(1),xl(2));
+0169   hold on
+0170   plot(xx,<a href="../../../minimisers/mcmcstat/invchi1pf.html" class="code" title="function y=invchi1pf(x,N0,S)">invchi1pf</a>(xx,res.N0,sqrt(res.S20)))
+0171   hold off
+0172   legend(<span class="string">'posterior'</span>,<span class="string">'prior'</span>)
+0173 <span class="keyword">end</span>
+0174 
+0175 <span class="comment">%%</span>
+0176 <span class="comment">% A point estimate of the model parameters can be calculated as the</span>
+0177 <span class="comment">% mean of the |chain|. Here we plot the fitted model using the</span>
+0178 <span class="comment">% posterior means of the parameters.</span>
+0179 
+0180 x = linspace(0,400)';
+0181 figure(1)
+0182 hold on
+0183 plot(x,modelfun(x,mean(chain)),<span class="string">'-k'</span>)
+0184 hold off
+0185 legend({<span class="string">'data'</span>,<span class="string">'model'</span>},<span class="string">'Location'</span>,<span class="string">'best'</span>)
+0186 
+0187 <span class="comment">%%</span>
+0188 <span class="comment">% Instead of just a point estimate of the fit, we should also study</span>
+0189 <span class="comment">% the predictive posterior distribution of the model. The |mcmcpred|</span>
+0190 <span class="comment">% and |mcmcpredplot| functions can be used for this purpose. By them</span>
+0191 <span class="comment">% we can calculate the model fit for a randomly selected subset of the</span>
+0192 <span class="comment">% chain and calculate the predictive envelope of the model. The grey</span>
+0193 <span class="comment">% areas in the plot correspond to 50%, 90%, 95%, and 99% posterior</span>
+0194 <span class="comment">% regions.</span>
+0195 
+0196 figure(5); clf
+0197 out = <a href="../../../minimisers/mcmcstat/mcmcpred.html" class="code" title="function out=mcmcpred(results,chain,s2chain,data,problem,modelfun,nsample,varargin)">mcmcpred</a>(res,chain,[],x,modelfun);
+0198 <a href="../../../minimisers/mcmcstat/mcmcpredplot.html" class="code" title="function h=mcmcpredplot(out,data,adddata)">mcmcpredplot</a>(out);
+0199 hold on
+0200 plot(data.xdata,data.ydata,<span class="string">'s'</span>); <span class="comment">% add data points to the plot</span>
+0201 xlabel(<span class="string">'x [mg/L COD]'</span>); ylabel(<span class="string">'y [1/h]'</span>);
+0202 hold off
+0203 title(<span class="string">'Predictive envelopes of the model'</span>)</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of panellims</title>
+  <meta name="keywords" content="panellims">
+  <meta name="description" content="PANELLIMS 2d density with probability limits added to pairs plot. See PAIRS.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>panellims
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>PANELLIMS 2d density with probability limits added to pairs plot. See PAIRS.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function panellims(x,y,smo,rho,dens,ccolor) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">PANELLIMS 2d density with probability limits added to pairs plot. See PAIRS.
+ panellims(x,y,smo,rho,dens,ccolor)
+ smo - smoothing factor
+ rho - correlation coef for the kernel
+ dens - if 1, add marginal densities
+ ccolor - contour color</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/density.html" class="code" title="function [y,xo]=density(x,xout,ss,gaus)">density</a>	DENSITY  Density estimator using Gaussian kernel</li><li><a href="../../minimisers/mcmcstat/plims2d.html" class="code" title="function varargout=plims2d(xy,lims,smo,rho,xo,yo)">plims2d</a>	PLIMS2D  2 dimensional HPD limits</li><li><a href="density.html" class="code" title="function [y,xo]=density(x,xout,ss,gaus)">density</a>	DENSITY  Density estimator using Gaussian kernel</li><li><a href="plims2d.html" class="code" title="function varargout=plims2d(xy,lims,smo,rho,xo,yo)">plims2d</a>	PLIMS2D  2 dimensional HPD limits</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function panellims(x,y,smo,rho,dens,ccolor)</a>
+0002 <span class="comment">%PANELLIMS 2d density with probability limits added to pairs plot. See PAIRS.</span>
+0003 <span class="comment">% panellims(x,y,smo,rho,dens,ccolor)</span>
+0004 <span class="comment">% smo - smoothing factor</span>
+0005 <span class="comment">% rho - correlation coef for the kernel</span>
+0006 <span class="comment">% dens - if 1, add marginal densities</span>
+0007 <span class="comment">% ccolor - contour color</span>
+0008 
+0009 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0010 <span class="comment">% $Revision: 1.10 $  $Date: 2012/09/27 11:47:38 $</span>
+0011 
+0012 <span class="keyword">if</span> nargin &lt; 3
+0013    smo = [1 1];
+0014 <span class="keyword">end</span>
+0015 <span class="keyword">if</span> length(smo)&lt;2
+0016    smo = [smo,smo];
+0017 <span class="keyword">end</span>
+0018 <span class="keyword">if</span> nargin&lt;4
+0019   rho = [];
+0020 <span class="keyword">end</span>
+0021 <span class="keyword">if</span> nargin&lt;5
+0022   dens = 1;
+0023 <span class="keyword">end</span>
+0024 
+0025 <span class="keyword">if</span> nargin&lt;6
+0026   ccolor = <span class="string">'blue'</span>; <span class="comment">% contour color</span>
+0027 <span class="keyword">end</span>
+0028 
+0029 <span class="keyword">if</span> smo(2)&gt;0
+0030   <span class="comment">%lms = [0.5 0.9 0.95]; % p-limits to draw</span>
+0031   lms = [0.62 0.90 0.95]; <span class="comment">% p-limits to draw</span>
+0032   lms = [0.62 0.90]; <span class="comment">% p-limits to draw</span>
+0033   lms = [0.62 0.95]; <span class="comment">% p-limits to draw</span>
+0034   lms = [0.50 0.95]; <span class="comment">% p-limits to draw</span>
+0035 <span class="comment">%  lms = [0.68 0.95 0.99]; % p-limits to draw</span>
+0036   [xo,yo,z,p]=<a href="plims2d.html" class="code" title="function varargout=plims2d(xy,lims,smo,rho,xo,yo)">plims2d</a>([x,y],lms,smo(2:end),rho);
+0037 
+0038   h=gca; hp=findobj(h,<span class="string">'Type'</span>,<span class="string">'line'</span>);
+0039   set(hp,<span class="string">'MarkerSize'</span>,1);
+0040   set(hp(1),<span class="string">'Color'</span>,ccolor);
+0041   hold on
+0042   [c,hc]=contour(xo,yo,z,p);
+0043   <span class="comment">%get(hc(1))</span>
+0044   <span class="keyword">for</span> i=1:length(hc); set(hc(i),<span class="string">'LineWidth'</span>,1.0); <span class="keyword">end</span>
+0045   <span class="keyword">for</span> i=1:length(hc); set(hc(i),<span class="string">'EdgeColor'</span>,ccolor); <span class="keyword">end</span>
+0046   <span class="comment">%clabel(c,hc)</span>
+0047 <span class="keyword">end</span>
+0048 
+0049 <span class="keyword">if</span> (dens&amp;smo(1)&gt;0)
+0050 <span class="comment">% add marginal densities</span>
+0051 [yd1,xd1]=<a href="density.html" class="code" title="function [y,xo]=density(x,xout,ss,gaus)">density</a>(x,[],smo(1));
+0052 [yd2,xd2]=<a href="density.html" class="code" title="function [y,xo]=density(x,xout,ss,gaus)">density</a>(y,[],smo(1));
+0053 
+0054 dscale=0.15; <span class="comment">% marginal density scale</span>
+0055 <span class="comment">%ylim=get(h,'YLim');</span>
+0056 ylim=[min(xd2),max(xd2)];
+0057 ymax=max(yd1);
+0058 <span class="comment">%xlim=get(h,'XLim');</span>
+0059 xlim=[min(xd1),max(xd1)];
+0060 yymax=max(yd2);
+0061 
+0062 y2=(yd1*(ylim(2)-ylim(1))/ymax*dscale + ylim(1));
+0063 plot(xd1,y2,<span class="string">'Color'</span>,ccolor)
+0064 
+0065 yy2=(yd2*(xlim(2)-xlim(1))/yymax*dscale + xlim(1));
+0066 plot(yy2,xd2,<span class="string">'Color'</span>,ccolor)
+0067 
+0068 axis([xlim,ylim])
+0069 <span class="comment">%axis([min(xd1),max(xd1),min(xd2),max(xd2)])</span>
+0070 <span class="keyword">else</span>
+0071   axis tight <span class="comment">% quick fix</span>
+0072 <span class="keyword">end</span>
+0073 
+0074 hold off</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

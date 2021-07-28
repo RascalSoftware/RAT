@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of smooth2d</title>
+  <meta name="keywords" content="smooth2d">
+  <meta name="description" content="SMOOTH2D - smooth matrix rows and columns">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>smooth2d
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>SMOOTH2D - smooth matrix rows and columns</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function Z = smooth2d(X,lam,order) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">SMOOTH2D - smooth matrix rows and columns
+ Z = smooth2d(X,lam) returns matrix Z that minimizes
+ |X-Z| + |lam(1)*B1*Z| + |Z*B2*lam(2)|
+ where B1 and B2 are 1. order difference matrices for rows and columns
+ of X.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/hist2d.html" class="code" title="function [y,xx,yy]=hist2d(x,mxmy,nbin,lam,plots)">hist2d</a>	HIST2D 2d smoothed histogram calculations</li><li><a href="hist2d.html" class="code" title="function [y,xx,yy]=hist2d(x,mxmy,nbin,lam,plots)">hist2d</a>	HIST2D 2d smoothed histogram calculations</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function Z = smooth2d(X,lam,order)</a>
+0002 <span class="comment">%SMOOTH2D - smooth matrix rows and columns</span>
+0003 <span class="comment">% Z = smooth2d(X,lam) returns matrix Z that minimizes</span>
+0004 <span class="comment">% |X-Z| + |lam(1)*B1*Z| + |Z*B2*lam(2)|</span>
+0005 <span class="comment">% where B1 and B2 are 1. order difference matrices for rows and columns</span>
+0006 <span class="comment">% of X.</span>
+0007 
+0008 <span class="comment">% Marko Laine &lt;marko.laine@fmi.fi&gt;</span>
+0009 <span class="comment">% $Revision: 1.4 $  $Date: 2013/01/15 12:15:23 $</span>
+0010 
+0011 <span class="keyword">if</span> length(lam)&lt;2
+0012   lam1 = lam(1); lam2 = lam1;
+0013 <span class="keyword">else</span>
+0014   lam1 = lam(1); lam2 = lam(2);
+0015 <span class="keyword">end</span>
+0016 
+0017 [m,n] = size(X);
+0018 <span class="keyword">if</span> nargin &lt; 3
+0019   order = 1;
+0020 <span class="keyword">end</span>
+0021 
+0022 <span class="comment">% Here is what we do:</span>
+0023 <span class="comment">% Fit identity model X = I*Z with reqularization given above.</span>
+0024 <span class="comment">% In general B*Z can be calculated as kron(eye(n),B)*Z(:) and</span>
+0025 <span class="comment">% Z*B as kron(B',eye(m))*Z(:), so the augmented model matrix becomes</span>
+0026 <span class="comment">% [eye(m*n); kron(eye(n),B1); kron(B2',eye(m)] with &quot;observations&quot;</span>
+0027 <span class="comment">% [X(:); zeros(N,1)], with suitable N. Using sparse matrices</span>
+0028 <span class="comment">% this becomes:</span>
+0029 Z = full(reshape(<span class="keyword">...</span>
+0030     [speye(m*n);<span class="keyword">...</span>
+0031      kron(speye(n),diff(speye(m),order).*lam1);<span class="keyword">...</span>
+0032      kron(diff(speye(n),order).*lam2,speye(m))] \ <span class="keyword">...</span>
+0033     [X(:);sparse(n*(m-order)+m*(n-order),1)], <span class="keyword">...</span>
+0034     m,n));</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

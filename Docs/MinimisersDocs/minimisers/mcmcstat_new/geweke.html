@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of geweke</title>
+  <meta name="keywords" content="geweke">
+  <meta name="description" content="GEWEKE Geweke's MCMC convergence diagnostic">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html minimisers --><!-- menu.html mcmcstat_new -->
+<h1>geweke
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>GEWEKE Geweke's MCMC convergence diagnostic</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [z,p]=geweke(chain,a,b) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">GEWEKE Geweke's MCMC convergence diagnostic
+ [z,p] = geweke(chain,a,b)
+ Test for equality of the means of the first a% (default 10%) and
+ last b% (50%) of a Markov chain.
+ See:
+ Stephen P. Brooks and Gareth O. Roberts.
+ Assessing convergence of Markov chain Monte Carlo algorithms.
+ Statistics and Computing, 8:319--335, 1998.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/nordf.html" class="code" title="function y=nordf(x,mu,sigma2)">nordf</a>	NORDF the standard normal (Gaussian) cumulative distribution.</li><li><a href="../../minimisers/mcmcstat/spectrum0.html" class="code" title="function s=spectrum0(x)">spectrum0</a>	SPECTRUM0 Spectral density at frequency zero</li><li><a href="nordf.html" class="code" title="function y=nordf(x,mu,sigma2)">nordf</a>	NORDF the standard normal (Gaussian) cumulative distribution.</li><li><a href="spectrum0.html" class="code" title="function s=spectrum0(x)">spectrum0</a>	SPECTRUM0 Spectral density at frequency zero</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../minimisers/mcmcstat/chainstats.html" class="code" title="function y=chainstats(chain,results,fid)">chainstats</a>	CHAINSTATS some statistics from the MCMC chain</li><li><a href="../../minimisers/mcmcstat/gewekeplot.html" class="code" title="function zz=gewekeplot(chain)">gewekeplot</a>	GEWEKEPLOT Plot Geweke's diagnostic</li><li><a href="../../minimisers/mcmcstat/mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,problem,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="../../minimisers/mcmcstat/mcmcrun_compile.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun_compile(model,data,problem,params,options,res)">mcmcrun_compile</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li><li><a href="chainstats.html" class="code" title="function y=chainstats(chain,results,fid)">chainstats</a>	CHAINSTATS some statistics from the MCMC chain</li><li><a href="gewekeplot.html" class="code" title="function zz=gewekeplot(chain)">gewekeplot</a>	GEWEKEPLOT Plot Geweke's diagnostic</li><li><a href="mcmcrun.html" class="code" title="function [results,chain,s2chain,sschain, hchain]=mcmcrun(model,data,params,options,res)">mcmcrun</a>	MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [z,p]=geweke(chain,a,b)</a>
+0002 <span class="comment">%GEWEKE Geweke's MCMC convergence diagnostic</span>
+0003 <span class="comment">% [z,p] = geweke(chain,a,b)</span>
+0004 <span class="comment">% Test for equality of the means of the first a% (default 10%) and</span>
+0005 <span class="comment">% last b% (50%) of a Markov chain.</span>
+0006 <span class="comment">% See:</span>
+0007 <span class="comment">% Stephen P. Brooks and Gareth O. Roberts.</span>
+0008 <span class="comment">% Assessing convergence of Markov chain Monte Carlo algorithms.</span>
+0009 <span class="comment">% Statistics and Computing, 8:319--335, 1998.</span>
+0010 
+0011 <span class="comment">% ML, 2002</span>
+0012 <span class="comment">% $Revision: 1.3 $  $Date: 2003/05/07 12:22:19 $</span>
+0013 
+0014 [nsimu,npar]=size(chain);
+0015 
+0016 <span class="keyword">if</span> nargin&lt;3
+0017   a = 0.1;
+0018   b = 0.5;
+0019 <span class="keyword">end</span>
+0020 
+0021 na = floor(a*nsimu);
+0022 nb = nsimu-floor(b*nsimu)+1;
+0023 
+0024 <span class="keyword">if</span> (na+nb)/nsimu &gt;= 1
+0025   error(<span class="string">'Error with na and nb'</span>);
+0026 <span class="keyword">end</span>
+0027 
+0028 m1 = mean(chain(1:na,:));
+0029 m2 = mean(chain(nb:<span class="keyword">end</span>,:));
+0030 
+0031 <span class="comment">%%% Spectral estimates for variance</span>
+0032 sa = <a href="spectrum0.html" class="code" title="function s=spectrum0(x)">spectrum0</a>(chain(1:na,:));
+0033 sb = <a href="spectrum0.html" class="code" title="function s=spectrum0(x)">spectrum0</a>(chain(nb:<span class="keyword">end</span>,:));
+0034 
+0035 z = (m1-m2)./(sqrt(sa/na+sb/(nsimu-nb+1)));
+0036 p = 2*(1-<a href="nordf.html" class="code" title="function y=nordf(x,mu,sigma2)">nordf</a>(abs(z)));</pre></div>
+<hr><address>Generated on Wed 28-Jul-2021 14:15:23 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

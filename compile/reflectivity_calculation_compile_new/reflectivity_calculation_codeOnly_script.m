@@ -121,5 +121,5 @@ ARGS_1_4.checks = coder.typeof(ARGS_1_4_checks);
 ARGS{1}{4} = coder.typeof(ARGS_1_4);
 
 %% Invoke MATLAB Coder.
-codegen -config cfg -lang:c++ reflectivity_calculation -args ARGS{1}
+codegen -config cfg -package -lang:c++ reflectivity_calculation -args ARGS{1}
 

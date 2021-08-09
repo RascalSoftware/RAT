@@ -29,7 +29,7 @@ end
 
 %(4) Nbairs
 nbairs = outProblemStruct.nba;
-for i = 1:length(scales)
+for i = 1:length(nbairs)
     outProblemDef.setBulkIn(i,'value',nbairs(i));
 end
 

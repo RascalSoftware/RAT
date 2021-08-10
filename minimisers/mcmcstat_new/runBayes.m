@@ -56,7 +56,7 @@ options.waitbar     = 1;               % show graphical waitbar
 options.updatesigma = 0;               % update error variance
 options.stats       = 1;               % save extra statistics in result
 options.burnintime  = burnin;          % burn in time..
-options.ntry = 5;
+options.ntry = 2;
 options.drscale = [3 2 1];
 %options.adascale = 2.4 / sqrt(nPars) * 5;
 

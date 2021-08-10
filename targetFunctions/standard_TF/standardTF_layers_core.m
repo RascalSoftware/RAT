@@ -2,7 +2,7 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
     standardTF_layers_core(contrastLayers, rough, ...
     geometry, nba, nbs, resample, calcSld, sf, qshift,...
     dataPresent, data, dataLimits, simLimits, repeatLayers,...
-    background,resol,backsType,params,paralellPoints)
+    background,resol,backsType,params,paralellPoints,resamPars)
 
 %   This is the main reflectivity calculation for all Layers models in the 
 %   standard target function. 
@@ -73,7 +73,7 @@ end
 
 % If required, then resample the SLD
 if resample == 1
-    layerSld = resampleLayers(sldProfile);
+    layerSld = resampleLayers(sldProfile,resamPars);
     resamLayers = layerSld;
 else
     layerSld = theseLayers;

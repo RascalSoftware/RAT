@@ -63,6 +63,9 @@ end
 % to be done once, and so is done outside the contrasts loop
 outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 
+% Resample parameters is required
+resamPars = controls.resamPars;
+
 % Parallel loop over all the contrasts
 parfor i = 1:numberOfContrasts
     
@@ -99,7 +102,7 @@ parfor i = 1:numberOfContrasts
         thisChiSquared,thisSsubs] = standardTF_layers_core(thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
+    thisBackground,thisResol,thisBacksType,nParams,paralellPoints,resamPars);
    
     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 

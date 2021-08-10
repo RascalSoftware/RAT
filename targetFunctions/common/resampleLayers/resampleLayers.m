@@ -1,5 +1,5 @@
 
-function newSLD = resampleLayers(sldProfile)
+function newSLD = resampleLayers(sldProfile,resamPars)
 
 
 % Function handle for adaptive resampling
@@ -14,8 +14,12 @@ xend = x(end);
 % Keep points and minangle as constants for now
 % will fix later
 
-newX = linspace(xstart,xend,100);
-out = adaptive(sldProfile, [xstart xend], 'minAngle',0.95*pi);%, 'nPoints', 50);
+%newX = linspace(xstart,xend,100);
+
+minAngle = resamPars(1);
+nPoints = resamPars(2);
+
+out = adaptive(sldProfile, [xstart xend], 'minAngle', minAngle*pi, 'nPoints', nPoints);
 yy = out{1};
 
 newX = yy(:,1);

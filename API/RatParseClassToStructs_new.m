@@ -309,7 +309,7 @@ end
 controls.repeats = inputControls.repeats;
 controls.nsimu = inputControls.nsimu;
 controls.burnin = inputControls.burnin;
-controls.resamPars = [0.4 50];
+controls.resamPars = inputControls.resamPars;% [0.95 10];
 
 
 

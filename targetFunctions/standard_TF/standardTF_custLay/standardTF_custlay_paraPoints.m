@@ -59,6 +59,8 @@ end
 
 %   --- End Memory Allocation ---
 
+resamPars = controls.resamPars;
+
 % Single cored over all contrasts
 for i = 1:numberOfContrasts
     % Extract the relevant parameter values for this contrast
@@ -96,7 +98,7 @@ for i = 1:numberOfContrasts
     (thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
+    thisBackground,thisResol,thisBacksType,nParams,paralellPoints,resamPars);
    
     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 

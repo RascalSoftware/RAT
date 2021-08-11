@@ -3,7 +3,7 @@
 % 
 % Start by making an empty instance of the project definition class:
 
-problem = projectClass('Orso lipid example')
+problem = projectClass('Orso lipid example');
 %% 
 % 
 % 
@@ -259,7 +259,7 @@ problem.setParamPrior('Bilayer heads sld','gaussian',1.4e-6,2e-7)
 controls = controlsDef;
 controls.procedure = 'bayes';
 controls.calcSldDuringFit = 'no';
-controls.nsimu = 5000;
+controls.nsimu = 1000;
 controls.repeats = 3;
 controls.parallel = 'points';
 [outProb,results] = RAT(problem,controls);

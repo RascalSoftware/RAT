@@ -1,7 +1,6 @@
-function  [problemDef,problem,result,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls)
+function  [problemDef,bayesResults] = runDram_r1Mod(problemDef,problemDef_cells,problemDef_limits,priors,controls)
 
 %#codegen
-%coder.varsize('problemDef.contrastBacks',[1 Inf],[0 1]);
 
 checks = controls.checks;
 [problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,checks);
@@ -10,12 +9,6 @@ checks = controls.checks;
 % Seed the Random Number Generator
 rng(0);
 
-%fitPriors = packpriors(priors,checks);
-
-%First deal with priors.
-%Make uniform priors from the
-%min/max limits for now.
-prior = {};
 lims = problemDef.fitconstr;
 
 % Preallocate params array to keep the compiler happy
@@ -63,47 +56,56 @@ for i = 1:length(fitNames)
     params{i} = thisGroup;
 end
 
-%params = params(:);
-
-%prior = prior';plot(roughness,grid);
-
-% %Tuning Parameters - fixed for now
-% model.ssfun = @MCMC_Intrafun;
-% 
-% %prior = prior';
-% %Tuning Parameters - fixed for now
-% model.ssfun = @MCMC_Intrafun;
-% %options.nsimu = 500;
-%options.adaptInt = 100;
-%options.method = 'dram';
-%options.updatesigma = 0;
-%options.burnInTime = 100;
-
 loop = controls.repeats;
 nsimu =  controls.nsimu;
 burnin = controls.burnin;
-adaptint = 100;%controls.adaptint;
+adaptint = 100;
 
+% All the parameters are required for 'reflectivity_calculation', so group
+% these together int a cell array for easy passing around
 problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 
 res = [];
-output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
+output = runBayes_r1Mod(loop,nsimu,burnin,adaptint,params,problem);
 
 bayesResults.res = output.results;
 bayesResults.chain = output.chain;
 bayesResults.s2chain = output.s2chain;
 bayesResults.sschain = output.sschain;
-bayesResults.bestPars = output.bestPars;
-bayesResults.bayesData = output.data;
-bayesResults.bestFits = output.bestFits;
-bayesResults.predlims = output.predlims;
-parConfInts = iterShortest(output.chain,length(fitNames),[],0.95);
-bayesResults.parConfInts = parConfInts;
+
+% --------------------------------------------------------------
+% 
+%  Bayes ppst-processing
+%
+% ------------------------------------------------------
 
 
-problemDef.fitpars = output.bestPars;
-problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+% % Calculate the 95% confidence intervals on the parameters
+% parConfInts = iterShortest(output.chain,length(fitNames),[],0.95);
+% bayesResults.parConfInts = parConfInts;
+% 
+% % Now use the R1 method for finding best pars as the max of the posteriors
+% [bestPars_max,posteriors] = processPosterors(output);
+% bayesResults.bestPars = bestPars_max;
+% bayesResults.posteriors = posteriors;
+% 
+% problemDef.fitpars = bestPars_max;
+% problemDef = unpackparams(problemDef,controls);
+% [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+% 
+% % result{1} = Simulation
+% % result{2} = shifted_data;
+% % result{5} = sld profiles
+% 
+% 
+% % Calculate the best fits..
+% 
+% 
+% 
+% % Work out the 95% confidence intervals on the reflectivity and SLD
+
+
+
 
 end
 

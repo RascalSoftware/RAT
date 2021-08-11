@@ -1,5 +1,5 @@
-ratRoot = '/Users/arwel/Documents/coding/RAT'; %OSX
-%ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
+%ratRoot = '/Users/arwel/Documents/coding/RAT'; %OSX
+ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
 
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','backSorts');

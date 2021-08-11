@@ -45,14 +45,6 @@ predInt = 0.95; %95% confidence intervals
 intervals_95 = confIntervals(chain,bestFitPars,predInt);
 
 
-% predInt = 0.65; %65% confidence intervals
-% intervals_65 = confIntervals(chain,bestFitPars,predInt);
-% 
-% 
-% predInt = 0.25; %25% confidence intervals
-% intervals_25 = confIntervals(chain,bestFitPars,predInt);
-
-
 % Now calculate the shaded prediction intervals
 % This is wasteful as it ends up calculating many 
 % Curves three times. Will be replaced.

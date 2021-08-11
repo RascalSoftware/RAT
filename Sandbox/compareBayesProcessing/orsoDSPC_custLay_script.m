@@ -144,49 +144,100 @@ problem.setContrastModel(1,'DSPC Model');
 problem.setContrastModel(2,'DSPC Model');
 problem.setContrastModel(3,'DSPC Model');
 
-%% 
-% Make a controls block....
-
 controls = controlsDef();
-% controls.calcSldDuringFit = 'no';
-% controls.procedure = 'simplex';
-% controls.display = 'final';
-% % controls.maxIter = 200;
+controls.procedure = 'bayes';
+controls.repeats = 3;
+controls.nsimu = 5000;
+
 
 % Run the fit
-[problam,results] = RAT(problem,controls);
-figure(1); clf
-plotRefSLD(problem,results);
+[problem,results] = RAT(problem,controls);
 
+%% Check of MCMCpred and Old method of calculating intervals:
 
-%%
-% controls.procedure = 'bayes';
-% controls.nsimu = 2000;
-% controls.repeats = 1;
-% %controls.parallel = 'points';
-% problem.setParamPrior(1,'gaussian',3.5,0.03)
-% % 
-% % % And send this to RAT...
+% Output of bayes as it stands has bestPars set to the mean of the
+% posteriors, and so these are the best fits calculated. Also, the predlims
+% are calculated using mcmcstat's native routine.
+
+% In terms of fit and predlims, 95% interval is in row 3 and row 7. The fit
+% is in row 5
+
+pLims = results.predlims.predlims;
+shifted_data = results.shifted_data;
+reflectivity = results.reflectivity;
+
+% figure(1); clf; hold on
+% set(gca,'YScale','log','XScale','log');
 % 
-% [problem,results] = RAT(problem,controls);
-% % 
-% switch controls.procedure
-%     case 'bayes'
-%         h2 = figure(2); clf
-%         sf = results.contrastParams.scalefactors;
-%         bayesShadedPlot(h2,results.predlims,results.shifted_data,sf);
+% for i = 1:3
+%     
+%     thisRef = reflectivity{i};
+%     thisData = shifted_data{i};
+%     if i == 1
+%         mult = 1;
+%     else
+%         mult = 2^(4*i);
+%     end
 %         
-%         
-%         h3 = figure(3); clf
-%         mcmcplot(results.chain,[],results.fitNames,'hist');
-%         
-%          h4 = figure(4); clf; 
-%          plotBayesCorrFig(results.chain,results.fitNames,h4)
+%     % Get the limits
+%     theseLims = pLims{i}{:};
+%     
+%     % Get the ranges..
+%     thisMin = theseLims(3,:)';
+%     thisMax = theseLims(7,:)';
+%     thisBest = theseLims(5,:)';
+%     
+%     errorbar(thisData(:,1),thisData(:,2)./mult,thisData(:,3)./mult,'.','MarkerSize',2.5);
 % 
-%     otherwise
-%         h2 = figure(2); clf
-%         plotRefSLD(problem,results)
+%     plot(thisData(:,1),thisMin./mult,'r-');
+%     plot(thisData(:,1),thisMax./mult,'r-');
+%     plot(thisData(:,1),thisBest./mult,'k-');
+%     
 % end
 
+%%
+
+% Now do the same with the 'manual' calculation 
+%[best, intervals, posteriors] = calcMCMCstatRefErrors(bayesResults,outProblemDef,problemDef_cells,problemDef_limits,controls);
+
+% Calculate the bestFit_max values (rather than means)
+chain = results.chain;
+[bestFitMax,posteriors] = findPosteriorsMax(chain);
+
+%bestFitMax = results.bayesRes.mean;
+
+% Calculate the best fits with these
+% Need to do the processing from RAT first...
+[problemDefProc,problemDef_cells,problemDef_limits,priors,cntrl] = RatParseClassToStructs_new(problem,controls);
+checks = cntrl.checks;
+
+[problemDefProc,~] = packparams(problemDefProc,problemDef_cells,problemDef_limits,checks);
+cntrl.proc = 'calculate';
+cntrl.calcSld = 1;
+problemDefProc.fitpars = bestFitMax;
+problemDefProc = unpackparams(problemDefProc,cntrl);
+[outProblem,result] = reflectivity_calculation_wrapper(problemDefProc,problemDef_cells,problemDef_limits,cntrl);
+result = parseResultToStruct(outProblem,result);
+
+bestFit = result.reflectivity;
+bestSld = result.sldProfiles;
+shifted_data = result.shifted_data;
+
+% Now calculate the intervals the 'old' way...
+predInt = 0.95; %95% confidence intervals
+intervals_95 = confIntervals(chain,bestFitMax,predInt);
+
+
+% Now Calculate the intervals on reflectivity and SLD
+[refShadedIntervals, sldShadedIntervals, outMessage] = refPredInterval_mod(chain,bestFit,bestSld,intervals_95,...
+    problemDefProc, problemDef_cells,problemDef_limits,cntrl,result);
+
+% % Plot this out:
+% figure(50);
+% clf; hold on
+% subplot(1,2,1);
+
+
+comparePredIntervals(problem,results,controls);
 
 

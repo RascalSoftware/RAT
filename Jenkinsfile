@@ -6,10 +6,28 @@ pipeline {
         // PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"   // macOS agent
     }
     stages {
-        stage('Stage 1') {
-            steps {
-                runMATLABCommand 'ls'
+        stage('Add Paths') {
+            steps{
+                runMATLABCommand 'addRatPaths' 
             }
         }
+        stage('Run Files') {
+            steps {
+                echo 'Temporarily Skipping this part' 
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                echo 'Temporarily Skipping this part' 
+            }
+        }
+        stage('Run Sample Project'){
+            steps {
+                runMATLABCommand 'cd tests'
+                runMATLABCommand "cd 'monolayer 8 contrasts' "
+                runMATLABCommand 'DSPCscript'
+            }
+        }
+        
     }
 }

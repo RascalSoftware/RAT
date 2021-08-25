@@ -32,8 +32,8 @@ pipeline {
                 //runMATLABCommand'cd experimentJenkins'
                 //runMATLABCommand 'DSPC.m'
                 dir('tests'){
-                    dir('experimentJenkins'){
-                        runMATLABCommand 'DSPC'
+                    dir('monolayer 8 contrasts'){
+                        runMATLABCommand 'DSPCscript'
                     }
                 }
 

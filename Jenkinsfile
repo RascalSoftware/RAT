@@ -27,6 +27,9 @@ pipeline {
                 //sh('cd experimentJenkins')
                 //runMATLABCommand 'DSPC.m'
                 sh('ls')
+                sh('cd tests')
+                sh('cd experimentJenkins')
+                runMATLABCommand 'DSPC.m'
 
             }
         }

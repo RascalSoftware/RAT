@@ -33,7 +33,7 @@ pipeline {
                 //runMATLABCommand 'DSPC.m'
                 dir('tests'){
                     dir('experimentJenkins'){
-                        runMATLABCommand 'DSPC.m'
+                        runMATLABCommand 'DSPC'
                     }
                 }
 

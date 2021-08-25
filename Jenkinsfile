@@ -24,8 +24,8 @@ pipeline {
         stage('Run Sample Project'){
             steps {
                 sh('cd tests')
-                sh('cd "monolayer 8 contrasts"')
-                runMATLABCommand 'DSPCscript'
+                sh('cd experimentJenkins')
+                runMATLABCommand 'DSPC.m'
 
             }
         }

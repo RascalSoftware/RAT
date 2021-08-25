@@ -31,6 +31,7 @@ pipeline {
                 //runMATLABCommand'ls'
                 //runMATLABCommand'cd experimentJenkins'
                 //runMATLABCommand 'DSPC.m'
+                runMATLABCommand 'addRatPaths'
                 dir('tests'){
                     dir('monolayer 8 contrasts'){
                         runMATLABCommand 'DSPCscript'

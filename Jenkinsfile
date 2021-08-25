@@ -28,6 +28,7 @@ pipeline {
                 //runMATLABCommand 'DSPC.m'
                 runMATLABCommand'ls'
                 runMATLABCommand('cd tests')
+                runMATLABCommand'ls'
                 runMATLABCommand'cd experimentJenkins'
                 runMATLABCommand 'DSPC.m'
 

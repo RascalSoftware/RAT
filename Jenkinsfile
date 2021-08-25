@@ -24,8 +24,9 @@ pipeline {
         stage('Run Sample Project'){
             steps {
                 sh('cd tests')
-                sh('cd experimentJenkins')
-                runMATLABCommand 'DSPC.m'
+                //sh('cd experimentJenkins')
+                //runMATLABCommand 'DSPC.m'
+                sh('ls')
 
             }
         }

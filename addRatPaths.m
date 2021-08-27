@@ -1,4 +1,4 @@
-ratRoot = '/home/jenkins/workspace/riment_Jenkins_Anvil_integration'; %for temp linux machine on anvil
+ratRoot = '/home/oba79314/workspace/riment_Jenkins_Anvil_integration'; %for temp linux machine on anvil
 %ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
 
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');

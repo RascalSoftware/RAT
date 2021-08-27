@@ -1,4 +1,4 @@
-ratRoot = '/opt/modules-common/software/MATLAB/R2020b/bin:${PATH'; %for temp linux machine on anvil
+ratRoot = '/home/jenkins/workspace/riment_Jenkins_Anvil_integration'; %for temp linux machine on anvil
 %ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
 
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');

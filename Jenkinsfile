@@ -36,7 +36,7 @@ pipeline {
                 //runMATLABCommand 'addRatPaths'
                 runMATLABCommand 'tests/monolayer 8 contrasts/DSPCscript'
                     
-                }
+                
 
             }
         }

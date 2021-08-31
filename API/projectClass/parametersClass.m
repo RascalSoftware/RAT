@@ -106,6 +106,34 @@ classdef parametersClass < handle
                         newRow = {name,values(1),values(2),values(3),fit,'uniform',0,Inf};
                         appendNewRow(obj,newRow);
                         
+                        % Case 8 must be everything including the prior
+                    case 8
+                        name = inputCell{1};
+                        values = [inputCell{2} inputCell{3} inputCell{4}];
+                        fit = inputCell{5};
+                        priorType = inputCell{6};
+                        priorValues = [inputCell{7} inputCell{8}];
+                        
+                        if ~isnumeric(values)
+                            error('Expecting numberic valus as params 2 - 4');
+                        end
+                        
+                        if ~islogical(fit)
+                            error('Expecting logical value for param 5')
+                        end
+                        
+                        if ~strcmpi(priorType,{'uniform','gaussian','jeffreys'})
+                            error('Prior type must be ''uniform'', ''gaussuan'' or ''jeffreys''');
+                        end
+                        
+                        if ~isnumeric(priorValues)
+                            error('Prior values must be numeric');
+                        end
+                        
+                        newRow = {name,values(1),values(2),values(3),fit,priorType,priorValues(1),priorValues(2)};
+                        appendNewRow(obj,newRow);
+                       
+                        
                         % If not one of these options, throw an error
                     otherwise
                         error('Unrecognised inputs to ''addrow''');

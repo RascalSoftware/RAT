@@ -4,7 +4,7 @@ function plotBayes(problem,results)
 
         h2 = figure(3); clf
         sf = results.contrastParams.scalefactors;
-        bayesShadedPlot(h2,results.predlims,results.shifted_data,sf);
+        bayesShadedPlot_dev(problem,results,sf,'q4',true,'fit','all')
         
         h3 = figure(4); clf
         mcmcplot(results.chain,[],results.fitNames,'hist');

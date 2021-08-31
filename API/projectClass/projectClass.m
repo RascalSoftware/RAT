@@ -708,27 +708,35 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             switch generalStruct.ModelType
                 case 'layers'
+                    numberOfLayers = layersStruct.numberOfLayers;
                     
-                    for i = 1:layersStruct.numberOfLayers
-                        thisLayer = layersValues(i,:);
-                        min = find(strcmpi(thisLayer{1},paramNames));
-                        val = find(strcmpi(thisLayer{2},paramNames));
-                        max = find(strcmpi(thisLayer{3},paramNames));
-                        if ismissing(thisLayer(4))
-                            hydr = NaN;
-                        else
-                            hydr = find(strcmpi(thisLayer{4},paramNames));
+                    if numberOfLayers > 0
+                        % Standard layers with layers present
+                        for i = 1:layersStruct.numberOfLayers
+                            thisLayer = layersValues(i,:);
+                            min = find(strcmpi(thisLayer{1},paramNames));
+                            val = find(strcmpi(thisLayer{2},paramNames));
+                            max = find(strcmpi(thisLayer{3},paramNames));
+                            if ismissing(thisLayer(4))
+                                hydr = NaN;
+                            else
+                                hydr = find(strcmpi(thisLayer{4},paramNames));
+                            end
+                            if strcmpi(thisLayer{5},'bulk in')
+                                hydrWhat = 1;
+                            else
+                                hydrWhat = 2;
+                            end
+                            layersDetails{i} = [min val max hydr hydrWhat];
                         end
-                        if strcmpi(thisLayer{5},'bulk in')
-                            hydrWhat = 1;
-                        else
-                            hydrWhat = 2;
-                        end
-                        layersDetails{i} = [min val max hydr hydrWhat];
+                        layersStruct.layersDetails = layersDetails(:);
+                    else
+                        % No layers present - still need to set
+                        % layersDetails
+                        layersStruct.layersDetails = {};
                     end
-                    layersStruct.layersDetails = layersDetails(:);
-                    
                 otherwise
+                    % Not standard layers experiment type
                     layersStruct.layersDetails = {};
             end
             

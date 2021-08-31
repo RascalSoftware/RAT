@@ -208,6 +208,23 @@ classdef customFileClass < handle
         end
         
         
+        function obj = setFileName(obj,whichCustom,name)
+            
+            % Name must be a char and not an existing name
+            if ~ischar(name)
+                error('Filename must be a string / character array');
+            end
+           
+            
+            % Set the relevant name
+            obj.fileTable{whichCustom,2} = {name};
+            
+        end
+        
+        
+        
+        
+        
         function names = getCustomNames(obj)
             
            names = obj.fileTable{:,1}; 

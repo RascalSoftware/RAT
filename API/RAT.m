@@ -89,16 +89,14 @@ if controls.calcSld == 0
 end
 
 result = parseResultToStruct(problem,result);
+
+if isfield(outProblemStruct,'fitpars')
+    result.bestFitPars = outProblemStruct.fitpars;
+end
+
 if any((strcmpi(controls.proc,{'bayes'})))
-   result.chain = bayesResults.chain;
-   result.bayesRes = bayesResults.res;
-   result.sschain = bayesResults.sschain;
-   result.predlims = bayesResults.predlims;
-   result.paramConfInts = bayesResults.parConfInts;
-   
-%   result.posteriors = bayesResults.posteriors;
-%   result.best = bayesResults.best;
-%   result.posteriors = bayesResults.posteriors;
+    result = mergeStructs(result,bayesResults);
+    result.bestFitPars = bayesResults.bestPars_Max;
 end
 
 [~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);

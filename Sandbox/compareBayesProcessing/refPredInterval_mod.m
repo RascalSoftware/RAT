@@ -27,7 +27,7 @@ numberOfContrasts = problemDef.numberOfContrasts;
 nSamples = 500;
 for i = 1:numberOfParams
    thisParInt = intervals(i,:); 
-   thisSamp = (thisParInt(2)-thisParInt(1)).*rand(nSamples,1)+thisParInt(1);
+   thisSamp = thisParInt(1) + (thisParInt(2)-thisParInt(1)).*rand(nSamples,1);
    chainSample(:,i) = thisSamp;
 end
 

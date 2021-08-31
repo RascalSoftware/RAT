@@ -28,17 +28,17 @@ for i = 1:numberOfContrasts
     %data{i}.problem = problem;
 end
 
-fitConstr = problemDef.fitconstr;
-nPars = size(fitConstr,1);
-
 % Make qcov based on the ranges of the parameters
 qcov = [];
+fitPars = problemDef.fitpars;
+fitConstr = problemDef.fitconstr;
+nPars = length(fitPars);
+
 for i = 1:nPars
     thisConstr = fitConstr(i,:);
     qcov(i) = (abs(thisConstr(2) - thisConstr(1))*0.01)^2;
 end
 qcov = diag(qcov);
-%qcov = eye(nPars)*5^2;
 
 % Define model and method options.
 model.modelfun      = 'refModel';     % will return a reflectivity curve
@@ -58,13 +58,14 @@ options.stats       = 1;               % save extra statistics in result
 options.burnintime  = burnin;          % burn in time..
 options.ntry = 2;
 options.drscale = [3 2 1];
-%options.adascale = 2.4 / sqrt(nPars) * 5;
+%options.adascale = 2.4 / sqrt(nPars) * 0.01;
 
 
 results = [];
 loop = int32(loop);
 for i = 1:loop
     fprintf('Running loop %d of %d ',i,loop);
+
     [results,chain,s2chain,sschain] = mcmcrun_compile(model, data, problem, params, options, results);
     fprintf('\n');
 end
@@ -76,15 +77,16 @@ output.sschain = sschain;
 output.bestPars = results.mean;
 output.data = data;
 
-out = mcmcpred_compile(results,chain,[],data,problem,500);
-
-problemDef.fitpars = output.bestPars;
-problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
-
-output.bestFits = result{1};
-output.shiftedData = problemDef_cells{2};
-output.predlims = out;
+% out = mcmcpred_compile(results,chain,[],data,problem,500);
+% outSld = mcmcpred_compile_sld(results,chain,[],data,problem,500);
+% 
+% problemDef.fitpars = output.bestPars;
+% problemDef = unpackparams(problemDef,controls);
+% [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+% 
+% output.bestFits = result{1};
+% output.shiftedData = problemDef_cells{2};
+% output.predlims = out;
 
 end
 

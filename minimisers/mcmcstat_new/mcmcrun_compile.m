@@ -876,7 +876,7 @@ end
 % calculate some extra statistics (we need the whole chain to do this)
 if dostats && (saveit == 1 || savesize >= nsimu)
   results.tau    = iact(chain);
-  results.geweke = geweke(chain);
+%  results.geweke = geweke(chain);
   results.rldiag = rldiag(chain);
   %% calculate DIC = 2*mean(ss)-ss(mean(chain))
   if not(savepostinss) % can not do if this is set

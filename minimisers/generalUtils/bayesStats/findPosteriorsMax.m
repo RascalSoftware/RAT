@@ -10,7 +10,9 @@ for i = 1:numPars
     N2 = smoothdata(N, 'sgolay');
 
     maxPos = find(N2 == max(N2));
-    if length(maxPos) > 1; maxPos = mean(maxPos); end
+    if length(maxPos) > 1 
+        maxPos = maxPos(1); 
+    end
     bestPars_max(i) = edges2(maxPos);  % Now maximum position on posterior fit, rather than mean.
     
     % Store the histograms and posteriors for eventual output

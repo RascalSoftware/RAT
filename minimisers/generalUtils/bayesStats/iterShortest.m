@@ -11,11 +11,11 @@ for par = 1:numberOfParams
     
     minVal_low = min(sR);
     maxVal_low = mean(sR);
-    stVal_low = minVal_low;%(maxVal_low - minVal_low)/2 + minVal_low;
+    stVal_low = minVal_low;
     
     minVal_hi = mean(sR);
     maxVal_hi = max(sR);
-    stVal_hi = maxVal_hi;%(maxVal_hi - minVal_hi)/2 + minVal_hi;
+    stVal_hi = maxVal_hi;
     
     params.args = [];
     params.LB = [minVal_low minVal_hi];
@@ -39,17 +39,9 @@ for par = 1:numberOfParams
     
     answer = xtransform(xu,params);
     
-    %vals{par} = sprintf(' %0.5g (%0.5g, %0.5g)',values(par),answer(1),answer(2));
     vals(par,:) = [answer(1) answer(2)];
-%     means(par) = mean(sR);
-%     low_ranges(par) = answer(1);
-%     hi_ranges(par) = answer(2);
 end
 
-% disp(vals');
-% pars.values = vals;
-% pars.LB = low_ranges;
-% pars.UB = hi_ranges;
 
 end
 
@@ -101,7 +93,7 @@ val = proportion + distance;
 
 display = false;
 if display
-    figure(50); clf; hist(set,30); hold on;
+    figure(100); clf; hist(set,30,'w'); hold on;
     x = [lowPoint hiPoint];
     y = [0.1 0.1];
     plot(x,y,'ro');

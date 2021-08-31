@@ -84,11 +84,11 @@ problem.addCustomFile({'DSPC Model','customBilayer.m','matlab','pwd'});
 % Also, add the relevant background parameters - one each for each contrast:
 
 % Change the name of the existing parameters to refer to D2O
-problem.setBacksPar(1,'name','Backs par D2O','fit',true,'min',0,'max',1e-5,'val',0.0);
+problem.setBacksPar(1,'name','Backs par D2O','fit',false,'min',0,'max',1e-5,'val',0.0);
 
 % Add two new backs parameters for the other two..
-problem.addBacksPar('Backs par SMW',0,0,1e-5,true);
-problem.addBacksPar('Backs par H2O',0,0,1e-5,true);
+problem.addBacksPar('Backs par SMW',0,0,1e-5,false);
+problem.addBacksPar('Backs par H2O',0,0,1e-5,false);
 
 % And add the two new constant backgrounds..
 problem.addBackground('Background SMW','constant','Backs par SMW');
@@ -147,7 +147,7 @@ problem.setContrastModel(3,'DSPC Model');
 controls = controlsDef();
 controls.procedure = 'bayes';
 controls.repeats = 3;
-controls.nsimu = 5000;
+controls.nsimu = 15000;
 
 
 % Run the fit
@@ -201,43 +201,50 @@ reflectivity = results.reflectivity;
 %[best, intervals, posteriors] = calcMCMCstatRefErrors(bayesResults,outProblemDef,problemDef_cells,problemDef_limits,controls);
 
 % Calculate the bestFit_max values (rather than means)
-chain = results.chain;
-[bestFitMax,posteriors] = findPosteriorsMax(chain);
-
-%bestFitMax = results.bayesRes.mean;
-
-% Calculate the best fits with these
-% Need to do the processing from RAT first...
-[problemDefProc,problemDef_cells,problemDef_limits,priors,cntrl] = RatParseClassToStructs_new(problem,controls);
-checks = cntrl.checks;
-
-[problemDefProc,~] = packparams(problemDefProc,problemDef_cells,problemDef_limits,checks);
-cntrl.proc = 'calculate';
-cntrl.calcSld = 1;
-problemDefProc.fitpars = bestFitMax;
-problemDefProc = unpackparams(problemDefProc,cntrl);
-[outProblem,result] = reflectivity_calculation_wrapper(problemDefProc,problemDef_cells,problemDef_limits,cntrl);
-result = parseResultToStruct(outProblem,result);
-
-bestFit = result.reflectivity;
-bestSld = result.sldProfiles;
-shifted_data = result.shifted_data;
-
-% Now calculate the intervals the 'old' way...
-predInt = 0.95; %95% confidence intervals
-intervals_95 = confIntervals(chain,bestFitMax,predInt);
-
-
-% Now Calculate the intervals on reflectivity and SLD
-[refShadedIntervals, sldShadedIntervals, outMessage] = refPredInterval_mod(chain,bestFit,bestSld,intervals_95,...
-    problemDefProc, problemDef_cells,problemDef_limits,cntrl,result);
-
-% % Plot this out:
-% figure(50);
-% clf; hold on
-% subplot(1,2,1);
+% chain = results.chain;
+% [bestFitMax,posteriors] = findPosteriorsMax(chain);
+% 
+% %bestFitMax = results.bayesRes.mean;
+% 
+% % Calculate the best fits with these
+% % Need to do the processing from RAT first...
+% [problemDefProc,problemDef_cells,problemDef_limits,priors,cntrl] = RatParseClassToStructs_new(problem,controls);
+% checks = cntrl.checks;
+% 
+% [problemDefProc,~] = packparams(problemDefProc,problemDef_cells,problemDef_limits,checks);
+% cntrl.proc = 'calculate';
+% cntrl.calcSld = 1;
+% problemDefProc.fitpars = bestFitMax;
+% problemDefProc = unpackparams(problemDefProc,cntrl);
+% [outProblem,result] = reflectivity_calculation_wrapper(problemDefProc,problemDef_cells,problemDef_limits,cntrl);
+% result = parseResultToStruct(outProblem,result);
+% 
+% bestFit = result.reflectivity;
+% bestSld = result.sldProfiles;
+% shifted_data = result.shifted_data;
+% 
+% % Now calculate the intervals the 'old' way...
+% predInt = 0.65; %95% confidence intervals
+% intervals = confIntervals(chain,bestFitMax,predInt);
+% 
+% 
+% % Now Calculate the intervals on reflectivity and SLD
+% [refShadedIntervals, sldShadedIntervals, outMessage] = refPredInterval_mod(chain,bestFit,bestSld,intervals,...
+%     problemDefProc, problemDef_cells,problemDef_limits,cntrl,result);
+% 
+% % % Plot this out:
+% % figure(50);
+% % clf; hold on
+% % subplot(1,2,1);
 
 
 comparePredIntervals(problem,results,controls);
+
+
+controls.procedure = 'calculate';
+[problem,results] = RAT(problem,controls);
+
+
+
 
 

@@ -53,8 +53,10 @@ switch action
             fprintf('\nRunning Nested Sampler\n\n');
         end            
         [outProblemDef,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
-        % TODO: The outputs aren't in the ciorrect format yet, so NS crashes
+        % TODO: The outputs aren't in the correct format yet, so NS crashes
         % at this point.
+        disp('debug');
+        
 end
 
 end

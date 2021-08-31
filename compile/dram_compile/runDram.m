@@ -1,4 +1,4 @@
-function  [problemDef,problem,result,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls)
+function  [problemDef,outProblem,result,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls)
 
 %#codegen
 %coder.varsize('problemDef.contrastBacks',[1 Inf],[0 1]);
@@ -26,9 +26,8 @@ end
 
 % We have a list of 'fitPars' which is created by packparams.m
 % packparams doesn't do the same for our priors however. So we need 
-% to do the same thing for our priors and extract the relevant ones
-% so that we can build the params array for the algorithm
-
+% to make an array of the priors for the fitted parameters 
+% so that we can then build the params array for the algorithm
 
 % Put all the priors into one array
 allPriors = [priors.paramPriors ; ...
@@ -63,21 +62,6 @@ for i = 1:length(fitNames)
     params{i} = thisGroup;
 end
 
-%params = params(:);
-
-%prior = prior';plot(roughness,grid);
-
-% %Tuning Parameters - fixed for now
-% model.ssfun = @MCMC_Intrafun;
-% 
-% %prior = prior';
-% %Tuning Parameters - fixed for now
-% model.ssfun = @MCMC_Intrafun;
-% %options.nsimu = 500;
-%options.adaptInt = 100;
-%options.method = 'dram';
-%options.updatesigma = 0;
-%options.burnInTime = 100;
 
 loop = controls.repeats;
 nsimu =  controls.nsimu;
@@ -86,24 +70,56 @@ adaptint = 100;%controls.adaptint;
 
 problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 
-res = [];
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
 
-bayesResults.res = output.results;
+% Post processing of Bayes
+% --------------------------
+%
+% 1. Find the iterative shortest 95% Parameter confidence intervals
+parConfInts = iterShortest(output.chain,length(fitNames),[],0.95);
+
+% 2. Find maximum values of posteriors. Store the max and mean posterior 
+%    values, and calculate the best fit and SLD's from these.
+[bestPars_max,posteriors] = findPosteriorsMax(output.chain);
+bestPars_mean = output.results.mean;
+
+% Calulate Max best fit curves
+problemDef.fitpars = bestPars_max;
+problemDef = unpackparams(problemDef,controls);
+[~,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+bestFitMax_Ref = result(1);
+bestFitMax_Sld = result(5);
+
+% Calculate 'mean' best fit curves
+problemDef.fitpars = bestPars_mean;
+problemDef = unpackparams(problemDef,controls);
+[outProblem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+bestFitMean_Ref = result(1);
+bestFitMean_Sld = result(5);
+
+% 2. Reflectivity and SLD shading
+predIntRef = mcmcpred_compile(output.results,output.chain,[],output.data,problem,500);
+predIntRef = predIntRef.predlims;
+
+% Make sure the calc SLD flag is set in controls...
+problem{2}.calcSld = 1;
+predIntSld = mcmcpred_compile_sld(output.results,output.chain,[],output.data,problem,500);
+predIntSld = predIntSld.predlims;
+
+% ---------------------------------
+
+bayesResults.bayesRes = output.results;
 bayesResults.chain = output.chain;
 bayesResults.s2chain = output.s2chain;
 bayesResults.sschain = output.sschain;
-bayesResults.bestPars = output.bestPars;
+bayesResults.bestPars_Mean = output.results.mean;
+bayesResults.bestPars_Max = bestPars_max;
 bayesResults.bayesData = output.data;
-bayesResults.bestFits = output.bestFits;
-bayesResults.predlims = output.predlims;
-parConfInts = iterShortest(output.chain,length(fitNames),[],0.95);
+bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld};
+bayesResults.bestFitsMean = {bestFitMean_Ref, bestFitMean_Sld};
+bayesResults.predlims = {predIntRef, predIntSld};
 bayesResults.parConfInts = parConfInts;
 
-
-problemDef.fitpars = output.bestPars;
-problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 end
 

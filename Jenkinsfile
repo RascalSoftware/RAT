@@ -34,11 +34,13 @@ pipeline {
                 runMATLABCommand 'pwd'
                 runMATLABCommand 'addpath(genpath(pwd))'
                 //runMATLABCommand 'addRatPaths'
-                dir('tests'){
-                    dir('monolayer 8 contrasts'){
-                        runMATLABCommand 'DSPCscript'
-                    }
-                }
+                runMATLABCommand '''addRatPaths;cd 'tests';cd 'monolayer 8 contrasts';DSPCscript
+                '''
+                //dir('tests'){
+                    //dir('monolayer 8 contrasts'){
+                        //runMATLABCommand 'DSPCscript'
+                    //}
+                //}
                     
                 
 

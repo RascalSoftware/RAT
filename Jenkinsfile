@@ -8,8 +8,8 @@ pipeline {
     stages {
         stage('Open Project env') {
             steps {
-                runMATLABCommand 'open RAT_demo.prj' 
-                runMATLABCommand 'RAT = currentProject'
+                runMATLABCommand '''' RAT= openProject('RAT_demo.prj') '''' 
+                //runMATLABCommand 'RAT = currentProject'
             }
         }
         stage('Run Tests') {

@@ -6,11 +6,6 @@ pipeline {
         // PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"   // macOS agent
     }
     stages {
-        stage('Add Paths') {
-            steps{
-                runMATLABCommand 'addRatPaths' 
-            }
-        }
         stage('Run Files') {
             steps {
                 echo 'Temporarily Skipping this part' 
@@ -31,8 +26,8 @@ pipeline {
                 //runMATLABCommand'ls'
                 //runMATLABCommand'cd experimentJenkins'
                 //runMATLABCommand 'DSPC.m'
-                runMATLABCommand 'pwd'
-                runMATLABCommand 'addpath(genpath(pwd))'
+                ////runMATLABCommand 'pwd'
+                ///runMATLABCommand 'addpath(genpath(pwd))'
                 //runMATLABCommand 'addRatPaths'
                 runMATLABCommand '''addRatPaths;cd 'tests';cd 'monolayer 8 contrasts';DSPCscript
                 '''

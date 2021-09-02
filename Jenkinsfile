@@ -6,12 +6,18 @@ pipeline {
         // PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"   // macOS agent
     }
     stages {
-        stage('Run Files') {
+        stage('Open Project env') {
+            steps {
+                runMATLABCommand '''RAT= openProject("RAT_demo.prj")'''
+                //runMATLABCommand 'RAT = currentProject'
+            }
+        }
+        stage('Run Tests') {
             steps {
                 echo 'Temporarily Skipping this part' 
             }
         }
-        stage('Run Tests') {
+        stage('Code Generation') {
             steps {
                 echo 'Temporarily Skipping this part' 
             }

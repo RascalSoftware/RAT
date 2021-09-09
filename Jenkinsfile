@@ -1,8 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        label 'RAT_Linux'
+    }
     environment {
         // PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${PATH}"   // Windows agent
-        PATH="/opt/modules-common/software/MATLAB/R2020b/bin:${PATH}"   // Linux agent
+        //PATH="/opt/modules-common/software/MATLAB/R2020b/bin:${PATH}"   // Sethu VMLinux agent
+        PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"                     // RAT_Linux 
         // PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"   // macOS agent
     }
     stages {

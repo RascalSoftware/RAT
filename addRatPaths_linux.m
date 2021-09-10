@@ -1,5 +1,5 @@
 %ratRoot = '/home/oba79314/Downloads/riment_Jenkins_Anvil_integration'; %for temp linux machine on anvil non master branch
-ratRoot = '/home/oba79314/Downloads/RAT_demo_RAT_experiment_master';
+ratRoot = '/home/oba79314/Downloads/workspace/RAT_demo_RAT_experiment_master';
 %ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
 
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');

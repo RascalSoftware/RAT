@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'RAT_Linux'
+        label 'RAT_Linux' && 'RAT_Windows'
     }
     environment {
         // PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${PATH}"   // Windows agent

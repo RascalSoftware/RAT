@@ -1,9 +1,9 @@
 pipeline {
     agent {
-        label 'RAT_Linux' && 'RAT_Windows'
+        label 'RAT_Linux' //&& 'RAT_Windows'
     }
     environment {
-        // PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${PATH}"   // Windows agent
+        // win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"   // Windows agent NEED TO EDIT PIPELINE
         //PATH="/opt/modules-common/software/MATLAB/R2020b/bin:${PATH}"   // Sethu VMLinux agent
         PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"                     // RAT_Linux 
         // PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"   // macOS agent

@@ -7,11 +7,22 @@
 %: Instantiate the class
 control = controlsDef();
 
-% Test 0: The Controls class has a method that assigns an object to the class
+% Test if set.parallel method is working
+control.parallel = 'single';
+assert(isequal(control.parallel, 'single'), 'set.parallel method is not working')
 
-assert(strcmp(control.procedure(), 'bayes'), 'The controls class has been assigned a wrong object');
-assert(strcmp(control.parallel(), 'contrasts'), 'The controls class has been assigned a wrong object');
+% Test if set.procedure method is working
+control.procedure = 'simplex';
+assert(isequal(control.procedure, 'simplex'), 'set.procedure method is not working')
 
-% Test 1: Test every method of the class and its properties
+% Test if set.calcSldDuringFit method is working
+control.calcSldDuringFit = 'yes';
+assert(isequal(control.calcSldDuringFit, 'yes'), 'set.calcSldDuringFit method is not working')
 
-control.p
+% Test if set.display method is working
+control.display = 'iter';
+assert(isequal(control.display, 'iter'), 'set.display method is not working')
+
+
+
+

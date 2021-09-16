@@ -130,7 +130,12 @@ H_Tails = {'Hydrogenated Tails',...
 obj.addLayerGroup({H_Heads; D_Heads; H_Tails; D_Tails});
 assert(isequal(obj.layers.layersTable{2,1}, D_Heads), 'addLayerGroup method not working');
 
-%
+% Test if setUsePrior method works
+% Set priors flag TRUE OR FALSE
+obj.setUsePriors(true);
+assert(isequal(obj.UsePriors, true), 'setUsePrior method not working');
+
+
 
 
 

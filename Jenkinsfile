@@ -38,7 +38,7 @@ pipeline {
             steps {
                 runMATLABCommand 'pwd'
                 runMATLABCommand ''' addRatPaths_win; cd 'monolayer 8 contrasts';DSPCscript'''
-        }
+            }
         }
 
 
@@ -63,6 +63,5 @@ pipeline {
         //}
     
     }
-
-
 }
+

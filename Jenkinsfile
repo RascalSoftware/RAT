@@ -13,11 +13,11 @@ pipeline {
         PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"                     // RAT_Linux 
         // PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"   // macOS agent
     }
-
+    */
 
 
     stages {
-        stage('Open Project env') {
+        /*stage('Open Project env') {
             steps {
                 runMATLABCommand '''RAT= openProject("RAT_demo.prj")'''
                 //runMATLABCommand 'RAT = currentProject'

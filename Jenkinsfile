@@ -1,9 +1,9 @@
 pipeline {
     agent {
-        label 'RAT_Linux' //&& 'RAT_Windows'
+        label 'RAT_Linux' && 'RAT_Windows'
     }
     environment {
-        // win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"   // Windows agent NEED TO EDIT PIPELINE
+        win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"   // Windows agent NEED TO EDIT PIPELINE
         //PATH="/opt/modules-common/software/MATLAB/R2020b/bin:${PATH}"   // Sethu VMLinux agent
         PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"                     // RAT_Linux 
         // PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"   // macOS agent
@@ -25,32 +25,42 @@ pipeline {
                 echo 'Temporarily Skipping this part' 
             }
         }
-        stage('Run Sample Project'){
-            steps {
-               
-                //sh('cd experimentJenkins')
-                //runMATLABCommand 'DSPC.m'
-                //runMATLABCommand'ls'
-                //runMATLABCommand('cd tests')
-                //runMATLABCommand'ls'
-                //runMATLABCommand'cd experimentJenkins'
-                //runMATLABCommand 'DSPC.m'
-                ////runMATLABCommand 'pwd'
-                ///runMATLABCommand 'addpath(genpath(pwd))'
-                //runMATLABCommand 'addRatPaths'
-                runMATLABCommand 'pwd'
-                runMATLABCommand '''addRatPaths_linux;cd 'tests';cd 'monolayer 8 contrasts';DSPCscript
-                '''
-                //dir('tests'){
-                    //dir('monolayer 8 contrasts'){
-                        //runMATLABCommand 'DSPCscript'
-                    //}
-                //}
-                    
-                
 
+
+
+        // run sample project on Windows,Linux,MacOS
+
+
+        stage('Run Sample Project on Win') {
+            agent{
+                label 'RAT_Windows'
+            }
+            steps {
+                runMATLABCommand 'pwd'
+                runMATLABCommand ''' addRatPaths_win; cd 'monolayer 8 contrasts';DSPCscript'''
+        }
+
+
+        stage ('Run Sample Project on Linux') {
+            agent{
+                label 'RAT_Linux'
+            }
+            steps {
+                runMATLABCommand 'pwd'
+                runMATLABCommand ''' addRatPaths_linux; cd 'monolayer 8 contrasts';DSPCscript'''
             }
         }
-        
+
+        //stage ('Run Sample Project on macOS') {
+        //    agent{
+        //        label 'RAT_MacOS'
+        //   }
+        //  steps {
+        //        runMATLABCommand 'pwd'
+        //        runMATLABCommand ''' addRatPaths_mac; cd 'monolayer 8 contrasts';DSPCscript'''
+        //    }
+        //}
     }
+
+
 }

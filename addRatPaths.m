@@ -1,5 +1,7 @@
-ratRoot = '/home/oba79314/workspace/riment_Jenkins_Anvil_integration'; %for temp linux machine on anvil
+ratRoot = 'C:\Users\oba7931403\Documents\Github\RAT'; %for temp linux machine on anvil
+%ratRoot ='/home/oba79314/Downloads/workspace/RAT_demo_RAT_experiment_master'; %for linux node
 %ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
+%ratRoot = 'C:\Users\oba7931403\Documents\Github\RAT'; %for windows machine
 
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','backSorts');

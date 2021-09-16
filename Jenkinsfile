@@ -39,6 +39,7 @@ pipeline {
                 runMATLABCommand 'pwd'
                 runMATLABCommand ''' addRatPaths_win; cd 'monolayer 8 contrasts';DSPCscript'''
         }
+        }
 
 
         stage ('Run Sample Project on Linux') {
@@ -60,6 +61,7 @@ pipeline {
         //        runMATLABCommand ''' addRatPaths_mac; cd 'monolayer 8 contrasts';DSPCscript'''
         //    }
         //}
+    
     }
 
 

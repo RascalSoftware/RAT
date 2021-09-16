@@ -109,7 +109,7 @@ pipeline {
             }
             steps {
                 runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths_win; cd 'monolayer 8 contrasts';DSPCscript'''
+                runMATLABCommand ''' addRatPaths_win; cd tests;cd 'monolayer 8 contrasts';DSPCscript'''
             }
         }
 
@@ -120,7 +120,7 @@ pipeline {
             }
             steps {
                 runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths_linux; cd 'monolayer 8 contrasts';DSPCscript'''
+                runMATLABCommand ''' addRatPaths_linux; cd tests; cd 'monolayer 8 contrasts';DSPCscript'''
             }
         }
 
@@ -130,7 +130,7 @@ pipeline {
         //   }
         //  steps {
         //        runMATLABCommand 'pwd'
-        //        runMATLABCommand ''' addRatPaths_mac; cd 'monolayer 8 contrasts';DSPCscript'''
+        //        runMATLABCommand ''' addRatPaths_mac; cd tests; cd 'monolayer 8 contrasts';DSPCscript'''
         //    }
         //}
     

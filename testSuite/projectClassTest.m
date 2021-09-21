@@ -127,8 +127,8 @@ H_Tails = {'Hydrogenated Tails',...
                 %'Tails Hydration',...
                 %'bulk in'};
 
-obj.addLayerGroup({H_Heads; D_Heads; H_Tails; D_Tails});
-assert(isequal(obj.layers.layersTable{2,1}, D_Heads), 'addLayerGroup method not working');
+%obj.addLayerGroup({H_Heads; D_Heads; H_Tails; D_Tails});
+%assert(isequal(obj.layers.layersTable{2,1}, D_Heads), 'addLayerGroup method not working');
 
 % Test if setUsePrior method works
 % Set priors flag TRUE OR FALSE
@@ -136,16 +136,46 @@ obj.setUsePriors(true);
 assert(isequal(obj.UsePriors, true), 'setUsePrior method not working');
 
 
+% Test if setLayerValue method works
+% what it does is set the value of a layer like this with 3 parameters
+% WRITE CODE HERE
 
 
 
+% Test if setBacksParValue method works
+%set the value in background parameters table
+% obj.setBacksParValue($row_number, $how_much));
+%obj.setBacksParValue(1, 5.5e-6);
+%assert(isequal(obj.background.backPars.paramsTable{1,3}, 5.5e-6), 'setBacksParValue method not working');
 
 
 
+% Test if addBacksPar method works
+%what it does is add a parameter to the background parameters table with some default values
+obj.addBacksPar('Backs Value D2O',1e-8,2.8e-6,1e-5);
+assert(isequal(obj.background.backPars.paramsTable{end,1}, 'Backs Value D2O'), 'addBacksPar method not working');
 
 
 
+% Test if addBackground method works
+% what it does is add a background layer to the layer table
 
+obj.addBackground('Background D2O','constant','Backs Value D2O');
+assert(isequal(obj.background.backgrounds.typesTable{end,1}, 'Background D2O'), 'addBackground method not working');
+
+% Test if setBackgroundValue method works
+% what it does is set the value of a background like this with 3 parameters
+obj.setBackgroundValue(1,'name','Background ACMW');
+assert(isequal(obj.background.backgrounds.typesTable{1,1}, 'Background ACMW'), 'setBackgroundValue method not working');
+
+% Test if addBulkOut method works
+% what it does is add a bulk out layer to the layer table
+
+obj.addBulkOut({'SLD ACMW' -1e-6,0.0,1e-6,true});
+assert(isequal(obj.bulkOut.paramsTable{end,1}, 'SLD ACMW'), 'addBulkOut method not working');
+
+% Test if addContrast method works
+% what it does is add a contrast layer to the layer table
 
 
 

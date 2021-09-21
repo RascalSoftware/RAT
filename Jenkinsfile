@@ -140,7 +140,7 @@ pipeline {
             }
             steps {
                 runMATLABCommand 'pwd'
-                runMATLABCommand ''' cd testSuite; results = runtests'''
+                runMATLABCommand ''' addRatPaths_win;cd testSuite; results = runtests'''
             }
 
         }
@@ -151,7 +151,7 @@ pipeline {
             }
             steps {
                 runMATLABCommand 'pwd'
-                runMATLABCommand ''' cd testSuite; results = runtests'''
+                runMATLABCommand ''' addRatPaths_linux; cd testSuite; results = runtests'''
             }
         }
 
@@ -164,7 +164,7 @@ pipeline {
                 //runMATLABCommand ''' cd testSuite; results = runtests'''
             //}
         //}
-        
+
     
     }
 }

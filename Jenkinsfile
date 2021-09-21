@@ -133,6 +133,38 @@ pipeline {
         //        runMATLABCommand ''' addRatPaths_mac; cd tests; cd 'monolayer 8 contrasts';DSPCscript'''
         //    }
         //}
+
+        stage ('Run Tests on Windows'){
+            agent{
+                label 'RAT_Windows'
+            }
+            steps {
+                runMATLABCommand 'pwd'
+                runMATLABCommand ''' cd testSuite; results = runtests'''
+            }
+
+        }
+
+        stage ('Run Tests on Linux'){
+            agent{
+                label 'RAT_Linux'
+            }
+            steps {
+                runMATLABCommand 'pwd'
+                runMATLABCommand ''' cd testSuite; results = runtests'''
+            }
+        }
+
+        //stage ('Run Tests on macOS'){
+            //agent{
+                // label 'RAT_mac'
+            //}
+            //steps {
+                //runMATLABCommand 'pwd'
+                //runMATLABCommand ''' cd testSuite; results = runtests'''
+            //}
+        //}
+        
     
     }
 }

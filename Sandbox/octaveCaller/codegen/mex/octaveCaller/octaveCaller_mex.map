@@ -1,12 +1,7 @@
-MEX {
-	global:
-		mexFunction;
-		mexfilerequiredapiversion;
-		emlrtMexFcnProperties;
-		octaveCaller_initialize;
-		octaveCaller_terminate;
-		octaveCaller_atexit;
-		octaveCaller;
-	local:
-		*;
-};
+_mexFunction
+_mexfilerequiredapiversion
+_emlrtMexFcnProperties
+_octaveCaller
+_octaveCaller_initialize
+_octaveCaller_terminate
+_octaveCaller_atexit

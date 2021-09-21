@@ -5,7 +5,7 @@
  *
  * octaveCaller_types.h
  *
- * Code generation for function 'octaveCaller_types'
+ * Code generation for function 'octaveCaller'
  *
  */
 
@@ -13,5 +13,6 @@
 
 /* Include files */
 #include "rtwtypes.h"
+#include "emlrt.h"
 
 /* End of code generation (octaveCaller_types.h) */

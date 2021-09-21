@@ -5,16 +5,13 @@
  *
  * _coder_octaveCaller_info.c
  *
- * Code generation for function '_coder_octaveCaller_info'
+ * Code generation for function 'octaveCaller'
  *
  */
 
 /* Include files */
 #include "_coder_octaveCaller_info.h"
-#include "covrt.h"
 #include "emlrt.h"
-#include "octaveCaller_data.h"
-#include "rt_nonfinite.h"
 #include "tmwtypes.h"
 
 /* Function Declarations */
@@ -23,46 +20,47 @@ static const mxArray *emlrtMexFcnResolvedFunctionsInfo(void);
 /* Function Definitions */
 static const mxArray *emlrtMexFcnResolvedFunctionsInfo(void)
 {
-  const mxArray *nameCaptureInfo;
+  static const int32_T iv[2] = {0, 1};
   const mxArray *m;
-  static const int32_T iv[2] = { 0, 1 };
-
+  const mxArray *nameCaptureInfo;
   nameCaptureInfo = NULL;
-  m = emlrtCreateNumericArray(2, &iv[0], mxDOUBLE_CLASS, mxREAL);
+  m = emlrtCreateNumericArray(2, (const void *)&iv[0], mxDOUBLE_CLASS, mxREAL);
   emlrtAssign(&nameCaptureInfo, m);
   return nameCaptureInfo;
 }
 
 mxArray *emlrtMexFcnProperties(void)
 {
-  mxArray *xResult;
   mxArray *xEntryPoints;
-  const char * epFieldName[6] = { "Name", "NumberOfInputs", "NumberOfOutputs",
-    "ConstantInputs", "FullPath", "TimeStamp" };
-
   mxArray *xInputs;
-  const char * propFieldName[4] = { "Version", "ResolvedFunctions",
-    "EntryPoints", "CoverageInfo" };
-
-  xEntryPoints = emlrtCreateStructMatrix(1, 1, 6, epFieldName);
+  mxArray *xResult;
+  const char_T *epFieldName[6] = {
+      "Name",           "NumberOfInputs", "NumberOfOutputs",
+      "ConstantInputs", "FullPath",       "TimeStamp"};
+  const char_T *propFieldName[5] = {"Version", "ResolvedFunctions",
+                                    "EntryPoints", "CoverageInfo",
+                                    "IsPolymorphic"};
+  xEntryPoints =
+      emlrtCreateStructMatrix(1, 1, 6, (const char_T **)&epFieldName[0]);
   xInputs = emlrtCreateLogicalMatrix(1, 0);
-  emlrtSetField(xEntryPoints, 0, "Name", emlrtMxCreateString("octaveCaller"));
-  emlrtSetField(xEntryPoints, 0, "NumberOfInputs", emlrtMxCreateDoubleScalar(0.0));
-  emlrtSetField(xEntryPoints, 0, "NumberOfOutputs", emlrtMxCreateDoubleScalar
-                (0.0));
-  emlrtSetField(xEntryPoints, 0, "ConstantInputs", xInputs);
-  emlrtSetField(xEntryPoints, 0, "FullPath", emlrtMxCreateString(
-    "/home/arwel/Documents/RascalDev/RAT/Sandbox/octaveCaller/octaveCaller.m"));
-  emlrtSetField(xEntryPoints, 0, "TimeStamp", emlrtMxCreateDoubleScalar
-                (738202.63071759255));
-  xResult = emlrtCreateStructMatrix(1, 1, 4, propFieldName);
-  emlrtSetField(xResult, 0, "Version", emlrtMxCreateString(
-    "9.8.0.1380330 (R2020a) Update 2"));
-  emlrtSetField(xResult, 0, "ResolvedFunctions", (mxArray *)
-                emlrtMexFcnResolvedFunctionsInfo());
-  emlrtSetField(xResult, 0, "EntryPoints", xEntryPoints);
-  emlrtSetField(xResult, 0, "CoverageInfo", covrtSerializeInstanceData
-                (&emlrtCoverageInstance));
+  emlrtSetField(xEntryPoints, 0, (const char_T *)"Name",
+                emlrtMxCreateString((const char_T *)"octaveCaller"));
+  emlrtSetField(xEntryPoints, 0, (const char_T *)"NumberOfInputs",
+                emlrtMxCreateDoubleScalar(0.0));
+  emlrtSetField(xEntryPoints, 0, (const char_T *)"NumberOfOutputs",
+                emlrtMxCreateDoubleScalar(0.0));
+  emlrtSetField(xEntryPoints, 0, (const char_T *)"ConstantInputs", xInputs);
+  emlrtSetField(xEntryPoints, 0, (const char_T *)"FullPath",
+                emlrtMxCreateString((const char_T *)"octaveCaller.m"));
+  emlrtSetField(xEntryPoints, 0, (const char_T *)"TimeStamp",
+                emlrtMxCreateDoubleScalar(738262.64777777775));
+  xResult =
+      emlrtCreateStructMatrix(1, 1, 5, (const char_T **)&propFieldName[0]);
+  emlrtSetField(xResult, 0, (const char_T *)"Version",
+                emlrtMxCreateString((const char_T *)"9.10.0.1602886 (R2021a)"));
+  emlrtSetField(xResult, 0, (const char_T *)"ResolvedFunctions",
+                (mxArray *)emlrtMexFcnResolvedFunctionsInfo());
+  emlrtSetField(xResult, 0, (const char_T *)"EntryPoints", xEntryPoints);
   return xResult;
 }
 

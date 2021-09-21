@@ -11,19 +11,15 @@
 
 /* Include files */
 #include "octaveCaller.h"
-#include "octaveCaller_data.h"
 #include "rt_nonfinite.h"
 
 /* Function Definitions */
 void octaveCaller(const emlrtStack *sp)
 {
   (void)sp;
-  covrtLogFcn(&emlrtCoverageInstance, 0U, 0U);
-  covrtLogIf(&emlrtCoverageInstance, 0U, 0U, 0, false);
-  covrtLogBasicBlock(&emlrtCoverageInstance, 0U, 1U);
   octaveCallerFunction();
-
-  /* , params, paramsLen, funName, pathCall, bulkIn, bulkOut, contrast, coder.wref(outp), coder.wref(nLayers)); */
+  /* , params, paramsLen, funName, pathCall, bulkIn, bulkOut, contrast,
+   * coder.wref(outp), coder.wref(nLayers)); */
 }
 
 /* End of code generation (octaveCaller.c) */

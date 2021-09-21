@@ -1,7 +1,7 @@
 <deployment-project plugin="plugin.coder" plugin-version="R2021a">
   <configuration file="/Users/arwel/Documents/coding/RAT/Sandbox/octaveCaller/octaveCaller.prj" location="/Users/arwel/Documents/coding/RAT/Sandbox/octaveCaller" name="octaveCaller" target="target.unifiedcoder" target-name="MATLAB Coder">
     <profile key="profile.mex">
-      <param.BuiltInstrumentedMex />
+      <param.BuiltInstrumentedMex>false</param.BuiltInstrumentedMex>
       <param.RanInstrumentedMex>false</param.RanInstrumentedMex>
       <param.WorkingFolder>option.WorkingFolder.Project</param.WorkingFolder>
       <param.SpecifiedWorkingFolder />
@@ -21,14 +21,14 @@
       <param.RowMajor>option.RowMajor.ColumnMajor</param.RowMajor>
       <param.HighlightPotentialRowMajorIssues>true</param.HighlightPotentialRowMajorIssues>
       <param.PreserveArrayDimensions>false</param.PreserveArrayDimensions>
-      <param.EliminateSingleDimensions />
+      <param.EliminateSingleDimensions>false</param.EliminateSingleDimensions>
       <param.StackUsageMax>200000</param.StackUsageMax>
       <param.FilePartitionMethod>option.FilePartitionMethod.MapMFileToCFile</param.FilePartitionMethod>
       <param.GenerateComments>true</param.GenerateComments>
       <param.MATLABSourceComments>false</param.MATLABSourceComments>
       <param.CodeFormattingTool>option.CodeFormattingTool.Auto</param.CodeFormattingTool>
       <param.ReservedNameArray />
-      <param.CppStyleConst />
+      <param.CppStyleConst>false</param.CppStyleConst>
       <param.EnableDebugging>false</param.EnableDebugging>
       <param.Verbosity>option.Verbosity.Info</param.Verbosity>
       <param.ReportPotentialDifferences>true</param.ReportPotentialDifferences>
@@ -37,10 +37,10 @@
       <param.ReportInfoVarName />
       <param.DefaultTestFile />
       <param.MergeInstrumentationResults>false</param.MergeInstrumentationResults>
-      <param.VerificationMode />
+      <param.VerificationMode>option.VerificationMode.None</param.VerificationMode>
       <param.VerificationStatus>option.VerificationStatus.FailedBuild</param.VerificationStatus>
       <param.EnableMexProfiling>false</param.EnableMexProfiling>
-      <var.BuiltWithMexProfiling />
+      <var.BuiltWithMexProfiling>false</var.BuiltWithMexProfiling>
       <param.CustomSourceCode />
       <param.CustomHeaderCode />
       <param.CustomInitializer />
@@ -69,11 +69,11 @@
       <param.EnableCRICodeCoverage>true</param.EnableCRICodeCoverage>
       <param.EnableAutoParallelizationReporting>true</param.EnableAutoParallelizationReporting>
       <param.EnableJIT>false</param.EnableJIT>
-      <param.EnableJITSilentBailOut />
+      <param.EnableJITSilentBailOut>false</param.EnableJITSilentBailOut>
       <param.CheckForIssuesJIT>true</param.CheckForIssuesJIT>
-      <param.EnableGitSupport />
-      <param.EnableAutoCommit />
-      <param.RepositoryStyle />
+      <param.EnableGitSupport>false</param.EnableGitSupport>
+      <param.EnableAutoCommit>false</param.EnableAutoCommit>
+      <param.RepositoryStyle>option.RepositoryStyle.Auto</param.RepositoryStyle>
       <unset>
         <param.BuiltInstrumentedMex />
         <param.RanInstrumentedMex />
@@ -167,7 +167,7 @@
       <param.RowMajor>option.RowMajor.ColumnMajor</param.RowMajor>
       <param.HighlightPotentialRowMajorIssues>true</param.HighlightPotentialRowMajorIssues>
       <param.PreserveArrayDimensions>false</param.PreserveArrayDimensions>
-      <param.EliminateSingleDimensions />
+      <param.EliminateSingleDimensions>false</param.EliminateSingleDimensions>
       <param.StackUsageMax>200000</param.StackUsageMax>
       <param.MultiInstanceCode>false</param.MultiInstanceCode>
       <param.FilePartitionMethod>option.FilePartitionMethod.MapMFileToCFile</param.FilePartitionMethod>
@@ -212,7 +212,7 @@
       <param.CustomSymbolStrEMXArray>emxArray_$M$N</param.CustomSymbolStrEMXArray>
       <param.CustomSymbolStrEMXArrayFcn>emx$M$N</param.CustomSymbolStrEMXArrayFcn>
       <param.ReservedNameArray />
-      <param.CppStyleConst />
+      <param.CppStyleConst>false</param.CppStyleConst>
       <param.RuntimeChecks>false</param.RuntimeChecks>
       <param.Verbose />
       <param.Verbosity>option.Verbosity.Info</param.Verbosity>
@@ -231,7 +231,7 @@
       <param.DefaultTestFile />
       <param.MergeInstrumentationResults>false</param.MergeInstrumentationResults>
       <param.RanPilSilVerification>false</param.RanPilSilVerification>
-      <param.VerificationMode />
+      <param.VerificationMode>option.VerificationMode.None</param.VerificationMode>
       <param.VerificationStatus>option.VerificationStatus.Inactive</param.VerificationStatus>
       <param.CustomSourceCode />
       <param.CustomHeaderCode />
@@ -331,9 +331,9 @@
       <param.GenerateDefaultInSwitch>false</param.GenerateDefaultInSwitch>
       <param.EnableTraceability>true</param.EnableTraceability>
       <param.UseECoderFeatures>false</param.UseECoderFeatures>
-      <param.EnableGitSupport />
-      <param.EnableAutoCommit />
-      <param.RepositoryStyle />
+      <param.EnableGitSupport>false</param.EnableGitSupport>
+      <param.EnableAutoCommit>false</param.EnableAutoCommit>
+      <param.RepositoryStyle>option.RepositoryStyle.Auto</param.RepositoryStyle>
       <param.psCustomPrjState />
       <param.psCustomProjectFile />
       <param.psCheckConfValue />
@@ -868,10 +868,10 @@
     <param.objective>option.objective.c</param.objective>
     <param.WorkflowStep>verifyCompatibility</param.WorkflowStep>
     <param.TestSnippets />
-    <param.ExternalFcnMajority />
+    <param.ExternalFcnMajority>column</param.ExternalFcnMajority>
     <param.UseGlobals>option.UseGlobals.No</param.UseGlobals>
     <param.outputfile>${PROJECT_ROOT}/codegen/lib/octaveCaller/octaveCaller.a</param.outputfile>
-    <param.version />
+    <param.version>R2012a</param.version>
     <param.HasECoderFeatures>false</param.HasECoderFeatures>
     <param.HasGpuCoder>false</param.HasGpuCoder>
     <var.HasNeuralNetworkToolbox>true</var.HasNeuralNetworkToolbox>
@@ -879,11 +879,11 @@
     <param.grt.mainhtml />
     <param.CallGeneratedCodeFromTest>true</param.CallGeneratedCodeFromTest>
     <param.AutoInferDefaultFile />
-    <param.AutoInferUseVariableSize />
-    <param.AutoInferUseUnboundedSize />
-    <param.AutoInferVariableSizeThreshold />
-    <param.AutoInferUnboundedSizeThreshold />
-    <param.EnableFixedPointStep />
+    <param.AutoInferUseVariableSize>false</param.AutoInferUseVariableSize>
+    <param.AutoInferUseUnboundedSize>false</param.AutoInferUseUnboundedSize>
+    <param.AutoInferVariableSizeThreshold>1024</param.AutoInferVariableSizeThreshold>
+    <param.AutoInferUnboundedSizeThreshold>2048</param.AutoInferUnboundedSizeThreshold>
+    <param.EnableFixedPointStep>false</param.EnableFixedPointStep>
     <param.EnableScreener>true</param.EnableScreener>
     <param.AnnotationChecksum />
     <var.LegacyTarget />
@@ -896,17 +896,17 @@
     <var.gc.lastOutputType />
     <var.gc.preBuildChecksum />
     <var.cfi.lastOutputRoot>codegen/mex/octaveCaller</var.cfi.lastOutputRoot>
-    <var.cfi.preBuildChecksum>3445860212</var.cfi.preBuildChecksum>
-    <var.outdatedOnRestore />
+    <var.cfi.preBuildChecksum>1603491708</var.cfi.preBuildChecksum>
+    <var.outdatedOnRestore>false</var.outdatedOnRestore>
     <var.lastUserSourceChecksum />
     <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/Sandbox/octaveCaller/octaveCaller.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
     <param.forceMexBuild>false</param.forceMexBuild>
-    <param.NoDefaultJIT />
+    <param.NoDefaultJIT>false</param.NoDefaultJIT>
     <param.configImportActive>false</param.configImportActive>
     <var.isGpuCoder>false</var.isGpuCoder>
     <var.notGpuCoder>true</var.notGpuCoder>
     <var.boundToGui>true</var.boundToGui>
-    <var.isConfigDialog />
+    <var.isConfigDialog>false</var.isConfigDialog>
     <var.ecoderEnabled>false</var.ecoderEnabled>
     <param.mex.outputfile>octaveCaller_mex</param.mex.outputfile>
     <param.grt.outputfile>octaveCaller</param.grt.outputfile>
@@ -917,15 +917,15 @@
     <param.CppNamespaceForMathworksCode>coder</param.CppNamespaceForMathworksCode>
     <param.CppPreserveClasses>true</param.CppPreserveClasses>
     <param.gpu.Enabled>false</param.gpu.Enabled>
-    <param.gpu.SelectCudaDevice />
+    <param.gpu.SelectCudaDevice>-1</param.gpu.SelectCudaDevice>
     <param.gpu.ComputeCapability />
     <param.gpu.CustomComputeCapability />
     <param.gpu.MallocMode />
-    <param.gpu.MallocThreshold />
-    <param.gpu.StackLimitPerThread />
-    <param.gpu.MaximumBlocksPerKernel />
+    <param.gpu.MallocThreshold>200</param.gpu.MallocThreshold>
+    <param.gpu.StackLimitPerThread>1024</param.gpu.StackLimitPerThread>
+    <param.gpu.MaximumBlocksPerKernel>0</param.gpu.MaximumBlocksPerKernel>
     <param.gpu.Benchmarking>false</param.gpu.Benchmarking>
-    <param.gpu.SafeBuild />
+    <param.gpu.SafeBuild>true</param.gpu.SafeBuild>
     <param.gpu.KernelNamePrefix />
     <param.gpu.CompilerFlags />
     <param.gpu.EnableCUBLAS>false</param.gpu.EnableCUBLAS>
@@ -955,20 +955,20 @@
     <param.UsePreconditions>false</param.UsePreconditions>
     <param.FeatureFlags />
     <param.FixedPointMode>option.FixedPointMode.None</param.FixedPointMode>
-    <param.AutoScaleLoopIndexVariables />
+    <param.AutoScaleLoopIndexVariables>false</param.AutoScaleLoopIndexVariables>
     <param.ComputedFixedPointData />
     <param.UserFixedPointData />
-    <param.DefaultWordLength />
-    <param.DefaultFractionLength />
-    <param.FixedPointSafetyMargin />
-    <param.FixedPointFimath />
-    <param.FixedPointTypeSource />
+    <param.DefaultWordLength>16</param.DefaultWordLength>
+    <param.DefaultFractionLength>4</param.DefaultFractionLength>
+    <param.FixedPointSafetyMargin>0</param.FixedPointSafetyMargin>
+    <param.FixedPointFimath>fimath('RoundingMethod', 'Floor', 'OverflowAction', 'Wrap', 'ProductMode', 'FullPrecision', 'MaxProductWordLength', 128, 'SumMode', 'FullPrecision', 'MaxSumWordLength', 128)</param.FixedPointFimath>
+    <param.FixedPointTypeSource>option.FixedPointTypeSource.SimAndDerived</param.FixedPointTypeSource>
     <param.StaticAnalysisTimeout />
-    <param.StaticAnalysisGlobalRangesOnly />
-    <param.LogAllIOValues />
-    <param.DetectOverflows />
-    <param.LogHistogram />
-    <param.ShowCoverage />
+    <param.StaticAnalysisGlobalRangesOnly>false</param.StaticAnalysisGlobalRangesOnly>
+    <param.LogAllIOValues>false</param.LogAllIOValues>
+    <param.DetectOverflows>false</param.DetectOverflows>
+    <param.LogHistogram>false</param.LogHistogram>
+    <param.ShowCoverage>true</param.ShowCoverage>
     <param.ExcludedFixedPointVerificationFiles />
     <param.ExcludedFixedPointSimulationFiles />
     <param.InstrumentedBuildChecksum />
@@ -977,16 +977,16 @@
     <param.FixedPointValidationChecksum />
     <param.FixedPointSourceCodeChecksum />
     <param.FixedPointFunctionReplacements />
-    <param.OptimizeWholeNumbers />
-    <param.ContainerTypes />
+    <param.OptimizeWholeNumbers>true</param.OptimizeWholeNumbers>
+    <param.ContainerTypes>false</param.ContainerTypes>
     <param.GeneratedFixedPointFileSuffix>_fixpt</param.GeneratedFixedPointFileSuffix>
     <param.PlotFunction />
-    <param.SDIPlot />
-    <param.EnableCodeEfficiencyChecks />
-    <param.DefaultFixedPointSignedness />
-    <param.FixedPointTypeProposalMode />
-    <param.EnableFixedPointStep />
-    <var.lastFixedPointAction />
+    <param.SDIPlot>false</param.SDIPlot>
+    <param.EnableCodeEfficiencyChecks>false</param.EnableCodeEfficiencyChecks>
+    <param.DefaultFixedPointSignedness>option.DefaultFixedPointSignedness.Automatic</param.DefaultFixedPointSignedness>
+    <param.FixedPointTypeProposalMode>option.FixedPointTypeProposalMode.ProposeFractionLengths</param.FixedPointTypeProposalMode>
+    <param.EnableFixedPointStep>false</param.EnableFixedPointStep>
+    <var.lastFixedPointAction>option.fixedPointAction.none</var.lastFixedPointAction>
     <var.lastSimContext />
     <var.lastVerifyContext />
     <param.fpDataRoot />
@@ -994,9 +994,9 @@
     <var.snapshotChecksum />
     <param.fpLastConvertChecksum />
     <var.functionBlockSid />
-    <param.fptSignedness />
-    <var.FixedPointAnalysisMode />
-    <param.FixedPointUseDesignRanges />
+    <param.fptSignedness>false</param.fptSignedness>
+    <var.FixedPointAnalysisMode>option.FixedPointAnalysisMode.Sim</var.FixedPointAnalysisMode>
+    <param.FixedPointUseDesignRanges>false</param.FixedPointUseDesignRanges>
     <unset>
       <param.objective />
       <param.TestSnippets />

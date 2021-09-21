@@ -1,0 +1,30 @@
+ 
+        ParaDRAM - FATAL: @ParaMonte_mod@setupOutputFiles(): Error occurred while opening the ParaDRAM report 
+        ParaDRAM - FATAL: file='/out/pDramRun_process_1_report.txt'. 
+        ParaDRAM - FATAL: Error Code: 29.
+ 
+ 
+ 
+        ParaDRAM - Please correct the error(s) and rerun the program.
+        ParaDRAM - If the cause of the error cannot be diagnosed, please report it at:
+        ParaDRAM -
+        ParaDRAM -     https://github.com/cdslaborg/paramonte/issues
+        ParaDRAM -
+        ParaDRAM - Gracefully exiting on image 1.
+ 
+ 
+ 
+        ParaDRAM - FATAL: @ParaDRAM_mod@Setup_smod@runSampler()@ParaMonte_mod@setupOutputFiles(): Error occurred while opening 
+        ParaDRAM - FATAL: the ParaDRAM report file='/out/pDramRun_process_1_report.txt'. 
+        ParaDRAM - FATAL: Error Code: 29.
+ 
+ 
+ 
+        ParaDRAM - Please correct the error(s) and rerun the program.
+        ParaDRAM - If the cause of the error cannot be diagnosed, please report it at:
+        ParaDRAM -
+        ParaDRAM -     https://github.com/cdslaborg/paramonte/issues
+        ParaDRAM -
+        ParaDRAM - Gracefully exiting on image 1.
+ 
+ 

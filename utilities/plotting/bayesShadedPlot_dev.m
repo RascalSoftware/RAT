@@ -7,16 +7,19 @@ function bayesShadedPlot_dev(problem,result,sf,varargin)
 if ~isempty(varargin)
     defaultq4  = false;
     defaultFit = 'mean';
+    defaultKeep = false;
     
     p = inputParser;
     addOptional(p,  'q4',       defaultq4,      @(x) islogical(x));
-    addOptional(p,  'fit',      defaultFit,      @(x) any(strcmpi(x,{'mean','max','average','all'})));
+    addOptional(p,  'fit',      defaultFit,     @(x) any(strcmpi(x,{'mean','max','average','all'})));
+    addOptional(p,  'KeepAxes',  defaultKeep,    @(x) islogical(x));
     
     parse(p,varargin{:});
     inputBlock = p.Results;
     
     q4 = inputBlock.q4;
     fit = inputBlock.fit;
+    keepAx = inputBlock.KeepAxes;
 else
     q4 = false;
 end
@@ -36,7 +39,10 @@ switch fit
 end
 
 f = gcf;
-clf; hold on; box on
+
+if ~ keepAx
+    clf; hold on; box on
+end
 
 pLims = result.predlims;
 refPlims = pLims{1};

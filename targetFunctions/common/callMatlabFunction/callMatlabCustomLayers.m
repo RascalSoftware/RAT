@@ -1,4 +1,4 @@
-function [output,sRough] = callMatlabCustomLayers(params,contrast,funcName,path,bulkIn,bulkOut)
+function [output,sRough] = callMatlabCustomLayers(params,contrast,funcName,path,bulkIn,bulkOut,nContrasts)
 
 % Excecute a custom model function in the base Matlab workspace.
 
@@ -7,9 +7,12 @@ function [output,sRough] = callMatlabCustomLayers(params,contrast,funcName,path,
 % 'feval' generates an automatic coder.extrinsic call.
 
 if coder.target('MATLAB')
-
+    
+    % For backwards compatability with Rascal1...
+    bulkOuts = zeros(nContrasts,1);
+    bulkOuts(contrast) = bulkOut;
     fileHandle = str2func(funcName);
-    [output,sRough] = fileHandle(params,bulkIn,bulkOut,contrast);
+    [output,sRough] = fileHandle(params,bulkIn,bulkOuts,contrast);
     
 else
     
@@ -33,7 +36,12 @@ else
     % Because it is feval, coder sends this call to
     % the base Matlab workspace. The outputs of feval are mxArrays, 
     % so we need to do some work afterwards casting these to doubles (below)
-    [tempOut,tempRough] = feval(funcName,params,bulkIn,bulkOut,contrast);
+    
+    % For backwards compatability with Rascal1...
+    bulkOuts = zeros(nContrasts,1);
+    bulkOuts(contrast) = bulkOut;
+    
+    [tempOut,tempRough] = feval(funcName,params,bulkIn,bulkOuts,contrast);
     
     % Tell coder n is doubles by defining it (otherwise 'size(n)' seems to return
     % [mxArray mxArray] not [double double]!), fill n with the size of the mxArray

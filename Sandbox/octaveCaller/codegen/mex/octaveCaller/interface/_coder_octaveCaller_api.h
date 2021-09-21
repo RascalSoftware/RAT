@@ -12,17 +12,15 @@
 #pragma once
 
 /* Include files */
+#include "rtwtypes.h"
+#include "emlrt.h"
+#include "mex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "mex.h"
-#include "emlrt.h"
-#include "covrt.h"
-#include "rtwtypes.h"
-#include "octaveCaller_types.h"
 
 /* Function Declarations */
-void octaveCaller_api(int32_T nlhs);
+void octaveCaller_api(void);
 
 /* End of code generation (_coder_octaveCaller_api.h) */

@@ -12,24 +12,20 @@
 /* Include files */
 #include "octaveCaller_terminate.h"
 #include "_coder_octaveCaller_mex.h"
-#include "octaveCaller.h"
 #include "octaveCaller_data.h"
 #include "rt_nonfinite.h"
 
 /* Function Definitions */
 void octaveCaller_atexit(void)
 {
-  emlrtStack st = { NULL,              /* site */
-    NULL,                              /* tls */
-    NULL                               /* prev */
+  emlrtStack st = {
+      NULL, /* site */
+      NULL, /* tls */
+      NULL  /* prev */
   };
-
   mexFunctionCreateRootTLS();
   st.tls = emlrtRootTLSGlobal;
   emlrtEnterRtStackR2012b(&st);
-
-  /* Free instance data */
-  covrtFreeInstanceData(&emlrtCoverageInstance);
   emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);
   emlrtExitTimeCleanup(&emlrtContextGlobal);
@@ -37,11 +33,11 @@ void octaveCaller_atexit(void)
 
 void octaveCaller_terminate(void)
 {
-  emlrtStack st = { NULL,              /* site */
-    NULL,                              /* tls */
-    NULL                               /* prev */
+  emlrtStack st = {
+      NULL, /* site */
+      NULL, /* tls */
+      NULL  /* prev */
   };
-
   st.tls = emlrtRootTLSGlobal;
   emlrtLeaveRtStackR2012b(&st);
   emlrtDestroyRootTLS(&emlrtRootTLSGlobal);

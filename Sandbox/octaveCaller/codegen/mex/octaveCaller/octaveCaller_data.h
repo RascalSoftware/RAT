@@ -12,19 +12,16 @@
 #pragma once
 
 /* Include files */
+#include "rtwtypes.h"
+#include "emlrt.h"
+#include "mex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "mex.h"
-#include "emlrt.h"
-#include "covrt.h"
-#include "rtwtypes.h"
-#include "octaveCaller_types.h"
 
 /* Variable Declarations */
 extern emlrtCTX emlrtRootTLSGlobal;
 extern emlrtContext emlrtContextGlobal;
-extern covrtInstance emlrtCoverageInstance;
 
 /* End of code generation (octaveCaller_data.h) */

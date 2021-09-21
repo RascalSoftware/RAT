@@ -5,7 +5,7 @@
  *
  * _coder_octaveCaller_info.h
  *
- * Code generation for function '_coder_octaveCaller_info'
+ * Code generation for function 'octaveCaller'
  *
  */
 

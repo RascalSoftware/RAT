@@ -16,16 +16,14 @@
 #include "rt_nonfinite.h"
 
 /* Function Definitions */
-void octaveCaller_api(int32_T nlhs)
+void octaveCaller_api(void)
 {
-  emlrtStack st = { NULL,              /* site */
-    NULL,                              /* tls */
-    NULL                               /* prev */
+  emlrtStack st = {
+      NULL, /* site */
+      NULL, /* tls */
+      NULL  /* prev */
   };
-
-  (void)nlhs;
   st.tls = emlrtRootTLSGlobal;
-
   /* Invoke the target function */
   octaveCaller(&st);
 }

@@ -1,4 +1,6 @@
 %%
+function problem = orsoTestScript()
+
 % Start by making an empty project
 problem = projectClass('Custom DPPC');
 

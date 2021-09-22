@@ -1,4 +1,5 @@
-ratRoot = 'C:\Users\oba7931403\Documents\Github\RAT'; %for temp linux machine on anvil
+ratRoot = pwd;
+%ratRoot = 'C:\Users\oba7931403\Documents\Github\RAT'; %for temp linux machine on anvil
 %ratRoot ='/home/oba79314/Downloads/workspace/RAT_demo_RAT_experiment_master'; %for linux node
 %ratRoot = '/home/arwel/Documents/RascalDev/RAT'; %Linux
 %ratRoot = 'C:\Users\oba7931403\Documents\Github\RAT'; %for windows machine
@@ -24,7 +25,6 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
     fullfile(ratRoot,'compile','dram_compile');
 
-    %/home/arwel/Documents/RascalDev/RAT/targetFunctions/reflectivity_calculation
     fullfile(ratRoot,'targetFunctions','reflectivity_calculation');
     fullfile(ratRoot,'targetFunctions','standard_TF');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay');
@@ -46,7 +46,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'minimisers','generalUtils','bayesStats');
     fullfile(ratRoot,'utilities');
     fullfile(ratRoot,'utilities','plotting');
-    fullfile(ratRoot,'utilities','testing');
+    %fullfile(ratRoot,'utilities','testing');
     fullfile(ratRoot,'utilities','misc');
 };
 

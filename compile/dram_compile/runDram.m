@@ -13,8 +13,6 @@ rng(0);
 %fitPriors = packpriors(priors,checks);
 
 %First deal with priors.
-%Make uniform priors from the
-%min/max limits for now.
 prior = {};
 lims = problemDef.fitconstr;
 

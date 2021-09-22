@@ -55,7 +55,7 @@ pmpd.spec.variableNameList = fitNames;
 pmpd.mpiEnabled = true;
 pmpd.reportEnabled = false;
 pmpd.spec.parallelizationModel = 'singleChain';
-pmpd.spec.chainSize = 20000;
+pmpd.spec.chainSize = 7000;
 
 pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective function
                 , @logFunc.get  ... the objective function

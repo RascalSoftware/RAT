@@ -1,8 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  backSort_makeMex [URL="backSort_makeMex.html"];
-  backSort_makeMex [URL="backSort_makeMex.html"];
-  bsMain [URL="bsMain.html"];
-  bsMain [URL="bsMain.html"];
-}

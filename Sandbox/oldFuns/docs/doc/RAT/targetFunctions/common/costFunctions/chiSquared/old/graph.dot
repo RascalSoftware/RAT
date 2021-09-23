@@ -1,8 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  chiSquaredMain [URL="chiSquaredMain.html"];
-  chiSquaredMain [URL="chiSquaredMain.html"];
-  chiSquared_makeMex [URL="chiSquared_makeMex.html"];
-  chiSquared_makeMex [URL="chiSquared_makeMex.html"];
-}

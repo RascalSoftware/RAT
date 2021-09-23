@@ -1,7 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-  MyClass -> MyClass;
-
-  MyClass [URL="MyClass.html"];
-  parseProblemDefToStruct [URL="parseProblemDefToStruct.html"];
-}

@@ -1,6 +1,0 @@
-# ninja log v5
-0	27	1586168400	build/glnxa64/c_mexapi_version.o	682c4610f26ecd82
-0	40	1586168400	build/glnxa64/abeles_mexutil.o	829a9f06e3072868
-0	44	1586168400	build/glnxa64/_coder_abeles_mex.o	44af3c673d2bd788
-0	249	1586168400	build/glnxa64/abeles.o	1e97741f91139a3
-249	302	1586168400	abeles_mex.mexa64	b4b639036ffdd282

@@ -1,5 +1,0 @@
-%Load in the Default project in order to get the data
-
-defProj = load('defaultProject.mat');
-defProj = defProj.problem;
-

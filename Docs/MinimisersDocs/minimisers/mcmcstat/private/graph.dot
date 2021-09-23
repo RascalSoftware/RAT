@@ -1,9 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  checkoptions [URL="checkoptions.html"];
-  getN [URL="getN.html"];
-  getnbatch [URL="getnbatch.html"];
-  getpar [URL="getpar.html"];
-  mcmcopttarget [URL="mcmcopttarget.html"];
-}

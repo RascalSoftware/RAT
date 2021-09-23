@@ -1,7 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-  testMain -> DPPC_gaus_mod_as_custLay_resample;
-
-  DPPC_gaus_mod_as_custLay_resample [URL="DPPC_gaus_mod_as_custLay_resample.html"];
-  testMain [URL="testMain.html"];
-}

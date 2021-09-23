@@ -1,1 +1,0 @@
-int mainRoutine(int argc, char *argv[]);

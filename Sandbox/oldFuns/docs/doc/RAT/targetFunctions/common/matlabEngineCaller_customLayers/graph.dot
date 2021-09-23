@@ -1,8 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  matlabEngineCaller_customLayers [URL="matlabEngineCaller_customLayers.html"];
-  matlabEngineCaller_customLayers [URL="matlabEngineCaller_customLayers.html"];
-  matlabEngineCaller_customXY [URL="matlabEngineCaller_customXY.html"];
-  matlabEngineCaller_customXY [URL="matlabEngineCaller_customXY.html"];
-}

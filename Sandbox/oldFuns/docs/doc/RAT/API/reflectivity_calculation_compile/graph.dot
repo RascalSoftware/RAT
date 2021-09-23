@@ -1,8 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-  refCalc_callFun -> reflectivity_calculation;
-
-  addPaths [URL="addPaths.html"];
-  refCalc_callFun [URL="refCalc_callFun.html"];
-  reflectivity_calculation [URL="reflectivity_calculation.html"];
-}

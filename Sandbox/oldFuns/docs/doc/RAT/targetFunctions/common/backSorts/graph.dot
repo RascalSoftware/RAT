@@ -1,8 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  backSort [URL="backSort.html"];
-  backSort [URL="backSort.html"];
-  legacyChanges [URL="legacyChanges.html"];
-  legacyChanges [URL="legacyChanges.html"];
-}

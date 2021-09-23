@@ -66,7 +66,7 @@ pipeline {
             }
             steps {
                 //runMATLABCommand ''' RAT = openProject("RAT_demo.prj") '''
-                //echo 'Project Env opened'
+                echo 'Project Env opened'
 
                 // Run Tests
 

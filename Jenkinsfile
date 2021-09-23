@@ -46,8 +46,8 @@ pipeline {
             }
             steps {
                 runMATLABCommand 'pwd'
-                runMATLABCommand ''' RAT = openProject("RAT_demo.prj")'''
-                echo 'Project Env opened'
+                //runMATLABCommand ''' RAT = openProject("RAT_demo.prj")'''
+                //echo 'Project Env opened'
             }
 
             // Run Tests
@@ -65,8 +65,8 @@ pipeline {
                 win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"
             }
             steps {
-                runMATLABCommand ''' RAT = openProject("RAT_demo.prj") '''
-                echo 'Project Env opened'
+                //runMATLABCommand ''' RAT = openProject("RAT_demo.prj") '''
+                //echo 'Project Env opened'
 
                 // Run Tests
 
@@ -109,7 +109,7 @@ pipeline {
             }
             steps {
                 runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths_win; cd tests;cd 'monolayer 8 contrasts';DSPCscript'''
+                runMATLABCommand ''' addRatPaths; cd tests;cd 'monolayer 8 contrasts';DSPCscript'''
             }
         }
 
@@ -120,7 +120,7 @@ pipeline {
             }
             steps {
                 runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths_linux; cd tests; cd 'monolayer 8 contrasts';DSPCscript'''
+                runMATLABCommand ''' addRatPaths; cd tests; cd 'monolayer 8 contrasts';DSPCscript'''
             }
         }
 
@@ -130,7 +130,7 @@ pipeline {
         //   }
         //  steps {
         //        runMATLABCommand 'pwd'
-        //        runMATLABCommand ''' addRatPaths_mac; cd tests; cd 'monolayer 8 contrasts';DSPCscript'''
+        //        runMATLABCommand ''' addRatPaths; cd tests; cd 'monolayer 8 contrasts';DSPCscript'''
         //    }
         //}
 
@@ -140,7 +140,7 @@ pipeline {
             }
             steps {
                 runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths_win;cd testSuite; results = runtests'''
+                runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
             }
 
         }
@@ -151,7 +151,7 @@ pipeline {
             }
             steps {
                 runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths_linux; cd testSuite; results = runtests'''
+                runMATLABCommand ''' addRatPaths; cd testSuite; results = runtests'''
             }
         }
 

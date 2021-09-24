@@ -13,8 +13,8 @@ pipeline {
                 sh 'echo "Starting parallel pool "'
                 runMATLABCommand 'parpool()'
                 runMATLABCommand 'pwd'
-                runMATLABCommand 'cd compile/reflectivity_calculation_compile_new'
-                runMATLABCommand 'reflectivity_calculation_compile_script'
+                runMATLABCommand ''' cd 'compile/reflectivity_calculation_compile_new';reflectivity_calculation_compile_script'''
+                runMATLABCommand ''
             }
         }
 

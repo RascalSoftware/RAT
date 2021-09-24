@@ -81,8 +81,16 @@ pipeline {
         }
 
 
+        }
+       
 
-        //TESTS
+    
+    }
+}
+
+
+
+ //TESTS
    
         /*stage ('Run Tests on Windows'){
             agent{
@@ -115,13 +123,6 @@ pipeline {
                 //runMATLABCommand ''' cd testSuite; results = runtests'''
             //}
         //}
-
-    
-    }
-}
-
-
-
  /*
     agent {
         label 'RAT_Linux' && 'RAT_Windows'

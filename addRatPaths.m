@@ -30,7 +30,6 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
     fullfile(ratRoot,'targetFunctions','common','jacobianEst');
     fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
-    fullfile(ratRoot,'compile','dram_compile');
 
     fullfile(ratRoot,'targetFunctions','reflectivity_calculation');
     fullfile(ratRoot,'targetFunctions','standard_TF');

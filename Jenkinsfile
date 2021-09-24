@@ -1,40 +1,22 @@
 pipeline {
     agent none
-
-
-    /*
-    agent {
-        label 'RAT_Linux' && 'RAT_Windows'
-    }
-
-
-    environment {
-        win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"   // Windows agent NEED TO EDIT PIPELINE
-        //PATH="/opt/modules-common/software/MATLAB/R2020b/bin:${PATH}"   // Sethu VMLinux agent
-        PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"                     // RAT_Linux 
-        // PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"   // macOS agent
-    }
-    */
-
-
     stages {
-        /*stage('Open Project env') {
+        // Start a parallel pool of n threads using matlab and Build it
+        stage('Build on Linux') {
+            agent {
+                label 'RAT_Linux'
+            }
+            environment{
+                PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"
+            }
             steps {
-                runMATLABCommand '''RAT= openProject("RAT_demo.prj")'''
-                //runMATLABCommand 'RAT = currentProject'
+                sh 'echo "Starting parallel pool "'
+                runMATLABCommand 'parpool()'
+                runMATLABCommand 'pwd'
+                runMATLABCommand 'cd compile/reflectivity_calculation_compile_new'
+                runMATLABCommand 'reflectivity_calculation_compile_script'
             }
         }
-        stage('Run Tests') {
-            steps {
-                echo 'Temporarily Skipping this part' 
-            }
-        }
-        stage('Code Generation') {
-            steps {
-                echo 'Temporarily Skipping this part' 
-            }
-        } */
-
 
         // BUILD ON Linux
         stage('Build Linux') {
@@ -169,3 +151,36 @@ pipeline {
     }
 }
 
+
+
+ /*
+    agent {
+        label 'RAT_Linux' && 'RAT_Windows'
+    }
+
+
+    environment {
+        win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"   // Windows agent NEED TO EDIT PIPELINE
+        //PATH="/opt/modules-common/software/MATLAB/R2020b/bin:${PATH}"   // Sethu VMLinux agent
+        PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"                     // RAT_Linux 
+        // PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"   // macOS agent
+    }
+    */
+
+
+    /*stage('Open Project env') {
+            steps {
+                runMATLABCommand '''RAT= openProject("RAT_demo.prj")'''
+                //runMATLABCommand 'RAT = currentProject'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                echo 'Temporarily Skipping this part' 
+            }
+        }
+        stage('Code Generation') {
+            steps {
+                echo 'Temporarily Skipping this part' 
+            }
+        } */

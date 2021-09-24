@@ -14,6 +14,7 @@ pipeline {
                 runMATLABCommand 'parpool()'
                 runMATLABCommand 'pwd'
                 runMATLABCommand ''' addRatPaths;cd compile; cd reflectivity_calculation_compile_new;reflectivity_calculation_compile_script'''
+            }
         }
 
         // start a parallel pool of n threads using matlab and Build it on windows
@@ -81,11 +82,11 @@ pipeline {
         }
 
 
-        }
        
 
     
     }
+
 }
 
 

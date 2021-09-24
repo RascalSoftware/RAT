@@ -148,16 +148,16 @@ problem.setContrastModel(3,'DSPC Model');
 %% 
 % Make a controls block....
 
-controls = controlsDef();
-% controls.calcSldDuringFit = 'no';
-% controls.procedure = 'simplex';
-% controls.display = 'final';
-% % controls.maxIter = 200;
-
-% Run the fit
-[problam,results] = RAT(problem,controls);
-figure(1); clf
-plotRefSLD(problem,results);
+% controls = controlsDef();
+% % controls.calcSldDuringFit = 'no';
+% % controls.procedure = 'simplex';
+% % controls.display = 'final';
+% % % controls.maxIter = 200;
+% 
+% % Run the fit
+% [problam,results] = RAT(problem,controls);
+% figure(1); clf
+% plotRefSLD(problem,results);
 
 
 %%

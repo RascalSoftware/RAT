@@ -26,16 +26,15 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','shiftData');
     fullfile(ratRoot,'targetFunctions','common','legacyChanges');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
-
+    fullfile(ratRoot,'targetFunctions','common','callCustomLayers');
     fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
     fullfile(ratRoot,'targetFunctions','common','jacobianEst');
+    
     fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
 
     fullfile(ratRoot,'targetFunctions','reflectivity_calculation');
     fullfile(ratRoot,'targetFunctions','standard_TF');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay');
-    fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay');
-
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custLay');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custXY');    
     fullfile(ratRoot,'API');

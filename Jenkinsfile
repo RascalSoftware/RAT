@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-        // Start a parallel pool of n threads using matlab and Build it
+        // Start a parallel pool of n threads using matlab and Build it on linux
         stage('Build on Linux') {
             agent {
                 label 'RAT_Linux'
@@ -14,32 +14,10 @@ pipeline {
                 runMATLABCommand 'parpool()'
                 runMATLABCommand 'pwd'
                 runMATLABCommand ''' addRatPaths;cd compile; cd reflectivity_calculation_compile_new;reflectivity_calculation_compile_script'''
-                runMATLABCommand ''
-            }
         }
 
-        // BUILD ON Linux
-        stage('Build Linux') {
-            agent{
-                label 'RAT_Linux'
-            }
-            environment{
-                PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"
-            }
-            steps {
-                runMATLABCommand 'pwd'
-                //runMATLABCommand ''' RAT = openProject("RAT_demo.prj")'''
-                //echo 'Project Env opened'
-            }
-
-            // Run Tests
-
-            // Code Generation
-        }
-
-
-        // BUILD ON WINDOWS
-        stage('Build on Windows'){
+        // start a parallel pool of n threads using matlab and Build it on windows
+        stage('Build on Windows') {
             agent {
                 label 'RAT_Windows'
             }
@@ -47,36 +25,31 @@ pipeline {
                 win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"
             }
             steps {
-                //runMATLABCommand ''' RAT = openProject("RAT_demo.prj") '''
-                echo 'Project Env opened'
+                sh 'echo "Starting parallel pool "'
+                runMATLABCommand 'parpool()'
+                runMATLABCommand 'pwd'
+                runMATLABCommand ''' addRatPaths;cd compile; cd reflectivity_calculation_compile_new;reflectivity_calculation_compile_script'''
+           }   
 
-                // Run Tests
-
-                // Code Generation
-
-            }
-            
         }
 
 
-        // BUILD ON macOS 
+
+        // Start a parallel pool of n threads using matlab and Build it on Macos
         /* 
-        stage('Build macOS') {
+        stage('Build on Macos') {
             agent {
-                label 'RAT_mac'
+                label 'RAT_Macos'
             }
             environment{
-                PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"
+                PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"
             }
             steps {
-                runMATLABCommand ''' RAT = openProject("RAT_demo.prj") '''
-                echo 'Project Env opened'
-            }
-
-            // Run Tests
-
-            // Code Generation
-        }
+                sh 'echo "Starting parallel pool "'
+                runMATLABCommand 'parpool()'
+                runMATLABCommand 'pwd'
+                runMATLABCommand ''' addRatPaths;cd compile; cd reflectivity_calculation_compile_new;reflectivity_calculation_compile_script'''
+              } 
         */
 
 
@@ -85,15 +58,6 @@ pipeline {
         // run sample project on Windows,Linux,MacOS
 
 
-        stage('Run Sample Project on Win') {
-            agent{
-                label 'RAT_Windows'
-            }
-            steps {
-                runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths; cd tests;cd 'monolayer 8 contrasts';DSPCscript'''
-            }
-        }
 
 
         stage ('Run Sample Project on Linux') {
@@ -105,18 +69,22 @@ pipeline {
                 runMATLABCommand ''' addRatPaths; cd tests; cd 'monolayer 8 contrasts';DSPCscript'''
             }
         }
+        
+        stage('Run Sample Project on Win') {
+            agent{
+                label 'RAT_Windows'
+            }
+            steps {
+                runMATLABCommand 'pwd'
+                runMATLABCommand ''' addRatPaths; cd tests;cd 'monolayer 8 contrasts';DSPCscript'''
+            }
+        }
 
-        //stage ('Run Sample Project on macOS') {
-        //    agent{
-        //        label 'RAT_MacOS'
-        //   }
-        //  steps {
-        //        runMATLABCommand 'pwd'
-        //        runMATLABCommand ''' addRatPaths; cd tests; cd 'monolayer 8 contrasts';DSPCscript'''
-        //    }
-        //}
 
-        stage ('Run Tests on Windows'){
+
+        //TESTS
+   
+        /*stage ('Run Tests on Windows'){
             agent{
                 label 'RAT_Windows'
             }
@@ -135,7 +103,8 @@ pipeline {
                 runMATLABCommand 'pwd'
                 runMATLABCommand ''' addRatPaths; cd testSuite; results = runtests'''
             }
-        }
+        }*/
+        
 
         //stage ('Run Tests on macOS'){
             //agent{

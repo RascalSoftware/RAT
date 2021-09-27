@@ -1,4 +1,4 @@
-function [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls)
+function [problem,result] = reflectivity_calculation_test_wrapper(problemDef,problemDef_cells,problemDef_limits,controls,type)
 
 
 % This is just a wrapper function for choosing between
@@ -26,7 +26,7 @@ function [problem,result] = reflectivity_calculation_wrapper(problemDef,problemD
 % result{5} = sldProfiles{}
 % result{6} = currently empty - will be allLayers (i.e. resampled)
 
-type = 'mex';
+
 
  switch type
      case 'mex'

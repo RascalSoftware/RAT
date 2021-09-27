@@ -26,7 +26,7 @@ pipeline {
                 win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"
             }
             steps {
-                runMATLABCommand 'echo "Starting parallel pool "'
+                echo 'Starting parallel pool'
                 runMATLABCommand 'parpool()'
                 runMATLABCommand 'pwd'
                 runMATLABCommand ''' addRatPaths;cd compile; cd reflectivity_calculation_compile_new;reflectivity_calculation_compile_script'''

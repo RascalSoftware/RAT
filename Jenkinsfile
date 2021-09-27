@@ -61,7 +61,7 @@ pipeline {
 
 
 
-        stage ('Run Sample Project on Linux') {
+        /*stage ('Run Sample Project on Linux') {
             agent{
                 label 'RAT_Linux'
             }
@@ -79,7 +79,7 @@ pipeline {
                 runMATLABCommand 'pwd'
                 runMATLABCommand ''' addRatPaths; cd tests;cd 'monolayer 8 contrasts';DSPCscript'''
             }
-        }
+        }*/
 
 
        

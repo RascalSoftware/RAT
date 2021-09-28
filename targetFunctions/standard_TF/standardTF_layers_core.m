@@ -64,11 +64,11 @@ if (resample == 1 && calcSld == 0)
     calcSld = 1;
 end
 
-% If cal SLD flag is set, then calculate the SLD profile
+% If calc SLD flag is set, then calculate the SLD profile
 if calcSld == 1
     sldProfile = makeSLDProfiles(nba,nbs,theseLayers,ssubs,repeatLayers);
 else
-    sldProfile = [0 0 0];
+    sldProfile = [0 0];
 end
 
 % If required, then resample the SLD

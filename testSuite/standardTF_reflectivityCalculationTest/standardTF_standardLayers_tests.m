@@ -1,6 +1,7 @@
 % Class based unit tests from matlab.unittest.TestCase
+% Run tests on the 'Standard Layers' case of the standard target function
 
-classdef standardTF_tests < matlab.unittest.TestCase
+classdef standardTF_standardLayers_tests < matlab.unittest.TestCase
 
     properties
         % Test data
@@ -11,12 +12,15 @@ classdef standardTF_tests < matlab.unittest.TestCase
         problemDef_limits;
         controls;
         
-
         expectedProblem;
         expectedResult;
+        
+        tolerance = 20*eps;
     end
 
     methods (TestMethodSetup)
+        
+        
         function standLayInputs = load_test_data_inputs(testCase)
             % Load test data
             testCase.stanLayInputs = load('standardLayersInputs.mat');
@@ -31,23 +35,21 @@ classdef standardTF_tests < matlab.unittest.TestCase
             % Expected outputs
             testCase.problemDef = testCase.stanLayInputs.standardLayersInputs.problemDef;
         end
+        
         function problemDef_cells = setProblemDef_cells(testCase)
-
             testCase.problemDef_cells = testCase.stanLayInputs.standardLayersInputs.problemDef_cells;
         end
         
         
         function problemDef_limits = setProblemDef_limits(testCase)
-
             testCase.problemDef_limits = testCase.stanLayInputs.standardLayersInputs.problemDef_limits;
         end
 
         function controls = setControl(testCase)
-
             testCase.controls = testCase.stanLayInputs.standardLayersInputs.controls;
         end
+        
         function expectedProblem = setexpectedProblem(testCase)
-
             testCase.expectedProblem = testCase.expectedOutputs.standardLayersOutput.problem;
         end
         
@@ -59,22 +61,18 @@ classdef standardTF_tests < matlab.unittest.TestCase
 
     methods (Test)
     
-        
         function standardLayers_single_MATLAB(testCase)
             % Test if the input is similar to the exercised output
-        
-  
-            
+
             whichParallel = 'single';
             useCompiled = false;
+            
             % Call the function
-            [testOutProblem1,testOutResult1] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDef_cells,testCase.problemDef_limits,...
+            [testOutProblem1,testOutResult1] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDef_cells, testCase.problemDef_limits,...
             testCase.controls, useCompiled, whichParallel);
 
-            testCase.verifyEqual(testOutProblem1,testCase.expectedProblem);
-            testCase.verifyEqual(testOutResult1,testCase.expectedResult);
-
-
+            testCase.verifyEqual(testOutProblem1,testCase.expectedProblem,"RelTol",testCase.tolerance);
+            testCase.verifyEqual(testOutResult1,testCase.expectedResult,"RelTol",testCase.tolerance);
         end
 
         function standardLayers_single_MEX(testCase)
@@ -82,33 +80,32 @@ classdef standardTF_tests < matlab.unittest.TestCase
             % now with the compiled version
             whichParallel = 'single';
             useCompiled = true;
+            
             [testOutProblem2,testOutResult2] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDef_cells,testCase.problemDef_limits,...
             testCase.controls, useCompiled, whichParallel);
 
             % Check the outputs are the same
-            
-            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem);
-            
-            testCase.verifyEqual(testOutResult2,testCase.expectedResult);
+            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance);          
+            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance);
                        
         end
 
         function standardLayers_parallel_points_MATLAB(testCase)
+            
             % Test if the input is similar to the exercised output
-
             whichParallel = 'points';
             useCompiled = false;
+            
             % Call the function
             [testOutProblem1,testOutResult1] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDef_cells,testCase.problemDef_limits,...
             testCase.controls, useCompiled, whichParallel);
 
-            testCase.verifyEqual(testOutProblem1,testCase.expectedProblem);
-            testCase.verifyEqual(testOutResult1,testCase.expectedResult);
+            testCase.verifyEqual(testOutProblem1,testCase.expectedProblem,"RelTol",testCase.tolerance);
+            testCase.verifyEqual(testOutResult1,testCase.expectedResult,"RelTol",testCase.tolerance);
 
         end
 
         function standardLayers_parallel_points_MEX(testCase)
-
 
             % now with the compiled version
             whichParallel = 'points';
@@ -117,10 +114,8 @@ classdef standardTF_tests < matlab.unittest.TestCase
             testCase.controls, useCompiled, whichParallel);
 
             % Check the outputs are the same
-            
-            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem);
-            
-            testCase.verifyEqual(testOutResult2,testCase.expectedResult);
+            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance);        
+            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance);
 
         end
 
@@ -129,41 +124,27 @@ classdef standardTF_tests < matlab.unittest.TestCase
 
             whichParallel = 'contrasts';
             useCompiled = false;
+            
             % Call the function
             [testOutProblem1,testOutResult1] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDef_cells,testCase.problemDef_limits,...
             testCase.controls, useCompiled, whichParallel);
 
-            testCase.verifyEqual(testOutProblem1,testCase.expectedProblem);
-            testCase.verifyEqual(testOutResult1,testCase.expectedResult);
+            testCase.verifyEqual(testOutProblem1,testCase.expectedProblem,"RelTol",testCase.tolerance);
+            testCase.verifyEqual(testOutResult1,testCase.expectedResult,"RelTol",testCase.tolerance);
         end
+        
         function standardLayers_parallel_contrasts_MEX(testCase)
-            % now with the compiled version
+
+            whichParallel = 'contrasts';
             useCompiled = true;
             [testOutProblem2,testOutResult2] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDef_cells,testCase.problemDef_limits,...
             testCase.controls, useCompiled, whichParallel);
 
             % Check the outputs are the same
-
-            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem);
-            testCase.verifyEqual(testOutResult2,testCase.expectedResult);
+            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance);
+            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance);
             
         end
-
-
-
-        
+ 
     end
-    
 end
-
-
-%{
-                problemDef = testCase.stanLayInputs.standardLayersInputs.problemDef;
-            problemDef_cells = testCase.stanLayInputs.standardLayersInputs.problemDef_cells;
-            problemDef_limits = testCase.stanLayInputs.standardLayersInputs.problemDef_limits;
-            controls = testCase.stanLayInputs.standardLayersInputs.controls;
-            
-
-            expectedProblem = testCase.expectedOutputs.standardLayersOutput.problem;
-            expectedResult = testCase.expectedOutputs.standardLayersOutput.result;
-%}

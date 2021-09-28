@@ -1,7 +1,7 @@
 % How To Use the Test Files
 % Start by loading in one of the test inputs 
 
-runWhichType = 'Custom XY';
+runWhichType = 'Custom Layers';
 
 switch runWhichType
     case 'Custom Layers'

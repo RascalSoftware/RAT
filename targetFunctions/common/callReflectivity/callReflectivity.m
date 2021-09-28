@@ -61,10 +61,15 @@ switch refType
                 simRef = abeles_paraPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
                 
                 % Apply resolution
+                
+                % Note: paraPoints gives an error during valifation, so use
+                % single cored resolution as a workaround for now.
                 if res == -1
-                    simRef = data_resolution_polly_paraPoints(simXdata,simRef,simResolData,length(simXdata));
+                    %simRef = data_resolution_polly_paraPoints(simXdata,simRef,simResolData,length(simXdata));
+                    simRef = data_resolution_polly(simXdata,simRef,simResolData,length(simXdata));
                 else
-                    simRef = resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata));
+                    %simRef = resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata));
+                    simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
                 end
                 
             otherwise

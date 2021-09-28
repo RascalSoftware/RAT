@@ -16,7 +16,7 @@ function [problem,result] = reflectivity_calculation_testing_wrapper(problemDef,
 
 % 1. Select the parallelisation type - this is done by setting
 % controls.para to the value of the 'parallel' input...
-controls.para = whichParallel;
+controls.para = whichParallel;   % 'contrasts', 'points', 'single'
 
 % 2. Choose whether to use the compiled or uncompiled code. The useComiled
 % input is a boolean flag, so just use it directly.

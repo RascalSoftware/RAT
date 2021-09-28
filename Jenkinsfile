@@ -34,8 +34,6 @@ pipeline {
 
         }
 
-
-
         // Start a parallel pool of n threads using matlab and Build it on Macos
         /* 
         stage('Build on Macos') {

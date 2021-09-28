@@ -38,7 +38,7 @@ switch runWhichType
            
     case 'Custom XY'
         
-        % Load inputs for Custom XY 
+        % Load inputs for Custom XY ----------------------------
         theseInputs = load('customXYInputs.mat');
         
         % Split the input into the variables needed to call the function
@@ -48,10 +48,11 @@ switch runWhichType
         controls = theseInputs.customXYInputs.controls;
         
         % Load the expected outputs for standardLayers
-        expectedOutput = load('customXYOutput.mat');
-        expectedProblem = expectedOutput.customXYOutput.problem;
-        expectedResult = expectedOutput.customXYOutput.result; 
+        expectedOutput = load('standardLayersOutput.mat');
+        expectedProblem = expectedOutput.standardLayersOutput.problem;
+        expectedResult = expectedOutput.standardLayersOutput.result; 
         
+        % ----------------------------------------------------------
         
 end
 
@@ -83,14 +84,14 @@ else
 end
 
 
-success = isequal(testOutProblem2,expectedProblem);
+success = isequal(testOutProblem1,expectedProblem);
 if success
     disp('''Problem'' comparison passed for mex');
 else
     disp('''Problem'' comparison failed for mex');
 end
 
-success = isequal(testOutResult2,expectedResult);
+success = isequal(testOutResult1,expectedResult);
 if success
     disp('''Result'' comparison passed for mex');
 else

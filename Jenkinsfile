@@ -83,13 +83,13 @@ pipeline {
        
 
     
-    }
-
-}
+    
 
 
 
- //TESTS
+
+
+        //TESTS
    
         stage ('Run Tests on Windows'){
             agent{
@@ -113,7 +113,11 @@ pipeline {
                 //runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
             }
 
+
         }
+    }
+
+}
         
 
         //stage ('Run Tests on macOS'){

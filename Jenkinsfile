@@ -91,13 +91,14 @@ pipeline {
 
  //TESTS
    
-        /*stage ('Run Tests on Windows'){
+        stage ('Run Tests on Windows'){
             agent{
                 label 'RAT_Windows'
             }
             steps {
-                runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
+                echo 'Starting parallel pool'
+                runMATLABCommand 'TestRatScript'
+                //runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
             }
 
         }
@@ -107,10 +108,12 @@ pipeline {
                 label 'RAT_Linux'
             }
             steps {
-                runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths; cd testSuite; results = runtests'''
+                echo 'Starting parallel pool'
+                runMATLABCommand 'TestRatScript'
+                //runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
             }
-        }*/
+
+        }
         
 
         //stage ('Run Tests on macOS'){

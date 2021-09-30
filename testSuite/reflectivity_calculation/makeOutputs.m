@@ -1,7 +1,7 @@
 
 
-inputs = load('customXYInputs.mat');
-inputs = inputs.customXYInputs;
+inputs = load('customLayersInputs.mat');
+inputs = inputs.customLayersInputs;
 
 problemDef = inputs.problemDef;
 problemDef_cells = inputs.problemDef_cells;
@@ -13,7 +13,7 @@ whichParallel = 'single';
 
 [problem,result] = reflectivity_calculation_testing_wrapper(problemDef,problemDef_cells,problemDef_limits,controls,useCompiled,whichParallel);
 
-customXYOutput.problem = problem;
-customXYOutput.result = result;
+customLayersOutput.problem = problem;
+customLayersOutput.result = result;
 
-save('customXYOutput','customXYOutput');
+save('customLayersOutput','customLayersOutput');

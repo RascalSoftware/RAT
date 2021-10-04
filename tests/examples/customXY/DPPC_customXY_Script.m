@@ -104,7 +104,7 @@ controls = controlsDef();
 %%
 
 % % Send this to RAT
-% [problem,results] = RAT(problem,controls);
+ [problem,results] = RAT(problem,controls);
 % 
 % % Plot the results....
 % figure(1); clf

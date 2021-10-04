@@ -160,7 +160,7 @@ controls.parallel = 'contrasts';
 
 % controls.procedure = 'calculate';
 % [problem,results] = RAT(problem,controls);
-% chiSq = results.calculationResults.sum_chi;
+chiSq = results.calculationResults.sum_chi;
 % 
 figure(1); clf
 plotRefSLD(problem,results)

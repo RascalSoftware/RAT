@@ -100,8 +100,8 @@ classdef standardTF_customXY_tests < matlab.unittest.TestCase
             [testOutProblem1,testOutResult1] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDef_cells,testCase.problemDef_limits,...
             testCase.controls, useCompiled, whichParallel);
 
-            testCase.verifyEqual(testOutProblem1,testCase.expectedProblem,"RelTol",testCase.tolerance);
-            testCase.verifyEqual(testOutResult1,testCase.expectedResult,"RelTol",testCase.tolerance);
+            testCase.verifyEqual(testOutProblem1,testCase.expectedProblem,"AbsTol",testCase.tolerance);
+            testCase.verifyEqual(testOutResult1,testCase.expectedResult,"AbsTol",testCase.tolerance);
 
         end
 
@@ -114,8 +114,8 @@ classdef standardTF_customXY_tests < matlab.unittest.TestCase
             testCase.controls, useCompiled, whichParallel);
 
             % Check the outputs are the same
-            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance);        
-            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance);
+            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"AbsTol",testCase.tolerance);        
+            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"AbsTol",testCase.tolerance);
 
         end
 

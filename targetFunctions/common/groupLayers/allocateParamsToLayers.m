@@ -1,4 +1,4 @@
-function outLayers = allocateParamsToLayers(params, layersDetails);
+function outLayers = allocateParamsToLayers(params, layersDetails)
 
 % Allocates parameters from the parameter array to the correct layers
 %

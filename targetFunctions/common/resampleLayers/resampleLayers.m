@@ -19,7 +19,7 @@ xend = x(end);
 minAngle = resamPars(1);
 nPoints = resamPars(2);
 
-out = adaptive(sldProfile, [xstart xend], 'minAngle', minAngle*pi, 'nPoints', nPoints);
+out = adaptive_new(sldProfile, [xstart xend], 'minAngle', minAngle*pi, 'nPoints', nPoints);
 yy = out{1};
 
 newX = yy(:,1);

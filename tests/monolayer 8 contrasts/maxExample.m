@@ -159,21 +159,21 @@ plotRefSLD(problem,results);
 % ssub = results.contrastParams.ssubs(1);
 
 % figure(2); clf; hold on
-% for i = 1:length(sldProfiles)
-%     thisSld = sldProfiles{i};
-%     
-%     thisLayers = layerSLDs{i};
-%     nbair = thisLayers(1,2);
-%     nbsub = thisLayers(end,2);
-%     numberOfLayers = size(thisLayers,1);
-%     nrepeats = 1;
-%     
-%     newProf = makeSLDProfileXY(nbair,nbsub,ssub,thisLayers,numberOfLayers,nrepeats);
-%     
-%     plot(thisSld(:,1),thisSld(:,2));
-%     plot(newProf(:,1)-50,newProf(:,2));
-%     
-% end
+for i = 1:length(sldProfiles)
+    thisSld = sldProfiles{i};
+    
+    thisLayers = layerSLDs{i};
+    nbair = thisLayers(1,2);
+    nbsub = thisLayers(end,2);
+    numberOfLayers = size(thisLayers,1);
+    nrepeats = 1;
+    
+    newProf = makeSLDProfileXY(nbair,nbsub,ssub,thisLayers,numberOfLayers,nrepeats);
+    
+    plot(thisSld(:,1),thisSld(:,2));
+    plot(newProf(:,1)-50,newProf(:,2));
+    
+end
 % xlim([0 150]);
 
 

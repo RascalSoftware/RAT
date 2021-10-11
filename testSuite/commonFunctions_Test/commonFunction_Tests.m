@@ -12,8 +12,8 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
 %         shiftDataOutputs;
         customLayers2Inputs;
         customLayers2Outputs;
-        callMatlabCustomLayersInputs;
-        callMatlabCustomLayersOutputs;
+        %callMatlabCustomLayersInputs;
+        %callMatlabCustomLayersOutputs;
 
         applyBackgroundCorrectionInputs;
         applyBackgroundCorrectionOutputs;
@@ -95,12 +95,12 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
 %             testCase.customLayers2 = inputs.customLayers2;
 %         end
 
-        function loadcallMatlabCustomLayers(testCase)
-            inputs = load('callMatlabCustomLayersInputs.mat');
-            outputs = load('callMatlabCustomLayersOutputs.mat');
-            testCase.callMatlabCustomLayersInputs = inputs.inputs;
-            testCase.callMatlabCustomLayersOutputs = outputs.outputs;
-        end
+%        function loadcallMatlabCustomLayers(testCase)
+%           inputs = load('callMatlabCustomLayersInputs.mat');
+%            outputs = load('callMatlabCustomLayersOutputs.mat');
+%           testCase.callMatlabCustomLayersInputs = inputs.inputs;
+%            testCase.callMatlabCustomLayersOutputs = outputs.outputs;
+%        end
 
         function loadApplyBackgroundCorrection(testCase)
             inputs = load('applyBackgroundCorrectionInputs.mat');
@@ -261,7 +261,7 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
 %         end
 
 
-        function callMatlabCustomLayers_test(testCase)
+%        function callMatlabCustomLayers_test(testCase)
             % test callMatlabCustomLayers
             %
             % Inputs:
@@ -270,12 +270,12 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
             % Outputs:
             %   none
 
-            [output1,output2] = callMatlabCustomLayers(testCase.callMatlabCustomLayersInputs{1:end});
-            outputs = {output1,output2};
+%            [output1,output2] = callMatlabCustomLayers(testCase.callMatlabCustomLayersInputs{1:end});
+%            outputs = {output1,output2};
             % Comparing {referenceoutput} to {exercisedOutput} 
             % Data Structures for reference
-            testCase.verifyEqual(testCase.callMatlabCustomLayersOutputs,outputs);
-        end
+ %           testCase.verifyEqual(testCase.callMatlabCustomLayersOutputs,outputs);
+ %       end
 
         function applyBackgroundCorrection_test(testCase)
             % test applyBackgroundCorrection

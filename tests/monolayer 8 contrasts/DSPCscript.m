@@ -147,7 +147,7 @@ problem
 controls = controlsDef();
 % controls.calcSldDuringFit = 'no';
 controls.procedure = 'bayes';
-controls.parallel = 'contrasts';
+%controls.parallel = 'contrasts';
 % controls.maxIter = 1e9;
 % controls.repeats = 3;
 % controls.nsimu = 5000;

@@ -188,10 +188,10 @@ nPoints = 50;
 % while n < nExtraArgIn
 %   switch lower(varargin{n})  
 %     case 'minangle'
-      minAngle = varargin{n+1};
-      thresholdingAngles = true;
-      usingDefaultMethod = false;
-      n = n+2;
+%       minAngle = varargin{n+1};
+%       thresholdingAngles = true;
+%       usingDefaultMethod = false;
+%       n = n+2;
 %     case 'maxarea'
 %       maxArea = varargin{n+1};
 %       thresholdingArea = true;

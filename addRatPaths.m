@@ -28,7 +28,6 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
     fullfile(ratRoot,'targetFunctions','common','callCustomLayers');
     fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
-    fullfile(ratRoot,'targetFunctions','common','jacobianEst');
     
     fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
 

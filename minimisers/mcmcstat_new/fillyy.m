@@ -17,7 +17,7 @@ n   = length(x);
 X = [ x(1),  x,  x(n),  fliplr(x)  ];
 Y = [ y1(1), y2, y1(n), fliplr(y1) ];
 h=fill(X,Y,col,'Linestyle','none');
-h.FaceAlpha = 0.5;
+h.FaceAlpha = 0.4;
 if nargout>0
   out=h;
 end

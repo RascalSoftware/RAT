@@ -8,9 +8,16 @@ paramsLen = int16(length(params));
 % end
 %[path,funcName,extension] = fileparts(funcName);
 funName = ['[total,layers] = ' funcName '(params,bulk_in,bulk_out,contrast)'];
-sRough = params(1);
+if ~isempty(params) 
+    sRough= params(1);
+end
 
 pathCall= ['cd ''' funcPath ''';'];
+% add FuncPath to the path using addPath()
+if funcPath ~isequal(funcPath,'matlabroot')
+    addpath(funcPath);
+end
+
 
 debug = 0;
 if coder.target('MATLAB')
@@ -38,22 +45,28 @@ else
     source1 = 'matlabCallFun.c';
     
     if ismac % MacOs
-        arch
-        fullfile(matlabroot,'bin','glnxa64'); % NEED TO CONFIRM THIS
+        arch = computer('arch');
+        fullfile(matlabroot,arch,'glnxa64'); % NEED TO CONFIRM THIS
         linkFile1 = 'libeng.dylib';
         linkFile2 = 'libmx.dylib';
         
     elseif isunix %LINUX
-         fullfile(matlabroot,'bin','glnxa64');
+         arch = computer('arch');
+         fullfile(matlabroot,arch,'glnxa64');
          linkFile1 = 'libeng.so';
          linkFile2 = 'libmx.so';
         
     elseif ispc % WINDOWS
-        linkPath1 = fullfile(matlabroot,'extern','include','lib','win64','mingw64')
+        arch = computer('arch');
+        linkPath1 = fullfile(matlabroot,'extern','include','lib',arch,'mingw64');
         linkFile1 = 'libeng.lib';
         linkFile2 = 'libmx.lib';
     else
-        disp('OPERATING SYSTEM NOT SUPPORTED')
+        arch = 'undefined';
+        linkPath1 = fullfile(matlabroot,'extern','include','lib',arch,'mingw64');
+        linkFile1 = 'thisWontWork.lib';
+        linkFile2 = 'thisWontWork.lib';
+        % DEFINE SOMETHING TO MAKE COMPILER HAPPY
     end
     
     

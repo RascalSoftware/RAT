@@ -14,7 +14,12 @@ end
 
 pathCall= ['cd ''' funcPath ''';'];
 % add FuncPath to the path using addPath()
-addpath(funcPath);
+
+% if funcPath is 'matlabroot', dont add it to path since this is only used for start/stop of matlab engine
+if ~strcmp(funcPath,'matlabroot')
+    addPath(funcPath);
+end
+
 
 debug = 0;
 if coder.target('MATLAB')

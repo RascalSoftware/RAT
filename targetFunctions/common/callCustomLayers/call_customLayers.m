@@ -55,6 +55,8 @@ path = thisCustomFile{3};
 
         % Use this line for mex generation:
         [output,sRough] = callMatlabCustomLayers(params,contrast,fName,path,bulkIn,bulkOut,nContrasts);
+
+        p.closeEngine();
         %
         % Use these dummy outputs for souce code generation:
 %         output = [10 1e-6 3 ; 50 2e-6 4; 100 1e-6 4];

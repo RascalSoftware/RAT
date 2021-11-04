@@ -47,9 +47,16 @@ path = thisCustomFile{3};
         % error, but required for mex generation.      
         % Use the dummy values of 'outPut' and 'sRough' instead to keep the
         % translator happy for source code generation.
-        %
+
+        % Call the Matlab Engine class to execute the custom function
+        p = MatlabEngine();
+
+        p.startEngine();
+
         % Use this line for mex generation:
         [output,sRough] = callMatlabCustomLayers(params,contrast,fName,path,bulkIn,bulkOut,nContrasts);
+
+        p.closeEngine();
         %
         % Use these dummy outputs for souce code generation:
 %         output = [10 1e-6 3 ; 50 2e-6 4; 100 1e-6 4];

@@ -38,6 +38,24 @@ problem.calculations.sum_chi = 0;
 problem.allSubRough = 0;
 problem.resample = 0;
 
+
+
+% MATLAB ENGINE STUFF
+
+% set up the engine pointers based on number of engines 
+numberOfEngines = controls.numberOfEngines;
+
+% open the engines in a loop with unique names to each 
+for i = 1:numberOfEngines
+    engineName = ['p',num2str(i)];
+    eval([engineName,' = MatlabEngine();']);
+    eval(['engines(i) = ',engineName,';']);
+
+end
+
+controls.engines = engines;
+
+
 % We also foll the results arrays to define their
 % type and size. (NOTE: at the moment we have a 'coder.varsize'
 % pre-processor directives for the compiler here and at the 

@@ -63,20 +63,6 @@ switch lower(problemDef.modelType)
 end
 
 
-% MATLAB ENGINE STUFF
-
-% set up the engine pointers based on number of engines 
-numberOfEngines = controls.numberOfEngines;
-
-% open the engines in a loop with unique names to each 
-for i = 1:numberOfEngines
-    engineName = ['p',num2str(i)];
-    eval([engineName,' = MatlabEngine();']);
-    eval(['engines(i) = ',engineName,';']);
-
-end
-
-controls.engines = engines;
 
 
 

@@ -62,6 +62,27 @@ switch lower(problemDef.modelType)
         controls.calcSld = 1;
 end
 
+
+% MATLAB ENGINE STUFF
+
+% set up the engine pointers based on number of engines 
+numberOfEngines = controls.numberOfEngines;
+
+% open the engines in a loop with unique names to each 
+for i = 1:numberOfEngines
+    engineName = ['p',num2str(i)];
+    eval([engineName,' = MatlabEngine();']);
+    eval(['engines(i) = ',engineName,';']);
+
+end
+
+controls.engines = engines;
+
+
+
+
+
+
 %Call the main RAT routine...
 
 % If display is not silent print a
@@ -108,6 +129,11 @@ if ~strcmpi(controls.display,'off')
     fprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n');
 end
 
+
+for i = 1:engines
+    p = engines(i);
+    p.closeEngine();
+end
 end
 
 

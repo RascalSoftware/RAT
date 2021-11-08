@@ -10,8 +10,8 @@ cfg = coder.config('mex');
 cfg.GenerateReport = true;
 cfg.EnableJIT = true;
 cfg.EnableOpenMP = true;
-% cfg.TargetLang = 'C++';
-% cfg.TargetLangStandard = 'C++11 (ISO)';
+%cfg.TargetLang = 'C++';
+%cfg.TargetLangStandard = 'C++11 (ISO)';
 
 % Define the input argument types..
 ARGS = makeCompileArgs();

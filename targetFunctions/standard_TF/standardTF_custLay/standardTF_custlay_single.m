@@ -62,6 +62,7 @@ end
 % Resampling parameters
 resamPars = controls.resamPars;
 
+
 % Single cored over all contrasts
 for i = 1:numberOfContrasts
     % Extract the relevant parameter values for this contrast
@@ -72,7 +73,12 @@ for i = 1:numberOfContrasts
     
     % Call the custom layers function to get the layers array...
     thisCustomFile = customFiles{cCustFiles(i)};
-    [outLayers,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,thisNba,thisNbs,numberOfContrasts);
+    
+    % the instance didnt start if we just pass the engines so init and then
+    % pass
+    engine = controls.engines(i);
+    engine.startEngine(); % this wont reopen since there is an if statement which bypasses this if an engine is opened already
+    [outLayers,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,thisNba,thisNbs,numberOfContrasts,engine);
     allLayers{i} = outLayers;
     thisContrastLayers = outLayers;
     

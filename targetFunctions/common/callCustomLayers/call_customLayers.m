@@ -1,4 +1,4 @@
-function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut,nContrasts)
+function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut,nContrasts,p)
 
 % Call a custom layers function
 % This function calls a custom model, which can be in Matlab, Python or
@@ -49,14 +49,17 @@ path = thisCustomFile{3};
         % translator happy for source code generation.
 
         % Call the Matlab Engine class to execute the custom function
-        p = MatlabEngine();
+        
 
-        p.startEngine();
+        
 
         % Use this line for mex generation:
-        [output,sRough] = callMatlabCustomLayers(params,contrast,fName,path,bulkIn,bulkOut,nContrasts);
 
-        p.closeEngine();
+        %p.startEngine();
+        [output,sRough] = p.execute(params,contrast,fName,path,bulkIn,bulkOut);
+        %[output,sRough] = callMatlabCustomLayers(params,contrast,fName,path,bulkIn,bulkOut,nContrasts);
+
+        %p.closeEngine();
         %
         % Use these dummy outputs for souce code generation:
 %         output = [10 1e-6 3 ; 50 2e-6 4; 100 1e-6 4];

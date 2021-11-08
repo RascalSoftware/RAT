@@ -311,6 +311,22 @@ controls.nsimu = inputControls.nsimu;
 controls.burnin = inputControls.burnin;
 controls.resamPars = inputControls.resamPars;% [0.95 10];
 
+% MATLAB ENGINE STUFF
+
+numberOfEnginesRequired = problemDef.numberOfContrasts; 
+
+numberOfEnginesSupported = maxNumCompThreads;
+
+% if numberOfEnginesRequired > numberOfEnginesSupported we cant open all of them at once 
+
+if numberOfEnginesRequired > numberOfEnginesSupported
+    numberOfEnginesRequired = numberOfEnginesSupported;
+end
+
+controls.numberOfEngines = numberOfEnginesRequired;
+controls.engine = [];
+
+
 
 
 

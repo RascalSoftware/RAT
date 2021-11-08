@@ -16,4 +16,4 @@ cd('compile/reflectivity_calculation_compile_new/');
 reflectivity_calculation_compile_script
 
 % Return to RAT root directory
-%cd(thisPath);
+cd(thisPath);

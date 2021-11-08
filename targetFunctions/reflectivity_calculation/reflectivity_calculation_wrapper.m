@@ -26,7 +26,7 @@ function [problem,result] = reflectivity_calculation_wrapper(problemDef,problemD
 % result{5} = sldProfiles{}
 % result{6} = currently empty - will be allLayers (i.e. resampled)
 
-type = 'mlab';
+type = 'mx';
 
  switch type
      case 'mex'

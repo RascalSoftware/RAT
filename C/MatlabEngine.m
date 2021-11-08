@@ -28,15 +28,24 @@ classdef MatlabEngine < handle
 %         end
         
         function startEngine(obj)
-            [~,~]= obj.engine(0,-1,'dummy','matlabroot',0,0);
-            obj.isStarted = true;
+            if obj.isStarted
+                obj.isStarted = true; 
+
+            else
+                [~,~]= obj.engine(0,-1,'dummy','matlabroot',0,0);
+                obj.isStarted = true;               
+            end
         end
         
         
         
         function closeEngine(obj)
-            [~,~]=obj.engine(0,-2,'dummy','matlabroot',0,0);
-            obj.isStarted = false;
+            if obj.isStarted
+                [~,~]=obj.engine(0,-2,'dummy','matlabroot',0,0);
+                obj.isStarted = false;
+            else
+                obj.isStarted = false;
+            end
       
         end
         

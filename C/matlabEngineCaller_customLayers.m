@@ -18,7 +18,7 @@ pathCall= ['cd ''' funcPath ''';'];
 
 % if funcPath is 'matlabroot', dont add it to path since this is only used for start/stop of matlab engine
 if ~strcmp(funcPath,'matlabroot')
-    addPath(funcPath);
+    addpath(funcPath);
 end
 
 
@@ -82,14 +82,28 @@ else
         linkFile2 = 'libmx.so';
         
     elseif ispc % WINDOWS
+        %get the required paths for include and link files from a json file called 'customPaths.json' in
+        % the RAT main directory
+
+        %open the json file
+        %fid = fopen('customPaths.json');
+        %read the json file
+        %txt = fread(fid,inf);
+        %close the file
+        %fclose(fid);
+
+        % get the key
+
+
+
         arch = string(computer('arch'));
         %incPath1= matlabRoot+'\'+"extern"+'\'+"include";
-        incPath1= 'C:\Program Files\MATLAB\R2021a\extern\include'
+        incPath1= 'C:/Program Files/MATLAB/R2021a/extern/include'
 
-        linkPath1 = 'C:\Program Files\MATLAB\R2021a\bin'+"win64";
+        linkPath1 = 'C:/Program Files/MATLAB/R2021a/bin/win64';
         %linkPath1 = fullfile(matlabroot,'extern','include','lib',arch,'mingw64');
-        linkFile1 = 'libeng.lib';
-        linkFile2 = 'libmx.lib';
+        linkFile1 = 'libeng.dll';
+        linkFile2 = 'libmx.dll';
     else
         arch = 'undefined';
         incPath1 = 'undefined';
@@ -99,6 +113,7 @@ else
         % DEFINE SOMETHING TO MAKE COMPILER HAPPY
     end
     
+
     
     %path = 'C:\Users\oba7931403\source\repos\RAT-Sandbox\Sandbox\matlabEngineCaller\tmwExampleNew';
     %incPath1 = fullfile(matlabroot,'extern','include')
@@ -123,7 +138,8 @@ else
     %coder.cinclude(source2);
     coder.updateBuildInfo('addSourceFiles',source1);
     %coder.updateBuildInfo('addSourceFiles',source2);
-    coder.updateBuildInfo('addSourcePaths','$(START_DIR)');
+    coder.updateBuildInfo('addSourcePaths','C:\Users\oba7931403\Documents\GitHub\RAT\C');
+    coder.updateBuildInfo('addSourcePaths','$(START_DIR)\C');
     coder.updateBuildInfo('addIncludePaths',incPath1);
     %coder.updateBuildInfo('addIncludePaths',incPath2);
     coder.updateBuildInfo('addLinkObjects',linkFile1,linkPath1,libPriority,libPreCompiled,libLinkOnly);

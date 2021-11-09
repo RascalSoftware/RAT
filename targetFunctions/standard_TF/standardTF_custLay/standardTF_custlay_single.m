@@ -77,7 +77,7 @@ for i = 1:numberOfContrasts
     % the instance didnt start if we just pass the engines so init and then
     % pass
     engine = controls.engines(i);
-    engine.startEngine(); % this wont reopen since there is an if statement which bypasses this if an engine is opened already
+     % this wont reopen since there is an if statement which bypasses this if an engine is opened already
     [outLayers,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,thisNba,thisNbs,numberOfContrasts,engine);
     allLayers{i} = outLayers;
     thisContrastLayers = outLayers;

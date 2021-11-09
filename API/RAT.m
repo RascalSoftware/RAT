@@ -115,7 +115,7 @@ if ~strcmpi(controls.display,'off')
     fprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n');
 end
 
-
+engines = controls.engines;
 for i = 1:engines
     p = engines(i);
     p.closeEngine();

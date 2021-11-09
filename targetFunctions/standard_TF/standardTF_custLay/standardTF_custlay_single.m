@@ -70,7 +70,8 @@ for i = 1:numberOfContrasts
     % First need to decide which values of the backrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
-    
+    bulkOuts = zeros(numberOfContrasts,1);
+    bulkOuts(i) = thisNbs;
     % Call the custom layers function to get the layers array...
     thisCustomFile = customFiles{cCustFiles(i)};
     
@@ -78,7 +79,7 @@ for i = 1:numberOfContrasts
     % pass
     engine = controls.engines(i);
      % this wont reopen since there is an if statement which bypasses this if an engine is opened already
-    [outLayers,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,thisNba,thisNbs,numberOfContrasts,engine);
+    [outLayers,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,thisNba,bulkOuts,numberOfContrasts,engine);
     allLayers{i} = outLayers;
     thisContrastLayers = outLayers;
     

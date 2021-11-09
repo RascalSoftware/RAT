@@ -75,7 +75,7 @@ for i = 1:numberOfEngines
 end
 
 controls.engines = engines;
-
+%controls.engine = engines;
 if noOfOpenEngines < numberOfEnginesNeeded
     newEnginesRequired = numberOfEnginesNeeded - noOfOpenEngines;
     for i = 1:newEnginesRequired
@@ -94,6 +94,13 @@ elseif noOfOpenEngines > numberOfEnginesNeeded
         noOfOpenEngines = noOfOpenEngines - 1;
     end
   
+end
+
+% if number of Open engines is 3 and none of them are started, start them
+if noOfOpenEngines == 3 && ~engines(1).isStarted() && ~engines(2).isStarted() && ~engines(3).isStarted()
+    for i = 1:numberOfEngines
+        engines(i).startEngine();
+    end
 end
 
 

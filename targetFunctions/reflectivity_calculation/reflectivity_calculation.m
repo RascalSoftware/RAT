@@ -27,12 +27,7 @@ function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles
 
-persistent noOfOpenEngines;
 
-
-if isempty(noOfOpenEngines)
-    noOfOpenEngines = 0;
-end
 
 problem.ssubs = 0;
 problem.backgrounds = 0;
@@ -45,53 +40,6 @@ problem.calculations.all_chis = 0;
 problem.calculations.sum_chi = 0;
 problem.allSubRough = 0;
 problem.resample = 0;
-
-
-
-% MATLAB ENGINE STUFF
-
-% set up the engine pointers based on number of engines 
-numberOfEnginesNeeded = controls.numberOfEngines;
-
-% open the engines in a loop with unique names to each 
-
-% we open engines based on our req by comparing with no of open currently
-
-% if there are not enough engines open, open them up but if there are more than required, close them
-
-% engine.startEngine(); here aling with logic
-
-
-numberOfEngines = controls.numberOfEngines;
-
-for i = 1:numberOfEngines
-    engineName = ['p',num2str(i)];
-    eval([engineName,' = MatlabEngine();']);
-    eval(['engines(i) = ',engineName,';']);
-
-end
-
-controls.engines = engines;
-
-if noOfOpenEngines < numberOfEnginesNeeded
-    newEnginesRequired = numberOfEnginesNeeded - noOfOpenEngines;
-    for i = 1:newEnginesRequired
-        engines(i).startEngine();
-        noOfOpenEngines = noOfOpenEngines + 1;
-
-
-    end
-    
-    
-
-elseif noOfOpenEngines > numberOfEnginesNeeded
-    EnginesToDestroy = noOfOpenEngines - numberOfEngines;
-    for i = 1:EnginesToDestroy
-        engines(i).closeEngine();
-        noOfOpenEngines = noOfOpenEngines - 1;
-    end
-  
-end
 
 
 

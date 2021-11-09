@@ -327,60 +327,7 @@ controls.numberOfEngines = numberOfEnginesRequired;
 controls.engine = [];
 
 
-% MATLAB ENGINE STUFF
 
-% open the engines in a loop with unique names to each 
-
-% we open engines based on our req by comparing with no of open currently
-
-% if there are not enough engines open, open them up but if there are more than required, close them
-
-% engine.startEngine(); here aling with logic
-% set up the engine pointers based on number of engines 
-
-
-persistent noOfOpenEngines;
-
-
-if isempty(noOfOpenEngines)
-    noOfOpenEngines = 0;
-end
-
-
-numberOfEnginesNeeded = controls.numberOfEngines;
-
-
-
-numberOfEngines = controls.numberOfEngines;
-
-for i = 1:numberOfEngines
-    engineName = ['p',num2str(i)];
-    eval([engineName,' = MatlabEngine();']);
-    eval(['engines(i) = ',engineName,';']);
-
-end
-
-controls.engines = engines;
-
-if noOfOpenEngines < numberOfEnginesNeeded
-    newEnginesRequired = numberOfEnginesNeeded - noOfOpenEngines;
-    for i = 1:newEnginesRequired
-        engines(i).startEngine();
-        noOfOpenEngines = noOfOpenEngines + 1;
-
-
-    end
-    
-    
-
-elseif noOfOpenEngines > numberOfEnginesNeeded
-    EnginesToDestroy = noOfOpenEngines - numberOfEngines;
-    for i = 1:EnginesToDestroy
-        engines(i).closeEngine();
-        noOfOpenEngines = noOfOpenEngines - 1;
-    end
-  
-end
 
 
 

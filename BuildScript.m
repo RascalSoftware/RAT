@@ -2,7 +2,7 @@
 % rather that ther RAT root directory
 %
 % Last modified - AVH 20/10/21
-
+pwd
 addRatPaths;
 
 % Save this path
@@ -18,4 +18,4 @@ cd('compile/reflectivity_calculation_compile_new/');
 reflectivity_calculation_compile_script
 
 % Return to RAT root directory
-cd(thisPath);
+%cd(thisPath);

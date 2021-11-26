@@ -60,8 +60,9 @@ end
 thisMin = problem.constr(1,1);
 thisMax = problem.constr(1,2);
 thisVal = problem.params(1);
+thisName = problem.paramnames{1};
 thisFit = logical(problem.fityesno(1));
-thisProjectClass.setParameter(1,'min',thisMin','max',thisMax','value',thisVal,'fit',thisFit);
+thisProjectClass.setParameter(1,'min',thisMin','max',thisMax','value',thisVal,'fit',thisFit,'name',thisName);
 
 % If we have a standard layers problem, set the layers block
 switch lower(oldType)
@@ -74,20 +75,20 @@ switch lower(oldType)
             thisLayer = problem.layersDetails{i};
             thisName = thisLayer{5};
             
-            thisThickNum = str2double(thisLayer{1});
+            thisThickNum = thisLayer{1};%str2double(thisLayer{1});
             thisThick = problem.paramnames{thisThickNum};
             
-            thisSldNum = str2double(thisLayer{2});
+            thisSldNum = thisLayer{2};%str2double(thisLayer{2});
             thisSld = problem.paramnames{thisSldNum};
             
-            thisRoughNum = str2double(thisLayer{3});
+            thisRoughNum = thisLayer{3};%str2double(thisLayer{3});
             thisRough = problem.paramnames{thisRoughNum};
             
             thisHydrPar = thisLayer{4};
             if isempty(thisHydrPar)
                 thisHydr = '';
             else
-                thisHydrNum = str2double(thisLayer{4});
+                thisHydrNum = thisHydrPar;%str2double(thisLayer{4});
                 thisHydr = problem.paramnames{thisHydrNum};
             end
             
@@ -189,7 +190,8 @@ for i = 1:length(dataFiles)
     thisProjectClass.setData(i,'dataRange',thisDataRange,'simRange',thisSimRange);
 end
 
-% TODO resolutions
+% Resolutions
+%thisProjectClass.remove
 
 % Make the contrasts
 numberOfContrasts = problem.numberOfContrasts;

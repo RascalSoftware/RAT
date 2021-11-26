@@ -202,7 +202,7 @@ classdef contrastsClass < handle
             % This function is only really called from 
             % projectClass if a data name has been updated.
             % Looks through the 'data' field of the contrasts
-            % and if it maches nameChange.oldName then 
+            % and if it maches nameChange.oldName then
             % this is updated to nameChange.newName
             
             oldName = nameChange.oldName;
@@ -232,22 +232,7 @@ classdef contrastsClass < handle
             contrastData = cell(1,nContrasts);
             
             for i = 1:nContrasts
-               
-                % Parse the contrast details into individual arrays
-%                 allData: {[51×3 double]  [51×3 double]  [51×3 double]  [51×3 double]  [51×3 double]  [51×3 double]  [51×3 double]}
-%             dataPresent: [1 1 1 1 1 1 1]
-%                resample: [0 0 0 0 0 0 0]
-%              dataLimits: {[0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]}
-%               simLimits: {[0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]  [0.0518 0.5888]}
-%           contrastBacks: {[2 1]  [1 1]  [2 1]  [1 1]  [2 1]  [1 1]  [1 1]}
-%          contrastShifts: [1 1 1 1 1 1 1]
-%          contrastScales: [1 1 1 1 1 1 1]
-%            contrastNbas: [1 1 1 1 1 1 1]
-%            contrastNbss: [2 1 2 1 2 1 1]
-%             contrastRes: [1 1 1 1 1 1 1]
-%      contrastRepeatSLDs: {[0 1]  [0 1]  [0 1]  [0 1]  [0 1]  [0 1]  [0 1]}
-%          contrastLayers: {[1 4]  [1 4]  [2 3]  [2 3]  [1 3]  [1 3]  [2 4]}
-                
+                                
                 thisContrast = obj.contrasts{i};
                 
                 contrastBacks{i} =  [find(strcmpi(thisContrast.background,allowedNames.backsNames)), 1];
@@ -256,7 +241,7 @@ classdef contrastsClass < handle
                 contrastNbas(i) = find(strcmpi(thisContrast.nba,allowedNames.bulkInNames));
                 contrastNbss(i) = find(strcmpi(thisContrast.nbs,allowedNames.bulkOutNames));
                 contrastRes(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolsNames));
-                resample(i) = thisContrast.resample; 
+                resample(i) = thisContrast.resample;
                 contrastRepeatSLDs{i} = [0 1]; % todo
                 
                 
@@ -300,7 +285,7 @@ classdef contrastsClass < handle
                     allData{i} = [0 0 0];
                 end
             end
-
+            
             contrastStruct.contrastBacks = contrastBacks;
             contrastStruct.contrastShifts = contrastShifts;
             contrastStruct.contrastScales = contrastScales;
@@ -317,31 +302,13 @@ classdef contrastsClass < handle
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.numberOfContrasts = nContrasts;
-                
+            
         end
         
         function displayContrastsObject(obj)
             makeContrastsTable(obj);
             fprintf('    Constrasts: ---------------------------------------------------------------------------------------------- \n\n');
             disp(obj.contrastsTable);
-        end
-        
-    end
-    
-    methods (Access = protected)
-        
-        function contrast = makeEmptyContrastStruct(obj)
-            
-            contrast = struct('name','',...
-                'Data',...
-                'Background',...
-                'Bulk in',...
-                'Bulk out',...
-                'Resolution',...
-                'Scalefactor',...
-                'Resample',...
-                'Model');
-            
         end
         
         function obj = makeContrastsTable(obj)
@@ -417,6 +384,24 @@ classdef contrastsClass < handle
             valTable = table(p);
             totalTable = [valTable thisTable];
             obj.contrastsTable = totalTable;
+            
+        end
+
+    end
+    
+    methods (Access = protected)
+        
+        function contrast = makeEmptyContrastStruct(obj)
+            
+            contrast = struct('name','',...
+                'Data',...
+                'Background',...
+                'Bulk in',...
+                'Bulk out',...
+                'Resolution',...
+                'Scalefactor',...
+                'Resample',...
+                'Model');
             
         end
         

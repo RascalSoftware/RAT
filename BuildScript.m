@@ -8,6 +8,8 @@ addRatPaths;
 % Save this path
 thisPath = pwd;
 
+disp($(START_DIR))
+
 % Go to the correct compile directory
 cd('compile/reflectivity_calculation_compile_new/');
 

@@ -22,8 +22,7 @@ function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells
 %
 % 5. polarisedTF      - Target function for cases for polarised neutrons
 %                       with polarisation analysis
-
-
+    
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles
 problem.ssubs = 0;

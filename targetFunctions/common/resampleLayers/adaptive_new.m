@@ -1,4 +1,4 @@
-function out = adaptive_new(sldProfile, startDomain, varargin)
+function out = adaptive_new(sldProfile, startDomain, minAngle, nPoints)
 %% adaptive: evaluates a matlab function on a given range
 %
 % 'adaptive.m' allows to sample a function using a reduced number of
@@ -141,8 +141,8 @@ thresholdingArea = false;
 thresholdingAngles = false;
 displayWaitbar = false;
 maxRefinements = 10;
-nPoints = 20;
-minAngle = 0.8*pi;
+%nPoints = 20;
+%minAngle = 0.8*pi;
 minSignal = 0.2; % units normalized to data range
 minLength = 0; % units normalized to data range
 maxLength = Inf; % units normalized to data range
@@ -173,25 +173,25 @@ maxArea = 5e-4; % units normalized to data range
 % assert(isnumeric(initialDomain) && isvector(initialDomain),...
 %   'adaptiveFunctionEvaluation:ArgChk','initial points must be specified as a numeric vector');
 % 
-nExtraArgIn = numel(varargin);
+%nExtraArgIn = numel(varargin);
 % if mod(nExtraArgIn,2)==1
 %   error('adaptiveFunctionEvaluation:ArgChk', ...
 %     'At least a key or a value is missing in the key-value arguments list.');
 % end
 
-usingDefaultMethod = true;
-n = 1;
-minAngle = 0.7 * pi;
-thresholdingAngles = true;
-nPoints = 50;
+%usingDefaultMethod = true;
+%n = 1;
+%minAngle = 0.7 * pi;
+%thresholdingAngles = true;
+%nPoints = 50;
       
 % while n < nExtraArgIn
 %   switch lower(varargin{n})  
 %     case 'minangle'
-%       minAngle = varargin{n+1};
-%       thresholdingAngles = true;
-%       usingDefaultMethod = false;
-%       n = n+2;
+      %minAngle = varargin{n+1};
+      thresholdingAngles = true;
+      usingDefaultMethod = false;
+      %n = n+2;
 %     case 'maxarea'
 %       maxArea = varargin{n+1};
 %       thresholdingArea = true;
@@ -229,9 +229,9 @@ nPoints = 50;
 % end
 
 % if no method is specified use the 'angle' method as default
-if usingDefaultMethod
-  thresholdingAngles = true;
-end
+% if usingDefaultMethod
+%   thresholdingAngles = true;
+% end
 
 %% Initial function evaluation
 
@@ -272,11 +272,11 @@ for nRefinements = 1:maxRefinements
   % points are not the central corner of any triangle, so for N points
   % there are only N-2 triangles.
   trianglesToRefine = [false(size(dataPoints,1)-2 ,1)];
-  if thresholdingArea
-    triangleArea = calculateTrianglesArea(dataPoints(:,1:2));
-    bigTriangles = triangleArea > (maxArea * dataBoxArea);
-    trianglesToRefine = trianglesToRefine | bigTriangles;
-  end
+%   if thresholdingArea
+%     triangleArea = calculateTrianglesArea(dataPoints(:,1:2));
+%     bigTriangles = triangleArea > (maxArea * dataBoxArea);
+%     trianglesToRefine = trianglesToRefine | bigTriangles;
+%   end
   if thresholdingAngles
     cornerAngle = calculateCentralAngles(dataPoints(:,1:2), dataBoxSize);
     sharpCorners = (cornerAngle<minAngle);
@@ -287,24 +287,24 @@ for nRefinements = 1:maxRefinements
   % triangle side is a segment, which can be split or not depending on the
   % refinement parameters.
   segmentsToSplit = [trianglesToRefine; false] | [false; trianglesToRefine];
-  if thresholdingLength
-    dataSegments = diff(dataPoints(:,1:2));
-    normalizedSegments = bsxfun(@rdivide, dataSegments, dataBoxSize);
-    segmentsLengthNormalized = hypot(normalizedSegments(:,1), normalizedSegments(:,2));
-    tooLongSegments = segmentsLengthNormalized > maxLength;
-    longEnoughSegments = segmentsLengthNormalized > minLength;
-    segmentsToSplit = (segmentsToSplit | tooLongSegments) & longEnoughSegments;
-  end
-  if thresholdingSignal
-    segmentsCenters = (dataPoints(1:end-1,2)+dataPoints(2:end,2))/2;
-    centerAboveThreshold = segmentsCenters > minSignal * max(abs(dataPoints(:,2)));
-    segmentsToSplit = segmentsToSplit & centerAboveThreshold;
-  end
+%   if thresholdingLength
+%     dataSegments = diff(dataPoints(:,1:2));
+%     normalizedSegments = bsxfun(@rdivide, dataSegments, dataBoxSize);
+%     segmentsLengthNormalized = hypot(normalizedSegments(:,1), normalizedSegments(:,2));
+%     tooLongSegments = segmentsLengthNormalized > maxLength;
+%     longEnoughSegments = segmentsLengthNormalized > minLength;
+%     segmentsToSplit = (segmentsToSplit | tooLongSegments) & longEnoughSegments;
+%   end
+%   if thresholdingSignal
+%     segmentsCenters = (dataPoints(1:end-1,2)+dataPoints(2:end,2))/2;
+%     centerAboveThreshold = segmentsCenters > minSignal * max(abs(dataPoints(:,2)));
+%     segmentsToSplit = segmentsToSplit & centerAboveThreshold;
+%   end
   
   if any(segmentsToSplit)
     dataPoints = increaseSampling(dataPoints, segmentsToSplit, sldProfile);
-%   else
-%     break;
+  else
+    break;
   end
   
   % Removed waitbar for compile - AVH
@@ -330,12 +330,12 @@ end
 %   legend('initial', 'refiniment');
 % end
 
-if nargout==1
-  out{1} = dataPoints;
-elseif nargout>1
-  out{1} = dataPoints(:,1);
-  out{2} = dataPoints(:,2:end);
-end
+%if nargout==1
+ out{1} = dataPoints;
+% elseif nargout>1
+%   out{1} = dataPoints(:,1);
+%   out{2} = dataPoints(:,2:end);
+% end
 end
 
 %% Subfunctions

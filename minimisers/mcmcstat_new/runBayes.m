@@ -36,7 +36,7 @@ nPars = length(fitPars);
 
 for i = 1:nPars
     thisConstr = fitConstr(i,:);
-    qcov(i) = (abs(thisConstr(2) - thisConstr(1))*0.01)^2;
+    qcov(i) = (abs(thisConstr(2) - thisConstr(1))*0.0001)^2;
 end
 qcov = diag(qcov);
 
@@ -56,7 +56,7 @@ options.waitbar     = 1;               % show graphical waitbar
 options.updatesigma = 0;               % update error variance
 options.stats       = 1;               % save extra statistics in result
 options.burnintime  = burnin;          % burn in time..
-options.ntry = 3;
+options.ntry = 2;
 options.drscale = [3 2 1];
 %options.adascale = 2.4 / sqrt(nPars) * 0.01;
 

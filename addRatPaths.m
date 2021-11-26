@@ -8,7 +8,7 @@
 
 % The installation should permanently add the Paramonte paths to your
 % Matlab install (you can check by typing 'pathtool' at the Matlab command
-% prompt - the Paramonte directories should be present. If not, you will
+% prompt - the Paramonte directories should be present). If not, you will
 % need to add them to this file. Please see the Paramonte Docs for more
 % details.
 
@@ -46,10 +46,12 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'minimisers','generalUtils');
     fullfile(ratRoot,'minimisers','NSMain');
     fullfile(ratRoot,'minimisers','mcmcstat_new');
+    fullfile(ratRoot,'minimisers','DE');
     fullfile(ratRoot,'minimisers','generalUtils','bayesStats');
     fullfile(ratRoot,'utilities');
     fullfile(ratRoot,'utilities','plotting');
     fullfile(ratRoot,'utilities','misc');
+    fullfile(ratRoot,'utilities','misc','projectClassToR1');
 };
 
 for i = 1:length(ratPaths)

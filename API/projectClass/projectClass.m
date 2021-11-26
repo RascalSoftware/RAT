@@ -26,7 +26,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         resolution          % resolutionClass object
         contrasts           % contrastsClass object
         data                % dataClass object
-        customFile          % Custom file object (TODO)
+        customFile          % Custom file object
         
         UsePriors = false
 

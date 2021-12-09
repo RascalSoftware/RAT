@@ -1,17 +1,16 @@
-/*
- * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
- *
- * rtwtypes.h
- *
- * Code generation for function 'matlabEngineCaller_customLayers'
- *
- */
+//
+// Non-Degree Granting Education License -- for use at non-degree
+// granting, nonprofit, educational organizations only. Not for
+// government, commercial, or other organizational use.
+//
+// rtwtypes.h
+//
+// Code generation for function 'matlabEngineCaller_customLayers'
+//
 
 #pragma once
 
-/* Include files */
+// Include files
 #include "tmwtypes.h"
 
 /*
@@ -24,4 +23,4 @@
 #define FALSE (0U)
 #endif
 
-/* End of code generation (rtwtypes.h) */
+// End of code generation (rtwtypes.h)

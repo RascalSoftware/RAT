@@ -1,17 +1,16 @@
-/*
- * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
- *
- * rt_nonfinite.h
- *
- * Code generation for function 'matlabEngineCaller_customLayers'
- *
- */
+//
+// Non-Degree Granting Education License -- for use at non-degree
+// granting, nonprofit, educational organizations only. Not for
+// government, commercial, or other organizational use.
+//
+// rt_nonfinite.h
+//
+// Code generation for function 'matlabEngineCaller_customLayers'
+//
 
 #pragma once
 
-/* Include files */
+// Include files
 #include "rtwtypes.h"
 #include "tmwtypes.h"
 
@@ -35,4 +34,4 @@ extern real32_T mex_rtNaNF;
 
 extern void mex_InitInfAndNan(void);
 
-/* End of code generation (rt_nonfinite.h) */
+// End of code generation (rt_nonfinite.h)

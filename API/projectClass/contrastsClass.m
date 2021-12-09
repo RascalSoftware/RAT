@@ -64,7 +64,6 @@ classdef contrastsClass < handle
             
             if isempty(varargin{:})
                 % No input at all
-                disp('no Input');
                 contrastNumber = obj.contrastAutoNameCounter;
                 contrastName = sprintf('New contrast %d',contrastNumber);
                 inputVals = {'name', contrastName};
@@ -178,8 +177,6 @@ classdef contrastsClass < handle
             %end
             
             obj.contrasts{whichContrast} = thisContrast;
-            
-            disp('debug');
             
         end
         
@@ -328,7 +325,6 @@ classdef contrastsClass < handle
             varTypes = cell(1,nContrasts);
             varNames = cell(1,nContrasts);
             for i = 1:nContrasts
-                thisContrast = obj.contrasts{i};%{:};
                 varNames{i} = num2str(i);
                 varTypes{i} = 'string';
             end
@@ -428,6 +424,9 @@ function inputBlock = parseContrastInput(allowedNames,inputVals)
     expectedResols = cellstr(allowedNames.resolsNames);
     expectedLayers = cellstr(allowedNames.layersNames);
     expectedScalefac = cellstr(allowedNames.scalefacNames);
+    expectedCustom = cellstr(allowedNames.customNames);
+    
+    expectedModel = [expectedLayers ; expectedCustom];
 
     p = inputParser;
     addParameter(p,'name',          defaultName,        @ischar);
@@ -438,7 +437,7 @@ function inputBlock = parseContrastInput(allowedNames,inputVals)
     addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
     addParameter(p,'scalefactor',   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
     addParameter(p,'resample',      defaultResample,    @islogical);
-    addParameter(p,'model',         defaultModel,       @(x) any(validatestring(x,expectedLayers)));
+    addParameter(p,'model',         defaultModel,       @(x) any(validatestring(x,expectedModel)));
         
     parse(p,inputVals{:});
     inputBlock = p.Results;

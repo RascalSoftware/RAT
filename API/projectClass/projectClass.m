@@ -41,9 +41,17 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     methods
 
-        function obj = projectClass(name)
-            % Class constructor
+        function obj = projectClass(varargin)
             
+            % Class constructor
+            if isempty(varargin)
+                name = '';
+            elseif ~ischar(varargin{:})
+                error('Input must be char');
+            else
+                name = varargin{:};
+            end
+
             obj.experimentName = name;
             obj.Geometry = 'air/substrate';
             
@@ -539,9 +547,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % editing of custom models block
         
         function obj = addCustomFile(obj, varargin)
-            
             obj.customFile.addFile(varargin{:});
-           
         end
         
         function obj = setCustomFile(obj,varargin)
@@ -808,26 +814,26 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             matlab.mixin.CustomDisplay.displayPropertyGroups(obj,startProps);
             
             % Display the parameters table
-            fprintf('    Parameters: ---------------------------------------------------------------------------------------------- \n\n');
+            fprintf('\n    Parameters: ---------------------------------------------------------------------------------------------- \n\n');
             obj.parameters.displayParametersTable;
             
             % Display the layers table if not a custom model
             val = obj.ModelType;
             if ~any(strcmpi(val,{'custom layers','custom xy'}))
-                fprintf('    Layers: -------------------------------------------------------------------------------------------------- \n\n');
+                fprintf('\n    Layers: -------------------------------------------------------------------------------------------------- \n\n');
                 obj.layers.displayLayersTable;
             end
             
             % Display the Bulk In table
-            fprintf('    Bulk In: -------------------------------------------------------------------------------------------------- \n\n');
+            fprintf('\n    Bulk In: -------------------------------------------------------------------------------------------------- \n\n');
             obj.bulkIn.displayParametersTable;
             
             % Display the Bulk Out table
-            fprintf('    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n');
+            fprintf('\n    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n');
             obj.bulkOut.displayParametersTable;
             
             % Display the Scalefactors table
-            fprintf('    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n');
+            fprintf('\n    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n');
             obj.scalefactors.displayParametersTable;
 
             % Display the backgrounds object

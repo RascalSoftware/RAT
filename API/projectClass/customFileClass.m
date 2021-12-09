@@ -159,15 +159,15 @@ classdef customFileClass < handle
             end
             
             if ~isempty(results.language)
-                obj.setCustomLanguage(whichCustom,results.language)
+                obj.setCustomLanguage(whichCustom,results.language);
             end
             
             if ~isempty(results.path)
-                obj.setCustomPath(whichCustom,results.path)
+                obj.setCustomPath(whichCustom,results.path);
             end
             
             if ~isempty(results.name)
-                obj.setCustomName(whichCustom,results.name)
+                obj.setCustomName(whichCustom,results.name);
             end            
 
         end
@@ -216,7 +216,7 @@ classdef customFileClass < handle
             end
            
             
-            % Set the relevant name
+            % Set the relevant file name
             obj.fileTable{whichCustom,2} = {name};
             
         end

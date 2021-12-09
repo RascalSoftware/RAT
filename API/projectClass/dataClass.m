@@ -134,7 +134,7 @@ classdef dataClass < handle
             isDimsRanges = @(x)all(size(x) == [1,2]);
             
             % Data needs to be an [n x >3] array
-            isDimsData = @(x) size(x,2) > 3;
+            isDimsData = @(x) size(x,2) >= 3;
 
             addParameter(p,'name','', @(x) ischar(x))
             addParameter(p,'data',[], @(x) isnumeric(x) && isDimsData(x))
@@ -161,7 +161,7 @@ classdef dataClass < handle
             
             
             if ~isempty(results.data)
-                obj.setDataName(whichData,results.name)
+                obj.setDataValues(whichData,results.data);
             end
             
             if ~isempty(results.dataRange)
@@ -217,6 +217,13 @@ classdef dataClass < handle
            names = obj.dataTable{:,1}; 
             
         end
+        
+        function obj = setDataValues(obj,whichData,data)
+            
+            obj.dataTable{whichData,2} = {data};
+   
+        end
+        
         
         
         function displayDataObject(obj)

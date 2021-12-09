@@ -33,6 +33,7 @@ if ~isempty(varargin)
         % and make the project directories.
         cd(dirPath);
         mkdir(dirName);
+        originalDir = pwd;
         cd(dirName);
         if ~exist('datafiles','dir')
             mkdir('datafiles');
@@ -78,6 +79,12 @@ r1Problem.fityesno = fitYesNo;
 
 
 
+r1Problem.numberOfShifts = 1;
+r1Problem.shiftsNames = {'Shift 1'};
+r1Problem.shifts_horisontal = 0;
+r1Problem.numberOfShifts = 1;
+r1Problem.shifts_constr = [-1e-4 1e-4];
+r1Problem.shifts_fityesno = 0;
 
 %% Scalefactors....
 r2ScalesStruct = r2Problem.scalefactors.toStruct();
@@ -232,6 +239,11 @@ else
     customFiles = customFiles(1,:); % Only ever 1 custom file in R1
     customFileName = customFiles{1};
     
+    cd(originalDir);
+    copyfile(customFileName,dirName);
+    cd(dirName);
+    
+    
 end
 
 %% Deal with the data and contrasts
@@ -243,20 +255,22 @@ contrasts = r2Problem.contrasts;    % Contrasts class object
 r2Problem.contrasts.makeContrastsTable();
 
 numberOfContrasts = contrasts.numberOfContrasts;
+r1Problem.numberOfContrasts = numberOfContrasts;
 
 contrastBacks = zeros(numberOfContrasts,1);
 contrastScales = zeros(numberOfContrasts,1);
-contrastShifts = zeros(numberOfContrasts,1);
+contrastShifts = ones(numberOfContrasts,1);
 contrastResolutions = zeros(numberOfContrasts,1);
 contrastNbas = zeros(numberOfContrasts,1);
 contrastNbss = zeros(numberOfContrasts,1);
 contrastLayers = cell(numberOfContrasts,1);
 contrastsNumberOfLayers = zeros(numberOfContrasts,1);
+forceReload = zeros(numberOfContrasts,1);
 
 simLimits = cell(numberOfContrasts,1);
 dataLimits = cell(numberOfContrasts,1);
-fitLowrange = zeros(numberOfContrasts,1);
-fitHirange = zeros(numberOfContrasts,1);
+fitlowrange = zeros(numberOfContrasts,1);
+fithirange = zeros(numberOfContrasts,1);
 
 data = cell(numberOfContrasts,1);
 contrastNames = cell(numberOfContrasts,1);
@@ -327,12 +341,18 @@ for i = 1:numberOfContrasts
     data{i} = thisData;
     simLimits{i} = thisSimLimits;
     dataLimits{i} = thisDataLimits;
+    
+    fitlowrange(i) = thisDataLimits(1);
+    fithirange(i) = thisDataLimits(2);
+    
     if ~strcmpi(thisContrastData,'simulation')
         dataPresent(i) = 1;
         include_data(i) = 1;
+        dataTypes{i} = 'Ascii File';
     else
-        dataPresent(i) = 1;
-        include_data(i) = 1;
+        dataPresent(i) = 0;
+        include_data(i) = 0;
+        dataTypes{i} = 'Simulation';
     end
     
     % Now deal with the model. Depends on whether it is standard layers or
@@ -362,9 +382,10 @@ for i = 1:numberOfContrasts
         contrastLayers{i} = '';
         contrastsNumberOfLayers(i) = 0;
     end
+    contrastRepeatSLDs{i} = [0 1];
 end
 
-
+r1Problem.contrastTypes = dataTypes;
 
 %%
 %r1Problem.module.name = customFileName;
@@ -372,6 +393,7 @@ r1Problem.contrastNames = contrastNames;
 r1Problem.contrastNbas = contrastNbas;
 r1Problem.contrastNbss = contrastNbss;
 r1Problem.contrastScales = contrastScales;
+r1Problem.contrastShifts = contrastShifts;
 r1Problem.contrastResolutions = contrastResolutions;
 r1Problem.contrastBacks = contrastBacks;
 r1Problem.data = data;
@@ -383,6 +405,26 @@ r1Problem.contrastsNumberOfLayers = contrastsNumberOfLayers;
 r1Problem.layersDetails = newLayersDetails;
 r1Problem.numberOfLayers = numberOfLayers;    
 r1Problem.module.name = customFileName;
+r1Problem.forceReload = forceReload;
+r1Problem.dataLimits = dataLimits;
+r1Problem.simLimits = simLimits;
+r1Problem.fitlowrange = fitlowrange;
+r1Problem.fithirange = fithirange;
+r1Problem.repeatLayers = contrastRepeatSLDs;
+
+% Finally need to actually fill in some calculation results in the r1
+% model. We can do this using RAT...
+
+controls = controlsDef;
+controls.display = 'off';
+[~,results] = RAT(r2Problem,controls);
+
+r1Problem.shifted_data = results.shifted_data;
+r1Problem.calculations.Simulation = results.Simulation;
+r1Problem.calculations.reflectivity = results.reflectivity;
+r1Problem.calculations.slds = results.sldProfiles;
+r1Problem.calculations.all_chis = results.calculationResults.all_chis;
+r1Problem.calculations.sum_chi = results.calculationResults.sum_chi;
 
 newR1Problem = r1Problem;
 
@@ -436,17 +478,19 @@ function inputBlock = parseParameterInput(varargin)
     
     % Check the r1Problem really is one by making sure it has the bare
     % minimum of field names
-    r1FieldNames = getR1FieldNames();
-    newNames = fieldnames(inputBlock.r1Problem);
-    diffs = setdiff(newNames,r1FieldNames);
-    
-    allowedDiffs = {'priors' ; 'resampleAngle'; 'resampleNLayers';...
-        'fitpars' ; 'otherpars'; 'fitnames'};
-    
-    actualDiffs = intersect(diffs,allowedDiffs);
-    
-    if ~isequal(actualDiffs,diffs)
-        error('Can''t recognise inputted r1Problem');
+    if ~isequal(inputBlock.r1Problem,(struct('empty',0)))
+        r1FieldNames = getR1FieldNames();
+        newNames = fieldnames(inputBlock.r1Problem);
+        diffs = setdiff(newNames,r1FieldNames);
+        
+        allowedDiffs = {'priors' ; 'resampleAngle'; 'resampleNLayers';...
+            'fitpars' ; 'otherpars'; 'fitnames'};
+        
+        actualDiffs = intersect(diffs,allowedDiffs);
+        
+        if ~isequal(actualDiffs,diffs)
+            error('Can''t recognise inputted r1Problem');
+        end
     end
     
 end

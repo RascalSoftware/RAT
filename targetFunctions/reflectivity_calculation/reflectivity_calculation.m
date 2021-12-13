@@ -92,8 +92,9 @@ switch whichTF
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);    
     %case 'polarisedTF'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDef_cells,controls);
-    %case 'domainsTF'
-        %problem = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,controls);
+    case 'domainsTF'
+        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+
 end
 
 result = cell(1,6);

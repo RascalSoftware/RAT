@@ -1,4 +1,4 @@
-function out=mcmcpred_compile(results,chain,s2chain,data,problem,nsample,varargin)
+function out=mcmcpred_compile(results,chain,bestFit,s2chain,data,problem,nsample,varargin)
 %MCMCPRED predictive calculations from the mcmcrun chain
 % out = mcmcpred(results,chain,s2chain,data,modelfun,nsample,varargin)
 % Calls modelfun(data,theta,varargin{:})
@@ -18,7 +18,14 @@ nsimu  = size(chain,1);
 nbatch = results.nbatch;
 
 if isempty(s2chain)
-  lims = [0.005,0.025,0.05,0.25,0.5,0.75,0.95,0.975,0.995];
+%   %lims = [0.005,0.025,0.05,0.25,0.5,0.75,0.95,0.975,0.995];
+%   lims = [0.025 0.175 0.375 0.5 0.625 0.825 0.975];
+
+  % 0.5, 1, 1.5, 2, 2.5 and 3 sigma...
+  %         0.5     1     1.5    2     2.5    3           3     2.5   2
+  %         
+  lims = [7.5e-4, 0.005, 0.025, 0.07, 0.16, 0.305, 0.5, 0.695, 0.84, 0.93, 0.975, 0.99, 0.9985];
+
 else
   lims = [0.025,0.5,0.975];
 end
@@ -52,7 +59,8 @@ for i=1:nbatch
 
   datai = data{i};  
   ysave = [];
-  firstSld = [];
+  %firstSld = [];
+  thisBestFit = bestFit{:}{i};
 
   for iisample = 1:nsample
     theta(parind) = chain(isample(iisample),:)';
@@ -62,18 +70,27 @@ for i=1:nbatch
     % The length of y can change with parameter values
     % for the SLD. So, we accept the first value as the default, and 
     % then interpolate the remaining values onto the x from the first.
-    if isempty(firstSld)
-        firstSld = thisSld;
-        y = firstSld(:,2);  
-        %y = reshape(y,1,[]);        % Force row vector
-    else
-        newX = firstSld(:,1);
-        thisX = thisSld(:,1);
-        thisY = thisSld(:,2);
-        y = interp1(thisX,thisY,newX);
-        %y = reshape(y,1,[]);
-    end
+%     if isempty(firstSld)
+%         firstSld = thisSld;
+%         y = firstSld(:,2);  
+%         %y = reshape(y,1,[]);        % Force row vector
+%     else
+%         newX = firstSld(:,1);
+%         thisX = thisSld(:,1);
+%         thisY = thisSld(:,2);
+%         y = interp1(thisX,thisY,newX);
+%         %y = reshape(y,1,[]);
+%     end
     
+    % Interpolate this sld onto the best (size can change when thickness'
+    % change etc)
+    newX = thisBestFit(:,1);
+    thisX = thisSld(:,1);
+    thisY = thisSld(:,2);
+    y = interp1(thisX,thisY,newX);
+
+
+
     try
         ysave(iisample,:,:) = y;
     catch
@@ -96,7 +113,7 @@ for i=1:nbatch
       end
     end
     
-    xdata{i} = firstSld(:,1);
+    xdata{i} = thisBestFit(:,1);
     
   end
 

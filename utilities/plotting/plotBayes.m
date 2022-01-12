@@ -5,10 +5,10 @@ function plotBayes(problem,results,varargin)
 
         h2 = figure(30); clf; %subplot(1,2,1)
         sf = results.contrastParams.scalefactors;
-        bayesShadedPlot_dev(problem,results,sf,'q4',true,'fit','max','KeepAxes',true)
+        bayesShadedPlot_dev2(problem,results,sf,'q4',false,'fit','mean','KeepAxes',true,'interval',1.5)
         
 %         subplot(1,2,2);
-%         bayesSLDShadedPlot(problem,results,'fit','max','KeepAxes',true)
+%         bayesSLDShadedPlot(problem,results,'fit','mean','KeepAxes',true)
         
         h3 = figure(40); clf
         mcmcplot(results.chain,[],results.fitNames,'hist');

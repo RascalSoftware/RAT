@@ -73,6 +73,7 @@ for i = 1:numberOfContrasts
     % Call the custom layers function to get the layers array...
     thisCustomFile = customFiles{cCustFiles(i)};
     [outLayers,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,thisNba,thisNbs,numberOfContrasts);
+    
     allLayers{i} = outLayers;
     thisContrastLayers = outLayers;
     

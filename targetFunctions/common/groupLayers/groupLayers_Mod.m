@@ -52,7 +52,11 @@ coder.varsize('layers',[Inf,5],[1 1]);
                 sldss = output(:,2);
                 thicks = output(:,1);
                 rsub = roughs(end);
-                roughs = [s_sub ; roughs(1:end-1)];
+                if length(roughs) > 1
+                    roughs = [s_sub ; roughs(1:end-1)];
+                else
+                    roughs = s_sub;
+                end
                 n = size(output,2);
                 if n == 5
                     cov = output(:,4);

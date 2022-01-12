@@ -88,8 +88,11 @@ for i = 1:numberOfContrasts
     theseLims = refPlims{i}{:};
     
     % Get the ranges..
-    thisMin = theseLims(1,:)./mult;
-    thisMax = theseLims(9,:)./mult;
+    allRanges = [0.97 ];
+    
+    
+    thisMin = theseLims(3,:)./mult;
+    thisMax = theseLims(7,:)./mult;
     
     thisMin = thisMin ./ sf(i);
     thisMax = thisMax ./ sf(i);

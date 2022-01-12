@@ -14,6 +14,7 @@ parConfInts = iterShortest(output.chain,length(fitNames),[],0.95);
 bestPars_mean = output.results.mean;
 
 % Calulate Max best fit curves
+controls.calcSld = 1;
 problemDef.fitpars = bestPars_max;
 problemDef = unpackparams(problemDef,controls);
 [outProblem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -33,10 +34,9 @@ bestFitMean_chi = outProblem.calculations.sum_chi;
 predIntRef = mcmcpred_compile(output.results,output.chain,[],output.data,problem,500);
 predIntRef = predIntRef.predlims;
 
-% Make sure the calc SLD flag is set in controls...
-problem{2}.calcSld = 1;
-predIntSld = mcmcpred_compile_sld(output.results,output.chain,[],output.data,problem,500);
-predIntSld = predIntSld.predlims;
+predIntSld_calcs = mcmcpred_compile_sld(output.results,output.chain,bestFitMean_Sld,[],output.data,problem,500);
+predIntSld = predIntSld_calcs.predlims;
+predIntSld_xdata = predIntSld_calcs.data;
 
 % ---------------------------------
 
@@ -49,7 +49,7 @@ bayesResults.bestPars_Max = bestPars_max;
 bayesResults.bayesData = output.data;
 bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};
 bayesResults.bestFitsMean = {bestFitMean_Ref, bestFitMean_Sld, bestFitMean_chi};
-bayesResults.predlims = {predIntRef, predIntSld};
+bayesResults.predlims = {predIntRef, predIntSld, predIntSld_xdata};
 bayesResults.parConfInts = parConfInts;
 
 

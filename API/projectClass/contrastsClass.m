@@ -227,6 +227,7 @@ classdef contrastsClass < handle
             resample = ones(1,nContrasts);
             contrastRepeatSLDs = cell(1,nContrasts);
             contrastData = cell(1,nContrasts);
+            contrastNames = cell(1,nContrasts);
             
             for i = 1:nContrasts
                                 
@@ -240,6 +241,7 @@ classdef contrastsClass < handle
                 contrastRes(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolsNames));
                 resample(i) = thisContrast.resample;
                 contrastRepeatSLDs{i} = [0 1]; % todo
+                contrastNames{i} = thisContrast.name;
                 
                 
                 switch modelType
@@ -299,6 +301,7 @@ classdef contrastsClass < handle
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.numberOfContrasts = nContrasts;
+            %contrastStruct.contrastNames = contrastNames;
             
         end
         

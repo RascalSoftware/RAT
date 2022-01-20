@@ -43,6 +43,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','domains_TF','domainsTF_custXY');   
     
     fullfile(ratRoot,'API');
+    fullfile(ratRoot,'UI');
     fullfile(ratRoot,'API','outputFcn');
     fullfile(ratRoot,'API','controlsDef_class');
     fullfile(ratRoot,'API','projectClass');
@@ -64,6 +65,7 @@ for i = 1:length(ratPaths)
 end
 
 addpath(ratRoot);
+setappdata(0,'ratRoot',ratRoot);
 
 %setRootFolder(ratRoot);
 

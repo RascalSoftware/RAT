@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.jfree.chart.axis.PeriodAxisTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.037 s - in org.jfree.chart.axis.PeriodAxisTest

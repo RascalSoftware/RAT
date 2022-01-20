@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.jfree.chart.axis.CategoryLabelWidthTypeTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in org.jfree.chart.axis.CategoryLabelWidthTypeTest

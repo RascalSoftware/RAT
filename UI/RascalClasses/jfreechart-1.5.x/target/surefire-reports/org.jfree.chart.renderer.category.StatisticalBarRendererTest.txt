@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.jfree.chart.renderer.category.StatisticalBarRendererTest
--------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.036 s - in org.jfree.chart.renderer.category.StatisticalBarRendererTest

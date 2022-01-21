@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.jfree.data.statistics.RegressionTest
--------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.01 s - in org.jfree.data.statistics.RegressionTest

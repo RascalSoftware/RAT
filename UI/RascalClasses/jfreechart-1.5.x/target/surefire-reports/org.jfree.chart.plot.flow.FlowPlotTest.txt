@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.jfree.chart.plot.flow.FlowPlotTest
--------------------------------------------------------------------------------
-Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s - in org.jfree.chart.plot.flow.FlowPlotTest

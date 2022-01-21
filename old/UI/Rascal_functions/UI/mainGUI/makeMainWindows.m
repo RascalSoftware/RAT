@@ -69,4 +69,4 @@ addInfoText(sprintf('Welcome to rascalRAT. Version %s','0.0.1.alpha'));
 
 setappdata(0,'iframeInfoPane',iframeInfoPane);
 
-%defaultPosWindows();
+defaultPosWindows();

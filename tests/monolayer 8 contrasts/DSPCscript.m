@@ -141,66 +141,66 @@ problem.setBacksPar(2,'fit',true);
 problem.setScalefactor(1,'fit',true);
 
 % Display problem
-problem
-
-% Make the controls class...
-controls = controlsDef();
-% controls.calcSldDuringFit = 'no';
-controls.procedure = 'bayes';
-%controls.parallel = 'contrasts';
-% controls.maxIter = 1e9;
-% controls.repeats = 3;
-% controls.nsimu = 5000;
-% controls.burnin = 1000;
-
-[problem,results] = RAT(problem,controls);
+% problem
 % 
-% figure(2); clf; drawnow
-% plotmatrix(results.chain)
-
-% controls.procedure = 'calculate';
+% % Make the controls class...
+% controls = controlsDef();
+% % controls.calcSldDuringFit = 'no';
+% controls.procedure = 'bayes';
+% %controls.parallel = 'contrasts';
+% % controls.maxIter = 1e9;
+% % controls.repeats = 3;
+% % controls.nsimu = 5000;
+% % controls.burnin = 1000;
+% 
 % [problem,results] = RAT(problem,controls);
-chiSq = results.calculationResults.sum_chi;
+% % 
+% % figure(2); clf; drawnow
+% % plotmatrix(results.chain)
 % 
-figure(1); clf
-plotRefSLD(problem,results)
-
-% for i = 1:4
-%     problem.setContrast(i,'resample',false);
-% end
-
-% controls.procedure = 'calculate';
-% [problem,results] = RAT(problem,controls);
-% resChiSq = results.calculationResults.sum_chi;
+% % controls.procedure = 'calculate';
+% % [problem,results] = RAT(problem,controls);
+% chiSq = results.calculationResults.sum_chi;
+% % 
+% figure(1); clf
+% plotRefSLD(problem,results)
 % 
-% fprintf('Normal Chi Squared is %f \n', chiSq);
-% fprintf('Resampled Ch Squared is %f \n', resChiSq);
-
-figure(1); clf
-plotRefSLD(problem,results);
-
-% layerSLDs = results.layerSlds;
-% sldProfiles = results.sldProfiles;
-% ssub = results.contrastParams.ssubs(1);
-
-% figure(2); clf; hold on
-% for i = 1:length(sldProfiles)
-%     thisSld = sldProfiles{i};
-%     
-%     thisLayers = layerSLDs{i};
-%     nbair = thisLayers(1,2);
-%     nbsub = thisLayers(end,2);
-%     numberOfLayers = size(thisLayers,1);
-%     nrepeats = 1;
-%     
-%     newProf = makeSLDProfileXY(nbair,nbsub,ssub,thisLayers,numberOfLayers,nrepeats);
-%     
-%     plot(thisSld(:,1),thisSld(:,2));
-%     plot(newProf(:,1)-50,newProf(:,2));
-%     
-% end
-% xlim([0 150]);
-
-
-
-
+% % for i = 1:4
+% %     problem.setContrast(i,'resample',false);
+% % end
+% 
+% % controls.procedure = 'calculate';
+% % [problem,results] = RAT(problem,controls);
+% % resChiSq = results.calculationResults.sum_chi;
+% % 
+% % fprintf('Normal Chi Squared is %f \n', chiSq);
+% % fprintf('Resampled Ch Squared is %f \n', resChiSq);
+% 
+% figure(1); clf
+% plotRefSLD(problem,results);
+% 
+% % layerSLDs = results.layerSlds;
+% % sldProfiles = results.sldProfiles;
+% % ssub = results.contrastParams.ssubs(1);
+% 
+% % figure(2); clf; hold on
+% % for i = 1:length(sldProfiles)
+% %     thisSld = sldProfiles{i};
+% %     
+% %     thisLayers = layerSLDs{i};
+% %     nbair = thisLayers(1,2);
+% %     nbsub = thisLayers(end,2);
+% %     numberOfLayers = size(thisLayers,1);
+% %     nrepeats = 1;
+% %     
+% %     newProf = makeSLDProfileXY(nbair,nbsub,ssub,thisLayers,numberOfLayers,nrepeats);
+% %     
+% %     plot(thisSld(:,1),thisSld(:,2));
+% %     plot(newProf(:,1)-50,newProf(:,2));
+% %     
+% % end
+% % xlim([0 150]);
+% 
+% 
+% 
+% 

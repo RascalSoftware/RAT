@@ -1,3 +1,4 @@
+
 % Add the paths needed for RAT to the current Matlab session.
 % This pust be run from the base RAT directory.
 
@@ -64,6 +65,7 @@ for i = 1:length(ratPaths)
 end
 
 addpath(ratRoot);
+setappdata(0,'ratRoot',ratRoot);
 
 %setRootFolder(ratRoot);
 

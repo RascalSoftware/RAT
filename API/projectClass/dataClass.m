@@ -77,7 +77,7 @@ classdef dataClass < handle
                         newMax = newDataX(end);
                         
                         newDataRange = [newMin newMax];
-                        newSimRange = [obj.defaultSimMin, obj.defaultSimMax];
+                        newSimRange = [newMin newMax];
                         
                         newRow = {newName, newData, newDataRange, newSimRange};
                         %newUserDataRow = {'data',[newMin,newMax],[newMin,newMax]};

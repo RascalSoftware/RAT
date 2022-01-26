@@ -89,6 +89,21 @@ resolNames = inputStruct.resolParNames;         % ******* ToDo
 resolParPriors = inputStruct.resolParPriors;
 customFiles = inputStruct.files;
 
+% If any of the contrastLayers are empty, replace the empty cells by zero
+% thickness layers
+for i = 1:length(contrastLayers)
+    thisLayers = contrastLayers{i};
+    if isempty(thisLayers)
+        thisLayers = 0;
+        contrastLayers{i} = thisLayers;
+    end
+end
+
+% Do the same for layersDetails
+if isempty(layersDetails)
+    layersDetails = {0};
+end
+
 % When there are custom files, we need to strip the file extension
 % from the filename if it's present
 for i = 1:length(customFiles)

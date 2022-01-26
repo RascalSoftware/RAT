@@ -9,7 +9,8 @@ addRatPaths;
 thisPath = pwd;
 
 % Go to the correct compile directory
-cd('compile/reflectivity_calculation_compile_new/');
+compilePath = fullfile(thisPath,'compile','reflectivity_calculation_compile_new');
+cd(compilePath);
 
 % Run the compile script whist in that directory (ensures mex file ends up
 % in the correct place)

@@ -6,20 +6,18 @@ sf = result.contrastParams.scalefactors;
 
 %  Parse the input options
 if ~isempty(varargin)
-    defaultq4  = false;
+    defaultq4  = 0;
     defaultFit = 'mean';
     defaultKeep = false;
-    defaultInterval = 2;
-    defaultCentre = false;
+    defaultInterval = 2.5;
     
-    sigma = [0.5, 1, 1.5, 2, 2.5, 3];
+    allIntervals = [1 1.5 2 2.5 3 3.5];
     
     p = inputParser;
     addOptional(p,  'q4',           defaultq4,          @(x) islogical(x));
     addOptional(p,  'fit',          defaultFit,         @(x) any(strcmpi(x,{'mean','max','average','all'})));
     addOptional(p,  'KeepAxes',     defaultKeep,        @(x) islogical(x));
-    addOptional(p,  'interval',     defaultInterval,    @(x) any(ismember(x,sigma))); 
-    addOptional(p,  'centre',       defaultCentre,      @(x) islogical(x));
+    addOptional(p,  'interval',     defaultInterval,    @(x) ismember(x,allIntervals));
     
     parse(p,varargin{:});
     inputBlock = p.Results;
@@ -28,7 +26,7 @@ if ~isempty(varargin)
     fit = inputBlock.fit;
     keepAx = inputBlock.KeepAxes;
     interval = inputBlock.interval;
-    centre = inputBlock.centre;
+
 else
     q4 = false;
 end
@@ -98,12 +96,6 @@ for i = 1:numberOfContrasts
     theseLims = refPlims{i}{:};
     
     switch interval
-%         case 0.95
-%             vals = [1 7];
-%         case 0.67
-%             vals = [2 6];
-%         case 0.38
-%             vals = [3 5];
         case 3.0
             vals = [1 13];
         case 2.5
@@ -174,17 +166,17 @@ for i = 1:numberOfContrasts
     thisData = sldXdata{i};
     
     switch interval
-        case 3.0
+        case 3.5
             vals = [1 13];
-        case 2.5
+        case 3
             vals = [2 12];
-        case 2
+        case 2.5
             vals = [3 11];
-        case 1.5
+        case 2
             vals = [4 10];
-        case 1.0
+        case 1.5
             vals = [5 9];
-        case 0.5
+        case 1
             vals = [6 8];  
     end
     

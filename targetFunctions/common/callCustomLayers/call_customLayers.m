@@ -53,26 +53,27 @@ path = thisCustomFile{3};
         
         % Deal with possible 5 column outLayers (i.e. need to calculate the
         % hydrated SLD manually)
-%         outSize = size(output);
-%         if outSize(2) == 5                           % we need to calculate the hydrated SLD
-%             newOutLayers = zeros(outSize(1),3);
-%             newOutLayers(:,1) = output(:,1);         % Thickness'
-%             newOutLayers(:,3) = output(:,3);
-%             
-%             for i = 1:outSize(1)
-%                 thisSLD = output(i,2);
-%                 thisHydration = output(i,4) / 100;   % Assume percent for backwards compatability
-%                 thisHydrWhat = output(i,5);
-%                 if thisHydrWhat == 1                 % Bulk out
-%                     thisBulkHydr = bulkIn;
-%                 else
-%                     thisBulkHydr = bulkOut;
-%                 end
-%                 newSld = (thisHydration * thisBulkHydr) + ((1-thisHydration) * thisSLD);
-%                 newOutLayers(i,2) = newSld;
-%             end
-%             output = newOutLayers;
-%         end
+        outSize = size(output);
+        if outSize(2) == 5                           % we need to calculate the hydrated SLD
+            newOutLayers = zeros(outSize(1),3);
+            newOutLayers(:,1) = output(:,1);         % Thickness'
+            newOutLayers(:,3) = output(:,3);
+            
+            for i = 1:outSize(1)
+                thisSLD = output(i,2);
+                thisHydration = output(i,4) / 100;   % Assume percent for backwards compatability
+                thisHydrWhat = output(i,5);
+                if thisHydrWhat == 0                 % Bulk out
+                    thisBulkHydr = bulkIn;
+                else
+                    thisBulkHydr = bulkOut;
+                end
+                newSld = (thisHydration * thisBulkHydr) + ((1-thisHydration) * thisSLD);
+                thisSldVal = newSld(1,1);   % Reassignment to keep codegen happy
+                newOutLayers(i,2) = thisSldVal;
+            end
+            output = newOutLayers;
+        end
 
         %
         % Use these dummy outputs for souce code generation:

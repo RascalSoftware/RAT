@@ -1,7 +1,7 @@
 % Modifed so that the gerenated mex file ends up in the correct directory
 % rather that ther RAT root directory
 %
-% Last modified - AVH 20/10/21
+% Last modified - AVH 26/01/22
 pwd
 addRatPaths;
 

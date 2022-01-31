@@ -96,17 +96,17 @@ for i = 1:numberOfContrasts
     theseLims = refPlims{i}{:};
     
     switch interval
-        case 3.0
+        case 3.5
             vals = [1 13];
-        case 2.5
+        case 3
             vals = [2 12];
-        case 2
+        case 2.5
             vals = [3 11];
-        case 1.5
+        case 2
             vals = [4 10];
-        case 1.0
+        case 1.5
             vals = [5 9];
-        case 0.5
+        case 1
             vals = [6 8];  
     end
     

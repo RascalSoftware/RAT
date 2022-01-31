@@ -76,12 +76,11 @@ for i=rows:-1:1
         data = [xx(:) yy(:)];
         
 %        smoothhist2DLocal(data,30,[200 200]);
-        [ctrs1,ctrs2,F] = makeSmoothHist2D(date,20,[200 200]);
-        contourf(ctrs1,ctrs2,F);
-        colormap(gca,[1 1 1; 0.7 0.7 0.7; 0.3 0.3 0.3]);
+%         [ctrs1,ctrs2,F] = makeSmoothHist2D(date,20,[200 200]);
+%         contourf(ctrs1,ctrs2,F);
+%         colormap(gca,[1 1 1; 0.7 0.7 0.7; 0.3 0.3 0.3]);
         
-        %plot(xx,yy,'.','parent',ax(i,j));
-        %contour(xx,yy,'parent',ax(i,j));
+        plot(xx,yy,'.','parent',ax(i,j));
         
         hh(i,j,:) = ax(i,j);
         

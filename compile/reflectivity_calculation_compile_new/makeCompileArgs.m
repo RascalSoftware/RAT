@@ -98,6 +98,7 @@ ARGS_1_4.repeats = coder.typeof(0);
 ARGS_1_4.nsimu = coder.typeof(0);
 ARGS_1_4.burnin = coder.typeof(0);
 ARGS_1_4.resamPars = coder.typeof(0,[1 2]);
+ARGS_1_4.updateFreq = coder.typeof(0,[1 1]);
 ARGS_1_4_checks = struct;
 ARGS_1_4_checks.params_fitYesNo = coder.typeof(0,[1 Inf],[0 1]);
 ARGS_1_4_checks.backs_fitYesNo = coder.typeof(0,[1 Inf],[0 1]);

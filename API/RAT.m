@@ -1,5 +1,12 @@
 function [outProblemDef,result] = RAT(problemDefInput,controls)
 
+persistent isInitialised
+
+if isempty(isInitialised)
+    isInitialised = false;
+end
+
+
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(problemDefInput,controls);
 
 % %Define variable size for code generation
@@ -34,10 +41,16 @@ function [outProblemDef,result] = RAT(problemDefInput,controls)
 % coder.varsize('problemDef.otherconstr',[Inf,2],[1,0]);
 
 % Set up the output class and events.
-ratOut = ratOutputClass();
-ratListener = listener(ratOut,'ratUpdate',@defaultRatOutputFunction);
-%ratListener = listener(ratOut,'ratUpdate',@bayesAddInfoText);
-setappdata(0,'ratOut',{ratOut ; ratListener});
+% Only do this once so it can be modified
+% by other apps using RAT (i.e. Rascal)
+if ~isInitialised
+    ratOut = ratOutputClass();
+    ratListener = listener(ratOut,'ratUpdate',@defaultRatOutputFunction);
+    %ratListener = listener(ratOut,'ratUpdate',@bayesAddInfoText);
+    setappdata(0,'ratOut',{ratOut ; ratListener});
+    isInitialised = true;
+
+end
 
 % -------- The output fcn is not currently in use  
 %          - outputs are currently just fprintf from the 
@@ -50,7 +63,7 @@ setappdata(0,'ratOut',{ratOut ; ratListener});
 % being called, this must be manually deleted (delete(ratListener)).
 % To trigger output within RAT...
 %
-% outputs = getappdata(0,'ratOut');
+% ratOut = getappdata(0,'ratOut');
 % ratOutHandle = ratOut{1};
 % ratOut.customEventData.textUpdate = 'new text';
 % ratOut.triggerEvent;

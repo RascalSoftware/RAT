@@ -325,9 +325,7 @@ controls.repeats = inputControls.repeats;
 controls.nsimu = inputControls.nsimu;
 controls.burnin = inputControls.burnin;
 controls.resamPars = inputControls.resamPars;% [0.95 10];
-
-
-
+controls.updateFreq = inputControls.updateFreq;
 
 %Also need to deal with the checks...
 checks.params_fitYesNo = inputStruct.paramFitYesNo;

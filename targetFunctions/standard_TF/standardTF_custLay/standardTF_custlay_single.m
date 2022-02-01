@@ -62,6 +62,9 @@ end
 % Resampling parameters
 resamPars = controls.resamPars;
 
+% Custom model loop
+
+
 % Single cored over all contrasts
 for i = 1:numberOfContrasts
     % Extract the relevant parameter values for this contrast

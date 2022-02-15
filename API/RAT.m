@@ -109,7 +109,6 @@ end
 
 if any((strcmpi(controls.proc,{'bayes'})))
     result = mergeStructs(result,bayesResults);
-    result.bestFitPars = bayesResults.bestPars_Max;
 end
 
 [~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);

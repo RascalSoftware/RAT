@@ -8,7 +8,7 @@
 %% Create configuration object of class 'coder.MexCodeConfig'.
 cfg = coder.config('mex');
 cfg.GenerateReport = true;
-cfg.EnableJIT = true;
+cfg.EnableJIT = false;
 cfg.EnableOpenMP = true;
 % cfg.TargetLang = 'C++';
 % cfg.TargetLangStandard = 'C++11 (ISO)';

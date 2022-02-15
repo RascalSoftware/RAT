@@ -15,7 +15,8 @@ classdef controlsDef < matlab.mixin.CustomDisplay
         tolFun = 1e-6
         maxFunEvals = 10000
         maxIter = 1000
-        updateFreq = 1;
+        updateFreq = -1;
+        updatePlotFreq = -1;
         
         %(2) Differential Evolution
         populationSize = 20

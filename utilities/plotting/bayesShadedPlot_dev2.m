@@ -9,13 +9,14 @@ if ~isempty(varargin)
     defaultq4  = 0;
     defaultFit = 'mean';
     defaultKeep = false;
-    defaultInterval = 2.5;
+    defaultInterval = 95;
     
-    allIntervals = [1 1.5 2 2.5 3 3.5];
+    
+    allIntervals = [65 95];
     
     p = inputParser;
     addOptional(p,  'q4',           defaultq4,          @(x) islogical(x));
-    addOptional(p,  'fit',          defaultFit,         @(x) any(strcmpi(x,{'mean','max','average','all'})));
+    addOptional(p,  'fit',          defaultFit,         @(x) any(strcmpi(x,{'mean','average','all'})));
     addOptional(p,  'KeepAxes',     defaultKeep,        @(x) islogical(x));
     addOptional(p,  'interval',     defaultInterval,    @(x) ismember(x,allIntervals));
     
@@ -31,18 +32,16 @@ else
     q4 = false;
 end
 
-                   %mean    %Max    %Average
+                   %mean  %Average   % All
 showWhichCurves = [false    false    false];
 
 switch fit
     case 'mean'
         showWhichCurves(1) = 1;
-    case 'max'
-        showWhichCurves(2) = 1;
     case 'average'
-        showWhichCurves(3) = 1;
+        showWhichCurves(2) = 1;
     case 'all'
-        showWhichCurves(1:3) = 1;
+        showWhichCurves(1:2) = 1;
 end
 
 f = gcf;
@@ -52,17 +51,15 @@ if ~ keepAx
 end
 
 pLims = result.predlims;
-refPlims = pLims{1};
-sldPlims = pLims{2};
+refPlims = pLims.refPredInts;
+sldPlims = pLims.sldPredInts;
+refXdata = pLims.refXdata;
+sldXdata = pLims.sldXdata;
 bayesRes = result.bayesRes;
-sldXdata = pLims{end};
 
-% Get the reflectivities from 'max' and 'mean'
-bestRef_max = result.bestFitsMax{1}{:};
-bestSld_max = result.bestFitsMax{2}{:};
-
-bestRef_mean = result.bestFitsMean{1}{:};
-bestSld_mean = result.bestFitsMean{2}{:};
+% Get the reflectivities for mean...
+bestRef_mean = result.bestFitsMean.Ref;
+bestSld_mean = result.bestFitsMean.Sld;
 
 shifted_data = result.shifted_data;
 numberOfContrasts = length(shifted_data);
@@ -77,7 +74,6 @@ for i = 1:numberOfContrasts
     %thisRef = reflect{i};
     thisData = shifted_data{i};
     thisRefMean = bestRef_mean{i};
-    thisRefMax = bestRef_max{i};
     thisSf = sf(i);
     
     switch q4
@@ -93,31 +89,22 @@ for i = 1:numberOfContrasts
     end
         
     % Get the limits and fits
-    theseLims = refPlims{i}{:};
+    theseLims = refPlims{i};
     
     switch interval
-        case 3.5
-            vals = [1 13];
-        case 3
-            vals = [2 12];
-        case 2.5
-            vals = [3 11];
-        case 2
-            vals = [4 10];
-        case 1.5
-            vals = [5 9];
-        case 1
-            vals = [6 8];  
+        case 95
+            vals = [1 5];
+        case 65
+            vals = [2 4];
     end
     
     thisMin = theseLims(vals(1),:)./mult;
     thisMax = theseLims(vals(2),:)./mult;
     
-    thisMin = thisMin ./ sf(i);
-    thisMax = thisMax ./ sf(i);
+    thisRefAvg = theseLims(3,:)./mult;
     
     thisRefMean(:,2) = thisRefMean(:,2)./mult;
-    thisRefMax(:,2) = thisRefMax(:,2)./mult;
+    %thisRefMax(:,2) = thisRefMax(:,2)./mult;
     
     thisDataX = thisData(:,1);
     thisDataY = thisData(:,2)./mult;
@@ -128,17 +115,18 @@ for i = 1:numberOfContrasts
             thisMin = thisMin(:) .* thisQ4;
             thisMax = thisMax(:) .* thisQ4;
             thisRefMean(:,2) = thisRefMean(:,2) .* thisQ4;
-            thisRefMax(:,2) = thisRefMax(:,2) .* thisQ4;          
+            thisRefAvg = thisRefAvg .* thisQ4;          
             thisDataY = thisDataY(:) .* thisQ4;
             thisDataErr = thisDataErr(:) .* thisQ4;
     end
     
     errorbar(thisDataX,thisDataY,thisDataErr,'.');
 
-    plot(thisData(:,1),thisMin,'-','color',[0.7 0.7 0.7]);
-    plot(thisData(:,1),thisMax,'-','color',[0.7 0.7 0.7]);
+    %plot(thisData(:,1),thisMin,'-','color',[0.7 0.7 0.7]);
+    %plot(thisData(:,1),thisMax,'-','color',[0.7 0.7 0.7]);
     %plot(thisData(:,1),thisRef,'LineWidth',2.0);
-    fillyy(thisData(:,1),thisMin,thisMax,[0.8 0.8 0.8]);
+    %fillyy(thisData(:,1),thisMin,thisMax,[0.8 0.8 0.8]);
+    shade(thisDataX,thisMin,thisDataX,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
     
     % Plot the requested fit lines;
     if showWhichCurves(1)
@@ -147,8 +135,8 @@ for i = 1:numberOfContrasts
     end
     
     if showWhichCurves(2)
-        % Plot the max
-        plot(thisRefMax(:,1),thisRefMax(:,2),'r-');
+        % Plot the average
+       plot(thisDataX,thisRefAvg,'r-');
     end
     
 end
@@ -159,30 +147,24 @@ subplot(1,2,2); hold on
 for i = 1:numberOfContrasts
     
     thisSldMean = bestSld_mean{i};
-    thisSldMax = bestSld_max{i};
+    %thisSldMax = bestSld_max{i};
     
-    theseLims = sldPlims{i}{:};
+    theseLims = sldPlims{i};
     
-    thisData = sldXdata{i};
+    thisSldX = sldXdata{i};
     
     switch interval
-        case 3.5
-            vals = [1 13];
-        case 3
-            vals = [2 12];
-        case 2.5
-            vals = [3 11];
-        case 2
-            vals = [4 10];
-        case 1.5
-            vals = [5 9];
-        case 1
-            vals = [6 8];  
+        case 95
+            vals = [1 5];
+        case 65
+            vals = [2 4];
     end
     
     thisMin = theseLims(vals(1),:);
     thisMax = theseLims(vals(2),:);
         
+    thisSldAvg = theseLims(3,:);
+    
     if showWhichCurves(1)
         % Plot the mean
         plot(thisSldMean(:,1),thisSldMean(:,2),'b-');
@@ -190,13 +172,15 @@ for i = 1:numberOfContrasts
     
     if showWhichCurves(2)
         % Plot the max
-        plot(thisSldMax(:,1),thisSldMax(:,2),'r-');
+        plot(thisSldX,thisSldAvg,'r-');
     end
     
 %     plot(thisData(:,1),thisMin,'-','color',[0.7 0.7 0.7]);
 %     plot(thisData(:,1),thisMax,'-','color',[0.7 0.7 0.7]);
     %plot(thisData(:,1),thisRef,'LineWidth',2.0);
-    shade(thisData,thisMin,thisData,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.2);
+    thisSldX = sldXdata{i};
+    shade(thisSldX,thisMin,thisSldX,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
+    %shade(thisData,thisMin,thisData,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.7);
 end
 
 end

@@ -70,7 +70,7 @@ problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
 
-[outProblem,result,bayesResults] = processBayes(output,fitNames,problem);
+[outProblem,result,bayesResults] = processBayes_newMethod(output,problem);
 
 % Post processing of Bayes
 % --------------------------
@@ -115,6 +115,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
 % bayesResults.s2chain = output.s2chain;
 % bayesResults.sschain = output.sschain;
 % bayesResults.bestPars_Mean = output.results.mean;
+
 % bayesResults.bestPars_Max = bestPars_max;
 % bayesResults.bayesData = output.data;
 % bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};

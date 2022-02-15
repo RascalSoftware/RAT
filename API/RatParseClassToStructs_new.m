@@ -326,6 +326,7 @@ controls.nsimu = inputControls.nsimu;
 controls.burnin = inputControls.burnin;
 controls.resamPars = inputControls.resamPars;% [0.95 10];
 controls.updateFreq = inputControls.updateFreq;
+controls.updatePlotFreq = inputControls.updatePlotFreq;
 
 %Also need to deal with the checks...
 checks.params_fitYesNo = inputStruct.paramFitYesNo;

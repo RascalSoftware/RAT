@@ -1,4 +1,4 @@
-function [outProblem,result,bayesResults] = processBayes_newMethod(bayesOutputs,allProblem)
+function [problemDef,outProblem,result,bayesResults] = processBayes_newMethod(bayesOutputs,allProblem)
 
 %problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 problemDef = allProblem{1};
@@ -9,6 +9,9 @@ problemDef_cells = allProblem{4};
 % Need to impose that we calculate the SLD..
 controlsStruct.calcSld = 1;
 
+%... and use the Bayes bestpars
+problemDef.fitpars = bayesOutputs.bestPars;
+problemDef = unpackparams(problemDef,controlsStruct);
 parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,length(fitNames),[],0.95);
 
 % % 2. Find maximum values of posteriors. Store the max and mean posterior 
@@ -26,11 +29,11 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 % bestFitMax_chi = outProblem.calculations.sum_chi;
 
 % Calculate 'mean' best fit curves
-problemDef.fitpars = parConfInts.mean;
-problemDef = unpackparams(problemDef,controlsStruct);
+% problemDef.fitpars = parConfInts.mean;
+% problemDef = unpackparams(problemDef,controlsStruct);
 [outProblem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controlsStruct);
 p = parseResultToStruct(outProblem,result);
-bestFitMean.Ref = p.Simulation;
+bestFitMean.Ref = p.reflectivity;
 bestFitMean.Sld = p.sldProfiles;
 bestFitMean.chi = p.calculationResults.sum_chi;
 bestFitMean.data = p.shifted_data;

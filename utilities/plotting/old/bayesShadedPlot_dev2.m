@@ -110,6 +110,8 @@ for i = 1:numberOfContrasts
     thisDataY = thisData(:,2)./mult;
     thisDataErr = thisData(:,3)./mult;
     
+    thisSimX = refXdata{i};
+    
     switch q4
         case true
             thisMin = thisMin(:) .* thisQ4;
@@ -126,7 +128,7 @@ for i = 1:numberOfContrasts
     %plot(thisData(:,1),thisMax,'-','color',[0.7 0.7 0.7]);
     %plot(thisData(:,1),thisRef,'LineWidth',2.0);
     %fillyy(thisData(:,1),thisMin,thisMax,[0.8 0.8 0.8]);
-    shade(thisDataX,thisMin,thisDataX,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
+    shade(thisSimX,thisMin,thisSimX,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.3);
     
     % Plot the requested fit lines;
     if showWhichCurves(1)

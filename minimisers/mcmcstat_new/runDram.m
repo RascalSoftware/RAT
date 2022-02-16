@@ -70,7 +70,10 @@ problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
 
-[outProblem,result,bayesResults] = processBayes_newMethod(output,problem);
+[problemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,problem);
+
+% problemDef.fitpars = bayesResults.bestPars_Mean;
+
 
 % Post processing of Bayes
 % --------------------------

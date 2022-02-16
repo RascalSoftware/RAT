@@ -17,7 +17,7 @@ problemDef = unpackparams(problemDef,controlsStruct);
 % easier to work with fieldnames...
 calcResult = parseResultToStruct(calcProblem,calcResult);
 
-thisRef = calcResult.Simulation;
+thisRef = calcResult.reflectivity;
 thisSld = calcResult.sldProfiles;
 
 % so each is a {3 x 1} cell array, because of 3 contrasts. 
@@ -57,7 +57,7 @@ for i = 2:nsample
     % easier to work with fieldnames...
     calcResult = parseResultToStruct(calcProblem,calcResult);
     
-    thisRef = calcResult.Simulation;
+    thisRef = calcResult.reflectivity;
     thisSld = calcResult.sldProfiles;
 
     for n = 1:numberOfContrasts

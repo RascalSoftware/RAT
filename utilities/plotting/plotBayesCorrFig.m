@@ -80,7 +80,13 @@ for i=rows:-1:1
 %         contourf(ctrs1,ctrs2,F);
 %         colormap(gca,[1 1 1; 0.7 0.7 0.7; 0.3 0.3 0.3]);
         
+        %n = hist3(data,[30 30]);
+        
         plot(xx,yy,'.','parent',ax(i,j));
+        %contour(ax(i,j),n,[20 20],'k-');
+        %axes(ax(i,j));
+        %contour(n,20);
+        %pcolor(n);
         
         hh(i,j,:) = ax(i,j);
         

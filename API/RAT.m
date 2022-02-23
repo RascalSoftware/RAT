@@ -8,6 +8,7 @@ end
 
 
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(problemDefInput,controls);
+[problemDef,~] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 
 % %Define variable size for code generation
 % coder.varsize('problemDef.resample',[Inf,1],[1 0]);

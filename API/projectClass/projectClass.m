@@ -166,10 +166,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Returns a cell array of all currently
             % set parameter names for the project.
+            names.paramNames = obj.parameters.getParamNames();
             names.backsNames = obj.background.getBackgroundNames();
+            names.backParNames = obj.background.getBacksParNames();
             names.bulkInNames = obj.bulkIn.getParamNames();
             names.bulkOutNames = obj.bulkOut.getParamNames();
             names.resolsNames = obj.resolution.getResolNames();
+            names.resolParNames = obj.resolution.getResolParNames();
             names.layersNames = obj.layers.getLayersNames();
             names.dataNames = obj.data.getDataNames();
             names.scalefacNames = obj.scalefactors.getParamNames();

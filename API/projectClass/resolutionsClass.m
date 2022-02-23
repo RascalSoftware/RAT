@@ -48,6 +48,13 @@ classdef resolutionsClass < handle
             names = resolTable{:,1};
             
         end
+        
+        function names = getResolParNames(obj)
+            
+            resolParTable = obj.resolPars.paramsTable;
+            names = resolParTable{:,1};
+            
+        end
 
         
         % --- resolParams table edit methods -----------------------

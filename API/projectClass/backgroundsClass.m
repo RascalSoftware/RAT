@@ -50,10 +50,16 @@ classdef backgroundsClass < handle
             
             backsTable = obj.backgrounds.typesTable;
             names = backsTable{:,1};
-    
+            
         end
         
-
+        function names = getBacksParNames(obj)
+            
+            backsParTable = obj.backPars.paramsTable;
+            names = backsParTable{:,1};
+            
+        end
+        
         % --- BackParams table edit methods -----------------------
         
         function obj = addBacksPar(obj,varargin)

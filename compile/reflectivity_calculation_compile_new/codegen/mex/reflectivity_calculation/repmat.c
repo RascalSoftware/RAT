@@ -36,7 +36,7 @@ static emlrtRSInfo
             "repmat.m" /* pathName */
 };
 
-static emlrtRTEInfo sb_emlrtRTEI = {
+static emlrtRTEInfo qb_emlrtRTEI = {
     58,                   /* lineNo */
     23,                   /* colNo */
     "assertValidSizeArg", /* fName */
@@ -72,7 +72,7 @@ void repmat(const emlrtStack *sp, const real_T a[2], real_T varargin_1,
   b_st.tls = st.tls;
   if (varargin_1 != varargin_1) {
     emlrtErrorWithMessageIdR2018a(
-        &st, &sb_emlrtRTEI, "Coder:MATLAB:NonIntegerInput",
+        &st, &qb_emlrtRTEI, "Coder:MATLAB:NonIntegerInput",
         "Coder:MATLAB:NonIntegerInput", 4, 12, MIN_int32_T, 12, MAX_int32_T);
   }
   i = (int32_T)varargin_1;

@@ -264,20 +264,7 @@ controls.repeats = 3;
 controls.parallel = 'points';
 [outProb,results] = RAT(problem,controls);
 
-h = figure(1); clf
-plotRefSLD(outProb,results);
 
-sf = results.contrastParams.scalefactors;
-bayesShadedPlot(h,results.predlims,results.shifted_data,sf)
-
-figure(2); clf
-mcmcplot(results.chain,[],results.fitNames,'hist');
-
-figure(3); clf
-mcmcplot(results.chain,[],results.fitNames);
- 
-figure(4); clf
-plotRefSLD(problem,results);
  
 %% 
 % 

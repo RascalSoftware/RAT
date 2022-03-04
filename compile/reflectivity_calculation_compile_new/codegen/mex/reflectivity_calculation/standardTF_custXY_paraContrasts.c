@@ -80,7 +80,7 @@ static emlrtRSInfo lj_emlrtRSI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pathName */
 };
 
-static emlrtDCInfo vd_emlrtDCI = {
+static emlrtDCInfo wd_emlrtDCI = {
     31,                                /* lineNo */
     18,                                /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -121,7 +121,7 @@ static emlrtRTEInfo td_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtDCInfo wd_emlrtDCI = {
+static emlrtDCInfo xd_emlrtDCI = {
     58,                                /* lineNo */
     34,                                /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -139,7 +139,7 @@ static emlrtECInfo fb_emlrtECI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtBCInfo mbb_emlrtBCI = {
+static emlrtBCInfo pbb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     72,                                /* lineNo */
@@ -151,7 +151,7 @@ static emlrtBCInfo mbb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo nbb_emlrtBCI = {
+static emlrtBCInfo qbb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     74,                                /* lineNo */
@@ -163,7 +163,7 @@ static emlrtBCInfo nbb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo obb_emlrtBCI = {
+static emlrtBCInfo rbb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     74,                                /* lineNo */
@@ -193,7 +193,7 @@ static emlrtECInfo hb_emlrtECI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtBCInfo pbb_emlrtBCI = {
+static emlrtBCInfo sbb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     79,                                /* lineNo */
@@ -205,7 +205,7 @@ static emlrtBCInfo pbb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo qbb_emlrtBCI = {
+static emlrtBCInfo tbb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     58,                                /* lineNo */
@@ -217,7 +217,7 @@ static emlrtBCInfo qbb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo rbb_emlrtBCI = {
+static emlrtBCInfo ubb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     38,                                /* lineNo */
@@ -229,7 +229,7 @@ static emlrtBCInfo rbb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo sbb_emlrtBCI = {
+static emlrtBCInfo vbb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     44,                                /* lineNo */
@@ -241,7 +241,7 @@ static emlrtBCInfo sbb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo tbb_emlrtBCI = {
+static emlrtBCInfo wbb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     50,                                /* lineNo */
@@ -253,7 +253,7 @@ static emlrtBCInfo tbb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ubb_emlrtBCI = {
+static emlrtBCInfo xbb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     61,                                /* lineNo */
@@ -265,7 +265,7 @@ static emlrtBCInfo ubb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo vbb_emlrtBCI = {
+static emlrtBCInfo ybb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     65,                                /* lineNo */
@@ -277,7 +277,7 @@ static emlrtBCInfo vbb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo wbb_emlrtBCI = {
+static emlrtBCInfo acb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     66,                                /* lineNo */
@@ -289,7 +289,7 @@ static emlrtBCInfo wbb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo xbb_emlrtBCI = {
+static emlrtBCInfo bcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     69,                                /* lineNo */
@@ -301,7 +301,7 @@ static emlrtBCInfo xbb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ybb_emlrtBCI = {
+static emlrtBCInfo ccb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     76,                                /* lineNo */
@@ -313,7 +313,7 @@ static emlrtBCInfo ybb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo acb_emlrtBCI = {
+static emlrtBCInfo dcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     77,                                /* lineNo */
@@ -325,18 +325,9 @@ static emlrtBCInfo acb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtDCInfo xd_emlrtDCI = {
+static emlrtDCInfo yd_emlrtDCI = {
     23,                                /* lineNo */
     17,                                /* colNo */
-    "standardTF_custXY_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
-    1                                                      /* checkKind */
-};
-
-static emlrtDCInfo yd_emlrtDCI = {
-    22,                                /* lineNo */
-    16,                                /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
     "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
@@ -349,10 +340,19 @@ static emlrtDCInfo ae_emlrtDCI = {
     "standardTF_custXY_paraContrasts", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
     "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
-    4                                                      /* checkKind */
+    1                                                      /* checkKind */
 };
 
 static emlrtDCInfo be_emlrtDCI = {
+    22,                                /* lineNo */
+    16,                                /* colNo */
+    "standardTF_custXY_paraContrasts", /* fName */
+    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
+    4                                                      /* checkKind */
+};
+
+static emlrtDCInfo ce_emlrtDCI = {
     25,                                /* lineNo */
     1,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -361,7 +361,7 @@ static emlrtDCInfo be_emlrtDCI = {
     1                                                      /* checkKind */
 };
 
-static emlrtDCInfo ce_emlrtDCI = {
+static emlrtDCInfo de_emlrtDCI = {
     29,                                /* lineNo */
     1,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -370,48 +370,12 @@ static emlrtDCInfo ce_emlrtDCI = {
     1                                                      /* checkKind */
 };
 
-static emlrtBCInfo bcb_emlrtBCI = {
-    -1,                                /* iFirst */
-    -1,                                /* iLast */
-    31,                                /* lineNo */
-    36,                                /* colNo */
-    "allLayers",                       /* aName */
-    "standardTF_custXY_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
-    0                                                      /* checkKind */
-};
-
-static emlrtBCInfo ccb_emlrtBCI = {
-    -1,                                /* iFirst */
-    -1,                                /* iLast */
-    31,                                /* lineNo */
-    36,                                /* colNo */
-    "layerSlds",                       /* aName */
-    "standardTF_custXY_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
-    0                                                      /* checkKind */
-};
-
-static emlrtBCInfo dcb_emlrtBCI = {
-    -1,                                /* iFirst */
-    -1,                                /* iLast */
-    31,                                /* lineNo */
-    36,                                /* colNo */
-    "sldProfiles",                     /* aName */
-    "standardTF_custXY_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
-    0                                                      /* checkKind */
-};
-
 static emlrtBCInfo ecb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     31,                                /* lineNo */
     36,                                /* colNo */
-    "shifted_data",                    /* aName */
+    "allLayers",                       /* aName */
     "standardTF_custXY_paraContrasts", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
     "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
@@ -423,7 +387,7 @@ static emlrtBCInfo fcb_emlrtBCI = {
     -1,                                /* iLast */
     31,                                /* lineNo */
     36,                                /* colNo */
-    "reflectivity",                    /* aName */
+    "layerSlds",                       /* aName */
     "standardTF_custXY_paraContrasts", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
     "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
@@ -435,7 +399,7 @@ static emlrtBCInfo gcb_emlrtBCI = {
     -1,                                /* iLast */
     31,                                /* lineNo */
     36,                                /* colNo */
-    "Simulation",                      /* aName */
+    "sldProfiles",                     /* aName */
     "standardTF_custXY_paraContrasts", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
     "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
@@ -443,6 +407,42 @@ static emlrtBCInfo gcb_emlrtBCI = {
 };
 
 static emlrtBCInfo hcb_emlrtBCI = {
+    -1,                                /* iFirst */
+    -1,                                /* iLast */
+    31,                                /* lineNo */
+    36,                                /* colNo */
+    "shifted_data",                    /* aName */
+    "standardTF_custXY_paraContrasts", /* fName */
+    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
+    0                                                      /* checkKind */
+};
+
+static emlrtBCInfo icb_emlrtBCI = {
+    -1,                                /* iFirst */
+    -1,                                /* iLast */
+    31,                                /* lineNo */
+    36,                                /* colNo */
+    "reflectivity",                    /* aName */
+    "standardTF_custXY_paraContrasts", /* fName */
+    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
+    0                                                      /* checkKind */
+};
+
+static emlrtBCInfo jcb_emlrtBCI = {
+    -1,                                /* iFirst */
+    -1,                                /* iLast */
+    31,                                /* lineNo */
+    36,                                /* colNo */
+    "Simulation",                      /* aName */
+    "standardTF_custXY_paraContrasts", /* fName */
+    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "standardTF_custXY/standardTF_custXY_paraContrasts.m", /* pName */
+    0                                                      /* checkKind */
+};
+
+static emlrtBCInfo kcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -454,7 +454,7 @@ static emlrtBCInfo hcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo icb_emlrtBCI = {
+static emlrtBCInfo lcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -466,7 +466,7 @@ static emlrtBCInfo icb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo jcb_emlrtBCI = {
+static emlrtBCInfo mcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -478,7 +478,7 @@ static emlrtBCInfo jcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo kcb_emlrtBCI = {
+static emlrtBCInfo ncb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -490,7 +490,7 @@ static emlrtBCInfo kcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo lcb_emlrtBCI = {
+static emlrtBCInfo ocb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -502,7 +502,7 @@ static emlrtBCInfo lcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo mcb_emlrtBCI = {
+static emlrtBCInfo pcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -514,7 +514,7 @@ static emlrtBCInfo mcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ncb_emlrtBCI = {
+static emlrtBCInfo qcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -526,7 +526,7 @@ static emlrtBCInfo ncb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ocb_emlrtBCI = {
+static emlrtBCInfo rcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -538,7 +538,7 @@ static emlrtBCInfo ocb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo pcb_emlrtBCI = {
+static emlrtBCInfo scb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -550,7 +550,7 @@ static emlrtBCInfo pcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo qcb_emlrtBCI = {
+static emlrtBCInfo tcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -562,7 +562,7 @@ static emlrtBCInfo qcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo rcb_emlrtBCI = {
+static emlrtBCInfo ucb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -574,7 +574,7 @@ static emlrtBCInfo rcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo scb_emlrtBCI = {
+static emlrtBCInfo vcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     56,                                /* lineNo */
@@ -586,7 +586,7 @@ static emlrtBCInfo scb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo tcb_emlrtBCI = {
+static emlrtBCInfo wcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     58,                                /* lineNo */
@@ -598,7 +598,7 @@ static emlrtBCInfo tcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ucb_emlrtBCI = {
+static emlrtBCInfo xcb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     59,                                /* lineNo */
@@ -610,7 +610,7 @@ static emlrtBCInfo ucb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo vcb_emlrtBCI = {
+static emlrtBCInfo ycb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     59,                                /* lineNo */
@@ -622,7 +622,7 @@ static emlrtBCInfo vcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo wcb_emlrtBCI = {
+static emlrtBCInfo adb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     61,                                /* lineNo */
@@ -634,7 +634,7 @@ static emlrtBCInfo wcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo xcb_emlrtBCI = {
+static emlrtBCInfo bdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     65,                                /* lineNo */
@@ -646,7 +646,7 @@ static emlrtBCInfo xcb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ycb_emlrtBCI = {
+static emlrtBCInfo cdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     66,                                /* lineNo */
@@ -658,7 +658,7 @@ static emlrtBCInfo ycb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo adb_emlrtBCI = {
+static emlrtBCInfo ddb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     68,                                /* lineNo */
@@ -670,7 +670,7 @@ static emlrtBCInfo adb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo bdb_emlrtBCI = {
+static emlrtBCInfo edb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     68,                                /* lineNo */
@@ -682,7 +682,7 @@ static emlrtBCInfo bdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo cdb_emlrtBCI = {
+static emlrtBCInfo fdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     68,                                /* lineNo */
@@ -694,7 +694,7 @@ static emlrtBCInfo cdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ddb_emlrtBCI = {
+static emlrtBCInfo gdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     68,                                /* lineNo */
@@ -706,7 +706,7 @@ static emlrtBCInfo ddb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo edb_emlrtBCI = {
+static emlrtBCInfo hdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     68,                                /* lineNo */
@@ -718,7 +718,7 @@ static emlrtBCInfo edb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo fdb_emlrtBCI = {
+static emlrtBCInfo idb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     68,                                /* lineNo */
@@ -730,7 +730,7 @@ static emlrtBCInfo fdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo gdb_emlrtBCI = {
+static emlrtBCInfo jdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     69,                                /* lineNo */
@@ -742,7 +742,7 @@ static emlrtBCInfo gdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo hdb_emlrtBCI = {
+static emlrtBCInfo kdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     72,                                /* lineNo */
@@ -754,7 +754,7 @@ static emlrtBCInfo hdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo idb_emlrtBCI = {
+static emlrtBCInfo ldb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     72,                                /* lineNo */
@@ -766,7 +766,7 @@ static emlrtBCInfo idb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo jdb_emlrtBCI = {
+static emlrtBCInfo mdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     72,                                /* lineNo */
@@ -778,7 +778,7 @@ static emlrtBCInfo jdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo kdb_emlrtBCI = {
+static emlrtBCInfo ndb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     72,                                /* lineNo */
@@ -790,7 +790,7 @@ static emlrtBCInfo kdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ldb_emlrtBCI = {
+static emlrtBCInfo odb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     72,                                /* lineNo */
@@ -802,7 +802,7 @@ static emlrtBCInfo ldb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo mdb_emlrtBCI = {
+static emlrtBCInfo pdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     76,                                /* lineNo */
@@ -814,7 +814,7 @@ static emlrtBCInfo mdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ndb_emlrtBCI = {
+static emlrtBCInfo qdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     77,                                /* lineNo */
@@ -826,7 +826,7 @@ static emlrtBCInfo ndb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo odb_emlrtBCI = {
+static emlrtBCInfo rdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     82,                                /* lineNo */
@@ -838,7 +838,7 @@ static emlrtBCInfo odb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo pdb_emlrtBCI = {
+static emlrtBCInfo sdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     80,                                /* lineNo */
@@ -850,7 +850,7 @@ static emlrtBCInfo pdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo qdb_emlrtBCI = {
+static emlrtBCInfo tdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     50,                                /* lineNo */
@@ -862,7 +862,7 @@ static emlrtBCInfo qdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo rdb_emlrtBCI = {
+static emlrtBCInfo udb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     44,                                /* lineNo */
@@ -874,7 +874,7 @@ static emlrtBCInfo rdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo sdb_emlrtBCI = {
+static emlrtBCInfo vdb_emlrtBCI = {
     -1,                                /* iFirst */
     -1,                                /* iLast */
     38,                                /* lineNo */
@@ -886,7 +886,7 @@ static emlrtBCInfo sdb_emlrtBCI = {
     0                                                      /* checkKind */
 };
 
-static emlrtRTEInfo gs_emlrtRTEI = {
+static emlrtRTEInfo ms_emlrtRTEI = {
     22,                                /* lineNo */
     10,                                /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -894,7 +894,7 @@ static emlrtRTEInfo gs_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo hs_emlrtRTEI = {
+static emlrtRTEInfo ns_emlrtRTEI = {
     25,                                /* lineNo */
     1,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -902,7 +902,7 @@ static emlrtRTEInfo hs_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo is_emlrtRTEI = {
+static emlrtRTEInfo os_emlrtRTEI = {
     29,                                /* lineNo */
     1,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -910,7 +910,7 @@ static emlrtRTEInfo is_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo js_emlrtRTEI = {
+static emlrtRTEInfo ps_emlrtRTEI = {
     3,                                 /* lineNo */
     18,                                /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -918,7 +918,7 @@ static emlrtRTEInfo js_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo ks_emlrtRTEI = {
+static emlrtRTEInfo qs_emlrtRTEI = {
     31,                                /* lineNo */
     36,                                /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -926,7 +926,7 @@ static emlrtRTEInfo ks_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo ls_emlrtRTEI = {
+static emlrtRTEInfo rs_emlrtRTEI = {
     38,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -934,7 +934,7 @@ static emlrtRTEInfo ls_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo ms_emlrtRTEI = {
+static emlrtRTEInfo ss_emlrtRTEI = {
     44,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -942,7 +942,7 @@ static emlrtRTEInfo ms_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo ns_emlrtRTEI = {
+static emlrtRTEInfo ts_emlrtRTEI = {
     50,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -950,7 +950,7 @@ static emlrtRTEInfo ns_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo os_emlrtRTEI = {
+static emlrtRTEInfo us_emlrtRTEI = {
     61,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -958,7 +958,7 @@ static emlrtRTEInfo os_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo ps_emlrtRTEI = {
+static emlrtRTEInfo vs_emlrtRTEI = {
     65,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -966,7 +966,7 @@ static emlrtRTEInfo ps_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo qs_emlrtRTEI = {
+static emlrtRTEInfo ws_emlrtRTEI = {
     66,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -974,7 +974,7 @@ static emlrtRTEInfo qs_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo rs_emlrtRTEI = {
+static emlrtRTEInfo xs_emlrtRTEI = {
     68,                                /* lineNo */
     63,                                /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -982,7 +982,7 @@ static emlrtRTEInfo rs_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo ss_emlrtRTEI = {
+static emlrtRTEInfo ys_emlrtRTEI = {
     69,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -990,7 +990,7 @@ static emlrtRTEInfo ss_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo ts_emlrtRTEI = {
+static emlrtRTEInfo at_emlrtRTEI = {
     76,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -998,7 +998,7 @@ static emlrtRTEInfo ts_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo us_emlrtRTEI = {
+static emlrtRTEInfo bt_emlrtRTEI = {
     77,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -1006,7 +1006,7 @@ static emlrtRTEInfo us_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo vs_emlrtRTEI = {
+static emlrtRTEInfo ct_emlrtRTEI = {
     64,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -1014,7 +1014,7 @@ static emlrtRTEInfo vs_emlrtRTEI = {
     "standardTF_custXY/standardTF_custXY_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo ws_emlrtRTEI = {
+static emlrtRTEInfo dt_emlrtRTEI = {
     68,                                /* lineNo */
     5,                                 /* colNo */
     "standardTF_custXY_paraContrasts", /* fName */
@@ -1031,7 +1031,7 @@ void standardTF_custXY_paraContrasts(
     emxArray_real_T *nbss, emxArray_real_T *resols, emxArray_real_T *chis,
     emxArray_cell_wrap_12 *reflectivity, emxArray_cell_wrap_12 *Simulation,
     emxArray_cell_wrap_14 *shifted_data, emxArray_cell_wrap_10 *layerSlds,
-    emxArray_cell_wrap_14 *sldProfiles, emxArray_cell_wrap_25 *allLayers,
+    emxArray_cell_wrap_14 *sldProfiles, emxArray_cell_wrap_27 *allLayers,
     emxArray_real_T *allRoughs)
 {
   emlrtStack st;
@@ -1069,62 +1069,62 @@ void standardTF_custXY_paraContrasts(
   numberOfContrasts_tmp = problemDef->numberOfContrasts;
   /* Pre-Allocation... */
   if (!(problemDef->numberOfContrasts >= 0.0)) {
-    emlrtNonNegativeCheckR2012b(problemDef->numberOfContrasts, &ae_emlrtDCI,
+    emlrtNonNegativeCheckR2012b(problemDef->numberOfContrasts, &be_emlrtDCI,
                                 (emlrtCTX)sp);
   }
   i = (int32_T)muDoubleScalarFloor(problemDef->numberOfContrasts);
   if (problemDef->numberOfContrasts != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &yd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ae_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = backgs->size[0];
   backgs->size[0] = (int32_T)problemDef->numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, backgs, i1, &gs_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, backgs, i1, &ms_emlrtRTEI);
   if (problemDef->numberOfContrasts != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &xd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &yd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   loop_ub_tmp = (int32_T)problemDef->numberOfContrasts;
   i1 = nbas->size[0];
   nbas->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, nbas, i1, &hs_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, nbas, i1, &ns_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &be_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ce_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     nbas->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ce_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &de_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = outSsubs->size[0];
   outSsubs->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, outSsubs, i1, &is_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, outSsubs, i1, &os_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ce_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &de_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     outSsubs->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &vd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &wd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_25(sp, allLayers, i, &js_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_27(sp, allLayers, i, &ps_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_allLayers = allLayers->size[0] - 1;
     if (i > allLayers->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, allLayers->size[0] - 1, &bcb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, allLayers->size[0] - 1, &ecb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     allLayers->data[i].f1->size[0] = 0;
     if (i > b_allLayers) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &bcb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &ecb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     allLayers->data[i].f1->size[1] = 0;
@@ -1134,37 +1134,37 @@ void standardTF_custXY_paraContrasts(
   }
   i = layerSlds->size[0];
   layerSlds->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &js_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &ps_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_allLayers = layerSlds->size[0] - 1;
     if (i > layerSlds->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, layerSlds->size[0] - 1, &ccb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, layerSlds->size[0] - 1, &fcb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     layerSlds->data[i].f1->size[0] = 0;
     if (i > b_allLayers) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &ccb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &fcb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i1 = layerSlds->data[i].f1->size[0] * layerSlds->data[i].f1->size[1];
     layerSlds->data[i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layerSlds->data[i].f1, i1, &js_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSlds->data[i].f1, i1, &ps_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
   i = sldProfiles->size[0];
   sldProfiles->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &js_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &ps_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_allLayers = sldProfiles->size[0] - 1;
     if (i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, sldProfiles->size[0] - 1,
-                                    &dcb_emlrtBCI, (emlrtCTX)sp);
+                                    &gcb_emlrtBCI, (emlrtCTX)sp);
     }
     sldProfiles->data[i].f1->size[0] = 0;
     if (i > b_allLayers) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &dcb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &gcb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     sldProfiles->data[i].f1->size[1] = 0;
@@ -1174,16 +1174,16 @@ void standardTF_custXY_paraContrasts(
   }
   i = shifted_data->size[0];
   shifted_data->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &js_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &ps_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_allLayers = shifted_data->size[0] - 1;
     if (i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, shifted_data->size[0] - 1,
-                                    &ecb_emlrtBCI, (emlrtCTX)sp);
+                                    &hcb_emlrtBCI, (emlrtCTX)sp);
     }
     shifted_data->data[i].f1->size[0] = 0;
     if (i > b_allLayers) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &ecb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &hcb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     shifted_data->data[i].f1->size[1] = 0;
@@ -1193,21 +1193,21 @@ void standardTF_custXY_paraContrasts(
   }
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i, &js_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i, &ps_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_allLayers = reflectivity->size[0] - 1;
     if (i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, reflectivity->size[0] - 1,
-                                    &fcb_emlrtBCI, (emlrtCTX)sp);
+                                    &icb_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[i].f1->size[0] = 0;
     if (i > b_allLayers) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &fcb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &icb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i1 = reflectivity->data[i].f1->size[0] * reflectivity->data[i].f1->size[1];
     reflectivity->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[i].f1, i1, &js_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[i].f1, i1, &ps_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1217,40 +1217,40 @@ void standardTF_custXY_paraContrasts(
       (int32_T)problemDef->numberOfContrasts, &qd_emlrtRTEI, (emlrtCTX)sp);
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i, &ks_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i, &qs_emlrtRTEI);
   for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &rbb_emlrtBCI, (emlrtCTX)sp);
+                                    &ubb_emlrtBCI, (emlrtCTX)sp);
     }
     i = reflectivity->data[b_i].f1->size[0] *
         reflectivity->data[b_i].f1->size[1];
     reflectivity->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &ls_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &rs_emlrtRTEI);
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &rbb_emlrtBCI, (emlrtCTX)sp);
+                                    &ubb_emlrtBCI, (emlrtCTX)sp);
     }
     i = reflectivity->data[b_i].f1->size[0] *
         reflectivity->data[b_i].f1->size[1];
     reflectivity->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &ls_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &rs_emlrtRTEI);
     i = reflectivity->size[0];
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &rbb_emlrtBCI, (emlrtCTX)sp);
+                                    &ubb_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[b_i].f1->data[0] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &sdb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &vdb_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[b_i].f1->data[1] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &sdb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &vdb_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[b_i].f1->data[2] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &sdb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &vdb_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[b_i].f1->data[3] = 1.0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
@@ -1259,21 +1259,21 @@ void standardTF_custXY_paraContrasts(
   }
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &js_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &ps_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_allLayers = Simulation->size[0] - 1;
     if (i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, Simulation->size[0] - 1,
-                                    &gcb_emlrtBCI, (emlrtCTX)sp);
+                                    &jcb_emlrtBCI, (emlrtCTX)sp);
     }
     Simulation->data[i].f1->size[0] = 0;
     if (i > b_allLayers) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &gcb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &jcb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i1 = Simulation->data[i].f1->size[0] * Simulation->data[i].f1->size[1];
     Simulation->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[i].f1, i1, &js_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[i].f1, i1, &ps_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1283,38 +1283,38 @@ void standardTF_custXY_paraContrasts(
       (int32_T)problemDef->numberOfContrasts, &rd_emlrtRTEI, (emlrtCTX)sp);
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &ks_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &qs_emlrtRTEI);
   for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &sbb_emlrtBCI, (emlrtCTX)sp);
+                                    &vbb_emlrtBCI, (emlrtCTX)sp);
     }
     i = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
     Simulation->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &ms_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &ss_emlrtRTEI);
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &sbb_emlrtBCI, (emlrtCTX)sp);
+                                    &vbb_emlrtBCI, (emlrtCTX)sp);
     }
     i = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
     Simulation->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &ms_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &ss_emlrtRTEI);
     i = Simulation->size[0];
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &sbb_emlrtBCI, (emlrtCTX)sp);
+                                    &vbb_emlrtBCI, (emlrtCTX)sp);
     }
     Simulation->data[b_i].f1->data[0] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &rdb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &udb_emlrtBCI, (emlrtCTX)sp);
     }
     Simulation->data[b_i].f1->data[1] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &rdb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &udb_emlrtBCI, (emlrtCTX)sp);
     }
     Simulation->data[b_i].f1->data[2] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &rdb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &udb_emlrtBCI, (emlrtCTX)sp);
     }
     Simulation->data[b_i].f1->data[3] = 1.0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
@@ -1323,16 +1323,16 @@ void standardTF_custXY_paraContrasts(
   }
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_25(sp, allLayers, i, &js_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_27(sp, allLayers, i, &ps_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_allLayers = allLayers->size[0] - 1;
     if (i > allLayers->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, allLayers->size[0] - 1, &bcb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, allLayers->size[0] - 1, &ecb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     allLayers->data[i].f1->size[0] = 0;
     if (i > b_allLayers) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &bcb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_allLayers, &ecb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     allLayers->data[i].f1->size[1] = 0;
@@ -1345,30 +1345,30 @@ void standardTF_custXY_paraContrasts(
       (int32_T)problemDef->numberOfContrasts, &sd_emlrtRTEI, (emlrtCTX)sp);
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_25(sp, allLayers, i, &ks_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_27(sp, allLayers, i, &qs_emlrtRTEI);
   for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &tbb_emlrtBCI, (emlrtCTX)sp);
+                                    &wbb_emlrtBCI, (emlrtCTX)sp);
     }
     i = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
     allLayers->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &ns_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &ts_emlrtRTEI);
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &tbb_emlrtBCI, (emlrtCTX)sp);
+                                    &wbb_emlrtBCI, (emlrtCTX)sp);
     }
     i = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
     allLayers->data[b_i].f1->size[1] = 1;
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &ns_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &ts_emlrtRTEI);
     i = allLayers->size[0];
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &tbb_emlrtBCI, (emlrtCTX)sp);
+                                    &wbb_emlrtBCI, (emlrtCTX)sp);
     }
     allLayers->data[b_i].f1->data[0] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &qdb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &tdb_emlrtBCI, (emlrtCTX)sp);
     }
     allLayers->data[b_i].f1->data[1] = 1.0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
@@ -1380,101 +1380,101 @@ void standardTF_custXY_paraContrasts(
       (int32_T)problemDef->numberOfContrasts, &td_emlrtRTEI, (emlrtCTX)sp);
   i = qshifts->size[0];
   qshifts->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, qshifts, i, &gs_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, qshifts, i, &ms_emlrtRTEI);
   i = sfs->size[0];
   sfs->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, sfs, i, &gs_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, sfs, i, &ms_emlrtRTEI);
   i = nbss->size[0];
   nbss->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, nbss, i, &gs_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, nbss, i, &ms_emlrtRTEI);
   i = resols->size[0];
   resols->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, resols, i, &gs_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, resols, i, &ms_emlrtRTEI);
   i = allRoughs->size[0];
   allRoughs->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, allRoughs, i, &gs_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, allRoughs, i, &ms_emlrtRTEI);
   i = sldProfiles->size[0];
   sldProfiles->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &ks_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &qs_emlrtRTEI);
   i = layerSlds->size[0];
   layerSlds->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &ks_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &qs_emlrtRTEI);
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_25(sp, allLayers, i, &ks_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_27(sp, allLayers, i, &qs_emlrtRTEI);
   i = shifted_data->size[0];
   shifted_data->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &ks_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &qs_emlrtRTEI);
   i = chis->size[0];
   chis->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, chis, i, &gs_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, chis, i, &ms_emlrtRTEI);
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &ks_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &qs_emlrtRTEI);
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i, &ks_emlrtRTEI);
-  emxInit_real_T(sp, &layerSld, 2, &vs_emlrtRTEI, true);
-  emxInit_real_T(sp, &shifted_dat, 2, &ws_emlrtRTEI, true);
-  emxInit_real_T(sp, &sldProfile, 2, &js_emlrtRTEI, true);
-  emxInit_real_T(sp, &reflect, 2, &js_emlrtRTEI, true);
-  emxInit_real_T(sp, &Simul, 2, &js_emlrtRTEI, true);
+  emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i, &qs_emlrtRTEI);
+  emxInit_real_T(sp, &layerSld, 2, &ct_emlrtRTEI, true);
+  emxInit_real_T(sp, &shifted_dat, 2, &dt_emlrtRTEI, true);
+  emxInit_real_T(sp, &sldProfile, 2, &ps_emlrtRTEI, true);
+  emxInit_real_T(sp, &reflect, 2, &ps_emlrtRTEI, true);
+  emxInit_real_T(sp, &Simul, 2, &ps_emlrtRTEI, true);
   emxInit_real_T(sp, &b_shifted_dat, 1, &nh_emlrtRTEI, true);
-  emxInit_real_T(sp, &b_problemDef_cells, 2, &rs_emlrtRTEI, true);
+  emxInit_real_T(sp, &b_problemDef_cells, 2, &xs_emlrtRTEI, true);
   for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
     if ((int32_T)(b_i + 1U) > problemDef->contrastBacks->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastBacks->size[1],
-                                    &hcb_emlrtBCI, (emlrtCTX)sp);
+                                    &kcb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > problemDef->contrastShifts->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastShifts->size[1],
-                                    &icb_emlrtBCI, (emlrtCTX)sp);
+                                    &lcb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > problemDef->contrastScales->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastScales->size[1],
-                                    &jcb_emlrtBCI, (emlrtCTX)sp);
+                                    &mcb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > problemDef->contrastNbas->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastNbas->size[1],
-                                    &kcb_emlrtBCI, (emlrtCTX)sp);
+                                    &ncb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > problemDef->contrastNbss->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastNbss->size[1],
-                                    &lcb_emlrtBCI, (emlrtCTX)sp);
+                                    &ocb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > problemDef->contrastRes->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastRes->size[1],
-                                    &mcb_emlrtBCI, (emlrtCTX)sp);
+                                    &pcb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > backgs->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, backgs->size[0],
-                                    &ncb_emlrtBCI, (emlrtCTX)sp);
+                                    &qcb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > qshifts->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, qshifts->size[0],
-                                    &ocb_emlrtBCI, (emlrtCTX)sp);
+                                    &rcb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > sfs->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, sfs->size[0],
-                                    &pcb_emlrtBCI, (emlrtCTX)sp);
+                                    &scb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > nbas->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, nbas->size[0],
-                                    &qcb_emlrtBCI, (emlrtCTX)sp);
+                                    &tcb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > nbss->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, nbss->size[0],
-                                    &rcb_emlrtBCI, (emlrtCTX)sp);
+                                    &ucb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > resols->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, resols->size[0],
-                                    &scb_emlrtBCI, (emlrtCTX)sp);
+                                    &vcb_emlrtBCI, (emlrtCTX)sp);
     }
     st.site = &ej_emlrtRSI;
     backSort(&st, problemDef->contrastBacks->data[b_i],
@@ -1490,25 +1490,25 @@ void standardTF_custXY_paraContrasts(
     if ((int32_T)(b_i + 1U) > problemDef->contrastCustomFiles->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastCustomFiles->size[1],
-                                    &tcb_emlrtBCI, (emlrtCTX)sp);
+                                    &wcb_emlrtBCI, (emlrtCTX)sp);
     }
     d = problemDef->contrastCustomFiles->data[b_i];
     if (d != (int32_T)muDoubleScalarFloor(d)) {
-      emlrtIntegerCheckR2012b(d, &wd_emlrtDCI, (emlrtCTX)sp);
+      emlrtIntegerCheckR2012b(d, &xd_emlrtDCI, (emlrtCTX)sp);
     }
     if (((int32_T)d - 1 < 0) ||
         ((int32_T)d - 1 > problemDef_cells->f14->size[1] - 1)) {
       emlrtDynamicBoundsCheckR2012b((int32_T)d - 1, 0,
                                     problemDef_cells->f14->size[1] - 1,
-                                    &qbb_emlrtBCI, (emlrtCTX)sp);
+                                    &tbb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > nbss->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, nbss->size[0],
-                                    &ucb_emlrtBCI, (emlrtCTX)sp);
+                                    &xcb_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > allRoughs->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, allRoughs->size[0],
-                                    &vcb_emlrtBCI, (emlrtCTX)sp);
+                                    &ycb_emlrtBCI, (emlrtCTX)sp);
     }
     st.site = &fj_emlrtRSI;
     b_call_customLayers(
@@ -1521,30 +1521,30 @@ void standardTF_custXY_paraContrasts(
     b_allLayers = sldProfile->size[0] * sldProfile->size[1];
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
-                                    &ubb_emlrtBCI, (emlrtCTX)sp);
+                                    &xbb_emlrtBCI, (emlrtCTX)sp);
     }
     i = sldProfiles->data[b_i].f1->size[0] * sldProfiles->data[b_i].f1->size[1];
     sldProfiles->data[b_i].f1->size[0] = sldProfile->size[0];
-    emxEnsureCapacity_real_T(sp, sldProfiles->data[b_i].f1, i, &os_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, sldProfiles->data[b_i].f1, i, &us_emlrtRTEI);
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
-                                    &ubb_emlrtBCI, (emlrtCTX)sp);
+                                    &xbb_emlrtBCI, (emlrtCTX)sp);
     }
     i = sldProfiles->data[b_i].f1->size[0] * sldProfiles->data[b_i].f1->size[1];
     sldProfiles->data[b_i].f1->size[1] = sldProfile->size[1];
-    emxEnsureCapacity_real_T(sp, sldProfiles->data[b_i].f1, i, &os_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, sldProfiles->data[b_i].f1, i, &us_emlrtRTEI);
     i = sldProfiles->size[0];
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
-                                    &ubb_emlrtBCI, (emlrtCTX)sp);
+                                    &xbb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
-                                    &ubb_emlrtBCI, (emlrtCTX)sp);
+                                    &xbb_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_allLayers; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &wcb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &adb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       sldProfiles->data[b_i].f1->data[i1] = sldProfile->data[i1];
@@ -1554,30 +1554,30 @@ void standardTF_custXY_paraContrasts(
     b_allLayers = layerSld->size[0] * 3;
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1,
-                                    &vbb_emlrtBCI, (emlrtCTX)sp);
+                                    &ybb_emlrtBCI, (emlrtCTX)sp);
     }
     i = layerSlds->data[b_i].f1->size[0] * layerSlds->data[b_i].f1->size[1];
     layerSlds->data[b_i].f1->size[0] = layerSld->size[0];
-    emxEnsureCapacity_real_T(sp, layerSlds->data[b_i].f1, i, &ps_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSlds->data[b_i].f1, i, &vs_emlrtRTEI);
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1,
-                                    &vbb_emlrtBCI, (emlrtCTX)sp);
+                                    &ybb_emlrtBCI, (emlrtCTX)sp);
     }
     i = layerSlds->data[b_i].f1->size[0] * layerSlds->data[b_i].f1->size[1];
     layerSlds->data[b_i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layerSlds->data[b_i].f1, i, &ps_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSlds->data[b_i].f1, i, &vs_emlrtRTEI);
     i = layerSlds->size[0];
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1,
-                                    &vbb_emlrtBCI, (emlrtCTX)sp);
+                                    &ybb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1,
-                                    &vbb_emlrtBCI, (emlrtCTX)sp);
+                                    &ybb_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_allLayers; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &xcb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &bdb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       layerSlds->data[b_i].f1->data[i1] = layerSld->data[i1];
@@ -1589,63 +1589,63 @@ void standardTF_custXY_paraContrasts(
     b_allLayers = layerSld->size[0] * 3;
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &wbb_emlrtBCI, (emlrtCTX)sp);
+                                    &acb_emlrtBCI, (emlrtCTX)sp);
     }
     i = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
     allLayers->data[b_i].f1->size[0] = layerSld->size[0];
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &qs_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &ws_emlrtRTEI);
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &wbb_emlrtBCI, (emlrtCTX)sp);
+                                    &acb_emlrtBCI, (emlrtCTX)sp);
     }
     i = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
     allLayers->data[b_i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &qs_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &ws_emlrtRTEI);
     i = allLayers->size[0];
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &wbb_emlrtBCI, (emlrtCTX)sp);
+                                    &acb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &wbb_emlrtBCI, (emlrtCTX)sp);
+                                    &acb_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_allLayers; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ycb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &cdb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       allLayers->data[b_i].f1->data[i1] = layerSld->data[i1];
     }
     if (b_i + 1 > sfs->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, sfs->size[0], &adb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, sfs->size[0], &ddb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (b_i + 1 > qshifts->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, qshifts->size[0], &bdb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, qshifts->size[0], &edb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (b_i + 1 > problemDef->dataPresent->size[1]) {
       emlrtDynamicBoundsCheckR2012b(b_i + 1, 1,
                                     problemDef->dataPresent->size[1],
-                                    &cdb_emlrtBCI, (emlrtCTX)sp);
+                                    &fdb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > problemDef_cells->f2->size[1] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f2->size[1] - 1,
-                                    &ddb_emlrtBCI, (emlrtCTX)sp);
+                                    &gdb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > problemDef_cells->f3->size[1] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f3->size[1] - 1,
-                                    &edb_emlrtBCI, (emlrtCTX)sp);
+                                    &hdb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > problemDef_cells->f4->size[1] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f4->size[1] - 1,
-                                    &fdb_emlrtBCI, (emlrtCTX)sp);
+                                    &idb_emlrtBCI, (emlrtCTX)sp);
     }
     i = b_problemDef_cells->size[0] * b_problemDef_cells->size[1];
     b_problemDef_cells->size[0] = problemDef_cells->f2->data[b_i].f1->size[0];
     b_problemDef_cells->size[1] = problemDef_cells->f2->data[b_i].f1->size[1];
-    emxEnsureCapacity_real_T(sp, b_problemDef_cells, i, &rs_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_problemDef_cells, i, &xs_emlrtRTEI);
     b_allLayers = problemDef_cells->f2->data[b_i].f1->size[0] *
                       problemDef_cells->f2->data[b_i].f1->size[1] -
                   1;
@@ -1662,58 +1662,58 @@ void standardTF_custXY_paraContrasts(
     b_allLayers = shifted_dat->size[0] * shifted_dat->size[1];
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
-                                    &xbb_emlrtBCI, (emlrtCTX)sp);
+                                    &bcb_emlrtBCI, (emlrtCTX)sp);
     }
     i = shifted_data->data[b_i].f1->size[0] *
         shifted_data->data[b_i].f1->size[1];
     shifted_data->data[b_i].f1->size[0] = shifted_dat->size[0];
-    emxEnsureCapacity_real_T(sp, shifted_data->data[b_i].f1, i, &ss_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, shifted_data->data[b_i].f1, i, &ys_emlrtRTEI);
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
-                                    &xbb_emlrtBCI, (emlrtCTX)sp);
+                                    &bcb_emlrtBCI, (emlrtCTX)sp);
     }
     i = shifted_data->data[b_i].f1->size[0] *
         shifted_data->data[b_i].f1->size[1];
     shifted_data->data[b_i].f1->size[1] = shifted_dat->size[1];
-    emxEnsureCapacity_real_T(sp, shifted_data->data[b_i].f1, i, &ss_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, shifted_data->data[b_i].f1, i, &ys_emlrtRTEI);
     i = shifted_data->size[0];
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
-                                    &xbb_emlrtBCI, (emlrtCTX)sp);
+                                    &bcb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
-                                    &xbb_emlrtBCI, (emlrtCTX)sp);
+                                    &bcb_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_allLayers; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &gdb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &jdb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       shifted_data->data[b_i].f1->data[i1] = shifted_dat->data[i1];
     }
     if (b_i + 1 > loop_ub_tmp) {
       emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, (int32_T)numberOfContrasts_tmp,
-                                    &mbb_emlrtBCI, (emlrtCTX)sp);
+                                    &pbb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i + 1 > nbas->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, nbas->size[0], &hdb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, nbas->size[0], &kdb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (b_i + 1 > nbss->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, nbss->size[0], &idb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, nbss->size[0], &ldb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (b_i > problemDef_cells->f4->size[1] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f4->size[1] - 1,
-                                    &jdb_emlrtBCI, (emlrtCTX)sp);
+                                    &mdb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > problemDef_cells->f1->size[1] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f1->size[1] - 1,
-                                    &kdb_emlrtBCI, (emlrtCTX)sp);
+                                    &ndb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i + 1 > resols->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, resols->size[0], &ldb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, resols->size[0], &odb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     st.site = &ij_emlrtRSI;
@@ -1724,13 +1724,13 @@ void standardTF_custXY_paraContrasts(
                      0.0, resols->data[b_i], reflect, Simul);
     st.site = &jj_emlrtRSI;
     if (b_i + 1 > backgs->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, backgs->size[0], &nbb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, backgs->size[0], &qbb_emlrtBCI,
                                     &st);
     }
     if (b_i + 1 > problemDef->contrastBacksType->size[1]) {
       emlrtDynamicBoundsCheckR2012b(b_i + 1, 1,
                                     problemDef->contrastBacksType->size[1],
-                                    &obb_emlrtBCI, &st);
+                                    &rbb_emlrtBCI, &st);
     }
     if (problemDef->contrastBacksType->data[b_i] !=
         (int32_T)muDoubleScalarFloor(
@@ -1786,32 +1786,32 @@ void standardTF_custXY_paraContrasts(
     b_allLayers = reflect->size[0] * 2;
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &ybb_emlrtBCI, (emlrtCTX)sp);
+                                    &ccb_emlrtBCI, (emlrtCTX)sp);
     }
     i = reflectivity->data[b_i].f1->size[0] *
         reflectivity->data[b_i].f1->size[1];
     reflectivity->data[b_i].f1->size[0] = reflect->size[0];
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &ts_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &at_emlrtRTEI);
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &ybb_emlrtBCI, (emlrtCTX)sp);
+                                    &ccb_emlrtBCI, (emlrtCTX)sp);
     }
     i = reflectivity->data[b_i].f1->size[0] *
         reflectivity->data[b_i].f1->size[1];
     reflectivity->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &ts_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &at_emlrtRTEI);
     i = reflectivity->size[0];
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &ybb_emlrtBCI, (emlrtCTX)sp);
+                                    &ccb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &ybb_emlrtBCI, (emlrtCTX)sp);
+                                    &ccb_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_allLayers; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &mdb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &pdb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       reflectivity->data[b_i].f1->data[i1] = reflect->data[i1];
@@ -1823,30 +1823,30 @@ void standardTF_custXY_paraContrasts(
     b_allLayers = Simul->size[0] * 2;
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &acb_emlrtBCI, (emlrtCTX)sp);
+                                    &dcb_emlrtBCI, (emlrtCTX)sp);
     }
     i = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
     Simulation->data[b_i].f1->size[0] = Simul->size[0];
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &us_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &bt_emlrtRTEI);
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &acb_emlrtBCI, (emlrtCTX)sp);
+                                    &dcb_emlrtBCI, (emlrtCTX)sp);
     }
     i = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
     Simulation->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &us_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &bt_emlrtRTEI);
     i = Simulation->size[0];
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &acb_emlrtBCI, (emlrtCTX)sp);
+                                    &dcb_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &acb_emlrtBCI, (emlrtCTX)sp);
+                                    &dcb_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_allLayers; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ndb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &qdb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       Simulation->data[b_i].f1->data[i1] = Simul->data[i1];
@@ -1854,7 +1854,7 @@ void standardTF_custXY_paraContrasts(
     if (b_i + 1 > problemDef->dataPresent->size[1]) {
       emlrtDynamicBoundsCheckR2012b(b_i + 1, 1,
                                     problemDef->dataPresent->size[1],
-                                    &pbb_emlrtBCI, (emlrtCTX)sp);
+                                    &sbb_emlrtBCI, (emlrtCTX)sp);
     }
     st.site = &kj_emlrtRSI;
     if (muDoubleScalarIsNaN(problemDef->dataPresent->data[b_i])) {
@@ -1863,7 +1863,7 @@ void standardTF_custXY_paraContrasts(
     }
     if (problemDef->dataPresent->data[b_i] != 0.0) {
       if (b_i + 1 > chis->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, chis->size[0], &pdb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, chis->size[0], &sdb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       st.site = &lj_emlrtRSI;
@@ -1871,7 +1871,7 @@ void standardTF_custXY_paraContrasts(
           chiSquared(&st, shifted_dat, reflect, problemDef->params->size[1]);
     } else {
       if (b_i + 1 > chis->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, chis->size[0], &odb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, chis->size[0], &rdb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       chis->data[b_i] = 0.0;

@@ -202,7 +202,7 @@ static emlrtBCInfo gg_emlrtBCI = {
     0                     /* checkKind */
 };
 
-static emlrtRTEInfo lb_emlrtRTEI = {
+static emlrtRTEInfo jb_emlrtRTEI = {
     13,                 /* lineNo */
     13,                 /* colNo */
     "makeSLDProfileXY", /* fName */
@@ -477,7 +477,7 @@ void makeSLDProfiles(const emlrtStack *sp, real_T nbair, real_T nbsub,
     lastBoxEdge = 50.0;
     i = (int32_T)nrepeats;
     emlrtForLoopVectorCheckR2021a(1.0, 1.0, nrepeats, mxDOUBLE_CLASS,
-                                  (int32_T)nrepeats, &lb_emlrtRTEI, &st);
+                                  (int32_T)nrepeats, &jb_emlrtRTEI, &st);
     for (n = 0; n < i; n++) {
       for (b_i = 0; b_i < numberOfLayers; b_i++) {
         if (b_i + 1 > sld->size[0]) {
@@ -651,7 +651,7 @@ void makeSLDProfiles(const emlrtStack *sp, real_T nbair, real_T nbsub,
   c_st.site = &nb_emlrtRSI;
   d_st.site = &ob_emlrtRSI;
   if (SLD->size[0] * SLD->size[1] != x->size[1]) {
-    emlrtErrorWithMessageIdR2018a(&d_st, &jb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&d_st, &hb_emlrtRTEI,
                                   "MATLAB:catenate:matrixDimensionMismatch",
                                   "MATLAB:catenate:matrixDimensionMismatch", 0);
   }

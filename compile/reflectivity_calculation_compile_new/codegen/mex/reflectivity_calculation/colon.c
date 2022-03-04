@@ -24,7 +24,7 @@ static emlrtRSInfo tg_emlrtRSI = {
                                                                           */
 };
 
-static emlrtRTEInfo vb_emlrtRTEI = {
+static emlrtRTEInfo tb_emlrtRTEI = {
     417,               /* lineNo */
     15,                /* colNo */
     "assert_pmaxsize", /* fName */
@@ -77,7 +77,7 @@ void eml_float_colon(const emlrtStack *sp, real_T a, real_T d, real_T b,
   }
   st.site = &tg_emlrtRSI;
   if (ndbl > 2.147483647E+9) {
-    emlrtErrorWithMessageIdR2018a(&st, &vb_emlrtRTEI, "Coder:MATLAB:pmaxsize",
+    emlrtErrorWithMessageIdR2018a(&st, &tb_emlrtRTEI, "Coder:MATLAB:pmaxsize",
                                   "Coder:MATLAB:pmaxsize", 0);
   }
   nm1d2 = y->size[0] * y->size[1];

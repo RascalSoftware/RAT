@@ -16,6 +16,13 @@
 #include "emlrt.h"
 
 /* Type Definitions */
+#ifndef typedef_cell_wrap_25
+#define typedef_cell_wrap_25
+typedef struct {
+  real_T f1[2];
+} cell_wrap_25;
+#endif /* typedef_cell_wrap_25 */
+
 #ifndef typedef_cell_wrap_0
 #define typedef_cell_wrap_0
 typedef struct {
@@ -559,13 +566,6 @@ typedef struct {
 } emxArray_creal_T;
 #endif /* typedef_emxArray_creal_T */
 
-#ifndef typedef_cell_wrap_25
-#define typedef_cell_wrap_25
-typedef struct {
-  emxArray_real_T *f1;
-} cell_wrap_25;
-#endif /* typedef_cell_wrap_25 */
-
 #ifndef typedef_emxArray_cell_wrap_25
 #define typedef_emxArray_cell_wrap_25
 typedef struct {
@@ -576,6 +576,42 @@ typedef struct {
   boolean_T canFreeData;
 } emxArray_cell_wrap_25;
 #endif /* typedef_emxArray_cell_wrap_25 */
+
+#ifndef typedef_cell_wrap_26
+#define typedef_cell_wrap_26
+typedef struct {
+  emxArray_real_T *f1;
+} cell_wrap_26;
+#endif /* typedef_cell_wrap_26 */
+
+#ifndef typedef_emxArray_cell_wrap_26
+#define typedef_emxArray_cell_wrap_26
+typedef struct {
+  cell_wrap_26 *data;
+  int32_T *size;
+  int32_T allocatedSize;
+  int32_T numDimensions;
+  boolean_T canFreeData;
+} emxArray_cell_wrap_26;
+#endif /* typedef_emxArray_cell_wrap_26 */
+
+#ifndef typedef_cell_wrap_27
+#define typedef_cell_wrap_27
+typedef struct {
+  emxArray_real_T *f1;
+} cell_wrap_27;
+#endif /* typedef_cell_wrap_27 */
+
+#ifndef typedef_emxArray_cell_wrap_27
+#define typedef_emxArray_cell_wrap_27
+typedef struct {
+  cell_wrap_27 *data;
+  int32_T *size;
+  int32_T allocatedSize;
+  int32_T numDimensions;
+  boolean_T canFreeData;
+} emxArray_cell_wrap_27;
+#endif /* typedef_emxArray_cell_wrap_27 */
 
 #ifndef typedef_cell_19
 #define typedef_cell_19

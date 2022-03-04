@@ -40,7 +40,7 @@ static emlrtRSInfo le_emlrtRSI = {
                                                                            */
 };
 
-static emlrtRTEInfo qb_emlrtRTEI = {
+static emlrtRTEInfo ob_emlrtRTEI = {
     392,                  /* lineNo */
     1,                    /* colNo */
     "find_first_indices", /* fName */
@@ -110,7 +110,7 @@ void eml_find(const emlrtStack *sp, const emxArray_boolean_T *x,
     }
   }
   if (idx > x->size[0]) {
-    emlrtErrorWithMessageIdR2018a(&st, &qb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&st, &ob_emlrtRTEI,
                                   "Coder:builtins:AssertionFailed",
                                   "Coder:builtins:AssertionFailed", 0);
   }

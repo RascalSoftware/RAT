@@ -29,6 +29,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
     fullfile(ratRoot,'targetFunctions','common','callCustomLayers');
     fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
+    fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers');    
     
     fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
 
@@ -58,6 +59,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'utilities','plotting');
     fullfile(ratRoot,'utilities','misc');
     fullfile(ratRoot,'utilities','misc','projectClassToR1');
+    
 };
 
 for i = 1:length(ratPaths)

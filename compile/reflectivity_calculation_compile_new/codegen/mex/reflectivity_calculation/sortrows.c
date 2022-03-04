@@ -118,7 +118,7 @@ static emlrtRSInfo kg_emlrtRSI =
         "sortrows.m" /* pathName */
 };
 
-static emlrtRTEInfo ys_emlrtRTEI =
+static emlrtRTEInfo ft_emlrtRTEI =
     {
         27,         /* lineNo */
         1,          /* colNo */
@@ -127,7 +127,7 @@ static emlrtRTEInfo ys_emlrtRTEI =
         "sortrows.m" /* pName */
 };
 
-static emlrtRTEInfo at_emlrtRTEI = {
+static emlrtRTEInfo gt_emlrtRTEI = {
     52,          /* lineNo */
     9,           /* colNo */
     "mergesort", /* fName */
@@ -135,7 +135,7 @@ static emlrtRTEInfo at_emlrtRTEI = {
     "mergesort.m" /* pName */
 };
 
-static emlrtRTEInfo bt_emlrtRTEI =
+static emlrtRTEInfo ht_emlrtRTEI =
     {
         37,         /* lineNo */
         23,         /* colNo */
@@ -144,7 +144,7 @@ static emlrtRTEInfo bt_emlrtRTEI =
         "sortrows.m" /* pName */
 };
 
-static emlrtRTEInfo ct_emlrtRTEI =
+static emlrtRTEInfo it_emlrtRTEI =
     {
         37,         /* lineNo */
         1,          /* colNo */
@@ -153,7 +153,7 @@ static emlrtRTEInfo ct_emlrtRTEI =
         "sortrows.m" /* pName */
 };
 
-static emlrtRTEInfo dt_emlrtRTEI = {
+static emlrtRTEInfo jt_emlrtRTEI = {
     52,          /* lineNo */
     1,           /* colNo */
     "mergesort", /* fName */
@@ -193,7 +193,7 @@ void sortrows(const emlrtStack *sp, emxArray_real_T *y)
   d_st.prev = &c_st;
   d_st.tls = c_st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b((emlrtCTX)sp);
-  emxInit_int32_T(sp, &idx, 1, &ys_emlrtRTEI, true);
+  emxInit_int32_T(sp, &idx, 1, &ft_emlrtRTEI, true);
   st.site = &vf_emlrtRSI;
   b_st.site = &yf_emlrtRSI;
   col_data[0] = 1;
@@ -202,7 +202,7 @@ void sortrows(const emlrtStack *sp, emxArray_real_T *y)
   n = y->size[0] + 1;
   pEnd = idx->size[0];
   idx->size[0] = y->size[0];
-  emxEnsureCapacity_int32_T(&st, idx, pEnd, &ys_emlrtRTEI);
+  emxEnsureCapacity_int32_T(&st, idx, pEnd, &ft_emlrtRTEI);
   i2 = y->size[0];
   for (pEnd = 0; pEnd < i2; pEnd++) {
     idx->data[pEnd] = 0;
@@ -217,11 +217,11 @@ void sortrows(const emlrtStack *sp, emxArray_real_T *y)
       idx->data[k] = k + 1;
     }
   } else {
-    emxInit_int32_T(&st, &iwork, 1, &dt_emlrtRTEI, true);
+    emxInit_int32_T(&st, &iwork, 1, &jt_emlrtRTEI, true);
     b_st.site = &bg_emlrtRSI;
     pEnd = iwork->size[0];
     iwork->size[0] = y->size[0];
-    emxEnsureCapacity_int32_T(&b_st, iwork, pEnd, &at_emlrtRTEI);
+    emxEnsureCapacity_int32_T(&b_st, iwork, pEnd, &gt_emlrtRTEI);
     i2 = y->size[0] - 1;
     c_st.site = &cg_emlrtRSI;
     if ((1 <= y->size[0] - 1) && (y->size[0] - 1 > 2147483645)) {
@@ -289,12 +289,12 @@ void sortrows(const emlrtStack *sp, emxArray_real_T *y)
     }
     emxFree_int32_T(&iwork);
   }
-  emxInit_real_T(&st, &ycol, 1, &ct_emlrtRTEI, true);
+  emxInit_real_T(&st, &ycol, 1, &it_emlrtRTEI, true);
   st.site = &xf_emlrtRSI;
   i2 = y->size[0];
   pEnd = ycol->size[0];
   ycol->size[0] = y->size[0];
-  emxEnsureCapacity_real_T(&st, ycol, pEnd, &bt_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, ycol, pEnd, &ht_emlrtRTEI);
   b_st.site = &ig_emlrtRSI;
   overflow = ((1 <= i2) && (i2 > 2147483646));
   b_overflow = ((1 <= i2) && (i2 > 2147483646));

@@ -118,7 +118,7 @@ static emlrtDCInfo kb_emlrtDCI = {
     4                   /* checkKind */
 };
 
-static emlrtBCInfo by_emlrtBCI = {
+static emlrtBCInfo ey_emlrtBCI = {
     -1,               /* iFirst */
     -1,               /* iLast */
     9,                /* lineNo */
@@ -130,7 +130,7 @@ static emlrtBCInfo by_emlrtBCI = {
     0                   /* checkKind */
 };
 
-static emlrtBCInfo cy_emlrtBCI = {
+static emlrtBCInfo fy_emlrtBCI = {
     -1,               /* iFirst */
     -1,               /* iLast */
     8,                /* lineNo */
@@ -175,11 +175,11 @@ void b_resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
   /*  f = @(x) sldFunc(x); */
   /*   */
   if (1 > sldProfile->size[1]) {
-    emlrtDynamicBoundsCheckR2012b(1, 1, sldProfile->size[1], &cy_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(1, 1, sldProfile->size[1], &fy_emlrtBCI,
                                   (emlrtCTX)sp);
   }
   if (2 > sldProfile->size[1]) {
-    emlrtDynamicBoundsCheckR2012b(2, 1, sldProfile->size[1], &by_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(2, 1, sldProfile->size[1], &ey_emlrtBCI,
                                   (emlrtCTX)sp);
   }
   if (1 > sldProfile->size[0]) {

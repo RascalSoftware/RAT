@@ -107,7 +107,7 @@ static emlrtBCInfo yh_emlrtBCI = {
     0                                                  /* checkKind */
 };
 
-static emlrtRTEInfo ub_emlrtRTEI = {
+static emlrtRTEInfo sb_emlrtRTEI = {
     39,              /* lineNo */
     19,              /* colNo */
     "abeles_single", /* fName */
@@ -1178,7 +1178,7 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     step = simXdata->data[simLimits] * 1.54 / 12.566370614359172;
     if ((step < -1.0) || (step > 1.0)) {
       emlrtErrorWithMessageIdR2018a(
-          &b_st, &tb_emlrtRTEI, "Coder:toolbox:ElFunDomainError",
+          &b_st, &rb_emlrtRTEI, "Coder:toolbox:ElFunDomainError",
           "Coder:toolbox:ElFunDomainError", 3, 4, 4, "asin");
     }
     step = muDoubleScalarAsin(step);
@@ -1202,7 +1202,7 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     MI[1].re = 0.0;
     MI[1].im = 0.0;
     emlrtForLoopVectorCheckR2021a(1.0, 1.0, nrepeats, mxDOUBLE_CLASS,
-                                  (int32_T)nrepeats, &ub_emlrtRTEI, &st);
+                                  (int32_T)nrepeats, &sb_emlrtRTEI, &st);
     for (b_loop_ub = 0; b_loop_ub < i2; b_loop_ub++) {
       for (loop_ub = 0; loop_ub <= b_layers; loop_ub++) {
         if (loop_ub + 1 > slds->size[0]) {

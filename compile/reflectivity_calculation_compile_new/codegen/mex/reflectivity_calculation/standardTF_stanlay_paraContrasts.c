@@ -50,7 +50,7 @@ static emlrtRSInfo sh_emlrtRSI = {
     "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pathName */
 };
 
-static emlrtRTEInfo ec_emlrtRTEI = {
+static emlrtRTEInfo cc_emlrtRTEI = {
     45,                                 /* lineNo */
     9,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
@@ -58,7 +58,7 @@ static emlrtRTEInfo ec_emlrtRTEI = {
     "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo fc_emlrtRTEI = {
+static emlrtRTEInfo dc_emlrtRTEI = {
     50,                                 /* lineNo */
     9,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
@@ -66,7 +66,7 @@ static emlrtRTEInfo fc_emlrtRTEI = {
     "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
-static emlrtRTEInfo gc_emlrtRTEI = {
+static emlrtRTEInfo ec_emlrtRTEI = {
     55,                                 /* lineNo */
     9,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
@@ -83,7 +83,7 @@ static emlrtDCInfo pb_emlrtDCI = {
     1                                                        /* checkKind */
 };
 
-static emlrtRTEInfo hc_emlrtRTEI = {
+static emlrtRTEInfo fc_emlrtRTEI = {
     70,                                 /* lineNo */
     12,                                 /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
@@ -995,7 +995,7 @@ void c_standardTF_stanlay_paraContra(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &ec_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &cc_emlrtRTEI, (emlrtCTX)sp);
   i1 = reflectivity->size[0];
   reflectivity->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i1, &vm_emlrtRTEI);
@@ -1068,7 +1068,7 @@ void c_standardTF_stanlay_paraContra(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &fc_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &dc_emlrtRTEI, (emlrtCTX)sp);
   i1 = Simulation->size[0];
   Simulation->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, Simulation, i1, &vm_emlrtRTEI);
@@ -1137,7 +1137,7 @@ void c_standardTF_stanlay_paraContra(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &gc_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &ec_emlrtRTEI, (emlrtCTX)sp);
   i1 = allLayers->size[0];
   allLayers->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_14(sp, allLayers, i1, &vm_emlrtRTEI);
@@ -1201,7 +1201,7 @@ void c_standardTF_stanlay_paraContra(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &hc_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &fc_emlrtRTEI, (emlrtCTX)sp);
   i = outSsubs->size[0];
   outSsubs->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_real_T(sp, outSsubs, i, &an_emlrtRTEI);

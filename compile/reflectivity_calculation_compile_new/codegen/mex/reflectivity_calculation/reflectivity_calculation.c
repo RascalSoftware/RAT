@@ -45,7 +45,7 @@ static emlrtDCInfo b_emlrtDCI = {
     1                                                      /* checkKind */
 };
 
-static emlrtRTEInfo c_emlrtRTEI = {
+static emlrtRTEInfo emlrtRTEI = {
     48,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -62,7 +62,7 @@ static emlrtDCInfo c_emlrtDCI = {
     1                                                      /* checkKind */
 };
 
-static emlrtRTEInfo d_emlrtRTEI = {
+static emlrtRTEInfo b_emlrtRTEI = {
     54,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -70,7 +70,7 @@ static emlrtRTEInfo d_emlrtRTEI = {
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
-static emlrtRTEInfo e_emlrtRTEI = {
+static emlrtRTEInfo c_emlrtRTEI = {
     60,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -78,7 +78,7 @@ static emlrtRTEInfo e_emlrtRTEI = {
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
-static emlrtRTEInfo f_emlrtRTEI = {
+static emlrtRTEInfo d_emlrtRTEI = {
     66,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -86,7 +86,7 @@ static emlrtRTEInfo f_emlrtRTEI = {
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
-static emlrtRTEInfo g_emlrtRTEI = {
+static emlrtRTEInfo e_emlrtRTEI = {
     72,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -94,7 +94,7 @@ static emlrtRTEInfo g_emlrtRTEI = {
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
-static emlrtRTEInfo h_emlrtRTEI = {
+static emlrtRTEInfo f_emlrtRTEI = {
     78,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -102,7 +102,7 @@ static emlrtRTEInfo h_emlrtRTEI = {
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
-static emlrtRTEInfo i_emlrtRTEI = {
+static emlrtRTEInfo g_emlrtRTEI = {
     103,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -110,7 +110,7 @@ static emlrtRTEInfo i_emlrtRTEI = {
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
-static emlrtRTEInfo j_emlrtRTEI = {
+static emlrtRTEInfo h_emlrtRTEI = {
     109,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -118,7 +118,7 @@ static emlrtRTEInfo j_emlrtRTEI = {
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
-static emlrtRTEInfo k_emlrtRTEI = {
+static emlrtRTEInfo i_emlrtRTEI = {
     115,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -126,7 +126,7 @@ static emlrtRTEInfo k_emlrtRTEI = {
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
-static emlrtRTEInfo l_emlrtRTEI = {
+static emlrtRTEInfo j_emlrtRTEI = {
     121,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -134,7 +134,7 @@ static emlrtRTEInfo l_emlrtRTEI = {
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
-static emlrtRTEInfo m_emlrtRTEI = {
+static emlrtRTEInfo k_emlrtRTEI = {
     127,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -142,7 +142,7 @@ static emlrtRTEInfo m_emlrtRTEI = {
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
-static emlrtRTEInfo n_emlrtRTEI = {
+static emlrtRTEInfo l_emlrtRTEI = {
     133,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
@@ -1168,7 +1168,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &c_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &emlrtRTEI, (emlrtCTX)sp);
   i1 = reflectivity->size[0];
   reflectivity->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i1, &he_emlrtRTEI);
@@ -1239,7 +1239,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &d_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &b_emlrtRTEI, (emlrtCTX)sp);
   i = Simulation->size[0];
   Simulation->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &he_emlrtRTEI);
@@ -1304,7 +1304,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &e_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &c_emlrtRTEI, (emlrtCTX)sp);
   i = shifted_data->size[0];
   shifted_data->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_13(sp, shifted_data, i, &he_emlrtRTEI);
@@ -1364,7 +1364,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &f_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &d_emlrtRTEI, (emlrtCTX)sp);
   i = layerSlds->size[0];
   layerSlds->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_13(sp, layerSlds, i, &he_emlrtRTEI);
@@ -1422,7 +1422,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &g_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &e_emlrtRTEI, (emlrtCTX)sp);
   i = sldProfiles->size[0];
   sldProfiles->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_12(sp, sldProfiles, i, &he_emlrtRTEI);
@@ -1487,7 +1487,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &h_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &f_emlrtRTEI, (emlrtCTX)sp);
   i = allLayers->size[0];
   allLayers->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_13(sp, allLayers, i, &he_emlrtRTEI);
@@ -1890,7 +1890,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &i_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &g_emlrtRTEI, (emlrtCTX)sp);
   i = result->f1->size[0];
   result->f1->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, result->f1, i, &he_emlrtRTEI);
@@ -1966,7 +1966,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &j_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &h_emlrtRTEI, (emlrtCTX)sp);
   i = result->f2->size[0];
   result->f2->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, result->f2, i, &he_emlrtRTEI);
@@ -2042,7 +2042,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &k_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &i_emlrtRTEI, (emlrtCTX)sp);
   i = result->f3->size[0];
   result->f3->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_10(sp, result->f3, i, &he_emlrtRTEI);
@@ -2118,7 +2118,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &l_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &j_emlrtRTEI, (emlrtCTX)sp);
   i = result->f4->size[0];
   result->f4->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_10(sp, result->f4, i, &he_emlrtRTEI);
@@ -2194,7 +2194,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &m_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &k_emlrtRTEI, (emlrtCTX)sp);
   i = result->f5->size[0];
   result->f5->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, result->f5, i, &he_emlrtRTEI);
@@ -2270,7 +2270,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &n_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &l_emlrtRTEI, (emlrtCTX)sp);
   i = result->f6->size[0];
   result->f6->size[0] = unnamed_idx_0_tmp_tmp;
   emxEnsureCapacity_cell_wrap_10(sp, result->f6, i, &he_emlrtRTEI);

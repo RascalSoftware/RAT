@@ -59,7 +59,7 @@ static emlrtDCInfo g_emlrtDCI = {
     1                                               /* checkKind */
 };
 
-static emlrtRTEInfo w_emlrtRTEI = {
+static emlrtRTEInfo u_emlrtRTEI = {
     29,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_stanLay_reflectivityCalculation", /* fName */
@@ -67,7 +67,7 @@ static emlrtRTEInfo w_emlrtRTEI = {
     "standardTF_stanLay_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo x_emlrtRTEI = {
+static emlrtRTEInfo v_emlrtRTEI = {
     34,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_stanLay_reflectivityCalculation", /* fName */
@@ -75,7 +75,7 @@ static emlrtRTEInfo x_emlrtRTEI = {
     "standardTF_stanLay_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo y_emlrtRTEI = {
+static emlrtRTEInfo w_emlrtRTEI = {
     39,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_stanLay_reflectivityCalculation", /* fName */
@@ -83,7 +83,7 @@ static emlrtRTEInfo y_emlrtRTEI = {
     "standardTF_stanLay_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo ab_emlrtRTEI = {
+static emlrtRTEInfo x_emlrtRTEI = {
     44,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_stanLay_reflectivityCalculation", /* fName */
@@ -91,7 +91,7 @@ static emlrtRTEInfo ab_emlrtRTEI = {
     "standardTF_stanLay_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo bb_emlrtRTEI = {
+static emlrtRTEInfo y_emlrtRTEI = {
     49,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_stanLay_reflectivityCalculation", /* fName */
@@ -99,7 +99,7 @@ static emlrtRTEInfo bb_emlrtRTEI = {
     "standardTF_stanLay_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo cb_emlrtRTEI = {
+static emlrtRTEInfo ab_emlrtRTEI = {
     54,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_stanLay_reflectivityCalculation", /* fName */
@@ -750,7 +750,7 @@ void c_standardTF_stanLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &w_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &u_emlrtRTEI, (emlrtCTX)sp);
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &jg_emlrtRTEI);
@@ -820,7 +820,7 @@ void c_standardTF_stanLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &x_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &v_emlrtRTEI, (emlrtCTX)sp);
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &jg_emlrtRTEI);
@@ -888,7 +888,7 @@ void c_standardTF_stanLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &y_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &w_emlrtRTEI, (emlrtCTX)sp);
   i = shifted_data->size[0];
   shifted_data->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &jg_emlrtRTEI);
@@ -949,7 +949,7 @@ void c_standardTF_stanLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &ab_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &x_emlrtRTEI, (emlrtCTX)sp);
   i = layerSlds->size[0];
   layerSlds->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &jg_emlrtRTEI);
@@ -1006,7 +1006,7 @@ void c_standardTF_stanLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &bb_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &y_emlrtRTEI, (emlrtCTX)sp);
   i = sldProfiles->size[0];
   sldProfiles->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &jg_emlrtRTEI);
@@ -1074,7 +1074,7 @@ void c_standardTF_stanLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &cb_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &ab_emlrtRTEI, (emlrtCTX)sp);
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &jg_emlrtRTEI);

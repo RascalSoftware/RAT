@@ -265,7 +265,7 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData,
     p = false;
   }
   if (!p) {
-    emlrtErrorWithMessageIdR2018a(&f_st, &rb_emlrtRTEI, "MATLAB:dimagree",
+    emlrtErrorWithMessageIdR2018a(&f_st, &pb_emlrtRTEI, "MATLAB:dimagree",
                                   "MATLAB:dimagree", 0);
   }
   f_st.site = &kf_emlrtRSI;
@@ -320,7 +320,7 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData,
     p = false;
   }
   if (!p) {
-    emlrtErrorWithMessageIdR2018a(&g_st, &rb_emlrtRTEI, "MATLAB:dimagree",
+    emlrtErrorWithMessageIdR2018a(&g_st, &pb_emlrtRTEI, "MATLAB:dimagree",
                                   "MATLAB:dimagree", 0);
   }
   g_st.site = &mf_emlrtRSI;

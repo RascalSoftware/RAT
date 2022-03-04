@@ -97,7 +97,7 @@ boolean_T c_strcmp(const emlrtStack *sp, const emxArray_char_T *a)
         i = (uint8_T)a->data[kstr];
         if (i > 127) {
           emlrtErrorWithMessageIdR2018a(
-              &c_st, &u_emlrtRTEI, "Coder:toolbox:unsupportedString",
+              &c_st, &s_emlrtRTEI, "Coder:toolbox:unsupportedString",
               "Coder:toolbox:unsupportedString", 2, 12, 127);
         }
         if (cv[i] != cv[(int32_T)b_cv[kstr]]) {

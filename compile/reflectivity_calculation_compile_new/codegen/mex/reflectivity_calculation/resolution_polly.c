@@ -25,7 +25,7 @@ static emlrtRSInfo ah_emlrtRSI = {
     "Resolution_Functions/Simple_Gaussian/resolution_polly.m" /* pathName */
 };
 
-static emlrtRTEInfo xb_emlrtRTEI = {
+static emlrtRTEInfo vb_emlrtRTEI = {
     28,                 /* lineNo */
     13,                 /* colNo */
     "resolution_polly", /* fName */
@@ -170,7 +170,7 @@ void resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata,
     /*     try */
     i = (int32_T)(ihi + (1.0 - (real_T)ilow));
     emlrtForLoopVectorCheckR2021a(ilow, 1.0, ihi, mxDOUBLE_CLASS, i,
-                                  &xb_emlrtRTEI, (emlrtCTX)sp);
+                                  &vb_emlrtRTEI, (emlrtCTX)sp);
     for (b_i = 0; b_i < i; b_i++) {
       st.site = &ah_emlrtRSI;
       i1 = (int32_T)(((real_T)j + 1.0) + (real_T)(ilow + b_i));

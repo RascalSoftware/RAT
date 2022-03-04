@@ -107,7 +107,7 @@ static emlrtDCInfo f_emlrtDCI = {
     1                                       /* checkKind */
 };
 
-static emlrtRTEInfo o_emlrtRTEI = {
+static emlrtRTEInfo m_emlrtRTEI = {
     36,                                   /* lineNo */
     9,                                    /* colNo */
     "standardTF_reflectivityCalculation", /* fName */
@@ -115,7 +115,7 @@ static emlrtRTEInfo o_emlrtRTEI = {
     "standardTF_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo p_emlrtRTEI = {
+static emlrtRTEInfo n_emlrtRTEI = {
     41,                                   /* lineNo */
     9,                                    /* colNo */
     "standardTF_reflectivityCalculation", /* fName */
@@ -123,7 +123,7 @@ static emlrtRTEInfo p_emlrtRTEI = {
     "standardTF_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo q_emlrtRTEI = {
+static emlrtRTEInfo o_emlrtRTEI = {
     46,                                   /* lineNo */
     9,                                    /* colNo */
     "standardTF_reflectivityCalculation", /* fName */
@@ -131,7 +131,7 @@ static emlrtRTEInfo q_emlrtRTEI = {
     "standardTF_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo r_emlrtRTEI = {
+static emlrtRTEInfo p_emlrtRTEI = {
     51,                                   /* lineNo */
     9,                                    /* colNo */
     "standardTF_reflectivityCalculation", /* fName */
@@ -139,7 +139,7 @@ static emlrtRTEInfo r_emlrtRTEI = {
     "standardTF_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo s_emlrtRTEI = {
+static emlrtRTEInfo q_emlrtRTEI = {
     56,                                   /* lineNo */
     9,                                    /* colNo */
     "standardTF_reflectivityCalculation", /* fName */
@@ -147,7 +147,7 @@ static emlrtRTEInfo s_emlrtRTEI = {
     "standardTF_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo t_emlrtRTEI = {
+static emlrtRTEInfo r_emlrtRTEI = {
     61,                                   /* lineNo */
     9,                                    /* colNo */
     "standardTF_reflectivityCalculation", /* fName */
@@ -673,7 +673,7 @@ void c_standardTF_reflectivityCalcul(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &o_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &m_emlrtRTEI, (emlrtCTX)sp);
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &kf_emlrtRTEI);
@@ -736,7 +736,7 @@ void c_standardTF_reflectivityCalcul(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &p_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &n_emlrtRTEI, (emlrtCTX)sp);
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &kf_emlrtRTEI);
@@ -797,7 +797,7 @@ void c_standardTF_reflectivityCalcul(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &q_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &o_emlrtRTEI, (emlrtCTX)sp);
   i = shifted_data->size[0];
   shifted_data->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &kf_emlrtRTEI);
@@ -853,7 +853,7 @@ void c_standardTF_reflectivityCalcul(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &r_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &p_emlrtRTEI, (emlrtCTX)sp);
   i = layerSlds->size[0];
   layerSlds->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &kf_emlrtRTEI);
@@ -907,7 +907,7 @@ void c_standardTF_reflectivityCalcul(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &s_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &q_emlrtRTEI, (emlrtCTX)sp);
   i = sldProfiles->size[0];
   sldProfiles->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &kf_emlrtRTEI);
@@ -968,7 +968,7 @@ void c_standardTF_reflectivityCalcul(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &t_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &r_emlrtRTEI, (emlrtCTX)sp);
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &kf_emlrtRTEI);
@@ -1019,7 +1019,7 @@ void c_standardTF_reflectivityCalcul(
   }
   if (!p) {
     emlrtErrorWithMessageIdR2018a(
-        &c_st, &u_emlrtRTEI, "Coder:toolbox:unsupportedString",
+        &c_st, &s_emlrtRTEI, "Coder:toolbox:unsupportedString",
         "Coder:toolbox:unsupportedString", 2, 12, 127);
   }
   emxInit_char_T(&c_st, &switch_expression, 2, &rf_emlrtRTEI, true);

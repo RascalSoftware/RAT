@@ -29,13 +29,15 @@ void b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
 real_T d_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
                           const emlrtMsgIdentifier *parentId);
 
-void ib_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
+const mxArray *emlrt_marshallOut(const emxArray_real_T *u);
+
+void nb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
                          const emlrtMsgIdentifier *msgId, real_T ret[2]);
 
-real_T jb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
+real_T ob_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
                            const emlrtMsgIdentifier *msgId);
 
-void kb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
+void pb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
                          const emlrtMsgIdentifier *msgId, emxArray_real_T *ret);
 
 /* End of code generation (reflectivity_calculation_mexutil.h) */

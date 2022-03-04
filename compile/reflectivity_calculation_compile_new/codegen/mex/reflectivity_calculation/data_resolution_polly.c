@@ -26,7 +26,7 @@ static emlrtRSInfo yg_emlrtRSI = {
                                                                     */
 };
 
-static emlrtRTEInfo wb_emlrtRTEI = {
+static emlrtRTEInfo ub_emlrtRTEI = {
     26,                      /* lineNo */
     13,                      /* colNo */
     "data_resolution_polly", /* fName */
@@ -186,7 +186,7 @@ void data_resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata,
     }
     i = (int32_T)(ihi + (1.0 - (real_T)ilow));
     emlrtForLoopVectorCheckR2021a(ilow, 1.0, ihi, mxDOUBLE_CLASS, i,
-                                  &wb_emlrtRTEI, (emlrtCTX)sp);
+                                  &ub_emlrtRTEI, (emlrtCTX)sp);
     for (b_i = 0; b_i < i; b_i++) {
       st.site = &yg_emlrtRSI;
       i1 = (int32_T)(((real_T)j + 1.0) + (real_T)(ilow + b_i));

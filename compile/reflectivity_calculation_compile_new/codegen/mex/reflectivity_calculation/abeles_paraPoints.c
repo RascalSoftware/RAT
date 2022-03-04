@@ -27,7 +27,7 @@ static emlrtRSInfo mh_emlrtRSI = {
     "reflectivityCalculations/Abeles/abeles_paraPoints.m" /* pathName */
 };
 
-static emlrtRTEInfo dc_emlrtRTEI = {
+static emlrtRTEInfo bc_emlrtRTEI = {
     42,                  /* lineNo */
     19,                  /* colNo */
     "abeles_paraPoints", /* fName */
@@ -204,7 +204,7 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
         thick = x->data[loop] * 1.54 / 12.566370614359172;
         if ((thick < -1.0) || (thick > 1.0)) {
           emlrtErrorWithMessageIdR2018a(
-              &b_st, &tb_emlrtRTEI, "Coder:toolbox:ElFunDomainError",
+              &b_st, &rb_emlrtRTEI, "Coder:toolbox:ElFunDomainError",
               "Coder:toolbox:ElFunDomainError", 3, 4, 4, "asin");
         }
         thick = muDoubleScalarAsin(thick);
@@ -232,7 +232,7 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
         MI[1].im = 0.0;
         i = (int32_T)nrepeats;
         emlrtForLoopVectorCheckR2021a(1.0, 1.0, nrepeats, mxDOUBLE_CLASS,
-                                      (int32_T)nrepeats, &dc_emlrtRTEI, &st);
+                                      (int32_T)nrepeats, &bc_emlrtRTEI, &st);
         for (reploop = 0; reploop < i; reploop++) {
           i1 = (int32_T)layers;
           for (nl = 0; nl < i1; nl++) {

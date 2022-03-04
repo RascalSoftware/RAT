@@ -218,7 +218,7 @@ omp_lock_t emlrtLockGlobal;
 
 omp_nest_lock_t emlrtNestLockGlobal;
 
-emlrtRTEInfo u_emlrtRTEI = {
+emlrtRTEInfo s_emlrtRTEI = {
     15,                      /* lineNo */
     9,                       /* colNo */
     "assertSupportedString", /* fName */
@@ -257,7 +257,7 @@ emlrtECInfo emlrtECI = {
 };
 
 emlrtRTEInfo
-    jb_emlrtRTEI =
+    hb_emlrtRTEI =
         {
             271,                   /* lineNo */
             27,                    /* colNo */
@@ -266,7 +266,7 @@ emlrtRTEInfo
             "cat.m" /* pName */
 };
 
-emlrtRTEInfo rb_emlrtRTEI = {
+emlrtRTEInfo pb_emlrtRTEI = {
     19,             /* lineNo */
     23,             /* colNo */
     "scalexpAlloc", /* fName */
@@ -274,7 +274,7 @@ emlrtRTEInfo rb_emlrtRTEI = {
     "scalexpAlloc.m" /* pName */
 };
 
-emlrtRTEInfo tb_emlrtRTEI = {
+emlrtRTEInfo rb_emlrtRTEI = {
     14,     /* lineNo */
     9,      /* colNo */
     "asin", /* fName */

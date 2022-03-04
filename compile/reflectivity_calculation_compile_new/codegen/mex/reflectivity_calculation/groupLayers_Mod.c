@@ -368,7 +368,7 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
         c_st.site = &ob_emlrtRSI;
         if (roughs->size[0] != allLayers->size[0]) {
           emlrtErrorWithMessageIdR2018a(
-              &c_st, &jb_emlrtRTEI, "MATLAB:catenate:matrixDimensionMismatch",
+              &c_st, &hb_emlrtRTEI, "MATLAB:catenate:matrixDimensionMismatch",
               "MATLAB:catenate:matrixDimensionMismatch", 0);
         }
         loop_ub = allLayers->size[0];
@@ -399,7 +399,7 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
         c_st.site = &ob_emlrtRSI;
         if (roughs->size[0] != allLayers->size[0]) {
           emlrtErrorWithMessageIdR2018a(
-              &c_st, &jb_emlrtRTEI, "MATLAB:catenate:matrixDimensionMismatch",
+              &c_st, &hb_emlrtRTEI, "MATLAB:catenate:matrixDimensionMismatch",
               "MATLAB:catenate:matrixDimensionMismatch", 0);
         }
         loop_ub = allLayers->size[0];
@@ -607,7 +607,7 @@ void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
       c_st.site = &ob_emlrtRSI;
       if (roughs->size[0] != allLayers->size[0]) {
         emlrtErrorWithMessageIdR2018a(
-            &c_st, &jb_emlrtRTEI, "MATLAB:catenate:matrixDimensionMismatch",
+            &c_st, &hb_emlrtRTEI, "MATLAB:catenate:matrixDimensionMismatch",
             "MATLAB:catenate:matrixDimensionMismatch", 0);
       }
       loop_ub = allLayers->size[0];

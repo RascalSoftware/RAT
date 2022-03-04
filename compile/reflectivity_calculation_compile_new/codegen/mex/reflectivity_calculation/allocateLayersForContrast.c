@@ -51,7 +51,7 @@ static emlrtBCInfo sf_emlrtBCI = {
     0                              /* checkKind */
 };
 
-static emlrtRTEInfo hb_emlrtRTEI = {
+static emlrtRTEInfo fb_emlrtRTEI = {
     297,           /* lineNo */
     1,             /* colNo */
     "delete_rows", /* fName */
@@ -59,7 +59,7 @@ static emlrtRTEInfo hb_emlrtRTEI = {
     "nullAssignment.m" /* pName */
 };
 
-static emlrtRTEInfo ib_emlrtRTEI = {
+static emlrtRTEInfo gb_emlrtRTEI = {
     81,                /* lineNo */
     27,                /* colNo */
     "validate_inputs", /* fName */
@@ -206,7 +206,7 @@ void allocateLayersForContrast(
       b_st.site = &t_emlrtRSI;
       i = thisContrastLayers->size[0];
       if (1 > thisContrastLayers->size[0]) {
-        emlrtErrorWithMessageIdR2018a(&b_st, &ib_emlrtRTEI,
+        emlrtErrorWithMessageIdR2018a(&b_st, &gb_emlrtRTEI,
                                       "MATLAB:subsdeldimmismatch",
                                       "MATLAB:subsdeldimmismatch", 0);
       }
@@ -220,7 +220,7 @@ void allocateLayersForContrast(
         }
       }
       if (i - 1 > i) {
-        emlrtErrorWithMessageIdR2018a(&b_st, &hb_emlrtRTEI,
+        emlrtErrorWithMessageIdR2018a(&b_st, &fb_emlrtRTEI,
                                       "Coder:builtins:AssertionFailed",
                                       "Coder:builtins:AssertionFailed", 0);
       }

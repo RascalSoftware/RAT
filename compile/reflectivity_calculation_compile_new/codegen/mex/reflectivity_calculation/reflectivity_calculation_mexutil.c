@@ -19,7 +19,7 @@
 void b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
                         const emlrtMsgIdentifier *parentId, real_T y[2])
 {
-  ib_emlrt_marshallIn(sp, emlrtAlias(u), parentId, y);
+  nb_emlrt_marshallIn(sp, emlrtAlias(u), parentId, y);
   emlrtDestroyArray(&u);
 }
 
@@ -27,12 +27,34 @@ real_T d_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
                           const emlrtMsgIdentifier *parentId)
 {
   real_T y;
-  y = jb_emlrt_marshallIn(sp, emlrtAlias(u), parentId);
+  y = ob_emlrt_marshallIn(sp, emlrtAlias(u), parentId);
   emlrtDestroyArray(&u);
   return y;
 }
 
-void ib_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
+const mxArray *emlrt_marshallOut(const emxArray_real_T *u)
+{
+  const mxArray *m;
+  const mxArray *y;
+  real_T *pData;
+  int32_T iv[2];
+  int32_T b_i;
+  int32_T i;
+  y = NULL;
+  iv[0] = 1;
+  iv[1] = u->size[1];
+  m = emlrtCreateNumericArray(2, &iv[0], mxDOUBLE_CLASS, mxREAL);
+  pData = emlrtMxGetPr(m);
+  i = 0;
+  for (b_i = 0; b_i < u->size[1]; b_i++) {
+    pData[i] = u->data[b_i];
+    i++;
+  }
+  emlrtAssign(&y, m);
+  return y;
+}
+
+void nb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
                          const emlrtMsgIdentifier *msgId, real_T ret[2])
 {
   static const int32_T dims[2] = {1, 2};
@@ -45,7 +67,7 @@ void ib_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
   emlrtDestroyArray(&src);
 }
 
-real_T jb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
+real_T ob_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
                            const emlrtMsgIdentifier *msgId)
 {
   static const int32_T dims = 0;
@@ -57,7 +79,7 @@ real_T jb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
   return ret;
 }
 
-void kb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
+void pb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
                          const emlrtMsgIdentifier *msgId, emxArray_real_T *ret)
 {
   static const int32_T dims[2] = {-1, -1};

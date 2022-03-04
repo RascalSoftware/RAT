@@ -26,22 +26,6 @@ static emlrtRSInfo bi_emlrtRSI = {
     "call_customLayers.m" /* pathName */
 };
 
-static emlrtRTEInfo emlrtRTEI = {
-    44,                       /* lineNo */
-    33,                       /* colNo */
-    "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
-};
-
-static emlrtRTEInfo b_emlrtRTEI = {
-    1,                          /* lineNo */
-    29,                         /* colNo */
-    "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
-};
-
 static emlrtMCInfo emlrtMCI = {
     44,                       /* lineNo */
     5,                        /* colNo */
@@ -223,7 +207,7 @@ static emlrtDCInfo lc_emlrtDCI = {
     4                                              /* checkKind */
 };
 
-static emlrtBCInfo yx_emlrtBCI = {
+static emlrtBCInfo cy_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     72,                  /* lineNo */
@@ -235,7 +219,7 @@ static emlrtBCInfo yx_emlrtBCI = {
     0                      /* checkKind */
 };
 
-static emlrtBCInfo ay_emlrtBCI = {
+static emlrtBCInfo dy_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     63,                  /* lineNo */
@@ -279,7 +263,7 @@ static emlrtRTEInfo ro_emlrtRTEI = {
     "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
 };
 
-static emlrtRTEInfo mr_emlrtRTEI = {
+static emlrtRTEInfo sr_emlrtRTEI = {
     69,                  /* lineNo */
     21,                  /* colNo */
     "call_customLayers", /* fName */
@@ -287,7 +271,7 @@ static emlrtRTEInfo mr_emlrtRTEI = {
     "call_customLayers.m" /* pName */
 };
 
-static emlrtRTEInfo nr_emlrtRTEI = {
+static emlrtRTEInfo tr_emlrtRTEI = {
     67,                  /* lineNo */
     21,                  /* colNo */
     "call_customLayers", /* fName */
@@ -296,28 +280,28 @@ static emlrtRTEInfo nr_emlrtRTEI = {
 };
 
 static emlrtRSInfo mj_emlrtRSI = {
-    51,                       /* lineNo */
+    44,                       /* lineNo */
     "callMatlabCustomLayers", /* fcnName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
 };
 
 static emlrtRSInfo nj_emlrtRSI = {
-    56,                       /* lineNo */
-    "callMatlabCustomLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
-};
-
-static emlrtRSInfo oj_emlrtRSI = {
-    57,                       /* lineNo */
+    51,                       /* lineNo */
     "callMatlabCustomLayers", /* fcnName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
 };
 
 static emlrtRSInfo pj_emlrtRSI = {
-    44,                       /* lineNo */
+    56,                       /* lineNo */
+    "callMatlabCustomLayers", /* fcnName */
+    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
+};
+
+static emlrtRSInfo qj_emlrtRSI = {
+    57,                       /* lineNo */
     "callMatlabCustomLayers", /* fcnName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
@@ -335,8 +319,6 @@ static void e_emlrt_marshallIn(const emlrtStack *sp, const mxArray *tempOut,
 static void emlrt_marshallIn(const emlrtStack *sp,
                              const mxArray *a__output_of_size_,
                              const char_T *identifier, real_T y[2]);
-
-static const mxArray *emlrt_marshallOut(const emxArray_real_T *u);
 
 static void f_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
                                const emlrtMsgIdentifier *parentId,
@@ -374,7 +356,6 @@ static real_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *tempRough,
 {
   emlrtMsgIdentifier thisId;
   real_T y;
-  emlrtAssertMATLABThread((emlrtCTX)sp, &b_emlrtRTEI);
   thisId.fIdentifier = (const char_T *)identifier;
   thisId.fParent = NULL;
   thisId.bParentIsCell = false;
@@ -387,7 +368,6 @@ static void e_emlrt_marshallIn(const emlrtStack *sp, const mxArray *tempOut,
                                const char_T *identifier, emxArray_real_T *y)
 {
   emlrtMsgIdentifier thisId;
-  emlrtAssertMATLABThread((emlrtCTX)sp, &b_emlrtRTEI);
   thisId.fIdentifier = (const char_T *)identifier;
   thisId.fParent = NULL;
   thisId.bParentIsCell = false;
@@ -400,7 +380,6 @@ static void emlrt_marshallIn(const emlrtStack *sp,
                              const char_T *identifier, real_T y[2])
 {
   emlrtMsgIdentifier thisId;
-  emlrtAssertMATLABThread((emlrtCTX)sp, &b_emlrtRTEI);
   thisId.fIdentifier = (const char_T *)identifier;
   thisId.fParent = NULL;
   thisId.bParentIsCell = false;
@@ -408,33 +387,11 @@ static void emlrt_marshallIn(const emlrtStack *sp,
   emlrtDestroyArray(&a__output_of_size_);
 }
 
-static const mxArray *emlrt_marshallOut(const emxArray_real_T *u)
-{
-  const mxArray *m;
-  const mxArray *y;
-  real_T *pData;
-  int32_T iv[2];
-  int32_T b_i;
-  int32_T i;
-  y = NULL;
-  iv[0] = 1;
-  iv[1] = u->size[1];
-  m = emlrtCreateNumericArray(2, &iv[0], mxDOUBLE_CLASS, mxREAL);
-  pData = emlrtMxGetPr(m);
-  i = 0;
-  for (b_i = 0; b_i < u->size[1]; b_i++) {
-    pData[i] = u->data[b_i];
-    i++;
-  }
-  emlrtAssign(&y, m);
-  return y;
-}
-
 static void f_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
                                const emlrtMsgIdentifier *parentId,
                                emxArray_real_T *y)
 {
-  kb_emlrt_marshallIn(sp, emlrtAlias(u), parentId, y);
+  pb_emlrt_marshallIn(sp, emlrtAlias(u), parentId, y);
   emlrtDestroyArray(&u);
 }
 
@@ -593,7 +550,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   b_y = NULL;
   m = emlrtCreateDoubleScalar(contrast);
   emlrtAssign(&b_y, m);
-  b_st.site = &pj_emlrtRSI;
+  b_st.site = &mj_emlrtRSI;
   feval(&b_st, y, emlrt_marshallOut(params), b_emlrt_marshallOut(bulkIn),
         b_emlrt_marshallOut(bulkOuts), b_y, &emlrtMCI, &tempOut, &tempRough);
   /*  Tell coder n is doubles by defining it (otherwise 'size(n)' seems to
@@ -603,7 +560,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  'tempOut', and use n to allocate the correct number of elements to
    * 'output' */
   /*  by filling output with zeros (i.e. output is an array of doubles) */
-  b_st.site = &mj_emlrtRSI;
+  b_st.site = &nj_emlrtRSI;
   emlrt_marshallIn(&b_st, size(&b_st, emlrtAlias(tempOut), &b_emlrtMCI),
                    "<output of size>", n);
   if (!(n[0] >= 0.0)) {
@@ -620,9 +577,9 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   }
   /*  Copy the mxArrays to our doubles arrays, which then makes coder cast */
   /*  the mxArrays to double. */
-  b_st.site = &nj_emlrtRSI;
+  b_st.site = &pj_emlrtRSI;
   *sRough = c_emlrt_marshallIn(&b_st, emlrtAlias(tempRough), "tempRough");
-  b_st.site = &oj_emlrtRSI;
+  b_st.site = &qj_emlrtRSI;
   e_emlrt_marshallIn(&b_st, emlrtAlias(tempOut), "tempOut", output);
   emlrtDestroyArray(&tempOut);
   emlrtDestroyArray(&tempRough);
@@ -669,7 +626,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
                                       (emlrtCTX)sp);
       }
       if (b_i + 1 > output->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, output->size[0], &ay_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, output->size[0], &dy_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (4 > output->size[1]) {
@@ -695,14 +652,14 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
         loop_ub_tmp = bulkIn->size[0];
         i1 = bulkOuts->size[0];
         bulkOuts->size[0] = bulkIn->size[0];
-        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &nr_emlrtRTEI);
+        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &tr_emlrtRTEI);
         for (i1 = 0; i1 < loop_ub_tmp; i1++) {
           bulkOuts->data[i1] = bulkIn->data[i1];
         }
       } else {
         i1 = bulkOuts->size[0];
         bulkOuts->size[0] = 1;
-        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &mr_emlrtRTEI);
+        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &sr_emlrtRTEI);
         bulkOuts->data[0] = bulkOut;
       }
       d = (1.0 - thisHydration) * output->data[b_i + output->size[0]];
@@ -711,7 +668,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
         bulkOuts->data[i1] = thisHydration * bulkOuts->data[i1] + d;
       }
       if (1 > bulkOuts->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(1, 1, bulkOuts->size[0], &yx_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(1, 1, bulkOuts->size[0], &cy_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (b_i + 1 > newOutLayers->size[0]) {
@@ -828,7 +785,6 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   st.site = &bi_emlrtRSI;
   tempOut = NULL;
   tempRough = NULL;
-  emlrtAssertMATLABThread(&st, &emlrtRTEI);
   /*  Excecute a custom model function in the base Matlab workspace. */
   /*  This function uses feval to cause Matlab coder to pass excecution */
   /*  of the function named in 'fname' back to the base Matlab workspace, */
@@ -884,7 +840,7 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   c_y = NULL;
   m = emlrtCreateDoubleScalar(contrast);
   emlrtAssign(&c_y, m);
-  b_st.site = &pj_emlrtRSI;
+  b_st.site = &mj_emlrtRSI;
   feval(&b_st, y, emlrt_marshallOut(params), b_y, b_emlrt_marshallOut(bulkOuts),
         c_y, &emlrtMCI, &tempOut, &tempRough);
   /*  Tell coder n is doubles by defining it (otherwise 'size(n)' seems to
@@ -894,7 +850,7 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  'tempOut', and use n to allocate the correct number of elements to
    * 'output' */
   /*  by filling output with zeros (i.e. output is an array of doubles) */
-  b_st.site = &mj_emlrtRSI;
+  b_st.site = &nj_emlrtRSI;
   emlrt_marshallIn(&b_st, size(&b_st, emlrtAlias(tempOut), &b_emlrtMCI),
                    "<output of size>", n);
   emxFree_real_T(&bulkOuts);
@@ -912,9 +868,9 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   }
   /*  Copy the mxArrays to our doubles arrays, which then makes coder cast */
   /*  the mxArrays to double. */
-  b_st.site = &nj_emlrtRSI;
+  b_st.site = &pj_emlrtRSI;
   *sRough = c_emlrt_marshallIn(&b_st, emlrtAlias(tempRough), "tempRough");
-  b_st.site = &oj_emlrtRSI;
+  b_st.site = &qj_emlrtRSI;
   e_emlrt_marshallIn(&b_st, emlrtAlias(tempOut), "tempOut", output);
   emlrtDestroyArray(&tempOut);
   emlrtDestroyArray(&tempRough);

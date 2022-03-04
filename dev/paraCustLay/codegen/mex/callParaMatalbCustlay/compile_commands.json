@@ -1,0 +1,56 @@
+[
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/callParaMatalbCustlay",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=callParaMatalbCustlay_mex -c  callParaMatalbCustlay_data.c -o build/maci64/callParaMatalbCustlay_data.o",
+    "file": "callParaMatalbCustlay_data.c",
+    "output": "build/maci64/callParaMatalbCustlay_data.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/callParaMatalbCustlay",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=callParaMatalbCustlay_mex -c  rt_nonfinite.c -o build/maci64/rt_nonfinite.o",
+    "file": "rt_nonfinite.c",
+    "output": "build/maci64/rt_nonfinite.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/callParaMatalbCustlay",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=callParaMatalbCustlay_mex -c  callParaMatalbCustlay_initialize.c -o build/maci64/callParaMatalbCustlay_initialize.o",
+    "file": "callParaMatalbCustlay_initialize.c",
+    "output": "build/maci64/callParaMatalbCustlay_initialize.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/callParaMatalbCustlay",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=callParaMatalbCustlay_mex -c  callParaMatalbCustlay_terminate.c -o build/maci64/callParaMatalbCustlay_terminate.o",
+    "file": "callParaMatalbCustlay_terminate.c",
+    "output": "build/maci64/callParaMatalbCustlay_terminate.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/callParaMatalbCustlay",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=callParaMatalbCustlay_mex -c  callParaMatalbCustlay.c -o build/maci64/callParaMatalbCustlay.o",
+    "file": "callParaMatalbCustlay.c",
+    "output": "build/maci64/callParaMatalbCustlay.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/callParaMatalbCustlay",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=callParaMatalbCustlay_mex -c  interface/_coder_callParaMatalbCustlay_api.c -o build/maci64/_coder_callParaMatalbCustlay_api.o",
+    "file": "interface/_coder_callParaMatalbCustlay_api.c",
+    "output": "build/maci64/_coder_callParaMatalbCustlay_api.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/callParaMatalbCustlay",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=callParaMatalbCustlay_mex -c  interface/_coder_callParaMatalbCustlay_mex.c -o build/maci64/_coder_callParaMatalbCustlay_mex.o",
+    "file": "interface/_coder_callParaMatalbCustlay_mex.c",
+    "output": "build/maci64/_coder_callParaMatalbCustlay_mex.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/callParaMatalbCustlay",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=callParaMatalbCustlay_mex -c  interface/_coder_callParaMatalbCustlay_info.c -o build/maci64/_coder_callParaMatalbCustlay_info.o",
+    "file": "interface/_coder_callParaMatalbCustlay_info.c",
+    "output": "build/maci64/_coder_callParaMatalbCustlay_info.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/callParaMatalbCustlay",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=callParaMatalbCustlay_mex -c  /Applications/MATLAB_R2021a.app/extern/version/c_mexapi_version.c -o build/maci64/c_mexapi_version.o",
+    "file": "/Applications/MATLAB_R2021a.app/extern/version/c_mexapi_version.c",
+    "output": "build/maci64/c_mexapi_version.o"
+  }
+]

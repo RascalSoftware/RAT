@@ -257,7 +257,7 @@ static emlrtECInfo g_emlrtECI = {
     "adaptive_new.m" /* pName */
 };
 
-static emlrtRTEInfo nb_emlrtRTEI = {
+static emlrtRTEInfo lb_emlrtRTEI = {
     26,              /* lineNo */
     27,              /* colNo */
     "unaryMinOrMax", /* fName */
@@ -265,7 +265,7 @@ static emlrtRTEInfo nb_emlrtRTEI = {
     "unaryMinOrMax.m" /* pName */
 };
 
-static emlrtRTEInfo ob_emlrtRTEI = {
+static emlrtRTEInfo mb_emlrtRTEI = {
     124,             /* lineNo */
     27,              /* colNo */
     "unaryMinOrMax", /* fName */
@@ -630,7 +630,7 @@ static emlrtECInfo t_emlrtECI = {
     "adaptive_new.m" /* pName */
 };
 
-static emlrtBCInfo dy_emlrtBCI = {
+static emlrtBCInfo gy_emlrtBCI = {
     -1,        /* iFirst */
     -1,        /* iLast */
     21,        /* lineNo */
@@ -642,7 +642,7 @@ static emlrtBCInfo dy_emlrtBCI = {
     0            /* checkKind */
 };
 
-static emlrtBCInfo ey_emlrtBCI = {
+static emlrtBCInfo hy_emlrtBCI = {
     -1,        /* iFirst */
     -1,        /* iLast */
     22,        /* lineNo */
@@ -1113,11 +1113,11 @@ static void b_normalizeFunction(const emlrtStack *sp, const emxArray_real_T *x,
     /*  SLD = sldProfile; */
     /* SLD = getappdata(0,'sldFuncSLD'); */
     if (1 > sldProfile->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, sldProfile->size[1], &dy_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, sldProfile->size[1], &gy_emlrtBCI,
                                     &st);
     }
     if (2 > sldProfile->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, sldProfile->size[1], &ey_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, sldProfile->size[1], &hy_emlrtBCI,
                                     &st);
     }
     b_st.site = &fe_emlrtRSI;
@@ -1374,7 +1374,7 @@ static void calculateCentralAngles(const emlrtStack *sp,
     p = false;
   }
   if (!p) {
-    emlrtErrorWithMessageIdR2018a(&f_st, &rb_emlrtRTEI, "MATLAB:dimagree",
+    emlrtErrorWithMessageIdR2018a(&f_st, &pb_emlrtRTEI, "MATLAB:dimagree",
                                   "MATLAB:dimagree", 0);
   }
   f_st.site = &kf_emlrtRSI;
@@ -1416,7 +1416,7 @@ static void calculateCentralAngles(const emlrtStack *sp,
     p = false;
   }
   if (!p) {
-    emlrtErrorWithMessageIdR2018a(&g_st, &rb_emlrtRTEI, "MATLAB:dimagree",
+    emlrtErrorWithMessageIdR2018a(&g_st, &pb_emlrtRTEI, "MATLAB:dimagree",
                                   "MATLAB:dimagree", 0);
   }
   if (XYdata->size[0] <= y->size[0]) {
@@ -1443,12 +1443,12 @@ static void calculateCentralAngles(const emlrtStack *sp,
   c_st.site = &re_emlrtRSI;
   d_st.site = &se_emlrtRSI;
   if (XYdata->size[0] == 1) {
-    emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&d_st, &lb_emlrtRTEI,
                                   "Coder:toolbox:autoDimIncompatibility",
                                   "Coder:toolbox:autoDimIncompatibility", 0);
   }
   if (XYdata->size[0] < 1) {
-    emlrtErrorWithMessageIdR2018a(&d_st, &ob_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&d_st, &mb_emlrtRTEI,
                                   "Coder:toolbox:eml_min_or_max_varDimZero",
                                   "Coder:toolbox:eml_min_or_max_varDimZero", 0);
   }
@@ -1677,7 +1677,7 @@ static void calculateCentralAngles(const emlrtStack *sp,
     p = false;
   }
   if (!p) {
-    emlrtErrorWithMessageIdR2018a(&f_st, &rb_emlrtRTEI, "MATLAB:dimagree",
+    emlrtErrorWithMessageIdR2018a(&f_st, &pb_emlrtRTEI, "MATLAB:dimagree",
                                   "MATLAB:dimagree", 0);
   }
   f_st.site = &kf_emlrtRSI;
@@ -1732,7 +1732,7 @@ static void calculateCentralAngles(const emlrtStack *sp,
     p = false;
   }
   if (!p) {
-    emlrtErrorWithMessageIdR2018a(&g_st, &rb_emlrtRTEI, "MATLAB:dimagree",
+    emlrtErrorWithMessageIdR2018a(&g_st, &pb_emlrtRTEI, "MATLAB:dimagree",
                                   "MATLAB:dimagree", 0);
   }
   g_st.site = &mf_emlrtRSI;
@@ -2450,7 +2450,7 @@ void adaptive_new(const emlrtStack *sp, const emxArray_real_T *sldProfile,
   b_st.site = &nb_emlrtRSI;
   c_st.site = &ob_emlrtRSI;
   if (hiVal->size[0] != newDomain->size[0]) {
-    emlrtErrorWithMessageIdR2018a(&c_st, &jb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&c_st, &hb_emlrtRTEI,
                                   "MATLAB:catenate:matrixDimensionMismatch",
                                   "MATLAB:catenate:matrixDimensionMismatch", 0);
   }
@@ -2492,13 +2492,13 @@ void adaptive_new(const emlrtStack *sp, const emxArray_real_T *sldProfile,
     c_st.site = &qd_emlrtRSI;
     d_st.site = &rd_emlrtRSI;
     if (dataPoints->size[0] == 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&d_st, &lb_emlrtRTEI,
                                     "Coder:toolbox:autoDimIncompatibility",
                                     "Coder:toolbox:autoDimIncompatibility", 0);
     }
     if (dataPoints->size[0] < 1) {
       emlrtErrorWithMessageIdR2018a(
-          &d_st, &ob_emlrtRTEI, "Coder:toolbox:eml_min_or_max_varDimZero",
+          &d_st, &mb_emlrtRTEI, "Coder:toolbox:eml_min_or_max_varDimZero",
           "Coder:toolbox:eml_min_or_max_varDimZero", 0);
     }
     e_st.site = &me_emlrtRSI;
@@ -2535,7 +2535,7 @@ void adaptive_new(const emlrtStack *sp, const emxArray_real_T *sldProfile,
     c_st.site = &re_emlrtRSI;
     d_st.site = &se_emlrtRSI;
     if (dataPoints->size[0] == 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&d_st, &lb_emlrtRTEI,
                                     "Coder:toolbox:autoDimIncompatibility",
                                     "Coder:toolbox:autoDimIncompatibility", 0);
     }
@@ -3215,7 +3215,7 @@ void b_adaptive_new(const emlrtStack *sp, const emxArray_real_T *sldProfile,
   b_st.site = &nb_emlrtRSI;
   c_st.site = &ob_emlrtRSI;
   if (hiVal->size[0] != newDomain->size[0]) {
-    emlrtErrorWithMessageIdR2018a(&c_st, &jb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&c_st, &hb_emlrtRTEI,
                                   "MATLAB:catenate:matrixDimensionMismatch",
                                   "MATLAB:catenate:matrixDimensionMismatch", 0);
   }
@@ -3257,13 +3257,13 @@ void b_adaptive_new(const emlrtStack *sp, const emxArray_real_T *sldProfile,
     c_st.site = &qd_emlrtRSI;
     d_st.site = &rd_emlrtRSI;
     if (dataPoints->size[0] == 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&d_st, &lb_emlrtRTEI,
                                     "Coder:toolbox:autoDimIncompatibility",
                                     "Coder:toolbox:autoDimIncompatibility", 0);
     }
     if (dataPoints->size[0] < 1) {
       emlrtErrorWithMessageIdR2018a(
-          &d_st, &ob_emlrtRTEI, "Coder:toolbox:eml_min_or_max_varDimZero",
+          &d_st, &mb_emlrtRTEI, "Coder:toolbox:eml_min_or_max_varDimZero",
           "Coder:toolbox:eml_min_or_max_varDimZero", 0);
     }
     e_st.site = &me_emlrtRSI;
@@ -3300,7 +3300,7 @@ void b_adaptive_new(const emlrtStack *sp, const emxArray_real_T *sldProfile,
     c_st.site = &re_emlrtRSI;
     d_st.site = &se_emlrtRSI;
     if (dataPoints->size[0] == 1) {
-      emlrtErrorWithMessageIdR2018a(&d_st, &nb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(&d_st, &lb_emlrtRTEI,
                                     "Coder:toolbox:autoDimIncompatibility",
                                     "Coder:toolbox:autoDimIncompatibility", 0);
     }

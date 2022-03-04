@@ -21,7 +21,7 @@ static emlrtRSInfo mb_emlrtRSI = {
     "indexShapeCheck.m" /* pathName */
 };
 
-static emlrtRTEInfo kb_emlrtRTEI = {
+static emlrtRTEInfo ib_emlrtRTEI = {
     121,           /* lineNo */
     5,             /* colNo */
     "errOrWarnIf", /* fName */
@@ -44,7 +44,7 @@ void indexShapeCheck(const emlrtStack *sp, int32_T matrixSize,
   }
   st.site = &mb_emlrtRSI;
   if (c) {
-    emlrtErrorWithMessageIdR2018a(&st, &kb_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&st, &ib_emlrtRTEI,
                                   "Coder:FE:PotentialVectorVector",
                                   "Coder:FE:PotentialVectorVector", 0);
   }

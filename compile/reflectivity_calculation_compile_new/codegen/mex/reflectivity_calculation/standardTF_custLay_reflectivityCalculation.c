@@ -44,7 +44,7 @@ static emlrtRSInfo vh_emlrtRSI = {
 };
 
 static emlrtRSInfo wh_emlrtRSI = {
-    94,                                           /* lineNo */
+    100,                                          /* lineNo */
     "standardTF_custLay_reflectivityCalculation", /* fcnName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
     "standardTF_custLay_reflectivityCalculation.m" /* pathName */
@@ -59,7 +59,7 @@ static emlrtDCInfo tb_emlrtDCI = {
     1                                               /* checkKind */
 };
 
-static emlrtRTEInfo ic_emlrtRTEI = {
+static emlrtRTEInfo gc_emlrtRTEI = {
     30,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
@@ -67,7 +67,7 @@ static emlrtRTEInfo ic_emlrtRTEI = {
     "standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo jc_emlrtRTEI = {
+static emlrtRTEInfo hc_emlrtRTEI = {
     35,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
@@ -75,7 +75,7 @@ static emlrtRTEInfo jc_emlrtRTEI = {
     "standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo kc_emlrtRTEI = {
+static emlrtRTEInfo ic_emlrtRTEI = {
     40,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
@@ -83,7 +83,7 @@ static emlrtRTEInfo kc_emlrtRTEI = {
     "standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo lc_emlrtRTEI = {
+static emlrtRTEInfo jc_emlrtRTEI = {
     45,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
@@ -91,7 +91,7 @@ static emlrtRTEInfo lc_emlrtRTEI = {
     "standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo mc_emlrtRTEI = {
+static emlrtRTEInfo kc_emlrtRTEI = {
     50,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
@@ -99,7 +99,7 @@ static emlrtRTEInfo mc_emlrtRTEI = {
     "standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtRTEInfo nc_emlrtRTEI = {
+static emlrtRTEInfo lc_emlrtRTEI = {
     55,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
@@ -180,7 +180,7 @@ static emlrtBCInfo tn_emlrtBCI = {
 };
 
 static emlrtDCInfo ub_emlrtDCI = {
-    86,                                           /* lineNo */
+    92,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -189,7 +189,7 @@ static emlrtDCInfo ub_emlrtDCI = {
 };
 
 static emlrtDCInfo vb_emlrtDCI = {
-    86,                                           /* lineNo */
+    92,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -198,7 +198,7 @@ static emlrtDCInfo vb_emlrtDCI = {
 };
 
 static emlrtDCInfo wb_emlrtDCI = {
-    87,                                           /* lineNo */
+    93,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -207,7 +207,7 @@ static emlrtDCInfo wb_emlrtDCI = {
 };
 
 static emlrtDCInfo xb_emlrtDCI = {
-    88,                                           /* lineNo */
+    94,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -216,7 +216,7 @@ static emlrtDCInfo xb_emlrtDCI = {
 };
 
 static emlrtDCInfo yb_emlrtDCI = {
-    89,                                           /* lineNo */
+    95,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -225,7 +225,7 @@ static emlrtDCInfo yb_emlrtDCI = {
 };
 
 static emlrtDCInfo ac_emlrtDCI = {
-    90,                                           /* lineNo */
+    96,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -234,7 +234,7 @@ static emlrtDCInfo ac_emlrtDCI = {
 };
 
 static emlrtDCInfo bc_emlrtDCI = {
-    91,                                           /* lineNo */
+    97,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -252,7 +252,7 @@ static emlrtDCInfo cc_emlrtDCI = {
 };
 
 static emlrtDCInfo dc_emlrtDCI = {
-    92,                                           /* lineNo */
+    98,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -261,7 +261,7 @@ static emlrtDCInfo dc_emlrtDCI = {
 };
 
 static emlrtDCInfo ec_emlrtDCI = {
-    95,                                           /* lineNo */
+    101,                                          /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -414,7 +414,7 @@ static emlrtBCInfo go_emlrtBCI = {
 };
 
 static emlrtRTEInfo kn_emlrtRTEI = {
-    86,                                           /* lineNo */
+    92,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -422,7 +422,7 @@ static emlrtRTEInfo kn_emlrtRTEI = {
 };
 
 static emlrtRTEInfo ln_emlrtRTEI = {
-    87,                                           /* lineNo */
+    93,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -430,7 +430,7 @@ static emlrtRTEInfo ln_emlrtRTEI = {
 };
 
 static emlrtRTEInfo mn_emlrtRTEI = {
-    88,                                           /* lineNo */
+    94,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -438,7 +438,7 @@ static emlrtRTEInfo mn_emlrtRTEI = {
 };
 
 static emlrtRTEInfo nn_emlrtRTEI = {
-    89,                                           /* lineNo */
+    95,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -446,7 +446,7 @@ static emlrtRTEInfo nn_emlrtRTEI = {
 };
 
 static emlrtRTEInfo on_emlrtRTEI = {
-    90,                                           /* lineNo */
+    96,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -454,7 +454,7 @@ static emlrtRTEInfo on_emlrtRTEI = {
 };
 
 static emlrtRTEInfo pn_emlrtRTEI = {
-    91,                                           /* lineNo */
+    97,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -470,7 +470,7 @@ static emlrtRTEInfo qn_emlrtRTEI = {
 };
 
 static emlrtRTEInfo rn_emlrtRTEI = {
-    92,                                           /* lineNo */
+    98,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -478,7 +478,7 @@ static emlrtRTEInfo rn_emlrtRTEI = {
 };
 
 static emlrtRTEInfo sn_emlrtRTEI = {
-    95,                                           /* lineNo */
+    101,                                          /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -550,7 +550,7 @@ static emlrtRTEInfo bo_emlrtRTEI = {
 };
 
 static emlrtRTEInfo co_emlrtRTEI = {
-    96,                                           /* lineNo */
+    102,                                          /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
     "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
@@ -749,7 +749,7 @@ void c_standardTF_custLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &ic_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &gc_emlrtRTEI, (emlrtCTX)sp);
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &un_emlrtRTEI);
@@ -819,7 +819,7 @@ void c_standardTF_custLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &jc_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &hc_emlrtRTEI, (emlrtCTX)sp);
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &un_emlrtRTEI);
@@ -887,7 +887,7 @@ void c_standardTF_custLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &kc_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &ic_emlrtRTEI, (emlrtCTX)sp);
   i = shifted_data->size[0];
   shifted_data->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &un_emlrtRTEI);
@@ -948,7 +948,7 @@ void c_standardTF_custLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &lc_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &jc_emlrtRTEI, (emlrtCTX)sp);
   i = layerSlds->size[0];
   layerSlds->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &un_emlrtRTEI);
@@ -1005,7 +1005,7 @@ void c_standardTF_custLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &mc_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &kc_emlrtRTEI, (emlrtCTX)sp);
   i = sldProfiles->size[0];
   sldProfiles->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &un_emlrtRTEI);
@@ -1073,7 +1073,7 @@ void c_standardTF_custLay_reflectivi(
   }
   emlrtForLoopVectorCheckR2021a(
       1.0, 1.0, problemDef->numberOfContrasts, mxDOUBLE_CLASS,
-      (int32_T)problemDef->numberOfContrasts, &nc_emlrtRTEI, (emlrtCTX)sp);
+      (int32_T)problemDef->numberOfContrasts, &lc_emlrtRTEI, (emlrtCTX)sp);
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
   emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &un_emlrtRTEI);
@@ -1202,6 +1202,13 @@ void c_standardTF_custLay_reflectivi(
         problem->nbairs, problem->nbsubs, problem->resolutions,
         problem->calculations.all_chis, reflectivity, Simulation, shifted_data,
         layerSlds, sldProfiles, allLayers, problem->allSubRough);
+    /*            [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+     */
+    /*               Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+     */
+    /*               allRoughs] =
+     * dev_custlay_paraContrasts(problemDef,problemDef_cells,... */
+    /*               problemDef_limits,controls); */
     break;
   }
   st.site = &wh_emlrtRSI;

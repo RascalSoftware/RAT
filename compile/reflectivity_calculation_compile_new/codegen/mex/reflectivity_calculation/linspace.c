@@ -17,7 +17,7 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRTEInfo pb_emlrtRTEI =
+static emlrtRTEInfo nb_emlrtRTEI =
     {
         33,         /* lineNo */
         37,         /* colNo */
@@ -45,7 +45,7 @@ void linspace(const emlrtStack *sp, real_T d1, real_T d2, real_T n,
   int32_T y_tmp_tmp;
   if (!(n >= 0.0)) {
     if (muDoubleScalarIsNaN(n)) {
-      emlrtErrorWithMessageIdR2018a(sp, &pb_emlrtRTEI,
+      emlrtErrorWithMessageIdR2018a(sp, &nb_emlrtRTEI,
                                     "Coder:toolbox:MustNotBeNaN",
                                     "Coder:toolbox:MustNotBeNaN", 3, 4, 1, "N");
     }

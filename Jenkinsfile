@@ -2,7 +2,7 @@ pipeline {
     agent none
     stages {
         // Start a parallel pool of n threads using matlab and Build it on linux
-        stage ('Build on Windows, Linux') {
+        stage ('Starting Build on Windows, Linux') {
             parallel {
                 stage('Build on Linux') {
                     agent {
@@ -11,9 +11,13 @@ pipeline {
                     environment{
                         PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"
                         }
+                    // time out after 20 minutes
+                    timeout(minutes: 20)
                     steps {
 
+                        echo 'Building Mex on Linux'
                         runMATLABCommand '''BuildScript'''
+                        echo 'Building Mex on Linux complete'
                         }
                 }
 
@@ -25,29 +29,16 @@ pipeline {
                     environment{
                         win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"
                     }
-                    steps {
+                    // time out after 20 minutes
+                    timeout(minutes: 20)
 
+                    steps {
+                        echo 'Building Mex on Windows'
                         runMATLABCommand '''BuildScript'''
+                        echo 'Building Mex on Windows complete'
                     }   
 
                 }
-
-                // Start a parallel pool of n threads using matlab and Build it on Macos
-                /* 
-                stage('Build on Macos') {
-                    agent {
-                        label 'RAT_Macos'
-                    }
-                    environment{
-                        PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"
-                    }
-                    steps {
-                        sh 'echo "Starting parallel pool "'
-                        runMATLABCommand 'parpool()'
-                        runMATLABCommand 'pwd'
-                        runMATLABCommand ''' addRatPaths;cd compile; cd reflectivity_calculation_compile_new;reflectivity_calculation_compile_script'''
-                    } 
-                */
 
             }
         }
@@ -58,10 +49,14 @@ pipeline {
                 agent{
                     label 'RAT_Windows'
                 }
+
+                // time out after 20 minutes
+                timeout(minutes: 20)
                 steps {
-                    echo 'Starting parallel pool'
+                    echo 'Starting parallel pool to compile and run tests on Windows'
                     runMATLABCommand 'TestRatScript'
-                    //runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
+                    echo 'Tests on Windows complete'
+
                     }
 
                 }
@@ -70,111 +65,21 @@ pipeline {
                     agent{
                     label 'RAT_Linux'
                         }
+                    // time out after 20 minutes
+                    timeout(minutes: 20)
                     steps {
-                    echo 'Starting parallel pool'
+                    // 
+                    echo 'Starting parallel pool to compile and run tests on Linux'
                     runMATLABCommand 'TestRatScript'
-                    //runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
-                        }
-                }
+                    echo 'Tests on Linux complete'
+                        } // end steps
+                }// end stage
 
-                //stage ('Run Tests on macOS'){
-                    //agent{
-                        // label 'RAT_mac'
-                        //}
-                    //steps {
-                        //runMATLABCommand 'pwd'
-                        //runMATLABCommand ''' cd testSuite; results = runtests'''
-                        //}
-                //}
-
-
-
-            }
-        }
+            }// end parallel
+        }// end stage
                 
-
-
-
-
-               
-
-
-
-       
-
-    
-    
-
-
-
-
-
-        //TESTS
-   
-        
-
         
     } // stages
 
 } //pipeline
         
-
-        
- /*
-    agent {
-        label 'RAT_Linux' && 'RAT_Windows'
-    }
-
-
-    environment {
-        win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"   // Windows agent NEED TO EDIT PIPELINE
-        //PATH="/opt/modules-common/software/MATLAB/R2020b/bin:${PATH}"   // Sethu VMLinux agent
-        PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"                     // RAT_Linux 
-        // PATH = "/Applications/MATLAB_R2021a.app/bin:${PATH}"   // macOS agent
-    }
-    */
-
-
-    /*stage('Open Project env') {
-            steps {
-                runMATLABCommand '''RAT= openProject("RAT_demo.prj")'''
-                //runMATLABCommand 'RAT = currentProject'
-            }
-        }
-        stage('Run Tests') {
-            steps {
-                echo 'Temporarily Skipping this part' 
-            }
-        }
-        stage('Code Generation') {
-            steps {
-                echo 'Temporarily Skipping this part' 
-            }
-        } */
-
-
-
-        // run sample project on Windows,Linux,MacOS
-
-
-
-
-        /*stage ('Run Sample Project on Linux') {
-            agent{
-                label 'RAT_Linux'
-            }
-            steps {
-                runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths; cd tests; cd 'monolayer 8 contrasts';DSPCscript'''
-            }
-        }
-        
-        stage('Run Sample Project on Win') {
-            agent{
-                label 'RAT_Windows'
-            }
-            steps {
-                runMATLABCommand 'pwd'
-                runMATLABCommand ''' addRatPaths; cd tests;cd 'monolayer 8 contrasts';DSPCscript'''
-            }
-        }*/

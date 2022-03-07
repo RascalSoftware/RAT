@@ -1,4 +1,7 @@
 pipeline {
+    options {
+        timeout(time: 1, unit: 'MINUTES')
+    }
     agent none
     stages {
         // Start a parallel pool of n threads using matlab and Build it on linux
@@ -11,8 +14,7 @@ pipeline {
                     environment{
                         PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"
                         }
-                    // time out after 20 minutes
-                    timeout(minutes: 20)
+
                     steps {
 
                         echo 'Building Mex on Linux'
@@ -29,8 +31,6 @@ pipeline {
                     environment{
                         win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"
                     }
-                    // time out after 20 minutes
-                    timeout(minutes: 20)
 
                     steps {
                         echo 'Building Mex on Windows'
@@ -50,8 +50,6 @@ pipeline {
                     label 'RAT_Windows'
                 }
 
-                // time out after 20 minutes
-                timeout(minutes: 20)
                 steps {
                     echo 'Starting parallel pool to compile and run tests on Windows'
                     runMATLABCommand 'TestRatScript'
@@ -65,8 +63,7 @@ pipeline {
                     agent{
                     label 'RAT_Linux'
                         }
-                    // time out after 20 minutes
-                    timeout(minutes: 20)
+
                     steps {
                     // 
                     echo 'Starting parallel pool to compile and run tests on Linux'

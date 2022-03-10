@@ -40,7 +40,7 @@ classdef customFileClass < handle
         
         function obj = addFile(obj,varargin)
             
-            if isempty(varargin{:})
+            if isempty(varargin)
                 
                 % Nothing supplied - add empty data row
                 nameVal = obj.autoFileNameCounter();
@@ -63,7 +63,7 @@ classdef customFileClass < handle
                             error('Single input is expected to be a custom object name');
                         end
                         
-                        newRow = {newName,"","octave","pwd"};
+                        newRow = {newName,"","matlab","pwd"};
                         appendNewRow(obj,newRow);%,newUserDataRow);
                         
                     case 2

@@ -24,7 +24,9 @@ numberOfContrasts = problemDef.numberOfContrasts;
 data = cell(1,numberOfContrasts);
 for i = 1:numberOfContrasts
     thisData = problemDef_cells{2}{i};
-    data{i} = [thisData(:,1:2)];
+    if ~isempty(thisData)
+        data{i} = [thisData(:,1:2)];
+    end
     %data{i}.problem = problem;
 end
 

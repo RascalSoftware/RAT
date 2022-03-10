@@ -221,7 +221,7 @@ classdef backgroundsClass < handle
                 error('Name must be a character array');
             end
 
-            obj.backgrounds.setValue(in);
+            obj.backgrounds.setValue({in{1}, 'name', in{2}});
             
         end
         

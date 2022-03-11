@@ -108,7 +108,7 @@ if isfield(outProblemStruct,'fitpars')
     result.bestFitPars = outProblemStruct.fitpars;
 end
 
-if any((strcmpi(controls.proc,{'bayes'})))
+if any((strcmpi(controls.proc,{'bayes','NS'})))
     result = mergeStructs(result,bayesResults);
 end
 

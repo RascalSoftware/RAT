@@ -1,4 +1,4 @@
-function  [problemDef,result] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls)
+function  [problemDef,outProblem,result,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls)
 debug = 0;
 
 checks = controls.checks;
@@ -49,10 +49,32 @@ switch debug
         logZ = 1;
 end
 
-result.logX = logZ;
-result.nest_samples = nest_samples;
-result.post_samples = post_samples;
-result.fitNames = fitNames;
+% output.results = results;
+% output.chain = chain;
+% output.s2chain = s2chain;
+% output.sschain = sschain;
+% output.bestPars = results.mean;
+% output.data = data;
+
+chain = nest_samples(:,1:end-1);
+
+bayesOutputs.bestPars = mean(chain);
+bayesOutputs.chain = chain;
+bayesOutputs.fitNames = fitNames;
+bayesOutputs.s2chain = [];
+bayesOutputs.sschain = [];
+bayesOutputs.data = problemDef_cells{2};
+bayesOutputs.results.logZ = logZ;
+bayesOutputs.results.mean = mean(chain);
+
+allProblem = data;
+
+[problemDef,outProblem,result,bayesResults] = processBayes_newMethod(bayesOutputs,allProblem);
+
+% result.logX = logZ;
+% result.nest_samples = nest_samples;
+% result.post_samples = post_samples;
+% result.fitNames = fitNames;
 %xy_result = parseBayesResults(nest_samples,problemDef,problemDef_cells,problemDef_limits,controls);
 %result.xyResults = xy_result;
 

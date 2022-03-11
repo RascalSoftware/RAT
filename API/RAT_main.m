@@ -43,18 +43,13 @@ switch action
             fprintf('\nRunning DRAM\n\n');
         end        
         [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls);
-%         [best, intervals, posteriors] = calcMCMCstatRefErrors(bayesResults,outProblemDef,problemDef_cells,problemDef_limits,controls);
-%         bayesResults.best = best;
-%         bayesResults.posteriors = posteriors;
-%         bayesResults.intervals = intervals;
 
     case 'NS'
         if ~strcmpi(controls.display,'off')
             fprintf('\nRunning Nested Sampler\n\n');
         end            
-        [outProblemDef,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
-        % TODO: The outputs aren't in the correct format yet, so NS crashes
-        % at this point.
+        [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
+
         disp('debug');
         
     case 'paramonte'

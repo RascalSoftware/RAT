@@ -28,10 +28,10 @@ classdef controlsDef < matlab.mixin.CustomDisplay
 
         %(3) Nested Sampler (for Matlab version. There will be more options
         %with the C version)
-        Nlive = 50
+        Nlive = 150
         Nmcmc = 0
         propScale = 0.1     %Used if MCMC is used
-        nsTolerance = 1     %Target stopping tolerance
+        nsTolerance = 0.1     %Target stopping tolerance
         
         %(4) Bayes MCMC
         method = 'dram';

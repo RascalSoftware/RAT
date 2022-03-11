@@ -25,7 +25,7 @@ data = cell(1,numberOfContrasts);
 for i = 1:numberOfContrasts
     thisData = problemDef_cells{2}{i};
     if ~isempty(thisData)
-        data{i} = [thisData(:,1:2)];
+        data{i} = [thisData(:,:)];
     end
     %data{i}.problem = problem;
 end
@@ -58,7 +58,7 @@ options.waitbar     = 1;               % show graphical waitbar
 options.updatesigma = 0;               % update error variance
 options.stats       = 1;               % save extra statistics in result
 options.burnintime  = burnin;          % burn in time..
-options.ntry = 3;
+options.ntry = 2;
 options.drscale = [3 2 1];
 %options.adascale = 2.4 / sqrt(nPars) * 0.01;
 

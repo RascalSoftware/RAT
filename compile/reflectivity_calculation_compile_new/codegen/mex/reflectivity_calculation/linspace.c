@@ -17,22 +17,22 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRTEInfo nb_emlrtRTEI =
-    {
-        33,         /* lineNo */
-        37,         /* colNo */
-        "linspace", /* fName */
-        "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/elmat/"
-        "linspace.m" /* pName */
+static emlrtRTEInfo nb_emlrtRTEI = {
+    33,         /* lineNo */
+    37,         /* colNo */
+    "linspace", /* fName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\elmat\\linspace.m" /* pName
+                                                                           */
 };
 
-static emlrtRTEInfo oj_emlrtRTEI =
-    {
-        49,         /* lineNo */
-        20,         /* colNo */
-        "linspace", /* fName */
-        "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/elmat/"
-        "linspace.m" /* pName */
+static emlrtRTEInfo oj_emlrtRTEI = {
+    49,         /* lineNo */
+    20,         /* colNo */
+    "linspace", /* fName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\elmat\\linspace.m" /* pName
+                                                                           */
 };
 
 /* Function Definitions */

@@ -38,8 +38,6 @@ extern emlrtRSInfo ob_emlrtRSI;
 extern emlrtRSInfo pd_emlrtRSI;
 extern emlrtRSInfo qd_emlrtRSI;
 extern emlrtRSInfo rd_emlrtRSI;
-extern emlrtRSInfo sd_emlrtRSI;
-extern emlrtRSInfo td_emlrtRSI;
 extern emlrtRSInfo ie_emlrtRSI;
 extern emlrtRSInfo ff_emlrtRSI;
 extern emlrtRSInfo gf_emlrtRSI;

@@ -22,89 +22,89 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo th_emlrtRSI = {
+static emlrtRSInfo sh_emlrtRSI = {
     65,                                           /* lineNo */
     "standardTF_custLay_reflectivityCalculation", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pathName */
+};
+
+static emlrtRSInfo th_emlrtRSI = {
+    72,                                           /* lineNo */
+    "standardTF_custLay_reflectivityCalculation", /* fcnName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pathName */
 };
 
 static emlrtRSInfo uh_emlrtRSI = {
-    72,                                           /* lineNo */
+    79,                                           /* lineNo */
     "standardTF_custLay_reflectivityCalculation", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pathName */
 };
 
 static emlrtRSInfo vh_emlrtRSI = {
-    79,                                           /* lineNo */
-    "standardTF_custLay_reflectivityCalculation", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pathName */
-};
-
-static emlrtRSInfo wh_emlrtRSI = {
     100,                                          /* lineNo */
     "standardTF_custLay_reflectivityCalculation", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pathName */
 };
 
 static emlrtDCInfo tb_emlrtDCI = {
     29,                                           /* lineNo */
     21,                                           /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    1                                                   /* checkKind */
 };
 
 static emlrtRTEInfo gc_emlrtRTEI = {
     30,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo hc_emlrtRTEI = {
     35,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo ic_emlrtRTEI = {
     40,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo jc_emlrtRTEI = {
     45,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo kc_emlrtRTEI = {
     50,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo lc_emlrtRTEI = {
     55,                                           /* lineNo */
     9,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtBCInfo on_emlrtBCI = {
@@ -114,9 +114,9 @@ static emlrtBCInfo on_emlrtBCI = {
     18,                                           /* colNo */
     "reflectivity",                               /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo pn_emlrtBCI = {
@@ -126,9 +126,9 @@ static emlrtBCInfo pn_emlrtBCI = {
     16,                                           /* colNo */
     "Simulation",                                 /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo qn_emlrtBCI = {
@@ -138,9 +138,9 @@ static emlrtBCInfo qn_emlrtBCI = {
     18,                                           /* colNo */
     "shifted_data",                               /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo rn_emlrtBCI = {
@@ -150,9 +150,9 @@ static emlrtBCInfo rn_emlrtBCI = {
     15,                                           /* colNo */
     "layerSlds",                                  /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo sn_emlrtBCI = {
@@ -162,9 +162,9 @@ static emlrtBCInfo sn_emlrtBCI = {
     17,                                           /* colNo */
     "sldProfiles",                                /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo tn_emlrtBCI = {
@@ -174,99 +174,99 @@ static emlrtBCInfo tn_emlrtBCI = {
     15,                                           /* colNo */
     "allLayers",                                  /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtDCInfo ub_emlrtDCI = {
     92,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    1                                                   /* checkKind */
 };
 
 static emlrtDCInfo vb_emlrtDCI = {
     92,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    4                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    4                                                   /* checkKind */
 };
 
 static emlrtDCInfo wb_emlrtDCI = {
     93,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    1                                                   /* checkKind */
 };
 
 static emlrtDCInfo xb_emlrtDCI = {
     94,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    1                                                   /* checkKind */
 };
 
 static emlrtDCInfo yb_emlrtDCI = {
     95,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    1                                                   /* checkKind */
 };
 
 static emlrtDCInfo ac_emlrtDCI = {
     96,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    1                                                   /* checkKind */
 };
 
 static emlrtDCInfo bc_emlrtDCI = {
     97,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    1                                                   /* checkKind */
 };
 
 static emlrtDCInfo cc_emlrtDCI = {
     25,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    1                                                   /* checkKind */
 };
 
 static emlrtDCInfo dc_emlrtDCI = {
     98,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    1                                                   /* checkKind */
 };
 
 static emlrtDCInfo ec_emlrtDCI = {
     101,                                          /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    1                                                   /* checkKind */
 };
 
 static emlrtBCInfo un_emlrtBCI = {
@@ -276,9 +276,9 @@ static emlrtBCInfo un_emlrtBCI = {
     39,                                           /* colNo */
     "reflectivity",                               /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo vn_emlrtBCI = {
@@ -288,9 +288,9 @@ static emlrtBCInfo vn_emlrtBCI = {
     39,                                           /* colNo */
     "Simulation",                                 /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo wn_emlrtBCI = {
@@ -300,9 +300,9 @@ static emlrtBCInfo wn_emlrtBCI = {
     39,                                           /* colNo */
     "shifted_data",                               /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo xn_emlrtBCI = {
@@ -312,9 +312,9 @@ static emlrtBCInfo xn_emlrtBCI = {
     39,                                           /* colNo */
     "layerSlds",                                  /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo yn_emlrtBCI = {
@@ -324,9 +324,9 @@ static emlrtBCInfo yn_emlrtBCI = {
     5,                                            /* colNo */
     "shifted_data",                               /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo ao_emlrtBCI = {
@@ -336,9 +336,9 @@ static emlrtBCInfo ao_emlrtBCI = {
     39,                                           /* colNo */
     "sldProfiles",                                /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo bo_emlrtBCI = {
@@ -348,9 +348,9 @@ static emlrtBCInfo bo_emlrtBCI = {
     5,                                            /* colNo */
     "layerSlds",                                  /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo co_emlrtBCI = {
@@ -360,9 +360,9 @@ static emlrtBCInfo co_emlrtBCI = {
     39,                                           /* colNo */
     "allLayers",                                  /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo do_emlrtBCI = {
@@ -372,9 +372,9 @@ static emlrtBCInfo do_emlrtBCI = {
     5,                                            /* colNo */
     "allLayers",                                  /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo eo_emlrtBCI = {
@@ -384,9 +384,9 @@ static emlrtBCInfo eo_emlrtBCI = {
     5,                                            /* colNo */
     "sldProfiles",                                /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo fo_emlrtBCI = {
@@ -396,9 +396,9 @@ static emlrtBCInfo fo_emlrtBCI = {
     5,                                            /* colNo */
     "Simulation",                                 /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtBCInfo go_emlrtBCI = {
@@ -408,153 +408,153 @@ static emlrtBCInfo go_emlrtBCI = {
     5,                                            /* colNo */
     "reflectivity",                               /* aName */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m", /* pName */
+    0                                                   /* checkKind */
 };
 
 static emlrtRTEInfo kn_emlrtRTEI = {
     92,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo ln_emlrtRTEI = {
     93,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo mn_emlrtRTEI = {
     94,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo nn_emlrtRTEI = {
     95,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo on_emlrtRTEI = {
     96,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo pn_emlrtRTEI = {
     97,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo qn_emlrtRTEI = {
     25,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo rn_emlrtRTEI = {
     98,                                           /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo sn_emlrtRTEI = {
     101,                                          /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo tn_emlrtRTEI = {
     1,                                            /* lineNo */
     91,                                           /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo un_emlrtRTEI = {
     29,                                           /* lineNo */
     39,                                           /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo vn_emlrtRTEI = {
     31,                                           /* lineNo */
     5,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo wn_emlrtRTEI = {
     36,                                           /* lineNo */
     5,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo xn_emlrtRTEI = {
     41,                                           /* lineNo */
     5,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo yn_emlrtRTEI = {
     46,                                           /* lineNo */
     5,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo ao_emlrtRTEI = {
     51,                                           /* lineNo */
     5,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo bo_emlrtRTEI = {
     56,                                           /* lineNo */
     5,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo co_emlrtRTEI = {
     102,                                          /* lineNo */
     1,                                            /* colNo */
     "standardTF_custLay_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custLay_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custLay_reflectivityCalculation.m" /* pName */
 };
 
 /* Function Definitions */
@@ -1177,7 +1177,7 @@ void c_standardTF_custLay_reflectivi(
   }
   switch (loop_ub) {
   case 0:
-    st.site = &th_emlrtRSI;
+    st.site = &sh_emlrtRSI;
     standardTF_custlay_single(
         &st, problemDef, problemDef_cells, controls, problem->ssubs,
         problem->backgrounds, problem->qshifts, problem->scalefactors,
@@ -1186,7 +1186,7 @@ void c_standardTF_custLay_reflectivi(
         layerSlds, sldProfiles, allLayers, problem->allSubRough);
     break;
   case 1:
-    st.site = &uh_emlrtRSI;
+    st.site = &th_emlrtRSI;
     standardTF_custlay_paraPoints(
         &st, problemDef, problemDef_cells, controls, problem->ssubs,
         problem->backgrounds, problem->qshifts, problem->scalefactors,
@@ -1195,7 +1195,7 @@ void c_standardTF_custLay_reflectivi(
         layerSlds, sldProfiles, allLayers, problem->allSubRough);
     break;
   case 2:
-    st.site = &vh_emlrtRSI;
+    st.site = &uh_emlrtRSI;
     c_standardTF_custlay_paraContra(
         &st, problemDef, problemDef_cells, controls, problem->ssubs,
         problem->backgrounds, problem->qshifts, problem->scalefactors,
@@ -1211,7 +1211,7 @@ void c_standardTF_custLay_reflectivi(
     /*               problemDef_limits,controls); */
     break;
   }
-  st.site = &wh_emlrtRSI;
+  st.site = &vh_emlrtRSI;
   problem->calculations.sum_chi = sum(&st, problem->calculations.all_chis);
   i = problem->resample->size[0] * problem->resample->size[1];
   problem->resample->size[0] = 1;

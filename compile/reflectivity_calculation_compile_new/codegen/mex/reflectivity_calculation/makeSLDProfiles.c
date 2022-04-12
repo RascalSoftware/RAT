@@ -23,78 +23,105 @@
 static emlrtRSInfo pb_emlrtRSI = {
     12,                /* lineNo */
     "makeSLDProfiles", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfiles.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfiles.m" /* pathName */
 };
 
 static emlrtRSInfo qb_emlrtRSI = {
     4,                  /* lineNo */
     "makeSLDProfileXY", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pathName */
 };
 
 static emlrtRSInfo rb_emlrtRSI = {
     11,                 /* lineNo */
     "makeSLDProfileXY", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pathName */
 };
 
 static emlrtRSInfo sb_emlrtRSI = {
     26,                 /* lineNo */
     "makeSLDProfileXY", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pathName */
 };
 
 static emlrtRSInfo tb_emlrtRSI = {
     37,                 /* lineNo */
     "makeSLDProfileXY", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pathName */
 };
 
 static emlrtRSInfo ub_emlrtRSI = {
     42,                 /* lineNo */
     "makeSLDProfileXY", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pathName */
 };
 
 static emlrtRSInfo vb_emlrtRSI = {
     45,                 /* lineNo */
     "makeSLDProfileXY", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pathName */
 };
 
 static emlrtRSInfo wb_emlrtRSI = {
     47,                 /* lineNo */
     "makeSLDProfileXY", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pathName */
 };
 
 static emlrtRSInfo xb_emlrtRSI = {
     48,                 /* lineNo */
     "makeSLDProfileXY", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pathName */
 };
 
 static emlrtRSInfo yb_emlrtRSI = {
     49,                 /* lineNo */
     "makeSLDProfileXY", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pathName */
 };
 
 static emlrtRSInfo ac_emlrtRSI = {
     54,                 /* lineNo */
     "makeSLDProfileXY", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pathName */
+};
+
+static emlrtRSInfo sd_emlrtRSI = {
+    180,             /* lineNo */
+    "unaryMinOrMax", /* fcnName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+    "internal\\unaryMinOrMax.m" /* pathName */
+};
+
+static emlrtRSInfo td_emlrtRSI = {
+    891,                    /* lineNo */
+    "maxRealVectorOmitNaN", /* fcnName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+    "internal\\unaryMinOrMax.m" /* pathName */
 };
 
 static emlrtECInfo b_emlrtECI = {
@@ -102,8 +129,9 @@ static emlrtECInfo b_emlrtECI = {
     40,                 /* lineNo */
     5,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtBCInfo cg_emlrtBCI = {
@@ -113,18 +141,20 @@ static emlrtBCInfo cg_emlrtBCI = {
     12,                 /* colNo */
     "Lays",             /* aName */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    0                                  /* checkKind */
 };
 
 static emlrtDCInfo eb_emlrtDCI = {
     40,                 /* lineNo */
     12,                 /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    1                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    1                                  /* checkKind */
 };
 
 static emlrtECInfo c_emlrtECI = {
@@ -132,8 +162,9 @@ static emlrtECInfo c_emlrtECI = {
     37,                 /* lineNo */
     5,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtBCInfo dg_emlrtBCI = {
@@ -143,18 +174,20 @@ static emlrtBCInfo dg_emlrtBCI = {
     12,                 /* colNo */
     "Lays",             /* aName */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    0                                  /* checkKind */
 };
 
 static emlrtDCInfo fb_emlrtDCI = {
     37,                 /* lineNo */
     12,                 /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    1                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    1                                  /* checkKind */
 };
 
 static emlrtECInfo d_emlrtECI = {
@@ -162,8 +195,9 @@ static emlrtECInfo d_emlrtECI = {
     27,                 /* lineNo */
     13,                 /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtBCInfo eg_emlrtBCI = {
@@ -173,9 +207,10 @@ static emlrtBCInfo eg_emlrtBCI = {
     20,                 /* colNo */
     "Lays",             /* aName */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    0                                  /* checkKind */
 };
 
 static emlrtBCInfo fg_emlrtBCI = {
@@ -185,9 +220,10 @@ static emlrtBCInfo fg_emlrtBCI = {
     23,                 /* colNo */
     "x",                /* aName */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    0                                  /* checkKind */
 };
 
 static emlrtBCInfo gg_emlrtBCI = {
@@ -197,53 +233,59 @@ static emlrtBCInfo gg_emlrtBCI = {
     33,                 /* colNo */
     "layers",           /* aName */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    0                                  /* checkKind */
 };
 
 static emlrtRTEInfo jb_emlrtRTEI = {
     13,                 /* lineNo */
     13,                 /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtDCInfo gb_emlrtDCI = {
     7,                  /* lineNo */
     28,                 /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    1                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    1                                  /* checkKind */
 };
 
 static emlrtDCInfo hb_emlrtDCI = {
     7,                  /* lineNo */
     28,                 /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    4                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    4                                  /* checkKind */
 };
 
 static emlrtDCInfo ib_emlrtDCI = {
     7,                  /* lineNo */
     5,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    1                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    1                                  /* checkKind */
 };
 
 static emlrtDCInfo jb_emlrtDCI = {
     7,                  /* lineNo */
     5,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    4                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    4                                  /* checkKind */
 };
 
 static emlrtBCInfo hg_emlrtBCI = {
@@ -253,9 +295,10 @@ static emlrtBCInfo hg_emlrtBCI = {
     28,                 /* colNo */
     "layers",           /* aName */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    0                                  /* checkKind */
 };
 
 static emlrtBCInfo ig_emlrtBCI = {
@@ -265,89 +308,100 @@ static emlrtBCInfo ig_emlrtBCI = {
     32,                 /* colNo */
     "layers",           /* aName */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m", /* pName */
+    0                                  /* checkKind */
 };
 
 static emlrtRTEInfo yh_emlrtRTEI = {
     44,                 /* lineNo */
     5,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtRTEInfo ai_emlrtRTEI = {
     4,                  /* lineNo */
     23,                 /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtRTEInfo bi_emlrtRTEI = {
     6,                  /* lineNo */
     5,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtRTEInfo ci_emlrtRTEI = {
     7,                  /* lineNo */
     5,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtRTEInfo di_emlrtRTEI = {
     44,                 /* lineNo */
     9,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtRTEInfo ei_emlrtRTEI = {
     50,                 /* lineNo */
     5,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtRTEInfo fi_emlrtRTEI = {
     42,                 /* lineNo */
     5,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtRTEInfo gi_emlrtRTEI = {
     12,                /* lineNo */
     1,                 /* colNo */
     "makeSLDProfiles", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfiles.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfiles.m" /* pName */
 };
 
 static emlrtRTEInfo hi_emlrtRTEI = {
     11,                 /* lineNo */
     5,                  /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 static emlrtRTEInfo ii_emlrtRTEI = {
     26,                 /* lineNo */
     13,                 /* colNo */
     "makeSLDProfileXY", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/"
-    "makeSLDProfileXY.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\make"
+    "SLDProfiles\\makeSLDProfileXY.m" /* pName */
 };
 
 /* Function Definitions */

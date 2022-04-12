@@ -22,31 +22,53 @@
 
 /* Variable Definitions */
 static emlrtRSInfo bh_emlrtRSI = {
-    12,           /* lineNo */
+    16,           /* lineNo */
     "chiSquared", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\cost"
+    "Functions\\chiSquared\\chiSquared.m" /* pathName */
 };
 
 static emlrtRSInfo ch_emlrtRSI = {
-    16,           /* lineNo */
+    17,           /* lineNo */
     "chiSquared", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\cost"
+    "Functions\\chiSquared\\chiSquared.m" /* pathName */
 };
 
 static emlrtRSInfo dh_emlrtRSI = {
-    17,           /* lineNo */
-    "chiSquared", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m" /* pathName */
-};
-
-static emlrtRSInfo eh_emlrtRSI = {
     21,           /* lineNo */
     "chiSquared", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\cost"
+    "Functions\\chiSquared\\chiSquared.m" /* pathName */
+};
+
+static emlrtBCInfo jj_emlrtBCI = {
+    -1,           /* iFirst */
+    -1,           /* iLast */
+    8,            /* lineNo */
+    20,           /* colNo */
+    "thisData",   /* aName */
+    "chiSquared", /* fName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\cost"
+    "Functions\\chiSquared\\chiSquared.m", /* pName */
+    0                                      /* checkKind */
+};
+
+static emlrtBCInfo kj_emlrtBCI = {
+    -1,           /* iFirst */
+    -1,           /* iLast */
+    9,            /* lineNo */
+    21,           /* colNo */
+    "thisData",   /* aName */
+    "chiSquared", /* fName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\cost"
+    "Functions\\chiSquared\\chiSquared.m", /* pName */
+    0                                      /* checkKind */
 };
 
 static emlrtECInfo ab_emlrtECI = {
@@ -54,32 +76,9 @@ static emlrtECInfo ab_emlrtECI = {
     16,           /* lineNo */
     15,           /* colNo */
     "chiSquared", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m" /* pName */
-};
-
-static emlrtBCInfo jj_emlrtBCI = {
-    -1,           /* iFirst */
-    -1,           /* iLast */
-    9,            /* lineNo */
-    21,           /* colNo */
-    "thisData",   /* aName */
-    "chiSquared", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m", /* pName */
-    0                          /* checkKind */
-};
-
-static emlrtBCInfo kj_emlrtBCI = {
-    -1,           /* iFirst */
-    -1,           /* iLast */
-    8,            /* lineNo */
-    20,           /* colNo */
-    "thisData",   /* aName */
-    "chiSquared", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m", /* pName */
-    0                          /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\cost"
+    "Functions\\chiSquared\\chiSquared.m" /* pName */
 };
 
 static emlrtBCInfo lj_emlrtBCI = {
@@ -89,43 +88,46 @@ static emlrtBCInfo lj_emlrtBCI = {
     15,           /* colNo */
     "terms",      /* aName */
     "chiSquared", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m", /* pName */
-    0                          /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\cost"
+    "Functions\\chiSquared\\chiSquared.m", /* pName */
+    0                                      /* checkKind */
 };
 
 static emlrtRTEInfo vl_emlrtRTEI = {
     16,           /* lineNo */
     15,           /* colNo */
     "chiSquared", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\cost"
+    "Functions\\chiSquared\\chiSquared.m" /* pName */
 };
 
-static emlrtRTEInfo
-    wl_emlrtRTEI =
-        {
-            53,    /* lineNo */
-            9,     /* colNo */
-            "div", /* fName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-            "div.m" /* pName */
+static emlrtRTEInfo wl_emlrtRTEI = {
+    53,    /* lineNo */
+    9,     /* colNo */
+    "div", /* fName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+internal\\div.m" /* pName
+                                                                          */
 };
 
 static emlrtRTEInfo xl_emlrtRTEI = {
     17,           /* lineNo */
     14,           /* colNo */
     "chiSquared", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\cost"
+    "Functions\\chiSquared\\chiSquared.m" /* pName */
 };
 
 static emlrtRTEInfo yl_emlrtRTEI = {
     16,           /* lineNo */
     5,            /* colNo */
     "chiSquared", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/"
-    "chiSquared/chiSquared.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\cost"
+    "Functions\\chiSquared\\chiSquared.m" /* pName */
 };
 
 /* Function Definitions */
@@ -175,19 +177,13 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData,
   /*      thisData = allData{i}; */
   /*      thisFit = allFits{i}; */
   if (2 > thisData->size[1]) {
-    emlrtDynamicBoundsCheckR2012b(2, 1, thisData->size[1], &kj_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(2, 1, thisData->size[1], &jj_emlrtBCI,
                                   (emlrtCTX)sp);
   }
   if (3 > thisData->size[1]) {
-    emlrtDynamicBoundsCheckR2012b(3, 1, thisData->size[1], &jj_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(3, 1, thisData->size[1], &kj_emlrtBCI,
                                   (emlrtCTX)sp);
   }
-  st.site = &bh_emlrtRSI;
-  b_st.site = &pd_emlrtRSI;
-  c_st.site = &qd_emlrtRSI;
-  d_st.site = &rd_emlrtRSI;
-  e_st.site = &sd_emlrtRSI;
-  f_st.site = &td_emlrtRSI;
   if (thisData->size[0] < 1) {
     N = 1.0;
   } else {
@@ -201,7 +197,7 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData,
                              (emlrtCTX)sp);
   }
   emxInit_real_T(sp, &terms, 1, &yl_emlrtRTEI, true);
-  st.site = &ch_emlrtRSI;
+  st.site = &bh_emlrtRSI;
   csz_idx_0 = thisData->size[0];
   i = terms->size[0];
   terms->size[0] = thisData->size[0];
@@ -338,9 +334,9 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData,
         terms->data[i] / thisData->data[i + thisData->size[0] * 2];
   }
   emxInit_boolean_T(sp, &c_terms, 1, &xl_emlrtRTEI, true);
-  st.site = &ch_emlrtRSI;
+  st.site = &bh_emlrtRSI;
   power(&st, b_terms, terms);
-  st.site = &dh_emlrtRSI;
+  st.site = &ch_emlrtRSI;
   i = c_terms->size[0];
   c_terms->size[0] = terms->size[0];
   emxEnsureCapacity_boolean_T(&st, c_terms, i, &xl_emlrtRTEI);
@@ -367,7 +363,7 @@ real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData,
     }
   }
   emxFree_int32_T(&ii);
-  st.site = &eh_emlrtRSI;
+  st.site = &dh_emlrtRSI;
   chi2 = 1.0 / (N - P) * sum(&st, terms);
   /* allChis(i) = chi2; */
   emxFree_real_T(&terms);

@@ -23,131 +23,147 @@
 static emlrtRSInfo emlrtRSI = {
     88,                         /* lineNo */
     "reflectivity_calculation", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pathName */
 };
 
 static emlrtDCInfo emlrtDCI = {
     47,                         /* lineNo */
     21,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    4                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    4                                           /* checkKind */
 };
 
 static emlrtDCInfo b_emlrtDCI = {
     47,                         /* lineNo */
     21,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    1                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    1                                           /* checkKind */
 };
 
 static emlrtRTEInfo emlrtRTEI = {
     48,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtDCInfo c_emlrtDCI = {
     53,                         /* lineNo */
     19,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    1                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    1                                           /* checkKind */
 };
 
 static emlrtRTEInfo b_emlrtRTEI = {
     54,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo c_emlrtRTEI = {
     60,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo d_emlrtRTEI = {
     66,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo e_emlrtRTEI = {
     72,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo f_emlrtRTEI = {
     78,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo g_emlrtRTEI = {
-    103,                        /* lineNo */
+    104,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo h_emlrtRTEI = {
-    109,                        /* lineNo */
+    110,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo i_emlrtRTEI = {
-    115,                        /* lineNo */
+    116,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo j_emlrtRTEI = {
-    121,                        /* lineNo */
+    122,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo k_emlrtRTEI = {
-    127,                        /* lineNo */
+    128,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo l_emlrtRTEI = {
-    133,                        /* lineNo */
+    134,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtBCInfo emlrtBCI = {
@@ -157,9 +173,10 @@ static emlrtBCInfo emlrtBCI = {
     18,                         /* colNo */
     "reflectivity",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo b_emlrtBCI = {
@@ -169,9 +186,10 @@ static emlrtBCInfo b_emlrtBCI = {
     16,                         /* colNo */
     "Simulation",               /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo c_emlrtBCI = {
@@ -181,9 +199,10 @@ static emlrtBCInfo c_emlrtBCI = {
     18,                         /* colNo */
     "shifted_data",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo d_emlrtBCI = {
@@ -193,9 +212,10 @@ static emlrtBCInfo d_emlrtBCI = {
     15,                         /* colNo */
     "layerSlds",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo e_emlrtBCI = {
@@ -205,9 +225,10 @@ static emlrtBCInfo e_emlrtBCI = {
     17,                         /* colNo */
     "sldProfiles",              /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo f_emlrtBCI = {
@@ -217,153 +238,166 @@ static emlrtBCInfo f_emlrtBCI = {
     15,                         /* colNo */
     "allLayers",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo g_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    104,                        /* lineNo */
+    105,                        /* lineNo */
     29,                         /* colNo */
     "reflectivity",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo h_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    104,                        /* lineNo */
+    105,                        /* lineNo */
     11,                         /* colNo */
     "cell1",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo i_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    110,                        /* lineNo */
+    111,                        /* lineNo */
     27,                         /* colNo */
     "Simulation",               /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo j_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    110,                        /* lineNo */
+    111,                        /* lineNo */
     11,                         /* colNo */
     "cell2",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo k_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    116,                        /* lineNo */
+    117,                        /* lineNo */
     29,                         /* colNo */
     "shifted_data",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo l_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    116,                        /* lineNo */
+    117,                        /* lineNo */
     11,                         /* colNo */
     "cell3",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo m_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    122,                        /* lineNo */
+    123,                        /* lineNo */
     26,                         /* colNo */
     "layerSlds",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo n_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    122,                        /* lineNo */
+    123,                        /* lineNo */
     11,                         /* colNo */
     "cell4",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo o_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    128,                        /* lineNo */
+    129,                        /* lineNo */
     28,                         /* colNo */
     "sldProfiles",              /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo p_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    128,                        /* lineNo */
+    129,                        /* lineNo */
     11,                         /* colNo */
     "cell5",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo q_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    134,                        /* lineNo */
+    135,                        /* lineNo */
     26,                         /* colNo */
     "allLayers",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo r_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    134,                        /* lineNo */
+    135,                        /* lineNo */
     11,                         /* colNo */
     "cell6",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo s_emlrtBCI = {
@@ -373,9 +407,10 @@ static emlrtBCInfo s_emlrtBCI = {
     39,                         /* colNo */
     "reflectivity",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo t_emlrtBCI = {
@@ -385,9 +420,10 @@ static emlrtBCInfo t_emlrtBCI = {
     39,                         /* colNo */
     "Simulation",               /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo u_emlrtBCI = {
@@ -397,9 +433,10 @@ static emlrtBCInfo u_emlrtBCI = {
     39,                         /* colNo */
     "shifted_data",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo v_emlrtBCI = {
@@ -409,9 +446,10 @@ static emlrtBCInfo v_emlrtBCI = {
     39,                         /* colNo */
     "layerSlds",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo w_emlrtBCI = {
@@ -421,9 +459,10 @@ static emlrtBCInfo w_emlrtBCI = {
     5,                          /* colNo */
     "shifted_data",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo x_emlrtBCI = {
@@ -433,9 +472,10 @@ static emlrtBCInfo x_emlrtBCI = {
     39,                         /* colNo */
     "sldProfiles",              /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo y_emlrtBCI = {
@@ -445,9 +485,10 @@ static emlrtBCInfo y_emlrtBCI = {
     5,                          /* colNo */
     "layerSlds",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo ab_emlrtBCI = {
@@ -457,9 +498,10 @@ static emlrtBCInfo ab_emlrtBCI = {
     39,                         /* colNo */
     "allLayers",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo bb_emlrtBCI = {
@@ -469,9 +511,10 @@ static emlrtBCInfo bb_emlrtBCI = {
     5,                          /* colNo */
     "allLayers",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo cb_emlrtBCI = {
@@ -481,9 +524,10 @@ static emlrtBCInfo cb_emlrtBCI = {
     39,                         /* colNo */
     "cell1",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo db_emlrtBCI = {
@@ -493,9 +537,10 @@ static emlrtBCInfo db_emlrtBCI = {
     39,                         /* colNo */
     "cell2",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo eb_emlrtBCI = {
@@ -505,33 +550,36 @@ static emlrtBCInfo eb_emlrtBCI = {
     39,                         /* colNo */
     "cell3",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo fb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    104,                        /* lineNo */
+    105,                        /* lineNo */
     16,                         /* colNo */
     "reflectivity",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo gb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    104,                        /* lineNo */
+    105,                        /* lineNo */
     5,                          /* colNo */
     "cell1",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo hb_emlrtBCI = {
@@ -541,33 +589,36 @@ static emlrtBCInfo hb_emlrtBCI = {
     39,                         /* colNo */
     "cell4",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo ib_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    110,                        /* lineNo */
+    111,                        /* lineNo */
     16,                         /* colNo */
     "Simulation",               /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo jb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    110,                        /* lineNo */
+    111,                        /* lineNo */
     5,                          /* colNo */
     "cell2",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo kb_emlrtBCI = {
@@ -577,33 +628,36 @@ static emlrtBCInfo kb_emlrtBCI = {
     39,                         /* colNo */
     "cell5",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo lb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    116,                        /* lineNo */
+    117,                        /* lineNo */
     16,                         /* colNo */
     "shifted_data",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo mb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    116,                        /* lineNo */
+    117,                        /* lineNo */
     5,                          /* colNo */
     "cell3",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo nb_emlrtBCI = {
@@ -613,81 +667,88 @@ static emlrtBCInfo nb_emlrtBCI = {
     39,                         /* colNo */
     "cell6",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo ob_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    122,                        /* lineNo */
+    123,                        /* lineNo */
     16,                         /* colNo */
     "layerSlds",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo pb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    122,                        /* lineNo */
+    123,                        /* lineNo */
     5,                          /* colNo */
     "cell4",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo qb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    128,                        /* lineNo */
+    129,                        /* lineNo */
     16,                         /* colNo */
     "sldProfiles",              /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo rb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    128,                        /* lineNo */
+    129,                        /* lineNo */
     5,                          /* colNo */
     "cell5",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo sb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    134,                        /* lineNo */
+    135,                        /* lineNo */
     16,                         /* colNo */
     "allLayers",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo tb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    134,                        /* lineNo */
+    135,                        /* lineNo */
     5,                          /* colNo */
     "cell6",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo ub_emlrtBCI = {
@@ -697,9 +758,10 @@ static emlrtBCInfo ub_emlrtBCI = {
     5,                          /* colNo */
     "sldProfiles",              /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo vb_emlrtBCI = {
@@ -709,9 +771,10 @@ static emlrtBCInfo vb_emlrtBCI = {
     5,                          /* colNo */
     "Simulation",               /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtBCInfo wb_emlrtBCI = {
@@ -721,297 +784,334 @@ static emlrtBCInfo wb_emlrtBCI = {
     5,                          /* colNo */
     "reflectivity",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtRTEInfo vd_emlrtRTEI = {
     28,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo wd_emlrtRTEI = {
     29,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo xd_emlrtRTEI = {
     30,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo yd_emlrtRTEI = {
     31,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ae_emlrtRTEI = {
     32,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo be_emlrtRTEI = {
     33,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ce_emlrtRTEI = {
     34,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo de_emlrtRTEI = {
     35,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ee_emlrtRTEI = {
     37,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo fe_emlrtRTEI = {
     38,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ge_emlrtRTEI = {
     1,                          /* lineNo */
     29,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo he_emlrtRTEI = {
     47,                         /* lineNo */
     39,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ie_emlrtRTEI = {
     49,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo je_emlrtRTEI = {
     55,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ke_emlrtRTEI = {
     61,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo le_emlrtRTEI = {
     67,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo me_emlrtRTEI = {
     73,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ne_emlrtRTEI = {
     79,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo oe_emlrtRTEI = {
     88,                         /* lineNo */
     136,                        /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo pe_emlrtRTEI = {
-    104,                        /* lineNo */
+    105,                        /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo qe_emlrtRTEI = {
     88,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo re_emlrtRTEI = {
-    110,                        /* lineNo */
+    111,                        /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo se_emlrtRTEI = {
-    116,                        /* lineNo */
+    117,                        /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo te_emlrtRTEI = {
-    122,                        /* lineNo */
+    123,                        /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ue_emlrtRTEI = {
-    128,                        /* lineNo */
+    129,                        /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ve_emlrtRTEI = {
-    134,                        /* lineNo */
+    135,                        /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo we_emlrtRTEI = {
     88,                         /* lineNo */
     18,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo xe_emlrtRTEI = {
     88,                         /* lineNo */
     42,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ye_emlrtRTEI = {
     88,                         /* lineNo */
     55,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo af_emlrtRTEI = {
     88,                         /* lineNo */
     65,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo bf_emlrtRTEI = {
     47,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo cf_emlrtRTEI = {
     53,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo df_emlrtRTEI = {
     59,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ef_emlrtRTEI = {
     65,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ff_emlrtRTEI = {
     71,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo gf_emlrtRTEI = {
     77,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\reflectivity"
+    "_calculation\\reflectivity_calculation.m" /* pName */
 };
 
 /* Function Definitions */

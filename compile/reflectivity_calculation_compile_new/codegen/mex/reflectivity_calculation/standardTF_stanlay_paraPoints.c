@@ -27,64 +27,64 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo fh_emlrtRSI = {
+static emlrtRSInfo eh_emlrtRSI = {
     65,                              /* lineNo */
     "standardTF_stanlay_paraPoints", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pathName */
+};
+
+static emlrtRSInfo fh_emlrtRSI = {
+    77,                              /* lineNo */
+    "standardTF_stanlay_paraPoints", /* fcnName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pathName */
 };
 
 static emlrtRSInfo gh_emlrtRSI = {
-    77,                              /* lineNo */
+    82,                              /* lineNo */
     "standardTF_stanlay_paraPoints", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pathName */
 };
 
 static emlrtRSInfo hh_emlrtRSI = {
-    82,                              /* lineNo */
-    "standardTF_stanlay_paraPoints", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pathName */
-};
-
-static emlrtRSInfo ih_emlrtRSI = {
     102,                             /* lineNo */
     "standardTF_stanlay_paraPoints", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pathName */
 };
 
 static emlrtRTEInfo wb_emlrtRTEI = {
     46,                              /* lineNo */
     9,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo xb_emlrtRTEI = {
     51,                              /* lineNo */
     9,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo yb_emlrtRTEI = {
     56,                              /* lineNo */
     9,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo ac_emlrtRTEI = {
     71,                              /* lineNo */
     9,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtBCInfo mj_emlrtBCI = {
@@ -94,9 +94,9 @@ static emlrtBCInfo mj_emlrtBCI = {
     24,                              /* colNo */
     "params",                        /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo nj_emlrtBCI = {
@@ -106,9 +106,9 @@ static emlrtBCInfo nj_emlrtBCI = {
     29,                              /* colNo */
     "resample",                      /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo oj_emlrtBCI = {
@@ -118,9 +118,9 @@ static emlrtBCInfo oj_emlrtBCI = {
     35,                              /* colNo */
     "dataPresent",                   /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo pj_emlrtBCI = {
@@ -130,9 +130,9 @@ static emlrtBCInfo pj_emlrtBCI = {
     31,                              /* colNo */
     "backsType",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo qj_emlrtBCI = {
@@ -142,9 +142,9 @@ static emlrtBCInfo qj_emlrtBCI = {
     37,                              /* colNo */
     "repeatLayers",                  /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo rj_emlrtBCI = {
@@ -154,9 +154,9 @@ static emlrtBCInfo rj_emlrtBCI = {
     24,                              /* colNo */
     "allData",                       /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo sj_emlrtBCI = {
@@ -166,9 +166,9 @@ static emlrtBCInfo sj_emlrtBCI = {
     33,                              /* colNo */
     "dataLimits",                    /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo tj_emlrtBCI = {
@@ -178,9 +178,9 @@ static emlrtBCInfo tj_emlrtBCI = {
     31,                              /* colNo */
     "simLimits",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo uj_emlrtBCI = {
@@ -190,9 +190,9 @@ static emlrtBCInfo uj_emlrtBCI = {
     18,                              /* colNo */
     "reflectivity",                  /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo vj_emlrtBCI = {
@@ -202,9 +202,9 @@ static emlrtBCInfo vj_emlrtBCI = {
     16,                              /* colNo */
     "Simulation",                    /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo wj_emlrtBCI = {
@@ -214,9 +214,9 @@ static emlrtBCInfo wj_emlrtBCI = {
     15,                              /* colNo */
     "allLayers",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo xj_emlrtBCI = {
@@ -226,9 +226,9 @@ static emlrtBCInfo xj_emlrtBCI = {
     17,                              /* colNo */
     "sldProfiles",                   /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo yj_emlrtBCI = {
@@ -238,9 +238,9 @@ static emlrtBCInfo yj_emlrtBCI = {
     18,                              /* colNo */
     "reflectivity",                  /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo ak_emlrtBCI = {
@@ -250,9 +250,9 @@ static emlrtBCInfo ak_emlrtBCI = {
     16,                              /* colNo */
     "Simulation",                    /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo bk_emlrtBCI = {
@@ -262,9 +262,9 @@ static emlrtBCInfo bk_emlrtBCI = {
     18,                              /* colNo */
     "shifted_data",                  /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo ck_emlrtBCI = {
@@ -274,9 +274,9 @@ static emlrtBCInfo ck_emlrtBCI = {
     15,                              /* colNo */
     "layerSlds",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo dk_emlrtBCI = {
@@ -286,36 +286,36 @@ static emlrtBCInfo dk_emlrtBCI = {
     15,                              /* colNo */
     "allLayers",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtDCInfo mb_emlrtDCI = {
     33,                              /* lineNo */
     17,                              /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    1                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    1                                                          /* checkKind */
 };
 
 static emlrtDCInfo nb_emlrtDCI = {
     32,                              /* lineNo */
     16,                              /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    1                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    1                                                          /* checkKind */
 };
 
 static emlrtDCInfo ob_emlrtDCI = {
     32,                              /* lineNo */
     16,                              /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    4                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    4                                                          /* checkKind */
 };
 
 static emlrtBCInfo ek_emlrtBCI = {
@@ -325,9 +325,9 @@ static emlrtBCInfo ek_emlrtBCI = {
     36,                              /* colNo */
     "layerSlds",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo fk_emlrtBCI = {
@@ -337,9 +337,9 @@ static emlrtBCInfo fk_emlrtBCI = {
     36,                              /* colNo */
     "sldProfiles",                   /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo gk_emlrtBCI = {
@@ -349,9 +349,9 @@ static emlrtBCInfo gk_emlrtBCI = {
     36,                              /* colNo */
     "shifted_data",                  /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo hk_emlrtBCI = {
@@ -361,9 +361,9 @@ static emlrtBCInfo hk_emlrtBCI = {
     36,                              /* colNo */
     "reflectivity",                  /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo ik_emlrtBCI = {
@@ -373,9 +373,9 @@ static emlrtBCInfo ik_emlrtBCI = {
     36,                              /* colNo */
     "Simulation",                    /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo jk_emlrtBCI = {
@@ -385,9 +385,9 @@ static emlrtBCInfo jk_emlrtBCI = {
     36,                              /* colNo */
     "allLayers",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo kk_emlrtBCI = {
@@ -397,9 +397,9 @@ static emlrtBCInfo kk_emlrtBCI = {
     77,                              /* colNo */
     "cBacks",                        /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo lk_emlrtBCI = {
@@ -409,9 +409,9 @@ static emlrtBCInfo lk_emlrtBCI = {
     87,                              /* colNo */
     "cShifts",                       /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo mk_emlrtBCI = {
@@ -421,9 +421,9 @@ static emlrtBCInfo mk_emlrtBCI = {
     98,                              /* colNo */
     "cScales",                       /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo nk_emlrtBCI = {
@@ -433,9 +433,9 @@ static emlrtBCInfo nk_emlrtBCI = {
     109,                             /* colNo */
     "cNbas",                         /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo ok_emlrtBCI = {
@@ -445,9 +445,9 @@ static emlrtBCInfo ok_emlrtBCI = {
     118,                             /* colNo */
     "cNbss",                         /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo pk_emlrtBCI = {
@@ -457,9 +457,9 @@ static emlrtBCInfo pk_emlrtBCI = {
     127,                             /* colNo */
     "cRes",                          /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo qk_emlrtBCI = {
@@ -469,9 +469,9 @@ static emlrtBCInfo qk_emlrtBCI = {
     52,                              /* colNo */
     "contrastLayers",                /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo rk_emlrtBCI = {
@@ -481,9 +481,9 @@ static emlrtBCInfo rk_emlrtBCI = {
     5,                               /* colNo */
     "outSsubs",                      /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo sk_emlrtBCI = {
@@ -493,9 +493,9 @@ static emlrtBCInfo sk_emlrtBCI = {
     5,                               /* colNo */
     "chis",                          /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo tk_emlrtBCI = {
@@ -505,9 +505,9 @@ static emlrtBCInfo tk_emlrtBCI = {
     5,                               /* colNo */
     "sldProfiles",                   /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo uk_emlrtBCI = {
@@ -517,9 +517,9 @@ static emlrtBCInfo uk_emlrtBCI = {
     5,                               /* colNo */
     "reflectivity",                  /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo vk_emlrtBCI = {
@@ -529,9 +529,9 @@ static emlrtBCInfo vk_emlrtBCI = {
     5,                               /* colNo */
     "Simulation",                    /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo wk_emlrtBCI = {
@@ -541,9 +541,9 @@ static emlrtBCInfo wk_emlrtBCI = {
     5,                               /* colNo */
     "shifted_data",                  /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo xk_emlrtBCI = {
@@ -553,9 +553,9 @@ static emlrtBCInfo xk_emlrtBCI = {
     5,                               /* colNo */
     "layerSlds",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo yk_emlrtBCI = {
@@ -565,9 +565,9 @@ static emlrtBCInfo yk_emlrtBCI = {
     5,                               /* colNo */
     "backgs",                        /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo al_emlrtBCI = {
@@ -577,9 +577,9 @@ static emlrtBCInfo al_emlrtBCI = {
     5,                               /* colNo */
     "qshifts",                       /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo bl_emlrtBCI = {
@@ -589,9 +589,9 @@ static emlrtBCInfo bl_emlrtBCI = {
     5,                               /* colNo */
     "sfs",                           /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo cl_emlrtBCI = {
@@ -601,9 +601,9 @@ static emlrtBCInfo cl_emlrtBCI = {
     5,                               /* colNo */
     "nbas",                          /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo dl_emlrtBCI = {
@@ -613,9 +613,9 @@ static emlrtBCInfo dl_emlrtBCI = {
     5,                               /* colNo */
     "nbss",                          /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo el_emlrtBCI = {
@@ -625,9 +625,9 @@ static emlrtBCInfo el_emlrtBCI = {
     5,                               /* colNo */
     "resols",                        /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo fl_emlrtBCI = {
@@ -637,9 +637,9 @@ static emlrtBCInfo fl_emlrtBCI = {
     5,                               /* colNo */
     "allRoughs",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo gl_emlrtBCI = {
@@ -649,9 +649,9 @@ static emlrtBCInfo gl_emlrtBCI = {
     5,                               /* colNo */
     "allLayers",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo hl_emlrtBCI = {
@@ -661,9 +661,9 @@ static emlrtBCInfo hl_emlrtBCI = {
     5,                               /* colNo */
     "allLayers",                     /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo il_emlrtBCI = {
@@ -673,9 +673,9 @@ static emlrtBCInfo il_emlrtBCI = {
     5,                               /* colNo */
     "Simulation",                    /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtBCInfo jl_emlrtBCI = {
@@ -685,137 +685,137 @@ static emlrtBCInfo jl_emlrtBCI = {
     5,                               /* colNo */
     "reflectivity",                  /* aName */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m", /* pName */
-    0                                                     /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m", /* pName */
+    0                                                          /* checkKind */
 };
 
 static emlrtRTEInfo am_emlrtRTEI = {
     32,                              /* lineNo */
     10,                              /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo bm_emlrtRTEI = {
     4,                               /* lineNo */
     18,                              /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo cm_emlrtRTEI = {
     41,                              /* lineNo */
     36,                              /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo dm_emlrtRTEI = {
     47,                              /* lineNo */
     5,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo em_emlrtRTEI = {
     52,                              /* lineNo */
     5,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo fm_emlrtRTEI = {
     57,                              /* lineNo */
     5,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo gm_emlrtRTEI = {
     39,                              /* lineNo */
     12,                              /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo hm_emlrtRTEI = {
     90,                              /* lineNo */
     16,                              /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo im_emlrtRTEI = {
     113,                             /* lineNo */
     5,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo jm_emlrtRTEI = {
     114,                             /* lineNo */
     5,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo km_emlrtRTEI = {
     115,                             /* lineNo */
     5,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo lm_emlrtRTEI = {
     116,                             /* lineNo */
     5,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo mm_emlrtRTEI = {
     117,                             /* lineNo */
     5,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo nm_emlrtRTEI = {
     126,                             /* lineNo */
     5,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo om_emlrtRTEI = {
     65,                              /* lineNo */
     1,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 static emlrtRTEInfo pm_emlrtRTEI = {
     82,                              /* lineNo */
     5,                               /* colNo */
     "standardTF_stanlay_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraPoints.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraPoints.m" /* pName */
 };
 
 /* Function Definitions */
@@ -1157,7 +1157,7 @@ void standardTF_stanlay_paraPoints(
   /*  First we need to allocate the absolute values of the input */
   /*  parameters to all the layers in the layers list. This only needs */
   /*  to be done once, and so is done outside the contrasts loop */
-  st.site = &fh_emlrtRSI;
+  st.site = &eh_emlrtRSI;
   allocateParamsToLayers(&st, problemDef->params, problemDef_cells->f6,
                          outParameterisedLayers);
   /*  Resample params if required */
@@ -1252,7 +1252,7 @@ void standardTF_stanlay_paraPoints(
                                     problemDef->contrastRes->size[1],
                                     &pk_emlrtBCI, (emlrtCTX)sp);
     }
-    st.site = &gh_emlrtRSI;
+    st.site = &fh_emlrtRSI;
     backSort(&st, problemDef->contrastBacks->data[b_i],
              problemDef->contrastShifts->data[b_i],
              problemDef->contrastScales->data[b_i],
@@ -1269,7 +1269,7 @@ void standardTF_stanlay_paraPoints(
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f5->size[1] - 1,
                                     &qk_emlrtBCI, (emlrtCTX)sp);
     }
-    st.site = &hh_emlrtRSI;
+    st.site = &gh_emlrtRSI;
     allocateLayersForContrast(&st, problemDef_cells->f5->data[b_i].f1,
                               outParameterisedLayers, thisContrastLayers);
     /*  For the other parameters, we extract the correct ones from the input */
@@ -1313,7 +1313,7 @@ void standardTF_stanlay_paraPoints(
     /*  In this case we are single cored, so we do not parallelise over */
     /*  points */
     /*  Call the core layers calculation */
-    st.site = &ih_emlrtRSI;
+    st.site = &hh_emlrtRSI;
     b_calcSld = calcSld;
     /*    This is the main reflectivity calculation for all Layers models in the
      */

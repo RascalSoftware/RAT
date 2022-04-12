@@ -29,6 +29,9 @@ void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
       NULL  /* prev */
   };
   mexAtExit(&reflectivity_calculation_atexit);
+  emlrtLoadLibrary(
+      (const char_T *)"C:\\ProgramData\\MATLAB\\SupportPackages\\R2021a\\3P."
+                      "instrset\\mingw_w64.instrset\\bin\\libgomp-1.dll");
   /* Initialize the memory manager. */
   omp_init_lock(&emlrtLockGlobal);
   omp_init_nest_lock(&emlrtNestLockGlobal);

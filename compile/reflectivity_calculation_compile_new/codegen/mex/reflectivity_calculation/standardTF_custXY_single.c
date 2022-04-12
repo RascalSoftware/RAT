@@ -24,359 +24,323 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo ni_emlrtRSI = {
+static emlrtRSInfo mi_emlrtRSI = {
     56,                         /* lineNo */
     "standardTF_custXY_single", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pathName */
+};
+
+static emlrtRSInfo ni_emlrtRSI = {
+    59,                         /* lineNo */
+    "standardTF_custXY_single", /* fcnName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pathName */
 };
 
 static emlrtRSInfo oi_emlrtRSI = {
-    59,                         /* lineNo */
+    64,                         /* lineNo */
     "standardTF_custXY_single", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pathName */
 };
 
 static emlrtRSInfo pi_emlrtRSI = {
-    64,                         /* lineNo */
+    68,                         /* lineNo */
     "standardTF_custXY_single", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pathName */
 };
 
 static emlrtRSInfo qi_emlrtRSI = {
-    68,                         /* lineNo */
+    72,                         /* lineNo */
     "standardTF_custXY_single", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pathName */
 };
 
 static emlrtRSInfo ri_emlrtRSI = {
-    72,                         /* lineNo */
+    74,                         /* lineNo */
     "standardTF_custXY_single", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pathName */
 };
 
 static emlrtRSInfo si_emlrtRSI = {
-    74,                         /* lineNo */
+    79,                         /* lineNo */
     "standardTF_custXY_single", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pathName */
 };
 
 static emlrtRSInfo ti_emlrtRSI = {
-    79,                         /* lineNo */
-    "standardTF_custXY_single", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pathName */
-};
-
-static emlrtRSInfo ui_emlrtRSI = {
     80,                         /* lineNo */
     "standardTF_custXY_single", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pathName */
 };
 
-static emlrtDCInfo id_emlrtDCI = {
+static emlrtDCInfo kd_emlrtDCI = {
     31,                         /* lineNo */
     18,                         /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    1                                                    /* checkKind */
 };
 
 static emlrtRTEInfo hd_emlrtRTEI = {
     37,                         /* lineNo */
     9,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo id_emlrtRTEI = {
     43,                         /* lineNo */
     9,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo jd_emlrtRTEI = {
     49,                         /* lineNo */
     9,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo kd_emlrtRTEI = {
     55,                         /* lineNo */
     9,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
-static emlrtDCInfo jd_emlrtDCI = {
+static emlrtDCInfo ld_emlrtDCI = {
     58,                         /* lineNo */
     34,                         /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    1                                                    /* checkKind */
 };
 
-static emlrtBCInfo uv_emlrtBCI = {
+static emlrtBCInfo xv_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     72,                         /* lineNo */
     115,                        /* colNo */
     "outSsubs",                 /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo vv_emlrtBCI = {
+static emlrtBCInfo yv_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     74,                         /* lineNo */
     94,                         /* colNo */
     "backgs",                   /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo wv_emlrtBCI = {
+static emlrtBCInfo aw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     74,                         /* lineNo */
     107,                        /* colNo */
     "backsType",                /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo xv_emlrtBCI = {
+static emlrtBCInfo bw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     79,                         /* lineNo */
     20,                         /* colNo */
     "dataPresent",              /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo yv_emlrtBCI = {
+static emlrtBCInfo cw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     58,                         /* lineNo */
     34,                         /* colNo */
     "customFiles",              /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo aw_emlrtBCI = {
+static emlrtBCInfo dw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     38,                         /* lineNo */
     18,                         /* colNo */
     "reflectivity",             /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo bw_emlrtBCI = {
+static emlrtBCInfo ew_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     44,                         /* lineNo */
     16,                         /* colNo */
     "Simulation",               /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo cw_emlrtBCI = {
+static emlrtBCInfo fw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     50,                         /* lineNo */
     15,                         /* colNo */
     "allLayers",                /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo dw_emlrtBCI = {
+static emlrtBCInfo gw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     61,                         /* lineNo */
     17,                         /* colNo */
     "sldProfiles",              /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo ew_emlrtBCI = {
+static emlrtBCInfo hw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     65,                         /* lineNo */
     15,                         /* colNo */
     "layerSlds",                /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo fw_emlrtBCI = {
+static emlrtBCInfo iw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     66,                         /* lineNo */
     15,                         /* colNo */
     "allLayers",                /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo gw_emlrtBCI = {
+static emlrtBCInfo jw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     69,                         /* lineNo */
     18,                         /* colNo */
     "shifted_data",             /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo hw_emlrtBCI = {
+static emlrtBCInfo kw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     76,                         /* lineNo */
     18,                         /* colNo */
     "reflectivity",             /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo iw_emlrtBCI = {
+static emlrtBCInfo lw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     77,                         /* lineNo */
     16,                         /* colNo */
     "Simulation",               /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
-};
-
-static emlrtDCInfo kd_emlrtDCI = {
-    23,                         /* lineNo */
-    17,                         /* colNo */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    1                                               /* checkKind */
-};
-
-static emlrtDCInfo ld_emlrtDCI = {
-    22,                         /* lineNo */
-    16,                         /* colNo */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtDCInfo md_emlrtDCI = {
-    22,                         /* lineNo */
-    16,                         /* colNo */
+    23,                         /* lineNo */
+    17,                         /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    4                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    1                                                    /* checkKind */
 };
 
 static emlrtDCInfo nd_emlrtDCI = {
-    25,                         /* lineNo */
-    1,                          /* colNo */
+    22,                         /* lineNo */
+    16,                         /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    1                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    1                                                    /* checkKind */
 };
 
 static emlrtDCInfo od_emlrtDCI = {
+    22,                         /* lineNo */
+    16,                         /* colNo */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    4                                                    /* checkKind */
+};
+
+static emlrtDCInfo pd_emlrtDCI = {
+    25,                         /* lineNo */
+    1,                          /* colNo */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    1                                                    /* checkKind */
+};
+
+static emlrtDCInfo qd_emlrtDCI = {
     29,                         /* lineNo */
     1,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    1                                               /* checkKind */
-};
-
-static emlrtBCInfo jw_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    31,                         /* lineNo */
-    36,                         /* colNo */
-    "layerSlds",                /* aName */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
-};
-
-static emlrtBCInfo kw_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    31,                         /* lineNo */
-    36,                         /* colNo */
-    "sldProfiles",              /* aName */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
-};
-
-static emlrtBCInfo lw_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    31,                         /* lineNo */
-    36,                         /* colNo */
-    "shifted_data",             /* aName */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    1                                                    /* checkKind */
 };
 
 static emlrtBCInfo mw_emlrtBCI = {
@@ -384,11 +348,11 @@ static emlrtBCInfo mw_emlrtBCI = {
     -1,                         /* iLast */
     31,                         /* lineNo */
     36,                         /* colNo */
-    "reflectivity",             /* aName */
+    "layerSlds",                /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo nw_emlrtBCI = {
@@ -396,11 +360,11 @@ static emlrtBCInfo nw_emlrtBCI = {
     -1,                         /* iLast */
     31,                         /* lineNo */
     36,                         /* colNo */
-    "Simulation",               /* aName */
+    "sldProfiles",              /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo ow_emlrtBCI = {
@@ -408,591 +372,627 @@ static emlrtBCInfo ow_emlrtBCI = {
     -1,                         /* iLast */
     31,                         /* lineNo */
     36,                         /* colNo */
-    "allLayers",                /* aName */
+    "shifted_data",             /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo pw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    56,                         /* lineNo */
-    72,                         /* colNo */
-    "cBacks",                   /* aName */
+    31,                         /* lineNo */
+    36,                         /* colNo */
+    "reflectivity",             /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo qw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    56,                         /* lineNo */
-    82,                         /* colNo */
-    "cShifts",                  /* aName */
+    31,                         /* lineNo */
+    36,                         /* colNo */
+    "Simulation",               /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo rw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    56,                         /* lineNo */
-    93,                         /* colNo */
-    "cScales",                  /* aName */
+    31,                         /* lineNo */
+    36,                         /* colNo */
+    "allLayers",                /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo sw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     56,                         /* lineNo */
-    104,                        /* colNo */
-    "cNbas",                    /* aName */
+    72,                         /* colNo */
+    "cBacks",                   /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo tw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     56,                         /* lineNo */
-    113,                        /* colNo */
-    "cNbss",                    /* aName */
+    82,                         /* colNo */
+    "cShifts",                  /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo uw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     56,                         /* lineNo */
-    122,                        /* colNo */
-    "cRes",                     /* aName */
+    93,                         /* colNo */
+    "cScales",                  /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo vw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     56,                         /* lineNo */
-    6,                          /* colNo */
-    "backgs",                   /* aName */
+    104,                        /* colNo */
+    "cNbas",                    /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo ww_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     56,                         /* lineNo */
-    16,                         /* colNo */
-    "qshifts",                  /* aName */
+    113,                        /* colNo */
+    "cNbss",                    /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo xw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     56,                         /* lineNo */
-    27,                         /* colNo */
-    "sfs",                      /* aName */
+    122,                        /* colNo */
+    "cRes",                     /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo yw_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     56,                         /* lineNo */
-    34,                         /* colNo */
-    "nbas",                     /* aName */
+    6,                          /* colNo */
+    "backgs",                   /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo ax_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     56,                         /* lineNo */
-    42,                         /* colNo */
-    "nbss",                     /* aName */
+    16,                         /* colNo */
+    "qshifts",                  /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo bx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     56,                         /* lineNo */
-    50,                         /* colNo */
-    "resols",                   /* aName */
+    27,                         /* colNo */
+    "sfs",                      /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo cx_emlrtBCI = {
+    -1,                         /* iFirst */
+    -1,                         /* iLast */
+    56,                         /* lineNo */
+    34,                         /* colNo */
+    "nbas",                     /* aName */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
+};
+
+static emlrtBCInfo dx_emlrtBCI = {
+    -1,                         /* iFirst */
+    -1,                         /* iLast */
+    56,                         /* lineNo */
+    42,                         /* colNo */
+    "nbss",                     /* aName */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
+};
+
+static emlrtBCInfo ex_emlrtBCI = {
+    -1,                         /* iFirst */
+    -1,                         /* iLast */
+    56,                         /* lineNo */
+    50,                         /* colNo */
+    "resols",                   /* aName */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
+};
+
+static emlrtBCInfo fx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     58,                         /* lineNo */
     34,                         /* colNo */
     "cCustFiles",               /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo dx_emlrtBCI = {
+static emlrtBCInfo gx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     59,                         /* lineNo */
     80,                         /* colNo */
     "nbss",                     /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo ex_emlrtBCI = {
+static emlrtBCInfo hx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     59,                         /* lineNo */
     17,                         /* colNo */
     "allRoughs",                /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo fx_emlrtBCI = {
+static emlrtBCInfo ix_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     61,                         /* lineNo */
     5,                          /* colNo */
     "sldProfiles",              /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo gx_emlrtBCI = {
+static emlrtBCInfo jx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     65,                         /* lineNo */
     5,                          /* colNo */
     "layerSlds",                /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo hx_emlrtBCI = {
+static emlrtBCInfo kx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     66,                         /* lineNo */
     5,                          /* colNo */
     "allLayers",                /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
-};
-
-static emlrtBCInfo ix_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    68,                         /* lineNo */
-    30,                         /* colNo */
-    "sfs",                      /* aName */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
-};
-
-static emlrtBCInfo jx_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    68,                         /* lineNo */
-    37,                         /* colNo */
-    "qshifts",                  /* aName */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
-};
-
-static emlrtBCInfo kx_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    68,                         /* lineNo */
-    48,                         /* colNo */
-    "dataPresent",              /* aName */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo lx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     68,                         /* lineNo */
-    63,                         /* colNo */
-    "allData",                  /* aName */
+    30,                         /* colNo */
+    "sfs",                      /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo mx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     68,                         /* lineNo */
-    74,                         /* colNo */
-    "dataLimits",               /* aName */
+    37,                         /* colNo */
+    "qshifts",                  /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo nx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     68,                         /* lineNo */
-    88,                         /* colNo */
-    "simLimits",                /* aName */
+    48,                         /* colNo */
+    "dataPresent",              /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo ox_emlrtBCI = {
+    -1,                         /* iFirst */
+    -1,                         /* iLast */
+    68,                         /* lineNo */
+    63,                         /* colNo */
+    "allData",                  /* aName */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
+};
+
+static emlrtBCInfo px_emlrtBCI = {
+    -1,                         /* iFirst */
+    -1,                         /* iLast */
+    68,                         /* lineNo */
+    74,                         /* colNo */
+    "dataLimits",               /* aName */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
+};
+
+static emlrtBCInfo qx_emlrtBCI = {
+    -1,                         /* iFirst */
+    -1,                         /* iLast */
+    68,                         /* lineNo */
+    88,                         /* colNo */
+    "simLimits",                /* aName */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
+};
+
+static emlrtBCInfo rx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     69,                         /* lineNo */
     5,                          /* colNo */
     "shifted_data",             /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
-};
-
-static emlrtBCInfo px_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    72,                         /* lineNo */
-    40,                         /* colNo */
-    "nbas",                     /* aName */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
-};
-
-static emlrtBCInfo qx_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    72,                         /* lineNo */
-    48,                         /* colNo */
-    "nbss",                     /* aName */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
-};
-
-static emlrtBCInfo rx_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    72,                         /* lineNo */
-    56,                         /* colNo */
-    "simLimits",                /* aName */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo sx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     72,                         /* lineNo */
-    69,                         /* colNo */
-    "repeatLayers",             /* aName */
+    40,                         /* colNo */
+    "nbas",                     /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo tx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     72,                         /* lineNo */
-    118,                        /* colNo */
-    "resols",                   /* aName */
+    48,                         /* colNo */
+    "nbss",                     /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo ux_emlrtBCI = {
+    -1,                         /* iFirst */
+    -1,                         /* iLast */
+    72,                         /* lineNo */
+    56,                         /* colNo */
+    "simLimits",                /* aName */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
+};
+
+static emlrtBCInfo vx_emlrtBCI = {
+    -1,                         /* iFirst */
+    -1,                         /* iLast */
+    72,                         /* lineNo */
+    69,                         /* colNo */
+    "repeatLayers",             /* aName */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
+};
+
+static emlrtBCInfo wx_emlrtBCI = {
+    -1,                         /* iFirst */
+    -1,                         /* iLast */
+    72,                         /* lineNo */
+    118,                        /* colNo */
+    "resols",                   /* aName */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
+};
+
+static emlrtBCInfo xx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     76,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity",             /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo vx_emlrtBCI = {
+static emlrtBCInfo yx_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     77,                         /* lineNo */
     5,                          /* colNo */
     "Simulation",               /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo wx_emlrtBCI = {
+static emlrtBCInfo ay_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     82,                         /* lineNo */
     9,                          /* colNo */
     "chis",                     /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo xx_emlrtBCI = {
+static emlrtBCInfo by_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     80,                         /* lineNo */
     9,                          /* colNo */
     "chis",                     /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo yx_emlrtBCI = {
+static emlrtBCInfo cy_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     50,                         /* lineNo */
     5,                          /* colNo */
     "allLayers",                /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo ay_emlrtBCI = {
+static emlrtBCInfo dy_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     44,                         /* lineNo */
     5,                          /* colNo */
     "Simulation",               /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
-static emlrtBCInfo by_emlrtBCI = {
+static emlrtBCInfo ey_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     38,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity",             /* aName */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m", /* pName */
-    0                                               /* checkKind */
-};
-
-static emlrtRTEInfo br_emlrtRTEI = {
-    22,                         /* lineNo */
-    10,                         /* colNo */
-    "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtRTEInfo cr_emlrtRTEI = {
-    25,                         /* lineNo */
-    1,                          /* colNo */
+    22,                         /* lineNo */
+    10,                         /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo dr_emlrtRTEI = {
-    29,                         /* lineNo */
+    25,                         /* lineNo */
     1,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo er_emlrtRTEI = {
-    3,                          /* lineNo */
-    18,                         /* colNo */
+    29,                         /* lineNo */
+    1,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo fr_emlrtRTEI = {
-    31,                         /* lineNo */
-    36,                         /* colNo */
+    3,                          /* lineNo */
+    18,                         /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo gr_emlrtRTEI = {
-    38,                         /* lineNo */
-    5,                          /* colNo */
+    31,                         /* lineNo */
+    36,                         /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo hr_emlrtRTEI = {
-    44,                         /* lineNo */
+    38,                         /* lineNo */
     5,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo ir_emlrtRTEI = {
-    50,                         /* lineNo */
+    44,                         /* lineNo */
     5,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo jr_emlrtRTEI = {
-    61,                         /* lineNo */
+    50,                         /* lineNo */
     5,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo kr_emlrtRTEI = {
-    65,                         /* lineNo */
+    61,                         /* lineNo */
     5,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo lr_emlrtRTEI = {
-    66,                         /* lineNo */
+    65,                         /* lineNo */
     5,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo mr_emlrtRTEI = {
-    68,                         /* lineNo */
-    63,                         /* colNo */
+    66,                         /* lineNo */
+    5,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo nr_emlrtRTEI = {
-    69,                         /* lineNo */
-    5,                          /* colNo */
+    68,                         /* lineNo */
+    63,                         /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo or_emlrtRTEI = {
-    76,                         /* lineNo */
+    69,                         /* lineNo */
     5,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo pr_emlrtRTEI = {
-    77,                         /* lineNo */
+    76,                         /* lineNo */
     5,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo qr_emlrtRTEI = {
-    64,                         /* lineNo */
+    77,                         /* lineNo */
     5,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 static emlrtRTEInfo rr_emlrtRTEI = {
+    64,                         /* lineNo */
+    5,                          /* colNo */
+    "standardTF_custXY_single", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
+};
+
+static emlrtRTEInfo sr_emlrtRTEI = {
     68,                         /* lineNo */
     5,                          /* colNo */
     "standardTF_custXY_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY/standardTF_custXY_single.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY\\standardTF_custXY_single.m" /* pName */
 };
 
 /* Function Definitions */
@@ -1042,83 +1042,83 @@ void standardTF_custXY_single(
   numberOfContrasts_tmp = problemDef->numberOfContrasts;
   /* Pre-Allocation... */
   if (!(problemDef->numberOfContrasts >= 0.0)) {
-    emlrtNonNegativeCheckR2012b(problemDef->numberOfContrasts, &md_emlrtDCI,
+    emlrtNonNegativeCheckR2012b(problemDef->numberOfContrasts, &od_emlrtDCI,
                                 (emlrtCTX)sp);
   }
   i = (int32_T)muDoubleScalarFloor(problemDef->numberOfContrasts);
   if (problemDef->numberOfContrasts != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ld_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &nd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = backgs->size[0];
   backgs->size[0] = (int32_T)problemDef->numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, backgs, i1, &br_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, backgs, i1, &cr_emlrtRTEI);
   if (problemDef->numberOfContrasts != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &kd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &md_emlrtDCI,
                             (emlrtCTX)sp);
   }
   loop_ub_tmp = (int32_T)problemDef->numberOfContrasts;
   i1 = nbas->size[0];
   nbas->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, nbas, i1, &cr_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, nbas, i1, &dr_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &nd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &pd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     nbas->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &od_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &qd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = outSsubs->size[0];
   outSsubs->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, outSsubs, i1, &dr_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, outSsubs, i1, &er_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &od_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &qd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     outSsubs->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &id_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &kd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i = layerSlds->size[0];
   layerSlds->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &er_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &fr_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_layerSlds = layerSlds->size[0] - 1;
     if (i > layerSlds->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, layerSlds->size[0] - 1, &jw_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, layerSlds->size[0] - 1, &mw_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     layerSlds->data[i].f1->size[0] = 0;
     if (i > b_layerSlds) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &jw_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &mw_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i1 = layerSlds->data[i].f1->size[0] * layerSlds->data[i].f1->size[1];
     layerSlds->data[i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layerSlds->data[i].f1, i1, &er_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSlds->data[i].f1, i1, &fr_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
   i = sldProfiles->size[0];
   sldProfiles->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &er_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &fr_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_layerSlds = sldProfiles->size[0] - 1;
     if (i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, sldProfiles->size[0] - 1,
-                                    &kw_emlrtBCI, (emlrtCTX)sp);
+                                    &nw_emlrtBCI, (emlrtCTX)sp);
     }
     sldProfiles->data[i].f1->size[0] = 0;
     if (i > b_layerSlds) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &kw_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &nw_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     sldProfiles->data[i].f1->size[1] = 0;
@@ -1128,16 +1128,16 @@ void standardTF_custXY_single(
   }
   i = shifted_data->size[0];
   shifted_data->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &er_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &fr_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_layerSlds = shifted_data->size[0] - 1;
     if (i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, shifted_data->size[0] - 1,
-                                    &lw_emlrtBCI, (emlrtCTX)sp);
+                                    &ow_emlrtBCI, (emlrtCTX)sp);
     }
     shifted_data->data[i].f1->size[0] = 0;
     if (i > b_layerSlds) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &lw_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &ow_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     shifted_data->data[i].f1->size[1] = 0;
@@ -1147,21 +1147,21 @@ void standardTF_custXY_single(
   }
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &er_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &fr_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_layerSlds = reflectivity->size[0] - 1;
     if (i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, reflectivity->size[0] - 1,
-                                    &mw_emlrtBCI, (emlrtCTX)sp);
+                                    &pw_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[i].f1->size[0] = 0;
     if (i > b_layerSlds) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &mw_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &pw_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i1 = reflectivity->data[i].f1->size[0] * reflectivity->data[i].f1->size[1];
     reflectivity->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[i].f1, i1, &er_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[i].f1, i1, &fr_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1171,40 +1171,40 @@ void standardTF_custXY_single(
       (int32_T)problemDef->numberOfContrasts, &hd_emlrtRTEI, (emlrtCTX)sp);
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &fr_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &gr_emlrtRTEI);
   for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &aw_emlrtBCI, (emlrtCTX)sp);
+                                    &dw_emlrtBCI, (emlrtCTX)sp);
     }
     i = reflectivity->data[b_i].f1->size[0] *
         reflectivity->data[b_i].f1->size[1];
     reflectivity->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &gr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &hr_emlrtRTEI);
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &aw_emlrtBCI, (emlrtCTX)sp);
+                                    &dw_emlrtBCI, (emlrtCTX)sp);
     }
     i = reflectivity->data[b_i].f1->size[0] *
         reflectivity->data[b_i].f1->size[1];
     reflectivity->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &gr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &hr_emlrtRTEI);
     i = reflectivity->size[0];
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &aw_emlrtBCI, (emlrtCTX)sp);
+                                    &dw_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[b_i].f1->data[0] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &by_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ey_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[b_i].f1->data[1] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &by_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ey_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[b_i].f1->data[2] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &by_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ey_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[b_i].f1->data[3] = 1.0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
@@ -1214,21 +1214,21 @@ void standardTF_custXY_single(
   /* coder.varsize('reflectivity{:}',[10000 2],[1 0]); */
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &er_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &fr_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_layerSlds = Simulation->size[0] - 1;
     if (i > Simulation->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, Simulation->size[0] - 1, &nw_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, Simulation->size[0] - 1, &qw_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     Simulation->data[i].f1->size[0] = 0;
     if (i > b_layerSlds) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &nw_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &qw_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i1 = Simulation->data[i].f1->size[0] * Simulation->data[i].f1->size[1];
     Simulation->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[i].f1, i1, &er_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[i].f1, i1, &fr_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1238,38 +1238,38 @@ void standardTF_custXY_single(
       (int32_T)problemDef->numberOfContrasts, &id_emlrtRTEI, (emlrtCTX)sp);
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &fr_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &gr_emlrtRTEI);
   for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &bw_emlrtBCI, (emlrtCTX)sp);
+                                    &ew_emlrtBCI, (emlrtCTX)sp);
     }
     i = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
     Simulation->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &hr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &ir_emlrtRTEI);
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &bw_emlrtBCI, (emlrtCTX)sp);
+                                    &ew_emlrtBCI, (emlrtCTX)sp);
     }
     i = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
     Simulation->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &hr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &ir_emlrtRTEI);
     i = Simulation->size[0];
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &bw_emlrtBCI, (emlrtCTX)sp);
+                                    &ew_emlrtBCI, (emlrtCTX)sp);
     }
     Simulation->data[b_i].f1->data[0] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ay_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &dy_emlrtBCI, (emlrtCTX)sp);
     }
     Simulation->data[b_i].f1->data[1] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ay_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &dy_emlrtBCI, (emlrtCTX)sp);
     }
     Simulation->data[b_i].f1->data[2] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ay_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &dy_emlrtBCI, (emlrtCTX)sp);
     }
     Simulation->data[b_i].f1->data[3] = 1.0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
@@ -1279,16 +1279,16 @@ void standardTF_custXY_single(
   /* coder.varsize('Simulation{:}',[10000 2],[1 0]); */
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &er_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &fr_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     b_layerSlds = allLayers->size[0] - 1;
     if (i > allLayers->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, allLayers->size[0] - 1, &ow_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, allLayers->size[0] - 1, &rw_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     allLayers->data[i].f1->size[0] = 0;
     if (i > b_layerSlds) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &ow_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_layerSlds, &rw_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     allLayers->data[i].f1->size[1] = 0;
@@ -1301,30 +1301,30 @@ void standardTF_custXY_single(
       (int32_T)problemDef->numberOfContrasts, &jd_emlrtRTEI, (emlrtCTX)sp);
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &fr_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &gr_emlrtRTEI);
   for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &cw_emlrtBCI, (emlrtCTX)sp);
+                                    &fw_emlrtBCI, (emlrtCTX)sp);
     }
     i = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
     allLayers->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &ir_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &jr_emlrtRTEI);
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &cw_emlrtBCI, (emlrtCTX)sp);
+                                    &fw_emlrtBCI, (emlrtCTX)sp);
     }
     i = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
     allLayers->data[b_i].f1->size[1] = 1;
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &ir_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &jr_emlrtRTEI);
     i = allLayers->size[0];
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &cw_emlrtBCI, (emlrtCTX)sp);
+                                    &fw_emlrtBCI, (emlrtCTX)sp);
     }
     allLayers->data[b_i].f1->data[0] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &yx_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &cy_emlrtBCI, (emlrtCTX)sp);
     }
     allLayers->data[b_i].f1->data[1] = 1.0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
@@ -1337,103 +1337,103 @@ void standardTF_custXY_single(
       (int32_T)problemDef->numberOfContrasts, &kd_emlrtRTEI, (emlrtCTX)sp);
   i = qshifts->size[0];
   qshifts->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, qshifts, i, &br_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, qshifts, i, &cr_emlrtRTEI);
   i = sfs->size[0];
   sfs->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, sfs, i, &br_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, sfs, i, &cr_emlrtRTEI);
   i = nbss->size[0];
   nbss->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, nbss, i, &br_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, nbss, i, &cr_emlrtRTEI);
   i = resols->size[0];
   resols->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, resols, i, &br_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, resols, i, &cr_emlrtRTEI);
   i = allRoughs->size[0];
   allRoughs->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, allRoughs, i, &br_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, allRoughs, i, &cr_emlrtRTEI);
   i = sldProfiles->size[0];
   sldProfiles->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &fr_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &gr_emlrtRTEI);
   i = layerSlds->size[0];
   layerSlds->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &fr_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &gr_emlrtRTEI);
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &fr_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &gr_emlrtRTEI);
   i = shifted_data->size[0];
   shifted_data->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &fr_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &gr_emlrtRTEI);
   i = chis->size[0];
   chis->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, chis, i, &br_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, chis, i, &cr_emlrtRTEI);
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &fr_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &gr_emlrtRTEI);
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &fr_emlrtRTEI);
-  emxInit_real_T(sp, &layerSld, 2, &qr_emlrtRTEI, true);
-  emxInit_real_T(sp, &shifted_dat, 2, &rr_emlrtRTEI, true);
-  emxInit_real_T(sp, &sldProfile, 2, &er_emlrtRTEI, true);
-  emxInit_real_T(sp, &reflect, 2, &er_emlrtRTEI, true);
-  emxInit_real_T(sp, &Simul, 2, &er_emlrtRTEI, true);
+  emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &gr_emlrtRTEI);
+  emxInit_real_T(sp, &layerSld, 2, &rr_emlrtRTEI, true);
+  emxInit_real_T(sp, &shifted_dat, 2, &sr_emlrtRTEI, true);
+  emxInit_real_T(sp, &sldProfile, 2, &fr_emlrtRTEI, true);
+  emxInit_real_T(sp, &reflect, 2, &fr_emlrtRTEI, true);
+  emxInit_real_T(sp, &Simul, 2, &fr_emlrtRTEI, true);
   emxInit_real_T(sp, &b_shifted_dat, 1, &nh_emlrtRTEI, true);
-  emxInit_real_T(sp, &b_problemDef_cells, 2, &mr_emlrtRTEI, true);
+  emxInit_real_T(sp, &b_problemDef_cells, 2, &nr_emlrtRTEI, true);
   for (b_i = 0; b_i < loop_ub_tmp; b_i++) {
     if ((int32_T)(b_i + 1U) > problemDef->contrastBacks->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastBacks->size[1],
-                                    &pw_emlrtBCI, (emlrtCTX)sp);
+                                    &sw_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > problemDef->contrastShifts->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastShifts->size[1],
-                                    &qw_emlrtBCI, (emlrtCTX)sp);
+                                    &tw_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > problemDef->contrastScales->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastScales->size[1],
-                                    &rw_emlrtBCI, (emlrtCTX)sp);
+                                    &uw_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > problemDef->contrastNbas->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastNbas->size[1],
-                                    &sw_emlrtBCI, (emlrtCTX)sp);
+                                    &vw_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > problemDef->contrastNbss->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastNbss->size[1],
-                                    &tw_emlrtBCI, (emlrtCTX)sp);
+                                    &ww_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > problemDef->contrastRes->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastRes->size[1],
-                                    &uw_emlrtBCI, (emlrtCTX)sp);
+                                    &xw_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > backgs->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, backgs->size[0],
-                                    &vw_emlrtBCI, (emlrtCTX)sp);
+                                    &yw_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > qshifts->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, qshifts->size[0],
-                                    &ww_emlrtBCI, (emlrtCTX)sp);
+                                    &ax_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > sfs->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, sfs->size[0],
-                                    &xw_emlrtBCI, (emlrtCTX)sp);
+                                    &bx_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > nbas->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, nbas->size[0],
-                                    &yw_emlrtBCI, (emlrtCTX)sp);
+                                    &cx_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > nbss->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, nbss->size[0],
-                                    &ax_emlrtBCI, (emlrtCTX)sp);
+                                    &dx_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > resols->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, resols->size[0],
-                                    &bx_emlrtBCI, (emlrtCTX)sp);
+                                    &ex_emlrtBCI, (emlrtCTX)sp);
     }
-    st.site = &ni_emlrtRSI;
+    st.site = &mi_emlrtRSI;
     backSort(&st, problemDef->contrastBacks->data[b_i],
              problemDef->contrastShifts->data[b_i],
              problemDef->contrastScales->data[b_i],
@@ -1447,27 +1447,27 @@ void standardTF_custXY_single(
     if ((int32_T)(b_i + 1U) > problemDef->contrastCustomFiles->size[1]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1,
                                     problemDef->contrastCustomFiles->size[1],
-                                    &cx_emlrtBCI, (emlrtCTX)sp);
+                                    &fx_emlrtBCI, (emlrtCTX)sp);
     }
     d = problemDef->contrastCustomFiles->data[b_i];
     if (d != (int32_T)muDoubleScalarFloor(d)) {
-      emlrtIntegerCheckR2012b(d, &jd_emlrtDCI, (emlrtCTX)sp);
+      emlrtIntegerCheckR2012b(d, &ld_emlrtDCI, (emlrtCTX)sp);
     }
     if (((int32_T)d - 1 < 0) ||
         ((int32_T)d - 1 > problemDef_cells->f14->size[1] - 1)) {
       emlrtDynamicBoundsCheckR2012b((int32_T)d - 1, 0,
                                     problemDef_cells->f14->size[1] - 1,
-                                    &yv_emlrtBCI, (emlrtCTX)sp);
+                                    &cw_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > nbss->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, nbss->size[0],
-                                    &dx_emlrtBCI, (emlrtCTX)sp);
+                                    &gx_emlrtBCI, (emlrtCTX)sp);
     }
     if ((int32_T)(b_i + 1U) > allRoughs->size[0]) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(b_i + 1U), 1, allRoughs->size[0],
-                                    &ex_emlrtBCI, (emlrtCTX)sp);
+                                    &hx_emlrtBCI, (emlrtCTX)sp);
     }
-    st.site = &oi_emlrtRSI;
+    st.site = &ni_emlrtRSI;
     b_call_customLayers(
         &st, problemDef->params, (real_T)b_i + 1.0,
         problemDef_cells->f14
@@ -1478,63 +1478,63 @@ void standardTF_custXY_single(
     b_layerSlds = sldProfile->size[0] * sldProfile->size[1];
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
-                                    &dw_emlrtBCI, (emlrtCTX)sp);
+                                    &gw_emlrtBCI, (emlrtCTX)sp);
     }
     i = sldProfiles->data[b_i].f1->size[0] * sldProfiles->data[b_i].f1->size[1];
     sldProfiles->data[b_i].f1->size[0] = sldProfile->size[0];
-    emxEnsureCapacity_real_T(sp, sldProfiles->data[b_i].f1, i, &jr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, sldProfiles->data[b_i].f1, i, &kr_emlrtRTEI);
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
-                                    &dw_emlrtBCI, (emlrtCTX)sp);
+                                    &gw_emlrtBCI, (emlrtCTX)sp);
     }
     i = sldProfiles->data[b_i].f1->size[0] * sldProfiles->data[b_i].f1->size[1];
     sldProfiles->data[b_i].f1->size[1] = sldProfile->size[1];
-    emxEnsureCapacity_real_T(sp, sldProfiles->data[b_i].f1, i, &jr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, sldProfiles->data[b_i].f1, i, &kr_emlrtRTEI);
     i = sldProfiles->size[0];
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
-                                    &dw_emlrtBCI, (emlrtCTX)sp);
+                                    &gw_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
-                                    &dw_emlrtBCI, (emlrtCTX)sp);
+                                    &gw_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_layerSlds; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &fx_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ix_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       sldProfiles->data[b_i].f1->data[i1] = sldProfile->data[i1];
     }
-    st.site = &pi_emlrtRSI;
+    st.site = &oi_emlrtRSI;
     b_resampleLayers(&st, sldProfile, controls->resamPars, layerSld);
     b_layerSlds = layerSld->size[0] * 3;
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1,
-                                    &ew_emlrtBCI, (emlrtCTX)sp);
+                                    &hw_emlrtBCI, (emlrtCTX)sp);
     }
     i = layerSlds->data[b_i].f1->size[0] * layerSlds->data[b_i].f1->size[1];
     layerSlds->data[b_i].f1->size[0] = layerSld->size[0];
-    emxEnsureCapacity_real_T(sp, layerSlds->data[b_i].f1, i, &kr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSlds->data[b_i].f1, i, &lr_emlrtRTEI);
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1,
-                                    &ew_emlrtBCI, (emlrtCTX)sp);
+                                    &hw_emlrtBCI, (emlrtCTX)sp);
     }
     i = layerSlds->data[b_i].f1->size[0] * layerSlds->data[b_i].f1->size[1];
     layerSlds->data[b_i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layerSlds->data[b_i].f1, i, &kr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSlds->data[b_i].f1, i, &lr_emlrtRTEI);
     i = layerSlds->size[0];
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1,
-                                    &ew_emlrtBCI, (emlrtCTX)sp);
+                                    &hw_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1,
-                                    &ew_emlrtBCI, (emlrtCTX)sp);
+                                    &hw_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_layerSlds; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &gx_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &jx_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       layerSlds->data[b_i].f1->data[i1] = layerSld->data[i1];
@@ -1542,70 +1542,70 @@ void standardTF_custXY_single(
     b_layerSlds = layerSld->size[0] * 3;
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &fw_emlrtBCI, (emlrtCTX)sp);
+                                    &iw_emlrtBCI, (emlrtCTX)sp);
     }
     i = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
     allLayers->data[b_i].f1->size[0] = layerSld->size[0];
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &lr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &mr_emlrtRTEI);
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &fw_emlrtBCI, (emlrtCTX)sp);
+                                    &iw_emlrtBCI, (emlrtCTX)sp);
     }
     i = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
     allLayers->data[b_i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &lr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &mr_emlrtRTEI);
     i = allLayers->size[0];
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &fw_emlrtBCI, (emlrtCTX)sp);
+                                    &iw_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                    &fw_emlrtBCI, (emlrtCTX)sp);
+                                    &iw_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_layerSlds; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &hx_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &kx_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       allLayers->data[b_i].f1->data[i1] = layerSld->data[i1];
     }
     if (b_i + 1 > sfs->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, sfs->size[0], &ix_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, sfs->size[0], &lx_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (b_i + 1 > qshifts->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, qshifts->size[0], &jx_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, qshifts->size[0], &mx_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (b_i + 1 > problemDef->dataPresent->size[1]) {
       emlrtDynamicBoundsCheckR2012b(b_i + 1, 1,
                                     problemDef->dataPresent->size[1],
-                                    &kx_emlrtBCI, (emlrtCTX)sp);
+                                    &nx_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > problemDef_cells->f2->size[1] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f2->size[1] - 1,
-                                    &lx_emlrtBCI, (emlrtCTX)sp);
+                                    &ox_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > problemDef_cells->f3->size[1] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f3->size[1] - 1,
-                                    &mx_emlrtBCI, (emlrtCTX)sp);
+                                    &px_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > problemDef_cells->f4->size[1] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f4->size[1] - 1,
-                                    &nx_emlrtBCI, (emlrtCTX)sp);
+                                    &qx_emlrtBCI, (emlrtCTX)sp);
     }
     i = b_problemDef_cells->size[0] * b_problemDef_cells->size[1];
     b_problemDef_cells->size[0] = problemDef_cells->f2->data[b_i].f1->size[0];
     b_problemDef_cells->size[1] = problemDef_cells->f2->data[b_i].f1->size[1];
-    emxEnsureCapacity_real_T(sp, b_problemDef_cells, i, &mr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_problemDef_cells, i, &nr_emlrtRTEI);
     b_layerSlds = problemDef_cells->f2->data[b_i].f1->size[0] *
                       problemDef_cells->f2->data[b_i].f1->size[1] -
                   1;
     for (i = 0; i <= b_layerSlds; i++) {
       b_problemDef_cells->data[i] = problemDef_cells->f2->data[b_i].f1->data[i];
     }
-    st.site = &qi_emlrtRSI;
+    st.site = &pi_emlrtRSI;
     shiftdata(&st, sfs->data[b_i], qshifts->data[b_i],
               problemDef->dataPresent->data[b_i], b_problemDef_cells,
               problemDef_cells->f3->data[b_i].f1,
@@ -1615,75 +1615,75 @@ void standardTF_custXY_single(
     b_layerSlds = shifted_dat->size[0] * shifted_dat->size[1];
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
-                                    &gw_emlrtBCI, (emlrtCTX)sp);
+                                    &jw_emlrtBCI, (emlrtCTX)sp);
     }
     i = shifted_data->data[b_i].f1->size[0] *
         shifted_data->data[b_i].f1->size[1];
     shifted_data->data[b_i].f1->size[0] = shifted_dat->size[0];
-    emxEnsureCapacity_real_T(sp, shifted_data->data[b_i].f1, i, &nr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, shifted_data->data[b_i].f1, i, &or_emlrtRTEI);
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
-                                    &gw_emlrtBCI, (emlrtCTX)sp);
+                                    &jw_emlrtBCI, (emlrtCTX)sp);
     }
     i = shifted_data->data[b_i].f1->size[0] *
         shifted_data->data[b_i].f1->size[1];
     shifted_data->data[b_i].f1->size[1] = shifted_dat->size[1];
-    emxEnsureCapacity_real_T(sp, shifted_data->data[b_i].f1, i, &nr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, shifted_data->data[b_i].f1, i, &or_emlrtRTEI);
     i = shifted_data->size[0];
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
-                                    &gw_emlrtBCI, (emlrtCTX)sp);
+                                    &jw_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
-                                    &gw_emlrtBCI, (emlrtCTX)sp);
+                                    &jw_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_layerSlds; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ox_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &rx_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       shifted_data->data[b_i].f1->data[i1] = shifted_dat->data[i1];
     }
     if (b_i + 1 > loop_ub_tmp) {
       emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, (int32_T)numberOfContrasts_tmp,
-                                    &uv_emlrtBCI, (emlrtCTX)sp);
+                                    &xv_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i + 1 > nbas->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, nbas->size[0], &px_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, nbas->size[0], &sx_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (b_i + 1 > nbss->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, nbss->size[0], &qx_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, nbss->size[0], &tx_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (b_i > problemDef_cells->f4->size[1] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f4->size[1] - 1,
-                                    &rx_emlrtBCI, (emlrtCTX)sp);
+                                    &ux_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > problemDef_cells->f1->size[1] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, problemDef_cells->f1->size[1] - 1,
-                                    &sx_emlrtBCI, (emlrtCTX)sp);
+                                    &vx_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i + 1 > resols->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, resols->size[0], &tx_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, resols->size[0], &wx_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    st.site = &ri_emlrtRSI;
+    st.site = &qi_emlrtRSI;
     callReflectivity(&st, nbas->data[b_i], nbss->data[b_i],
                      (real_T *)problemDef_cells->f4->data[b_i].f1->data,
                      *(int32_T(*)[2])problemDef_cells->f4->data[b_i].f1->size,
                      problemDef_cells->f1->data[b_i].f1, shifted_dat, layerSld,
                      0.0, resols->data[b_i], reflect, Simul);
-    st.site = &si_emlrtRSI;
+    st.site = &ri_emlrtRSI;
     if (b_i + 1 > backgs->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, backgs->size[0], &vv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, backgs->size[0], &yv_emlrtBCI,
                                     &st);
     }
     if (b_i + 1 > problemDef->contrastBacksType->size[1]) {
       emlrtDynamicBoundsCheckR2012b(b_i + 1, 1,
                                     problemDef->contrastBacksType->size[1],
-                                    &wv_emlrtBCI, &st);
+                                    &aw_emlrtBCI, &st);
     }
     if (problemDef->contrastBacksType->data[b_i] !=
         (int32_T)muDoubleScalarFloor(
@@ -1735,32 +1735,32 @@ void standardTF_custXY_single(
     b_layerSlds = reflect->size[0] * 2;
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &hw_emlrtBCI, (emlrtCTX)sp);
+                                    &kw_emlrtBCI, (emlrtCTX)sp);
     }
     i = reflectivity->data[b_i].f1->size[0] *
         reflectivity->data[b_i].f1->size[1];
     reflectivity->data[b_i].f1->size[0] = reflect->size[0];
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &or_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &pr_emlrtRTEI);
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &hw_emlrtBCI, (emlrtCTX)sp);
+                                    &kw_emlrtBCI, (emlrtCTX)sp);
     }
     i = reflectivity->data[b_i].f1->size[0] *
         reflectivity->data[b_i].f1->size[1];
     reflectivity->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &or_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i, &pr_emlrtRTEI);
     i = reflectivity->size[0];
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &hw_emlrtBCI, (emlrtCTX)sp);
+                                    &kw_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                    &hw_emlrtBCI, (emlrtCTX)sp);
+                                    &kw_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_layerSlds; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ux_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &xx_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       reflectivity->data[b_i].f1->data[i1] = reflect->data[i1];
@@ -1768,30 +1768,30 @@ void standardTF_custXY_single(
     b_layerSlds = Simul->size[0] * 2;
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &iw_emlrtBCI, (emlrtCTX)sp);
+                                    &lw_emlrtBCI, (emlrtCTX)sp);
     }
     i = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
     Simulation->data[b_i].f1->size[0] = Simul->size[0];
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &pr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &qr_emlrtRTEI);
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &iw_emlrtBCI, (emlrtCTX)sp);
+                                    &lw_emlrtBCI, (emlrtCTX)sp);
     }
     i = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
     Simulation->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &pr_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &qr_emlrtRTEI);
     i = Simulation->size[0];
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &iw_emlrtBCI, (emlrtCTX)sp);
+                                    &lw_emlrtBCI, (emlrtCTX)sp);
     }
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                    &iw_emlrtBCI, (emlrtCTX)sp);
+                                    &lw_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < b_layerSlds; i1++) {
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &vx_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &yx_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       Simulation->data[b_i].f1->data[i1] = Simul->data[i1];
@@ -1799,24 +1799,24 @@ void standardTF_custXY_single(
     if (b_i + 1 > problemDef->dataPresent->size[1]) {
       emlrtDynamicBoundsCheckR2012b(b_i + 1, 1,
                                     problemDef->dataPresent->size[1],
-                                    &xv_emlrtBCI, (emlrtCTX)sp);
+                                    &bw_emlrtBCI, (emlrtCTX)sp);
     }
-    st.site = &ti_emlrtRSI;
+    st.site = &si_emlrtRSI;
     if (muDoubleScalarIsNaN(problemDef->dataPresent->data[b_i])) {
       emlrtErrorWithMessageIdR2018a(&st, &ld_emlrtRTEI, "MATLAB:nologicalnan",
                                     "MATLAB:nologicalnan", 0);
     }
     if (problemDef->dataPresent->data[b_i] != 0.0) {
       if (b_i + 1 > chis->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, chis->size[0], &xx_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, chis->size[0], &by_emlrtBCI,
                                       (emlrtCTX)sp);
       }
-      st.site = &ui_emlrtRSI;
+      st.site = &ti_emlrtRSI;
       chis->data[b_i] =
           chiSquared(&st, shifted_dat, reflect, problemDef->params->size[1]);
     } else {
       if (b_i + 1 > chis->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, chis->size[0], &wx_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, chis->size[0], &ay_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       chis->data[b_i] = 0.0;

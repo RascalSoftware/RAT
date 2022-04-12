@@ -23,29 +23,33 @@
 static emlrtRSInfo eb_emlrtRSI = {
     63,                /* lineNo */
     "groupLayers_Mod", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pathName */
 };
 
 static emlrtRSInfo fb_emlrtRSI = {
     56,                /* lineNo */
     "groupLayers_Mod", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pathName */
 };
 
 static emlrtRSInfo gb_emlrtRSI = {
     47,                /* lineNo */
     "groupLayers_Mod", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pathName */
 };
 
-static emlrtRSInfo ci_emlrtRSI = {
+static emlrtRSInfo bi_emlrtRSI = {
     65,                /* lineNo */
     "groupLayers_Mod", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pathName */
 };
 
 static emlrtBCInfo xf_emlrtBCI = {
@@ -55,9 +59,10 @@ static emlrtBCInfo xf_emlrtBCI = {
     48,                /* colNo */
     "roughs",          /* aName */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m", /* pName */
-    0                    /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo yf_emlrtBCI = {
@@ -67,9 +72,10 @@ static emlrtBCInfo yf_emlrtBCI = {
     28,                /* colNo */
     "output",          /* aName */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m", /* pName */
-    0                    /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo ag_emlrtBCI = {
@@ -79,9 +85,10 @@ static emlrtBCInfo ag_emlrtBCI = {
     20,                /* colNo */
     "output",          /* aName */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m", /* pName */
-    0                    /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo bg_emlrtBCI = {
@@ -91,9 +98,10 @@ static emlrtBCInfo bg_emlrtBCI = {
     78,                /* colNo */
     "layers",          /* aName */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m", /* pName */
-    0                    /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo qq_emlrtBCI = {
@@ -103,9 +111,10 @@ static emlrtBCInfo qq_emlrtBCI = {
     30,                /* colNo */
     "layers",          /* aName */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m", /* pName */
-    0                    /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtECInfo db_emlrtECI = {
@@ -113,8 +122,9 @@ static emlrtECInfo db_emlrtECI = {
     48,                /* lineNo */
     17,                /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 static emlrtECInfo eb_emlrtECI = {
@@ -122,8 +132,9 @@ static emlrtECInfo eb_emlrtECI = {
     45,                /* lineNo */
     5,                 /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 static emlrtBCInfo rq_emlrtBCI = {
@@ -133,9 +144,10 @@ static emlrtBCInfo rq_emlrtBCI = {
     34,                /* colNo */
     "output",          /* aName */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m", /* pName */
-    0                    /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo sq_emlrtBCI = {
@@ -145,9 +157,10 @@ static emlrtBCInfo sq_emlrtBCI = {
     35,                /* colNo */
     "output",          /* aName */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m", /* pName */
-    0                    /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo tq_emlrtBCI = {
@@ -157,81 +170,91 @@ static emlrtBCInfo tq_emlrtBCI = {
     26,                /* colNo */
     "layers",          /* aName */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m", /* pName */
-    0                    /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtRTEInfo qh_emlrtRTEI = {
     45,                /* lineNo */
     5,                 /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 static emlrtRTEInfo rh_emlrtRTEI = {
     48,                /* lineNo */
     17,                /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 static emlrtRTEInfo sh_emlrtRTEI = {
     58,                /* lineNo */
     21,                /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 static emlrtRTEInfo th_emlrtRTEI = {
     92,                /* lineNo */
     5,                 /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 static emlrtRTEInfo uh_emlrtRTEI = {
     90,                /* lineNo */
     5,                 /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 static emlrtRTEInfo vh_emlrtRTEI = {
     56,                /* lineNo */
     21,                /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 static emlrtRTEInfo wh_emlrtRTEI = {
     63,                /* lineNo */
     21,                /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 static emlrtRTEInfo xh_emlrtRTEI = {
     51,                /* lineNo */
     17,                /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 static emlrtRTEInfo so_emlrtRTEI = {
     65,                /* lineNo */
     21,                /* colNo */
     "groupLayers_Mod", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/"
-    "groupLayers_Mod.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\grou"
+    "pLayers\\groupLayers_Mod.m" /* pName */
 };
 
 /* Function Definitions */
@@ -394,7 +417,7 @@ void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
               allLayers->data[i + allLayers->size[0] * 3];
         }
       } else {
-        st.site = &ci_emlrtRSI;
+        st.site = &bi_emlrtRSI;
         b_st.site = &nb_emlrtRSI;
         c_st.site = &ob_emlrtRSI;
         if (roughs->size[0] != allLayers->size[0]) {

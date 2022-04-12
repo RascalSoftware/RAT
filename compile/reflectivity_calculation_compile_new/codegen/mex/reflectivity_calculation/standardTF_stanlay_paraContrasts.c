@@ -22,73 +22,73 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo ph_emlrtRSI = {
+static emlrtRSInfo oh_emlrtRSI = {
     64,                                 /* lineNo */
     "standardTF_stanlay_paraContrasts", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pathName */
+};
+
+static emlrtRSInfo ph_emlrtRSI = {
+    76,                                 /* lineNo */
+    "standardTF_stanlay_paraContrasts", /* fcnName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pathName */
 };
 
 static emlrtRSInfo qh_emlrtRSI = {
-    76,                                 /* lineNo */
+    81,                                 /* lineNo */
     "standardTF_stanlay_paraContrasts", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pathName */
 };
 
 static emlrtRSInfo rh_emlrtRSI = {
-    81,                                 /* lineNo */
-    "standardTF_stanlay_paraContrasts", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pathName */
-};
-
-static emlrtRSInfo sh_emlrtRSI = {
     101,                                /* lineNo */
     "standardTF_stanlay_paraContrasts", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pathName */
 };
 
 static emlrtRTEInfo cc_emlrtRTEI = {
     45,                                 /* lineNo */
     9,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo dc_emlrtRTEI = {
     50,                                 /* lineNo */
     9,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo ec_emlrtRTEI = {
     55,                                 /* lineNo */
     9,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtDCInfo pb_emlrtDCI = {
     70,                                 /* lineNo */
     14,                                 /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    1                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    1 /* checkKind */
 };
 
 static emlrtRTEInfo fc_emlrtRTEI = {
     70,                                 /* lineNo */
     12,                                 /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtBCInfo ql_emlrtBCI = {
@@ -98,9 +98,9 @@ static emlrtBCInfo ql_emlrtBCI = {
     24,                                 /* colNo */
     "params",                           /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo rl_emlrtBCI = {
@@ -110,9 +110,9 @@ static emlrtBCInfo rl_emlrtBCI = {
     29,                                 /* colNo */
     "resample",                         /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo sl_emlrtBCI = {
@@ -122,9 +122,9 @@ static emlrtBCInfo sl_emlrtBCI = {
     35,                                 /* colNo */
     "dataPresent",                      /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo tl_emlrtBCI = {
@@ -134,9 +134,9 @@ static emlrtBCInfo tl_emlrtBCI = {
     31,                                 /* colNo */
     "backsType",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo ul_emlrtBCI = {
@@ -146,9 +146,9 @@ static emlrtBCInfo ul_emlrtBCI = {
     37,                                 /* colNo */
     "repeatLayers",                     /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo vl_emlrtBCI = {
@@ -158,9 +158,9 @@ static emlrtBCInfo vl_emlrtBCI = {
     24,                                 /* colNo */
     "allData",                          /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo wl_emlrtBCI = {
@@ -170,9 +170,9 @@ static emlrtBCInfo wl_emlrtBCI = {
     33,                                 /* colNo */
     "dataLimits",                       /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo xl_emlrtBCI = {
@@ -182,9 +182,9 @@ static emlrtBCInfo xl_emlrtBCI = {
     31,                                 /* colNo */
     "simLimits",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo yl_emlrtBCI = {
@@ -194,9 +194,9 @@ static emlrtBCInfo yl_emlrtBCI = {
     18,                                 /* colNo */
     "reflectivity",                     /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo am_emlrtBCI = {
@@ -206,9 +206,9 @@ static emlrtBCInfo am_emlrtBCI = {
     16,                                 /* colNo */
     "Simulation",                       /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo bm_emlrtBCI = {
@@ -218,9 +218,9 @@ static emlrtBCInfo bm_emlrtBCI = {
     15,                                 /* colNo */
     "allLayers",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo cm_emlrtBCI = {
@@ -230,9 +230,9 @@ static emlrtBCInfo cm_emlrtBCI = {
     17,                                 /* colNo */
     "sldProfiles",                      /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo dm_emlrtBCI = {
@@ -242,9 +242,9 @@ static emlrtBCInfo dm_emlrtBCI = {
     18,                                 /* colNo */
     "reflectivity",                     /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo em_emlrtBCI = {
@@ -254,9 +254,9 @@ static emlrtBCInfo em_emlrtBCI = {
     16,                                 /* colNo */
     "Simulation",                       /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo fm_emlrtBCI = {
@@ -266,9 +266,9 @@ static emlrtBCInfo fm_emlrtBCI = {
     18,                                 /* colNo */
     "shifted_data",                     /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo gm_emlrtBCI = {
@@ -278,9 +278,9 @@ static emlrtBCInfo gm_emlrtBCI = {
     15,                                 /* colNo */
     "layerSlds",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo hm_emlrtBCI = {
@@ -290,36 +290,36 @@ static emlrtBCInfo hm_emlrtBCI = {
     15,                                 /* colNo */
     "allLayers",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtDCInfo qb_emlrtDCI = {
     32,                                 /* lineNo */
     17,                                 /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    1                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    1 /* checkKind */
 };
 
 static emlrtDCInfo rb_emlrtDCI = {
     31,                                 /* lineNo */
     16,                                 /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    1                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    1 /* checkKind */
 };
 
 static emlrtDCInfo sb_emlrtDCI = {
     31,                                 /* lineNo */
     16,                                 /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    4                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    4 /* checkKind */
 };
 
 static emlrtBCInfo im_emlrtBCI = {
@@ -329,9 +329,9 @@ static emlrtBCInfo im_emlrtBCI = {
     36,                                 /* colNo */
     "layerSlds",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo jm_emlrtBCI = {
@@ -341,9 +341,9 @@ static emlrtBCInfo jm_emlrtBCI = {
     36,                                 /* colNo */
     "sldProfiles",                      /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo km_emlrtBCI = {
@@ -353,9 +353,9 @@ static emlrtBCInfo km_emlrtBCI = {
     36,                                 /* colNo */
     "shifted_data",                     /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo lm_emlrtBCI = {
@@ -365,9 +365,9 @@ static emlrtBCInfo lm_emlrtBCI = {
     36,                                 /* colNo */
     "reflectivity",                     /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo mm_emlrtBCI = {
@@ -377,9 +377,9 @@ static emlrtBCInfo mm_emlrtBCI = {
     36,                                 /* colNo */
     "Simulation",                       /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo nm_emlrtBCI = {
@@ -389,9 +389,9 @@ static emlrtBCInfo nm_emlrtBCI = {
     36,                                 /* colNo */
     "allLayers",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo om_emlrtBCI = {
@@ -401,9 +401,9 @@ static emlrtBCInfo om_emlrtBCI = {
     77,                                 /* colNo */
     "cBacks",                           /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo pm_emlrtBCI = {
@@ -413,9 +413,9 @@ static emlrtBCInfo pm_emlrtBCI = {
     87,                                 /* colNo */
     "cShifts",                          /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo qm_emlrtBCI = {
@@ -425,9 +425,9 @@ static emlrtBCInfo qm_emlrtBCI = {
     98,                                 /* colNo */
     "cScales",                          /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo rm_emlrtBCI = {
@@ -437,9 +437,9 @@ static emlrtBCInfo rm_emlrtBCI = {
     109,                                /* colNo */
     "cNbas",                            /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo sm_emlrtBCI = {
@@ -449,9 +449,9 @@ static emlrtBCInfo sm_emlrtBCI = {
     118,                                /* colNo */
     "cNbss",                            /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo tm_emlrtBCI = {
@@ -461,9 +461,9 @@ static emlrtBCInfo tm_emlrtBCI = {
     127,                                /* colNo */
     "cRes",                             /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo um_emlrtBCI = {
@@ -473,9 +473,9 @@ static emlrtBCInfo um_emlrtBCI = {
     52,                                 /* colNo */
     "contrastLayers",                   /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo vm_emlrtBCI = {
@@ -485,9 +485,9 @@ static emlrtBCInfo vm_emlrtBCI = {
     5,                                  /* colNo */
     "outSsubs",                         /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo wm_emlrtBCI = {
@@ -497,9 +497,9 @@ static emlrtBCInfo wm_emlrtBCI = {
     5,                                  /* colNo */
     "sldProfiles",                      /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo xm_emlrtBCI = {
@@ -509,9 +509,9 @@ static emlrtBCInfo xm_emlrtBCI = {
     5,                                  /* colNo */
     "reflectivity",                     /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo ym_emlrtBCI = {
@@ -521,9 +521,9 @@ static emlrtBCInfo ym_emlrtBCI = {
     5,                                  /* colNo */
     "Simulation",                       /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo an_emlrtBCI = {
@@ -533,9 +533,9 @@ static emlrtBCInfo an_emlrtBCI = {
     5,                                  /* colNo */
     "shifted_data",                     /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo bn_emlrtBCI = {
@@ -545,9 +545,9 @@ static emlrtBCInfo bn_emlrtBCI = {
     5,                                  /* colNo */
     "layerSlds",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo cn_emlrtBCI = {
@@ -557,9 +557,9 @@ static emlrtBCInfo cn_emlrtBCI = {
     5,                                  /* colNo */
     "chis",                             /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo dn_emlrtBCI = {
@@ -569,9 +569,9 @@ static emlrtBCInfo dn_emlrtBCI = {
     5,                                  /* colNo */
     "backgs",                           /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo en_emlrtBCI = {
@@ -581,9 +581,9 @@ static emlrtBCInfo en_emlrtBCI = {
     5,                                  /* colNo */
     "qshifts",                          /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo fn_emlrtBCI = {
@@ -593,9 +593,9 @@ static emlrtBCInfo fn_emlrtBCI = {
     5,                                  /* colNo */
     "sfs",                              /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo gn_emlrtBCI = {
@@ -605,9 +605,9 @@ static emlrtBCInfo gn_emlrtBCI = {
     5,                                  /* colNo */
     "nbas",                             /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo hn_emlrtBCI = {
@@ -617,9 +617,9 @@ static emlrtBCInfo hn_emlrtBCI = {
     5,                                  /* colNo */
     "nbss",                             /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo in_emlrtBCI = {
@@ -629,9 +629,9 @@ static emlrtBCInfo in_emlrtBCI = {
     5,                                  /* colNo */
     "resols",                           /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo jn_emlrtBCI = {
@@ -641,9 +641,9 @@ static emlrtBCInfo jn_emlrtBCI = {
     5,                                  /* colNo */
     "allRoughs",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo kn_emlrtBCI = {
@@ -653,9 +653,9 @@ static emlrtBCInfo kn_emlrtBCI = {
     5,                                  /* colNo */
     "allLayers",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo ln_emlrtBCI = {
@@ -665,9 +665,9 @@ static emlrtBCInfo ln_emlrtBCI = {
     5,                                  /* colNo */
     "allLayers",                        /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo mn_emlrtBCI = {
@@ -677,9 +677,9 @@ static emlrtBCInfo mn_emlrtBCI = {
     5,                                  /* colNo */
     "Simulation",                       /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtBCInfo nn_emlrtBCI = {
@@ -689,137 +689,137 @@ static emlrtBCInfo nn_emlrtBCI = {
     5,                                  /* colNo */
     "reflectivity",                     /* aName */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m", /* pName */
-    0                                                        /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m", /* pName */
+    0 /* checkKind */
 };
 
 static emlrtRTEInfo tm_emlrtRTEI = {
     31,                                 /* lineNo */
     10,                                 /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo um_emlrtRTEI = {
     4,                                  /* lineNo */
     18,                                 /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo vm_emlrtRTEI = {
     40,                                 /* lineNo */
     36,                                 /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo wm_emlrtRTEI = {
     46,                                 /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo xm_emlrtRTEI = {
     51,                                 /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo ym_emlrtRTEI = {
     56,                                 /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo an_emlrtRTEI = {
     38,                                 /* lineNo */
     12,                                 /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo bn_emlrtRTEI = {
     112,                                /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo cn_emlrtRTEI = {
     113,                                /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo dn_emlrtRTEI = {
     114,                                /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo en_emlrtRTEI = {
     115,                                /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo fn_emlrtRTEI = {
     116,                                /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo gn_emlrtRTEI = {
     125,                                /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo hn_emlrtRTEI = {
     89,                                 /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo in_emlrtRTEI = {
     81,                                 /* lineNo */
     5,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 static emlrtRTEInfo jn_emlrtRTEI = {
     64,                                 /* lineNo */
     1,                                  /* colNo */
     "standardTF_stanlay_paraContrasts", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_stanLay/standardTF_stanlay_paraContrasts.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_stanLay\\standardTF_stanlay_paraContrasts.m" /* pName */
 };
 
 /* Function Definitions */
@@ -1190,7 +1190,7 @@ void c_standardTF_stanlay_paraContra(
   /*  First we need to allocate the absolute values of the input */
   /*  parameters to all the layers in the layers list. This only needs */
   /*  to be done once, and so is done outside the contrasts loop */
-  st.site = &ph_emlrtRSI;
+  st.site = &oh_emlrtRSI;
   allocateParamsToLayers(&st, problemDef->params, problemDef_cells->f6,
                          outParameterisedLayers);
   /*  Resample parameters is required */
@@ -1315,7 +1315,7 @@ void c_standardTF_stanlay_paraContra(
                                         problemDef->contrastRes->size[1],
                                         &tm_emlrtBCI, &b_st);
         }
-        c_st.site = &qh_emlrtRSI;
+        c_st.site = &ph_emlrtRSI;
         backSort(&c_st, problemDef->contrastBacks->data[b_i],
                  problemDef->contrastShifts->data[b_i],
                  problemDef->contrastScales->data[b_i],
@@ -1332,7 +1332,7 @@ void c_standardTF_stanlay_paraContra(
           emlrtDynamicBoundsCheckR2012b(
               b_i, 0, problemDef_cells->f5->size[1] - 1, &um_emlrtBCI, &b_st);
         }
-        c_st.site = &rh_emlrtRSI;
+        c_st.site = &qh_emlrtRSI;
         allocateLayersForContrast(&c_st, problemDef_cells->f5->data[b_i].f1,
                                   outParameterisedLayers, thisContrastLayers);
         /*  For the other parameters, we extract the correct ones from the input
@@ -1377,7 +1377,7 @@ void c_standardTF_stanlay_paraContra(
         /*  In this case we are single cored, so we do not parallelise over */
         /*  points */
         /*  Call the core layers calculation */
-        c_st.site = &sh_emlrtRSI;
+        c_st.site = &rh_emlrtRSI;
         standardTF_layers_core(
             &c_st, thisContrastLayers, problemDef->params->data[0],
             problemDef->geometry, thisNba, thisNbs,

@@ -17,26 +17,32 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo tg_emlrtRSI = {
-    311,               /* lineNo */
-    "eml_float_colon", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/ops/colon.m" /* pathName
+static emlrtRSInfo tg_emlrtRSI =
+    {
+        311,               /* lineNo */
+        "eml_float_colon", /* fcnName */
+        "C:\\Program "
+        "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" /* pathName
                                                                           */
 };
 
-static emlrtRTEInfo tb_emlrtRTEI = {
-    417,               /* lineNo */
-    15,                /* colNo */
-    "assert_pmaxsize", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/ops/colon.m" /* pName
+static emlrtRTEInfo tb_emlrtRTEI =
+    {
+        417,               /* lineNo */
+        15,                /* colNo */
+        "assert_pmaxsize", /* fName */
+        "C:\\Program "
+        "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" /* pName
                                                                           */
 };
 
-static emlrtRTEInfo sl_emlrtRTEI = {
-    312,     /* lineNo */
-    20,      /* colNo */
-    "colon", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/ops/colon.m" /* pName
+static emlrtRTEInfo sl_emlrtRTEI =
+    {
+        312,     /* lineNo */
+        20,      /* colNo */
+        "colon", /* fName */
+        "C:\\Program "
+        "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" /* pName
                                                                           */
 };
 

@@ -23,16 +23,18 @@
 static emlrtRSInfo xc_emlrtRSI = {
     60,                    /* lineNo */
     "applyScalarFunction", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "applyScalarFunction.m" /* pathName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+    "internal\\applyScalarFunction.m" /* pathName */
 };
 
 static emlrtRTEInfo ni_emlrtRTEI = {
     30,                    /* lineNo */
     21,                    /* colNo */
     "applyScalarFunction", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "applyScalarFunction.m" /* pName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+    "internal\\applyScalarFunction.m" /* pName */
 };
 
 /* Function Definitions */

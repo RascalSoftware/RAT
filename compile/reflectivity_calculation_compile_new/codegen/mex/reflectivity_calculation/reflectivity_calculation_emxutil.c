@@ -588,6 +588,11 @@ void emxEnsureCapacity_cell_wrap_25(const emlrtStack *sp,
     emxArray->allocatedSize = i;
     emxArray->canFreeData = true;
   }
+  if (oldNumel > newNumel) {
+    emxTrim_cell_wrap_25(emxArray, newNumel, oldNumel);
+  } else if (oldNumel < newNumel) {
+    emxExpand_cell_wrap_25(sp, emxArray, oldNumel, newNumel, srcLocation);
+  }
 }
 
 void emxEnsureCapacity_cell_wrap_26(const emlrtStack *sp,
@@ -637,56 +642,6 @@ void emxEnsureCapacity_cell_wrap_26(const emlrtStack *sp,
     emxTrim_cell_wrap_26(emxArray, newNumel, oldNumel);
   } else if (oldNumel < newNumel) {
     emxExpand_cell_wrap_26(sp, emxArray, oldNumel, newNumel, srcLocation);
-  }
-}
-
-void emxEnsureCapacity_cell_wrap_27(const emlrtStack *sp,
-                                    emxArray_cell_wrap_27 *emxArray,
-                                    int32_T oldNumel,
-                                    const emlrtRTEInfo *srcLocation)
-{
-  int32_T i;
-  int32_T newNumel;
-  void *newData;
-  if (oldNumel < 0) {
-    oldNumel = 0;
-  }
-  newNumel = 1;
-  for (i = 0; i < emxArray->numDimensions; i++) {
-    newNumel = (int32_T)emlrtSizeMulR2012b((size_t)(uint32_T)newNumel,
-                                           (size_t)(uint32_T)emxArray->size[i],
-                                           srcLocation, (emlrtCTX)sp);
-  }
-  if (newNumel > emxArray->allocatedSize) {
-    i = emxArray->allocatedSize;
-    if (i < 16) {
-      i = 16;
-    }
-    while (i < newNumel) {
-      if (i > 1073741823) {
-        i = MAX_int32_T;
-      } else {
-        i *= 2;
-      }
-    }
-    newData = emlrtCallocMex((uint32_T)i, sizeof(cell_wrap_27));
-    if (newData == NULL) {
-      emlrtHeapAllocationErrorR2012b(srcLocation, (emlrtCTX)sp);
-    }
-    if (emxArray->data != NULL) {
-      memcpy(newData, emxArray->data, sizeof(cell_wrap_27) * oldNumel);
-      if (emxArray->canFreeData) {
-        emlrtFreeMex(emxArray->data);
-      }
-    }
-    emxArray->data = (cell_wrap_27 *)newData;
-    emxArray->allocatedSize = i;
-    emxArray->canFreeData = true;
-  }
-  if (oldNumel > newNumel) {
-    emxTrim_cell_wrap_27(emxArray, newNumel, oldNumel);
-  } else if (oldNumel < newNumel) {
-    emxExpand_cell_wrap_27(sp, emxArray, oldNumel, newNumel, srcLocation);
   }
 }
 
@@ -1264,6 +1219,16 @@ void emxExpand_cell_wrap_2(emxArray_cell_wrap_2 *emxArray, int32_T fromIndex,
   }
 }
 
+void emxExpand_cell_wrap_25(const emlrtStack *sp,
+                            emxArray_cell_wrap_25 *emxArray, int32_T fromIndex,
+                            int32_T toIndex, const emlrtRTEInfo *srcLocation)
+{
+  int32_T i;
+  for (i = fromIndex; i < toIndex; i++) {
+    emxInitStruct_cell_wrap_25(sp, &emxArray->data[i], srcLocation, false);
+  }
+}
+
 void emxExpand_cell_wrap_26(const emlrtStack *sp,
                             emxArray_cell_wrap_26 *emxArray, int32_T fromIndex,
                             int32_T toIndex, const emlrtRTEInfo *srcLocation)
@@ -1271,16 +1236,6 @@ void emxExpand_cell_wrap_26(const emlrtStack *sp,
   int32_T i;
   for (i = fromIndex; i < toIndex; i++) {
     emxInitStruct_cell_wrap_26(sp, &emxArray->data[i], srcLocation, false);
-  }
-}
-
-void emxExpand_cell_wrap_27(const emlrtStack *sp,
-                            emxArray_cell_wrap_27 *emxArray, int32_T fromIndex,
-                            int32_T toIndex, const emlrtRTEInfo *srcLocation)
-{
-  int32_T i;
-  for (i = fromIndex; i < toIndex; i++) {
-    emxInitStruct_cell_wrap_27(sp, &emxArray->data[i], srcLocation, false);
   }
 }
 
@@ -1427,12 +1382,12 @@ void emxFreeStruct_cell_wrap_14(cell_wrap_14 *pStruct)
   emxFree_real_T(&pStruct->f1);
 }
 
-void emxFreeStruct_cell_wrap_26(cell_wrap_26 *pStruct)
+void emxFreeStruct_cell_wrap_25(cell_wrap_25 *pStruct)
 {
   emxFree_real_T(&pStruct->f1);
 }
 
-void emxFreeStruct_cell_wrap_27(cell_wrap_27 *pStruct)
+void emxFreeStruct_cell_wrap_26(cell_wrap_26 *pStruct)
 {
   emxFree_real_T(&pStruct->f1);
 }
@@ -1722,10 +1677,20 @@ void emxFree_cell_wrap_2(emxArray_cell_wrap_2 **pEmxArray)
 
 void emxFree_cell_wrap_25(emxArray_cell_wrap_25 **pEmxArray)
 {
+  int32_T i;
+  int32_T numEl;
   if (*pEmxArray != (emxArray_cell_wrap_25 *)NULL) {
-    if (((*pEmxArray)->data != (cell_wrap_25 *)NULL) &&
-        (*pEmxArray)->canFreeData) {
-      emlrtFreeMex((*pEmxArray)->data);
+    if ((*pEmxArray)->data != (cell_wrap_25 *)NULL) {
+      numEl = 1;
+      for (i = 0; i < (*pEmxArray)->numDimensions; i++) {
+        numEl *= (*pEmxArray)->size[i];
+      }
+      for (i = 0; i < numEl; i++) {
+        emxFreeStruct_cell_wrap_25(&(*pEmxArray)->data[i]);
+      }
+      if ((*pEmxArray)->canFreeData) {
+        emlrtFreeMex((*pEmxArray)->data);
+      }
     }
     emlrtFreeMex((*pEmxArray)->size);
     emlrtFreeMex(*pEmxArray);
@@ -1753,29 +1718,6 @@ void emxFree_cell_wrap_26(emxArray_cell_wrap_26 **pEmxArray)
     emlrtFreeMex((*pEmxArray)->size);
     emlrtFreeMex(*pEmxArray);
     *pEmxArray = (emxArray_cell_wrap_26 *)NULL;
-  }
-}
-
-void emxFree_cell_wrap_27(emxArray_cell_wrap_27 **pEmxArray)
-{
-  int32_T i;
-  int32_T numEl;
-  if (*pEmxArray != (emxArray_cell_wrap_27 *)NULL) {
-    if ((*pEmxArray)->data != (cell_wrap_27 *)NULL) {
-      numEl = 1;
-      for (i = 0; i < (*pEmxArray)->numDimensions; i++) {
-        numEl *= (*pEmxArray)->size[i];
-      }
-      for (i = 0; i < numEl; i++) {
-        emxFreeStruct_cell_wrap_27(&(*pEmxArray)->data[i]);
-      }
-      if ((*pEmxArray)->canFreeData) {
-        emlrtFreeMex((*pEmxArray)->data);
-      }
-    }
-    emlrtFreeMex((*pEmxArray)->size);
-    emlrtFreeMex(*pEmxArray);
-    *pEmxArray = (emxArray_cell_wrap_27 *)NULL;
   }
 }
 
@@ -2073,14 +2015,14 @@ void emxInitStruct_cell_wrap_2(cell_wrap_2 *pStruct)
   pStruct->f1.size[1] = 0;
 }
 
-void emxInitStruct_cell_wrap_26(const emlrtStack *sp, cell_wrap_26 *pStruct,
+void emxInitStruct_cell_wrap_25(const emlrtStack *sp, cell_wrap_25 *pStruct,
                                 const emlrtRTEInfo *srcLocation,
                                 boolean_T doPush)
 {
   emxInit_real_T(sp, &pStruct->f1, 2, srcLocation, doPush);
 }
 
-void emxInitStruct_cell_wrap_27(const emlrtStack *sp, cell_wrap_27 *pStruct,
+void emxInitStruct_cell_wrap_26(const emlrtStack *sp, cell_wrap_26 *pStruct,
                                 const emlrtRTEInfo *srcLocation,
                                 boolean_T doPush)
 {
@@ -2562,37 +2504,6 @@ void emxInit_cell_wrap_26(const emlrtStack *sp,
   }
 }
 
-void emxInit_cell_wrap_27(const emlrtStack *sp,
-                          emxArray_cell_wrap_27 **pEmxArray,
-                          int32_T numDimensions,
-                          const emlrtRTEInfo *srcLocation, boolean_T doPush)
-{
-  emxArray_cell_wrap_27 *emxArray;
-  int32_T i;
-  *pEmxArray =
-      (emxArray_cell_wrap_27 *)emlrtMallocMex(sizeof(emxArray_cell_wrap_27));
-  if ((void *)*pEmxArray == NULL) {
-    emlrtHeapAllocationErrorR2012b(srcLocation, (emlrtCTX)sp);
-  }
-  if (doPush) {
-    emlrtPushHeapReferenceStackR2021a((emlrtCTX)sp, false, (void *)pEmxArray,
-                                      (void *)&emxFree_cell_wrap_27, NULL, NULL,
-                                      NULL);
-  }
-  emxArray = *pEmxArray;
-  emxArray->data = (cell_wrap_27 *)NULL;
-  emxArray->numDimensions = numDimensions;
-  emxArray->size = (int32_T *)emlrtMallocMex(sizeof(int32_T) * numDimensions);
-  if ((void *)emxArray->size == NULL) {
-    emlrtHeapAllocationErrorR2012b(srcLocation, (emlrtCTX)sp);
-  }
-  emxArray->allocatedSize = 0;
-  emxArray->canFreeData = true;
-  for (i = 0; i < numDimensions; i++) {
-    emxArray->size[i] = 0;
-  }
-}
-
 void emxInit_cell_wrap_3(const emlrtStack *sp, emxArray_cell_wrap_3 **pEmxArray,
                          int32_T numDimensions, const emlrtRTEInfo *srcLocation,
                          boolean_T doPush)
@@ -2963,21 +2874,21 @@ void emxTrim_cell_wrap_14(emxArray_cell_wrap_14 *emxArray, int32_T fromIndex,
   }
 }
 
+void emxTrim_cell_wrap_25(emxArray_cell_wrap_25 *emxArray, int32_T fromIndex,
+                          int32_T toIndex)
+{
+  int32_T i;
+  for (i = fromIndex; i < toIndex; i++) {
+    emxFreeStruct_cell_wrap_25(&emxArray->data[i]);
+  }
+}
+
 void emxTrim_cell_wrap_26(emxArray_cell_wrap_26 *emxArray, int32_T fromIndex,
                           int32_T toIndex)
 {
   int32_T i;
   for (i = fromIndex; i < toIndex; i++) {
     emxFreeStruct_cell_wrap_26(&emxArray->data[i]);
-  }
-}
-
-void emxTrim_cell_wrap_27(emxArray_cell_wrap_27 *emxArray, int32_T fromIndex,
-                          int32_T toIndex)
-{
-  int32_T i;
-  for (i = fromIndex; i < toIndex; i++) {
-    emxFreeStruct_cell_wrap_27(&emxArray->data[i]);
   }
 }
 

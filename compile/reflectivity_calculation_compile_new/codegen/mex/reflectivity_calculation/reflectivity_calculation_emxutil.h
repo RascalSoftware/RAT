@@ -113,11 +113,6 @@ void emxEnsureCapacity_cell_wrap_26(const emlrtStack *sp,
                                     int32_T oldNumel,
                                     const emlrtRTEInfo *srcLocation);
 
-void emxEnsureCapacity_cell_wrap_27(const emlrtStack *sp,
-                                    emxArray_cell_wrap_27 *emxArray,
-                                    int32_T oldNumel,
-                                    const emlrtRTEInfo *srcLocation);
-
 void emxEnsureCapacity_cell_wrap_3(const emlrtStack *sp,
                                    emxArray_cell_wrap_3 *emxArray,
                                    int32_T oldNumel,
@@ -191,12 +186,12 @@ void emxExpand_cell_wrap_14(const emlrtStack *sp,
 void emxExpand_cell_wrap_2(emxArray_cell_wrap_2 *emxArray, int32_T fromIndex,
                            int32_T toIndex);
 
-void emxExpand_cell_wrap_26(const emlrtStack *sp,
-                            emxArray_cell_wrap_26 *emxArray, int32_T fromIndex,
+void emxExpand_cell_wrap_25(const emlrtStack *sp,
+                            emxArray_cell_wrap_25 *emxArray, int32_T fromIndex,
                             int32_T toIndex, const emlrtRTEInfo *srcLocation);
 
-void emxExpand_cell_wrap_27(const emlrtStack *sp,
-                            emxArray_cell_wrap_27 *emxArray, int32_T fromIndex,
+void emxExpand_cell_wrap_26(const emlrtStack *sp,
+                            emxArray_cell_wrap_26 *emxArray, int32_T fromIndex,
                             int32_T toIndex, const emlrtRTEInfo *srcLocation);
 
 void emxExpand_cell_wrap_3(const emlrtStack *sp, emxArray_cell_wrap_3 *emxArray,
@@ -242,9 +237,9 @@ void emxFreeStruct_cell_wrap_13(cell_wrap_13 *pStruct);
 
 void emxFreeStruct_cell_wrap_14(cell_wrap_14 *pStruct);
 
-void emxFreeStruct_cell_wrap_26(cell_wrap_26 *pStruct);
+void emxFreeStruct_cell_wrap_25(cell_wrap_25 *pStruct);
 
-void emxFreeStruct_cell_wrap_27(cell_wrap_27 *pStruct);
+void emxFreeStruct_cell_wrap_26(cell_wrap_26 *pStruct);
 
 void emxFreeStruct_cell_wrap_3(cell_wrap_3 *pStruct);
 
@@ -291,8 +286,6 @@ void emxFree_cell_wrap_2(emxArray_cell_wrap_2 **pEmxArray);
 void emxFree_cell_wrap_25(emxArray_cell_wrap_25 **pEmxArray);
 
 void emxFree_cell_wrap_26(emxArray_cell_wrap_26 **pEmxArray);
-
-void emxFree_cell_wrap_27(emxArray_cell_wrap_27 **pEmxArray);
 
 void emxFree_cell_wrap_3(emxArray_cell_wrap_3 **pEmxArray);
 
@@ -354,11 +347,11 @@ void emxInitStruct_cell_wrap_14(const emlrtStack *sp, cell_wrap_14 *pStruct,
 
 void emxInitStruct_cell_wrap_2(cell_wrap_2 *pStruct);
 
-void emxInitStruct_cell_wrap_26(const emlrtStack *sp, cell_wrap_26 *pStruct,
+void emxInitStruct_cell_wrap_25(const emlrtStack *sp, cell_wrap_25 *pStruct,
                                 const emlrtRTEInfo *srcLocation,
                                 boolean_T doPush);
 
-void emxInitStruct_cell_wrap_27(const emlrtStack *sp, cell_wrap_27 *pStruct,
+void emxInitStruct_cell_wrap_26(const emlrtStack *sp, cell_wrap_26 *pStruct,
                                 const emlrtRTEInfo *srcLocation,
                                 boolean_T doPush);
 
@@ -456,11 +449,6 @@ void emxInit_cell_wrap_26(const emlrtStack *sp,
                           int32_T numDimensions,
                           const emlrtRTEInfo *srcLocation, boolean_T doPush);
 
-void emxInit_cell_wrap_27(const emlrtStack *sp,
-                          emxArray_cell_wrap_27 **pEmxArray,
-                          int32_T numDimensions,
-                          const emlrtRTEInfo *srcLocation, boolean_T doPush);
-
 void emxInit_cell_wrap_3(const emlrtStack *sp, emxArray_cell_wrap_3 **pEmxArray,
                          int32_T numDimensions, const emlrtRTEInfo *srcLocation,
                          boolean_T doPush);
@@ -520,10 +508,10 @@ void emxTrim_cell_wrap_13(emxArray_cell_wrap_13 *emxArray, int32_T fromIndex,
 void emxTrim_cell_wrap_14(emxArray_cell_wrap_14 *emxArray, int32_T fromIndex,
                           int32_T toIndex);
 
-void emxTrim_cell_wrap_26(emxArray_cell_wrap_26 *emxArray, int32_T fromIndex,
+void emxTrim_cell_wrap_25(emxArray_cell_wrap_25 *emxArray, int32_T fromIndex,
                           int32_T toIndex);
 
-void emxTrim_cell_wrap_27(emxArray_cell_wrap_27 *emxArray, int32_T fromIndex,
+void emxTrim_cell_wrap_26(emxArray_cell_wrap_26 *emxArray, int32_T fromIndex,
                           int32_T toIndex);
 
 void emxTrim_cell_wrap_3(emxArray_cell_wrap_3 *emxArray, int32_T fromIndex,

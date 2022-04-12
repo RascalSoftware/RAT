@@ -20,19 +20,21 @@
 #include <string.h>
 
 /* Variable Definitions */
-static emlrtRSInfo mh_emlrtRSI = {
+static emlrtRSInfo lh_emlrtRSI = {
     31,                  /* lineNo */
     "abeles_paraPoints", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_paraPoints.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_paraPoints.m" /* pathName */
 };
 
 static emlrtRTEInfo bc_emlrtRTEI = {
     42,                  /* lineNo */
     19,                  /* colNo */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_paraPoints.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_paraPoints.m" /* pName */
 };
 
 static emlrtBCInfo kl_emlrtBCI = {
@@ -42,9 +44,10 @@ static emlrtBCInfo kl_emlrtBCI = {
     17,                  /* colNo */
     "sld",               /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_paraPoints.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo ll_emlrtBCI = {
@@ -54,9 +57,10 @@ static emlrtBCInfo ll_emlrtBCI = {
     11,                  /* colNo */
     "x",                 /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_paraPoints.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo ml_emlrtBCI = {
@@ -66,9 +70,10 @@ static emlrtBCInfo ml_emlrtBCI = {
     21,                  /* colNo */
     "sld",               /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_paraPoints.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo nl_emlrtBCI = {
@@ -78,9 +83,10 @@ static emlrtBCInfo nl_emlrtBCI = {
     19,                  /* colNo */
     "sld",               /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_paraPoints.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo ol_emlrtBCI = {
@@ -90,9 +96,10 @@ static emlrtBCInfo ol_emlrtBCI = {
     21,                  /* colNo */
     "sld",               /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_paraPoints.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtBCInfo pl_emlrtBCI = {
@@ -102,17 +109,19 @@ static emlrtBCInfo pl_emlrtBCI = {
     5,                   /* colNo */
     "out",               /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
-    0                                                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_paraPoints.m", /* pName */
+    0                                                    /* checkKind */
 };
 
 static emlrtRTEInfo sm_emlrtRTEI = {
     9,                   /* lineNo */
     7,                   /* colNo */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_paraPoints.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_paraPoints.m" /* pName */
 };
 
 /* Function Definitions */
@@ -200,7 +209,7 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
           emlrtDynamicBoundsCheckR2012b(loop + 1, 1, x->size[0], &ll_emlrtBCI,
                                         &st);
         }
-        b_st.site = &mh_emlrtRSI;
+        b_st.site = &lh_emlrtRSI;
         thick = x->data[loop] * 1.54 / 12.566370614359172;
         if ((thick < -1.0) || (thick > 1.0)) {
           emlrtErrorWithMessageIdR2018a(

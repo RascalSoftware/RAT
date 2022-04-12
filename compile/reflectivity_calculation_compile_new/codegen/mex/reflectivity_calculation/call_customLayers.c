@@ -19,27 +19,30 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo bi_emlrtRSI = {
+static emlrtRSInfo ai_emlrtRSI = {
     52,                  /* lineNo */
     "call_customLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m" /* pathName */
 };
 
 static emlrtMCInfo emlrtMCI = {
     44,                       /* lineNo */
     5,                        /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m" /* pName */
 };
 
 static emlrtMCInfo b_emlrtMCI = {
     51,                       /* lineNo */
     9,                        /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m" /* pName */
 };
 
 static emlrtBCInfo gq_emlrtBCI = {
@@ -49,9 +52,10 @@ static emlrtBCInfo gq_emlrtBCI = {
     42,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
 static emlrtBCInfo hq_emlrtBCI = {
@@ -61,9 +65,10 @@ static emlrtBCInfo hq_emlrtBCI = {
     42,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
 static emlrtBCInfo iq_emlrtBCI = {
@@ -73,9 +78,10 @@ static emlrtBCInfo iq_emlrtBCI = {
     34,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
 static emlrtBCInfo jq_emlrtBCI = {
@@ -85,9 +91,10 @@ static emlrtBCInfo jq_emlrtBCI = {
     36,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
 static emlrtBCInfo kq_emlrtBCI = {
@@ -97,9 +104,10 @@ static emlrtBCInfo kq_emlrtBCI = {
     42,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
 static emlrtBCInfo lq_emlrtBCI = {
@@ -109,9 +117,10 @@ static emlrtBCInfo lq_emlrtBCI = {
     39,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
 static emlrtBCInfo mq_emlrtBCI = {
@@ -121,9 +130,10 @@ static emlrtBCInfo mq_emlrtBCI = {
     41,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
 static emlrtECInfo bb_emlrtECI = {
@@ -131,8 +141,9 @@ static emlrtECInfo bb_emlrtECI = {
     59,                  /* lineNo */
     13,                  /* colNo */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m" /* pName */
 };
 
 static emlrtECInfo cb_emlrtECI = {
@@ -140,8 +151,9 @@ static emlrtECInfo cb_emlrtECI = {
     60,                  /* lineNo */
     13,                  /* colNo */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m" /* pName */
 };
 
 static emlrtBCInfo nq_emlrtBCI = {
@@ -151,18 +163,20 @@ static emlrtBCInfo nq_emlrtBCI = {
     14,                       /* colNo */
     "bulkOuts",               /* aName */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m", /* pName */
-    0                                              /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m", /* pName */
+    0                                           /* checkKind */
 };
 
 static emlrtDCInfo jc_emlrtDCI = {
     41,                       /* lineNo */
     5,                        /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m", /* pName */
-    1                                              /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m", /* pName */
+    1                                           /* checkKind */
 };
 
 static emlrtBCInfo oq_emlrtBCI = {
@@ -172,9 +186,10 @@ static emlrtBCInfo oq_emlrtBCI = {
     33,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
 static emlrtBCInfo pq_emlrtBCI = {
@@ -184,127 +199,142 @@ static emlrtBCInfo pq_emlrtBCI = {
     17,                  /* colNo */
     "newOutLayers",      /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
 static emlrtDCInfo kc_emlrtDCI = {
     52,                       /* lineNo */
     20,                       /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m", /* pName */
-    1                                              /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m", /* pName */
+    1                                           /* checkKind */
 };
 
 static emlrtDCInfo lc_emlrtDCI = {
     52,                       /* lineNo */
     20,                       /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m", /* pName */
-    4                                              /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m", /* pName */
+    4                                           /* checkKind */
 };
 
-static emlrtBCInfo cy_emlrtBCI = {
+static emlrtBCInfo fy_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     72,                  /* lineNo */
     37,                  /* colNo */
     "newSld",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
-static emlrtBCInfo dy_emlrtBCI = {
+static emlrtBCInfo gy_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     63,                  /* lineNo */
     27,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m", /* pName */
+    0                                    /* checkKind */
 };
 
 static emlrtRTEInfo oo_emlrtRTEI = {
     41,                       /* lineNo */
     5,                        /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m" /* pName */
 };
 
 static emlrtRTEInfo po_emlrtRTEI = {
     58,                  /* lineNo */
     13,                  /* colNo */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m" /* pName */
 };
 
 static emlrtRTEInfo qo_emlrtRTEI = {
     75,                  /* lineNo */
     13,                  /* colNo */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m" /* pName */
 };
 
 static emlrtRTEInfo ro_emlrtRTEI = {
     12,                       /* lineNo */
     5,                        /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
-};
-
-static emlrtRTEInfo sr_emlrtRTEI = {
-    69,                  /* lineNo */
-    21,                  /* colNo */
-    "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m" /* pName */
 };
 
 static emlrtRTEInfo tr_emlrtRTEI = {
+    69,                  /* lineNo */
+    21,                  /* colNo */
+    "call_customLayers", /* fName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m" /* pName */
+};
+
+static emlrtRTEInfo ur_emlrtRTEI = {
     67,                  /* lineNo */
     21,                  /* colNo */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "CustomLayers\\call_customLayers.m" /* pName */
+};
+
+static emlrtRSInfo lj_emlrtRSI = {
+    44,                       /* lineNo */
+    "callMatlabCustomLayers", /* fcnName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m" /* pathName */
 };
 
 static emlrtRSInfo mj_emlrtRSI = {
-    44,                       /* lineNo */
-    "callMatlabCustomLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
-};
-
-static emlrtRSInfo nj_emlrtRSI = {
     51,                       /* lineNo */
     "callMatlabCustomLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m" /* pathName */
+};
+
+static emlrtRSInfo oj_emlrtRSI = {
+    56,                       /* lineNo */
+    "callMatlabCustomLayers", /* fcnName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m" /* pathName */
 };
 
 static emlrtRSInfo pj_emlrtRSI = {
-    56,                       /* lineNo */
-    "callMatlabCustomLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
-};
-
-static emlrtRSInfo qj_emlrtRSI = {
     57,                       /* lineNo */
     "callMatlabCustomLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "MatlabFunction\\callMatlabCustomLayers.m" /* pathName */
 };
 
 /* Function Declarations */
@@ -495,7 +525,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  Use the dummy values of 'outPut' and 'sRough' instead to keep the */
   /*  translator happy for source code generation. */
   /*  Use this line for mex generation: */
-  st.site = &bi_emlrtRSI;
+  st.site = &ai_emlrtRSI;
   tempOut = NULL;
   tempRough = NULL;
   /*  Excecute a custom model function in the base Matlab workspace. */
@@ -550,7 +580,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   b_y = NULL;
   m = emlrtCreateDoubleScalar(contrast);
   emlrtAssign(&b_y, m);
-  b_st.site = &mj_emlrtRSI;
+  b_st.site = &lj_emlrtRSI;
   feval(&b_st, y, emlrt_marshallOut(params), b_emlrt_marshallOut(bulkIn),
         b_emlrt_marshallOut(bulkOuts), b_y, &emlrtMCI, &tempOut, &tempRough);
   /*  Tell coder n is doubles by defining it (otherwise 'size(n)' seems to
@@ -560,7 +590,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  'tempOut', and use n to allocate the correct number of elements to
    * 'output' */
   /*  by filling output with zeros (i.e. output is an array of doubles) */
-  b_st.site = &nj_emlrtRSI;
+  b_st.site = &mj_emlrtRSI;
   emlrt_marshallIn(&b_st, size(&b_st, emlrtAlias(tempOut), &b_emlrtMCI),
                    "<output of size>", n);
   if (!(n[0] >= 0.0)) {
@@ -577,9 +607,9 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   }
   /*  Copy the mxArrays to our doubles arrays, which then makes coder cast */
   /*  the mxArrays to double. */
-  b_st.site = &pj_emlrtRSI;
+  b_st.site = &oj_emlrtRSI;
   *sRough = c_emlrt_marshallIn(&b_st, emlrtAlias(tempRough), "tempRough");
-  b_st.site = &qj_emlrtRSI;
+  b_st.site = &pj_emlrtRSI;
   e_emlrt_marshallIn(&b_st, emlrtAlias(tempOut), "tempOut", output);
   emlrtDestroyArray(&tempOut);
   emlrtDestroyArray(&tempRough);
@@ -626,7 +656,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
                                       (emlrtCTX)sp);
       }
       if (b_i + 1 > output->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, output->size[0], &dy_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, output->size[0], &gy_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (4 > output->size[1]) {
@@ -652,14 +682,14 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
         loop_ub_tmp = bulkIn->size[0];
         i1 = bulkOuts->size[0];
         bulkOuts->size[0] = bulkIn->size[0];
-        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &tr_emlrtRTEI);
+        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &ur_emlrtRTEI);
         for (i1 = 0; i1 < loop_ub_tmp; i1++) {
           bulkOuts->data[i1] = bulkIn->data[i1];
         }
       } else {
         i1 = bulkOuts->size[0];
         bulkOuts->size[0] = 1;
-        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &sr_emlrtRTEI);
+        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &tr_emlrtRTEI);
         bulkOuts->data[0] = bulkOut;
       }
       d = (1.0 - thisHydration) * output->data[b_i + output->size[0]];
@@ -668,7 +698,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
         bulkOuts->data[i1] = thisHydration * bulkOuts->data[i1] + d;
       }
       if (1 > bulkOuts->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(1, 1, bulkOuts->size[0], &cy_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(1, 1, bulkOuts->size[0], &fy_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (b_i + 1 > newOutLayers->size[0]) {
@@ -782,7 +812,7 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  Use the dummy values of 'outPut' and 'sRough' instead to keep the */
   /*  translator happy for source code generation. */
   /*  Use this line for mex generation: */
-  st.site = &bi_emlrtRSI;
+  st.site = &ai_emlrtRSI;
   tempOut = NULL;
   tempRough = NULL;
   /*  Excecute a custom model function in the base Matlab workspace. */
@@ -840,7 +870,7 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   c_y = NULL;
   m = emlrtCreateDoubleScalar(contrast);
   emlrtAssign(&c_y, m);
-  b_st.site = &mj_emlrtRSI;
+  b_st.site = &lj_emlrtRSI;
   feval(&b_st, y, emlrt_marshallOut(params), b_y, b_emlrt_marshallOut(bulkOuts),
         c_y, &emlrtMCI, &tempOut, &tempRough);
   /*  Tell coder n is doubles by defining it (otherwise 'size(n)' seems to
@@ -850,7 +880,7 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  'tempOut', and use n to allocate the correct number of elements to
    * 'output' */
   /*  by filling output with zeros (i.e. output is an array of doubles) */
-  b_st.site = &nj_emlrtRSI;
+  b_st.site = &mj_emlrtRSI;
   emlrt_marshallIn(&b_st, size(&b_st, emlrtAlias(tempOut), &b_emlrtMCI),
                    "<output of size>", n);
   emxFree_real_T(&bulkOuts);
@@ -868,9 +898,9 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   }
   /*  Copy the mxArrays to our doubles arrays, which then makes coder cast */
   /*  the mxArrays to double. */
-  b_st.site = &pj_emlrtRSI;
+  b_st.site = &oj_emlrtRSI;
   *sRough = c_emlrt_marshallIn(&b_st, emlrtAlias(tempRough), "tempRough");
-  b_st.site = &qj_emlrtRSI;
+  b_st.site = &pj_emlrtRSI;
   e_emlrt_marshallIn(&b_st, emlrtAlias(tempOut), "tempOut", output);
   emlrtDestroyArray(&tempOut);
   emlrtDestroyArray(&tempRough);

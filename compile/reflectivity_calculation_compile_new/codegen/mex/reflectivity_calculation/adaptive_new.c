@@ -30,213 +30,243 @@
 static emlrtRSInfo wd_emlrtRSI = {
     241,            /* lineNo */
     "adaptive_new", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo xd_emlrtRSI = {
     252,            /* lineNo */
     "adaptive_new", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo yd_emlrtRSI = {
     255,            /* lineNo */
     "adaptive_new", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo ae_emlrtRSI = {
     267,            /* lineNo */
     "adaptive_new", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo be_emlrtRSI = {
     281,            /* lineNo */
     "adaptive_new", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo ce_emlrtRSI = {
     304,            /* lineNo */
     "adaptive_new", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo de_emlrtRSI = {
     305,            /* lineNo */
     "adaptive_new", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo ee_emlrtRSI = {
     376,                 /* lineNo */
     "normalizeFunction", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo fe_emlrtRSI = {
     24,        /* lineNo */
     "sldFunc", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m" /* pathName */
 };
 
 static emlrtRSInfo ge_emlrtRSI = {
     29,        /* lineNo */
     "sldFunc", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m" /* pathName */
 };
 
 static emlrtRSInfo he_emlrtRSI = {
     30,        /* lineNo */
     "sldFunc", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m" /* pathName */
 };
 
 static emlrtRSInfo me_emlrtRSI = {
-    197,             /* lineNo */
+    215,             /* lineNo */
     "unaryMinOrMax", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "unaryMinOrMax.m" /* pathName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+    "internal\\unaryMinOrMax.m" /* pathName */
 };
 
 static emlrtRSInfo ne_emlrtRSI = {
-    288,                     /* lineNo */
+    308,                     /* lineNo */
     "unaryMinOrMaxDispatch", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "unaryMinOrMax.m" /* pathName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+    "internal\\unaryMinOrMax.m" /* pathName */
 };
 
 static emlrtRSInfo oe_emlrtRSI = {
-    356,          /* lineNo */
+    376,          /* lineNo */
     "minOrMax2D", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "unaryMinOrMax.m" /* pathName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+    "internal\\unaryMinOrMax.m" /* pathName */
 };
 
 static emlrtRSInfo pe_emlrtRSI = {
-    438,                         /* lineNo */
+    458,                         /* lineNo */
     "minOrMax2DColumnMajorDim1", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "unaryMinOrMax.m" /* pathName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+    "internal\\unaryMinOrMax.m" /* pathName */
 };
 
 static emlrtRSInfo qe_emlrtRSI = {
     15,    /* lineNo */
     "min", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/min.m" /* pathName
-                                                                            */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\datafun\\min.m" /* pathName
+                                                                        */
 };
 
-static emlrtRSInfo re_emlrtRSI = {
-    46,         /* lineNo */
-    "minOrMax", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "minOrMax.m" /* pathName */
+static emlrtRSInfo re_emlrtRSI =
+    {
+        46,         /* lineNo */
+        "minOrMax", /* fcnName */
+        "C:\\Program "
+        "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+internal\\minOrMax."
+        "m" /* pathName */
 };
 
-static emlrtRSInfo se_emlrtRSI = {
-    92,        /* lineNo */
-    "minimum", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "minOrMax.m" /* pathName */
+static emlrtRSInfo se_emlrtRSI =
+    {
+        92,        /* lineNo */
+        "minimum", /* fcnName */
+        "C:\\Program "
+        "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+internal\\minOrMax."
+        "m" /* pathName */
 };
 
 static emlrtRSInfo te_emlrtRSI = {
     398,                      /* lineNo */
     "calculateCentralAngles", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo ue_emlrtRSI = {
     399,                      /* lineNo */
     "calculateCentralAngles", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo ve_emlrtRSI = {
     401,                      /* lineNo */
     "calculateCentralAngles", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo we_emlrtRSI = {
     403,                      /* lineNo */
     "calculateCentralAngles", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo xe_emlrtRSI = {
     404,                      /* lineNo */
     "calculateCentralAngles", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo ye_emlrtRSI = {
     405,                      /* lineNo */
     "calculateCentralAngles", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo af_emlrtRSI = {
     408,                      /* lineNo */
     "calculateCentralAngles", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo bf_emlrtRSI = {
     407,                      /* lineNo */
     "calculateCentralAngles", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo cf_emlrtRSI = {
     409,                      /* lineNo */
     "calculateCentralAngles", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo sf_emlrtRSI = {
     431,                /* lineNo */
     "increaseSampling", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
 static emlrtRSInfo tf_emlrtRSI = {
     433,                /* lineNo */
     "increaseSampling", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pathName */
 };
 
-static emlrtRSInfo
-    uf_emlrtRSI =
-        {
-            24,    /* lineNo */
-            "cat", /* fcnName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-            "cat.m" /* pathName */
+static emlrtRSInfo uf_emlrtRSI = {
+    24,    /* lineNo */
+    "cat", /* fcnName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+internal\\cat.m" /* pathName
+                                                                          */
 };
 
 static emlrtECInfo f_emlrtECI = {
@@ -244,8 +274,9 @@ static emlrtECInfo f_emlrtECI = {
     283,            /* lineNo */
     25,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtECInfo g_emlrtECI = {
@@ -253,24 +284,27 @@ static emlrtECInfo g_emlrtECI = {
     289,            /* lineNo */
     21,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo lb_emlrtRTEI = {
-    26,              /* lineNo */
+    28,              /* lineNo */
     27,              /* colNo */
     "unaryMinOrMax", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "unaryMinOrMax.m" /* pName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+    "internal\\unaryMinOrMax.m" /* pName */
 };
 
 static emlrtRTEInfo mb_emlrtRTEI = {
-    124,             /* lineNo */
+    126,             /* lineNo */
     27,              /* colNo */
     "unaryMinOrMax", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "unaryMinOrMax.m" /* pName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+    "internal\\unaryMinOrMax.m" /* pName */
 };
 
 static emlrtECInfo h_emlrtECI = {
@@ -278,8 +312,9 @@ static emlrtECInfo h_emlrtECI = {
     429,                /* lineNo */
     29,                 /* colNo */
     "increaseSampling", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtECInfo i_emlrtECI = {
@@ -287,8 +322,9 @@ static emlrtECInfo i_emlrtECI = {
     429,                /* lineNo */
     1,                  /* colNo */
     "increaseSampling", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtECInfo j_emlrtECI = {
@@ -296,8 +332,9 @@ static emlrtECInfo j_emlrtECI = {
     431,                /* lineNo */
     1,                  /* colNo */
     "increaseSampling", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtBCInfo qg_emlrtBCI = {
@@ -307,9 +344,10 @@ static emlrtBCInfo qg_emlrtBCI = {
     39,                 /* colNo */
     "segmentsToSplit",  /* aName */
     "increaseSampling", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo rg_emlrtBCI = {
@@ -319,9 +357,10 @@ static emlrtBCInfo rg_emlrtBCI = {
     40,                 /* colNo */
     "dataPoints",       /* aName */
     "increaseSampling", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo sg_emlrtBCI = {
@@ -331,9 +370,10 @@ static emlrtBCInfo sg_emlrtBCI = {
     14,                 /* colNo */
     "dataPoints",       /* aName */
     "increaseSampling", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo tg_emlrtBCI = {
@@ -343,9 +383,10 @@ static emlrtBCInfo tg_emlrtBCI = {
     22,                  /* colNo */
     "x",                 /* aName */
     "normalizeFunction", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtECInfo k_emlrtECI = {
@@ -353,8 +394,9 @@ static emlrtECInfo k_emlrtECI = {
     376,                 /* lineNo */
     5,                   /* colNo */
     "normalizeFunction", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtBCInfo ug_emlrtBCI = {
@@ -364,9 +406,10 @@ static emlrtBCInfo ug_emlrtBCI = {
     23,          /* colNo */
     "belowVals", /* aName */
     "sldFunc",   /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m", /* pName */
-    0            /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m", /* pName */
+    0                        /* checkKind */
 };
 
 static emlrtBCInfo vg_emlrtBCI = {
@@ -376,9 +419,10 @@ static emlrtBCInfo vg_emlrtBCI = {
     23,          /* colNo */
     "aboveVals", /* aName */
     "sldFunc",   /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m", /* pName */
-    0            /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m", /* pName */
+    0                        /* checkKind */
 };
 
 static emlrtBCInfo wg_emlrtBCI = {
@@ -388,9 +432,10 @@ static emlrtBCInfo wg_emlrtBCI = {
     18,        /* colNo */
     "rho",     /* aName */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m", /* pName */
-    0            /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m", /* pName */
+    0                        /* checkKind */
 };
 
 static emlrtBCInfo xg_emlrtBCI = {
@@ -400,9 +445,10 @@ static emlrtBCInfo xg_emlrtBCI = {
     18,        /* colNo */
     "rho",     /* aName */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m", /* pName */
-    0            /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m", /* pName */
+    0                        /* checkKind */
 };
 
 static emlrtBCInfo yg_emlrtBCI = {
@@ -412,9 +458,10 @@ static emlrtBCInfo yg_emlrtBCI = {
     26,        /* colNo */
     "z",       /* aName */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m", /* pName */
-    0            /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m", /* pName */
+    0                        /* checkKind */
 };
 
 static emlrtBCInfo ah_emlrtBCI = {
@@ -424,9 +471,10 @@ static emlrtBCInfo ah_emlrtBCI = {
     20,        /* colNo */
     "z",       /* aName */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m", /* pName */
-    0            /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m", /* pName */
+    0                        /* checkKind */
 };
 
 static emlrtBCInfo bh_emlrtBCI = {
@@ -436,9 +484,10 @@ static emlrtBCInfo bh_emlrtBCI = {
     18,        /* colNo */
     "rho",     /* aName */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m", /* pName */
-    0            /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m", /* pName */
+    0                        /* checkKind */
 };
 
 static emlrtBCInfo ch_emlrtBCI = {
@@ -448,9 +497,10 @@ static emlrtBCInfo ch_emlrtBCI = {
     5,                   /* colNo */
     "y",                 /* aName */
     "normalizeFunction", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtECInfo l_emlrtECI = {
@@ -458,8 +508,9 @@ static emlrtECInfo l_emlrtECI = {
     398,                      /* lineNo */
     3,                        /* colNo */
     "calculateCentralAngles", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtECInfo m_emlrtECI = {
@@ -467,8 +518,9 @@ static emlrtECInfo m_emlrtECI = {
     403,                      /* lineNo */
     21,                       /* colNo */
     "calculateCentralAngles", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtECInfo n_emlrtECI = {
@@ -476,8 +528,9 @@ static emlrtECInfo n_emlrtECI = {
     404,                      /* lineNo */
     21,                       /* colNo */
     "calculateCentralAngles", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtECInfo o_emlrtECI = {
@@ -485,8 +538,9 @@ static emlrtECInfo o_emlrtECI = {
     405,                      /* lineNo */
     21,                       /* colNo */
     "calculateCentralAngles", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtECInfo p_emlrtECI = {
@@ -494,8 +548,9 @@ static emlrtECInfo p_emlrtECI = {
     407,                      /* lineNo */
     4,                        /* colNo */
     "calculateCentralAngles", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtECInfo q_emlrtECI = {
@@ -503,8 +558,9 @@ static emlrtECInfo q_emlrtECI = {
     408,                      /* lineNo */
     8,                        /* colNo */
     "calculateCentralAngles", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtBCInfo dh_emlrtBCI = {
@@ -514,9 +570,10 @@ static emlrtBCInfo dh_emlrtBCI = {
     20,                        /* colNo */
     "XYdata",                  /* aName */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo eh_emlrtBCI = {
@@ -526,9 +583,10 @@ static emlrtBCInfo eh_emlrtBCI = {
     22,                        /* colNo */
     "XYdata",                  /* aName */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo fh_emlrtBCI = {
@@ -538,9 +596,10 @@ static emlrtBCInfo fh_emlrtBCI = {
     40,                        /* colNo */
     "XYdata",                  /* aName */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo gh_emlrtBCI = {
@@ -550,9 +609,10 @@ static emlrtBCInfo gh_emlrtBCI = {
     42,                        /* colNo */
     "XYdata",                  /* aName */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtECInfo r_emlrtECI = {
@@ -560,8 +620,9 @@ static emlrtECInfo r_emlrtECI = {
     386,                       /* lineNo */
     13,                        /* colNo */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtBCInfo hh_emlrtBCI = {
@@ -571,9 +632,10 @@ static emlrtBCInfo hh_emlrtBCI = {
     41,                        /* colNo */
     "XYdata",                  /* aName */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo ih_emlrtBCI = {
@@ -583,9 +645,10 @@ static emlrtBCInfo ih_emlrtBCI = {
     43,                        /* colNo */
     "XYdata",                  /* aName */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtECInfo s_emlrtECI = {
@@ -593,8 +656,9 @@ static emlrtECInfo s_emlrtECI = {
     387,                       /* lineNo */
     14,                        /* colNo */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtBCInfo jh_emlrtBCI = {
@@ -604,9 +668,10 @@ static emlrtBCInfo jh_emlrtBCI = {
     40,                        /* colNo */
     "XYdata",                  /* aName */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtBCInfo kh_emlrtBCI = {
@@ -616,9 +681,10 @@ static emlrtBCInfo kh_emlrtBCI = {
     42,                        /* colNo */
     "XYdata",                  /* aName */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m", /* pName */
-    0                 /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m", /* pName */
+    0                             /* checkKind */
 };
 
 static emlrtECInfo t_emlrtECI = {
@@ -626,394 +692,440 @@ static emlrtECInfo t_emlrtECI = {
     388,                       /* lineNo */
     13,                        /* colNo */
     "calculateTrianglesSides", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
-static emlrtBCInfo gy_emlrtBCI = {
+static emlrtBCInfo jy_emlrtBCI = {
     -1,        /* iFirst */
     -1,        /* iLast */
     21,        /* lineNo */
     11,        /* colNo */
     "SLD",     /* aName */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m", /* pName */
-    0            /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m", /* pName */
+    0                        /* checkKind */
 };
 
-static emlrtBCInfo hy_emlrtBCI = {
+static emlrtBCInfo ky_emlrtBCI = {
     -1,        /* iFirst */
     -1,        /* iLast */
     22,        /* lineNo */
     13,        /* colNo */
     "SLD",     /* aName */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m", /* pName */
-    0            /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m", /* pName */
+    0                        /* checkKind */
 };
 
 static emlrtRTEInfo ui_emlrtRTEI = {
     241,            /* lineNo */
     3,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo vi_emlrtRTEI = {
     255,            /* lineNo */
     1,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo wi_emlrtRTEI = {
     334,            /* lineNo */
     2,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo xi_emlrtRTEI = {
     281,            /* lineNo */
     42,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo yi_emlrtRTEI = {
     282,            /* lineNo */
     5,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo aj_emlrtRTEI = {
     283,            /* lineNo */
     5,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo bj_emlrtRTEI = {
     289,            /* lineNo */
     21,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo cj_emlrtRTEI = {
     289,            /* lineNo */
     50,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo dj_emlrtRTEI = {
     426,            /* lineNo */
     1,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo ej_emlrtRTEI = {
     429,            /* lineNo */
     40,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo fj_emlrtRTEI = {
     430,            /* lineNo */
     14,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo gj_emlrtRTEI = {
     305,            /* lineNo */
     18,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo hj_emlrtRTEI = {
     429,            /* lineNo */
     22,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo ij_emlrtRTEI = {
     431,            /* lineNo */
     40,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
-static emlrtRTEInfo
-    jj_emlrtRTEI =
-        {
-            291,   /* lineNo */
-            14,    /* colNo */
-            "cat", /* fName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-            "cat.m" /* pName */
+static emlrtRTEInfo jj_emlrtRTEI = {
+    291,   /* lineNo */
+    14,    /* colNo */
+    "cat", /* fName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+internal\\cat.m" /* pName
+                                                                          */
 };
 
 static emlrtRTEInfo kj_emlrtRTEI = {
     305,            /* lineNo */
     5,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo lj_emlrtRTEI = {
     252,            /* lineNo */
     1,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo mj_emlrtRTEI = {
     289,            /* lineNo */
     3,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo nj_emlrtRTEI = {
     241,            /* lineNo */
     15,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo pj_emlrtRTEI = {
     360,            /* lineNo */
     5,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo qj_emlrtRTEI = {
     24,        /* lineNo */
     14,        /* colNo */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m" /* pName */
 };
 
 static emlrtRTEInfo rj_emlrtRTEI = {
     24,        /* lineNo */
     1,         /* colNo */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m" /* pName */
 };
 
 static emlrtRTEInfo sj_emlrtRTEI = {
     376,            /* lineNo */
     12,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo tj_emlrtRTEI = {
     29,        /* lineNo */
     22,        /* colNo */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m" /* pName */
 };
 
 static emlrtRTEInfo uj_emlrtRTEI = {
     29,        /* lineNo */
     5,         /* colNo */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m" /* pName */
 };
 
 static emlrtRTEInfo vj_emlrtRTEI = {
     30,        /* lineNo */
     22,        /* colNo */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m" /* pName */
 };
 
 static emlrtRTEInfo wj_emlrtRTEI = {
     30,        /* lineNo */
     5,         /* colNo */
     "sldFunc", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "sldFunc.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\sldFunc.m" /* pName */
 };
 
 static emlrtRTEInfo bk_emlrtRTEI = {
     398,            /* lineNo */
     3,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo ck_emlrtRTEI = {
     403,            /* lineNo */
     21,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo dk_emlrtRTEI = {
     403,            /* lineNo */
     42,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo ek_emlrtRTEI = {
     404,            /* lineNo */
     21,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo fk_emlrtRTEI = {
     404,            /* lineNo */
     42,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo gk_emlrtRTEI = {
     405,            /* lineNo */
     21,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo hk_emlrtRTEI = {
     405,            /* lineNo */
     42,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo ik_emlrtRTEI = {
     407,            /* lineNo */
     3,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo jk_emlrtRTEI = {
     409,            /* lineNo */
     20,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo kk_emlrtRTEI = {
     409,            /* lineNo */
     1,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo lk_emlrtRTEI = {
     403,            /* lineNo */
     1,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo mk_emlrtRTEI = {
     404,            /* lineNo */
     1,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo nk_emlrtRTEI = {
     405,            /* lineNo */
     1,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo ok_emlrtRTEI = {
     391,            /* lineNo */
     24,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo pk_emlrtRTEI = {
     398,            /* lineNo */
     13,             /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo rk_emlrtRTEI = {
     386,            /* lineNo */
     1,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo sk_emlrtRTEI = {
     387,            /* lineNo */
     1,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 static emlrtRTEInfo tk_emlrtRTEI = {
     388,            /* lineNo */
     1,              /* colNo */
     "adaptive_new", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "adaptive_new.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\adaptive_new.m" /* pName */
 };
 
 /* Function Declarations */
@@ -1113,11 +1225,11 @@ static void b_normalizeFunction(const emlrtStack *sp, const emxArray_real_T *x,
     /*  SLD = sldProfile; */
     /* SLD = getappdata(0,'sldFuncSLD'); */
     if (1 > sldProfile->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, sldProfile->size[1], &gy_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, sldProfile->size[1], &jy_emlrtBCI,
                                     &st);
     }
     if (2 > sldProfile->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, sldProfile->size[1], &hy_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, sldProfile->size[1], &ky_emlrtBCI,
                                     &st);
     }
     b_st.site = &fe_emlrtRSI;

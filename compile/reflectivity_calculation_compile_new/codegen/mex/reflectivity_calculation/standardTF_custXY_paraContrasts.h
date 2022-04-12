@@ -31,7 +31,7 @@ void standardTF_custXY_paraContrasts(
     emxArray_real_T *nbss, emxArray_real_T *resols, emxArray_real_T *chis,
     emxArray_cell_wrap_12 *reflectivity, emxArray_cell_wrap_12 *Simulation,
     emxArray_cell_wrap_14 *shifted_data, emxArray_cell_wrap_10 *layerSlds,
-    emxArray_cell_wrap_14 *sldProfiles, emxArray_cell_wrap_27 *allLayers,
+    emxArray_cell_wrap_14 *sldProfiles, emxArray_cell_wrap_26 *allLayers,
     emxArray_real_T *allRoughs);
 
 /* End of code generation (standardTF_custXY_paraContrasts.h) */

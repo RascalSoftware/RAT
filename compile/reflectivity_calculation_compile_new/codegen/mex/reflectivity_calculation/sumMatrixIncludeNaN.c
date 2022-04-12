@@ -20,36 +20,41 @@
 static emlrtRSInfo ic_emlrtRSI = {
     178,          /* lineNo */
     "sumColumnB", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
-    "sumMatrixIncludeNaN.m" /* pathName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\datafun\\private\\sumMat"
+    "rixIncludeNaN.m" /* pathName */
 };
 
 static emlrtRSInfo jc_emlrtRSI = {
     182,          /* lineNo */
     "sumColumnB", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
-    "sumMatrixIncludeNaN.m" /* pathName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\datafun\\private\\sumMat"
+    "rixIncludeNaN.m" /* pathName */
 };
 
 static emlrtRSInfo kc_emlrtRSI = {
     184,          /* lineNo */
     "sumColumnB", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
-    "sumMatrixIncludeNaN.m" /* pathName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\datafun\\private\\sumMat"
+    "rixIncludeNaN.m" /* pathName */
 };
 
 static emlrtRSInfo lc_emlrtRSI = {
     189,          /* lineNo */
     "sumColumnB", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
-    "sumMatrixIncludeNaN.m" /* pathName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\datafun\\private\\sumMat"
+    "rixIncludeNaN.m" /* pathName */
 };
 
 static emlrtRSInfo mc_emlrtRSI = {
     210,         /* lineNo */
     "sumColumn", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
-    "sumMatrixIncludeNaN.m" /* pathName */
+    "C:\\Program "
+    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\datafun\\private\\sumMat"
+    "rixIncludeNaN.m" /* pathName */
 };
 
 /* Function Definitions */

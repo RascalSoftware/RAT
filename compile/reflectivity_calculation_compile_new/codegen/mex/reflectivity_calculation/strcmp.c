@@ -16,28 +16,34 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo hb_emlrtRSI =
-    {
-        63,       /* lineNo */
-        "strcmp", /* fcnName */
-        "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-        "strcmp.m" /* pathName */
+static emlrtRSInfo
+    hb_emlrtRSI =
+        {
+            63,       /* lineNo */
+            "strcmp", /* fcnName */
+            "C:\\Program "
+            "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+            "internal\\strcmp.m" /* pathName */
 };
 
-static emlrtRSInfo ib_emlrtRSI =
-    {
-        138,          /* lineNo */
-        "loc_strcmp", /* fcnName */
-        "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-        "strcmp.m" /* pathName */
+static emlrtRSInfo
+    ib_emlrtRSI =
+        {
+            138,          /* lineNo */
+            "loc_strcmp", /* fcnName */
+            "C:\\Program "
+            "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+            "internal\\strcmp.m" /* pathName */
 };
 
-static emlrtRSInfo jb_emlrtRSI =
-    {
-        216,       /* lineNo */
-        "charcmp", /* fcnName */
-        "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-        "strcmp.m" /* pathName */
+static emlrtRSInfo
+    jb_emlrtRSI =
+        {
+            216,       /* lineNo */
+            "charcmp", /* fcnName */
+            "C:\\Program "
+            "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
+            "internal\\strcmp.m" /* pathName */
 };
 
 /* Function Definitions */

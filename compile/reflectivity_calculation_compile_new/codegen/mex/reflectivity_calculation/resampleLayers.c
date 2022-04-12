@@ -21,8 +21,9 @@
 static emlrtRSInfo vd_emlrtRSI = {
     20,               /* lineNo */
     "resampleLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m" /* pathName */
 };
 
 static emlrtBCInfo jg_emlrtBCI = {
@@ -32,9 +33,10 @@ static emlrtBCInfo jg_emlrtBCI = {
     12,               /* colNo */
     "layers",         /* aName */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m", /* pName */
-    0                   /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m", /* pName */
+    0                               /* checkKind */
 };
 
 static emlrtBCInfo kg_emlrtBCI = {
@@ -44,9 +46,10 @@ static emlrtBCInfo kg_emlrtBCI = {
     18,               /* colNo */
     "newY",           /* aName */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m", /* pName */
-    0                   /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m", /* pName */
+    0                               /* checkKind */
 };
 
 static emlrtBCInfo lg_emlrtBCI = {
@@ -56,9 +59,10 @@ static emlrtBCInfo lg_emlrtBCI = {
     18,               /* colNo */
     "newY",           /* aName */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m", /* pName */
-    0                   /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m", /* pName */
+    0                               /* checkKind */
 };
 
 static emlrtBCInfo mg_emlrtBCI = {
@@ -68,9 +72,10 @@ static emlrtBCInfo mg_emlrtBCI = {
     18,               /* colNo */
     "newX",           /* aName */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m", /* pName */
-    0                   /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m", /* pName */
+    0                               /* checkKind */
 };
 
 static emlrtBCInfo ng_emlrtBCI = {
@@ -80,9 +85,10 @@ static emlrtBCInfo ng_emlrtBCI = {
     18,               /* colNo */
     "newX",           /* aName */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m", /* pName */
-    0                   /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m", /* pName */
+    0                               /* checkKind */
 };
 
 static emlrtBCInfo og_emlrtBCI = {
@@ -92,9 +98,10 @@ static emlrtBCInfo og_emlrtBCI = {
     10,               /* colNo */
     "x",              /* aName */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m", /* pName */
-    0                   /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m", /* pName */
+    0                               /* checkKind */
 };
 
 static emlrtBCInfo pg_emlrtBCI = {
@@ -104,58 +111,64 @@ static emlrtBCInfo pg_emlrtBCI = {
     12,               /* colNo */
     "x",              /* aName */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m", /* pName */
-    0                   /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m", /* pName */
+    0                               /* checkKind */
 };
 
 static emlrtDCInfo kb_emlrtDCI = {
     25,               /* lineNo */
     16,               /* colNo */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m", /* pName */
-    4                   /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m", /* pName */
+    4                               /* checkKind */
 };
 
-static emlrtBCInfo ey_emlrtBCI = {
+static emlrtBCInfo hy_emlrtBCI = {
     -1,               /* iFirst */
     -1,               /* iLast */
     9,                /* lineNo */
     21,               /* colNo */
     "sldProfile",     /* aName */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m", /* pName */
-    0                   /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m", /* pName */
+    0                               /* checkKind */
 };
 
-static emlrtBCInfo fy_emlrtBCI = {
+static emlrtBCInfo iy_emlrtBCI = {
     -1,               /* iFirst */
     -1,               /* iLast */
     8,                /* lineNo */
     18,               /* colNo */
     "sldProfile",     /* aName */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m", /* pName */
-    0                   /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m", /* pName */
+    0                               /* checkKind */
 };
 
 static emlrtRTEInfo si_emlrtRTEI = {
     25,               /* lineNo */
     1,                /* colNo */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m" /* pName */
 };
 
 static emlrtRTEInfo ti_emlrtRTEI = {
     20,               /* lineNo */
     1,                /* colNo */
     "resampleLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/"
-    "resampleLayers.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\resa"
+    "mpleLayers\\resampleLayers.m" /* pName */
 };
 
 /* Function Definitions */
@@ -175,11 +188,11 @@ void b_resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
   /*  f = @(x) sldFunc(x); */
   /*   */
   if (1 > sldProfile->size[1]) {
-    emlrtDynamicBoundsCheckR2012b(1, 1, sldProfile->size[1], &fy_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(1, 1, sldProfile->size[1], &iy_emlrtBCI,
                                   (emlrtCTX)sp);
   }
   if (2 > sldProfile->size[1]) {
-    emlrtDynamicBoundsCheckR2012b(2, 1, sldProfile->size[1], &ey_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(2, 1, sldProfile->size[1], &hy_emlrtBCI,
                                   (emlrtCTX)sp);
   }
   if (1 > sldProfile->size[0]) {

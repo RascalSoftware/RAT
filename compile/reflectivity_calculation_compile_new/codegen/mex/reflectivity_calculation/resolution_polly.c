@@ -21,16 +21,18 @@
 static emlrtRSInfo ah_emlrtRSI = {
     29,                 /* lineNo */
     "resolution_polly", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "Resolution_Functions/Simple_Gaussian/resolution_polly.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\Reso"
+    "lution_Functions\\Simple_Gaussian\\resolution_polly.m" /* pathName */
 };
 
 static emlrtRTEInfo vb_emlrtRTEI = {
     28,                 /* lineNo */
     13,                 /* colNo */
     "resolution_polly", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "Resolution_Functions/Simple_Gaussian/resolution_polly.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\Reso"
+    "lution_Functions\\Simple_Gaussian\\resolution_polly.m" /* pName */
 };
 
 static emlrtBCInfo cj_emlrtBCI = {
@@ -40,9 +42,10 @@ static emlrtBCInfo cj_emlrtBCI = {
     5,                  /* colNo */
     "dummydata",        /* aName */
     "resolution_polly", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "Resolution_Functions/Simple_Gaussian/resolution_polly.m", /* pName */
-    0                                                          /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\Reso"
+    "lution_Functions\\Simple_Gaussian\\resolution_polly.m", /* pName */
+    0                                                        /* checkKind */
 };
 
 static emlrtBCInfo dj_emlrtBCI = {
@@ -52,9 +55,10 @@ static emlrtBCInfo dj_emlrtBCI = {
     24,                 /* colNo */
     "dummydata",        /* aName */
     "resolution_polly", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "Resolution_Functions/Simple_Gaussian/resolution_polly.m", /* pName */
-    0                                                          /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\Reso"
+    "lution_Functions\\Simple_Gaussian\\resolution_polly.m", /* pName */
+    0                                                        /* checkKind */
 };
 
 static emlrtBCInfo ej_emlrtBCI = {
@@ -64,9 +68,10 @@ static emlrtBCInfo ej_emlrtBCI = {
     22,                 /* colNo */
     "xdata",            /* aName */
     "resolution_polly", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "Resolution_Functions/Simple_Gaussian/resolution_polly.m", /* pName */
-    0                                                          /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\Reso"
+    "lution_Functions\\Simple_Gaussian\\resolution_polly.m", /* pName */
+    0                                                        /* checkKind */
 };
 
 static emlrtBCInfo fj_emlrtBCI = {
@@ -76,9 +81,10 @@ static emlrtBCInfo fj_emlrtBCI = {
     33,                 /* colNo */
     "xdata",            /* aName */
     "resolution_polly", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "Resolution_Functions/Simple_Gaussian/resolution_polly.m", /* pName */
-    0                                                          /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\Reso"
+    "lution_Functions\\Simple_Gaussian\\resolution_polly.m", /* pName */
+    0                                                        /* checkKind */
 };
 
 static emlrtBCInfo gj_emlrtBCI = {
@@ -88,9 +94,10 @@ static emlrtBCInfo gj_emlrtBCI = {
     24,                 /* colNo */
     "dummydata",        /* aName */
     "resolution_polly", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "Resolution_Functions/Simple_Gaussian/resolution_polly.m", /* pName */
-    0                                                          /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\Reso"
+    "lution_Functions\\Simple_Gaussian\\resolution_polly.m", /* pName */
+    0                                                        /* checkKind */
 };
 
 static emlrtBCInfo hj_emlrtBCI = {
@@ -100,9 +107,10 @@ static emlrtBCInfo hj_emlrtBCI = {
     39,                 /* colNo */
     "dummyref",         /* aName */
     "resolution_polly", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "Resolution_Functions/Simple_Gaussian/resolution_polly.m", /* pName */
-    0                                                          /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\Reso"
+    "lution_Functions\\Simple_Gaussian\\resolution_polly.m", /* pName */
+    0                                                        /* checkKind */
 };
 
 static emlrtBCInfo ij_emlrtBCI = {
@@ -112,17 +120,19 @@ static emlrtBCInfo ij_emlrtBCI = {
     9,                  /* colNo */
     "dummydata",        /* aName */
     "resolution_polly", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "Resolution_Functions/Simple_Gaussian/resolution_polly.m", /* pName */
-    0                                                          /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\Reso"
+    "lution_Functions\\Simple_Gaussian\\resolution_polly.m", /* pName */
+    0                                                        /* checkKind */
 };
 
 static emlrtRTEInfo ul_emlrtRTEI = {
     7,                  /* lineNo */
     1,                  /* colNo */
     "resolution_polly", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "Resolution_Functions/Simple_Gaussian/resolution_polly.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\Reso"
+    "lution_Functions\\Simple_Gaussian\\resolution_polly.m" /* pName */
 };
 
 /* Function Definitions */

@@ -19,7 +19,7 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRTEInfo et_emlrtRTEI = {
+static emlrtRTEInfo ft_emlrtRTEI = {
     1,                                     /* lineNo */
     1,                                     /* colNo */
     "_coder_reflectivity_calculation_api", /* fName */
@@ -184,8 +184,8 @@ static void ab_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
   boolean_T b;
   thisId.fParent = parentId;
   thisId.bParentIsCell = true;
-  n = -1;
   b = true;
+  n = -1;
   emlrtCheckVsCell((emlrtCTX)sp, parentId, u, 1U, &n, &b, &sizes);
   n = y->size[0];
   y->size[0] = sizes;
@@ -578,10 +578,10 @@ static void gb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
   boolean_T bv[2];
   thisId.fParent = parentId;
   thisId.bParentIsCell = true;
-  iv[0] = 1;
   bv[0] = false;
-  iv[1] = 3;
+  iv[0] = 1;
   bv[1] = false;
+  iv[1] = 3;
   emlrtCheckCell((emlrtCTX)sp, parentId, u, 2U, &iv[0], &bv[0]);
   sprintf(&str[0], "%d", 1);
   thisId.fIdentifier = &str[0];
@@ -1138,10 +1138,10 @@ static void r_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
   boolean_T bv[2];
   thisId.fParent = parentId;
   thisId.bParentIsCell = true;
-  iv[0] = 1;
   bv[0] = false;
-  iv[1] = 14;
+  iv[0] = 1;
   bv[1] = false;
+  iv[1] = 14;
   emlrtCheckCell((emlrtCTX)sp, parentId, u, 2U, &iv[0], &bv[0]);
   thisId.fIdentifier = "1";
   s_emlrt_marshallIn(sp, emlrtAlias(emlrtGetCell((emlrtCTX)sp, parentId, u, 0)),
@@ -1473,12 +1473,12 @@ void reflectivity_calculation_api(const mxArray *const prhs[4], int32_T nlhs,
   struct4_T problem;
   st.tls = emlrtRootTLSGlobal;
   emlrtHeapReferenceStackEnterFcnR2012b(&st);
-  emxInitStruct_struct0_T(&st, &problemDef, &et_emlrtRTEI, true);
-  emxInitStruct_cell_8(&st, &problemDef_cells, &et_emlrtRTEI, true);
-  emxInitStruct_struct1_T(&st, &problemDef_limits, &et_emlrtRTEI, true);
-  emxInitStruct_struct2_T(&st, &controls, &et_emlrtRTEI, true);
-  emxInitStruct_struct4_T(&st, &problem, &et_emlrtRTEI, true);
-  emxInitStruct_cell_11(&st, &result, &et_emlrtRTEI, true);
+  emxInitStruct_struct0_T(&st, &problemDef, &ft_emlrtRTEI, true);
+  emxInitStruct_cell_8(&st, &problemDef_cells, &ft_emlrtRTEI, true);
+  emxInitStruct_struct1_T(&st, &problemDef_limits, &ft_emlrtRTEI, true);
+  emxInitStruct_struct2_T(&st, &controls, &ft_emlrtRTEI, true);
+  emxInitStruct_struct4_T(&st, &problem, &ft_emlrtRTEI, true);
+  emxInitStruct_cell_11(&st, &result, &ft_emlrtRTEI, true);
   /* Marshall function inputs */
   l_emlrt_marshallIn(&st, emlrtAliasP(prhs[0]), "problemDef", &problemDef);
   q_emlrt_marshallIn(&st, emlrtAliasP(prhs[1]), "problemDef_cells",

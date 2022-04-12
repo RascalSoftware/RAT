@@ -28,71 +28,82 @@
 static emlrtRSInfo ng_emlrtRSI = {
     21,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pathName */
 };
 
 static emlrtRSInfo og_emlrtRSI = {
     28,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pathName */
 };
 
 static emlrtRSInfo pg_emlrtRSI = {
     79,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pathName */
 };
 
 static emlrtRSInfo qg_emlrtRSI = {
     83,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pathName */
 };
 
 static emlrtRSInfo rg_emlrtRSI = {
     85,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pathName */
 };
 
-static emlrtRSInfo sg_emlrtRSI = {
-    117,     /* lineNo */
-    "colon", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/ops/colon.m" /* pathName
+static emlrtRSInfo sg_emlrtRSI =
+    {
+        117,     /* lineNo */
+        "colon", /* fcnName */
+        "C:\\Program "
+        "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" /* pathName
                                                                           */
 };
 
 static emlrtRSInfo vg_emlrtRSI = {
     28,              /* lineNo */
     "abeles_single", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_single.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_single.m" /* pathName */
+};
+
+static emlrtRSInfo ih_emlrtRSI = {
+    61,                 /* lineNo */
+    "callReflectivity", /* fcnName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pathName */
 };
 
 static emlrtRSInfo jh_emlrtRSI = {
-    61,                 /* lineNo */
+    69,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pathName */
 };
 
 static emlrtRSInfo kh_emlrtRSI = {
-    69,                 /* lineNo */
-    "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
-};
-
-static emlrtRSInfo lh_emlrtRSI = {
     72,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pathName */
 };
 
 static emlrtBCInfo yh_emlrtBCI = {
@@ -102,17 +113,19 @@ static emlrtBCInfo yh_emlrtBCI = {
     25,              /* colNo */
     "sld",           /* aName */
     "abeles_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_single.m", /* pName */
-    0                                                  /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_single.m", /* pName */
+    0                                                /* checkKind */
 };
 
 static emlrtRTEInfo sb_emlrtRTEI = {
     39,              /* lineNo */
     19,              /* colNo */
     "abeles_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_single.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_single.m" /* pName */
 };
 
 static emlrtBCInfo ai_emlrtBCI = {
@@ -122,9 +135,10 @@ static emlrtBCInfo ai_emlrtBCI = {
     11,              /* colNo */
     "x",             /* aName */
     "abeles_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_single.m", /* pName */
-    0                                                  /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_single.m", /* pName */
+    0                                                /* checkKind */
 };
 
 static emlrtBCInfo bi_emlrtBCI = {
@@ -134,9 +148,10 @@ static emlrtBCInfo bi_emlrtBCI = {
     37,                 /* colNo */
     "Simulation",       /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo ci_emlrtBCI = {
@@ -146,9 +161,10 @@ static emlrtBCInfo ci_emlrtBCI = {
     27,                 /* colNo */
     "Simulation",       /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtECInfo x_emlrtECI = {
@@ -156,8 +172,9 @@ static emlrtECInfo x_emlrtECI = {
     90,                 /* lineNo */
     1,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtECInfo y_emlrtECI = {
@@ -165,8 +182,9 @@ static emlrtECInfo y_emlrtECI = {
     37,                 /* lineNo */
     1,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtBCInfo di_emlrtBCI = {
@@ -176,9 +194,10 @@ static emlrtBCInfo di_emlrtBCI = {
     28,                 /* colNo */
     "thisDataResol",    /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo ei_emlrtBCI = {
@@ -188,9 +207,10 @@ static emlrtBCInfo ei_emlrtBCI = {
     28,                 /* colNo */
     "thisDataResol",    /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo fi_emlrtBCI = {
@@ -200,9 +220,10 @@ static emlrtBCInfo fi_emlrtBCI = {
     33,                 /* colNo */
     "this_data",        /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo gi_emlrtBCI = {
@@ -212,9 +233,10 @@ static emlrtBCInfo gi_emlrtBCI = {
     40,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo hi_emlrtBCI = {
@@ -224,9 +246,10 @@ static emlrtBCInfo hi_emlrtBCI = {
     28,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo ii_emlrtBCI = {
@@ -236,9 +259,10 @@ static emlrtBCInfo ii_emlrtBCI = {
     19,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo ji_emlrtBCI = {
@@ -248,9 +272,10 @@ static emlrtBCInfo ji_emlrtBCI = {
     19,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo ki_emlrtBCI = {
@@ -260,9 +285,10 @@ static emlrtBCInfo ki_emlrtBCI = {
     29,                 /* colNo */
     "this_data",        /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo li_emlrtBCI = {
@@ -272,9 +298,10 @@ static emlrtBCInfo li_emlrtBCI = {
     20,                 /* colNo */
     "simLimits",        /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo mi_emlrtBCI = {
@@ -284,9 +311,10 @@ static emlrtBCInfo mi_emlrtBCI = {
     20,                 /* colNo */
     "simLimits",        /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo ni_emlrtBCI = {
@@ -296,9 +324,10 @@ static emlrtBCInfo ni_emlrtBCI = {
     21,                 /* colNo */
     "this_data",        /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo oi_emlrtBCI = {
@@ -308,9 +337,10 @@ static emlrtBCInfo oi_emlrtBCI = {
     13,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo pi_emlrtBCI = {
@@ -320,9 +350,10 @@ static emlrtBCInfo pi_emlrtBCI = {
     13,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo qi_emlrtBCI = {
@@ -332,9 +363,10 @@ static emlrtBCInfo qi_emlrtBCI = {
     30,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo ri_emlrtBCI = {
@@ -344,9 +376,10 @@ static emlrtBCInfo ri_emlrtBCI = {
     26,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m", /* pName */
+    0                                   /* checkKind */
 };
 
 static emlrtBCInfo si_emlrtBCI = {
@@ -356,129 +389,145 @@ static emlrtBCInfo si_emlrtBCI = {
     5,               /* colNo */
     "out",           /* aName */
     "abeles_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "reflectivityCalculations/Abeles/abeles_single.m", /* pName */
-    0                                                  /* checkKind */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\refl"
+    "ectivityCalculations\\Abeles\\abeles_single.m", /* pName */
+    0                                                /* checkKind */
 };
 
 static emlrtRTEInfo fl_emlrtRTEI = {
     7,                  /* lineNo */
     5,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo gl_emlrtRTEI = {
     10,                 /* lineNo */
     5,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo hl_emlrtRTEI = {
-    33,                 /* lineNo */
-    1,                  /* colNo */
-    "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
-};
-
-static emlrtRTEInfo il_emlrtRTEI = {
     21,                 /* lineNo */
     5,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
+};
+
+static emlrtRTEInfo il_emlrtRTEI = {
+    33,                 /* lineNo */
+    1,                  /* colNo */
+    "callReflectivity", /* fName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo jl_emlrtRTEI = {
     28,                 /* lineNo */
     5,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo kl_emlrtRTEI = {
     36,                 /* lineNo */
     1,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo ll_emlrtRTEI = {
     42,                 /* lineNo */
     1,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo ml_emlrtRTEI = {
     79,                 /* lineNo */
     26,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo nl_emlrtRTEI = {
     49,                 /* lineNo */
     5,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo ol_emlrtRTEI = {
     85,                 /* lineNo */
     56,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo pl_emlrtRTEI = {
     83,                 /* lineNo */
     61,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo ql_emlrtRTEI = {
     91,                 /* lineNo */
     1,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo rl_emlrtRTEI = {
     61,                 /* lineNo */
     17,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo qm_emlrtRTEI = {
     72,                 /* lineNo */
     56,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo rm_emlrtRTEI = {
     69,                 /* lineNo */
     61,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "C:"
+    "\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\common\\call"
+    "Reflectivity\\callReflectivity.m" /* pName */
 };
 
 /* Function Definitions */
@@ -556,7 +605,7 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &ji_emlrtBCI,
                                   (emlrtCTX)sp);
   }
-  emxInit_real_T(sp, &firstSection, 2, &il_emlrtRTEI, true);
+  emxInit_real_T(sp, &firstSection, 2, &hl_emlrtRTEI, true);
   if (simLimits_data[0] < this_data->data[0]) {
     if (2 > this_data->size[0]) {
       emlrtDynamicBoundsCheckR2012b(2, 1, this_data->size[0], &ii_emlrtBCI,
@@ -578,7 +627,7 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, firstSection, i, &hl_emlrtRTEI);
       firstSection->data[0] = rtNaN;
     } else if ((step == 0.0) || ((simLimits_data[0] < b) && (step < 0.0)) ||
                ((b < simLimits_data[0]) && (step > 0.0))) {
@@ -590,13 +639,13 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, firstSection, i, &hl_emlrtRTEI);
       firstSection->data[0] = rtNaN;
     } else if (muDoubleScalarIsInf(step)) {
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, firstSection, i, &hl_emlrtRTEI);
       firstSection->data[0] = simLimits_data[0];
     } else if ((muDoubleScalarFloor(simLimits_data[0]) == simLimits_data[0]) &&
                (muDoubleScalarFloor(step) == step)) {
@@ -604,7 +653,7 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       firstSection->size[0] = 1;
       loop_ub = (int32_T)muDoubleScalarFloor((b - simLimits_data[0]) / step);
       firstSection->size[1] = loop_ub + 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, firstSection, i, &hl_emlrtRTEI);
       for (i = 0; i <= loop_ub; i++) {
         firstSection->data[i] = simLimits_data[0] + step * (real_T)i;
       }
@@ -683,13 +732,13 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     lastSection->size[0] = 1;
     lastSection->size[1] = 0;
   }
-  emxInit_real_T(sp, &simXdata, 1, &hl_emlrtRTEI, true);
+  emxInit_real_T(sp, &simXdata, 1, &il_emlrtRTEI, true);
   simLimits = firstSection->size[1];
   loop_ub = this_data->size[0];
   i = simXdata->size[0];
   simXdata->size[0] =
       (this_data->size[0] + firstSection->size[1]) + lastSection->size[1];
-  emxEnsureCapacity_real_T(sp, simXdata, i, &hl_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, simXdata, i, &il_emlrtRTEI);
   b_loop_ub = firstSection->size[1];
   for (i = 0; i < b_loop_ub; i++) {
     simXdata->data[i] = firstSection->data[i];
@@ -763,7 +812,7 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   emxInit_real_T(sp, &simRef, 1, &rl_emlrtRTEI, true);
   /*  Parallelise over points */
   /*  Calculate reflectivity.... */
-  st.site = &jh_emlrtRSI;
+  st.site = &ih_emlrtRSI;
   abeles_paraPoints(&st, simXdata, slds, nbairs, nbsubs, repeatLayers[1], ssubs,
                     lays, simXdata->size[0], simRef);
   /* (x,sld,nbair,nbsub,nrepeats,ssub,layers,points) */
@@ -783,7 +832,7 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     for (i = 0; i <= loop_ub; i++) {
       b_simRef->data[i] = simRef->data[i];
     }
-    st.site = &kh_emlrtRSI;
+    st.site = &jh_emlrtRSI;
     data_resolution_polly(&st, simXdata, b_simRef, simResolData,
                           simXdata->size[0], simRef);
   } else {
@@ -796,7 +845,7 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     for (i = 0; i <= loop_ub; i++) {
       b_simRef->data[i] = simRef->data[i];
     }
-    st.site = &lh_emlrtRSI;
+    st.site = &kh_emlrtRSI;
     resolution_polly(&st, simXdata, b_simRef, res, simXdata->size[0], simRef);
   }
   emxFree_real_T(&b_simRef);
@@ -942,7 +991,7 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &ji_emlrtBCI,
                                   (emlrtCTX)sp);
   }
-  emxInit_real_T(sp, &firstSection, 2, &il_emlrtRTEI, true);
+  emxInit_real_T(sp, &firstSection, 2, &hl_emlrtRTEI, true);
   if (simLimits_data[0] < this_data->data[0]) {
     if (2 > this_data->size[0]) {
       emlrtDynamicBoundsCheckR2012b(2, 1, this_data->size[0], &ii_emlrtBCI,
@@ -964,7 +1013,7 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, firstSection, i, &hl_emlrtRTEI);
       firstSection->data[0] = rtNaN;
     } else if ((step == 0.0) || ((simLimits_data[0] < snlay) && (step < 0.0)) ||
                ((snlay < simLimits_data[0]) && (step > 0.0))) {
@@ -976,13 +1025,13 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, firstSection, i, &hl_emlrtRTEI);
       firstSection->data[0] = rtNaN;
     } else if (muDoubleScalarIsInf(step)) {
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, firstSection, i, &hl_emlrtRTEI);
       firstSection->data[0] = simLimits_data[0];
     } else if ((muDoubleScalarFloor(simLimits_data[0]) == simLimits_data[0]) &&
                (muDoubleScalarFloor(step) == step)) {
@@ -991,7 +1040,7 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       loop_ub =
           (int32_T)muDoubleScalarFloor((snlay - simLimits_data[0]) / step);
       firstSection->size[1] = loop_ub + 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, firstSection, i, &hl_emlrtRTEI);
       for (i = 0; i <= loop_ub; i++) {
         firstSection->data[i] = simLimits_data[0] + step * (real_T)i;
       }
@@ -1071,13 +1120,13 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     lastSection->size[0] = 1;
     lastSection->size[1] = 0;
   }
-  emxInit_real_T(sp, &simXdata, 1, &hl_emlrtRTEI, true);
+  emxInit_real_T(sp, &simXdata, 1, &il_emlrtRTEI, true);
   simLimits = firstSection->size[1];
   loop_ub = this_data->size[0];
   i = simXdata->size[0];
   simXdata->size[0] =
       (this_data->size[0] + firstSection->size[1]) + lastSection->size[1];
-  emxEnsureCapacity_real_T(sp, simXdata, i, &hl_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, simXdata, i, &il_emlrtRTEI);
   b_loop_ub = firstSection->size[1];
   for (i = 0; i < b_loop_ub; i++) {
     simXdata->data[i] = firstSection->data[i];

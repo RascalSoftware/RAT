@@ -22,287 +22,251 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo ji_emlrtRSI = {
+static emlrtRSInfo ii_emlrtRSI = {
     64,                                          /* lineNo */
     "standardTF_custXY_reflectivityCalculation", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pathName */
+};
+
+static emlrtRSInfo ji_emlrtRSI = {
+    71,                                          /* lineNo */
+    "standardTF_custXY_reflectivityCalculation", /* fcnName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pathName */
 };
 
 static emlrtRSInfo ki_emlrtRSI = {
-    71,                                          /* lineNo */
+    78,                                          /* lineNo */
     "standardTF_custXY_reflectivityCalculation", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pathName */
 };
 
 static emlrtRSInfo li_emlrtRSI = {
-    78,                                          /* lineNo */
-    "standardTF_custXY_reflectivityCalculation", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pathName */
-};
-
-static emlrtRSInfo mi_emlrtRSI = {
     93,                                          /* lineNo */
     "standardTF_custXY_reflectivityCalculation", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pathName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pathName */
 };
 
-static emlrtDCInfo wc_emlrtDCI = {
+static emlrtDCInfo yc_emlrtDCI = {
     29,                                          /* lineNo */
     21,                                          /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    1                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    1                                                  /* checkKind */
 };
 
 static emlrtRTEInfo bd_emlrtRTEI = {
     30,                                          /* lineNo */
     9,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo cd_emlrtRTEI = {
     35,                                          /* lineNo */
     9,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo dd_emlrtRTEI = {
     40,                                          /* lineNo */
     9,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo ed_emlrtRTEI = {
     45,                                          /* lineNo */
     9,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo fd_emlrtRTEI = {
     50,                                          /* lineNo */
     9,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo gd_emlrtRTEI = {
     55,                                          /* lineNo */
     9,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
-static emlrtBCInfo cv_emlrtBCI = {
+static emlrtBCInfo fv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     31,                                          /* lineNo */
     18,                                          /* colNo */
     "reflectivity",                              /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
-static emlrtBCInfo dv_emlrtBCI = {
+static emlrtBCInfo gv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     36,                                          /* lineNo */
     16,                                          /* colNo */
     "Simulation",                                /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
-static emlrtBCInfo ev_emlrtBCI = {
+static emlrtBCInfo hv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     41,                                          /* lineNo */
     18,                                          /* colNo */
     "shifted_data",                              /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
-static emlrtBCInfo fv_emlrtBCI = {
+static emlrtBCInfo iv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     46,                                          /* lineNo */
     15,                                          /* colNo */
     "layerSlds",                                 /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
-static emlrtBCInfo gv_emlrtBCI = {
+static emlrtBCInfo jv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     51,                                          /* lineNo */
     17,                                          /* colNo */
     "sldProfiles",                               /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
-static emlrtBCInfo hv_emlrtBCI = {
+static emlrtBCInfo kv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     56,                                          /* lineNo */
     15,                                          /* colNo */
     "allLayers",                                 /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
-};
-
-static emlrtDCInfo xc_emlrtDCI = {
-    85,                                          /* lineNo */
-    1,                                           /* colNo */
-    "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    1                                              /* checkKind */
-};
-
-static emlrtDCInfo yc_emlrtDCI = {
-    85,                                          /* lineNo */
-    1,                                           /* colNo */
-    "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    4                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
 static emlrtDCInfo ad_emlrtDCI = {
-    86,                                          /* lineNo */
+    85,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    1                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    1                                                  /* checkKind */
 };
 
 static emlrtDCInfo bd_emlrtDCI = {
-    87,                                          /* lineNo */
+    85,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    1                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    4                                                  /* checkKind */
 };
 
 static emlrtDCInfo cd_emlrtDCI = {
-    88,                                          /* lineNo */
+    86,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    1                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    1                                                  /* checkKind */
 };
 
 static emlrtDCInfo dd_emlrtDCI = {
-    89,                                          /* lineNo */
+    87,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    1                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    1                                                  /* checkKind */
 };
 
 static emlrtDCInfo ed_emlrtDCI = {
-    90,                                          /* lineNo */
+    88,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    1                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    1                                                  /* checkKind */
 };
 
 static emlrtDCInfo fd_emlrtDCI = {
-    25,                                          /* lineNo */
+    89,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    1                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    1                                                  /* checkKind */
 };
 
 static emlrtDCInfo gd_emlrtDCI = {
-    91,                                          /* lineNo */
+    90,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    1                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    1                                                  /* checkKind */
 };
 
 static emlrtDCInfo hd_emlrtDCI = {
+    25,                                          /* lineNo */
+    1,                                           /* colNo */
+    "standardTF_custXY_reflectivityCalculation", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    1                                                  /* checkKind */
+};
+
+static emlrtDCInfo id_emlrtDCI = {
+    91,                                          /* lineNo */
+    1,                                           /* colNo */
+    "standardTF_custXY_reflectivityCalculation", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    1                                                  /* checkKind */
+};
+
+static emlrtDCInfo jd_emlrtDCI = {
     27,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    1                                              /* checkKind */
-};
-
-static emlrtBCInfo iv_emlrtBCI = {
-    -1,                                          /* iFirst */
-    -1,                                          /* iLast */
-    29,                                          /* lineNo */
-    39,                                          /* colNo */
-    "reflectivity",                              /* aName */
-    "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
-};
-
-static emlrtBCInfo jv_emlrtBCI = {
-    -1,                                          /* iFirst */
-    -1,                                          /* iLast */
-    29,                                          /* lineNo */
-    39,                                          /* colNo */
-    "Simulation",                                /* aName */
-    "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
-};
-
-static emlrtBCInfo kv_emlrtBCI = {
-    -1,                                          /* iFirst */
-    -1,                                          /* iLast */
-    29,                                          /* lineNo */
-    39,                                          /* colNo */
-    "shifted_data",                              /* aName */
-    "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    1                                                  /* checkKind */
 };
 
 static emlrtBCInfo lv_emlrtBCI = {
@@ -310,23 +274,23 @@ static emlrtBCInfo lv_emlrtBCI = {
     -1,                                          /* iLast */
     29,                                          /* lineNo */
     39,                                          /* colNo */
-    "layerSlds",                                 /* aName */
+    "reflectivity",                              /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
 static emlrtBCInfo mv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
-    41,                                          /* lineNo */
-    5,                                           /* colNo */
-    "shifted_data",                              /* aName */
+    29,                                          /* lineNo */
+    39,                                          /* colNo */
+    "Simulation",                                /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
 static emlrtBCInfo nv_emlrtBCI = {
@@ -334,251 +298,287 @@ static emlrtBCInfo nv_emlrtBCI = {
     -1,                                          /* iLast */
     29,                                          /* lineNo */
     39,                                          /* colNo */
-    "sldProfiles",                               /* aName */
+    "shifted_data",                              /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
 static emlrtBCInfo ov_emlrtBCI = {
+    -1,                                          /* iFirst */
+    -1,                                          /* iLast */
+    29,                                          /* lineNo */
+    39,                                          /* colNo */
+    "layerSlds",                                 /* aName */
+    "standardTF_custXY_reflectivityCalculation", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
+};
+
+static emlrtBCInfo pv_emlrtBCI = {
+    -1,                                          /* iFirst */
+    -1,                                          /* iLast */
+    41,                                          /* lineNo */
+    5,                                           /* colNo */
+    "shifted_data",                              /* aName */
+    "standardTF_custXY_reflectivityCalculation", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
+};
+
+static emlrtBCInfo qv_emlrtBCI = {
+    -1,                                          /* iFirst */
+    -1,                                          /* iLast */
+    29,                                          /* lineNo */
+    39,                                          /* colNo */
+    "sldProfiles",                               /* aName */
+    "standardTF_custXY_reflectivityCalculation", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
+};
+
+static emlrtBCInfo rv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     46,                                          /* lineNo */
     5,                                           /* colNo */
     "layerSlds",                                 /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
-static emlrtBCInfo pv_emlrtBCI = {
+static emlrtBCInfo sv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     29,                                          /* lineNo */
     39,                                          /* colNo */
     "allLayers",                                 /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
-static emlrtBCInfo qv_emlrtBCI = {
+static emlrtBCInfo tv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     56,                                          /* lineNo */
     5,                                           /* colNo */
     "allLayers",                                 /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
-static emlrtBCInfo rv_emlrtBCI = {
+static emlrtBCInfo uv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     51,                                          /* lineNo */
     5,                                           /* colNo */
     "sldProfiles",                               /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
-static emlrtBCInfo sv_emlrtBCI = {
+static emlrtBCInfo vv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     36,                                          /* lineNo */
     5,                                           /* colNo */
     "Simulation",                                /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
-static emlrtBCInfo tv_emlrtBCI = {
+static emlrtBCInfo wv_emlrtBCI = {
     -1,                                          /* iFirst */
     -1,                                          /* iLast */
     31,                                          /* lineNo */
     5,                                           /* colNo */
     "reflectivity",                              /* aName */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m", /* pName */
-    0                                              /* checkKind */
-};
-
-static emlrtRTEInfo fq_emlrtRTEI = {
-    85,                                          /* lineNo */
-    1,                                           /* colNo */
-    "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m", /* pName */
+    0                                                  /* checkKind */
 };
 
 static emlrtRTEInfo gq_emlrtRTEI = {
-    86,                                          /* lineNo */
+    85,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo hq_emlrtRTEI = {
-    87,                                          /* lineNo */
+    86,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo iq_emlrtRTEI = {
-    88,                                          /* lineNo */
+    87,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo jq_emlrtRTEI = {
-    89,                                          /* lineNo */
+    88,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo kq_emlrtRTEI = {
-    90,                                          /* lineNo */
+    89,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo lq_emlrtRTEI = {
-    25,                                          /* lineNo */
+    90,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo mq_emlrtRTEI = {
-    91,                                          /* lineNo */
+    25,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo nq_emlrtRTEI = {
-    27,                                          /* lineNo */
+    91,                                          /* lineNo */
     1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo oq_emlrtRTEI = {
-    1,                                           /* lineNo */
-    91,                                          /* colNo */
+    27,                                          /* lineNo */
+    1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo pq_emlrtRTEI = {
-    29,                                          /* lineNo */
-    39,                                          /* colNo */
+    1,                                           /* lineNo */
+    91,                                          /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo qq_emlrtRTEI = {
-    31,                                          /* lineNo */
-    5,                                           /* colNo */
+    29,                                          /* lineNo */
+    39,                                          /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo rq_emlrtRTEI = {
-    36,                                          /* lineNo */
+    31,                                          /* lineNo */
     5,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo sq_emlrtRTEI = {
-    41,                                          /* lineNo */
+    36,                                          /* lineNo */
     5,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo tq_emlrtRTEI = {
-    46,                                          /* lineNo */
+    41,                                          /* lineNo */
     5,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo uq_emlrtRTEI = {
-    51,                                          /* lineNo */
+    46,                                          /* lineNo */
     5,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo vq_emlrtRTEI = {
-    56,                                          /* lineNo */
+    51,                                          /* lineNo */
     5,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo wq_emlrtRTEI = {
-    78,                                          /* lineNo */
-    62,                                          /* colNo */
+    56,                                          /* lineNo */
+    5,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo xq_emlrtRTEI = {
-    95,                                          /* lineNo */
-    1,                                           /* colNo */
+    78,                                          /* lineNo */
+    62,                                          /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo yq_emlrtRTEI = {
-    79,                                          /* lineNo */
-    60,                                          /* colNo */
+    95,                                          /* lineNo */
+    1,                                           /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 static emlrtRTEInfo ar_emlrtRTEI = {
     79,                                          /* lineNo */
+    60,                                          /* colNo */
+    "standardTF_custXY_reflectivityCalculation", /* fName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
+};
+
+static emlrtRTEInfo br_emlrtRTEI = {
+    79,                                          /* lineNo */
     14,                                          /* colNo */
     "standardTF_custXY_reflectivityCalculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_custXY_reflectivityCalculation.m" /* pName */
+    "C:\\Users\\oba7931403\\Documents\\GitHub\\RAT\\targetFunctions\\standard_"
+    "TF\\standardTF_custXY_reflectivityCalculation.m" /* pName */
 };
 
 /* Function Definitions */
@@ -596,7 +596,7 @@ void c_standardTF_custXY_reflectivit(
   emxArray_cell_wrap_12 *r;
   emxArray_cell_wrap_12 *r1;
   emxArray_cell_wrap_14 *b_allLayers;
-  emxArray_cell_wrap_27 *r2;
+  emxArray_cell_wrap_26 *r2;
   emxArray_cell_wrap_9 *b_Simulation;
   emxArray_cell_wrap_9 *b_reflectivity;
   int32_T exitg1;
@@ -621,159 +621,159 @@ void c_standardTF_custXY_reflectivit(
   /*  pre-allocate the memory for all the arrays */
   /*  for compilation, so do this in this block. */
   if (!(problemDef->numberOfContrasts >= 0.0)) {
-    emlrtNonNegativeCheckR2012b(problemDef->numberOfContrasts, &yc_emlrtDCI,
+    emlrtNonNegativeCheckR2012b(problemDef->numberOfContrasts, &bd_emlrtDCI,
                                 (emlrtCTX)sp);
   }
   i = (int32_T)muDoubleScalarFloor(problemDef->numberOfContrasts);
   if (problemDef->numberOfContrasts != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &xc_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ad_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = problem->ssubs->size[0];
   loop_ub = (int32_T)problemDef->numberOfContrasts;
   problem->ssubs->size[0] = (int32_T)problemDef->numberOfContrasts;
-  emxEnsureCapacity_real_T(sp, problem->ssubs, i1, &fq_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->ssubs, i1, &gq_emlrtRTEI);
   if (problemDef->numberOfContrasts != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &xc_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ad_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub; i1++) {
     problem->ssubs->data[i1] = 0.0;
   }
   if (problemDef->numberOfContrasts != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ad_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &cd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   loop_ub_tmp = (int32_T)problemDef->numberOfContrasts;
   i1 = problem->backgrounds->size[0];
   problem->backgrounds->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, problem->backgrounds, i1, &gq_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->backgrounds, i1, &hq_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ad_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &cd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     problem->backgrounds->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &bd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &dd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = problem->qshifts->size[0];
   problem->qshifts->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, problem->qshifts, i1, &hq_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->qshifts, i1, &iq_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &bd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &dd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     problem->qshifts->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &cd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ed_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = problem->scalefactors->size[0];
   problem->scalefactors->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, problem->scalefactors, i1, &iq_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->scalefactors, i1, &jq_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &cd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ed_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     problem->scalefactors->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &dd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &fd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = problem->nbairs->size[0];
   problem->nbairs->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, problem->nbairs, i1, &jq_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->nbairs, i1, &kq_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &dd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &fd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     problem->nbairs->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ed_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &gd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = problem->nbsubs->size[0];
   problem->nbsubs->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, problem->nbsubs, i1, &kq_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->nbsubs, i1, &lq_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &ed_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &gd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     problem->nbsubs->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &fd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &hd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = problem->calculations.all_chis->size[0];
   problem->calculations.all_chis->size[0] = loop_ub_tmp;
   emxEnsureCapacity_real_T(sp, problem->calculations.all_chis, i1,
-                           &lq_emlrtRTEI);
+                           &mq_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &fd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &hd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     problem->calculations.all_chis->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &gd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &id_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = problem->resolutions->size[0];
   problem->resolutions->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, problem->resolutions, i1, &mq_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->resolutions, i1, &nq_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &gd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &id_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     problem->resolutions->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &hd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &jd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i1 = problem->allSubRough->size[0];
   problem->allSubRough->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(sp, problem->allSubRough, i1, &nq_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->allSubRough, i1, &oq_emlrtRTEI);
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &hd_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &jd_emlrtDCI,
                             (emlrtCTX)sp);
   }
   for (i1 = 0; i1 < loop_ub_tmp; i1++) {
     problem->allSubRough->data[i1] = 0.0;
   }
   if (loop_ub_tmp != i) {
-    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &wc_emlrtDCI,
+    emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &yc_emlrtDCI,
                             (emlrtCTX)sp);
   }
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &oq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &pq_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     loop_ub = reflectivity->size[0] - 1;
     if (i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, reflectivity->size[0] - 1,
-                                    &iv_emlrtBCI, (emlrtCTX)sp);
+                                    &lv_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[i].f1->size[0] = 0;
     if (i > loop_ub) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &iv_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &lv_emlrtBCI, (emlrtCTX)sp);
     }
     i1 = reflectivity->data[i].f1->size[0] * reflectivity->data[i].f1->size[1];
     reflectivity->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[i].f1, i1, &oq_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, reflectivity->data[i].f1, i1, &pq_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -783,44 +783,44 @@ void c_standardTF_custXY_reflectivit(
       (int32_T)problemDef->numberOfContrasts, &bd_emlrtRTEI, (emlrtCTX)sp);
   i = reflectivity->size[0];
   reflectivity->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &pq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &qq_emlrtRTEI);
   for (loop_ub = 0; loop_ub < loop_ub_tmp; loop_ub++) {
     if (loop_ub > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, reflectivity->size[0] - 1,
-                                    &cv_emlrtBCI, (emlrtCTX)sp);
+                                    &fv_emlrtBCI, (emlrtCTX)sp);
     }
     i = reflectivity->data[loop_ub].f1->size[0] *
         reflectivity->data[loop_ub].f1->size[1];
     reflectivity->data[loop_ub].f1->size[0] = 2;
     emxEnsureCapacity_real_T(sp, reflectivity->data[loop_ub].f1, i,
-                             &qq_emlrtRTEI);
+                             &rq_emlrtRTEI);
     if (loop_ub > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, reflectivity->size[0] - 1,
-                                    &cv_emlrtBCI, (emlrtCTX)sp);
+                                    &fv_emlrtBCI, (emlrtCTX)sp);
     }
     i = reflectivity->data[loop_ub].f1->size[0] *
         reflectivity->data[loop_ub].f1->size[1];
     reflectivity->data[loop_ub].f1->size[1] = 2;
     emxEnsureCapacity_real_T(sp, reflectivity->data[loop_ub].f1, i,
-                             &qq_emlrtRTEI);
+                             &rq_emlrtRTEI);
     i = reflectivity->size[0];
     if (loop_ub > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, reflectivity->size[0] - 1,
-                                    &cv_emlrtBCI, (emlrtCTX)sp);
+                                    &fv_emlrtBCI, (emlrtCTX)sp);
     }
     reflectivity->data[loop_ub].f1->data[0] = 1.0;
     if (loop_ub > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &tv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &wv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     reflectivity->data[loop_ub].f1->data[1] = 1.0;
     if (loop_ub > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &tv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &wv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     reflectivity->data[loop_ub].f1->data[2] = 1.0;
     if (loop_ub > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &tv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &wv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     reflectivity->data[loop_ub].f1->data[3] = 1.0;
@@ -830,20 +830,20 @@ void c_standardTF_custXY_reflectivit(
   }
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &oq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &pq_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     loop_ub = Simulation->size[0] - 1;
     if (i > Simulation->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, Simulation->size[0] - 1, &jv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, Simulation->size[0] - 1, &mv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     Simulation->data[i].f1->size[0] = 0;
     if (i > loop_ub) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &jv_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &mv_emlrtBCI, (emlrtCTX)sp);
     }
     i1 = Simulation->data[i].f1->size[0] * Simulation->data[i].f1->size[1];
     Simulation->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[i].f1, i1, &oq_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, Simulation->data[i].f1, i1, &pq_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -853,44 +853,44 @@ void c_standardTF_custXY_reflectivit(
       (int32_T)problemDef->numberOfContrasts, &cd_emlrtRTEI, (emlrtCTX)sp);
   i = Simulation->size[0];
   Simulation->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &pq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &qq_emlrtRTEI);
   for (loop_ub = 0; loop_ub < loop_ub_tmp; loop_ub++) {
     if (loop_ub > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, Simulation->size[0] - 1,
-                                    &dv_emlrtBCI, (emlrtCTX)sp);
+                                    &gv_emlrtBCI, (emlrtCTX)sp);
     }
     i = Simulation->data[loop_ub].f1->size[0] *
         Simulation->data[loop_ub].f1->size[1];
     Simulation->data[loop_ub].f1->size[0] = 2;
     emxEnsureCapacity_real_T(sp, Simulation->data[loop_ub].f1, i,
-                             &rq_emlrtRTEI);
+                             &sq_emlrtRTEI);
     if (loop_ub > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, Simulation->size[0] - 1,
-                                    &dv_emlrtBCI, (emlrtCTX)sp);
+                                    &gv_emlrtBCI, (emlrtCTX)sp);
     }
     i = Simulation->data[loop_ub].f1->size[0] *
         Simulation->data[loop_ub].f1->size[1];
     Simulation->data[loop_ub].f1->size[1] = 2;
     emxEnsureCapacity_real_T(sp, Simulation->data[loop_ub].f1, i,
-                             &rq_emlrtRTEI);
+                             &sq_emlrtRTEI);
     i = Simulation->size[0];
     if (loop_ub > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, Simulation->size[0] - 1,
-                                    &dv_emlrtBCI, (emlrtCTX)sp);
+                                    &gv_emlrtBCI, (emlrtCTX)sp);
     }
     Simulation->data[loop_ub].f1->data[0] = 1.0;
     if (loop_ub > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &sv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &vv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     Simulation->data[loop_ub].f1->data[1] = 1.0;
     if (loop_ub > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &sv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &vv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     Simulation->data[loop_ub].f1->data[2] = 1.0;
     if (loop_ub > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &sv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &vv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     Simulation->data[loop_ub].f1->data[3] = 1.0;
@@ -900,16 +900,16 @@ void c_standardTF_custXY_reflectivit(
   }
   i = shifted_data->size[0];
   shifted_data->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &oq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &pq_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     loop_ub = shifted_data->size[0] - 1;
     if (i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, shifted_data->size[0] - 1,
-                                    &kv_emlrtBCI, (emlrtCTX)sp);
+                                    &nv_emlrtBCI, (emlrtCTX)sp);
     }
     shifted_data->data[i].f1->size[0] = 0;
     if (i > loop_ub) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &kv_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &nv_emlrtBCI, (emlrtCTX)sp);
     }
     shifted_data->data[i].f1->size[1] = 0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
@@ -921,34 +921,34 @@ void c_standardTF_custXY_reflectivit(
       (int32_T)problemDef->numberOfContrasts, &dd_emlrtRTEI, (emlrtCTX)sp);
   i = shifted_data->size[0];
   shifted_data->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &pq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, shifted_data, i, &qq_emlrtRTEI);
   for (loop_ub = 0; loop_ub < loop_ub_tmp; loop_ub++) {
     if (loop_ub > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, shifted_data->size[0] - 1,
-                                    &ev_emlrtBCI, (emlrtCTX)sp);
+                                    &hv_emlrtBCI, (emlrtCTX)sp);
     }
     i = shifted_data->data[loop_ub].f1->size[0] *
         shifted_data->data[loop_ub].f1->size[1];
     shifted_data->data[loop_ub].f1->size[0] = 2;
     emxEnsureCapacity_real_T(sp, shifted_data->data[loop_ub].f1, i,
-                             &sq_emlrtRTEI);
+                             &tq_emlrtRTEI);
     if (loop_ub > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, shifted_data->size[0] - 1,
-                                    &ev_emlrtBCI, (emlrtCTX)sp);
+                                    &hv_emlrtBCI, (emlrtCTX)sp);
     }
     i = shifted_data->data[loop_ub].f1->size[0] *
         shifted_data->data[loop_ub].f1->size[1];
     shifted_data->data[loop_ub].f1->size[1] = 3;
     emxEnsureCapacity_real_T(sp, shifted_data->data[loop_ub].f1, i,
-                             &sq_emlrtRTEI);
+                             &tq_emlrtRTEI);
     i = shifted_data->size[0];
     if (loop_ub > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, shifted_data->size[0] - 1,
-                                    &ev_emlrtBCI, (emlrtCTX)sp);
+                                    &hv_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < 6; i1++) {
       if (loop_ub > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &mv_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &pv_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       shifted_data->data[loop_ub].f1->data[i1] = 1.0;
@@ -959,20 +959,20 @@ void c_standardTF_custXY_reflectivit(
   }
   i = layerSlds->size[0];
   layerSlds->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &oq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &pq_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     loop_ub = layerSlds->size[0] - 1;
     if (i > layerSlds->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, layerSlds->size[0] - 1, &lv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, layerSlds->size[0] - 1, &ov_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     layerSlds->data[i].f1->size[0] = 0;
     if (i > loop_ub) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &lv_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &ov_emlrtBCI, (emlrtCTX)sp);
     }
     i1 = layerSlds->data[i].f1->size[0] * layerSlds->data[i].f1->size[1];
     layerSlds->data[i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layerSlds->data[i].f1, i1, &oq_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSlds->data[i].f1, i1, &pq_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -982,32 +982,32 @@ void c_standardTF_custXY_reflectivit(
       (int32_T)problemDef->numberOfContrasts, &ed_emlrtRTEI, (emlrtCTX)sp);
   i = layerSlds->size[0];
   layerSlds->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &pq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, layerSlds, i, &qq_emlrtRTEI);
   for (loop_ub = 0; loop_ub < loop_ub_tmp; loop_ub++) {
     if (loop_ub > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, layerSlds->size[0] - 1,
-                                    &fv_emlrtBCI, (emlrtCTX)sp);
+                                    &iv_emlrtBCI, (emlrtCTX)sp);
     }
     i = layerSlds->data[loop_ub].f1->size[0] *
         layerSlds->data[loop_ub].f1->size[1];
     layerSlds->data[loop_ub].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, layerSlds->data[loop_ub].f1, i, &tq_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSlds->data[loop_ub].f1, i, &uq_emlrtRTEI);
     if (loop_ub > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, layerSlds->size[0] - 1,
-                                    &fv_emlrtBCI, (emlrtCTX)sp);
+                                    &iv_emlrtBCI, (emlrtCTX)sp);
     }
     i = layerSlds->data[loop_ub].f1->size[0] *
         layerSlds->data[loop_ub].f1->size[1];
     layerSlds->data[loop_ub].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layerSlds->data[loop_ub].f1, i, &tq_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSlds->data[loop_ub].f1, i, &uq_emlrtRTEI);
     i = layerSlds->size[0];
     if (loop_ub > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, layerSlds->size[0] - 1,
-                                    &fv_emlrtBCI, (emlrtCTX)sp);
+                                    &iv_emlrtBCI, (emlrtCTX)sp);
     }
     for (i1 = 0; i1 < 6; i1++) {
       if (loop_ub > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &ov_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &rv_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       layerSlds->data[loop_ub].f1->data[i1] = 1.0;
@@ -1018,16 +1018,16 @@ void c_standardTF_custXY_reflectivit(
   }
   i = sldProfiles->size[0];
   sldProfiles->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &oq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &pq_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     loop_ub = sldProfiles->size[0] - 1;
     if (i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, sldProfiles->size[0] - 1,
-                                    &nv_emlrtBCI, (emlrtCTX)sp);
+                                    &qv_emlrtBCI, (emlrtCTX)sp);
     }
     sldProfiles->data[i].f1->size[0] = 0;
     if (i > loop_ub) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &nv_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &qv_emlrtBCI, (emlrtCTX)sp);
     }
     sldProfiles->data[i].f1->size[1] = 0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
@@ -1039,44 +1039,44 @@ void c_standardTF_custXY_reflectivit(
       (int32_T)problemDef->numberOfContrasts, &fd_emlrtRTEI, (emlrtCTX)sp);
   i = sldProfiles->size[0];
   sldProfiles->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &pq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, sldProfiles, i, &qq_emlrtRTEI);
   for (loop_ub = 0; loop_ub < loop_ub_tmp; loop_ub++) {
     if (loop_ub > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, sldProfiles->size[0] - 1,
-                                    &gv_emlrtBCI, (emlrtCTX)sp);
+                                    &jv_emlrtBCI, (emlrtCTX)sp);
     }
     i = sldProfiles->data[loop_ub].f1->size[0] *
         sldProfiles->data[loop_ub].f1->size[1];
     sldProfiles->data[loop_ub].f1->size[0] = 2;
     emxEnsureCapacity_real_T(sp, sldProfiles->data[loop_ub].f1, i,
-                             &uq_emlrtRTEI);
+                             &vq_emlrtRTEI);
     if (loop_ub > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, sldProfiles->size[0] - 1,
-                                    &gv_emlrtBCI, (emlrtCTX)sp);
+                                    &jv_emlrtBCI, (emlrtCTX)sp);
     }
     i = sldProfiles->data[loop_ub].f1->size[0] *
         sldProfiles->data[loop_ub].f1->size[1];
     sldProfiles->data[loop_ub].f1->size[1] = 2;
     emxEnsureCapacity_real_T(sp, sldProfiles->data[loop_ub].f1, i,
-                             &uq_emlrtRTEI);
+                             &vq_emlrtRTEI);
     i = sldProfiles->size[0];
     if (loop_ub > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, sldProfiles->size[0] - 1,
-                                    &gv_emlrtBCI, (emlrtCTX)sp);
+                                    &jv_emlrtBCI, (emlrtCTX)sp);
     }
     sldProfiles->data[loop_ub].f1->data[0] = 1.0;
     if (loop_ub > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &rv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &uv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     sldProfiles->data[loop_ub].f1->data[1] = 1.0;
     if (loop_ub > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &rv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &uv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     sldProfiles->data[loop_ub].f1->data[2] = 1.0;
     if (loop_ub > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &rv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &uv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     sldProfiles->data[loop_ub].f1->data[3] = 1.0;
@@ -1086,16 +1086,16 @@ void c_standardTF_custXY_reflectivit(
   }
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &oq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &pq_emlrtRTEI);
   for (i = 0; i < loop_ub_tmp; i++) {
     loop_ub = allLayers->size[0] - 1;
     if (i > allLayers->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, allLayers->size[0] - 1, &pv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, allLayers->size[0] - 1, &sv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     allLayers->data[i].f1->size[0] = 0;
     if (i > loop_ub) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &pv_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(i, 0, loop_ub, &sv_emlrtBCI, (emlrtCTX)sp);
     }
     allLayers->data[i].f1->size[1] = 0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
@@ -1107,32 +1107,32 @@ void c_standardTF_custXY_reflectivit(
       (int32_T)problemDef->numberOfContrasts, &gd_emlrtRTEI, (emlrtCTX)sp);
   i = allLayers->size[0];
   allLayers->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &pq_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &qq_emlrtRTEI);
   for (loop_ub = 0; loop_ub < loop_ub_tmp; loop_ub++) {
     if (loop_ub > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, allLayers->size[0] - 1,
-                                    &hv_emlrtBCI, (emlrtCTX)sp);
+                                    &kv_emlrtBCI, (emlrtCTX)sp);
     }
     i = allLayers->data[loop_ub].f1->size[0] *
         allLayers->data[loop_ub].f1->size[1];
     allLayers->data[loop_ub].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, allLayers->data[loop_ub].f1, i, &vq_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[loop_ub].f1, i, &wq_emlrtRTEI);
     if (loop_ub > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, allLayers->size[0] - 1,
-                                    &hv_emlrtBCI, (emlrtCTX)sp);
+                                    &kv_emlrtBCI, (emlrtCTX)sp);
     }
     i = allLayers->data[loop_ub].f1->size[0] *
         allLayers->data[loop_ub].f1->size[1];
     allLayers->data[loop_ub].f1->size[1] = 1;
-    emxEnsureCapacity_real_T(sp, allLayers->data[loop_ub].f1, i, &vq_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, allLayers->data[loop_ub].f1, i, &wq_emlrtRTEI);
     i = allLayers->size[0];
     if (loop_ub > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(loop_ub, 0, allLayers->size[0] - 1,
-                                    &hv_emlrtBCI, (emlrtCTX)sp);
+                                    &kv_emlrtBCI, (emlrtCTX)sp);
     }
     allLayers->data[loop_ub].f1->data[0] = 1.0;
     if (loop_ub > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &qv_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(loop_ub, 0, i - 1, &tv_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     allLayers->data[loop_ub].f1->data[1] = 1.0;
@@ -1206,7 +1206,7 @@ void c_standardTF_custXY_reflectivit(
   }
   switch (loop_ub) {
   case 0:
-    st.site = &ji_emlrtRSI;
+    st.site = &ii_emlrtRSI;
     standardTF_custXY_single(
         &st, problemDef, problemDef_cells, controls, problem->ssubs,
         problem->backgrounds, problem->qshifts, problem->scalefactors,
@@ -1215,7 +1215,7 @@ void c_standardTF_custXY_reflectivit(
         layerSlds, sldProfiles, allLayers, problem->allSubRough);
     break;
   case 1:
-    st.site = &ki_emlrtRSI;
+    st.site = &ji_emlrtRSI;
     standardTF_custXY_paraPoints(
         &st, problemDef, problemDef_cells, controls, problem->ssubs,
         problem->backgrounds, problem->qshifts, problem->scalefactors,
@@ -1224,11 +1224,11 @@ void c_standardTF_custXY_reflectivit(
         layerSlds, sldProfiles, allLayers, problem->allSubRough);
     break;
   case 2:
-    emxInit_cell_wrap_9(sp, &b_reflectivity, 1, &oq_emlrtRTEI, true);
-    emxInit_cell_wrap_12(sp, &r, 1, &oq_emlrtRTEI, true);
-    emxInit_cell_wrap_12(sp, &r1, 1, &oq_emlrtRTEI, true);
-    emxInit_cell_wrap_27(sp, &r2, 1, &oq_emlrtRTEI, true);
-    st.site = &li_emlrtRSI;
+    emxInit_cell_wrap_9(sp, &b_reflectivity, 1, &pq_emlrtRTEI, true);
+    emxInit_cell_wrap_12(sp, &r, 1, &pq_emlrtRTEI, true);
+    emxInit_cell_wrap_12(sp, &r1, 1, &pq_emlrtRTEI, true);
+    emxInit_cell_wrap_26(sp, &r2, 1, &pq_emlrtRTEI, true);
+    st.site = &ki_emlrtRSI;
     standardTF_custXY_paraContrasts(
         &st, problemDef, problemDef_cells, controls, problem->ssubs,
         problem->backgrounds, problem->qshifts, problem->scalefactors,
@@ -1237,7 +1237,7 @@ void c_standardTF_custXY_reflectivit(
         sldProfiles, r2, problem->allSubRough);
     i = b_reflectivity->size[0];
     b_reflectivity->size[0] = r->size[0];
-    emxEnsureCapacity_cell_wrap_9(sp, b_reflectivity, i, &wq_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_9(sp, b_reflectivity, i, &xq_emlrtRTEI);
     i = r->size[0];
     for (i1 = 0; i1 < i; i1++) {
       loop_ub_tmp = b_reflectivity->data[i1].f1->size[0] *
@@ -1245,7 +1245,7 @@ void c_standardTF_custXY_reflectivit(
       b_reflectivity->data[i1].f1->size[0] = r->data[i1].f1->size[0];
       b_reflectivity->data[i1].f1->size[1] = 2;
       emxEnsureCapacity_real_T(sp, b_reflectivity->data[i1].f1, loop_ub_tmp,
-                               &wq_emlrtRTEI);
+                               &xq_emlrtRTEI);
       loop_ub = r->data[i1].f1->size[0] * 2;
       for (loop_ub_tmp = 0; loop_ub_tmp < loop_ub; loop_ub_tmp++) {
         b_reflectivity->data[i1].f1->data[loop_ub_tmp] =
@@ -1256,10 +1256,10 @@ void c_standardTF_custXY_reflectivit(
       }
     }
     emxFree_cell_wrap_12(&r);
-    emxInit_cell_wrap_9(sp, &b_Simulation, 1, &oq_emlrtRTEI, true);
+    emxInit_cell_wrap_9(sp, &b_Simulation, 1, &pq_emlrtRTEI, true);
     i = b_Simulation->size[0];
     b_Simulation->size[0] = r1->size[0];
-    emxEnsureCapacity_cell_wrap_9(sp, b_Simulation, i, &wq_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_9(sp, b_Simulation, i, &xq_emlrtRTEI);
     i = r1->size[0];
     for (i1 = 0; i1 < i; i1++) {
       loop_ub_tmp = b_Simulation->data[i1].f1->size[0] *
@@ -1267,7 +1267,7 @@ void c_standardTF_custXY_reflectivit(
       b_Simulation->data[i1].f1->size[0] = r1->data[i1].f1->size[0];
       b_Simulation->data[i1].f1->size[1] = 2;
       emxEnsureCapacity_real_T(sp, b_Simulation->data[i1].f1, loop_ub_tmp,
-                               &wq_emlrtRTEI);
+                               &xq_emlrtRTEI);
       loop_ub = r1->data[i1].f1->size[0] * 2;
       for (loop_ub_tmp = 0; loop_ub_tmp < loop_ub; loop_ub_tmp++) {
         b_Simulation->data[i1].f1->data[loop_ub_tmp] =
@@ -1278,10 +1278,10 @@ void c_standardTF_custXY_reflectivit(
       }
     }
     emxFree_cell_wrap_12(&r1);
-    emxInit_cell_wrap_14(sp, &b_allLayers, 1, &oq_emlrtRTEI, true);
+    emxInit_cell_wrap_14(sp, &b_allLayers, 1, &pq_emlrtRTEI, true);
     i = b_allLayers->size[0];
     b_allLayers->size[0] = r2->size[0];
-    emxEnsureCapacity_cell_wrap_14(sp, b_allLayers, i, &yq_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_14(sp, b_allLayers, i, &ar_emlrtRTEI);
     i = r2->size[0];
     for (i1 = 0; i1 < i; i1++) {
       loop_ub_tmp =
@@ -1289,7 +1289,7 @@ void c_standardTF_custXY_reflectivit(
       b_allLayers->data[i1].f1->size[0] = r2->data[i1].f1->size[0];
       b_allLayers->data[i1].f1->size[1] = r2->data[i1].f1->size[1];
       emxEnsureCapacity_real_T(sp, b_allLayers->data[i1].f1, loop_ub_tmp,
-                               &yq_emlrtRTEI);
+                               &ar_emlrtRTEI);
       loop_ub = r2->data[i1].f1->size[0] * r2->data[i1].f1->size[1];
       for (loop_ub_tmp = 0; loop_ub_tmp < loop_ub; loop_ub_tmp++) {
         b_allLayers->data[i1].f1->data[loop_ub_tmp] =
@@ -1299,42 +1299,42 @@ void c_standardTF_custXY_reflectivit(
         emlrtBreakCheckR2012b((emlrtCTX)sp);
       }
     }
-    emxFree_cell_wrap_27(&r2);
+    emxFree_cell_wrap_26(&r2);
     i = reflectivity->size[0];
     reflectivity->size[0] = b_reflectivity->size[0];
-    emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &wq_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_9(sp, reflectivity, i, &xq_emlrtRTEI);
     loop_ub = b_reflectivity->size[0];
     for (i = 0; i < loop_ub; i++) {
       emxCopyStruct_cell_wrap_9(sp, &reflectivity->data[i],
-                                &b_reflectivity->data[i], &wq_emlrtRTEI);
+                                &b_reflectivity->data[i], &xq_emlrtRTEI);
     }
     emxFree_cell_wrap_9(&b_reflectivity);
     i = Simulation->size[0];
     Simulation->size[0] = b_Simulation->size[0];
-    emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &ar_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_9(sp, Simulation, i, &br_emlrtRTEI);
     loop_ub = b_Simulation->size[0];
     for (i = 0; i < loop_ub; i++) {
       emxCopyStruct_cell_wrap_9(sp, &Simulation->data[i],
-                                &b_Simulation->data[i], &ar_emlrtRTEI);
+                                &b_Simulation->data[i], &br_emlrtRTEI);
     }
     emxFree_cell_wrap_9(&b_Simulation);
     i = allLayers->size[0];
     allLayers->size[0] = b_allLayers->size[0];
-    emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &yq_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_14(sp, allLayers, i, &ar_emlrtRTEI);
     loop_ub = b_allLayers->size[0];
     for (i = 0; i < loop_ub; i++) {
       emxCopyStruct_cell_wrap_14(sp, &allLayers->data[i], &b_allLayers->data[i],
-                                 &yq_emlrtRTEI);
+                                 &ar_emlrtRTEI);
     }
     emxFree_cell_wrap_14(&b_allLayers);
     break;
   }
-  st.site = &mi_emlrtRSI;
+  st.site = &li_emlrtRSI;
   problem->calculations.sum_chi = sum(&st, problem->calculations.all_chis);
   i = problem->resample->size[0] * problem->resample->size[1];
   problem->resample->size[0] = 1;
   problem->resample->size[1] = problem->allSubRough->size[0];
-  emxEnsureCapacity_real_T(sp, problem->resample, i, &xq_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->resample, i, &yq_emlrtRTEI);
   loop_ub = problem->allSubRough->size[0];
   for (i = 0; i < loop_ub; i++) {
     problem->resample->data[i] = 1.0;

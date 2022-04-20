@@ -81,12 +81,12 @@ end
 % If display is not silent print a
 % line confirminf RAT is starting
 if ~strcmpi(controls.display,'off')
-    fprintf('Starting RAT ________________________________________________________________________________________________ \n');
+    ratSendTextOutput(sprintf('Starting RAT ________________________________________________________________________________________________ \n'));
 end
 
 tic
 [outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls);
-fprintf('\n');
+ratSendTextOutput(sprintf('\n'));
 
 if ~strcmpi(controls.display,'off')
     toc
@@ -118,7 +118,7 @@ result.fitNames = fitNames;
 outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result);
 
 if ~strcmpi(controls.display,'off')
-    fprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n');
+   ratSendTextOutput(sprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n'));
 end
 
 end

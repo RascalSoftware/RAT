@@ -452,9 +452,19 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution.setResolParValue(varargin);
         end
         
+        function obj = addResolPar(obj, varargin)
+            % Add a background parameter to the background parameters table
+            obj.resolution.addResolPar(varargin);
+        end
+        
         function obj = setResolPar(obj,varargin)
             % Set the value of existing backsPar
             obj.resolution.setResolPar(varargin);
+        end
+        
+        function obj = removeResolPar(obj,varargin)
+            % Remove an existing resolPars
+            obj.resolution.removeResolPar(varargin{:});
         end
         
         % Resolutions
@@ -462,6 +472,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Add a resolution to the multi-table
             obj.resolution.addResolution(varargin);
         end
+        
+        function obj = removeResolution(obj,varargin)
+            % Remove background from the multi-table
+            obj.resolution.removeResolution(varargin);
+        end
+        
         
         % ------------------------------------------------------------
         %   Editing of Data block
@@ -659,6 +675,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % the RAT toolbox
             
             % Set which typr of experiment this is
+            generalStruct.experimentName = obj.experimentName;
             generalStruct.TF = 'standardTF';
             
             % Add the 'general' fields

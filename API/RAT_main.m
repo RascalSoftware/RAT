@@ -30,27 +30,25 @@ switch action
         outProblemDef = problemDef;
     case 'simplex'
         if ~strcmpi(controls.display,'off')
-            fprintf('\nRunning simplex\n\n');
+            ratSendTextOutput(sprintf('\nRunning simplex\n\n'));
         end
         [outProblemDef,problem,results] = runSimplex(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'DE'
         if ~strcmpi(controls.display,'off')
-            fprintf('\nRunning Differential Evolution\n\n');
+            ratSendTextOutput(sprintf('\nRunning Differential Evolution\n\n'));
         end
         [outProblemDef,problem,results] = runDE(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'bayes'
         if ~strcmpi(controls.display,'off')
-            fprintf('\nRunning DRAM\n\n');
+            ratSendTextOutput(sprintf('\nRunning DRAM\n\n'));
         end        
         [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls);
 
     case 'NS'
         if ~strcmpi(controls.display,'off')
-            fprintf('\nRunning Nested Sampler\n\n');
+            ratSendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));
         end            
         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
-
-        disp('debug');
         
     case 'paramonte'
         

@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * reflectivity_calculation_mexutil.h
  *
@@ -25,6 +25,8 @@
 /* Function Declarations */
 void b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
                         const emlrtMsgIdentifier *parentId, real_T y[2]);
+
+const mxArray *b_emlrt_marshallOut(const emxArray_real_T *u);
 
 real_T d_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
                           const emlrtMsgIdentifier *parentId);

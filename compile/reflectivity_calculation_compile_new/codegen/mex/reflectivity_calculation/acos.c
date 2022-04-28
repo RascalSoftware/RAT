@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * acos.c
  *
@@ -15,15 +15,15 @@
 #include "reflectivity_calculation_data.h"
 #include "reflectivity_calculation_types.h"
 #include "rt_nonfinite.h"
-#include "sqrt1.h"
+#include "sqrt.h"
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo qf_emlrtRSI = {
-    17,     /* lineNo */
-    "acos", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/elfun/acos.m" /* pathName
-                                                                           */
+static emlrtRSInfo jf_emlrtRSI = {
+    17,                                                            /* lineNo */
+    "acos",                                                        /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/elfun/acos.m" /* pathName
+                                                                    */
 };
 
 /* Function Definitions */
@@ -34,6 +34,7 @@ void b_acos(const emlrtStack *sp, emxArray_creal_T *x)
   emlrtStack st;
   creal_T u;
   creal_T v;
+  creal_T *x_data;
   real_T absim;
   real_T absre;
   real_T b_absre;
@@ -49,28 +50,29 @@ void b_acos(const emlrtStack *sp, emxArray_creal_T *x)
   boolean_T xneg;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &qf_emlrtRSI;
   b_st.prev = &st;
   b_st.tls = st.tls;
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
+  x_data = x->data;
+  st.site = &jf_emlrtRSI;
   nx = x->size[0];
-  b_st.site = &pf_emlrtRSI;
+  b_st.site = &if_emlrtRSI;
   if ((1 <= x->size[0]) && (x->size[0] > 2147483646)) {
     c_st.site = &j_emlrtRSI;
     check_forloop_overflow_error(&c_st);
   }
   for (k = 0; k < nx; k++) {
-    if ((x->data[k].im == 0.0) && (!(muDoubleScalarAbs(x->data[k].re) > 1.0))) {
-      x->data[k].re = muDoubleScalarAcos(x->data[k].re);
-      x->data[k].im = 0.0;
+    if ((x_data[k].im == 0.0) && (!(muDoubleScalarAbs(x_data[k].re) > 1.0))) {
+      x_data[k].re = muDoubleScalarAcos(x_data[k].re);
+      x_data[k].im = 0.0;
     } else {
-      v.re = x->data[k].re + 1.0;
-      v.im = x->data[k].im;
-      c_sqrt(&v);
-      u.re = 1.0 - x->data[k].re;
-      u.im = 0.0 - x->data[k].im;
-      c_sqrt(&u);
+      v.re = x_data[k].re + 1.0;
+      v.im = x_data[k].im;
+      b_sqrt(&v);
+      u.re = 1.0 - x_data[k].re;
+      u.im = 0.0 - x_data[k].im;
+      b_sqrt(&u);
       if ((-v.im == 0.0) && (u.im == 0.0)) {
         ci = 0.0;
       } else {
@@ -188,8 +190,8 @@ void b_acos(const emlrtStack *sp, emxArray_creal_T *x)
       if (xneg) {
         ci = -ci;
       }
-      x->data[k].re = 2.0 * muDoubleScalarAtan2(u.re, v.re);
-      x->data[k].im = ci;
+      x_data[k].re = 2.0 * muDoubleScalarAtan2(u.re, v.re);
+      x_data[k].im = ci;
     }
   }
 }

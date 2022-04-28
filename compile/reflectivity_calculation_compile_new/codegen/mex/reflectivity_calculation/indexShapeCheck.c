@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * indexShapeCheck.c
  *
@@ -15,17 +15,17 @@
 
 /* Variable Definitions */
 static emlrtRSInfo mb_emlrtRSI = {
-    43,                /* lineNo */
+    42,                /* lineNo */
     "indexShapeCheck", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/"
     "indexShapeCheck.m" /* pathName */
 };
 
-static emlrtRTEInfo ib_emlrtRTEI = {
-    121,           /* lineNo */
+static emlrtRTEInfo hb_emlrtRTEI = {
+    122,           /* lineNo */
     5,             /* colNo */
     "errOrWarnIf", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/"
     "indexShapeCheck.m" /* pName */
 };
 
@@ -44,7 +44,7 @@ void indexShapeCheck(const emlrtStack *sp, int32_T matrixSize,
   }
   st.site = &mb_emlrtRSI;
   if (c) {
-    emlrtErrorWithMessageIdR2018a(&st, &ib_emlrtRTEI,
+    emlrtErrorWithMessageIdR2018a(&st, &hb_emlrtRTEI,
                                   "Coder:FE:PotentialVectorVector",
                                   "Coder:FE:PotentialVectorVector", 0);
   }

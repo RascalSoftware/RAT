@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * eml_int_forloop_overflow_check.c
  *
@@ -14,11 +14,11 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRTEInfo t_emlrtRTEI = {
+static emlrtRTEInfo vd_emlrtRTEI = {
     88,                             /* lineNo */
     9,                              /* colNo */
     "check_forloop_overflow_error", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/eml/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/eml/"
     "eml_int_forloop_overflow_check.m" /* pName */
 };
 
@@ -26,7 +26,7 @@ static emlrtRTEInfo t_emlrtRTEI = {
 void check_forloop_overflow_error(const emlrtStack *sp)
 {
   emlrtErrorWithMessageIdR2018a(
-      sp, &t_emlrtRTEI, "Coder:toolbox:int_forloop_overflow",
+      sp, &vd_emlrtRTEI, "Coder:toolbox:int_forloop_overflow",
       "Coder:toolbox:int_forloop_overflow", 3, 4, 5, "int32");
 }
 

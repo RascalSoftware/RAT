@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * reflectivity_calculation_mexutil.c
  *
@@ -23,6 +23,27 @@ void b_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
   emlrtDestroyArray(&u);
 }
 
+const mxArray *b_emlrt_marshallOut(const emxArray_real_T *u)
+{
+  const mxArray *m;
+  const mxArray *y;
+  const real_T *u_data;
+  real_T *pData;
+  int32_T b_i;
+  int32_T i;
+  u_data = u->data;
+  y = NULL;
+  m = emlrtCreateNumericArray(1, &u->size[0], mxDOUBLE_CLASS, mxREAL);
+  pData = emlrtMxGetPr(m);
+  i = 0;
+  for (b_i = 0; b_i < u->size[0]; b_i++) {
+    pData[i] = u_data[b_i];
+    i++;
+  }
+  emlrtAssign(&y, m);
+  return y;
+}
+
 real_T d_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
                           const emlrtMsgIdentifier *parentId)
 {
@@ -36,10 +57,12 @@ const mxArray *emlrt_marshallOut(const emxArray_real_T *u)
 {
   const mxArray *m;
   const mxArray *y;
+  const real_T *u_data;
   real_T *pData;
   int32_T iv[2];
   int32_T b_i;
   int32_T i;
+  u_data = u->data;
   y = NULL;
   iv[0] = 1;
   iv[1] = u->size[1];
@@ -47,7 +70,7 @@ const mxArray *emlrt_marshallOut(const emxArray_real_T *u)
   pData = emlrtMxGetPr(m);
   i = 0;
   for (b_i = 0; b_i < u->size[1]; b_i++) {
-    pData[i] = u->data[b_i];
+    pData[i] = u_data[b_i];
     i++;
   }
   emlrtAssign(&y, m);
@@ -83,6 +106,7 @@ void pb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
                          const emlrtMsgIdentifier *msgId, emxArray_real_T *ret)
 {
   static const int32_T dims[2] = {-1, -1};
+  real_T *ret_data;
   int32_T iv[2];
   int32_T i;
   const boolean_T bv[2] = {true, true};
@@ -92,7 +116,8 @@ void pb_emlrt_marshallIn(const emlrtStack *sp, const mxArray *src,
   ret->size[0] = iv[0];
   ret->size[1] = iv[1];
   emxEnsureCapacity_real_T(sp, ret, i, (emlrtRTEInfo *)NULL);
-  emlrtImportArrayR2015b((emlrtCTX)sp, src, &ret->data[0], 8, false);
+  ret_data = ret->data;
+  emlrtImportArrayR2015b((emlrtCTX)sp, src, &ret_data[0], 8, false);
   emlrtDestroyArray(&src);
 }
 

@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * repmat.c
  *
@@ -18,40 +18,33 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo
-    df_emlrtRSI =
-        {
-            28,       /* lineNo */
-            "repmat", /* fcnName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/elmat/"
-            "repmat.m" /* pathName */
+static emlrtRSInfo df_emlrtRSI = {
+    28,       /* lineNo */
+    "repmat", /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/elmat/repmat.m" /* pathName
+                                                                      */
 };
 
-static emlrtRSInfo
-    ef_emlrtRSI =
-        {
-            69,       /* lineNo */
-            "repmat", /* fcnName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/elmat/"
-            "repmat.m" /* pathName */
+static emlrtRSInfo ef_emlrtRSI = {
+    69,       /* lineNo */
+    "repmat", /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/elmat/repmat.m" /* pathName
+                                                                      */
 };
 
 static emlrtRTEInfo qb_emlrtRTEI = {
     58,                   /* lineNo */
     23,                   /* colNo */
     "assertValidSizeArg", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/"
     "assertValidSizeArg.m" /* pName */
 };
 
-static emlrtRTEInfo
-    qk_emlrtRTEI =
-        {
-            59,       /* lineNo */
-            28,       /* colNo */
-            "repmat", /* fName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/elmat/"
-            "repmat.m" /* pName */
+static emlrtRTEInfo vk_emlrtRTEI = {
+    59,       /* lineNo */
+    28,       /* colNo */
+    "repmat", /* fName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/elmat/repmat.m" /* pName */
 };
 
 /* Function Definitions */
@@ -60,6 +53,7 @@ void repmat(const emlrtStack *sp, const real_T a[2], real_T varargin_1,
 {
   emlrtStack b_st;
   emlrtStack st;
+  real_T *b_data;
   int32_T i;
   int32_T ibmat;
   int32_T itilerow;
@@ -79,7 +73,8 @@ void repmat(const emlrtStack *sp, const real_T a[2], real_T varargin_1,
   ibmat = b->size[0] * b->size[1];
   b->size[0] = (int32_T)varargin_1;
   b->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, b, ibmat, &qk_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b, ibmat, &vk_emlrtRTEI);
+  b_data = b->data;
   overflow = ((1 <= (int32_T)varargin_1) && ((int32_T)varargin_1 > 2147483646));
   for (jcol = 0; jcol < 2; jcol++) {
     ibmat = jcol * (int32_T)varargin_1;
@@ -89,7 +84,7 @@ void repmat(const emlrtStack *sp, const real_T a[2], real_T varargin_1,
       check_forloop_overflow_error(&b_st);
     }
     for (itilerow = 0; itilerow < i; itilerow++) {
-      b->data[ibmat + itilerow] = a[jcol];
+      b_data[ibmat + itilerow] = a[jcol];
     }
   }
 }

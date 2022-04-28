@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * sum.c
  *
@@ -22,123 +22,123 @@
 static emlrtRSInfo bc_emlrtRSI = {
     20,    /* lineNo */
     "sum", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/sum.m" /* pathName
-                                                                            */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/sum.m" /* pathName
+                                                                     */
 };
 
-static emlrtRSInfo cc_emlrtRSI = {
-    99,        /* lineNo */
-    "sumprod", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
-    "sumprod.m" /* pathName */
+static emlrtRSInfo cc_emlrtRSI =
+    {
+        99,        /* lineNo */
+        "sumprod", /* fcnName */
+        "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
+        "sumprod.m" /* pathName */
 };
 
 static emlrtRSInfo dc_emlrtRSI = {
     74,                      /* lineNo */
     "combineVectorElements", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "combineVectorElements.m" /* pathName */
 };
 
 static emlrtRSInfo ec_emlrtRSI = {
     107,                /* lineNo */
     "blockedSummation", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "blockedSummation.m" /* pathName */
 };
 
 static emlrtRSInfo fc_emlrtRSI = {
     22,                    /* lineNo */
     "sumMatrixIncludeNaN", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "sumMatrixIncludeNaN.m" /* pathName */
 };
 
 static emlrtRSInfo gc_emlrtRSI = {
     42,                 /* lineNo */
     "sumMatrixColumns", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "sumMatrixIncludeNaN.m" /* pathName */
 };
 
 static emlrtRSInfo hc_emlrtRSI = {
     57,                 /* lineNo */
     "sumMatrixColumns", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "sumMatrixIncludeNaN.m" /* pathName */
 };
 
 static emlrtRSInfo jd_emlrtRSI = {
     112,                /* lineNo */
     "blockedSummation", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "blockedSummation.m" /* pathName */
 };
 
 static emlrtRSInfo kd_emlrtRSI = {
     173,                /* lineNo */
     "colMajorFlatIter", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "blockedSummation.m" /* pathName */
 };
 
 static emlrtRSInfo ld_emlrtRSI = {
     192,                /* lineNo */
     "colMajorFlatIter", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "blockedSummation.m" /* pathName */
 };
 
 static emlrtRSInfo md_emlrtRSI = {
     207,                /* lineNo */
     "colMajorFlatIter", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "blockedSummation.m" /* pathName */
 };
 
 static emlrtRSInfo nd_emlrtRSI = {
     227,                /* lineNo */
     "colMajorFlatIter", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "blockedSummation.m" /* pathName */
 };
 
 static emlrtRSInfo od_emlrtRSI = {
     238,                /* lineNo */
     "colMajorFlatIter", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "blockedSummation.m" /* pathName */
 };
 
-static emlrtRTEInfo oi_emlrtRTEI = {
-    20,    /* lineNo */
-    1,     /* colNo */
-    "sum", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/sum.m" /* pName
-                                                                            */
-};
-
 static emlrtRTEInfo pi_emlrtRTEI = {
-    146,                /* lineNo */
-    24,                 /* colNo */
-    "blockedSummation", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
-    "blockedSummation.m" /* pName */
+    20,                                                             /* lineNo */
+    1,                                                              /* colNo */
+    "sum",                                                          /* fName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/sum.m" /* pName */
 };
 
 static emlrtRTEInfo qi_emlrtRTEI = {
-    153,                /* lineNo */
-    23,                 /* colNo */
+    146,                /* lineNo */
+    24,                 /* colNo */
     "blockedSummation", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "blockedSummation.m" /* pName */
 };
 
 static emlrtRTEInfo ri_emlrtRTEI = {
     153,                /* lineNo */
+    23,                 /* colNo */
+    "blockedSummation", /* fName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
+    "blockedSummation.m" /* pName */
+};
+
+static emlrtRTEInfo si_emlrtRTEI = {
+    153,                /* lineNo */
     1,                  /* colNo */
     "blockedSummation", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/private/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/private/"
     "blockedSummation.m" /* pName */
 };
 
@@ -152,6 +152,9 @@ void b_sum(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y)
   emlrtStack f_st;
   emlrtStack st;
   emxArray_real_T *bsum;
+  const real_T *x_data;
+  real_T *bsum_data;
+  real_T *y_data;
   int32_T bvstride;
   int32_T firstBlockLength;
   int32_T hi;
@@ -174,6 +177,7 @@ void b_sum(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y)
   e_st.tls = d_st.tls;
   f_st.prev = &e_st;
   f_st.tls = e_st.tls;
+  x_data = x->data;
   emlrtHeapReferenceStackEnterFcnR2012b((emlrtCTX)sp);
   st.site = &bc_emlrtRSI;
   b_st.site = &cc_emlrtRSI;
@@ -181,22 +185,25 @@ void b_sum(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y)
   if ((x->size[0] == 0) || (x->size[1] == 0)) {
     hi = y->size[0];
     y->size[0] = x->size[0];
-    emxEnsureCapacity_real_T(&c_st, y, hi, &oi_emlrtRTEI);
+    emxEnsureCapacity_real_T(&c_st, y, hi, &pi_emlrtRTEI);
+    y_data = y->data;
     firstBlockLength = x->size[0];
     for (hi = 0; hi < firstBlockLength; hi++) {
-      y->data[hi] = 0.0;
+      y_data[hi] = 0.0;
     }
   } else {
-    emxInit_real_T(&c_st, &bsum, 1, &ri_emlrtRTEI, true);
+    emxInit_real_T(&c_st, &bsum, 1, &si_emlrtRTEI, true);
     d_st.site = &jd_emlrtRSI;
     vstride = x->size[0];
     bvstride = x->size[0] << 10;
     hi = y->size[0];
     y->size[0] = x->size[0];
-    emxEnsureCapacity_real_T(&d_st, y, hi, &pi_emlrtRTEI);
+    emxEnsureCapacity_real_T(&d_st, y, hi, &qi_emlrtRTEI);
+    y_data = y->data;
     hi = bsum->size[0];
     bsum->size[0] = x->size[0];
-    emxEnsureCapacity_real_T(&d_st, bsum, hi, &qi_emlrtRTEI);
+    emxEnsureCapacity_real_T(&d_st, bsum, hi, &ri_emlrtRTEI);
+    bsum_data = bsum->data;
     if (x->size[1] <= 1024) {
       firstBlockLength = x->size[1];
       lastBlockLength = 0;
@@ -217,8 +224,8 @@ void b_sum(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y)
       check_forloop_overflow_error(&f_st);
     }
     for (xj = 0; xj < vstride; xj++) {
-      y->data[xj] = x->data[xj];
-      bsum->data[xj] = 0.0;
+      y_data[xj] = x_data[xj];
+      bsum_data[xj] = 0.0;
     }
     for (k = 2; k <= firstBlockLength; k++) {
       xoffset = (k - 1) * vstride;
@@ -228,7 +235,7 @@ void b_sum(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y)
         check_forloop_overflow_error(&f_st);
       }
       for (xj = 0; xj < vstride; xj++) {
-        y->data[xj] += x->data[xoffset + xj];
+        y_data[xj] += x_data[xoffset + xj];
       }
     }
     for (ib = 2; ib <= nblocks; ib++) {
@@ -239,7 +246,7 @@ void b_sum(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y)
         check_forloop_overflow_error(&f_st);
       }
       for (xj = 0; xj < vstride; xj++) {
-        bsum->data[xj] = x->data[firstBlockLength + xj];
+        bsum_data[xj] = x_data[firstBlockLength + xj];
       }
       if (ib == nblocks) {
         hi = lastBlockLength;
@@ -250,15 +257,15 @@ void b_sum(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y)
         xoffset = firstBlockLength + (k - 1) * vstride;
         e_st.site = &nd_emlrtRSI;
         for (xj = 0; xj < vstride; xj++) {
-          bsum->data[xj] += x->data[xoffset + xj];
+          bsum_data[xj] += x_data[xoffset + xj];
         }
       }
       e_st.site = &od_emlrtRSI;
       for (xj = 0; xj < vstride; xj++) {
-        y->data[xj] += bsum->data[xj];
+        y_data[xj] += bsum_data[xj];
       }
     }
-    emxFree_real_T(&bsum);
+    emxFree_real_T(&d_st, &bsum);
   }
   emlrtHeapReferenceStackLeaveFcnR2012b((emlrtCTX)sp);
 }

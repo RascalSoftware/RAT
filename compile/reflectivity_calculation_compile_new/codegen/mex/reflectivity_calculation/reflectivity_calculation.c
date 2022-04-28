@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * reflectivity_calculation.c
  *
@@ -23,7 +23,7 @@
 static emlrtRSInfo emlrtRSI = {
     88,                         /* lineNo */
     "reflectivity_calculation", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pathName */
 };
 
@@ -31,7 +31,7 @@ static emlrtDCInfo emlrtDCI = {
     47,                         /* lineNo */
     21,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     4                                                      /* checkKind */
 };
@@ -40,7 +40,7 @@ static emlrtDCInfo b_emlrtDCI = {
     47,                         /* lineNo */
     21,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     1                                                      /* checkKind */
 };
@@ -49,7 +49,7 @@ static emlrtRTEInfo emlrtRTEI = {
     48,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -57,7 +57,7 @@ static emlrtDCInfo c_emlrtDCI = {
     53,                         /* lineNo */
     19,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     1                                                      /* checkKind */
 };
@@ -66,7 +66,7 @@ static emlrtRTEInfo b_emlrtRTEI = {
     54,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -74,7 +74,7 @@ static emlrtRTEInfo c_emlrtRTEI = {
     60,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -82,7 +82,7 @@ static emlrtRTEInfo d_emlrtRTEI = {
     66,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -90,7 +90,7 @@ static emlrtRTEInfo e_emlrtRTEI = {
     72,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -98,7 +98,7 @@ static emlrtRTEInfo f_emlrtRTEI = {
     78,                         /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -106,7 +106,7 @@ static emlrtRTEInfo g_emlrtRTEI = {
     103,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -114,7 +114,7 @@ static emlrtRTEInfo h_emlrtRTEI = {
     109,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -122,7 +122,7 @@ static emlrtRTEInfo i_emlrtRTEI = {
     115,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -130,7 +130,7 @@ static emlrtRTEInfo j_emlrtRTEI = {
     121,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -138,7 +138,7 @@ static emlrtRTEInfo k_emlrtRTEI = {
     127,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -146,7 +146,7 @@ static emlrtRTEInfo l_emlrtRTEI = {
     133,                        /* lineNo */
     9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -157,7 +157,7 @@ static emlrtBCInfo emlrtBCI = {
     18,                         /* colNo */
     "reflectivity",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -169,7 +169,7 @@ static emlrtBCInfo b_emlrtBCI = {
     16,                         /* colNo */
     "Simulation",               /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -181,7 +181,7 @@ static emlrtBCInfo c_emlrtBCI = {
     18,                         /* colNo */
     "shifted_data",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -193,7 +193,7 @@ static emlrtBCInfo d_emlrtBCI = {
     15,                         /* colNo */
     "layerSlds",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -205,7 +205,7 @@ static emlrtBCInfo e_emlrtBCI = {
     17,                         /* colNo */
     "sldProfiles",              /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -217,7 +217,7 @@ static emlrtBCInfo f_emlrtBCI = {
     15,                         /* colNo */
     "allLayers",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -229,7 +229,7 @@ static emlrtBCInfo g_emlrtBCI = {
     29,                         /* colNo */
     "reflectivity",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -241,7 +241,7 @@ static emlrtBCInfo h_emlrtBCI = {
     11,                         /* colNo */
     "cell1",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -253,7 +253,7 @@ static emlrtBCInfo i_emlrtBCI = {
     27,                         /* colNo */
     "Simulation",               /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -265,7 +265,7 @@ static emlrtBCInfo j_emlrtBCI = {
     11,                         /* colNo */
     "cell2",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -277,7 +277,7 @@ static emlrtBCInfo k_emlrtBCI = {
     29,                         /* colNo */
     "shifted_data",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -289,7 +289,7 @@ static emlrtBCInfo l_emlrtBCI = {
     11,                         /* colNo */
     "cell3",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -301,7 +301,7 @@ static emlrtBCInfo m_emlrtBCI = {
     26,                         /* colNo */
     "layerSlds",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -313,7 +313,7 @@ static emlrtBCInfo n_emlrtBCI = {
     11,                         /* colNo */
     "cell4",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -325,7 +325,7 @@ static emlrtBCInfo o_emlrtBCI = {
     28,                         /* colNo */
     "sldProfiles",              /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -337,7 +337,7 @@ static emlrtBCInfo p_emlrtBCI = {
     11,                         /* colNo */
     "cell5",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -349,7 +349,7 @@ static emlrtBCInfo q_emlrtBCI = {
     26,                         /* colNo */
     "allLayers",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -361,7 +361,7 @@ static emlrtBCInfo r_emlrtBCI = {
     11,                         /* colNo */
     "cell6",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -373,7 +373,7 @@ static emlrtBCInfo s_emlrtBCI = {
     39,                         /* colNo */
     "reflectivity",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -385,7 +385,7 @@ static emlrtBCInfo t_emlrtBCI = {
     39,                         /* colNo */
     "Simulation",               /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -397,7 +397,7 @@ static emlrtBCInfo u_emlrtBCI = {
     39,                         /* colNo */
     "shifted_data",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -409,7 +409,7 @@ static emlrtBCInfo v_emlrtBCI = {
     39,                         /* colNo */
     "layerSlds",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -421,7 +421,7 @@ static emlrtBCInfo w_emlrtBCI = {
     5,                          /* colNo */
     "shifted_data",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -433,7 +433,7 @@ static emlrtBCInfo x_emlrtBCI = {
     39,                         /* colNo */
     "sldProfiles",              /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -445,7 +445,7 @@ static emlrtBCInfo y_emlrtBCI = {
     5,                          /* colNo */
     "layerSlds",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -457,7 +457,7 @@ static emlrtBCInfo ab_emlrtBCI = {
     39,                         /* colNo */
     "allLayers",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -469,7 +469,7 @@ static emlrtBCInfo bb_emlrtBCI = {
     5,                          /* colNo */
     "allLayers",                /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -481,7 +481,7 @@ static emlrtBCInfo cb_emlrtBCI = {
     39,                         /* colNo */
     "cell1",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -493,7 +493,7 @@ static emlrtBCInfo db_emlrtBCI = {
     39,                         /* colNo */
     "cell2",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -505,7 +505,7 @@ static emlrtBCInfo eb_emlrtBCI = {
     39,                         /* colNo */
     "cell3",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -514,10 +514,10 @@ static emlrtBCInfo fb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
     104,                        /* lineNo */
-    16,                         /* colNo */
-    "reflectivity",             /* aName */
+    5,                          /* colNo */
+    "cell1",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -525,11 +525,11 @@ static emlrtBCInfo fb_emlrtBCI = {
 static emlrtBCInfo gb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    104,                        /* lineNo */
-    5,                          /* colNo */
-    "cell1",                    /* aName */
+    47,                         /* lineNo */
+    39,                         /* colNo */
+    "cell4",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -537,11 +537,11 @@ static emlrtBCInfo gb_emlrtBCI = {
 static emlrtBCInfo hb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    47,                         /* lineNo */
-    39,                         /* colNo */
-    "cell4",                    /* aName */
+    110,                        /* lineNo */
+    5,                          /* colNo */
+    "cell2",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -549,11 +549,11 @@ static emlrtBCInfo hb_emlrtBCI = {
 static emlrtBCInfo ib_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    110,                        /* lineNo */
-    16,                         /* colNo */
-    "Simulation",               /* aName */
+    47,                         /* lineNo */
+    39,                         /* colNo */
+    "cell5",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -561,11 +561,11 @@ static emlrtBCInfo ib_emlrtBCI = {
 static emlrtBCInfo jb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    110,                        /* lineNo */
+    116,                        /* lineNo */
     5,                          /* colNo */
-    "cell2",                    /* aName */
+    "cell3",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -575,9 +575,9 @@ static emlrtBCInfo kb_emlrtBCI = {
     -1,                         /* iLast */
     47,                         /* lineNo */
     39,                         /* colNo */
-    "cell5",                    /* aName */
+    "cell6",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -585,11 +585,11 @@ static emlrtBCInfo kb_emlrtBCI = {
 static emlrtBCInfo lb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    116,                        /* lineNo */
-    16,                         /* colNo */
-    "shifted_data",             /* aName */
+    122,                        /* lineNo */
+    5,                          /* colNo */
+    "cell4",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -597,11 +597,11 @@ static emlrtBCInfo lb_emlrtBCI = {
 static emlrtBCInfo mb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    116,                        /* lineNo */
+    128,                        /* lineNo */
     5,                          /* colNo */
-    "cell3",                    /* aName */
+    "cell5",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -609,11 +609,11 @@ static emlrtBCInfo mb_emlrtBCI = {
 static emlrtBCInfo nb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    47,                         /* lineNo */
-    39,                         /* colNo */
+    134,                        /* lineNo */
+    5,                          /* colNo */
     "cell6",                    /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -621,11 +621,11 @@ static emlrtBCInfo nb_emlrtBCI = {
 static emlrtBCInfo ob_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    122,                        /* lineNo */
-    16,                         /* colNo */
-    "layerSlds",                /* aName */
+    73,                         /* lineNo */
+    5,                          /* colNo */
+    "sldProfiles",              /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -633,11 +633,11 @@ static emlrtBCInfo ob_emlrtBCI = {
 static emlrtBCInfo pb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    122,                        /* lineNo */
+    55,                         /* lineNo */
     5,                          /* colNo */
-    "cell4",                    /* aName */
+    "Simulation",               /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
@@ -645,372 +645,300 @@ static emlrtBCInfo pb_emlrtBCI = {
 static emlrtBCInfo qb_emlrtBCI = {
     -1,                         /* iFirst */
     -1,                         /* iLast */
-    128,                        /* lineNo */
-    16,                         /* colNo */
-    "sldProfiles",              /* aName */
-    "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
-};
-
-static emlrtBCInfo rb_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    128,                        /* lineNo */
-    5,                          /* colNo */
-    "cell5",                    /* aName */
-    "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
-};
-
-static emlrtBCInfo sb_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    134,                        /* lineNo */
-    16,                         /* colNo */
-    "allLayers",                /* aName */
-    "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
-};
-
-static emlrtBCInfo tb_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    134,                        /* lineNo */
-    5,                          /* colNo */
-    "cell6",                    /* aName */
-    "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
-};
-
-static emlrtBCInfo ub_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    73,                         /* lineNo */
-    5,                          /* colNo */
-    "sldProfiles",              /* aName */
-    "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
-};
-
-static emlrtBCInfo vb_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
-    55,                         /* lineNo */
-    5,                          /* colNo */
-    "Simulation",               /* aName */
-    "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m", /* pName */
-    0                                                      /* checkKind */
-};
-
-static emlrtBCInfo wb_emlrtBCI = {
-    -1,                         /* iFirst */
-    -1,                         /* iLast */
     49,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity",             /* aName */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m", /* pName */
     0                                                      /* checkKind */
 };
 
-static emlrtRTEInfo vd_emlrtRTEI = {
+static emlrtRTEInfo wd_emlrtRTEI = {
     28,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
-    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
-};
-
-static emlrtRTEInfo wd_emlrtRTEI = {
-    29,                         /* lineNo */
-    1,                          /* colNo */
-    "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo xd_emlrtRTEI = {
-    30,                         /* lineNo */
+    29,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo yd_emlrtRTEI = {
-    31,                         /* lineNo */
+    30,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ae_emlrtRTEI = {
-    32,                         /* lineNo */
+    31,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo be_emlrtRTEI = {
-    33,                         /* lineNo */
+    32,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ce_emlrtRTEI = {
-    34,                         /* lineNo */
+    33,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo de_emlrtRTEI = {
-    35,                         /* lineNo */
+    34,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ee_emlrtRTEI = {
-    37,                         /* lineNo */
+    35,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo fe_emlrtRTEI = {
-    38,                         /* lineNo */
+    37,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ge_emlrtRTEI = {
-    1,                          /* lineNo */
-    29,                         /* colNo */
+    38,                         /* lineNo */
+    1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo he_emlrtRTEI = {
-    47,                         /* lineNo */
-    39,                         /* colNo */
+    1,                          /* lineNo */
+    29,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ie_emlrtRTEI = {
-    49,                         /* lineNo */
-    5,                          /* colNo */
+    47,                         /* lineNo */
+    39,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo je_emlrtRTEI = {
-    55,                         /* lineNo */
+    49,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ke_emlrtRTEI = {
-    61,                         /* lineNo */
+    55,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo le_emlrtRTEI = {
-    67,                         /* lineNo */
+    61,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo me_emlrtRTEI = {
-    73,                         /* lineNo */
+    67,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ne_emlrtRTEI = {
-    79,                         /* lineNo */
+    73,                         /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo oe_emlrtRTEI = {
-    88,                         /* lineNo */
-    136,                        /* colNo */
+    79,                         /* lineNo */
+    5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo pe_emlrtRTEI = {
-    104,                        /* lineNo */
-    5,                          /* colNo */
+    88,                         /* lineNo */
+    136,                        /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo qe_emlrtRTEI = {
-    88,                         /* lineNo */
-    9,                          /* colNo */
+    104,                        /* lineNo */
+    5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo re_emlrtRTEI = {
-    110,                        /* lineNo */
-    5,                          /* colNo */
+    88,                         /* lineNo */
+    9,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo se_emlrtRTEI = {
-    116,                        /* lineNo */
+    110,                        /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo te_emlrtRTEI = {
-    122,                        /* lineNo */
+    116,                        /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ue_emlrtRTEI = {
-    128,                        /* lineNo */
+    122,                        /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ve_emlrtRTEI = {
-    134,                        /* lineNo */
+    128,                        /* lineNo */
     5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo we_emlrtRTEI = {
-    88,                         /* lineNo */
-    18,                         /* colNo */
+    134,                        /* lineNo */
+    5,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo xe_emlrtRTEI = {
     88,                         /* lineNo */
-    42,                         /* colNo */
+    18,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ye_emlrtRTEI = {
     88,                         /* lineNo */
-    55,                         /* colNo */
+    42,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo af_emlrtRTEI = {
     88,                         /* lineNo */
-    65,                         /* colNo */
+    55,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo bf_emlrtRTEI = {
-    47,                         /* lineNo */
-    1,                          /* colNo */
+    88,                         /* lineNo */
+    65,                         /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo cf_emlrtRTEI = {
-    53,                         /* lineNo */
+    47,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo df_emlrtRTEI = {
-    59,                         /* lineNo */
+    53,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ef_emlrtRTEI = {
-    65,                         /* lineNo */
+    59,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo ff_emlrtRTEI = {
-    71,                         /* lineNo */
+    65,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
 static emlrtRTEInfo gf_emlrtRTEI = {
+    71,                         /* lineNo */
+    1,                          /* colNo */
+    "reflectivity_calculation", /* fName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
+    "reflectivity_calculation/reflectivity_calculation.m" /* pName */
+};
+
+static emlrtRTEInfo hf_emlrtRTEI = {
     77,                         /* lineNo */
     1,                          /* colNo */
     "reflectivity_calculation", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/"
     "reflectivity_calculation/reflectivity_calculation.m" /* pName */
 };
 
@@ -1035,6 +963,18 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
                               cell_11 *result)
 {
   cell_16 expl_temp;
+  cell_wrap_10 *b_layerSlds_data;
+  cell_wrap_12 *Simulation_data;
+  cell_wrap_12 *reflectivity_data;
+  cell_wrap_12 *sldProfiles_data;
+  cell_wrap_13 *allLayers_data;
+  cell_wrap_13 *layerSlds_data;
+  cell_wrap_13 *shifted_data_data;
+  cell_wrap_14 *b_allLayers_data;
+  cell_wrap_14 *b_shifted_data_data;
+  cell_wrap_14 *b_sldProfiles_data;
+  cell_wrap_9 *b_Simulation_data;
+  cell_wrap_9 *b_reflectivity_data;
   emlrtStack st;
   emxArray_cell_wrap_10 *b_layerSlds;
   emxArray_cell_wrap_12 *Simulation;
@@ -1087,46 +1027,46 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   /*  Setting these parameters in the struct defines them as doubles */
   i = problem->ssubs->size[0];
   problem->ssubs->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, problem->ssubs, i, &vd_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->ssubs, i, &wd_emlrtRTEI);
   problem->ssubs->data[0] = 0.0;
   i = problem->backgrounds->size[0];
   problem->backgrounds->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, problem->backgrounds, i, &wd_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->backgrounds, i, &xd_emlrtRTEI);
   problem->backgrounds->data[0] = 0.0;
   i = problem->qshifts->size[0];
   problem->qshifts->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, problem->qshifts, i, &xd_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->qshifts, i, &yd_emlrtRTEI);
   problem->qshifts->data[0] = 0.0;
   i = problem->scalefactors->size[0];
   problem->scalefactors->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, problem->scalefactors, i, &yd_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->scalefactors, i, &ae_emlrtRTEI);
   problem->scalefactors->data[0] = 0.0;
   i = problem->nbairs->size[0];
   problem->nbairs->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, problem->nbairs, i, &ae_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->nbairs, i, &be_emlrtRTEI);
   problem->nbairs->data[0] = 0.0;
   i = problem->nbsubs->size[0];
   problem->nbsubs->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, problem->nbsubs, i, &be_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->nbsubs, i, &ce_emlrtRTEI);
   problem->nbsubs->data[0] = 0.0;
   i = problem->resolutions->size[0];
   problem->resolutions->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, problem->resolutions, i, &ce_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->resolutions, i, &de_emlrtRTEI);
   problem->resolutions->data[0] = 0.0;
   i = problem->calculations.all_chis->size[0];
   problem->calculations.all_chis->size[0] = 1;
   emxEnsureCapacity_real_T(sp, problem->calculations.all_chis, i,
-                           &de_emlrtRTEI);
+                           &ee_emlrtRTEI);
   problem->calculations.all_chis->data[0] = 0.0;
   problem->calculations.sum_chi = 0.0;
   i = problem->allSubRough->size[0];
   problem->allSubRough->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, problem->allSubRough, i, &ee_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->allSubRough, i, &fe_emlrtRTEI);
   problem->allSubRough->data[0] = 0.0;
   i = problem->resample->size[0] * problem->resample->size[1];
   problem->resample->size[0] = 1;
   problem->resample->size[1] = 1;
-  emxEnsureCapacity_real_T(sp, problem->resample, i, &fe_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, problem->resample, i, &ge_emlrtRTEI);
   problem->resample->data[0] = 0.0;
   /*  We also foll the results arrays to define their */
   /*  type and size. (NOTE: at the moment we have a 'coder.varsize' */
@@ -1142,26 +1082,26 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &b_emlrtDCI,
                             (emlrtCTX)sp);
   }
-  emxInit_cell_wrap_12(sp, &reflectivity, 1, &bf_emlrtRTEI, true);
+  emxInit_cell_wrap_12(sp, &reflectivity, &cf_emlrtRTEI);
   unnamed_idx_0_tmp_tmp = (int32_T)problemDef->numberOfContrasts;
   i1 = reflectivity->size[0];
   reflectivity->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i1, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i1, &he_emlrtRTEI);
+  reflectivity_data = reflectivity->data;
   for (i1 = 0; i1 < unnamed_idx_0_tmp_tmp; i1++) {
     b_reflectivity = reflectivity->size[0] - 1;
     if (i1 > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i1, 0, reflectivity->size[0] - 1,
                                     &s_emlrtBCI, (emlrtCTX)sp);
     }
-    reflectivity->data[i1].f1->size[0] = 0;
+    reflectivity_data[i1].f1->size[0] = 0;
     if (i1 > b_reflectivity) {
       emlrtDynamicBoundsCheckR2012b(i1, 0, b_reflectivity, &s_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    b_i =
-        reflectivity->data[i1].f1->size[0] * reflectivity->data[i1].f1->size[1];
-    reflectivity->data[i1].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[i1].f1, b_i, &ge_emlrtRTEI);
+    b_i = reflectivity_data[i1].f1->size[0] * reflectivity_data[i1].f1->size[1];
+    reflectivity_data[i1].f1->size[1] = 2;
+    emxEnsureCapacity_real_T(sp, reflectivity_data[i1].f1, b_i, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1171,42 +1111,43 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &emlrtRTEI, (emlrtCTX)sp);
   i1 = reflectivity->size[0];
   reflectivity->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i1, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i1, &ie_emlrtRTEI);
+  reflectivity_data = reflectivity->data;
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
                                     &emlrtBCI, (emlrtCTX)sp);
     }
-    i1 = reflectivity->data[b_i].f1->size[0] *
-         reflectivity->data[b_i].f1->size[1];
-    reflectivity->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i1, &ie_emlrtRTEI);
+    i1 =
+        reflectivity_data[b_i].f1->size[0] * reflectivity_data[b_i].f1->size[1];
+    reflectivity_data[b_i].f1->size[0] = 2;
+    emxEnsureCapacity_real_T(sp, reflectivity_data[b_i].f1, i1, &je_emlrtRTEI);
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
                                     &emlrtBCI, (emlrtCTX)sp);
     }
-    i1 = reflectivity->data[b_i].f1->size[0] *
-         reflectivity->data[b_i].f1->size[1];
-    reflectivity->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, reflectivity->data[b_i].f1, i1, &ie_emlrtRTEI);
+    i1 =
+        reflectivity_data[b_i].f1->size[0] * reflectivity_data[b_i].f1->size[1];
+    reflectivity_data[b_i].f1->size[1] = 2;
+    emxEnsureCapacity_real_T(sp, reflectivity_data[b_i].f1, i1, &je_emlrtRTEI);
     i1 = reflectivity->size[0];
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
                                     &emlrtBCI, (emlrtCTX)sp);
     }
-    reflectivity->data[b_i].f1->data[0] = 1.0;
+    reflectivity_data[b_i].f1->data[0] = 1.0;
     if (b_i > i1 - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1 - 1, &wb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1 - 1, &qb_emlrtBCI, (emlrtCTX)sp);
     }
-    reflectivity->data[b_i].f1->data[1] = 1.0;
+    reflectivity_data[b_i].f1->data[1] = 1.0;
     if (b_i > i1 - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1 - 1, &wb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1 - 1, &qb_emlrtBCI, (emlrtCTX)sp);
     }
-    reflectivity->data[b_i].f1->data[2] = 1.0;
+    reflectivity_data[b_i].f1->data[2] = 1.0;
     if (b_i > i1 - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1 - 1, &wb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i1 - 1, &qb_emlrtBCI, (emlrtCTX)sp);
     }
-    reflectivity->data[b_i].f1->data[3] = 1.0;
+    reflectivity_data[b_i].f1->data[3] = 1.0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1215,24 +1156,25 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     emlrtIntegerCheckR2012b(problemDef->numberOfContrasts, &c_emlrtDCI,
                             (emlrtCTX)sp);
   }
-  emxInit_cell_wrap_12(sp, &Simulation, 1, &cf_emlrtRTEI, true);
+  emxInit_cell_wrap_12(sp, &Simulation, &df_emlrtRTEI);
   i = Simulation->size[0];
   Simulation->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &he_emlrtRTEI);
+  Simulation_data = Simulation->data;
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = Simulation->size[0] - 1;
     if (i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, Simulation->size[0] - 1, &t_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    Simulation->data[i].f1->size[0] = 0;
+    Simulation_data[i].f1->size[0] = 0;
     if (i > b_reflectivity) {
       emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &t_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    i1 = Simulation->data[i].f1->size[0] * Simulation->data[i].f1->size[1];
-    Simulation->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[i].f1, i1, &ge_emlrtRTEI);
+    i1 = Simulation_data[i].f1->size[0] * Simulation_data[i].f1->size[1];
+    Simulation_data[i].f1->size[1] = 2;
+    emxEnsureCapacity_real_T(sp, Simulation_data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1242,62 +1184,64 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &b_emlrtRTEI, (emlrtCTX)sp);
   i = Simulation->size[0];
   Simulation->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &ie_emlrtRTEI);
+  Simulation_data = Simulation->data;
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
                                     &b_emlrtBCI, (emlrtCTX)sp);
     }
-    i = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
-    Simulation->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &je_emlrtRTEI);
+    i = Simulation_data[b_i].f1->size[0] * Simulation_data[b_i].f1->size[1];
+    Simulation_data[b_i].f1->size[0] = 2;
+    emxEnsureCapacity_real_T(sp, Simulation_data[b_i].f1, i, &ke_emlrtRTEI);
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
                                     &b_emlrtBCI, (emlrtCTX)sp);
     }
-    i = Simulation->data[b_i].f1->size[0] * Simulation->data[b_i].f1->size[1];
-    Simulation->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, Simulation->data[b_i].f1, i, &je_emlrtRTEI);
+    i = Simulation_data[b_i].f1->size[0] * Simulation_data[b_i].f1->size[1];
+    Simulation_data[b_i].f1->size[1] = 2;
+    emxEnsureCapacity_real_T(sp, Simulation_data[b_i].f1, i, &ke_emlrtRTEI);
     i = Simulation->size[0];
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
                                     &b_emlrtBCI, (emlrtCTX)sp);
     }
-    Simulation->data[b_i].f1->data[0] = 1.0;
+    Simulation_data[b_i].f1->data[0] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &vb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &pb_emlrtBCI, (emlrtCTX)sp);
     }
-    Simulation->data[b_i].f1->data[1] = 1.0;
+    Simulation_data[b_i].f1->data[1] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &vb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &pb_emlrtBCI, (emlrtCTX)sp);
     }
-    Simulation->data[b_i].f1->data[2] = 1.0;
+    Simulation_data[b_i].f1->data[2] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &vb_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &pb_emlrtBCI, (emlrtCTX)sp);
     }
-    Simulation->data[b_i].f1->data[3] = 1.0;
+    Simulation_data[b_i].f1->data[3] = 1.0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
-  emxInit_cell_wrap_13(sp, &shifted_data, 1, &df_emlrtRTEI, true);
+  emxInit_cell_wrap_13(sp, &shifted_data, &ef_emlrtRTEI);
   i = shifted_data->size[0];
   shifted_data->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_13(sp, shifted_data, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_13(sp, shifted_data, i, &he_emlrtRTEI);
+  shifted_data_data = shifted_data->data;
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = shifted_data->size[0] - 1;
     if (i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, shifted_data->size[0] - 1,
                                     &u_emlrtBCI, (emlrtCTX)sp);
     }
-    shifted_data->data[i].f1->size[0] = 0;
+    shifted_data_data[i].f1->size[0] = 0;
     if (i > b_reflectivity) {
       emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &u_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    i1 = shifted_data->data[i].f1->size[0] * shifted_data->data[i].f1->size[1];
-    shifted_data->data[i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, shifted_data->data[i].f1, i1, &ge_emlrtRTEI);
+    i1 = shifted_data_data[i].f1->size[0] * shifted_data_data[i].f1->size[1];
+    shifted_data_data[i].f1->size[1] = 3;
+    emxEnsureCapacity_real_T(sp, shifted_data_data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1307,24 +1251,23 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &c_emlrtRTEI, (emlrtCTX)sp);
   i = shifted_data->size[0];
   shifted_data->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_13(sp, shifted_data, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_13(sp, shifted_data, i, &ie_emlrtRTEI);
+  shifted_data_data = shifted_data->data;
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
                                     &c_emlrtBCI, (emlrtCTX)sp);
     }
-    i = shifted_data->data[b_i].f1->size[0] *
-        shifted_data->data[b_i].f1->size[1];
-    shifted_data->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, shifted_data->data[b_i].f1, i, &ke_emlrtRTEI);
+    i = shifted_data_data[b_i].f1->size[0] * shifted_data_data[b_i].f1->size[1];
+    shifted_data_data[b_i].f1->size[0] = 2;
+    emxEnsureCapacity_real_T(sp, shifted_data_data[b_i].f1, i, &le_emlrtRTEI);
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
                                     &c_emlrtBCI, (emlrtCTX)sp);
     }
-    i = shifted_data->data[b_i].f1->size[0] *
-        shifted_data->data[b_i].f1->size[1];
-    shifted_data->data[b_i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, shifted_data->data[b_i].f1, i, &ke_emlrtRTEI);
+    i = shifted_data_data[b_i].f1->size[0] * shifted_data_data[b_i].f1->size[1];
+    shifted_data_data[b_i].f1->size[1] = 3;
+    emxEnsureCapacity_real_T(sp, shifted_data_data[b_i].f1, i, &le_emlrtRTEI);
     i = shifted_data->size[0];
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
@@ -1334,30 +1277,31 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       if (b_i > i - 1) {
         emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &w_emlrtBCI, (emlrtCTX)sp);
       }
-      shifted_data->data[b_i].f1->data[i1] = 1.0;
+      shifted_data_data[b_i].f1->data[i1] = 1.0;
     }
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
-  emxInit_cell_wrap_13(sp, &layerSlds, 1, &ef_emlrtRTEI, true);
+  emxInit_cell_wrap_13(sp, &layerSlds, &ff_emlrtRTEI);
   i = layerSlds->size[0];
   layerSlds->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_13(sp, layerSlds, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_13(sp, layerSlds, i, &he_emlrtRTEI);
+  layerSlds_data = layerSlds->data;
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = layerSlds->size[0] - 1;
     if (i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, layerSlds->size[0] - 1, &v_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    layerSlds->data[i].f1->size[0] = 0;
+    layerSlds_data[i].f1->size[0] = 0;
     if (i > b_reflectivity) {
       emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &v_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    i1 = layerSlds->data[i].f1->size[0] * layerSlds->data[i].f1->size[1];
-    layerSlds->data[i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layerSlds->data[i].f1, i1, &ge_emlrtRTEI);
+    i1 = layerSlds_data[i].f1->size[0] * layerSlds_data[i].f1->size[1];
+    layerSlds_data[i].f1->size[1] = 3;
+    emxEnsureCapacity_real_T(sp, layerSlds_data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1367,22 +1311,23 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &d_emlrtRTEI, (emlrtCTX)sp);
   i = layerSlds->size[0];
   layerSlds->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_13(sp, layerSlds, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_13(sp, layerSlds, i, &ie_emlrtRTEI);
+  layerSlds_data = layerSlds->data;
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1, &d_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    i = layerSlds->data[b_i].f1->size[0] * layerSlds->data[b_i].f1->size[1];
-    layerSlds->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, layerSlds->data[b_i].f1, i, &le_emlrtRTEI);
+    i = layerSlds_data[b_i].f1->size[0] * layerSlds_data[b_i].f1->size[1];
+    layerSlds_data[b_i].f1->size[0] = 2;
+    emxEnsureCapacity_real_T(sp, layerSlds_data[b_i].f1, i, &me_emlrtRTEI);
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1, &d_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    i = layerSlds->data[b_i].f1->size[0] * layerSlds->data[b_i].f1->size[1];
-    layerSlds->data[b_i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layerSlds->data[b_i].f1, i, &le_emlrtRTEI);
+    i = layerSlds_data[b_i].f1->size[0] * layerSlds_data[b_i].f1->size[1];
+    layerSlds_data[b_i].f1->size[1] = 3;
+    emxEnsureCapacity_real_T(sp, layerSlds_data[b_i].f1, i, &me_emlrtRTEI);
     i = layerSlds->size[0];
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1, &d_emlrtBCI,
@@ -1392,30 +1337,31 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       if (b_i > i - 1) {
         emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &y_emlrtBCI, (emlrtCTX)sp);
       }
-      layerSlds->data[b_i].f1->data[i1] = 1.0;
+      layerSlds_data[b_i].f1->data[i1] = 1.0;
     }
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
-  emxInit_cell_wrap_12(sp, &sldProfiles, 1, &ff_emlrtRTEI, true);
+  emxInit_cell_wrap_12(sp, &sldProfiles, &gf_emlrtRTEI);
   i = sldProfiles->size[0];
   sldProfiles->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, sldProfiles, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, sldProfiles, i, &he_emlrtRTEI);
+  sldProfiles_data = sldProfiles->data;
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = sldProfiles->size[0] - 1;
     if (i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, sldProfiles->size[0] - 1, &x_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    sldProfiles->data[i].f1->size[0] = 0;
+    sldProfiles_data[i].f1->size[0] = 0;
     if (i > b_reflectivity) {
       emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &x_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    i1 = sldProfiles->data[i].f1->size[0] * sldProfiles->data[i].f1->size[1];
-    sldProfiles->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, sldProfiles->data[i].f1, i1, &ge_emlrtRTEI);
+    i1 = sldProfiles_data[i].f1->size[0] * sldProfiles_data[i].f1->size[1];
+    sldProfiles_data[i].f1->size[1] = 2;
+    emxEnsureCapacity_real_T(sp, sldProfiles_data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1425,62 +1371,64 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &e_emlrtRTEI, (emlrtCTX)sp);
   i = sldProfiles->size[0];
   sldProfiles->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_12(sp, sldProfiles, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_12(sp, sldProfiles, i, &ie_emlrtRTEI);
+  sldProfiles_data = sldProfiles->data;
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
                                     &e_emlrtBCI, (emlrtCTX)sp);
     }
-    i = sldProfiles->data[b_i].f1->size[0] * sldProfiles->data[b_i].f1->size[1];
-    sldProfiles->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, sldProfiles->data[b_i].f1, i, &me_emlrtRTEI);
+    i = sldProfiles_data[b_i].f1->size[0] * sldProfiles_data[b_i].f1->size[1];
+    sldProfiles_data[b_i].f1->size[0] = 2;
+    emxEnsureCapacity_real_T(sp, sldProfiles_data[b_i].f1, i, &ne_emlrtRTEI);
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
                                     &e_emlrtBCI, (emlrtCTX)sp);
     }
-    i = sldProfiles->data[b_i].f1->size[0] * sldProfiles->data[b_i].f1->size[1];
-    sldProfiles->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, sldProfiles->data[b_i].f1, i, &me_emlrtRTEI);
+    i = sldProfiles_data[b_i].f1->size[0] * sldProfiles_data[b_i].f1->size[1];
+    sldProfiles_data[b_i].f1->size[1] = 2;
+    emxEnsureCapacity_real_T(sp, sldProfiles_data[b_i].f1, i, &ne_emlrtRTEI);
     i = sldProfiles->size[0];
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
                                     &e_emlrtBCI, (emlrtCTX)sp);
     }
-    sldProfiles->data[b_i].f1->data[0] = 1.0;
+    sldProfiles_data[b_i].f1->data[0] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ub_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ob_emlrtBCI, (emlrtCTX)sp);
     }
-    sldProfiles->data[b_i].f1->data[1] = 1.0;
+    sldProfiles_data[b_i].f1->data[1] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ub_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ob_emlrtBCI, (emlrtCTX)sp);
     }
-    sldProfiles->data[b_i].f1->data[2] = 1.0;
+    sldProfiles_data[b_i].f1->data[2] = 1.0;
     if (b_i > i - 1) {
-      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ub_emlrtBCI, (emlrtCTX)sp);
+      emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &ob_emlrtBCI, (emlrtCTX)sp);
     }
-    sldProfiles->data[b_i].f1->data[3] = 1.0;
+    sldProfiles_data[b_i].f1->data[3] = 1.0;
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
-  emxInit_cell_wrap_13(sp, &allLayers, 1, &gf_emlrtRTEI, true);
+  emxInit_cell_wrap_13(sp, &allLayers, &hf_emlrtRTEI);
   i = allLayers->size[0];
   allLayers->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_13(sp, allLayers, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_13(sp, allLayers, i, &he_emlrtRTEI);
+  allLayers_data = allLayers->data;
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = allLayers->size[0] - 1;
     if (i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(i, 0, allLayers->size[0] - 1, &ab_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    allLayers->data[i].f1->size[0] = 0;
+    allLayers_data[i].f1->size[0] = 0;
     if (i > b_reflectivity) {
       emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &ab_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    i1 = allLayers->data[i].f1->size[0] * allLayers->data[i].f1->size[1];
-    allLayers->data[i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, allLayers->data[i].f1, i1, &ge_emlrtRTEI);
+    i1 = allLayers_data[i].f1->size[0] * allLayers_data[i].f1->size[1];
+    allLayers_data[i].f1->size[1] = 3;
+    emxEnsureCapacity_real_T(sp, allLayers_data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1490,22 +1438,23 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &f_emlrtRTEI, (emlrtCTX)sp);
   i = allLayers->size[0];
   allLayers->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_13(sp, allLayers, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_13(sp, allLayers, i, &ie_emlrtRTEI);
+  allLayers_data = allLayers->data;
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1, &f_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    i = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
-    allLayers->data[b_i].f1->size[0] = 2;
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &ne_emlrtRTEI);
+    i = allLayers_data[b_i].f1->size[0] * allLayers_data[b_i].f1->size[1];
+    allLayers_data[b_i].f1->size[0] = 2;
+    emxEnsureCapacity_real_T(sp, allLayers_data[b_i].f1, i, &oe_emlrtRTEI);
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1, &f_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    i = allLayers->data[b_i].f1->size[0] * allLayers->data[b_i].f1->size[1];
-    allLayers->data[b_i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, allLayers->data[b_i].f1, i, &ne_emlrtRTEI);
+    i = allLayers_data[b_i].f1->size[0] * allLayers_data[b_i].f1->size[1];
+    allLayers_data[b_i].f1->size[1] = 3;
+    emxEnsureCapacity_real_T(sp, allLayers_data[b_i].f1, i, &oe_emlrtRTEI);
     i = allLayers->size[0];
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1, &f_emlrtBCI,
@@ -1516,7 +1465,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
         emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &bb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
-      allLayers->data[b_i].f1->data[i1] = 1.0;
+      allLayers_data[b_i].f1->data[i1] = 1.0;
     }
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
@@ -1529,13 +1478,12 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
   } else {
     i = -1;
   }
-  switch (i) {
-  case 0:
-    emxInitStruct_cell_16(sp, &expl_temp, &qe_emlrtRTEI, true);
+  if (i == 0) {
+    emxInitStruct_cell_16(sp, &expl_temp, &re_emlrtRTEI);
     i = expl_temp.f2->size[0] * expl_temp.f2->size[1];
     expl_temp.f2->size[0] = 1;
     expl_temp.f2->size[1] = problemDef_cells->f2->size[1];
-    emxEnsureCapacity_cell_wrap_14(sp, expl_temp.f2, i, &oe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_14(sp, expl_temp.f2, i, &pe_emlrtRTEI);
     i = problemDef_cells->f2->size[1] - 1;
     for (i1 = 0; i1 <= i; i1++) {
       b_i = expl_temp.f2->data[i1].f1->size[0] *
@@ -1545,7 +1493,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       expl_temp.f2->data[i1].f1->size[1] =
           problemDef_cells->f2->data[i1].f1->size[1];
       emxEnsureCapacity_real_T(sp, expl_temp.f2->data[i1].f1, b_i,
-                               &oe_emlrtRTEI);
+                               &pe_emlrtRTEI);
       b_reflectivity = problemDef_cells->f2->data[i1].f1->size[0] *
                        problemDef_cells->f2->data[i1].f1->size[1];
       for (b_i = 0; b_i < b_reflectivity; b_i++) {
@@ -1559,7 +1507,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     i = expl_temp.f4->size[0] * expl_temp.f4->size[1];
     expl_temp.f4->size[0] = 1;
     expl_temp.f4->size[1] = problemDef_cells->f4->size[1];
-    emxEnsureCapacity_cell_wrap_14(sp, expl_temp.f4, i, &oe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_14(sp, expl_temp.f4, i, &pe_emlrtRTEI);
     i = problemDef_cells->f4->size[1] - 1;
     for (i1 = 0; i1 <= i; i1++) {
       b_i = expl_temp.f4->data[i1].f1->size[0] *
@@ -1569,7 +1517,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       expl_temp.f4->data[i1].f1->size[1] =
           problemDef_cells->f4->data[i1].f1.size[1];
       emxEnsureCapacity_real_T(sp, expl_temp.f4->data[i1].f1, b_i,
-                               &oe_emlrtRTEI);
+                               &pe_emlrtRTEI);
       b_reflectivity = problemDef_cells->f4->data[i1].f1.size[0] *
                        problemDef_cells->f4->data[i1].f1.size[1];
       for (b_i = 0; b_i < b_reflectivity; b_i++) {
@@ -1583,7 +1531,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     i = expl_temp.f5->size[0] * expl_temp.f5->size[1];
     expl_temp.f5->size[0] = 1;
     expl_temp.f5->size[1] = problemDef_cells->f5->size[1];
-    emxEnsureCapacity_cell_wrap_14(sp, expl_temp.f5, i, &oe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_14(sp, expl_temp.f5, i, &pe_emlrtRTEI);
     i = problemDef_cells->f5->size[1] - 1;
     for (i1 = 0; i1 <= i; i1++) {
       b_i = expl_temp.f5->data[i1].f1->size[0] *
@@ -1593,7 +1541,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       expl_temp.f5->data[i1].f1->size[1] =
           problemDef_cells->f5->data[i1].f1->size[1];
       emxEnsureCapacity_real_T(sp, expl_temp.f5->data[i1].f1, b_i,
-                               &oe_emlrtRTEI);
+                               &pe_emlrtRTEI);
       b_reflectivity = problemDef_cells->f5->data[i1].f1->size[0] *
                        problemDef_cells->f5->data[i1].f1->size[1];
       for (b_i = 0; b_i < b_reflectivity; b_i++) {
@@ -1606,7 +1554,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     }
     i = expl_temp.f6->size[0];
     expl_temp.f6->size[0] = problemDef_cells->f6->size[0];
-    emxEnsureCapacity_cell_wrap_14(sp, expl_temp.f6, i, &oe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_14(sp, expl_temp.f6, i, &pe_emlrtRTEI);
     i = problemDef_cells->f6->size[0];
     for (i1 = 0; i1 < i; i1++) {
       b_i = expl_temp.f6->data[i1].f1->size[0] *
@@ -1616,7 +1564,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       expl_temp.f6->data[i1].f1->size[1] =
           problemDef_cells->f6->data[i1].f1.size[1];
       emxEnsureCapacity_real_T(sp, expl_temp.f6->data[i1].f1, b_i,
-                               &oe_emlrtRTEI);
+                               &pe_emlrtRTEI);
       b_reflectivity = problemDef_cells->f6->data[i1].f1.size[0] *
                        problemDef_cells->f6->data[i1].f1.size[1];
       for (b_i = 0; b_i < b_reflectivity; b_i++) {
@@ -1630,79 +1578,79 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     i = expl_temp.f14->size[0] * expl_temp.f14->size[1];
     expl_temp.f14->size[0] = 1;
     expl_temp.f14->size[1] = problemDef_cells->f14->size[1];
-    emxEnsureCapacity_cell_wrap_7(sp, expl_temp.f14, i, &qe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_7(sp, expl_temp.f14, i, &re_emlrtRTEI);
     b_reflectivity = problemDef_cells->f14->size[1];
     for (i = 0; i < b_reflectivity; i++) {
       emxCopyStruct_cell_wrap_7(sp, &expl_temp.f14->data[i],
-                                &problemDef_cells->f14->data[i], &qe_emlrtRTEI);
+                                &problemDef_cells->f14->data[i], &re_emlrtRTEI);
     }
     i = expl_temp.f13->size[0] * expl_temp.f13->size[1];
     expl_temp.f13->size[0] = 1;
     expl_temp.f13->size[1] = problemDef_cells->f13->size[1];
-    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f13, i, &qe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f13, i, &re_emlrtRTEI);
     b_reflectivity = problemDef_cells->f13->size[1];
     for (i = 0; i < b_reflectivity; i++) {
       emxCopyStruct_cell_wrap_6(sp, &expl_temp.f13->data[i],
-                                &problemDef_cells->f13->data[i], &qe_emlrtRTEI);
+                                &problemDef_cells->f13->data[i], &re_emlrtRTEI);
     }
     i = expl_temp.f12->size[0] * expl_temp.f12->size[1];
     expl_temp.f12->size[0] = 1;
     expl_temp.f12->size[1] = problemDef_cells->f12->size[1];
-    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f12, i, &qe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f12, i, &re_emlrtRTEI);
     b_reflectivity = problemDef_cells->f12->size[1];
     for (i = 0; i < b_reflectivity; i++) {
       emxCopyStruct_cell_wrap_6(sp, &expl_temp.f12->data[i],
-                                &problemDef_cells->f12->data[i], &qe_emlrtRTEI);
+                                &problemDef_cells->f12->data[i], &re_emlrtRTEI);
     }
     i = expl_temp.f11->size[0] * expl_temp.f11->size[1];
     expl_temp.f11->size[0] = 1;
     expl_temp.f11->size[1] = problemDef_cells->f11->size[1];
-    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f11, i, &qe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f11, i, &re_emlrtRTEI);
     b_reflectivity = problemDef_cells->f11->size[1];
     for (i = 0; i < b_reflectivity; i++) {
       emxCopyStruct_cell_wrap_6(sp, &expl_temp.f11->data[i],
-                                &problemDef_cells->f11->data[i], &qe_emlrtRTEI);
+                                &problemDef_cells->f11->data[i], &re_emlrtRTEI);
     }
     i = expl_temp.f10->size[0] * expl_temp.f10->size[1];
     expl_temp.f10->size[0] = 1;
     expl_temp.f10->size[1] = problemDef_cells->f10->size[1];
-    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f10, i, &qe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f10, i, &re_emlrtRTEI);
     b_reflectivity = problemDef_cells->f10->size[1];
     for (i = 0; i < b_reflectivity; i++) {
       emxCopyStruct_cell_wrap_6(sp, &expl_temp.f10->data[i],
-                                &problemDef_cells->f10->data[i], &qe_emlrtRTEI);
+                                &problemDef_cells->f10->data[i], &re_emlrtRTEI);
     }
     i = expl_temp.f9->size[0] * expl_temp.f9->size[1];
     expl_temp.f9->size[0] = 1;
     expl_temp.f9->size[1] = problemDef_cells->f9->size[1];
-    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f9, i, &qe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f9, i, &re_emlrtRTEI);
     b_reflectivity = problemDef_cells->f9->size[1];
     for (i = 0; i < b_reflectivity; i++) {
       emxCopyStruct_cell_wrap_6(sp, &expl_temp.f9->data[i],
-                                &problemDef_cells->f9->data[i], &qe_emlrtRTEI);
+                                &problemDef_cells->f9->data[i], &re_emlrtRTEI);
     }
     i = expl_temp.f8->size[0] * expl_temp.f8->size[1];
     expl_temp.f8->size[0] = 1;
     expl_temp.f8->size[1] = problemDef_cells->f8->size[1];
-    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f8, i, &qe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_6(sp, expl_temp.f8, i, &re_emlrtRTEI);
     b_reflectivity = problemDef_cells->f8->size[1];
     for (i = 0; i < b_reflectivity; i++) {
       emxCopyStruct_cell_wrap_6(sp, &expl_temp.f8->data[i],
-                                &problemDef_cells->f8->data[i], &qe_emlrtRTEI);
+                                &problemDef_cells->f8->data[i], &re_emlrtRTEI);
     }
     i = expl_temp.f7->size[0] * expl_temp.f7->size[1];
     expl_temp.f7->size[0] = 1;
     expl_temp.f7->size[1] = problemDef_cells->f7->size[1];
-    emxEnsureCapacity_cell_wrap_5(sp, expl_temp.f7, i, &qe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_5(sp, expl_temp.f7, i, &re_emlrtRTEI);
     b_reflectivity = problemDef_cells->f7->size[1];
     for (i = 0; i < b_reflectivity; i++) {
       emxCopyStruct_cell_wrap_5(sp, &expl_temp.f7->data[i],
-                                &problemDef_cells->f7->data[i], &qe_emlrtRTEI);
+                                &problemDef_cells->f7->data[i], &re_emlrtRTEI);
     }
     i = expl_temp.f3->size[0] * expl_temp.f3->size[1];
     expl_temp.f3->size[0] = 1;
     expl_temp.f3->size[1] = problemDef_cells->f3->size[1];
-    emxEnsureCapacity_cell_wrap_0(sp, expl_temp.f3, i, &qe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_0(sp, expl_temp.f3, i, &re_emlrtRTEI);
     b_reflectivity = problemDef_cells->f3->size[1];
     for (i = 0; i < b_reflectivity; i++) {
       expl_temp.f3->data[i] = problemDef_cells->f3->data[i];
@@ -1710,143 +1658,152 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     i = expl_temp.f1->size[0] * expl_temp.f1->size[1];
     expl_temp.f1->size[0] = 1;
     expl_temp.f1->size[1] = problemDef_cells->f1->size[1];
-    emxEnsureCapacity_cell_wrap_0(sp, expl_temp.f1, i, &qe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_0(sp, expl_temp.f1, i, &re_emlrtRTEI);
     b_reflectivity = problemDef_cells->f1->size[1];
     for (i = 0; i < b_reflectivity; i++) {
       expl_temp.f1->data[i] = problemDef_cells->f1->data[i];
     }
-    emxInit_cell_wrap_9(sp, &c_reflectivity, 1, &ge_emlrtRTEI, true);
-    emxInit_cell_wrap_9(sp, &b_Simulation, 1, &ge_emlrtRTEI, true);
-    emxInit_cell_wrap_14(sp, &b_shifted_data, 1, &ge_emlrtRTEI, true);
-    emxInit_cell_wrap_10(sp, &b_layerSlds, 1, &ge_emlrtRTEI, true);
-    emxInit_cell_wrap_14(sp, &b_sldProfiles, 1, &ge_emlrtRTEI, true);
-    emxInit_cell_wrap_14(sp, &b_allLayers, 1, &ge_emlrtRTEI, true);
+    emxInit_cell_wrap_9(sp, &c_reflectivity, &he_emlrtRTEI);
+    emxInit_cell_wrap_9(sp, &b_Simulation, &he_emlrtRTEI);
+    emxInit_cell_wrap_14(sp, &b_shifted_data, 1, &he_emlrtRTEI);
+    emxInit_cell_wrap_10(sp, &b_layerSlds, &he_emlrtRTEI);
+    emxInit_cell_wrap_14(sp, &b_sldProfiles, 1, &he_emlrtRTEI);
+    emxInit_cell_wrap_14(sp, &b_allLayers, 1, &he_emlrtRTEI);
     st.site = &emlrtRSI;
     c_standardTF_reflectivityCalcul(
         &st, problemDef, &expl_temp, controls, problem, c_reflectivity,
         b_Simulation, b_shifted_data, b_layerSlds, b_sldProfiles, b_allLayers);
+    b_allLayers_data = b_allLayers->data;
+    b_sldProfiles_data = b_sldProfiles->data;
+    b_layerSlds_data = b_layerSlds->data;
+    b_shifted_data_data = b_shifted_data->data;
+    b_Simulation_data = b_Simulation->data;
+    b_reflectivity_data = c_reflectivity->data;
     i = reflectivity->size[0];
     reflectivity->size[0] = c_reflectivity->size[0];
-    emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i, &we_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_12(sp, reflectivity, i, &xe_emlrtRTEI);
+    reflectivity_data = reflectivity->data;
     i = c_reflectivity->size[0];
-    emxFreeStruct_cell_16(&expl_temp);
-    for (i1 = 0; i1 < i; i1++) {
-      b_i = reflectivity->data[i1].f1->size[0] *
-            reflectivity->data[i1].f1->size[1];
-      reflectivity->data[i1].f1->size[0] = c_reflectivity->data[i1].f1->size[0];
-      reflectivity->data[i1].f1->size[1] = 2;
-      emxEnsureCapacity_real_T(sp, reflectivity->data[i1].f1, b_i,
-                               &we_emlrtRTEI);
-      b_reflectivity = c_reflectivity->data[i1].f1->size[0] * 2;
-      for (b_i = 0; b_i < b_reflectivity; b_i++) {
-        reflectivity->data[i1].f1->data[b_i] =
-            c_reflectivity->data[i1].f1->data[b_i];
-      }
-      if (*emlrtBreakCheckR2012bFlagVar != 0) {
-        emlrtBreakCheckR2012b((emlrtCTX)sp);
-      }
-    }
-    emxFree_cell_wrap_9(&c_reflectivity);
-    i = Simulation->size[0];
-    Simulation->size[0] = b_Simulation->size[0];
-    emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &we_emlrtRTEI);
-    i = b_Simulation->size[0];
-    for (i1 = 0; i1 < i; i1++) {
-      b_i = Simulation->data[i1].f1->size[0] * Simulation->data[i1].f1->size[1];
-      Simulation->data[i1].f1->size[0] = b_Simulation->data[i1].f1->size[0];
-      Simulation->data[i1].f1->size[1] = 2;
-      emxEnsureCapacity_real_T(sp, Simulation->data[i1].f1, b_i, &we_emlrtRTEI);
-      b_reflectivity = b_Simulation->data[i1].f1->size[0] * 2;
-      for (b_i = 0; b_i < b_reflectivity; b_i++) {
-        Simulation->data[i1].f1->data[b_i] =
-            b_Simulation->data[i1].f1->data[b_i];
-      }
-      if (*emlrtBreakCheckR2012bFlagVar != 0) {
-        emlrtBreakCheckR2012b((emlrtCTX)sp);
-      }
-    }
-    emxFree_cell_wrap_9(&b_Simulation);
-    i = shifted_data->size[0];
-    shifted_data->size[0] = b_shifted_data->size[0];
-    emxEnsureCapacity_cell_wrap_13(sp, shifted_data, i, &xe_emlrtRTEI);
-    i = b_shifted_data->size[0];
-    for (i1 = 0; i1 < i; i1++) {
-      b_i = shifted_data->data[i1].f1->size[0] *
-            shifted_data->data[i1].f1->size[1];
-      shifted_data->data[i1].f1->size[0] = b_shifted_data->data[i1].f1->size[0];
-      shifted_data->data[i1].f1->size[1] = b_shifted_data->data[i1].f1->size[1];
-      emxEnsureCapacity_real_T(sp, shifted_data->data[i1].f1, b_i,
-                               &xe_emlrtRTEI);
-      b_reflectivity = b_shifted_data->data[i1].f1->size[0] *
-                       b_shifted_data->data[i1].f1->size[1];
-      for (b_i = 0; b_i < b_reflectivity; b_i++) {
-        shifted_data->data[i1].f1->data[b_i] =
-            b_shifted_data->data[i1].f1->data[b_i];
-      }
-      if (*emlrtBreakCheckR2012bFlagVar != 0) {
-        emlrtBreakCheckR2012b((emlrtCTX)sp);
-      }
-    }
-    emxFree_cell_wrap_14(&b_shifted_data);
-    i = layerSlds->size[0];
-    layerSlds->size[0] = b_layerSlds->size[0];
-    emxEnsureCapacity_cell_wrap_13(sp, layerSlds, i, &ye_emlrtRTEI);
-    i = b_layerSlds->size[0];
-    for (i1 = 0; i1 < i; i1++) {
-      b_i = layerSlds->data[i1].f1->size[0] * layerSlds->data[i1].f1->size[1];
-      layerSlds->data[i1].f1->size[0] = b_layerSlds->data[i1].f1->size[0];
-      layerSlds->data[i1].f1->size[1] = 3;
-      emxEnsureCapacity_real_T(sp, layerSlds->data[i1].f1, b_i, &ye_emlrtRTEI);
-      b_reflectivity = b_layerSlds->data[i1].f1->size[0] * 3;
-      for (b_i = 0; b_i < b_reflectivity; b_i++) {
-        layerSlds->data[i1].f1->data[b_i] = b_layerSlds->data[i1].f1->data[b_i];
-      }
-      if (*emlrtBreakCheckR2012bFlagVar != 0) {
-        emlrtBreakCheckR2012b((emlrtCTX)sp);
-      }
-    }
-    emxFree_cell_wrap_10(&b_layerSlds);
-    i = sldProfiles->size[0];
-    sldProfiles->size[0] = b_sldProfiles->size[0];
-    emxEnsureCapacity_cell_wrap_12(sp, sldProfiles, i, &af_emlrtRTEI);
-    i = b_sldProfiles->size[0];
+    emxFreeStruct_cell_16(sp, &expl_temp);
     for (i1 = 0; i1 < i; i1++) {
       b_i =
-          sldProfiles->data[i1].f1->size[0] * sldProfiles->data[i1].f1->size[1];
-      sldProfiles->data[i1].f1->size[0] = b_sldProfiles->data[i1].f1->size[0];
-      sldProfiles->data[i1].f1->size[1] = b_sldProfiles->data[i1].f1->size[1];
-      emxEnsureCapacity_real_T(sp, sldProfiles->data[i1].f1, b_i,
-                               &af_emlrtRTEI);
-      b_reflectivity = b_sldProfiles->data[i1].f1->size[0] *
-                       b_sldProfiles->data[i1].f1->size[1];
+          reflectivity_data[i1].f1->size[0] * reflectivity_data[i1].f1->size[1];
+      reflectivity_data[i1].f1->size[0] = b_reflectivity_data[i1].f1->size[0];
+      reflectivity_data[i1].f1->size[1] = 2;
+      emxEnsureCapacity_real_T(sp, reflectivity_data[i1].f1, b_i,
+                               &xe_emlrtRTEI);
+      b_reflectivity = b_reflectivity_data[i1].f1->size[0] * 2;
       for (b_i = 0; b_i < b_reflectivity; b_i++) {
-        sldProfiles->data[i1].f1->data[b_i] =
-            b_sldProfiles->data[i1].f1->data[b_i];
+        reflectivity_data[i1].f1->data[b_i] =
+            b_reflectivity_data[i1].f1->data[b_i];
       }
       if (*emlrtBreakCheckR2012bFlagVar != 0) {
         emlrtBreakCheckR2012b((emlrtCTX)sp);
       }
     }
-    emxFree_cell_wrap_14(&b_sldProfiles);
+    emxFree_cell_wrap_9(sp, &c_reflectivity);
+    i = Simulation->size[0];
+    Simulation->size[0] = b_Simulation->size[0];
+    emxEnsureCapacity_cell_wrap_12(sp, Simulation, i, &xe_emlrtRTEI);
+    Simulation_data = Simulation->data;
+    i = b_Simulation->size[0];
+    for (i1 = 0; i1 < i; i1++) {
+      b_i = Simulation_data[i1].f1->size[0] * Simulation_data[i1].f1->size[1];
+      Simulation_data[i1].f1->size[0] = b_Simulation_data[i1].f1->size[0];
+      Simulation_data[i1].f1->size[1] = 2;
+      emxEnsureCapacity_real_T(sp, Simulation_data[i1].f1, b_i, &xe_emlrtRTEI);
+      b_reflectivity = b_Simulation_data[i1].f1->size[0] * 2;
+      for (b_i = 0; b_i < b_reflectivity; b_i++) {
+        Simulation_data[i1].f1->data[b_i] = b_Simulation_data[i1].f1->data[b_i];
+      }
+      if (*emlrtBreakCheckR2012bFlagVar != 0) {
+        emlrtBreakCheckR2012b((emlrtCTX)sp);
+      }
+    }
+    emxFree_cell_wrap_9(sp, &b_Simulation);
+    i = shifted_data->size[0];
+    shifted_data->size[0] = b_shifted_data->size[0];
+    emxEnsureCapacity_cell_wrap_13(sp, shifted_data, i, &ye_emlrtRTEI);
+    shifted_data_data = shifted_data->data;
+    i = b_shifted_data->size[0];
+    for (i1 = 0; i1 < i; i1++) {
+      b_i =
+          shifted_data_data[i1].f1->size[0] * shifted_data_data[i1].f1->size[1];
+      shifted_data_data[i1].f1->size[0] = b_shifted_data_data[i1].f1->size[0];
+      shifted_data_data[i1].f1->size[1] = b_shifted_data_data[i1].f1->size[1];
+      emxEnsureCapacity_real_T(sp, shifted_data_data[i1].f1, b_i,
+                               &ye_emlrtRTEI);
+      b_reflectivity = b_shifted_data_data[i1].f1->size[0] *
+                       b_shifted_data_data[i1].f1->size[1];
+      for (b_i = 0; b_i < b_reflectivity; b_i++) {
+        shifted_data_data[i1].f1->data[b_i] =
+            b_shifted_data_data[i1].f1->data[b_i];
+      }
+      if (*emlrtBreakCheckR2012bFlagVar != 0) {
+        emlrtBreakCheckR2012b((emlrtCTX)sp);
+      }
+    }
+    emxFree_cell_wrap_14(sp, &b_shifted_data);
+    i = layerSlds->size[0];
+    layerSlds->size[0] = b_layerSlds->size[0];
+    emxEnsureCapacity_cell_wrap_13(sp, layerSlds, i, &af_emlrtRTEI);
+    layerSlds_data = layerSlds->data;
+    i = b_layerSlds->size[0];
+    for (i1 = 0; i1 < i; i1++) {
+      b_i = layerSlds_data[i1].f1->size[0] * layerSlds_data[i1].f1->size[1];
+      layerSlds_data[i1].f1->size[0] = b_layerSlds_data[i1].f1->size[0];
+      layerSlds_data[i1].f1->size[1] = 3;
+      emxEnsureCapacity_real_T(sp, layerSlds_data[i1].f1, b_i, &af_emlrtRTEI);
+      b_reflectivity = b_layerSlds_data[i1].f1->size[0] * 3;
+      for (b_i = 0; b_i < b_reflectivity; b_i++) {
+        layerSlds_data[i1].f1->data[b_i] = b_layerSlds_data[i1].f1->data[b_i];
+      }
+      if (*emlrtBreakCheckR2012bFlagVar != 0) {
+        emlrtBreakCheckR2012b((emlrtCTX)sp);
+      }
+    }
+    emxFree_cell_wrap_10(sp, &b_layerSlds);
+    i = sldProfiles->size[0];
+    sldProfiles->size[0] = b_sldProfiles->size[0];
+    emxEnsureCapacity_cell_wrap_12(sp, sldProfiles, i, &bf_emlrtRTEI);
+    sldProfiles_data = sldProfiles->data;
+    i = b_sldProfiles->size[0];
+    for (i1 = 0; i1 < i; i1++) {
+      b_i = sldProfiles_data[i1].f1->size[0] * sldProfiles_data[i1].f1->size[1];
+      sldProfiles_data[i1].f1->size[0] = b_sldProfiles_data[i1].f1->size[0];
+      sldProfiles_data[i1].f1->size[1] = b_sldProfiles_data[i1].f1->size[1];
+      emxEnsureCapacity_real_T(sp, sldProfiles_data[i1].f1, b_i, &bf_emlrtRTEI);
+      b_reflectivity = b_sldProfiles_data[i1].f1->size[0] *
+                       b_sldProfiles_data[i1].f1->size[1];
+      for (b_i = 0; b_i < b_reflectivity; b_i++) {
+        sldProfiles_data[i1].f1->data[b_i] =
+            b_sldProfiles_data[i1].f1->data[b_i];
+      }
+      if (*emlrtBreakCheckR2012bFlagVar != 0) {
+        emlrtBreakCheckR2012b((emlrtCTX)sp);
+      }
+    }
+    emxFree_cell_wrap_14(sp, &b_sldProfiles);
     i = allLayers->size[0];
     allLayers->size[0] = b_allLayers->size[0];
-    emxEnsureCapacity_cell_wrap_13(sp, allLayers, i, &xe_emlrtRTEI);
+    emxEnsureCapacity_cell_wrap_13(sp, allLayers, i, &ye_emlrtRTEI);
+    allLayers_data = allLayers->data;
     i = b_allLayers->size[0];
     for (i1 = 0; i1 < i; i1++) {
-      b_i = allLayers->data[i1].f1->size[0] * allLayers->data[i1].f1->size[1];
-      allLayers->data[i1].f1->size[0] = b_allLayers->data[i1].f1->size[0];
-      allLayers->data[i1].f1->size[1] = b_allLayers->data[i1].f1->size[1];
-      emxEnsureCapacity_real_T(sp, allLayers->data[i1].f1, b_i, &xe_emlrtRTEI);
+      b_i = allLayers_data[i1].f1->size[0] * allLayers_data[i1].f1->size[1];
+      allLayers_data[i1].f1->size[0] = b_allLayers_data[i1].f1->size[0];
+      allLayers_data[i1].f1->size[1] = b_allLayers_data[i1].f1->size[1];
+      emxEnsureCapacity_real_T(sp, allLayers_data[i1].f1, b_i, &ye_emlrtRTEI);
       b_reflectivity =
-          b_allLayers->data[i1].f1->size[0] * b_allLayers->data[i1].f1->size[1];
+          b_allLayers_data[i1].f1->size[0] * b_allLayers_data[i1].f1->size[1];
       for (b_i = 0; b_i < b_reflectivity; b_i++) {
-        allLayers->data[i1].f1->data[b_i] = b_allLayers->data[i1].f1->data[b_i];
+        allLayers_data[i1].f1->data[b_i] = b_allLayers_data[i1].f1->data[b_i];
       }
       if (*emlrtBreakCheckR2012bFlagVar != 0) {
         emlrtBreakCheckR2012b((emlrtCTX)sp);
       }
     }
-    emxFree_cell_wrap_14(&b_allLayers);
+    emxFree_cell_wrap_14(sp, &b_allLayers);
     /* case 'standardTFAbs' */
     /* [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers]
      * =
@@ -1865,11 +1822,10 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
      * =
      * domainsTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
      */
-    break;
   }
   i = result->f1->size[0];
   result->f1->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, result->f1, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, result->f1, i, &he_emlrtRTEI);
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = result->f1->size[0] - 1;
     if (i > result->f1->size[0] - 1) {
@@ -1883,7 +1839,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     }
     i1 = result->f1->data[i].f1->size[0] * result->f1->data[i].f1->size[1];
     result->f1->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, result->f1->data[i].f1, i1, &ge_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f1->data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1893,13 +1849,13 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &g_emlrtRTEI, (emlrtCTX)sp);
   i = result->f1->size[0];
   result->f1->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, result->f1, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, result->f1, i, &ie_emlrtRTEI);
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
                                     &g_emlrtBCI, (emlrtCTX)sp);
     }
-    b_reflectivity = reflectivity->data[b_i].f1->size[0] * 2;
+    b_reflectivity = reflectivity_data[b_i].f1->size[0] * 2;
     if (b_i > reflectivity->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
                                     &g_emlrtBCI, (emlrtCTX)sp);
@@ -1909,15 +1865,15 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
                                     &h_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f1->data[b_i].f1->size[0] * result->f1->data[b_i].f1->size[1];
-    result->f1->data[b_i].f1->size[0] = reflectivity->data[b_i].f1->size[0];
-    emxEnsureCapacity_real_T(sp, result->f1->data[b_i].f1, i, &pe_emlrtRTEI);
+    result->f1->data[b_i].f1->size[0] = reflectivity_data[b_i].f1->size[0];
+    emxEnsureCapacity_real_T(sp, result->f1->data[b_i].f1, i, &qe_emlrtRTEI);
     if (b_i > result->f1->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f1->size[0] - 1,
                                     &h_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f1->data[b_i].f1->size[0] * result->f1->data[b_i].f1->size[1];
     result->f1->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, result->f1->data[b_i].f1, i, &pe_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f1->data[b_i].f1, i, &qe_emlrtRTEI);
     i = result->f1->size[0];
     if (b_i > result->f1->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f1->size[0] - 1,
@@ -1930,22 +1886,22 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     for (i1 = 0; i1 < b_reflectivity; i1++) {
       if (b_i > reflectivity->size[0] - 1) {
         emlrtDynamicBoundsCheckR2012b(b_i, 0, reflectivity->size[0] - 1,
-                                      &fb_emlrtBCI, (emlrtCTX)sp);
+                                      &g_emlrtBCI, (emlrtCTX)sp);
       }
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &gb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &fb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
-      result->f1->data[b_i].f1->data[i1] = reflectivity->data[b_i].f1->data[i1];
+      result->f1->data[b_i].f1->data[i1] = reflectivity_data[b_i].f1->data[i1];
     }
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
-  emxFree_cell_wrap_12(&reflectivity);
+  emxFree_cell_wrap_12(sp, &reflectivity);
   i = result->f2->size[0];
   result->f2->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, result->f2, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, result->f2, i, &he_emlrtRTEI);
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = result->f2->size[0] - 1;
     if (i > result->f2->size[0] - 1) {
@@ -1959,7 +1915,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     }
     i1 = result->f2->data[i].f1->size[0] * result->f2->data[i].f1->size[1];
     result->f2->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, result->f2->data[i].f1, i1, &ge_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f2->data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -1969,13 +1925,13 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &h_emlrtRTEI, (emlrtCTX)sp);
   i = result->f2->size[0];
   result->f2->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, result->f2, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, result->f2, i, &ie_emlrtRTEI);
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
                                     &i_emlrtBCI, (emlrtCTX)sp);
     }
-    b_reflectivity = Simulation->data[b_i].f1->size[0] * 2;
+    b_reflectivity = Simulation_data[b_i].f1->size[0] * 2;
     if (b_i > Simulation->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
                                     &i_emlrtBCI, (emlrtCTX)sp);
@@ -1985,15 +1941,15 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
                                     &j_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f2->data[b_i].f1->size[0] * result->f2->data[b_i].f1->size[1];
-    result->f2->data[b_i].f1->size[0] = Simulation->data[b_i].f1->size[0];
-    emxEnsureCapacity_real_T(sp, result->f2->data[b_i].f1, i, &re_emlrtRTEI);
+    result->f2->data[b_i].f1->size[0] = Simulation_data[b_i].f1->size[0];
+    emxEnsureCapacity_real_T(sp, result->f2->data[b_i].f1, i, &se_emlrtRTEI);
     if (b_i > result->f2->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f2->size[0] - 1,
                                     &j_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f2->data[b_i].f1->size[0] * result->f2->data[b_i].f1->size[1];
     result->f2->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, result->f2->data[b_i].f1, i, &re_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f2->data[b_i].f1, i, &se_emlrtRTEI);
     i = result->f2->size[0];
     if (b_i > result->f2->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f2->size[0] - 1,
@@ -2006,22 +1962,22 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     for (i1 = 0; i1 < b_reflectivity; i1++) {
       if (b_i > Simulation->size[0] - 1) {
         emlrtDynamicBoundsCheckR2012b(b_i, 0, Simulation->size[0] - 1,
-                                      &ib_emlrtBCI, (emlrtCTX)sp);
+                                      &i_emlrtBCI, (emlrtCTX)sp);
       }
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &jb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &hb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
-      result->f2->data[b_i].f1->data[i1] = Simulation->data[b_i].f1->data[i1];
+      result->f2->data[b_i].f1->data[i1] = Simulation_data[b_i].f1->data[i1];
     }
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
-  emxFree_cell_wrap_12(&Simulation);
+  emxFree_cell_wrap_12(sp, &Simulation);
   i = result->f3->size[0];
   result->f3->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, result->f3, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, result->f3, i, &he_emlrtRTEI);
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = result->f3->size[0] - 1;
     if (i > result->f3->size[0] - 1) {
@@ -2035,7 +1991,7 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     }
     i1 = result->f3->data[i].f1->size[0] * result->f3->data[i].f1->size[1];
     result->f3->data[i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, result->f3->data[i].f1, i1, &ge_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f3->data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -2045,13 +2001,13 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &i_emlrtRTEI, (emlrtCTX)sp);
   i = result->f3->size[0];
   result->f3->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, result->f3, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, result->f3, i, &ie_emlrtRTEI);
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
                                     &k_emlrtBCI, (emlrtCTX)sp);
     }
-    b_reflectivity = shifted_data->data[b_i].f1->size[0] * 3;
+    b_reflectivity = shifted_data_data[b_i].f1->size[0] * 3;
     if (b_i > shifted_data->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
                                     &k_emlrtBCI, (emlrtCTX)sp);
@@ -2061,15 +2017,15 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
                                     &l_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f3->data[b_i].f1->size[0] * result->f3->data[b_i].f1->size[1];
-    result->f3->data[b_i].f1->size[0] = shifted_data->data[b_i].f1->size[0];
-    emxEnsureCapacity_real_T(sp, result->f3->data[b_i].f1, i, &se_emlrtRTEI);
+    result->f3->data[b_i].f1->size[0] = shifted_data_data[b_i].f1->size[0];
+    emxEnsureCapacity_real_T(sp, result->f3->data[b_i].f1, i, &te_emlrtRTEI);
     if (b_i > result->f3->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f3->size[0] - 1,
                                     &l_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f3->data[b_i].f1->size[0] * result->f3->data[b_i].f1->size[1];
     result->f3->data[b_i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, result->f3->data[b_i].f1, i, &se_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f3->data[b_i].f1, i, &te_emlrtRTEI);
     i = result->f3->size[0];
     if (b_i > result->f3->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f3->size[0] - 1,
@@ -2082,36 +2038,36 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     for (i1 = 0; i1 < b_reflectivity; i1++) {
       if (b_i > shifted_data->size[0] - 1) {
         emlrtDynamicBoundsCheckR2012b(b_i, 0, shifted_data->size[0] - 1,
-                                      &lb_emlrtBCI, (emlrtCTX)sp);
+                                      &k_emlrtBCI, (emlrtCTX)sp);
       }
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &mb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &jb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
-      result->f3->data[b_i].f1->data[i1] = shifted_data->data[b_i].f1->data[i1];
+      result->f3->data[b_i].f1->data[i1] = shifted_data_data[b_i].f1->data[i1];
     }
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
-  emxFree_cell_wrap_13(&shifted_data);
+  emxFree_cell_wrap_13(sp, &shifted_data);
   i = result->f4->size[0];
   result->f4->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, result->f4, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, result->f4, i, &he_emlrtRTEI);
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = result->f4->size[0] - 1;
     if (i > result->f4->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, result->f4->size[0] - 1, &hb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, result->f4->size[0] - 1, &gb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     result->f4->data[i].f1->size[0] = 0;
     if (i > b_reflectivity) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &hb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &gb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i1 = result->f4->data[i].f1->size[0] * result->f4->data[i].f1->size[1];
     result->f4->data[i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, result->f4->data[i].f1, i1, &ge_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f4->data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -2121,13 +2077,13 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &j_emlrtRTEI, (emlrtCTX)sp);
   i = result->f4->size[0];
   result->f4->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, result->f4, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, result->f4, i, &ie_emlrtRTEI);
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1, &m_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    b_reflectivity = layerSlds->data[b_i].f1->size[0] * 3;
+    b_reflectivity = layerSlds_data[b_i].f1->size[0] * 3;
     if (b_i > layerSlds->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1, &m_emlrtBCI,
                                     (emlrtCTX)sp);
@@ -2137,15 +2093,15 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
                                     &n_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f4->data[b_i].f1->size[0] * result->f4->data[b_i].f1->size[1];
-    result->f4->data[b_i].f1->size[0] = layerSlds->data[b_i].f1->size[0];
-    emxEnsureCapacity_real_T(sp, result->f4->data[b_i].f1, i, &te_emlrtRTEI);
+    result->f4->data[b_i].f1->size[0] = layerSlds_data[b_i].f1->size[0];
+    emxEnsureCapacity_real_T(sp, result->f4->data[b_i].f1, i, &ue_emlrtRTEI);
     if (b_i > result->f4->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f4->size[0] - 1,
                                     &n_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f4->data[b_i].f1->size[0] * result->f4->data[b_i].f1->size[1];
     result->f4->data[b_i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, result->f4->data[b_i].f1, i, &te_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f4->data[b_i].f1, i, &ue_emlrtRTEI);
     i = result->f4->size[0];
     if (b_i > result->f4->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f4->size[0] - 1,
@@ -2158,36 +2114,36 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     for (i1 = 0; i1 < b_reflectivity; i1++) {
       if (b_i > layerSlds->size[0] - 1) {
         emlrtDynamicBoundsCheckR2012b(b_i, 0, layerSlds->size[0] - 1,
-                                      &ob_emlrtBCI, (emlrtCTX)sp);
+                                      &m_emlrtBCI, (emlrtCTX)sp);
       }
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &pb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &lb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
-      result->f4->data[b_i].f1->data[i1] = layerSlds->data[b_i].f1->data[i1];
+      result->f4->data[b_i].f1->data[i1] = layerSlds_data[b_i].f1->data[i1];
     }
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
-  emxFree_cell_wrap_13(&layerSlds);
+  emxFree_cell_wrap_13(sp, &layerSlds);
   i = result->f5->size[0];
   result->f5->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, result->f5, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, result->f5, i, &he_emlrtRTEI);
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = result->f5->size[0] - 1;
     if (i > result->f5->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, result->f5->size[0] - 1, &kb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, result->f5->size[0] - 1, &ib_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     result->f5->data[i].f1->size[0] = 0;
     if (i > b_reflectivity) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &kb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &ib_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i1 = result->f5->data[i].f1->size[0] * result->f5->data[i].f1->size[1];
     result->f5->data[i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, result->f5->data[i].f1, i1, &ge_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f5->data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -2197,13 +2153,13 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &k_emlrtRTEI, (emlrtCTX)sp);
   i = result->f5->size[0];
   result->f5->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_9(sp, result->f5, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_9(sp, result->f5, i, &ie_emlrtRTEI);
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
                                     &o_emlrtBCI, (emlrtCTX)sp);
     }
-    b_reflectivity = sldProfiles->data[b_i].f1->size[0] * 2;
+    b_reflectivity = sldProfiles_data[b_i].f1->size[0] * 2;
     if (b_i > sldProfiles->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
                                     &o_emlrtBCI, (emlrtCTX)sp);
@@ -2213,15 +2169,15 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
                                     &p_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f5->data[b_i].f1->size[0] * result->f5->data[b_i].f1->size[1];
-    result->f5->data[b_i].f1->size[0] = sldProfiles->data[b_i].f1->size[0];
-    emxEnsureCapacity_real_T(sp, result->f5->data[b_i].f1, i, &ue_emlrtRTEI);
+    result->f5->data[b_i].f1->size[0] = sldProfiles_data[b_i].f1->size[0];
+    emxEnsureCapacity_real_T(sp, result->f5->data[b_i].f1, i, &ve_emlrtRTEI);
     if (b_i > result->f5->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f5->size[0] - 1,
                                     &p_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f5->data[b_i].f1->size[0] * result->f5->data[b_i].f1->size[1];
     result->f5->data[b_i].f1->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, result->f5->data[b_i].f1, i, &ue_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f5->data[b_i].f1, i, &ve_emlrtRTEI);
     i = result->f5->size[0];
     if (b_i > result->f5->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f5->size[0] - 1,
@@ -2234,36 +2190,36 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     for (i1 = 0; i1 < b_reflectivity; i1++) {
       if (b_i > sldProfiles->size[0] - 1) {
         emlrtDynamicBoundsCheckR2012b(b_i, 0, sldProfiles->size[0] - 1,
-                                      &qb_emlrtBCI, (emlrtCTX)sp);
+                                      &o_emlrtBCI, (emlrtCTX)sp);
       }
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &rb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &mb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
-      result->f5->data[b_i].f1->data[i1] = sldProfiles->data[b_i].f1->data[i1];
+      result->f5->data[b_i].f1->data[i1] = sldProfiles_data[b_i].f1->data[i1];
     }
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
-  emxFree_cell_wrap_12(&sldProfiles);
+  emxFree_cell_wrap_12(sp, &sldProfiles);
   i = result->f6->size[0];
   result->f6->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, result->f6, i, &ge_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, result->f6, i, &he_emlrtRTEI);
   for (i = 0; i < unnamed_idx_0_tmp_tmp; i++) {
     b_reflectivity = result->f6->size[0] - 1;
     if (i > result->f6->size[0] - 1) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, result->f6->size[0] - 1, &nb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, result->f6->size[0] - 1, &kb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     result->f6->data[i].f1->size[0] = 0;
     if (i > b_reflectivity) {
-      emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &nb_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(i, 0, b_reflectivity, &kb_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i1 = result->f6->data[i].f1->size[0] * result->f6->data[i].f1->size[1];
     result->f6->data[i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, result->f6->data[i].f1, i1, &ge_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f6->data[i].f1, i1, &he_emlrtRTEI);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
@@ -2273,13 +2229,13 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
       (int32_T)problemDef->numberOfContrasts, &l_emlrtRTEI, (emlrtCTX)sp);
   i = result->f6->size[0];
   result->f6->size[0] = unnamed_idx_0_tmp_tmp;
-  emxEnsureCapacity_cell_wrap_10(sp, result->f6, i, &he_emlrtRTEI);
+  emxEnsureCapacity_cell_wrap_10(sp, result->f6, i, &ie_emlrtRTEI);
   for (b_i = 0; b_i < unnamed_idx_0_tmp_tmp; b_i++) {
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1, &q_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    b_reflectivity = allLayers->data[b_i].f1->size[0] * 3;
+    b_reflectivity = allLayers_data[b_i].f1->size[0] * 3;
     if (b_i > allLayers->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1, &q_emlrtBCI,
                                     (emlrtCTX)sp);
@@ -2289,15 +2245,15 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
                                     &r_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f6->data[b_i].f1->size[0] * result->f6->data[b_i].f1->size[1];
-    result->f6->data[b_i].f1->size[0] = allLayers->data[b_i].f1->size[0];
-    emxEnsureCapacity_real_T(sp, result->f6->data[b_i].f1, i, &ve_emlrtRTEI);
+    result->f6->data[b_i].f1->size[0] = allLayers_data[b_i].f1->size[0];
+    emxEnsureCapacity_real_T(sp, result->f6->data[b_i].f1, i, &we_emlrtRTEI);
     if (b_i > result->f6->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f6->size[0] - 1,
                                     &r_emlrtBCI, (emlrtCTX)sp);
     }
     i = result->f6->data[b_i].f1->size[0] * result->f6->data[b_i].f1->size[1];
     result->f6->data[b_i].f1->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, result->f6->data[b_i].f1, i, &ve_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, result->f6->data[b_i].f1, i, &we_emlrtRTEI);
     i = result->f6->size[0];
     if (b_i > result->f6->size[0] - 1) {
       emlrtDynamicBoundsCheckR2012b(b_i, 0, result->f6->size[0] - 1,
@@ -2310,19 +2266,19 @@ void reflectivity_calculation(const emlrtStack *sp, const struct0_T *problemDef,
     for (i1 = 0; i1 < b_reflectivity; i1++) {
       if (b_i > allLayers->size[0] - 1) {
         emlrtDynamicBoundsCheckR2012b(b_i, 0, allLayers->size[0] - 1,
-                                      &sb_emlrtBCI, (emlrtCTX)sp);
+                                      &q_emlrtBCI, (emlrtCTX)sp);
       }
       if (b_i > i - 1) {
-        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &tb_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i, 0, i - 1, &nb_emlrtBCI,
                                       (emlrtCTX)sp);
       }
-      result->f6->data[b_i].f1->data[i1] = allLayers->data[b_i].f1->data[i1];
+      result->f6->data[b_i].f1->data[i1] = allLayers_data[b_i].f1->data[i1];
     }
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b((emlrtCTX)sp);
     }
   }
-  emxFree_cell_wrap_13(&allLayers);
+  emxFree_cell_wrap_13(sp, &allLayers);
   /*  Pre-processor directives for Matlab Coder */
   /*  to define the size of the output array */
   /* Result coder definitions.... */

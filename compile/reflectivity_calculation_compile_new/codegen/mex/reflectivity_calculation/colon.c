@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * colon.c
  *
@@ -17,27 +17,24 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo tg_emlrtRSI = {
-    311,               /* lineNo */
-    "eml_float_colon", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/ops/colon.m" /* pathName
-                                                                          */
+static emlrtRSInfo ng_emlrtRSI = {
+    311,                                                          /* lineNo */
+    "eml_float_colon",                                            /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/ops/colon.m" /* pathName */
 };
 
-static emlrtRTEInfo tb_emlrtRTEI = {
-    417,               /* lineNo */
-    15,                /* colNo */
-    "assert_pmaxsize", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/ops/colon.m" /* pName
-                                                                          */
+static emlrtRTEInfo ub_emlrtRTEI = {
+    411,                                                          /* lineNo */
+    15,                                                           /* colNo */
+    "assert_pmaxsize",                                            /* fName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/ops/colon.m" /* pName */
 };
 
-static emlrtRTEInfo sl_emlrtRTEI = {
-    312,     /* lineNo */
-    20,      /* colNo */
-    "colon", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/ops/colon.m" /* pName
-                                                                          */
+static emlrtRTEInfo ul_emlrtRTEI = {
+    312,                                                          /* lineNo */
+    20,                                                           /* colNo */
+    "colon",                                                      /* fName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/ops/colon.m" /* pName */
 };
 
 /* Function Definitions */
@@ -48,6 +45,7 @@ void eml_float_colon(const emlrtStack *sp, real_T a, real_T d, real_T b,
   real_T apnd;
   real_T cdiff;
   real_T ndbl;
+  real_T *y_data;
   int32_T k;
   int32_T n;
   int32_T nm1d2;
@@ -75,31 +73,32 @@ void eml_float_colon(const emlrtStack *sp, real_T a, real_T d, real_T b,
   } else {
     n = 0;
   }
-  st.site = &tg_emlrtRSI;
+  st.site = &ng_emlrtRSI;
   if (ndbl > 2.147483647E+9) {
-    emlrtErrorWithMessageIdR2018a(&st, &tb_emlrtRTEI, "Coder:MATLAB:pmaxsize",
+    emlrtErrorWithMessageIdR2018a(&st, &ub_emlrtRTEI, "Coder:MATLAB:pmaxsize",
                                   "Coder:MATLAB:pmaxsize", 0);
   }
   nm1d2 = y->size[0] * y->size[1];
   y->size[0] = 1;
   y->size[1] = n;
-  emxEnsureCapacity_real_T(sp, y, nm1d2, &sl_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, y, nm1d2, &ul_emlrtRTEI);
+  y_data = y->data;
   if (n > 0) {
-    y->data[0] = a;
+    y_data[0] = a;
     if (n > 1) {
-      y->data[n - 1] = apnd;
+      y_data[n - 1] = apnd;
       nm1d2 = (n - 1) / 2;
       for (k = 0; k <= nm1d2 - 2; k++) {
         ndbl = ((real_T)k + 1.0) * d;
-        y->data[k + 1] = a + ndbl;
-        y->data[(n - k) - 2] = apnd - ndbl;
+        y_data[k + 1] = a + ndbl;
+        y_data[(n - k) - 2] = apnd - ndbl;
       }
       if (nm1d2 << 1 == n - 1) {
-        y->data[nm1d2] = (a + apnd) / 2.0;
+        y_data[nm1d2] = (a + apnd) / 2.0;
       } else {
         ndbl = (real_T)nm1d2 * d;
-        y->data[nm1d2] = a + ndbl;
-        y->data[nm1d2 + 1] = apnd - ndbl;
+        y_data[nm1d2] = a + ndbl;
+        y_data[nm1d2 + 1] = apnd - ndbl;
       }
     }
   }

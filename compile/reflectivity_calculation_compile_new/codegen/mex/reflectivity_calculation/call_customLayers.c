@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * call_customLayers.c
  *
@@ -19,18 +19,18 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo bi_emlrtRSI = {
+static emlrtRSInfo th_emlrtRSI = {
     52,                  /* lineNo */
     "call_customLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pathName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m" /* pathName */
 };
 
 static emlrtMCInfo emlrtMCI = {
     44,                       /* lineNo */
     5,                        /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
 };
 
@@ -38,92 +38,92 @@ static emlrtMCInfo b_emlrtMCI = {
     51,                       /* lineNo */
     9,                        /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
 };
 
-static emlrtBCInfo gq_emlrtBCI = {
+static emlrtBCInfo aq_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     59,                  /* lineNo */
     42,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m", /* pName */
+    0                                       /* checkKind */
 };
 
-static emlrtBCInfo hq_emlrtBCI = {
+static emlrtBCInfo bq_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     60,                  /* lineNo */
     42,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m", /* pName */
+    0                                       /* checkKind */
 };
 
-static emlrtBCInfo iq_emlrtBCI = {
+static emlrtBCInfo cq_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     63,                  /* lineNo */
     34,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m", /* pName */
+    0                                       /* checkKind */
 };
 
-static emlrtBCInfo jq_emlrtBCI = {
+static emlrtBCInfo dq_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     63,                  /* lineNo */
     36,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m", /* pName */
+    0                                       /* checkKind */
 };
 
-static emlrtBCInfo kq_emlrtBCI = {
+static emlrtBCInfo eq_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     64,                  /* lineNo */
     42,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m", /* pName */
+    0                                       /* checkKind */
 };
 
-static emlrtBCInfo lq_emlrtBCI = {
+static emlrtBCInfo fq_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     65,                  /* lineNo */
     39,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m", /* pName */
+    0                                       /* checkKind */
 };
 
-static emlrtBCInfo mq_emlrtBCI = {
+static emlrtBCInfo gq_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     65,                  /* lineNo */
     41,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m", /* pName */
+    0                                       /* checkKind */
 };
 
 static emlrtECInfo bb_emlrtECI = {
@@ -131,8 +131,8 @@ static emlrtECInfo bb_emlrtECI = {
     59,                  /* lineNo */
     13,                  /* colNo */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m" /* pName */
 };
 
 static emlrtECInfo cb_emlrtECI = {
@@ -140,18 +140,18 @@ static emlrtECInfo cb_emlrtECI = {
     60,                  /* lineNo */
     13,                  /* colNo */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m" /* pName */
 };
 
-static emlrtBCInfo nq_emlrtBCI = {
+static emlrtBCInfo hq_emlrtBCI = {
     -1,                       /* iFirst */
     -1,                       /* iLast */
     42,                       /* lineNo */
     14,                       /* colNo */
     "bulkOuts",               /* aName */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m", /* pName */
     0                                              /* checkKind */
 };
@@ -160,40 +160,40 @@ static emlrtDCInfo jc_emlrtDCI = {
     41,                       /* lineNo */
     5,                        /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m", /* pName */
     1                                              /* checkKind */
 };
 
-static emlrtBCInfo oq_emlrtBCI = {
+static emlrtBCInfo iq_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     64,                  /* lineNo */
-    33,                  /* colNo */
+    40,                  /* colNo */
     "output",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m", /* pName */
+    0                                       /* checkKind */
 };
 
-static emlrtBCInfo pq_emlrtBCI = {
+static emlrtBCInfo jq_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     73,                  /* lineNo */
-    17,                  /* colNo */
+    30,                  /* colNo */
     "newOutLayers",      /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m", /* pName */
+    0                                       /* checkKind */
 };
 
 static emlrtDCInfo kc_emlrtDCI = {
     52,                       /* lineNo */
     20,                       /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m", /* pName */
     1                                              /* checkKind */
 };
@@ -202,114 +202,100 @@ static emlrtDCInfo lc_emlrtDCI = {
     52,                       /* lineNo */
     20,                       /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m", /* pName */
     4                                              /* checkKind */
 };
 
-static emlrtBCInfo cy_emlrtBCI = {
+static emlrtBCInfo vx_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     72,                  /* lineNo */
     37,                  /* colNo */
     "newSld",            /* aName */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
-};
-
-static emlrtBCInfo dy_emlrtBCI = {
-    -1,                  /* iFirst */
-    -1,                  /* iLast */
-    63,                  /* lineNo */
-    27,                  /* colNo */
-    "output",            /* aName */
-    "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m", /* pName */
-    0                      /* checkKind */
-};
-
-static emlrtRTEInfo oo_emlrtRTEI = {
-    41,                       /* lineNo */
-    5,                        /* colNo */
-    "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
-    "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
-};
-
-static emlrtRTEInfo po_emlrtRTEI = {
-    58,                  /* lineNo */
-    13,                  /* colNo */
-    "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m", /* pName */
+    0                                       /* checkKind */
 };
 
 static emlrtRTEInfo qo_emlrtRTEI = {
-    75,                  /* lineNo */
-    13,                  /* colNo */
-    "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
-};
-
-static emlrtRTEInfo ro_emlrtRTEI = {
-    12,                       /* lineNo */
+    41,                       /* lineNo */
     5,                        /* colNo */
     "callMatlabCustomLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
 };
 
-static emlrtRTEInfo sr_emlrtRTEI = {
+static emlrtRTEInfo ro_emlrtRTEI = {
+    58,                  /* lineNo */
+    13,                  /* colNo */
+    "call_customLayers", /* fName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m" /* pName */
+};
+
+static emlrtRTEInfo so_emlrtRTEI = {
+    75,                  /* lineNo */
+    13,                  /* colNo */
+    "call_customLayers", /* fName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m" /* pName */
+};
+
+static emlrtRTEInfo to_emlrtRTEI = {
+    12,                       /* lineNo */
+    5,                        /* colNo */
+    "callMatlabCustomLayers", /* fName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callMatlabFunction/callMatlabCustomLayers.m" /* pName */
+};
+
+static emlrtRTEInfo ur_emlrtRTEI = {
     69,                  /* lineNo */
     21,                  /* colNo */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m" /* pName */
 };
 
-static emlrtRTEInfo tr_emlrtRTEI = {
+static emlrtRTEInfo vr_emlrtRTEI = {
     67,                  /* lineNo */
     21,                  /* colNo */
     "call_customLayers", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callCustomLayers/"
-    "call_customLayers.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callCustomLayers/call_customLayers.m" /* pName */
 };
 
-static emlrtRSInfo mj_emlrtRSI = {
+static emlrtRSInfo fj_emlrtRSI = {
     44,                       /* lineNo */
     "callMatlabCustomLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
 };
 
-static emlrtRSInfo nj_emlrtRSI = {
+static emlrtRSInfo gj_emlrtRSI = {
     51,                       /* lineNo */
     "callMatlabCustomLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
 };
 
-static emlrtRSInfo pj_emlrtRSI = {
+static emlrtRSInfo rj_emlrtRSI = {
     56,                       /* lineNo */
     "callMatlabCustomLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
 };
 
-static emlrtRSInfo qj_emlrtRSI = {
+static emlrtRSInfo sj_emlrtRSI = {
     57,                       /* lineNo */
     "callMatlabCustomLayers", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "callMatlabFunction/callMatlabCustomLayers.m" /* pathName */
 };
 
 /* Function Declarations */
-static const mxArray *b_emlrt_marshallOut(const emxArray_real_T *u);
-
 static real_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *tempRough,
                                  const char_T *identifier);
 
@@ -324,33 +310,14 @@ static void f_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
                                const emlrtMsgIdentifier *parentId,
                                emxArray_real_T *y);
 
-static void feval(const emlrtStack *sp, const mxArray *b, const mxArray *c,
-                  const mxArray *d, const mxArray *e, const mxArray *f,
-                  emlrtMCInfo *location, const mxArray **g, const mxArray **h);
+static void feval(const emlrtStack *sp, const mxArray *m, const mxArray *m1,
+                  const mxArray *m2, const mxArray *m3, const mxArray *m4,
+                  emlrtMCInfo *location, const mxArray **r, const mxArray **r1);
 
-static const mxArray *size(const emlrtStack *sp, const mxArray *b,
+static const mxArray *size(const emlrtStack *sp, const mxArray *m1,
                            emlrtMCInfo *location);
 
 /* Function Definitions */
-static const mxArray *b_emlrt_marshallOut(const emxArray_real_T *u)
-{
-  const mxArray *m;
-  const mxArray *y;
-  real_T *pData;
-  int32_T b_i;
-  int32_T i;
-  y = NULL;
-  m = emlrtCreateNumericArray(1, &u->size[0], mxDOUBLE_CLASS, mxREAL);
-  pData = emlrtMxGetPr(m);
-  i = 0;
-  for (b_i = 0; b_i < u->size[0]; b_i++) {
-    pData[i] = u->data[b_i];
-    i++;
-  }
-  emlrtAssign(&y, m);
-  return y;
-}
-
 static real_T c_emlrt_marshallIn(const emlrtStack *sp, const mxArray *tempRough,
                                  const char_T *identifier)
 {
@@ -395,29 +362,29 @@ static void f_emlrt_marshallIn(const emlrtStack *sp, const mxArray *u,
   emlrtDestroyArray(&u);
 }
 
-static void feval(const emlrtStack *sp, const mxArray *b, const mxArray *c,
-                  const mxArray *d, const mxArray *e, const mxArray *f,
-                  emlrtMCInfo *location, const mxArray **g, const mxArray **h)
+static void feval(const emlrtStack *sp, const mxArray *m, const mxArray *m1,
+                  const mxArray *m2, const mxArray *m3, const mxArray *m4,
+                  emlrtMCInfo *location, const mxArray **r, const mxArray **r1)
 {
   const mxArray *pArrays[5];
   const mxArray *mv[2];
-  pArrays[0] = b;
-  pArrays[1] = c;
-  pArrays[2] = d;
-  pArrays[3] = e;
-  pArrays[4] = f;
-  emlrtAssign(g,
+  pArrays[0] = m;
+  pArrays[1] = m1;
+  pArrays[2] = m2;
+  pArrays[3] = m3;
+  pArrays[4] = m4;
+  emlrtAssign(r,
               emlrtCallMATLABR2012b((emlrtCTX)sp, 2, &mv[0], 5, &pArrays[0],
                                     (const char_T *)"feval", true, location));
-  emlrtAssign(h, mv[1]);
+  emlrtAssign(r1, mv[1]);
 }
 
-static const mxArray *size(const emlrtStack *sp, const mxArray *b,
+static const mxArray *size(const emlrtStack *sp, const mxArray *m1,
                            emlrtMCInfo *location)
 {
   const mxArray *m;
   const mxArray *pArray;
-  pArray = b;
+  pArray = m1;
   return emlrtCallMATLABR2012b((emlrtCTX)sp, 1, &m, 1, &pArray,
                                (const char_T *)"size", true, location);
 }
@@ -438,8 +405,12 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   const mxArray *tempRough;
   const mxArray *y;
   real_T n[2];
+  const real_T *bulkIn_data;
   real_T d;
   real_T thisHydration;
+  real_T *bulkOuts_data;
+  real_T *newOutLayers_data;
+  real_T *output_data;
   int32_T iv[2];
   int32_T b_i;
   int32_T i;
@@ -449,8 +420,9 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   st.tls = sp->tls;
   b_st.prev = &st;
   b_st.tls = st.tls;
+  bulkIn_data = bulkIn->data;
   emlrtHeapReferenceStackEnterFcnR2012b((emlrtCTX)sp);
-  emxInit_real_T(sp, &bulkOuts, 1, &ro_emlrtRTEI, true);
+  emxInit_real_T(sp, &bulkOuts, 1, &to_emlrtRTEI, true);
   /*  Call a custom layers function */
   /*  This function calls a custom model, which can be in Matlab, Python or */
   /*  Octave. The custom function is called 'custom layers', but the same */
@@ -495,7 +467,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  Use the dummy values of 'outPut' and 'sRough' instead to keep the */
   /*  translator happy for source code generation. */
   /*  Use this line for mex generation: */
-  st.site = &bi_emlrtRSI;
+  st.site = &th_emlrtRSI;
   tempOut = NULL;
   tempRough = NULL;
   /*  Excecute a custom model function in the base Matlab workspace. */
@@ -528,18 +500,19 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   loop_ub_tmp = (int32_T)nContrasts;
   i1 = bulkOuts->size[0];
   bulkOuts->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(&st, bulkOuts, i1, &oo_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, bulkOuts, i1, &qo_emlrtRTEI);
+  bulkOuts_data = bulkOuts->data;
   if (loop_ub_tmp != i) {
     emlrtIntegerCheckR2012b(nContrasts, &jc_emlrtDCI, &st);
   }
   for (i = 0; i < loop_ub_tmp; i++) {
-    bulkOuts->data[i] = 0.0;
+    bulkOuts_data[i] = 0.0;
   }
   if (((int32_T)contrast < 1) || ((int32_T)contrast > loop_ub_tmp)) {
     emlrtDynamicBoundsCheckR2012b((int32_T)contrast, 1, (int32_T)nContrasts,
-                                  &nq_emlrtBCI, &st);
+                                  &hq_emlrtBCI, &st);
   }
-  bulkOuts->data[(int32_T)contrast - 1] = bulkOut;
+  bulkOuts_data[(int32_T)contrast - 1] = bulkOut;
   y = NULL;
   iv[0] = 1;
   iv[1] = thisCustomFile[0].f1->size[1];
@@ -550,7 +523,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   b_y = NULL;
   m = emlrtCreateDoubleScalar(contrast);
   emlrtAssign(&b_y, m);
-  b_st.site = &mj_emlrtRSI;
+  b_st.site = &fj_emlrtRSI;
   feval(&b_st, y, emlrt_marshallOut(params), b_emlrt_marshallOut(bulkIn),
         b_emlrt_marshallOut(bulkOuts), b_y, &emlrtMCI, &tempOut, &tempRough);
   /*  Tell coder n is doubles by defining it (otherwise 'size(n)' seems to
@@ -560,7 +533,7 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  'tempOut', and use n to allocate the correct number of elements to
    * 'output' */
   /*  by filling output with zeros (i.e. output is an array of doubles) */
-  b_st.site = &nj_emlrtRSI;
+  b_st.site = &gj_emlrtRSI;
   emlrt_marshallIn(&b_st, size(&b_st, emlrtAlias(tempOut), &b_emlrtMCI),
                    "<output of size>", n);
   if (!(n[0] >= 0.0)) {
@@ -577,28 +550,30 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   }
   /*  Copy the mxArrays to our doubles arrays, which then makes coder cast */
   /*  the mxArrays to double. */
-  b_st.site = &pj_emlrtRSI;
+  b_st.site = &rj_emlrtRSI;
   *sRough = c_emlrt_marshallIn(&b_st, emlrtAlias(tempRough), "tempRough");
-  b_st.site = &qj_emlrtRSI;
+  b_st.site = &sj_emlrtRSI;
   e_emlrt_marshallIn(&b_st, emlrtAlias(tempOut), "tempOut", output);
+  output_data = output->data;
   emlrtDestroyArray(&tempOut);
   emlrtDestroyArray(&tempRough);
   /*  Deal with possible 5 column outLayers (i.e. need to calculate the */
   /*  hydrated SLD manually) */
   if ((uint32_T)output->size[1] == 5U) {
-    emxInit_real_T(sp, &newOutLayers, 2, &po_emlrtRTEI, true);
+    emxInit_real_T(sp, &newOutLayers, 2, &ro_emlrtRTEI, true);
     /*  we need to calculate the hydrated SLD */
     i = output->size[0];
     i1 = newOutLayers->size[0] * newOutLayers->size[1];
     newOutLayers->size[0] = output->size[0];
     newOutLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, newOutLayers, i1, &po_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, newOutLayers, i1, &ro_emlrtRTEI);
+    newOutLayers_data = newOutLayers->data;
     loop_ub_tmp = output->size[0] * 3;
     for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-      newOutLayers->data[i1] = 0.0;
+      newOutLayers_data[i1] = 0.0;
     }
     if (1 > output->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, output->size[1], &gq_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, output->size[1], &aq_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     loop_ub_tmp = output->size[0];
@@ -606,76 +581,78 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
                                   &bb_emlrtECI, (emlrtCTX)sp);
     loop_ub_tmp = output->size[0];
     for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-      newOutLayers->data[i1] = output->data[i1];
+      newOutLayers_data[i1] = output_data[i1];
     }
     /*  Thickness' */
     if (3 > output->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(3, 1, output->size[1], &hq_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(3, 1, output->size[1], &bq_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     emlrtSubAssignSizeCheckR2012b(&newOutLayers->size[0], 1, &output->size[0],
                                   1, &cb_emlrtECI, (emlrtCTX)sp);
     loop_ub_tmp = output->size[0];
     for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-      newOutLayers->data[i1 + newOutLayers->size[0] * 2] =
-          output->data[i1 + output->size[0] * 2];
+      newOutLayers_data[i1 + newOutLayers->size[0] * 2] =
+          output_data[i1 + output->size[0] * 2];
     }
     for (b_i = 0; b_i < i; b_i++) {
       if (2 > output->size[1]) {
-        emlrtDynamicBoundsCheckR2012b(2, 1, output->size[1], &jq_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(2, 1, output->size[1], &dq_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (b_i + 1 > output->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, output->size[0], &dy_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, output->size[0], &cq_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (4 > output->size[1]) {
-        emlrtDynamicBoundsCheckR2012b(4, 1, output->size[1], &kq_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(4, 1, output->size[1], &eq_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (b_i + 1 > output->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, output->size[0], &oq_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, output->size[0], &iq_emlrtBCI,
                                       (emlrtCTX)sp);
       }
-      thisHydration = output->data[b_i + output->size[0] * 3] / 100.0;
+      thisHydration = output_data[b_i + output->size[0] * 3] / 100.0;
       /*  Assume percent for backwards compatability */
       if (5 > output->size[1]) {
-        emlrtDynamicBoundsCheckR2012b(5, 1, output->size[1], &mq_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(5, 1, output->size[1], &gq_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (b_i + 1 > output->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, output->size[0], &lq_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, output->size[0], &fq_emlrtBCI,
                                       (emlrtCTX)sp);
       }
-      if (output->data[b_i + output->size[0] * 4] == 0.0) {
+      if (output_data[b_i + output->size[0] * 4] == 0.0) {
         /*  Bulk out */
         loop_ub_tmp = bulkIn->size[0];
         i1 = bulkOuts->size[0];
         bulkOuts->size[0] = bulkIn->size[0];
-        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &tr_emlrtRTEI);
+        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &vr_emlrtRTEI);
+        bulkOuts_data = bulkOuts->data;
         for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-          bulkOuts->data[i1] = bulkIn->data[i1];
+          bulkOuts_data[i1] = bulkIn_data[i1];
         }
       } else {
         i1 = bulkOuts->size[0];
         bulkOuts->size[0] = 1;
-        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &sr_emlrtRTEI);
-        bulkOuts->data[0] = bulkOut;
+        emxEnsureCapacity_real_T(sp, bulkOuts, i1, &ur_emlrtRTEI);
+        bulkOuts_data = bulkOuts->data;
+        bulkOuts_data[0] = bulkOut;
       }
-      d = (1.0 - thisHydration) * output->data[b_i + output->size[0]];
+      d = (1.0 - thisHydration) * output_data[b_i + output->size[0]];
       loop_ub_tmp = bulkOuts->size[0];
       for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-        bulkOuts->data[i1] = thisHydration * bulkOuts->data[i1] + d;
+        bulkOuts_data[i1] = thisHydration * bulkOuts_data[i1] + d;
       }
       if (1 > bulkOuts->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(1, 1, bulkOuts->size[0], &cy_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(1, 1, bulkOuts->size[0], &vx_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (b_i + 1 > newOutLayers->size[0]) {
         emlrtDynamicBoundsCheckR2012b(b_i + 1, 1, newOutLayers->size[0],
-                                      &pq_emlrtBCI, (emlrtCTX)sp);
+                                      &jq_emlrtBCI, (emlrtCTX)sp);
       }
-      newOutLayers->data[b_i + newOutLayers->size[0]] = bulkOuts->data[0];
+      newOutLayers_data[b_i + newOutLayers->size[0]] = bulkOuts_data[0];
       /*  Reassignment to keep codegen happy */
       if (*emlrtBreakCheckR2012bFlagVar != 0) {
         emlrtBreakCheckR2012b((emlrtCTX)sp);
@@ -684,14 +661,15 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
     i = output->size[0] * output->size[1];
     output->size[0] = newOutLayers->size[0];
     output->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, output, i, &qo_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, output, i, &so_emlrtRTEI);
+    output_data = output->data;
     loop_ub_tmp = newOutLayers->size[0] * 3;
     for (i = 0; i < loop_ub_tmp; i++) {
-      output->data[i] = newOutLayers->data[i];
+      output_data[i] = newOutLayers_data[i];
     }
-    emxFree_real_T(&newOutLayers);
+    emxFree_real_T(sp, &newOutLayers);
   }
-  emxFree_real_T(&bulkOuts);
+  emxFree_real_T(sp, &bulkOuts);
   /*  */
   /*  Use these dummy outputs for souce code generation: */
   /*          output = [10 1e-6 3 ; 50 2e-6 4; 100 1e-6 4]; */
@@ -700,7 +678,6 @@ void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  Use the embedded Octave interpreter.  */
   /*  [output,layers] =
    * octaveCaller_customLayers(params,contrast,file,callPath,bulkIn,bulkOut); */
-  /*  */
   /*  */
   /* case 'python' */
   /*  This has not been implemented yet */
@@ -728,6 +705,8 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   real_T n[2];
   real_T thisBulkHydr;
   real_T thisHydration;
+  real_T *bulkOuts_data;
+  real_T *newOutLayers_data;
   int32_T iv[2];
   int32_T i;
   int32_T i1;
@@ -737,7 +716,7 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   b_st.prev = &st;
   b_st.tls = st.tls;
   emlrtHeapReferenceStackEnterFcnR2012b((emlrtCTX)sp);
-  emxInit_real_T(sp, &bulkOuts, 1, &ro_emlrtRTEI, true);
+  emxInit_real_T(sp, &bulkOuts, 1, &to_emlrtRTEI, true);
   /*  Call a custom layers function */
   /*  This function calls a custom model, which can be in Matlab, Python or */
   /*  Octave. The custom function is called 'custom layers', but the same */
@@ -782,7 +761,7 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  Use the dummy values of 'outPut' and 'sRough' instead to keep the */
   /*  translator happy for source code generation. */
   /*  Use this line for mex generation: */
-  st.site = &bi_emlrtRSI;
+  st.site = &th_emlrtRSI;
   tempOut = NULL;
   tempRough = NULL;
   /*  Excecute a custom model function in the base Matlab workspace. */
@@ -815,18 +794,19 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   loop_ub_tmp = (int32_T)nContrasts;
   i1 = bulkOuts->size[0];
   bulkOuts->size[0] = loop_ub_tmp;
-  emxEnsureCapacity_real_T(&st, bulkOuts, i1, &oo_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, bulkOuts, i1, &qo_emlrtRTEI);
+  bulkOuts_data = bulkOuts->data;
   if (loop_ub_tmp != i) {
     emlrtIntegerCheckR2012b(nContrasts, &jc_emlrtDCI, &st);
   }
   for (i = 0; i < loop_ub_tmp; i++) {
-    bulkOuts->data[i] = 0.0;
+    bulkOuts_data[i] = 0.0;
   }
   if (((int32_T)contrast < 1) || ((int32_T)contrast > loop_ub_tmp)) {
     emlrtDynamicBoundsCheckR2012b((int32_T)contrast, 1, (int32_T)nContrasts,
-                                  &nq_emlrtBCI, &st);
+                                  &hq_emlrtBCI, &st);
   }
-  bulkOuts->data[(int32_T)contrast - 1] = bulkOut;
+  bulkOuts_data[(int32_T)contrast - 1] = bulkOut;
   y = NULL;
   iv[0] = 1;
   iv[1] = thisCustomFile[0].f1->size[1];
@@ -840,7 +820,7 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   c_y = NULL;
   m = emlrtCreateDoubleScalar(contrast);
   emlrtAssign(&c_y, m);
-  b_st.site = &mj_emlrtRSI;
+  b_st.site = &fj_emlrtRSI;
   feval(&b_st, y, emlrt_marshallOut(params), b_y, b_emlrt_marshallOut(bulkOuts),
         c_y, &emlrtMCI, &tempOut, &tempRough);
   /*  Tell coder n is doubles by defining it (otherwise 'size(n)' seems to
@@ -850,10 +830,10 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  'tempOut', and use n to allocate the correct number of elements to
    * 'output' */
   /*  by filling output with zeros (i.e. output is an array of doubles) */
-  b_st.site = &nj_emlrtRSI;
+  b_st.site = &gj_emlrtRSI;
   emlrt_marshallIn(&b_st, size(&b_st, emlrtAlias(tempOut), &b_emlrtMCI),
                    "<output of size>", n);
-  emxFree_real_T(&bulkOuts);
+  emxFree_real_T(&st, &bulkOuts);
   if (!(n[0] >= 0.0)) {
     emlrtNonNegativeCheckR2012b(n[0], &lc_emlrtDCI, &st);
   }
@@ -868,28 +848,30 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   }
   /*  Copy the mxArrays to our doubles arrays, which then makes coder cast */
   /*  the mxArrays to double. */
-  b_st.site = &pj_emlrtRSI;
+  b_st.site = &rj_emlrtRSI;
   *sRough = c_emlrt_marshallIn(&b_st, emlrtAlias(tempRough), "tempRough");
-  b_st.site = &qj_emlrtRSI;
+  b_st.site = &sj_emlrtRSI;
   e_emlrt_marshallIn(&b_st, emlrtAlias(tempOut), "tempOut", output);
+  bulkOuts_data = output->data;
   emlrtDestroyArray(&tempOut);
   emlrtDestroyArray(&tempRough);
   /*  Deal with possible 5 column outLayers (i.e. need to calculate the */
   /*  hydrated SLD manually) */
   if ((uint32_T)output->size[1] == 5U) {
-    emxInit_real_T(sp, &newOutLayers, 2, &po_emlrtRTEI, true);
+    emxInit_real_T(sp, &newOutLayers, 2, &ro_emlrtRTEI, true);
     /*  we need to calculate the hydrated SLD */
     i = output->size[0];
     i1 = newOutLayers->size[0] * newOutLayers->size[1];
     newOutLayers->size[0] = output->size[0];
     newOutLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, newOutLayers, i1, &po_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, newOutLayers, i1, &ro_emlrtRTEI);
+    newOutLayers_data = newOutLayers->data;
     loop_ub_tmp = output->size[0] * 3;
     for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-      newOutLayers->data[i1] = 0.0;
+      newOutLayers_data[i1] = 0.0;
     }
     if (1 > output->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, output->size[1], &gq_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, output->size[1], &aq_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     loop_ub_tmp = output->size[0];
@@ -897,48 +879,48 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
                                   &bb_emlrtECI, (emlrtCTX)sp);
     loop_ub_tmp = output->size[0];
     for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-      newOutLayers->data[i1] = output->data[i1];
+      newOutLayers_data[i1] = bulkOuts_data[i1];
     }
     /*  Thickness' */
     if (3 > output->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(3, 1, output->size[1], &hq_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(3, 1, output->size[1], &bq_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     emlrtSubAssignSizeCheckR2012b(&newOutLayers->size[0], 1, &output->size[0],
                                   1, &cb_emlrtECI, (emlrtCTX)sp);
     loop_ub_tmp = output->size[0];
     for (i1 = 0; i1 < loop_ub_tmp; i1++) {
-      newOutLayers->data[i1 + newOutLayers->size[0] * 2] =
-          output->data[i1 + output->size[0] * 2];
+      newOutLayers_data[i1 + newOutLayers->size[0] * 2] =
+          bulkOuts_data[i1 + output->size[0] * 2];
     }
     for (loop_ub_tmp = 0; loop_ub_tmp < i; loop_ub_tmp++) {
       if (2 > output->size[1]) {
-        emlrtDynamicBoundsCheckR2012b(2, 1, output->size[1], &jq_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(2, 1, output->size[1], &dq_emlrtBCI,
+                                      (emlrtCTX)sp);
+      }
+      if (loop_ub_tmp + 1 > output->size[0]) {
+        emlrtDynamicBoundsCheckR2012b(loop_ub_tmp + 1, 1, output->size[0],
+                                      &cq_emlrtBCI, (emlrtCTX)sp);
+      }
+      if (4 > output->size[1]) {
+        emlrtDynamicBoundsCheckR2012b(4, 1, output->size[1], &eq_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (loop_ub_tmp + 1 > output->size[0]) {
         emlrtDynamicBoundsCheckR2012b(loop_ub_tmp + 1, 1, output->size[0],
                                       &iq_emlrtBCI, (emlrtCTX)sp);
       }
-      if (4 > output->size[1]) {
-        emlrtDynamicBoundsCheckR2012b(4, 1, output->size[1], &kq_emlrtBCI,
-                                      (emlrtCTX)sp);
-      }
-      if (loop_ub_tmp + 1 > output->size[0]) {
-        emlrtDynamicBoundsCheckR2012b(loop_ub_tmp + 1, 1, output->size[0],
-                                      &oq_emlrtBCI, (emlrtCTX)sp);
-      }
-      thisHydration = output->data[loop_ub_tmp + output->size[0] * 3] / 100.0;
+      thisHydration = bulkOuts_data[loop_ub_tmp + output->size[0] * 3] / 100.0;
       /*  Assume percent for backwards compatability */
       if (5 > output->size[1]) {
-        emlrtDynamicBoundsCheckR2012b(5, 1, output->size[1], &mq_emlrtBCI,
+        emlrtDynamicBoundsCheckR2012b(5, 1, output->size[1], &gq_emlrtBCI,
                                       (emlrtCTX)sp);
       }
       if (loop_ub_tmp + 1 > output->size[0]) {
         emlrtDynamicBoundsCheckR2012b(loop_ub_tmp + 1, 1, output->size[0],
-                                      &lq_emlrtBCI, (emlrtCTX)sp);
+                                      &fq_emlrtBCI, (emlrtCTX)sp);
       }
-      if (output->data[loop_ub_tmp + output->size[0] * 4] == 0.0) {
+      if (bulkOuts_data[loop_ub_tmp + output->size[0] * 4] == 0.0) {
         /*  Bulk out */
         thisBulkHydr = bulkIn;
       } else {
@@ -946,11 +928,11 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
       }
       if (loop_ub_tmp + 1 > newOutLayers->size[0]) {
         emlrtDynamicBoundsCheckR2012b(loop_ub_tmp + 1, 1, newOutLayers->size[0],
-                                      &pq_emlrtBCI, (emlrtCTX)sp);
+                                      &jq_emlrtBCI, (emlrtCTX)sp);
       }
-      newOutLayers->data[loop_ub_tmp + newOutLayers->size[0]] =
+      newOutLayers_data[loop_ub_tmp + newOutLayers->size[0]] =
           thisHydration * thisBulkHydr +
-          (1.0 - thisHydration) * output->data[loop_ub_tmp + output->size[0]];
+          (1.0 - thisHydration) * bulkOuts_data[loop_ub_tmp + output->size[0]];
       /*  Reassignment to keep codegen happy */
       if (*emlrtBreakCheckR2012bFlagVar != 0) {
         emlrtBreakCheckR2012b((emlrtCTX)sp);
@@ -959,12 +941,13 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
     i = output->size[0] * output->size[1];
     output->size[0] = newOutLayers->size[0];
     output->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, output, i, &qo_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, output, i, &so_emlrtRTEI);
+    bulkOuts_data = output->data;
     loop_ub_tmp = newOutLayers->size[0] * 3;
     for (i = 0; i < loop_ub_tmp; i++) {
-      output->data[i] = newOutLayers->data[i];
+      bulkOuts_data[i] = newOutLayers_data[i];
     }
-    emxFree_real_T(&newOutLayers);
+    emxFree_real_T(sp, &newOutLayers);
   }
   /*  */
   /*  Use these dummy outputs for souce code generation: */
@@ -974,7 +957,6 @@ void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
   /*  Use the embedded Octave interpreter.  */
   /*  [output,layers] =
    * octaveCaller_customLayers(params,contrast,file,callPath,bulkIn,bulkOut); */
-  /*  */
   /*  */
   /* case 'python' */
   /*  This has not been implemented yet */

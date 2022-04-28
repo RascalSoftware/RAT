@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * callReflectivity.c
  *
@@ -20,135 +20,134 @@
 #include "reflectivity_calculation_types.h"
 #include "resolution_polly.h"
 #include "rt_nonfinite.h"
-#include "sqrt1.h"
+#include "sqrt.h"
 #include "mwmathutil.h"
 #include <string.h>
 
 /* Variable Definitions */
-static emlrtRSInfo ng_emlrtRSI = {
+static emlrtRSInfo hg_emlrtRSI = {
     21,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pathName */
 };
 
-static emlrtRSInfo og_emlrtRSI = {
+static emlrtRSInfo ig_emlrtRSI = {
     28,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pathName */
+};
+
+static emlrtRSInfo jg_emlrtRSI = {
+    79,                 /* lineNo */
+    "callReflectivity", /* fcnName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pathName */
+};
+
+static emlrtRSInfo kg_emlrtRSI = {
+    83,                 /* lineNo */
+    "callReflectivity", /* fcnName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pathName */
+};
+
+static emlrtRSInfo lg_emlrtRSI = {
+    85,                 /* lineNo */
+    "callReflectivity", /* fcnName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pathName */
+};
+
+static emlrtRSInfo mg_emlrtRSI = {
+    117,                                                          /* lineNo */
+    "colon",                                                      /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/ops/colon.m" /* pathName */
 };
 
 static emlrtRSInfo pg_emlrtRSI = {
-    79,                 /* lineNo */
-    "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
-};
-
-static emlrtRSInfo qg_emlrtRSI = {
-    83,                 /* lineNo */
-    "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
-};
-
-static emlrtRSInfo rg_emlrtRSI = {
-    85,                 /* lineNo */
-    "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
-};
-
-static emlrtRSInfo sg_emlrtRSI = {
-    117,     /* lineNo */
-    "colon", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/ops/colon.m" /* pathName
-                                                                          */
-};
-
-static emlrtRSInfo vg_emlrtRSI = {
     28,              /* lineNo */
     "abeles_single", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_single.m" /* pathName */
 };
 
-static emlrtRSInfo jh_emlrtRSI = {
+static emlrtRSInfo ch_emlrtRSI = {
     61,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pathName */
 };
 
-static emlrtRSInfo kh_emlrtRSI = {
+static emlrtRSInfo dh_emlrtRSI = {
     69,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pathName */
 };
 
-static emlrtRSInfo lh_emlrtRSI = {
+static emlrtRSInfo eh_emlrtRSI = {
     72,                 /* lineNo */
     "callReflectivity", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pathName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pathName */
 };
 
-static emlrtBCInfo yh_emlrtBCI = {
+static emlrtBCInfo sh_emlrtBCI = {
     -1,              /* iFirst */
     -1,              /* iLast */
     41,              /* lineNo */
     25,              /* colNo */
     "sld",           /* aName */
     "abeles_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_single.m", /* pName */
     0                                                  /* checkKind */
 };
 
-static emlrtRTEInfo sb_emlrtRTEI = {
+static emlrtRTEInfo tb_emlrtRTEI = {
     39,              /* lineNo */
     19,              /* colNo */
     "abeles_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_single.m" /* pName */
 };
 
-static emlrtBCInfo ai_emlrtBCI = {
+static emlrtBCInfo th_emlrtBCI = {
     -1,              /* iFirst */
     -1,              /* iLast */
     27,              /* lineNo */
     11,              /* colNo */
     "x",             /* aName */
     "abeles_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_single.m", /* pName */
     0                                                  /* checkKind */
 };
 
-static emlrtBCInfo bi_emlrtBCI = {
+static emlrtBCInfo uh_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     91,                 /* lineNo */
     37,                 /* colNo */
     "Simulation",       /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo ci_emlrtBCI = {
+static emlrtBCInfo vh_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     91,                 /* lineNo */
     27,                 /* colNo */
     "Simulation",       /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
 static emlrtECInfo x_emlrtECI = {
@@ -156,8 +155,8 @@ static emlrtECInfo x_emlrtECI = {
     90,                 /* lineNo */
     1,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtECInfo y_emlrtECI = {
@@ -165,320 +164,320 @@ static emlrtECInfo y_emlrtECI = {
     37,                 /* lineNo */
     1,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
-static emlrtBCInfo di_emlrtBCI = {
+static emlrtBCInfo wh_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     46,                 /* lineNo */
     28,                 /* colNo */
     "thisDataResol",    /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo ei_emlrtBCI = {
+static emlrtBCInfo xh_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     45,                 /* lineNo */
     28,                 /* colNo */
     "thisDataResol",    /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo fi_emlrtBCI = {
+static emlrtBCInfo yh_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     44,                 /* lineNo */
     33,                 /* colNo */
     "this_data",        /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo gi_emlrtBCI = {
+static emlrtBCInfo ai_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     21,                 /* lineNo */
     40,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo hi_emlrtBCI = {
+static emlrtBCInfo bi_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     20,                 /* lineNo */
     28,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo ii_emlrtBCI = {
+static emlrtBCInfo ci_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     20,                 /* lineNo */
     19,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo ji_emlrtBCI = {
+static emlrtBCInfo di_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     19,                 /* lineNo */
     19,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo ki_emlrtBCI = {
+static emlrtBCInfo ei_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     16,                 /* lineNo */
     29,                 /* colNo */
     "this_data",        /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo li_emlrtBCI = {
+static emlrtBCInfo fi_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     15,                 /* lineNo */
     20,                 /* colNo */
     "simLimits",        /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo mi_emlrtBCI = {
+static emlrtBCInfo gi_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     14,                 /* lineNo */
     20,                 /* colNo */
     "simLimits",        /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo ni_emlrtBCI = {
+static emlrtBCInfo hi_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     3,                  /* lineNo */
     21,                 /* colNo */
     "this_data",        /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo oi_emlrtBCI = {
+static emlrtBCInfo ii_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     26,                 /* lineNo */
-    13,                 /* colNo */
+    19,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo pi_emlrtBCI = {
+static emlrtBCInfo ji_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     27,                 /* lineNo */
-    13,                 /* colNo */
+    19,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo qi_emlrtBCI = {
+static emlrtBCInfo ki_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     27,                 /* lineNo */
     30,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo ri_emlrtBCI = {
+static emlrtBCInfo li_emlrtBCI = {
     -1,                 /* iFirst */
     -1,                 /* iLast */
     28,                 /* lineNo */
     26,                 /* colNo */
     "xdata",            /* aName */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m", /* pName */
-    0                     /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m", /* pName */
+    0                                      /* checkKind */
 };
 
-static emlrtBCInfo si_emlrtBCI = {
+static emlrtBCInfo mi_emlrtBCI = {
     -1,              /* iFirst */
     -1,              /* iLast */
     72,              /* lineNo */
-    5,               /* colNo */
+    9,               /* colNo */
     "out",           /* aName */
     "abeles_single", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_single.m", /* pName */
     0                                                  /* checkKind */
 };
 
-static emlrtRTEInfo fl_emlrtRTEI = {
+static emlrtRTEInfo hl_emlrtRTEI = {
     7,                  /* lineNo */
     5,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
-};
-
-static emlrtRTEInfo gl_emlrtRTEI = {
-    10,                 /* lineNo */
-    5,                  /* colNo */
-    "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
-};
-
-static emlrtRTEInfo hl_emlrtRTEI = {
-    33,                 /* lineNo */
-    1,                  /* colNo */
-    "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo il_emlrtRTEI = {
-    21,                 /* lineNo */
+    10,                 /* lineNo */
     5,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo jl_emlrtRTEI = {
-    28,                 /* lineNo */
+    21,                 /* lineNo */
     5,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo kl_emlrtRTEI = {
-    36,                 /* lineNo */
+    33,                 /* lineNo */
     1,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo ll_emlrtRTEI = {
-    42,                 /* lineNo */
-    1,                  /* colNo */
+    28,                 /* lineNo */
+    5,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo ml_emlrtRTEI = {
-    79,                 /* lineNo */
-    26,                 /* colNo */
+    36,                 /* lineNo */
+    1,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo nl_emlrtRTEI = {
-    49,                 /* lineNo */
-    5,                  /* colNo */
+    42,                 /* lineNo */
+    1,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo ol_emlrtRTEI = {
-    85,                 /* lineNo */
-    56,                 /* colNo */
+    79,                 /* lineNo */
+    26,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo pl_emlrtRTEI = {
-    83,                 /* lineNo */
-    61,                 /* colNo */
+    49,                 /* lineNo */
+    5,                  /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo ql_emlrtRTEI = {
-    91,                 /* lineNo */
-    1,                  /* colNo */
+    85,                 /* lineNo */
+    56,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 static emlrtRTEInfo rl_emlrtRTEI = {
+    83,                 /* lineNo */
+    61,                 /* colNo */
+    "callReflectivity", /* fName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
+};
+
+static emlrtRTEInfo sl_emlrtRTEI = {
+    91,                 /* lineNo */
+    1,                  /* colNo */
+    "callReflectivity", /* fName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
+};
+
+static emlrtRTEInfo tl_emlrtRTEI = {
     61,                 /* lineNo */
     17,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
-static emlrtRTEInfo qm_emlrtRTEI = {
+static emlrtRTEInfo sm_emlrtRTEI = {
     72,                 /* lineNo */
     56,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
-static emlrtRTEInfo rm_emlrtRTEI = {
+static emlrtRTEInfo tm_emlrtRTEI = {
     69,                 /* lineNo */
     61,                 /* colNo */
     "callReflectivity", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "callReflectivity.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/callReflectivity.m" /* pName */
 };
 
 /* Function Definitions */
@@ -500,8 +499,14 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   emxArray_real_T *simResolData;
   emxArray_real_T *simXdata;
   emxArray_real_T *slds;
+  const real_T *layers_data;
+  const real_T *this_data_data;
   real_T b;
   real_T step;
+  real_T *Simulation_data;
+  real_T *lastSection_data;
+  real_T *simXdata_data;
+  real_T *slds_data;
   int32_T b_loop_ub;
   int32_T i;
   int32_T lays;
@@ -512,74 +517,80 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   st.tls = sp->tls;
   b_st.prev = &st;
   b_st.tls = st.tls;
+  layers_data = layers->data;
+  this_data_data = this_data->data;
   emlrtHeapReferenceStackEnterFcnR2012b((emlrtCTX)sp);
   if (1 > this_data->size[1]) {
-    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[1], &ni_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[1], &hi_emlrtBCI,
                                   (emlrtCTX)sp);
   }
-  emxInit_real_T(sp, &slds, 2, &fl_emlrtRTEI, true);
+  emxInit_real_T(sp, &slds, 2, &hl_emlrtRTEI, true);
   if (layers->size[0] == 0) {
     i = slds->size[0] * slds->size[1];
     slds->size[0] = 1;
     slds->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, slds, i, &fl_emlrtRTEI);
-    slds->data[0] = 0.0;
-    slds->data[1] = nbairs;
-    slds->data[2] = 0.0;
+    emxEnsureCapacity_real_T(sp, slds, i, &hl_emlrtRTEI);
+    slds_data = slds->data;
+    slds_data[0] = 0.0;
+    slds_data[1] = nbairs;
+    slds_data[2] = 0.0;
     lays = 0;
   } else {
     loop_ub = layers->size[0];
     i = slds->size[0] * slds->size[1];
     slds->size[0] = layers->size[0];
     slds->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, slds, i, &gl_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, slds, i, &il_emlrtRTEI);
+    slds_data = slds->data;
     for (i = 0; i < 3; i++) {
       for (lays = 0; lays < loop_ub; lays++) {
-        slds->data[lays + slds->size[0] * i] =
-            layers->data[lays + layers->size[0] * i];
+        slds_data[lays + slds->size[0] * i] =
+            layers_data[lays + layers->size[0] * i];
       }
     }
     lays = layers->size[0];
   }
   i = simLimits_size[0] * simLimits_size[1];
   if (1 > i) {
-    emlrtDynamicBoundsCheckR2012b(1, 1, i, &mi_emlrtBCI, (emlrtCTX)sp);
+    emlrtDynamicBoundsCheckR2012b(1, 1, i, &gi_emlrtBCI, (emlrtCTX)sp);
   }
   if (2 > i) {
-    emlrtDynamicBoundsCheckR2012b(2, 1, i, &li_emlrtBCI, (emlrtCTX)sp);
+    emlrtDynamicBoundsCheckR2012b(2, 1, i, &fi_emlrtBCI, (emlrtCTX)sp);
   }
   if (1 > this_data->size[1]) {
-    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[1], &ki_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[1], &ei_emlrtBCI,
                                   (emlrtCTX)sp);
   }
   if (1 > this_data->size[0]) {
-    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &ji_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &di_emlrtBCI,
                                   (emlrtCTX)sp);
   }
-  emxInit_real_T(sp, &firstSection, 2, &il_emlrtRTEI, true);
-  if (simLimits_data[0] < this_data->data[0]) {
+  emxInit_real_T(sp, &firstSection, 2, &jl_emlrtRTEI, true);
+  slds_data = firstSection->data;
+  if (simLimits_data[0] < this_data_data[0]) {
     if (2 > this_data->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, this_data->size[0], &ii_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, this_data->size[0], &ci_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (1 > this_data->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &hi_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &bi_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    step = this_data->data[1] - this_data->data[0];
+    step = this_data_data[1] - this_data_data[0];
     if (1 > this_data->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &gi_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &ai_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    st.site = &ng_emlrtRSI;
-    b = this_data->data[0] - step;
+    st.site = &hg_emlrtRSI;
+    b = this_data_data[0] - step;
     if (muDoubleScalarIsNaN(simLimits_data[0]) || muDoubleScalarIsNaN(step) ||
         muDoubleScalarIsNaN(b)) {
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
-      firstSection->data[0] = rtNaN;
+      emxEnsureCapacity_real_T(&st, firstSection, i, &jl_emlrtRTEI);
+      slds_data = firstSection->data;
+      slds_data[0] = rtNaN;
     } else if ((step == 0.0) || ((simLimits_data[0] < b) && (step < 0.0)) ||
                ((b < simLimits_data[0]) && (step > 0.0))) {
       firstSection->size[0] = 1;
@@ -590,27 +601,31 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
-      firstSection->data[0] = rtNaN;
+      emxEnsureCapacity_real_T(&st, firstSection, i, &jl_emlrtRTEI);
+      slds_data = firstSection->data;
+      slds_data[0] = rtNaN;
     } else if (muDoubleScalarIsInf(step)) {
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
-      firstSection->data[0] = simLimits_data[0];
+      emxEnsureCapacity_real_T(&st, firstSection, i, &jl_emlrtRTEI);
+      slds_data = firstSection->data;
+      slds_data[0] = simLimits_data[0];
     } else if ((muDoubleScalarFloor(simLimits_data[0]) == simLimits_data[0]) &&
                (muDoubleScalarFloor(step) == step)) {
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       loop_ub = (int32_T)muDoubleScalarFloor((b - simLimits_data[0]) / step);
       firstSection->size[1] = loop_ub + 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, firstSection, i, &jl_emlrtRTEI);
+      slds_data = firstSection->data;
       for (i = 0; i <= loop_ub; i++) {
-        firstSection->data[i] = simLimits_data[0] + step * (real_T)i;
+        slds_data[i] = simLimits_data[0] + step * (real_T)i;
       }
     } else {
-      b_st.site = &sg_emlrtRSI;
+      b_st.site = &mg_emlrtRSI;
       eml_float_colon(&b_st, simLimits_data[0], step, b, firstSection);
+      slds_data = firstSection->data;
     }
   } else {
     firstSection->size[0] = 1;
@@ -618,35 +633,37 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   }
   if (this_data->size[0] < 1) {
     emlrtDynamicBoundsCheckR2012b(this_data->size[0], 1, this_data->size[0],
-                                  &oi_emlrtBCI, (emlrtCTX)sp);
+                                  &ii_emlrtBCI, (emlrtCTX)sp);
   }
-  emxInit_real_T(sp, &lastSection, 2, &jl_emlrtRTEI, true);
-  if (simLimits_data[1] > this_data->data[this_data->size[0] - 1]) {
+  emxInit_real_T(sp, &lastSection, 2, &ll_emlrtRTEI, true);
+  lastSection_data = lastSection->data;
+  if (simLimits_data[1] > this_data_data[this_data->size[0] - 1]) {
     if (this_data->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(this_data->size[0], 1, this_data->size[0],
-                                    &pi_emlrtBCI, (emlrtCTX)sp);
+                                    &ji_emlrtBCI, (emlrtCTX)sp);
     }
     if ((this_data->size[0] - 1 < 1) ||
         (this_data->size[0] - 1 > this_data->size[0])) {
       emlrtDynamicBoundsCheckR2012b(this_data->size[0] - 1, 1,
-                                    this_data->size[0], &qi_emlrtBCI,
+                                    this_data->size[0], &ki_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    step = this_data->data[this_data->size[0] - 1] -
-           this_data->data[this_data->size[0] - 2];
-    st.site = &og_emlrtRSI;
+    step = this_data_data[this_data->size[0] - 1] -
+           this_data_data[this_data->size[0] - 2];
+    st.site = &ig_emlrtRSI;
     if (this_data->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(this_data->size[0], 1, this_data->size[0],
-                                    &ri_emlrtBCI, &st);
+                                    &li_emlrtBCI, &st);
     }
-    b = this_data->data[this_data->size[0] - 1] + step;
+    b = this_data_data[this_data->size[0] - 1] + step;
     if (muDoubleScalarIsNaN(b) || muDoubleScalarIsNaN(step) ||
         muDoubleScalarIsNaN(simLimits_data[1])) {
       i = lastSection->size[0] * lastSection->size[1];
       lastSection->size[0] = 1;
       lastSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, lastSection, i, &jl_emlrtRTEI);
-      lastSection->data[0] = rtNaN;
+      emxEnsureCapacity_real_T(&st, lastSection, i, &ll_emlrtRTEI);
+      lastSection_data = lastSection->data;
+      lastSection_data[0] = rtNaN;
     } else if ((step == 0.0) || ((b < simLimits_data[1]) && (step < 0.0)) ||
                ((simLimits_data[1] < b) && (step > 0.0))) {
       lastSection->size[0] = 1;
@@ -657,66 +674,72 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       i = lastSection->size[0] * lastSection->size[1];
       lastSection->size[0] = 1;
       lastSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, lastSection, i, &jl_emlrtRTEI);
-      lastSection->data[0] = rtNaN;
+      emxEnsureCapacity_real_T(&st, lastSection, i, &ll_emlrtRTEI);
+      lastSection_data = lastSection->data;
+      lastSection_data[0] = rtNaN;
     } else if (muDoubleScalarIsInf(step)) {
       i = lastSection->size[0] * lastSection->size[1];
       lastSection->size[0] = 1;
       lastSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, lastSection, i, &jl_emlrtRTEI);
-      lastSection->data[0] = b;
+      emxEnsureCapacity_real_T(&st, lastSection, i, &ll_emlrtRTEI);
+      lastSection_data = lastSection->data;
+      lastSection_data[0] = b;
     } else if ((muDoubleScalarFloor(b) == b) &&
                (muDoubleScalarFloor(step) == step)) {
       i = lastSection->size[0] * lastSection->size[1];
       lastSection->size[0] = 1;
       loop_ub = (int32_T)muDoubleScalarFloor((simLimits_data[1] - b) / step);
       lastSection->size[1] = loop_ub + 1;
-      emxEnsureCapacity_real_T(&st, lastSection, i, &jl_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, lastSection, i, &ll_emlrtRTEI);
+      lastSection_data = lastSection->data;
       for (i = 0; i <= loop_ub; i++) {
-        lastSection->data[i] = b + step * (real_T)i;
+        lastSection_data[i] = b + step * (real_T)i;
       }
     } else {
-      b_st.site = &sg_emlrtRSI;
+      b_st.site = &mg_emlrtRSI;
       eml_float_colon(&b_st, b, step, simLimits_data[1], lastSection);
+      lastSection_data = lastSection->data;
     }
   } else {
     lastSection->size[0] = 1;
     lastSection->size[1] = 0;
   }
-  emxInit_real_T(sp, &simXdata, 1, &hl_emlrtRTEI, true);
+  emxInit_real_T(sp, &simXdata, 1, &kl_emlrtRTEI, true);
   simLimits = firstSection->size[1];
   loop_ub = this_data->size[0];
   i = simXdata->size[0];
   simXdata->size[0] =
       (this_data->size[0] + firstSection->size[1]) + lastSection->size[1];
-  emxEnsureCapacity_real_T(sp, simXdata, i, &hl_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, simXdata, i, &kl_emlrtRTEI);
+  simXdata_data = simXdata->data;
   b_loop_ub = firstSection->size[1];
   for (i = 0; i < b_loop_ub; i++) {
-    simXdata->data[i] = firstSection->data[i];
+    simXdata_data[i] = slds_data[i];
   }
   for (i = 0; i < loop_ub; i++) {
-    simXdata->data[i + simLimits] = this_data->data[i];
+    simXdata_data[i + simLimits] = this_data_data[i];
   }
   b_loop_ub = lastSection->size[1];
   for (i = 0; i < b_loop_ub; i++) {
-    simXdata->data[(i + simLimits) + loop_ub] = lastSection->data[i];
+    simXdata_data[(i + simLimits) + loop_ub] = lastSection_data[i];
   }
   splits_idx_1 = (uint32_T)firstSection->size[1] + this_data->size[0];
   i = Simulation->size[0] * Simulation->size[1];
   Simulation->size[0] = simXdata->size[0];
   Simulation->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, Simulation, i, &kl_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, Simulation, i, &ml_emlrtRTEI);
+  Simulation_data = Simulation->data;
   loop_ub = simXdata->size[0] << 1;
   for (i = 0; i < loop_ub; i++) {
-    Simulation->data[i] = 0.0;
+    Simulation_data[i] = 0.0;
   }
   emlrtSubAssignSizeCheckR2012b(&simXdata->size[0], 1, &simXdata->size[0], 1,
                                 &y_emlrtECI, (emlrtCTX)sp);
   loop_ub = simXdata->size[0];
   for (i = 0; i < loop_ub; i++) {
-    Simulation->data[i] = simXdata->data[i];
+    Simulation_data[i] = simXdata_data[i];
   }
-  emxInit_real_T(sp, &simResolData, 1, &ll_emlrtRTEI, true);
+  emxInit_real_T(sp, &simResolData, 1, &nl_emlrtRTEI, true);
   /*  If we are using data resolutions, then we also need to adjust the length
    */
   /*  of the reolution column. We do thit by just extending with the rosolution
@@ -724,91 +747,97 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   /*  values at the ends of the curve. */
   i = simResolData->size[0];
   simResolData->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, simResolData, i, &ll_emlrtRTEI);
-  simResolData->data[0] = 0.0;
+  emxEnsureCapacity_real_T(sp, simResolData, i, &nl_emlrtRTEI);
+  slds_data = simResolData->data;
+  slds_data[0] = 0.0;
   if (res == -1.0) {
     if (4 > this_data->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(4, 1, this_data->size[1], &fi_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(4, 1, this_data->size[1], &yh_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (1 > this_data->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &ei_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &xh_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (this_data->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(this_data->size[0], 1, this_data->size[0],
-                                    &di_emlrtBCI, (emlrtCTX)sp);
+                                    &wh_emlrtBCI, (emlrtCTX)sp);
     }
     simLimits = firstSection->size[1];
     loop_ub = this_data->size[0];
     i = simResolData->size[0];
     simResolData->size[0] =
         (this_data->size[0] + firstSection->size[1]) + lastSection->size[1];
-    emxEnsureCapacity_real_T(sp, simResolData, i, &nl_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, simResolData, i, &pl_emlrtRTEI);
+    slds_data = simResolData->data;
     b_loop_ub = firstSection->size[1];
     for (i = 0; i < b_loop_ub; i++) {
-      simResolData->data[i] = this_data->data[this_data->size[0] * 3];
+      slds_data[i] = this_data_data[this_data->size[0] * 3];
     }
     for (i = 0; i < loop_ub; i++) {
-      simResolData->data[i + simLimits] =
-          this_data->data[i + this_data->size[0] * 3];
+      slds_data[i + simLimits] = this_data_data[i + this_data->size[0] * 3];
     }
     b_loop_ub = lastSection->size[1];
     for (i = 0; i < b_loop_ub; i++) {
-      simResolData->data[(i + simLimits) + loop_ub] =
-          this_data->data[(this_data->size[0] + this_data->size[0] * 3) - 1];
+      slds_data[(i + simLimits) + loop_ub] =
+          this_data_data[(this_data->size[0] + this_data->size[0] * 3) - 1];
     }
   }
-  emxFree_real_T(&lastSection);
-  emxInit_real_T(sp, &simRef, 1, &rl_emlrtRTEI, true);
+  emxFree_real_T(sp, &lastSection);
+  emxInit_real_T(sp, &simRef, 1, &tl_emlrtRTEI, true);
   /*  Parallelise over points */
   /*  Calculate reflectivity.... */
-  st.site = &jh_emlrtRSI;
+  st.site = &ch_emlrtRSI;
   abeles_paraPoints(&st, simXdata, slds, nbairs, nbsubs, repeatLayers[1], ssubs,
                     lays, simXdata->size[0], simRef);
+  slds_data = simRef->data;
   /* (x,sld,nbair,nbsub,nrepeats,ssub,layers,points) */
   /*  Apply resolution */
   /*  Note: paraPoints gives an error during valifation, so use */
   /*  single cored resolution as a workaround for now. */
-  emxFree_real_T(&slds);
-  emxInit_real_T(sp, &b_simRef, 1, &qm_emlrtRTEI, true);
+  emxFree_real_T(sp, &slds);
+  emxInit_real_T(sp, &b_simRef, 1, &sm_emlrtRTEI, true);
   if (res == -1.0) {
     /* simRef =
      * data_resolution_polly_paraPoints(simXdata,simRef,simResolData,length(simXdata));
      */
     i = b_simRef->size[0];
     b_simRef->size[0] = simRef->size[0];
-    emxEnsureCapacity_real_T(sp, b_simRef, i, &rm_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_simRef, i, &tm_emlrtRTEI);
+    lastSection_data = b_simRef->data;
     loop_ub = simRef->size[0] - 1;
     for (i = 0; i <= loop_ub; i++) {
-      b_simRef->data[i] = simRef->data[i];
+      lastSection_data[i] = slds_data[i];
     }
-    st.site = &kh_emlrtRSI;
+    st.site = &dh_emlrtRSI;
     data_resolution_polly(&st, simXdata, b_simRef, simResolData,
                           simXdata->size[0], simRef);
+    slds_data = simRef->data;
   } else {
     /* simRef =
      * resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata)); */
     i = b_simRef->size[0];
     b_simRef->size[0] = simRef->size[0];
-    emxEnsureCapacity_real_T(sp, b_simRef, i, &qm_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_simRef, i, &sm_emlrtRTEI);
+    lastSection_data = b_simRef->data;
     loop_ub = simRef->size[0] - 1;
     for (i = 0; i <= loop_ub; i++) {
-      b_simRef->data[i] = simRef->data[i];
+      lastSection_data[i] = slds_data[i];
     }
-    st.site = &lh_emlrtRSI;
+    st.site = &eh_emlrtRSI;
     resolution_polly(&st, simXdata, b_simRef, res, simXdata->size[0], simRef);
+    slds_data = simRef->data;
   }
-  emxFree_real_T(&b_simRef);
-  emxFree_real_T(&simResolData);
-  emxFree_real_T(&simXdata);
+  emxFree_real_T(sp, &b_simRef);
+  emxFree_real_T(sp, &simResolData);
+  emxFree_real_T(sp, &simXdata);
   emlrtSubAssignSizeCheckR2012b(&Simulation->size[0], 1, &simRef->size[0], 1,
                                 &x_emlrtECI, (emlrtCTX)sp);
   loop_ub = simRef->size[0];
   for (i = 0; i < loop_ub; i++) {
-    Simulation->data[i + Simulation->size[0]] = simRef->data[i];
+    Simulation_data[i + Simulation->size[0]] = slds_data[i];
   }
-  emxFree_real_T(&simRef);
+  emxFree_real_T(sp, &simRef);
   if (firstSection->size[1] + 1U > splits_idx_1) {
     i = 0;
     lays = 0;
@@ -816,28 +845,29 @@ void b_callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     if (((int32_T)(firstSection->size[1] + 1U) < 1) ||
         ((int32_T)(firstSection->size[1] + 1U) > Simulation->size[0])) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(firstSection->size[1] + 1U), 1,
-                                    Simulation->size[0], &ci_emlrtBCI,
+                                    Simulation->size[0], &vh_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i = firstSection->size[1];
     if (((int32_T)splits_idx_1 < 1) ||
         ((int32_T)splits_idx_1 > Simulation->size[0])) {
       emlrtDynamicBoundsCheckR2012b((int32_T)splits_idx_1, 1,
-                                    Simulation->size[0], &bi_emlrtBCI,
+                                    Simulation->size[0], &uh_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     lays = (int32_T)splits_idx_1;
   }
-  emxFree_real_T(&firstSection);
+  emxFree_real_T(sp, &firstSection);
   loop_ub = lays - i;
   lays = reflectivity->size[0] * reflectivity->size[1];
   reflectivity->size[0] = loop_ub;
   reflectivity->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, reflectivity, lays, &ql_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, reflectivity, lays, &sl_emlrtRTEI);
+  slds_data = reflectivity->data;
   for (lays = 0; lays < 2; lays++) {
     for (simLimits = 0; simLimits < loop_ub; simLimits++) {
-      reflectivity->data[simLimits + reflectivity->size[0] * lays] =
-          Simulation->data[(i + simLimits) + Simulation->size[0] * lays];
+      slds_data[simLimits + reflectivity->size[0] * lays] =
+          Simulation_data[(i + simLimits) + Simulation->size[0] * lays];
     }
   }
   emlrtHeapReferenceStackLeaveFcnR2012b((emlrtCTX)sp);
@@ -869,6 +899,8 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   creal_T pimag;
   creal_T psub;
   creal_T rij;
+  const real_T *layers_data;
+  const real_T *this_data_data;
   real_T ar;
   real_T ar_tmp;
   real_T bim;
@@ -886,6 +918,11 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   real_T snlay;
   real_T snsub;
   real_T step;
+  real_T *Simulation_data;
+  real_T *firstSection_data;
+  real_T *lastSection_data;
+  real_T *simXdata_data;
+  real_T *slds_data;
   int32_T b_layers;
   int32_T b_loop_ub;
   int32_T i;
@@ -898,74 +935,80 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   st.tls = sp->tls;
   b_st.prev = &st;
   b_st.tls = st.tls;
+  layers_data = layers->data;
+  this_data_data = this_data->data;
   emlrtHeapReferenceStackEnterFcnR2012b((emlrtCTX)sp);
   if (1 > this_data->size[1]) {
-    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[1], &ni_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[1], &hi_emlrtBCI,
                                   (emlrtCTX)sp);
   }
-  emxInit_real_T(sp, &slds, 2, &fl_emlrtRTEI, true);
+  emxInit_real_T(sp, &slds, 2, &hl_emlrtRTEI, true);
   if (layers->size[0] == 0) {
     i = slds->size[0] * slds->size[1];
     slds->size[0] = 1;
     slds->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, slds, i, &fl_emlrtRTEI);
-    slds->data[0] = 0.0;
-    slds->data[1] = nbairs;
-    slds->data[2] = 0.0;
+    emxEnsureCapacity_real_T(sp, slds, i, &hl_emlrtRTEI);
+    slds_data = slds->data;
+    slds_data[0] = 0.0;
+    slds_data[1] = nbairs;
+    slds_data[2] = 0.0;
     b_layers = -1;
   } else {
     loop_ub = layers->size[0];
     i = slds->size[0] * slds->size[1];
     slds->size[0] = layers->size[0];
     slds->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, slds, i, &gl_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, slds, i, &il_emlrtRTEI);
+    slds_data = slds->data;
     for (i = 0; i < 3; i++) {
       for (i1 = 0; i1 < loop_ub; i1++) {
-        slds->data[i1 + slds->size[0] * i] =
-            layers->data[i1 + layers->size[0] * i];
+        slds_data[i1 + slds->size[0] * i] =
+            layers_data[i1 + layers->size[0] * i];
       }
     }
     b_layers = layers->size[0] - 1;
   }
   i = simLimits_size[0] * simLimits_size[1];
   if (1 > i) {
-    emlrtDynamicBoundsCheckR2012b(1, 1, i, &mi_emlrtBCI, (emlrtCTX)sp);
+    emlrtDynamicBoundsCheckR2012b(1, 1, i, &gi_emlrtBCI, (emlrtCTX)sp);
   }
   if (2 > i) {
-    emlrtDynamicBoundsCheckR2012b(2, 1, i, &li_emlrtBCI, (emlrtCTX)sp);
+    emlrtDynamicBoundsCheckR2012b(2, 1, i, &fi_emlrtBCI, (emlrtCTX)sp);
   }
   if (1 > this_data->size[1]) {
-    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[1], &ki_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[1], &ei_emlrtBCI,
                                   (emlrtCTX)sp);
   }
   if (1 > this_data->size[0]) {
-    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &ji_emlrtBCI,
+    emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &di_emlrtBCI,
                                   (emlrtCTX)sp);
   }
-  emxInit_real_T(sp, &firstSection, 2, &il_emlrtRTEI, true);
-  if (simLimits_data[0] < this_data->data[0]) {
+  emxInit_real_T(sp, &firstSection, 2, &jl_emlrtRTEI, true);
+  firstSection_data = firstSection->data;
+  if (simLimits_data[0] < this_data_data[0]) {
     if (2 > this_data->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, this_data->size[0], &ii_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, this_data->size[0], &ci_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (1 > this_data->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &hi_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &bi_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    step = this_data->data[1] - this_data->data[0];
+    step = this_data_data[1] - this_data_data[0];
     if (1 > this_data->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &gi_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &ai_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    st.site = &ng_emlrtRSI;
-    snlay = this_data->data[0] - step;
+    st.site = &hg_emlrtRSI;
+    snlay = this_data_data[0] - step;
     if (muDoubleScalarIsNaN(simLimits_data[0]) || muDoubleScalarIsNaN(step) ||
         muDoubleScalarIsNaN(snlay)) {
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
-      firstSection->data[0] = rtNaN;
+      emxEnsureCapacity_real_T(&st, firstSection, i, &jl_emlrtRTEI);
+      firstSection_data = firstSection->data;
+      firstSection_data[0] = rtNaN;
     } else if ((step == 0.0) || ((simLimits_data[0] < snlay) && (step < 0.0)) ||
                ((snlay < simLimits_data[0]) && (step > 0.0))) {
       firstSection->size[0] = 1;
@@ -976,14 +1019,16 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
-      firstSection->data[0] = rtNaN;
+      emxEnsureCapacity_real_T(&st, firstSection, i, &jl_emlrtRTEI);
+      firstSection_data = firstSection->data;
+      firstSection_data[0] = rtNaN;
     } else if (muDoubleScalarIsInf(step)) {
       i = firstSection->size[0] * firstSection->size[1];
       firstSection->size[0] = 1;
       firstSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
-      firstSection->data[0] = simLimits_data[0];
+      emxEnsureCapacity_real_T(&st, firstSection, i, &jl_emlrtRTEI);
+      firstSection_data = firstSection->data;
+      firstSection_data[0] = simLimits_data[0];
     } else if ((muDoubleScalarFloor(simLimits_data[0]) == simLimits_data[0]) &&
                (muDoubleScalarFloor(step) == step)) {
       i = firstSection->size[0] * firstSection->size[1];
@@ -991,13 +1036,15 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       loop_ub =
           (int32_T)muDoubleScalarFloor((snlay - simLimits_data[0]) / step);
       firstSection->size[1] = loop_ub + 1;
-      emxEnsureCapacity_real_T(&st, firstSection, i, &il_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, firstSection, i, &jl_emlrtRTEI);
+      firstSection_data = firstSection->data;
       for (i = 0; i <= loop_ub; i++) {
-        firstSection->data[i] = simLimits_data[0] + step * (real_T)i;
+        firstSection_data[i] = simLimits_data[0] + step * (real_T)i;
       }
     } else {
-      b_st.site = &sg_emlrtRSI;
+      b_st.site = &mg_emlrtRSI;
       eml_float_colon(&b_st, simLimits_data[0], step, snlay, firstSection);
+      firstSection_data = firstSection->data;
     }
   } else {
     firstSection->size[0] = 1;
@@ -1005,35 +1052,37 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   }
   if (this_data->size[0] < 1) {
     emlrtDynamicBoundsCheckR2012b(this_data->size[0], 1, this_data->size[0],
-                                  &oi_emlrtBCI, (emlrtCTX)sp);
+                                  &ii_emlrtBCI, (emlrtCTX)sp);
   }
-  emxInit_real_T(sp, &lastSection, 2, &jl_emlrtRTEI, true);
-  if (simLimits_data[1] > this_data->data[this_data->size[0] - 1]) {
+  emxInit_real_T(sp, &lastSection, 2, &ll_emlrtRTEI, true);
+  lastSection_data = lastSection->data;
+  if (simLimits_data[1] > this_data_data[this_data->size[0] - 1]) {
     if (this_data->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(this_data->size[0], 1, this_data->size[0],
-                                    &pi_emlrtBCI, (emlrtCTX)sp);
+                                    &ji_emlrtBCI, (emlrtCTX)sp);
     }
     if ((this_data->size[0] - 1 < 1) ||
         (this_data->size[0] - 1 > this_data->size[0])) {
       emlrtDynamicBoundsCheckR2012b(this_data->size[0] - 1, 1,
-                                    this_data->size[0], &qi_emlrtBCI,
+                                    this_data->size[0], &ki_emlrtBCI,
                                     (emlrtCTX)sp);
     }
-    step = this_data->data[this_data->size[0] - 1] -
-           this_data->data[this_data->size[0] - 2];
-    st.site = &og_emlrtRSI;
+    step = this_data_data[this_data->size[0] - 1] -
+           this_data_data[this_data->size[0] - 2];
+    st.site = &ig_emlrtRSI;
     if (this_data->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(this_data->size[0], 1, this_data->size[0],
-                                    &ri_emlrtBCI, &st);
+                                    &li_emlrtBCI, &st);
     }
-    snlay = this_data->data[this_data->size[0] - 1] + step;
+    snlay = this_data_data[this_data->size[0] - 1] + step;
     if (muDoubleScalarIsNaN(snlay) || muDoubleScalarIsNaN(step) ||
         muDoubleScalarIsNaN(simLimits_data[1])) {
       i = lastSection->size[0] * lastSection->size[1];
       lastSection->size[0] = 1;
       lastSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, lastSection, i, &jl_emlrtRTEI);
-      lastSection->data[0] = rtNaN;
+      emxEnsureCapacity_real_T(&st, lastSection, i, &ll_emlrtRTEI);
+      lastSection_data = lastSection->data;
+      lastSection_data[0] = rtNaN;
     } else if ((step == 0.0) || ((snlay < simLimits_data[1]) && (step < 0.0)) ||
                ((simLimits_data[1] < snlay) && (step > 0.0))) {
       lastSection->size[0] = 1;
@@ -1044,14 +1093,16 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       i = lastSection->size[0] * lastSection->size[1];
       lastSection->size[0] = 1;
       lastSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, lastSection, i, &jl_emlrtRTEI);
-      lastSection->data[0] = rtNaN;
+      emxEnsureCapacity_real_T(&st, lastSection, i, &ll_emlrtRTEI);
+      lastSection_data = lastSection->data;
+      lastSection_data[0] = rtNaN;
     } else if (muDoubleScalarIsInf(step)) {
       i = lastSection->size[0] * lastSection->size[1];
       lastSection->size[0] = 1;
       lastSection->size[1] = 1;
-      emxEnsureCapacity_real_T(&st, lastSection, i, &jl_emlrtRTEI);
-      lastSection->data[0] = snlay;
+      emxEnsureCapacity_real_T(&st, lastSection, i, &ll_emlrtRTEI);
+      lastSection_data = lastSection->data;
+      lastSection_data[0] = snlay;
     } else if ((muDoubleScalarFloor(snlay) == snlay) &&
                (muDoubleScalarFloor(step) == step)) {
       i = lastSection->size[0] * lastSection->size[1];
@@ -1059,52 +1110,56 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
       loop_ub =
           (int32_T)muDoubleScalarFloor((simLimits_data[1] - snlay) / step);
       lastSection->size[1] = loop_ub + 1;
-      emxEnsureCapacity_real_T(&st, lastSection, i, &jl_emlrtRTEI);
+      emxEnsureCapacity_real_T(&st, lastSection, i, &ll_emlrtRTEI);
+      lastSection_data = lastSection->data;
       for (i = 0; i <= loop_ub; i++) {
-        lastSection->data[i] = snlay + step * (real_T)i;
+        lastSection_data[i] = snlay + step * (real_T)i;
       }
     } else {
-      b_st.site = &sg_emlrtRSI;
+      b_st.site = &mg_emlrtRSI;
       eml_float_colon(&b_st, snlay, step, simLimits_data[1], lastSection);
+      lastSection_data = lastSection->data;
     }
   } else {
     lastSection->size[0] = 1;
     lastSection->size[1] = 0;
   }
-  emxInit_real_T(sp, &simXdata, 1, &hl_emlrtRTEI, true);
+  emxInit_real_T(sp, &simXdata, 1, &kl_emlrtRTEI, true);
   simLimits = firstSection->size[1];
   loop_ub = this_data->size[0];
   i = simXdata->size[0];
   simXdata->size[0] =
       (this_data->size[0] + firstSection->size[1]) + lastSection->size[1];
-  emxEnsureCapacity_real_T(sp, simXdata, i, &hl_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, simXdata, i, &kl_emlrtRTEI);
+  simXdata_data = simXdata->data;
   b_loop_ub = firstSection->size[1];
   for (i = 0; i < b_loop_ub; i++) {
-    simXdata->data[i] = firstSection->data[i];
+    simXdata_data[i] = firstSection_data[i];
   }
   for (i = 0; i < loop_ub; i++) {
-    simXdata->data[i + simLimits] = this_data->data[i];
+    simXdata_data[i + simLimits] = this_data_data[i];
   }
   b_loop_ub = lastSection->size[1];
   for (i = 0; i < b_loop_ub; i++) {
-    simXdata->data[(i + simLimits) + loop_ub] = lastSection->data[i];
+    simXdata_data[(i + simLimits) + loop_ub] = lastSection_data[i];
   }
   splits_idx_1 = (uint32_T)firstSection->size[1] + this_data->size[0];
   i = Simulation->size[0] * Simulation->size[1];
   Simulation->size[0] = simXdata->size[0];
   Simulation->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, Simulation, i, &kl_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, Simulation, i, &ml_emlrtRTEI);
+  Simulation_data = Simulation->data;
   loop_ub = simXdata->size[0] << 1;
   for (i = 0; i < loop_ub; i++) {
-    Simulation->data[i] = 0.0;
+    Simulation_data[i] = 0.0;
   }
   emlrtSubAssignSizeCheckR2012b(&simXdata->size[0], 1, &simXdata->size[0], 1,
                                 &y_emlrtECI, (emlrtCTX)sp);
   loop_ub = simXdata->size[0];
   for (i = 0; i < loop_ub; i++) {
-    Simulation->data[i] = simXdata->data[i];
+    Simulation_data[i] = simXdata_data[i];
   }
-  emxInit_real_T(sp, &simResolData, 1, &ll_emlrtRTEI, true);
+  emxInit_real_T(sp, &simResolData, 1, &nl_emlrtRTEI, true);
   /*  If we are using data resolutions, then we also need to adjust the length
    */
   /*  of the reolution column. We do thit by just extending with the rosolution
@@ -1112,47 +1167,49 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   /*  values at the ends of the curve. */
   i = simResolData->size[0];
   simResolData->size[0] = 1;
-  emxEnsureCapacity_real_T(sp, simResolData, i, &ll_emlrtRTEI);
-  simResolData->data[0] = 0.0;
+  emxEnsureCapacity_real_T(sp, simResolData, i, &nl_emlrtRTEI);
+  firstSection_data = simResolData->data;
+  firstSection_data[0] = 0.0;
   if (res == -1.0) {
     if (4 > this_data->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(4, 1, this_data->size[1], &fi_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(4, 1, this_data->size[1], &yh_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (1 > this_data->size[0]) {
-      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &ei_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(1, 1, this_data->size[0], &xh_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     if (this_data->size[0] < 1) {
       emlrtDynamicBoundsCheckR2012b(this_data->size[0], 1, this_data->size[0],
-                                    &di_emlrtBCI, (emlrtCTX)sp);
+                                    &wh_emlrtBCI, (emlrtCTX)sp);
     }
     simLimits = firstSection->size[1];
     loop_ub = this_data->size[0];
     i = simResolData->size[0];
     simResolData->size[0] =
         (this_data->size[0] + firstSection->size[1]) + lastSection->size[1];
-    emxEnsureCapacity_real_T(sp, simResolData, i, &nl_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, simResolData, i, &pl_emlrtRTEI);
+    firstSection_data = simResolData->data;
     b_loop_ub = firstSection->size[1];
     for (i = 0; i < b_loop_ub; i++) {
-      simResolData->data[i] = this_data->data[this_data->size[0] * 3];
+      firstSection_data[i] = this_data_data[this_data->size[0] * 3];
     }
     for (i = 0; i < loop_ub; i++) {
-      simResolData->data[i + simLimits] =
-          this_data->data[i + this_data->size[0] * 3];
+      firstSection_data[i + simLimits] =
+          this_data_data[i + this_data->size[0] * 3];
     }
     b_loop_ub = lastSection->size[1];
     for (i = 0; i < b_loop_ub; i++) {
-      simResolData->data[(i + simLimits) + loop_ub] =
-          this_data->data[(this_data->size[0] + this_data->size[0] * 3) - 1];
+      firstSection_data[(i + simLimits) + loop_ub] =
+          this_data_data[(this_data->size[0] + this_data->size[0] * 3) - 1];
     }
   }
-  emxFree_real_T(&lastSection);
-  emxInit_real_T(sp, &simRef, 1, &rl_emlrtRTEI, true);
+  emxFree_real_T(sp, &lastSection);
+  emxInit_real_T(sp, &simRef, 1, &tl_emlrtRTEI, true);
   nrepeats = repeatLayers[1];
   /*  Single cored over points */
   /*  Calculate reflectivity..... */
-  st.site = &pg_emlrtRSI;
+  st.site = &jg_emlrtRSI;
   /*  nbair = nbairs(thisCont); */
   /*  nbsub = nbsubs(thisCont); */
   /*  ssub = ssubs(thisCont); */
@@ -1160,7 +1217,8 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   /*  resol = resols(thisCont); */
   i = simRef->size[0];
   simRef->size[0] = simXdata->size[0];
-  emxEnsureCapacity_real_T(&st, simRef, i, &ml_emlrtRTEI);
+  emxEnsureCapacity_real_T(&st, simRef, i, &ol_emlrtRTEI);
+  lastSection_data = simRef->data;
   /* pi = 3.141592653589; */
   snair = 1.0 - nbairs * 0.377451863036739;
   snsub = 1.0 - nbsubs * 0.377451863036739;
@@ -1172,13 +1230,13 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
   for (simLimits = 0; simLimits < i; simLimits++) {
     if (simLimits + 1 > simXdata->size[0]) {
       emlrtDynamicBoundsCheckR2012b(simLimits + 1, 1, simXdata->size[0],
-                                    &ai_emlrtBCI, &st);
+                                    &th_emlrtBCI, &st);
     }
-    b_st.site = &vg_emlrtRSI;
-    step = simXdata->data[simLimits] * 1.54 / 12.566370614359172;
+    b_st.site = &pg_emlrtRSI;
+    step = simXdata_data[simLimits] * 1.54 / 12.566370614359172;
     if ((step < -1.0) || (step > 1.0)) {
       emlrtErrorWithMessageIdR2018a(
-          &b_st, &rb_emlrtRTEI, "Coder:toolbox:ElFunDomainError",
+          &b_st, &sb_emlrtRTEI, "Coder:toolbox:ElFunDomainError",
           "Coder:toolbox:ElFunDomainError", 3, 4, 4, "asin");
     }
     step = muDoubleScalarAsin(step);
@@ -1187,7 +1245,7 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     snlay = snsub * snsub - psub_tmp_tmp;
     psub.re = snlay;
     psub.im = snlay * 0.0;
-    c_sqrt(&psub);
+    b_sqrt(&psub);
     snlay = snair * muDoubleScalarSin(step);
     pair.re = snlay;
     pair.im = snlay * 0.0;
@@ -1202,19 +1260,19 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     MI[1].re = 0.0;
     MI[1].im = 0.0;
     emlrtForLoopVectorCheckR2021a(1.0, 1.0, nrepeats, mxDOUBLE_CLASS,
-                                  (int32_T)nrepeats, &sb_emlrtRTEI, &st);
+                                  (int32_T)nrepeats, &tb_emlrtRTEI, &st);
     for (b_loop_ub = 0; b_loop_ub < i2; b_loop_ub++) {
       for (loop_ub = 0; loop_ub <= b_layers; loop_ub++) {
         if (loop_ub + 1 > slds->size[0]) {
           emlrtDynamicBoundsCheckR2012b(loop_ub + 1, 1, slds->size[0],
-                                        &yh_emlrtBCI, &st);
+                                        &sh_emlrtBCI, &st);
         }
-        rough = slds->data[loop_ub + slds->size[0] * 2];
-        snlay = 1.0 - slds->data[loop_ub + slds->size[0]] * 0.377451863036739;
+        rough = slds_data[loop_ub + slds->size[0] * 2];
+        snlay = 1.0 - slds_data[loop_ub + slds->size[0]] * 0.377451863036739;
         step = snlay * snlay - psub_tmp_tmp;
         pimag.re = step;
         pimag.im = step * 0.0;
-        c_sqrt(&pimag);
+        b_sqrt(&pimag);
         re = -78.956835208714864 * pair.re;
         snlay = -78.956835208714864 * pair.im;
         step = rough * rough;
@@ -1299,8 +1357,8 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
         d1 = re * N_tmp.re - snlay * N_tmp.im;
         step = re * N_tmp.im + snlay * N_tmp.re;
         pair = pimag;
-        blast_re = 4.0799904592075231 * slds->data[loop_ub] * pimag.re;
-        blast_im = 4.0799904592075231 * slds->data[loop_ub] * pimag.im;
+        blast_re = 4.0799904592075231 * slds_data[loop_ub] * pimag.re;
+        blast_im = 4.0799904592075231 * slds_data[loop_ub] * pimag.im;
         snlay = N[3].re;
         rough = N[3].im;
         for (i1 = 0; i1 < 2; i1++) {
@@ -1408,16 +1466,16 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     d1 = re * N_tmp.re - snlay * N_tmp.im;
     step = re * N_tmp.im + snlay * N_tmp.re;
     for (i1 = 0; i1 < 2; i1++) {
-      snlay = MI[i1].re;
-      rough = MI[i1].im;
-      re = MI[i1 + 2].re;
-      bim = MI[i1 + 2].im;
-      b_MI[i1].re = (snlay * N_tmp.re - rough * N_tmp.im) + (re * ar - bim * d);
-      b_MI[i1].im = (snlay * N_tmp.im + rough * N_tmp.re) + (re * d + bim * ar);
+      re = MI[i1].re;
+      bim = MI[i1].im;
+      pair_re = MI[i1 + 2].re;
+      brm = MI[i1 + 2].im;
+      b_MI[i1].re = (re * N_tmp.re - bim * N_tmp.im) + (pair_re * ar - brm * d);
+      b_MI[i1].im = (re * N_tmp.im + bim * N_tmp.re) + (pair_re * d + brm * ar);
       b_MI[i1 + 2].re =
-          (snlay * d1 - rough * step) + (re * pair.re - bim * pair.im);
+          (re * d1 - bim * step) + (pair_re * pair.re - brm * pair.im);
       b_MI[i1 + 2].im =
-          (snlay * step + rough * d1) + (re * pair.im + bim * pair.re);
+          (re * step + bim * d1) + (pair_re * pair.im + brm * pair.re);
     }
     rough = b_MI[1].re * b_MI[1].re - b_MI[1].im * -b_MI[1].im;
     re = b_MI[1].re * -b_MI[1].im + b_MI[1].im * b_MI[1].re;
@@ -1475,48 +1533,52 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     }
     if (simLimits + 1 > simRef->size[0]) {
       emlrtDynamicBoundsCheckR2012b(simLimits + 1, 1, simRef->size[0],
-                                    &si_emlrtBCI, &st);
+                                    &mi_emlrtBCI, &st);
     }
-    simRef->data[simLimits] = muDoubleScalarHypot(pair.re, pair.im);
+    lastSection_data[simLimits] = muDoubleScalarHypot(pair.re, pair.im);
     if (*emlrtBreakCheckR2012bFlagVar != 0) {
       emlrtBreakCheckR2012b(&st);
     }
   }
-  emxFree_real_T(&slds);
+  emxFree_real_T(&st, &slds);
   /*  Apply resolution correction... */
-  emxInit_real_T(sp, &b_simRef, 1, &ol_emlrtRTEI, true);
+  emxInit_real_T(sp, &b_simRef, 1, &ql_emlrtRTEI, true);
   if (res == -1.0) {
     i = b_simRef->size[0];
     b_simRef->size[0] = simRef->size[0];
-    emxEnsureCapacity_real_T(sp, b_simRef, i, &pl_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_simRef, i, &rl_emlrtRTEI);
+    firstSection_data = b_simRef->data;
     loop_ub = simRef->size[0] - 1;
     for (i = 0; i <= loop_ub; i++) {
-      b_simRef->data[i] = simRef->data[i];
+      firstSection_data[i] = lastSection_data[i];
     }
-    st.site = &qg_emlrtRSI;
+    st.site = &kg_emlrtRSI;
     data_resolution_polly(&st, simXdata, b_simRef, simResolData,
                           simXdata->size[0], simRef);
+    lastSection_data = simRef->data;
   } else {
     i = b_simRef->size[0];
     b_simRef->size[0] = simRef->size[0];
-    emxEnsureCapacity_real_T(sp, b_simRef, i, &ol_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, b_simRef, i, &ql_emlrtRTEI);
+    firstSection_data = b_simRef->data;
     loop_ub = simRef->size[0] - 1;
     for (i = 0; i <= loop_ub; i++) {
-      b_simRef->data[i] = simRef->data[i];
+      firstSection_data[i] = lastSection_data[i];
     }
-    st.site = &rg_emlrtRSI;
+    st.site = &lg_emlrtRSI;
     resolution_polly(&st, simXdata, b_simRef, res, simXdata->size[0], simRef);
+    lastSection_data = simRef->data;
   }
-  emxFree_real_T(&b_simRef);
-  emxFree_real_T(&simResolData);
-  emxFree_real_T(&simXdata);
+  emxFree_real_T(sp, &b_simRef);
+  emxFree_real_T(sp, &simResolData);
+  emxFree_real_T(sp, &simXdata);
   emlrtSubAssignSizeCheckR2012b(&Simulation->size[0], 1, &simRef->size[0], 1,
                                 &x_emlrtECI, (emlrtCTX)sp);
   loop_ub = simRef->size[0];
   for (i = 0; i < loop_ub; i++) {
-    Simulation->data[i + Simulation->size[0]] = simRef->data[i];
+    Simulation_data[i + Simulation->size[0]] = lastSection_data[i];
   }
-  emxFree_real_T(&simRef);
+  emxFree_real_T(sp, &simRef);
   if (firstSection->size[1] + 1U > splits_idx_1) {
     i = 0;
     i1 = 0;
@@ -1524,28 +1586,29 @@ void callReflectivity(const emlrtStack *sp, real_T nbairs, real_T nbsubs,
     if (((int32_T)(firstSection->size[1] + 1U) < 1) ||
         ((int32_T)(firstSection->size[1] + 1U) > Simulation->size[0])) {
       emlrtDynamicBoundsCheckR2012b((int32_T)(firstSection->size[1] + 1U), 1,
-                                    Simulation->size[0], &ci_emlrtBCI,
+                                    Simulation->size[0], &vh_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i = firstSection->size[1];
     if (((int32_T)splits_idx_1 < 1) ||
         ((int32_T)splits_idx_1 > Simulation->size[0])) {
       emlrtDynamicBoundsCheckR2012b((int32_T)splits_idx_1, 1,
-                                    Simulation->size[0], &bi_emlrtBCI,
+                                    Simulation->size[0], &uh_emlrtBCI,
                                     (emlrtCTX)sp);
     }
     i1 = (int32_T)splits_idx_1;
   }
-  emxFree_real_T(&firstSection);
+  emxFree_real_T(sp, &firstSection);
   loop_ub = i1 - i;
   i1 = reflectivity->size[0] * reflectivity->size[1];
   reflectivity->size[0] = loop_ub;
   reflectivity->size[1] = 2;
-  emxEnsureCapacity_real_T(sp, reflectivity, i1, &ql_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, reflectivity, i1, &sl_emlrtRTEI);
+  firstSection_data = reflectivity->data;
   for (i1 = 0; i1 < 2; i1++) {
     for (i2 = 0; i2 < loop_ub; i2++) {
-      reflectivity->data[i2 + reflectivity->size[0] * i1] =
-          Simulation->data[(i + i2) + Simulation->size[0] * i1];
+      firstSection_data[i2 + reflectivity->size[0] * i1] =
+          Simulation_data[(i + i2) + Simulation->size[0] * i1];
     }
   }
   emlrtHeapReferenceStackLeaveFcnR2012b((emlrtCTX)sp);

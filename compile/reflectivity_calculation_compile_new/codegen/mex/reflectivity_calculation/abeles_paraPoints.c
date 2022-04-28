@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * abeles_paraPoints.c
  *
@@ -15,103 +15,103 @@
 #include "reflectivity_calculation_emxutil.h"
 #include "reflectivity_calculation_types.h"
 #include "rt_nonfinite.h"
-#include "sqrt1.h"
+#include "sqrt.h"
 #include "mwmathutil.h"
 #include <string.h>
 
 /* Variable Definitions */
-static emlrtRSInfo mh_emlrtRSI = {
+static emlrtRSInfo fh_emlrtRSI = {
     31,                  /* lineNo */
     "abeles_paraPoints", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_paraPoints.m" /* pathName */
 };
 
-static emlrtRTEInfo bc_emlrtRTEI = {
+static emlrtRTEInfo cc_emlrtRTEI = {
     42,                  /* lineNo */
     19,                  /* colNo */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_paraPoints.m" /* pName */
 };
 
-static emlrtBCInfo kl_emlrtBCI = {
+static emlrtBCInfo el_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     37,                  /* lineNo */
     17,                  /* colNo */
     "sld",               /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ll_emlrtBCI = {
+static emlrtBCInfo fl_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     30,                  /* lineNo */
     11,                  /* colNo */
     "x",                 /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ml_emlrtBCI = {
+static emlrtBCInfo gl_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     44,                  /* lineNo */
-    21,                  /* colNo */
+    25,                  /* colNo */
     "sld",               /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo nl_emlrtBCI = {
+static emlrtBCInfo hl_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     45,                  /* lineNo */
-    19,                  /* colNo */
+    23,                  /* colNo */
     "sld",               /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo ol_emlrtBCI = {
+static emlrtBCInfo il_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     46,                  /* lineNo */
-    21,                  /* colNo */
+    25,                  /* colNo */
     "sld",               /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
     0                                                      /* checkKind */
 };
 
-static emlrtBCInfo pl_emlrtBCI = {
+static emlrtBCInfo jl_emlrtBCI = {
     -1,                  /* iFirst */
     -1,                  /* iLast */
     75,                  /* lineNo */
-    5,                   /* colNo */
+    9,                   /* colNo */
     "out",               /* aName */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_paraPoints.m", /* pName */
     0                                                      /* checkKind */
 };
 
-static emlrtRTEInfo sm_emlrtRTEI = {
+static emlrtRTEInfo um_emlrtRTEI = {
     9,                   /* lineNo */
     7,                   /* colNo */
     "abeles_paraPoints", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
     "reflectivityCalculations/Abeles/abeles_paraPoints.m" /* pName */
 };
 
@@ -134,6 +134,8 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
   creal_T pimag;
   creal_T psub;
   creal_T quo;
+  const real_T *sld_data;
+  const real_T *x_data;
   real_T ar;
   real_T brm;
   real_T d;
@@ -149,6 +151,7 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
   real_T thick;
   real_T x_im;
   real_T x_re;
+  real_T *out_data;
   int32_T i;
   int32_T i1;
   int32_T i2;
@@ -157,6 +160,8 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
   int32_T reploop;
   int32_T ub_loop;
   boolean_T emlrtHadParallelError = false;
+  sld_data = sld->data;
+  x_data = x->data;
   /*  nbair = nbairs(thisCont); */
   /*  nbsub = nbsubs(thisCont); */
   /*  ssub = ssubs(thisCont); */
@@ -164,7 +169,8 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
   /*  resol = resols(thisCont); */
   ub_loop = out->size[0];
   out->size[0] = (int32_T)points;
-  emxEnsureCapacity_real_T(sp, out, ub_loop, &sm_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, out, ub_loop, &um_emlrtRTEI);
+  out_data = out->data;
   /* pi = 3.141592653589; */
   snair = 1.0 - nbair * 0.377451863036739;
   snsub = 1.0 - nbsub * 0.377451863036739;
@@ -175,9 +181,9 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
     sp->tls, omp_in_parallel(), omp_get_max_threads(),                         \
     omp_get_num_procs())) private(quo, num, MI, beta, pimag, preal, rough,     \
                                   thick, blast, psub, N, emlrtJBEnviron, b_st, \
-                                  loop, preal_tmp, i, reploop, re, i1, nl, im, \
-                                  ar, d, quo_re, x_re, x_im, d1, i2, b_MI,     \
-                                  brm) firstprivate(st, emlrtHadParallelError)
+                                  preal_tmp, i, reploop, re, i1, nl, im, ar,   \
+                                  d, quo_re, x_re, x_im, d1, i2, b_MI, brm)    \
+    firstprivate(st, emlrtHadParallelError)
   {
     if (setjmp(emlrtJBEnviron) == 0) {
 
@@ -197,14 +203,14 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
       if (setjmp(emlrtJBEnviron) == 0) {
 
         if ((loop + 1 < 1) || (loop + 1 > x->size[0])) {
-          emlrtDynamicBoundsCheckR2012b(loop + 1, 1, x->size[0], &ll_emlrtBCI,
+          emlrtDynamicBoundsCheckR2012b(loop + 1, 1, x->size[0], &fl_emlrtBCI,
                                         &st);
         }
-        b_st.site = &mh_emlrtRSI;
-        thick = x->data[loop] * 1.54 / 12.566370614359172;
+        b_st.site = &fh_emlrtRSI;
+        thick = x_data[loop] * 1.54 / 12.566370614359172;
         if ((thick < -1.0) || (thick > 1.0)) {
           emlrtErrorWithMessageIdR2018a(
-              &b_st, &rb_emlrtRTEI, "Coder:toolbox:ElFunDomainError",
+              &b_st, &sb_emlrtRTEI, "Coder:toolbox:ElFunDomainError",
               "Coder:toolbox:ElFunDomainError", 3, 4, 4, "asin");
         }
         thick = muDoubleScalarAsin(thick);
@@ -213,14 +219,14 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
         preal = snsub * snsub - preal_tmp;
         psub.re = preal;
         psub.im = preal * 0.0;
-        c_sqrt(&psub);
+        b_sqrt(&psub);
         preal = snair * muDoubleScalarSin(thick);
         quo.re = preal;
         quo.im = preal * 0.0;
         blast.re = 0.0;
         blast.im = 0.0;
         if (1 > sld->size[0]) {
-          emlrtDynamicBoundsCheckR2012b(1, 1, sld->size[0], &kl_emlrtBCI, &st);
+          emlrtDynamicBoundsCheckR2012b(1, 1, sld->size[0], &el_emlrtBCI, &st);
         }
         MI[0].re = 1.0;
         MI[0].im = 0.0;
@@ -232,33 +238,33 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
         MI[1].im = 0.0;
         i = (int32_T)nrepeats;
         emlrtForLoopVectorCheckR2021a(1.0, 1.0, nrepeats, mxDOUBLE_CLASS,
-                                      (int32_T)nrepeats, &bc_emlrtRTEI, &st);
+                                      (int32_T)nrepeats, &cc_emlrtRTEI, &st);
         for (reploop = 0; reploop < i; reploop++) {
           i1 = (int32_T)layers;
           for (nl = 0; nl < i1; nl++) {
             if (((int32_T)(nl + 1U) < 1) ||
                 ((int32_T)(nl + 1U) > sld->size[0])) {
               emlrtDynamicBoundsCheckR2012b((int32_T)(nl + 1U), 1, sld->size[0],
-                                            &ml_emlrtBCI, &st);
+                                            &gl_emlrtBCI, &st);
             }
-            thick = sld->data[nl];
+            thick = sld_data[nl];
             if (((int32_T)(nl + 1U) < 1) ||
                 ((int32_T)(nl + 1U) > sld->size[0])) {
               emlrtDynamicBoundsCheckR2012b((int32_T)(nl + 1U), 1, sld->size[0],
-                                            &nl_emlrtBCI, &st);
+                                            &hl_emlrtBCI, &st);
             }
-            preal = sld->data[nl + sld->size[0]];
+            preal = sld_data[nl + sld->size[0]];
             if (((int32_T)(nl + 1U) < 1) ||
                 ((int32_T)(nl + 1U) > sld->size[0])) {
               emlrtDynamicBoundsCheckR2012b((int32_T)(nl + 1U), 1, sld->size[0],
-                                            &ol_emlrtBCI, &st);
+                                            &il_emlrtBCI, &st);
             }
-            rough = sld->data[nl + sld->size[0] * 2];
+            rough = sld_data[nl + sld->size[0] * 2];
             preal = 1.0 - preal * 0.377451863036739;
             preal = preal * preal - preal_tmp;
             pimag.re = preal;
             pimag.im = preal * 0.0;
-            c_sqrt(&pimag);
+            b_sqrt(&pimag);
             beta.re = 4.0799904592075231 * thick * pimag.re;
             beta.im = 4.0799904592075231 * thick * pimag.im;
             re = -78.956835208714864 * quo.re;
@@ -530,16 +536,16 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
         ar = re * x_re - im * x_im;
         preal = re * x_im + im * x_re;
         for (i = 0; i < 2; i++) {
-          thick = MI[i].re;
-          rough = MI[i].im;
-          im = MI[i + 2].re;
-          re = MI[i + 2].im;
-          b_MI[i].re = (thick * x_re - rough * x_im) + (im * d - re * d1);
-          b_MI[i].im = (thick * x_im + rough * x_re) + (im * d1 + re * d);
+          im = MI[i].re;
+          re = MI[i].im;
+          brm = MI[i + 2].re;
+          quo_re = MI[i + 2].im;
+          b_MI[i].re = (im * x_re - re * x_im) + (brm * d - quo_re * d1);
+          b_MI[i].im = (im * x_im + re * x_re) + (brm * d1 + quo_re * d);
           b_MI[i + 2].re =
-              (thick * ar - rough * preal) + (im * quo.re - re * quo.im);
+              (im * ar - re * preal) + (brm * quo.re - quo_re * quo.im);
           b_MI[i + 2].im =
-              (thick * preal + rough * ar) + (im * quo.im + re * quo.re);
+              (im * preal + re * ar) + (brm * quo.im + quo_re * quo.re);
         }
         num.re = b_MI[1].re * b_MI[1].re - b_MI[1].im * -b_MI[1].im;
         num.im = b_MI[1].re * -b_MI[1].im + b_MI[1].im * b_MI[1].re;
@@ -598,9 +604,9 @@ void abeles_paraPoints(const emlrtStack *sp, const emxArray_real_T *x,
         if (((int32_T)(loop + 1U) < 1) ||
             ((int32_T)(loop + 1U) > out->size[0])) {
           emlrtDynamicBoundsCheckR2012b((int32_T)(loop + 1U), 1, out->size[0],
-                                        &pl_emlrtBCI, &st);
+                                        &jl_emlrtBCI, &st);
         }
-        out->data[loop] = muDoubleScalarHypot(quo.re, quo.im);
+        out_data[loop] = muDoubleScalarHypot(quo.re, quo.im);
         if (*emlrtBreakCheckR2012bFlagVar != 0) {
           emlrtBreakCheckR2012b(&st);
         }

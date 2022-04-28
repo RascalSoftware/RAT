@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * reflectivity_calculation_data.c
  *
@@ -21,7 +21,7 @@ const volatile char_T *emlrtBreakCheckR2012bFlagVar = NULL;
 emlrtContext emlrtContextGlobal = {
     true,                                                 /* bFirstTime */
     false,                                                /* bInitialized */
-    131610U,                                              /* fVersionInfo */
+    131611U,                                              /* fVersionInfo */
     NULL,                                                 /* fErrorFunction */
     "reflectivity_calculation",                           /* fFunctionName */
     NULL,                                                 /* fRTCallStack */
@@ -33,196 +33,138 @@ emlrtContext emlrtContextGlobal = {
 emlrtRSInfo j_emlrtRSI = {
     21,                               /* lineNo */
     "eml_int_forloop_overflow_check", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/eml/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/eml/"
     "eml_int_forloop_overflow_check.m" /* pathName */
 };
 
 emlrtRSInfo w_emlrtRSI = {
     58,                       /* lineNo */
     "standardTF_layers_core", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pathName */
 };
 
 emlrtRSInfo x_emlrtRSI = {
     69,                       /* lineNo */
     "standardTF_layers_core", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pathName */
 };
 
 emlrtRSInfo y_emlrtRSI = {
     76,                       /* lineNo */
     "standardTF_layers_core", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pathName */
 };
 
 emlrtRSInfo ab_emlrtRSI = {
     84,                       /* lineNo */
     "standardTF_layers_core", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pathName */
 };
 
 emlrtRSInfo bb_emlrtRSI = {
     88,                       /* lineNo */
     "standardTF_layers_core", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pathName */
 };
 
 emlrtRSInfo cb_emlrtRSI = {
     91,                       /* lineNo */
     "standardTF_layers_core", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pathName */
 };
 
 emlrtRSInfo db_emlrtRSI = {
     94,                       /* lineNo */
     "standardTF_layers_core", /* fcnName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pathName */
 };
 
-emlrtRSInfo
-    nb_emlrtRSI =
-        {
-            22,    /* lineNo */
-            "cat", /* fcnName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-            "cat.m" /* pathName */
+emlrtRSInfo nb_emlrtRSI = {
+    26,    /* lineNo */
+    "cat", /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/cat.m" /* pathName
+                                                                       */
 };
 
-emlrtRSInfo
-    ob_emlrtRSI =
-        {
-            96,         /* lineNo */
-            "cat_impl", /* fcnName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-            "cat.m" /* pathName */
+emlrtRSInfo ob_emlrtRSI = {
+    100,        /* lineNo */
+    "cat_impl", /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/cat.m" /* pathName
+                                                                       */
+};
+
+emlrtRSInfo oc_emlrtRSI = {
+    71,                                                           /* lineNo */
+    "power",                                                      /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/ops/power.m" /* pathName */
 };
 
 emlrtRSInfo pd_emlrtRSI = {
     15,    /* lineNo */
     "max", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/datafun/max.m" /* pathName
-                                                                            */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/datafun/max.m" /* pathName
+                                                                     */
 };
 
 emlrtRSInfo qd_emlrtRSI = {
     44,         /* lineNo */
     "minOrMax", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "minOrMax.m" /* pathName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/minOrMax.m" /* pathName
+                                                                            */
 };
 
 emlrtRSInfo rd_emlrtRSI = {
     79,        /* lineNo */
     "maximum", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "minOrMax.m" /* pathName */
-};
-
-emlrtRSInfo sd_emlrtRSI = {
-    175,             /* lineNo */
-    "unaryMinOrMax", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "unaryMinOrMax.m" /* pathName */
-};
-
-emlrtRSInfo td_emlrtRSI = {
-    871,                    /* lineNo */
-    "maxRealVectorOmitNaN", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "unaryMinOrMax.m" /* pathName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/minOrMax.m" /* pathName
+                                                                            */
 };
 
 emlrtRSInfo ie_emlrtRSI = {
-    39,     /* lineNo */
-    "find", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/elmat/find.m" /* pathName
-                                                                           */
+    39,                                                            /* lineNo */
+    "find",                                                        /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/elmat/find.m" /* pathName
+                                                                    */
 };
 
-emlrtRSInfo ff_emlrtRSI = {
-    34,               /* lineNo */
-    "rdivide_helper", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "rdivide_helper.m" /* pathName */
-};
-
-emlrtRSInfo
-    gf_emlrtRSI =
-        {
-            51,    /* lineNo */
-            "div", /* fcnName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-            "div.m" /* pathName */
-};
-
-emlrtRSInfo
-    hf_emlrtRSI =
-        {
-            259,                    /* lineNo */
-            "assertCompatibleSize", /* fcnName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-            "div.m" /* pathName */
-};
-
-emlrtRSInfo if_emlrtRSI =
+emlrtRSInfo ff_emlrtRSI =
     {
-        52,      /* lineNo */
-        "ixfun", /* fcnName */
-        "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-        "ixfun.m" /* pathName */
+        34,               /* lineNo */
+        "rdivide_helper", /* fcnName */
+        "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/"
+        "rdivide_helper.m" /* pathName */
 };
 
-emlrtRSInfo jf_emlrtRSI = {
-    45,                          /* lineNo */
-    "applyBinaryScalarFunction", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "applyBinaryScalarFunction.m" /* pathName */
+emlrtRSInfo gf_emlrtRSI = {
+    51,    /* lineNo */
+    "div", /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/div.m" /* pathName
+                                                                       */
 };
 
-emlrtRSInfo kf_emlrtRSI = {
-    66,                          /* lineNo */
-    "applyBinaryScalarFunction", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "applyBinaryScalarFunction.m" /* pathName */
-};
-
-emlrtRSInfo lf_emlrtRSI = {
-    127,        /* lineNo */
-    "flatIter", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "applyBinaryScalarFunction.m" /* pathName */
-};
-
-emlrtRSInfo mf_emlrtRSI = {
-    214,        /* lineNo */
-    "flatIter", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "applyBinaryScalarFunction.m" /* pathName */
-};
-
-emlrtRSInfo pf_emlrtRSI = {
+emlrtRSInfo if_emlrtRSI = {
     33,                           /* lineNo */
     "applyScalarFunctionInPlace", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/"
     "applyScalarFunctionInPlace.m" /* pathName */
 };
 
 omp_lock_t emlrtLockGlobal;
 
-omp_nest_lock_t emlrtNestLockGlobal;
+omp_nest_lock_t reflectivity_calculation_nestLockGlobal;
 
 emlrtRTEInfo s_emlrtRTEI = {
     15,                      /* lineNo */
     9,                       /* colNo */
     "assertSupportedString", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/"
     "assertSupportedString.m" /* pName */
 };
 
@@ -230,21 +172,21 @@ emlrtDCInfo db_emlrtDCI = {
     3,                           /* lineNo */
     8,                           /* colNo */
     "applyBackgroundCorrection", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "applyBackgroundCorrection.m", /* pName */
-    1                              /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/applyBackgroundCorrection.m", /* pName */
+    1                                               /* checkKind */
 };
 
-emlrtBCInfo wf_emlrtBCI = {
+emlrtBCInfo qf_emlrtBCI = {
     -1,                          /* iFirst */
     -1,                          /* iLast */
     10,                          /* lineNo */
     23,                          /* colNo */
     "shifted_dat",               /* aName */
     "applyBackgroundCorrection", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "applyBackgroundCorrection.m", /* pName */
-    0                              /* checkKind */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/applyBackgroundCorrection.m", /* pName */
+    0                                               /* checkKind */
 };
 
 emlrtECInfo emlrtECI = {
@@ -252,114 +194,127 @@ emlrtECInfo emlrtECI = {
     10,                          /* lineNo */
     9,                           /* colNo */
     "applyBackgroundCorrection", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "applyBackgroundCorrection.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/applyBackgroundCorrection.m" /* pName */
 };
 
-emlrtRTEInfo
-    hb_emlrtRTEI =
-        {
-            271,                   /* lineNo */
-            27,                    /* colNo */
-            "check_non_axis_size", /* fName */
-            "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-            "cat.m" /* pName */
+emlrtRTEInfo gb_emlrtRTEI = {
+    275,                   /* lineNo */
+    27,                    /* colNo */
+    "check_non_axis_size", /* fName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/cat.m" /* pName
+                                                                       */
 };
 
-emlrtRTEInfo pb_emlrtRTEI = {
-    19,             /* lineNo */
-    23,             /* colNo */
-    "scalexpAlloc", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "scalexpAlloc.m" /* pName */
+emlrtRTEInfo ob_emlrtRTEI = {
+    13,                     /* lineNo */
+    27,                     /* colNo */
+    "assertCompatibleDims", /* fName */
+    "/usr/local/MATLAB/R2021b/toolbox/shared/coder/coder/lib/+coder/+internal/"
+    "assertCompatibleDims.m" /* pName */
 };
 
-emlrtRTEInfo rb_emlrtRTEI = {
-    14,     /* lineNo */
-    9,      /* colNo */
-    "asin", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/elfun/asin.m" /* pName
-                                                                           */
+emlrtRTEInfo sb_emlrtRTEI = {
+    14,                                                            /* lineNo */
+    9,                                                             /* colNo */
+    "asin",                                                        /* fName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/elfun/asin.m" /* pName */
 };
 
-emlrtRTEInfo ld_emlrtRTEI = {
-    13,               /* lineNo */
-    13,               /* colNo */
-    "toLogicalCheck", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-    "toLogicalCheck.m" /* pName */
-};
-
-emlrtRTEInfo hh_emlrtRTEI = {
-    71,                       /* lineNo */
-    5,                        /* colNo */
-    "standardTF_layers_core", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
-    "standardTF_layers_core.m" /* pName */
+emlrtRTEInfo md_emlrtRTEI =
+    {
+        13,               /* lineNo */
+        13,               /* colNo */
+        "toLogicalCheck", /* fName */
+        "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/"
+        "toLogicalCheck.m" /* pName */
 };
 
 emlrtRTEInfo ih_emlrtRTEI = {
-    79,                       /* lineNo */
+    71,                       /* lineNo */
     5,                        /* colNo */
     "standardTF_layers_core", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pName */
 };
 
 emlrtRTEInfo jh_emlrtRTEI = {
-    77,                       /* lineNo */
+    79,                       /* lineNo */
     5,                        /* colNo */
     "standardTF_layers_core", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pName */
 };
 
 emlrtRTEInfo kh_emlrtRTEI = {
+    77,                       /* lineNo */
+    5,                        /* colNo */
+    "standardTF_layers_core", /* fName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
+    "standardTF_layers_core.m" /* pName */
+};
+
+emlrtRTEInfo lh_emlrtRTEI = {
     80,                       /* lineNo */
     5,                        /* colNo */
     "standardTF_layers_core", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pName */
-};
-
-emlrtRTEInfo mh_emlrtRTEI = {
-    6,                           /* lineNo */
-    9,                           /* colNo */
-    "applyBackgroundCorrection", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "applyBackgroundCorrection.m" /* pName */
 };
 
 emlrtRTEInfo nh_emlrtRTEI = {
-    10,                          /* lineNo */
-    28,                          /* colNo */
+    6,                           /* lineNo */
+    9,                           /* colNo */
     "applyBackgroundCorrection", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "applyBackgroundCorrection.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/applyBackgroundCorrection.m" /* pName */
 };
 
 emlrtRTEInfo oh_emlrtRTEI = {
-    7,                           /* lineNo */
-    9,                           /* colNo */
+    10,                          /* lineNo */
+    28,                          /* colNo */
     "applyBackgroundCorrection", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/"
-    "applyBackgroundCorrection.m" /* pName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/applyBackgroundCorrection.m" /* pName */
 };
 
 emlrtRTEInfo ph_emlrtRTEI = {
+    7,                           /* lineNo */
+    9,                           /* colNo */
+    "applyBackgroundCorrection", /* fName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "callReflectivity/applyBackgroundCorrection.m" /* pName */
+};
+
+emlrtRTEInfo qh_emlrtRTEI = {
     76,                       /* lineNo */
     5,                        /* colNo */
     "standardTF_layers_core", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pName */
 };
 
-emlrtRTEInfo xj_emlrtRTEI = {
-    31,     /* lineNo */
-    6,      /* colNo */
-    "find", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/lib/matlab/elmat/find.m" /* pName
-                                                                           */
+emlrtRTEInfo fi_emlrtRTEI = {
+    50,                 /* lineNo */
+    5,                  /* colNo */
+    "makeSLDProfileXY", /* fName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/"
+    "makeSLDProfiles/makeSLDProfileXY.m" /* pName */
+};
+
+emlrtRTEInfo ij_emlrtRTEI = {
+    429,            /* lineNo */
+    22,             /* colNo */
+    "adaptive_new", /* fName */
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/common/resampleLayers/"
+    "adaptive_new.m" /* pName */
+};
+
+emlrtRTEInfo yj_emlrtRTEI = {
+    31,                                                            /* lineNo */
+    6,                                                             /* colNo */
+    "find",                                                        /* fName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/elmat/find.m" /* pName */
 };
 
 const char_T cv[128] = {
@@ -380,5 +335,20 @@ const char_T cv[128] = {
     '~',    '\x7f'};
 
 const char_T cv1[9] = {'c', 'o', 'n', 't', 'r', 'a', 's', 't', 's'};
+
+emlrtRSInfo ij_emlrtRSI =
+    {
+        76,                  /* lineNo */
+        "eml_mtimes_helper", /* fcnName */
+        "/usr/local/MATLAB/R2021b/toolbox/eml/lib/matlab/ops/"
+        "eml_mtimes_helper.m" /* pathName */
+};
+
+emlrtRSInfo mj_emlrtRSI = {
+    52,    /* lineNo */
+    "div", /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/div.m" /* pathName
+                                                                       */
+};
 
 /* End of code generation (reflectivity_calculation_data.c) */

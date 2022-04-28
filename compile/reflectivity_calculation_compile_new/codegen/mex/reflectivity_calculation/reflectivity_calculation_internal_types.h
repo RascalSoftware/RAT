@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * reflectivity_calculation_internal_types.h
  *
@@ -26,5 +26,15 @@ typedef struct {
   const char_T *pName;
 } rtDesignRangeCheckInfo;
 #endif /* typedef_rtDesignRangeCheckInfo */
+
+#ifndef typedef_rtRunTimeErrorInfo
+#define typedef_rtRunTimeErrorInfo
+typedef struct {
+  int32_T lineNo;
+  int32_T colNo;
+  const char_T *fName;
+  const char_T *pName;
+} rtRunTimeErrorInfo;
+#endif /* typedef_rtRunTimeErrorInfo */
 
 /* End of code generation (reflectivity_calculation_internal_types.h) */

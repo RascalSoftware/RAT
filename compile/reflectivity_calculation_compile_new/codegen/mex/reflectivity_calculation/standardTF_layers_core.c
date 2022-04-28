@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * standardTF_layers_core.c
  *
@@ -24,11 +24,11 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRTEInfo lh_emlrtRTEI = {
+static emlrtRTEInfo mh_emlrtRTEI = {
     84,                       /* lineNo */
     47,                       /* colNo */
     "standardTF_layers_core", /* fName */
-    "/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/"
+    "/home/arwel/Documents/RascalDev/RAT/targetFunctions/standard_TF/"
     "standardTF_layers_core.m" /* pName */
 };
 
@@ -50,10 +50,14 @@ void b_standardTF_layers_core(
   emxArray_real_T *b_data;
   emxArray_real_T *b_shifted_dat;
   emxArray_real_T *layerSld;
+  const real_T *data_data;
+  real_T *sldProfile_data;
+  real_T *theseLayers_data;
   int32_T i;
   int32_T loop_ub;
   st.prev = sp;
   st.tls = sp->tls;
+  data_data = data->data;
   emlrtHeapReferenceStackEnterFcnR2012b((emlrtCTX)sp);
   /*    This is the main reflectivity calculation for all Layers models in the
    */
@@ -99,8 +103,6 @@ void b_standardTF_layers_core(
   /*  */
   /*  Outputs: */
   /*  */
-  /*  */
-  /*  */
   /*  ------------------------------------------------------------------------
    */
   /*  */
@@ -114,6 +116,7 @@ void b_standardTF_layers_core(
   st.site = &w_emlrtRSI;
   b_groupLayers_Mod(&st, contrastLayers, rough, geometry, nba, nbs, theseLayers,
                     ssubs);
+  theseLayers_data = theseLayers->data;
   /*  Make the SLD profiles. */
   /*  If resampling is needed, then enforce the calcSLD flag, so as to catch */
   /*  the error af trying to resample a non-existent profile. */
@@ -129,61 +132,68 @@ void b_standardTF_layers_core(
     i = sldProfile->size[0] * sldProfile->size[1];
     sldProfile->size[0] = 1;
     sldProfile->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, sldProfile, i, &hh_emlrtRTEI);
-    sldProfile->data[0] = 0.0;
-    sldProfile->data[1] = 0.0;
+    emxEnsureCapacity_real_T(sp, sldProfile, i, &ih_emlrtRTEI);
+    sldProfile_data = sldProfile->data;
+    sldProfile_data[0] = 0.0;
+    sldProfile_data[1] = 0.0;
   }
   /*  If required, then resample the SLD */
-  emxInit_real_T(sp, &layerSld, 2, &ph_emlrtRTEI, true);
+  emxInit_real_T(sp, &layerSld, 2, &qh_emlrtRTEI, true);
   if (resample == 1.0) {
     st.site = &y_emlrtRSI;
     resampleLayers(&st, sldProfile, resamPars, layerSld);
+    sldProfile_data = layerSld->data;
     i = resamLayers->size[0] * resamLayers->size[1];
     resamLayers->size[0] = layerSld->size[0];
     resamLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, resamLayers, i, &jh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, resamLayers, i, &kh_emlrtRTEI);
+    theseLayers_data = resamLayers->data;
     loop_ub = layerSld->size[0] * 3;
     for (i = 0; i < loop_ub; i++) {
-      resamLayers->data[i] = layerSld->data[i];
+      theseLayers_data[i] = sldProfile_data[i];
     }
   } else {
     i = layerSld->size[0] * layerSld->size[1];
     layerSld->size[0] = theseLayers->size[0];
     layerSld->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layerSld, i, &ih_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSld, i, &jh_emlrtRTEI);
+    sldProfile_data = layerSld->data;
     loop_ub = theseLayers->size[0] * 3;
     for (i = 0; i < loop_ub; i++) {
-      layerSld->data[i] = theseLayers->data[i];
+      sldProfile_data[i] = theseLayers_data[i];
     }
     i = resamLayers->size[0] * resamLayers->size[1];
     resamLayers->size[0] = 1;
     resamLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, resamLayers, i, &kh_emlrtRTEI);
-    resamLayers->data[0] = 0.0;
-    resamLayers->data[1] = 0.0;
-    resamLayers->data[2] = 0.0;
+    emxEnsureCapacity_real_T(sp, resamLayers, i, &lh_emlrtRTEI);
+    theseLayers_data = resamLayers->data;
+    theseLayers_data[0] = 0.0;
+    theseLayers_data[1] = 0.0;
+    theseLayers_data[2] = 0.0;
   }
-  emxInit_real_T(sp, &b_data, 2, &lh_emlrtRTEI, true);
+  emxInit_real_T(sp, &b_data, 2, &mh_emlrtRTEI, true);
   /*  Apply scale factors and q shifts to the data */
   i = b_data->size[0] * b_data->size[1];
   b_data->size[0] = data->size[0];
   b_data->size[1] = data->size[1];
-  emxEnsureCapacity_real_T(sp, b_data, i, &lh_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_data, i, &mh_emlrtRTEI);
+  sldProfile_data = b_data->data;
   loop_ub = data->size[0] * data->size[1] - 1;
   for (i = 0; i <= loop_ub; i++) {
-    b_data->data[i] = data->data[i];
+    sldProfile_data[i] = data_data[i];
   }
   st.site = &ab_emlrtRSI;
   shiftdata(&st, sf, qshift, dataPresent, b_data, dataLimits, simLimits_data,
             simLimits_size, shifted_dat);
+  sldProfile_data = shifted_dat->data;
   /*  Calculate the reflectivity */
   st.site = &bb_emlrtRSI;
   callReflectivity(&st, nba, nbs, simLimits_data, simLimits_size, repeatLayers,
                    shifted_dat, layerSld, *ssubs, resol, reflect, Simul);
   /*  Apply background correction, either to the simulation or the data */
   st.site = &cb_emlrtRSI;
-  emxFree_real_T(&b_data);
-  emxFree_real_T(&layerSld);
+  emxFree_real_T(&st, &b_data);
+  emxFree_real_T(&st, &layerSld);
   if (backsType != (int32_T)muDoubleScalarFloor(backsType)) {
     emlrtIntegerCheckR2012b(backsType, &db_emlrtDCI, &st);
   }
@@ -193,40 +203,43 @@ void b_standardTF_layers_core(
     loop_ub = reflect->size[0] * 2;
     i = reflect->size[0] * reflect->size[1];
     reflect->size[1] = 2;
-    emxEnsureCapacity_real_T(&st, reflect, i, &mh_emlrtRTEI);
+    emxEnsureCapacity_real_T(&st, reflect, i, &nh_emlrtRTEI);
+    sldProfile_data = reflect->data;
     for (i = 0; i < loop_ub; i++) {
-      reflect->data[i] += background;
+      sldProfile_data[i] += background;
     }
     loop_ub = Simul->size[0] * 2;
     i = Simul->size[0] * Simul->size[1];
     Simul->size[1] = 2;
-    emxEnsureCapacity_real_T(&st, Simul, i, &oh_emlrtRTEI);
+    emxEnsureCapacity_real_T(&st, Simul, i, &ph_emlrtRTEI);
+    sldProfile_data = Simul->data;
     for (i = 0; i < loop_ub; i++) {
-      Simul->data[i] += background;
+      sldProfile_data[i] += background;
     }
     break;
   case 2:
     /*          %Subtract the background from the data.. */
     if (2 > shifted_dat->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, shifted_dat->size[1], &wf_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, shifted_dat->size[1], &qf_emlrtBCI,
                                     &st);
     }
-    emxInit_real_T(&st, &b_shifted_dat, 1, &nh_emlrtRTEI, true);
+    emxInit_real_T(&st, &b_shifted_dat, 1, &oh_emlrtRTEI, true);
     emlrtSubAssignSizeCheckR2012b(&shifted_dat->size[0], 1,
                                   &shifted_dat->size[0], 1, &emlrtECI, &st);
     loop_ub = shifted_dat->size[0] - 1;
     i = b_shifted_dat->size[0];
     b_shifted_dat->size[0] = shifted_dat->size[0];
-    emxEnsureCapacity_real_T(&st, b_shifted_dat, i, &nh_emlrtRTEI);
+    emxEnsureCapacity_real_T(&st, b_shifted_dat, i, &oh_emlrtRTEI);
+    theseLayers_data = b_shifted_dat->data;
     for (i = 0; i <= loop_ub; i++) {
-      b_shifted_dat->data[i] =
-          shifted_dat->data[i + shifted_dat->size[0]] - background;
+      theseLayers_data[i] =
+          sldProfile_data[i + shifted_dat->size[0]] - background;
     }
     loop_ub = b_shifted_dat->size[0];
     for (i = 0; i < loop_ub; i++) {
-      shifted_dat->data[i + shifted_dat->size[0]] = b_shifted_dat->data[i];
+      sldProfile_data[i + shifted_dat->size[0]] = theseLayers_data[i];
     }
-    emxFree_real_T(&b_shifted_dat);
+    emxFree_real_T(&st, &b_shifted_dat);
     /* shifted_dat(:,3) = shifted_dat(:,3) - backg;    */
     break;
   }
@@ -253,10 +266,14 @@ void standardTF_layers_core(
   emxArray_real_T *b_data;
   emxArray_real_T *b_shifted_dat;
   emxArray_real_T *layerSld;
+  const real_T *data_data;
+  real_T *sldProfile_data;
+  real_T *theseLayers_data;
   int32_T i;
   int32_T loop_ub;
   st.prev = sp;
   st.tls = sp->tls;
+  data_data = data->data;
   emlrtHeapReferenceStackEnterFcnR2012b((emlrtCTX)sp);
   /*    This is the main reflectivity calculation for all Layers models in the
    */
@@ -302,8 +319,6 @@ void standardTF_layers_core(
   /*  */
   /*  Outputs: */
   /*  */
-  /*  */
-  /*  */
   /*  ------------------------------------------------------------------------
    */
   /*  */
@@ -317,6 +332,7 @@ void standardTF_layers_core(
   st.site = &w_emlrtRSI;
   groupLayers_Mod(&st, contrastLayers, rough, geometry, nba, nbs, theseLayers,
                   ssubs);
+  theseLayers_data = theseLayers->data;
   /*  Make the SLD profiles. */
   /*  If resampling is needed, then enforce the calcSLD flag, so as to catch */
   /*  the error af trying to resample a non-existent profile. */
@@ -332,61 +348,68 @@ void standardTF_layers_core(
     i = sldProfile->size[0] * sldProfile->size[1];
     sldProfile->size[0] = 1;
     sldProfile->size[1] = 2;
-    emxEnsureCapacity_real_T(sp, sldProfile, i, &hh_emlrtRTEI);
-    sldProfile->data[0] = 0.0;
-    sldProfile->data[1] = 0.0;
+    emxEnsureCapacity_real_T(sp, sldProfile, i, &ih_emlrtRTEI);
+    sldProfile_data = sldProfile->data;
+    sldProfile_data[0] = 0.0;
+    sldProfile_data[1] = 0.0;
   }
   /*  If required, then resample the SLD */
-  emxInit_real_T(sp, &layerSld, 2, &ph_emlrtRTEI, true);
+  emxInit_real_T(sp, &layerSld, 2, &qh_emlrtRTEI, true);
   if (resample == 1.0) {
     st.site = &y_emlrtRSI;
     resampleLayers(&st, sldProfile, resamPars, layerSld);
+    sldProfile_data = layerSld->data;
     i = resamLayers->size[0] * resamLayers->size[1];
     resamLayers->size[0] = layerSld->size[0];
     resamLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, resamLayers, i, &jh_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, resamLayers, i, &kh_emlrtRTEI);
+    theseLayers_data = resamLayers->data;
     loop_ub = layerSld->size[0] * 3;
     for (i = 0; i < loop_ub; i++) {
-      resamLayers->data[i] = layerSld->data[i];
+      theseLayers_data[i] = sldProfile_data[i];
     }
   } else {
     i = layerSld->size[0] * layerSld->size[1];
     layerSld->size[0] = theseLayers->size[0];
     layerSld->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, layerSld, i, &ih_emlrtRTEI);
+    emxEnsureCapacity_real_T(sp, layerSld, i, &jh_emlrtRTEI);
+    sldProfile_data = layerSld->data;
     loop_ub = theseLayers->size[0] * 3;
     for (i = 0; i < loop_ub; i++) {
-      layerSld->data[i] = theseLayers->data[i];
+      sldProfile_data[i] = theseLayers_data[i];
     }
     i = resamLayers->size[0] * resamLayers->size[1];
     resamLayers->size[0] = 1;
     resamLayers->size[1] = 3;
-    emxEnsureCapacity_real_T(sp, resamLayers, i, &kh_emlrtRTEI);
-    resamLayers->data[0] = 0.0;
-    resamLayers->data[1] = 0.0;
-    resamLayers->data[2] = 0.0;
+    emxEnsureCapacity_real_T(sp, resamLayers, i, &lh_emlrtRTEI);
+    theseLayers_data = resamLayers->data;
+    theseLayers_data[0] = 0.0;
+    theseLayers_data[1] = 0.0;
+    theseLayers_data[2] = 0.0;
   }
-  emxInit_real_T(sp, &b_data, 2, &lh_emlrtRTEI, true);
+  emxInit_real_T(sp, &b_data, 2, &mh_emlrtRTEI, true);
   /*  Apply scale factors and q shifts to the data */
   i = b_data->size[0] * b_data->size[1];
   b_data->size[0] = data->size[0];
   b_data->size[1] = data->size[1];
-  emxEnsureCapacity_real_T(sp, b_data, i, &lh_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, b_data, i, &mh_emlrtRTEI);
+  sldProfile_data = b_data->data;
   loop_ub = data->size[0] * data->size[1] - 1;
   for (i = 0; i <= loop_ub; i++) {
-    b_data->data[i] = data->data[i];
+    sldProfile_data[i] = data_data[i];
   }
   st.site = &ab_emlrtRSI;
   shiftdata(&st, sf, qshift, dataPresent, b_data, dataLimits, simLimits_data,
             simLimits_size, shifted_dat);
+  sldProfile_data = shifted_dat->data;
   /*  Calculate the reflectivity */
   st.site = &bb_emlrtRSI;
   callReflectivity(&st, nba, nbs, simLimits_data, simLimits_size, repeatLayers,
                    shifted_dat, layerSld, *ssubs, resol, reflect, Simul);
   /*  Apply background correction, either to the simulation or the data */
   st.site = &cb_emlrtRSI;
-  emxFree_real_T(&b_data);
-  emxFree_real_T(&layerSld);
+  emxFree_real_T(&st, &b_data);
+  emxFree_real_T(&st, &layerSld);
   if (backsType != (int32_T)muDoubleScalarFloor(backsType)) {
     emlrtIntegerCheckR2012b(backsType, &db_emlrtDCI, &st);
   }
@@ -396,40 +419,43 @@ void standardTF_layers_core(
     loop_ub = reflect->size[0] * 2;
     i = reflect->size[0] * reflect->size[1];
     reflect->size[1] = 2;
-    emxEnsureCapacity_real_T(&st, reflect, i, &mh_emlrtRTEI);
+    emxEnsureCapacity_real_T(&st, reflect, i, &nh_emlrtRTEI);
+    sldProfile_data = reflect->data;
     for (i = 0; i < loop_ub; i++) {
-      reflect->data[i] += background;
+      sldProfile_data[i] += background;
     }
     loop_ub = Simul->size[0] * 2;
     i = Simul->size[0] * Simul->size[1];
     Simul->size[1] = 2;
-    emxEnsureCapacity_real_T(&st, Simul, i, &oh_emlrtRTEI);
+    emxEnsureCapacity_real_T(&st, Simul, i, &ph_emlrtRTEI);
+    sldProfile_data = Simul->data;
     for (i = 0; i < loop_ub; i++) {
-      Simul->data[i] += background;
+      sldProfile_data[i] += background;
     }
     break;
   case 2:
     /*          %Subtract the background from the data.. */
     if (2 > shifted_dat->size[1]) {
-      emlrtDynamicBoundsCheckR2012b(2, 1, shifted_dat->size[1], &wf_emlrtBCI,
+      emlrtDynamicBoundsCheckR2012b(2, 1, shifted_dat->size[1], &qf_emlrtBCI,
                                     &st);
     }
-    emxInit_real_T(&st, &b_shifted_dat, 1, &nh_emlrtRTEI, true);
+    emxInit_real_T(&st, &b_shifted_dat, 1, &oh_emlrtRTEI, true);
     emlrtSubAssignSizeCheckR2012b(&shifted_dat->size[0], 1,
                                   &shifted_dat->size[0], 1, &emlrtECI, &st);
     loop_ub = shifted_dat->size[0] - 1;
     i = b_shifted_dat->size[0];
     b_shifted_dat->size[0] = shifted_dat->size[0];
-    emxEnsureCapacity_real_T(&st, b_shifted_dat, i, &nh_emlrtRTEI);
+    emxEnsureCapacity_real_T(&st, b_shifted_dat, i, &oh_emlrtRTEI);
+    theseLayers_data = b_shifted_dat->data;
     for (i = 0; i <= loop_ub; i++) {
-      b_shifted_dat->data[i] =
-          shifted_dat->data[i + shifted_dat->size[0]] - background;
+      theseLayers_data[i] =
+          sldProfile_data[i + shifted_dat->size[0]] - background;
     }
     loop_ub = b_shifted_dat->size[0];
     for (i = 0; i < loop_ub; i++) {
-      shifted_dat->data[i + shifted_dat->size[0]] = b_shifted_dat->data[i];
+      sldProfile_data[i + shifted_dat->size[0]] = theseLayers_data[i];
     }
-    emxFree_real_T(&b_shifted_dat);
+    emxFree_real_T(&st, &b_shifted_dat);
     /* shifted_dat(:,3) = shifted_dat(:,3) - backg;    */
     break;
   }

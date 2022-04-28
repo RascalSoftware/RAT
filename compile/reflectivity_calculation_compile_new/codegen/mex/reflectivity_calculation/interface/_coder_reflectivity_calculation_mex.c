@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * _coder_reflectivity_calculation_mex.c
  *
@@ -29,9 +29,10 @@ void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
       NULL  /* prev */
   };
   mexAtExit(&reflectivity_calculation_atexit);
+  emlrtLoadMATLABLibrary((const char_T *)"sys/os/glnxa64/libiomp5.so");
   /* Initialize the memory manager. */
   omp_init_lock(&emlrtLockGlobal);
-  omp_init_nest_lock(&emlrtNestLockGlobal);
+  omp_init_nest_lock(&reflectivity_calculation_nestLockGlobal);
   /* Module initialization. */
   reflectivity_calculation_initialize();
   st.tls = emlrtRootTLSGlobal;
@@ -42,10 +43,10 @@ void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
     /* Module termination. */
     reflectivity_calculation_terminate();
     omp_destroy_lock(&emlrtLockGlobal);
-    omp_destroy_nest_lock(&emlrtNestLockGlobal);
+    omp_destroy_nest_lock(&reflectivity_calculation_nestLockGlobal);
   } else {
     omp_destroy_lock(&emlrtLockGlobal);
-    omp_destroy_nest_lock(&emlrtNestLockGlobal);
+    omp_destroy_nest_lock(&reflectivity_calculation_nestLockGlobal);
     emlrtReportParallelRunTimeError(&st);
   }
 }

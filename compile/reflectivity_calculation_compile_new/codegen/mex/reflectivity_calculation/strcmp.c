@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * strcmp.c
  *
@@ -16,28 +16,25 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo hb_emlrtRSI =
-    {
-        63,       /* lineNo */
-        "strcmp", /* fcnName */
-        "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-        "strcmp.m" /* pathName */
+static emlrtRSInfo hb_emlrtRSI = {
+    91,       /* lineNo */
+    "strcmp", /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/strcmp.m" /* pathName
+                                                                          */
 };
 
-static emlrtRSInfo ib_emlrtRSI =
-    {
-        138,          /* lineNo */
-        "loc_strcmp", /* fcnName */
-        "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-        "strcmp.m" /* pathName */
+static emlrtRSInfo ib_emlrtRSI = {
+    167,          /* lineNo */
+    "loc_strcmp", /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/strcmp.m" /* pathName
+                                                                          */
 };
 
-static emlrtRSInfo jb_emlrtRSI =
-    {
-        216,       /* lineNo */
-        "charcmp", /* fcnName */
-        "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
-        "strcmp.m" /* pathName */
+static emlrtRSInfo jb_emlrtRSI = {
+    240,       /* lineNo */
+    "charcmp", /* fcnName */
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/strcmp.m" /* pathName
+                                                                          */
 };
 
 /* Function Definitions */
@@ -47,14 +44,16 @@ boolean_T b_strcmp(const emxArray_char_T *a)
                                   'a', 'r', 'd', 'T', 'F'};
   int32_T exitg1;
   int32_T kstr;
+  const char_T *a_data;
   boolean_T b_bool;
+  a_data = a->data;
   b_bool = false;
   if (a->size[1] == 10) {
     kstr = 0;
     do {
       exitg1 = 0;
       if (kstr < 10) {
-        if (a->data[kstr] != b_cv[kstr]) {
+        if (a_data[kstr] != b_cv[kstr]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -78,14 +77,16 @@ boolean_T c_strcmp(const emlrtStack *sp, const emxArray_char_T *a)
   int32_T exitg1;
   int32_T i;
   int32_T kstr;
+  const char_T *a_data;
   boolean_T b_bool;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &hb_emlrtRSI;
   b_st.prev = &st;
   b_st.tls = st.tls;
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
+  a_data = a->data;
+  st.site = &hb_emlrtRSI;
   b_st.site = &ib_emlrtRSI;
   b_bool = false;
   if (a->size[1] == 13) {
@@ -94,7 +95,7 @@ boolean_T c_strcmp(const emlrtStack *sp, const emxArray_char_T *a)
       exitg1 = 0;
       if (kstr < 13) {
         c_st.site = &jb_emlrtRSI;
-        i = (uint8_T)a->data[kstr];
+        i = (uint8_T)a_data[kstr];
         if (i > 127) {
           emlrtErrorWithMessageIdR2018a(
               &c_st, &s_emlrtRTEI, "Coder:toolbox:unsupportedString",

@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * sqrt.h
  *
@@ -12,7 +12,6 @@
 #pragma once
 
 /* Include files */
-#include "reflectivity_calculation_types.h"
 #include "rtwtypes.h"
 #include "emlrt.h"
 #include "mex.h"
@@ -23,6 +22,6 @@
 #include <string.h>
 
 /* Function Declarations */
-void b_sqrt(const emlrtStack *sp, emxArray_real_T *x);
+void b_sqrt(creal_T *x);
 
 /* End of code generation (sqrt.h) */

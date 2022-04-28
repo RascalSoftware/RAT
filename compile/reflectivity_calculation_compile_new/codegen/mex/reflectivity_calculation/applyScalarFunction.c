@@ -1,7 +1,7 @@
 /*
  * Non-Degree Granting Education License -- for use at non-degree
- * granting, nonprofit, educational organizations only. Not for
- * government, commercial, or other organizational use.
+ * granting, nonprofit, education, and research organizations only. Not
+ * for commercial or industrial use.
  *
  * applyScalarFunction.c
  *
@@ -23,15 +23,15 @@
 static emlrtRSInfo xc_emlrtRSI = {
     60,                    /* lineNo */
     "applyScalarFunction", /* fcnName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/"
     "applyScalarFunction.m" /* pathName */
 };
 
-static emlrtRTEInfo ni_emlrtRTEI = {
+static emlrtRTEInfo oi_emlrtRTEI = {
     30,                    /* lineNo */
     21,                    /* colNo */
     "applyScalarFunction", /* fName */
-    "/Applications/MATLAB_R2021a.app/toolbox/eml/eml/+coder/+internal/"
+    "/usr/local/MATLAB/R2021b/toolbox/eml/eml/+coder/+internal/"
     "applyScalarFunction.m" /* pName */
 };
 
@@ -44,11 +44,13 @@ void applyScalarFunction(const emlrtStack *sp, const emxArray_real_T *x,
   emlrtStack b_st;
   emlrtStack c_st;
   emlrtStack st;
+  const real_T *x_data;
   real_T R;
   real_T S;
   real_T absx;
   real_T d;
   real_T s;
+  real_T *z1_data;
   int32_T b;
   int32_T eint;
   int32_T k;
@@ -58,10 +60,12 @@ void applyScalarFunction(const emlrtStack *sp, const emxArray_real_T *x,
   st.tls = sp->tls;
   b_st.prev = &st;
   b_st.tls = st.tls;
+  x_data = x->data;
   ub_loop = z1->size[0] * z1->size[1];
   z1->size[0] = 1;
   z1->size[1] = x->size[1];
-  emxEnsureCapacity_real_T(sp, z1, ub_loop, &ni_emlrtRTEI);
+  emxEnsureCapacity_real_T(sp, z1, ub_loop, &oi_emlrtRTEI);
+  z1_data = z1->data;
   st.site = &xc_emlrtRSI;
   if ((1 <= x->size[1]) && (x->size[1] > 2147483646)) {
     b_st.site = &j_emlrtRSI;
@@ -103,26 +107,26 @@ void applyScalarFunction(const emlrtStack *sp, const emxArray_real_T *x,
         /*  is preserved. */
         /* =============================    END
          * ================================ */
-        d = x->data[k];
+        d = x_data[k];
         absx = muDoubleScalarAbs(d);
         if (muDoubleScalarIsNaN(d)) {
-          z1->data[k] = d;
+          z1_data[k] = d;
         } else if (muDoubleScalarIsInf(d)) {
           if (d < 0.0) {
-            z1->data[k] = -1.0;
+            z1_data[k] = -1.0;
           } else {
-            z1->data[k] = 1.0;
+            z1_data[k] = 1.0;
           }
         } else if (absx < 0.84375) {
           if (absx < 3.7252902984619141E-9) {
             if (absx < 2.8480945388892178E-306) {
-              z1->data[k] = 0.125 * (8.0 * d + 1.0270333367641007 * d);
+              z1_data[k] = 0.125 * (8.0 * d + 1.0270333367641007 * d);
             } else {
-              z1->data[k] = d + 0.12837916709551259 * d;
+              z1_data[k] = d + 0.12837916709551259 * d;
             }
           } else {
             s = d * d;
-            z1->data[k] =
+            z1_data[k] =
                 d + d * ((s * (s * (s * (s * -2.3763016656650163E-5 +
                                          -0.0057702702964894416) +
                                     -0.02848174957559851) +
@@ -161,15 +165,15 @@ void applyScalarFunction(const emlrtStack *sp, const emxArray_real_T *x,
                    0.10642088040084423) +
               1.0;
           if (d >= 0.0) {
-            z1->data[k] = S / s + 0.84506291151046753;
+            z1_data[k] = S / s + 0.84506291151046753;
           } else {
-            z1->data[k] = -0.84506291151046753 - S / s;
+            z1_data[k] = -0.84506291151046753 - S / s;
           }
         } else if (absx > 6.0) {
           if (d < 0.0) {
-            z1->data[k] = -1.0;
+            z1_data[k] = -1.0;
           } else {
-            z1->data[k] = 1.0;
+            z1_data[k] = 1.0;
           }
         } else {
           s = 1.0 / (absx * absx);
@@ -220,9 +224,9 @@ void applyScalarFunction(const emlrtStack *sp, const emxArray_real_T *x,
           s = muDoubleScalarExp(-s * s - 0.5625) *
               muDoubleScalarExp((s - absx) * (s + absx) + R / S) / absx;
           if (d < 0.0) {
-            z1->data[k] = s - 1.0;
+            z1_data[k] = s - 1.0;
           } else {
-            z1->data[k] = 1.0 - s;
+            z1_data[k] = 1.0 - s;
           }
         }
       } else {

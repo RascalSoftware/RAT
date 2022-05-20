@@ -52,22 +52,44 @@ allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
+sldProf = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    sldProf{i} = [1 ; 1];
+end
+coder.varsize('sldProf{:}',[10000 3],[1 1]);
+for i = 1:numberOfContrasts
+    sldProfiles{i} = [1 1 ; 1 1];
+end
+coder.varsize('sldProfiles{:}',[10000 2],[1 0]);
 %coder.varsize('allLayers{:}',[10000 3],[1 1]);
+    % Depending on custom layer language we change the functions used
+lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
+switch lang 
+case 'matlab'
+    % Call the Matlab parallel loop to process the custom models.....
+    [sldProf, allRoughs] = loopMatalbCustlayWrapper_XYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+% 
+case 'cpp'
+    [sldProf,allRoughs] = loopCppCustlayWrapper_XYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+    
+    
+end
 
 
 for i = 1:numberOfContrasts
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
     
-    thisCustomFile = customFiles{cCustFiles(i)};
-    [sldProfile,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,nbas,nbss(i),numberOfContrasts);
+%     thisCustomFile = customFiles{cCustFiles(i)};
+%     [sldProfile,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,nbas,nbss(i),numberOfContrasts);
     
-    sldProfiles{i} = sldProfile;
+    sldProfiles{i} = sldProf{i};
 
     resamPars = controls.resamPars;
-    layerSld = resampleLayers(sldProfile,resamPars);
+    layerSld = resampleLayers(sldProfiles{i},resamPars);
     layerSlds{i} = layerSld;
     allLayers{i} = layerSld;
-
     shifted_dat =  shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
     shifted_data{i} = shifted_dat;
     

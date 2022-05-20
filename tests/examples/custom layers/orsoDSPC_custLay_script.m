@@ -146,7 +146,11 @@ problem.setContrastModel(2,'DSPC Model');
 problem.setContrastModel(3,'DSPC Model');
 
 
-
+controls = controlsDef();
+controls.calcSldDuringFit = 'no';
+controls.nsimu = 7000;
+controls.repeats = 3;
+controls.parallel = 'contrasts';
 
 
 

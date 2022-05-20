@@ -94,8 +94,8 @@ classdef resolutionsClass < handle
         end
         
         function obj = removeResolPar(obj,varargin)
-            % Remove a parameter from the resolPar table
-            disp('Todo');
+            % Remove a parameter from the backsPar table
+            obj.resolPars.removeParam(varargin{:});
         end
         
         function obj = setResolPar(obj, varargin)
@@ -117,6 +117,8 @@ classdef resolutionsClass < handle
             
             if isempty(in)
                 thisRow = {};
+            else
+                thisRow = {'','','','','','',''};
             end
             
             if length(in) == 1
@@ -162,6 +164,11 @@ classdef resolutionsClass < handle
             end
             obj.resolutions.addRow(thisRow);
                 
+        end
+        
+        function obj = removeResolution(obj, varargin)
+            thisRow = varargin{:};
+            obj.resolutions.removeRow(thisRow);
         end
         
         function obj = setResolutionValue(obj,varargin)

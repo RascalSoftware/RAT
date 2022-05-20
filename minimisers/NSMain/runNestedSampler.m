@@ -28,7 +28,7 @@ switch debug
         %Tuning Parameters - fixed for now
         model.ssfun = @NSIntraFun;
         Nlive = controls.Nlive;
-        tolerance = 1;
+        tolerance = controls.nsTolerance;
         likelihood = @NSIntraFun;
         %model = problemDef_cells;
         Nmcmc = controls.nmcmc;

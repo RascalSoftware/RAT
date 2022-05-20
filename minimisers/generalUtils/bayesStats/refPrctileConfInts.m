@@ -59,6 +59,7 @@ for i = 2:nsample
     
     thisRef = calcResult.reflectivity;
     thisSld = calcResult.sldProfiles;
+    sampleChi(i) = calcResult.calculationResults.sum_chi;
 
     for n = 1:numberOfContrasts
 
@@ -114,6 +115,6 @@ allPredInts.refPredInts = ref_Errors;
 allPredInts.sldPredInts = sld_Errors;
 allPredInts.refXdata = ref_xVals;
 allPredInts.sldXdata = sld_xVals;
-
+allPredInts.sampleChi = sampleChi;
 
 end

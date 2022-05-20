@@ -75,13 +75,22 @@ switch lower(oldType)
             thisLayer = problem.layersDetails{i};
             thisName = thisLayer{5};
             
-            thisThickNum = thisLayer{1};%str2double(thisLayer{1});
+            thisThickNum = thisLayer{1};
+            if ischar(thisThickNum)
+                thisThickNum = str2double(thisThickNum);
+            end
             thisThick = problem.paramnames{thisThickNum};
             
             thisSldNum = thisLayer{2};%str2double(thisLayer{2});
+            if ischar(thisSldNum)
+                thisSldNum = str2double(thisSldNum);
+            end
             thisSld = problem.paramnames{thisSldNum};
             
             thisRoughNum = thisLayer{3};%str2double(thisLayer{3});
+            if ischar(thisRoughNum)
+                thisRoughNum = str2double(thisRoughNum);
+            end
             thisRough = problem.paramnames{thisRoughNum};
             
             thisHydrPar = thisLayer{4};
@@ -89,6 +98,9 @@ switch lower(oldType)
                 thisHydr = '';
             else
                 thisHydrNum = thisHydrPar;%str2double(thisLayer{4});
+                if ischar(thisHydrNum)
+                    thisHydrNum = str2double(thisHydrNum);
+                end
                 thisHydr = problem.paramnames{thisHydrNum};
             end
             
@@ -183,7 +195,8 @@ dataFiles = problem.data;
 
 for i = 1:length(dataFiles)
     thisData = dataFiles{i};
-    thisDataName = sprintf('Datafile %d',i);
+    [~,thisDataFile,~] = fileparts(problem.contrastFiles{i});
+    thisDataName = thisDataFile; %problem.contrastFiles{i}; %sprintf('Datafile %d',i);
     thisProjectClass.addData(thisDataName,thisData);
     thisDataRange = problem.dataLimits{i};
     thisSimRange = problem.simLimits{i};

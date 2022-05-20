@@ -23,7 +23,7 @@
 #include <string.h>
 
 /* Function Declarations */
-boolean_T sortLE(const emxArray_real_T *v, const int32_T dir_data[],
-                 int32_T idx1, int32_T idx2);
+boolean_T sortLE(const emxArray_real_T *v, const int32_T dir_data[], int32_T
+                 idx1, int32_T idx2);
 
 /* End of code generation (sortLE.h) */

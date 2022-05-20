@@ -17,33 +17,21 @@
 #include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo tg_emlrtRSI =
-    {
-        311,               /* lineNo */
-        "eml_float_colon", /* fcnName */
-        "C:\\Program "
-        "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" /* pathName
-                                                                          */
+static emlrtRSInfo cg_emlrtRSI = { 297,/* lineNo */
+  "eml_float_colon",                   /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/ops/colon.m"/* pathName */
 };
 
-static emlrtRTEInfo tb_emlrtRTEI =
-    {
-        417,               /* lineNo */
-        15,                /* colNo */
-        "assert_pmaxsize", /* fName */
-        "C:\\Program "
-        "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" /* pName
-                                                                          */
+static emlrtRTEInfo ub_emlrtRTEI = { 403,/* lineNo */
+  15,                                  /* colNo */
+  "assert_pmaxsize",                   /* fName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/ops/colon.m"/* pName */
 };
 
-static emlrtRTEInfo sl_emlrtRTEI =
-    {
-        312,     /* lineNo */
-        20,      /* colNo */
-        "colon", /* fName */
-        "C:\\Program "
-        "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\ops\\colon.m" /* pName
-                                                                          */
+static emlrtRTEInfo sl_emlrtRTEI = { 298,/* lineNo */
+  20,                                  /* colNo */
+  "colon",                             /* fName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/ops/colon.m"/* pName */
 };
 
 /* Function Definitions */
@@ -66,9 +54,9 @@ void eml_float_colon(const emlrtStack *sp, real_T a, real_T d, real_T b,
   } else {
     cdiff = b - apnd;
   }
-  if (muDoubleScalarAbs(cdiff) <
-      4.4408920985006262E-16 *
-          muDoubleScalarMax(muDoubleScalarAbs(a), muDoubleScalarAbs(b))) {
+
+  if (muDoubleScalarAbs(cdiff) < 4.4408920985006262E-16 * muDoubleScalarMax
+      (muDoubleScalarAbs(a), muDoubleScalarAbs(b))) {
     ndbl++;
     apnd = b;
   } else if (cdiff > 0.0) {
@@ -76,16 +64,19 @@ void eml_float_colon(const emlrtStack *sp, real_T a, real_T d, real_T b,
   } else {
     ndbl++;
   }
+
   if (ndbl >= 0.0) {
     n = (int32_T)ndbl;
   } else {
     n = 0;
   }
-  st.site = &tg_emlrtRSI;
+
+  st.site = &cg_emlrtRSI;
   if (ndbl > 2.147483647E+9) {
-    emlrtErrorWithMessageIdR2018a(&st, &tb_emlrtRTEI, "Coder:MATLAB:pmaxsize",
-                                  "Coder:MATLAB:pmaxsize", 0);
+    emlrtErrorWithMessageIdR2018a(&st, &ub_emlrtRTEI, "Coder:MATLAB:pmaxsize",
+      "Coder:MATLAB:pmaxsize", 0);
   }
+
   nm1d2 = y->size[0] * y->size[1];
   y->size[0] = 1;
   y->size[1] = n;
@@ -100,6 +91,7 @@ void eml_float_colon(const emlrtStack *sp, real_T a, real_T d, real_T b,
         y->data[k + 1] = a + ndbl;
         y->data[(n - k) - 2] = apnd - ndbl;
       }
+
       if (nm1d2 << 1 == n - 1) {
         y->data[nm1d2] = (a + apnd) / 2.0;
       } else {

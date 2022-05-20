@@ -18,23 +18,25 @@
 #include "reflectivity_calculation_terminate.h"
 #include "rt_nonfinite.h"
 
+/* Variable Definitions */
+static jmp_buf emlrtJBEnviron;
+
 /* Function Definitions */
-void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
-                 const mxArray *prhs[])
+void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs, const mxArray
+                 *prhs[])
 {
-  static jmp_buf emlrtJBEnviron;
-  emlrtStack st = {
-      NULL, /* site */
-      NULL, /* tls */
-      NULL  /* prev */
+  emlrtStack st = { NULL,              /* site */
+    NULL,                              /* tls */
+    NULL                               /* prev */
   };
+
   mexAtExit(&reflectivity_calculation_atexit);
-  emlrtLoadLibrary(
-      (const char_T *)"C:\\ProgramData\\MATLAB\\SupportPackages\\R2021a\\3P."
-                      "instrset\\mingw_w64.instrset\\bin\\libgomp-1.dll");
+  emlrtLoadMATLABLibrary("sys/os/glnxa64/libiomp5.so");
+
   /* Initialize the memory manager. */
   omp_init_lock(&emlrtLockGlobal);
   omp_init_nest_lock(&emlrtNestLockGlobal);
+
   /* Module initialization. */
   reflectivity_calculation_initialize();
   st.tls = emlrtRootTLSGlobal;
@@ -42,6 +44,7 @@ void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
   if (setjmp(emlrtJBEnviron) == 0) {
     /* Dispatch the entry-point. */
     reflectivity_calculation_mexFunction(nlhs, plhs, nrhs, prhs);
+
     /* Module termination. */
     reflectivity_calculation_terminate();
     omp_destroy_lock(&emlrtLockGlobal);
@@ -55,40 +58,45 @@ void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
 
 emlrtCTX mexFunctionCreateRootTLS(void)
 {
-  emlrtCreateRootTLSR2021a(&emlrtRootTLSGlobal, &emlrtContextGlobal,
-                           &emlrtLockerFunction, omp_get_num_procs(), NULL);
+  emlrtCreateRootTLS(&emlrtRootTLSGlobal, &emlrtContextGlobal,
+                     &emlrtLockerFunction, omp_get_num_procs());
   return emlrtRootTLSGlobal;
 }
 
 void reflectivity_calculation_mexFunction(int32_T nlhs, mxArray *plhs[2],
-                                          int32_T nrhs, const mxArray *prhs[4])
+  int32_T nrhs, const mxArray *prhs[4])
 {
-  emlrtStack st = {
-      NULL, /* site */
-      NULL, /* tls */
-      NULL  /* prev */
+  emlrtStack st = { NULL,              /* site */
+    NULL,                              /* tls */
+    NULL                               /* prev */
   };
+
   const mxArray *outputs[2];
   int32_T b_nlhs;
   st.tls = emlrtRootTLSGlobal;
+
   /* Check for proper number of arguments. */
   if (nrhs != 4) {
     emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:WrongNumberOfInputs", 5, 12, 4, 4,
                         24, "reflectivity_calculation");
   }
+
   if (nlhs > 2) {
     emlrtErrMsgIdAndTxt(&st, "EMLRT:runTime:TooManyOutputArguments", 3, 4, 24,
                         "reflectivity_calculation");
   }
+
   /* Call the function. */
   reflectivity_calculation_api(prhs, nlhs, outputs);
+
   /* Copy over outputs to the caller. */
   if (nlhs < 1) {
     b_nlhs = 1;
   } else {
     b_nlhs = nlhs;
   }
-  emlrtReturnArrays(b_nlhs, &plhs[0], &outputs[0]);
+
+  emlrtReturnArrays(b_nlhs, plhs, outputs);
 }
 
 /* End of code generation (_coder_reflectivity_calculation_mex.c) */

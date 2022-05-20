@@ -23,12 +23,12 @@
 #include <string.h>
 
 /* Function Declarations */
-void backSort(const emlrtStack *sp, real_T cBacks, real_T cShifts,
-              real_T cScales, real_T cNbas, real_T cNbss, real_T cRes,
-              const emxArray_real_T *backs, const emxArray_real_T *shifts,
-              const emxArray_real_T *sf, const emxArray_real_T *nba,
-              const emxArray_real_T *nbs, const emxArray_real_T *res,
-              real_T *backg, real_T *qshift, real_T *b_sf, real_T *b_nba,
-              real_T *b_nbs, real_T *resol);
+void backSort(const emlrtStack *sp, real_T cBacks, real_T cShifts, real_T
+              cScales, real_T cNbas, real_T cNbss, real_T cRes, const
+              emxArray_real_T *backs, const emxArray_real_T *shifts, const
+              emxArray_real_T *sf, const emxArray_real_T *nba, const
+              emxArray_real_T *nbs, const emxArray_real_T *res, real_T *backg,
+              real_T *qshift, real_T *b_sf, real_T *b_nba, real_T *b_nbs, real_T
+              *resol);
 
 /* End of code generation (backSort.h) */

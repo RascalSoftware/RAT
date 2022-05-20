@@ -24,6 +24,6 @@
 
 /* Function Declarations */
 void applyScalarFunction(const emlrtStack *sp, const emxArray_real_T *x,
-                         emxArray_real_T *z1);
+  emxArray_real_T *z1);
 
 /* End of code generation (applyScalarFunction.h) */

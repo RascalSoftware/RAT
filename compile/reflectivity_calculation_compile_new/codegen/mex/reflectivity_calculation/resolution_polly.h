@@ -23,8 +23,8 @@
 #include <string.h>
 
 /* Function Declarations */
-void resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata,
-                      const emxArray_real_T *ydata, real_T res, real_T points,
+void resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata, const
+                      emxArray_real_T *ydata, real_T res, real_T points,
                       emxArray_real_T *out);
 
 /* End of code generation (resolution_polly.h) */

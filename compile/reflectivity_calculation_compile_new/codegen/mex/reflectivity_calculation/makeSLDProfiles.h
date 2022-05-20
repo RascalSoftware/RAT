@@ -23,8 +23,8 @@
 #include <string.h>
 
 /* Function Declarations */
-void makeSLDProfiles(const emlrtStack *sp, real_T nbair, real_T nbsub,
-                     const emxArray_real_T *sld, real_T ssub,
-                     const real_T repeats[2], emxArray_real_T *sldProfile);
+void makeSLDProfiles(const emlrtStack *sp, real_T nbair, real_T nbsub, const
+                     emxArray_real_T *sld, real_T ssub, const real_T repeats[2],
+                     emxArray_real_T *sldProfile);
 
 /* End of code generation (makeSLDProfiles.h) */

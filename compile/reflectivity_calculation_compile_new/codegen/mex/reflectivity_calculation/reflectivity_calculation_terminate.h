@@ -23,7 +23,6 @@
 
 /* Function Declarations */
 void reflectivity_calculation_atexit(void);
-
 void reflectivity_calculation_terminate(void);
 
 /* End of code generation (reflectivity_calculation_terminate.h) */

@@ -22,7 +22,7 @@
 #include <string.h>
 
 /* Function Declarations */
-void reflectivity_calculation_api(const mxArray *const prhs[4], int32_T nlhs,
-                                  const mxArray *plhs[2]);
+void reflectivity_calculation_api(const mxArray * const prhs[4], int32_T nlhs,
+  const mxArray *plhs[2]);
 
 /* End of code generation (_coder_reflectivity_calculation_api.h) */

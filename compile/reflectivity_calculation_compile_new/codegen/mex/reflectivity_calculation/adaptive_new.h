@@ -23,12 +23,11 @@
 #include <string.h>
 
 /* Function Declarations */
-void adaptive_new(const emlrtStack *sp, const emxArray_real_T *sldProfile,
-                  const real_T startDomain[2], real_T minAngle, real_T nPoints,
+void adaptive_new(const emlrtStack *sp, const emxArray_real_T *sldProfile, const
+                  real_T startDomain[2], real_T minAngle, real_T nPoints,
                   cell_19 *out);
-
 void b_adaptive_new(const emlrtStack *sp, const emxArray_real_T *sldProfile,
-                    const real_T startDomain[2], real_T minAngle,
-                    real_T nPoints, cell_19 *out);
+                    const real_T startDomain[2], real_T minAngle, real_T nPoints,
+                    cell_19 *out);
 
 /* End of code generation (adaptive_new.h) */

@@ -24,8 +24,7 @@
 
 /* Function Declarations */
 void data_resolution_polly(const emlrtStack *sp, const emxArray_real_T *xdata,
-                           const emxArray_real_T *ydata,
-                           const emxArray_real_T *resData, real_T points,
-                           emxArray_real_T *out);
+  const emxArray_real_T *ydata, const emxArray_real_T *resData, real_T points,
+  emxArray_real_T *out);
 
 /* End of code generation (data_resolution_polly.h) */

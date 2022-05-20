@@ -24,13 +24,11 @@
 
 /* Function Declarations */
 void b_groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
-                       real_T allRoughs, const emxArray_char_T *geometry,
-                       real_T nbair, real_T nbsubs, emxArray_real_T *outLayers,
-                       real_T *outSsubs);
-
+  real_T allRoughs, const emxArray_char_T *geometry, real_T nbair, real_T nbsubs,
+  emxArray_real_T *outLayers, real_T *outSsubs);
 void groupLayers_Mod(const emlrtStack *sp, const emxArray_real_T *allLayers,
-                     real_T allRoughs, const emxArray_char_T *geometry,
-                     real_T nbair, real_T nbsubs, emxArray_real_T *outLayers,
-                     real_T *outSsubs);
+                     real_T allRoughs, const emxArray_char_T *geometry, real_T
+                     nbair, real_T nbsubs, emxArray_real_T *outLayers, real_T
+                     *outSsubs);
 
 /* End of code generation (groupLayers_Mod.h) */

@@ -24,14 +24,11 @@
 
 /* Function Declarations */
 void b_call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
-                         real_T contrast, const cell_wrap_6 thisCustomFile[3],
-                         const emxArray_real_T *bulkIn, real_T bulkOut,
-                         real_T nContrasts, emxArray_real_T *output,
-                         real_T *sRough);
-
+  real_T contrast, const cell_wrap_6 thisCustomFile[3], const emxArray_real_T
+  *bulkIn, real_T bulkOut, real_T nContrasts, emxArray_real_T *output, real_T
+  *sRough);
 void call_customLayers(const emlrtStack *sp, const emxArray_real_T *params,
-                       real_T contrast, const cell_wrap_6 thisCustomFile[3],
-                       real_T bulkIn, real_T bulkOut, real_T nContrasts,
-                       emxArray_real_T *output, real_T *sRough);
+  real_T contrast, const cell_wrap_6 thisCustomFile[3], real_T bulkIn, real_T
+  bulkOut, real_T nContrasts, emxArray_real_T *output, real_T *sRough);
 
 /* End of code generation (call_customLayers.h) */

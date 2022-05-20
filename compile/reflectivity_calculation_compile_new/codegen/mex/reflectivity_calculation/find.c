@@ -19,55 +19,37 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo je_emlrtRSI = {
-    144,        /* lineNo */
-    "eml_find", /* fcnName */
-    "C:\\Program "
-    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\elmat\\find.m" /* pathName
-                                                                       */
+static emlrtRSInfo yd_emlrtRSI = { 144,/* lineNo */
+  "eml_find",                          /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/elmat/find.m"/* pathName */
 };
 
-static emlrtRSInfo ke_emlrtRSI = {
-    382,                  /* lineNo */
-    "find_first_indices", /* fcnName */
-    "C:\\Program "
-    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\elmat\\find.m" /* pathName
-                                                                       */
+static emlrtRSInfo ae_emlrtRSI = { 382,/* lineNo */
+  "find_first_indices",                /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/elmat/find.m"/* pathName */
 };
 
-static emlrtRSInfo le_emlrtRSI = {
-    402,                  /* lineNo */
-    "find_first_indices", /* fcnName */
-    "C:\\Program "
-    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\elmat\\find.m" /* pathName
-                                                                       */
+static emlrtRSInfo be_emlrtRSI = { 402,/* lineNo */
+  "find_first_indices",                /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/elmat/find.m"/* pathName */
 };
 
-static emlrtRTEInfo ob_emlrtRTEI = {
-    392,                  /* lineNo */
-    1,                    /* colNo */
-    "find_first_indices", /* fName */
-    "C:\\Program "
-    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\elmat\\find.m" /* pName
-                                                                       */
+static emlrtRTEInfo ob_emlrtRTEI = { 392,/* lineNo */
+  1,                                   /* colNo */
+  "find_first_indices",                /* fName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/elmat/find.m"/* pName */
 };
 
-static emlrtRTEInfo yj_emlrtRTEI = {
-    369,    /* lineNo */
-    24,     /* colNo */
-    "find", /* fName */
-    "C:\\Program "
-    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\elmat\\find.m" /* pName
-                                                                       */
+static emlrtRTEInfo yj_emlrtRTEI = { 369,/* lineNo */
+  24,                                  /* colNo */
+  "find",                              /* fName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/elmat/find.m"/* pName */
 };
 
-static emlrtRTEInfo ak_emlrtRTEI = {
-    144,    /* lineNo */
-    9,      /* colNo */
-    "find", /* fName */
-    "C:\\Program "
-    "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\elmat\\find.m" /* pName
-                                                                       */
+static emlrtRTEInfo ak_emlrtRTEI = { 144,/* lineNo */
+  9,                                   /* colNo */
+  "find",                              /* fName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/elmat/find.m"/* pName */
 };
 
 /* Function Definitions */
@@ -90,16 +72,17 @@ void eml_find(const emlrtStack *sp, const emxArray_boolean_T *x,
   c_st.prev = &b_st;
   c_st.tls = b_st.tls;
   nx = x->size[0];
-  st.site = &je_emlrtRSI;
+  st.site = &yd_emlrtRSI;
   idx = 0;
   b_i = i->size[0];
   i->size[0] = x->size[0];
   emxEnsureCapacity_int32_T(&st, i, b_i, &yj_emlrtRTEI);
-  b_st.site = &ke_emlrtRSI;
+  b_st.site = &ae_emlrtRSI;
   if ((1 <= x->size[0]) && (x->size[0] > 2147483646)) {
     c_st.site = &j_emlrtRSI;
     check_forloop_overflow_error(&c_st);
   }
+
   ii = 0;
   exitg1 = false;
   while ((!exitg1) && (ii <= nx - 1)) {
@@ -115,11 +98,12 @@ void eml_find(const emlrtStack *sp, const emxArray_boolean_T *x,
       ii++;
     }
   }
+
   if (idx > x->size[0]) {
     emlrtErrorWithMessageIdR2018a(&st, &ob_emlrtRTEI,
-                                  "Coder:builtins:AssertionFailed",
-                                  "Coder:builtins:AssertionFailed", 0);
+      "Coder:builtins:AssertionFailed", "Coder:builtins:AssertionFailed", 0);
   }
+
   if (x->size[0] == 1) {
     if (idx == 0) {
       i->size[0] = 0;
@@ -130,9 +114,10 @@ void eml_find(const emlrtStack *sp, const emxArray_boolean_T *x,
     } else {
       b_i = idx;
     }
+
     iv[0] = 1;
     iv[1] = b_i;
-    b_st.site = &le_emlrtRSI;
+    b_st.site = &be_emlrtRSI;
     indexShapeCheck(&b_st, i->size[0], iv);
     ii = i->size[0];
     i->size[0] = b_i;

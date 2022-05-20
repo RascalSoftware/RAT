@@ -332,8 +332,8 @@ classdef customFileClass < handle
                 error('filename must be a string');
             end
             
-            if ~strcmpi(language,{'matlab','octave','python'})
-                error('Custom file must be matlab, octave or python');
+            if ~strcmpi(language,{'matlab','octave','python','cpp'})
+                error('Custom file must be matlab, octave, C++ or python');
             end
             
             if ~isstring(path)

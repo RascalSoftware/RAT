@@ -29,7 +29,9 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
     fullfile(ratRoot,'targetFunctions','common','callCustomLayers');
     fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
-    fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers');    
+    fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers');  
+    fullfile(ratRoot,'targetFunctions','common','loopCppCustlayWrapper');
+
     
     fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
 

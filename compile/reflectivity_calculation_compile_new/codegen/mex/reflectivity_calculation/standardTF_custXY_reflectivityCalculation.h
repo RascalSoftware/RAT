@@ -23,12 +23,11 @@
 #include <string.h>
 
 /* Function Declarations */
-void c_standardTF_custXY_reflectivit(
-    const emlrtStack *sp, const struct0_T *problemDef,
-    const cell_16 *problemDef_cells, const struct2_T *controls,
-    struct_T *problem, emxArray_cell_wrap_9 *reflectivity,
-    emxArray_cell_wrap_9 *Simulation, emxArray_cell_wrap_14 *shifted_data,
-    emxArray_cell_wrap_10 *layerSlds, emxArray_cell_wrap_14 *sldProfiles,
-    emxArray_cell_wrap_14 *allLayers);
+void c_standardTF_custXY_reflectivit(const emlrtStack *sp, const struct0_T
+  *problemDef, const cell_16 *problemDef_cells, const struct2_T *controls,
+  struct_T *problem, emxArray_cell_wrap_9 *reflectivity, emxArray_cell_wrap_9
+  *Simulation, emxArray_cell_wrap_14 *shifted_data, emxArray_cell_wrap_10
+  *layerSlds, emxArray_cell_wrap_14 *sldProfiles, emxArray_cell_wrap_14
+  *allLayers);
 
 /* End of code generation (standardTF_custXY_reflectivityCalculation.h) */

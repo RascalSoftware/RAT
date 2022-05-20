@@ -12,7 +12,6 @@
 #pragma once
 
 /* Include files */
-#include "reflectivity_calculation_types.h"
 #include "rtwtypes.h"
 #include "emlrt.h"
 #include "mex.h"
@@ -23,6 +22,6 @@
 #include <string.h>
 
 /* Function Declarations */
-void b_sqrt(const emlrtStack *sp, emxArray_real_T *x);
+void b_sqrt(creal_T *x);
 
 /* End of code generation (sqrt.h) */

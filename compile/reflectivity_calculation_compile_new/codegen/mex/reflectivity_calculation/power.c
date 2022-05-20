@@ -16,41 +16,33 @@
 #include "reflectivity_calculation_emxutil.h"
 #include "reflectivity_calculation_types.h"
 #include "rt_nonfinite.h"
+#include "mwmathutil.h"
 
 /* Variable Definitions */
-static emlrtRSInfo oc_emlrtRSI =
-    {
-        71,      /* lineNo */
-        "power", /* fcnName */
-        "C:\\Program "
-        "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\ops\\power.m" /* pathName
-                                                                          */
+static emlrtRSInfo gc_emlrtRSI = { 70, /* lineNo */
+  "power",                             /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/ops/power.m"/* pathName */
 };
 
-static emlrtRSInfo pc_emlrtRSI =
-    {
-        80,         /* lineNo */
-        "fltpower", /* fcnName */
-        "C:\\Program "
-        "Files\\MATLAB\\R2021a\\toolbox\\eml\\lib\\matlab\\ops\\power.m" /* pathName
-                                                                          */
+static emlrtRSInfo hc_emlrtRSI = { 79, /* lineNo */
+  "fltpower",                          /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/lib/matlab/ops/power.m"/* pathName */
 };
 
-static emlrtRSInfo nf_emlrtRSI = {
-    200,        /* lineNo */
-    "flatIter", /* fcnName */
-    "C:\\Program "
-    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
-    "internal\\applyBinaryScalarFunction.m" /* pathName */
+static emlrtRSInfo ue_emlrtRSI = { 66, /* lineNo */
+  "applyBinaryScalarFunction",         /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/eml/+coder/+internal/applyBinaryScalarFunction.m"/* pathName */
 };
 
-static emlrtRTEInfo uk_emlrtRTEI = {
-    127,                         /* lineNo */
-    6,                           /* colNo */
-    "applyBinaryScalarFunction", /* fName */
-    "C:\\Program "
-    "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
-    "internal\\applyBinaryScalarFunction.m" /* pName */
+static emlrtRSInfo ve_emlrtRSI = { 188,/* lineNo */
+  "flatIter",                          /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/eml/+coder/+internal/applyBinaryScalarFunction.m"/* pathName */
+};
+
+static emlrtRTEInfo uk_emlrtRTEI = { 46,/* lineNo */
+  6,                                   /* colNo */
+  "applyBinaryScalarFunction",         /* fName */
+  "/opt/matlab2020b/toolbox/eml/eml/+coder/+internal/applyBinaryScalarFunction.m"/* pName */
 };
 
 /* Function Definitions */
@@ -60,13 +52,12 @@ void power(const emlrtStack *sp, const emxArray_real_T *a, emxArray_real_T *y)
   emlrtStack c_st;
   emlrtStack d_st;
   emlrtStack e_st;
-  emlrtStack f_st;
   emlrtStack st;
   int32_T k;
   int32_T nx;
   st.prev = sp;
   st.tls = sp->tls;
-  st.site = &oc_emlrtRSI;
+  st.site = &gc_emlrtRSI;
   b_st.prev = &st;
   b_st.tls = st.tls;
   c_st.prev = &b_st;
@@ -75,22 +66,20 @@ void power(const emlrtStack *sp, const emxArray_real_T *a, emxArray_real_T *y)
   d_st.tls = c_st.tls;
   e_st.prev = &d_st;
   e_st.tls = d_st.tls;
-  f_st.prev = &e_st;
-  f_st.tls = e_st.tls;
-  b_st.site = &pc_emlrtRSI;
-  c_st.site = &if_emlrtRSI;
-  d_st.site = &kf_emlrtRSI;
+  b_st.site = &hc_emlrtRSI;
   nx = y->size[0];
   y->size[0] = a->size[0];
-  emxEnsureCapacity_real_T(&d_st, y, nx, &uk_emlrtRTEI);
+  emxEnsureCapacity_real_T(&b_st, y, nx, &uk_emlrtRTEI);
+  c_st.site = &ue_emlrtRSI;
   nx = a->size[0];
-  e_st.site = &nf_emlrtRSI;
+  d_st.site = &ve_emlrtRSI;
   if ((1 <= a->size[0]) && (a->size[0] > 2147483646)) {
-    f_st.site = &j_emlrtRSI;
-    check_forloop_overflow_error(&f_st);
+    e_st.site = &j_emlrtRSI;
+    check_forloop_overflow_error(&e_st);
   }
+
   for (k = 0; k < nx; k++) {
-    y->data[k] = a->data[k] * a->data[k];
+    y->data[k] = muDoubleScalarPower(a->data[k], 2.0);
   }
 }
 

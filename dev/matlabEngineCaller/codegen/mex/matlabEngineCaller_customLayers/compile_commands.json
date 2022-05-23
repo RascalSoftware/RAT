@@ -1,0 +1,62 @@
+[
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/codegen/mex/matlabEngineCaller_customLayers",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \"./interface\" -I \".\" -DMODEL=matlabEngineCaller_customLayers_mex -DMW_NEEDS_VERSION_H -c  /Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/matlabCallFun.c -o build/maci64/matlabCallFun.o",
+    "file": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/matlabCallFun.c",
+    "output": "build/maci64/matlabCallFun.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/codegen/mex/matlabEngineCaller_customLayers",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \"./interface\" -I \".\" -DMODEL=matlabEngineCaller_customLayers_mex -DMW_NEEDS_VERSION_H -c  matlabEngineCaller_customLayers_data.cpp -o build/maci64/matlabEngineCaller_customLayers_data.o",
+    "file": "matlabEngineCaller_customLayers_data.cpp",
+    "output": "build/maci64/matlabEngineCaller_customLayers_data.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/codegen/mex/matlabEngineCaller_customLayers",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \"./interface\" -I \".\" -DMODEL=matlabEngineCaller_customLayers_mex -DMW_NEEDS_VERSION_H -c  rt_nonfinite.cpp -o build/maci64/rt_nonfinite.o",
+    "file": "rt_nonfinite.cpp",
+    "output": "build/maci64/rt_nonfinite.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/codegen/mex/matlabEngineCaller_customLayers",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \"./interface\" -I \".\" -DMODEL=matlabEngineCaller_customLayers_mex -DMW_NEEDS_VERSION_H -c  matlabEngineCaller_customLayers_initialize.cpp -o build/maci64/matlabEngineCaller_customLayers_initialize.o",
+    "file": "matlabEngineCaller_customLayers_initialize.cpp",
+    "output": "build/maci64/matlabEngineCaller_customLayers_initialize.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/codegen/mex/matlabEngineCaller_customLayers",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \"./interface\" -I \".\" -DMODEL=matlabEngineCaller_customLayers_mex -DMW_NEEDS_VERSION_H -c  matlabEngineCaller_customLayers_terminate.cpp -o build/maci64/matlabEngineCaller_customLayers_terminate.o",
+    "file": "matlabEngineCaller_customLayers_terminate.cpp",
+    "output": "build/maci64/matlabEngineCaller_customLayers_terminate.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/codegen/mex/matlabEngineCaller_customLayers",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \"./interface\" -I \".\" -DMODEL=matlabEngineCaller_customLayers_mex -DMW_NEEDS_VERSION_H -c  matlabEngineCaller_customLayers.cpp -o build/maci64/matlabEngineCaller_customLayers.o",
+    "file": "matlabEngineCaller_customLayers.cpp",
+    "output": "build/maci64/matlabEngineCaller_customLayers.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/codegen/mex/matlabEngineCaller_customLayers",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \"./interface\" -I \".\" -DMODEL=matlabEngineCaller_customLayers_mex -DMW_NEEDS_VERSION_H -c  interface/_coder_matlabEngineCaller_customLayers_api.cpp -o build/maci64/_coder_matlabEngineCaller_customLayers_api.o",
+    "file": "interface/_coder_matlabEngineCaller_customLayers_api.cpp",
+    "output": "build/maci64/_coder_matlabEngineCaller_customLayers_api.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/codegen/mex/matlabEngineCaller_customLayers",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \"./interface\" -I \".\" -DMODEL=matlabEngineCaller_customLayers_mex -DMW_NEEDS_VERSION_H -c  interface/_coder_matlabEngineCaller_customLayers_mex.cpp -o build/maci64/_coder_matlabEngineCaller_customLayers_mex.o",
+    "file": "interface/_coder_matlabEngineCaller_customLayers_mex.cpp",
+    "output": "build/maci64/_coder_matlabEngineCaller_customLayers_mex.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/codegen/mex/matlabEngineCaller_customLayers",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \"./interface\" -I \".\" -DMODEL=matlabEngineCaller_customLayers_mex -DMW_NEEDS_VERSION_H -c  interface/_coder_matlabEngineCaller_customLayers_info.cpp -o build/maci64/_coder_matlabEngineCaller_customLayers_info.o",
+    "file": "interface/_coder_matlabEngineCaller_customLayers_info.cpp",
+    "output": "build/maci64/_coder_matlabEngineCaller_customLayers_info.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller/codegen/mex/matlabEngineCaller_customLayers",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang++ -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE  -O2 -fwrapv -DNDEBUG -fvisibility=hidden -std=c++11 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/matlabEngineCaller\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \"./interface\" -I \".\" -DMODEL=matlabEngineCaller_customLayers_mex -DMW_NEEDS_VERSION_H -c  /Applications/MATLAB_R2021a.app/extern/version/cpp_mexapi_version.cpp -o build/maci64/cpp_mexapi_version.o",
+    "file": "/Applications/MATLAB_R2021a.app/extern/version/cpp_mexapi_version.cpp",
+    "output": "build/maci64/cpp_mexapi_version.o"
+  }
+]

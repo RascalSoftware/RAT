@@ -97,7 +97,6 @@ switch whichTF
 
 end
 
-
 result = cell(1,6);
 
 cell1 = cell(numberOfContrasts,1);

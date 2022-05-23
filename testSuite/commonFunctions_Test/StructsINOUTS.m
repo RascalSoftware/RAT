@@ -1,4 +1,4 @@
-% function that takes two .mat files,a name  and puts them into a struct called 'data' like this:
+% create a function that takes two .mat files,a name  and puts them into a struct called 'data' like this:
 
 % load_data(file1,file2,name)
 % data.(nameInputs).file1

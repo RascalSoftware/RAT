@@ -1,0 +1,48 @@
+# CompilerName=clang
+# Mode=optim
+ninja_required_version = 1.3
+
+# Basic folders
+root = .
+builddir = $root/build/maci64
+matlabdir = /Applications/MATLAB_R2021a.app
+startdir = /Users/arwel/Documents/coding/RAT/dev/paraCustLay
+
+# Toolchain information
+cc = /usr/bin/xcrun -sdk macosx10.15 clang
+cxx = /usr/bin/xcrun -sdk macosx10.15 clang++
+linker = /usr/bin/xcrun -sdk macosx10.15 clang
+linkerxx = /usr/bin/xcrun -sdk macosx10.15 clang++
+
+cflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=callParaMatalbCustlay_mex -c 
+
+cxxflags =  -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -fobjc-arc -std=c++11 -stdlib=libc++ -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c++11 -I "$root" -I "$startdir" -I "$root/interface" -I "$matlabdir/extern/include" -I "." -DMODEL=callParaMatalbCustlay_mex -c 
+
+ldflags =  -Wl,-twolevel_namespace -undefined error -arch x86_64 -mmacosx-version-min=10.14 -Wl,-syslibroot,/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -bundle   -L"$matlabdir/bin/maci64" -lmx -lmex -lmat -lc++  -Wl,-rpath,@loader_path -o callParaMatalbCustlay_mex.mexmaci64 -lemlrt -lcovrt -lut -lmwmathutil  -Wl,-exported_symbols_list,callParaMatalbCustlay_mex.map
+
+# Build Rules
+rule cc
+    command = $cc $cflags $in -o $out
+
+rule cxx
+    command = $cxx $cxxflags $in -o $out
+
+rule link
+    command = $linker $in $ldflags
+
+rule linkxx
+    command = $linkerxx $in $ldflags
+
+# Build
+build $builddir/callParaMatalbCustlay_data.o : cc $root/callParaMatalbCustlay_data.c
+build $builddir/rt_nonfinite.o : cc $root/rt_nonfinite.c
+build $builddir/callParaMatalbCustlay_initialize.o : cc $root/callParaMatalbCustlay_initialize.c
+build $builddir/callParaMatalbCustlay_terminate.o : cc $root/callParaMatalbCustlay_terminate.c
+build $builddir/callParaMatalbCustlay.o : cc $root/callParaMatalbCustlay.c
+build $builddir/_coder_callParaMatalbCustlay_api.o : cc $root/interface/_coder_callParaMatalbCustlay_api.c
+build $builddir/_coder_callParaMatalbCustlay_mex.o : cc $root/interface/_coder_callParaMatalbCustlay_mex.c
+build $builddir/_coder_callParaMatalbCustlay_info.o : cc $root/interface/_coder_callParaMatalbCustlay_info.c
+build $builddir/c_mexapi_version.o : cc $matlabdir/extern/version/c_mexapi_version.c
+
+# Link
+build $root/callParaMatalbCustlay_mex.mexmaci64 : link $builddir/callParaMatalbCustlay_data.o $builddir/rt_nonfinite.o $builddir/callParaMatalbCustlay_initialize.o $builddir/callParaMatalbCustlay_terminate.o $builddir/callParaMatalbCustlay.o $builddir/_coder_callParaMatalbCustlay_api.o $builddir/_coder_callParaMatalbCustlay_mex.o $builddir/_coder_callParaMatalbCustlay_info.o $builddir/c_mexapi_version.o 

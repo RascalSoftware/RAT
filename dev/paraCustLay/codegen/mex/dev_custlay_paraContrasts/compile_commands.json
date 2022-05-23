@@ -1,0 +1,212 @@
+[
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  dev_custlay_paraContrasts_data.c -o build/maci64/dev_custlay_paraContrasts_data.o",
+    "file": "dev_custlay_paraContrasts_data.c",
+    "output": "build/maci64/dev_custlay_paraContrasts_data.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  rt_nonfinite.c -o build/maci64/rt_nonfinite.o",
+    "file": "rt_nonfinite.c",
+    "output": "build/maci64/rt_nonfinite.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  dev_custlay_paraContrasts_initialize.c -o build/maci64/dev_custlay_paraContrasts_initialize.o",
+    "file": "dev_custlay_paraContrasts_initialize.c",
+    "output": "build/maci64/dev_custlay_paraContrasts_initialize.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  dev_custlay_paraContrasts_terminate.c -o build/maci64/dev_custlay_paraContrasts_terminate.o",
+    "file": "dev_custlay_paraContrasts_terminate.c",
+    "output": "build/maci64/dev_custlay_paraContrasts_terminate.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  dev_custlay_paraContrasts.c -o build/maci64/dev_custlay_paraContrasts.o",
+    "file": "dev_custlay_paraContrasts.c",
+    "output": "build/maci64/dev_custlay_paraContrasts.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  backSort.c -o build/maci64/backSort.o",
+    "file": "backSort.c",
+    "output": "build/maci64/backSort.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  standardTF_layers_core.c -o build/maci64/standardTF_layers_core.o",
+    "file": "standardTF_layers_core.c",
+    "output": "build/maci64/standardTF_layers_core.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  groupLayers_Mod.c -o build/maci64/groupLayers_Mod.o",
+    "file": "groupLayers_Mod.c",
+    "output": "build/maci64/groupLayers_Mod.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  indexShapeCheck.c -o build/maci64/indexShapeCheck.o",
+    "file": "indexShapeCheck.c",
+    "output": "build/maci64/indexShapeCheck.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  makeSLDProfiles.c -o build/maci64/makeSLDProfiles.o",
+    "file": "makeSLDProfiles.c",
+    "output": "build/maci64/makeSLDProfiles.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sum.c -o build/maci64/sum.o",
+    "file": "sum.c",
+    "output": "build/maci64/sum.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sumMatrixIncludeNaN.c -o build/maci64/sumMatrixIncludeNaN.o",
+    "file": "sumMatrixIncludeNaN.c",
+    "output": "build/maci64/sumMatrixIncludeNaN.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  eml_int_forloop_overflow_check.c -o build/maci64/eml_int_forloop_overflow_check.o",
+    "file": "eml_int_forloop_overflow_check.c",
+    "output": "build/maci64/eml_int_forloop_overflow_check.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  asymconvstep.c -o build/maci64/asymconvstep.o",
+    "file": "asymconvstep.c",
+    "output": "build/maci64/asymconvstep.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  applyScalarFunction.c -o build/maci64/applyScalarFunction.o",
+    "file": "applyScalarFunction.c",
+    "output": "build/maci64/applyScalarFunction.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  adaptive_new.c -o build/maci64/adaptive_new.o",
+    "file": "adaptive_new.c",
+    "output": "build/maci64/adaptive_new.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  linspace.c -o build/maci64/linspace.o",
+    "file": "linspace.c",
+    "output": "build/maci64/linspace.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  find.c -o build/maci64/find.o",
+    "file": "find.c",
+    "output": "build/maci64/find.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  repmat.c -o build/maci64/repmat.o",
+    "file": "repmat.c",
+    "output": "build/maci64/repmat.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  power.c -o build/maci64/power.o",
+    "file": "power.c",
+    "output": "build/maci64/power.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  any.c -o build/maci64/any.o",
+    "file": "any.c",
+    "output": "build/maci64/any.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sortLE.c -o build/maci64/sortLE.o",
+    "file": "sortLE.c",
+    "output": "build/maci64/sortLE.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  callReflectivity.c -o build/maci64/callReflectivity.o",
+    "file": "callReflectivity.c",
+    "output": "build/maci64/callReflectivity.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  colon.c -o build/maci64/colon.o",
+    "file": "colon.c",
+    "output": "build/maci64/colon.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  abeles_single.c -o build/maci64/abeles_single.o",
+    "file": "abeles_single.c",
+    "output": "build/maci64/abeles_single.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  chiSquared.c -o build/maci64/chiSquared.o",
+    "file": "chiSquared.c",
+    "output": "build/maci64/chiSquared.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  interface/_coder_dev_custlay_paraContrasts_api.c -o build/maci64/_coder_dev_custlay_paraContrasts_api.o",
+    "file": "interface/_coder_dev_custlay_paraContrasts_api.c",
+    "output": "build/maci64/_coder_dev_custlay_paraContrasts_api.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  interface/_coder_dev_custlay_paraContrasts_mex.c -o build/maci64/_coder_dev_custlay_paraContrasts_mex.o",
+    "file": "interface/_coder_dev_custlay_paraContrasts_mex.c",
+    "output": "build/maci64/_coder_dev_custlay_paraContrasts_mex.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sqrt.c -o build/maci64/sqrt.o",
+    "file": "sqrt.c",
+    "output": "build/maci64/sqrt.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  acos.c -o build/maci64/acos.o",
+    "file": "acos.c",
+    "output": "build/maci64/acos.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sqrt1.c -o build/maci64/sqrt1.o",
+    "file": "sqrt1.c",
+    "output": "build/maci64/sqrt1.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  sortrows.c -o build/maci64/sortrows.o",
+    "file": "sortrows.c",
+    "output": "build/maci64/sortrows.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  dev_custlay_paraContrasts_emxutil.c -o build/maci64/dev_custlay_paraContrasts_emxutil.o",
+    "file": "dev_custlay_paraContrasts_emxutil.c",
+    "output": "build/maci64/dev_custlay_paraContrasts_emxutil.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  interface/_coder_dev_custlay_paraContrasts_info.c -o build/maci64/_coder_dev_custlay_paraContrasts_info.o",
+    "file": "interface/_coder_dev_custlay_paraContrasts_info.c",
+    "output": "build/maci64/_coder_dev_custlay_paraContrasts_info.o"
+  },
+  {
+    "directory": "/Users/arwel/Documents/coding/RAT/dev/paraCustLay/codegen/mex/dev_custlay_paraContrasts",
+    "command": "/usr/bin/xcrun -sdk macosx10.15 clang -fno-common -arch x86_64 -mmacosx-version-min=10.14 -fexceptions -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I \".\" -I \"/Users/arwel/Documents/coding/RAT/dev/paraCustLay\" -I \"./interface\" -I \"/Applications/MATLAB_R2021a.app/extern/include\" -I \".\" -DMODEL=dev_custlay_paraContrasts_mex -c -fPIC -Xpreprocessor -fopenmp -I \"/Applications/MATLAB_R2021a.app/toolbox/eml/externalDependency/omp/maci64/include\" -DOpenMP_omp_LIBRARY=\"/Applications/MATLAB_R2021a.app/sys/os/maci64/libiomp5.dylib\"  /Applications/MATLAB_R2021a.app/extern/version/c_mexapi_version.c -o build/maci64/c_mexapi_version.o",
+    "file": "/Applications/MATLAB_R2021a.app/extern/version/c_mexapi_version.c",
+    "output": "build/maci64/c_mexapi_version.o"
+  }
+]

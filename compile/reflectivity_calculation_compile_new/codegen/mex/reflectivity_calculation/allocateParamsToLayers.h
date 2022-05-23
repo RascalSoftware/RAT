@@ -24,7 +24,6 @@
 
 /* Function Declarations */
 void allocateParamsToLayers(const emlrtStack *sp, const emxArray_real_T *params,
-                            const emxArray_cell_wrap_14 *layersDetails,
-                            emxArray_cell_wrap_17 *outLayers);
+  const emxArray_cell_wrap_14 *layersDetails, emxArray_cell_wrap_17 *outLayers);
 
 /* End of code generation (allocateParamsToLayers.h) */

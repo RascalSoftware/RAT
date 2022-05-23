@@ -16,68 +16,27 @@
 #include "rt_nonfinite.h"
 
 /* Variable Definitions */
-static emlrtRSInfo
-    hb_emlrtRSI =
-        {
-            63,       /* lineNo */
-            "strcmp", /* fcnName */
-            "C:\\Program "
-            "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
-            "internal\\strcmp.m" /* pathName */
+static emlrtRSInfo hb_emlrtRSI = { 63, /* lineNo */
+  "strcmp",                            /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/eml/+coder/+internal/strcmp.m"/* pathName */
 };
 
-static emlrtRSInfo
-    ib_emlrtRSI =
-        {
-            138,          /* lineNo */
-            "loc_strcmp", /* fcnName */
-            "C:\\Program "
-            "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
-            "internal\\strcmp.m" /* pathName */
+static emlrtRSInfo ib_emlrtRSI = { 138,/* lineNo */
+  "loc_strcmp",                        /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/eml/+coder/+internal/strcmp.m"/* pathName */
 };
 
-static emlrtRSInfo
-    jb_emlrtRSI =
-        {
-            216,       /* lineNo */
-            "charcmp", /* fcnName */
-            "C:\\Program "
-            "Files\\MATLAB\\R2021a\\toolbox\\eml\\eml\\+coder\\+"
-            "internal\\strcmp.m" /* pathName */
+static emlrtRSInfo jb_emlrtRSI = { 216,/* lineNo */
+  "charcmp",                           /* fcnName */
+  "/opt/matlab2020b/toolbox/eml/eml/+coder/+internal/strcmp.m"/* pathName */
 };
 
 /* Function Definitions */
-boolean_T b_strcmp(const emxArray_char_T *a)
+boolean_T b_strcmp(const emlrtStack *sp, const emxArray_char_T *a)
 {
-  static const char_T b_cv[10] = {'s', 't', 'a', 'n', 'd',
-                                  'a', 'r', 'd', 'T', 'F'};
-  int32_T exitg1;
-  int32_T kstr;
-  boolean_T b_bool;
-  b_bool = false;
-  if (a->size[1] == 10) {
-    kstr = 0;
-    do {
-      exitg1 = 0;
-      if (kstr < 10) {
-        if (a->data[kstr] != b_cv[kstr]) {
-          exitg1 = 1;
-        } else {
-          kstr++;
-        }
-      } else {
-        b_bool = true;
-        exitg1 = 1;
-      }
-    } while (exitg1 == 0);
-  }
-  return b_bool;
-}
+  static const char_T b_cv[13] = { 'a', 'i', 'r', '/', 's', 'u', 'b', 's', 't',
+    'r', 'a', 't', 'e' };
 
-boolean_T c_strcmp(const emlrtStack *sp, const emxArray_char_T *a)
-{
-  static const char_T b_cv[13] = {'a', 'i', 'r', '/', 's', 'u', 'b',
-                                  's', 't', 'r', 'a', 't', 'e'};
   emlrtStack b_st;
   emlrtStack c_st;
   emlrtStack st;
@@ -102,11 +61,12 @@ boolean_T c_strcmp(const emlrtStack *sp, const emxArray_char_T *a)
         c_st.site = &jb_emlrtRSI;
         i = (uint8_T)a->data[kstr];
         if (i > 127) {
-          emlrtErrorWithMessageIdR2018a(
-              &c_st, &s_emlrtRTEI, "Coder:toolbox:unsupportedString",
-              "Coder:toolbox:unsupportedString", 2, 12, 127);
+          emlrtErrorWithMessageIdR2018a(&c_st, &y_emlrtRTEI,
+            "Coder:toolbox:unsupportedString", "Coder:toolbox:unsupportedString",
+            2, 12, 127);
         }
-        if (cv[i] != cv[(int32_T)b_cv[kstr]]) {
+
+        if (cv1[i] != cv1[(int32_T)b_cv[kstr]]) {
           exitg1 = 1;
         } else {
           kstr++;
@@ -117,6 +77,7 @@ boolean_T c_strcmp(const emlrtStack *sp, const emxArray_char_T *a)
       }
     } while (exitg1 == 0);
   }
+
   return b_bool;
 }
 

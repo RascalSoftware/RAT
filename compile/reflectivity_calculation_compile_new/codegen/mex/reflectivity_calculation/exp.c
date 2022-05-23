@@ -22,8 +22,8 @@ void b_exp(creal_T *x)
   if (x->im == 0.0) {
     x->re = muDoubleScalarExp(x->re);
     x->im = 0.0;
-  } else if (muDoubleScalarIsInf(x->im) && muDoubleScalarIsInf(x->re) &&
-             (x->re < 0.0)) {
+  } else if (muDoubleScalarIsInf(x->im) && muDoubleScalarIsInf(x->re) && (x->re <
+              0.0)) {
     x->re = 0.0;
     x->im = 0.0;
   } else {

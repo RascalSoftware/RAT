@@ -18,16 +18,16 @@
 /* Function Definitions */
 void reflectivity_calculation_initialize(void)
 {
-  emlrtStack st = {
-      NULL, /* site */
-      NULL, /* tls */
-      NULL  /* prev */
+  emlrtStack st = { NULL,              /* site */
+    NULL,                              /* tls */
+    NULL                               /* prev */
   };
+
   mex_InitInfAndNan();
   mexFunctionCreateRootTLS();
   emlrtBreakCheckR2012bFlagVar = emlrtGetBreakCheckFlagAddressR2012b();
   st.tls = emlrtRootTLSGlobal;
-  emlrtClearAllocCountR2012b(&st, false, 0U, NULL);
+  emlrtClearAllocCountR2012b(&st, false, 0U, 0);
   emlrtEnterRtStackR2012b(&st);
   emlrtFirstTimeR2012b(emlrtRootTLSGlobal);
 }

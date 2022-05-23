@@ -25,7 +25,6 @@
 /* Function Declarations */
 void b_resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
                       const real_T resamPars[2], emxArray_real_T *newSLD);
-
 void resampleLayers(const emlrtStack *sp, const emxArray_real_T *sldProfile,
                     const real_T resamPars[2], emxArray_real_T *newSLD);
 

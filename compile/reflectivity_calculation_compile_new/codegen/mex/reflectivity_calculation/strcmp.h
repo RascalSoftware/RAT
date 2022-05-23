@@ -23,8 +23,6 @@
 #include <string.h>
 
 /* Function Declarations */
-boolean_T b_strcmp(const emxArray_char_T *a);
-
-boolean_T c_strcmp(const emlrtStack *sp, const emxArray_char_T *a);
+boolean_T b_strcmp(const emlrtStack *sp, const emxArray_char_T *a);
 
 /* End of code generation (strcmp.h) */

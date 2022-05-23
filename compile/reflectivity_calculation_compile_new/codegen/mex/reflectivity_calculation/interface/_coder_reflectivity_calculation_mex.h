@@ -22,12 +22,10 @@
 #include <string.h>
 
 /* Function Declarations */
-MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[],
-                                     int32_T nrhs, const mxArray *prhs[]);
-
+MEXFUNCTION_LINKAGE void mexFunction(int32_T nlhs, mxArray *plhs[], int32_T nrhs,
+  const mxArray *prhs[]);
 emlrtCTX mexFunctionCreateRootTLS(void);
-
 void reflectivity_calculation_mexFunction(int32_T nlhs, mxArray *plhs[2],
-                                          int32_T nrhs, const mxArray *prhs[4]);
+  int32_T nrhs, const mxArray *prhs[4]);
 
 /* End of code generation (_coder_reflectivity_calculation_mex.h) */

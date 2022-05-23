@@ -23,8 +23,6 @@
 #include <string.h>
 
 /* Function Declarations */
-void b_sum(const emlrtStack *sp, const emxArray_real_T *x, emxArray_real_T *y);
-
 real_T sum(const emlrtStack *sp, const emxArray_real_T *x);
 
 /* End of code generation (sum.h) */

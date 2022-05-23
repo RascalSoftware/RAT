@@ -31,6 +31,7 @@ boolean_T any(const emxArray_boolean_T *x)
       exitg1 = true;
     }
   }
+
   return y;
 }
 

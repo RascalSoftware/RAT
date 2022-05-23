@@ -16,8 +16,8 @@
 #include "mwmathutil.h"
 
 /* Function Definitions */
-boolean_T sortLE(const emxArray_real_T *v, const int32_T dir_data[],
-                 int32_T idx1, int32_T idx2)
+boolean_T sortLE(const emxArray_real_T *v, const int32_T dir_data[], int32_T
+                 idx1, int32_T idx2)
 {
   real_T v1;
   real_T v2;
@@ -36,9 +36,11 @@ boolean_T sortLE(const emxArray_real_T *v, const int32_T dir_data[],
       if ((!(v1 <= v2)) && (!muDoubleScalarIsNaN(v2))) {
         p = false;
       }
+
       exitg1 = true;
     }
   }
+
   return p;
 }
 

@@ -23,9 +23,9 @@
 #include <string.h>
 
 /* Function Declarations */
-void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift,
-               real_T dataPresent, emxArray_real_T *data,
-               const real_T dataLimits[2], const real_T simLimits_data[],
-               const int32_T simLimits_size[2], emxArray_real_T *shifted_data);
+void shiftdata(const emlrtStack *sp, real_T scalefac, real_T horshift, real_T
+               dataPresent, emxArray_real_T *data, const real_T dataLimits[2],
+               const real_T simLimits_data[], const int32_T simLimits_size[2],
+               emxArray_real_T *shifted_data);
 
 /* End of code generation (shiftdata.h) */

@@ -61,6 +61,8 @@ allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
+coder.varsize('allLayers{:}',[1000,5],[1,1]);
+
 
 %   --- End Memory Allocation ---
 
@@ -70,17 +72,20 @@ resamPars = controls.resamPars;
 
 % Depending on custom layer language we change the functions used
 lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
-switch lang
+switch lang 
 case 'matlab'
     % Call the Matlab parallel loop to process the custom models.....
-    [allLayers, allRoughs] = loopMatalbCustlayWrapper(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    [allLayers, allRoughs] = loopMatalbCustlayWrapper_CustLaycontrast(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 % 
-% case 'cpp'
-%     [allLayers,allRoughs] = loopCppCustlayWrapper(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+case 'cpp'
+    [allLayers,allRoughs] = loopCppCustlayWrapper_CustLaycontrast(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+    
     
 end
+
+i=0
 
 % Multi cored over all contrasts
 parfor i = 1:numberOfContrasts
@@ -89,10 +94,8 @@ parfor i = 1:numberOfContrasts
     % First need to decide which values of the backrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
-    
     % Get the custom layers output for this contrast
     thisContrastLayers = allLayers{i};
-    
     % For the other parameters, we extract the correct ones from the input
     % arrays
     thisRough = allRoughs(i);      

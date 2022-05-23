@@ -23,7 +23,7 @@
 #include <string.h>
 
 /* Function Declarations */
-real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData,
-                  const emxArray_real_T *thisFit, real_T P);
+real_T chiSquared(const emlrtStack *sp, const emxArray_real_T *thisData, const
+                  emxArray_real_T *thisFit, real_T P);
 
 /* End of code generation (chiSquared.h) */

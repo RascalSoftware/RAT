@@ -1,4 +1,4 @@
-function [allLayers, allRoughs] = loopMatalbCustlayWrapper(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+function [allLayers, allRoughs] = loopMatalbCustlayWrapper_CustLaysingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
      shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
  
  %#codegen
@@ -20,7 +20,7 @@ function [allLayers, allRoughs] = loopMatalbCustlayWrapper(cBacks,cShifts,cScale
  % We do this using feval, which automatically makes this function call
  % only extrinsic... the loop is then handled in the matlab file (using 
  % paralell computing toolbox)
- [tempAllLayers, tempAllRoughs] = feval('loopMatlabCustomLayers',cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+ [tempAllLayers, tempAllRoughs] = feval('loopMatlabCustomLayers_single',cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
      shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
  
  % All the following is intended to be casting from mxArray's to doubles.

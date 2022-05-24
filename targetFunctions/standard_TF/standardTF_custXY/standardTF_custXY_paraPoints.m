@@ -52,6 +52,14 @@ allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
+sldProf = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    sldProf{i} = [1 ; 1];
+end
+sldProfiles = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    sldProfiles{i} = [1 ; 1];
+end
 %coder.varsize('allLayers{:}',[10000 3],[1 1]);
     % Depending on custom layer language we change the functions used
 lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used

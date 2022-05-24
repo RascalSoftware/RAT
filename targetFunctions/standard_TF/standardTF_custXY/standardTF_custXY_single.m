@@ -53,6 +53,11 @@ sldProf = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     sldProf{i} = [1 ; 1];
 end
+
+sldProfiles = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    sldProfiles{i} = [1 ; 1];
+end
 lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
 switch lang 
 case 'matlab'

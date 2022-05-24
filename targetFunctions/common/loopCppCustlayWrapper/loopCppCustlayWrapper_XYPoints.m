@@ -26,7 +26,7 @@ shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
             sRough = 0.0;
             [output,sRough] = testDLL_mex(params,nba,nbs,i,cLibName,cfunctionName);
             
-            output = reshape(output,3,8)'; % convert to 3 x from top down and transpose 
+            output = reshape(output,2,8)'; % convert to 3 x from top down and transpose 
             mask = (output >= 0) & (output <= 2.6e-100); % mask the zeros/extremely small positive useless nums or use ...
             %mask = (abs(output) <= 2.6e-100);
             output(mask) = NaN;

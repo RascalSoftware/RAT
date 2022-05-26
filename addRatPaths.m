@@ -56,6 +56,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'minimisers','NSMain');
     fullfile(ratRoot,'minimisers','mcmcstat_new');
     fullfile(ratRoot,'minimisers','DE');
+    fullfile(ratRoot,'minimisers','Paramonte');
     fullfile(ratRoot,'minimisers','generalUtils','bayesStats');
     fullfile(ratRoot,'utilities');
     fullfile(ratRoot,'utilities','plotting');

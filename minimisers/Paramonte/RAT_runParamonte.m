@@ -1,4 +1,4 @@
-function [problemDef,outProblem,result,bayesResults] = RAT_runParamonte(problem,controls,pmPars)
+function [outProblemDef,results] = RAT_runParamonte(problem,controls,pmPars)
 
 global logFunc;
 
@@ -37,7 +37,7 @@ pmpd = pm.ParaDRAM();
 scaledMins = zeros(length(testPars),1);
 scaledMaxs = ones(length(testPars),1);
 
-pmpd.spec.outputFileName = "./paramonte_out/RAT_results"; 
+pmpd.spec.outputFileName = sprintf("./paramonte_out/%s",pmpPars.name); 
 pmpd.spec.startPointVec = problemDef.fitpars;
 pmpd.spec.domainLowerLimitVec = scaledMins;%problemDef.fitconstr(:,1);
 pmpd.spec.domainUpperLimitVec = scaledMaxs;%problemDef.fitconstr(:,2);
@@ -58,44 +58,49 @@ pmpd.spec.chainSize = pmPars.chainSize; %10000;
 pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective function
                 , @logFunc.get  ... the objective function
                 );
+            
+            
+            
+[outProblemDef,results] = processParamonteRuns(problem,controls,pmPars.name,pmPars.chainTrim);    
+        
 
-pmpd.readChain();
-
-chainTable = pmpd.chainList{1}.df;
-
-% Get out the chain, and unscale it.....
-scaledChain = chainTable{2:end,8:end};
-
-limits = problemDef.fitconstr;
-rows = size(scaledChain,1);
-
-for i = 1:rows
-    thesePars = scaledChain(i,:)';
-    unscaledPars = (thesePars.*(limits(:,2)-limits(:,1)))+limits(:,1);
-    unscaledChain(i,:) = unscaledPars';
-end
-
-
-% problemDef,problemDef_cells,problemDef_limits,priors,controls
-outProblem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
-
-numberOfContrasts = problemDef.numberOfContrasts;
-data = cell(1,numberOfContrasts);
-for i = 1:numberOfContrasts
-    thisData = problemDef_cells{2}{i};
-    if ~isempty(thisData)
-        data{i} = thisData(:,:);
-    end
-end
-
-output.results.mean = mean(unscaledChain);
-output.chain = unscaledChain;
-output.s2chain = [];
-output.sschain = [];
-output.bestPars = mean(unscaledChain);
-output.data = data;
-
-[problemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,outProblem);
+% pmpd.readChain();
+% 
+% chainTable = pmpd.chainList{1}.df;
+% 
+% % Get out the chain, and unscale it.....
+% scaledChain = chainTable{2:end,8:end};
+% 
+% limits = problemDef.fitconstr;
+% rows = size(scaledChain,1);
+% 
+% for i = 1:rows
+%     thesePars = scaledChain(i,:)';
+%     unscaledPars = (thesePars.*(limits(:,2)-limits(:,1)))+limits(:,1);
+%     unscaledChain(i,:) = unscaledPars';
+% end
+% 
+% 
+% % problemDef,problemDef_cells,problemDef_limits,priors,controls
+% outProblem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
+% 
+% numberOfContrasts = problemDef.numberOfContrasts;
+% data = cell(1,numberOfContrasts);
+% for i = 1:numberOfContrasts
+%     thisData = problemDef_cells{2}{i};
+%     if ~isempty(thisData)
+%         data{i} = thisData(:,:);
+%     end
+% end
+% 
+% output.results.mean = mean(unscaledChain);
+% output.chain = unscaledChain;
+% output.s2chain = [];
+% output.sschain = [];
+% output.bestPars = mean(unscaledChain);
+% output.data = data;
+% 
+% [problemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,outProblem);
 
 clear logFunc pm pmpd
 

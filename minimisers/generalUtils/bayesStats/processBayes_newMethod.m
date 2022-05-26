@@ -62,7 +62,7 @@ bayesResults.bestPars_Mean = bayesOutputs.results.mean;
 % bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};
 bayesResults.bestFitsMean = bestFitMean;
 bayesResults.predlims = allPredInts;
-% bayesResults.parConfInts = parConfInts;
+bayesResults.parConfInts = parConfInts;
 
 
 end

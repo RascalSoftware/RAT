@@ -995,6 +995,7 @@ function status=wbar(i,nsimu)
     
     pct = i/nsimu;
     textProgressBar('Bayes:',pct);
+%    simpleTextProgressBar('Bayes:',pct);
     status = 1;
     
     

@@ -1,10 +1,10 @@
 
-function [outProblemDef,result] = processFits(name,chainName,chainTrim)
+function [outProblemDef,result] = processFits(problem,controls,chainName,chainTrim)
 
-problem = load(name);
-problem = problem.twentyMNProblem;
-
-controls = controlsDef();
+% problem = load(name);
+% problem = problem.twentyMNProblem;
+% 
+% controls = controlsDef();
 
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(problem,controls);
 problemDefInput = problemDef;

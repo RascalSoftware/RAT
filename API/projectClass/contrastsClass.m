@@ -174,6 +174,10 @@ classdef contrastsClass < handle
                         thisContrast.resample = inputBlock.resample;
                     end
                     
+                    if ~isempty(inputBlock.scalefactor)
+                        thisContrast.scalefactor = inputBlock.scalefactor;
+                    end
+                    
             %end
             
             obj.contrasts{whichContrast} = thisContrast;

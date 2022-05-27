@@ -2,7 +2,6 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
     allRoughs] = standardTF_custlay_paraPoints(problemDef,problemDef_cells,...
     problemDef_limits,controls)
-
 % Multi threaded version of the custom layers over reflectivity poimnts
 % for standardTF reflectivity calculation. 
 % The function extracts the relevant parameters from the input
@@ -60,6 +59,20 @@ end
 %   --- End Memory Allocation ---
 
 resamPars = controls.resamPars;
+% Depending on custom layer language we change the functions used
+lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
+switch lang 
+case 'matlab'
+    % Call the Matlab parallel loop to process the custom models.....
+    [allLayers, allRoughs] = loopMatalbCustlayWrapper_CustLaypoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+% 
+case 'cpp'
+    [allLayers,allRoughs] = loopCppCustlayWrapper_CustLaypoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+    
+    
+end
 
 % Single cored over all contrasts
 for i = 1:numberOfContrasts
@@ -70,10 +83,9 @@ for i = 1:numberOfContrasts
     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
     
     % Call the custom layers function to get the layers array...
-    thisCustomFile = customFiles{cCustFiles(i)};
-    [outLayers,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,thisNba,thisNbs,numberOfContrasts);
-    allLayers{i} = outLayers;
-    thisContrastLayers = outLayers;
+
+    
+    thisContrastLayers = allLayers{i};
     
     % For the other parameters, we extract the correct ones from the input
     % arrays

@@ -1,1 +1,10 @@
 # List of untracked files to ignore
+codegen/
+compile/codegen/
+dev/matlabEngineCaller/codegen/
+dev/paraCustLay/codegen/
+old
+targetFunctions/common/loopCoppCustlayWrapper/codegen/
+
+
+

@@ -1,5 +1,6 @@
 function chi2 = chiSquared(thisData,thisFit,P)
-%chi_squared(func,data,numparams,errors)
+% Chi-squared function is used to evaluate the goodness of fit.
+% It is a measure of the difference between the observed and expected.
 
 %allChis = zeros(1,numberOfContrasts);
 

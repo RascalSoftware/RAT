@@ -1,27 +1,22 @@
 function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls)
-
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
-% analysis tools from the rest of the toolbox. The main job of this
-% function is to decide which type of calculation (i.e. 'Target function'
+% analysis tools from the rest of the toolbox. 
+%
+% *The main job of this function is to decide which type of calculation (i.e. 'Target function'
 % is required, and call the relevant routines. The types of available 
-% target functions are:
+% target functions are:*
 %
-% 1. standardTF       - The main basic target function type, for non polarised 
-%                       neutrons (or x-rays) with non-absorbing samples.
-%                       Different model types are specified in sub functions
-%                       from here.
+% * standardTF     - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
 %
-% 2. standardTFAbs    - Identical to standardTF, but includes imaginary refractive 
-%                       index terms.
+% * standardTFAbs  - Identical to standardTF, but includes imaginary refractive index terms.
 %
-% 3. oilWaterTF       - Target function for oil-water samples
+% * oilWaterTF     - Target function for oil-water samples
 %
-% 4. domainsTF        - Target function for samples consisting of domains 
-%                       which are larger than the beam lateral coherence length.
+% * domainsTF      - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
 %
-% 5. polarisedTF      - Target function for cases for polarised neutrons
-%                       with polarisation analysis
+% * polarisedTF    - Target function for cases for polarised neutrons with polarisation analysis.
+%                       
     
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles

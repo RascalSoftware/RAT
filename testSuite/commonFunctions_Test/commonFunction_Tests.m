@@ -105,9 +105,17 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
         function loadApplyBackgroundCorrection(testCase)
             inputs = load('applyBackgroundCorrectionInputs.mat');
             outputs = load('applyBackgroundCorrectionOutputs.mat');
+            % input is a 1 x 1 struct containing 5 arguments. Convert it into cell array so
+            % we can pass multiple values instead of one struct into testCase.applyB
+            s = inputs.ans(1:end);
+   
+            inputs = {s.reflect,s.Simul,s.shifted_dat,s.backg,s.backsType};
 
-            testCase.applyBackgroundCorrectionInputs = inputs.inputs;
-            testCase.applyBackgroundCorrectionOutputs = outputs.outputs;
+            s = outputs.ans(1:end);
+            outputs = {s.reflect,s.Simul,s.shifted_dat};
+
+            testCase.applyBackgroundCorrectionInputs = inputs;
+            testCase.applyBackgroundCorrectionOutputs = outputs;
         end
 
         function loadcallReflectivity(testCase)
@@ -280,7 +288,7 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
         function applyBackgroundCorrection_test(testCase)
             % test applyBackgroundCorrection
 
-            [out1,out2,out3] = applyBackgroundCorrection(testCase.applyBackgroundCorrectionInputs{1:end});
+            [out1,out2,out3] = applyBackgroundCorrection(testCase.applyBackgroundCorrectionInputs{:});
             outputs = {out1,out2,out3};
             testCase.verifyEqual(testCase.applyBackgroundCorrectionOutputs,outputs);
 

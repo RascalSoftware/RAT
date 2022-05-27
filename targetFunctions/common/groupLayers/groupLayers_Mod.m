@@ -1,35 +1,32 @@
 function [outLayers, outSsubs] = groupLayers_Mod(allLayers,allRoughs,geometry,nbair,nbsubs)
-
 %Arrange layers according to geometry and apply any coverage correction.
 %
-%[outLayers, outSsubs] = groupLayers_Mod(allLayers,allRoughs,numberOfContrasts,geometry,nbairs,nbsubs)
-% Inputs:
-%     allLayers = cell array, one for each contrast. Each cell is the 
-%                 list of layer values for each contrast.
-%                 e.g. allLayers{1} = [d1, rho1, r1, %hyd, hyd_which
-%                                      d2, rho2, r2, %hyd2, hyd_which_2..
-%                                      etc]
-%     allRoughs = Double of substrate roughness for each contrast.
-%     numberOfContrasts = double.
-%     geometry =  'Air / Liquid (or solid)' or 'Solid / Liquid'
-%     nbairs = vector of nbair values.
-%     nbsubs = vector of nbsub values.
+% USAGE::
+%
+%     [outLayers, outSsubs] = groupLayers_Mod(allLayers,allRoughs,numberOfContrasts,geometry,nbairs,nbsubs)
+%
+% INPUTS:
+%
+%     * allLayers =         cell array, one for each contrast. Each cell is the list of layer values for each contrast.
+%     * allRoughs =         Double of substrate roughness for each contrast.
+%     * numberOfContrasts = double.
+%     * geometry =          'Air / Liquid (or solid)' or 'Solid / Liquid'
+%     * nbairs =            vector of nbair values.
+%     * nbsubs =            vector of nbsub values.
 %
 %     The paratt calculation procedds through the 
 %     z,rho,rough stack, and the parameter 'ssub' in
 %     callParatt is the final roughness encountered. 
-%     For air liquid 'ssub' is therefore the substrate roughness.
-%     For solid liquid, the substrate roughness is the first roughness
-%     encountered, and 'ssub' is then the roughness of the outermost layer.
-%     The rougnesses need to be arranged accordingly.
 %
+%     * For air liquid 'ssub' is therefore the substrate roughness.
+%
+%     * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer
 %
 % Outputs:
-%     outLayers = cell array of layers param values for each contrast.
-%                 e.g. outLayers{1} = [d1 rho1 r1;
-%                                      d2 rho2 r2
-%                                      ... etc   ]
-%     outSsubs = vector of substrate roughness values.
+%
+%     * outLayers = cell array of layers param values for each contrast.
+%
+%     * outSsubs =  vector of substrate roughness values.
 %
 
 

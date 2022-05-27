@@ -1,0 +1,108 @@
+function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+    Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+    allRoughs] = standardTF_custXY_paraContrasts(problemDef,problemDef_cells,...
+    problemDef_limits,controls)
+
+
+% Extract individual cell arrays
+[repeatLayers,...
+ allData,...
+ dataLimits,...
+ simLimits,...
+ contrastLayers,...
+ layersDetails,...
+ customFiles] = RAT_parse_cells(problemDef_cells);
+
+% Extract individual parameters from problemDef struct
+[numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
+cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
+numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);      
+            
+%Pre-Allocation...
+backgs = zeros(numberOfContrasts,1);
+qshifts = zeros(numberOfContrasts,1);
+sfs = zeros(numberOfContrasts,1);
+nbas = zeros(numberOfContrasts,1);
+nbss = zeros(numberOfContrasts,1);
+resols = zeros(numberOfContrasts,1);
+allRoughs = zeros(numberOfContrasts,1);
+outSsubs = zeros(numberOfContrasts,1);
+chis =  zeros(numberOfContrasts,1);
+allLayers = cell(numberOfContrasts,1); 
+layerSlds = cell(numberOfContrasts,1);
+sldProfiles = cell(numberOfContrasts,1);
+shifted_data = cell(numberOfContrasts,1);
+
+reflectivity = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    reflectivity{i} = [1 1 ; 1 1];
+end
+coder.varsize('reflectivity{:}',[10000 2],[1 0]);
+
+Simulation = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    Simulation{i} = [1 1 ; 1 1];
+end
+coder.varsize('Simulation{:}',[10000 2],[1 0]);
+sldProf = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    sldProf{i} = [1 ; 1];
+end
+allLayers = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    allLayers{i} = [1 ; 1];
+end
+sldProfiles = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    sldProfiles{i} = [1 ; 1];
+end
+coder.varsize('allLayers{:}',[10000 3],[1 1]);
+% Depending on custom layer language we change the functions used
+lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
+switch lang 
+case 'matlab'
+    % Call the Matlab parallel loop to process the custom models.....
+    [sldProf, allRoughs] = loopMatalbCustlayWrapper_XYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+% 
+case 'cpp'
+    [sldProf,allRoughs] = loopCppCustlayWrapper_XYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+    
+    
+end
+
+
+for i = 1:numberOfContrasts
+    [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+    
+%     thisCustomFile = customFiles{cCustFiles(i)};
+%     [sldProfile,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,nbas,nbss(i),numberOfContrasts);
+    
+    sldProfiles{i} = sldProf{i};
+
+    resamPars = controls.resamPars;
+    layerSld = resampleLayers(sldProfiles{i},resamPars);
+    layerSlds{i} = layerSld;
+    allLayers{i} = layerSld;
+
+    shifted_dat =  shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
+    shifted_data{i} = shifted_dat;
+    
+    reflectivityType = 'standardAbeles_realOnly';
+    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'single',reflectivityType);
+    
+    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgs(i),backsType(i));
+    
+    reflectivity{i} = reflect;
+    Simulation{i} = Simul;
+    
+    if dataPresent(i)
+        chis(i) = chiSquared(shifted_dat,reflect,nParams);
+    else
+        chis(i) = 0;
+    end
+end
+
+
+end

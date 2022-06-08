@@ -4,7 +4,7 @@ function plotBayes(problem,results,varargin)
         figure(10); clf; plotRefSLD(problem,results)
 
         h2 = figure(30); clf; %subplot(1,2,1)
-        bayesShadedPlot(problem,results,'fit','average','KeepAxes',true,'interval',95,'q4',true)
+        bayesShadedPlot(problem,results,'fit','average','KeepAxes',true,'interval',95,'q4',false)
         
         
         h3 = figure(40); clf

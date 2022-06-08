@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Documentation &mdash; RAT 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/design-tabs.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="install.html" />
+    <link rel="prev" title="Developer Documentation" href="devDocumentation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> RAT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">RAT Tutorial</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devDocumentation.html">Developer Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-create-a-custom-c-model">How to create a custom C++ model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#windows-dll">Windows - DLL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gcc">GCC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#msvc-microsoft-visual-studio-compiler">MSVC (Microsoft Visual Studio Compiler)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linux-idaas-so">Linux/IDAAS  - .so</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About RAT</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RAT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>User Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/userDocumentation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="user-documentation">
+<span id="userdocs"></span><h1>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this headline"></a></h1>
+<p><em>Many pieces of user intructions go here but this is one piece I have. Should be organised when other pieces from Arwel come</em></p>
+<section id="how-to-create-a-custom-c-model">
+<h2>How to create a custom C++ model<a class="headerlink" href="#how-to-create-a-custom-c-model" title="Permalink to this headline"></a></h2>
+<p>1. First Step is to make sure your cpp file is error-free and follow the guidelines mentioned in this step. Your cpp file should contain your custom model and
+custom model should be a function. Inorder for RAT to fetch your custom model/function, it needs to be exported. So, you have to get <a class="reference external" href="https://github.com/martin-olivier/dylib/releases/download/v1.8.2/dylib.hpp">dylib.hpp</a> here and put <strong>DYLIB_API</strong>
+macro infront of the function name.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DYLIB_API</span> <span class="n">void</span> <span class="n">myCustomFunction</span><span class="p">(</span><span class="n">double</span> <span class="o">*</span><span class="n">params</span><span class="o">...</span><span class="n">etc</span><span class="o">....</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Now that you have put DYLIB_API infront of the dependencies. It is time to make a dynamic library of your model. To do this, you must follow platform specific instructions below.</p></li>
+</ol>
+<p>Lets say your file is called <strong>myModel.cpp</strong> and your function is called <strong>myCustomFunction</strong></p>
+<section id="windows-dll">
+<h3>Windows - DLL<a class="headerlink" href="#windows-dll" title="Permalink to this headline"></a></h3>
+<p>Prerequites: MinGW or Microsoft Visual Studio Compiler (MSVC) but GCC is strongly suggested</p>
+</section>
+<section id="gcc">
+<h3>GCC<a class="headerlink" href="#gcc" title="Permalink to this headline"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++ -c myModel.cpp -o myModel.o   Generate an object file
+g++ -shared myModel.o -o myModel.dll  outputs a DLL named myModel.dll
+</pre></div>
+</div>
+</section>
+<section id="msvc-microsoft-visual-studio-compiler">
+<h3>MSVC (Microsoft Visual Studio Compiler)<a class="headerlink" href="#msvc-microsoft-visual-studio-compiler" title="Permalink to this headline"></a></h3>
+<p>Open <em>Developer Command Prompt for Visual Studio</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cl.exe /LD myModel.cpp /EHsc   You should see myModel.dll <span class="k">in</span> the current directory
+</pre></div>
+</div>
+</section>
+<section id="linux-idaas-so">
+<h3>Linux/IDAAS  - .so<a class="headerlink" href="#linux-idaas-so" title="Permalink to this headline"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++ -c myModel.cpp -o myModel.o -std<span class="o">=</span>c++11  Generate an object file
+g++ -shared myModel.o -o myModel.so  outputs a .so named myModel.so
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="devDocumentation.html" class="btn btn-neutral float-left" title="Developer Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Arwel Hughes,Sethu Pastula.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

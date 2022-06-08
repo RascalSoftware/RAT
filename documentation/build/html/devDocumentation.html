@@ -1,260 +1,653 @@
-<!doctype html>
-<html class="no-js">
-  <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="author" title="About these documents" href="about.html" /><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="User Documentation" href="userDocumentation.html" /><link rel="prev" title="API" href="api.html" />
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>Developer Documentation - RAT 0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
-    
-    
-
-
-<style>
-  body {
-    --color-code-background: #f8f8f8;
-  --color-code-foreground: black;
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Documentation &mdash; RAT 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-  }
-  @media not print {
-    body[data-theme="dark"] {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
-  
-    }
-    @media (prefers-color-scheme: dark) {
-      body:not([data-theme="light"]) {
-        --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
-  
-      }
-    }
-  }
-</style></head>
-  <body>
-    
-    <script>
-      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
-    </script>
-    
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Documentation" href="userDocumentation.html" />
+    <link rel="prev" title="API" href="api.html" /> 
+</head>
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-  <symbol id="svg-toc" viewBox="0 0 24 24">
-    <title>Contents</title>
-    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
-      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
-    </svg>
-  </symbol>
-  <symbol id="svg-menu" viewBox="0 0 24 24">
-    <title>Menu</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
-      <line x1="3" y1="12" x2="21" y2="12"></line>
-      <line x1="3" y1="6" x2="21" y2="6"></line>
-      <line x1="3" y1="18" x2="21" y2="18"></line>
-    </svg>
-  </symbol>
-  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
-    <title>Expand</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
-      <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-  </symbol>
-  <symbol id="svg-sun" viewBox="0 0 24 24">
-    <title>Light mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
-      <circle cx="12" cy="12" r="5"></circle>
-      <line x1="12" y1="1" x2="12" y2="3"></line>
-      <line x1="12" y1="21" x2="12" y2="23"></line>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-      <line x1="1" y1="12" x2="3" y2="12"></line>
-      <line x1="21" y1="12" x2="23" y2="12"></line>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-  </symbol>
-  <symbol id="svg-moon" viewBox="0 0 24 24">
-    <title>Dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
-    </svg>
-  </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
-    </svg>
-  </symbol>
-</svg>
-
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
-<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
-<label class="overlay sidebar-overlay" for="__navigation">
-  <div class="visually-hidden">Hide navigation sidebar</div>
-</label>
-<label class="overlay toc-overlay" for="__toc">
-  <div class="visually-hidden">Hide table of contents sidebar</div>
-</label>
-
-
-
-<div class="page">
-  <header class="mobile-header">
-    <div class="header-left">
-      <label class="nav-overlay-icon" for="__navigation">
-        <div class="visually-hidden">Toggle site navigation sidebar</div>
-        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
-      </label>
-    </div>
-    <div class="header-center">
-      <a href="index.html"><div class="brand">RAT 0.1 documentation</div></a>
-    </div>
-    <div class="header-right">
-      <div class="theme-toggle-container theme-toggle-header">
-        <button class="theme-toggle">
-          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
-          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
-          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
-        </button>
-      </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
-        <div class="visually-hidden">Toggle table of contents sidebar</div>
-        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
-      </label>
-    </div>
-  </header>
-  <aside class="sidebar-drawer">
-    <div class="sidebar-container">
-      
-      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
-  
-  
-  <span class="sidebar-brand-text">RAT 0.1 documentation</span>
-  
-</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
-  <input type="hidden" name="check_keywords" value="yes">
-  <input type="hidden" name="area" value="default">
-</form>
-<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> RAT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">RAT Tutorial</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Developer Documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#low-level-components">Low Level Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#custom-layers-functionality">Custom Layers Functionality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-does-c-custom-model-work">How does C++ custom model work?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-create-a-custom-c-model">How to create a custom C++ model</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#windows-dll">Windows - DLL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gcc">GCC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#msvc-microsoft-visual-studio-compiler">MSVC (Microsoft Visual Studio Compiler)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#linux-idaas-so">Linux/IDAAS  - .so</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#high-level-components">High Level Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-class">Project Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#important-methods"><strong>Important Methods:</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#addcontrast">addContrast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#addbackground">addBackground</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#addbulkout">addBulkOut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setmodeltype">setModelType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#addcustomfile">addCustomFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-API.projectClass">All methods</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#controlsdef-class">ControlsDef Class</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="userDocumentation.html">User Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About RAT</a></li>
 </ul>
 
-</div>
-</div>
-
-      </div>
-      
-    </div>
-  </aside>
-  <div class="main">
-    <div class="content">
-      <div class="article-container">
-        <a href="#" class="back-to-top muted-link">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
-          </svg>
-          <span>Back to top</span>
-        </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
-            <button class="theme-toggle">
-              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
-              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
-              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
-            </button>
-          </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
-            <div class="visually-hidden">Toggle table of contents sidebar</div>
-            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
-          </label>
         </div>
-        <article role="main">
-          <section id="developer-documentation">
-<span id="devdocs"></span><h1>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Permalink to this headline">#</a></h1>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RAT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Developer Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/devDocumentation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="developer-documentation">
+<span id="devdocs"></span><h1>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Permalink to this headline"></a></h1>
+<p>This documentation is intented towards developers who wish to understand how RAT’s core workflow works and all the different components of the software.</p>
+<section id="low-level-components">
+<h2>Low Level Components<a class="headerlink" href="#low-level-components" title="Permalink to this headline"></a></h2>
+<section id="custom-layers-functionality">
+<h3>Custom Layers Functionality<a class="headerlink" href="#custom-layers-functionality" title="Permalink to this headline"></a></h3>
+<p>RAT allows users to create their own custom models and use them in the reflectivity calculations. RAT currently supports C++ and MATLAB custom models meaning users can upload
+their model in the form of a function in MATLAB. However, there is a slight complication with the C++. Inorder, to use the custom C++ model, the user needs to
+compile the function into a shared library (preferably using GCC) and then provide the path and name of the function inside the shared library to RAT.
+The following guide will help the user to do this.</p>
+</section>
+<section id="how-does-c-custom-model-work">
+<h3>How does C++ custom model work?<a class="headerlink" href="#how-does-c-custom-model-work" title="Permalink to this headline"></a></h3>
+<p>The implementation of the custom C++ model functionality is bit complicated but the idea is simple. For sake of explanation, DLL and dynamic library are interchangeably used here.</p>
+<p>1. The user submits a DLL file that has the custom C++ model in the form of a function. Our job is to get that function so we can run with the arguments from RAT. Inorder to <em>get</em>
+the file we used an open-source project called <a class="reference external" href="https://github.com/martin-olivier/dylib/">dylib</a>. dylib helps us extract the function from the DLL at runtime which means we can use the function at runtime.</p>
+<ol class="arabic simple" start="2">
+<li><p>When the users makes the DLL, they put the <em>DYLIB_API</em> macro at the beginning of the function which exports the function.</p></li>
+</ol>
+<p>3. There is a class called <em>libManager.h</em> in <em>RAT/targetFunctions/common/loopCppCustlayWrapper</em> directory which opens a DLL and extracts the function when given the
+path to the DLL. Then runs the function with the arguments from RAT. This the C++ side of the implementation</p>
+<p>4. We need a gateway that allows MATLAB inputs to go into the C++ side of the code. This is done by creating a MEX function using MATLAB Coder. The file <em>testDLL.m</em> is compiled by
+Matlab Coder. This file basically passes the inputs from MATALB Workspace to the function from <em>libManager.h</em> which runs those inputs/arguments on the function from the DLL.</p>
+<ol class="arabic simple" start="5">
+<li><p>As soon the we pass and compute the results comeback into the MATLAB workspace.</p></li>
+</ol>
+<p>The above explanation holds true for the case of MATLAB version of RAT. If this feature is being used in the compiled version of RAT (i.e setting reflectivity_calculation_wrappper case to <strong>mex</strong>),
+there’s a case statement that will treat testDLL_mex as an extrinisic function and not a MEX function as per the guidelines of MATLAB Coder.</p>
+</section>
+<section id="how-to-create-a-custom-c-model">
+<h3>How to create a custom C++ model<a class="headerlink" href="#how-to-create-a-custom-c-model" title="Permalink to this headline"></a></h3>
+<p>1. First Step is to make sure your cpp file is error-free and follow the guidelines mentioned in this step. Your cpp file should contain your custom model and
+custom model should be a function. Inorder for RAT to fetch your custom model/function, it needs to be exported. So, you have to get <a class="reference external" href="https://github.com/martin-olivier/dylib/releases/download/v1.8.2/dylib.hpp">dylib.hpp</a> here and put <strong>DYLIB_API</strong>
+macro infront of the function name.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DYLIB_API</span> <span class="n">void</span> <span class="n">myCustomFunction</span><span class="p">(</span><span class="n">double</span> <span class="o">*</span><span class="n">params</span><span class="o">...</span><span class="n">etc</span><span class="o">....</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Now that you have put DYLIB_API infront of the dependencies. It is time to make a dynamic library of your model. To do this, you must follow platform specific instructions below.</p></li>
+</ol>
+<p>Lets say your file is called <strong>myModel.cpp</strong> and your function is called <strong>myCustomFunction</strong></p>
+<section id="windows-dll">
+<h4>Windows - DLL<a class="headerlink" href="#windows-dll" title="Permalink to this headline"></a></h4>
+<p>Prerequites: MinGW or Microsoft Visual Studio Compiler (MSVC) but GCC is strongly suggested</p>
+</section>
+<section id="gcc">
+<h4>GCC<a class="headerlink" href="#gcc" title="Permalink to this headline"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++ -c myModel.cpp -o myModel.o   Generate an object file
+g++ -shared myModel.o -o myModel.dll  outputs a DLL named myModel.dll
+</pre></div>
+</div>
+</section>
+<section id="msvc-microsoft-visual-studio-compiler">
+<h4>MSVC (Microsoft Visual Studio Compiler)<a class="headerlink" href="#msvc-microsoft-visual-studio-compiler" title="Permalink to this headline"></a></h4>
+<p>Open <em>Developer Command Prompt for Visual Studio</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cl.exe /LD myModel.cpp /EHsc   You should see myModel.dll <span class="k">in</span> the current directory
+</pre></div>
+</div>
+</section>
+<section id="linux-idaas-so">
+<h4>Linux/IDAAS  - .so<a class="headerlink" href="#linux-idaas-so" title="Permalink to this headline"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++ -c myModel.cpp -o myModel.o -std<span class="o">=</span>c++11  Generate an object file
+g++ -shared myModel.o -o myModel.so  outputs a .so named myModel.so
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="high-level-components">
+<h2>High Level Components<a class="headerlink" href="#high-level-components" title="Permalink to this headline"></a></h2>
+<p>At a high level, RAT only contains two components. These are really important and makes up the core of RAT.</p>
+<ol class="arabic simple">
+<li><p>Project Class</p></li>
+<li><p>ControlsDef Class</p></li>
+</ol>
+</section>
+<section id="project-class">
+<h2>Project Class<a class="headerlink" href="#project-class" title="Permalink to this headline"></a></h2>
+<p>Project Class is all about data. It contains the very data user wants to work with. It stores all the data required for reflectivity calculations.
+Everything in RAT comes from RAT in one way or another. There are many functions that deal with breaking down the data from Project Class into smaller pieces
+so that they can be used in other parts of the software.</p>
+<span class="target" id="module-API.projectClass"></span><dl class="mat class">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">API.projectClass.</span></span><span class="sig-name descname"><span class="pre">projectClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<section id="important-methods">
+<h3><strong>Important Methods:</strong><a class="headerlink" href="#important-methods" title="Permalink to this headline"></a></h3>
+<p>The following are some of the most used methods in the Project Class.</p>
+</section>
+<section id="addcontrast">
+<h3>addContrast<a class="headerlink" href="#addcontrast" title="Permalink to this headline"></a></h3>
+<p>This function adds a contrast to the project.</p>
+<span class="target" id="module-API.projectClass"></span><dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addContrast">
+<span class="sig-prename descclassname"><span class="pre">projectClass.</span></span><span class="sig-name descname"><span class="pre">addContrast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addContrast" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="addbackground">
+<h3>addBackground<a class="headerlink" href="#addbackground" title="Permalink to this headline"></a></h3>
+<p>This function adds a background to the project.</p>
+<span class="target" id="module-API.projectClass"></span><dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addBackground">
+<span class="sig-prename descclassname"><span class="pre">projectClass.</span></span><span class="sig-name descname"><span class="pre">addBackground</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addBackground" title="Permalink to this definition"></a></dt>
+<dd><p>Add a background to the multi-table</p>
+</dd></dl>
+
+</section>
+<section id="addbulkout">
+<h3>addBulkOut<a class="headerlink" href="#addbulkout" title="Permalink to this headline"></a></h3>
+<p>This function adds a bulk out to the project.</p>
+<span class="target" id="module-API.projectClass"></span><dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addBulkOut">
+<span class="sig-prename descclassname"><span class="pre">projectClass.</span></span><span class="sig-name descname"><span class="pre">addBulkOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addBulkOut" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="setmodeltype">
+<h3>setModelType<a class="headerlink" href="#setmodeltype" title="Permalink to this headline"></a></h3>
+<p>This function sets the model type of the project. It can be “custom layers” or “standard layers” or “custom XY”.</p>
+<span class="target" id="module-API.projectClass"></span><dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setModelType">
+<span class="sig-prename descclassname"><span class="pre">projectClass.</span></span><span class="sig-name descname"><span class="pre">setModelType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setModelType" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the experiment type</p>
+</dd></dl>
+
+</section>
+<section id="addcustomfile">
+<h3>addCustomFile<a class="headerlink" href="#addcustomfile" title="Permalink to this headline"></a></h3>
+<p>This function adds a custom file to the project. This is really useful if the user want to use their own custom model.
+Currently, RAT supports MATLAB and C++ custom models.</p>
+<span class="target" id="module-API.projectClass"></span><dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addCustomFile">
+<span class="sig-prename descclassname"><span class="pre">projectClass.</span></span><span class="sig-name descname"><span class="pre">addCustomFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addCustomFile" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-API.projectClass">
+<span id="all-methods"></span><h3>All methods<a class="headerlink" href="#module-API.projectClass" title="Permalink to this headline"></a></h3>
+<dl class="mat class">
+<dt class="sig sig-object mat">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">API.projectClass.</span></span><span class="sig-name descname"><span class="pre">projectClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <code class="xref mat mat-class docutils literal notranslate"><span class="pre">handle</span></code>, <code class="xref mat mat-class docutils literal notranslate"><span class="pre">matlab.mixin.CustomDisplay</span></code></p>
+<dl class="mat method">
+<dt class="sig sig-object mat">
+<span class="sig-name descname"><span class="pre">addBackground</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span></dt>
+<dd><p>Add a background to the multi-table</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addBacksPar">
+<span class="sig-name descname"><span class="pre">addBacksPar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addBacksPar" title="Permalink to this definition"></a></dt>
+<dd><p>Add a background parameter to the background parameters table</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addData">
+<span class="sig-name descname"><span class="pre">addData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addData" title="Permalink to this definition"></a></dt>
+<dd><p>Add a new data parameter</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addLayer">
+<span class="sig-name descname"><span class="pre">addLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addLayer" title="Permalink to this definition"></a></dt>
+<dd><p>Decide on what type of set we are
+doing so we can call the correct
+add layers method.</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addLayerGroup">
+<span class="sig-name descname"><span class="pre">addLayerGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addLayerGroup" title="Permalink to this definition"></a></dt>
+<dd><p>Add a group of layers to the
+layers object. Expects a cell
+array of layer cell arrays</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addParam">
+<span class="sig-name descname"><span class="pre">addParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addParam" title="Permalink to this definition"></a></dt>
+<dd><p>Adds an individual parameter to
+the parameters object.</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addParamGroup">
+<span class="sig-name descname"><span class="pre">addParamGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addParamGroup" title="Permalink to this definition"></a></dt>
+<dd><p>Add a group of parameters to the
+parameters object. Expects a cell
+array of parameter cell arrays</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addResolPar">
+<span class="sig-name descname"><span class="pre">addResolPar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addResolPar" title="Permalink to this definition"></a></dt>
+<dd><p>Add a background parameter to the background parameters table</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.addResolution">
+<span class="sig-name descname"><span class="pre">addResolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.addResolution" title="Permalink to this definition"></a></dt>
+<dd><p>Add a resolution to the multi-table</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.background">
+<span class="sig-name descname"><span class="pre">background</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.background" title="Permalink to this definition"></a></dt>
+<dd><p>backgroundsClass object</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.bulkIn">
+<span class="sig-name descname"><span class="pre">bulkIn</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.bulkIn" title="Permalink to this definition"></a></dt>
+<dd><p>parametersClass object</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.bulkOut">
+<span class="sig-name descname"><span class="pre">bulkOut</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.bulkOut" title="Permalink to this definition"></a></dt>
+<dd><p>parametersClass object</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.contrasts">
+<span class="sig-name descname"><span class="pre">contrasts</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.contrasts" title="Permalink to this definition"></a></dt>
+<dd><p>contrastsClass object</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.customFile">
+<span class="sig-name descname"><span class="pre">customFile</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.customFile" title="Permalink to this definition"></a></dt>
+<dd><p>Custom file object</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.data" title="Permalink to this definition"></a></dt>
+<dd><p>dataClass object</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.experimentName">
+<span class="sig-name descname"><span class="pre">experimentName</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.experimentName" title="Permalink to this definition"></a></dt>
+<dd><p>parametersClass object</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.getAllAllowedNames">
+<span class="sig-name descname"><span class="pre">getAllAllowedNames</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.getAllAllowedNames" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a cell array of all currently
+set parameter names for the project.</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.layers">
+<span class="sig-name descname"><span class="pre">layers</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.layers" title="Permalink to this definition"></a></dt>
+<dd><p>layersClass_realSLD object</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.projectClass">
+<span class="sig-name descname"><span class="pre">projectClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.projectClass" title="Permalink to this definition"></a></dt>
+<dd><p>Class constructor</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.qzshifts">
+<span class="sig-name descname"><span class="pre">qzshifts</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.qzshifts" title="Permalink to this definition"></a></dt>
+<dd><p>parametersClass object</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.removeBackground">
+<span class="sig-name descname"><span class="pre">removeBackground</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeBackground" title="Permalink to this definition"></a></dt>
+<dd><p>Remove background from the multi-table</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.removeBacksPar">
+<span class="sig-name descname"><span class="pre">removeBacksPar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeBacksPar" title="Permalink to this definition"></a></dt>
+<dd><p>Remove a background parameter from the backgrounds parameters
+table</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.removeParam">
+<span class="sig-name descname"><span class="pre">removeParam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeParam" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a parameter from the parameters
+object. The parameter will also be removed 
+from the layers array if it is in use</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.removeResolPar">
+<span class="sig-name descname"><span class="pre">removeResolPar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeResolPar" title="Permalink to this definition"></a></dt>
+<dd><p>Remove an existing resolPars</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.removeResolution">
+<span class="sig-name descname"><span class="pre">removeResolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.removeResolution" title="Permalink to this definition"></a></dt>
+<dd><p>Remove background from the multi-table</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.resolution">
+<span class="sig-name descname"><span class="pre">resolution</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.resolution" title="Permalink to this definition"></a></dt>
+<dd><p>resolutionClass object</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.scalefactors">
+<span class="sig-name descname"><span class="pre">scalefactors</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#API.projectClass.projectClass.scalefactors" title="Permalink to this definition"></a></dt>
+<dd><p>parametersClass object</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setBackgroundName">
+<span class="sig-name descname"><span class="pre">setBackgroundName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBackgroundName" title="Permalink to this definition"></a></dt>
+<dd><p>Set the name of an existing Background parameter</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setBackgroundValue">
+<span class="sig-name descname"><span class="pre">setBackgroundValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBackgroundValue" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of an existing background parameter</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setBacksParConstr">
+<span class="sig-name descname"><span class="pre">setBacksParConstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBacksParConstr" title="Permalink to this definition"></a></dt>
+<dd><p>Set the constraints of existing backsPar</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setBacksParName">
+<span class="sig-name descname"><span class="pre">setBacksParName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBacksParName" title="Permalink to this definition"></a></dt>
+<dd><p>Set the name of existing backsPar</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setBacksParValue">
+<span class="sig-name descname"><span class="pre">setBacksParValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBacksParValue" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of existing backsPar</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setBulkIn">
+<span class="sig-name descname"><span class="pre">setBulkIn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBulkIn" title="Permalink to this definition"></a></dt>
+<dd><p>Gerenal purpose set scalefactor method</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setBulkOut">
+<span class="sig-name descname"><span class="pre">setBulkOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setBulkOut" title="Permalink to this definition"></a></dt>
+<dd><p>Gerenal purpose set bulkOut method</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setContrast">
+<span class="sig-name descname"><span class="pre">setContrast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setContrast" title="Permalink to this definition"></a></dt>
+<dd><p>Allow setting of all parameters in terms of name value pairs.
+First input must be contrast number or name, subsequent
+inputs are name / value pairs for the parts involved</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setCustomFile">
+<span class="sig-name descname"><span class="pre">setCustomFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setCustomFile" title="Permalink to this definition"></a></dt>
+<dd><p>Gerenal purpose set scalefactor method</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setData">
+<span class="sig-name descname"><span class="pre">setData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setData" title="Permalink to this definition"></a></dt>
+<dd><p>Edit an existing data parameter</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setGeometry">
+<span class="sig-name descname"><span class="pre">setGeometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">val</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setGeometry" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the experiment geometry</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setLayerValue">
+<span class="sig-name descname"><span class="pre">setLayerValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setLayerValue" title="Permalink to this definition"></a></dt>
+<dd><p>Set a value of a given layer</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat">
+<span class="sig-name descname"><span class="pre">setModelType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">val</span></em><span class="sig-paren">)</span></dt>
+<dd><p>Sets the experiment type</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setParamConstr">
+<span class="sig-name descname"><span class="pre">setParamConstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setParamConstr" title="Permalink to this definition"></a></dt>
+<dd><p>Set the constraints of an existing parameter</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setParamFit">
+<span class="sig-name descname"><span class="pre">setParamFit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setParamFit" title="Permalink to this definition"></a></dt>
+<dd><p>Set the ‘fit’ to off or on for parameter</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setParamName">
+<span class="sig-name descname"><span class="pre">setParamName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setParamName" title="Permalink to this definition"></a></dt>
+<dd><p>Set the name of an existing parameter</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setParamValue">
+<span class="sig-name descname"><span class="pre">setParamValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setParamValue" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of a given parameter</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setParameter">
+<span class="sig-name descname"><span class="pre">setParameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setParameter" title="Permalink to this definition"></a></dt>
+<dd><p>Gerenal purpose st parameter method</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setResolPar">
+<span class="sig-name descname"><span class="pre">setResolPar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setResolPar" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of existing backsPar</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setResolParValue">
+<span class="sig-name descname"><span class="pre">setResolParValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setResolParValue" title="Permalink to this definition"></a></dt>
+<dd><p>Set the value of existing backsPar</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setScalefactor">
+<span class="sig-name descname"><span class="pre">setScalefactor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">varargin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setScalefactor" title="Permalink to this definition"></a></dt>
+<dd><p>Gerenal purpose set scalefactor method</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.setUsePriors">
+<span class="sig-name descname"><span class="pre">setUsePriors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">showFlag</span></em><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.setUsePriors" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the priors flag</p>
+</dd></dl>
+
+<dl class="mat method">
+<dt class="sig sig-object mat" id="API.projectClass.projectClass.toStruct">
+<span class="sig-name descname"><span class="pre">toStruct</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#API.projectClass.projectClass.toStruct" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the class parameters
+into a struct array for input into
+the RAT toolbox</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="controlsdef-class">
+<h2>ControlsDef Class<a class="headerlink" href="#controlsdef-class" title="Permalink to this headline"></a></h2>
+<p>ControlsDef Class is all about control. It is neccessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
+to whether the users wants to calculate SLD during fit and even how many iteration an algorithm should do ..etc.</p>
+<span class="target" id="module-API.controlsDef"></span><dl class="mat class">
+<dt class="sig sig-object mat" id="API.controlsDef.controlsDef">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">API.controlsDef.</span></span><span class="sig-name descname"><span class="pre">controlsDef</span></span><a class="headerlink" href="#API.controlsDef.controlsDef" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref mat mat-class docutils literal notranslate"><span class="pre">matlab.mixin.CustomDisplay</span></code></p>
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.controlsDef.controlsDef.Nlive">
+<span class="sig-name descname"><span class="pre">Nlive</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'150'</span></em><a class="headerlink" href="#API.controlsDef.controlsDef.Nlive" title="Permalink to this definition"></a></dt>
+<dd><p>(3) Nested Sampler (for Matlab version. There will be more options
+with the C version)</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.controlsDef.controlsDef.display">
+<span class="sig-name descname"><span class="pre">display</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&quot;'iter'&quot;</span></em><a class="headerlink" href="#API.controlsDef.controlsDef.display" title="Permalink to this definition"></a></dt>
+<dd><p>Algargs (varies with procedure)
+(1) Simplex</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.controlsDef.controlsDef.method">
+<span class="sig-name descname"><span class="pre">method</span></span><em class="property"> <span class="pre">=</span> <span class="pre">&quot;'dram'&quot;</span></em><a class="headerlink" href="#API.controlsDef.controlsDef.method" title="Permalink to this definition"></a></dt>
+<dd><ol class="arabic simple" start="4">
+<li><p>Bayes MCMC</p></li>
+</ol>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.controlsDef.controlsDef.nsTolerance">
+<span class="sig-name descname"><span class="pre">nsTolerance</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'0.1'</span></em><a class="headerlink" href="#API.controlsDef.controlsDef.nsTolerance" title="Permalink to this definition"></a></dt>
+<dd><p>Target stopping tolerance</p>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.controlsDef.controlsDef.populationSize">
+<span class="sig-name descname"><span class="pre">populationSize</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'20'</span></em><a class="headerlink" href="#API.controlsDef.controlsDef.populationSize" title="Permalink to this definition"></a></dt>
+<dd><ol class="arabic simple" start="2">
+<li><p>Differential Evolution</p></li>
+</ol>
+</dd></dl>
+
+<dl class="mat attribute">
+<dt class="sig sig-object mat" id="API.controlsDef.controlsDef.propScale">
+<span class="sig-name descname"><span class="pre">propScale</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'0.1'</span></em><a class="headerlink" href="#API.controlsDef.controlsDef.propScale" title="Permalink to this definition"></a></dt>
+<dd><p>Used if MCMC is used</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 </section>
 
-        </article>
-      </div>
-      <footer>
-        
-        <div class="related-pages">
-          <a class="next-page" href="userDocumentation.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">User Documentation</div>
-              </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="api.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">API</div>
-                
-              </div>
-            </a>
-        </div>
-        <div class="bottom-of-page">
-          <div class="left-details">
-            <div class="copyright">
-                Copyright &#169; 2022, Arwel Hughes,Sethu Pastula
-            </div>
-            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
-            
-            <a href="https://github.com/pradyunsg/furo">Furo</a>
-            
+
+           </div>
           </div>
-          <div class="right-details">
-            <div class="icons">
-              
-            </div>
-          </div>
-        </div>
-        
-      </footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="userDocumentation.html" class="btn btn-neutral float-right" title="User Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-    <aside class="toc-drawer no-toc">
-      
-      
-      
-    </aside>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Arwel Hughes,Sethu Pastula.</p>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/scripts/furo.js"></script>
-    </body>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>

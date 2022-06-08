@@ -1,6 +1,9 @@
 # RAT
 Reflectivity Algorithms Toolbox for Rascal
 
+This is currently still in development. We are working towards a first release of the toolbox. In the meantime, please note that usage may change and that releases are not yet stable.
+
+To build from source, you will need access to Matlab Coder. To do this first run addRatPaths (from within Matlab), then buildScript.m. However, there are binaries included for Linux, Windows and OSX, but only if you use the Matlab version in which they were built (or later - backwards compatility between Matlab versions can't be guaranteed). The current build version of Matlab used is r2020b.
 
 # Github Workflow 
 

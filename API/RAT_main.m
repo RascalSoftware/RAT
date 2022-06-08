@@ -24,7 +24,7 @@ bayesResults.bestPars = [];
 
 %Decide what we are doing....
 action = controls.proc;
-switch action
+switch lower(action)
     case 'calculate' %Just a single reflectivity calculation
         [problem,results] = singleCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
         outProblemDef = problemDef;
@@ -33,7 +33,7 @@ switch action
             ratSendTextOutput(sprintf('\nRunning simplex\n\n'));
         end
         [outProblemDef,problem,results] = runSimplex(problemDef,problemDef_cells,problemDef_limits,controls);
-    case 'DE'
+    case 'de'
         if ~strcmpi(controls.display,'off')
             ratSendTextOutput(sprintf('\nRunning Differential Evolution\n\n'));
         end
@@ -43,16 +43,13 @@ switch action
             ratSendTextOutput(sprintf('\nRunning DRAM\n\n'));
         end        
         [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls);
-
-    case 'NS'
+    case 'ns'
         if ~strcmpi(controls.display,'off')
             ratSendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));
         end            
-        [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
-        
+        [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);   
     case 'paramonte'
-        
-        
+        % TODO
 end
 
 end

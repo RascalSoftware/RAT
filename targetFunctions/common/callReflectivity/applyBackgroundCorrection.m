@@ -3,8 +3,8 @@ function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simu
 switch backsType
     case 1
         %Add background to the simulation
-        reflect = reflect + backg;
-        Simul = Simul + backg;
+        reflect(:,2) = reflect(:,2) + backg;
+        Simul(:,2) = Simul(:,2) + backg;
      case 2 
 %         %Subtract the background from the data..
         shifted_dat(:,2) = shifted_dat(:,2) - backg;

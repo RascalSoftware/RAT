@@ -93,7 +93,38 @@ Shift Data
 Standard Target Functions (StandardTF)
 -----------------------------------------
 
-1. **Custom Layers (CustLay)**
+.. image:: ./standTF.png
+
+
+1. **Standard Layers (StanLay)**
+
+
+standardTF Standard Layers - Single
+####################################
+
+.. automodule:: targetFunctions.standard_TF.standardTF_stanLay
+
+.. autofunction:: standardTF_stanlay_single
+
+
+standardTF Standard Layers - ParaPoints
+#######################################
+
+.. automodule:: targetFunctions.standard_TF.standardTF_stanLay
+
+.. autofunction:: standardTF_stanlay_paraPoints
+
+
+standardTF Standard Layers - ParaContrasts
+###########################################
+
+.. automodule:: targetFunctions.standard_TF.standardTF_stanLay
+
+.. autofunction:: standardTF_stanlay_paraContrasts
+
+
+
+2. **Custom Layers (CustLay)**
 
 
 standardTF_custlay_single
@@ -121,34 +152,6 @@ standardTF_custlay_paraContrasts
 
 
 
-
-
-2. **Standard Layers (StanLay)**
-
-
-
-standardTF Standard Layers - Single
-####################################
-
-.. automodule:: targetFunctions.standard_TF.standardTF_stanLay
-
-.. autofunction:: standardTF_stanlay_single
-
-
-standardTF Standard Layers - ParaPoints
-#######################################
-
-.. automodule:: targetFunctions.standard_TF.standardTF_stanLay
-
-.. autofunction:: standardTF_stanlay_paraPoints
-
-
-standardTF Standard Layers - ParaContrasts
-###########################################
-
-.. automodule:: targetFunctions.standard_TF.standardTF_stanLay
-
-.. autofunction:: standardTF_stanlay_paraContrasts
 
 
 3. **Custom XY (CustXY)**

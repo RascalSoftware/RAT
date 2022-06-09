@@ -6,12 +6,18 @@ Developer Documentation
 
 This documentation is intented towards developers who wish to understand how RAT's core workflow works and all the different components of the software.
 
+The following picture shows the core workflow of RAT.
+
+.. image:: ./toolbox.png
+
 High Level Components
 =========================
 At a high level, RAT only contains two components. These are really important and makes up the core of RAT.
 
 1. Project Class
 2. ControlsDef Class
+
+
 
 Project Class
 --------------
@@ -193,7 +199,7 @@ Lets say your file is called **myModel.cpp** and your function is called **myCus
 
 DevOps 
 ======
-DevOps is an important for any software that needs faster deployments and easier maintaince of existing deployments and RAT is exactly that. 
+DevOps is extremely important for any software that needs faster deployments and easier maintaince of existing deployments and RAT is exactly that. 
 
 
 Jenkins
@@ -208,15 +214,19 @@ Jenkins
 
 
 `Jenkins`_ is a famous automation tool that automates building, testing and deploying. At the moment, it is used for building and testing but the deployments could be automated as well.
-At STFC, there is a platform called Anvil (not be confused with Anvil the web development tool). Anvil is a service that hosts Jenkins instance across the STFC's intranet. 
+At STFC, there is a platform called Anvil (not be confused with Anvil the web development tool). Anvil is a service that hosts Jenkins instances for various teams across the STFC's intranet. 
 This is managed by **Alan Kyffin**. 
 
 STFC Cloud
 -----------
 
-RAT owns two nodes/machines( Windows and Linux) in the cloud that connects with RAT's Jenkins instance on Anvil. They help build,test the RAT in different operating systems.
+RAT owns two nodes/machines( Windows and Linux) in the cloud which are connected to Anvil. They help build,test the RAT in different operating systems.
 
-Contacts
+.. warning::
+    These nodes must be manually logged in if there's any disruption in the STFC network (happens usually during updates/network-wide shutdowns).
+    Inorder to connect the nodes to Anvil, a command is used. This command can be obtained from Arwel Hughes.
+
+Contacts 
 ^^^^^^^^^
 
 1. Issues with Linux node - Micheal Tint
@@ -228,12 +238,21 @@ Work Flow
 
 This section details how everything works together in the DevOps department.
 
-First, there is GitHub repository at `RAT`_ which is source for all of the DevOps. Everytime, there's a Pull Request (PR) or a push, Jenkins gets triggered. This is achieved
-using the Anvil Github App that recogines these changes and initiates builds. When Jenkins gets triggered, usually it builds according to the "Jenkinsfile" in the repository.
-"Jenkinsfile" is a file that contains the instructions for Jenkins to build the project. Jenkins sends these commands to the nodes in the cloud and build/tests the project.
-If the build/test is successful, the PR or push is successful and the PR/push is merged. If the build/test is unsuccessful, the PR/push must be reviewed. 
-
-
+1. First, there is GitHub repository at `RAT`_ which is source for all of the DevOps. Everytime, there's a Pull Request (PR) or a push, Jenkins gets triggered. This is achieved
+   using the Anvil Github App that recogines these changes and initiates builds.
+2. When Jenkins gets triggered, usually it builds according to the "Jenkinsfile" in the repository."Jenkinsfile" is a file that contains the instructions for Jenkins to build the project. Jenkins sends these commands to the nodes in the cloud and build/tests the project.
+   If the build/test is successful, the PR or push is successful and the PR/push is merged. If the build/test is unsuccessful, the PR/push must be reviewed. 
 
 .. _RAT: https://github.com/arwelHughes/RAT
 
+
+
+
+
+
+References for Devs 
+----------------------------
+1. Checkout the Architectural Desicion Record (ADR) for RAT. This document contains all the decisions made in the past and why they were made.
+   This can be found in RasCal Planner in Microsoft Planner.
+
+2. 

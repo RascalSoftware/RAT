@@ -50,7 +50,7 @@ classdef customFileClass < handle
                 appendNewRow(obj,newRow);
             else
                 
-                inputs = varargin;
+                inputs = varargin{:};
                 
                 % Check length of added data
                 switch length(inputs)
@@ -333,7 +333,7 @@ classdef customFileClass < handle
             end
             
             if ~strcmpi(language,{'matlab','octave','python','cpp'})
-                error('Custom file must be matlab, octave,cpp or python');
+                error('Custom file must be matlab, octave or python');
             end
             
             if ~isstring(path)

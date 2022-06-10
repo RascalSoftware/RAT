@@ -51,6 +51,8 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'API','controlsDef_class');
     fullfile(ratRoot,'API','projectClass');
     fullfile(ratRoot,'tests');
+    fullfile(ratRoot,'testSuite','reflectivity_calculation');
+    fullfile(ratRoot,'testSuite','standardTF_reflectivityCalculationTest');
     fullfile(ratRoot,'minimisers','simplex');
     fullfile(ratRoot,'minimisers','generalUtils');
     fullfile(ratRoot,'minimisers','NSMain');

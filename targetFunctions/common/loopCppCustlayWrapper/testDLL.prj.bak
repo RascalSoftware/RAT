@@ -1,5 +1,5 @@
-<deployment-project plugin="plugin.coder" plugin-version="R2021a">
-  <configuration file="C:\Users\oba7931403\Documents\GitHub\RAT\targetFunctions\common\loopCppCustlayWrapper\testDLL.prj" location="C:\Users\oba7931403\Documents\GitHub\RAT\targetFunctions\common\loopCppCustlayWrapper" name="testDLL" target="target.unifiedcoder" target-name="MATLAB Coder">
+<deployment-project plugin="plugin.coder" plugin-version="R2018b">
+  <configuration build-checksum="4166420604" file="/home/sp1115144/Desktop/RAT/targetFunctions/common/loopCppCustlayWrapper/testDLL.prj" location="/home/sp1115144/Desktop/RAT/targetFunctions/common/loopCppCustlayWrapper" name="testDLL" target="target.unifiedcoder" target-name="MATLAB Coder">
     <profile key="profile.mex">
       <param.BuiltInstrumentedMex>false</param.BuiltInstrumentedMex>
       <param.RanInstrumentedMex>false</param.RanInstrumentedMex>
@@ -12,7 +12,6 @@
       <param.ExtrinsicCalls>true</param.ExtrinsicCalls>
       <param.IntegrityChecks>true</param.IntegrityChecks>
       <param.SaturateOnIntegerOverflow>true</param.SaturateOnIntegerOverflow>
-      <param.EnableAutoParallelization>false</param.EnableAutoParallelization>
       <param.GlobalDataSyncMethod>option.GlobalDataSyncMethod.SyncAlways</param.GlobalDataSyncMethod>
       <param.EnableVariableSizing>true</param.EnableVariableSizing>
       <param.DynamicMemoryAllocation>option.DynamicMemoryAllocation.Threshold</param.DynamicMemoryAllocation>
@@ -26,11 +25,8 @@
       <param.FilePartitionMethod>option.FilePartitionMethod.MapMFileToCFile</param.FilePartitionMethod>
       <param.GenerateComments>true</param.GenerateComments>
       <param.MATLABSourceComments>false</param.MATLABSourceComments>
-      <param.CodeFormattingTool>option.CodeFormattingTool.Auto</param.CodeFormattingTool>
       <param.ReservedNameArray />
-      <param.CppStyleConst>true</param.CppStyleConst>
       <param.EnableDebugging>false</param.EnableDebugging>
-      <param.Verbosity>option.Verbosity.Info</param.Verbosity>
       <param.ReportPotentialDifferences>false</param.ReportPotentialDifferences>
       <param.GenerateReport>true</param.GenerateReport>
       <param.LaunchReport>false</param.LaunchReport>
@@ -67,7 +63,6 @@
       <param.InitFltsAndDblsToZero>true</param.InitFltsAndDblsToZero>
       <param.ConstantInputs>option.ConstantInputs.CheckValues</param.ConstantInputs>
       <param.EnableCRICodeCoverage>true</param.EnableCRICodeCoverage>
-      <param.EnableAutoParallelizationReporting>true</param.EnableAutoParallelizationReporting>
       <param.EnableJIT>false</param.EnableJIT>
       <param.EnableJITSilentBailOut>false</param.EnableJITSilentBailOut>
       <param.CheckForIssuesJIT>true</param.CheckForIssuesJIT>
@@ -86,7 +81,6 @@
         <param.ExtrinsicCalls />
         <param.IntegrityChecks />
         <param.SaturateOnIntegerOverflow />
-        <param.EnableAutoParallelization />
         <param.GlobalDataSyncMethod />
         <param.EnableVariableSizing />
         <param.DynamicMemoryAllocation />
@@ -100,11 +94,8 @@
         <param.FilePartitionMethod />
         <param.GenerateComments />
         <param.MATLABSourceComments />
-        <param.CodeFormattingTool />
         <param.ReservedNameArray />
-        <param.CppStyleConst />
         <param.EnableDebugging />
-        <param.Verbosity />
         <param.ReportPotentialDifferences />
         <param.GenerateReport />
         <param.LaunchReport />
@@ -138,7 +129,6 @@
         <param.InitFltsAndDblsToZero />
         <param.ConstantInputs />
         <param.EnableCRICodeCoverage />
-        <param.EnableAutoParallelizationReporting />
         <param.EnableJIT />
         <param.EnableJITSilentBailOut />
         <param.CheckForIssuesJIT />
@@ -157,7 +147,6 @@
       <param.PurelyIntegerCode />
       <param.SupportNonFinite />
       <param.LoopUnrollThreshold />
-      <param.EnableAutoParallelization>false</param.EnableAutoParallelization>
       <param.EnableVariableSizing>true</param.EnableVariableSizing>
       <param.DynamicMemoryAllocation>option.DynamicMemoryAllocation.Threshold</param.DynamicMemoryAllocation>
       <param.DynamicMemoryAllocationThreshold>65536</param.DynamicMemoryAllocationThreshold>
@@ -180,8 +169,6 @@
       <param.ParenthesesLevel />
       <param.MaxIdLength />
       <param.HeaderGuardStyle />
-      <param.CodeFormattingTool>option.CodeFormattingTool.Auto</param.CodeFormattingTool>
-      <param.ClangFormatFile />
       <param.DataTypeReplacement />
       <param.EnableCustomReplacementTypes />
       <param.ReplacementTypes.double />
@@ -210,10 +197,8 @@
       <param.CustomSymbolStrEMXArray>emxArray_$M$N</param.CustomSymbolStrEMXArray>
       <param.CustomSymbolStrEMXArrayFcn />
       <param.ReservedNameArray />
-      <param.CppStyleConst>true</param.CppStyleConst>
       <param.RuntimeChecks>false</param.RuntimeChecks>
       <param.Verbose />
-      <param.Verbosity>option.Verbosity.Info</param.Verbosity>
       <param.ReportPotentialDifferences>false</param.ReportPotentialDifferences>
       <param.GenerateReport>true</param.GenerateReport>
       <param.GenerateCodeMetricsReport />
@@ -257,7 +242,7 @@
       <param.HardwareSizeChar.Production>8</param.HardwareSizeChar.Production>
       <param.HardwareSizeShort.Production>16</param.HardwareSizeShort.Production>
       <param.HardwareSizeInt.Production>32</param.HardwareSizeInt.Production>
-      <param.HardwareSizeLong.Production>32</param.HardwareSizeLong.Production>
+      <param.HardwareSizeLong.Production>64</param.HardwareSizeLong.Production>
       <param.HardwareSizeLongLong.Production>64</param.HardwareSizeLongLong.Production>
       <param.HardwareSizeFloat.Production>32</param.HardwareSizeFloat.Production>
       <param.HardwareSizeDouble.Production>64</param.HardwareSizeDouble.Production>
@@ -278,7 +263,7 @@
       <param.HardwareSizeChar.Target>8</param.HardwareSizeChar.Target>
       <param.HardwareSizeShort.Target>16</param.HardwareSizeShort.Target>
       <param.HardwareSizeInt.Target>32</param.HardwareSizeInt.Target>
-      <param.HardwareSizeLong.Target>32</param.HardwareSizeLong.Target>
+      <param.HardwareSizeLong.Target>64</param.HardwareSizeLong.Target>
       <param.HardwareSizeLongLong.Target>64</param.HardwareSizeLongLong.Target>
       <param.HardwareSizeFloat.Target>32</param.HardwareSizeFloat.Target>
       <param.HardwareSizeDouble.Target>64</param.HardwareSizeDouble.Target>
@@ -325,7 +310,6 @@
       <param.CustomLAPACKCallback />
       <param.CustomFFTCallback />
       <param.CustomBLASCallback />
-      <param.EnableAutoParallelizationReporting>true</param.EnableAutoParallelizationReporting>
       <param.GenerateDefaultInSwitch />
       <param.EnableTraceability />
       <param.UseECoderFeatures>true</param.UseECoderFeatures>
@@ -350,7 +334,6 @@
         <param.PurelyIntegerCode />
         <param.SupportNonFinite />
         <param.LoopUnrollThreshold />
-        <param.EnableAutoParallelization />
         <param.EnableVariableSizing />
         <param.DynamicMemoryAllocation />
         <param.DynamicMemoryAllocationThreshold />
@@ -373,8 +356,6 @@
         <param.ParenthesesLevel />
         <param.MaxIdLength />
         <param.HeaderGuardStyle />
-        <param.CodeFormattingTool />
-        <param.ClangFormatFile />
         <param.DataTypeReplacement />
         <param.EnableCustomReplacementTypes />
         <param.ReplacementTypes.double />
@@ -403,10 +384,8 @@
         <param.CustomSymbolStrEMXArray />
         <param.CustomSymbolStrEMXArrayFcn />
         <param.ReservedNameArray />
-        <param.CppStyleConst />
         <param.RuntimeChecks />
         <param.Verbose />
-        <param.Verbosity />
         <param.ReportPotentialDifferences />
         <param.GenerateReport />
         <param.GenerateCodeMetricsReport />
@@ -449,7 +428,6 @@
         <param.HardwareSizeChar.Production />
         <param.HardwareSizeShort.Production />
         <param.HardwareSizeInt.Production />
-        <param.HardwareSizeLong.Production />
         <param.HardwareSizeLongLong.Production />
         <param.HardwareSizeFloat.Production />
         <param.HardwareSizeDouble.Production />
@@ -463,7 +441,6 @@
         <param.HardwareSizeChar.Target />
         <param.HardwareSizeShort.Target />
         <param.HardwareSizeInt.Target />
-        <param.HardwareSizeLong.Target />
         <param.HardwareSizeLongLong.Target />
         <param.HardwareSizeFloat.Target />
         <param.HardwareSizeDouble.Target />
@@ -503,7 +480,6 @@
         <param.CustomLAPACKCallback />
         <param.CustomFFTCallback />
         <param.CustomBLASCallback />
-        <param.EnableAutoParallelizationReporting />
         <param.GenerateDefaultInSwitch />
         <param.EnableTraceability />
         <param.UseECoderFeatures />
@@ -871,7 +847,7 @@
     <param.TestSnippets />
     <param.ExternalFcnMajority>column</param.ExternalFcnMajority>
     <param.UseGlobals>option.UseGlobals.No</param.UseGlobals>
-    <param.outputfile>${PROJECT_ROOT}\testDLL_mex.mexw64</param.outputfile>
+    <param.outputfile>${PROJECT_ROOT}/testDLL_mex.mexa64</param.outputfile>
     <param.version>R2012a</param.version>
     <param.HasECoderFeatures>true</param.HasECoderFeatures>
     <param.HasGpuCoder>true</param.HasGpuCoder>
@@ -893,14 +869,14 @@
     <var.redirectedInputTypeData />
     <var.DismissScreener>false</var.DismissScreener>
     <param.unifiedParamStorage />
-    <var.gc.lastOutputRoot>codegen\mex\testDLL</var.gc.lastOutputRoot>
+    <var.gc.lastOutputRoot>codegen/mex/testDLL</var.gc.lastOutputRoot>
     <var.gc.lastOutputType>MEX_FILE</var.gc.lastOutputType>
-    <var.gc.preBuildChecksum>879858736</var.gc.preBuildChecksum>
+    <var.gc.preBuildChecksum>4166420604</var.gc.preBuildChecksum>
     <var.cfi.lastOutputRoot />
     <var.cfi.preBuildChecksum />
     <var.outdatedOnRestore>false</var.outdatedOnRestore>
-    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;C:\Users\oba7931403\Documents\GitHub\RAT\targetFunctions\common\loopCppCustlayWrapper\testDLL.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;2935270740&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
-    <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;C:\Users\oba7931403\Documents\GitHub\RAT\targetFunctions\common\loopCppCustlayWrapper\testDLL.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
+    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;/home/sp1115144/Desktop/RAT/targetFunctions/common/loopCppCustlayWrapper/testDLL.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;58390880&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
+    <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;/home/sp1115144/Desktop/RAT/targetFunctions/common/loopCppCustlayWrapper/testDLL.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
     <param.forceMexBuild>false</param.forceMexBuild>
     <param.NoDefaultJIT>false</param.NoDefaultJIT>
     <param.configImportActive>false</param.configImportActive>
@@ -912,47 +888,43 @@
     <param.mex.outputfile>testDLL_mex</param.mex.outputfile>
     <param.grt.outputfile>testDLL</param.grt.outputfile>
     <param.artifact>option.target.artifact.mex</param.artifact>
-    <param.outputfile>${PROJECT_ROOT}\testDLL_mex.mexw64</param.outputfile>
+    <param.outputfile>${PROJECT_ROOT}/testDLL_mex.mexa64</param.outputfile>
     <param.CppNamespace />
     <param.CppPackagesToNamespaces>true</param.CppPackagesToNamespaces>
     <param.CppNamespaceForMathworksCode>coder</param.CppNamespaceForMathworksCode>
     <param.CppPreserveClasses>true</param.CppPreserveClasses>
     <param.gpu.Enabled>false</param.gpu.Enabled>
+    <param.gpu.KernelNamePrefix />
     <param.gpu.SelectCudaDevice>-1</param.gpu.SelectCudaDevice>
-    <param.gpu.ComputeCapability>3.5</param.gpu.ComputeCapability>
-    <param.gpu.CustomComputeCapability />
+    <param.gpu.MaxKernelDepth>0</param.gpu.MaxKernelDepth>
     <param.gpu.MallocMode>discrete</param.gpu.MallocMode>
     <param.gpu.MallocThreshold>200</param.gpu.MallocThreshold>
     <param.gpu.StackLimitPerThread>1024</param.gpu.StackLimitPerThread>
-    <param.gpu.MaximumBlocksPerKernel>0</param.gpu.MaximumBlocksPerKernel>
-    <param.gpu.Benchmarking>false</param.gpu.Benchmarking>
-    <param.gpu.SafeBuild>false</param.gpu.SafeBuild>
-    <param.gpu.KernelNamePrefix />
-    <param.gpu.CompilerFlags />
     <param.gpu.EnableCUBLAS>true</param.gpu.EnableCUBLAS>
     <param.gpu.EnableCUSOLVER>true</param.gpu.EnableCUSOLVER>
     <param.gpu.EnableCUFFT>true</param.gpu.EnableCUFFT>
+    <param.gpu.Benchmarking>false</param.gpu.Benchmarking>
+    <param.gpu.SafeBuild>false</param.gpu.SafeBuild>
+    <param.gpu.ComputeCapability>3.5</param.gpu.ComputeCapability>
+    <param.gpu.CustomComputeCapability />
+    <param.gpu.CompilerFlags />
     <var.checkIssuesGpu>false</var.checkIssuesGpu>
     <var.hasGpu>false</var.hasGpu>
     <var.isDeepLearningForMatlabCoderEnabled>true</var.isDeepLearningForMatlabCoderEnabled>
-    <param.deeplearning.EnableDeepLearning>false</param.deeplearning.EnableDeepLearning>
     <param.deeplearning.TargetLib>option.deeplearning.targetlibrary.none</param.deeplearning.TargetLib>
     <var.cfiTargetLibSuppression>false</var.cfiTargetLibSuppression>
-    <var.hasMatlabDeepLearningSupportPackage>true</var.hasMatlabDeepLearningSupportPackage>
-    <var.hasGpuDeepLearningSupportPackage>true</var.hasGpuDeepLearningSupportPackage>
+    <var.hasMatlabDeepLearningSupportPackage>false</var.hasMatlabDeepLearningSupportPackage>
+    <var.hasGpuDeepLearningSupportPackage>false</var.hasGpuDeepLearningSupportPackage>
     <param.tensorrt.DataType>option.tensorrt.datatype.fp32</param.tensorrt.DataType>
     <param.tensorrt.DataPath />
     <param.tensorrt.NumCalibrationBatches>0</param.tensorrt.NumCalibrationBatches>
     <param.cudnn.AutoTuning>true</param.cudnn.AutoTuning>
     <param.cudnn.DataType>option.cudnn.datatype.fp32</param.cudnn.DataType>
     <param.cudnn.CalibrationResultFile />
-    <param.arm-compute.ArmComputeVersion>option.arm-compute.version.20_02_1</param.arm-compute.ArmComputeVersion>
+    <param.arm-compute.ArmComputeVersion>option.arm-compute.version.19_05</param.arm-compute.ArmComputeVersion>
     <param.arm-compute.ArmArchitecture>option.arm-compute.architecture.unspecified</param.arm-compute.ArmArchitecture>
-    <param.arm-compute.DataType>option.arm-compute.datatype.fp32</param.arm-compute.DataType>
-    <param.arm-compute.CalibrationResultFile />
     <param.TargetLang>option.TargetLang.CPP</param.TargetLang>
     <param.EnableAutoExtrinsicCalls>true</param.EnableAutoExtrinsicCalls>
-    <param.EnableImplicitExpansion>false</param.EnableImplicitExpansion>
     <param.UsePreconditions>false</param.UsePreconditions>
     <param.FeatureFlags />
     <param.FixedPointMode>option.FixedPointMode.None</param.FixedPointMode>
@@ -1042,28 +1014,25 @@
       <param.CppNamespaceForMathworksCode />
       <param.CppPreserveClasses />
       <param.gpu.Enabled />
+      <param.gpu.KernelNamePrefix />
       <param.gpu.SelectCudaDevice />
-      <param.gpu.ComputeCapability />
-      <param.gpu.CustomComputeCapability />
+      <param.gpu.MaxKernelDepth />
       <param.gpu.MallocMode />
       <param.gpu.MallocThreshold />
       <param.gpu.StackLimitPerThread />
-      <param.gpu.MaximumBlocksPerKernel />
-      <param.gpu.Benchmarking />
-      <param.gpu.SafeBuild />
-      <param.gpu.KernelNamePrefix />
-      <param.gpu.CompilerFlags />
       <param.gpu.EnableCUBLAS />
       <param.gpu.EnableCUSOLVER />
       <param.gpu.EnableCUFFT />
+      <param.gpu.Benchmarking />
+      <param.gpu.SafeBuild />
+      <param.gpu.ComputeCapability />
+      <param.gpu.CustomComputeCapability />
+      <param.gpu.CompilerFlags />
       <var.checkIssuesGpu />
       <var.hasGpu />
       <var.isDeepLearningForMatlabCoderEnabled />
-      <param.deeplearning.EnableDeepLearning />
       <param.deeplearning.TargetLib />
       <var.cfiTargetLibSuppression />
-      <var.hasMatlabDeepLearningSupportPackage />
-      <var.hasGpuDeepLearningSupportPackage />
       <param.tensorrt.DataType />
       <param.tensorrt.DataPath />
       <param.tensorrt.NumCalibrationBatches />
@@ -1072,10 +1041,7 @@
       <param.cudnn.CalibrationResultFile />
       <param.arm-compute.ArmComputeVersion />
       <param.arm-compute.ArmArchitecture />
-      <param.arm-compute.DataType />
-      <param.arm-compute.CalibrationResultFile />
       <param.EnableAutoExtrinsicCalls />
-      <param.EnableImplicitExpansion />
       <param.UsePreconditions />
       <param.FeatureFlags />
       <param.FixedPointMode />
@@ -1122,13 +1088,13 @@
       <param.FixedPointUseDesignRanges />
     </unset>
     <fileset.entrypoints>
-      <file custom-data-expanded="false" value="${PROJECT_ROOT}\testDLL.m">
+      <file custom-data-expanded="false" value="${PROJECT_ROOT}/testDLL.m">
         <Marker>1652450999113</Marker>
       </file>
     </fileset.entrypoints>
     <fileset.testbench />
     <fileset.inputtypes>
-      <file custom-data-expanded="false" value="${PROJECT_ROOT}\testDLL.m">
+      <file custom-data-expanded="false" value="${PROJECT_ROOT}/testDLL.m">
         <Inputs fileName="testDLL.m" functionName="testDLL">
           <Input Name="params" typeId="0" />
           <Input Name="nba" typeId="0" />
@@ -1173,11 +1139,11 @@
       </file>
     </fileset.inputtypes>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}" name="testDLL_mex.mexw64" optional="false">C:\Users\oba7931403\Documents\GitHub\RAT\targetFunctions\common\loopCppCustlayWrapper\testDLL_mex.mexw64</file>
+      <file location="${PROJECT_ROOT}" name="testDLL_mex.mexa64" optional="false">/home/sp1115144/Desktop/RAT/targetFunctions/common/loopCppCustlayWrapper/testDLL_mex.mexa64</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2021a</root>
+      <root>/opt/matlab2020b</root>
       <toolboxes>
         <toolbox name="matlabcoder" />
         <toolbox name="embeddedcoder" />
@@ -1218,18 +1184,18 @@
       </toolbox>
     </matlab>
     <platform>
-      <unix>false</unix>
+      <unix>true</unix>
       <mac>false</mac>
-      <windows>true</windows>
+      <windows>false</windows>
       <win2k>false</win2k>
       <winxp>false</winxp>
       <vista>false</vista>
-      <linux>false</linux>
+      <linux>true</linux>
       <solaris>false</solaris>
-      <osver>10.0</osver>
+      <osver>3.10.0-1160.62.1.el7.x86_64</osver>
       <os32>false</os32>
       <os64>true</os64>
-      <arch>win64</arch>
+      <arch>glnxa64</arch>
       <matlab>true</matlab>
     </platform>
   </configuration>

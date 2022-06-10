@@ -211,7 +211,7 @@
 <li><p>ControlsDef Class</p></li>
 </ol>
 <section id="project-class">
-<h3>Project Class<a class="headerlink" href="#project-class" title="Permalink to this headline">#</a></h3>
+<span id="projectclass"></span><h3>Project Class<a class="headerlink" href="#project-class" title="Permalink to this headline">#</a></h3>
 <p>Project Class is all about data. It contains the very data user wants to work with. It stores all the data required for reflectivity calculations.
 Everything in RAT comes from RAT in one way or another. There are many functions that deal with breaking down the data from Project Class into smaller pieces
 so that they can be used in other parts of the software.</p>
@@ -547,7 +547,7 @@ the RAT toolbox</p>
 </details></section>
 </section>
 <section id="controlsdef-class">
-<h3>ControlsDef Class<a class="headerlink" href="#controlsdef-class" title="Permalink to this headline">#</a></h3>
+<span id="controlsdef"></span><h3>ControlsDef Class<a class="headerlink" href="#controlsdef-class" title="Permalink to this headline">#</a></h3>
 <p>ControlsDef Class is all about control. It is neccessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
 to whether the users wants to calculate SLD during fit and even how many iteration an algorithm should do ..etc.</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -603,6 +603,40 @@ with the C version)</p>
 </section>
 <section id="low-level-components">
 <h2>Low Level Components<a class="headerlink" href="#low-level-components" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="unit-testing">
+<h2>Unit Testing<a class="headerlink" href="#unit-testing" title="Permalink to this headline">#</a></h2>
+<p>Unit Testing is the process of testing multiple individual pieces/features of the software. It helps to find bugs easily and quickly since each individual feature is tested
+independently.</p>
+<p>RAT’s unit tests are written in MATLAB using <code class="code docutils literal notranslate"><span class="pre">matlab.unittest</span></code> framework.
+These unit tests are written to test the following set of functions:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="api.html#commonfunctions"><span class="std std-ref">Common Functions</span></a></p></li>
+<li><p><a class="reference internal" href="api.html#standardtf-reflectivitycalculation"><span class="std std-ref">Standard Target Functions (StandardTF)</span></a></p></li>
+<li><p><a class="reference internal" href="#projectclass"><span class="std std-ref">Project Class</span></a></p></li>
+<li><p><a class="reference internal" href="#controlsdef"><span class="std std-ref">ControlsDef Class</span></a></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All the common function tests compare the <strong>stable output</strong> against the <strong>on-demand output</strong> of a function. This is done to make sure that the current function is behaving
+as expected. On the contrary, all the standard_TF tests compare the MATLAB output against the MEX output. This is done to make sure and catch any unseen errors during
+compiling the MEX file by MATLAB Coder.</p>
+</div>
+<p><strong>Stable output</strong> = This is the output of a certain function obtained when the function is working as expected.</p>
+<p><strong>On-demand output</strong> = This is the output of a certain function at the moment. So, that current function can be tested against the stable one.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Despite tests being written in MATLAB, RAT’s unit tests also test the C++ code of RAT in a way.
+This is acheieved through comparing the outputs of mex and matlab versions of all the possible parallelizations of standardTF_reflectivityCalculation.
+This includes the following:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>standardTF_customLayers (Single,Points and Contrast)</p></li>
+<li><p>standard_TF_customXY (Single,Points and Contrast)</p></li>
+<li><p>standardTF_standardLayers (Single,Points and Contrast)</p></li>
+</ol>
+</div></blockquote>
+</div>
 <section id="custom-layers-functionality">
 <h3>Custom Layers Functionality<a class="headerlink" href="#custom-layers-functionality" title="Permalink to this headline">#</a></h3>
 <p>RAT allows users to create their own custom models and use them in the reflectivity calculations. RAT currently supports C++ and MATLAB custom models meaning users can upload
@@ -787,7 +821,8 @@ This can be found in RasCal Planner in Microsoft Planner.</p></li>
 <li><a class="reference internal" href="#controlsdef-class">ControlsDef Class</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#low-level-components">Low Level Components</a><ul>
+<li><a class="reference internal" href="#low-level-components">Low Level Components</a></li>
+<li><a class="reference internal" href="#unit-testing">Unit Testing</a><ul>
 <li><a class="reference internal" href="#custom-layers-functionality">Custom Layers Functionality</a></li>
 <li><a class="reference internal" href="#how-does-c-custom-model-work">How does C++ custom model work?</a></li>
 <li><a class="reference internal" href="#how-to-create-a-custom-c-model">How to create a custom C++ model</a></li>

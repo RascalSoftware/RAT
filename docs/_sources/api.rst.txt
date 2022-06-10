@@ -21,6 +21,7 @@ reflectivity_calculation
 
 
 
+.. _CommonFunctions:
 
 Common Functions
 ----------------
@@ -89,6 +90,7 @@ Shift Data
 .. autofunction:: shiftdata
 
 
+.. _StandardTF_reflectivityCalculation:
 
 Standard Target Functions (StandardTF)
 -----------------------------------------

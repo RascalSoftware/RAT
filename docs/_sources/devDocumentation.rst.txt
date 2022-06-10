@@ -18,6 +18,7 @@ At a high level, RAT only contains two components. These are really important an
 2. ControlsDef Class
 
 
+.. _ProjectClass:
 
 Project Class
 --------------
@@ -90,6 +91,8 @@ The following are some of the most used methods in the Project Class.
 
         
 
+.. _ControlsDef:
+
 ControlsDef Class
 -----------------
 ControlsDef Class is all about control. It is neccessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
@@ -107,6 +110,47 @@ to whether the users wants to calculate SLD during fit and even how many iterati
 
 Low Level Components
 =====================
+
+Unit Testing 
+==============
+
+Unit Testing is the process of testing multiple individual pieces/features of the software. It helps to find bugs easily and quickly since each individual feature is tested 
+independently.
+
+
+RAT's unit tests are written in MATLAB using :code:`matlab.unittest` framework. 
+These unit tests are written to test the following set of functions:
+
+1. :ref:`CommonFunctions`
+
+2. :ref:`StandardTF_reflectivityCalculation`
+
+3. :ref:`ProjectClass`
+
+4. :ref:`ControlsDef`
+
+.. note::
+      All the common function tests compare the **stable output** against the **on-demand output** of a function. This is done to make sure that the current function is behaving 
+      as expected. On the contrary, all the standard_TF tests compare the MATLAB output against the MEX output. This is done to make sure and catch any unseen errors during
+      compiling the MEX file by MATLAB Coder.
+
+**Stable output** = This is the output of a certain function obtained when the function is working as expected.
+
+**On-demand output** = This is the output of a certain function at the moment. So, that current function can be tested against the stable one.
+
+.. note::
+      Despite tests being written in MATLAB, RAT's unit tests also test the C++ code of RAT in a way.
+      This is acheieved through comparing the outputs of mex and matlab versions of all the possible parallelizations of standardTF_reflectivityCalculation.
+      This includes the following:
+
+        1. standardTF_customLayers (Single,Points and Contrast)
+        2. standard_TF_customXY (Single,Points and Contrast)
+        3. standardTF_standardLayers (Single,Points and Contrast)
+
+
+
+
+
 
 Custom Layers Functionality
 -----------------------------

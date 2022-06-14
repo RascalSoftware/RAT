@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of r1ToDomainsClass</title>
+  <meta name="keywords" content="r1ToDomainsClass">
+  <meta name="description" content="Load in the R1 problem....">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # utilities --><!-- # misc -->
+<h1>r1ToDomainsClass
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Load in the R1 problem....</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function thisProjectClass = r1ToProjectClass(r1Problem) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Load in the R1 problem....</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function thisProjectClass = r1ToProjectClass(r1Problem)</a>
+0002 
+0003 <span class="comment">%Load in the R1 problem....</span>
+0004 r1Problem = load(r1Problem);
+0005 problem = r1Problem.problem;
+0006 
+0007 <span class="comment">% Set the project name from</span>
+0008 <span class="comment">% the name of the r1Problem</span>
+0009 <span class="keyword">if</span> iscell(problem.name)
+0010     thisName = problem.name{:};
+0011 <span class="keyword">else</span>
+0012     thisName = problem.name;
+0013 <span class="keyword">end</span>
+0014 
+0015 <span class="comment">% make an empty instance of projectClass</span>
+0016 <span class="comment">% with this name</span>
+0017 thisProjectClass = domainsClass(thisName);
+0018 
+0019 <span class="comment">% Start by setting the geometry</span>
+0020 <span class="comment">% and project type.</span>
+0021 oldGeometry = problem.module.experiment_type;
+0022 oldType = problem.module.type;
+0023 
+0024 <span class="keyword">if</span> strcmpi(oldType,<span class="string">'Standard Layers'</span>)
+0025     thisProjectClass.setModelType(<span class="string">'standard layers'</span>);
+0026 <span class="keyword">elseif</span> strcmpi(oldType,<span class="string">'Custom Layers'</span>)
+0027     thisProjectClass.setModelType(<span class="string">'custom layers'</span>);
+0028 <span class="keyword">else</span>
+0029     thisProjectClass.setModelType(<span class="string">'custom xy'</span>);
+0030 <span class="keyword">end</span>
+0031     
+0032 
+0033 <span class="keyword">if</span> strcmpi(oldGeometry,<span class="string">'Air / Liquid (or solid)'</span>)
+0034     thisProjectClass.setGeometry(<span class="string">'air/substrate'</span>);
+0035 <span class="keyword">else</span>
+0036     thisProjectClass.setGeometry(<span class="string">'substrate/liquid'</span>);
+0037 <span class="keyword">end</span>
+0038 
+0039 <span class="comment">% Now set the parameters block</span>
+0040 numberOfParams = length(problem.params);
+0041 
+0042 <span class="keyword">for</span> i = 2:numberOfParams
+0043     thisName = problem.paramnames{i};
+0044     thisMin = problem.constr(i,1);
+0045     thisValue = problem.params(i);
+0046     thisMax = problem.constr(i,2);
+0047     thisFit = problem.fityesno(i);
+0048     
+0049     <span class="keyword">if</span> thisFit == 1
+0050         thisFit = true;
+0051     <span class="keyword">else</span>
+0052         thisFit = false;
+0053     <span class="keyword">end</span>
+0054     
+0055     thisParam = {thisName thisMin thisValue thisMax thisFit};
+0056     thisProjectClass.addParam(thisParam);
+0057 <span class="keyword">end</span>
+0058 
+0059 <span class="comment">% Also set the substrate roughness parameters</span>
+0060 thisMin = problem.constr(1,1);
+0061 thisMax = problem.constr(1,2);
+0062 thisVal = problem.params(1);
+0063 thisName = problem.paramnames{1};
+0064 thisFit = logical(problem.fityesno(1));
+0065 thisProjectClass.setParameter(1,<span class="string">'min'</span>,thisMin',<span class="string">'max'</span>,thisMax',<span class="string">'value'</span>,thisVal,<span class="string">'fit'</span>,thisFit,<span class="string">'name'</span>,thisName);
+0066 
+0067 <span class="comment">% If we have a standard layers problem, set the layers block</span>
+0068 <span class="keyword">switch</span> lower(oldType)
+0069     <span class="keyword">case</span> <span class="string">'standard layers'</span>
+0070       
+0071         disp(<span class="string">'debug'</span>);
+0072         nLayers = problem.numberOfLayers;
+0073         
+0074         <span class="keyword">for</span> i = 1:nLayers
+0075             thisLayer = problem.layersDetails{i};
+0076             thisName = thisLayer{5};
+0077             
+0078             thisThickNum = thisLayer{1};<span class="comment">%str2double(thisLayer{1});</span>
+0079             thisThick = problem.paramnames{thisThickNum};
+0080             
+0081             thisSldNum = thisLayer{2};<span class="comment">%str2double(thisLayer{2});</span>
+0082             thisSld = problem.paramnames{thisSldNum};
+0083             
+0084             thisRoughNum = thisLayer{3};<span class="comment">%str2double(thisLayer{3});</span>
+0085             thisRough = problem.paramnames{thisRoughNum};
+0086             
+0087             thisHydrPar = thisLayer{4};
+0088             <span class="keyword">if</span> isempty(thisHydrPar)
+0089                 thisHydr = <span class="string">''</span>;
+0090             <span class="keyword">else</span>
+0091                 thisHydrNum = thisHydrPar;<span class="comment">%str2double(thisLayer{4});</span>
+0092                 thisHydr = problem.paramnames{thisHydrNum};
+0093             <span class="keyword">end</span>
+0094             
+0095             thisHydrWhat = thisLayer{6};
+0096             <span class="keyword">if</span> isempty(thisHydrPar)
+0097                 thisLayer = {thisName, thisThick, thisSld, thisRough};<span class="comment">%, thisHydr, thisHydrWhat};</span>
+0098             <span class="keyword">else</span>    
+0099                 thisLayer = {thisName, thisThick, thisSld, thisRough, thisHydr, thisHydrWhat};
+0100             <span class="keyword">end</span>
+0101             thisProjectClass.addLayer(thisLayer); 
+0102         <span class="keyword">end</span> 
+0103     <span class="keyword">otherwise</span>
+0104         <span class="comment">% Need the name of the custom file...</span>
+0105         customFile = problem.module.name;
+0106         [~,modelName,~] = fileparts(customFile);
+0107         
+0108         thisProjectClass.addCustomFile({modelName,customFile,<span class="string">'matlab'</span>,<span class="string">'pwd'</span>});
+0109         
+0110 <span class="keyword">end</span>
+0111 
+0112 
+0113 <span class="comment">% Backgrounds</span>
+0114 nBackgrounds = problem.numberOfBacks;
+0115 
+0116 <span class="comment">% First make the backsPars:</span>
+0117 <span class="comment">% Remove the default backs par first</span>
+0118 thisProjectClass.removeBacksPar(1);
+0119 
+0120 <span class="comment">% Also remove the default background</span>
+0121 thisProjectClass.removeBackground(1);
+0122 
+0123 <span class="keyword">for</span> i = 1:nBackgrounds
+0124     <span class="comment">% Add backgrounds parameter</span>
+0125     thisName = sprintf(<span class="string">'Backs parameter %d'</span>,i);
+0126     thisMin = problem.backs_constr(i,1);
+0127     thisMax = problem.backs_constr(i,2);
+0128     thisVal = problem.backs(i);
+0129     thisFit = logical(problem.backgrounds_fityesno(i));
+0130     thisProjectClass.addBacksPar(thisName, thisMin, thisVal, thisMax, thisFit);
+0131     
+0132     <span class="comment">% Now add the backgrounds themselves</span>
+0133     thisBackgroundName = problem.backsNames{i};
+0134     thisProjectClass.addBackground(thisBackgroundName,<span class="string">'constant'</span>,thisName);
+0135 <span class="keyword">end</span>
+0136 
+0137 
+0138 <span class="comment">% Bulk in</span>
+0139 <span class="comment">% Remove the default</span>
+0140 thisProjectClass.removeBulkIn(1);
+0141 nNba = problem.numberOfNbas;
+0142 
+0143 <span class="comment">% Add the new bulk in params</span>
+0144 <span class="keyword">for</span> i = 1:nNba
+0145     thisName = problem.nbaNames{i};
+0146     thisMin = problem.nbairs_constr(i,1);
+0147     thisMax = problem.nbairs_constr(i,2);
+0148     thisNba = problem.nba(i);
+0149     thisFit = logical(problem.nbairs_fityesno(i));
+0150     thisProjectClass.addBulkIn({thisName, thisMin, thisNba, thisMax, thisFit});
+0151 <span class="keyword">end</span>
+0152 
+0153 <span class="comment">% Bulk out</span>
+0154 <span class="comment">% Remove the default</span>
+0155 thisProjectClass.removeBulkOut(1);
+0156 nNbs = problem.numberOfNbss;
+0157 
+0158 <span class="comment">% Add the new bulk in params</span>
+0159 <span class="keyword">for</span> i = 1:nNbs
+0160     thisName = problem.nbsNames{i};
+0161     thisMin = problem.nbsubs_constr(i,1);
+0162     thisMax = problem.nbsubs_constr(i,2);
+0163     thisNbs = problem.nbs(i);
+0164     thisFit = logical(problem.nbsubs_fityesno(i));
+0165     thisProjectClass.addBulkOut({thisName, thisMin, thisNbs, thisMax, thisFit});
+0166 <span class="keyword">end</span>
+0167 
+0168 <span class="comment">% Scalefactors</span>
+0169 thisProjectClass.removeScalefactor(1);
+0170 nScales = problem.numberOfScales;
+0171 
+0172 <span class="keyword">for</span> i = 1:nScales
+0173     thisName = problem.scalesNames{i};
+0174     thisMin = problem.scale_constr(i,1);
+0175     thisMax = problem.scale_constr(i,2);
+0176     thisNbs = problem.scalefac(i);
+0177     thisFit = logical(problem.scalefac_fityesno(i));
+0178     thisProjectClass.addScalefactor({thisName, thisMin, thisNbs, thisMax, thisFit});
+0179 <span class="keyword">end</span>
+0180 
+0181 <span class="comment">% Data block</span>
+0182 dataFiles = problem.data;
+0183 
+0184 <span class="keyword">for</span> i = 1:length(dataFiles)
+0185     thisData = dataFiles{i};
+0186     thisDataName = sprintf(<span class="string">'Datafile %d'</span>,i);
+0187     thisProjectClass.addData(thisDataName,thisData);
+0188     thisDataRange = problem.dataLimits{i};
+0189     thisSimRange = problem.simLimits{i};
+0190     thisProjectClass.setData(i,<span class="string">'dataRange'</span>,thisDataRange,<span class="string">'simRange'</span>,thisSimRange);
+0191 <span class="keyword">end</span>
+0192 
+0193 <span class="comment">% Resolutions</span>
+0194 <span class="comment">%thisProjectClass.remove</span>
+0195 
+0196 <span class="comment">% Make the contrasts</span>
+0197 numberOfContrasts = problem.numberOfContrasts;
+0198 
+0199 <span class="keyword">for</span> i = 1:numberOfContrasts
+0200     thisName = char(problem.contrastNames{1});
+0201     
+0202     thisBackgroundNumber = problem.contrastBacks(i);
+0203     thisBackground = char(thisProjectClass.background.backgrounds.typesTable{thisBackgroundNumber,1});
+0204 
+0205     thisResolNum = problem.contrastResolutions(i);
+0206     thisResol = problem.resolNames{thisResolNum};
+0207     
+0208     thisScaleNum = problem.contrastScales(i);
+0209     thisScale = problem.scalesNames{thisScaleNum};
+0210     
+0211     thisNbsNum = problem.contrastNbss(i);
+0212     thisNbs = problem.nbsNames{thisNbsNum};
+0213     
+0214     thisNbaNum = problem.contrastNbas(i);
+0215     thisNba = problem.nbaNames{thisNbaNum};
+0216     
+0217     thisData = thisProjectClass.data.dataTable{i+1,1};
+0218     
+0219     thisProjectClass.addReflContrast(<span class="string">'name'</span>, thisName,<span class="keyword">...</span>
+0220         <span class="string">'backGround'</span>, thisBackground,<span class="keyword">...</span>
+0221         <span class="string">'resolution'</span>, thisResol,<span class="keyword">...</span>
+0222         <span class="string">'scalefactor'</span>, thisScale,<span class="keyword">...</span>
+0223         <span class="string">'nbs'</span>, thisNbs,<span class="keyword">...</span>
+0224         <span class="string">'nba'</span>, thisNba,<span class="keyword">...</span>
+0225         <span class="string">'data'</span>, char(thisData));
+0226 <span class="keyword">end</span>
+0227 
+0228 <span class="comment">% Now set the model for each of the contrasts:</span>
+0229 <span class="keyword">switch</span> lower(oldType)
+0230     <span class="keyword">case</span> <span class="string">'standard layers'</span>
+0231         error(<span class="string">'Standard layers in not yet implemented for domains contrasts'</span>);
+0232 <span class="comment">%         for i = 1:numberOfContrasts</span>
+0233 <span class="comment">%            thisContrastLayers = str2num(problem.contrastLayers{i});</span>
+0234 <span class="comment">%            thisLayersList = {};</span>
+0235 <span class="comment">%            for n = 1:length(thisContrastLayers)</span>
+0236 <span class="comment">%                thisLayersList{n} = problem.layersDetails{thisContrastLayers(n)}{5};</span>
+0237 <span class="comment">%            end</span>
+0238 <span class="comment">%            thisProjectClass.setContrastModel(i,thisLayersList);</span>
+0239 <span class="comment">%         end</span>
+0240         
+0241     <span class="keyword">otherwise</span>
+0242         <span class="keyword">for</span> i = 1:numberOfContrasts
+0243             thisProjectClass.setReflContrastModel(i,modelName);
+0244         <span class="keyword">end</span>
+0245 <span class="keyword">end</span>
+0246 
+0247 
+0248 disp(<span class="string">'debug'</span>);
+0249 
+0250 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 14-Jun-2022 14:25:37 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

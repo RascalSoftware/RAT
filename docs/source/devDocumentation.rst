@@ -106,6 +106,32 @@ to whether the users wants to calculate SLD during fit and even how many iterati
         :members:
 
 
+Additional Documentation
+========================
+
+This documentation is very detailed interms of code. It contains direct links to definitions of functions involved and is helpful for developers
+who want to understand how RAT works in more detail.
+
+
+The following documentation shows code along with visualizations.
+Click on the link below to see the code.
+
+`Additional Documentation`_
+
+.. _Additional Documentation: ../m2htmlGeneratedDocs/index.html
+
+Dependency Graph
+-----------------
+The following picture shows the dependency graph of RAT. The dependency graph is a graph that shows how the different components of RAT work together. 
+Click on the nodes to see the documentation of the component. 
+
+Click on the "Graph" to see the dependency graph.
+
+`Graph`_
+
+.. _Graph: ../m2htmlGeneratedDocs/graph.html
+
+
 
 
 Low Level Components
@@ -156,8 +182,9 @@ Custom Layers Functionality
 -----------------------------
 
 RAT allows users to create their own custom models and use them in the reflectivity calculations. RAT currently supports C++ and MATLAB custom models meaning users can upload
-their model in the form of a function in MATLAB. However, there is a slight complication with the C++. Inorder, to use the custom C++ model, the user needs to 
-compile the function into a shared library (preferably using GCC) and then provide the path and name of the function inside the shared library to RAT. 
+their model in the form of a function in MATLAB. However, there is a slight complication with the C++. 
+
+Inorder, to use the custom C++ model, the user needs to compile the function into a shared library (preferably using GCC) and then provide the path and name of the function inside the shared library to RAT. 
 The following guide will help the user to do this.
 
 
@@ -168,13 +195,19 @@ The implementation of the custom C++ model functionality is bit complicated but 
 1. The user submits a DLL file that has the custom C++ model in the form of a function. Our job is to get that function so we can run with the arguments from RAT. Inorder to *get*
    the file we used an open-source project called `dylib`_. dylib helps us extract the function from the DLL at runtime which means we can use the function at runtime. 
 
+
 2. When the users makes the DLL, they put the *DYLIB_API* macro at the beginning of the function which exports the function.
+
 
 3. There is a class called *libManager.h* in *RAT/targetFunctions/common/loopCppCustlayWrapper* directory which opens a DLL and extracts the function when given the 
    path to the DLL. Then runs the function with the arguments from RAT. This the C++ side of the implementation
 
+
 4. We need a gateway that allows MATLAB inputs to go into the C++ side of the code. This is done by creating a MEX function using MATLAB Coder. The file *testDLL.m* is compiled by 
-   Matlab Coder. This file basically passes the inputs from MATALB Workspace to the function from *libManager.h* which runs those inputs/arguments on the function from the DLL.
+   Matlab Coder. 
+   
+   This file basically passes the inputs from MATALB Workspace to the function from *libManager.h* which runs those inputs/arguments on the function from the DLL.
+
 
 5. As soon the we pass and compute the results comeback into the MATLAB workspace. 
 

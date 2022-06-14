@@ -601,6 +601,21 @@ with the C version)</p>
 </div>
 </details></section>
 </section>
+<section id="additional-documentation">
+<h2>Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this headline">#</a></h2>
+<p>This documentation is very detailed interms of code. It contains direct links to definitions of functions involved and is helpful for developers
+who want to understand how RAT works in more detail.</p>
+<p>The following documentation shows code along with visualizations.
+Click on the link below to see the code.</p>
+<p><a class="reference external" href="../m2htmlGeneratedDocs/index.html">Additional Documentation</a></p>
+<section id="dependency-graph">
+<h3>Dependency Graph<a class="headerlink" href="#dependency-graph" title="Permalink to this headline">#</a></h3>
+<p>The following picture shows the dependency graph of RAT. The dependency graph is a graph that shows how the different components of RAT work together.
+Click on the nodes to see the documentation of the component.</p>
+<p>Click on the “Graph” to see the dependency graph.</p>
+<p><a class="reference external" href="../m2htmlGeneratedDocs/graph.html">Graph</a></p>
+</section>
+</section>
 <section id="low-level-components">
 <h2>Low Level Components<a class="headerlink" href="#low-level-components" title="Permalink to this headline">#</a></h2>
 </section>
@@ -640,21 +655,23 @@ This includes the following:</p>
 <section id="custom-layers-functionality">
 <h3>Custom Layers Functionality<a class="headerlink" href="#custom-layers-functionality" title="Permalink to this headline">#</a></h3>
 <p>RAT allows users to create their own custom models and use them in the reflectivity calculations. RAT currently supports C++ and MATLAB custom models meaning users can upload
-their model in the form of a function in MATLAB. However, there is a slight complication with the C++. Inorder, to use the custom C++ model, the user needs to
-compile the function into a shared library (preferably using GCC) and then provide the path and name of the function inside the shared library to RAT.
+their model in the form of a function in MATLAB. However, there is a slight complication with the C++.</p>
+<p>Inorder, to use the custom C++ model, the user needs to compile the function into a shared library (preferably using GCC) and then provide the path and name of the function inside the shared library to RAT.
 The following guide will help the user to do this.</p>
 </section>
 <section id="how-does-c-custom-model-work">
 <h3>How does C++ custom model work?<a class="headerlink" href="#how-does-c-custom-model-work" title="Permalink to this headline">#</a></h3>
 <p>The implementation of the custom C++ model functionality is bit complicated but the idea is simple. For sake of explanation, DLL and dynamic library are interchangeably used here.</p>
-<ol class="arabic simple">
+<ol class="arabic">
 <li><p>The user submits a DLL file that has the custom C++ model in the form of a function. Our job is to get that function so we can run with the arguments from RAT. Inorder to <em>get</em>
 the file we used an open-source project called <a class="reference external" href="https://github.com/martin-olivier/dylib/">dylib</a>. dylib helps us extract the function from the DLL at runtime which means we can use the function at runtime.</p></li>
 <li><p>When the users makes the DLL, they put the <em>DYLIB_API</em> macro at the beginning of the function which exports the function.</p></li>
 <li><p>There is a class called <em>libManager.h</em> in <em>RAT/targetFunctions/common/loopCppCustlayWrapper</em> directory which opens a DLL and extracts the function when given the
 path to the DLL. Then runs the function with the arguments from RAT. This the C++ side of the implementation</p></li>
 <li><p>We need a gateway that allows MATLAB inputs to go into the C++ side of the code. This is done by creating a MEX function using MATLAB Coder. The file <em>testDLL.m</em> is compiled by
-Matlab Coder. This file basically passes the inputs from MATALB Workspace to the function from <em>libManager.h</em> which runs those inputs/arguments on the function from the DLL.</p></li>
+Matlab Coder.</p>
+<p>This file basically passes the inputs from MATALB Workspace to the function from <em>libManager.h</em> which runs those inputs/arguments on the function from the DLL.</p>
+</li>
 <li><p>As soon the we pass and compute the results comeback into the MATLAB workspace.</p></li>
 </ol>
 <p>The above explanation holds true for the case of MATLAB version of RAT. If this feature is being used in the compiled version of RAT (i.e setting reflectivity_calculation_wrappper case to <strong>mex</strong>),
@@ -819,6 +836,10 @@ This can be found in RasCal Planner in Microsoft Planner.</p></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#controlsdef-class">ControlsDef Class</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#additional-documentation">Additional Documentation</a><ul>
+<li><a class="reference internal" href="#dependency-graph">Dependency Graph</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#low-level-components">Low Level Components</a></li>

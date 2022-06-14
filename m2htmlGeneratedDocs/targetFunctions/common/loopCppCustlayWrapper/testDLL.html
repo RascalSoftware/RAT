@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of testDLL</title>
+  <meta name="keywords" content="testDLL">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions --><!-- # common --><!-- # loopCppCustlayWrapper -->
+<h1>testDLL
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [allLayersArr,allRoughsArr] = testDLL(params,nba,nbs,numberOfContrasts,libraryName,functionName) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="generateMex.html" class="code" title="">generateMex</a>	MARTYNHELPED   Generate MEX-function testDLL_mex_latest from testDLL.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [allLayersArr,allRoughsArr] = testDLL(params,nba,nbs,numberOfContrasts,libraryName,functionName)</a>
+0002 
+0003 
+0004     coder.cinclude(<span class="string">'&lt;functional&gt;'</span>);
+0005     coder.cinclude(<span class="string">'&lt;string&gt;'</span>);
+0006     coder.cinclude(<span class="string">'&lt;iostream&gt;'</span>);
+0007     coder.cinclude(<span class="string">'&lt;map&gt;'</span>);
+0008     coder.cinclude(<span class="string">'&lt;vector&gt;'</span>);
+0009     coder.cinclude(<span class="string">'libManager.h'</span>);
+0010     coder.cinclude(<span class="string">'&lt;tuple&gt;'</span>);
+0011     coder.updateBuildInfo(<span class="string">'addLinkFlags'</span>,<span class="string">'-ldl'</span>);
+0012 
+0013     <span class="comment">%,functionName,libName,</span>
+0014     <span class="comment">%coder.rowMajor; % matlab is col major so for right array sizes and to match with C we need to convert to rowMajor</span>
+0015 <span class="comment">%     clibraryName = char(libraryName) ;</span>
+0016 <span class="comment">%     cfunctionName = char(functionName) ;</span>
+0017     
+0018 
+0019 
+0020     <span class="comment">% declare allLayerArr and allRoughArr using coder.varsize</span>
+0021     <span class="comment">% so that they can be used in the function</span>
+0022     <span class="comment">% allLayesArr must be an array of variable size</span>
+0023     <span class="comment">% allRoughsArr must be a double</span>
+0024     output = zeros(8,3);
+0025      <span class="comment">%coder.varsize('allLayersArr',[1 8]);</span>
+0026     subRough =0.0;
+0027     
+0028     <span class="comment">%cfunctionName(isstrprop(cfunctionName,'digit')) = [];</span>
+0029     p = coder.opaque(<span class="string">'Library'</span>,<span class="string">'NULL'</span>,<span class="string">'HeaderFile'</span>,<span class="string">'libManager.h'</span>);
+0030     p = coder.ceval(<span class="string">'Library'</span>);
+0031     <span class="comment">%coder.ceval('std::mem_fn(&amp;Library::loadInfo)',p,[clibraryName,'0'],[cfunctionName,'0']);</span>
+0032     
+0033     
+0034     <span class="comment">% bulk in - 1xn</span>
+0035     <span class="comment">% bulk out - 1xn</span>
+0036     <span class="comment">% params - 1xn</span>
+0037 
+0038     coder.ceval(<span class="string">'std::mem_fn(&amp;Library::loadRunner)'</span>,p,coder.ref(params),coder.ref(nba),coder.ref(nbs)<span class="keyword">...</span>
+0039     ,numberOfContrasts,coder.wref(output),coder.wref(subRough),libraryName,functionName);
+0040     
+0041     allLayersArr = output;
+0042     allRoughsArr = subRough;
+0043     
+0044 
+0045 
+0046 
+0047 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 14-Jun-2022 14:26:44 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

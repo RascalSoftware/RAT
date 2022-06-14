@@ -1,0 +1,9 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  adaptive_new -> sldFunc;
+  resampleLayers -> adaptive_new;
+
+  adaptive_new [URL="adaptive_new.html"];
+  resampleLayers [URL="resampleLayers.html"];
+  sldFunc [URL="sldFunc.html"];
+}

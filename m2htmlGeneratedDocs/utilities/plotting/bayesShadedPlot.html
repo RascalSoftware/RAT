@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of bayesShadedPlot</title>
+  <meta name="keywords" content="bayesShadedPlot">
+  <meta name="description" content="Plot the shaded reflectivities from Bayes output">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # utilities --><!-- # plotting -->
+<h1>bayesShadedPlot
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Plot the shaded reflectivities from Bayes output</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function bayesShadedPlot_dev2(problem,result,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Plot the shaded reflectivities from Bayes output
+ from RAT</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="shade.html" class="code" title="function h = shade(varargin)">shade</a>	SHADE  Filled area linear plot.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="plotBayes.html" class="code" title="function plotBayes(problem,results,varargin)">plotBayes</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function bayesShadedPlot_dev2(problem,result,varargin)</a>
+0002 
+0003 <span class="comment">% Plot the shaded reflectivities from Bayes output</span>
+0004 <span class="comment">% from RAT</span>
+0005 sf = result.contrastParams.scalefactors;
+0006 
+0007 <span class="comment">%  Parse the input options</span>
+0008 <span class="keyword">if</span> ~isempty(varargin)
+0009     defaultq4  = 0;
+0010     defaultFit = <span class="string">'mean'</span>;
+0011     defaultKeep = false;
+0012     defaultInterval = 95;
+0013     
+0014     
+0015     allIntervals = [65 95];
+0016     
+0017     p = inputParser;
+0018     addOptional(p,  <span class="string">'q4'</span>,           defaultq4,          @(x) islogical(x));
+0019     addOptional(p,  <span class="string">'fit'</span>,          defaultFit,         @(x) any(strcmpi(x,{<span class="string">'mean'</span>,<span class="string">'average'</span>,<span class="string">'all'</span>})));
+0020     addOptional(p,  <span class="string">'KeepAxes'</span>,     defaultKeep,        @(x) islogical(x));
+0021     addOptional(p,  <span class="string">'interval'</span>,     defaultInterval,    @(x) ismember(x,allIntervals));
+0022     
+0023     parse(p,varargin{:});
+0024     inputBlock = p.Results;
+0025     
+0026     q4 = inputBlock.q4;
+0027     fit = inputBlock.fit;
+0028     keepAx = inputBlock.KeepAxes;
+0029     interval = inputBlock.interval;
+0030 
+0031 <span class="keyword">else</span>
+0032     q4 = false;
+0033 <span class="keyword">end</span>
+0034 
+0035                    <span class="comment">%mean  %Average   % All</span>
+0036 showWhichCurves = [false    false    false];
+0037 
+0038 <span class="keyword">switch</span> fit
+0039     <span class="keyword">case</span> <span class="string">'mean'</span>
+0040         showWhichCurves(1) = 1;
+0041     <span class="keyword">case</span> <span class="string">'average'</span>
+0042         showWhichCurves(2) = 1;
+0043     <span class="keyword">case</span> <span class="string">'all'</span>
+0044         showWhichCurves(1:2) = 1;
+0045 <span class="keyword">end</span>
+0046 
+0047 f = gcf;
+0048 
+0049 <span class="keyword">if</span> ~ keepAx
+0050     clf; hold on; box on
+0051 <span class="keyword">end</span>
+0052 
+0053 pLims = result.predlims;
+0054 refPlims = pLims.refPredInts;
+0055 sldPlims = pLims.sldPredInts;
+0056 refXdata = pLims.refXdata;
+0057 sldXdata = pLims.sldXdata;
+0058 bayesRes = result.bayesRes;
+0059 
+0060 <span class="comment">% Get the reflectivities for mean...</span>
+0061 bestRef_mean = result.bestFitsMean.Ref;
+0062 bestSld_mean = result.bestFitsMean.Sld;
+0063 
+0064 shifted_data = result.shifted_data;
+0065 numberOfContrasts = length(shifted_data);
+0066 
+0067 <span class="comment">% Calculate the best fits depending on the selected options</span>
+0068 subplot(1,2,1)
+0069 set(gca,<span class="string">'YScale'</span>,<span class="string">'log'</span>,<span class="string">'XScale'</span>,<span class="string">'log'</span>);
+0070 hold on
+0071 
+0072 <span class="keyword">for</span> i = 1:numberOfContrasts
+0073     
+0074     <span class="comment">%thisRef = reflect{i};</span>
+0075     thisData = shifted_data{i};
+0076     thisRefMean = bestRef_mean{i};
+0077     thisSf = sf(i);
+0078     
+0079     <span class="keyword">switch</span> q4
+0080         <span class="keyword">case</span> false
+0081             <span class="keyword">if</span> i == 1
+0082                 mult = 1;
+0083             <span class="keyword">else</span>
+0084                 mult = 2^(4*i);
+0085             <span class="keyword">end</span>
+0086         <span class="keyword">otherwise</span>
+0087             mult = 2^(4*i);
+0088             thisQ4 = thisData(:,1).^4;
+0089     <span class="keyword">end</span>
+0090         
+0091     <span class="comment">% Get the limits and fits</span>
+0092     theseLims = refPlims{i};
+0093     
+0094     <span class="keyword">switch</span> interval
+0095         <span class="keyword">case</span> 95
+0096             vals = [1 5];
+0097         <span class="keyword">case</span> 65
+0098             vals = [2 4];
+0099     <span class="keyword">end</span>
+0100     
+0101     thisMin = theseLims(vals(1),:)./mult;
+0102     thisMax = theseLims(vals(2),:)./mult;
+0103     
+0104     thisRefAvg = theseLims(3,:)./mult;
+0105     
+0106     thisRefMean(:,2) = thisRefMean(:,2)./mult;
+0107     <span class="comment">%thisRefMax(:,2) = thisRefMax(:,2)./mult;</span>
+0108     
+0109     thisDataX = thisData(:,1);
+0110     thisDataY = thisData(:,2)./mult;
+0111     thisDataErr = thisData(:,3)./mult;
+0112     
+0113     thisSimX = refXdata{i};
+0114     thisSimQ4 = thisSimX.^4;
+0115     
+0116     <span class="keyword">switch</span> q4
+0117         <span class="keyword">case</span> true
+0118             thisMin = thisMin .* thisSimQ4;
+0119             thisMax = thisMax .* thisSimQ4;
+0120             thisRefMean(:,2) = thisRefMean(:,2) .* thisQ4;
+0121             thisRefAvg = thisRefAvg .* thisSimQ4;          
+0122             thisDataY = thisDataY(:) .* thisQ4;
+0123             thisDataErr = thisDataErr(:) .* thisQ4;
+0124     <span class="keyword">end</span>
+0125     
+0126     errorbar(thisDataX,thisDataY,thisDataErr,<span class="string">'.'</span>);
+0127 
+0128     <span class="comment">%plot(thisData(:,1),thisMin,'-','color',[0.7 0.7 0.7]);</span>
+0129     <span class="comment">%plot(thisData(:,1),thisMax,'-','color',[0.7 0.7 0.7]);</span>
+0130     <span class="comment">%plot(thisData(:,1),thisRef,'LineWidth',2.0);</span>
+0131     <span class="comment">%fillyy(thisData(:,1),thisMin,thisMax,[0.8 0.8 0.8]);</span>
+0132     <a href="shade.html" class="code" title="function h = shade(varargin)">shade</a>(thisSimX,thisMin,thisSimX,thisMax,<span class="string">'FillColor'</span>,[0.7 0.7 0.7],<span class="string">'FillType'</span>,[1 2;2 1],<span class="string">'FillAlpha'</span>,0.3);
+0133     
+0134     <span class="comment">% Plot the requested fit lines;</span>
+0135     <span class="keyword">if</span> showWhichCurves(1)
+0136         <span class="comment">% Plot the mean</span>
+0137         plot(thisRefMean(:,1),thisRefMean(:,2),<span class="string">'b-'</span>);
+0138     <span class="keyword">end</span>
+0139     
+0140     <span class="keyword">if</span> showWhichCurves(2)
+0141         <span class="comment">% Plot the average</span>
+0142        plot(thisDataX,thisRefAvg,<span class="string">'r-'</span>);
+0143     <span class="keyword">end</span>
+0144     
+0145 <span class="keyword">end</span>
+0146 
+0147 <span class="comment">% Now plot the SLD's</span>
+0148 subplot(1,2,2); hold on
+0149 
+0150 <span class="keyword">for</span> i = 1:numberOfContrasts
+0151     
+0152     thisSldMean = bestSld_mean{i};
+0153     <span class="comment">%thisSldMax = bestSld_max{i};</span>
+0154     
+0155     theseLims = sldPlims{i};
+0156     
+0157     thisSldX = sldXdata{i};
+0158     
+0159     <span class="keyword">switch</span> interval
+0160         <span class="keyword">case</span> 95
+0161             vals = [1 5];
+0162         <span class="keyword">case</span> 65
+0163             vals = [2 4];
+0164     <span class="keyword">end</span>
+0165     
+0166     thisMin = theseLims(vals(1),:);
+0167     thisMax = theseLims(vals(2),:);
+0168         
+0169     thisSldAvg = theseLims(3,:);
+0170     
+0171     <span class="keyword">if</span> showWhichCurves(1)
+0172         <span class="comment">% Plot the mean</span>
+0173         plot(thisSldMean(:,1),thisSldMean(:,2),<span class="string">'b-'</span>);
+0174     <span class="keyword">end</span>
+0175     
+0176     <span class="keyword">if</span> showWhichCurves(2)
+0177         <span class="comment">% Plot the max</span>
+0178         plot(thisSldX,thisSldAvg,<span class="string">'r-'</span>);
+0179     <span class="keyword">end</span>
+0180     
+0181 <span class="comment">%     plot(thisData(:,1),thisMin,'-','color',[0.7 0.7 0.7]);</span>
+0182 <span class="comment">%     plot(thisData(:,1),thisMax,'-','color',[0.7 0.7 0.7]);</span>
+0183     <span class="comment">%plot(thisData(:,1),thisRef,'LineWidth',2.0);</span>
+0184     thisSldX = sldXdata{i};
+0185     <a href="shade.html" class="code" title="function h = shade(varargin)">shade</a>(thisSldX,thisMin,thisSldX,thisMax,<span class="string">'FillColor'</span>,[0.7 0.7 0.7],<span class="string">'FillType'</span>,[1 2;2 1],<span class="string">'FillAlpha'</span>,0.3);
+0186     <span class="comment">%shade(thisData,thisMin,thisData,thisMax,'FillColor',[0.7 0.7 0.7],'FillType',[1 2;2 1],'FillAlpha',0.7);</span>
+0187 <span class="keyword">end</span>
+0188 
+0189 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 14-Jun-2022 14:25:37 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,9 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  makeSLDProfileXY -> asymconvstep;
+  makeSLDProfiles -> makeSLDProfileXY;
+
+  asymconvstep [URL="asymconvstep.html"];
+  makeSLDProfileXY [URL="makeSLDProfileXY.html"];
+  makeSLDProfiles [URL="makeSLDProfiles.html"];
+}

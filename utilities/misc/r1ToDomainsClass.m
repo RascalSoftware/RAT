@@ -105,7 +105,7 @@ switch lower(oldType)
         customFile = problem.module.name;
         [~,modelName,~] = fileparts(customFile);
         
-        thisProjectClass.addCustomFile({modelName,customFile,'matlab','pwd'});
+        thisProjectClass.addCustomFile(modelName,customFile,'matlab','pwd');
         
 end
 

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of resampleLayers</title>
+  <meta name="keywords" content="resampleLayers">
+  <meta name="description" content="Function handle for adaptive resampling">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions --><!-- # common --><!-- # resampleLayers -->
+<h1>resampleLayers
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Function handle for adaptive resampling</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function newSLD = resampleLayers_new(sldProfile,resamPars) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Function handle for adaptive resampling
+ f = @(x) sldFunc(x);</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="adaptive_new.html" class="code" title="function out = adaptive_new(sldProfile, startDomain, minAngle, nPoints)">adaptive_new</a>	% adaptive: evaluates a matlab function on a given range</li><li><a href="../../../targetFunctions/common/resampleLayers/old/adaptive_new.html" class="code" title="function out = adaptive_new(sldProfile, startDomain, minAngle, nPoints)">adaptive_new</a>	% adaptive: evaluates a matlab function on a given range</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_paraContrasts</a>	Extract individual cell arrays</li><li><a href="../../../targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_paraPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li><li><a href="../../../targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_single(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_single</a>	Extract individual cell arrays</li><li><a href="../../../targetFunctions/standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints,resamPars)">standardTF_layers_core</a>	This is the main reflectivity calculation for all Layers models in the</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 
+0002 <a name="_sub0" href="#_subfunctions" class="code">function newSLD = resampleLayers_new(sldProfile,resamPars)</a>
+0003 
+0004 
+0005 <span class="comment">% Function handle for adaptive resampling</span>
+0006 <span class="comment">% f = @(x) sldFunc(x);</span>
+0007 <span class="comment">%</span>
+0008 x = sldProfile(:,1);
+0009 prof = sldProfile(:,2);
+0010 
+0011 xstart = x(1);
+0012 xend = x(end);
+0013 
+0014 <span class="comment">% Keep points and minangle as constants for now</span>
+0015 <span class="comment">% will fix later</span>
+0016 minAngle = resamPars(1);
+0017 nPoints = resamPars(2);
+0018 
+0019 newX = linspace(xstart,xend,100);
+0020 out = <a href="adaptive_new.html" class="code" title="function out = adaptive_new(sldProfile, startDomain, minAngle, nPoints)">adaptive_new</a>(sldProfile, [xstart xend], minAngle*pi, nPoints);
+0021 yy = out{1};
+0022 
+0023 newX = yy(:,1);
+0024 newY = yy(:,2);
+0025 layers = zeros(length(newX)-1,3);
+0026 
+0027 <span class="comment">% Now build a layer model from these resampled points</span>
+0028 <span class="keyword">for</span> n = 1:length(newX)-1
+0029     thisX = newX(n);
+0030     nextX = newX(n+1);
+0031     thisY = newY(n);
+0032     nextY = newY(n+1);
+0033     
+0034     thisLayThick = nextX - thisX;
+0035     <span class="keyword">if</span> nextY &gt; thisY
+0036         thisLayRho = ((nextY - thisY)/2) + thisY;
+0037     <span class="keyword">else</span>
+0038         thisLayRho = ((thisY - nextY)/2) + nextY;
+0039     <span class="keyword">end</span>
+0040     
+0041     layers(n,:) = [thisLayThick thisLayRho eps];
+0042 <span class="keyword">end</span>
+0043 newSLD = layers;
+0044 
+0045 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 14-Jun-2022 14:26:44 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

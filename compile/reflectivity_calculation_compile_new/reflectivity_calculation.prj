@@ -1,5 +1,5 @@
-<deployment-project plugin="plugin.coder" plugin-version="R2021a">
-  <configuration build-checksum="446836816" file="/Users/arwel/Documents/coding/RAT/compile/reflectivity_calculation_compile_new/reflectivity_calculation.prj" location="/Users/arwel/Documents/coding/RAT/compile/reflectivity_calculation_compile_new" name="reflectivity_calculation" target="target.unifiedcoder" target-name="MATLAB Coder">
+<deployment-project plugin="plugin.coder" plugin-version="R2018b">
+  <configuration build-checksum="446836816" file="/home/sp1115144/Desktop/RAT/compile/reflectivity_calculation_compile_new/reflectivity_calculation.prj" location="/home/sp1115144/Desktop/RAT/compile/reflectivity_calculation_compile_new" name="reflectivity_calculation" target="target.unifiedcoder" target-name="MATLAB Coder">
     <profile key="profile.mex">
       <param.BuiltInstrumentedMex />
       <param.RanInstrumentedMex />
@@ -12,7 +12,6 @@
       <param.ExtrinsicCalls />
       <param.IntegrityChecks />
       <param.SaturateOnIntegerOverflow />
-      <param.EnableAutoParallelization />
       <param.GlobalDataSyncMethod />
       <param.EnableVariableSizing />
       <param.DynamicMemoryAllocation />
@@ -26,11 +25,8 @@
       <param.FilePartitionMethod />
       <param.GenerateComments />
       <param.MATLABSourceComments />
-      <param.CodeFormattingTool>option.CodeFormattingTool.MathWorks</param.CodeFormattingTool>
       <param.ReservedNameArray />
-      <param.CppStyleConst />
       <param.EnableDebugging />
-      <param.Verbosity />
       <param.ReportPotentialDifferences />
       <param.GenerateReport />
       <param.LaunchReport />
@@ -67,7 +63,6 @@
       <param.InitFltsAndDblsToZero />
       <param.ConstantInputs />
       <param.EnableCRICodeCoverage />
-      <param.EnableAutoParallelizationReporting />
       <param.EnableJIT />
       <param.EnableJITSilentBailOut />
       <param.CheckForIssuesJIT />
@@ -86,7 +81,6 @@
         <param.ExtrinsicCalls />
         <param.IntegrityChecks />
         <param.SaturateOnIntegerOverflow />
-        <param.EnableAutoParallelization />
         <param.GlobalDataSyncMethod />
         <param.EnableVariableSizing />
         <param.DynamicMemoryAllocation />
@@ -101,9 +95,7 @@
         <param.GenerateComments />
         <param.MATLABSourceComments />
         <param.ReservedNameArray />
-        <param.CppStyleConst />
         <param.EnableDebugging />
-        <param.Verbosity />
         <param.ReportPotentialDifferences />
         <param.GenerateReport />
         <param.LaunchReport />
@@ -139,7 +131,6 @@
         <param.InitFltsAndDblsToZero />
         <param.ConstantInputs />
         <param.EnableCRICodeCoverage />
-        <param.EnableAutoParallelizationReporting />
         <param.EnableJIT />
         <param.EnableJITSilentBailOut />
         <param.CheckForIssuesJIT />
@@ -158,7 +149,6 @@
       <param.PurelyIntegerCode />
       <param.SupportNonFinite />
       <param.LoopUnrollThreshold />
-      <param.EnableAutoParallelization />
       <param.EnableVariableSizing />
       <param.DynamicMemoryAllocation />
       <param.DynamicMemoryAllocationThreshold />
@@ -181,8 +171,6 @@
       <param.ParenthesesLevel />
       <param.MaxIdLength />
       <param.HeaderGuardStyle />
-      <param.CodeFormattingTool>option.CodeFormattingTool.Clang-format</param.CodeFormattingTool>
-      <param.ClangFormatFile />
       <param.DataTypeReplacement />
       <param.EnableCustomReplacementTypes />
       <param.ReplacementTypes.double />
@@ -211,10 +199,8 @@
       <param.CustomSymbolStrEMXArray />
       <param.CustomSymbolStrEMXArrayFcn />
       <param.ReservedNameArray />
-      <param.CppStyleConst />
       <param.RuntimeChecks />
       <param.Verbose />
-      <param.Verbosity />
       <param.ReportPotentialDifferences />
       <param.GenerateReport />
       <param.GenerateCodeMetricsReport />
@@ -240,7 +226,7 @@
       <param.CustomSource />
       <param.CustomLibrary />
       <param.PostCodeGenCommand />
-      <param.TargetLangStandard>Auto</param.TargetLangStandard>
+      <param.TargetLangStandard>C++03 (ISO)</param.TargetLangStandard>
       <param.CodeReplacementLibrary>None</param.CodeReplacementLibrary>
       <param.DeprecatedCRLFlag />
       <param.SameHardware>true</param.SameHardware>
@@ -326,10 +312,9 @@
       <param.CustomLAPACKCallback />
       <param.CustomFFTCallback />
       <param.CustomBLASCallback />
-      <param.EnableAutoParallelizationReporting />
       <param.GenerateDefaultInSwitch />
       <param.EnableTraceability />
-      <param.UseECoderFeatures>false</param.UseECoderFeatures>
+      <param.UseECoderFeatures>true</param.UseECoderFeatures>
       <param.EnableGitSupport />
       <param.EnableAutoCommit />
       <param.RepositoryStyle />
@@ -351,7 +336,6 @@
         <param.PurelyIntegerCode />
         <param.SupportNonFinite />
         <param.LoopUnrollThreshold />
-        <param.EnableAutoParallelization />
         <param.EnableVariableSizing />
         <param.DynamicMemoryAllocation />
         <param.DynamicMemoryAllocationThreshold />
@@ -374,7 +358,6 @@
         <param.ParenthesesLevel />
         <param.MaxIdLength />
         <param.HeaderGuardStyle />
-        <param.ClangFormatFile />
         <param.DataTypeReplacement />
         <param.EnableCustomReplacementTypes />
         <param.ReplacementTypes.double />
@@ -403,10 +386,8 @@
         <param.CustomSymbolStrEMXArray />
         <param.CustomSymbolStrEMXArrayFcn />
         <param.ReservedNameArray />
-        <param.CppStyleConst />
         <param.RuntimeChecks />
         <param.Verbose />
-        <param.Verbosity />
         <param.ReportPotentialDifferences />
         <param.GenerateReport />
         <param.GenerateCodeMetricsReport />
@@ -500,7 +481,6 @@
         <param.CustomLAPACKCallback />
         <param.CustomFFTCallback />
         <param.CustomBLASCallback />
-        <param.EnableAutoParallelizationReporting />
         <param.GenerateDefaultInSwitch />
         <param.EnableTraceability />
         <param.UseECoderFeatures />
@@ -864,7 +844,7 @@
       </unset>
     </profile>
     <param.objective>option.objective.c</param.objective>
-    <param.WorkflowStep>entryPoints</param.WorkflowStep>
+    <param.WorkflowStep>reviewIssues</param.WorkflowStep>
     <param.TestSnippets>
       <item>makeCompileInputs_script</item>
     </param.TestSnippets>
@@ -872,8 +852,8 @@
     <param.UseGlobals>option.UseGlobals.No</param.UseGlobals>
     <param.outputfile>${PROJECT_ROOT}/codegen/lib/reflectivity_calculation/reflectivity_calculation.a</param.outputfile>
     <param.version />
-    <param.HasECoderFeatures>false</param.HasECoderFeatures>
-    <param.HasGpuCoder>false</param.HasGpuCoder>
+    <param.HasECoderFeatures>true</param.HasECoderFeatures>
+    <param.HasGpuCoder>true</param.HasGpuCoder>
     <var.HasNeuralNetworkToolbox>true</var.HasNeuralNetworkToolbox>
     <param.mex.mainhtml />
     <param.grt.mainhtml />
@@ -900,7 +880,7 @@
     <var.lastCfiTestSnippet>makeCompileInputs_script</var.lastCfiTestSnippet>
     <var.outdatedOnRestore />
     <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/API/RAT_parse_cells.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/API/extractProblemParams.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/compile/reflectivity_calculation_compile_new/reflectivity_calculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/backSorts/backSort.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/callReflectivity.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/chiSquared/chiSquared.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/allocateParamsToLayers.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfiles.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/adaptive.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/resampleLayers.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/sldFunc.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/shiftData/shiftdata.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/call_customLayers.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraContrasts.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_layers_core.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay_reflectivityCalculation.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;1582828891&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
-    <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/compile/reflectivity_calculation_compile_new/reflectivity_calculation.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
+    <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;/home/sp1115144/Desktop/RAT/compile/reflectivity_calculation_compile_new/reflectivity_calculation.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
     <param.forceMexBuild>false</param.forceMexBuild>
     <param.NoDefaultJIT />
     <param.configImportActive>false</param.configImportActive>
@@ -908,7 +888,7 @@
     <var.notGpuCoder />
     <var.boundToGui>true</var.boundToGui>
     <var.isConfigDialog />
-    <var.ecoderEnabled>false</var.ecoderEnabled>
+    <var.ecoderEnabled>true</var.ecoderEnabled>
     <param.mex.outputfile>reflectivity_calculation_mex</param.mex.outputfile>
     <param.grt.outputfile>reflectivity_calculation</param.grt.outputfile>
     <param.artifact>option.target.artifact.lib</param.artifact>
@@ -918,24 +898,23 @@
     <param.CppNamespaceForMathworksCode />
     <param.CppPreserveClasses>false</param.CppPreserveClasses>
     <param.gpu.Enabled>false</param.gpu.Enabled>
+    <param.gpu.KernelNamePrefix />
     <param.gpu.SelectCudaDevice />
-    <param.gpu.ComputeCapability />
-    <param.gpu.CustomComputeCapability />
-    <param.gpu.MallocMode />
+    <param.gpu.MaxKernelDepth />
+    <param.gpu.MallocMode>discrete</param.gpu.MallocMode>
     <param.gpu.MallocThreshold />
     <param.gpu.StackLimitPerThread />
-    <param.gpu.MaximumBlocksPerKernel />
+    <param.gpu.EnableCUBLAS>true</param.gpu.EnableCUBLAS>
+    <param.gpu.EnableCUSOLVER>true</param.gpu.EnableCUSOLVER>
+    <param.gpu.EnableCUFFT>true</param.gpu.EnableCUFFT>
     <param.gpu.Benchmarking>false</param.gpu.Benchmarking>
     <param.gpu.SafeBuild />
-    <param.gpu.KernelNamePrefix />
+    <param.gpu.ComputeCapability>3.5</param.gpu.ComputeCapability>
+    <param.gpu.CustomComputeCapability />
     <param.gpu.CompilerFlags />
-    <param.gpu.EnableCUBLAS>false</param.gpu.EnableCUBLAS>
-    <param.gpu.EnableCUSOLVER>false</param.gpu.EnableCUSOLVER>
-    <param.gpu.EnableCUFFT>false</param.gpu.EnableCUFFT>
     <var.checkIssuesGpu>false</var.checkIssuesGpu>
     <var.hasGpu>false</var.hasGpu>
     <var.isDeepLearningForMatlabCoderEnabled>true</var.isDeepLearningForMatlabCoderEnabled>
-    <param.deeplearning.EnableDeepLearning>false</param.deeplearning.EnableDeepLearning>
     <param.deeplearning.TargetLib>option.deeplearning.targetlibrary.none</param.deeplearning.TargetLib>
     <var.cfiTargetLibSuppression>false</var.cfiTargetLibSuppression>
     <var.hasMatlabDeepLearningSupportPackage>true</var.hasMatlabDeepLearningSupportPackage>
@@ -948,11 +927,8 @@
     <param.cudnn.CalibrationResultFile />
     <param.arm-compute.ArmComputeVersion />
     <param.arm-compute.ArmArchitecture />
-    <param.arm-compute.DataType />
-    <param.arm-compute.CalibrationResultFile />
     <param.TargetLang>option.TargetLang.CPP</param.TargetLang>
     <param.EnableAutoExtrinsicCalls />
-    <param.EnableImplicitExpansion />
     <param.UsePreconditions>false</param.UsePreconditions>
     <param.FeatureFlags />
     <param.FixedPointMode>option.FixedPointMode.None</param.FixedPointMode>
@@ -1037,24 +1013,23 @@
       <param.CppPackagesToNamespaces />
       <param.CppNamespaceForMathworksCode />
       <param.gpu.Enabled />
+      <param.gpu.KernelNamePrefix />
       <param.gpu.SelectCudaDevice />
-      <param.gpu.ComputeCapability />
-      <param.gpu.CustomComputeCapability />
+      <param.gpu.MaxKernelDepth />
       <param.gpu.MallocMode />
       <param.gpu.MallocThreshold />
       <param.gpu.StackLimitPerThread />
-      <param.gpu.MaximumBlocksPerKernel />
-      <param.gpu.Benchmarking />
-      <param.gpu.SafeBuild />
-      <param.gpu.KernelNamePrefix />
-      <param.gpu.CompilerFlags />
       <param.gpu.EnableCUBLAS />
       <param.gpu.EnableCUSOLVER />
       <param.gpu.EnableCUFFT />
+      <param.gpu.Benchmarking />
+      <param.gpu.SafeBuild />
+      <param.gpu.ComputeCapability />
+      <param.gpu.CustomComputeCapability />
+      <param.gpu.CompilerFlags />
       <var.checkIssuesGpu />
       <var.hasGpu />
       <var.isDeepLearningForMatlabCoderEnabled />
-      <param.deeplearning.EnableDeepLearning />
       <param.deeplearning.TargetLib />
       <var.cfiTargetLibSuppression />
       <var.hasMatlabDeepLearningSupportPackage />
@@ -1067,10 +1042,7 @@
       <param.cudnn.CalibrationResultFile />
       <param.arm-compute.ArmComputeVersion />
       <param.arm-compute.ArmArchitecture />
-      <param.arm-compute.DataType />
-      <param.arm-compute.CalibrationResultFile />
       <param.EnableAutoExtrinsicCalls />
-      <param.EnableImplicitExpansion />
       <param.UsePreconditions />
       <param.FeatureFlags />
       <param.FixedPointMode />
@@ -1365,19 +1337,43 @@
       </file>
     </fileset.inputtypes>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}/codegen/lib/reflectivity_calculation" name="reflectivity_calculation.a" optional="false">/Users/arwel/Documents/coding/RAT/compile/reflectivity_calculation_compile_new/codegen/lib/reflectivity_calculation/reflectivity_calculation.a</file>
+      <file location="${PROJECT_ROOT}/codegen/lib/reflectivity_calculation" name="reflectivity_calculation.a" optional="false">/home/sp1115144/Desktop/RAT/compile/reflectivity_calculation_compile_new/codegen/lib/reflectivity_calculation/reflectivity_calculation.a</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>/Applications/MATLAB_R2021a.app</root>
+      <root>/opt/matlab2020b</root>
       <toolboxes>
         <toolbox name="matlabcoder" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="gpucoder" />
+        <toolbox name="fixedpoint" />
+        <toolbox name="matlabhdlcoder" />
         <toolbox name="neuralnetwork" />
       </toolboxes>
       <toolbox>
         <matlabcoder>
           <enabled>true</enabled>
         </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <gpucoder>
+          <enabled>true</enabled>
+        </gpucoder>
+      </toolbox>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
       </toolbox>
       <toolbox>
         <neuralnetwork>
@@ -1387,17 +1383,17 @@
     </matlab>
     <platform>
       <unix>true</unix>
-      <mac>true</mac>
+      <mac>false</mac>
       <windows>false</windows>
       <win2k>false</win2k>
       <winxp>false</winxp>
       <vista>false</vista>
-      <linux>false</linux>
+      <linux>true</linux>
       <solaris>false</solaris>
-      <osver>10.15.7</osver>
+      <osver>3.10.0-1160.62.1.el7.x86_64</osver>
       <os32>false</os32>
       <os64>true</os64>
-      <arch>maci64</arch>
+      <arch>glnxa64</arch>
       <matlab>true</matlab>
     </platform>
   </configuration>

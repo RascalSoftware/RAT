@@ -1,0 +1,13 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  bayesShadedPlot -> shade;
+  plotBayes -> bayesShadedPlot;
+  plotBayes -> plotBayesCorrFig;
+  plotBayes -> plotRefSLD;
+
+  bayesShadedPlot [URL="bayesShadedPlot.html"];
+  plotBayes [URL="plotBayes.html"];
+  plotBayesCorrFig [URL="plotBayesCorrFig.html"];
+  plotRefSLD [URL="plotRefSLD.html"];
+  shade [URL="shade.html"];
+}

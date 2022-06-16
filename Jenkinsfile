@@ -1,80 +1,86 @@
-pipeline {
+pipeline 
+{
     agent none
-    stages {
+    stages 
+    {
+
         // Start a parallel pool of n threads using matlab and Build it on linux
-        stage ('Build on Windows, Linux') {
-            parallel {
-                stage('Build on Linux') {
-                    agent {
+        stage ('Build on Windows, Linux') 
+        {
+            parallel 
+            {
+                stage('Build on Linux') 
+                {
+                    agent 
+                    {
                         label 'RAT_Linux'
-                        }
-                    environment{
+                    }
+                    environment
+                    {
                         PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"
-                        }
-                    steps {
+                    }
+                    steps 
+                    {
 
                         runMATLABCommand '''BuildScript'''
-                        }
+                    }
                 }
 
                 // start a parallel pool of n threads using matlab and Build it on windows
-                stage('Build on Windows') {
-                    agent {
+                stage('Build on Windows') 
+                {
+                    agent 
+                    {
                         label 'RAT_Windows'
                     }
-                    environment{
+                    environment
+                    {
                         win_PATH = "C:\\Program Files\\MATLAB\\R2021a\\bin;${win_PATH}"
                     }
-                    steps {
-
+                    steps 
+                    {
                         runMATLABCommand '''BuildScript'''
                     }   
 
                 }
 
-                // Start a parallel pool of n threads using matlab and Build it on Macos
-                /* 
-                stage('Build on Macos') {
-                    agent {
-                        label 'RAT_Macos'
-                    }
-                    environment{
-                        PATH = "/usr/local/MATLAB/R2021a/bin:${PATH}"
-                    }
-                    steps {
-                        sh 'echo "Starting parallel pool "'
-                        runMATLABCommand 'parpool()'
-                        runMATLABCommand 'pwd'
-                        runMATLABCommand ''' addRatPaths;cd compile; cd reflectivity_calculation_compile_new;reflectivity_calculation_compile_script'''
-                    } 
-                */
 
             }
         }
 
-        stage ('Test on Windows, Linux') {
-            parallel {
-                stage ('Run Tests on Windows'){
-                agent{
-                    label 'RAT_Windows'
-                }
-                steps {
-                    echo 'Starting parallel pool'
-                    runMATLABCommand 'TestRatScript'
-                    //runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
+        stage ('Test on Windows, Linux') 
+        {
+            parallel 
+            {
+                stage ('Run Tests on Windows')
+                {
+                    agent
+                    {
+                        label 'RAT_Windows'
+                    }
+                    steps 
+                    {
+                        echo 'Running Test Script on Windows'
+                        runMATLABCommand 'TestRatScript'
+                        //runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
                     }
 
                 }
 
-                stage ('Run Tests on Linux'){
-                    agent{
-                    label 'RAT_Linux'
-                        }
-                    steps {
-                    echo 'Starting parallel pool'
-                    runMATLABCommand 'TestRatScript'
-                    //runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
-                        }
+                stage ('Run Tests on Linux')
+                {
+
+                    agent
+                    {
+                        label 'RAT_Linux'
+                    }
+
+                    steps 
+                    {
+                        echo 'Running Test Script on Linux'
+                        runMATLABCommand 'TestRatScript'
+                        //runMATLABCommand ''' addRatPaths;cd testSuite; results = runtests'''
+                    }
                 }
 
                 //stage ('Run Tests on macOS'){
@@ -91,35 +97,12 @@ pipeline {
 
             }
         }
-                
-
-
-
-
-               
-
-
-
-       
-
-    
-    
-
-
-
-
-
-        //TESTS
-   
         
-
         
     } // stages
 
 } //pipeline
-        
 
-        
  /*
     agent {
         label 'RAT_Linux' && 'RAT_Windows'

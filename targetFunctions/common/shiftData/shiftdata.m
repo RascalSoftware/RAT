@@ -1,15 +1,16 @@
 function shifted_data = shiftdata(scalefac,horshift,dataPresent,data,dataLimits,simLimits)
-
 % Shifts the data according to scale factor. If there is no data, makes 
 % x-data over the simulation range.
+%
+% INPUTS:
+%
+%     * scalefac = problem.scalefactors;
+%     * horshift = problem.qshifts;
+%     * numberOfContrasts = problem.numberOfContrasts;
+%     * dataPresent = problem.dataPresent;
+%     * allData = problem.data;
+%     * dataLimits = problem.dataLimits;
 
-% scalefac = problem.scalefactors;
-% horshift = problem.qshifts;
-% numberOfContrasts = problem.numberOfContrasts;
-% dataPresent = problem.dataPresent;
-% allData = problem.data;
-% dataLimits = problem.dataLimits;
-%shifted_data = cell(1,numberOfContrasts);
 
 switch dataPresent
     case 1

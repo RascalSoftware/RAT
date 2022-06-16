@@ -29,7 +29,9 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
     fullfile(ratRoot,'targetFunctions','common','callCustomLayers');
     fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
-    fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers');    
+    fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers');  
+    fullfile(ratRoot,'targetFunctions','common','loopCppCustlayWrapper');
+
     
     fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
 
@@ -49,6 +51,8 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'API','controlsDef_class');
     fullfile(ratRoot,'API','projectClass');
     fullfile(ratRoot,'tests');
+    fullfile(ratRoot,'testSuite','reflectivity_calculation');
+    fullfile(ratRoot,'testSuite','standardTF_reflectivityCalculationTest');
     fullfile(ratRoot,'minimisers','simplex');
     fullfile(ratRoot,'minimisers','generalUtils');
     fullfile(ratRoot,'minimisers','NSMain');

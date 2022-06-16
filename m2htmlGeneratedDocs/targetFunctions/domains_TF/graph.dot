@@ -1,0 +1,9 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  domainsTF_reflectivityCalculation -> domainsTF_custLay_reflectivityCalculation;
+
+  domainsTF_custLay_reflectivityCalculation [URL="domainsTF_custLay_reflectivityCalculation.html"];
+  domainsTF_custXY_reflectivityCalculation [URL="domainsTF_custXY_reflectivityCalculation.html"];
+  domainsTF_reflectivityCalculation [URL="domainsTF_reflectivityCalculation.html"];
+  domainsTF_stanLay_reflectivityCalculation [URL="domainsTF_stanLay_reflectivityCalculation.html"];
+}

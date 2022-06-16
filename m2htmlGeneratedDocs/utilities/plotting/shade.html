@@ -1,0 +1,448 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of shade</title>
+  <meta name="keywords" content="shade">
+  <meta name="description" content="SHADE  Filled area linear plot.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # utilities --><!-- # plotting -->
+<h1>shade
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>SHADE  Filled area linear plot.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function h = shade(varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">SHADE  Filled area linear plot.
+   
+   SHADE should be called using the same syntax as the built-in PLOT.
+
+   SHADE(X,Y) plots vector Y versus vector X, filling the area under the
+   curve. If either is a matrix, this function behaves like PLOT.
+
+   SHADE(Y) plots the columns of Y versus their index.
+   
+   SHADE(X,Y,S) plots Y versus X using the line type, marker symbols and
+   colors as specified by S. For more information on the line specifier S,
+   see PLOT.
+
+   SHADE(X1,Y1,X2,Y2,X3,Y3,...) combines the plots defined by
+   the (X,Y) pairs.
+
+   SHADE(X1,Y1,S1,X2,Y2,S2,X3,Y3,S3,...) combines the plots defined by
+   the (X,Y,S) triples.
+
+   SHADE(AX,...) plots into the axes with handle AX.
+
+   H = SHADE(...) returns a column vector of handles to graphics objects.
+
+   SHADE(...,Name,Value) specifies additional properties of the lines (see
+   help for PLOT) or the filled areas (see below).
+
+   Three additional properties are provided to control the filling:
+
+     - 'FillType' specifies the filling behaviour. The input should be a
+       matrix of size [N,2], such as [A1,B1;A2,B2;...;An,Bn], where Ai and
+       Bi indicate the upper and lower limits, respectively, of each of
+       the N areas to be filled. Each Ai and Bi is an index pointing to
+       one of the lines drawn by PLOT. If, for a particular combination of
+       inputs, PLOT draws M lines, then each Ai and Bi should be a number
+       between 1 and M. In addition, the special cases 0, -1 and -2 are
+       allowed, each representing the x-axis, the bottom of the active
+       axes and the top of the active axes, respectively. 'FillType' may
+       also be specified using a cell array of size [N,2], in which case
+       one may also use the keywords 'axis', 'bottom' and 'top' instead
+       of 0, -1 and -2. By default, the areas between each of the curves
+       and the x-axis are filled, which corresponds to the input matrix
+       [1,0;0,1;2,0;0,2;...;M,0;0,M].
+
+     - 'FillColor' specifies the color of the fillings. This should be a
+       matrix of size [N,3], where each row is the RGB triplet for the
+       corresponding area as specified above. 'FillColor' may also be
+       specified as a cell array of length N, in which case each entry may
+       be either an RGB triplet or any of the color names commonly used in
+       MATLAB. If only one RGB value or color name is provided, all areas
+       are treated equally. If this parameter is not specified, colors are
+       determined by the corresponding lines.
+
+     - 'FillAlpha' specifies the transparency of the fillings. This should
+       be a vector of length N, where each entry specifies the alpha value
+       for each area. If only one alpha value is provided, all areas are
+       treated equally. If this parameter is not specified, an alpha value
+       of 0.3 is used for all areas.
+
+   See also PLOT.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="bayesShadedPlot.html" class="code" title="function bayesShadedPlot_dev2(problem,result,varargin)">bayesShadedPlot</a>	Plot the shaded reflectivities from Bayes output</li><li><a href="../../utilities/plotting/old/bayesShadedPlot_dev2.html" class="code" title="function bayesShadedPlot_dev2(problem,result,varargin)">bayesShadedPlot_dev2</a>	Plot the shaded reflectivities from Bayes output</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function z = zcross(x,y)</a></li><li><a href="#_sub2" class="code">function fd = validatetype(fd,ls)</a></li><li><a href="#_sub3" class="code">function fc = validatecolor(fc,fd,ls,nf)</a></li><li><a href="#_sub4" class="code">function fa = validatealpha(fa,nf)</a></li><li><a href="#_sub5" class="code">function n = str2ind(s)</a></li><li><a href="#_sub6" class="code">function n = str2rgb(s)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function h = shade(varargin)</a>
+0002 <span class="comment">%SHADE  Filled area linear plot.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%   SHADE should be called using the same syntax as the built-in PLOT.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%   SHADE(X,Y) plots vector Y versus vector X, filling the area under the</span>
+0007 <span class="comment">%   curve. If either is a matrix, this function behaves like PLOT.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%   SHADE(Y) plots the columns of Y versus their index.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%   SHADE(X,Y,S) plots Y versus X using the line type, marker symbols and</span>
+0012 <span class="comment">%   colors as specified by S. For more information on the line specifier S,</span>
+0013 <span class="comment">%   see PLOT.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%   SHADE(X1,Y1,X2,Y2,X3,Y3,...) combines the plots defined by</span>
+0016 <span class="comment">%   the (X,Y) pairs.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%   SHADE(X1,Y1,S1,X2,Y2,S2,X3,Y3,S3,...) combines the plots defined by</span>
+0019 <span class="comment">%   the (X,Y,S) triples.</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">%   SHADE(AX,...) plots into the axes with handle AX.</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%   H = SHADE(...) returns a column vector of handles to graphics objects.</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">%   SHADE(...,Name,Value) specifies additional properties of the lines (see</span>
+0026 <span class="comment">%   help for PLOT) or the filled areas (see below).</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">%   Three additional properties are provided to control the filling:</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">%     - 'FillType' specifies the filling behaviour. The input should be a</span>
+0031 <span class="comment">%       matrix of size [N,2], such as [A1,B1;A2,B2;...;An,Bn], where Ai and</span>
+0032 <span class="comment">%       Bi indicate the upper and lower limits, respectively, of each of</span>
+0033 <span class="comment">%       the N areas to be filled. Each Ai and Bi is an index pointing to</span>
+0034 <span class="comment">%       one of the lines drawn by PLOT. If, for a particular combination of</span>
+0035 <span class="comment">%       inputs, PLOT draws M lines, then each Ai and Bi should be a number</span>
+0036 <span class="comment">%       between 1 and M. In addition, the special cases 0, -1 and -2 are</span>
+0037 <span class="comment">%       allowed, each representing the x-axis, the bottom of the active</span>
+0038 <span class="comment">%       axes and the top of the active axes, respectively. 'FillType' may</span>
+0039 <span class="comment">%       also be specified using a cell array of size [N,2], in which case</span>
+0040 <span class="comment">%       one may also use the keywords 'axis', 'bottom' and 'top' instead</span>
+0041 <span class="comment">%       of 0, -1 and -2. By default, the areas between each of the curves</span>
+0042 <span class="comment">%       and the x-axis are filled, which corresponds to the input matrix</span>
+0043 <span class="comment">%       [1,0;0,1;2,0;0,2;...;M,0;0,M].</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">%     - 'FillColor' specifies the color of the fillings. This should be a</span>
+0046 <span class="comment">%       matrix of size [N,3], where each row is the RGB triplet for the</span>
+0047 <span class="comment">%       corresponding area as specified above. 'FillColor' may also be</span>
+0048 <span class="comment">%       specified as a cell array of length N, in which case each entry may</span>
+0049 <span class="comment">%       be either an RGB triplet or any of the color names commonly used in</span>
+0050 <span class="comment">%       MATLAB. If only one RGB value or color name is provided, all areas</span>
+0051 <span class="comment">%       are treated equally. If this parameter is not specified, colors are</span>
+0052 <span class="comment">%       determined by the corresponding lines.</span>
+0053 <span class="comment">%</span>
+0054 <span class="comment">%     - 'FillAlpha' specifies the transparency of the fillings. This should</span>
+0055 <span class="comment">%       be a vector of length N, where each entry specifies the alpha value</span>
+0056 <span class="comment">%       for each area. If only one alpha value is provided, all areas are</span>
+0057 <span class="comment">%       treated equally. If this parameter is not specified, an alpha value</span>
+0058 <span class="comment">%       of 0.3 is used for all areas.</span>
+0059 <span class="comment">%</span>
+0060 <span class="comment">%   See also PLOT.</span>
+0061 
+0062 <span class="comment">% Copyright (c) 2018 Javier Montalt Tordera.</span>
+0063 
+0064 <span class="comment">% accepted params</span>
+0065 names = {<span class="string">'FillType'</span>,<span class="string">'FillColor'</span>,<span class="string">'FillAlpha'</span>};
+0066 
+0067 <span class="comment">% init fill params</span>
+0068 fp = cell(1,3);
+0069 
+0070 <span class="comment">% extract filling parameters, if present</span>
+0071 <span class="keyword">for</span> n = 1:length(names)
+0072     <span class="keyword">for</span> i = 1:length(varargin)
+0073         <span class="comment">% if found</span>
+0074         <span class="keyword">if</span> strcmpi(names{n},varargin{i})
+0075             <span class="keyword">if</span> i+1 &gt; nargin
+0076                 error([&quot;Expected an input value after the name <span class="string">'&quot; names{i} &quot;'</span>.&quot;]);
+0077             <span class="keyword">end</span>
+0078             <span class="comment">% save filling info</span>
+0079             fp{n} = varargin{i+1};
+0080             <span class="comment">% delete from varargin array - otherwise plot will fail as it won't</span>
+0081             <span class="comment">% understand the input</span>
+0082             varargin(i:i+1) = [];
+0083             <span class="keyword">break</span>;
+0084         <span class="keyword">end</span>
+0085     <span class="keyword">end</span>
+0086 <span class="keyword">end</span>
+0087 
+0088 <span class="comment">% check if an axes object was specified</span>
+0089 <span class="keyword">if</span> isscalar(varargin{1}) &amp;&amp; ishandle(varargin{1}(1))
+0090     ax = varargin{1};
+0091 <span class="keyword">else</span>
+0092     ax = gca;
+0093 <span class="keyword">end</span>
+0094 
+0095 <span class="comment">% initial hold state</span>
+0096 tf = ishold(ax);
+0097 
+0098 <span class="comment">% plot lines</span>
+0099 ls = plot(varargin{:},<span class="string">'Color'</span>,[0.5 0.5 0.5, 0.3]);<span class="comment">%,'edgealpha',0.1);</span>
+0100 <span class="comment">%set(ls,'Visible',false);</span>
+0101 hold(ax,<span class="string">'on'</span>);
+0102 
+0103 <span class="comment">% provide default filling params</span>
+0104 fd = fp{1};
+0105 fc = fp{2};
+0106 fa = fp{3};
+0107 
+0108 <span class="comment">% validate fill type</span>
+0109 fd = <a href="#_sub2" class="code" title="subfunction fd = validatetype(fd,ls)">validatetype</a>(fd,ls);
+0110 
+0111 <span class="comment">% number of fillings</span>
+0112 nf = size(fd,1);
+0113 
+0114 <span class="comment">% validate fill color</span>
+0115 fc = <a href="#_sub3" class="code" title="subfunction fc = validatecolor(fc,fd,ls,nf)">validatecolor</a>(fc,fd,ls,nf);
+0116 
+0117 <span class="comment">% validate fill alpha</span>
+0118 fa = <a href="#_sub4" class="code" title="subfunction fa = validatealpha(fa,nf)">validatealpha</a>(fa,nf);
+0119 
+0120 <span class="comment">% array to hold patch objects</span>
+0121 ps = gobjects(nf,1);
+0122 
+0123 <span class="comment">% for each filling</span>
+0124 <span class="keyword">for</span> i = 1:nf
+0125     
+0126     x = cell(1,2);
+0127     y = cell(1,2);
+0128     
+0129     <span class="comment">% get data</span>
+0130     <span class="keyword">for</span> j = 1:2
+0131         <span class="keyword">switch</span> fd(i,j)
+0132             <span class="keyword">case</span> {-2,-1}
+0133                 y{j} = ylim;
+0134                 y{j} = y{j}(abs(fd(i,j)));
+0135             <span class="keyword">case</span> 0
+0136                 y{j} = 0;
+0137             <span class="keyword">otherwise</span>
+0138                 x{j} = ls(fd(i,j)).XData;
+0139                 y{j} = ls(fd(i,j)).YData;
+0140         <span class="keyword">end</span>
+0141     <span class="keyword">end</span>
+0142     
+0143     <span class="keyword">if</span> isequal(x{1},x{2})
+0144         x = x{1};
+0145     <span class="keyword">elseif</span> isempty(x{1})
+0146         x = x{2};
+0147         y{1} = y{1} * ones(size(x));
+0148     <span class="keyword">elseif</span> isempty(x{2})
+0149         x = x{1};
+0150         y{2} = y{2} * ones(size(x));
+0151     <span class="keyword">else</span>
+0152         x = sort([x{1} x{2}]);
+0153         y{1} = interp1(x{1},y{1},x,<span class="string">'linear'</span>,<span class="string">'extrap'</span>);
+0154         y{2} = interp1(x{2},y{2},x,<span class="string">'linear'</span>,<span class="string">'extrap'</span>);
+0155     <span class="keyword">end</span>
+0156     
+0157     <span class="comment">% crossings</span>
+0158     x0 = [x(1) <a href="#_sub1" class="code" title="subfunction z = zcross(x,y)">zcross</a>(x,y{1} - y{2}) x(end)];
+0159     y0 = interp1(x,y{1},x0);
+0160     
+0161     <span class="comment">% for each zero-crossing</span>
+0162     <span class="keyword">for</span> j = 0:length(x0)-2
+0163 
+0164         <span class="comment">% index</span>
+0165         idx = x &gt;= x0(j+1) &amp; x &lt;= x0(j+2) &amp; y{1} &gt;= y{2};
+0166         <span class="keyword">if</span> all(~idx), <span class="keyword">continue</span>; <span class="keyword">end</span>
+0167 
+0168         <span class="comment">% polygon corners</span>
+0169         xv = [x0(j+1) x(idx) x0(j+2) fliplr(x(idx))];
+0170         yv = [y0(j+1) y{1}(idx) y0(j+2) fliplr(y{2}(idx))];
+0171 
+0172         <span class="comment">% fill polygon</span>
+0173         ps(i) = fill(ax,xv,yv,fc(i,:),<span class="string">'LineStyle'</span>,<span class="string">'none'</span>,<span class="string">'FaceAlpha'</span>,fa(i));
+0174 
+0175     <span class="keyword">end</span>
+0176 <span class="keyword">end</span>
+0177 
+0178 <span class="comment">% release if the hold state was off when called</span>
+0179 <span class="keyword">if</span> tf == 0
+0180     hold(ax,<span class="string">'off'</span>);
+0181 <span class="keyword">end</span>
+0182 
+0183 <span class="comment">% set output argument if requested</span>
+0184 <span class="keyword">if</span> nargout == 1
+0185     h = [ls;ps];
+0186 <span class="keyword">end</span>
+0187 
+0188 <span class="keyword">end</span>
+0189 
+0190 
+0191 <a name="_sub1" href="#_subfunctions" class="code">function z = zcross(x,y)</a>
+0192 <span class="comment">% find zero crossings of line Y versus X</span>
+0193 
+0194 <span class="comment">% logical index</span>
+0195 c = y &gt; 0;
+0196 
+0197 <span class="comment">% find point pairs where there is a sign change</span>
+0198 d = abs(diff(c));
+0199 p1 = find(d == 1);  <span class="comment">% before change</span>
+0200 p2 = p1 + 1;        <span class="comment">% after change</span>
+0201 
+0202 <span class="comment">% zero-crossing positions</span>
+0203 z = x(p1) + abs(y(p1)) ./ (abs(y(p1)) + abs(y(p2))) .* (x(p2) - x(p1));
+0204 
+0205 <span class="keyword">end</span>
+0206 
+0207 
+0208 <a name="_sub2" href="#_subfunctions" class="code">function fd = validatetype(fd,ls)</a>
+0209 
+0210 <span class="comment">% if no filling specified, fill to x-axis</span>
+0211 <span class="keyword">if</span> isempty(fd)
+0212     fd = [(1:length(ls))' zeros(size(ls))];
+0213     fd = [fd;fliplr(fd)];
+0214     fd = fd([1:2:length(fd) 2:2:length(fd)],:);
+0215 <span class="keyword">end</span>
+0216 
+0217 <span class="comment">% if the filling was specified in cell form, convert to matrix</span>
+0218 <span class="keyword">if</span> iscell(fd)
+0219     tmp = zeros(size(fd));
+0220     <span class="keyword">for</span> i = 1:numel(fd)
+0221         <span class="keyword">if</span> ischar(fd{i})
+0222             tmp(i) = <a href="#_sub5" class="code" title="subfunction n = str2ind(s)">str2ind</a>(validatestring(fd{i},{<span class="string">'axis'</span>,<span class="string">'bottom'</span>,<span class="string">'top'</span>},<span class="string">'shade'</span>,<span class="string">'FillType'</span>));
+0223         <span class="keyword">else</span>
+0224             validateattributes(fd{i},{<span class="string">'numeric'</span>},{<span class="string">'scalar'</span>},<span class="string">'shade'</span>,<span class="string">'FillType'</span>);
+0225             tmp(i) = fd{i};
+0226         <span class="keyword">end</span>
+0227     <span class="keyword">end</span>
+0228     fd = tmp;
+0229 <span class="keyword">end</span>
+0230 
+0231 validateattributes(fd,{<span class="string">'numeric'</span>},{<span class="string">'integer'</span>,<span class="string">'size'</span>,[nan 2],<span class="string">'&gt;='</span>,-2,<span class="string">'&lt;='</span>,length(ls)},<span class="string">'shade'</span>,<span class="string">'FillType'</span>);
+0232 
+0233 <span class="keyword">end</span>
+0234 
+0235 
+0236 <a name="_sub3" href="#_subfunctions" class="code">function fc = validatecolor(fc,fd,ls,nf)</a>
+0237 
+0238 <span class="comment">% if no color specified, get it from plot lines</span>
+0239 <span class="keyword">if</span> isempty(fc)
+0240     fc = zeros(nf,3);
+0241     <span class="keyword">for</span> i = 1:nf
+0242         <span class="keyword">if</span> fd(i,1) &lt;= 0
+0243             fc(i,:) = ls(fd(i,2)).Color;
+0244         <span class="keyword">elseif</span> fd(i,2) &lt;= 0
+0245             fc(i,:) = ls(fd(i,1)).Color;
+0246         <span class="keyword">else</span>
+0247             fc(i,:) = mean([ls(fd(i,1)).Color;ls(fd(i,2)).Color],1);
+0248         <span class="keyword">end</span>
+0249     <span class="keyword">end</span>
+0250 <span class="keyword">end</span>
+0251 
+0252 <span class="comment">% if length 1, repeat</span>
+0253 <span class="keyword">if</span> ischar(fc)
+0254     fc = {fc};
+0255     fc = repmat(fc,nf,1);
+0256 <span class="keyword">elseif</span> (iscell(fc) &amp;&amp; numel(fc) == 1) || (~iscell(fc) &amp;&amp; size(fc,1) == 1)
+0257     fc = repmat(fc,nf,1);
+0258 <span class="keyword">end</span>
+0259 
+0260 <span class="comment">% if color is specified in cell form, convert to matrix</span>
+0261 <span class="keyword">if</span> iscell(fc)
+0262     validateattributes(fc,{<span class="string">'cell'</span>},{<span class="string">'vector'</span>,<span class="string">'numel'</span>,nf},<span class="string">'shade'</span>,<span class="string">'FillColor'</span>);
+0263     tmp = zeros(numel(fc),3);
+0264     <span class="keyword">for</span> i = 1:numel(fc)
+0265         <span class="keyword">if</span> ischar(fc{i})
+0266             tmp(i,:) = <a href="#_sub6" class="code" title="subfunction n = str2rgb(s)">str2rgb</a>(validatestring(fc{i},{<span class="string">'y'</span>,<span class="string">'m'</span>,<span class="string">'c'</span>,<span class="string">'r'</span>,<span class="string">'g'</span>,<span class="string">'b'</span>,<span class="string">'w'</span>,<span class="string">'k'</span>,<span class="string">'yellow'</span>,<span class="string">'magenta'</span>,<span class="string">'cyan'</span>,<span class="string">'red'</span>,<span class="string">'green'</span>,<span class="string">'blue'</span>,<span class="string">'white'</span>,<span class="string">'black'</span>},<span class="string">'shade'</span>,<span class="string">'FillColor'</span>));
+0267         <span class="keyword">else</span>
+0268             validateattributes(fc{i},{<span class="string">'numeric'</span>},{<span class="string">'vector'</span>,<span class="string">'numel'</span>,3},<span class="string">'shade'</span>,<span class="string">'FillColor'</span>);
+0269             <span class="keyword">if</span> iscolumn(fc{i})
+0270                 fc{i} = fc{i}';
+0271             <span class="keyword">end</span>
+0272             tmp(i,:) = fc{i};
+0273         <span class="keyword">end</span>
+0274     <span class="keyword">end</span>
+0275     fc = tmp;
+0276 <span class="keyword">end</span>     
+0277 
+0278 validateattributes(fc,{<span class="string">'numeric'</span>},{<span class="string">'real'</span>,<span class="string">'size'</span>,[nf 3],<span class="string">'&gt;='</span>,0,<span class="string">'&lt;='</span>,1},<span class="string">'shade'</span>,<span class="string">'FillColor'</span>);
+0279 
+0280 <span class="keyword">end</span>
+0281 
+0282 
+0283 <a name="_sub4" href="#_subfunctions" class="code">function fa = validatealpha(fa,nf)</a>
+0284 
+0285 <span class="comment">% if no alpha specified, choose a value of 0.2</span>
+0286 <span class="keyword">if</span> isempty(fa)
+0287     fa = 0.3 * ones(nf,1);
+0288 <span class="keyword">end</span>
+0289 
+0290 <span class="comment">% if length 1, repeat</span>
+0291 <span class="keyword">if</span> length(fa) == 1
+0292     fa = repmat(fa,nf,1);
+0293 <span class="keyword">end</span>
+0294 
+0295 <span class="keyword">if</span> isrow(fa)
+0296     fa = fa';
+0297 <span class="keyword">end</span>
+0298 
+0299 validateattributes(fa,{<span class="string">'numeric'</span>},{<span class="string">'real'</span>,<span class="string">'vector'</span>,<span class="string">'numel'</span>,nf,<span class="string">'&gt;='</span>,0,<span class="string">'&lt;='</span>,1},<span class="string">'shade'</span>,<span class="string">'FillAlpha'</span>);
+0300 
+0301 <span class="keyword">end</span>
+0302 
+0303 
+0304 <a name="_sub5" href="#_subfunctions" class="code">function n = str2ind(s)</a>
+0305 <span class="comment">% convert string to index</span>
+0306 
+0307 <span class="keyword">switch</span> s
+0308     <span class="keyword">case</span> <span class="string">'axis'</span>
+0309         n = 0;
+0310     <span class="keyword">case</span> <span class="string">'bottom'</span>
+0311         n = -1;
+0312     <span class="keyword">case</span> <span class="string">'top'</span>
+0313         n = -2;
+0314 <span class="keyword">end</span>
+0315 
+0316 <span class="keyword">end</span>
+0317 
+0318 
+0319 <a name="_sub6" href="#_subfunctions" class="code">function n = str2rgb(s)</a>
+0320 <span class="comment">% convert string to RBG triplet</span>
+0321 
+0322 <span class="keyword">switch</span> s
+0323     <span class="keyword">case</span> {<span class="string">'y'</span>,<span class="string">'yellow'</span>}
+0324         n = [1 1 0];
+0325     <span class="keyword">case</span> {<span class="string">'m'</span>,<span class="string">'magenta'</span>}
+0326         n = [1 0 1];
+0327     <span class="keyword">case</span> {<span class="string">'c'</span>,<span class="string">'cyan'</span>}
+0328         n = [0 1 1];
+0329     <span class="keyword">case</span> {<span class="string">'r'</span>,<span class="string">'red'</span>}
+0330         n = [1 0 0];
+0331     <span class="keyword">case</span> {<span class="string">'g'</span>,<span class="string">'green'</span>}
+0332         n = [0 1 0];
+0333     <span class="keyword">case</span> {<span class="string">'b'</span>,<span class="string">'blue'</span>}
+0334         n = [0 0 1];
+0335     <span class="keyword">case</span> {<span class="string">'w'</span>,<span class="string">'white'</span>}
+0336         n = [1 1 1];
+0337     <span class="keyword">case</span> {<span class="string">'k'</span>,<span class="string">'black'</span>}
+0338         n = [0 0 0];
+0339 <span class="keyword">end</span>
+0340 
+0341 
+0342 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 14-Jun-2022 14:25:37 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

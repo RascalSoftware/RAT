@@ -4,138 +4,11 @@
 Developer Documentation
 ========================
 
-This documentation is intented towards developers who wish to understand how RAT's core workflow works and all the different components of the software.
-
+This documentation is intented towards developers who wish to understand how RAT's core workflow works and all the different components of the software. 
 The following picture shows the core workflow of RAT.
 
 .. image:: ./toolbox.png
-
-High Level Components
-=========================
-At a high level, RAT only contains two components. These are really important and makes up the core of RAT.
-
-1. Project Class
-2. ControlsDef Class
-
-
-.. _ProjectClass:
-
-Project Class
---------------
-Project Class is all about data. It contains the very data user wants to work with. It stores all the data required for reflectivity calculations. 
-Everything in RAT comes from RAT in one way or another. There are many functions that deal with breaking down the data from Project Class into smaller pieces 
-so that they can be used in other parts of the software.
-
-.. automodule:: API.projectClass
-.. autoclass:: projectClass
-
-**Important Methods:**
-^^^^^^^^^^^^^^^^^^^^^^^
-The following are some of the most used methods in the Project Class.
-
-.. dropdown:: Show important methods of Project Class
-
-    **addContrast**
-
-    This function adds a contrast to the project.
-
-    .. automodule:: API.projectClass
-    .. automethod:: projectClass.addContrast
-        
-    **addBackground**
-   
-    This function adds a background to the project.
-
-    .. automodule:: API.projectClass
-    .. automethod:: projectClass.addBackground
-
-    **addBulkOut**
-   
-    This function adds a bulk out to the project.
-
-    .. automodule:: API.projectClass
-    .. automethod:: projectClass.addBulkOut
-
-    **setModelType**
-    
-    This function sets the model type of the project. It can be "custom layers" or "standard layers" or "custom XY".
-
-    .. automodule:: API.projectClass
-    .. automethod:: projectClass.setModelType
-
-    **addCustomFile**
-   
-    This function adds a custom file to the project. This is really useful if the user want to use their own custom model.
-    Currently, RAT supports MATLAB and C++ custom models.
-
-    .. automodule:: API.projectClass
-    .. automethod:: projectClass.addCustomFile
-
-
-
-
-
-
-
-
-**All methods**
-^^^^^^^^^^^^^^^^
-
-.. dropdown:: Show all methods of Project Class
-
-
-    .. automodule:: API.projectClass
-    .. autoclass:: projectClass
-        :show-inheritance:
-        :members:
-
-        
-
-.. _ControlsDef:
-
-ControlsDef Class
------------------
-ControlsDef Class is all about control. It is neccessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
-to whether the users wants to calculate SLD during fit and even how many iteration an algorithm should do ..etc.
-
-.. dropdown:: Show all methods of ControlsDef Class
-
-    .. automodule:: API.controlsDef
-    .. autoclass:: controlsDef
-        :show-inheritance:
-        :members:
-
-
-Additional Documentation
-========================
-
-This documentation is very detailed interms of code. It contains direct links to definitions of functions involved and is helpful for developers
-who want to understand how RAT works in more detail.
-
-
-The following documentation shows code along with visualizations.
-Click on the link below to see the code.
-
-`Additional Documentation`_
-
-.. _Additional Documentation: ../m2htmlGeneratedDocs/index.html
-
-Dependency Graph
------------------
-The following picture shows the dependency graph of RAT. The dependency graph is a graph that shows how the different components of RAT work together. 
-Click on the nodes to see the documentation of the component. 
-
-Click on the "Graph" to see the dependency graph.
-
-`Graph`_
-
-.. _Graph: ../m2htmlGeneratedDocs/graph.html
-
-
-
-
-Low Level Components
-=====================
+   :alt: RAT's core workflow
 
 Unit Testing 
 ==============
@@ -153,7 +26,7 @@ These unit tests are written to test the following set of functions:
 
 3. :ref:`ProjectClass`
 
-4. :ref:`ControlsDef`
+4. :ref:`controlsDef`
 
 .. note::
       All the common function tests compare the **stable output** against the **on-demand output** of a function. This is done to make sure that the current function is behaving 
@@ -172,8 +45,6 @@ These unit tests are written to test the following set of functions:
         1. standardTF_customLayers (Single,Points and Contrast)
         2. standard_TF_customXY (Single,Points and Contrast)
         3. standardTF_standardLayers (Single,Points and Contrast)
-
-
 
 
 
@@ -217,8 +88,6 @@ there's a case statement that will treat testDLL_mex as an extrinisic function a
 
 How to create a custom C++ model
 ---------------------------------
-
-
 
 1. First Step is to make sure your cpp file is error-free and follow the guidelines mentioned in this step. Your cpp file should contain your custom model and 
 custom model should be a function. Inorder for RAT to fetch your custom model/function, it needs to be exported. So, you have to get `dylib.hpp`_ here and put **DYLIB_API** 
@@ -273,6 +142,34 @@ Lets say your file is called **myModel.cpp** and your function is called **myCus
 
 
 
+Additional Documentation
+========================
+
+This documentation is very detailed interms of code. It contains direct links to definitions of functions involved and is helpful for developers
+who want to understand how RAT works in more detail.
+
+
+The following documentation shows code along with visualizations.
+Click on the link below to see the code.
+
+`Additional Documentation`_
+
+.. _Additional Documentation: ../m2htmlGeneratedDocs/index.html
+
+Dependency Graph
+-----------------
+The following picture shows the dependency graph of RAT. The dependency graph is a graph that shows how the different components of RAT work together. 
+Click on the nodes to see the documentation of the component. 
+
+Click on the "Graph" to see the dependency graph.
+
+`Graph`_
+
+.. _Graph: ../m2htmlGeneratedDocs/graph.html
+
+
+
+
 
 DevOps 
 ======
@@ -306,7 +203,7 @@ RAT owns two nodes/machines( Windows and Linux) in the cloud which are connected
 Contacts 
 ^^^^^^^^^
 
-1. Issues with Linux node - Micheal Tint
+1. Issues with Linux node - Alexander Dibbo
 2. Issues with Windows node - Simon Hodder (usually someone on his team will help)
 
 
@@ -333,3 +230,136 @@ References for Devs
    This can be found in RasCal Planner in Microsoft Planner.
 
 2. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. GHOST CODE ___________________________________________________________________________________
+.. High Level Components
+.. =========================
+.. At a high level, RAT only contains two components. These are really important and makes up the core of RAT.
+
+.. 1. Project Class
+.. 2. ControlsDef Class
+
+
+.. .. _ProjectClass:
+
+.. .. Project Class
+.. .. --------------
+.. .. Project Class is all about data. It contains the very data user wants to work with. It stores all the data required for reflectivity calculations. 
+.. .. Everything in RAT comes from RAT in one way or another. There are many functions that deal with breaking down the data from Project Class into smaller pieces 
+.. .. so that they can be used in other parts of the software.
+
+.. .. .. automodule:: API.projectClass
+.. .. .. autoclass:: projectClass
+
+.. .. **Important Methods:**
+.. .. ^^^^^^^^^^^^^^^^^^^^^^^
+.. .. The following are some of the most used methods in the Project Class.
+
+.. .. .. dropdown:: Show important methods of Project Class
+
+.. ..     **addContrast**
+
+.. ..     This function adds a contrast to the project.
+
+.. ..     .. automodule:: API.projectClass
+.. ..     .. automethod:: projectClass.addContrast
+        
+.. ..     **addBackground**
+   
+.. ..     This function adds a background to the project.
+
+.. ..     .. automodule:: API.projectClass
+.. ..     .. automethod:: projectClass.addBackground
+
+.. ..     **addBulkOut**
+   
+.. ..     This function adds a bulk out to the project.
+
+.. ..     .. automodule:: API.projectClass
+.. ..     .. automethod:: projectClass.addBulkOut
+
+.. ..     **setModelType**
+    
+.. ..     This function sets the model type of the project. It can be "custom layers" or "standard layers" or "custom XY".
+
+.. ..     .. automodule:: API.projectClass
+.. ..     .. automethod:: projectClass.setModelType
+
+.. ..     **addCustomFile**
+   
+.. ..     This function adds a custom file to the project. This is really useful if the user want to use their own custom model.
+.. ..     Currently, RAT supports MATLAB and C++ custom models.
+
+.. ..     .. automodule:: API.projectClass
+.. ..     .. automethod:: projectClass.addCustomFile
+
+
+
+
+
+
+
+
+.. .. **All methods**
+.. .. ^^^^^^^^^^^^^^^^
+
+.. .. .. dropdown:: Show all methods of Project Class
+
+
+.. ..     .. automodule:: API.projectClass
+.. ..     .. autoclass:: projectClass
+.. ..         :show-inheritance:
+.. ..         :members:
+
+        
+
+.. .. _ControlsDef:
+
+.. ControlsDef Class
+.. -----------------
+.. .. ControlsDef Class is all about control. It is neccessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
+.. .. to whether the users wants to calculate SLD during fit and even how many iteration an algorithm should do ..etc.
+
+.. .. .. dropdown:: Show all methods of ControlsDef Class
+
+.. ..     .. automodule:: API.controlsDef
+.. ..     .. autoclass:: controlsDef
+.. ..         :show-inheritance:
+.. ..         :members:

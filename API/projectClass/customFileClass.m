@@ -50,7 +50,7 @@ classdef customFileClass < handle
                 appendNewRow(obj,newRow);
             else
                 
-                inputs = varargin;
+                inputs = varargin{:};
                 
                 % Check length of added data
                 switch length(inputs)
@@ -181,8 +181,8 @@ classdef customFileClass < handle
 
         function obj = setCustomLanguage(obj,whichCustom,lang)
             
-           if ~strcmpi(lang,{'octave','matlab','python'})
-               error('Language must be octave, matlab or pythob');
+           if ~strcmpi(lang,{'octave','matlab','python','cpp'})
+               error('Language must be octave, matlab,cpp or python');
            end
            
            obj.fileTable{whichCustom,3} = {lang};

@@ -410,3 +410,26 @@ if yes, what to parallelize on. (Points or Contrasts or all)
         controls.parallel = 'contrasts';
 
 
+RAT 
+====
+
+After the user has defined the projectClass and controlsDef class, the user can run RAT like shown below
+
+.. code-block:: MATLAB
+    :caption: Sample usage of RAT class.
+
+        % Initialize the project class
+        problem = projectClass();
+
+        % Initialize the controls class
+        controls = controlsDef();
+
+        % call the RAT function
+        [problem,results] = RAT(problem,controls);
+
+
+When the RAT function is called, the classes are passed into internal functions like `RatParseClassToStructs_new` which takes the classes and breaks them down into cells, 
+limits,prior and more importantly converts the project class to struct. Then, based on controls procedure, project class is calculated. The results are then returned to the `outProblemDef`
+variable.
+
+TO DO HERE 

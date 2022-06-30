@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of RATparseOutToProjectClass</title>
+  <meta name="keywords" content="RATparseOutToProjectClass">
+  <meta name="description" content="Reconstruct the problemDef class as an output">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # API -->
+<h1>RATparseOutToProjectClass
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Reconstruct the problemDef class as an output</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Reconstruct the problemDef class as an output
+Using the outputs from the calculation(s)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="RAT.html" class="code" title="function [outProblemDef,result] = RAT(problemDefInput,controls)">RAT</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result)</a>
+0002 
+0003 
+0004 <span class="comment">%Reconstruct the problemDef class as an output</span>
+0005 <span class="comment">%Using the outputs from the calculation(s)</span>
+0006 outProblemDef = problemDefInput;
+0007 
+0008 <span class="comment">%(1) Parameters</span>
+0009 pars = outProblemStruct.params;
+0010 <span class="keyword">for</span> i = 1:length(pars)
+0011     outProblemDef.setParamValue(i,pars(i));
+0012 <span class="keyword">end</span>
+0013 
+0014 <span class="comment">%(2) Backgrounds</span>
+0015 backs = outProblemStruct.backs;
+0016 <span class="keyword">for</span> i = 1:length(backs)
+0017     outProblemDef.setBacksParValue(i,backs(i));
+0018 <span class="keyword">end</span>
+0019 
+0020 <span class="comment">%(3) Scalefactors</span>
+0021 scales = outProblemStruct.sf;
+0022 <span class="keyword">for</span> i = 1:length(scales)
+0023     outProblemDef.setScalefactor(i,<span class="string">'value'</span>,scales(i));
+0024 <span class="keyword">end</span>
+0025 
+0026 <span class="comment">%(4) Qzshifts</span>
+0027 <span class="comment">% shifts = outProblemStruct.shifts;</span>
+0028 <span class="comment">% outProblemDef.qzshifts = shifts;</span>
+0029 
+0030 <span class="comment">%(4) Nbairs</span>
+0031 nbairs = outProblemStruct.nba;
+0032 <span class="keyword">for</span> i = 1:length(nbairs)
+0033     outProblemDef.setBulkIn(i,<span class="string">'value'</span>,nbairs(i));
+0034 <span class="keyword">end</span>
+0035 
+0036 <span class="comment">%(5) Nbsubs</span>
+0037 nbsubs = outProblemStruct.nbs;
+0038 <span class="keyword">for</span> i = 1:length(nbsubs)
+0039     outProblemDef.setBulkOut(i,<span class="string">'value'</span>,nbsubs(i));
+0040 <span class="keyword">end</span>
+0041 
+0042 <span class="comment">%(5) Resolutions</span>
+0043 resol = outProblemStruct.res;
+0044 <span class="keyword">for</span> i = 1:length(resol)
+0045     outProblemDef.setResolPar(1,<span class="string">'value'</span>,resol(i));
+0046 <span class="keyword">end</span>
+0047 
+0048 
+0049 <span class="comment">% resolNames = problemDef_cells{13};</span>
+0050 <span class="comment">% outProblemDef.resolutionNames = resolNames;</span>
+0051 <span class="comment">%</span>
+0052 <span class="comment">% resolLimits = problemDef_limits.res;</span>
+0053 <span class="comment">% for i = 1:numberOfResols</span>
+0054 <span class="comment">%     outProblemDef.resolutionConstr{i} = resolLimits(i,:)</span>
+0055 
+0056 
+0057 
+0058 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 29-Jun-2022 14:15:11 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

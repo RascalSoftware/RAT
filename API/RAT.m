@@ -77,7 +77,7 @@ switch lower(problemDef.modelType)
 end
 
 %Call the main RAT routine...
-
+    
 % If display is not silent print a
 % line confirminf RAT is starting
 if ~strcmpi(controls.display,'off')

@@ -5,6 +5,10 @@
 pwd
 addRatPaths;
 
+% NEED TO ADD THE M2HTML BUILD SCRIPT HERE BUT NODES DONT GOT M2HTML so WE NEED TO INSTALL THAT FIRST
+% THIS IS THE COMMAND TO GENERATE THE m2HTML DOCUMENTATION THIS NEEDS TO HAPPEN FROM RAT ROOT DIRECTORY 
+% m2html('mfiles',{'./targetFunctions','./API'},'htmldir','m2htmlGeneratedDocs', 'recursive','on', 'global','on','template','frame', 'index','menu','ignoredDir',{'docs','Docs_old','tests','testSuite'},'graph','on','source','on');
+% or use can just use buildM2htmlDocs.m file
 % Save this path
 thisPath = pwd;
 

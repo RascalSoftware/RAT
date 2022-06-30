@@ -192,7 +192,9 @@ classdef parametersClass < handle
         end
         
         function obj = setPrior(obj,varargin)
-            
+%        If the input is a string, it looks for the row with that name in the table.
+%        2. If the input is a number, it looks for the row with that index in the table.
+
             inputValues = varargin{:};
             tab = obj.paramsTable;
             

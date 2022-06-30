@@ -96,6 +96,7 @@ classdef contrastsClass < handle
             
             switch modelType
                 case 'standard'
+                    % cell array of strings.
                     modelArray = cellstr(modelArray);
                     for i = 1:length(modelArray)
                         if ~strcmpi(modelArray{i},allowedNames)

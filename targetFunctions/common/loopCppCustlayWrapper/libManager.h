@@ -9,7 +9,7 @@
 #include <cstdlib>
 #include <tuple>
 #include "dylib.hpp" // dylib.hpp is a header file that contains the dylib class that extracts a function from dll
-#include "tmwtypes.h" // for real64_T. For matlab coder reasons 
+
 class Library
 {
     public:
@@ -17,9 +17,6 @@ class Library
         std::string libName;
         Library(void){};
         ~Library(void){};
-        // output is a vector of doubles
-        // std::vector<double> output;
-        // create a variable to hold the address of the output vector
 
         void loadInfo(std::string libName, std::string functionName)
         {
@@ -44,9 +41,7 @@ class Library
             // pass the arguments to the function
             func(params, bulk_in, bulk_out, contrast, tempOutput, roughness);
 
-            // print tempOutput
-            // std::cout << "Output passed: ";
-            
+
         
 
                 

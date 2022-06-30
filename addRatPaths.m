@@ -48,7 +48,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     
     fullfile(ratRoot,'API');
     fullfile(ratRoot,'API','outputFcn');
-    fullfile(ratRoot,'API','controlsDef_class');
+    fullfile(ratRoot,'API','controlsDef');
     fullfile(ratRoot,'API','projectClass');
     fullfile(ratRoot,'tests');
     fullfile(ratRoot,'testSuite','reflectivity_calculation');

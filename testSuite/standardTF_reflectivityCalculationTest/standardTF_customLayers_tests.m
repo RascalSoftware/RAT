@@ -18,7 +18,10 @@ classdef standardTF_customLayers_tests < matlab.unittest.TestCase
     end
 
     methods (TestMethodSetup)
-    
+        
+        % The inputs are being set
+
+
         % Load CustomXY layer inputs and expected outputs
         function customLayersInputs = load_test_data_inputs(testCase)
             % Load inputs
@@ -60,7 +63,7 @@ classdef standardTF_customLayers_tests < matlab.unittest.TestCase
 
 
     methods (Test)
-
+        % MATLAB functions compares exisitng output and "Just run" output. % MEX does the same but with compiled/MEX versions of the functions
         function customLayers_single_MATLAB(testCase)
             % Test if the input is similar to the exercised output
 

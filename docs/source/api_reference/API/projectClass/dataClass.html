@@ -1,0 +1,409 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of dataClass</title>
+  <meta name="keywords" content="dataClass">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # API --><!-- # projectClass -->
+<h1>dataClass
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="dataClass.html" class="code" title="">dataClass</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="dataClass.html" class="code" title="">dataClass</a>	</li><li><a href="projectClass.html" class="code" title="">projectClass</a>	</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function obj = dataClass(startCell)</a></li><li><a href="#_sub2" class="code">function obj = addData(obj,varargin)</a></li><li><a href="#_sub3" class="code">function nameChanged = setData(obj, varargin)</a></li><li><a href="#_sub4" class="code">function obj = setDataRange(obj,whichData,range)</a></li><li><a href="#_sub5" class="code">function obj = setSimRange(obj,whichData,range)</a></li><li><a href="#_sub6" class="code">function nameChanged = setDataName(obj,whichData,name)</a></li><li><a href="#_sub7" class="code">function names = getDataNames(obj)</a></li><li><a href="#_sub8" class="code">function obj = setDataValues(obj,whichData,data)</a></li><li><a href="#_sub9" class="code">function displayDataObject(obj)</a></li><li><a href="#_sub10" class="code">function obj = appendNewRow(obj,newRow)</a></li><li><a href="#_sub11" class="code">function inputBlock = parseDataInput(inputVals)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 classdef <a href="dataClass.html" class="code" title="">dataClass</a> &lt; handle
+0002     
+0003     <span class="comment">% A container class for holding data</span>
+0004     properties
+0005         
+0006         dataTable;
+0007         dataCount = 0;
+0008         autoDataNameCounter;
+0009         defaultSimMin = 0.005;
+0010         defaultSimMax = 0.7;
+0011         
+0012     <span class="keyword">end</span>
+0013     
+0014     methods
+0015         
+0016         <a name="_sub0" href="#_subfunctions" class="code">function obj = dataClass(startCell)</a>
+0017             
+0018             sz = [1 4];
+0019             varTypes = {<span class="string">'string'</span>,<span class="string">'cell'</span>,<span class="string">'cell'</span>,<span class="string">'cell'</span>};
+0020             varNames = {<span class="string">'Name'</span>,<span class="string">'Data'</span>,<span class="string">'Data Range'</span>,<span class="string">'Simulation Range'</span>};
+0021             obj.dataTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,varTypes,<span class="string">'VariableNames'</span>,varNames);
+0022             
+0023             <span class="keyword">if</span> isempty(startCell{4}{:})
+0024                 startCell{4} = {[obj.defaultSimMin obj.defaultSimMax]};
+0025             <span class="keyword">end</span>
+0026             
+0027             obj.dataTable(1,:) = startCell;<span class="comment">%{'Substrate Roughness',1 3 5,true,'uniform',0,Inf};</span>
+0028             obj.dataCount = 1;
+0029             obj.autoDataNameCounter = 1;
+0030             
+0031         <span class="keyword">end</span>
+0032         
+0033         <a name="_sub1" href="#_subfunctions" class="code">function obj = addData(obj,varargin)</a>
+0034             
+0035             <span class="keyword">if</span> isempty(varargin{:})
+0036                 
+0037                 <span class="comment">% Nothing supplied - add empty data row</span>
+0038                 nameVal = obj.autoDataNameCounter();
+0039                 newName = sprintf(<span class="string">'New data %d'</span>, nameVal);
+0040                 
+0041                 newDataRange = [];
+0042                 newSimRange = [obj.defaultSimMin, obj.defaultSimMax];
+0043                 
+0044                 newRow = {newName, [], newDataRange, newSimRange};
+0045                 <a href="#_sub10" class="code" title="subfunction obj = appendNewRow(obj,newRow)">appendNewRow</a>(obj,newRow);
+0046             <span class="keyword">else</span>
+0047                 
+0048                 inputs = varargin{:};
+0049                 
+0050                 <span class="comment">% Check length of added data</span>
+0051                 <span class="keyword">switch</span> length(inputs)
+0052                     
+0053                     <span class="keyword">case</span> 1
+0054                         
+0055                         <span class="comment">% One input supplied - assume just name provided</span>
+0056                         newName = inputs{1};
+0057                         <span class="keyword">if</span> ~ischar(newName)
+0058                             error(<span class="string">'Single input is expected to be a data name'</span>);
+0059                         <span class="keyword">end</span>
+0060                         
+0061                         newDataRange = [];
+0062                         newSimRange = [obj.defaultSimMin, obj.defaultSimMax];
+0063                         
+0064                         newRow = {newName, [], newDataRange, newSimRange};
+0065                         <span class="comment">%newUserDataRow = {'none',[0,0],[obj.defaultSimMin,obj.defaultSimMax]};</span>
+0066                         <a href="#_sub10" class="code" title="subfunction obj = appendNewRow(obj,newRow)">appendNewRow</a>(obj,newRow);<span class="comment">%,newUserDataRow);</span>
+0067                         
+0068                     <span class="keyword">case</span> 2
+0069                         
+0070                         <span class="comment">% Two inputs suppled - assume both name and data</span>
+0071                         <span class="comment">% supplied;</span>
+0072                         newName = inputs{1};
+0073                         newData = inputs{2};
+0074                         
+0075                         newDataX = newData(:,1);
+0076                         newMin = newDataX(1);
+0077                         newMax = newDataX(end);
+0078                         
+0079                         newDataRange = [newMin newMax];
+0080                         newSimRange = [newMin newMax];
+0081                         
+0082                         newRow = {newName, newData, newDataRange, newSimRange};
+0083                         <span class="comment">%newUserDataRow = {'data',[newMin,newMax],[newMin,newMax]};</span>
+0084                         <a href="#_sub10" class="code" title="subfunction obj = appendNewRow(obj,newRow)">appendNewRow</a>(obj,newRow);<span class="comment">% ,newUserDataRow);</span>
+0085                         
+0086                     <span class="keyword">case</span> 4
+0087                         
+0088                         <span class="comment">% Four inputs = assume data and simulation ranges also</span>
+0089                         <span class="comment">% supplied</span>
+0090                         disp(<span class="string">'todo'</span>);
+0091                         
+0092                     <span class="keyword">otherwise</span>
+0093                         
+0094                         <span class="comment">% Other length of inputs is not recognised</span>
+0095                         error(<span class="string">'Unrecognised input into addData'</span>);
+0096                         
+0097                 <span class="keyword">end</span>
+0098             <span class="keyword">end</span>
+0099             
+0100         <span class="keyword">end</span>
+0101         
+0102         <a name="_sub2" href="#_subfunctions" class="code">function nameChanged = setData(obj, varargin)</a>
+0103            
+0104             <span class="comment">% Set the value of an existing data object</span>
+0105             inputs = varargin{:};
+0106             dataNames = obj.dataTable{:,1};
+0107             
+0108             <span class="comment">% Always need three or more inputs to set data value</span>
+0109             <span class="keyword">if</span> length(inputs) &lt; 3
+0110                 error(<span class="string">'At least three inputs expected into ''setData'''</span>);
+0111             <span class="keyword">end</span>
+0112                 
+0113             <span class="comment">% First input needs to be a data number or name</span>
+0114             whichData = inputs{1};
+0115             <span class="keyword">if</span> isnumeric(whichData)
+0116                 <span class="keyword">if</span> (whichData &gt; obj.dataCount) || (whichData &lt; 1)
+0117                     error(<span class="string">'Data %d is not recognised'</span>, whichData);
+0118                 <span class="keyword">end</span>
+0119             <span class="keyword">elseif</span> ischar(whichData)
+0120                 <span class="keyword">if</span> ~strcmpi(whichData,dataNames)
+0121                     error(<span class="string">'Data name %s not recognised'</span>, whichData);
+0122                 <span class="keyword">end</span>
+0123             <span class="keyword">end</span>
+0124             
+0125             <span class="comment">% Parse the remaining name value pairs to see what is</span>
+0126             <span class="comment">% being set and make sure the data is of the correct size</span>
+0127             <span class="comment">% and type.</span>
+0128             toBeParsed = inputs(2:end);
+0129 
+0130             <span class="comment">% Make an 'iputParser' object...</span>
+0131             p = inputParser;
+0132             
+0133             <span class="comment">% dataRange and simRange need to be [1 x 2] arrays</span>
+0134             isDimsRanges = @(x)all(size(x) == [1,2]);
+0135             
+0136             <span class="comment">% Data needs to be an [n x &gt;3] array</span>
+0137             isDimsData = @(x) size(x,2) &gt;= 3;
+0138 
+0139             addParameter(p,<span class="string">'name'</span>,<span class="string">''</span>, @(x) ischar(x))
+0140             addParameter(p,<span class="string">'data'</span>,[], @(x) isnumeric(x) &amp;&amp; isDimsData(x))
+0141             addParameter(p,<span class="string">'dataRange'</span>,[], @(x) isnumeric(x) &amp;&amp; isDimsRanges(x))
+0142             addParameter(p,<span class="string">'simRange'</span>, [], @(x) isnumeric(x) &amp;&amp; isDimsRanges(x)) 
+0143             parse(p,toBeParsed{:});
+0144                 
+0145             results = p.Results;
+0146             
+0147             <span class="comment">% Any fields in results that are not empty are being set,</span>
+0148             <span class="comment">% so call the relevant set method for these (which will carry</span>
+0149             <span class="comment">% out some additional checks)</span>
+0150             
+0151             nameChanged = []; <span class="comment">% Flag wich is passed up to the calling function (to change contrasts if necessary)</span>
+0152             
+0153             <span class="comment">% Pass numeric identifyer for data into subfunctions</span>
+0154             <span class="keyword">if</span> ~isnumeric(whichData)
+0155                 whichData = find(strcmpi(whichData,dataNames));
+0156             <span class="keyword">end</span>
+0157             
+0158             <span class="keyword">if</span> ~isempty(results.name)
+0159                 nameChanged = obj.setDataName(whichData,results.name);
+0160             <span class="keyword">end</span>
+0161             
+0162             
+0163             <span class="keyword">if</span> ~isempty(results.data)
+0164                 obj.setDataValues(whichData,results.data);
+0165             <span class="keyword">end</span>
+0166             
+0167             <span class="keyword">if</span> ~isempty(results.dataRange)
+0168                 obj.setDataRange(whichData,results.dataRange);
+0169             <span class="keyword">end</span>
+0170             
+0171             <span class="keyword">if</span> ~isempty(results.simRange)
+0172                 obj.setSimRange(whichData,results.simRange);
+0173             <span class="keyword">end</span>
+0174 
+0175         <span class="keyword">end</span>
+0176         
+0177         <a name="_sub3" href="#_subfunctions" class="code">function obj = setDataRange(obj,whichData,range)</a>
+0178             
+0179             r = [range(1) range(2)];
+0180             obj.dataTable{whichData,3} = {range};
+0181         
+0182         <span class="keyword">end</span>
+0183         
+0184         <a name="_sub4" href="#_subfunctions" class="code">function obj = setSimRange(obj,whichData,range)</a>
+0185             
+0186             r = [range(1) range(2)];
+0187             obj.dataTable{whichData,4} = {range};           
+0188             
+0189             
+0190         <span class="keyword">end</span>
+0191 
+0192         
+0193         <a name="_sub5" href="#_subfunctions" class="code">function nameChanged = setDataName(obj,whichData,name)</a>
+0194             
+0195             <span class="comment">% Name must be a char and not an existing name</span>
+0196             <span class="keyword">if</span> ~ischar(name)
+0197                 nameChanged = [];
+0198                 error(<span class="string">'Name must be a string / character array'</span>);
+0199             <span class="keyword">end</span>
+0200             
+0201             existingNames = obj.getDataNames;
+0202             <span class="keyword">if</span> strcmpi(name,existingNames)
+0203                 nameChanged = [];
+0204                 error(<span class="string">'Duplicate data names are not allowed'</span>);
+0205             <span class="keyword">end</span>
+0206             
+0207             <span class="comment">% Set the relevant name</span>
+0208             nameChanged.oldName = obj.dataTable{whichData,1};
+0209             nameChanged.newName = name;
+0210             obj.dataTable{whichData,1} = {name};
+0211             
+0212         <span class="keyword">end</span>
+0213         
+0214         
+0215         <a name="_sub6" href="#_subfunctions" class="code">function names = getDataNames(obj)</a>
+0216             
+0217            names = obj.dataTable{:,1}; 
+0218             
+0219         <span class="keyword">end</span>
+0220         
+0221         <a name="_sub7" href="#_subfunctions" class="code">function obj = setDataValues(obj,whichData,data)</a>
+0222             
+0223             obj.dataTable{whichData,2} = {data};
+0224    
+0225         <span class="keyword">end</span>
+0226         
+0227         
+0228         
+0229         <a name="_sub8" href="#_subfunctions" class="code">function displayDataObject(obj)</a>
+0230             
+0231             <span class="comment">% Display the table object. The actual obj.dataTable has the</span>
+0232             <span class="comment">% format {string, cell, double, double}, but for display we</span>
+0233             <span class="comment">% make a table that is all strings.</span>
+0234             
+0235             fprintf(<span class="string">'    Data: ------------------------------------------------------------------------------------------------------ \n\n'</span>);
+0236             
+0237             tab = obj.dataTable;
+0238             
+0239             sz = [1,4];
+0240             displayVarTypes = {<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>}; 
+0241             displayVarNames = {<span class="string">'Name'</span>,<span class="string">'Data'</span>,<span class="string">'Data Range'</span>,<span class="string">'Simulation Range'</span>};
+0242             displayTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,displayVarTypes,<span class="string">'VariableNames'</span>,displayVarNames);
+0243             
+0244             tableSize = size(tab);
+0245             
+0246             <span class="keyword">for</span> i = 1:tableSize(1)
+0247                 thisRow = tab(i,:);
+0248                 
+0249                 nameString = thisRow{1,1};
+0250                 
+0251                 thisData = thisRow{1,2}{:};
+0252                 <span class="keyword">if</span> isempty(thisData)
+0253                     dataString = &quot;No Data&quot;;
+0254                 <span class="keyword">else</span>
+0255                     dataSize = size(thisData);
+0256                     dataString = sprintf(<span class="string">'Data array: [%d x %d]'</span>,dataSize(1),dataSize(2));
+0257                 <span class="keyword">end</span>
+0258                 
+0259                 thisDataRange = thisRow{1,3}{:};
+0260                 <span class="keyword">if</span> isempty(thisDataRange)
+0261                     dataRangeString = &quot;-&quot;;
+0262                 <span class="keyword">else</span>
+0263                     dataRangeString = sprintf(<span class="string">'[ %1.4f , %1.4f ]'</span>, thisDataRange(1), thisDataRange(2));
+0264                 <span class="keyword">end</span>
+0265                 
+0266                 thisSimRange = thisRow{1,4}{:};
+0267                 <span class="keyword">if</span> isempty(thisSimRange)
+0268                     simRangeString = &quot;-&quot;;
+0269                 <span class="keyword">else</span>
+0270                     simRangeString = sprintf(<span class="string">'[ %1.4f , %1.4f ]'</span>, thisSimRange(1), thisSimRange(2));
+0271                 <span class="keyword">end</span>   
+0272                 
+0273                 newDisplayRow = {nameString, dataString, dataRangeString, simRangeString};
+0274                 displayTable(i,:) = newDisplayRow;
+0275                 
+0276             <span class="keyword">end</span>
+0277 
+0278             disp(displayTable);
+0279             fprintf(<span class="string">'\n'</span>);
+0280  
+0281         <span class="keyword">end</span>
+0282        
+0283         
+0284         <a name="_sub9" href="#_subfunctions" class="code">function obj = appendNewRow(obj,newRow)</a>
+0285             
+0286             tab = obj.dataTable;
+0287             newName = newRow{1};
+0288             <span class="keyword">if</span> any(strcmpi(newName,tab{:,1}))
+0289                 error(<span class="string">'Duplicate data names not allowed'</span>);
+0290             <span class="keyword">end</span>
+0291             
+0292             <span class="comment">% Carry out checks of Data type and ranges</span>
+0293             data = newRow{2};
+0294             dataRange = newRow{3};
+0295             simRange = newRow{4};
+0296             
+0297             <span class="keyword">if</span> ~isempty(data)   <span class="comment">% Data supplied</span>
+0298                 
+0299                 <span class="keyword">if</span> ~isnumeric(data)
+0300                     error(<span class="string">'Data must be a numeric array'</span>);
+0301                 <span class="keyword">end</span>
+0302                 
+0303                 <span class="keyword">if</span> ((~isnumeric(dataRange)) || any(size(dataRange) ~= [1,2]) || any(size(simRange) ~= [1,2]))
+0304                     error(<span class="string">'Data range and sim range must be [1 x 2] numeric arrays'</span>);
+0305                 <span class="keyword">end</span>
+0306 
+0307                 dataX = data(:,1);              <span class="comment">% First column is always Q</span>
+0308                 realDataRange = [dataX(1),dataX(end)];
+0309                 
+0310                 <span class="keyword">if</span> dataRange(1) &lt; realDataRange(1)
+0311                     warning(<span class="string">'Data range can''t be less than data min - resetting'</span>);
+0312                     dataRange(1) = realDataRange(1);
+0313                 <span class="keyword">end</span>
+0314                 
+0315                 <span class="keyword">if</span> dataRange(2) &gt; realDataRange(2)
+0316                     warning(<span class="string">'Data range can''t be more than data max - resetting'</span>);
+0317                 <span class="keyword">end</span>
+0318                 
+0319                 <span class="keyword">if</span> simRange(1) &gt; realDataRange(1)
+0320                     warning(<span class="string">'Sim min range must be inside data range - resetting'</span>);
+0321                     simRange(1) = realDataRange(1);
+0322                 <span class="keyword">end</span>
+0323                 
+0324                 <span class="keyword">if</span> simRange(2) &lt; realDataRange(2)
+0325                     warning(<span class="string">'Sim max range must be inside data range - resetting'</span>);
+0326                     simRange(2) = realDataRange(2);
+0327                 <span class="keyword">end</span>
+0328                 
+0329             <span class="keyword">end</span>
+0330             
+0331             row = {{newName}, {data}, {dataRange}, {simRange}};
+0332             tab = [tab ; row];
+0333             obj.dataTable = tab;
+0334             obj.dataCount = obj.dataCount + 1;
+0335             obj.autoDataNameCounter = obj.autoDataNameCounter + 1;
+0336             
+0337         <span class="keyword">end</span>
+0338         
+0339     <span class="keyword">end</span>
+0340     
+0341 <span class="keyword">end</span>
+0342 
+0343 <a name="_sub10" href="#_subfunctions" class="code">function inputBlock = parseDataInput(inputVals)</a>
+0344 
+0345     defaultName = <span class="string">''</span>;
+0346     defaultData = [];
+0347     defaultRange = [obj.defaultSimMin obj.defaultSimMax];
+0348     defaultSimRange = [obj.defaultSimMin obj.defaultSimMax];
+0349 
+0350     p = inputParser;
+0351     addParameter(p,<span class="string">'name'</span>, defaultName, @ischar);
+0352     addParameter(p,<span class="string">'data'</span>, defaultData, @isnumeric);
+0353     addParameter(p,<span class="string">'data range'</span>, defaultRange, @(a) validateattributes(a,{<span class="string">'double'</span>},{<span class="string">'size'</span>,[1 2]}));
+0354     addParameter(p,<span class="string">'sim range'</span>, defaultSimRange, @(a) validateattributes(a,{<span class="string">'double'</span>},{<span class="string">'size'</span>,[1 2]}));
+0355 
+0356     parse(p,inputVals{:});
+0357     inputBlock = p.Results;
+0358 
+0359 <span class="keyword">end</span>
+0360 
+0361</pre></div>
+<hr><address>Generated on Wed 29-Jun-2022 14:15:11 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

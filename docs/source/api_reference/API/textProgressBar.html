@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of textProgressBar</title>
+  <meta name="keywords" content="textProgressBar">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # API -->
+<h1>textProgressBar
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function textProgressBar(curm,pct) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function textProgressBar(curm,pct)</a>
+0002 
+0003 <span class="keyword">persistent</span> lastNchar
+0004 
+0005 <span class="keyword">if</span> strcmpi(curm,<span class="string">'init'</span>)
+0006     <span class="comment">%fprintf('\n');</span>
+0007     lastNchar = 0;
+0008     <span class="keyword">return</span>;
+0009 <span class="keyword">end</span>
+0010 
+0011 <span class="keyword">if</span> strcmpi(curm,<span class="string">'end'</span>)
+0012     fprintf(<span class="string">'\n'</span>);
+0013     <span class="keyword">return</span>;
+0014 <span class="keyword">end</span>
+0015 
+0016 <span class="keyword">if</span> isempty(lastNchar)
+0017     lastNchar = 0;
+0018 <span class="keyword">end</span>
+0019 
+0020 <span class="comment">%curm = 'progress';</span>
+0021 progressmsg=[183-uint8((1:40)&lt;=(pct*40)).*(183-<span class="string">'*'</span>) <span class="string">''</span>];
+0022 <span class="comment">%curmtxt=sprintf('% 9.3g\n',curm(1:min(end,20),1));</span>
+0023 progressmsg=sprintf(<span class="string">'\n %s %5.1f%% [%s]'</span>,curm,(pct*100),progressmsg);
+0024 fprintf(<span class="string">'%s%s'</span>,repmat(char(8),1,lastNchar),progressmsg);
+0025 drawnow
+0026 lastNchar=length(progressmsg);
+0027 
+0028 <span class="keyword">end</span>
+0029</pre></div>
+<hr><address>Generated on Wed 29-Jun-2022 14:15:11 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

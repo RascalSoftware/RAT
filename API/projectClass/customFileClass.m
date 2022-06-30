@@ -50,7 +50,7 @@ classdef customFileClass < handle
                 appendNewRow(obj,newRow);
             else
                 
-                inputs = varargin{:};
+                inputs = varargin;
                 
                 % Check length of added data
                 switch length(inputs)

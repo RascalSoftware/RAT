@@ -1,0 +1,6 @@
+% download m2html and place it in 
+
+
+m2html('mfiles',{'./targetFunctions','./API'},'htmldir','./docs/source/api_reference', 'recursive','on',... 
+'global','on','template','frame', 'index','menu','ignoredDir',{'docs','Docs_old','tests','testSuite'},...
+'graph','on','source','on');

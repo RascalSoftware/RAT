@@ -435,3 +435,6 @@ limits,prior and more importantly converts the project class to struct.
 Then, then `RAT_main` function redirects the control flow based on what procedure is selected in controlsDef class. One of the redirecting functions will call the reflectivity_calculation_wrappper
 which starts the reflectivity calculation.
 
+
+Some interesting data type changes are needed because of how things work with coder. Coder wont accept variable sized cell arrays contains variable sized arrays (strings for eg) 
+in a field of a struct. So, look at `RatParseClassToStructs_new` function to understand how the data is converted.

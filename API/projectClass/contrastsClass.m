@@ -70,7 +70,6 @@ classdef contrastsClass < handle
                 
             elseif length(varargin{:}) == 1
                 % Just name of contrast
-                disp('just contrast name');
                 thisName = varargin{1}{:};
                 inputVals = {'name', thisName};
                 

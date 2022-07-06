@@ -1,0 +1,409 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>reflectivity_calculation</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-06-17"><meta name="DC.source" content="reflectivity_calculation.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls)
+<span class="comment">% Main entry point into the reflectivity calculation for the toolbox.</span>
+<span class="comment">% This is the main function that is called by any of the minimisers or</span>
+<span class="comment">% analysis tools from the rest of the toolbox.</span>
+<span class="comment">%</span>
+<span class="comment">% *The main job of this function is to decide which type of calculation (i.e. 'Target function'</span>
+<span class="comment">% is required, and call the relevant routines. The types of available</span>
+<span class="comment">% target functions are:*</span>
+<span class="comment">%</span>
+<span class="comment">% * standardTF     - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.</span>
+<span class="comment">%</span>
+<span class="comment">% * standardTFAbs  - Identical to standardTF, but includes imaginary refractive index terms.</span>
+<span class="comment">%</span>
+<span class="comment">% * oilWaterTF     - Target function for oil-water samples</span>
+<span class="comment">%</span>
+<span class="comment">% * domainsTF      - Target function for samples consisting of domains which are larger than the beam lateral coherence length.</span>
+<span class="comment">%</span>
+<span class="comment">% * polarisedTF    - Target function for cases for polarised neutrons with polarisation analysis.</span>
+<span class="comment">%</span>
+
+<span class="comment">% for compilation, we have to preallocate memory for the output arrays</span>
+<span class="comment">% Setting these parameters in the struct defines them as doubles</span>
+problem.ssubs = 0;
+problem.backgrounds = 0;
+problem.qshifts = 0;
+problem.scalefactors = 0;
+problem.nbairs = 0;
+problem.nbsubs = 0;
+problem.resolutions = 0;
+problem.calculations.all_chis = 0;
+problem.calculations.sum_chi = 0;
+problem.allSubRough = 0;
+problem.resample = 0;
+
+<span class="comment">% We also foll the results arrays to define their</span>
+<span class="comment">% type and size. (NOTE: at the moment we have a 'coder.varsize'</span>
+<span class="comment">% pre-processor directives for the compiler here and at the</span>
+<span class="comment">% end for the results block. We are unlikely to need both</span>
+<span class="comment">% TODO: Find out which is necessary and tidy this up.</span>
+
+numberOfContrasts = problemDef.numberOfContrasts;
+reflectivity = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    reflectivity{i} = [1 1 ; 1 1];
+<span class="keyword">end</span>
+coder.varsize(<span class="string">'reflectivity{:}'</span>,[10000 2],[1 0]);
+
+Simulation = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    Simulation{i} = [1 1 ; 1 1];
+<span class="keyword">end</span>
+coder.varsize(<span class="string">'Simulation{:}'</span>,[10000 2],[1 0]);
+
+shifted_data = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    shifted_data{i} = [1 1 1 ; 1 1 1];
+<span class="keyword">end</span>
+coder.varsize(<span class="string">'shifted_data{:}'</span>,[10000 3],[1 0]);
+
+layerSlds = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    layerSlds{i} = [1 1 1 ; 1 1 1];
+<span class="keyword">end</span>
+coder.varsize(<span class="string">'layerSlds{:}'</span>,[10000 3],[1 0]);
+
+sldProfiles = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    sldProfiles{i} = [1 1 ; 1 1];
+<span class="keyword">end</span>
+coder.varsize(<span class="string">'sldProfiles{:}'</span>,[10000 2],[1 0]);
+
+allLayers = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    allLayers{i} = [1 1 1; 1 1 1];
+<span class="keyword">end</span>
+coder.varsize(<span class="string">'allLayers{:}'</span>,[10000 3],[1 0]);
+
+
+<span class="comment">%Decide which target function we are calling ans call the relevant routines</span>
+whichTF = problemDef.TF;
+<span class="keyword">switch</span> whichTF
+    <span class="keyword">case</span> <span class="string">'standardTF'</span>
+        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+    <span class="comment">%case 'standardTFAbs'</span>
+        <span class="comment">%[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);</span>
+    <span class="comment">%case 'oilWaterTF'</span>
+        <span class="comment">%problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);</span>
+    <span class="comment">%case 'polarisedTF'</span>
+        <span class="comment">%problem = polarisedTF_reflectivityCalculation(problemDef,problemDef_cells,controls);</span>
+    <span class="comment">%case 'domainsTF'</span>
+        <span class="comment">%[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);</span>
+
+<span class="keyword">end</span>
+
+result = cell(1,6);
+
+cell1 = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    cell1{i} = reflectivity{i};
+<span class="keyword">end</span>
+result{1} = cell1;
+
+cell2 = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    cell2{i} = Simulation{i};
+<span class="keyword">end</span>
+result{2} = cell2;
+
+cell3 = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    cell3{i} = shifted_data{i};
+<span class="keyword">end</span>
+result{3} = cell3;
+
+cell4 = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    cell4{i} = layerSlds{i};
+<span class="keyword">end</span>
+result{4} = cell4;
+
+cell5 = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    cell5{i} = sldProfiles{i};
+<span class="keyword">end</span>
+result{5} = cell5;
+
+cell6 = cell(numberOfContrasts,1);
+<span class="keyword">for</span> i = 1:numberOfContrasts
+    cell6{i} = allLayers{i};
+<span class="keyword">end</span>
+result{6} = cell6;
+
+<span class="comment">% Pre-processor directives for Matlab Coder</span>
+<span class="comment">% to define the size of the output array</span>
+coder.varsize(<span class="string">'problem.ssubs'</span>,[Inf 1],[1 0]);
+coder.varsize(<span class="string">'problem.backgrounds'</span>,[Inf 1],[1 0]);
+coder.varsize(<span class="string">'problem.qshifts'</span>,[Inf 1],[1 0]);
+coder.varsize(<span class="string">'problem.scalefactors'</span>,[Inf 1],[1 0]);
+coder.varsize(<span class="string">'problem.nbairs'</span>,[Inf 1],[1 0]);
+coder.varsize(<span class="string">'problem.nbsubs'</span>,[Inf 1],[1 0]);
+coder.varsize(<span class="string">'problem.resolutions'</span>,[Inf 1],[1 0]);
+coder.varsize(<span class="string">'problem.ssubs'</span>,[Inf 1],[1 0]);
+coder.varsize(<span class="string">'problem.calculations.all_chis'</span>,[Inf 1],[1 0]);
+coder.varsize(<span class="string">'problem.calculations.sum_chi'</span>,[1 1],[0 0]);
+coder.varsize(<span class="string">'problem.allSubRough'</span>,[Inf 1],[1 0]);
+
+<span class="comment">%Result coder definitions....</span>
+coder.varsize(<span class="string">'result{1}'</span>,[Inf 1],[1 0]);           <span class="comment">%Reflectivity</span>
+coder.varsize(<span class="string">'result{1}{:}'</span>,[Inf 2],[1 0]);
+
+coder.varsize(<span class="string">'result{2}'</span>,[Inf 1],[1 0]);           <span class="comment">%Simulatin</span>
+coder.varsize(<span class="string">'result{2}{:}'</span>,[Inf 2],[1 0]);
+
+coder.varsize(<span class="string">'result{3}'</span>,[Inf 1],[1 0]);           <span class="comment">%Shifted data</span>
+coder.varsize(<span class="string">'result{3}{:}'</span>,[Inf 3],[1 0]);
+
+coder.varsize(<span class="string">'result{4}'</span>,[Inf 1],[1 0]);           <span class="comment">%Layers slds</span>
+coder.varsize(<span class="string">'result{4}{:}'</span>,[Inf 3],[1 0]);
+
+coder.varsize(<span class="string">'result{5}'</span>,[Inf 1],[1 0]);           <span class="comment">%Sld profiles</span>
+coder.varsize(<span class="string">'results{5}{:}'</span>,[Inf 2],[1 0]);
+
+coder.varsize(<span class="string">'result{6}'</span>,[Inf 1],[1 0]);           <span class="comment">%All layers (resampled)</span>
+coder.varsize(<span class="string">'result{6}{:}'</span>,[Inf 3],[1 0]);
+
+<span class="keyword">end</span>
+</pre><pre class="codeoutput error">Not enough input arguments.
+
+Error in reflectivity_calculation (line 41)
+numberOfContrasts = problemDef.numberOfContrasts;
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls)
+% Main entry point into the reflectivity calculation for the toolbox.
+% This is the main function that is called by any of the minimisers or
+% analysis tools from the rest of the toolbox. 
+%
+% *The main job of this function is to decide which type of calculation (i.e. 'Target function'
+% is required, and call the relevant routines. The types of available 
+% target functions are:*
+%
+% * standardTF     - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
+%
+% * standardTFAbs  - Identical to standardTF, but includes imaginary refractive index terms.
+%
+% * oilWaterTF     - Target function for oil-water samples
+%
+% * domainsTF      - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
+%
+% * polarisedTF    - Target function for cases for polarised neutrons with polarisation analysis.
+%                       
+    
+% for compilation, we have to preallocate memory for the output arrays
+% Setting these parameters in the struct defines them as doubles
+problem.ssubs = 0;
+problem.backgrounds = 0;
+problem.qshifts = 0;
+problem.scalefactors = 0;
+problem.nbairs = 0;
+problem.nbsubs = 0;
+problem.resolutions = 0;
+problem.calculations.all_chis = 0;
+problem.calculations.sum_chi = 0;
+problem.allSubRough = 0;
+problem.resample = 0;
+
+% We also foll the results arrays to define their
+% type and size. (NOTE: at the moment we have a 'coder.varsize'
+% pre-processor directives for the compiler here and at the 
+% end for the results block. We are unlikely to need both
+% TODO: Find out which is necessary and tidy this up.
+
+numberOfContrasts = problemDef.numberOfContrasts;
+reflectivity = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    reflectivity{i} = [1 1 ; 1 1];
+end
+coder.varsize('reflectivity{:}',[10000 2],[1 0]);
+
+Simulation = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    Simulation{i} = [1 1 ; 1 1];
+end
+coder.varsize('Simulation{:}',[10000 2],[1 0]);
+
+shifted_data = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    shifted_data{i} = [1 1 1 ; 1 1 1];
+end
+coder.varsize('shifted_data{:}',[10000 3],[1 0]);
+
+layerSlds = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    layerSlds{i} = [1 1 1 ; 1 1 1];
+end
+coder.varsize('layerSlds{:}',[10000 3],[1 0]);
+
+sldProfiles = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    sldProfiles{i} = [1 1 ; 1 1];
+end
+coder.varsize('sldProfiles{:}',[10000 2],[1 0]);
+
+allLayers = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    allLayers{i} = [1 1 1; 1 1 1];
+end
+coder.varsize('allLayers{:}',[10000 3],[1 0]);
+
+
+%Decide which target function we are calling ans call the relevant routines
+whichTF = problemDef.TF;
+switch whichTF
+    case 'standardTF'
+        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+    %case 'standardTFAbs'
+        %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+    %case 'oilWaterTF'
+        %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);    
+    %case 'polarisedTF'
+        %problem = polarisedTF_reflectivityCalculation(problemDef,problemDef_cells,controls);
+    %case 'domainsTF'
+        %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+
+end
+
+result = cell(1,6);
+
+cell1 = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    cell1{i} = reflectivity{i};
+end
+result{1} = cell1;
+
+cell2 = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    cell2{i} = Simulation{i};
+end
+result{2} = cell2;
+
+cell3 = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    cell3{i} = shifted_data{i}; 
+end
+result{3} = cell3;
+ 
+cell4 = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    cell4{i} = layerSlds{i};
+end
+result{4} = cell4;
+ 
+cell5 = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    cell5{i} = sldProfiles{i}; 
+end
+result{5} = cell5;
+ 
+cell6 = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    cell6{i} = allLayers{i}; 
+end
+result{6} = cell6;
+
+% Pre-processor directives for Matlab Coder
+% to define the size of the output array
+coder.varsize('problem.ssubs',[Inf 1],[1 0]);
+coder.varsize('problem.backgrounds',[Inf 1],[1 0]);
+coder.varsize('problem.qshifts',[Inf 1],[1 0]);
+coder.varsize('problem.scalefactors',[Inf 1],[1 0]);
+coder.varsize('problem.nbairs',[Inf 1],[1 0]);
+coder.varsize('problem.nbsubs',[Inf 1],[1 0]);
+coder.varsize('problem.resolutions',[Inf 1],[1 0]);
+coder.varsize('problem.ssubs',[Inf 1],[1 0]);
+coder.varsize('problem.calculations.all_chis',[Inf 1],[1 0]);
+coder.varsize('problem.calculations.sum_chi',[1 1],[0 0]);
+coder.varsize('problem.allSubRough',[Inf 1],[1 0]);
+
+%Result coder definitions....
+coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
+coder.varsize('result{1}{:}',[Inf 2],[1 0]);
+
+coder.varsize('result{2}',[Inf 1],[1 0]);           %Simulatin
+coder.varsize('result{2}{:}',[Inf 2],[1 0]);
+
+coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
+coder.varsize('result{3}{:}',[Inf 3],[1 0]);
+
+coder.varsize('result{4}',[Inf 1],[1 0]);           %Layers slds
+coder.varsize('result{4}{:}',[Inf 3],[1 0]);
+
+coder.varsize('result{5}',[Inf 1],[1 0]);           %Sld profiles
+coder.varsize('results{5}{:}',[Inf 2],[1 0]);
+
+coder.varsize('result{6}',[Inf 1],[1 0]);           %All layers (resampled)
+coder.varsize('result{6}{:}',[Inf 3],[1 0]);
+
+end
+##### SOURCE END #####
+--></body></html>

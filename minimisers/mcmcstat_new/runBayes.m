@@ -1,8 +1,5 @@
 function output = runBayes(loop,nsimu,burnin,adaptint,params,problem)
 
-% Clear any values from previous runs if prsent
-%clear model data options
-
 problemDef = problem{1};
 controls = problem{2};
 problemDef_limits = problem{3};

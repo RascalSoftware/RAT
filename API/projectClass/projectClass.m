@@ -508,7 +508,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         %   Editing of Bulk out block
         
         function obj = addBulkOut(obj,varargin)
-            obj.bulkOut.addParam(varargin{:});
+            obj.bulkOut.addParam(varargin);
         end
         
         function obj = removeBulkOut(obj,varargin)
@@ -525,7 +525,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % Editing of bulk in block
         
         function obj = addBulkIn(obj,varargin)
-            obj.bulkIn.addParam(varargin{:});
+            obj.bulkIn.addParam(varargin);
         end
         
         function obj = removeBulkIn(obj,varargin)

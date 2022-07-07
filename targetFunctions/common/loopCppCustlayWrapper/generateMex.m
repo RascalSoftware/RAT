@@ -1,8 +1,5 @@
-% MARTYNHELPED   Generate MEX-function testDLL_mex_latest from testDLL.
-% 
-% Script generated from project 'testDLL.prj' on 04-May-2022.
-% 
-% See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.
+% Use this script to generate MEX  from Linux
+
 
 %% Create configuration object of class 'coder.MexCodeConfig'.
 cfg = coder.config('mex');
@@ -23,6 +20,6 @@ ARGS{1}{5}.Properties.Value = coder.typeof('X',[1 Inf],[0 1]);
 ARGS{1}{6} = coder.newtype('string');
 ARGS{1}{6}.Properties.Value = coder.typeof('X',[1 Inf],[0 1]);
 
+
 %% Invoke MATLAB Coder.
 codegen -config cfg -o testDLL_mex_latest testDLL -args ARGS{1}
-

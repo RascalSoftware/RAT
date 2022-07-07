@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of RAT_main</title>
+  <meta name="keywords" content="RAT_main">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # API -->
+<h1>RAT_main
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>	</li><li><a href="singleCalculation.html" class="code" title="function [problem,result] = singleCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">singleCalculation</a>	Just call the reflectivity calculation.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="RAT.html" class="code" title="function [outProblemDef,result] = RAT(problemDefInput,controls)">RAT</a>	</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls)</a>
+0002 
+0003 
+0004 result = cell(6,1);
+0005 numberOfContrasts = problemDef.numberOfContrasts;
+0006 preAlloc = zeros(numberOfContrasts,1);
+0007 
+0008 problem = struct(<span class="string">'ssubs'</span>,preAlloc,<span class="keyword">...</span>
+0009                  <span class="string">'backgrounds'</span>,preAlloc,<span class="keyword">...</span>
+0010                  <span class="string">'qshifts'</span>,preAlloc,<span class="keyword">...</span>
+0011                  <span class="string">'scalefactors'</span>,preAlloc,<span class="keyword">...</span>
+0012                  <span class="string">'nbairs'</span>,preAlloc,<span class="keyword">...</span>
+0013                  <span class="string">'nbsubs'</span>,preAlloc,<span class="keyword">...</span>
+0014                  <span class="string">'resolutions'</span>,preAlloc,<span class="keyword">...</span>
+0015                  <span class="string">'calculations'</span>,struct(<span class="string">'all_chis'</span>,preAlloc,<span class="string">'sum_chi'</span>,0),<span class="keyword">...</span>
+0016                  <span class="string">'allSubRough'</span>,preAlloc);
+0017 
+0018 <span class="comment">% Make empty bayes results even though we may not fill it (for output purposes)</span>
+0019 bayesResults.res = [];
+0020 bayesResults.chain = [];
+0021 bayesResults.s2chain = [];
+0022 bayesResults.ssChain = [];
+0023 bayesResults.bestPars = [];
+0024 
+0025 <span class="comment">%Decide what we are doing....</span>
+0026 action = controls.proc;
+0027 <span class="keyword">switch</span> lower(action)
+0028     <span class="keyword">case</span> <span class="string">'calculate'</span> <span class="comment">%Just a single reflectivity calculation</span>
+0029         [problem,results] = <a href="singleCalculation.html" class="code" title="function [problem,result] = singleCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">singleCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
+0030         outProblemDef = problemDef;
+0031     <span class="keyword">case</span> <span class="string">'simplex'</span>
+0032         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0033             <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'\nRunning simplex\n\n'</span>));
+0034         <span class="keyword">end</span>
+0035         [outProblemDef,problem,results] = runSimplex(problemDef,problemDef_cells,problemDef_limits,controls);
+0036     <span class="keyword">case</span> <span class="string">'de'</span>
+0037         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0038             <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'\nRunning Differential Evolution\n\n'</span>));
+0039         <span class="keyword">end</span>
+0040         [outProblemDef,problem,results] = runDE(problemDef,problemDef_cells,problemDef_limits,controls);
+0041     <span class="keyword">case</span> <span class="string">'bayes'</span>
+0042         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0043             <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'\nRunning DRAM\n\n'</span>));
+0044         <span class="keyword">end</span>        
+0045         [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls);
+0046     <span class="keyword">case</span> <span class="string">'ns'</span>
+0047         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0048             <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'\nRunning Nested Sampler\n\n'</span>));
+0049         <span class="keyword">end</span>            
+0050         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);   
+0051     <span class="keyword">case</span> <span class="string">'paramonte'</span>
+0052         <span class="comment">% TODO</span>
+0053 <span class="keyword">end</span>
+0054 
+0055 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 29-Jun-2022 14:15:11 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

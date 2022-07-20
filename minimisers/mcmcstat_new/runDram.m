@@ -4,7 +4,7 @@ function  [problemDef,outProblem,result,bayesResults] = runDram(problemDef,probl
 %coder.varsize('problemDef.contrastBacks',[1 Inf],[0 1]);
 
 checks = controls.checks;
-[problemDef,fitNames] = rascalPackparams(problemDef,problemDef_cells,problemDef_limits,checks);
+[problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,checks);
 %fitPriors = packPriors(priors,checks);
 
 % Seed the Random Number Generator

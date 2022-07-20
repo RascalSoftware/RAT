@@ -81,7 +81,6 @@ for i = 1:numberOfContrasts
     
     sldProfiles{i} = sldProf{i};
 
-    resamPars = controls.resamPars;
     layerSld = resampleLayers(sldProfiles{i},resamPars);
     layerSlds{i} = layerSld;
     allLayers{i} = layerSld;

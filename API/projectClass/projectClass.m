@@ -489,7 +489,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         end
         
         function obj = removeData(obj,varargin)
-            
+            % This method is TODO, both here and in the dataClass subclass
             disp('Todo');
         end
         

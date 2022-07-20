@@ -188,6 +188,13 @@ classdef backgroundsClass < handle
                     col = 'name';
                 elseif col == 3
                     col = 'Value 1';
+                elseif col == 4
+                    col = 'Value 2';
+                elseif col == 5
+                    col = 'Value 3';
+                elseif col == 6
+                    col = 'Value 4';
+                    
                 end
             end
                     
@@ -206,6 +213,21 @@ classdef backgroundsClass < handle
             obj.backgrounds.setValue(in);
         
         end
+        
+        function obj = setBackground(obj,varargin)
+            % General purpose background set class which allows a set of
+            % name / value pairs. It first processes this with an
+            % inputparser, then sequentially calls 'setBackgroundValue' to
+            % set each of the passed names. This allows the type checks of
+            % the previous method to do their job and we dont have to
+            % repeat them here
+            
+            inputBlock = parseBackgroundInput(varargin,obj);
+            
+            
+            
+        end
+        
         
         function obj = setBackgroundName(obj,varargin)
             
@@ -285,3 +307,37 @@ function thisPar = parseParam(par,parList)
     end
     
 end
+
+function inputBlock = parseBackgroundInput(varargin,obj)
+
+    defaultName = '';
+    defaultType ='constant';
+    defaultValue = '';
+    
+    % Need to get a list of the allowed names for backsPars
+    allowedBacksPars = obj.backPars.paramsTable{:,1};
+    allowedBackParNums = [1:length(allowedBacksPars)];
+    
+    validTypes = @(x) ismember(x,{'constant'});       % Other tpes not yet implemented
+    validBackspar = @(x) ismember(x,allowedBacksPars) || ismember(x,allowedBackParNums);
+
+    p = inputParser;
+    addParameter(p,'name',      defaultName,   @ ischar);
+    addParameter(p,'type',      defaultType,   @ validTypes);
+    addParameter(p,'value1',   defaultValue,  @ validBackspar);
+    addParameter(p,'value2',   defaultValue,  @ validBackspar);
+    addParameter(p,'value3',   defaultValue,  @ validBackspar);
+    addParameter(p,'value4',   defaultValue,  @ validBackspar);
+    addParameter(p,'value5',   defaultValue,  @ validBackspar);
+    
+    p.CaseSensitive = false;
+    
+    inputVals = varargin{:};
+    
+    parse(p,inputVals{:});
+    inputBlock = p.Results;
+
+end
+
+
+

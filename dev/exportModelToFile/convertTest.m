@@ -150,7 +150,7 @@ writeReturns(2,FID);
 bulkOutTable = r2Problem.bulkOut.paramsTable;
 numberOfBulkOut = height(bulkOutTable);
 
-% For the first one, we just set the existing bulk in that appears by
+% For the first one, we just set the existing bulk Out that appears by
 % default in projectClass
 in1 = bulkOutTable{1,:};
 setString = sprintf('problem.setBulkOut(1,''name'',''%s'',''min'',%g,''value'',%g,''max'',%g,''fit'',%s); \n',...
@@ -173,13 +173,81 @@ end
 writeReturns(2,FID);
 
 
+%% Scalefactors
+
+fwrite(FID,'%% Setting of Scalefactors Block');
+
+writeReturns(2,FID);
+
+scalesTable = r2Problem.scalefactors.paramsTable;
+numberOfScales = height(scalesTable);
+
+% For the first one, we just set the existing bulk Out that appears by
+% default in projectClass
+in1 = scalesTable{1,:};
+setString = sprintf('problem.setScalefactor(1,''name'',''%s'',''min'',%g,''value'',%g,''max'',%g,''fit'',%s); \n',...
+    in1{1},str2double(in1{2}),str2double(in1{3}),str2double(in1{4}),in1{5});
+fwrite(FID,setString);
+
+% If there is more than one scalefactor, then we need to create the rest
+if numberOfScales > 1
+    
+    for i = 2:numberOfScales
+        thisScale = scalesTable{i,:};
+        setString = sprintf('problem.addScalefactor(''%s'',%g,%g,%g,%s); ',...
+            thisScale{1},str2double(thisScale{2}),str2double(thisScale{3}),...
+            str2double(thisScale{4}),thisScale{5});
+        fwrite(FID,setString);
+    end
+
+end
+
+writeReturns(2,FID);
+
+%% Backgrounds
+
+fwrite(FID,'%% Setting of Backgrounds Block');
+
+writeReturns(2,FID);
+
+backs = r2Problem.background;
+backParsTable = backs.backPars.paramsTable;
+backgroundTable = backs.backgrounds.typesTable;
+
+
+% Set backsPar table
+% Again there is one by default, so we set this first, then add any others
+% as for the previous two blocks...
+
+numberOfBackpars = height(backParsTable);
+in1 = backParsTable{1,:};
+setString = sprintf('problem.setBacksPar(1,''name'',''%s'',''min'',%g,''value'',%g,''max'',%g,''fit'',%s); \n',...
+    in1{1},str2double(in1{2}),str2double(in1{3}),str2double(in1{4}),in1{5});
+fwrite(FID,setString);
+
+% If there is more than one, add the rest....
+if numberOfBackpars > 1
+
+    for i = 2:numberOfBackpars
+        thisBackpar = backParsTable{i,:};
+        setString = sprintf('problem.addBacksPar(''%s'',%g,%g,%g,%s); ',...
+            thisBackpar{1},str2double(thisBackpar{2}),str2double(thisBackpar{3}),...
+            str2double(thisBackpar{4}),thisBackpar{5});
+        fwrite(FID,setString);
+    end
+
+end
 
 
 
+% Now we need to make the 'backgrounds' table
+writeReturns(2,FID);
 
-
-
-
+numberOfBackgrounds = height(backgroundTable);
+in1 = backgroundTable{1,:};
+%setString = sprintf('problem.setBackground(1,
+        
+        
 
 
 %% Close everything down

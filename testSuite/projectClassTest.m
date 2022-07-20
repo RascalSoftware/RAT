@@ -171,7 +171,7 @@ assert(isequal(obj.background.backgrounds.typesTable{1,1}, 'Background ACMW'), '
 % Test if addBulkOut method works
 % what it does is add a bulk out layer to the layer table
 
-obj.addBulkOut({'SLD ACMW' -1e-6,0.0,1e-6,true});
+obj.addBulkOut('SLD ACMW',-1e-6,0.0,1e-6,true);
 assert(isequal(obj.bulkOut.paramsTable{end,1}, 'SLD ACMW'), 'addBulkOut method not working');
 
 % Test if addContrast method works

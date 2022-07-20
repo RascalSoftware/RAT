@@ -7,14 +7,19 @@ switch runWhichType
     case 'Custom Layers'
 
         % Load inputs for Custom layers 
-        theseInputs = load('customLayersInputs.mat');
+        % Run an example script to make a custom layers problem....
+        
+        %theseInputs = load('customLayersInputs.mat');
+        problemDefInput = makeCustomBilayerProblem();
+        controls = controlsDef();
+        [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(problemDefInput,controls);
         
         % Split the input into the variables needed to call the function
-        problemDef = theseInputs.customLayersInputs.problemDef;
-        problemDef_cells = theseInputs.customLayersInputs.problemDef_cells;
-        problemDef_limits = theseInputs.customLayersInputs.problemDef_limits;
-        controls = theseInputs.customLayersInputs.controls;
-        
+%         problemDef = theseInputs.customLayersInputs.problemDef;
+%         problemDef_cells = theseInputs.customLayersInputs.problemDef_cells;
+%         problemDef_limits = theseInputs.customLayersInputs.problemDef_limits;
+%         controls = theseInputs.customLayersInputs.controls;
+%         
         % Load the expected outputs for customLayers
         expectedOutput = load('customLayersOutput.mat');
         expectedProblem = expectedOutput.customLayersOutput.problem;

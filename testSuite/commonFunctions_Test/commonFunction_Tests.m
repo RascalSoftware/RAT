@@ -111,7 +111,7 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
    
             inputs = {s.reflect,s.Simul,s.shifted_dat,s.backg,s.backsType};
 
-            s = outputs.ans(1:end);
+            s = outputs.applyBackgroundCorrectionOutputs.ans;
             outputs = {s.reflect,s.Simul,s.shifted_dat};
 
             testCase.applyBackgroundCorrectionInputs = inputs;
@@ -187,8 +187,8 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
             inputs = load('adaptiveInputs.mat');
             outputs = load('adaptiveOutputs.mat');
             
-            testCase.adaptiveInputs = inputs.inputs;
-            testCase.adaptiveOutputs = outputs.outputs; %INTENTIONAL
+            testCase.adaptiveInputs = inputs.adaptiveInputs;
+            testCase.adaptiveOutputs = outputs.adaptiveOutputs; 
         end
 
         function loadresampleLayers(testCase)
@@ -221,12 +221,12 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
             testCase.resolution_polly_paraPoints = inputs.resolution_polly_paraPoints;
         end
  %}
-        function loadresolution_polly(testCase)
-            inputs = load('resolution_pollyInputs.mat');
-            outputs = load('resolution_pollyOutputs.mat');
-            testCase.resolution_pollyInputs = inputs.inputs;
-            testCase.resolution_pollyOutputs = outputs.outputs;
-        end 
+%         function loadresolution_polly(testCase)
+%             inputs = load('resolution_pollyInputs.mat');
+%             outputs = load('resolution_pollyOutputs.mat');
+%             testCase.resolution_pollyInputs = inputs.inputs;
+%             testCase.resolution_pollyOutputs = outputs.outputs;
+%         end 
        
 
         
@@ -489,9 +489,9 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
 
             
             out1 = resampleLayers(testCase.resampleLayersInputs{1:end});
-            outputs = {out1};
+            
 
-            testCase.verifyEqual(testCase.resampleLayersOutputs,outputs);
+            testCase.verifyEqual(testCase.resampleLayersOutputs,out1);
         end
 
         function sldFunc_test(testCase)
@@ -577,33 +577,25 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
 
         end
   %}       
-        function resolution_polly_test(testCase)
-            % test resolution_polly
-            %
-            % Inputs:
-            %   testCase - class instance
-            %
-            % Outputs:
-            %   none
-            %
-            % Example:
-            %   resolution_polly(testCase)
-            
-            out1 = resolution_polly(testCase.resolution_pollyInputs{1:end});
-            outputs ={out1};
+%         function resolution_polly_test(testCase)
+%             % test resolution_polly
+%             %
+%             % Inputs:
+%             %   testCase - class instance
+%             %
+%             % Outputs:
+%             %   none
+%             %
+%             % Example:
+%             %   resolution_polly(testCase)
+%             
+%             out1 = resolution_polly(testCase.resolution_pollyInputs{1:end});
+%             outputs ={out1};
+% 
+%             testCase.verifyEqual(testCase.resolution_pollyOutputs,outputs);
+% 
+%         end
+%        
 
-            testCase.verifyEqual(testCase.resolution_pollyOutputs,outputs);
-
-        end
-       
-
-
-
-
-        
-        
-
-        
-        
     end
 end

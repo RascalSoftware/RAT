@@ -24,13 +24,13 @@ addRatPaths;
 disp('Adding paths Completed')
 disp('Compiling RAT to mex Initiated')
 % if reflectivity calculation has failed while compiling, try again
-try
-    reflectivity_calculation_compile_script;
-catch
-    disp('Compiling RAT to mex Failed once!')
-    disp('Trying again')
-    reflectivity_calculation_compile_script;
-end
+% try
+% %     reflectivity_calculation_compile_script;
+% catch
+% %     disp('Compiling RAT to mex Failed once!')
+% %     disp('Trying again')
+% %     reflectivity_calculation_compile_script;
+% end
 disp('Compiling RAT to mex Completed')
 
 allTests  = TestSuite.fromFolder('testSuite','IncludingSubfolders', true);

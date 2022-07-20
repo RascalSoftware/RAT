@@ -78,7 +78,13 @@ problem.setBulkIn(1,'name','Air','min',0,'value',0,'max',0,'fit',false);
 problem.setBulkOut(1,'name','D2O','min',6.3e-06,'value',6.35e-06,'max',6.4e-06,'fit',false); 
 problem.addBulkOut('ACMW',-5e-07,3.4929e-08,5e-07,false); 
 
+%% Setting of Scalefactors Block
+
+problem.setScalefactor(1,'name','Scalefactor 1','min',0.1,'value',0.23251,'max',0.4,'fit',true); 
 
 
+%% Setting of Backgrounds Block
 
+problem.setBacksPar(1,'name','Backs parameter 1','min',1e-07,'value',2.8895e-06,'max',7e-06,'fit',true); 
+problem.addBacksPar('Backs parameter 2',1e-07,5.1729e-06,7e-06,true); 
 

@@ -2,7 +2,7 @@ function  [problemDef,outProblem,result,bayesResults] = runNestedSampler(problem
 debug = 0;
 
 checks = controls.checks;
-[problemDef,fitNames] = rascalPackparams(problemDef,problemDef_cells,problemDef_limits,checks);
+[problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,checks);
 
 switch debug
     case 0

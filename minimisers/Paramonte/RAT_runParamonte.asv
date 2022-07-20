@@ -37,8 +37,8 @@ pmpd = pm.ParaDRAM();
 scaledMins = zeros(length(testPars),1);
 scaledMaxs = ones(length(testPars),1);
 
-if isfield(pmPars,'covMat')
-    pmpd.spec.proposalStartCovMat = covMat; % Note SCALED covmat
+if isfield(pmPars,'covmat')
+    pmpd.spec.proposalStartCovMat = covmat; % Note SCALED covmat
 end
 
 if isfield(pmPars,'stVec')
@@ -47,21 +47,12 @@ else
     pmpd.spec.startPointVec = problemDef.fitpars;   % Maybe dependent on scaling?
 end
 
-if isfield(pmPars,'burninAdapt')
-    pmpd.spec.burninAdaptationMeasure = pmpd.burnInAdapt;
-end
-
-if isfield(pmPars,'delayedRejectionCount')
-    pmpd.spec.delayedRejectionCount = pmPars.delayedRejectionCount;
-end
-
 name = pmPars.name;
 pmpd.spec.outputFileName = sprintf("./paramonte_out/%s",name); 
 pmpd.spec.domainLowerLimitVec = scaledMins;%problemDef.fitconstr(:,1);
 pmpd.spec.domainUpperLimitVec = scaledMaxs;%problemDef.fitconstr(:,2);
 pmpd.spec.overwriteRequested = true;
 pmpd.spec.scaleFactor = pmPars.scalefactor; %1e-4;
-pmpd.spec.sampleRefinementCount = pmPars.chainSize;
 %pmpd.spec.adaptiveUpdatePeriod = 8*nDims;
 %pmpd.spec.outputFileName = fullfile(pwd,'out','pdramRun');
 %pmpd.spec.overwriteRequested = true;

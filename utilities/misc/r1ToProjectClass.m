@@ -159,7 +159,7 @@ for i = 1:nNba
     thisMax = problem.nbairs_constr(i,2);
     thisNba = problem.nba(i);
     thisFit = logical(problem.nbairs_fityesno(i));
-    thisProjectClass.addBulkIn({thisName, thisMin, thisNba, thisMax, thisFit});
+    thisProjectClass.addBulkIn(thisName, thisMin, thisNba, thisMax, thisFit);
 end
 
 % Bulk out
@@ -174,7 +174,7 @@ for i = 1:nNbs
     thisMax = problem.nbsubs_constr(i,2);
     thisNbs = problem.nbs(i);
     thisFit = logical(problem.nbsubs_fityesno(i));
-    thisProjectClass.addBulkOut({thisName, thisMin, thisNbs, thisMax, thisFit});
+    thisProjectClass.addBulkOut(thisName, thisMin, thisNbs, thisMax, thisFit);
 end
 
 % Scalefactors

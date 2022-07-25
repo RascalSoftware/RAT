@@ -74,7 +74,7 @@ problem.setBackgroundValue(1,'name','Background ACMW');
 problem.setBackgroundValue(1,3,'Backs Value ACMW');
 
 % Also need an additional bulk out
-problem.addBulkOut({'SLD ACMW' -1e-6,0.0,1e-6,true});
+problem.addBulkOut('SLD ACMW',-1e-6,0.0,1e-6,true);
 
 % Add the data files
 hD2O = dlmread('hd2o20.dat');

@@ -40,6 +40,9 @@ classdef controlsDef < matlab.mixin.CustomDisplay
         burnin = 100;
         repeats = 1; 
         
+        %(5) Paramonte..
+        
+        
     end
     
     %------------------------- Set and Get ------------------------------

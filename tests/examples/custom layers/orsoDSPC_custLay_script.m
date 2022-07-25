@@ -1,4 +1,4 @@
-function problem = orsoDSPC_custLay_script()
+%function problem = orsoDSPC_custLay_script()
 
 %% Custom Layers Example for Supported DSPC layer.
 % 
@@ -148,7 +148,7 @@ problem.setContrastModel(2,'DSPC Model');
 problem.setContrastModel(3,'DSPC Model');
 
 
-end
+%end
 
 
 

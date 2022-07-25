@@ -37,6 +37,14 @@ classdef ratPmLogFunc
             if isnan(logFuncVal) || isinf(logFuncVal)
                 disp('Strange output value here');
             end
+            
+            % Now apply the priors where necessary. Try multiplying by the
+            % prior for each parameter
+            for i = 1:obj.NDIM
+                
+                
+            end
+            
 
         end   
     end

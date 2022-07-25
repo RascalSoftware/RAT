@@ -151,8 +151,8 @@ problem.setData(4,'dataRange',[0.013 0.35]);
 problem.setBulkIn(1,'name','Silicon','min',2.07e-6,'value',2.073e-6,'max',2.08e-6,'fit',false);
 
 % Add two more values for bulk out....
-problem.addBulkOut({'SLD SMW',2e-6,2.073e-6,3e-6,true});
-problem.addBulkOut({'SLD H2O',-0.6e-6,-0.56e-6,-0.3e-6,true});
+problem.addBulkOut('SLD SMW',2e-6,2.073e-6,3e-6,true);
+problem.addBulkOut('SLD H2O',-0.6e-6,-0.56e-6,-0.3e-6,true);
 problem.setBulkOut(1,'min',4e-6,'fit',true);
 
  problem.setBulkOut(1,'fit',true);

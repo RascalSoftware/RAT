@@ -81,7 +81,7 @@ problem.addParamGroup(Parameters);
 problem.addLayerGroup({Oxide ; Sam_tails; Sam_heads; Central_water; Bilayer_heads; Bilayer_tails});
 
 % add an additional bulk out
-problem.addBulkOut({'SLD SMW',1.9e-6,2.073e-6,3e-6});
+problem.addBulkOut('SLD SMW',1.9e-6,2.073e-6,3e-6);
 
 % And reset the range of the other bulk out
 problem.setBulkOut(1,'min',5.5e-6);

@@ -17,6 +17,5 @@ m2html('mfiles',{'./targetFunctions','./API'},'htmldir','./docs/source/api_refer
 'global','on','template','frame', 'index','menu','ignoredDir',{'docs','Docs_old','tests','testSuite','domainsClass'},...
 'graph','on','source','on');
 
-
 % Docs are in the docs folder
 disp('The m2html docs are in ./docs/source/api_reference')

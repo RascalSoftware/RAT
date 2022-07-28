@@ -6,7 +6,7 @@
   <meta name="keywords" content="backgroundsClass">
   <meta name="description" content="">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
   <script type="text/javascript">
@@ -40,7 +40,7 @@ This function is called by:
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function  obj = backgroundsClass(varargin)</a></li><li><a href="#_sub2" class="code">function names = getBackgroundNames(obj)</a></li><li><a href="#_sub3" class="code">function names = getBacksParNames(obj)</a></li><li><a href="#_sub4" class="code">function obj = addBacksPar(obj,varargin)</a></li><li><a href="#_sub5" class="code">function obj = setBacksParValue(obj,varargin)</a></li><li><a href="#_sub6" class="code">function obj = setBacksParConstr(obj,varargin)</a></li><li><a href="#_sub7" class="code">function obj = setBacksParName(obj,varargin)</a></li><li><a href="#_sub8" class="code">function obj = removeBacksPar(obj,varargin)</a></li><li><a href="#_sub9" class="code">function obj = setBacksPar(obj, varargin)</a></li><li><a href="#_sub10" class="code">function obj = addBackground(obj,varargin)</a></li><li><a href="#_sub11" class="code">function obj = removeBackground(obj, varargin)</a></li><li><a href="#_sub12" class="code">function obj = setBackgroundValue(obj,varargin)</a></li><li><a href="#_sub13" class="code">function obj = setBackgroundName(obj,varargin)</a></li><li><a href="#_sub14" class="code">function displayBackgroundsObject(obj)</a></li><li><a href="#_sub15" class="code">function backStruct = toStruct(obj)</a></li><li><a href="#_sub16" class="code">function thisPar = parseParam(par,parList)</a></li></ul>
+<li><a href="#_sub1" class="code">function  obj = backgroundsClass(varargin)</a></li><li><a href="#_sub2" class="code">function names = getBackgroundNames(obj)</a></li><li><a href="#_sub3" class="code">function names = getBacksParNames(obj)</a></li><li><a href="#_sub4" class="code">function obj = addBacksPar(obj,varargin)</a></li><li><a href="#_sub5" class="code">function obj = setBacksParValue(obj,varargin)</a></li><li><a href="#_sub6" class="code">function obj = setBacksParConstr(obj,varargin)</a></li><li><a href="#_sub7" class="code">function obj = setBacksParName(obj,varargin)</a></li><li><a href="#_sub8" class="code">function obj = removeBacksPar(obj,varargin)</a></li><li><a href="#_sub9" class="code">function obj = setBacksPar(obj, varargin)</a></li><li><a href="#_sub10" class="code">function obj = addBackground(obj,varargin)</a></li><li><a href="#_sub11" class="code">function obj = removeBackground(obj, varargin)</a></li><li><a href="#_sub12" class="code">function obj = setBackgroundValue(obj,varargin)</a></li><li><a href="#_sub13" class="code">function obj = setBackground(obj,varargin)</a></li><li><a href="#_sub14" class="code">function obj = setBackgroundName(obj,varargin)</a></li><li><a href="#_sub15" class="code">function displayBackgroundsObject(obj)</a></li><li><a href="#_sub16" class="code">function backStruct = toStruct(obj)</a></li><li><a href="#_sub17" class="code">function thisPar = parseParam(par,parList)</a></li><li><a href="#_sub18" class="code">function inputBlock = parseBackgroundInput(varargin,obj)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 classdef <a href="backgroundsClass.html" class="code" title="">backgroundsClass</a> &lt; handle
@@ -190,7 +190,7 @@ This function is called by:
 0145                <span class="keyword">switch</span> typeVal
 0146                    <span class="keyword">case</span> <span class="string">'constant'</span>
 0147                        <span class="comment">% Param 3 must be a valid parameter</span>
-0148                        thisParam = <a href="#_sub16" class="code" title="subfunction thisPar = parseParam(par,parList)">parseParam</a>(in(3),paramNames);
+0148                        thisParam = <a href="#_sub17" class="code" title="subfunction thisPar = parseParam(par,parList)">parseParam</a>(in(3),paramNames);
 0149                        thisRow{3} = thisParam;
 0150 
 0151                    <span class="keyword">case</span> <span class="string">'function'</span>
@@ -199,7 +199,7 @@ This function is called by:
 0154                        <span class="comment">% list or numbers in range</span>
 0155                        thisRow{3} = in{3};
 0156                        <span class="keyword">for</span> i = 4:length(in)
-0157                           thisParam = <a href="#_sub16" class="code" title="subfunction thisPar = parseParam(par,parList)">parseParam</a>(in(i),paramNames);
+0157                           thisParam = <a href="#_sub17" class="code" title="subfunction thisPar = parseParam(par,parList)">parseParam</a>(in(i),paramNames);
 0158                           thisRow{i} = thisParam;
 0159                        <span class="keyword">end</span>
 0160                 <span class="keyword">end</span>
@@ -233,103 +233,159 @@ This function is called by:
 0188                     col = <span class="string">'name'</span>;
 0189                 <span class="keyword">elseif</span> col == 3
 0190                     col = <span class="string">'Value 1'</span>;
-0191                 <span class="keyword">end</span>
-0192             <span class="keyword">end</span>
-0193                     
-0194             <span class="keyword">if</span> strcmpi(col,<span class="string">'name'</span>) || strcmpi(col,<span class="string">'Value 1'</span>)
-0195                 <span class="comment">% Do Nothing - any value is allowed so use as is</span>
-0196                 inputPar = in{3};
-0197             <span class="keyword">elseif</span> strcmpi(col,<span class="string">'type'</span>) 
-0198                 allowedList = {<span class="string">'constant'</span>,<span class="string">'data'</span>,<span class="string">'function'</span>};
-0199                 inputPar = <a href="#_sub16" class="code" title="subfunction thisPar = parseParam(par,parList)">parseParam</a>(in{3},allowedList);
-0200             <span class="keyword">else</span>
-0201                 allowedList = obj.backPars.paramsTable{:,1};
-0202                 inputPar = <a href="#_sub16" class="code" title="subfunction thisPar = parseParam(par,parList)">parseParam</a>(in{3},allowedList);
-0203             <span class="keyword">end</span>
-0204             
-0205             in{3} = inputPar;
-0206             obj.backgrounds.setValue(in);
-0207         
-0208         <span class="keyword">end</span>
-0209         
-0210         <a name="_sub12" href="#_subfunctions" class="code">function obj = setBackgroundName(obj,varargin)</a>
+0191                 <span class="keyword">elseif</span> col == 4
+0192                     col = <span class="string">'Value 2'</span>;
+0193                 <span class="keyword">elseif</span> col == 5
+0194                     col = <span class="string">'Value 3'</span>;
+0195                 <span class="keyword">elseif</span> col == 6
+0196                     col = <span class="string">'Value 4'</span>;
+0197                     
+0198                 <span class="keyword">end</span>
+0199             <span class="keyword">end</span>
+0200                     
+0201             <span class="keyword">if</span> strcmpi(col,<span class="string">'name'</span>) || strcmpi(col,<span class="string">'Value 1'</span>)
+0202                 <span class="comment">% Do Nothing - any value is allowed so use as is</span>
+0203                 inputPar = in{3};
+0204             <span class="keyword">elseif</span> strcmpi(col,<span class="string">'type'</span>) 
+0205                 allowedList = {<span class="string">'constant'</span>,<span class="string">'data'</span>,<span class="string">'function'</span>};
+0206                 inputPar = <a href="#_sub17" class="code" title="subfunction thisPar = parseParam(par,parList)">parseParam</a>(in{3},allowedList);
+0207             <span class="keyword">else</span>
+0208                 allowedList = obj.backPars.paramsTable{:,1};
+0209                 inputPar = <a href="#_sub17" class="code" title="subfunction thisPar = parseParam(par,parList)">parseParam</a>(in{3},allowedList);
+0210             <span class="keyword">end</span>
 0211             
-0212             in = varargin{:};
-0213             <span class="keyword">if</span> length(in) ~= 2
-0214                 error(<span class="string">'Expect two inputs into setBackgroundName'</span>);
-0215             <span class="keyword">end</span>
-0216             
-0217             <span class="comment">% Need to check that param 2 is allowed</span>
-0218             <span class="comment">% Must be a char value</span>
-0219             name = in{2};
-0220             <span class="keyword">if</span> ~ischar(name)
-0221                 error(<span class="string">'Name must be a character array'</span>);
-0222             <span class="keyword">end</span>
-0223 
-0224             obj.backgrounds.setValue({in{1}, <span class="string">'name'</span>, in{2}});
-0225             
-0226         <span class="keyword">end</span>
-0227         
-0228         <a name="_sub13" href="#_subfunctions" class="code">function displayBackgroundsObject(obj)</a>
-0229             
-0230             fprintf(<span class="string">'    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n'</span>);
-0231             fprintf(<span class="string">'    (a) Background Parameters: \n'</span>);
-0232             obj.backPars.displayParametersTable;
+0212             in{3} = inputPar;
+0213             obj.backgrounds.setValue(in);
+0214         
+0215         <span class="keyword">end</span>
+0216         
+0217         <a name="_sub12" href="#_subfunctions" class="code">function obj = setBackground(obj,varargin)</a>
+0218             <span class="comment">% General purpose background set class which allows a set of</span>
+0219             <span class="comment">% name / value pairs. It first processes this with an</span>
+0220             <span class="comment">% inputparser, then sequentially calls 'setBackgroundValue' to</span>
+0221             <span class="comment">% set each of the passed names. This allows the type checks of</span>
+0222             <span class="comment">% the previous method to do their job and we dont have to</span>
+0223             <span class="comment">% repeat them here</span>
+0224             
+0225             inputBlock = <a href="#_sub18" class="code" title="subfunction inputBlock = parseBackgroundInput(varargin,obj)">parseBackgroundInput</a>(varargin,obj);
+0226             
+0227             
+0228             
+0229         <span class="keyword">end</span>
+0230         
+0231         
+0232         <a name="_sub13" href="#_subfunctions" class="code">function obj = setBackgroundName(obj,varargin)</a>
 0233             
-0234             fprintf(<span class="string">'    (b) Backgrounds:  \n'</span>)
-0235             obj.backgrounds.displayTypesTable;
-0236             <span class="comment">%fprintf('\n    ----------------------------------------------------------------------------------- \n\n');</span>
-0237             
-0238         <span class="keyword">end</span>
-0239         
-0240         <a name="_sub14" href="#_subfunctions" class="code">function backStruct = toStruct(obj)</a>
-0241     
-0242             backParamsStruct = obj.backPars.toStruct();
-0243             
-0244             backStruct.backParNames = backParamsStruct.paramNames;
-0245             backStruct.backParconstr = backParamsStruct.paramConstr;
-0246             backStruct.backParVals = backParamsStruct.params;
-0247             backStruct.backParFitYesNo = backParamsStruct.fitYesNo;
-0248             backStruct.nBackPars = backParamsStruct.nParams;
-0249             backStruct.backsPriors = backParamsStruct.priors;
-0250             
-0251             backgroundNames = obj.backgrounds.typesTable{:,1};
-0252             backgroundTypes = obj.backgrounds.typesTable{:,2};
-0253             backgroundValues = table2cell(obj.backgrounds.typesTable(:,3:7));
-0254             
-0255             backStruct.backgroundNames = backgroundNames;
-0256             backStruct.backgroundTypes = backgroundTypes;
-0257             backStruct.backgroundValues = backgroundValues;
-0258             
-0259          <span class="keyword">end</span>
-0260     
-0261     <span class="keyword">end</span>
-0262 
-0263 <span class="keyword">end</span>
-0264 
-0265 <a name="_sub15" href="#_subfunctions" class="code">function thisPar = parseParam(par,parList)</a>
-0266     
-0267     <span class="keyword">if</span> iscell(par)
-0268         par = par{:};
-0269     <span class="keyword">end</span>
-0270 
-0271     <span class="keyword">if</span> isnumeric(par)
-0272         <span class="keyword">if</span> (par &lt; 1) || (par &gt; length(parList))
-0273             error(<span class="string">'Background Parameter %d is out of range'</span>,par);
-0274         <span class="keyword">else</span>
-0275             thisPar = parList(par);
-0276         <span class="keyword">end</span>
-0277     <span class="keyword">elseif</span> ischar(par)
-0278         <span class="keyword">if</span> ~strcmpi(par,parList)
-0279             error(<span class="string">'Parameter %s is not recognised'</span>,par);
-0280         <span class="keyword">else</span>
-0281             thisPar = par;
-0282         <span class="keyword">end</span>
-0283     <span class="keyword">elseif</span> isempty(par)
-0284         error(<span class="string">'Background parameter not recognised'</span>);
-0285     <span class="keyword">end</span>
-0286     
-0287 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Wed 29-Jun-2022 14:15:11 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0234             in = varargin{:};
+0235             <span class="keyword">if</span> length(in) ~= 2
+0236                 error(<span class="string">'Expect two inputs into setBackgroundName'</span>);
+0237             <span class="keyword">end</span>
+0238             
+0239             <span class="comment">% Need to check that param 2 is allowed</span>
+0240             <span class="comment">% Must be a char value</span>
+0241             name = in{2};
+0242             <span class="keyword">if</span> ~ischar(name)
+0243                 error(<span class="string">'Name must be a character array'</span>);
+0244             <span class="keyword">end</span>
+0245 
+0246             obj.backgrounds.setValue({in{1}, <span class="string">'name'</span>, in{2}});
+0247             
+0248         <span class="keyword">end</span>
+0249         
+0250         <a name="_sub14" href="#_subfunctions" class="code">function displayBackgroundsObject(obj)</a>
+0251             
+0252             fprintf(<span class="string">'    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n'</span>);
+0253             fprintf(<span class="string">'    (a) Background Parameters: \n'</span>);
+0254             obj.backPars.displayParametersTable;
+0255             
+0256             fprintf(<span class="string">'    (b) Backgrounds:  \n'</span>)
+0257             obj.backgrounds.displayTypesTable;
+0258             <span class="comment">%fprintf('\n    ----------------------------------------------------------------------------------- \n\n');</span>
+0259             
+0260         <span class="keyword">end</span>
+0261         
+0262         <a name="_sub15" href="#_subfunctions" class="code">function backStruct = toStruct(obj)</a>
+0263     
+0264             backParamsStruct = obj.backPars.toStruct();
+0265             
+0266             backStruct.backParNames = backParamsStruct.paramNames;
+0267             backStruct.backParconstr = backParamsStruct.paramConstr;
+0268             backStruct.backParVals = backParamsStruct.params;
+0269             backStruct.backParFitYesNo = backParamsStruct.fitYesNo;
+0270             backStruct.nBackPars = backParamsStruct.nParams;
+0271             backStruct.backsPriors = backParamsStruct.priors;
+0272             
+0273             backgroundNames = obj.backgrounds.typesTable{:,1};
+0274             backgroundTypes = obj.backgrounds.typesTable{:,2};
+0275             backgroundValues = table2cell(obj.backgrounds.typesTable(:,3:7));
+0276             
+0277             backStruct.backgroundNames = backgroundNames;
+0278             backStruct.backgroundTypes = backgroundTypes;
+0279             backStruct.backgroundValues = backgroundValues;
+0280             
+0281          <span class="keyword">end</span>
+0282     
+0283     <span class="keyword">end</span>
+0284 
+0285 <span class="keyword">end</span>
+0286 
+0287 <a name="_sub16" href="#_subfunctions" class="code">function thisPar = parseParam(par,parList)</a>
+0288     
+0289     <span class="keyword">if</span> iscell(par)
+0290         par = par{:};
+0291     <span class="keyword">end</span>
+0292 
+0293     <span class="keyword">if</span> isnumeric(par)
+0294         <span class="keyword">if</span> (par &lt; 1) || (par &gt; length(parList))
+0295             error(<span class="string">'Background Parameter %d is out of range'</span>,par);
+0296         <span class="keyword">else</span>
+0297             thisPar = parList(par);
+0298         <span class="keyword">end</span>
+0299     <span class="keyword">elseif</span> ischar(par)
+0300         <span class="keyword">if</span> ~strcmpi(par,parList)
+0301             error(<span class="string">'Parameter %s is not recognised'</span>,par);
+0302         <span class="keyword">else</span>
+0303             thisPar = par;
+0304         <span class="keyword">end</span>
+0305     <span class="keyword">elseif</span> isempty(par)
+0306         error(<span class="string">'Background parameter not recognised'</span>);
+0307     <span class="keyword">end</span>
+0308     
+0309 <span class="keyword">end</span>
+0310 
+0311 <a name="_sub17" href="#_subfunctions" class="code">function inputBlock = parseBackgroundInput(varargin,obj)</a>
+0312 
+0313     defaultName = <span class="string">''</span>;
+0314     defaultType =<span class="string">'constant'</span>;
+0315     defaultValue = <span class="string">''</span>;
+0316     
+0317     <span class="comment">% Need to get a list of the allowed names for backsPars</span>
+0318     allowedBacksPars = obj.backPars.paramsTable{:,1};
+0319     allowedBackParNums = [1:length(allowedBacksPars)];
+0320     
+0321     validTypes = @(x) ismember(x,{<span class="string">'constant'</span>});       <span class="comment">% Other tpes not yet implemented</span>
+0322     validBackspar = @(x) ismember(x,allowedBacksPars) || ismember(x,allowedBackParNums);
+0323 
+0324     p = inputParser;
+0325     addParameter(p,<span class="string">'name'</span>,      defaultName,   @ ischar);
+0326     addParameter(p,<span class="string">'type'</span>,      defaultType,   @ validTypes);
+0327     addParameter(p,<span class="string">'value1'</span>,   defaultValue,  @ validBackspar);
+0328     addParameter(p,<span class="string">'value2'</span>,   defaultValue,  @ validBackspar);
+0329     addParameter(p,<span class="string">'value3'</span>,   defaultValue,  @ validBackspar);
+0330     addParameter(p,<span class="string">'value4'</span>,   defaultValue,  @ validBackspar);
+0331     addParameter(p,<span class="string">'value5'</span>,   defaultValue,  @ validBackspar);
+0332     
+0333     p.CaseSensitive = false;
+0334     
+0335     inputVals = varargin{:};
+0336     
+0337     parse(p,inputVals{:});
+0338     inputBlock = p.Results;
+0339 
+0340 <span class="keyword">end</span>
+0341 
+0342 
+0343</pre></div>
+<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
 </body>
 </html>

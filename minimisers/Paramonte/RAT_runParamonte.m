@@ -41,11 +41,11 @@ if isfield(pmPars,'covMat')
     pmpd.spec.proposalStartCovMat = covMat; % Note SCALED covmat
 end
 
-if isfield(pmPars,'stVec')
-    pmpd.spec.startPointVec = pmPars.stVec;
-else
-    pmpd.spec.startPointVec = problemDef.fitpars;   % Maybe dependent on scaling?
-end
+% if isfield(pmPars,'stVec')
+%     pmpd.spec.startPointVec = pmPars.stVec;
+% else
+%     pmpd.spec.startPointVec = problemDef.fitpars;   % Maybe dependent on scaling?
+% end
 
 if isfield(pmPars,'burninAdapt')
     pmpd.spec.burninAdaptationMeasure = pmpd.burnInAdapt;

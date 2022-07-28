@@ -10,10 +10,15 @@ cfg = coder.config('lib');
 cfg.GenerateReport = true;
 cfg.ReportPotentialDifferences = false;
 cfg.GenCodeOnly = true;
-cfg.InlineBetweenUserFunctions = 'Never';
-cfg.InlineBetweenMathWorksFunctions = 'Never';
-cfg.InlineBetweenUserAndMathWorksFunctions = 'Never';
-%cfg.DataTypeReplacement = 'CoderTypedefs';
+cfg.InlineBetweenUserFunctions = 'Readability';
+cfg.InlineBetweenMathWorksFunctions = 'Readability';
+cfg.InlineBetweenUserAndMathWorksFunctions = 'Readability';
+cfg.TargetLang = 'C++';
+cfg.PreserveVariableNames = 'UserNames';
+cfg.CppNamespace = 'RAT';
+cfg.PreserveArrayDimensions = true;
+cfg.MATLABSourceComments = true;
+cfg.DataTypeReplacement = 'CBuiltIn';
 
 %% Define argument types for entry-point 'reflectivity_calculation'.
 % ARGS = cell(1,1);

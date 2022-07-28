@@ -27,9 +27,9 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','shiftData');
     fullfile(ratRoot,'targetFunctions','common','legacyChanges');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
-    fullfile(ratRoot,'targetFunctions','common','callCustomLayers');
-    fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
-    fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers');  
+    % fullfile(ratRoot,'targetFunctions','common','callCustomLayers');
+    % fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
+    fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');  
     fullfile(ratRoot,'targetFunctions','common','loopCppCustlayWrapper');
 
     

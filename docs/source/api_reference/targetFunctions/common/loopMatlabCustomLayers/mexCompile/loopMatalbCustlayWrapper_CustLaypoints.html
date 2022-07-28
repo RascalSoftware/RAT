@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of loopMatalbCustlayWrapper_CustLaypoints</title>
+  <meta name="keywords" content="loopMatalbCustlayWrapper_CustLaypoints">
+  <meta name="description" content="#codegen">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions --><!-- # common --><!-- # loopMatlabCustomLayers --><!-- # mexCompile -->
+<h1>loopMatalbCustlayWrapper_CustLaypoints
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>#codegen</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [allLayers, allRoughs] = loopMatalbCustlayWrapper_CustLaypoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">#codegen</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_paraPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [allLayers, allRoughs] = loopMatalbCustlayWrapper_CustLaypoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,</a><span class="keyword">...</span>
+0002      shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
+0003  
+0004  <span class="comment">%#codegen</span>
+0005  
+0006  <span class="comment">% Wrapper function for calling 'loopMatlabCustomLayers'. This wrapper is</span>
+0007  <span class="comment">% necessary to deal with typedef problems for the coder if feval is used</span>
+0008  <span class="comment">% directly from the main function</span>
+0009  tempAllLayers = cell(numberOfContrasts,1);
+0010  allLayers = cell(numberOfContrasts,1);
+0011  allRoughs = zeros(numberOfContrasts,1);
+0012  
+0013  <span class="keyword">for</span> i = 1:numberOfContrasts
+0014      allLayers{i} = [1 , 1];    <span class="comment">% Type def as double (size not important)</span>
+0015      tempAllLayers{i} = [0 0 0 0 0];
+0016  <span class="keyword">end</span>
+0017  coder.varsize(<span class="string">'tempAllLayers{:}'</span>,[10000 5],[1 1]);
+0018  
+0019  <span class="comment">% Call the Matlab parallel loop for the custom models.....</span>
+0020  <span class="comment">% We do this using feval, which automatically makes this function call</span>
+0021  <span class="comment">% only extrinsic... the loop is then handled in the matlab file (using</span>
+0022  <span class="comment">% paralell computing toolbox)</span>
+0023  [tempAllLayers, tempAllRoughs] = feval(<span class="string">'loopMatlabCustomLayers_points'</span>,cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,<span class="keyword">...</span>
+0024      shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+0025  
+0026  <span class="comment">% All the following is intended to be casting from mxArray's to doubles.</span>
+0027  <span class="comment">% I'm not sure if all of this is necessary, but it compiles...</span>
+0028  <span class="keyword">for</span> i = 1:numberOfContrasts
+0029      tempOut = tempAllLayers{i};
+0030      n = [0 0];
+0031      n = size(tempOut);
+0032      newOut = zeros(n);
+0033      newOut = tempOut;
+0034      allLayers{i} = newOut;
+0035  <span class="keyword">end</span>
+0036  
+0037  <span class="comment">%allLayers = tempAllLayers;</span>
+0038  allRoughs = tempAllRoughs;
+0039  
+0040 <span class="keyword">end</span>
+0041</pre></div>
+<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
+</body>
+</html>

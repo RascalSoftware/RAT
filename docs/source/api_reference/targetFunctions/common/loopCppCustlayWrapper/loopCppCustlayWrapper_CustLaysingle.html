@@ -6,7 +6,7 @@
   <meta name="keywords" content="loopCppCustlayWrapper_CustLaysingle">
   <meta name="description" content="">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../../m2html.css">
   <script type="text/javascript">
@@ -67,70 +67,72 @@ This function is called by:
 0024             <span class="comment">%coder.extrinsic('testDLL_mex');</span>
 0025             output = zeros(8,3);
 0026             sRough = 0.0;
-0027             [output,sRough] = testDLL_mex(params,nba,nbs,i,cLibName,cfunctionName);
-0028             
-0029             output = reshape(output,3,8)'; <span class="comment">% convert to 3 x from top down and transpose</span>
-0030             mask = (output &gt;= 0) &amp; (output &lt;= 2.6e-100); <span class="comment">% mask the zeros/extremely small positive useless nums or use ...</span>
-0031             <span class="comment">%mask = (abs(output) &lt;= 2.6e-100);</span>
-0032             output(mask) = NaN;
-0033             output = rmmissing(output);
-0034 
-0035             allLayers{i} = output;
-0036             allRoughs(i) = sRough;
-0037 
-0038         <span class="keyword">end</span>
-0039         
-0040     <span class="keyword">end</span>
-0041     
-0042 
-0043 
-0044     
-0045     
-0046    <span class="keyword">if</span> coder.target(<span class="string">'MATLAB'</span>)
-0047         
-0048         <span class="keyword">for</span> i = 1:numberOfContrasts
-0049             <span class="comment">% call mex function % params,nba,nbs,numberOfContrasts,output,subrough,libName,functionName);</span>
-0050             <span class="comment">%coder.extrinsic('testDLL_mex');</span>
-0051             [output,sRough] = testDLL_mex(params,nba,nbs,i,cLibName,cfunctionName);
-0052 
-0053             output = reshape(output,3,8)'; <span class="comment">% convert to 3 x from top down and transpose</span>
-0054             mask = (output &gt;= 0) &amp; (output &lt;= 2.6e-100); <span class="comment">% mask the zeros/extremely small positive useless nums or use ...</span>
-0055             <span class="comment">%mask = (abs(output) &lt;= 2.6e-100);</span>
-0056             output(mask) = NaN;
-0057             output = rmmissing(output);
-0058 
-0059             allLayers{i} = output;
-0060             allRoughs(i) = sRough;
-0061 
-0062         <span class="keyword">end</span>
-0063    <span class="keyword">end</span>
-0064 
-0065 
+0027             <span class="comment">% This is the function that calls the C++ header function that loads the library,function and calls it with the supplied arguments</span>
+0028             [output,sRough] = testDLL_mex(params,nba,nbs,i,cLibName,cfunctionName);
+0029             
+0030             <span class="comment">% THIS IS THE STUFF THAT NEEDS REFINING cause it will break for larger size x in (x,3)</span>
+0031             output = reshape(output,3,8)'; <span class="comment">% convert to 3 x from top down and transpose</span>
+0032             mask = (output &gt;= 0) &amp; (output &lt;= 2.6e-100); <span class="comment">% mask the zeros/extremely small positive useless nums or use ...</span>
+0033             <span class="comment">%mask = (abs(output) &lt;= 2.6e-100);</span>
+0034             output(mask) = NaN;
+0035             output = rmmissing(output);
+0036 
+0037             allLayers{i} = output;
+0038             allRoughs(i) = sRough;
+0039 
+0040         <span class="keyword">end</span>
+0041         
+0042     <span class="keyword">end</span>
+0043     
+0044 
+0045 
+0046     
+0047     
+0048    <span class="keyword">if</span> coder.target(<span class="string">'MATLAB'</span>)
+0049         
+0050         <span class="keyword">for</span> i = 1:numberOfContrasts
+0051             <span class="comment">% call mex function % params,nba,nbs,numberOfContrasts,output,subrough,libName,functionName);</span>
+0052             <span class="comment">%coder.extrinsic('testDLL_mex');</span>
+0053             [output,sRough] = testDLL_mex(params,nba,nbs,i,cLibName,cfunctionName);
+0054 
+0055             output = reshape(output,3,8)'; <span class="comment">% convert to 3 x from top down and transpose</span>
+0056             mask = (output &gt;= 0) &amp; (output &lt;= 2.6e-100); <span class="comment">% mask the zeros/extremely small positive useless nums or use ...</span>
+0057             <span class="comment">%mask = (abs(output) &lt;= 2.6e-100);</span>
+0058             output(mask) = NaN;
+0059             output = rmmissing(output);
+0060 
+0061             allLayers{i} = output;
+0062             allRoughs(i) = sRough;
+0063 
+0064         <span class="keyword">end</span>
+0065    <span class="keyword">end</span>
 0066 
-0067     
-0068 <span class="keyword">end</span> 
-0069  
-0070 
-0071 <span class="comment">% if customFiles has multiple elements, then do this</span>
-0072     <span class="comment">% TALK WITH MARTYN ABOUT THIS</span>
-0073 <span class="comment">% if length(customFiles) &gt; 1</span>
-0074 <span class="comment">%     % create a cell array of same size as customFiles</span>
-0075 <span class="comment">%     customModels = cell(1,length(customFiles));</span>
-0076 <span class="comment">%     for i=1:length(customModels)</span>
-0077 <span class="comment">%         customModels(i) = customFiles{i}{2}; % load the custom function names into it</span>
-0078 <span class="comment">%     end</span>
-0079 
-0080 <span class="comment">%     % load all the functions from DLL based on the customModels</span>
+0067 
+0068 
+0069     
+0070 <span class="keyword">end</span> 
+0071  
+0072 
+0073 <span class="comment">% if customFiles has multiple elements, then do this</span>
+0074     <span class="comment">% TALK WITH MARTYN ABOUT THIS</span>
+0075 <span class="comment">% if length(customFiles) &gt; 1</span>
+0076 <span class="comment">%     % create a cell array of same size as customFiles</span>
+0077 <span class="comment">%     customModels = cell(1,length(customFiles));</span>
+0078 <span class="comment">%     for i=1:length(customModels)</span>
+0079 <span class="comment">%         customModels(i) = customFiles{i}{2}; % load the custom function names into it</span>
+0080 <span class="comment">%     end</span>
 0081 
-0082 
+0082 <span class="comment">%     % load all the functions from DLL based on the customModels</span>
 0083 
 0084 
-0085 <span class="comment">% else</span>
-0086 <span class="comment">%     % if there is only 1 function</span>
-0087     
-0088 <span class="comment">% end</span>
-0089 
-0090 <span class="comment">% assumin only one custom function</span></pre></div>
-<hr><address>Generated on Wed 29-Jun-2022 14:15:11 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0085 
+0086 
+0087 <span class="comment">% else</span>
+0088 <span class="comment">%     % if there is only 1 function</span>
+0089     
+0090 <span class="comment">% end</span>
+0091 
+0092 <span class="comment">% assumin only one custom function</span></pre></div>
+<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
 </body>
 </html>

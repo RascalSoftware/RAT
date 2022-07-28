@@ -1,2 +1,0 @@
-BUILDING_REFLECTIVITY_CALCULATION
-MODEL=reflectivity_calculation

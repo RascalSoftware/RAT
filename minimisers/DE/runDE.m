@@ -66,8 +66,8 @@ coder.varsize('S_struct.I_NP', [1 1],[0 0]);
 coder.varsize('S_struct.F_weight', [1 1],[0 0]);
 coder.varsize('S_struct.F_CR', [1 1],[0 0]);
 coder.varsize('S_struct.I_D', [1 1],[0 0]);
-coder.varsize('S_struct.FVr_minbound', [1 2],[0 0]);
-coder.varsize('S_struct.FVr_maxbound', [1 2],[0 0]);
+coder.varsize('S_struct.FVr_minbound', [1 Inf],[0 1]);
+coder.varsize('S_struct.FVr_maxbound', [1 Inf],[0 1]);
 coder.varsize('S_struct.I_bnd_constr', [1 1],[0 0]);
 coder.varsize('S_struct.I_itermax', [1 1],[0 0]);
 coder.varsize('S_struct.F_VTR', [1 1],[0 0]);
@@ -75,7 +75,8 @@ coder.varsize('S_struct.I_strategy', [1 1],[0 0]);
 coder.varsize('S_struct.I_refresh', [1 1],[0 0]);
 coder.varsize('S_struct.I_plotting', [1 1],[0 0]);
 coder.varsize('S_struct.FM_pop',[Inf 2],[1 0]);
-coder.varsize('FVr_bestmem',[1 2],[0 0]);
+coder.varsize('S_struct.FVr_bestmem',[1 Inf],[0 1]);
+coder.varsize('FVr_bestmem',[1 Inf],[0 1]);
 
 %-----tie all important values to a structure that can be passed along----
 S_struct.I_lentol   = I_lentol;
@@ -106,7 +107,7 @@ problemDef = unpackparams(problemDef,controls);
 [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 if ~strcmpi(controls.display,'off')
-    fprintf('Final chi squared is %d\n',problem.calculations.sum_chi);
+    fprintf('Final chi squared is %g\n',problem.calculations.sum_chi);
 end
 
 end

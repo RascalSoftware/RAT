@@ -31,3 +31,7 @@ setCompilePaths('mex');
 
 % Return to RAT root directory
 cd(thisPath);
+
+%% Algorithm compiles..
+
+

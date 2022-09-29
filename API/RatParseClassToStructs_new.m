@@ -153,6 +153,75 @@ priors.nbsPriors = nbsPriors;
 priors.shiftPriors = shiftPriors;
 priors.scalesPriors = scalesPriors;
 
+totalNumber = size(priors.paramPriors,1) + size(priors.backsPriors,1) + ...
+    size(priors.resolPriors,1) + size(priors.nbaPriors,1) + size(priors.nbsPriors,1) + ...
+    size(priors.shiftPriors,1) + size(priors.scalesPriors,1);
+
+allPriors = cell(totalNumber,4);
+cellCount = 1;
+for i = 1:size(priors.paramPriors,1)
+    allPriors{cellCount,1} = priors.paramPriors{i}{1};
+    allPriors{cellCount,2} = priors.paramPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.paramPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.paramPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.backsPriors,1)
+    allPriors{cellCount,1} = priors.backsPriors{i}{1};
+    allPriors{cellCount,2} = priors.backsPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.backsPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.backsPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.resolPriors,1)
+    allPriors{cellCount,1} = priors.resolPriors{i}{1};
+    allPriors{cellCount,2} = priors.resolPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.resolPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.resolPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.nbaPriors,1)
+    allPriors{cellCount,1} = priors.nbaPriors{i}{1};
+    allPriors{cellCount,2} = priors.nbaPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.nbaPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.nbaPriors{i}{4}); 
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.nbsPriors,1)
+    allPriors{cellCount,1} = priors.nbsPriors{i}{1};
+    allPriors{cellCount,2} = priors.nbsPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.nbsPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.nbsPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.shiftPriors,1)
+    allPriors{cellCount,1} = priors.shiftPriors{i}{1};
+    allPriors{cellCount,2} = priors.shiftPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.shiftPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.shiftPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.scalesPriors,1)
+    allPriors{cellCount,1} = priors.scalesPriors{i}{1};
+    allPriors{cellCount,2} = priors.scalesPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.scalesPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.scalesPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+priorNames = allPriors(:,1);
+priorVals = allPriors(:,2:end);
+
+priors.priorNames = priorNames;
+priors.priorVals = priorVals;
+
+
 %Split up the contrastBacks array
 contrastBacks = inputStruct.contrastBacks;
 for i = 1:length(contrastBacks)

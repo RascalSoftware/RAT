@@ -1,4 +1,7 @@
-function [results,chain,s2chain,sschain, hchain]=mcmcrun_compile(model,data,problem,params,options,res)
+function [results,chain,s2chain,sschain, hchain]=mcmcrun_compile(model,data,problem,params,options,res,display)
+%#codegen
+
+
 %MCMCRUN Metropolis-Hastings MCMC simulation for nonlinear Gaussian models
 % properties:
 %  multiple y-columns, sigma2-sampling, adaptation,
@@ -80,9 +83,21 @@ function [results,chain,s2chain,sschain, hchain]=mcmcrun_compile(model,data,prob
 %#codegen
 %global invR
 
+%global A_count npar %invR
+% clear invR;
+A_count = 0; % alphafun count
+
 
 
 %% check input structs
+
+if strcmpi(display,'off')
+    display = 0;
+else
+    display = 1;
+end
+
+
 goodopt={'nsimu','adaptint','ntry','method','printint',...
         'adaptend','lastadapt','burnintime','waitbar',...
         'debug','qcov','updatesigma','noadaptind','stats','stats2',...
@@ -378,12 +393,20 @@ end
 %end
 %R0 = R; % save R
 
-global A_count
-A_count = 0; % alphafun count
-RDR = cell(1,Ntry);
+% We can't get this to compile if we have NTry open eneded in size. So, we
+% set a limit of Ntry to be 5, and make the subsequent cell arrays to be
+% {1x5} arrays.
+if Ntry > 5
+    fprintf('Warning: Maximum Ntry is 5. Setting it to this value');
+    Ntry = 5;
+end
+
+%RDR = cell(1,Ntry);
+RDR = cell(1,5);
 RDR{1} = [];
 
-define_invR = cell(1,Ntry);
+%define_invR = cell(1,Ntry);
+define_invR = cell(1,5);
 for i = 1:Ntry
     define_invR{i} = i;
 end
@@ -479,7 +502,7 @@ end
 
 rej=0; reju=0; ii=1; rejl = 0;
 %% setup waitbar
-if wbarupd; textProgressBar('init',0); end
+if (wbarupd && display); textProgressBar('init',0); end
 
 % covariance update uses these to store previous values
 covchain = []; meanchain = []; wsum = initqcovn; lasti = 0;
@@ -524,7 +547,10 @@ for isimu=2:nsimu % simulation loop
 %       break % break the nsimu loop
 %     end
   end
-  message(verbosity,100,'i:%d/%d\n',isimu,nsimu);
+  
+  if display
+    message(verbosity,100,'i:%g/%g\n',isimu,nsimu);
+  end
 
   % sample new candidate from Gaussian proposal
   u = randn(1,npar);
@@ -591,6 +617,7 @@ for isimu=2:nsimu % simulation loop
     z.pri = 0;
     z.ss = 0;
     
+    coder.varsize('trypath',[1 5]);
     trypath = {x,y,z};
     itry    = 1;
     while accept == 0 && itry < Ntry
@@ -610,7 +637,7 @@ for isimu=2:nsimu % simulation loop
       z.ss = sseval(ssfun,ssstyle,z.p,parind,value,local,data,problem,modelfun);
       z.pri = priorfun(z.p,thetamu(parind),thetasig(parind));
       trypath = {trypath{1:2},z};
-      alpha = alphafun(trypath{:});
+      alpha = alphaTest(trypath,A_count, invR, npar);
       trypath{end}.a = alpha;
       if alpha >= 1 || rand(1,1) < alpha     %  accept
         accept   = 1;
@@ -699,7 +726,7 @@ for isimu=2:nsimu % simulation loop
     sschain(chainind,:) = ss;
   end
   %
-  if printint && fix(isimu/printint) == isimu/printint
+  if (printint && fix(isimu/printint) == isimu/printint) && display
 %     message(verbosity,2,'i:%g (%3.2f,%3.2f,%3.2f)\n', ...
 %             isimu,rej/isimu*100,reju/ii*100,rejl/isimu*100);
     wbar(isimu,nsimu);
@@ -905,83 +932,120 @@ value(parind) = theta;
 %end
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function y=alphafun(varargin)
-% alphafun(x,y1,y2,y3,...)
-% recursive acceptance function for delayed rejection
-% x.p, y1.p, ... contain the parameter value
-% x.ss, y1.ss, ... the sum of squares
-% x.a, y1.a, ... past alpha probabilities
-
-% ML 2003
-
-%global A_count
-A_count = A_count+1;
-y = 0;
-
-stage = nargin - 1; % The stage we're in, elements in varargin - 1
-% recursively compute past alphas
-coder.varsize('a1');
-coder.varsize('a2');
-a1 = 1; a2=1;
-for kk=1:stage-1
-%  a1 = a1*(1-varargin{k+1}.a); % already have these alphas
-% Thanks to E. Prudencio for pointing out an error here
-  a1 = a1*(1-alphafun(varargin{1:(kk+1)}));
-  a2 = a2*(1-alphafun(varargin{(stage+1):-1:(stage+1-kk)}));
-  if  a2==0  % we will came back with prob 1
-    y = 0;
-    return
-  end
-end
-y = lfun(varargin{1},varargin{end});
-for kk=1:stage
-  y = y + qfun(kk,varargin{:});
-end
-y = min(1, exp(y).*a2./a1);
-
-end
-%************************************************************%
-function z=qfun(iq,varargin)
-% Gaussian n:th stage log proposal ratio
-% log of q_i(y_n,..,y_n-j) / q_i(x,y_1,...,y_j)
-
-% ----------------------------------
-% Try to pre set variables to get past 'non constant expression'
-% error in coder.....
-coder.varsize('y1',[100 100]);
-coder.varsize('y2',[100 100]);
-coder.varsize('y3',[100 100]);
-coder.varsize('y4',[100 100]);
-coder.varsize('z',[100 100]);
-coder.varsize('iR',[100,100]);
-
-y1 = zeros(1,npar);
-y2 = zeros(1,npar);
-y3 = zeros(1,npar);
-y4 = zeros(1,npar);
-iR = zeros(npar,npar);
-z = 0;
-% -----------------------------
-
-stage = nargin-1-1;
-if stage == iq
-  z = 0;                                % we are symmetric
-else
-  iR = invR{iq};                        % proposal^(-1/2)
-  y1 = varargin{1}.p;           % y1
-  y2 = varargin{iq+1}.p;        % y_i
-  y3 = varargin{stage+1}.p;     % y_n
-  y4 = varargin{stage-iq+1}.p;  % y_(n-i)
-  z = -0.5*(norm((y4-y3)*iR)^2-norm((y2-y1)*iR)^2);
-end
-
-end
-%************************************************************%
-function z=lfun(x,y)
-% log posterior ratio,  log( pi(y)/pi(x) * p(y)/p(x) )
-z = -0.5*( sum((y.ss./y.s2-x.ss./x.s2)) + y.pri - x.pri );
-end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% function y=alphafun(cellIn)
+% % alphafun(x,y1,y2,y3,...)
+% % recursive acceptance function for delayed rejection
+% % x.p, y1.p, ... contain the parameter value
+% % x.ss, y1.ss, ... the sum of squares
+% % x.a, y1.a, ... past alpha probabilities
+% 
+% % ML 2003
+% 
+% %global A_count npar
+% A_count = A_count+1;
+% y = 0;
+% 
+% stage = length(cellIn) - 1; % The stage we're in, elements in varargin - 1
+% % recursively compute past alphas
+% coder.varsize('a1');
+% coder.varsize('a2');
+% a1 = 1; a2=1;
+% for kk=1:stage-1
+% %  a1 = a1*(1-varargin{k+1}.a); % already have these alphas
+% % Thanks to E. Prudencio for pointing out an error here
+%   ind = getConstIndex(kk);
+%   a1 = a1*(1-alphafun({cellIn{1:(ind+1)}}));
+%   a2 = a2*(1-alphafun({cellIn{(stage+1):-1:(stage+1-ind)}}));
+%   if  a2==0  % we will came back with prob 1
+%     y = 0;
+%     return
+%   end
+% end
+% y = lfun(cellIn{1},cellIn{end});
+% for kk=1:stage
+%     ind = getConstIndex(kk);
+%     y = y + qfun(ind,cellIn);
+% end
+% y = min(1, exp(y).*a2./a1);
+% 
+% end
+% 
+% function ind = getConstIndex(n)
+%         
+%         %    tab = zeros(1,10);
+%         %    for l = 1:length(tab)
+%         %        tab(l) = l;
+%         %    end
+%         if n==1
+%             ind = coder.const(1);
+%         elseif n==2
+%             ind = coder.const(2);
+%         elseif n==3
+%             ind = coder.const(3);
+%         elseif n==4
+%             ind = coder.const(4);
+%         else
+%             ind = coder.const(5);
+%         end
+% end
+% 
+% %************************************************************%
+% function z=qfun(iq,qfunin)
+% 
+% %global npar;
+% 
+% % Gaussian n:th stage log proposal ratio
+% % log of q_i(y_n,..,y_n-j) / q_i(x,y_1,...,y_j)
+% 
+% % ----------------------------------
+% % Try to pre set variables to get past 'non constant expression'
+% % error in coder.....
+% % coder.varsize('y1',[100 100],[1 1]);
+% % coder.varsize('y2',[100 100],[1 1]);
+% % coder.varsize('y3',[100 100],[1 1]);
+% % coder.varsize('y4',[100 100],[1 1]);
+% % coder.varsize('z',[100 100],[1 1]);
+% % coder.varsize('iR',[100,100],[1 1]);
+% 
+% y1 = zeros(1,npar);
+% y2 = zeros(1,npar);
+% y3 = zeros(1,npar);
+% y4 = zeros(1,npar);
+% iR = zeros(npar,npar);
+% z = 0;
+% % -----------------------------
+% 
+% stage = length(qfunin)-1;
+% if stage == iq
+%   z = 0;                                % we are symmetric
+% else
+%   iR = invR{iq};                        % proposal^(-1/2)
+%   y1 = qfunin{1}.p;           % y1
+%   y2 = qfunin{iq+1}.p;        % y_i
+%   y3 = qfunin{stage+1}.p;     % y_n
+%   y4 = qfunin{stage-iq+1}.p;  % y_(n-i)
+%   
+%   coder.varsize('firstPar',[1 1],[0 0]);
+%   coder.varsize('secondPar',[1 1],[0 0]);
+%   
+%   firstPar = 0;     % Essentially typeDefs
+%   secondPar = 0;
+%   
+%   firstPar = norm((y4-y3)*iR);
+%   secondPar = norm((y2-y1)*iR);
+%   
+%   %z = -0.5*(norm((y4-y3)*iR)^2-norm((y2-y1)*iR)^2);
+%   coder.varsize('z',[1 1],[0 0]);
+%   z = -0.5*(firstPar^2 - secondPar^2);
+% end
+% 
+% end
+% %************************************************************%
+% function z=lfun(x,y)
+% % log posterior ratio,  log( pi(y)/pi(x) * p(y)/p(x) )
+% z = -0.5*( sum((y.ss./y.s2-x.ss./x.s2)) + y.pri - x.pri );
+% end
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function message(verbosity,level,fmt,varargin)
 if verbosity>=level
   fprintf(fmt,varargin{:})

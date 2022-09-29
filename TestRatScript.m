@@ -12,7 +12,7 @@ import matlab.unittest.TestSuite;
 disp('Starting Parallel Pool')
 % if parallel pool has already been started, continue with it
 if isempty(gcp('nocreate'))
-    parpool();
+    parpool('threads');
 else
     % display how many workers are in the pool
     pool = gcp('nocreate');

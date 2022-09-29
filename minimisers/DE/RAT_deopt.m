@@ -91,8 +91,8 @@ S_val = repmat(str,S_struct.I_NP,1);
 
 
 coder.varsize('problemDef.resample',[Inf,1],[1 0]);          
-coder.varsize('FVr_bestmem',[1 2],[0 0]);
-coder.varsize('FVr_bestmemit',[1 2],[0 0]);
+coder.varsize('FVr_bestmem',[1 Inf],[0 1]);
+coder.varsize('FVr_bestmemit',[1 Inf],[0 1]);
 %coder.varsize('FM_pop',[S_struct.I_NP,2],[1 0]);
 
 
@@ -235,12 +235,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
   FM_pm5 = FM_popold(FVr_a5,:);             % shuffled population 5
 
   for k=1:I_NP  % population filled with the best member
-      
-    try  
     FM_bm(k,:) = FVr_bestmemit;             % of the last iteration
-    catch
-        disp('debug');
-    end
   end
 
   FM_mui = rand(I_NP,I_D) < F_CR;  % all random numbers < F_CR are 1, 0 otherwise
@@ -335,7 +330,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
   if (I_refresh > 0)
      if ((rem(I_iter,I_refresh) == 0) || I_iter == 1) && strcmpi(controls.display,'iter')
        %fprintf('Iteration: %d,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %d\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP);
-       ratSendTextOutput(sprintf('Iteration: %d,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %d\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP));
+       ratSendTextOutput(sprintf('Iteration: %g,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %g\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP));
 
        %disp(S_bestval);
        %var(FM_pop)
@@ -343,9 +338,9 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
 %        for n=1:I_D
 %           fprintf('best(%d) = %g\n',n,FVr_bestmem(n));
 %        end
-        if (I_plotting == 1)
-           PlotIt(FVr_bestmem,problem); 
-        end
+%         if (I_plotting == 1)
+%            PlotIt(FVr_bestmem,problem); 
+%         end
         stopflag = getStopFlag();
         
     end

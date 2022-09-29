@@ -1,4 +1,4 @@
-function [x,fval,exitflag,output] = fminsearch(funfcn,x,options,varargin)
+function [x,fval,exitflag,output] = fminsearch(funfcn,x,options,dis,varargin)
 %FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
 %   X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer 
 %   X of the function FUN.  FUN is a function handle.  FUN accepts input X and 
@@ -61,7 +61,7 @@ function [x,fval,exitflag,output] = fminsearch(funfcn,x,options,varargin)
 %   p.112-147, 1998.
 
 %   Copyright 1984-2018 The MathWorks, Inc.
-
+msg = 'ok';
 
 defaultopt = struct('Display','notify','MaxIter','200*numberOfVariables',...
     'MaxFunEvals','200*numberOfVariables','TolX',1e-4,'TolFun',1e-4, ...
@@ -82,20 +82,20 @@ if nargin == 1
         [funfcn,x,options] = separateOptimStruct(funfcn);
     else % Single input and non-structure
         error('MATLAB:fminsearch:InputArg',...
-            getString(message('MATLAB:optimfun:fminsearch:InputArg')));
+            sprintf('MATLAB:optimfun:fminsearch:InputArg'));
     end
 end
 
 if nargin == 0
     error('MATLAB:fminsearch:NotEnoughInputs',...
-        getString(message('MATLAB:optimfun:fminsearch:NotEnoughInputs')));
+        sprintf('MATLAB:optimfun:fminsearch:NotEnoughInputs'));
 end
 
 
 % Check for non-double inputs
 if ~isa(x,'double')
   error('MATLAB:fminsearch:NonDoubleInput',...
-    getString(message('MATLAB:optimfun:fminsearch:NonDoubleInput')));
+    sprintf('MATLAB:optimfun:fminsearch:NonDoubleInput'));
 end
 
 n = numel(x);
@@ -115,24 +115,24 @@ maxiter = optimget(options,'MaxIter',defaultopt,'fast');
 funValCheck = strcmp(optimget(options,'FunValCheck',defaultopt,'fast'),'on');
 
 % In case the defaults were gathered from calling: optimset('fminsearch'):
-if ischar(maxfun) || isstring(maxfun)
-    if strcmpi(maxfun,'200*numberofvariables')
-        maxfun = 200*numberOfVariables;
-    else
-        error('MATLAB:fminsearch:OptMaxFunEvalsNotInteger',...
-            getString(message('MATLAB:optimfun:fminsearch:OptMaxFunEvalsNotInteger')));
-    end
-end
-if ischar(maxiter) || isstring(maxiter)
-    if strcmpi(maxiter,'200*numberofvariables')
-        maxiter = 200*numberOfVariables;
-    else
-        error('MATLAB:fminsearch:OptMaxIterNotInteger',...
-            getString(message('MATLAB:optimfun:fminsearch:OptMaxIterNotInteger')));
-    end
-end
+% if ischar(maxfun) || isstring(maxfun)
+%     if strcmpi(maxfun,'200*numberofvariables')
+%         maxfun = 200*numberOfVariables;
+%     else
+%         error('MATLAB:fminsearch:OptMaxFunEvalsNotInteger',...
+%             getString(message('MATLAB:optimfun:fminsearch:OptMaxFunEvalsNotInteger')));
+%     end
+% end
+% if ischar(maxiter) || isstring(maxiter)
+%     if strcmpi(maxiter,'200*numberofvariables')
+%         maxiter = 200*numberOfVariables;
+%     else
+%         error('MATLAB:fminsearch:OptMaxIterNotInteger',...
+%             getString(message('MATLAB:optimfun:fminsearch:OptMaxIterNotInteger')));
+%     end
+% end
 
-switch printtype
+switch dis      % Changed from TMW fminsearch
     case {'notify','notify-detailed'}
         prnt = 1;
     case {'none','off'}
@@ -141,8 +141,8 @@ switch printtype
         prnt = 3;
     case {'final','final-detailed'}
         prnt = 2;
-    case 'simplex'
-        prnt = 4;
+%     case 'simplex'
+%         prnt = 4;
     otherwise
         prnt = 1;
 end
@@ -171,7 +171,7 @@ end
 header = ' Iteration   Func-count     min f(x)         Procedure';
 
 % Convert to function handle as needed.
-funfcn = fcnchk(funfcn,length(varargin));
+% funfcn = fcnchk(funfcn,length(varargin));
 % Add a wrapper function to check for Inf/NaN/complex values
 if funValCheck
     % Add a wrapper function, CHECKFUN, to check for NaN/complex values without
@@ -201,6 +201,7 @@ x(:) = xin;    % Change x to the form expected by funfcn
 fv(:,1) = funfcn(x,varargin{:});
 func_evals = 1;
 itercount = 0;
+coder.varsize('how',[1 Inf],[0 1]);
 how = '';
 % Initial simplex setup continues later
 
@@ -224,21 +225,24 @@ if prnt == 3
     out = sprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how);
     ratSendTextOutput(out)
 elseif prnt == 4
-    formatsave.format = get(0,'format');
-    formatsave.formatspacing = get(0,'formatspacing');
-    % reset format when done
-    oc1 = onCleanup(@()set(0,'format',formatsave.format));
-    oc2 = onCleanup(@()set(0,'formatspacing',formatsave.formatspacing));
-    format compact
-    format short e
-    ratSendTextOutput(' ')
-    ratSendTextOutput(how)
-    ratSendTextOutput('v = ')
-    ratSendTextOutput(v)
-    ratSendTextOutput('fv = ')
-    ratSendTextOutput(fv)
-    ratSendTextOutput('func_evals = ')
-    ratSendTextOutput(func_evals)
+    % Option never used in RAT
+    
+    
+%     formatsave.format = get(0,'format');
+%     formatsave.formatspacing = get(0,'formatspacing');
+%     % reset format when done
+%     oc1 = onCleanup(@()set(0,'format',formatsave.format));
+%     oc2 = onCleanup(@()set(0,'formatspacing',formatsave.formatspacing));
+%     format compact
+%     format short e
+%     ratSendTextOutput(' ')
+%     ratSendTextOutput(how)
+%     ratSendTextOutput('v = ')
+%     ratSendTextOutput(sprintf('%g',v))
+%     ratSendTextOutput('fv = ')
+%     ratSendTextOutput(sprintf('%g',fv))
+%     ratSendTextOutput('func_evals = ')
+%     ratSendTextOutput(sprintf('%g',func_evals))
 end
 % OutputFcn and PlotFcns call
 if haveoutputfcn || haveplotfcn
@@ -279,14 +283,14 @@ func_evals = n+1;
 if prnt == 3
     ratSendTextOutput(sprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how))
 elseif prnt == 4
-    ratSendTextOutput(' ')
-    ratSendTextOutput(how)
-    ratSendTextOutput('v = ')
-    ratSendTextOutput(v)
-    ratSendTextOutput('fv = ')
-    ratSendTextOutput(fv)
-    ratSendTextOutput('func_evals = ')
-    ratSendTextOutput(func_evals)
+%     ratSendTextOutput(' ')
+%     ratSendTextOutput(how)
+%     ratSendTextOutput('v = ')
+%     ratSendTextOutput(sprintf('%g',v))
+%     ratSendTextOutput('fv = ')
+%     ratSendTextOutput(sprintf('%g',fv))
+%     ratSendTextOutput('func_evals = ')
+%     ratSendTextOutput(sprintf('%g',func_evals))
 end
 % OutputFcn and PlotFcns call
 if haveoutputfcn || haveplotfcn
@@ -313,15 +317,15 @@ exitflag = 1;
 % The iteration stops if the maximum number of iterations or function evaluations 
 % are exceeded
 while func_evals < maxfun && itercount < maxiter
-    if max(abs(fv(1)-fv(two2np1))) <= max(tolf,10*eps(fv(1))) && ...
-            max(max(abs(v(:,two2np1)-v(:,onesn)))) <= max(tolx,10*eps(max(v(:,1))))
+    if max(abs(fv(1)-fv(2:n+1))) <= max(tolf,10*eps(fv(1))) && ...
+            max(max(abs(v(:,2:n+1)-v(:,onesn)))) <= max(tolx,10*eps(max(v(:,1))))
         break
     end
     
     % Compute the reflection point
     
     % xbar = average of the n (NOT n+1) best points
-    xbar = sum(v(:,one2n), 2)/n;
+    xbar = sum(v(:,1:n), 2)/n;
     xr = (1 + rho)*xbar - rho*v(:,end);
     x(:) = xr; fxr = funfcn(x,varargin{:});
     func_evals = func_evals+1;
@@ -377,7 +381,7 @@ while func_evals < maxfun && itercount < maxiter
                 end
             end
             if strcmp(how,'shrink')
-                for j=two2np1
+                for j=2:n+1
                     v(:,j)=v(:,1)+sigma*(v(:,j) - v(:,1));
                     x(:) = v(:,j); fv(:,j) = funfcn(x,varargin{:});
                 end
@@ -391,14 +395,14 @@ while func_evals < maxfun && itercount < maxiter
     if prnt == 3
         ratSendTextOutput(sprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how));
     elseif prnt == 4
-        ratSendTextOutput(' ')
-        ratSendTextOutput(how)
-        ratSendTextOutput('v = ')
-        ratSendTextOutput(v)
-        ratSendTextOutput('fv = ')
-        ratSendTextOutput(fv)
-        ratSendTextOutput('func_evals = ')
-        ratSendTextOutput(func_evals)
+%         ratSendTextOutput(' ')
+%         ratSendTextOutput(num2str(how))
+%         ratSendTextOutput('v = ')
+%         ratSendTextOutput(v)
+%         ratSendTextOutput('fv = ')
+%         ratSendTextOutput(fv)
+%         ratSendTextOutput('func_evals = ')
+%         ratSendTextOutput(num2str(func_evals))
     end
     % OutputFcn and PlotFcns call
     if haveoutputfcn || haveplotfcn
@@ -426,21 +430,21 @@ end
 if func_evals >= maxfun
     printMsg = prnt > 0;
     if buildOutputStruct || printMsg
-        msg = getString(message('MATLAB:optimfun:fminsearch:ExitingMaxFunctionEvals', sprintf('%f',fval)));
+        %msg = getString(message('MATLAB:optimfun:fminsearch:ExitingMaxFunctionEvals', sprintf('%f',fval)));
+        sprintf('Exiting: Max function evals reached');
     end
     exitflag = 0;
 elseif itercount >= maxiter
     printMsg = prnt > 0;
     if buildOutputStruct || printMsg
-        msg = getString(message('MATLAB:optimfun:fminsearch:ExitingMaxIterations', sprintf('%f',fval)));
+        %msg = getString(message('MATLAB:optimfun:fminsearch:ExitingMaxIterations', sprintf('%f',fval)));
+        sprintf('Exiting: Max iterations reached');
     end
     exitflag = 0;
 else
     printMsg = prnt > 1;
     if buildOutputStruct || printMsg
-        msg = ...
-            getString(message('MATLAB:optimfun:fminsearch:OptimizationTerminatedXSatisfiesCriteria', ...
-            sprintf('%e',tolx), sprintf('%e',tolf)));
+        msg = sprintf('Exiting - X satisfies termination criteria: TolX %e, TolF %e',tolx,tolf);
 
     end
     exitflag = 1;
@@ -511,7 +515,7 @@ EXITFLAG = -1;
 OUTPUT.iterations = optimValues.iteration;
 OUTPUT.funcCount = optimValues.funccount;
 OUTPUT.algorithm = 'Nelder-Mead simplex direct search';
-OUTPUT.message = getString(message('MATLAB:optimfun:fminsearch:OptimizationTerminatedPrematurelyByUser'));
+OUTPUT.message = fprintf('Optimisation terminated by user'); %getString(message('MATLAB:optimfun:fminsearch:OptimizationTerminatedPrematurelyByUser'));
 
 %--------------------------------------------------------------------------
 function f = checkfun(x,userfcn,varargin)
@@ -520,29 +524,29 @@ function f = checkfun(x,userfcn,varargin)
 f = userfcn(x,varargin{:});
 % Note: we do not check for Inf as FMINSEARCH handles it naturally.
 if isnan(f)
-    error('MATLAB:fminsearch:checkfun:NaNFval',...
-        getString(message('MATLAB:optimfun:fminsearch:checkfun:NaNFval', localChar( userfcn ))));  
+    error('MATLAB:fminsearch:checkfun:NaNFval','Target function is NaN');
 elseif ~isreal(f)
-    error('MATLAB:fminsearch:checkfun:ComplexFval',...
-        getString(message('MATLAB:optimfun:fminsearch:checkfun:ComplexFval', localChar( userfcn ))));  
+%     error('MATLAB:fminsearch:checkfun:ComplexFval',...
+%         getString(message('MATLAB:optimfun:fminsearch:checkfun:ComplexFval', localChar( userfcn ))));  
+        error(sprintf('Target function is complex'));
 end
 
 %--------------------------------------------------------------------------
-function strfcn = localChar(fcn)
-% Convert the fcn to a character array for printing
-
-if ischar(fcn)
-    strfcn = fcn;
-elseif isstring(fcn) || isa(fcn,'inline')
-    strfcn = char(fcn);
-elseif isa(fcn,'function_handle')
-    strfcn = func2str(fcn);
-else
-    try
-        strfcn = char(fcn);
-    catch
-        strfcn = getString(message('MATLAB:optimfun:fminsearch:NameNotPrintable'));
-    end
-end
+% function strfcn = localChar(fcn)
+% % Convert the fcn to a character array for printing
+% 
+% if ischar(fcn)
+%     strfcn = fcn;
+% elseif isstring(fcn) || isa(fcn,'inline')
+%     strfcn = char(fcn);
+% elseif isa(fcn,'function_handle')
+%     strfcn = func2str(fcn);
+% else
+%     try
+%         strfcn = char(fcn);
+%     catch
+%         strfcn = getString(message('MATLAB:optimfun:fminsearch:NameNotPrintable'));
+%     end
+% end
 
 

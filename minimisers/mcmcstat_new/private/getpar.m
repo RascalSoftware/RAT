@@ -3,7 +3,7 @@ function y=getpar(options,par,default)
 
 % $Revision: 1.1 $  $Date: 2005/02/11 13:24:53 $
 if isfield(options,par)
-    y = getfield(options,par);
+    y = options.(par);
 else
     y = default;
 end

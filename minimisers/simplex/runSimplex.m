@@ -24,7 +24,20 @@ tolX = controls.tolX;
 maxFunEvals = controls.maxFunEvals;
 display = controls.display;
 
-options = optimset('MaxIter',maxIter,'TolFun',tolFun,'TolX',tolX,'MaxFunEvals',maxFunEvals,'Display',display);
+switch display
+    case 'off'
+        dis = 'none';
+    case 'iter'
+        dis = 'iter';
+    case 'notify'
+        dis = 'notify';
+    case 'final'
+        dis = 'final';
+    otherwise
+        dis = 'final';
+end
+
+options = optimset('MaxIter',maxIter,'TolFun',tolFun,'TolX',tolX,'MaxFunEvals',maxFunEvals);
 
 x0 = problemDef.fitpars;
 LB = problemDef.fitconstr(:,1);
@@ -106,7 +119,7 @@ end
 % now we can call fminsearch, but with our own
 % intra-objective function.
 
-[xu,fval,exitflag,output] = ratFminsearch(@simplexIntrafun,x0u,options,problemDef,problemDef_cells,problemDef_limits,controls,params,300);
+[xu,fval,exitflag,output] = ratFminsearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDef_cells,problemDef_limits,controls,params,300);
 
 %[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemDef,problemDef_cells,problemDef_limits,controls,options,params,300);
 

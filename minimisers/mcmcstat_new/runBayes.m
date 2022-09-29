@@ -1,9 +1,11 @@
-function output = runBayes(loop,nsimu,burnin,adaptint,params,problem)
+function output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls)
 
 problemDef = problem{1};
 controls = problem{2};
 problemDef_limits = problem{3};
 problemDef_cells = problem{4};
+
+display = controls.display;
 
 %data = problem.data;
 % Arrange the data into the format mcmcstat requires 
@@ -40,7 +42,7 @@ end
 qcov = diag(qcov);
 
 % Define model and method options.
-model.modelfun      = 'refModel';     % will return a reflectivity curve
+model.modelfun      = 'refModel';                  % will return a reflectivity curve
 model.ssfun         = 'reflectivity_fitModel';     % will return chi squared
 model.nbatch        = numberOfContrasts;
 
@@ -55,7 +57,7 @@ options.waitbar     = 1;               % show graphical waitbar
 options.updatesigma = 0;               % update error variance
 options.stats       = 1;               % save extra statistics in result
 options.burnintime  = burnin;          % burn in time..
-options.ntry = 2;
+options.ntry = 3;
 options.drscale = [3 2 1];
 %options.adascale = 2.4 / sqrt(nPars) * 0.01;
 
@@ -63,10 +65,15 @@ options.drscale = [3 2 1];
 results = [];
 loop = int32(loop);
 for i = 1:loop
-    fprintf('Running loop %d of %d ',i,loop);
+    if ~ strcmpi(display,'off')
+        fprintf('Running loop %d of %d ',i,loop);
+    end
 
-    [results,chain,s2chain,sschain] = mcmcrun_compile(model, data, problem, params, options, results);
-    fprintf('\n');
+    [results,chain,s2chain,sschain] = mcmcrun_compile(model, data, problem, params, options, results, display);
+    
+    if ~ strcmpi(display,'off')
+        fprintf('\n');
+    end
 end
 
 output.results = results;

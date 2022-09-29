@@ -20,7 +20,7 @@ problem.setUsePriors(true);
 % % custom model file, so it's useful to look at this to check which parameters 
 % % we are going to need:
 % 
-type customBilayer.m
+%type customBilayer.m
 %% 
 % 
 % 

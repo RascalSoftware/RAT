@@ -53,11 +53,11 @@ classdef standardTF_customLayers_tests < matlab.unittest.TestCase
         end
         
         function expectedProblem = setexpectedProblem(testCase)
-            testCase.expectedProblem = testCase.expectedOutputs.customLayersOutput.problem;
+            testCase.expectedProblem = testCase.expectedOutputs.expectedOutputs.problem;
         end
         
         function expectedResult = setexpectedResult(testCase)
-            testCase.expectedResult = testCase.expectedOutputs.customLayersOutput.result; 
+            testCase.expectedResult = testCase.expectedOutputs.expectedOutputs.results; 
         end
     end
 

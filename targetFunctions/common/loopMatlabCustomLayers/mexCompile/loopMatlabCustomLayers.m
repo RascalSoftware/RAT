@@ -6,7 +6,7 @@ function [outLayers, allRoughs] = loopMatlabCustomLayers(cBacks,cShifts,cScales,
 outLayers = cell(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 
-parfor i = 1:numberOfContrasts
+for i = 1:numberOfContrasts
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
     % First need to decide which values of the backrounds, scalefactors
@@ -38,7 +38,7 @@ parfor i = 1:numberOfContrasts
             if thisHydrWhat == 0                 % Bulk out
                 thisBulkHydr = bulkIn;
             else
-                thisBulkHydr = bulkOut;
+                thisBulkHydr = bulkOuts(i);
             end
             newSld = (thisHydration * thisBulkHydr) + ((1-thisHydration) * thisSLD);
             thisSldVal = newSld(1,1);   % Reassignment to keep codegen happy

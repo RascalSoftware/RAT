@@ -32,17 +32,17 @@ switch lower(action)
         if ~strcmpi(controls.display,'off')
             ratSendTextOutput(sprintf('\nRunning simplex\n\n'));
         end
-        [outProblemDef,problem,results] = runSimplex(problemDef,problemDef_cells,problemDef_limits,controls);
+        [outProblemDef,problem,results] = runSimplex_mex(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'de'
         if ~strcmpi(controls.display,'off')
             ratSendTextOutput(sprintf('\nRunning Differential Evolution\n\n'));
         end
-        [outProblemDef,problem,results] = runDE(problemDef,problemDef_cells,problemDef_limits,controls);
+        [outProblemDef,problem,results] = runDE_mex(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'bayes'
         if ~strcmpi(controls.display,'off')
             ratSendTextOutput(sprintf('\nRunning DRAM\n\n'));
         end        
-        [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls);
+        [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,controls,priors);
     case 'ns'
         if ~strcmpi(controls.display,'off')
             ratSendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));

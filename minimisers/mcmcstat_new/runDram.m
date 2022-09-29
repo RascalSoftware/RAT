@@ -1,6 +1,7 @@
-function  [problemDef,outProblem,result,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,priors,controls)
+function  [problemDef,outProblem,result,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,controls,allPriors)
 
 %#codegen
+
 %coder.varsize('problemDef.contrastBacks',[1 Inf],[0 1]);
 
 checks = controls.checks;
@@ -28,33 +29,115 @@ end
 % so that we can then build the params array for the algorithm
 
 % Put all the priors into one array
-allPriors = [priors.paramPriors ; ...
-    priors.backsPriors ; ...
-    priors.resolPriors ; ...
-    priors.nbaPriors ; ...
-    priors.nbsPriors ; ...
-    priors.shiftPriors ; 
-    priors.scalesPriors];
+% ** This won't work for code generation **
+% priorsGroup = [priors.paramPriors ; ...
+%     priors.backsPriors ; ...
+%     priors.resolPriors ; ...
+%     priors.nbaPriors ; ...
+%     priors.nbsPriors ; ...
+%     priors.shiftPriors ; 
+%     priors.scalesPriors];
+
+% totalNumber = size(priors.paramPriors,1) + size(priors.backsPriors,1) + ...
+%     size(priors.resolPriors,1) + size(priors.nbaPriors,1) + size(priors.nbsPriors,1) + ...
+%     size(priors.shiftPriors,1) + size(priors.scalesPriors,1);
+
+% Expand the individual cells..
+%allPriors = cell(totalNumber,2);    %Will be a char type....
+% allPriors = strings(totalNumber,2);
+% allPriorVals = cell(totalNumber,2);
+% cellCount = 1;
+% for i = 1:size(priors.paramPriors,1)
+%     allPriors(cellCount,1) = string(priors.paramPriors{i}{1});
+%     allPriors(cellCount,2) = string(priors.paramPriors{i}{2});
+%     allPriorVals{cellCount,1} = priors.paramPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.paramPriors{i}{4};
+%     cellCount = cellCount + 1;
+% end
+% 
+% for i = 1:size(priors.backsPriors,1)
+%     allPriors(cellCount,1) = priors.backsPriors{i}{1};
+%     allPriors(cellCount,2) = priors.backsPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.backsPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.backsPriors{i}{4};
+%     cellCount = cellCount + 1;
+% end
+% 
+% for i = 1:size(priors.resolPriors,1)
+%     allPriors(cellCount,1) = priors.resolPriors{i}{1};
+%     allPriors(cellCount,2) = priors.resolPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.resolPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.resolPriors{i}{4};
+%     cellCount = cellCount + 1;
+% end
+% 
+% for i = 1:size(priors.nbaPriors,1)
+%     allPriors(cellCount,1) = priors.nbaPriors{i}{1};
+%     allPriors(cellCount,2) = priors.nbaPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.nbaPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.nbaPriors{i}{4}; 
+%     cellCount = cellCount + 1;
+% end
+% 
+% for i = 1:size(priors.nbsPriors,1)
+%     allPriors(cellCount,1) = priors.nbsPriors{i}{1};
+%     allPriors(cellCount,2) = priors.nbsPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.nbsPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.nbsPriors{i}{4};
+%     cellCount = cellCount + 1;
+% end
+% 
+% for i = 1:size(priors.shiftPriors,1)
+%     allPriors(cellCount,1) = priors.shiftPriors{i}{1};
+%     allPriors(cellCount,2) = priors.shiftPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.shiftPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.shiftPriors{i}{4};
+%     cellCount = cellCount + 1;
+% end
+% 
+% for i = 1:size(priors.scalesPriors,1)
+%     allPriors(cellCount,1) = priors.scalesPriors{i}{1};
+%     allPriors(cellCount,2) = priors.scalesPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.scalesPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.scalesPriors{i}{4};
+%     cellCount = cellCount + 1;
+% end
 
 % Get a list of all the prior names -- we can then use this to
 % find the locations of the strings in 'fitNames'
-allPriorNames = allPriors(:,1);
+%allPriorStrings = string(allPriors);
+
+% coder.varsize('allPriorNames',[1 Inf],[0 1]);
+% allPriorNames = {allPriors{:,1}};
+
+priorNames = allPriors.priorNames;
+priorVals = allPriors.priorVals;
+
 
 for i = 1:length(fitNames)
+    coder.varsize('name',[1 Inf],[0 1]);
     name = fitNames{i};
     value = problemDef.fitpars(i);
     min = lims(i,1);
     max = lims(i,2);
     
     % Find this parameter in the priors list
-    parPos = find(strcmp(allPriorNames,name));
+    parPos = find(strcmp(priorNames,name));
     
-    if isempty(parPos)
-        error('Can"t find this fitting parameter');
+    coder.varsize('newPos',[1,1],[0,0]);
+    newPos = 1;
+    if length(parPos) > 1
+        newPos = parPos(1);
+    elseif isempty(parPos)
+        newPos = 1;
     end
     
-    mu = allPriors{parPos,3};
-    sigma = allPriors{parPos,4};
+%     if isempty(parPos) || length(parPos) > 1
+%         error('Can"t identify this fitting parameter');
+%     end
+    
+    mu = real(str2double(priorVals{newPos,2}));
+    sigma = real(str2double(priorVals{newPos,3}));
     
     thisGroup = {name, value, min, max, mu, sigma};
     params{i} = thisGroup;
@@ -68,7 +151,7 @@ adaptint = 100;%controls.adaptint;
 
 problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 
-output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
+output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 
 [problemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,problem);
 

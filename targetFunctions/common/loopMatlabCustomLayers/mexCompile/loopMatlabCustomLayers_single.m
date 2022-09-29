@@ -38,7 +38,7 @@ for i = 1:numberOfContrasts
             if thisHydrWhat == 0                 % Bulk out
                 thisBulkHydr = bulkIn;
             else
-                thisBulkHydr = bulkOut;
+                thisBulkHydr = bulkOuts(i);
             end
             newSld = (thisHydration * thisBulkHydr) + ((1-thisHydration) * thisSLD);
             thisSldVal = newSld(1,1);   % Reassignment to keep codegen happy

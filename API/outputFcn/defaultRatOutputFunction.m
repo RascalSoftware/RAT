@@ -8,9 +8,6 @@ function defaultRatOutputFunction(eventrc,eventdata)
 
 outData = eventdata.ratUpdateData;
 outText = outData.textUpdate;
-disp(outText);
-
-
-
+sprintf('%s \n',outText);
 
 end

@@ -15,7 +15,7 @@ classdef standardTF_standardLayers_tests < matlab.unittest.TestCase
         expectedProblem;
         expectedResult;
         
-        tolerance = 20*eps;
+        tolerance = 1e-12;
     end
 
     methods (TestMethodSetup)

@@ -28,7 +28,7 @@ for i = 1:nParams
    low(i) = thisParam{3};
    upp(i) = thisParam{4};
    thetamu(i) = thisParam{5};
-   thetasig(i) = thisParam{6};
+   thetasig(i) = real(thisParam{6});
 end
 
 % Make empty hyperpars struct

@@ -50,13 +50,7 @@ if ~isInitialised
     %ratListener = listener(ratOut,'ratUpdate',@bayesAddInfoText);
     setappdata(0,'ratOut',{ratOut ; ratListener});
     isInitialised = true;
-
 end
-
-% -------- The output fcn is not currently in use  
-%          - outputs are currently just fprintf from the 
-%            minimisers
-% --------------------------------------------------
 
 % This creates an output class from RAT from which updates are sent.
 % To use it, register an output function with ratOut using the listener

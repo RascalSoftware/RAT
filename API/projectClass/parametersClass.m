@@ -376,7 +376,19 @@ classdef parametersClass < handle
             outStruct.fitYesNo = double(obj.paramsTable{:,5});
             
             priors = table2cell(obj.paramsTable(:,6:8));
-            outStruct.priors = [outStruct.paramNames priors];
+            priors = [outStruct.paramNames priors];
+            
+            % Group each row into one cell. Should be a way of doing this
+            % without a loop but I can't quite see it right now...
+            for i = 1:size(priors,1)
+                thisPrior = priors(i,:);
+                val2 = char(thisPrior{2});
+                thisPrior{2} = val2;
+                pp(i) = {thisPrior};
+            end
+            
+            outStruct.priors = pp(:);
+            
             
             % Need to force some of the outputs
             % to be row vectors, so transpose them

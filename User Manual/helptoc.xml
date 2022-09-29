@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding="utf-8"?>
+<toc version="2.0">
+    <tocitem target="m2umlToolbox.html">            m2uml Toolbox          
+        <tocitem target="Overview.html">                Overview                </tocitem>
+        <tocitem target="Installation.html">            Installation            </tocitem>
+        <tocitem target="Limitations.html">             Limitations             </tocitem>
+        <tocitem target="IntroductoryExamples.html">    Introductory examples   </tocitem>
+        <tocitem target="Options.html">                 Options                 </tocitem>
+        <tocitem target="UserInterface.html">           User interface          </tocitem>
+        <tocitem target="Layout.html">                  Layout                  </tocitem>
+        <tocitem target="Relationships.html">           Relationships           </tocitem>
+        <tocitem target="ImageRow.html">                ImageRow                </tocitem>
+        <tocitem target="Examples.html">                Examples                </tocitem>
+        <tocitem target="TechnicalDocumentation.html">  Technical documentation </tocitem>
+    </tocitem>
+</toc>

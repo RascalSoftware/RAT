@@ -34,6 +34,8 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
 
     
     fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
+    fullfile(ratRoot,'compile','simplex_compile');
+    fullfile(ratRoot,'compile','DE_compile');
 
     fullfile(ratRoot,'targetFunctions','reflectivity_calculation');
     fullfile(ratRoot,'targetFunctions','standard_TF');

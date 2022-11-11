@@ -17,8 +17,10 @@ cfg.TargetLang = 'C++';
 cfg.PreserveVariableNames = 'UserNames';
 cfg.CppNamespace = 'RAT';
 cfg.PreserveArrayDimensions = true;
-cfg.MATLABSourceComments = true;
-cfg.DataTypeReplacement = 'CBuiltIn';
+%cfg.MATLABSourceComments = true;
+cfg.CodeFormattingTool = 'MathWorks';
+cfg.RunInitializeFcn = false;
+cfg.DataTypeReplacement = 'CoderTypeDefs';
 
 %% Define argument types for entry-point 'reflectivity_calculation'.
 % ARGS = cell(1,1);

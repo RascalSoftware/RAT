@@ -1,14 +1,14 @@
-function alpha = alphaTest(trypath, A_count, invR, npar)
+function alpha = alphaTest(trypath, A_count, invR, npar, stage)
 
 %global A_count invR npar
 
-alpha = alphafun(trypath);
+alpha = alphafun(trypath,stage);
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function y=alphafun(cellIn)
+function y=alphafun(cellIn,stage)
 % alphafun(x,y1,y2,y3,...)
 % recursive acceptance function for delayed rejection
 % x.p, y1.p, ... contain the parameter value
@@ -21,7 +21,8 @@ function y=alphafun(cellIn)
 A_count = A_count+1;
 y = 0;
 
-stage = length(cellIn) - 1; % The stage we're in, elements in varargin - 1
+%stage = length(cellIn) - 1; % The stage we're in, elements in varargin - 1
+stage = stage - 1;
 % recursively compute past alphas
 coder.varsize('a1');
 coder.varsize('a2');
@@ -30,14 +31,14 @@ for kk=1:stage-1
 %  a1 = a1*(1-varargin{k+1}.a); % already have these alphas
 % Thanks to E. Prudencio for pointing out an error here
   ind = getConstIndex(kk);
-  a1 = a1*(1-alphafun({cellIn{1:(ind+1)}}));
-  a2 = a2*(1-alphafun({cellIn{(stage+1):-1:(stage+1-ind)}}));
+  a1 = a1*(1-alphafun({cellIn{1:(ind+1)}},stage));
+  a2 = a2*(1-alphafun({cellIn{(stage+1):-1:(stage+1-ind)}},stage));
   if  a2==0  % we will came back with prob 1
     y = 0;
     return
   end
 end
-y = lfun(cellIn{1},cellIn{end});
+y = lfun(cellIn{1},cellIn{stage});
 for kk=1:stage
     ind = getConstIndex(kk);
     y = y + qfun(ind,cellIn);

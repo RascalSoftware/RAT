@@ -79,7 +79,7 @@ if ~strcmpi(controls.display,'off')
 end
 
 tic
-[outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls);
+[outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 ratSendTextOutput(sprintf('\n'));
 
 if ~strcmpi(controls.display,'off')
@@ -92,7 +92,7 @@ if controls.calcSld == 0
     originalProc = controls.proc;
     controls.calcSld = 1;
     controls.proc = 'calculate';
-    [outProblemStruct,problem,result,~ ] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,priors,controls);
+    [outProblemStruct,problem,result,~ ] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,controls,priors);
     controls.proc = originalProc;
 end
 

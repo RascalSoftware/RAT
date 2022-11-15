@@ -1,4 +1,4 @@
-function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls)
+function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors)
 
 
 result = cell(6,1);
@@ -21,6 +21,8 @@ bayesResults.chain = [];
 bayesResults.s2chain = [];
 bayesResults.ssChain = [];
 bayesResults.bestPars = [];
+
+outProblemDef = problemDef;
 
 %Decide what we are doing....
 action = controls.proc;

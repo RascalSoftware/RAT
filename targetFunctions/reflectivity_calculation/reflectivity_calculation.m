@@ -143,6 +143,7 @@ coder.varsize('problem.ssubs',[Inf 1],[1 0]);
 coder.varsize('problem.calculations.all_chis',[Inf 1],[1 0]);
 coder.varsize('problem.calculations.sum_chi',[1 1],[0 0]);
 coder.varsize('problem.allSubRough',[Inf 1],[1 0]);
+coder.varsize('problem.resample',[1 Inf],[0 1]);
 
 %Result coder definitions....
 coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity

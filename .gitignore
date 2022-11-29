@@ -1,27 +1,23 @@
 # List of untracked files to ignore
-codegen/
-compile/codegen/
-dev/matlabEngineCaller/codegen/
-dev/paraCustLay/codegen/
 old
-targetFunctions/common/loopCoppCustlayWrapper/codegen/
-
 *.pptx
 
-
-# vscode
+# IDE folders and files
 .vscode/
-
-# matlab
 *.asv
-desktop.ini
+*.m~
 
+# System files
+desktop.ini
+.DS_Store
 
 # Unit test / coverage reports
 htmlcov/
 
 # Build
+_build/
 -lang
-*.mexa64
-*.mexw64
-*.mexmaci64
+codegen/
+*.mex*
+*.mlappinstall
+*.mltbx

@@ -3,13 +3,12 @@ pipeline
     agent none
     stages 
     { 
-       
-        // Start a parallel pool of n threads using matlab and Build it on linux
-        stage ('Build on Windows, Linux') 
-        {
+       stage ('Build') 
+       { 
             parallel 
             {
-                stage('Build on Linux') 
+            
+                stage('Build and Tests (Linux)') 
                 {
                     agent 
                     {
@@ -22,12 +21,12 @@ pipeline
                     steps 
                     {
 
-                        runMATLABCommand '''BuildScript'''
+                        runMATLABCommand 'BuildScript'
+                        runMATLABCommand 'TestRatScript'
                     }
                 }
-
-                // start a parallel pool of n threads using matlab and Build it on windows
-                stage('Build on Windows') 
+             
+                stage('Build and Tests (Windows)') 
                 {
                     agent 
                     {
@@ -39,55 +38,14 @@ pipeline
                     }
                     steps 
                     {
-                        runMATLABCommand '''BuildScript'''
+                        runMATLABCommand 'BuildScript'
+                        runMATLABCommand 'TestRatScript'
                     }   
 
                 }
+            } // parallel
 
-
-            }
-        }
-
-        stage ('Test on Windows, Linux') 
-        {
-            parallel 
-            {
-                stage ('Run Tests on Windows')
-                {
-                    agent
-                    {
-                        label 'RAT_Windows'
-                    }
-                    options 
-                    { 
-                        skipDefaultCheckout() 
-                    }
-                    steps 
-                    {
-                        runMATLABCommand 'TestRatScript'
-                    }
-
-                }
-
-                stage ('Run Tests on Linux')
-                {
-
-                    agent
-                    {
-                        label 'RAT_Linux'
-                    }
-                    options 
-                    { 
-                        skipDefaultCheckout() 
-                    }
-                    steps 
-                    {
-                        runMATLABCommand 'TestRatScript'
-                    }
-                }
-            }
-        }
-        
+       }
         
     } // stages
 

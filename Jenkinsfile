@@ -2,8 +2,8 @@ pipeline
 {
     agent none
     stages 
-    {
-
+    { 
+       
         // Start a parallel pool of n threads using matlab and Build it on linux
         stage ('Build on Windows, Linux') 
         {
@@ -58,9 +58,12 @@ pipeline
                     {
                         label 'RAT_Windows'
                     }
+                    options 
+                    { 
+                        skipDefaultCheckout() 
+                    }
                     steps 
                     {
-                        echo 'Running Test Script on Windows'
                         runMATLABCommand 'TestRatScript'
                     }
 
@@ -73,10 +76,12 @@ pipeline
                     {
                         label 'RAT_Linux'
                     }
-
+                    options 
+                    { 
+                        skipDefaultCheckout() 
+                    }
                     steps 
                     {
-                        echo 'Running Test Script on Linux'
                         runMATLABCommand 'TestRatScript'
                     }
                 }

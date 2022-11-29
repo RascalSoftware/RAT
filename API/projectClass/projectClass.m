@@ -797,7 +797,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     methods (Access = protected)
         
-        function paramNum = findPar(paramName)
+        function paramNum = findPar(obj, paramName)
             existingNames = obj.parameters.paramsTable{:,1};
             index = strcmp(paramName, existingNames);
             if isempty(index)

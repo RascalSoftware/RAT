@@ -15,6 +15,7 @@ classdef standardTF_customLayers_tests < matlab.unittest.TestCase
     expectedResult;
     
     tolerance = 20*eps;
+    abs_tolerance = 1e-5;
     end
 
     methods (TestMethodSetup)
@@ -88,8 +89,8 @@ classdef standardTF_customLayers_tests < matlab.unittest.TestCase
             testCase.controls, useCompiled, whichParallel);
 
             % Check the outputs are the same
-            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance);          
-            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance);
+            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance, "AbsTol", testCase.abs_tolerance);          
+            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance, "AbsTol", testCase.abs_tolerance);
                     
         end
 
@@ -117,8 +118,8 @@ classdef standardTF_customLayers_tests < matlab.unittest.TestCase
             testCase.controls, useCompiled, whichParallel);
 
             % Check the outputs are the same
-            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance);        
-            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance);
+            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance, "AbsTol", testCase.abs_tolerance);        
+            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
 
@@ -144,8 +145,8 @@ classdef standardTF_customLayers_tests < matlab.unittest.TestCase
             testCase.controls, useCompiled, whichParallel);
 
             % Check the outputs are the same
-            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance);
-            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance);
+            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             
         end
 

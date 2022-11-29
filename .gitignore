@@ -17,4 +17,11 @@ targetFunctions/common/loopCoppCustlayWrapper/codegen/
 desktop.ini
 
 
+# Unit test / coverage reports
+htmlcov/
 
+# Build
+-lang
+*.mexa64
+*.mexw64
+*.mexmaci64

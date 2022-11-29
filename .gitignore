@@ -7,7 +7,14 @@ old
 targetFunctions/common/loopCoppCustlayWrapper/codegen/
 
 *.pptx
-Docs/.DS_Store
-.DS_Store
+
+
+# vscode
+.vscode/
+
+# matlab
+*.asv
+desktop.ini
+
 
 

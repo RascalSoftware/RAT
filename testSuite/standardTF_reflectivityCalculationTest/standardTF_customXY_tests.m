@@ -115,8 +115,8 @@ classdef standardTF_customXY_tests < matlab.unittest.TestCase
             testCase.controls, useCompiled, whichParallel);
 
             % Check the outputs are the same
-            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem);        
-            testCase.verifyEqual(testOutResult2,testCase.expectedResult);
+            testCase.verifyEqual(testOutProblem2,testCase.expectedProblem,"RelTol",testCase.tolerance, "AbsTol", testCase.abs_tolerance);        
+            testCase.verifyEqual(testOutResult2,testCase.expectedResult,"RelTol",testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
 

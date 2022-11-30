@@ -18,6 +18,7 @@ htmlcov/
 _build/
 -lang
 codegen/
-*.mex*
+*.mexa64
+*.mexw64
 *.mlappinstall
 *.mltbx

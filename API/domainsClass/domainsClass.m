@@ -380,7 +380,7 @@ classdef domainsClass < projectClass
     
     methods (Access = protected)
         
-        function paramNum = findPar(paramName)
+        function paramNum = findPar(obj, paramName)
             existingNames = obj.parameters.paramsTable{:,1};
             index = strcmp(paramName, existingNames);
             if isempty(index)

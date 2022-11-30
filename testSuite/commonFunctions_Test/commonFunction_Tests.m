@@ -62,7 +62,7 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
         resolution_pollyInputs;
         resolution_pollyOutputs;
         
-
+        tolerance = 1e-12;
   
     end
 
@@ -305,7 +305,7 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
             
             [out1,out2]= callReflectivity(testCase.callReflectivityInputs{1:end});
             outputs = {out1,out2};
-            testCase.verifyEqual(testCase.callReflectivityOutputs,outputs);
+            testCase.verifyEqual(testCase.callReflectivityOutputs,outputs,"RelTol",testCase.tolerance);
 
         end
 
@@ -431,7 +431,7 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
             out1 = abeles_paraPoints(testCase.abeles_paraPointsInputs{1:end});
             outputs = {out1};
 
-            testCase.verifyEqual(testCase.abeles_paraPointsOutputs,outputs);
+            testCase.verifyEqual(testCase.abeles_paraPointsOutputs,outputs,"RelTol",testCase.tolerance);
 
         end
 
@@ -449,7 +449,7 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
             
             out1 = abeles_single(testCase.abeles_singleInputs{1:end});
             outputs = {out1};
-            testCase.verifyEqual(testCase.abeles_singleOutputs,outputs);
+            testCase.verifyEqual(testCase.abeles_singleOutputs,outputs,"RelTol",testCase.tolerance);
 
         end
 

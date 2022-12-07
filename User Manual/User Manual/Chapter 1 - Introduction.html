@@ -23,9 +23,9 @@ w\:* {behavior:url(#default#VML);}
   <o:Author>Arwel Hughes</o:Author>
   <o:LastAuthor>Arwel Hughes</o:LastAuthor>
   <o:Revision>2</o:Revision>
-  <o:TotalTime>3024</o:TotalTime>
-  <o:Created>2022-06-16T11:03:00Z</o:Created>
-  <o:LastSaved>2022-06-16T11:03:00Z</o:LastSaved>
+  <o:TotalTime>3023</o:TotalTime>
+  <o:Created>2022-11-16T09:37:00Z</o:Created>
+  <o:LastSaved>2022-11-16T09:37:00Z</o:LastSaved>
   <o:Pages>8</o:Pages>
   <o:Words>2619</o:Words>
   <o:Characters>14933</o:Characters>
@@ -44,7 +44,6 @@ href="Chapter%201%20-%20Introduction.fld/colorschememapping.xml">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
   <w:SpellingState>Clean</w:SpellingState>
-  <w:GrammarState>Clean</w:GrammarState>
   <w:TrackMoves>false</w:TrackMoves>
   <w:TrackFormatting/>
   <w:PunctuationKerning/>
@@ -683,7 +682,7 @@ href="Chapter%201%20-%20Introduction.fld/colorschememapping.xml">
 	mso-font-charset:0;
 	mso-generic-font-family:roman;
 	mso-font-pitch:variable;
-	mso-font-signature:3 0 0 0 1 0;}
+	mso-font-signature:-536870145 1107305727 0 0 415 0;}
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;
@@ -1034,9 +1033,6 @@ span.variablenameelement1
 span.SpellE
 	{mso-style-name:"";
 	mso-spl-e:yes;}
-span.GramE
-	{mso-style-name:"";
-	mso-gram-e:yes;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -1390,25 +1386,24 @@ mso-list:l1 level1 lfo1'><![if !supportLists]><span style='font-family:Symbol;
 mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
 style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]>The <b>Controls Block </b>summarises the actions
-which we want to do with our model. <span class=GramE>So</span> it specifies
-which algorithm we might want to apply to improve our model fit, along with
-algorithm parameters such as maximum function evaluations or gradients etc.</p>
+which we want to do with our model. So it specifies which algorithm we might
+want to apply to improve our model fit, along with algorithm parameters such as
+maximum function evaluations or gradients etc.</p>
 
 <p class=MsoNormal style='text-align:justify'><o:p>&nbsp;</o:p></p>
 
-<p class=MsoNormal style='text-align:justify'>Keeping <span class=GramE>these
-two separate</span> gives a high degree of flexibility as to how we can
-approach a data analysis problem. For example, suppose we have defined a Model
-Definition block which contains the data and model details for a given fitting
-problem, we then decide that we would like to optimise this first using a
-genetic algorithm, and then run a Bayesian analysis to obtain the parameter
-posterior distributions. To do all this we only need to define our model <span
-class=GramE>once, and</span> run it twice whilst simply modifying the Controls
-Block to tweak the algorithm that is run in each case. Also, once we are
-satisfied with our model, we can save it or export it, and re-use this basic
-pattern for subsequent analyses with different, related data sets. Keeping the
-Model and Controls separate gives a high degree of flexibility as to how tasks
-can be formulated and run.</p>
+<p class=MsoNormal style='text-align:justify'>Keeping these two separate gives
+a high degree of flexibility as to how we can approach a data analysis problem.
+For example, suppose we have defined a Model Definition block which contains
+the data and model details for a given fitting problem, we then decide that we
+would like to optimise this first using a genetic algorithm, and then run a
+Bayesian analysis to obtain the parameter posterior distributions. To do all
+this we only need to define our model once, and run it twice whilst simply
+modifying the Controls Block to tweak the algorithm that is run in each case.
+Also, once we are satisfied with our model, we can save it or export it, and
+re-use this basic pattern for subsequent analyses with different, related data
+sets. Keeping the Model and Controls separate gives a high degree of
+flexibility as to how tasks can be formulated and run.</p>
 
 <p class=MsoNormal style='text-align:justify'><o:p>&nbsp;</o:p></p>
 
@@ -1779,12 +1774,12 @@ style='mso-spacerun:yes'> </span></p>
 <p class=MsoNormal style='text-align:justify'>The outputs are always another <span
 class=SpellE>problemDef</span> class, and a results block. The new <span
 class=SpellE>problemDef</span> class is identical to the inputted one, except
-with updated values of the fitted parameters (<span class=GramE>e.g.</span>
-after running a fit). The results block as a set of arrays containing the
-results of the calculations, such as simulated <span class=SpellE>reflectivities</span>,
-SLD profiles or parameter distributions. We will discuss more about these in
-the next chapter where we look at the outputs in more detail. Similarly, we
-will look in more detail at the input classes in chapter 2.</p>
+with updated values of the fitted parameters (e.g. after running a fit). The
+results block as a set of arrays containing the results of the calculations,
+such as simulated <span class=SpellE>reflectivities</span>, SLD profiles or
+parameter distributions. We will discuss more about these in the next chapter
+where we look at the outputs in more detail. Similarly, we will look in more detail
+at the input classes in chapter 2.</p>
 
 <p class=MsoNormal style='text-align:justify'><o:p>&nbsp;</o:p></p>
 
@@ -1802,22 +1797,22 @@ Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman
 style='mso-spacerun:yes'>  </span>It’s in <span class=SpellE>Matlab</span></i>
 – Well, yes and no! The RAT toolbox is written completely in C++ (including
 calling of custom model scripts), and so in principle can be called from any
-language. <span class=GramE>So</span> for each case, we have the input classes
-and scripts (<span class=SpellE>Matlab</span> in our example), which are then
-parsed into a form that C++ understands (’<span class=SpellE>mex</span>’
-interface for <span class=SpellE>Matlab</span>). The C++ carries out the
-calculation, and then the reverse happens, where the output from the C++
-calculation is converted back to a <span class=SpellE>Matlab</span> format. This
-collection of input classes and routines for communicating between <span
-class=SpellE>Matlab</span> and the underlying C++ are called the ‘<span
-class=SpellE>Matlab</span> API’. <span class=GramE>This manual details</span>
-the use of the <span class=SpellE>Matlab</span> API to use RAT. However, the
-scheme in figure 1.2 could just as easily be for any language. So, some Python
-versions of the <span class=SpellE>problemDef</span> classes, along with some
-interface routines to communicate between Python and C++ would constitute a
-Python API for this toolbox. We are planning to provide four choices of API for
-RAT: <span class=SpellE>Matlab</span>, Octave, Python and Java. For the first
-release, only the <span class=SpellE>Matlab</span> API is currently available.</p>
+language. So for each case, we have the input classes and scripts (<span
+class=SpellE>Matlab</span> in our example), which are then parsed into a form
+that C++ understands (’<span class=SpellE>mex</span>’ interface for <span
+class=SpellE>Matlab</span>). The C++ carries out the calculation, and then the
+reverse happens, where the output from the C++ calculation is converted back to
+a <span class=SpellE>Matlab</span> format. This collection of input classes and
+routines for communicating between <span class=SpellE>Matlab</span> and the
+underlying C++ are called the ‘<span class=SpellE>Matlab</span> API’. This
+manual details the use of the <span class=SpellE>Matlab</span> API to use RAT.
+However, the scheme in figure 1.2 could just as easily be for any language. So,
+some Python versions of the <span class=SpellE>problemDef</span> classes, along
+with some interface routines to communicate between Python and C++ would
+constitute a Python API for this toolbox. We are planning to provide four
+choices of API for RAT: <span class=SpellE>Matlab</span>, Octave, Python and
+Java. For the first release, only the <span class=SpellE>Matlab</span> API is
+currently available.</p>
 
 <p class=MsoNormal style='margin-left:21.3pt;text-align:justify'><o:p>&nbsp;</o:p></p>
 
@@ -1906,11 +1901,11 @@ analyse simultaneously.<i><o:p></o:p></i></span></p>
 <p class=Text style='text-align:justify'><span style='font-size:12.0pt;
 font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:
 minor-latin;mso-bidi-theme-font:minor-latin'>In terms of reflectivity, the
-interface we want to model (<span class=GramE>i.e.</span> a monolayer at an
-air-water interface) is usually well <span class=SpellE>modeled</span> by two
-layers: the hydrophobic tail regions of the lipids, which locate outside the
-bulk water interface, and the hydrophilic heads <span class=SpellE>wich</span>
-are adjacent (or embedded) in the bulk aqueous phase. <o:p></o:p></span></p>
+interface we want to model (i.e. a monolayer at an air-water interface) is
+usually well <span class=SpellE>modeled</span> by two layers: the hydrophobic
+tail regions of the lipids, which locate outside the bulk water interface, and
+the hydrophilic heads <span class=SpellE>wich</span> are adjacent (or embedded)
+in the bulk aqueous phase. <o:p></o:p></span></p>
 
 <p class=Text style='text-align:justify'><span style='font-size:12.0pt;
 font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:
@@ -2601,21 +2596,21 @@ style='mso-spacerun:yes'>    </span><strong><span style='font-family:Menlo'>_
 </span>&quot;Simulation&quot;<span style='mso-spacerun:yes'>               
 </span>&quot;No Data&quot;<span style='mso-spacerun:yes'>                
 </span>&quot;-&quot;<span style='mso-spacerun:yes'>                     
-</span>&quot;[ <span class=GramE>0.0050 ,</span> 0.7000 ]&quot;<o:p></o:p></span></p>
+</span>&quot;[ 0.0050 , 0.7000 ]&quot;<o:p></o:p></span></p>
 
 <p class=MsoNormal><span style='font-size:5.5pt;font-family:Menlo;mso-fareast-font-family:
 "Times New Roman";color:#404040'><span style='mso-spacerun:yes'>   
 </span>&quot;H-tail / D-head / ACMW&quot;<span style='mso-spacerun:yes'>   
 </span>&quot;Data array: [51 x 3]&quot;<span style='mso-spacerun:yes'>   
-</span>&quot;[ <span class=GramE>0.0518 ,</span> 0.5888 ]&quot;<span
-style='mso-spacerun:yes'>    </span>&quot;[ 0.0050 , 0.7000 ]&quot;<o:p></o:p></span></p>
+</span>&quot;[ 0.0518 , 0.5888 ]&quot;<span style='mso-spacerun:yes'>   
+</span>&quot;[ 0.0050 , 0.7000 ]&quot;<o:p></o:p></span></p>
 
 <p class=MsoNormal><span style='font-size:5.5pt;font-family:Menlo;mso-fareast-font-family:
 "Times New Roman";color:#404040'><span style='mso-spacerun:yes'>   
 </span>&quot;D-tail / H-head / D2O&quot;<span style='mso-spacerun:yes'>    
 </span>&quot;Data array: [51 x 3]&quot;<span style='mso-spacerun:yes'>   
-</span>&quot;[ <span class=GramE>0.0518 ,</span> 0.5888 ]&quot;<span
-style='mso-spacerun:yes'>    </span>&quot;[ 0.0050 , 0.7000 ]&quot;<o:p></o:p></span></p>
+</span>&quot;[ 0.0518 , 0.5888 ]&quot;<span style='mso-spacerun:yes'>   
+</span>&quot;[ 0.0050 , 0.7000 ]&quot;<o:p></o:p></span></p>
 
 <p class=MsoNormal><span style='font-size:5.5pt;font-family:Menlo;mso-fareast-font-family:
 "Times New Roman";color:#404040'><o:p>&nbsp;</o:p></span></p>
@@ -2764,12 +2759,12 @@ minor-latin'><o:p>&nbsp;</o:p></span></p>
 <p class=Text style='text-align:justify'><span style='font-size:12.0pt;
 font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:
 minor-latin;mso-bidi-theme-font:minor-latin'>This may initially look quite
-complicated, but it is <span class=GramE>fairly <span class=SpellE>self</span></span><span
-class=SpellE> explanatory</span> in terms of representing a typical <span
-class=SpellE>RasCAL</span> model (and should make sense to anyone familiar to
-the <span class=SpellE>RasCAL</span> <span class=SpellE>gui</span>, with some
-thought). The various aspects of the model definition are grouped together,
-then eventually combined to make our contrasts. These groups are:<o:p></o:p></span></p>
+complicated, but it is fairly <span class=SpellE>self explanatory</span> in
+terms of representing a typical <span class=SpellE>RasCAL</span> model (and
+should make sense to anyone familiar to the <span class=SpellE>RasCAL</span> <span
+class=SpellE>gui</span>, with some thought). The various aspects of the model
+definition are grouped together, then eventually combined to make our
+contrasts. These groups are:<o:p></o:p></span></p>
 
 <p class=Text style='text-align:justify'><i><span style='font-size:12.0pt;
 font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:
@@ -2778,10 +2773,10 @@ style='font-size:12.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
 minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-theme-font:minor-latin'> –
 This block defines all the parameters that we need to specify our model. In our
 layers case, we need 10 parameters to define our system: A bulk interface
-roughness, <span class=GramE>thickness’</span> and roughness for the headgroups
-and tails, and SLD values for the layers, depending on whether they are
-deuterated or not. In this block we also define the parameter values and their
-allowed ranges, and specify if they are included in the <span class=GramE>fit:-</span><o:p></o:p></span></p>
+roughness, thickness’ and roughness for the headgroups and tails, and SLD
+values for the layers, depending on whether they are deuterated or not. In this
+block we also define the parameter values and their allowed ranges, and specify
+if they are included in the fit:-<o:p></o:p></span></p>
 
 <p class=Text align=center style='text-align:center'><span style='font-size:
 12.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;
@@ -2831,25 +2826,24 @@ style='mso-spacerun:yes'> </span>‘Instrument’ Parameters: (Backgrounds, <sp
 class=SpellE>scalefactors</span> and resolutions) – </span></i><span
 style='font-size:12.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
 minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-theme-font:minor-latin'>These
-are necessary to specify our <span class=GramE>model, and</span> are specified
-in much the same way as the parameters. The <span class=SpellE>backround</span>
-and resolutions blocks have a more complicated format to allow flexibility in
-how these are specified, which will be discussed further in chapter 2. These
-are the parameters that appear in the ‘experimental Parameters’ tab of the
-RasCAl1 model <span class=GramE>builder, and</span> are subsequently included
-in the definitions of the contrasts at the end of the worksheet.<o:p></o:p></span></p>
+are necessary to specify our model, and are specified in much the same way as
+the parameters. The <span class=SpellE>backround</span> and resolutions blocks
+have a more complicated format to allow flexibility in how these are specified,
+which will be discussed further in chapter 2. These are the parameters that
+appear in the ‘experimental Parameters’ tab of the RasCAl1 model builder, and
+are subsequently included in the definitions of the contrasts at the end of the
+worksheet.<o:p></o:p></span></p>
 
 <p class=Text style='text-align:justify'><i><span style='font-size:12.0pt;
 font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:
 minor-latin;mso-bidi-theme-font:minor-latin'>Data</span></i><span
 style='font-size:12.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
 minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-theme-font:minor-latin'> –
-Each contrast <span class=GramE>has to</span> have a dataset associated with
-it, whether or not this is contains data or not. An empty data object (<span
-class=GramE>i.e.</span> containing no data and just simulation ranges), means
-RAT will calculate the reflectivity only. When data is present, chi-squared
-will also be calculated. For our problem, we have two <span class=GramE>datasets</span>
-and these are coded in to the data block ready to be incorporated into
+Each contrast has to have a dataset associated with it, whether or not this is
+contains data or not. An empty data object (i.e. containing no data and just
+simulation ranges), means RAT will calculate the reflectivity only. When data
+is present, chi-squared will also be calculated. For our problem, we have two
+datasets and these are coded in to the data block ready to be incorporated into
 contrasts:<o:p></o:p></span></p>
 
 <p class=Text><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
@@ -2872,8 +2866,8 @@ style='font-size:12.0pt;font-family:"Calibri",sans-serif;mso-ascii-theme-font:
 minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-theme-font:minor-latin'>
 – Once we have defined all the components of our model, we need to group them
 together into contrasts. We have two datasets we want to consider, so two
-contrasts. We have the relevant instrument parameters, and <span class=GramE>also</span>
-we specify which layers are included in each contrast (‘model’). <o:p></o:p></span></p>
+contrasts. We have the relevant instrument parameters, and also we specify
+which layers are included in each contrast (‘model’). <o:p></o:p></span></p>
 
 <p class=Text style='text-align:justify'><span style='font-size:12.0pt;
 font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:
@@ -2920,13 +2914,13 @@ minor-latin;mso-bidi-theme-font:minor-latin'><o:p>&nbsp;</o:p></span></p>
 <p class=Text style='text-align:justify'><span style='font-size:12.0pt;
 font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:
 minor-latin;mso-bidi-theme-font:minor-latin'>This makes an instance of the <span
-class=SpellE>controlsDef</span> class we have called ‘<span class=GramE>controls’</span>.
-The various properties of the class allow the type of calculation to be
-specified, in terms of parallelisation, choice of algorithm to be applied and
-so on. Here we are specifying a single threaded calculation of our <span
-class=SpellE>reflectivities</span> only (the default) – in other words we are
-not asking RAT to do any kind of fit with our parameters. We can now send or
-problem definition and controls classes to the RAT toolbox:<o:p></o:p></span></p>
+class=SpellE>controlsDef</span> class we have called ‘controls’. The various
+properties of the class allow the type of calculation to be specified, in terms
+of parallelisation, choice of algorithm to be applied and so on. Here we are
+specifying a single threaded calculation of our <span class=SpellE>reflectivities</span>
+only (the default) – in other words we are not asking RAT to do any kind of fit
+with our parameters. We can now send or problem definition and controls classes
+to the RAT toolbox:<o:p></o:p></span></p>
 
 <p class=Text><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-theme-font:
@@ -2965,8 +2959,7 @@ font-family:"Calibri",sans-serif;mso-ascii-theme-font:minor-latin;mso-hansi-them
 minor-latin;mso-bidi-theme-font:minor-latin'><span
 style='mso-spacerun:yes'> </span>Once we’ve run our model through RAT, then the
 second output (we call ‘results’ here) is an array which contains the output of
-the calculation (we will discuss this in more detail in chapter 4<span
-class=GramE>) :</span><o:p></o:p></span></p>
+the calculation (we will discuss this in more detail in chapter 4) :<o:p></o:p></span></p>
 
 <p class=Text><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-theme-font:
@@ -3019,20 +3012,19 @@ minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-theme-font:minor-latin'><o
 
 <p class=Text><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-theme-font:
-minor-latin'>We can see that our model is looking <span class=GramE>fairly
-sensible</span>, but that our guess values for the parameters are pretty wide
-of the mark.<o:p></o:p></span></p>
+minor-latin'>We can see that our model is looking fairly sensible, but that our
+guess values for the parameters are pretty wide of the mark.<o:p></o:p></span></p>
 
 <p class=Text><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-theme-font:
 minor-latin'>To do something more than just simulating the reflectivity, we
 change the procedure we specify in the <span class=SpellE>controlsDef</span>
-class. At the moment, <span class=SpellE><span class=GramE>controls.procedure</span></span>
-is set to ‘calculate’, which does a <span class=SpellE>one time</span>
-calculation of the reflectivity given the current parameters only. To do a fit,
-we can just change the ‘procedure’ attribute of our <span class=SpellE>controlsDef</span>
-from ‘calculate’ to ‘simplex’, which reveals a new set of parameters in the <span
-class=SpellE>controlsDef</span> <span class=GramE>block..</span> <o:p></o:p></span></p>
+class. At the moment, <span class=SpellE>controls.procedure</span> is set to
+‘calculate’, which does a <span class=SpellE>one time</span> calculation of the
+reflectivity given the current parameters only. To do a fit, we can just change
+the ‘procedure’ attribute of our <span class=SpellE>controlsDef</span> from
+‘calculate’ to ‘simplex’, which reveals a new set of parameters in the <span
+class=SpellE>controlsDef</span> block.. <o:p></o:p></span></p>
 
 <p class=Text><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
 mso-ascii-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-theme-font:

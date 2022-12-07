@@ -20,6 +20,7 @@ classdef ratPmLogFunc
             control = obj.controls;
             cells = obj.problemDef_cells;
             limits = obj.problemDef_limits;
+            priors = obj.priors;
             
             problem.fitpars = pars;
             
@@ -38,12 +39,14 @@ classdef ratPmLogFunc
                 disp('Strange output value here');
             end
             
-            % Now apply the priors where necessary. Try multiplying by the
-            % prior for each parameter
-            for i = 1:obj.NDIM
-                
-                
-            end
+            % Now apply the priors where necessary. 
+            priorfun = @(th,mu,sig) sum(((th-mu)./sig).^2);
+
+            val = priorfun(problem.fitpars,priors(:,1),priors(:,2));
+
+            logFuncVal = logFuncVal - log(val);
+
+            %end
             
 
         end   

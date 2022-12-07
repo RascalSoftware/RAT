@@ -7,28 +7,30 @@ rng('default');
 % Split problem using the routines from RAT..
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(problem,inputControls);
 
-controls.para = 'points';
+%controls.para = 'points';
 
 % Make an instance of the paramonte objective function class
 logFunc = ratPmLogFunc();
 
-[problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
+[problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemDef_cells,problemDef_limits,priors,controls.checks);
 nDims = length(problemDef.fitpars);
 testPars = problemDef.fitpars;
-
 
 % Scale the parameters
 problemDef = scalePars(problemDef);
 
+% Also need to scale the priors...
+%scaledPriors = scalePriors(problemDef,fitPriors);
+
 logFunc.problemDef = problemDef;
 logFunc.problemDef_cells = problemDef_cells;
 logFunc.problemDef_limits = problemDef_limits;
-logFunc.priors = priors;
+logFunc.priors = fitPriors; %scaledPriors;
 logFunc.controls = controls;
 logFunc.NDIM = nDims;
 logFunc.scaled = true;
 
-% Create a laraMonte object
+% Create a paraMonte object
 pm = paramonte();
 
 % create a ParaDRAM simulation object
@@ -47,16 +49,17 @@ end
 %     pmpd.spec.startPointVec = problemDef.fitpars;   % Maybe dependent on scaling?
 % end
 
-if isfield(pmPars,'burninAdapt')
-    pmpd.spec.burninAdaptationMeasure = pmpd.burnInAdapt;
-end
+% if isfield(pmPars,'burninAdapt')
+%     pmpd.spec.burninAdaptationMeasure = pmPars.burninAdapt;
+% end
 
 if isfield(pmPars,'delayedRejectionCount')
     pmpd.spec.delayedRejectionCount = pmPars.delayedRejectionCount;
 end
 
 name = pmPars.name;
-pmpd.spec.outputFileName = sprintf("./paramonte_out/%s",name); 
+pmpd.reportEnabled = false;
+pmpd.spec.outputFileName = sprintf("./paramonte_out/%s_%s",name,datestr(now)); 
 pmpd.spec.domainLowerLimitVec = scaledMins;%problemDef.fitconstr(:,1);
 pmpd.spec.domainUpperLimitVec = scaledMaxs;%problemDef.fitconstr(:,2);
 pmpd.spec.overwriteRequested = true;
@@ -78,8 +81,7 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
                 , @logFunc.get  ... the objective function
                 );
             
-            
-            
+
 [outProblemDef,results] = processParamonteRuns(problem,inputControls,pmPars.name,pmPars.chainTrim);    
         
 

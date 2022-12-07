@@ -34,6 +34,8 @@ Project Class has lot of other classes that help create objects for inputs. They
     1. They are all called from Project Class.
     2. Methods to add or remove or change an attribute depending on the class.
     3. Methods to find the location based on input value. Finding row when given an atrribute's name or vice versa (Not all of them though). 
+	4. Display methods
+	5. A 'toStruct' method which output the class parameters as a struct.
 
 
 

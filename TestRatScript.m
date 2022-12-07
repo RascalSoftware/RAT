@@ -1,14 +1,15 @@
-% parpool();
-% addRatPaths;
-% reflectivity_calculation_compile_script;
-% suite = matlab.unittest.TestSuite.fromFolder('./testSuite');
-% results = run(suite)
-% SHUT DOWN PARALLEL POOL AFTER 
-
 % TESTING CODE
-
-
 import matlab.unittest.TestSuite;
+import matlab.unittest.plugins.CodeCoveragePlugin
+import matlab.unittest.plugins.codecoverage.CoverageReport
+
+sourceCodeFolder = ["API", "targetFunctions"];
+reportFolder = "htmlcov";
+reportFormat = CoverageReport(reportFolder);
+p = CodeCoveragePlugin.forFolder(sourceCodeFolder, ...
+                                 "Producing", reportFormat, ...
+                                 "IncludingSubfolders", true);
+
 disp('Starting Parallel Pool')
 % if parallel pool has already been started, continue with it
 if isempty(gcp('nocreate'))
@@ -23,17 +24,14 @@ disp('Adding paths Initiated')
 addRatPaths;
 disp('Adding paths Completed')
 disp('Compiling RAT to mex Initiated')
-% if reflectivity calculation has failed while compiling, try again
-% try
-% %     reflectivity_calculation_compile_script;
-% catch
-% %     disp('Compiling RAT to mex Failed once!')
-% %     disp('Trying again')
-% %     reflectivity_calculation_compile_script;
-% end
 disp('Compiling RAT to mex Completed')
 
-allTests  = TestSuite.fromFolder('testSuite','IncludingSubfolders', true);
+allTests = TestSuite.fromFolder('testSuite','IncludingSubfolders', true);
 disp('Running unitTests')
-run(allTests)
+runner = testrunner;
+runner.addPlugin(p)
+result = run(runner, allTests);
+if(any(arrayfun(@(x) x.Failed, result)))
+    error('Test failed');
+end
 disp('Unit Testing Complete')

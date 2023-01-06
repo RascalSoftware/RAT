@@ -15,10 +15,13 @@ desktop.ini
 htmlcov/
 
 # Build
-_build/
 -lang
 codegen/
 *.mexa64
 *.mexw64
 *.mlappinstall
 *.mltbx
+_build/
+docs/build/
+docs/.buildinfo
+docs/*.inv

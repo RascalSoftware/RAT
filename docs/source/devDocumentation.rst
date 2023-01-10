@@ -7,7 +7,7 @@ Developer Documentation
 This documentation is intented towards developers who wish to understand how RAT's core workflow works and all the different components of the software. 
 The following picture shows the core workflow of RAT.
 
-.. image:: ./toolbox.png
+.. image:: images/toolbox.png
    :alt: RAT's core workflow
 
 Unit Testing 
@@ -154,7 +154,7 @@ Click on the link below to see the code.
 
 `Additional Documentation`_
 
-.. _Additional Documentation: ../m2htmlGeneratedDocs/index.html
+.. _Additional Documentation: ./api_reference/index.html
 
 Dependency Graph
 -----------------
@@ -165,7 +165,7 @@ Click on the "Graph" to see the dependency graph.
 
 `Graph`_
 
-.. _Graph: ../m2htmlGeneratedDocs/graph.html
+.. _Graph: ./api_reference/graph.html
 
 
 

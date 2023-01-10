@@ -1,7 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  hdrload [URL="hdrload.html"];
-  r1ToDomainsClass [URL="r1ToDomainsClass.html"];
-  r1ToProjectClass [URL="r1ToProjectClass.html"];
-}

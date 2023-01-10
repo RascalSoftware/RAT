@@ -72,7 +72,7 @@ Loop Cpp Custlay Wrapper (Single,Points,Contrasts)
 Loop Matlab Custom Wrapper (Single,Points,Contrasts)
 #####################################################
 
-.. automodule:: targetFunctions.common.loopMatlabCustomLayers
+.. automodule:: targetFunctions.common.loopMatlabCustomLayers.mexCompile
 
 .. autofunction:: loopMatalbCustlayWrapper_CustLaycontrast
 
@@ -90,7 +90,7 @@ Shift Data
 Standard Target Functions (StandardTF)
 -----------------------------------------
 
-.. image:: ./standTF.png
+.. image:: images/standTF.png
 
 
 1. **Standard Layers (StanLay)**

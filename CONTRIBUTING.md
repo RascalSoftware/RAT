@@ -20,7 +20,8 @@ And finally create a separate branch to begin work
 
     git checkout -b new-feature
 
-Once feature is complete submit a [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) via GitHub. 
+Commit changes with brief but clear commit messages and once feature is complete submit a 
+[pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) via GitHub. 
 Ensure to rebase your branch to include the latest changes on your branch and resolve possible merge conflicts.
 
 

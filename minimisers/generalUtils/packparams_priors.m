@@ -174,7 +174,7 @@ for n = 1:length(checks.nbsubs_fitYesNo)
         fitNames{fitCounter} = problemDef_cells{12}{n};
         thisPrior = priors.nbsPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
-            thisGausPrior = [thisPrior{4} thisPrior{5}];
+            thisGausPrior = [thisPrior{3} thisPrior{4}];
         else
             thisGausPrior = [0 Inf];
         end

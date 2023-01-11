@@ -25,7 +25,8 @@ copyright = '2022, Arwel Hughes,Sethu Pastula'
 author = 'Arwel Hughes,Sethu Pastula'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+with open(os.path.join(matlab_src_dir, 'version.txt'), 'r') as version_file:
+    release = version_file.read()
 
 # -- General configuration ---------------------------------------------------
 extensions = ['sphinxcontrib.matlab', 'sphinx.ext.autodoc', 'sphinx_design']

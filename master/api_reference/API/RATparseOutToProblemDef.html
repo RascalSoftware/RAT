@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of RATparseOutToProblemDef</title>
+  <meta name="keywords" content="RATparseOutToProblemDef">
+  <meta name="description" content="Reconstruct the problemDef class as an output">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # API -->
+<h1>RATparseOutToProblemDef
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Reconstruct the problemDef class as an output</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function outProblemDef = RATparseOutToProblemDef(inProblem,problemDef_cells,problemDef_limits,result,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">Reconstruct the problemDef class as an output
+Using the outputs from the calculation(s)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function outProblemDef = RATparseOutToProblemDef(inProblem,problemDef_cells,problemDef_limits,result,controls)</a>
+0002 
+0003 <span class="comment">%Reconstruct the problemDef class as an output</span>
+0004 <span class="comment">%Using the outputs from the calculation(s)</span>
+0005 outProblemDef = problemDef;
+0006 checks = controls.checks;
+0007 
+0008 <span class="comment">%(1) Parameters</span>
+0009 pars = inProblem.params;
+0010 numberOfParameters = length(pars);
+0011 
+0012 outProblemDef.nParams = numberOfParameters;
+0013 outProblemDef.params = pars;
+0014 
+0015 names = problemDef_cells{7};
+0016 outProblemDef.paramNames = names;
+0017 
+0018 limits = problemDef_limits.params;
+0019 
+0020 <span class="keyword">for</span> i = 1:numberOfParameters
+0021     outProblemDef.paramConstr{i} = limits(i,:);
+0022 <span class="keyword">end</span>
+0023 
+0024 outProblemDef.paramFitYesNo = checks.params_fitYesNo;
+0025 
+0026 
+0027 
+0028 <span class="comment">%(2) Backgrounds</span>
+0029 backs = inProblem.backs;
+0030 numberOfBacks = length(backs);
+0031 
+0032 outProblemDef.nBackgrounds = numberOfBacks;
+0033 outProblemDef.backgrounds = backs;
+0034 
+0035 backNames = problemDef_cells{8};
+0036 outProblemDef.backgroundNames = backNames;
+0037 
+0038 backsLimits = problemDef_limits.backs;
+0039 <span class="keyword">for</span> i = 1:numberOfBacks
+0040     outProblemDef.backgroundConstr{i} = limits(i,:);
+0041 <span class="keyword">end</span>
+0042 
+0043 outProblemDef.backgroundFitYesNo = checks.backs_fitYesNo;
+0044 
+0045 
+0046 
+0047 <span class="comment">%(3) Scalefactors</span>
+0048 scales = inProblem.sf;
+0049 numberOfScales = length(scales);
+0050 
+0051 outProblemDef.nScalefactors = numberOfScales;
+0052 outProblemDef.scalefactors = scales;
+0053 
+0054 scaleNames = problemDef_cells{9};
+0055 outProblemDef.scalefactorNames = scaleNames;
+0056 
+0057 scaleLimits = problemDef_limits.scales;
+0058 <span class="keyword">for</span> i = 1:numberOfScales
+0059     outProblemDef.scalefactorConstr{i} = scaleLimits(i,:);
+0060 <span class="keyword">end</span>
+0061 
+0062 outProblemDef.scalefactorFitYesNo = checks.scales_fitYesNo;
+0063 
+0064 
+0065 <span class="comment">%(4) Qzshifts</span>
+0066 shifts = inProblem.shifts;
+0067 numberOfShifts = length(shifts);
+0068 
+0069 outProblemDef.nQzshifts = numberOfShifts;
+0070 outProblemDef.qzshifts = shifts;
+0071 
+0072 shiftNames = problemDef_cells{10};
+0073 outProblemDef.qzshiftNames = shiftNames;
+0074 
+0075 shiftLimits = problemDef_limits.shifts;
+0076 <span class="keyword">for</span> i = 1:numberOfShifts
+0077     outProblemDef.qzshiftConstr{i} = shiftLimits(i,:);
+0078 <span class="keyword">end</span>
+0079 outProblemDef.qzshiftFitYesNo = checks.shifts_fitYesNo;
+0080 
+0081 
+0082 <span class="comment">%(4) Nbairs</span>
+0083 nbairs = inProblem.nba;
+0084 numberOfNbairs = length(nbairs);
+0085 
+0086 outProblemDef.nNbairs = numberOfNbairs;
+0087 outProblemDef.nbairs = nbairs;
+0088 
+0089 nbairNames = problemDef_cells{11};
+0090 outProblemDef.nbairNames = nbairNames;
+0091 
+0092 nbairLimits = problemDef_limits.nba;
+0093 <span class="keyword">for</span> i = 1:numberOfNbairs
+0094     outProblemDef.nbairConstr{i} = nbairLimits(i,:);
+0095 <span class="keyword">end</span>
+0096 outProblemDef.nbairFitYesNo = checks.nbairs_fitYesNo;
+0097 
+0098 
+0099 <span class="comment">%(5) Nbsubs</span>
+0100 nbsubs = inProblem.nbs;
+0101 numberOfNbsubs = length(nbsubs);
+0102 
+0103 outProblemDef.nNbsubs = numberOfNbsubs;
+0104 outProblemDef.nbsubs = nbsubs;
+0105 
+0106 nbsubsNames = problemDef_cells{12};
+0107 outProblemDef.nbsubNames = nbsubsNames;
+0108 
+0109 nbsubLimits = problemDef_limits.nbs;
+0110 <span class="keyword">for</span> i = 1:numberOfNbsubs
+0111     outProblemDef.nbsubConstr{i} = nbsubLimits(i,:);
+0112 <span class="keyword">end</span>
+0113 outProblemDef.nbsubFitYesNo = checks.nbsubs_fitYesNo;
+0114 
+0115 
+0116 <span class="comment">%(5) Resolutions</span>
+0117 resol = inProblem.res;
+0118 numberOfResols = length(resol);
+0119 
+0120 outProblemDef.nResolutions = numberOfResols;
+0121 outProblemDef.resolutions = resol;
+0122 
+0123 resolNames = problemDef_cells{13};
+0124 outProblemDef.resolutionNames = resolNames;
+0125 
+0126 resolLimits = problemDef_limits.res;
+0127 <span class="keyword">for</span> i = 1:numberOfResols
+0128     outProblemDef.resolutionConstr{i} = resolLimits(i,:);
+0129 <span class="keyword">end</span>
+0130 outProblemDef.resolutionFitYesNo = checks.resol_fitYesNo;
+0131 
+0132 
+0133 <span class="comment">%Contrasts.</span>
+0134 <span class="comment">% These we can just build from the relevant problemDef_cells</span>
+0135 <span class="comment">% by doing the opposite of the input class parsing...</span>
+0136 
+0137 <span class="comment">% problemDef_cells{1} = repeatLayers;</span>
+0138 <span class="comment">% problemDef_cells{2} = allData;</span>
+0139 <span class="comment">% problemDef_cells{3} = dataLimits;</span>
+0140 <span class="comment">% problemDef_cells{4} = simLimits;</span>
+0141 <span class="comment">% problemDef_cells{5} = contrastLayers;</span>
+0142 <span class="comment">% problemDef_cells{6} = layersDetails;</span>
+0143 <span class="comment">% problemDef_cells{7} = paramNames;</span>
+0144 <span class="comment">% problemDef_cells{8} = backsNames;</span>
+0145 <span class="comment">% problemDef_cells{9} = sfNames;</span>
+0146 <span class="comment">% problemDef_cells{10} = shiftsNames;</span>
+0147 <span class="comment">% problemDef_cells{11} = nbaNames;</span>
+0148 <span class="comment">% problemDef_cells{12} = nbsNames;</span>
+0149 <span class="comment">% problemDef_cells{13} = resolNames;</span>
+0150 
+0151 disp(<span class="string">'debug'</span>);
+0152 
+0153 
+0154 
+0155 
+0156 
+0157 
+0158 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
+</body>
+</html>

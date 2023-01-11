@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architectural Decision Records &mdash; RAT 0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/design-tabs.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User Documentation" href="userDocumentation.html" />
+    <link rel="prev" title="Developer Documentation" href="devDocumentation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> RAT
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">RAT Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="sourceCodeLayout.html">Source Code Layout</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="targetFunctions.html">Target Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devDocumentation.html">Developer Documentation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Architectural Decision Records</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#alexandrian-pattern"><strong>Alexandrian pattern</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specifics">Specifics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#decision-record-1-using-anvil-as-a-webhook-and-pull-request-trigger-for-merge-checks">Decision Record 1: Using Anvil as a webhook and Pull Request trigger for merge checks</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction-1">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specifics-1">Specifics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#consequences">Consequences</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#decision-record-2-converting-matlab-code-to-c">Decision Record 2: Converting MATLAB code to C++</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction-2">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specifics-2">Specifics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#consequences-1">Consequences</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#decision-record-3-using-matlabs-project-environment-for-internal-matlab-workflow">Decision Record 3: Using MATLAB’s Project environment for internal MATLAB workflow</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction-3">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specifics-3">Specifics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#consequences-2">Consequences</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#decision-record-4-enabling-users-to-use-custom-scripts-from-multiple-languages">Decision Record 4: Enabling users to use custom scripts from multiple languages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction-4">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#why"><strong>Why</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Specifics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#future">Future</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#decision-record-5-increasing-error-tolerance-to-ignore-the-slight-differences-in-mex-functions-in-unit-tests">Decision Record 5: Increasing Error Tolerance to ignore the slight differences in Mex functions in Unit Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction-5">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12"><strong>Why</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how"><strong>How</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#decision-record-6-use-c-api-to-manage-custom-scripts-instead-of-c-api-for-matlab-and-back-to-c">Decision Record 6: Use C API to manage custom scripts instead of C++ API for Matlab and back to C++</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#history">History</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#update">Update:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userDocumentation.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About RAT</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RAT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="sourceCodeLayout.html">Source Code Layout</a></li>
+      <li class="breadcrumb-item active">Architectural Decision Records</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ADR.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="architectural-decision-records">
+<h1>Architectural Decision Records<a class="headerlink" href="#architectural-decision-records" title="Permalink to this heading"></a></h1>
+<section id="alexandrian-pattern">
+<h2><strong>Alexandrian pattern</strong><a class="headerlink" href="#alexandrian-pattern" title="Permalink to this heading"></a></h2>
+<section id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Prologue (Summary)</p></li>
+<li><p>Discussion (Context)</p></li>
+<li><p>Solution (Decision)</p></li>
+<li><p>Consequences (Results)</p></li>
+</ul>
+</section>
+<section id="specifics">
+<h3>Specifics<a class="headerlink" href="#specifics" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>Prologue (Summary)</p>
+<ul>
+<li><p>Statement to summarize:</p>
+<ul>
+<li><div class="line-block">
+<div class="line">In the context of (use case)</div>
+<div class="line">facing (concern)</div>
+<div class="line">we decided for (option)</div>
+<div class="line">to achieve (quality)</div>
+<div class="line">accepting (downside).</div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Discussion (Context)</p>
+<ul class="simple">
+<li><p>Explain the forces at play (technical, political, social,
+project).</p></li>
+<li><p>This is the story explaining the problem we are looking to
+resolve.</p></li>
+</ul>
+</li>
+<li><p>Solution</p>
+<ul class="simple">
+<li><p>Explain how the decision will solve the problem.</p></li>
+</ul>
+</li>
+<li><p>Consequences</p>
+<ul class="simple">
+<li><p>Explain the results of the decision over the long term.</p></li>
+<li><p>Did it work, not work, was changed, upgraded, etc.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>TLDR: This record contains justifications, reasons as to why something
+had to be done, the way it was done, and how to improve on it (as of
+July 2022)</strong></p>
+</section>
+</section>
+<section id="decision-record-1-using-anvil-as-a-webhook-and-pull-request-trigger-for-merge-checks">
+<h2>Decision Record 1: Using Anvil as a webhook and Pull Request trigger for merge checks<a class="headerlink" href="#decision-record-1-using-anvil-as-a-webhook-and-pull-request-trigger-for-merge-checks" title="Permalink to this heading"></a></h2>
+<section id="introduction-1">
+<span id="id1"></span><h3>Introduction<a class="headerlink" href="#introduction-1" title="Permalink to this heading"></a></h3>
+<p><a class="reference external" href="https://anvil.softeng-support.ac.uk/">Anvil</a> is a research software
+testing platform built by STFC (Science and Technology Facilities
+Council) to run tests on a range of platforms in an automated manner.
+Anvil is based on Jenkins, a famous DevOps tool, which helps to automate
+the mundane tasks of running tests, compilation, etc.</p>
+<p>RAT Toolbox is a CLI application in MATLAB which needs a test suite in
+an automated manner and Jenkins proved to be a worthy tool for this job
+after talks between Lamar, Martyn and Arwel.</p>
+<p>With Anvil being run on Jenkins, it is decided that Anvil is an
+excellent choice to manage the webhooks and merge checks.</p>
+</section>
+<section id="specifics-1">
+<span id="id2"></span><h3>Specifics<a class="headerlink" href="#specifics-1" title="Permalink to this heading"></a></h3>
+<section id="discussion">
+<h4>Discussion<a class="headerlink" href="#discussion" title="Permalink to this heading"></a></h4>
+<p>RAT Toolbox is going to be an open-source data analysis software for
+Neutron Reflectivity calculations. Once it has become public, it
+attracts a wide range of contributors, especially on GitHub. It is
+important that the contributors follow certain instructions to NOT break
+the code. To ensure that, every time a contributor tries to commit code
+into the repository through a pull request, it is decided that the
+repository needs to be put through a series of automated tasks to ensure
+nothing has been changed in a way that could break the code or result in
+unexpected outputs.</p>
+</section>
+<section id="solution">
+<h4>Solution<a class="headerlink" href="#solution" title="Permalink to this heading"></a></h4>
+<p>The whole thing can be automated using a Jenkins pipeline with Anvil as
+a trigger and manager for the webhooks and pull requests, respectively.
+Anvil is available to GitHub repositories as a GitHub App that can be
+‘downloaded’ into desired repositories from GitHub Marketplace. This
+allows Anvil to have proper rights and settings to tether the Pull
+Requests to an instance of Jenkins that builds the job in a freshly
+created Virtual Machine to make sure everything works in order.</p>
+</section>
+</section>
+<section id="consequences">
+<h3>Consequences<a class="headerlink" href="#consequences" title="Permalink to this heading"></a></h3>
+<p>This idea seems to be working very well for now and the foreseeable
+future as long as Anvil and its dependencies (STFC Cloud) are also
+functional. Although, occasional system-wide shutdown causes disruptions
+in availability of the nodes in which case developer needs to manually
+login to the machine to ssh back to the Jenkins instance of Anvil.
+Contact Alan Kyffin for more details on this.</p>
+</section>
+</section>
+<section id="decision-record-2-converting-matlab-code-to-c">
+<h2>Decision Record 2: Converting MATLAB code to C++<a class="headerlink" href="#decision-record-2-converting-matlab-code-to-c" title="Permalink to this heading"></a></h2>
+<section id="introduction-2">
+<span id="id3"></span><h3>Introduction<a class="headerlink" href="#introduction-2" title="Permalink to this heading"></a></h3>
+<p>RAT is made of MATLAB and so was RasCal. Arwel decided to introduce some
+major performance upgrades to RAT by converting MATLAB code base to C++.
+A MATLAB app called MATLAB Coder can be used to automatically convert
+the MATLAB code into C++ as opposed to the mundane task of
+hand-scripting MATLAB to C++.</p>
+</section>
+<section id="specifics-2">
+<span id="id4"></span><h3>Specifics<a class="headerlink" href="#specifics-2" title="Permalink to this heading"></a></h3>
+<p>“C++ averages a processing speed that is over <strong>500 times</strong> faster than
+Matlab code. Not only does this apply for this code, but this can also
+be applied for any other code comparison between Matlab and C++
+MEX-files “ (<a class="reference external" href="https://core.ac.uk/download/pdf/19152615.pdf">Andrews</a>)</p>
+<p>To be able to use C++ MEX files, MATLAB coder can integrate the
+generated code into the projects as source code, static libraries, or
+dynamic libraries. The generated code can also be packaged as a
+MEX-function for use in MATLAB. Moreover, the generated code is readable
+and portable.</p>
+</section>
+<section id="consequences-1">
+<span id="id5"></span><h3>Consequences<a class="headerlink" href="#consequences-1" title="Permalink to this heading"></a></h3>
+<p>MATLAB coder is a fantastic way to do this task, especially with great
+technical support from MathWorks. I<strong>mproved speed but introduced a
+little bit of complexity to the code.</strong> This could be a stable,
+long-standing approach to converting MATLAB code to C++, but more
+efficient converters could be on their way, especially with OpenAI’s
+<a class="reference external" href="https://www.infoq.com/news/2021/08/openai-codex/">Codex models</a></p>
+</section>
+</section>
+<section id="decision-record-3-using-matlabs-project-environment-for-internal-matlab-workflow">
+<h2>Decision Record 3: Using MATLAB’s Project environment for internal MATLAB workflow<a class="headerlink" href="#decision-record-3-using-matlabs-project-environment-for-internal-matlab-workflow" title="Permalink to this heading"></a></h2>
+<section id="introduction-3">
+<span id="id6"></span><h3>Introduction<a class="headerlink" href="#introduction-3" title="Permalink to this heading"></a></h3>
+<p>MATLAB’s Project is a scalable environment where one can manage,
+customize tasks, put all the files in one place and use version control
+from MATLAB. Using such an environment can help reduce time and effort
+in simple tasks like running tests, checks etc. So, Arwel and Sethu has
+decided to make use of this by putting RAT into this scalable project
+environment.</p>
+</section>
+<section id="specifics-3">
+<span id="id7"></span><h3>Specifics<a class="headerlink" href="#specifics-3" title="Permalink to this heading"></a></h3>
+<p>RAT has many folders with many files in it. Project environment has a
+dependency checker which analyses the relations between all the folders
+and it also helps prevent unexpected folder/file ‘moves’ which might
+bring dependency issues. Moreover, the Project environment can run tests
+which is useful, especially while working with the DevOps side. It can
+ease the process of code generation since selected files can do selected
+tasks. RAT has a file which adds folders to the path so that they can be
+accessed straight away while a program is running but this is a manual
+task. With the Project environment, the task can be automated using a
+startup file that does whatever needs to be done when the Project
+environment is instantiated. MATLAB Coder can directly accept a .prj
+(project file similar file type for Matlab Coder) and convert desired
+files to C++.</p>
+</section>
+<section id="consequences-2">
+<span id="id8"></span><h3>Consequences<a class="headerlink" href="#consequences-2" title="Permalink to this heading"></a></h3>
+<p>The Project environment eases many mundane tasks hence enabling
+automation and solving the problem of adding paths in a separate file
+and updating it as new files are being added. The Project environment is
+a relatively new feature from MATLAB, with time it can only get better
+and assist RAT with more useful tools.</p>
+<p><strong>Update</strong>: The Project does get complicated especially if a developer
+pushes one commit from the Project environment (GUI) which is,
+surprising, highly recommended and the other from the command line. It
+gets even worse as multiple commits from multiple people follow the
+same. This would cause problems of merge conflicts if one were not
+careful.</p>
+<p><strong>Update</strong>:</p>
+<p>Project env has been removed since it is too underdeveloped/too messy to
+act as a rigid base for version control and continuous integration. It
+is very prone to merge conflicts. Especially, when working from
+different OS.</p>
+</section>
+</section>
+<section id="decision-record-4-enabling-users-to-use-custom-scripts-from-multiple-languages">
+<h2>Decision Record 4: Enabling users to use custom scripts from multiple languages<a class="headerlink" href="#decision-record-4-enabling-users-to-use-custom-scripts-from-multiple-languages" title="Permalink to this heading"></a></h2>
+<section id="introduction-4">
+<span id="id9"></span><h3>Introduction<a class="headerlink" href="#introduction-4" title="Permalink to this heading"></a></h3>
+<p>The idea of custom scripts is a jail-break way of achieving extreme
+flexibility in terms of data analysis of desired inputs. Having the
+flexibility of being able to support languages like python, MATLAB and
+C++ really multiplies the users and also provides the feasibility of
+adapting to new features by simply adding those corresponding libraries
+to the code base. Irrespective of the language used, the compiler adapts
+to the language and automatically manages the compatibility issues.</p>
+</section>
+<section id="why">
+<h3><strong>Why</strong><a class="headerlink" href="#why" title="Permalink to this heading"></a></h3>
+<p>Flexibility. A user does not have to code in an unfamiliar language to
+use the software. Also, increases the user base.</p>
+</section>
+<section id="id10">
+<h3>Specifics<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<p>As of July 2022, RAT supports 2 famous languages for the custom models
+feature. Matlab and C++. The way it works is as follows:</p>
+<ol class="arabic simple">
+<li><p>Converting user’s cpp file into a .dll or .so dynamic lib (in short)</p></li>
+<li><p>Using an open-source project called dylib to help extract the user
+function from the dynamic library made by user and then pass the
+inputs to that. (Check dev docs for more)</p></li>
+<li><p>Get the outputs back.</p></li>
+</ol>
+</section>
+<section id="future">
+<h3>Future<a class="headerlink" href="#future" title="Permalink to this heading"></a></h3>
+<p>There are plans to add Python to the list of supported languages once
+the current iteration is stable enough.</p>
+</section>
+</section>
+<section id="decision-record-5-increasing-error-tolerance-to-ignore-the-slight-differences-in-mex-functions-in-unit-tests">
+<h2>Decision Record 5: Increasing Error Tolerance to ignore the slight differences in Mex functions in Unit Tests<a class="headerlink" href="#decision-record-5-increasing-error-tolerance-to-ignore-the-slight-differences-in-mex-functions-in-unit-tests" title="Permalink to this heading"></a></h2>
+<section id="introduction-5">
+<span id="id11"></span><h3>Introduction<a class="headerlink" href="#introduction-5" title="Permalink to this heading"></a></h3>
+<p>There was an error just beyond the RelTol (relative tolerance) limit set
+by Arwel which is 4.44089209850063e-15. There are 3 test cases that
+crossed the tolerance limit. One of the failed tests has an error of
+1.30104260698261e-17.</p>
+</section>
+<section id="id12">
+<h3><strong>Why</strong><a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
+<p>Such micro-errors may creep in from compilers and may vary by OS
+(Operating System) as well. Since the current experience with error
+tolerances is too limited, the ideal tolerance shall be set in the later
+stages of development.</p>
+</section>
+<section id="how">
+<h3><strong>How</strong><a class="headerlink" href="#how" title="Permalink to this heading"></a></h3>
+<p>The tolerances can be set for each test file in the testSuite folder of
+the RAT home directory. Tolerances can also be set by each test as well.
+This gives flexibility if one of the functions acts mysteriously.</p>
+</section>
+</section>
+<section id="decision-record-6-use-c-api-to-manage-custom-scripts-instead-of-c-api-for-matlab-and-back-to-c">
+<h2>Decision Record 6: Use C API to manage custom scripts instead of C++ API for Matlab and back to C++<a class="headerlink" href="#decision-record-6-use-c-api-to-manage-custom-scripts-instead-of-c-api-for-matlab-and-back-to-c" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line"><strong>Introduction</strong></div>
+</div>
+<div class="line-block">
+<div class="line">The whole RAT toolbox is <em>technically a</em> C++ codebase and in order to
+manage custom scripts from users, the RAT needs to talk to the user
+script’s language and make a connection to seek the variables from the
+script.</div>
+</div>
+<section id="history">
+<h3>History<a class="headerlink" href="#history" title="Permalink to this heading"></a></h3>
+<p>At first, Arwel and Sethu decided to create a C++ class that constructs
+MATLAB Engine pointer which can be referenced to a feval() command to
+exercise in MATLAB workspace. This feature helps us exercise user’s
+scripts and get them back to C++. The problem with this approach is that
+MATLAB Coder is internally embedded with MATLAB Data array and t<em>hese
+classes are really bad when we include engine.h as a header in our C++.</em>
+A total week of trying to make it work in multiple only concluded that
+the approach is impossible.</p>
+<div class="line-block">
+<div class="line">As a plan B, Arwel suggested Sethu to create a class that inherits
+from Handle class. This MATLAB class creates an instance of MATLAB
+Engine which can started,closed and used to execute a MATLAB function.
+This superficially looks absurd especially with executing MATLAB from
+MATLAB but the main reason to do this was to have the Handle class
+converted to a pointer with Coder’s help. Sethu and Arwel got to a
+really good stage with this and then one fine morning, Arwel found out
+that the MATLAB coder allows only one instance of handle class to go
+through which means we cannot parallelize over multiple instances.
+This meant we could not use the MATLAB class anymore.</div>
+<div class="line">This brought us to a new blended idea of using C function in C++ to
+eliminate the need for MATLAB in between. This is currently being
+worked on but god help us.</div>
+</div>
+</section>
+<section id="update">
+<h3>Update:<a class="headerlink" href="#update" title="Permalink to this heading"></a></h3>
+<p>God did help us. This method didn’t work out but this work can be used
+to compile RAT successfully! (A diff use currently being planned)</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="devDocumentation.html" class="btn btn-neutral float-left" title="Developer Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="userDocumentation.html" class="btn btn-neutral float-right" title="User Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Arwel Hughes,Sethu Pastula.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

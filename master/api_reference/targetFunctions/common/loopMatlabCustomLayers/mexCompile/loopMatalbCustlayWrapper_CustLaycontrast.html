@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of loopMatalbCustlayWrapper_CustLaycontrast</title>
+  <meta name="keywords" content="loopMatalbCustlayWrapper_CustLaycontrast">
+  <meta name="description" content="This function takes care of MATLAB Custom Layers from the User.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions --><!-- # common --><!-- # loopMatlabCustomLayers --><!-- # mexCompile -->
+<h1>loopMatalbCustlayWrapper_CustLaycontrast
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>This function takes care of MATLAB Custom Layers from the User.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [allLayers, allRoughs] = loopMatalbCustlayWrapper_CustLaycontrast(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> This function takes care of MATLAB Custom Layers from the User.
+ This function in essence calls an feval to compute matlab function.
+
+
+     INPUTS:
+
+        * cBacks  :         Which background value is associated with each contrast
+        * cShifts  :        Which qz_shift value is associated with each contrast
+        * cScales  :        Which scalefactor value is associated with each contrast
+        * cNbas  :          Which NBa value is associated with each contrast
+        * cNbss  :          Which Nbs value is associated with each contrast
+        * cRes  :           Which resolution value is associated with each contrast
+        * backs  :          List of all background values.
+        * shifts  :         List of all qz-shift values
+        * sf :              List of all scalefactor values
+        * nba :             List of all nba values
+        * nbs :             List of all nbs values
+        * res :             List of all resolution values
+        * cCustFiles :      
+        * numberOfContrasts : Number of contrasts
+        * customFiles :      Cell of all custom user script files
+        * params :           Structure of all parameters
+
+
+     OUTPUTS:
+
+        * allLayers :        Cell of all layers
+        * allRoughs :        Cell of all roughnesses
+
+ .. warning:: MEX version of relfectivity calulation uses a Matlab runtime to make feval work but if you compile to C++ source code, Coder won't compile as there is no
+              MATLAB runtime. This is a known issue. Hence, MATLAB Engine class that can open a MATLAB session externally is recommended and this is yet to done.
+ 
+ .. warning:: **BUG**: The function name must be fixed from loopMatalb to loopMatlab but it works as it now.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_paraContrasts</a>	Multi threaded version of the custom layers over reflectivity contrasts for standardTF reflectivity calculation.</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [allLayers, allRoughs] = loopMatalbCustlayWrapper_CustLaycontrast(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,</a><span class="keyword">...</span>
+0002      shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
+0003 <span class="comment">% This function takes care of MATLAB Custom Layers from the User.</span>
+0004 <span class="comment">% This function in essence calls an feval to compute matlab function.</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%     INPUTS:</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%        * cBacks  :         Which background value is associated with each contrast</span>
+0010 <span class="comment">%        * cShifts  :        Which qz_shift value is associated with each contrast</span>
+0011 <span class="comment">%        * cScales  :        Which scalefactor value is associated with each contrast</span>
+0012 <span class="comment">%        * cNbas  :          Which NBa value is associated with each contrast</span>
+0013 <span class="comment">%        * cNbss  :          Which Nbs value is associated with each contrast</span>
+0014 <span class="comment">%        * cRes  :           Which resolution value is associated with each contrast</span>
+0015 <span class="comment">%        * backs  :          List of all background values.</span>
+0016 <span class="comment">%        * shifts  :         List of all qz-shift values</span>
+0017 <span class="comment">%        * sf :              List of all scalefactor values</span>
+0018 <span class="comment">%        * nba :             List of all nba values</span>
+0019 <span class="comment">%        * nbs :             List of all nbs values</span>
+0020 <span class="comment">%        * res :             List of all resolution values</span>
+0021 <span class="comment">%        * cCustFiles :</span>
+0022 <span class="comment">%        * numberOfContrasts : Number of contrasts</span>
+0023 <span class="comment">%        * customFiles :      Cell of all custom user script files</span>
+0024 <span class="comment">%        * params :           Structure of all parameters</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">%     OUTPUTS:</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">%        * allLayers :        Cell of all layers</span>
+0030 <span class="comment">%        * allRoughs :        Cell of all roughnesses</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">% .. warning:: MEX version of relfectivity calulation uses a Matlab runtime to make feval work but if you compile to C++ source code, Coder won't compile as there is no</span>
+0033 <span class="comment">%              MATLAB runtime. This is a known issue. Hence, MATLAB Engine class that can open a MATLAB session externally is recommended and this is yet to done.</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">% .. warning:: **BUG**: The function name must be fixed from loopMatalb to loopMatlab but it works as it now.</span>
+0036  
+0037  <span class="comment">% Wrapper function for calling 'loopMatlabCustomLayers'. This wrapper is</span>
+0038  <span class="comment">% necessary to deal with typedef problems for the coder if feval is used</span>
+0039  <span class="comment">% directly from the main function</span>
+0040  tempAllLayers = cell(numberOfContrasts,1);
+0041  allLayers = cell(numberOfContrasts,1);
+0042  allRoughs = zeros(numberOfContrasts,1);
+0043  
+0044  <span class="keyword">for</span> i = 1:numberOfContrasts
+0045      allLayers{i} = [1 , 1];    <span class="comment">% Type def as double (size not important)</span>
+0046      tempAllLayers{i} = [0 0 0 0 0];
+0047  <span class="keyword">end</span>
+0048  coder.varsize(<span class="string">'tempAllLayers{:}'</span>,[10000 5],[1 1]);
+0049  
+0050  <span class="comment">% Call the Matlab parallel loop for the custom models.....</span>
+0051  <span class="comment">% We do this using feval, which automatically makes this function call</span>
+0052  <span class="comment">% only extrinsic... the loop is then handled in the matlab file (using</span>
+0053  <span class="comment">% paralell computing toolbox)</span>
+0054  [tempAllLayers, tempAllRoughs] = feval(<span class="string">'loopMatlabCustomLayers'</span>,cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,<span class="keyword">...</span>
+0055      shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+0056  
+0057  <span class="comment">% All the following is intended to be casting from mxArray's to doubles.</span>
+0058  <span class="comment">% I'm not sure if all of this is necessary, but it compiles...</span>
+0059  <span class="keyword">for</span> i = 1:numberOfContrasts
+0060      tempOut = tempAllLayers{i};
+0061      n = [0 0];
+0062      n = size(tempOut);
+0063      newOut = zeros(n);
+0064      newOut = tempOut;
+0065      allLayers{i} = newOut;
+0066  <span class="keyword">end</span>
+0067  
+0068  <span class="comment">%allLayers = tempAllLayers;</span>
+0069  allRoughs = tempAllRoughs;
+0070  
+0071 <span class="keyword">end</span>
+0072</pre></div>
+<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
+</body>
+</html>

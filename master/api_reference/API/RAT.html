@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of RAT</title>
+  <meta name="keywords" content="RAT">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # API -->
+<h1>RAT
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [outProblemDef,result] = RAT(problemDefInput,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="RAT_main.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls)">RAT_main</a>	</li><li><a href="RATparseOutToProjectClass.html" class="code" title="function outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result)">RATparseOutToProjectClass</a>	Reconstruct the problemDef class as an output</li><li><a href="RatParseClassToStructs_new.html" class="code" title="function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(inputProblemDef,inputControls)">RatParseClassToStructs_new</a>	Breaks up the classes into the relevant structures for inputting into C</li><li><a href="../API/outputFcn/defaultRatOutputFunction.html" class="code" title="function defaultRatOutputFunction(eventrc,eventdata)">defaultRatOutputFunction</a>	The default RAT output function.</li><li><a href="../API/outputFcn/ratOutputClass.html" class="code" title="">ratOutputClass</a>	</li><li><a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>	</li><li><a href="parseResultToStruct.html" class="code" title="function result = parseResultToStruct(problem,results)">parseResultToStruct</a>	</li><li><a href="../API/projectClass/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>	</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outProblemDef,result] = RAT(problemDefInput,controls)</a>
+0002 
+0003 <span class="keyword">persistent</span> isInitialised
+0004 
+0005 <span class="keyword">if</span> isempty(isInitialised)
+0006     isInitialised = false;
+0007 <span class="keyword">end</span>
+0008 
+0009 
+0010 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = <a href="RatParseClassToStructs_new.html" class="code" title="function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(inputProblemDef,inputControls)">RatParseClassToStructs_new</a>(problemDefInput,controls);
+0011 [problemDef,~] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
+0012 
+0013 <span class="comment">% %Define variable size for code generation</span>
+0014 <span class="comment">% coder.varsize('problemDef.resample',[Inf,1],[1 0]);</span>
+0015 <span class="comment">% coder.varsize('problemDef.numberOfContrasts',[1,1],[0 0]);</span>
+0016 <span class="comment">% coder.varsize('problemDef.geometry',[Inf,1],[1,0]);</span>
+0017 <span class="comment">% coder.varsize('problemDef.nbairs',[1,Inf],[0,1]);</span>
+0018 <span class="comment">% coder.varsize('problemDef.nbsubs',[1,Inf],[0,1]);</span>
+0019 <span class="comment">% coder.varsize('problemDef.contrastBacks',[1,Inf],[0,1]);</span>
+0020 <span class="comment">% coder.varsize('problemDef.contrastShifts',[1,Inf],[0,1]);</span>
+0021 <span class="comment">% coder.varsize('problemDef.contrastScales',[1,Inf],[0,1]);</span>
+0022 <span class="comment">% coder.varsize('problemDef.contrastNbas',[1,Inf],[0,1]);</span>
+0023 <span class="comment">% coder.varsize('problemDef.contrastNbss',[1,Inf],[0,1]);</span>
+0024 <span class="comment">% coder.varsize('problemDef.contrastRes',[1,Inf],[0,1]);</span>
+0025 <span class="comment">% coder.varsize('problemDef.backs',[1,Inf],[0,1]);</span>
+0026 <span class="comment">% coder.varsize('problemDef.shifts',[1,Inf],[0,1]);</span>
+0027 <span class="comment">% coder.varsize('problemDef.sf',[1,Inf],[0,1]);</span>
+0028 <span class="comment">% coder.varsize('problemDef.nba',[1,Inf],[0,1]);</span>
+0029 <span class="comment">% coder.varsize('problemDef.nbs',[1,Inf],[0,1]);</span>
+0030 <span class="comment">% coder.varsize('problemDef.res',[1,Inf],[0,1]);</span>
+0031 <span class="comment">% coder.varsize('problemDef.dataPresent',[1,Inf],[0,1]);</span>
+0032 <span class="comment">% coder.varsize('problemDef.nParams',[1,1],[0,0]);</span>
+0033 <span class="comment">% coder.varsize('problemDef.params',[1,Inf],[0,1]);</span>
+0034 <span class="comment">% coder.varsize('problemDef.numberOfLayers',[1,1],[0,0]);</span>
+0035 <span class="comment">% coder.varsize('problemDef.whichType',[1,Inf],[0,1]);</span>
+0036 <span class="comment">% coder.varsize('problemDef.fileHandle',[1,Inf],[0,1]);</span>
+0037 <span class="comment">% coder.varsize('problemDef.lang',[1,Inf],[0,1]);</span>
+0038 <span class="comment">% coder.varsize('problemDef.module',[1,Inf],[0,1]);</span>
+0039 <span class="comment">% coder.varsize('problemDef.fitpars',[Inf,1],[1,0]);</span>
+0040 <span class="comment">% coder.varsize('problemDef.otherpars',[Inf,1],[1,0]);</span>
+0041 <span class="comment">% coder.varsize('problemDef.fitconstr',[Inf,2],[1,0]);</span>
+0042 <span class="comment">% coder.varsize('problemDef.otherconstr',[Inf,2],[1,0]);</span>
+0043 
+0044 <span class="comment">% Set up the output class and events.</span>
+0045 <span class="comment">% Only do this once so it can be modified</span>
+0046 <span class="comment">% by other apps using RAT (i.e. Rascal)</span>
+0047 <span class="keyword">if</span> ~isInitialised
+0048     ratOut = <a href="../API/outputFcn/ratOutputClass.html" class="code" title="">ratOutputClass</a>();
+0049     ratListener = listener(ratOut,<span class="string">'ratUpdate'</span>,@<a href="../API/outputFcn/defaultRatOutputFunction.html" class="code" title="function defaultRatOutputFunction(eventrc,eventdata)">defaultRatOutputFunction</a>);
+0050     <span class="comment">%ratListener = listener(ratOut,'ratUpdate',@bayesAddInfoText);</span>
+0051     setappdata(0,<span class="string">'ratOut'</span>,{ratOut ; ratListener});
+0052     isInitialised = true;
+0053 
+0054 <span class="keyword">end</span>
+0055 
+0056 <span class="comment">% -------- The output fcn is not currently in use</span>
+0057 <span class="comment">%          - outputs are currently just fprintf from the</span>
+0058 <span class="comment">%            minimisers</span>
+0059 <span class="comment">% --------------------------------------------------</span>
+0060 
+0061 <span class="comment">% This creates an output class from RAT from which updates are sent.</span>
+0062 <span class="comment">% To use it, register an output function with ratOut using the listener</span>
+0063 <span class="comment">% class. To supress the default listener (outputs to command window only)</span>
+0064 <span class="comment">% being called, this must be manually deleted (delete(ratListener)).</span>
+0065 <span class="comment">% To trigger output within RAT...</span>
+0066 <span class="comment">%</span>
+0067 <span class="comment">% ratOut = getappdata(0,'ratOut');</span>
+0068 <span class="comment">% ratOutHandle = ratOut{1};</span>
+0069 <span class="comment">% ratOut.customEventData.textUpdate = 'new text';</span>
+0070 <span class="comment">% ratOut.triggerEvent;</span>
+0071 
+0072 <span class="comment">% Set controls.calCls always to 1</span>
+0073 <span class="comment">% if we are doing customXY</span>
+0074 <span class="keyword">switch</span> lower(problemDef.modelType)
+0075     <span class="keyword">case</span> <span class="string">'custom xy'</span>
+0076         controls.calcSld = 1;
+0077 <span class="keyword">end</span>
+0078 
+0079 <span class="comment">%Call the main RAT routine...</span>
+0080     
+0081 <span class="comment">% If display is not silent print a</span>
+0082 <span class="comment">% line confirminf RAT is starting</span>
+0083 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0084     <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'Starting RAT ________________________________________________________________________________________________ \n'</span>));
+0085 <span class="keyword">end</span>
+0086 
+0087 tic
+0088 [outProblemStruct,problem,result,bayesResults] = <a href="RAT_main.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls)">RAT_main</a>(problemDef,problemDef_cells,problemDef_limits,priors,controls);
+0089 <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'\n'</span>));
+0090 
+0091 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0092     toc
+0093 <span class="keyword">end</span>
+0094 
+0095 <span class="comment">% Then just do a final calculation to fill in SLD if necessary (i.e. if</span>
+0096 <span class="comment">% calSLD is no for fit)</span>
+0097 <span class="keyword">if</span> controls.calcSld == 0
+0098     originalProc = controls.proc;
+0099     controls.calcSld = 1;
+0100     controls.proc = <span class="string">'calculate'</span>;
+0101     [outProblemStruct,problem,result,~ ] = <a href="RAT_main.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,priors,controls)">RAT_main</a>(outProblemStruct,problemDef_cells,problemDef_limits,priors,controls);
+0102     controls.proc = originalProc;
+0103 <span class="keyword">end</span>
+0104 
+0105 result = <a href="parseResultToStruct.html" class="code" title="function result = parseResultToStruct(problem,results)">parseResultToStruct</a>(problem,result);
+0106 
+0107 <span class="keyword">if</span> isfield(outProblemStruct,<span class="string">'fitpars'</span>)
+0108     result.bestFitPars = outProblemStruct.fitpars;
+0109 <span class="keyword">end</span>
+0110 
+0111 <span class="keyword">if</span> any((strcmpi(controls.proc,{<span class="string">'bayes'</span>,<span class="string">'NS'</span>})))
+0112     result = <a href="../API/projectClass/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(result,bayesResults);
+0113 <span class="keyword">end</span>
+0114 
+0115 [~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
+0116 result.fitNames = fitNames;
+0117 
+0118 outProblemDef = <a href="RATparseOutToProjectClass.html" class="code" title="function outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result)">RATparseOutToProjectClass</a>(problemDefInput,outProblemStruct,problem,result);
+0119 
+0120 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0121    <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'\nFinished RAT ______________________________________________________________________________________________ \n\n'</span>));
+0122 <span class="keyword">end</span>
+0123 
+0124 <span class="keyword">end</span>
+0125 
+0126</pre></div>
+<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
+</body>
+</html>

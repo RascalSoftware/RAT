@@ -5,7 +5,7 @@ You can contribute to the Reflectivity Algorithms Toolbox (RAT) project by eithe
 
 Create Developer Environment
 ----------------------------
-The MATLAB IDE is recommended for developement, the following tollboxes are required for RAT:
+The MATLAB IDE is recommended for developement, the following toolboxes are required for RAT:
 
 - MATLAB Coder
 - MATLAB Compiler

@@ -150,7 +150,7 @@ Consequences
 ------------
 
 MATLAB coder is a fantastic way to do this task, especially with great
-technical support from MathWorks. I\ **mproved speed but introduced a
+technical support from MathWorks. **Improved speed but introduced a
 little bit of complexity to the code.** This could be a stable,
 long-standing approach to converting MATLAB code to C++, but more
 efficient converters could be on their way, especially with OpenAI’s
@@ -302,7 +302,7 @@ At first, Arwel and Sethu decided to create a C++ class that constructs
 MATLAB Engine pointer which can be referenced to a feval() command to
 exercise in MATLAB workspace. This feature helps us exercise user’s
 scripts and get them back to C++. The problem with this approach is that
-MATLAB Coder is internally embedded with MATLAB Data array and t\ *hese
+MATLAB Coder is internally embedded with MATLAB Data array and *these
 classes are really bad when we include engine.h as a header in our C++.*
 A total week of trying to make it work in multiple only concluded that
 the approach is impossible.

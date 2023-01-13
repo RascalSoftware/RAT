@@ -8,7 +8,7 @@ API
 API is the folder that contains the two main classes of RAT are. They are **Project Class** and **ControlsDef Class** and these are the classes user interacts with.  
 
 .. note::
-  The "API" name comes from the generalised view how APIs work. In this case, the API sends the information back and forth from the top level classes to targetFunctions. 
+  The "API" name comes from the generalized view how APIs work. In this case, the API sends the information back and forth from the top level classes to targetFunctions. 
 
 
 .. _ProjectClass:
@@ -33,16 +33,16 @@ Project Class has lot of other classes that help create objects for inputs. They
 
     1. They are all called from Project Class.
     2. Methods to add or remove or change an attribute depending on the class.
-    3. Methods to find the location based on input value. Finding row when given an atrribute's name or vice versa (Not all of them though). 
-    4. Display methods
-	5. A 'toStruct' method which output the class parameters as a struct.
+    3. Methods to find the location based on input value. Finding row when given an attribute's name or vice versa (Not all of them though).
+    4. Display methods.
+    5. A 'toStruct' method which output the class parameters as a struct.
 
 
 Parameters Class 
 -----------------
 
 Parameters Class helps to add,set or remove parameters to the Project Class. The class has a constructor that gets initiated when Parameter class is called. This constructor 
-sets important inital values to the class obj (object) like variable name, types. It also initiates a "table" that helps to store all the parameters. Table is a really usefull 
+sets important initial values to the class obj (object) like variable name, types. It also initiates a "table" that helps to store all the parameters. Table is a really useful 
 data type provided by matlab. Check this link to know more about `table`_.
 
 .. list-table:: The methods on the left call the methods on the right in the table.
@@ -85,7 +85,7 @@ list of parameters and adds them one by one using `addParam` method which is use
                     'Oxide thick',...           % Layer thickness
                     'Oxide SLD',...             % Layer SLD
                     'Substrate Roughness',...   % Layer roughness
-                    'Oxide Hydration',...       % Oxide hydration (precent)
+                    'Oxide Hydration',...       % Oxide hydration (percent)
                     'bulk out' };               % Which bulk phase is hydrating the layer
             
     % Add this to the projectClass...
@@ -269,7 +269,7 @@ and if so, it stores it. If not, it has proper conditional statements to pinpoin
 input .. etc. 
 
 .. code-block:: MATLAB
-    :caption: Adding data. Usually, the data is in .dat files. So, `dlmread` built-in mehtod is used to read the data into a variable.
+    :caption: Adding data. Usually, the data is in .dat files. So, `dlmread` built-in method is used to read the data into a variable.
 
         D2O_data = dlmread('c_PLP0016596.dat');
         % Add the data to the project
@@ -293,7 +293,7 @@ The custom file table has the following columns:
 3. Language of the custom file
 4. Path of the custom file
 
-If all of the 4 columns are supplied, a new row (cell array of strings) is made using the supplied inputs. Then, `apendNewRow` method is used to append the row to the obj.
+If all of the 4 columns are supplied, a new row (cell array of strings) is made using the supplied inputs. Then, `appendNewRow` method is used to append the row to the obj.
 This method takes care of the error checking and incrementing the count of the custom files. It also makes a table of the row supplied. This table helps with displaying it 
 properly on terminal.
 
@@ -315,9 +315,6 @@ properly on terminal.
 
 .. warning::
     RAT only supports C++, MATLAB, Octave and potentially Python.
-
-
-
 
 
 Contrast Class
@@ -358,12 +355,10 @@ on the type of model, the code checks whether some of contrast names are allowed
               'Bil outer head'});
 
 
-
-
 Resolution Class
 ----------------
 
-Resolutions are defined in a two stage process. Firstly, acutal fitted parameters are defined. These are held in a 'Parameter Class' table (refering to data type).
+Resolutions are defined in a two stage process. Firstly, actual fitted parameters are defined. These are held in a 'Parameter Class' table (referring to data type).
 Then,these are grouped into the resolutions themselves using a multi-type table. Then the resolution parameters can be used to either define resolution as 
 constant, data, or a function. 
 
@@ -374,9 +369,9 @@ the resolutions table and the allowed types are defined in the allowedTypes vari
 
     1. For constant only one parameter is supplied to multi-type table. 
     2. For data, the name is supplied, along with name of the data in the data table. 
-    3. For function, the function name is supplied, along with up to three parameters (from the parameters table) which are then supplied to the function to calculate the resultion. 
+    3. For function, the function name is supplied, along with up to three parameters (from the parameters table) which are then supplied to the function to calculate the resolution. 
 
-In each case, the Resultions can either be added to or subtracted from the data.
+In each case, the Resolutions can either be added to or subtracted from the data.
 
 
 .. _controlsDef:
@@ -384,7 +379,7 @@ In each case, the Resultions can either be added to or subtracted from the data.
 ControlsDef
 ============
 
-ControlsDef Class is all about control. It is neccessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
+ControlsDef Class is all about control. It is necessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
 to whether the users wants to calculate SLD during fit and even how many iteration an algorithm should do ..etc.
 
 
@@ -393,13 +388,13 @@ There are 4 different `controlsDef.procedures` that can be used with RAT. They a
 1. **Simplex** 
 2. **Differential Evolution** - Optimizes a problem by iteratively improving a candidate solution based on an evolutionary process
 3. **Nested Sampler** -  Estimates directly how the likelihood function relates to prior mass
-4. **Bayes MCMC** - used in Bayesian inference in order to generate, directly from the “not normalised part” of the posterior, samples to work with instead of dealing with intractable 
+4. **Bayes MCMC** - used in Bayesian inference in order to generate, directly from the “not normalized part” of the posterior, samples to work with instead of dealing with intractable 
    computations
 
-Each of them has their own unique set of options. The fields in class object of constrolsDef are 
+Each of them has their own unique set of options. The fields in class object of controlsDef are 
 automatically updated based on the procedure selected.
 
-RAT uses parallelization to speed up the calculation. This is acheieved using Parallel Computing Toolbox. The user can choose to use the parallelization or not and 
+RAT uses parallelization to speed up the calculation. This is achieved using Parallel Computing Toolbox. The user can choose to use the parallelization or not and 
 if yes, what to parallelize on. (Points or Contrasts or all)
 
 .. code-block:: MATLAB
@@ -433,7 +428,7 @@ After the user has defined the projectClass and controlsDef class, the user can 
 When the RAT function is called, the classes are passed into internal functions like `RatParseClassToStructs_new` which takes the classes and breaks them down into cells, 
 limits,prior and more importantly converts the project class to struct. 
 
-Then, then `RAT_main` function redirects the control flow based on what procedure is selected in controlsDef class. One of the redirecting functions will call the reflectivity_calculation_wrappper
+Then, the `RAT_main` function redirects the control flow based on what procedure is selected in controlsDef class. One of the redirecting functions will call the reflectivity_calculation_wrapper
 which starts the reflectivity calculation.
 
 

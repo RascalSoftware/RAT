@@ -6,7 +6,7 @@
   <meta name="keywords" content="standardTF_stanlay_paraAll">
   <meta name="description" content="Extract individual cell arrays">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../../m2html.css">
   <script type="text/javascript">
@@ -15,7 +15,10 @@
 </head>
 <body>
 <a name="_top"></a>
-<!-- # targetFunctions --><!-- # standard_TF --><!-- # standardTF_stanLay -->
+<!-- # targetFunctions -->
+<!-- ../menu.html standard_TF -->
+<!-- menu.html standardTF_stanLay -->
+
 <h1>standardTF_stanlay_paraAll
 </h1>
 
@@ -26,13 +29,20 @@
 <div class="box"><strong>function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraAll(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment"> Extract individual cell arrays</pre></div>
+<div class="fragment"><pre class="comment"> Extract individual cell arrays
+</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../API/RAT_parse_cells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = RAT_parse_cells(problemDef_cells)">RAT_parse_cells</a>	Splits up the master input list of all arrays into separate arrays</li><li><a href="../../../API/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>	Extract individual parameters from problemDef</li><li><a href="../../../targetFunctions/common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li><li><a href="../../../targetFunctions/common/groupLayers/allocateLayersForContrast.html" class="code" title="function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers)">allocateLayersForContrast</a>	Decide which layers are needed for a particular contrast.</li><li><a href="../../../targetFunctions/common/groupLayers/allocateParamsToLayers.html" class="code" title="function outLayers = allocateParamsToLayers(params, layersDetails)">allocateParamsToLayers</a>	Allocates parameters from the parameter array to the correct layers</li><li><a href="../../../targetFunctions/standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints,resamPars)">standardTF_layers_core</a>	This is the main reflectivity calculation for all Layers models in the</li></ul>
+<li><a href="../../../API/RAT_parse_cells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = RAT_parse_cells(problemDef_cells)">RAT_parse_cells</a>	Splits up the master input list of all arrays into separate arrays</li>
+<li><a href="../../../API/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>	Extract individual parameters from problemDef</li>
+<li><a href="../../../targetFunctions/common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
+<li><a href="../../../targetFunctions/common/groupLayers/allocateLayersForContrast.html" class="code" title="function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers)">allocateLayersForContrast</a>	Decide which layers are needed for a particular contrast.</li>
+<li><a href="../../../targetFunctions/common/groupLayers/allocateParamsToLayers.html" class="code" title="function outLayers = allocateParamsToLayers(params, layersDetails)">allocateParamsToLayers</a>	Allocates parameters from the parameter array to the correct layers</li>
+<li><a href="../../../targetFunctions/standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints,resamPars)">standardTF_layers_core</a>	This is the main reflectivity calculation for all Layers models in the</li>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 </ul>
@@ -157,7 +167,9 @@ This function is called by:
 0114     allRoughs(i) = thisRough;
 0115 <span class="keyword">end</span>
 0116 
-0117 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
+0117 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 13-Jan-2023 14:08:39 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

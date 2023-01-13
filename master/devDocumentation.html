@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Developer Documentation &mdash; RAT 0.1 documentation</title>
+  <title>Developer Documentation &mdash; RAT 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
@@ -63,7 +63,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#jenkins">Jenkins</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#stfc-cloud">STFC Cloud</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#work-flow">Work Flow</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#references-for-devs">References for Devs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#references-for-developers">References for Developers</a></li>
 </ul>
 </li>
 </ul>
@@ -103,7 +103,7 @@
              
   <section id="developer-documentation">
 <span id="devdocs"></span><h1>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Permalink to this heading"></a></h1>
-<p>This documentation is intented towards developers who wish to understand how RAT’s core workflow works and all the different components of the software.
+<p>This documentation is intended towards developers who wish to understand how RAT’s core workflow works and all the different components of the software.
 The following picture shows the core workflow of RAT.</p>
 <img alt="RAT's core workflow" src="_images/toolbox.png" />
 <section id="unit-testing">
@@ -129,7 +129,7 @@ compiling the MEX file by MATLAB Coder.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Despite tests being written in MATLAB, RAT’s unit tests also test the C++ code of RAT in a way.
-This is acheieved through comparing the outputs of mex and matlab versions of all the possible parallelizations of standardTF_reflectivityCalculation.
+This is achieved through comparing the outputs of mex and matlab versions of all the possible parallelization of standardTF_reflectivityCalculation.
 This includes the following:</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -143,37 +143,37 @@ This includes the following:</p>
 <h3>Custom Layers Functionality<a class="headerlink" href="#custom-layers-functionality" title="Permalink to this heading"></a></h3>
 <p>RAT allows users to create their own custom models and use them in the reflectivity calculations. RAT currently supports C++ and MATLAB custom models meaning users can upload
 their model in the form of a function in MATLAB. However, there is a slight complication with the C++.</p>
-<p>Inorder, to use the custom C++ model, the user needs to compile the function into a shared library (preferably using GCC) and then provide the path and name of the function inside the shared library to RAT.
+<p>In order, to use the custom C++ model, the user needs to compile the function into a shared library (preferably using GCC) and then provide the path and name of the function inside the shared library to RAT.
 The following guide will help the user to do this.</p>
 </section>
 <section id="how-does-c-custom-model-work">
 <h3>How does C++ custom model work?<a class="headerlink" href="#how-does-c-custom-model-work" title="Permalink to this heading"></a></h3>
 <p>The implementation of the custom C++ model functionality is bit complicated but the idea is simple. For sake of explanation, DLL and dynamic library are interchangeably used here.</p>
 <ol class="arabic">
-<li><p>The user submits a DLL file that has the custom C++ model in the form of a function. Our job is to get that function so we can run with the arguments from RAT. Inorder to <em>get</em>
+<li><p>The user submits a DLL file that has the custom C++ model in the form of a function. Our job is to get that function so we can run with the arguments from RAT. In order to <em>get</em>
 the file we used an open-source project called <a class="reference external" href="https://github.com/martin-olivier/dylib/">dylib</a>. dylib helps us extract the function from the DLL at runtime which means we can use the function at runtime.</p></li>
 <li><p>When the users makes the DLL, they put the <em>DYLIB_API</em> macro at the beginning of the function which exports the function.</p></li>
 <li><p>There is a class called <em>libManager.h</em> in <em>RAT/targetFunctions/common/loopCppCustlayWrapper</em> directory which opens a DLL and extracts the function when given the
 path to the DLL. Then runs the function with the arguments from RAT. This the C++ side of the implementation</p></li>
 <li><p>We need a gateway that allows MATLAB inputs to go into the C++ side of the code. This is done by creating a MEX function using MATLAB Coder. The file <em>testDLL.m</em> is compiled by
 Matlab Coder.</p>
-<p>This file basically passes the inputs from MATALB Workspace to the function from <em>libManager.h</em> which runs those inputs/arguments on the function from the DLL.</p>
+<p>This file basically passes the inputs from MATLAB Workspace to the function from <em>libManager.h</em> which runs those inputs/arguments on the function from the DLL.</p>
 </li>
 <li><p>As soon the we pass and compute the results comeback into the MATLAB workspace.</p></li>
 </ol>
-<p>The above explanation holds true for the case of MATLAB version of RAT. If this feature is being used in the compiled version of RAT (i.e setting reflectivity_calculation_wrappper case to <strong>mex</strong>),
-there’s a case statement that will treat testDLL_mex as an extrinisic function and not a MEX function as per the guidelines of MATLAB Coder.</p>
+<p>The above explanation holds true for the case of MATLAB version of RAT. If this feature is being used in the compiled version of RAT (i.e setting reflectivity_calculation_wrapper case to <strong>mex</strong>),
+there’s a case statement that will treat testDLL_mex as an extrinsic function and not a MEX function as per the guidelines of MATLAB Coder.</p>
 </section>
 <section id="how-to-create-a-custom-c-model">
 <h3>How to create a custom C++ model<a class="headerlink" href="#how-to-create-a-custom-c-model" title="Permalink to this heading"></a></h3>
 <p>1. First Step is to make sure your cpp file is error-free and follow the guidelines mentioned in this step. Your cpp file should contain your custom model and
-custom model should be a function. Inorder for RAT to fetch your custom model/function, it needs to be exported. So, you have to get <a class="reference external" href="https://github.com/martin-olivier/dylib/releases/download/v1.8.2/dylib.hpp">dylib.hpp</a> here and put <strong>DYLIB_API</strong>
-macro infront of the function name.</p>
+custom model should be a function. In order for RAT to fetch your custom model/function, it needs to be exported. So, you have to get <a class="reference external" href="https://github.com/martin-olivier/dylib/releases/download/v1.8.2/dylib.hpp">dylib.hpp</a> here and put <strong>DYLIB_API</strong>
+macro in front of the function name.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DYLIB_API</span> <span class="n">void</span> <span class="n">myCustomFunction</span><span class="p">(</span><span class="n">double</span> <span class="o">*</span><span class="n">params</span><span class="o">...</span><span class="n">etc</span><span class="o">....</span><span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>Now that you have put DYLIB_API infront of the dependencies. It is time to make a dynamic library of your model. To do this, you must follow platform specific instructions below.</p></li>
+<li><p>Now that you have put DYLIB_API in front of the dependencies. It is time to make a dynamic library of your model. To do this, you must follow platform specific instructions below.</p></li>
 </ol>
 <p>Lets say your file is called <strong>myModel.cpp</strong> and your function is called <strong>myCustomFunction</strong></p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
@@ -184,15 +184,15 @@ How to compile a shared library on Windows<div class="sd-summary-down docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text"><strong>Windows - DLL</strong></p>
-<p class="sd-card-text"><strong>Prerequites</strong>: MinGW or Microsoft Visual Studio Compiler (MSVC) but GCC is strongly suggested</p>
+<p class="sd-card-text"><strong>Prerequisites</strong>: MinGW or Microsoft Visual Studio Compiler (MSVC) but GCC is strongly suggested</p>
 <p class="sd-card-text"><strong>GCC</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++ -c myModel.cpp -o myModel.o   Generate an object file
-g++ -shared myModel.o -o myModel.dll  outputs a DLL named myModel.dll
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-c<span class="w"> </span>myModel.cpp<span class="w"> </span>-o<span class="w"> </span>myModel.o<span class="w">   </span>Generate<span class="w"> </span>an<span class="w"> </span>object<span class="w"> </span>file
+g++<span class="w"> </span>-shared<span class="w"> </span>myModel.o<span class="w"> </span>-o<span class="w"> </span>myModel.dll<span class="w">  </span>outputs<span class="w"> </span>a<span class="w"> </span>DLL<span class="w"> </span>named<span class="w"> </span>myModel.dll
 </pre></div>
 </div>
 <p class="sd-card-text"><strong>MSVC (Microsoft Visual Studio Compiler)</strong></p>
 <p class="sd-card-text">Open <em>Developer Command Prompt for Visual Studio</em></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cl.exe /LD myModel.cpp /EHsc   You should see myModel.dll <span class="k">in</span> the current directory
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cl.exe<span class="w"> </span>/LD<span class="w"> </span>myModel.cpp<span class="w"> </span>/EHsc<span class="w">   </span>You<span class="w"> </span>should<span class="w"> </span>see<span class="w"> </span>myModel.dll<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>directory
 </pre></div>
 </div>
 </div>
@@ -204,8 +204,8 @@ How to compile a shared library on Linux/IDAAS<div class="sd-summary-down docuti
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text"><strong>Linux/IDAAS  - .so</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++ -c myModel.cpp -o myModel.o -std<span class="o">=</span>c++11  Generate an object file
-g++ -shared myModel.o -o myModel.so  outputs a .so named myModel.so
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-c<span class="w"> </span>myModel.cpp<span class="w"> </span>-o<span class="w"> </span>myModel.o<span class="w"> </span>-std<span class="o">=</span>c++11<span class="w">  </span>Generate<span class="w"> </span>an<span class="w"> </span>object<span class="w"> </span>file
+g++<span class="w"> </span>-shared<span class="w"> </span>myModel.o<span class="w"> </span>-o<span class="w"> </span>myModel.so<span class="w">  </span>outputs<span class="w"> </span>a<span class="w"> </span>.so<span class="w"> </span>named<span class="w"> </span>myModel.so
 </pre></div>
 </div>
 </div>
@@ -213,7 +213,7 @@ g++ -shared myModel.o -o myModel.so  outputs a .so named myModel.so
 </section>
 <section id="additional-documentation">
 <h2>Additional Documentation<a class="headerlink" href="#additional-documentation" title="Permalink to this heading"></a></h2>
-<p>This documentation is very detailed interms of code. It contains direct links to definitions of functions involved and is helpful for developers
+<p>This documentation is very detailed in terms of code. It contains direct links to definitions of functions involved and is helpful for developers
 who want to understand how RAT works in more detail.</p>
 <p>The following documentation shows code along with visualizations.
 Click on the link below to see the code.</p>
@@ -228,7 +228,7 @@ Click on the nodes to see the documentation of the component.</p>
 </section>
 <section id="devops">
 <h2>DevOps<a class="headerlink" href="#devops" title="Permalink to this heading"></a></h2>
-<p>DevOps is extremely important for any software that needs faster deployments and easier maintaince of existing deployments and RAT is exactly that.</p>
+<p>DevOps is extremely important for any software that needs faster deployments and easier maintenance of existing deployments and RAT is exactly that.</p>
 <section id="jenkins">
 <h3>Jenkins<a class="headerlink" href="#jenkins" title="Permalink to this heading"></a></h3>
 <img alt="https://th.bing.com/th/id/OIP.GKIe0tehC6rMKoG86wMkewHaFb?w=266&amp;h=193&amp;c=7&amp;r=0&amp;o=5&amp;pid=1.7" src="https://th.bing.com/th/id/OIP.GKIe0tehC6rMKoG86wMkewHaFb?w=266&amp;h=193&amp;c=7&amp;r=0&amp;o=5&amp;pid=1.7" />
@@ -242,7 +242,7 @@ This is managed by <strong>Alan Kyffin</strong>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>These nodes must be manually logged in if there’s any disruption in the STFC network (happens usually during updates/network-wide shutdowns).
-Inorder to connect the nodes to Anvil, a command is used. This command can be obtained from Arwel Hughes.</p>
+In order to connect the nodes to Anvil, a command is used. This command can be obtained from Arwel Hughes.</p>
 </div>
 <section id="contacts">
 <h4>Contacts<a class="headerlink" href="#contacts" title="Permalink to this heading"></a></h4>
@@ -256,16 +256,16 @@ Inorder to connect the nodes to Anvil, a command is used. This command can be ob
 <h3>Work Flow<a class="headerlink" href="#work-flow" title="Permalink to this heading"></a></h3>
 <p>This section details how everything works together in the DevOps department.</p>
 <ol class="arabic simple">
-<li><p>First, there is GitHub repository at <a class="reference external" href="https://github.com/arwelHughes/RAT">RAT</a> which is source for all of the DevOps. Everytime, there’s a Pull Request (PR) or a push, Jenkins gets triggered. This is achieved
-using the Anvil Github App that recogines these changes and initiates builds.</p></li>
+<li><p>First, there is GitHub repository at <a class="reference external" href="https://github.com/arwelHughes/RAT">RAT</a> which is source for all of the DevOps. Every time, there’s a Pull Request (PR) or a push, Jenkins gets triggered. This is achieved
+using the Anvil Github App that recognizes these changes and initiates builds.</p></li>
 <li><p>When Jenkins gets triggered, usually it builds according to the “Jenkinsfile” in the repository.”Jenkinsfile” is a file that contains the instructions for Jenkins to build the project. Jenkins sends these commands to the nodes in the cloud and build/tests the project.
 If the build/test is successful, the PR or push is successful and the PR/push is merged. If the build/test is unsuccessful, the PR/push must be reviewed.</p></li>
 </ol>
 </section>
-<section id="references-for-devs">
-<h3>References for Devs<a class="headerlink" href="#references-for-devs" title="Permalink to this heading"></a></h3>
+<section id="references-for-developers">
+<h3>References for Developers<a class="headerlink" href="#references-for-developers" title="Permalink to this heading"></a></h3>
 <ol class="arabic simple">
-<li><p>Checkout the Architectural Desicion Record (ADR) for RAT. This document contains all the decisions made in the past and why they were made.
+<li><p>Checkout the Architectural Decision Record (ADR) for RAT. This document contains all the decisions made in the past and why they were made.
 This can be found in RasCal Planner in Microsoft Planner.</p></li>
 <li></li>
 </ol>

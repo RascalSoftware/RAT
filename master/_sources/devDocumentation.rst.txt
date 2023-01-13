@@ -4,7 +4,7 @@
 Developer Documentation
 ========================
 
-This documentation is intented towards developers who wish to understand how RAT's core workflow works and all the different components of the software. 
+This documentation is intended towards developers who wish to understand how RAT's core workflow works and all the different components of the software. 
 The following picture shows the core workflow of RAT.
 
 .. image:: images/toolbox.png
@@ -39,13 +39,12 @@ These unit tests are written to test the following set of functions:
 
 .. note::
       Despite tests being written in MATLAB, RAT's unit tests also test the C++ code of RAT in a way.
-      This is acheieved through comparing the outputs of mex and matlab versions of all the possible parallelizations of standardTF_reflectivityCalculation.
+      This is achieved through comparing the outputs of mex and matlab versions of all the possible parallelization of standardTF_reflectivityCalculation.
       This includes the following:
 
         1. standardTF_customLayers (Single,Points and Contrast)
         2. standard_TF_customXY (Single,Points and Contrast)
         3. standardTF_standardLayers (Single,Points and Contrast)
-
 
 
 
@@ -55,7 +54,7 @@ Custom Layers Functionality
 RAT allows users to create their own custom models and use them in the reflectivity calculations. RAT currently supports C++ and MATLAB custom models meaning users can upload
 their model in the form of a function in MATLAB. However, there is a slight complication with the C++. 
 
-Inorder, to use the custom C++ model, the user needs to compile the function into a shared library (preferably using GCC) and then provide the path and name of the function inside the shared library to RAT. 
+In order, to use the custom C++ model, the user needs to compile the function into a shared library (preferably using GCC) and then provide the path and name of the function inside the shared library to RAT. 
 The following guide will help the user to do this.
 
 
@@ -63,7 +62,7 @@ How does C++ custom model work?
 -------------------------------
 The implementation of the custom C++ model functionality is bit complicated but the idea is simple. For sake of explanation, DLL and dynamic library are interchangeably used here. 
 
-1. The user submits a DLL file that has the custom C++ model in the form of a function. Our job is to get that function so we can run with the arguments from RAT. Inorder to *get*
+1. The user submits a DLL file that has the custom C++ model in the form of a function. Our job is to get that function so we can run with the arguments from RAT. In order to *get*
    the file we used an open-source project called `dylib`_. dylib helps us extract the function from the DLL at runtime which means we can use the function at runtime. 
 
 
@@ -77,21 +76,21 @@ The implementation of the custom C++ model functionality is bit complicated but 
 4. We need a gateway that allows MATLAB inputs to go into the C++ side of the code. This is done by creating a MEX function using MATLAB Coder. The file *testDLL.m* is compiled by 
    Matlab Coder. 
    
-   This file basically passes the inputs from MATALB Workspace to the function from *libManager.h* which runs those inputs/arguments on the function from the DLL.
+   This file basically passes the inputs from MATLAB Workspace to the function from *libManager.h* which runs those inputs/arguments on the function from the DLL.
 
 
 5. As soon the we pass and compute the results comeback into the MATLAB workspace. 
 
-The above explanation holds true for the case of MATLAB version of RAT. If this feature is being used in the compiled version of RAT (i.e setting reflectivity_calculation_wrappper case to **mex**),
-there's a case statement that will treat testDLL_mex as an extrinisic function and not a MEX function as per the guidelines of MATLAB Coder.
+The above explanation holds true for the case of MATLAB version of RAT. If this feature is being used in the compiled version of RAT (i.e setting reflectivity_calculation_wrapper case to **mex**),
+there's a case statement that will treat testDLL_mex as an extrinsic function and not a MEX function as per the guidelines of MATLAB Coder.
 
 
 How to create a custom C++ model
 ---------------------------------
 
 1. First Step is to make sure your cpp file is error-free and follow the guidelines mentioned in this step. Your cpp file should contain your custom model and 
-custom model should be a function. Inorder for RAT to fetch your custom model/function, it needs to be exported. So, you have to get `dylib.hpp`_ here and put **DYLIB_API** 
-macro infront of the function name.
+custom model should be a function. In order for RAT to fetch your custom model/function, it needs to be exported. So, you have to get `dylib.hpp`_ here and put **DYLIB_API** 
+macro in front of the function name.
 
 .. _dylib.hpp: https://github.com/martin-olivier/dylib/releases/download/v1.8.2/dylib.hpp
 
@@ -102,7 +101,7 @@ macro infront of the function name.
         DYLIB_API void myCustomFunction(double *params...etc....)
 
 
-2. Now that you have put DYLIB_API infront of the dependencies. It is time to make a dynamic library of your model. To do this, you must follow platform specific instructions below.
+2. Now that you have put DYLIB_API in front of the dependencies. It is time to make a dynamic library of your model. To do this, you must follow platform specific instructions below.
 
 Lets say your file is called **myModel.cpp** and your function is called **myCustomFunction**
 
@@ -112,7 +111,7 @@ Lets say your file is called **myModel.cpp** and your function is called **myCus
     **Windows - DLL**
     
 
-    **Prerequites**: MinGW or Microsoft Visual Studio Compiler (MSVC) but GCC is strongly suggested
+    **Prerequisites**: MinGW or Microsoft Visual Studio Compiler (MSVC) but GCC is strongly suggested
 
     **GCC**
 
@@ -145,7 +144,7 @@ Lets say your file is called **myModel.cpp** and your function is called **myCus
 Additional Documentation
 ========================
 
-This documentation is very detailed interms of code. It contains direct links to definitions of functions involved and is helpful for developers
+This documentation is very detailed in terms of code. It contains direct links to definitions of functions involved and is helpful for developers
 who want to understand how RAT works in more detail.
 
 
@@ -169,11 +168,9 @@ Click on the "Graph" to see the dependency graph.
 
 
 
-
-
 DevOps 
 ======
-DevOps is extremely important for any software that needs faster deployments and easier maintaince of existing deployments and RAT is exactly that. 
+DevOps is extremely important for any software that needs faster deployments and easier maintenance of existing deployments and RAT is exactly that. 
 
 
 Jenkins
@@ -192,13 +189,13 @@ At STFC, there is a platform called Anvil (not be confused with Anvil the web de
 This is managed by **Alan Kyffin**. 
 
 STFC Cloud
------------
+----------
 
 RAT owns two nodes/machines( Windows and Linux) in the cloud which are connected to Anvil. They help build,test the RAT in different operating systems.
 
 .. warning::
     These nodes must be manually logged in if there's any disruption in the STFC network (happens usually during updates/network-wide shutdowns).
-    Inorder to connect the nodes to Anvil, a command is used. This command can be obtained from Arwel Hughes.
+    In order to connect the nodes to Anvil, a command is used. This command can be obtained from Arwel Hughes.
 
 Contacts 
 ^^^^^^^^^
@@ -212,8 +209,8 @@ Work Flow
 
 This section details how everything works together in the DevOps department.
 
-1. First, there is GitHub repository at `RAT`_ which is source for all of the DevOps. Everytime, there's a Pull Request (PR) or a push, Jenkins gets triggered. This is achieved
-   using the Anvil Github App that recogines these changes and initiates builds.
+1. First, there is GitHub repository at `RAT`_ which is source for all of the DevOps. Every time, there's a Pull Request (PR) or a push, Jenkins gets triggered. This is achieved
+   using the Anvil Github App that recognizes these changes and initiates builds.
 2. When Jenkins gets triggered, usually it builds according to the "Jenkinsfile" in the repository."Jenkinsfile" is a file that contains the instructions for Jenkins to build the project. Jenkins sends these commands to the nodes in the cloud and build/tests the project.
    If the build/test is successful, the PR or push is successful and the PR/push is merged. If the build/test is unsuccessful, the PR/push must be reviewed. 
 
@@ -221,12 +218,9 @@ This section details how everything works together in the DevOps department.
 
 
 
-
-
-
-References for Devs 
-----------------------------
-1. Checkout the Architectural Desicion Record (ADR) for RAT. This document contains all the decisions made in the past and why they were made.
+References for Developers 
+-------------------------
+1. Checkout the Architectural Decision Record (ADR) for RAT. This document contains all the decisions made in the past and why they were made.
    This can be found in RasCal Planner in Microsoft Planner.
 
 2. 
@@ -354,7 +348,7 @@ References for Devs
 
 .. ControlsDef Class
 .. -----------------
-.. .. ControlsDef Class is all about control. It is neccessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
+.. .. ControlsDef Class is all about control. It is necessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
 .. .. to whether the users wants to calculate SLD during fit and even how many iteration an algorithm should do ..etc.
 
 .. .. .. dropdown:: Show all methods of ControlsDef Class

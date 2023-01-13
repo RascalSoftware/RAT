@@ -6,7 +6,7 @@
   <meta name="keywords" content="adaptive_new">
   <meta name="description" content="% adaptive: evaluates a matlab function on a given range">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../../m2html.css">
   <script type="text/javascript">
@@ -15,7 +15,10 @@
 </head>
 <body>
 <a name="_top"></a>
-<!-- # targetFunctions --><!-- # common --><!-- # resampleLayers -->
+<!-- # targetFunctions -->
+<!-- # common -->
+<!-- menu.html resampleLayers -->
+
 <h1>adaptive_new
 </h1>
 
@@ -140,21 +143,30 @@
    y = adaptive(f, x, 'maxLength',0.1);
    figure(5); plot(x,f(x),'s-',x2,f(x2),'k--',y(:,1),y(:,2),'o-');
    legend('initial sampling','high sampling','adaptive')
-   title('y = adaptive(f, x, ''maxLength'',0.1)');</pre></div>
+   title('y = adaptive(f, x, ''maxLength'',0.1)');
+</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="sldFunc.html" class="code" title="function sldVal = sldFunc(x,SLD)">sldFunc</a>	sldVal = sldFunc(x,SLD)</li></ul>
+<li><a href="sldFunc.html" class="code" title="function sldVal = sldFunc(x,SLD)">sldFunc</a>	sldVal = sldFunc(x,SLD)</li>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="resampleLayers.html" class="code" title="function newSLD = resampleLayers_new(sldProfile,resamPars)">resampleLayers</a>	Function handle for adaptive resampling</li></ul>
+<li><a href="resampleLayers.html" class="code" title="function newSLD = resampleLayers_new(sldProfile,resamPars)">resampleLayers</a>	Function handle for adaptive resampling</li>
+</ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function y = normalizeFunction(x, sldProfile,vectorizable)</a></li><li><a href="#_sub2" class="code">function [firstStep,secondStep,longStep] = calculateTrianglesSides(XYdata)</a></li><li><a href="#_sub3" class="code">function cornerAngle = calculateCentralAngles(XYdata, dataBoxSize)</a></li><li><a href="#_sub4" class="code">function triangleArea = calculateTrianglesArea(XYdata)</a></li><li><a href="#_sub5" class="code">function dataPoints = increaseSampling(dataPoints, segmentsToSplit, sldProfile)</a></li></ul>
+<li><a href="#_sub1" class="code">function y = normalizeFunction(x, sldProfile,vectorizable)</a></li>
+<li><a href="#_sub2" class="code">function [firstStep,secondStep,longStep] = calculateTrianglesSides(XYdata)</a></li>
+<li><a href="#_sub3" class="code">function cornerAngle = calculateCentralAngles(XYdata, dataBoxSize)</a></li>
+<li><a href="#_sub4" class="code">function triangleArea = calculateTrianglesArea(XYdata)</a></li>
+<li><a href="#_sub5" class="code">function dataPoints = increaseSampling(dataPoints, segmentsToSplit, sldProfile)</a></li>
+</ul>
+
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = adaptive_new(sldProfile, startDomain, minAngle, nPoints)</a>
@@ -590,7 +602,9 @@ This function is called by:
 0431 newDataPoints(:,2) = <a href="#_sub1" class="code" title="subfunction y = normalizeFunction(x, sldProfile,vectorizable)">normalizeFunction</a>(newDataPoints(:,1),sldProfile);
 0432 <span class="comment">% For simplicity append the new points at the end and then sort.</span>
 0433 dataPoints = sortrows( [ dataPoints; newDataPoints ]);
-0434 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
+0434 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 13-Jan-2023 14:08:39 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

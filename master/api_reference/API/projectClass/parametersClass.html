@@ -6,7 +6,7 @@
   <meta name="keywords" content="parametersClass">
   <meta name="description" content="">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
   <script type="text/javascript">
@@ -15,7 +15,9 @@
 </head>
 <body>
 <a name="_top"></a>
-<!-- # API --><!-- # projectClass -->
+<!-- ../menu.html API -->
+<!-- menu.html projectClass -->
+
 <h1>parametersClass
 </h1>
 
@@ -32,15 +34,40 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="parametersClass.html" class="code" title="">parametersClass</a>	</li></ul>
+<li><a href="parametersClass.html" class="code" title="">parametersClass</a>	</li>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="backgroundsClass.html" class="code" title="">backgroundsClass</a>	</li><li><a href="parametersClass.html" class="code" title="">parametersClass</a>	</li><li><a href="projectClass.html" class="code" title="">projectClass</a>	</li><li><a href="resolutionsClass.html" class="code" title="">resolutionsClass</a>	</li></ul>
+<li><a href="backgroundsClass.html" class="code" title="">backgroundsClass</a>	</li>
+<li><a href="parametersClass.html" class="code" title="">parametersClass</a>	</li>
+<li><a href="projectClass.html" class="code" title="">projectClass</a>	</li>
+<li><a href="resolutionsClass.html" class="code" title="">resolutionsClass</a>	</li>
+</ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function obj = parametersClass(startCell)</a></li><li><a href="#_sub2" class="code">function obj = setInitialValue(varargin)</a></li><li><a href="#_sub3" class="code">function names = getParamNames(obj)</a></li><li><a href="#_sub4" class="code">function obj = addParam(obj,varargin)</a></li><li><a href="#_sub5" class="code">function obj = removeParam(obj,varargin)</a></li><li><a href="#_sub6" class="code">function obj = setParameter(obj,varargin)</a></li><li><a href="#_sub7" class="code">function obj = setPrior(obj,varargin)</a></li><li><a href="#_sub8" class="code">function obj = setValue(obj,varargin)</a></li><li><a href="#_sub9" class="code">function obj = setName(obj,varargin)</a></li><li><a href="#_sub10" class="code">function obj = setConstr(obj, varargin)</a></li><li><a href="#_sub11" class="code">function obj = setFit(obj, varargin)</a></li><li><a href="#_sub12" class="code">function set.paramsTable(obj,table)</a></li><li><a href="#_sub13" class="code">function set.showPriors(obj,flag)</a></li><li><a href="#_sub14" class="code">function displayParametersTable(obj)</a></li><li><a href="#_sub15" class="code">function outStruct = toStruct(obj)</a></li><li><a href="#_sub16" class="code">function appendNewRow(obj,row)</a></li><li><a href="#_sub17" class="code">function removeRow(obj, row)</a></li><li><a href="#_sub18" class="code">function row = findRowIndex(name,tab)</a></li><li><a href="#_sub19" class="code">function inputBlock = parseParameterInput(varargin)</a></li></ul>
+<li><a href="#_sub1" class="code">function obj = parametersClass(startCell)</a></li>
+<li><a href="#_sub2" class="code">function obj = setInitialValue(varargin)</a></li>
+<li><a href="#_sub3" class="code">function names = getParamNames(obj)</a></li>
+<li><a href="#_sub4" class="code">function obj = addParam(obj,varargin)</a></li>
+<li><a href="#_sub5" class="code">function obj = removeParam(obj,varargin)</a></li>
+<li><a href="#_sub6" class="code">function obj = setParameter(obj,varargin)</a></li>
+<li><a href="#_sub7" class="code">function obj = setPrior(obj,varargin)</a></li>
+<li><a href="#_sub8" class="code">function obj = setValue(obj,varargin)</a></li>
+<li><a href="#_sub9" class="code">function obj = setName(obj,varargin)</a></li>
+<li><a href="#_sub10" class="code">function obj = setConstr(obj, varargin)</a></li>
+<li><a href="#_sub11" class="code">function obj = setFit(obj, varargin)</a></li>
+<li><a href="#_sub12" class="code">function set.paramsTable(obj,table)</a></li>
+<li><a href="#_sub13" class="code">function set.showPriors(obj,flag)</a></li>
+<li><a href="#_sub14" class="code">function displayParametersTable(obj)</a></li>
+<li><a href="#_sub15" class="code">function outStruct = toStruct(obj)</a></li>
+<li><a href="#_sub16" class="code">function appendNewRow(obj,row)</a></li>
+<li><a href="#_sub17" class="code">function removeRow(obj, row)</a></li>
+<li><a href="#_sub18" class="code">function row = findRowIndex(name,tab)</a></li>
+<li><a href="#_sub19" class="code">function inputBlock = parseParameterInput(varargin)</a></li>
+</ul>
+
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 classdef <a href="parametersClass.html" class="code" title="">parametersClass</a> &lt; handle
@@ -421,123 +448,137 @@ This function is called by:
 0376             outStruct.fitYesNo = double(obj.paramsTable{:,5});
 0377             
 0378             priors = table2cell(obj.paramsTable(:,6:8));
-0379             outStruct.priors = [outStruct.paramNames priors];
+0379             priors = [outStruct.paramNames priors];
 0380             
-0381             <span class="comment">% Need to force some of the outputs</span>
-0382             <span class="comment">% to be row vectors, so transpose them</span>
-0383             outStruct.paramNames = outStruct.paramNames';
-0384             <span class="comment">%outStruct.paramConstr = outStruct.paramConstr;</span>
-0385             outStruct.params = outStruct.params';
-0386             outStruct.fitYesNo = outStruct.fitYesNo';
-0387             
-0388             <span class="comment">% Fields order needs to be...</span>
+0381             <span class="comment">% Group each row into one cell. Should be a way of doing this</span>
+0382             <span class="comment">% without a loop but I can't quite see it right now...</span>
+0383             <span class="keyword">for</span> i = 1:size(priors,1)
+0384                 thisPrior = priors(i,:);
+0385                 val2 = char(thisPrior{2});
+0386                 thisPrior{2} = val2;
+0387                 pp(i) = {thisPrior};
+0388             <span class="keyword">end</span>
 0389             
-0390             <span class="comment">% paramNames</span>
-0391             <span class="comment">% nParams</span>
-0392             <span class="comment">% paramConstr</span>
-0393             <span class="comment">% params</span>
-0394             <span class="comment">% fitYesNo</span>
-0395             <span class="comment">% priors</span>
-0396             
-0397         <span class="keyword">end</span>
-0398         
-0399     <span class="keyword">end</span>
-0400     
-0401     
-0402     methods (Access = protected)
-0403         
-0404         <a name="_sub15" href="#_subfunctions" class="code">function appendNewRow(obj,row)</a>
-0405             tab = obj.paramsTable;
-0406             newName = row{1};
-0407             <span class="keyword">if</span> any(strcmp(newName,tab{:,1}))
-0408                 error(<span class="string">'Duplicate parameter names not allowed'</span>);
-0409             <span class="keyword">end</span>
-0410             tab = [tab ; row];
-0411             obj.paramsTable = tab;
-0412             obj.paramCount = obj.paramCount + 1;
-0413             obj.paramAutoNameCounter = obj.paramAutoNameCounter + 1;
-0414         <span class="keyword">end</span>
+0390             outStruct.priors = pp(:);
+0391             
+0392             
+0393             <span class="comment">% Need to force some of the outputs</span>
+0394             <span class="comment">% to be row vectors, so transpose them</span>
+0395             outStruct.paramNames = outStruct.paramNames';
+0396             <span class="comment">%outStruct.paramConstr = outStruct.paramConstr;</span>
+0397             outStruct.params = outStruct.params';
+0398             outStruct.fitYesNo = outStruct.fitYesNo';
+0399             
+0400             <span class="comment">% Fields order needs to be...</span>
+0401             
+0402             <span class="comment">% paramNames</span>
+0403             <span class="comment">% nParams</span>
+0404             <span class="comment">% paramConstr</span>
+0405             <span class="comment">% params</span>
+0406             <span class="comment">% fitYesNo</span>
+0407             <span class="comment">% priors</span>
+0408             
+0409         <span class="keyword">end</span>
+0410         
+0411     <span class="keyword">end</span>
+0412     
+0413     
+0414     methods (Access = protected)
 0415         
-0416         <a name="_sub16" href="#_subfunctions" class="code">function removeRow(obj, row)</a>
+0416         <a name="_sub15" href="#_subfunctions" class="code">function appendNewRow(obj,row)</a>
 0417             tab = obj.paramsTable;
-0418             
-0419             <span class="keyword">if</span> ischar(row)
-0420                 <span class="comment">% Assume a row name</span>
-0421                 index = strcmp(row, tab{:,1});
-0422                 <span class="keyword">if</span> isempty(index)
-0423                     error(<span class="string">'Unrecognised parameter name'</span>);
-0424                 <span class="keyword">end</span>
-0425                 row = find(index);
-0426             <span class="keyword">end</span>
-0427             
-0428             numRows = size(tab,1);
-0429             <span class="keyword">if</span> row == numRows
-0430                 <span class="comment">% Removing the last row</span>
-0431                 newTab = tab(1:end-1,:);
-0432                 
-0433             <span class="keyword">elseif</span> row == 1
-0434                 newTab = tab(2:<span class="keyword">end</span>,:);
-0435                 
-0436             <span class="keyword">else</span>
-0437                 <span class="comment">% Removing a row somewhere in the centre</span>
-0438                 tab1 = tab(1:row-1,:);
-0439                 tab2 = tab(row+1:<span class="keyword">end</span>,:);
-0440                 newTab = [tab1 ; tab2];
-0441             <span class="keyword">end</span>
-0442             
-0443             obj.paramsTable = newTab;
-0444             obj.paramCount = obj.paramCount - 1;
-0445             
-0446         <span class="keyword">end</span>
-0447         
-0448 
-0449     <span class="keyword">end</span>
-0450 
-0451 <span class="keyword">end</span>
-0452 
-0453 
-0454 <a name="_sub17" href="#_subfunctions" class="code">function row = findRowIndex(name,tab)</a>
-0455     <span class="comment">% Get loist of rownames from table..</span>
-0456     namesList = tab{:,1};
-0457     
-0458     <span class="comment">% Strip leading or trailing whitaspaces from names and name</span>
-0459     namesList = strip(namesList);
-0460     name = strip(name);
-0461     
-0462     <span class="comment">% Compare 'name' to list ignoring case</span>
-0463     index = strcmpi(name, namesList);
-0464     <span class="keyword">if</span> isempty(index)
-0465         error(<span class="string">'Unrecognised parameter name'</span>);
-0466     <span class="keyword">end</span>
-0467     
-0468     <span class="comment">% Non-zero value in array is the row index</span>
-0469     row = find(index);
-0470 <span class="keyword">end</span>
-0471 
-0472 
-0473 <a name="_sub18" href="#_subfunctions" class="code">function inputBlock = parseParameterInput(varargin)</a>
-0474 
-0475     defaultName = <span class="string">''</span>;
-0476     defaultMin = [];
-0477     defaultMax = [];   
-0478     defaultValue = [];
-0479     defaultFit = [];
-0480 
-0481     p = inputParser;
-0482     addParameter(p,<span class="string">'name'</span>,  defaultName,   @ischar);
-0483     addParameter(p,<span class="string">'min'</span>,   defaultMin,    @isnumeric);
-0484     addParameter(p,<span class="string">'value'</span>, defaultValue,  @isnumeric);
-0485     addParameter(p,<span class="string">'max'</span>,   defaultMax,    @isnumeric);
-0486     addParameter(p,<span class="string">'fit'</span>,   defaultFit,    @islogical);
-0487     
-0488     inputVals = varargin{:};
-0489     
-0490     parse(p,inputVals{:});
-0491     inputBlock = p.Results;
+0418             newName = row{1};
+0419             <span class="keyword">if</span> any(strcmp(newName,tab{:,1}))
+0420                 error(<span class="string">'Duplicate parameter names not allowed'</span>);
+0421             <span class="keyword">end</span>
+0422             tab = [tab ; row];
+0423             obj.paramsTable = tab;
+0424             obj.paramCount = obj.paramCount + 1;
+0425             obj.paramAutoNameCounter = obj.paramAutoNameCounter + 1;
+0426         <span class="keyword">end</span>
+0427         
+0428         <a name="_sub16" href="#_subfunctions" class="code">function removeRow(obj, row)</a>
+0429             tab = obj.paramsTable;
+0430             
+0431             <span class="keyword">if</span> ischar(row)
+0432                 <span class="comment">% Assume a row name</span>
+0433                 index = strcmp(row, tab{:,1});
+0434                 <span class="keyword">if</span> isempty(index)
+0435                     error(<span class="string">'Unrecognised parameter name'</span>);
+0436                 <span class="keyword">end</span>
+0437                 row = find(index);
+0438             <span class="keyword">end</span>
+0439             
+0440             numRows = size(tab,1);
+0441             <span class="keyword">if</span> row == numRows
+0442                 <span class="comment">% Removing the last row</span>
+0443                 newTab = tab(1:end-1,:);
+0444                 
+0445             <span class="keyword">elseif</span> row == 1
+0446                 newTab = tab(2:<span class="keyword">end</span>,:);
+0447                 
+0448             <span class="keyword">else</span>
+0449                 <span class="comment">% Removing a row somewhere in the centre</span>
+0450                 tab1 = tab(1:row-1,:);
+0451                 tab2 = tab(row+1:<span class="keyword">end</span>,:);
+0452                 newTab = [tab1 ; tab2];
+0453             <span class="keyword">end</span>
+0454             
+0455             obj.paramsTable = newTab;
+0456             obj.paramCount = obj.paramCount - 1;
+0457             
+0458         <span class="keyword">end</span>
+0459         
+0460 
+0461     <span class="keyword">end</span>
+0462 
+0463 <span class="keyword">end</span>
+0464 
+0465 
+0466 <a name="_sub17" href="#_subfunctions" class="code">function row = findRowIndex(name,tab)</a>
+0467     <span class="comment">% Get loist of rownames from table..</span>
+0468     namesList = tab{:,1};
+0469     
+0470     <span class="comment">% Strip leading or trailing whitaspaces from names and name</span>
+0471     namesList = strip(namesList);
+0472     name = strip(name);
+0473     
+0474     <span class="comment">% Compare 'name' to list ignoring case</span>
+0475     index = strcmpi(name, namesList);
+0476     <span class="keyword">if</span> isempty(index)
+0477         error(<span class="string">'Unrecognised parameter name'</span>);
+0478     <span class="keyword">end</span>
+0479     
+0480     <span class="comment">% Non-zero value in array is the row index</span>
+0481     row = find(index);
+0482 <span class="keyword">end</span>
+0483 
+0484 
+0485 <a name="_sub18" href="#_subfunctions" class="code">function inputBlock = parseParameterInput(varargin)</a>
+0486 
+0487     defaultName = <span class="string">''</span>;
+0488     defaultMin = [];
+0489     defaultMax = [];   
+0490     defaultValue = [];
+0491     defaultFit = [];
 0492 
-0493 <span class="keyword">end</span>
-0494 
-0495</pre></div>
-<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
+0493     p = inputParser;
+0494     addParameter(p,<span class="string">'name'</span>,  defaultName,   @ischar);
+0495     addParameter(p,<span class="string">'min'</span>,   defaultMin,    @isnumeric);
+0496     addParameter(p,<span class="string">'value'</span>, defaultValue,  @isnumeric);
+0497     addParameter(p,<span class="string">'max'</span>,   defaultMax,    @isnumeric);
+0498     addParameter(p,<span class="string">'fit'</span>,   defaultFit,    @islogical);
+0499     
+0500     inputVals = varargin{:};
+0501     
+0502     parse(p,inputVals{:});
+0503     inputBlock = p.Results;
+0504 
+0505 <span class="keyword">end</span>
+0506 
+0507 
+</pre></div>
+
+<hr><address>Generated on Fri 13-Jan-2023 14:08:39 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

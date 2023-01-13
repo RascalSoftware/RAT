@@ -6,7 +6,7 @@
   <meta name="keywords" content="standardTF_layers_core">
   <meta name="description" content="This is the main reflectivity calculation for all Layers models in the">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
   <script type="text/javascript">
@@ -15,7 +15,9 @@
 </head>
 <body>
 <a name="_top"></a>
-<!-- # targetFunctions --><!-- # standard_TF -->
+<!-- # targetFunctions -->
+<!-- menu.html standard_TF -->
+
 <h1>standardTF_layers_core
 </h1>
 
@@ -74,16 +76,32 @@
 
        Last Modified: 12/1/21 by Arwel Hughes.
 
- ------------------------------------------------------------------------</pre></div>
+ ------------------------------------------------------------------------
+</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>	</li><li><a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>	</li><li><a href="../../targetFunctions/common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	Chi-squared function is used to evaluate the goodness of fit.</li><li><a href="../../targetFunctions/common/groupLayers/groupLayers_Mod.html" class="code" title="function [outLayers, outSsubs] = groupLayers_Mod(allLayers,allRoughs,geometry,nbair,nbsubs)">groupLayers_Mod</a>	Arrange layers according to geometry and apply any coverage correction.</li><li><a href="../../targetFunctions/common/makeSLDProfiles/makeSLDProfiles.html" class="code" title="function sldProfile= makeSLDProfiles(nbair,nbsub,sld,ssub,repeats)">makeSLDProfiles</a>	</li><li><a href="../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers_new(sldProfile,resamPars)">resampleLayers</a>	Function handle for adaptive resampling</li><li><a href="../../targetFunctions/common/shiftData/shiftdata.html" class="code" title="function shifted_data = shiftdata(scalefac,horshift,dataPresent,data,dataLimits,simLimits)">shiftdata</a>	Shifts the data according to scale factor. If there is no data, makes</li></ul>
+<li><a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>	</li>
+<li><a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>	</li>
+<li><a href="../../targetFunctions/common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	Chi-squared function is used to evaluate the goodness of fit.</li>
+<li><a href="../../targetFunctions/common/groupLayers/groupLayers_Mod.html" class="code" title="function [outLayers, outSsubs] = groupLayers_Mod(allLayers,allRoughs,geometry,nbair,nbsubs)">groupLayers_Mod</a>	Arrange layers according to geometry and apply any coverage correction.</li>
+<li><a href="../../targetFunctions/common/makeSLDProfiles/makeSLDProfiles.html" class="code" title="function sldProfile= makeSLDProfiles(nbair,nbsub,sld,ssub,repeats)">makeSLDProfiles</a>	</li>
+<li><a href="../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers_new(sldProfile,resamPars)">resampleLayers</a>	Function handle for adaptive resampling</li>
+<li><a href="../../targetFunctions/common/shiftData/shiftdata.html" class="code" title="function shifted_data = shiftdata(scalefac,horshift,dataPresent,data,dataLimits,simLimits)">shiftdata</a>	Shifts the data according to scale factor. If there is no data, makes</li>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../targetFunctions/domains_TF/domainsTF_custLay/domainsTF_custlay_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_single(problemDef,problemDef_cells,problemDef_limits,controls)">domainsTF_custlay_single</a>	Single threaded version of the custom layers, standardTF reflectivity</li><li><a href="../../targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_paraContrasts</a>	Multi threaded version of the custom layers over reflectivity contrasts for standardTF reflectivity calculation.</li><li><a href="../../targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_paraPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li><li><a href="../../targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_single(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_single</a>	Single threaded version of the custom layers, standardTF reflectivity</li><li><a href="../../targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraAll(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_paraAll</a>	Extract individual cell arrays</li><li><a href="../../targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_paraContrasts</a>	Standard Layers calculation paralelised over the outer loop</li><li><a href="../../targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_paraPoints</a>	Standard Layers calculation paralelised over the inner loop</li><li><a href="../../targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_single(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_single</a>	Single theraded version of the Standard Layers calculation</li></ul>
+<li><a href="../../targetFunctions/domains_TF/domainsTF_custLay/domainsTF_custlay_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_single(problemDef,problemDef_cells,problemDef_limits,controls)">domainsTF_custlay_single</a>	Single threaded version of the custom layers, standardTF reflectivity</li>
+<li><a href="../../targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_paraContrasts</a>	Multi threaded version of the custom layers over reflectivity contrasts for standardTF reflectivity calculation.</li>
+<li><a href="../../targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_paraPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li>
+<li><a href="../../targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custlay_single(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custlay_single</a>	Single threaded version of the custom layers, standardTF reflectivity</li>
+<li><a href="../../targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraAll.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraAll(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_paraAll</a>	Extract individual cell arrays</li>
+<li><a href="../../targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_paraContrasts</a>	Standard Layers calculation paralelised over the outer loop</li>
+<li><a href="../../targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_paraPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
+<li><a href="../../targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_stanlay_single(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_stanlay_single</a>	Single theraded version of the Standard Layers calculation</li>
+</ul>
 <!-- crossreference -->
 
 
@@ -184,7 +202,9 @@ This function is called by:
 0093 <span class="comment">% Calculate chi squared.</span>
 0094 chiSq = <a href="../../targetFunctions/common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shifted_dat,reflect,params);
 0095 
-0096 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
+0096 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 13-Jan-2023 14:08:39 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

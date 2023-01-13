@@ -6,7 +6,7 @@
   <meta name="keywords" content="loopMatlabCustomLayers">
   <meta name="description" content="This function excecutes in the base Matlab workspace.">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
   <script type="text/javascript">
@@ -15,7 +15,11 @@
 </head>
 <body>
 <a name="_top"></a>
-<!-- # targetFunctions --><!-- # common --><!-- # loopMatlabCustomLayers --><!-- # mexCompile -->
+<!-- # targetFunctions -->
+<!-- # common -->
+<!-- # loopMatlabCustomLayers -->
+<!-- menu.html mexCompile -->
+
 <h1>loopMatlabCustomLayers
 </h1>
 
@@ -26,13 +30,15 @@
 <div class="box"><strong>function [outLayers, allRoughs] = loopMatlabCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment"> This function excecutes in the base Matlab workspace.</pre></div>
+<div class="fragment"><pre class="comment"> This function excecutes in the base Matlab workspace.
+</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../../matlabicon.gif)">
-<li><a href="../../../../targetFunctions/common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li></ul>
+<li><a href="../../../../targetFunctions/common/backSorts/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../../../matlabicon.gif)">
 </ul>
@@ -49,7 +55,7 @@ This function is called by:
 0006 outLayers = cell(numberOfContrasts,1);
 0007 allRoughs = zeros(numberOfContrasts,1);
 0008 
-0009 parfor i = 1:numberOfContrasts
+0009 <span class="keyword">for</span> i = 1:numberOfContrasts
 0010     <span class="comment">% Extract the relevant parameter values for this contrast</span>
 0011     <span class="comment">% from the input arrays.</span>
 0012     <span class="comment">% First need to decide which values of the backrounds, scalefactors</span>
@@ -81,7 +87,7 @@ This function is called by:
 0038             <span class="keyword">if</span> thisHydrWhat == 0                 <span class="comment">% Bulk out</span>
 0039                 thisBulkHydr = bulkIn;
 0040             <span class="keyword">else</span>
-0041                 thisBulkHydr = bulkOut;
+0041                 thisBulkHydr = bulkOuts(i);
 0042             <span class="keyword">end</span>
 0043             newSld = (thisHydration * thisBulkHydr) + ((1-thisHydration) * thisSLD);
 0044             thisSldVal = newSld(1,1);   <span class="comment">% Reassignment to keep codegen happy</span>
@@ -92,7 +98,9 @@ This function is called by:
 0049 
 0050     outLayers{i} = output;
 0051     allRoughs(i) = sRough;
-0052 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Thu 28-Jul-2022 16:33:05 by <strong><a href="https://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2003-2019</address>
+0052 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 13-Jan-2023 14:08:39 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

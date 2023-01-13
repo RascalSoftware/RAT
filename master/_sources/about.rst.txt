@@ -15,7 +15,7 @@ During 2021-2022, RAT has been upgraded to fit the modern-day software practices
 Some of the improvements include:
 
     1. Unit Testing.
-    2. Continous Intergration with Jenkins using Windows and Linux cloud nodes.
+    2. Continuous Integration with Jenkins using Windows and Linux cloud nodes.
     3. Support for User Custom models in both C++ and MATLAB.
     4. Architectural Decision Records (ADR).
 
@@ -23,12 +23,5 @@ Some of the improvements include:
 About Team
 ###########
 
-Dr. Arwel Hughes
-----------------
-lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-
-
-Sethu Pavan Venkata Reddy Pastula
------------------------------------
-lorem ipsum dolor sit amet, consectetur adipiscing elit.
+- Dr. Arwel Hughes
+- Sethu Pavan Venkata Reddy Pastula

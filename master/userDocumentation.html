@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Documentation &mdash; RAT 0.1 documentation</title>
+  <title>User Documentation &mdash; RAT 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
@@ -80,12 +80,12 @@
              
   <section id="user-documentation">
 <span id="userdocs"></span><h1>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this heading"></a></h1>
-<p><em>Many pieces of user intructions go here but this is one piece I have. Should be organised when other pieces from Arwel come</em></p>
+<p><em>Many pieces of user instructions go here but this is one piece I have. Should be organized when other pieces from Arwel come</em></p>
 <section id="how-to-create-a-custom-c-model">
 <h2>How to create a custom C++ model<a class="headerlink" href="#how-to-create-a-custom-c-model" title="Permalink to this heading"></a></h2>
 <p>1. First Step is to make sure your cpp file is error-free and follow the guidelines mentioned in this step. Your cpp file should contain your custom model and
-custom model should be a function. Inorder for RAT to fetch your custom model/function, it needs to be exported. So, you have to get <a class="reference external" href="https://github.com/martin-olivier/dylib/releases/download/v1.8.2/dylib.hpp">dylib.hpp</a> here and put <strong>DYLIB_API</strong>
-macro infront of the function name.</p>
+custom model should be a function. In order for RAT to fetch your custom model/function, it needs to be exported. So, you have to get <a class="reference external" href="https://github.com/martin-olivier/dylib/releases/download/v1.8.2/dylib.hpp">dylib.hpp</a> here and put <strong>DYLIB_API</strong>
+macro in front of the function name.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DYLIB_API</span> <span class="n">void</span> <span class="n">myCustomFunction</span><span class="p">(</span><span class="n">double</span> <span class="o">*</span><span class="n">params</span><span class="o">...</span><span class="n">etc</span><span class="o">....</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -101,15 +101,15 @@ How to compile a shared library on Windows<div class="sd-summary-down docutils">
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text"><strong>Windows - DLL</strong></p>
-<p class="sd-card-text"><strong>Prerequites</strong>: MinGW or Microsoft Visual Studio Compiler (MSVC) but GCC is strongly suggested</p>
+<p class="sd-card-text"><strong>Prerequisites</strong>: MinGW or Microsoft Visual Studio Compiler (MSVC) but GCC is strongly suggested</p>
 <p class="sd-card-text"><strong>GCC</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++ -c myModel.cpp -o myModel.o   Generate an object file
-g++ -shared myModel.o -o myModel.dll  outputs a DLL named myModel.dll
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-c<span class="w"> </span>myModel.cpp<span class="w"> </span>-o<span class="w"> </span>myModel.o<span class="w">   </span>Generate<span class="w"> </span>an<span class="w"> </span>object<span class="w"> </span>file
+g++<span class="w"> </span>-shared<span class="w"> </span>myModel.o<span class="w"> </span>-o<span class="w"> </span>myModel.dll<span class="w">  </span>outputs<span class="w"> </span>a<span class="w"> </span>DLL<span class="w"> </span>named<span class="w"> </span>myModel.dll
 </pre></div>
 </div>
 <p class="sd-card-text"><strong>MSVC (Microsoft Visual Studio Compiler)</strong></p>
 <p class="sd-card-text">Open <em>Developer Command Prompt for Visual Studio</em></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cl.exe /LD myModel.cpp /EHsc   You should see myModel.dll <span class="k">in</span> the current directory
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cl.exe<span class="w"> </span>/LD<span class="w"> </span>myModel.cpp<span class="w"> </span>/EHsc<span class="w">   </span>You<span class="w"> </span>should<span class="w"> </span>see<span class="w"> </span>myModel.dll<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>directory
 </pre></div>
 </div>
 </div>
@@ -121,8 +121,8 @@ How to compile a shared library on Linux/IDAAS<div class="sd-summary-down docuti
 <svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
 </summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text"><strong>Linux/IDAAS  - .so</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++ -c myModel.cpp -o myModel.o -std<span class="o">=</span>c++11  Generate an object file
-g++ -shared myModel.o -o myModel.so  outputs a .so named myModel.so
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>g++<span class="w"> </span>-c<span class="w"> </span>myModel.cpp<span class="w"> </span>-o<span class="w"> </span>myModel.o<span class="w"> </span>-std<span class="o">=</span>c++11<span class="w">  </span>Generate<span class="w"> </span>an<span class="w"> </span>object<span class="w"> </span>file
+g++<span class="w"> </span>-shared<span class="w"> </span>myModel.o<span class="w"> </span>-o<span class="w"> </span>myModel.so<span class="w">  </span>outputs<span class="w"> </span>a<span class="w"> </span>.so<span class="w"> </span>named<span class="w"> </span>myModel.so
 </pre></div>
 </div>
 </div>

@@ -29,5 +29,5 @@ terminal (use 'runMATLABCommand' in any other terminal)
 
 Build user manual
 -----------------
-The user manual is still in MS word document and will be converted to restructedText later.
+The user manual is still in MS word document and will be converted to restructuredText later.
  

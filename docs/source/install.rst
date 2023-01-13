@@ -2,7 +2,7 @@
 Installation
 ============
 
-Link to the lastest release: *linkwillbehere*
+Link to the latest release: *linkwillbehere*
 
 
 RAT can be used either from MATLAB or C++ (Using MEX). If you want to use RAT in C++ on IDAAS, you can just change a variable. To do this check :ref:`usingMex` section. 
@@ -30,7 +30,7 @@ To do so, you need to follow the instructions below:
 2. Open MATLAB and navigate to the folder containing the RAT source code.
 
 3. Run the file "buildScript.m" in MATLAB.
-   This will add the neccessary paths and builds the MEX file.
+   This will add the necessary paths and builds the MEX file.
  
 4. The MEX file will be created in the "RAT/compile/reflectivity_calculation_compile_new/codegen" folder.
 
@@ -45,7 +45,7 @@ Using the MEX version of RAT
 
 If you are on IDAAS or have already compiled the MEX file and want to use RAT in C++, do the following:
 
-1. In MATLAB, Open the file  "reflectivity_calculation_wrappper.m" in the folder "RAT/targetFunctions/reflectivity_calculation/"
+1. In MATLAB, Open the file  "reflectivity_calculation_wrapper.m" in the folder "RAT/targetFunctions/reflectivity_calculation/"
 
 2. Change the variable "type = 'm'; " to " type = 'mex'; "
 

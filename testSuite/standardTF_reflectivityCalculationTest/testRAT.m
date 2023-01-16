@@ -6,8 +6,8 @@ classdef testRAT < matlab.unittest.TestCase
 % high-level RAT routines.
 %
 % testRAT Properties:
-%    standardLayersInputs - Test input parameters read from file
-%    expectedOutputs - Test Output parameters read from file
+%    inputs - Test input parameters read from file
+%    outputs - Test Output parameters read from file
 %    problemDef - Input Parameters for the test problem
 %    problemDefCells - Input cell arays for the test problem
 %    problemDefLimits - Input limits for the test problem
@@ -27,8 +27,8 @@ classdef testRAT < matlab.unittest.TestCase
 %
 %%
     properties
-        standardLayersInputs;
-        expectedOutputs;
+        inputs;
+        outputs;
         problemDef;
         problemDefCells;
         problemDefLimits;
@@ -45,23 +45,34 @@ classdef testRAT < matlab.unittest.TestCase
         function loadTestDataInputs(testCase)
             % loadTestDataInputs Read test input data from file
 
-            testCase.standardLayersInputs = load('standardLayersInputs.mat');
+            testCase.inputs = load('standardLayersInputs.mat');
 
-            testCase.problemDef = testCase.stanLayInputs.standardLayersInputs.problemDef;
-            testCase.problemDefCells = testCase.stanLayInputs.standardLayersInputs.problemDef_cells;
-            testCase.problemDefLimits = testCase.stanLayInputs.standardLayersInputs.problemDef_limits;
-            testCase.controls = testCase.stanLayInputs.standardLayersInputs.controls;
+            testCase.problemDef = testCase.inputs.standardLayersInputs.problemDef;
+            testCase.problemDefCells = testCase.inputs.standardLayersInputs.problemDef_cells;
+            testCase.problemDefLimits = testCase.inputs.standardLayersInputs.problemDef_limits;
+            testCase.controls = testCase.inputs.standardLayersInputs.controls;
         end
         
         function loadTestDataOutputs(testCase)
             % loadTestDataOutputs Read expected values for outputs from file
 
-            testCase.expectedOutputs = load('standardLayersOutput.mat');
+            testCase.outputs = load('standardLayersOutput.mat');
 
-            testCase.expectedProblem = testCase.expectedOutputs.standardLayersOutput.problem;
-            testCase.expectedResult = testCase.expectedOutputs.standardLayersOutput.result;
+            testCase.expectedProblem = testCase.outputs.standardLayersOutput.problem;
+            testCase.expectedResult = testCase.outputs.standardLayersOutput.result;
         end
-
     end
 
 %%
+    methods (Test)
+    
+        function testSingleCalculation(testCase)
+            % testSingleCalculation 
+            [problem,result] = singleCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+
+            testCase.verifyEqual(problem,testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(result,testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
+    end
+
+end

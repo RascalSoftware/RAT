@@ -35,7 +35,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     properties (Access = private)
         
-        experimentType = 'Non polarised no absorption';
+        experimentType = 'Non polarized no absorption';
         
     end
     

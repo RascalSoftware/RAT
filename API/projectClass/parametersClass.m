@@ -123,7 +123,7 @@ classdef parametersClass < handle
                         end
                         
                         if ~strcmpi(priorType,{'uniform','gaussian','jeffreys'})
-                            error('Prior type must be ''uniform'', ''gaussuan'' or ''jeffreys''');
+                            error('Prior type must be ''uniform'', ''gaussian'' or ''jeffreys''');
                         end
                         
                         if ~isnumeric(priorValues)

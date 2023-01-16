@@ -19,6 +19,7 @@ jobs:
       with:
         ref: gh-pages
         path: docs/_web
+        submodules: recursive
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
@@ -33,6 +34,7 @@ jobs:
         cd docs
         make html
         octave --no-gui --no-window-system buildM2htmlDocs.m
+        dot -Tpng build/html/api_reference/graph.dot -o build/html/api_reference/graph.png
         python deploy.py ${{github.ref}}
         cd _web
         git config user.name github-actions

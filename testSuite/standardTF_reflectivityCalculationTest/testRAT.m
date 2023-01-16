@@ -5,38 +5,20 @@ classdef testRAT < matlab.unittest.TestCase
 % Use the test case for a standard TF reflectivity calculation to test the
 % high-level RAT routines.
 %
-% testRAT Properties:
-%    inputs - Test input parameters read from file
-%    outputs - Test Output parameters read from file
-%    problemDef - Input Parameters for the test problem
-%    problemDefCells - Input cell arays for the test problem
-%    problemDefLimits - Input limits for the test problem
-%    controls - Instument controls for the input problem
-%    expectedProblem - Expected output value of the problemDef struct
-%    expectedResult - Expected output value of the results struct
-%    tolerance - Relative tolerance when testing for equality of floats.
-%                Parameter = 1.0e-12
-%    abs_tolerance = Absolute tolerance when testing for equality of floats.
-%                    Parameter = 1.0e-5
-%
-% testRAT Methods:
-%    loadTestDataInputs
-%    loadTestDataOutputs
-%
 % Paul Sharp 16/01/23
 %
 %%
     properties
-        inputs;
-        outputs;
-        problemDef;
-        problemDefCells;
-        problemDefLimits;
-        controls;
-        expectedProblem;
-        expectedResult;
-        tolerance = 1e-12;
-        abs_tolerance = 1e-5;
+        inputs;              % Test input parameters read from file
+        outputs;             % Test Output parameters read from file
+        problemDef;          % Input Parameters for the test problem
+        problemDefCells;     % Input cell arays for the test problem
+        problemDefLimits;    % Input limits for the test problem
+        controls;            % Instument controls for the input problem
+        expectedProblem;     % Expected output value of the problem object
+        expectedResult;      % Expected output value of the results object
+        tolerance = 1.0e-12; % Relative tolerance for equality of floats
+        abs_tolerance = 1.0e-5; % Absolute tolerance for equality of floats
     end
 
 %%
@@ -67,12 +49,26 @@ classdef testRAT < matlab.unittest.TestCase
     methods (Test)
     
         function testSingleCalculation(testCase)
-            % testSingleCalculation 
-            [problem,result] = singleCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+            % testSingleCalculation Test the routine performing a single
+            % reflectivity calculation
+            [problem, result] = singleCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
 
-            testCase.verifyEqual(problem,testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
-            testCase.verifyEqual(result,testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
+
+        function testReflectivityCalculationWrapper(testCase)
+            % testReflectivityCalculationWrapper Test the routine that
+            % chooses how to perform the reflectivity calculation
+
+            % Note that the routine is always set to choose the "mex"
+            % version of the reflectivity calculation
+            [problem, result] = reflectivity_calculation_wrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+
+            testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
+
     end
 
 end

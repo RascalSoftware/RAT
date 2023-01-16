@@ -1,8 +1,5 @@
 function [allLayers, allRoughs] = loopMatalbCustlayWrapper_CustLaycontrast(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
-
- 
- 
+shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
  % Wrapper function for calling 'loopMatlabCustomLayers'. This wrapper is
  % necessary to deal with typedef problems for the coder if feval is used
  % directly from the main function

@@ -585,7 +585,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.contrasts.addContrast(allowedNames,varargin);
             
         end
-        
+
+        function obj = removeContrast(obj,varargin)
+
+            obj.contrasts.removeContrast(varargin);
+
+        end
+
         
         function obj = setContrast(obj,varargin)
             

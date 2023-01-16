@@ -1,4 +1,4 @@
-function [outProblemDef,results] = RAT_runParamonte(problem,inputControls,pmPars)
+function [outProblemDef,results,pmpd] = RAT_runParamonte(problem,inputControls,pmPars)
 
 global logFunc;
 
@@ -70,7 +70,7 @@ pmpd.spec.sampleRefinementCount = pmPars.chainSize;
 %pmpd.spec.overwriteRequested = true;
 %pmpd.spec.proposalStartCovMat = covMat;
 %pmpd.spec.greedyAdaptationCount = pmPars.greedyAdaptationCount;
-pmpd.spec.variableNameList = fitNames;
+pmpd.spec.variableNameList = string(fitNames);
 
 pmpd.mpiEnabled = false;
 pmpd.reportEnabled = false;
@@ -123,7 +123,9 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % 
 % [problemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,outProblem);
 
-clear logFunc pm pmpd
+% pmpdOut = pmpd;
+
+clear logFunc pm 
 
 end
 

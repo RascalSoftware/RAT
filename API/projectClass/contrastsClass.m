@@ -86,7 +86,43 @@ classdef contrastsClass < handle
             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
         
         end
+
+        function obj = removeContrast(obj, whichContrast)
         
+            % Removes a contrast from the list.
+
+            % First determine if contrast is being referenced by name or
+            % number...
+            if iscell(whichContrast)
+                whichContrast = whichContrast{:};
+            end
+
+            % If the input is a string, find the index of the relevant
+            % contrast...
+            if ischar(whichContrast)
+                contrastNames = getAllContrastNames(obj);
+                whichContrast = find(strcmp(contrastNames,whichContrast));
+                
+                % Throw an error if the name is not matched
+                if isempty(whichContrast)
+                    error('Contrast name not found');
+                end
+            end
+           
+            % Check to make sure the number is in range
+            if whichContrast < 0 || whichContrast > obj.numberOfContrasts
+                error('Specified contrast is not in range..')
+            end
+
+            % Remove the contrast from the contrasts cell array
+            obj.contrasts(whichContrast) = [];
+
+            % update numberOfContrasts
+            obj.numberOfContrasts = length(obj.contrasts);
+
+        end
+
+
         function obj = setContrastModel(obj, whichContrast, modelType, allowedNames, varargin)
             
             % Determine which contrast is being set

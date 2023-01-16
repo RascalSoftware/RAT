@@ -16,6 +16,7 @@ classdef ratPmLogFunc
         
         function logFuncVal = get(obj,pars)
             
+            
             problem = obj.problemDef;
             control = obj.controls;
             cells = obj.problemDef_cells;

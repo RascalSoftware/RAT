@@ -20,6 +20,8 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
         controls;            % Instument controls for the input problem
         expectedProblem;     % Expected output value of the problem object
         expectedResult;      % Expected output value of the results object
+        expectedProblemOut;  % Expected output value of the output problem object
+        expectedResultOut;   % Expected output value of the output results object
         emptyBayesResults    % An empty Bayes Results object for comparison
         tolerance = 1.0e-12; % Relative tolerance for equality of floats
         abs_tolerance = 1.0e-5; % Absolute tolerance for equality of floats
@@ -47,6 +49,8 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
 
             testCase.expectedProblem = testCase.outputs.standardLayersOutputs.problem;
             testCase.expectedResult = testCase.outputs.standardLayersOutputs.result;
+            testCase.expectedProblemOut = testCase.outputs.standardLayersOutputs.problemOut;
+            testCase.expectedResultOut = testCase.outputs.standardLayersOutputs.resultOut;
         end
 
         function setEmptyBayesResults(testCase)
@@ -68,8 +72,8 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             [problem, result] = RAT(testCase.problemDefInput,testCase.controlsInput);
 
             % Tests fails due to postprocessing of problem and result
-            %testCase.verifyEqual(problem, testCase.problemDefInput, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
-            %testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(problem, testCase.expectedProblemOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(result, testCase.expectedResultOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
         function testRATMain(testCase)
@@ -109,5 +113,5 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
     end
-    
+
 end

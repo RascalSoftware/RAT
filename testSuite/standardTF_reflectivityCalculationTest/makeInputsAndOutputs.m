@@ -30,6 +30,11 @@ save('customLayersInputs','customLayersInputs');
 customLayersOutputs.problem = problem;
 customLayersOutputs.result = result;
 
+[problemOut, resultOut] = RAT(customLayersProblem,controlsInput);
+
+customLayersOutputs.problemOut = problemOut;
+customLayersOutputs.resultOut = resultOut;
+
 save('customLayersOutputs','customLayersOutputs');
 
 %%
@@ -57,6 +62,11 @@ save('customXYInputs','customXYInputs');
 customXYOutputs.problem = problem;
 customXYOutputs.result = result;
 
+[problemOut, resultOut] = RAT(customXYProblem,controlsInput);
+
+customXYOutputs.problemOut = problemOut;
+customXYOutputs.resultOut = resultOut;
+
 save('customXYOutputs','customXYOutputs');
 
 %%
@@ -82,5 +92,10 @@ save('standardLayersInputs','standardLayersInputs');
 
 standardLayersOutputs.problem = problem;
 standardLayersOutputs.result = result;
+
+[problemOut, resultOut] = RAT(standardProblem,controlsInput);
+
+standardLayersOutputs.problemOut = problemOut;
+standardLayersOutputs.resultOut = resultOut;
 
 save('standardLayersOutputs','standardLayersOutputs');

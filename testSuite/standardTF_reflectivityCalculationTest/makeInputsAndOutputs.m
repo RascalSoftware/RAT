@@ -4,7 +4,8 @@
 % fields) are set in inputs and outputs to the tests.
 
 % Paul Sharp 17/01/23 -- Fixed bugs in making test data and added new
-% objects to the files
+% objects to the files. Changed class names to enable parameterised
+% testing.
 
 %%
 % 1. Custom Layers.
@@ -14,28 +15,28 @@ controlsInput = controlsDef();
 
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customLayersProblem,controlsInput);
 
-customLayersInputs.ProblemDefInput = customLayersProblem;
-customLayersInputs.problemDef = problemDef;
-customLayersInputs.problemDef_cells = problemDef_cells;
-customLayersInputs.problemDef_limits = problemDef_limits;
-customLayersInputs.priors = priors;
-customLayersInputs.controlsInput = controlsInput;
-customLayersInputs.controls = controls;
+inputs.ProblemDefInput = customLayersProblem;
+inputs.problemDef = problemDef;
+inputs.problemDef_cells = problemDef_cells;
+inputs.problemDef_limits = problemDef_limits;
+inputs.priors = priors;
+inputs.controlsInput = controlsInput;
+inputs.controls = controls;
 
-save('customLayersInputs','customLayersInputs');
+save('customLayersInputs','inputs');
 
 % (b) Outputs
 [problem, result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
-customLayersOutputs.problem = problem;
-customLayersOutputs.result = result;
+outputs.problem = problem;
+outputs.result = result;
 
 [problemOut, resultOut] = RAT(customLayersProblem,controlsInput);
 
-customLayersOutputs.problemOut = problemOut;
-customLayersOutputs.resultOut = resultOut;
+outputs.problemOut = problemOut;
+outputs.resultOut = resultOut;
 
-save('customLayersOutputs','customLayersOutputs');
+save('customLayersOutputs','outputs');
 
 %%
 % 2. Custom XY.
@@ -46,28 +47,28 @@ controlsInput = controlsDef();
 
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customXYProblem,controlsInput);
 
-customXYInputs.problemDefInput = customXYProblem;
-customXYInputs.problemDef = problemDef;
-customXYInputs.problemDef_cells = problemDef_cells;
-customXYInputs.problemDef_limits = problemDef_limits;
-customXYInputs.priors = priors;
-customXYInputs.controlsInput = controlsInput;
-customXYInputs.controls = controls;
+inputs.problemDefInput = customXYProblem;
+inputs.problemDef = problemDef;
+inputs.problemDef_cells = problemDef_cells;
+inputs.problemDef_limits = problemDef_limits;
+inputs.priors = priors;
+inputs.controlsInput = controlsInput;
+inputs.controls = controls;
 
-save('customXYInputs','customXYInputs');
+save('customXYInputs','inputs');
 
 % (b) Outputs
 [problem, result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
-customXYOutputs.problem = problem;
-customXYOutputs.result = result;
+outputs.problem = problem;
+outputs.result = result;
 
 [problemOut, resultOut] = RAT(customXYProblem,controlsInput);
 
-customXYOutputs.problemOut = problemOut;
-customXYOutputs.resultOut = resultOut;
+outputs.problemOut = problemOut;
+outputs.resultOut = resultOut;
 
-save('customXYOutputs','customXYOutputs');
+save('customXYOutputs','outputs');
 
 %%
 % 3. Standard Layers
@@ -77,25 +78,25 @@ controlsInput = controlsDef();
 
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(standardProblem,controlsInput);
 
-standardLayersInputs.problemDefInput = standardProblem;
-standardLayersInputs.problemDef = problemDef;
-standardLayersInputs.problemDef_cells = problemDef_cells;
-standardLayersInputs.problemDef_limits = problemDef_limits;
-standardLayersInputs.priors = priors;
-standardLayersInputs.controlsInput = controlsInput;
-standardLayersInputs.controls = controls;
+inputs.problemDefInput = standardProblem;
+inputs.problemDef = problemDef;
+inputs.problemDef_cells = problemDef_cells;
+inputs.problemDef_limits = problemDef_limits;
+inputs.priors = priors;
+inputs.controlsInput = controlsInput;
+inputs.controls = controls;
 
-save('standardLayersInputs','standardLayersInputs');
+save('standardLayersInputs','inputs');
 
 % (b) Outputs
 [problem, result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
-standardLayersOutputs.problem = problem;
-standardLayersOutputs.result = result;
+outputs.problem = problem;
+outputs.result = result;
 
 [problemOut, resultOut] = RAT(standardProblem,controlsInput);
 
-standardLayersOutputs.problemOut = problemOut;
-standardLayersOutputs.resultOut = resultOut;
+outputs.problemOut = problemOut;
+outputs.resultOut = resultOut;
 
-save('standardLayersOutputs','standardLayersOutputs');
+save('standardLayersOutputs','outputs');

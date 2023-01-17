@@ -8,6 +8,11 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
 % Paul Sharp 17/01/23
 %
 %%
+    properties (ClassSetupParameter)
+        inputsFile = {'standardLayersInputs.mat', 'customXYInputs.mat'};
+        outputsFile = {'standardLayersOutputs.mat', 'customXYOutputs.mat'};
+    end
+
     properties
         inputs;              % Test input parameters read from file
         outputs;             % Test Output parameters read from file
@@ -28,29 +33,31 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
     end
 
 %%
-    methods (TestClassSetup)
+    methods (TestClassSetup, ParameterCombination="sequential")
 
-        function loadTestDataInputs(testCase)
+        function loadTestDataInputs(testCase, inputsFile)
             % loadTestDataInputs Read test input data from file
-            testCase.inputs = load('standardLayersInputs.mat');
+            inputsFile
+            testCase.inputs = load(inputsFile);
 
-            testCase.problemDefInput = testCase.inputs.standardLayersInputs.problemDefInput;
-            testCase.problemDef = testCase.inputs.standardLayersInputs.problemDef;
-            testCase.problemDefCells = testCase.inputs.standardLayersInputs.problemDef_cells;
-            testCase.problemDefLimits = testCase.inputs.standardLayersInputs.problemDef_limits;
-            testCase.priors = testCase.inputs.standardLayersInputs.priors;
-            testCase.controlsInput = testCase.inputs.standardLayersInputs.controlsInput;
-            testCase.controls = testCase.inputs.standardLayersInputs.controls; 
+            testCase.problemDefInput = testCase.inputs.inputs.problemDefInput;
+            testCase.problemDef = testCase.inputs.inputs.problemDef;
+            testCase.problemDefCells = testCase.inputs.inputs.problemDef_cells;
+            testCase.problemDefLimits = testCase.inputs.inputs.problemDef_limits;
+            testCase.priors = testCase.inputs.inputs.priors;
+            testCase.controlsInput = testCase.inputs.inputs.controlsInput;
+            testCase.controls = testCase.inputs.inputs.controls; 
         end
         
-        function loadTestDataOutputs(testCase)
+        function loadTestDataOutputs(testCase, outputsFile)
             % loadTestDataOutputs Read expected values for outputs from file
-            testCase.outputs = load('standardLayersOutputs.mat');
+            outputsFile
+            testCase.outputs = load(outputsFile);
 
-            testCase.expectedProblem = testCase.outputs.standardLayersOutputs.problem;
-            testCase.expectedResult = testCase.outputs.standardLayersOutputs.result;
-            testCase.expectedProblemOut = testCase.outputs.standardLayersOutputs.problemOut;
-            testCase.expectedResultOut = testCase.outputs.standardLayersOutputs.resultOut;
+            testCase.expectedProblem = testCase.outputs.outputs.problem;
+            testCase.expectedResult = testCase.outputs.outputs.result;
+            testCase.expectedProblemOut = testCase.outputs.outputs.problemOut;
+            testCase.expectedResultOut = testCase.outputs.outputs.resultOut;
         end
 
         function setEmptyBayesResults(testCase)

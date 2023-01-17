@@ -28,7 +28,7 @@ classdef standardTF_customXY_tests < matlab.unittest.TestCase
         
         function expectedOutputs = load_test_data_outputs(testCase)
             % Expected outputs
-            testCase.expectedOutputs = load('customXYOutput.mat');
+            testCase.expectedOutputs = load('customXYOutputs.mat');
         end
 
         % Load problem definition
@@ -51,11 +51,11 @@ classdef standardTF_customXY_tests < matlab.unittest.TestCase
         end
         
         function expectedProblem = setexpectedProblem(testCase)
-            testCase.expectedProblem = testCase.expectedOutputs.customXYOutput.problem;
+            testCase.expectedProblem = testCase.expectedOutputs.customXYOutputs.problem;
         end
         
         function expectedResult = setexpectedResult(testCase)
-            testCase.expectedResult = testCase.expectedOutputs.customXYOutput.result; 
+            testCase.expectedResult = testCase.expectedOutputs.customXYOutputs.result; 
         end
     end
 

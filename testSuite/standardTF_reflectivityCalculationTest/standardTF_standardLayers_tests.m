@@ -21,7 +21,6 @@ classdef standardTF_standardLayers_tests < matlab.unittest.TestCase
 
     methods (TestMethodSetup)
         
-        
         function standLayInputs = load_test_data_inputs(testCase)
             % Load test data
             testCase.stanLayInputs = load('standardLayersInputs.mat');
@@ -29,7 +28,7 @@ classdef standardTF_standardLayers_tests < matlab.unittest.TestCase
         
         function expectedOutputs = load_test_data_outputs(testCase)
             % Expected outputs
-            testCase.expectedOutputs = load('standardLayersOutput.mat');
+            testCase.expectedOutputs = load('standardLayersOutputs.mat');
         end
   
         function problemDef = setProblemDef(testCase)
@@ -51,11 +50,11 @@ classdef standardTF_standardLayers_tests < matlab.unittest.TestCase
         end
         
         function expectedProblem = setexpectedProblem(testCase)
-            testCase.expectedProblem = testCase.expectedOutputs.standardLayersOutput.problem;
+            testCase.expectedProblem = testCase.expectedOutputs.standardLayersOutputs.problem;
         end
         
         function expectedResult = setexpectedResult(testCase)
-            testCase.expectedResult = testCase.expectedOutputs.standardLayersOutput.result;
+            testCase.expectedResult = testCase.expectedOutputs.standardLayersOutputs.result;
         end
     end
 

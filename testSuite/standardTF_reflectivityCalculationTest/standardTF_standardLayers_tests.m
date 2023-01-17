@@ -33,28 +33,28 @@ classdef standardTF_standardLayers_tests < matlab.unittest.TestCase
   
         function problemDef = setProblemDef(testCase)
             % Expected outputs
-            testCase.problemDef = testCase.stanLayInputs.standardLayersInputs.problemDef;
+            testCase.problemDef = testCase.stanLayInputs.inputs.problemDef;
         end
         
         function problemDef_cells = setProblemDef_cells(testCase)
-            testCase.problemDef_cells = testCase.stanLayInputs.standardLayersInputs.problemDef_cells;
+            testCase.problemDef_cells = testCase.stanLayInputs.inputs.problemDef_cells;
         end
         
         
         function problemDef_limits = setProblemDef_limits(testCase)
-            testCase.problemDef_limits = testCase.stanLayInputs.standardLayersInputs.problemDef_limits;
+            testCase.problemDef_limits = testCase.stanLayInputs.inputs.problemDef_limits;
         end
 
         function controls = setControl(testCase)
-            testCase.controls = testCase.stanLayInputs.standardLayersInputs.controls;
+            testCase.controls = testCase.stanLayInputs.inputs.controls;
         end
         
         function expectedProblem = setexpectedProblem(testCase)
-            testCase.expectedProblem = testCase.expectedOutputs.standardLayersOutputs.problem;
+            testCase.expectedProblem = testCase.expectedOutputs.outputs.problem;
         end
         
         function expectedResult = setexpectedResult(testCase)
-            testCase.expectedResult = testCase.expectedOutputs.standardLayersOutputs.result;
+            testCase.expectedResult = testCase.expectedOutputs.outputs.result;
         end
     end
 

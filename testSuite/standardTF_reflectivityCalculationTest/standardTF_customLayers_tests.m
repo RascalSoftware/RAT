@@ -36,29 +36,28 @@ classdef standardTF_customLayers_tests < matlab.unittest.TestCase
 
         % Load problem definition
         function problemDef = setProblemDef(testCase)
-           
-            testCase.problemDef = testCase.customLayersInputs.customLayersInputs.problemDef;
+            testCase.problemDef = testCase.customLayersInputs.inputs.problemDef;
         end
         
         function problemDef_cells = setProblemDef_cells(testCase)
-            testCase.problemDef_cells = testCase.customLayersInputs.customLayersInputs.problemDef_cells;
+            testCase.problemDef_cells = testCase.customLayersInputs.inputs.problemDef_cells;
         end
         
         
         function problemDef_limits = setProblemDef_limits(testCase)
-            testCase.problemDef_limits = testCase.customLayersInputs.customLayersInputs.problemDef_limits;
+            testCase.problemDef_limits = testCase.customLayersInputs.inputs.problemDef_limits;
         end
 
         function controls = setControl(testCase)
-            testCase.controls = testCase.customLayersInputs.customLayersInputs.controls;
+            testCase.controls = testCase.customLayersInputs.inputs.controls;
         end
         
         function expectedProblem = setexpectedProblem(testCase)
-            testCase.expectedProblem = testCase.expectedOutputs.customLayersOutputs.problem;
+            testCase.expectedProblem = testCase.expectedOutputs.outputs.problem;
         end
         
         function expectedResult = setexpectedResult(testCase)
-            testCase.expectedResult = testCase.expectedOutputs.customLayersOutputs.result; 
+            testCase.expectedResult = testCase.expectedOutputs.outputs.result; 
         end
     end
 

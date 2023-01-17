@@ -15,7 +15,7 @@ controlsInput = controlsDef();
 
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customLayersProblem,controlsInput);
 
-inputs.ProblemDefInput = customLayersProblem;
+inputs.problemDefInput = customLayersProblem;
 inputs.problemDef = problemDef;
 inputs.problemDef_cells = problemDef_cells;
 inputs.problemDef_limits = problemDef_limits;

@@ -3,14 +3,15 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
 % test_high_level_RAT Class based unit tests for RAT, RATMain,
 % singleCalculation & reflectivityCalculationWrapper
 % Use the test case for a standard TF reflectivity calculation to test the
-% high-level RAT routines.
+% high-level RAT routines. We consider standard layers, custom layers and
+% custom XY examples.
 %
 % Paul Sharp 17/01/23
 %
 %%
     properties (ClassSetupParameter)
-        inputsFile = {'standardLayersInputs.mat', 'customXYInputs.mat'};
-        outputsFile = {'standardLayersOutputs.mat', 'customXYOutputs.mat'};
+        inputsFile = {'standardLayersInputs.mat', 'customLayersInputs.mat', 'customXYInputs.mat'};
+        outputsFile = {'standardLayersOutputs.mat', 'customLayersOutputs.mat', 'customXYOutputs.mat'};
     end
 
     properties
@@ -37,7 +38,6 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
 
         function loadTestDataInputs(testCase, inputsFile)
             % loadTestDataInputs Read test input data from file
-            inputsFile
             testCase.inputs = load(inputsFile);
 
             testCase.problemDefInput = testCase.inputs.inputs.problemDefInput;
@@ -51,7 +51,6 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
         
         function loadTestDataOutputs(testCase, outputsFile)
             % loadTestDataOutputs Read expected values for outputs from file
-            outputsFile
             testCase.outputs = load(outputsFile);
 
             testCase.expectedProblem = testCase.outputs.outputs.problem;

@@ -34,28 +34,28 @@ classdef standardTF_customXY_tests < matlab.unittest.TestCase
         % Load problem definition
         function problemDef = setProblemDef(testCase)
            
-            testCase.problemDef = testCase.customXYInputs.customXYInputs.problemDef;
+            testCase.problemDef = testCase.customXYInputs.inputs.problemDef;
         end
         
         function problemDef_cells = setProblemDef_cells(testCase)
-            testCase.problemDef_cells = testCase.customXYInputs.customXYInputs.problemDef_cells;
+            testCase.problemDef_cells = testCase.customXYInputs.inputs.problemDef_cells;
         end
         
         
         function problemDef_limits = setProblemDef_limits(testCase)
-            testCase.problemDef_limits = testCase.customXYInputs.customXYInputs.problemDef_limits;
+            testCase.problemDef_limits = testCase.customXYInputs.inputs.problemDef_limits;
         end
 
         function controls = setControl(testCase)
-            testCase.controls = testCase.customXYInputs.customXYInputs.controls;
+            testCase.controls = testCase.customXYInputs.inputs.controls;
         end
         
         function expectedProblem = setexpectedProblem(testCase)
-            testCase.expectedProblem = testCase.expectedOutputs.customXYOutputs.problem;
+            testCase.expectedProblem = testCase.expectedOutputs.outputs.problem;
         end
         
         function expectedResult = setexpectedResult(testCase)
-            testCase.expectedResult = testCase.expectedOutputs.customXYOutputs.result; 
+            testCase.expectedResult = testCase.expectedOutputs.outputs.result; 
         end
     end
 

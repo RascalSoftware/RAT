@@ -20,6 +20,7 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
         controls;            % Instument controls for the input problem
         expectedProblem;     % Expected output value of the problem object
         expectedResult;      % Expected output value of the results object
+        emptyBayesResults    % An empty Bayes Results object for comparison
         tolerance = 1.0e-12; % Relative tolerance for equality of floats
         abs_tolerance = 1.0e-5; % Absolute tolerance for equality of floats
     end
@@ -47,6 +48,16 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             testCase.expectedProblem = testCase.outputs.standardLayersOutputs.problem;
             testCase.expectedResult = testCase.outputs.standardLayersOutputs.result;
         end
+
+        function setEmptyBayesResults(testCase)
+            % setEmptyBayes Initialise an empty Bayes Results object
+            testCase.emptyBayesResults.res = [];
+            testCase.emptyBayesResults.chain = [];
+            testCase.emptyBayesResults.s2chain = [];
+            testCase.emptyBayesResults.ssChain = [];
+            testCase.emptyBayesResults.bestPars = [];
+        end
+
     end
 
 %%
@@ -59,6 +70,22 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             % Tests fails due to postprocessing of problem and result
             %testCase.verifyEqual(problem, testCase.problemDefInput, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             %testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
+
+        function testRATMain(testCase)
+            % testRATMain Test the routine that determines the calculation
+            % RAT will perform
+            % Note that we test only a single reflectivity calculation at
+            % present
+
+            [outProblemDef, problem, result, bayesResults] = RAT_main(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls,testCase.priors);
+
+            % First test is only true for a single calculation
+            testCase.verifyEqual(outProblemDef, testCase.problemDef, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+
+            testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(bayesResults, testCase.emptyBayesResults, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
         function testSingleCalculation(testCase)
@@ -81,7 +108,6 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
-
     end
-
+    
 end

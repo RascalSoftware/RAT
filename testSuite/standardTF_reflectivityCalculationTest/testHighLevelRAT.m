@@ -11,9 +11,11 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
     properties
         inputs;              % Test input parameters read from file
         outputs;             % Test Output parameters read from file
+        problemDefInput;     % Full set of input parameters
         problemDef;          % Input Parameters for the test problem
         problemDefCells;     % Input cell arays for the test problem
         problemDefLimits;    % Input limits for the test problem
+        priors;              % ?????
         controls;            % Instument controls for the input problem
         expectedProblem;     % Expected output value of the problem object
         expectedResult;      % Expected output value of the results object
@@ -38,10 +40,10 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
         function loadTestDataOutputs(testCase)
             % loadTestDataOutputs Read expected values for outputs from file
 
-            testCase.outputs = load('standardLayersOutput.mat');
+            testCase.outputs = load('standardLayersOutputs.mat');
 
-            testCase.expectedProblem = testCase.outputs.standardLayersOutput.problem;
-            testCase.expectedResult = testCase.outputs.standardLayersOutput.result;
+            testCase.expectedProblem = testCase.outputs.standardLayersOutputs.problem;
+            testCase.expectedResult = testCase.outputs.standardLayersOutputs.result;
         end
     end
 
@@ -61,7 +63,6 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
         function testSingleCalculation(testCase)
             % testSingleCalculation Test the routine performing a single
             % reflectivity calculation
-            testCase.problemDef
             [problem, result] = singleCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);

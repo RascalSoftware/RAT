@@ -10,15 +10,16 @@
 % 1. Custom Layers.
 ratRoot = getappdata(0,'ratRoot');
 customLayersProblem = orsoDSPC_custLay_script();
-controls = controlsDef();
+controlsInput = controlsDef();
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customLayersProblem,controls);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customLayersProblem,controlsInput);
 
-%customLayersInputs.ProblemDefInput = customLayersProblem;
+customLayersInputs.ProblemDefInput = customLayersProblem;
 customLayersInputs.problemDef = problemDef;
 customLayersInputs.problemDef_cells = problemDef_cells;
 customLayersInputs.problemDef_limits = problemDef_limits;
-%customLayersInputs.priors = priors;
+customLayersInputs.priors = priors;
+customLayersInputs.controlsInput = controlsInput;
 customLayersInputs.controls = controls;
 
 save('customLayersInputs','customLayersInputs');
@@ -36,15 +37,16 @@ save('customLayersOutputs','customLayersOutputs');
 % (a) Inputs
 ratRoot = getappdata(0,'ratRoot');
 customXYProblem = DPPC_custXY_script();
-controls = controlsDef();
+controlsInput = controlsDef();
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customXYProblem,controls);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customXYProblem,controlsInput);
 
-%customXYInputs.problemDefInput = customXYProblem;
+customXYInputs.problemDefInput = customXYProblem;
 customXYInputs.problemDef = problemDef;
 customXYInputs.problemDef_cells = problemDef_cells;
 customXYInputs.problemDef_limits = problemDef_limits;
-%customXYInputs.priors = priors;
+customXYInputs.priors = priors;
+customXYInputs.controlsInput = controlsInput;
 customXYInputs.controls = controls;
 
 save('customXYInputs','customXYInputs');
@@ -61,15 +63,16 @@ save('customXYOutputs','customXYOutputs');
 % 3. Standard Layers
 % (a) Inputs
 standardProblem = DPPC_standard_layers();
-controls = controlsDef();
+controlsInput = controlsDef();
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(standardProblem,controls);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(standardProblem,controlsInput);
 
-%standardLayersInputs.problemDefInput = standardProblem;
+standardLayersInputs.problemDefInput = standardProblem;
 standardLayersInputs.problemDef = problemDef;
 standardLayersInputs.problemDef_cells = problemDef_cells;
 standardLayersInputs.problemDef_limits = problemDef_limits;
-%standardLayersInputs.priors = priors;
+standardLayersInputs.priors = priors;
+standardLayersInputs.controlsInput = controlsInput;
 standardLayersInputs.controls = controls;
 
 save('standardLayersInputs','standardLayersInputs');

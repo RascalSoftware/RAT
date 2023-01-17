@@ -5,7 +5,7 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
 % Use the test case for a standard TF reflectivity calculation to test the
 % high-level RAT routines.
 %
-% Paul Sharp 16/01/23
+% Paul Sharp 17/01/23
 %
 %%
     properties
@@ -16,6 +16,7 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
         problemDefCells;     % Input cell arays for the test problem
         problemDefLimits;    % Input limits for the test problem
         priors;              % ?????
+        controlsInput;       % Input value of instument controls for the input problem
         controls;            % Instument controls for the input problem
         expectedProblem;     % Expected output value of the problem object
         expectedResult;      % Expected output value of the results object
@@ -28,18 +29,19 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
 
         function loadTestDataInputs(testCase)
             % loadTestDataInputs Read test input data from file
-
             testCase.inputs = load('standardLayersInputs.mat');
 
+            testCase.problemDefInput = testCase.inputs.standardLayersInputs.problemDefInput;
             testCase.problemDef = testCase.inputs.standardLayersInputs.problemDef;
             testCase.problemDefCells = testCase.inputs.standardLayersInputs.problemDef_cells;
             testCase.problemDefLimits = testCase.inputs.standardLayersInputs.problemDef_limits;
-            testCase.controls = testCase.inputs.standardLayersInputs.controls;
+            testCase.priors = testCase.inputs.standardLayersInputs.priors;
+            testCase.controlsInput = testCase.inputs.standardLayersInputs.controlsInput;
+            testCase.controls = testCase.inputs.standardLayersInputs.controls; 
         end
         
         function loadTestDataOutputs(testCase)
             % loadTestDataOutputs Read expected values for outputs from file
-
             testCase.outputs = load('standardLayersOutputs.mat');
 
             testCase.expectedProblem = testCase.outputs.standardLayersOutputs.problem;
@@ -50,15 +52,14 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
 %%
     methods (Test)
 
-        %function testRAT(testCase)
+        function testRAT(testCase)
             % testRAT Test the highest-level RAT routine
-        %    [problem, result] = RAT(testCase.problemDef,testCase.controls);
-            
-            % TEST FAILS due to error in "RatParseClassToStructs_new"
-            % the "toStruct" is not recognised
-        %    testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
-        %    testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
-        %end
+            [problem, result] = RAT(testCase.problemDefInput,testCase.controlsInput);
+
+            % Tests fails due to postprocessing of problem and result
+            %testCase.verifyEqual(problem, testCase.problemDefInput, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            %testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
 
         function testSingleCalculation(testCase)
             % testSingleCalculation Test the routine performing a single

@@ -142,16 +142,13 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
         %    testCase.verifyEqual(result, testCase.expectedResultOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         %end
 
-
-        %function testRATParseOutToProjectClass(testCase)
+        function testRATParseOutToProjectClass(testCase)
             % testRATParseOutToProjectClass Test the routine that creates
             % an output problem class
+            problemOut = RATparseOutToProjectClass(testCase.problemDefInput, testCase.expectedProblemOutStruct, testCase.expectedProblem, testCase.expectedResult);
 
-        %    [problemOut, result] = RATparseOutToProjectClass(testCase.problemDefInput, , ~, ~)
-
-        %    testCase.verifyEqual(problemOut, testCase.expectedProblemOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
-        %    testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
-        %end
+            testCase.verifyEqual(problemOut, testCase.expectedProblemOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
 
     end
 

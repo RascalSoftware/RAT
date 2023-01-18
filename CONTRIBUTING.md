@@ -24,6 +24,9 @@ Commit changes with brief but clear commit messages and once feature is complete
 [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) via GitHub. 
 Ensure to rebase your branch to include the latest changes on your branch and resolve possible merge conflicts.
 
+If you have cloned the repository previously, you may need to update the submodules to get the 3rdParty repos
+	
+	git submodule update --init --recursive
 
 Unit-testing and coverage
 -------------------------

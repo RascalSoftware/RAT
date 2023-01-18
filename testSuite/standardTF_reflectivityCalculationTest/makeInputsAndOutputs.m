@@ -23,7 +23,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save('customLayersInputs','inputs');
+save('testSuite\standardTF_reflectivityCalculationTest\customLayersInputs','inputs');
 
 % (b) Outputs
 [problem, result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -36,7 +36,7 @@ outputs.result = result;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save('customLayersOutputs','outputs');
+save('testSuite\standardTF_reflectivityCalculationTest\customLayersOutputs','outputs');
 
 %%
 % 2. Custom XY.
@@ -55,7 +55,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save('customXYInputs','inputs');
+save('testSuite\standardTF_reflectivityCalculationTest\customXYInputs','inputs');
 
 % (b) Outputs
 [problem, result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -68,7 +68,7 @@ outputs.result = result;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save('customXYOutputs','outputs');
+save('testSuite\standardTF_reflectivityCalculationTest\customXYOutputs','outputs');
 
 %%
 % 3. Standard Layers
@@ -86,7 +86,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save('standardLayersInputs','inputs');
+save('testSuite\standardTF_reflectivityCalculationTest\standardLayersInputs','inputs');
 
 % (b) Outputs
 [problem, result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -99,4 +99,4 @@ outputs.result = result;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save('standardLayersOutputs','outputs');
+save('testSuite\standardTF_reflectivityCalculationTest\standardLayersOutputs','outputs');

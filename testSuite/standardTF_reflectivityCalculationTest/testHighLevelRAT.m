@@ -6,7 +6,7 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
 % high-level RAT routines. We consider standard layers, custom layers and
 % custom XY examples.
 %
-% Paul Sharp 17/01/23
+% Paul Sharp 18/01/23
 %
 %%
     properties (ClassSetupParameter)
@@ -68,6 +68,19 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             testCase.emptyBayesResults.bestPars = [];
         end
 
+        function setcurrentFolder(testCase)
+            % setCurrentFolder Set the current folder to be the directory
+            % recorded in the test data
+            import matlab.unittest.fixtures.CurrentFolderFixture
+
+            testDirectory = testCase.problemDefCells{14}{1}{3};
+
+            % Check if a directory has been recorded, and apply if so
+            if strlength(testDirectory) > 0
+                testCase.applyFixture(CurrentFolderFixture(testDirectory));
+            end
+        end
+
     end
 
 %%
@@ -77,7 +90,6 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             % testRAT Test the highest-level RAT routine
             [problem, result] = RAT(testCase.problemDefInput,testCase.controlsInput);
 
-            % Tests fails due to postprocessing of problem and result
             testCase.verifyEqual(problem, testCase.expectedProblemOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(result, testCase.expectedResultOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
@@ -118,6 +130,31 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
+%%
+        function testRatParseClasstoStructs_new(testCase)
+            % testRATParseClasstoStructs_new Test the routine that converts
+            % an input ProjectClass to a struct
+            [problem, problem_cells, problem_limits, problem_priors, controls_struct] = RatParseClassToStructs_new(testCase.problemDefInput, testCase.controlsInput);
+
+            testCase.verifyEqual(problem, testCase.problemDef, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(problem_cells, testCase.problemDefCells, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(problem_limits, testCase.problemDefLimits, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(problem_priors, testCase.priors, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(controls_struct, testCase.controls, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
+
+
+
+        %function testRATParseOutToProjectClass(testCase)
+            % testRATParseOutToProjectClass Test the routine that creates
+            % an output problem class
+
+        %    [problemOut, result] = RATparseOutToProjectClass(testCase.problemDefInput, , ~, ~)
+
+        %    testCase.verifyEqual(problemOut, testCase.expectedProblemOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        %    testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        %end
+
     end
 
 end

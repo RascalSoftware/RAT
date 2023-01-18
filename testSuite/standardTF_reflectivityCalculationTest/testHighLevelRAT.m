@@ -25,10 +25,11 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
         controlsInput;       % Input value of instument controls for the input problem
         controls;            % Instument controls for the input problem
         expectedProblem;     % Expected output value of the problem object
-        expectedResult;      % Expected output value of the results object
         expectedProblemOut;  % Expected output value of the output problem object
         expectedProblemOutStruct % Expected output value of the output problem struct
+        expectedResult;      % Expected output value of the results object
         expectedResultOut;   % Expected output value of the output results object
+        expectedResultOutStruct  % Expected output value of the output results struct
         expectedBayesResults % Expected output value of the results object
         tolerance = 1.0e-12; % Relative tolerance for equality of floats
         abs_tolerance = 1.0e-5; % Absolute tolerance for equality of floats
@@ -55,10 +56,11 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             testCase.outputs = load(outputsFile);
 
             testCase.expectedProblem = testCase.outputs.outputs.problem;
-            testCase.expectedResult = testCase.outputs.outputs.result;
             testCase.expectedProblemOut = testCase.outputs.outputs.problemOut;
             testCase.expectedProblemOutStruct = testCase.outputs.outputs.problemOutStruct;
+            testCase.expectedResult = testCase.outputs.outputs.result;
             testCase.expectedResultOut = testCase.outputs.outputs.resultOut;
+            testCase.expectedResultOutStruct = testCase.outputs.outputs.resultOutStruct;
             testCase.expectedBayesResults = testCase.outputs.outputs.bayesResults;
         end
 
@@ -135,21 +137,19 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             testCase.verifyEqual(controls_struct, testCase.controls, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
-        %function testParseResultToStruct(testCase)
-            % testParseResultToStruct Test the routine that constructs a
-            % results struct
-        %    result = parseResultToStruct(testCase.expectedProblem, testCase.expectedResult);
-        %    testCase.verifyEqual(result, testCase.expectedResultOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
-        %end
+        function testParseResultToStruct(testCase)
+            % testParseResultToStruct Test the routine that partially
+            % constructs a results struct
+            resultStruct = parseResultToStruct(testCase.expectedProblem, testCase.expectedResult);
+            testCase.verifyEqual(resultStruct, testCase.expectedResultOutStruct, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
 
         function testRATParseOutToProjectClass(testCase)
             % testRATParseOutToProjectClass Test the routine that creates
             % an output problem class
             problemOut = RATparseOutToProjectClass(testCase.problemDefInput, testCase.expectedProblemOutStruct, testCase.expectedProblem, testCase.expectedResult);
-
             testCase.verifyEqual(problemOut, testCase.expectedProblemOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
     end
-
 end

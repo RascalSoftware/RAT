@@ -3,7 +3,7 @@
 % necessary to run this function so that the changes (i.e. number of
 % fields) are set in inputs and outputs to the tests.
 
-% Paul Sharp 17/01/23 -- Fixed bugs in making test data and added new
+% Paul Sharp 18/01/23 -- Fixed bugs in making test data and added new
 % objects to the files. Changed class names to enable parameterised
 % testing.
 
@@ -35,6 +35,10 @@ outputs.result = result;
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;
+
+resultOutStruct = parseResultToStruct(problem,result);
+
+outputs.resultOutStruct = resultOutStruct;
 
 [problemOut, resultOut] = RAT(customLayersProblem,controlsInput);
 
@@ -73,6 +77,10 @@ outputs.result = result;
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;
 
+resultOutStruct = parseResultToStruct(problem,result);
+
+outputs.resultOutStruct = resultOutStruct;
+
 [problemOut, resultOut] = RAT(customXYProblem,controlsInput);
 
 outputs.problemOut = problemOut;
@@ -108,6 +116,10 @@ outputs.result = result;
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;
+
+resultOutStruct = parseResultToStruct(problem,result);
+
+outputs.resultOutStruct = resultOutStruct;
 
 [problemOut, resultOut] = RAT(standardProblem,controlsInput);
 

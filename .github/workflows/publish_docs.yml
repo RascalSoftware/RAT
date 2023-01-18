@@ -13,13 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2      
+      with:
+        submodules: recursive
     - name: Checkout gh-pages
       uses: actions/checkout@v2
       with:
         ref: gh-pages
         path: docs/_web
-        submodules: recursive
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:

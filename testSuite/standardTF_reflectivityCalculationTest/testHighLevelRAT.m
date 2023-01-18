@@ -68,7 +68,7 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             testCase.emptyBayesResults.bestPars = [];
         end
 
-        function setcurrentFolder(testCase)
+        function setCurrentFolder(testCase)
             % setCurrentFolder Set the current folder to be the directory
             % recorded in the test data
             import matlab.unittest.fixtures.CurrentFolderFixture
@@ -143,6 +143,12 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             testCase.verifyEqual(controls_struct, testCase.controls, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
+        %function testParseResultToStruct(testCase)
+            % testParseResultToStruct Test the routine that constructs a
+            % results struct
+        %    result = parseResultToStruct(testCase.expectedProblem, testCase.expectedResult);
+        %    testCase.verifyEqual(result, testCase.expectedResultOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        %end
 
 
         %function testRATParseOutToProjectClass(testCase)

@@ -26,10 +26,15 @@ inputs.controls = controls;
 save('testSuite\standardTF_reflectivityCalculationTest\customLayersInputs','inputs');
 
 % (b) Outputs
-[problem, result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 outputs.problem = problem;
 outputs.result = result;
+
+[problemOutStruct,~,~,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+
+outputs.problemOutStruct = problemOutStruct;
+outputs.bayesResults = bayesResults;
 
 [problemOut, resultOut] = RAT(customLayersProblem,controlsInput);
 
@@ -58,10 +63,15 @@ inputs.controls = controls;
 save('testSuite\standardTF_reflectivityCalculationTest\customXYInputs','inputs');
 
 % (b) Outputs
-[problem, result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 outputs.problem = problem;
 outputs.result = result;
+
+[problemOutStruct,~,~,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+
+outputs.problemOutStruct = problemOutStruct;
+outputs.bayesResults = bayesResults;
 
 [problemOut, resultOut] = RAT(customXYProblem,controlsInput);
 
@@ -89,10 +99,15 @@ inputs.controls = controls;
 save('testSuite\standardTF_reflectivityCalculationTest\standardLayersInputs','inputs');
 
 % (b) Outputs
-[problem, result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 outputs.problem = problem;
 outputs.result = result;
+
+[problemOutStruct,~,~,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+
+outputs.problemOutStruct = problemOutStruct;
+outputs.bayesResults = bayesResults;
 
 [problemOut, resultOut] = RAT(standardProblem,controlsInput);
 

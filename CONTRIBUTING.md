@@ -13,7 +13,7 @@ The MATLAB IDE is recommended for developement, the following toolboxes are requ
 
 After intalling the IDE, proceed by creating a fork of the RAT repo, then clone the fork
 
-    git clone https://github.com/<username>/RAT.git
+    git clone --recurse-submodules https://github.com/<username>/RAT.git
     cd RAT
 
 And finally create a separate branch to begin work

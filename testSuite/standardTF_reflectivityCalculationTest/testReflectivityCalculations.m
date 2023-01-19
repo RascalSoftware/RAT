@@ -91,7 +91,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 testCase.applyFixture(CurrentFolderFixture(testDirectory));
             end
         end
-
+        
     end
 
 %%

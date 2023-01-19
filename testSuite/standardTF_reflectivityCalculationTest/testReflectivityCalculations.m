@@ -1,46 +1,56 @@
 classdef testRATAPI < matlab.unittest.TestCase
 %%
-% testRATAPI Class based unit tests for RAT, RATMain,
-% singleCalculation & reflectivityCalculationWrapper
-% Use the test case for a standard TF reflectivity calculation to test the
-% high-level RAT routines. We consider standard layers, custom layers and
-% custom XY examples.
+% testRATAPI Class based unit tests for RAT API, the reflectivity
+% calculation and pre- and post-processing routines.
+%
+% In this class, we test: RAT, RATMain, singleCalculation,
+% reflectivityCalculationWrapper, reflectivityCalculation,
+% RatParseClasstoStructs_new, parseResultToStruct,
+% RATParseOutToProjectClass
+%
+% We are using the test cases for a standard TF reflectivity calculation
+% to test the routines. We consider standard layers, custom layers and
+% custom XY examples. For the reflectivity calculation itself, we consider
+% the serial and parallel versions (both points and contrasts), using both
+% the MATLAB and compiled (MEX) versions.
 %
 % Paul Sharp 19/01/23
 %
-%%
+%% Declare properties and parameters
+
     properties (ClassSetupParameter)
-        inputsFile = {'standardLayersInputs.mat', 'customLayersInputs.mat', 'customXYInputs.mat'};
-        outputsFile = {'standardLayersOutputs.mat', 'customLayersOutputs.mat', 'customXYOutputs.mat'};
+        inputsFile = {'standardLayersInputs.mat', 'customLayersInputs.mat', 'customXYInputs.mat'};     % Input test data
+        outputsFile = {'standardLayersOutputs.mat', 'customLayersOutputs.mat', 'customXYOutputs.mat'}; % Output test data
     end
 
     properties (TestParameter)    
-        whichParallel = {'single', 'points', 'contrasts'}
-        useCompiled = {false, true}
+        whichParallel = {'single', 'points', 'contrasts'} % How the reflectivity calculation is parallelised
+        useCompiled = {false, true}                       % Choose either the MATLAB or MEX version
     end
 
     properties
-        inputs;              % Test input parameters read from file
-        outputs;             % Test Output parameters read from file
-        problemDefInput;     % Full set of input parameters
-        problemDef;          % Input Parameters for the test problem
-        problemDefCells;     % Input cell arays for the test problem
-        problemDefLimits;    % Input limits for the test problem
-        priors;              % ?????
-        controlsInput;       % Input value of instument controls for the input problem
-        controls;            % Instument controls for the input problem
-        expectedProblem;     % Expected output value of the problem object
-        expectedProblemOut;  % Expected output value of the output problem object
+        inputs;                  % Test input parameters read from file
+        outputs;                 % Test Output parameters read from file
+        problemDefInput;         % Full set of input parameters
+        problemDef;              % Input Parameters for the test problem
+        problemDefCells;         % Input cell arays for the test problem
+        problemDefLimits;        % Input limits for the test problem
+        priors;                  % Input priors for the test problem
+        controlsInput;           % Instument controls class for the input problem
+        controls;                % Instument controls struct for the input problem
+        expectedProblem;         % Expected output value of the problem object
+        expectedProblemOut;      % Expected output value of the output problem object
         expectedProblemOutStruct % Expected output value of the output problem struct
-        expectedResult;      % Expected output value of the results object
-        expectedResultOut;   % Expected output value of the output results object
+        expectedResult;          % Expected output value of the results object
+        expectedResultOut;       % Expected output value of the output results object
         expectedResultOutStruct  % Expected output value of the output results struct
-        expectedBayesResults % Expected output value of the results object
-        tolerance = 1.0e-12; % Relative tolerance for equality of floats
-        abs_tolerance = 1.0e-5; % Absolute tolerance for equality of floats
+        expectedBayesResults     % Expected output value of the results object
+        tolerance = 1.0e-12;     % Relative tolerance for equality of floats
+        abs_tolerance = 1.0e-5;  % Absolute tolerance for equality of floats
     end
 
-%%
+%% Read in test data
+
     methods (TestClassSetup, ParameterCombination="sequential")
 
         function loadTestDataInputs(testCase, inputsFile)
@@ -86,7 +96,7 @@ classdef testRATAPI < matlab.unittest.TestCase
 
 %%
     methods (Test, ParameterCombination="exhaustive")
-%% High Level RAT Routines
+%% Test High Level RAT Routines
 
         function testRAT(testCase)
             % testRAT Test the highest-level RAT routine
@@ -131,7 +141,7 @@ classdef testRATAPI < matlab.unittest.TestCase
             testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
-%% Reflectivity Calculation Routines
+%% Test Reflectivity Calculation Routines
 
         function testReflectivityCalculation(testCase, whichParallel, useCompiled)
             % reflectivitySerialMATLAB Test a the reflectivity calculation.
@@ -145,7 +155,7 @@ classdef testRATAPI < matlab.unittest.TestCase
             testCase.verifyEqual(result,testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
-%% Pre- and Post-Processing Routines
+%% Test Pre- and Post-Processing Routines
 
         function testRatParseClasstoStructs_new(testCase)
             % testRATParseClasstoStructs_new Test the routine that converts

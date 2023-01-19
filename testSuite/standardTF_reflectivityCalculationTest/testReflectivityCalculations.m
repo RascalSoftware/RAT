@@ -1,7 +1,7 @@
-classdef testRATAPI < matlab.unittest.TestCase
+classdef testReflectivityCalculations < matlab.unittest.TestCase
 %%
-% testRATAPI Class based unit tests for RAT API, the reflectivity
-% calculation and pre- and post-processing routines.
+% testReflectivityCalculations Class based unit tests for RAT API, the
+% reflectivity calculation and pre- and post-processing routines.
 %
 % In this class, we test: RAT, RATMain, singleCalculation,
 % reflectivityCalculationWrapper, reflectivityCalculation,

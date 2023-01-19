@@ -13,7 +13,7 @@ The MATLAB IDE is recommended for developement, the following toolboxes are requ
 
 After intalling the IDE, proceed by creating a fork of the RAT repo, then clone the fork
 
-    git clone https://github.com/<username>/RAT.git
+    git clone --recurse-submodules https://github.com/<username>/RAT.git
     cd RAT
 
 And finally create a separate branch to begin work
@@ -24,6 +24,9 @@ Commit changes with brief but clear commit messages and once feature is complete
 [pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork) via GitHub. 
 Ensure to rebase your branch to include the latest changes on your branch and resolve possible merge conflicts.
 
+If you have cloned the repository previously, you may need to update the submodules to get the 3rdParty repos
+	
+	git submodule update --init --recursive
 
 Unit-testing and coverage
 -------------------------

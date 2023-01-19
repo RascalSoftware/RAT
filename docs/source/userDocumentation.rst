@@ -24,7 +24,7 @@ macro in front of the function name.
         DYLIB_API void myCustomFunction(double *params...etc....)
 
 
-2. Now that you have put DYLIB_API infront of the dependencies. It is time to make a dynamic library of your model. To do this, you must follow platform specific instructions below.
+2. Now that you have put DYLIB_API in front of the dependencies. It is time to make a dynamic library of your model. To do this, you must follow platform specific instructions below.
 
 Lets say your file is called **myModel.cpp** and your function is called **myCustomFunction**
 

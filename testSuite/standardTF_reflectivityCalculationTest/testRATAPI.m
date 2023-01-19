@@ -1,17 +1,22 @@
-classdef testHighLevelRAT < matlab.unittest.TestCase
+classdef testRATAPI < matlab.unittest.TestCase
 %%
-% test_high_level_RAT Class based unit tests for RAT, RATMain,
+% testRATAPI Class based unit tests for RAT, RATMain,
 % singleCalculation & reflectivityCalculationWrapper
 % Use the test case for a standard TF reflectivity calculation to test the
 % high-level RAT routines. We consider standard layers, custom layers and
 % custom XY examples.
 %
-% Paul Sharp 18/01/23
+% Paul Sharp 19/01/23
 %
 %%
     properties (ClassSetupParameter)
         inputsFile = {'standardLayersInputs.mat', 'customLayersInputs.mat', 'customXYInputs.mat'};
         outputsFile = {'standardLayersOutputs.mat', 'customLayersOutputs.mat', 'customXYOutputs.mat'};
+    end
+
+    properties (TestParameter)    
+        whichParallel = {'single', 'points', 'contrasts'}
+        useCompiled = {false, true}
     end
 
     properties
@@ -80,7 +85,8 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
     end
 
 %%
-    methods (Test)
+    methods (Test, ParameterCombination="exhaustive")
+%% High Level RAT Routines
 
         function testRAT(testCase)
             % testRAT Test the highest-level RAT routine
@@ -124,7 +130,23 @@ classdef testHighLevelRAT < matlab.unittest.TestCase
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
-%%
+
+%% Reflectivity Calculation Routines
+
+        function testReflectivityCalculation(testCase, whichParallel, useCompiled)
+            % reflectivitySerialMATLAB Test a the reflectivity calculation.
+            % We will test the serial and parallel (over both points and
+            % contrasts) versions of the calculation, using both the MATLAB
+            % and comiled (MEX) versions of each.
+            
+            [problem, result] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls, useCompiled, whichParallel);
+
+            testCase.verifyEqual(problem,testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(result,testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
+
+%% Pre- and Post-Processing Routines
+
         function testRatParseClasstoStructs_new(testCase)
             % testRATParseClasstoStructs_new Test the routine that converts
             % an input ProjectClass to a struct

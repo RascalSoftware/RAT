@@ -8,10 +8,8 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
         backSortOutputs;
         chiSquaredInputs;
         chiSquaredOutputs;
-%         shiftDataInputs;
-%         shiftDataOutputs;
-        customLayers2Inputs;
-        customLayers2Outputs;
+        shiftDataInputs;
+        shiftDataOutputs;
         callMatlabCustomLayersInputs;
         callMatlabCustomLayersOutputs;
 
@@ -82,18 +80,12 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
             testCase.chiSquaredOutputs = outputs.outputs;   
         end
         
-%         function loadshiftData(testCase)
-%             inputs = load('shiftDataInputs.mat');
-%             outputs = load('shiftDataOutputs.mat');
-%             testCase.shiftDataInputs = inputs.inputs;
-%             testCase.shiftDataOutputs = outputs.outputs;
-%         end
-
-
-%         function loadcall_customLayers2(testCase)
-%             inputs = load('customLayers2.mat');
-%             testCase.customLayers2 = inputs.customLayers2;
-%         end
+        function loadshiftData(testCase)
+            inputs = load('shiftDataInputs.mat');
+            outputs = load('shiftDataOutputs.mat');
+            testCase.shiftDataInputs = inputs.inputs;
+            testCase.shiftDataOutputs = outputs.outputs;
+        end
 
         function loadcallMatlabCustomLayers(testCase)
             inputs = load('callMatlabCustomLayersInput.mat');
@@ -240,12 +232,12 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.chiSquaredOutputs,outputs);
         end
 
-%         function shiftData_test(testCase)
-%             %test shiftData
-%             out1 = shiftData(testCase.shiftDataInputs{1:end});
-%             outputs = {out1};
-%             testCase.verifyEqual(testCase.shiftDataOutputs,outputs);
-%         end
+        function shiftData_test(testCase)
+            %test shiftData
+            out1 = shiftdata(testCase.shiftDataInputs{:});
+            outputs = {out1};
+            testCase.verifyEqual(testCase.shiftDataOutputs,outputs);
+        end
 
         function callMatlabCustomLayers_test(testCase)
             % test callMatlabCustomLayers
@@ -256,7 +248,6 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
             % Outputs:
             %   none
 
-            testCase.callMatlabCustomLayersInputs{:}
             [output1, output2] = callMatlabCustomLayers(testCase.callMatlabCustomLayersInputs{:});
             outputs = {output1, output2};
             testCase.verifyEqual(testCase.callMatlabCustomLayersOutputs, outputs);

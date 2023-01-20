@@ -47,6 +47,19 @@ outputs.resultOut = resultOut;
 
 save('testSuite\standardTF_reflectivityCalculationTest\customLayersOutputs','outputs');
 
+% (c) TF Parameters
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+
+TFParams.problem = problem;
+TFParams.reflectivity = reflectivity;
+TFParams.simulation = simulation;
+TFParams.shiftedData = shifted_data;
+TFParams.layerSlds = layerSlds;
+TFParams.sldProfiles = sldProfiles;
+TFParams.allLayers = allLayers;
+
+save('testSuite\standardTF_reflectivityCalculationTest\customLayersTFParams','TFParams');
+
 %%
 % 2. Custom XY.
 % (a) Inputs
@@ -88,6 +101,19 @@ outputs.resultOut = resultOut;
 
 save('testSuite\standardTF_reflectivityCalculationTest\customXYOutputs','outputs');
 
+% (c) TF Parameters
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+
+TFParams.problem = problem;
+TFParams.reflectivity = reflectivity;
+TFParams.simulation = simulation;
+TFParams.shiftedData = shifted_data;
+TFParams.layerSlds = layerSlds;
+TFParams.sldProfiles = sldProfiles;
+TFParams.allLayers = allLayers;
+
+save('testSuite\standardTF_reflectivityCalculationTest\customXYTFParams','TFParams');
+
 %%
 % 3. Standard Layers
 % (a) Inputs
@@ -127,3 +153,16 @@ outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
 save('testSuite\standardTF_reflectivityCalculationTest\standardLayersOutputs','outputs');
+
+% (c) TF Parameters
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+
+TFParams.problem = problem;
+TFParams.reflectivity = reflectivity;
+TFParams.simulation = simulation;
+TFParams.shiftedData = shifted_data;
+TFParams.layerSlds = layerSlds;
+TFParams.sldProfiles = sldProfiles;
+TFParams.allLayers = allLayers;
+
+save('testSuite\standardTF_reflectivityCalculationTest\standardLayersTFParams','TFParams');

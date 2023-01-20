@@ -58,6 +58,21 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
+[outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+ Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+ allRoughs] = standardTF_custlay_single(problemDef,problemDef_cells,...
+              problemDef_limits,controls);
+
+TFParams.outSsubs = outSsubs;
+TFParams.backgs = backgs;
+TFParams.qshifts = qshifts;
+TFParams.sfs = sfs;
+TFParams.nbas = nbas;
+TFParams.nbss = nbss;
+TFParams.resols = resols;
+TFParams.chis = chis;
+TFParams.allRoughs = allRoughs;
+
 save('testSuite\standardTF_reflectivityCalculationTest\customLayersTFParams','TFParams');
 
 %%
@@ -112,6 +127,20 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
+[outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+ Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+ allRoughs] = standardTF_custXY_single(problemDef,problemDef_cells,...
+              problemDef_limits,controls);
+
+TFParams.outSsubs = outSsubs;
+TFParams.backgs = backgs;
+TFParams.qshifts = qshifts;
+TFParams.sfs = sfs;
+TFParams.nbas = nbas;
+TFParams.nbss = nbss;
+TFParams.resols = resols;
+TFParams.chis = chis;
+TFParams.allRoughs = allRoughs;
 save('testSuite\standardTF_reflectivityCalculationTest\customXYTFParams','TFParams');
 
 %%
@@ -164,5 +193,20 @@ TFParams.shiftedData = shifted_data;
 TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
+
+[outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+ Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+ allRoughs] = standardTF_stanlay_single(problemDef,problemDef_cells,...
+              problemDef_limits,controls);
+
+TFParams.outSsubs = outSsubs;
+TFParams.backgs = backgs;
+TFParams.qshifts = qshifts;
+TFParams.sfs = sfs;
+TFParams.nbas = nbas;
+TFParams.nbss = nbss;
+TFParams.resols = resols;
+TFParams.chis = chis;
+TFParams.allRoughs = allRoughs;
 
 save('testSuite\standardTF_reflectivityCalculationTest\standardLayersTFParams','TFParams');

@@ -14,13 +14,14 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 % the serial and parallel versions (both points and contrasts), using both
 % the MATLAB and compiled (MEX) versions.
 %
-% Paul Sharp 19/01/23
+% Paul Sharp 20/01/23
 %
 %% Declare properties and parameters
 
     properties (ClassSetupParameter)
         inputsFile = {'standardLayersInputs.mat', 'customLayersInputs.mat', 'customXYInputs.mat'};     % Input test data
         outputsFile = {'standardLayersOutputs.mat', 'customLayersOutputs.mat', 'customXYOutputs.mat'}; % Output test data
+        TFFile = {'standardLayersTFParams.mat', 'customLayersTFParams.mat',  'customXYTFParams.mat'};  % TF Params test data
     end
 
     properties (TestParameter)    
@@ -31,6 +32,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
     properties
         inputs;                  % Test input parameters read from file
         outputs;                 % Test Output parameters read from file
+        TFParams;                % Test TF Parameters read from file
         problemDefInput;         % Full set of input parameters
         problemDef;              % Input Parameters for the test problem
         problemDefCells;         % Input cell arays for the test problem
@@ -43,8 +45,14 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         expectedProblemOutStruct % Expected output value of the output problem struct
         expectedResult;          % Expected output value of the results object
         expectedResultOut;       % Expected output value of the output results object
-        expectedResultOutStruct  % Expected output value of the output results struct
-        expectedBayesResults     % Expected output value of the results object
+        expectedResultOutStruct; % Expected output value of the output results struct
+        expectedBayesResults;    % Expected output value of the results object
+        TFReflectivity;
+        TFSimulation;
+        TFShiftedData;
+        TFLayerSLDs;
+        TFSLDProfiles;
+        TFAllLayers;
         tolerance = 1.0e-12;     % Relative tolerance for equality of floats
         abs_tolerance = 1.0e-5;  % Absolute tolerance for equality of floats
     end
@@ -77,6 +85,19 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.expectedResultOut = testCase.outputs.outputs.resultOut;
             testCase.expectedResultOutStruct = testCase.outputs.outputs.resultOutStruct;
             testCase.expectedBayesResults = testCase.outputs.outputs.bayesResults;
+        end
+
+        function loadTFParams(testCase, TFFile)
+            % loadTestDataOutputs Read expected values for outputs from file
+            testCase.TFParams = load(TFFile);
+
+            %testCase.TFProblem = testCase.TFParams.problem;
+            testCase.TFReflectivity = testCase.TFParams.TFParams.reflectivity;
+            testCase.TFSimulation = testCase.TFParams.TFParams.simulation;
+            testCase.TFShiftedData = testCase.TFParams.TFParams.shiftedData;
+            testCase.TFLayerSLDs = testCase.TFParams.TFParams.layerSlds;
+            testCase.TFSLDProfiles = testCase.TFParams.TFParams.sldProfiles;
+            testCase.TFAllLayers = testCase.TFParams.TFParams.allLayers;
         end
 
         function setCurrentFolder(testCase)
@@ -144,16 +165,57 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Test Reflectivity Calculation Routines
 
         function testReflectivityCalculation(testCase, whichParallel, useCompiled)
-            % reflectivitySerialMATLAB Test a the reflectivity calculation.
+            % testReflectivityCalculation Test the reflectivity calculation.
             % We will test the serial and parallel (over both points and
             % contrasts) versions of the calculation, using both the MATLAB
             % and comiled (MEX) versions of each.
             
             [problem, result] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls, useCompiled, whichParallel);
 
-            testCase.verifyEqual(problem,testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
-            testCase.verifyEqual(result,testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
+
+        function testStandardTFReflectivityCalculation(testCase)
+            % teststandardTFReflectivityCalculation Test the standard TF
+            % version of the reflectivity calculation.
+            [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF_reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+
+            testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(reflectivity, testCase.TFReflectivity, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(simulation, testCase.TFSimulation, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(shiftedData, testCase.TFShiftedData, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(allLayers, testCase.TFAllLayers, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
+
+        function testStandardTFLayersReflectivityCalculation(testCase, TFFile)
+            % teststandardTFStanLayReflectivityCalculation Test the
+            % particular standard TF version of the reflectivity calculation
+            % for each layer type.
+
+            % Choose the appropriate routine for each test case
+            switch TFFile
+                case 'standardLayersTFParams.mat'
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF_stanLay_reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                case 'customLayersTFParams.mat'
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF_custLay_reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                case 'customXYTFParams.mat'
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF_custXY_reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+            end
+
+            testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(reflectivity, testCase.TFReflectivity, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(simulation, testCase.TFSimulation, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(shiftedData, testCase.TFShiftedData, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(layerSLDs, testCase.TFLayerSLDs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(SLDProfiles, testCase.TFSLDProfiles, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(allLayers, testCase.TFAllLayers, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
+
+
+
 
 %% Test Pre- and Post-Processing Routines
 

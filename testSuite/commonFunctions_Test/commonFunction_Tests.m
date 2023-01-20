@@ -64,7 +64,7 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
   
     end
 
-    methods(TestMethodSetup)    
+    methods(TestClassSetup)    
         
         function loadBackSort(testCase)
             inputs = load('backSortInputs.mat');
@@ -307,46 +307,44 @@ classdef commonFunction_Tests < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.allocateParamsToLayersOutputs,outputs);
         end
 
-%         function groupLayers_Mod_test(testCase)
-%             % test groupLayers_Mod
-%             %
-%             % Inputs:
-%             %   testCase - class instance
-%             %
-%             % Outputs:
-%             %   none
-%             %
-%             % Example:
-%             %   groupLayers_Mod(testCase)
+        function groupLayers_Mod_test(testCase)
+            % test groupLayers_Mod
+            %
+            % Inputs:
+            %   testCase - class instance
+            %
+            % Outputs:
+            %   none
+            %
+            % Example:
+            %   groupLayers_Mod(testCase)
+            
+            %
+           
+            [out1,out2] = groupLayers_Mod(testCase.groupLayers_ModInputs{1:end});
+            outputs = {out1,out2};
+            testCase.verifyEqual(testCase.groupLayers_ModOutputs,outputs);
+        end
+ 
+%        function jacobianEst_test(testCase)
+            % test jacobianEst
+            %
+            % Inputs:
+            %   testCase - class instance
+            %
+            % Outputs:
+            %   none
+            %
+            % Example:
+            %   jacobianEst(testCase)
+            
+%            firstArg = testCase.jacobianEstInputs{1};
+%            secondArg = testCase.jacobianEstInputs{2};
 %             
-%             %
-%            
-%             [out1,out2] = groupLayers_Mod(testCase.groupLayers_ModInputs{1:end});
-%             outputs = {out1,out2};
-%             testCase.verifyEqual(testCase.groupLayers_ModOutputs,outputs);
-% 
-%         end
-% 
-%         function jacobianEst_test(testCase)
-%             % test jacobianEst
-%             %
-%             % Inputs:
-%             %   testCase - class instance
-%             %
-%             % Outputs:
-%             %   none
-%             %
-%             % Example:
-%             %   jacobianEst(testCase)
-%             
-%             %
-%             firstArg = testCase.jacobianEstInputs{1};
-%             secondArg = testCase.jacobianEstInputs{2};
-%             
-%             outputs = jacobianest(firstArg,secondArg)
-% 
-%             testCase.verifyEqual(testCase.jacobianEstOutputs,outputs);
-%         end
+%            outputs = jacobianest(firstArg,secondArg);
+%
+%            testCase.verifyEqual(testCase.jacobianEstOutputs,outputs);
+%        end
 
         function makeSLDProfiles_test(testCase)
             % test makeSLDProfiles

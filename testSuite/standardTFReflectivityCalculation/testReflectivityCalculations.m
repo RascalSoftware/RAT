@@ -386,7 +386,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         function testExtractProblemParams(testCase)
             % testExtractProblemParams Test the routine that extracts
             % "problemDef" parameters
-
             [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
             cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
             numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(testCase.problemDef);
@@ -414,14 +413,19 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(cFiles, testCase.problemDef.contrastCustomFiles, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
-
-
-
         function testParseResultToStruct(testCase)
             % testParseResultToStruct Test the routine that partially
             % constructs a results struct
             resultStruct = parseResultToStruct(testCase.expectedProblem, testCase.expectedResult);
             testCase.verifyEqual(resultStruct, testCase.expectedResultOutStruct, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+
+            testCase.verifyEqual(resultStruct.reflectivity, testCase.expectedResult{1}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(resultStruct.Simulation, testCase.expectedResult{2}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(resultStruct.shifted_data, testCase.expectedResult{3}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(resultStruct.layerSlds, testCase.expectedResult{4}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(resultStruct.sldProfiles, testCase.expectedResult{5}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(resultStruct.allLayers, testCase.expectedResult{6}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(resultStruct.calculationResults, testCase.expectedProblem.calculations, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
         function testRATParseOutToProjectClass(testCase)

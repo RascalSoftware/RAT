@@ -370,7 +370,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testRATParseCells(testCase)
-            % testRATRParseCells Test the routine that extracts data from
+            % testRATParseCells Test the routine that extracts data from
             % "problemDef_cells"
             [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = RAT_parse_cells(testCase.problemDefCells);
 
@@ -382,6 +382,40 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(layersDetails, testCase.problemDefCells{6}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(customFiles, testCase.problemDefCells{14}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end        
+
+        function testExtractProblemParams(testCase)
+            % testExtractProblemParams Test the routine that extracts
+            % "problemDef" parameters
+
+            [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
+            cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
+            numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(testCase.problemDef);
+
+            testCase.verifyEqual(numberOfContrasts, testCase.problemDef.numberOfContrasts, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(geometry, testCase.problemDef.geometry, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(cBacks, testCase.problemDef.contrastBacks, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(cShifts, testCase.problemDef.contrastShifts, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(cScales, testCase.problemDef.contrastScales, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(cNbas, testCase.problemDef.contrastNbas, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(cNbss, testCase.problemDef.contrastNbss, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(cRes, testCase.problemDef.contrastRes, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(backs, testCase.problemDef.backs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(shifts, testCase.problemDef.shifts, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(sf, testCase.problemDef.sf, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(nba, testCase.problemDef.nba, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(nbs, testCase.problemDef.nbs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(res, testCase.problemDef.res, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(dataPresent, testCase.problemDef.dataPresent, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(nParams, length(testCase.problemDef.params), "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(params, testCase.problemDef.params, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(numberOfLayers, testCase.problemDef.numberOfLayers, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(resample, testCase.problemDef.resample, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(backsType, testCase.problemDef.contrastBacksType, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(cFiles, testCase.problemDef.contrastCustomFiles, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end
+
+
+
 
         function testParseResultToStruct(testCase)
             % testParseResultToStruct Test the routine that partially

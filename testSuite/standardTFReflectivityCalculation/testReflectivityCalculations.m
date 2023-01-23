@@ -90,7 +90,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.problemDefLimits = testCase.inputs.inputs.problemDef_limits;
             testCase.priors = testCase.inputs.inputs.priors;
             testCase.controlsInput = testCase.inputs.inputs.controlsInput;
-            testCase.controls = testCase.inputs.inputs.controls; 
+            testCase.controls = testCase.inputs.inputs.controls;
         end
         
         function loadTestDataOutputs(testCase, outputsFile)

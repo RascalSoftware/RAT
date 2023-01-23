@@ -3,10 +3,20 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 % testReflectivityCalculations Class based unit tests for RAT API, the
 % reflectivity calculation and pre- and post-processing routines.
 %
-% In this class, we test: RAT, RATMain, singleCalculation,
-% reflectivityCalculationWrapper, reflectivityCalculation,
-% RatParseClasstoStructs_new, parseResultToStruct,
-% RATParseOutToProjectClass
+% In this class, we test:
+% RAT, RATMain, singleCalculation,
+% reflectivityCalculationWrapper,
+% reflectivityCalculation, standardTF_reflectivityCalculation,
+% standardTF_stanLay_reflectivityCalculation,
+% standardTF_custLay_reflectivityCalculation,
+% standardTF_custXY_reflectivityCalculation, 
+% standardTF_stanlay_single, standardTF_custlay_single,
+% standardTF_custXY_single, standardTF_stanlay_paraContrasts,
+% standardTF_custlay_paraContrasts, standardTF_custXY_paraContrasts,
+% standardTF_stanlay_paraPoints, standardTF_custlay_paraPoints,
+% standardTF_custXY_paraPoints,
+% RatParseClasstoStructs_new, RAT_parse_cells, extractProblemParams
+% parseResultToStruct, RATParseOutToProjectClass
 %
 % We are using the test cases for a standard TF reflectivity calculation
 % to test the routines. We consider standard layers, custom layers and

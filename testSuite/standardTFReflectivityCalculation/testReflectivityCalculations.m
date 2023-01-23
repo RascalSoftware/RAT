@@ -14,7 +14,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 % the serial and parallel versions (both points and contrasts), using both
 % the MATLAB and compiled (MEX) versions.
 %
-% Paul Sharp 20/01/23
+% Paul Sharp 23/01/23
 %
 %% Declare properties and parameters
 
@@ -355,12 +355,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(allRoughs, testCase.TFAllRoughs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
-
-
-
-
-
-
 %% Test Pre- and Post-Processing Routines
 
         function testRatParseClasstoStructs_new(testCase)
@@ -374,6 +368,20 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(problem_priors, testCase.priors, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(controls_struct, testCase.controls, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
+
+        function testRATParseCells(testCase)
+            % testRATRParseCells Test the routine that extracts data from
+            % "problemDef_cells"
+            [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = RAT_parse_cells(testCase.problemDefCells);
+
+            testCase.verifyEqual(repeatLayers, testCase.problemDefCells{1}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(allData, testCase.problemDefCells{2}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(dataLimits, testCase.problemDefCells{3}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(simLimits, testCase.problemDefCells{4}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(contrastLayers, testCase.problemDefCells{5}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(layersDetails, testCase.problemDefCells{6}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(customFiles, testCase.problemDefCells{14}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+        end        
 
         function testParseResultToStruct(testCase)
             % testParseResultToStruct Test the routine that partially

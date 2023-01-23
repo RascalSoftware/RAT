@@ -141,6 +141,7 @@ TFParams.nbss = nbss;
 TFParams.resols = resols;
 TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
+
 save('testSuite\standardTF_reflectivityCalculationTest\customXYTFParams','TFParams');
 
 %%

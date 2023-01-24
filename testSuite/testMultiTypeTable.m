@@ -26,7 +26,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
     end
 
     properties
-        initialTypesTable
+        initialTypesTable;
         initialAllowedTypes = {'constant'  'data'  'function'};
         initialAllowedActions = {'add'  'subtract'};
         initialTypesCount = 1;
@@ -169,6 +169,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % testAddRowInvalid Test adding a row to a multi type table
             % If we initialise with a cell array containing more than one
             % field (except for seven) it should raise an error
+            %
+            % !!! THIS IS A BUG !!!
+            %
             testCase.verifyError(@() testCase.exampleTable.addRow(invalidInputCell), 'MATLAB:table:vertcat:SizeMismatchWithCell');
         end
 
@@ -179,24 +182,69 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % than a variable number of arguments
 
             % Row and column indices
-            testCase.exampleTable.setValue({1, 7, 'Added'})
+            testCase.exampleTable.setValue({1, 7, 'Added'});
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Added"];
             testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow);
 
             % Row name and column index
-            testCase.exampleTable.setValue({'Background SMW', 7, 'Added'})
+            testCase.exampleTable.setValue({'Background SMW', 7, 'Added'});
             expectedRow = ["Background SMW" "constant" "Backs par SMW" "" "" "" "Added"];
             testCase.verifyEqual(testCase.exampleTable.typesTable{2, :}, expectedRow);
 
             % Row index and column name
-            testCase.exampleTable.setValue({3, 'Value 1', 'Changed'})
+            testCase.exampleTable.setValue({3, 'Value 1', 'Changed'});
             expectedRow = ["Background H2O" "constant" "Changed" "" "" "" ""];
             testCase.verifyEqual(testCase.exampleTable.typesTable{3, :}, expectedRow);
 
             % Row and column names
-            testCase.exampleTable.setValue({'Background D2O', 'Value 5', 'Changed'})
+            testCase.exampleTable.setValue({'Background D2O', 'Value 5', 'Changed'});
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Changed"];
             testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow);
+        end
+
+        function testSetValueInvalid(testCase)
+            % Test setting values in the multitype table using invalid
+            % values of both names and indices to refer to rows and columns
+            % Note that the routine requires a single cell array rather
+            % than a variable number of arguments
+            
+            rows = height(testCase.exampleTable.typesTable);
+            cols = length(testCase.exampleTable.typesTable.Properties.VariableNames);
+
+            % Row indices
+            testCase.verifyError(@() testCase.exampleTable.setValue({0, 7, 'Added'}), '')
+            testCase.verifyError(@() testCase.exampleTable.setValue({rows+1, 7, 'Added'}), '')
+
+            % Column indices
+            testCase.verifyError(@() testCase.exampleTable.setValue({1, 0, 'Added'}), '')
+            testCase.verifyError(@() testCase.exampleTable.setValue({1, cols+1, 'Added'}), '')
+
+            % Row name
+            %
+            % !!! THIS IS A BUG !!! 
+            % This should raise an error for being an invalid row name but
+            % instead does nothings
+            %
+            %testCase.verifyError(@() testCase.exampleTable.setValue({'Invalid Name', 7, 'Added'}), '')
+            testCase.verifyEqual(testCase.exampleTable.setValue({'Invalid Name', 7, 'Added'}), testCase.exampleTable);
+
+            % Column name
+            %
+            % !!! THIS IS A BUG !!! 
+            % This should raise an error for being an invalid row name but
+            % instead does nothings
+            %
+            %testCase.verifyError(@() testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), '')
+            testCase.verifyEqual(testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), testCase.exampleTable);
+
+            % Floats for row and column
+            %
+            % !!! THIS IS A BUG !!! 
+            % These should raise an error for being non-integers rather
+            % than bad subscripts
+            %
+            testCase.verifyError(@() testCase.exampleTable.setValue({1, 1.5, 'Added'}), 'MATLAB:badsubscript')
+            testCase.verifyError(@() testCase.exampleTable.setValue({1.5, 1, 'Added'}), 'MATLAB:badsubscript')        
         end
 
         function testSetValueTooFewParams(testCase)
@@ -205,9 +253,6 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.setValue({1}), 'MATLAB:badsubscript');
             testCase.verifyError(@() testCase.exampleTable.setValue({1, 1}), 'MATLAB:badsubscript');
         end
-
-
-
 
 
 

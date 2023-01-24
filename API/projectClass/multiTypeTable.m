@@ -62,7 +62,7 @@ classdef multiTypeTable < handle
                 row = findIndex(rowPar, rowNames);
             elseif isnumeric(rowPar)
                 if (rowPar < 1) || (rowPar > length(rowNames))
-                   error('Row number out of range')  
+                   error('Row number out of range');  
                 else
                     row = rowPar;
                 end

@@ -2,7 +2,7 @@ classdef multiTypeTable < handle
     
     
     % This is the class definition for
-    % the backgrounds and reolutions tables.
+    % the backgrounds and resolutions tables.
     
     properties
         typesTable = table;

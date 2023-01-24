@@ -13,6 +13,9 @@ ratRoot = getappdata(0,'ratRoot');
 customLayersProblem = orsoDSPC_custLay_script();
 controlsInput = controlsDef();
 
+% Supress printing of RAT output for testing
+controlsInput.display = 'off';
+
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customLayersProblem,controlsInput);
 
 inputs.problemDefInput = customLayersProblem;
@@ -23,7 +26,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save('testSuite\standardTF_reflectivityCalculationTest\customLayersInputs','inputs');
+save('testSuite\standardTFReflectivityCalculation\customLayersInputs','inputs');
 
 % (b) Outputs
 [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -45,7 +48,35 @@ outputs.resultOutStruct = resultOutStruct;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save('testSuite\standardTF_reflectivityCalculationTest\customLayersOutputs','outputs');
+save('testSuite\standardTFReflectivityCalculation\customLayersOutputs','outputs');
+
+% (c) TF Parameters
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+
+TFParams.problem = problem;
+TFParams.reflectivity = reflectivity;
+TFParams.simulation = simulation;
+TFParams.shiftedData = shifted_data;
+TFParams.layerSlds = layerSlds;
+TFParams.sldProfiles = sldProfiles;
+TFParams.allLayers = allLayers;
+
+[outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+ Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+ allRoughs] = standardTF_custlay_single(problemDef,problemDef_cells,...
+              problemDef_limits,controls);
+
+TFParams.outSsubs = outSsubs;
+TFParams.backgs = backgs;
+TFParams.qshifts = qshifts;
+TFParams.sfs = sfs;
+TFParams.nbas = nbas;
+TFParams.nbss = nbss;
+TFParams.resols = resols;
+TFParams.chis = chis;
+TFParams.allRoughs = allRoughs;
+
+save('testSuite\standardTFReflectivityCalculation\customLayersTFParams','TFParams');
 
 %%
 % 2. Custom XY.
@@ -53,6 +84,9 @@ save('testSuite\standardTF_reflectivityCalculationTest\customLayersOutputs','out
 ratRoot = getappdata(0,'ratRoot');
 customXYProblem = DPPC_custXY_script();
 controlsInput = controlsDef();
+
+% Supress printing of RAT output for testing
+controlsInput.display = 'off';
 
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customXYProblem,controlsInput);
 
@@ -64,7 +98,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save('testSuite\standardTF_reflectivityCalculationTest\customXYInputs','inputs');
+save('testSuite\standardTFReflectivityCalculation\customXYInputs','inputs');
 
 % (b) Outputs
 [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -86,13 +120,44 @@ outputs.resultOutStruct = resultOutStruct;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save('testSuite\standardTF_reflectivityCalculationTest\customXYOutputs','outputs');
+save('testSuite\standardTFReflectivityCalculation\customXYOutputs','outputs');
+
+% (c) TF Parameters
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+
+TFParams.problem = problem;
+TFParams.reflectivity = reflectivity;
+TFParams.simulation = simulation;
+TFParams.shiftedData = shifted_data;
+TFParams.layerSlds = layerSlds;
+TFParams.sldProfiles = sldProfiles;
+TFParams.allLayers = allLayers;
+
+[outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+ Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+ allRoughs] = standardTF_custXY_single(problemDef,problemDef_cells,...
+              problemDef_limits,controls);
+
+TFParams.outSsubs = outSsubs;
+TFParams.backgs = backgs;
+TFParams.qshifts = qshifts;
+TFParams.sfs = sfs;
+TFParams.nbas = nbas;
+TFParams.nbss = nbss;
+TFParams.resols = resols;
+TFParams.chis = chis;
+TFParams.allRoughs = allRoughs;
+
+save('testSuite\standardTFReflectivityCalculation\customXYTFParams','TFParams');
 
 %%
 % 3. Standard Layers
 % (a) Inputs
 standardProblem = DPPC_standard_layers();
 controlsInput = controlsDef();
+
+% Supress printing of RAT output for testing
+controlsInput.display = 'off';
 
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(standardProblem,controlsInput);
 
@@ -104,7 +169,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save('testSuite\standardTF_reflectivityCalculationTest\standardLayersInputs','inputs');
+save('testSuite\standardTFReflectivityCalculation\standardLayersInputs','inputs');
 
 % (b) Outputs
 [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -126,4 +191,32 @@ outputs.resultOutStruct = resultOutStruct;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save('testSuite\standardTF_reflectivityCalculationTest\standardLayersOutputs','outputs');
+save('testSuite\standardTFReflectivityCalculation\standardLayersOutputs','outputs');
+
+% (c) TF Parameters
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+
+TFParams.problem = problem;
+TFParams.reflectivity = reflectivity;
+TFParams.simulation = simulation;
+TFParams.shiftedData = shifted_data;
+TFParams.layerSlds = layerSlds;
+TFParams.sldProfiles = sldProfiles;
+TFParams.allLayers = allLayers;
+
+[outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+ Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+ allRoughs] = standardTF_stanlay_single(problemDef,problemDef_cells,...
+              problemDef_limits,controls);
+
+TFParams.outSsubs = outSsubs;
+TFParams.backgs = backgs;
+TFParams.qshifts = qshifts;
+TFParams.sfs = sfs;
+TFParams.nbas = nbas;
+TFParams.nbss = nbss;
+TFParams.resols = resols;
+TFParams.chis = chis;
+TFParams.allRoughs = allRoughs;
+
+save('testSuite\standardTFReflectivityCalculation\standardLayersTFParams','TFParams');

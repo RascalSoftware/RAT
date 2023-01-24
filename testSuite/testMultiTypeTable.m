@@ -33,6 +33,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         initialTypesAutoNameCounter = 1;
         initialTypesAutoNameString = [];
 
+        exampleTable;
+
         tolerance = 1.0e-12;     % Relative tolerance for equality of floats
         abs_tolerance = 1.0e-5;  % Absolute tolerance for equality of floats
     end
@@ -52,6 +54,23 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.initialTypesTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
             testCase.initialTypesTable(1,:) = {'','','','','','',''};
         end
+
+        function initialiseMultiTypeTable(testCase)
+            % initialiseTypesTable Set up an example multi type table
+            % for testing
+            % This example is used in the backgrounds class for the example
+            % "DPPC_standard_layers.m"
+            testCase.exampleTable = multiTypeTable({'Background D2O', 'constant', 'Backs Par 1','','','',''});
+            
+            testCase.exampleTable.typesTable(2,:) = {'Background SMW','constant','Backs par SMW','','','',''};
+            testCase.exampleTable.typesTable(3,:) = {'Background H2O','constant','Backs par H2O','','','',''};
+
+            testCase.exampleTable.allowedTypes = {'constant', 'data', 'function'};
+            testCase.exampleTable.allowedActions = {'add','subtract'};
+            testCase.exampleTable.typesCount = 3;
+            testCase.exampleTable.typesAutoNameCounter = 3;
+            testCase.exampleTable.typesAutoNameString = 'New background';
+        end
         
     end
 
@@ -65,39 +84,84 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % or a seven element cell array
             testTable = multiTypeTable(validInputCell);
 
+            testCase.verifySize(testTable.typesTable, [1 7]);
+
             testCase.verifyEqual(testTable.typesTable, testCase.initialTypesTable);
             testCase.verifyEqual(testTable.allowedTypes, testCase.initialAllowedTypes);
             testCase.verifyEqual(testTable.allowedActions, testCase.initialAllowedActions);
-            testCase.verifyEqual(testTable.typesCount, testCase.initialTypesCount, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
-            testCase.verifyEqual(testTable.typesAutoNameCounter, testCase.initialTypesAutoNameCounter, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testTable.typesCount, testCase.initialTypesCount);
+            testCase.verifyEqual(testTable.typesAutoNameCounter, testCase.initialTypesAutoNameCounter);
             testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString);
         end
 
         function testInitialiseEmptyMultiTypeTable(testCase)
-            % testInitialiseMultiTypeTable Test the routine to initialise
-            % a multi-type table
+            % testInitialiseEmptyMultiTypeTable Test the routine to
+            % initialise a multi-type table
             % If we initialise without an input, it should raise an error
             testCase.verifyError(@() multiTypeTable(), 'MATLAB:minrhs');
         end
 
         function testInitialiseEmptyCellMultiTypeTable(testCase)
-            % testInitialiseMultiTypeTable Test the routine to initialise
-            % a multi-type table
+            % testInitialiseEmptyCellMultiTypeTable Test the routine to
+            % initialise a multi-type table
             % If we initialise with an empty cell array, it should raise
             % an error
             testCase.verifyError(@() multiTypeTable({}), 'MATLAB:table:RowDimensionMismatch');
         end
 
-        function testInitialiseIncompleteMultiTypeTable(testCase, invalidInputCell)
-            % testInitialiseMultiTypeTable Test the routine to initialise
-            % a multi-type table
+        function testInitialiseInvalidMultiTypeTable(testCase, invalidInputCell)
+            % testInitialiseInvalidMultiTypeTable Test the routine to
+            % initialise a multi-type table
             % If we initialise with a cell array containing more than one
             % field (except for seven) it should raise an error
             testCase.verifyError(@() multiTypeTable(invalidInputCell), 'MATLAB:table:VarDimensionMismatch');
         end
 
+        function testAddRow(testCase)
+            % testAddRow Test adding a row to a multi type table
+
+            % We can add a row using a cell array of length zero, one, or
+            % seven only.
+
+            % Test a zero length cell array
+            % The routine creates the following name for the row
+            rowName = sprintf('%s %d', testCase.exampleTable.typesAutoNameString, testCase.exampleTable.typesAutoNameCounter);
+            expectedRow = [rowName "constant" "" "" "" "" ""];
+
+            testCase.exampleTable.addRow({});
+
+            testCase.verifySize(testCase.exampleTable.typesTable, [4 7]);
+
+            testCase.verifyEqual(testCase.exampleTable.typesTable{end, :}, expectedRow);
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
+            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+
+            % Test a length one cell array
+            rowName = 'Link';
+            expectedRow = [rowName "constant" "" "" "" "" ""];
+
+            testCase.exampleTable.addRow({rowName});
+
+            testCase.verifySize(testCase.exampleTable.typesTable, [5 7]);
+
+            testCase.verifyEqual(testCase.exampleTable.typesTable{end, :}, expectedRow);
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
+            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+
+            % Test a length seven cell array
+            rowData = {'Rauru', 'Saria', 'Darunia', 'Ruto', 'Impa', 'Nabooru', 'Zelda'};
+
+            testCase.exampleTable.addRow(rowData);
+            
+            testCase.verifySize(testCase.exampleTable.typesTable, [6 7]);
+
+            testCase.verifyEqual(testCase.exampleTable.typesTable{end, :}, string(rowData));
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
+            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+        end
 
 
+        %MATLAB:table:vertcat:SizeMismatchWithCell
 
 
 

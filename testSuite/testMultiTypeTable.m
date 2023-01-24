@@ -200,6 +200,11 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.exampleTable.setValue({'Background D2O', 'Value 5', 'Changed'});
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Changed"];
             testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow);
+
+            % Use name to change name
+            testCase.exampleTable.setValue({'Background D2O', 'Name', 'New Name'});
+            expectedRow = ["New Name" "constant" "Backs par 1" "" "" "" "Changed"];
+            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow);
         end
 
         function testSetValueInvalid(testCase)

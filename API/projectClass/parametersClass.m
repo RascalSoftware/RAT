@@ -74,7 +74,7 @@ classdef parametersClass < handle
                         name = inputCell{1};
                         value = inputCell{2};
                         if ~isnumeric(value)
-                            error('Expecting numberic value as param 2');
+                            error('Expecting numeric value as param 2');
                         end
                         newRow = {name,value,value,value,false,'uniform',0,Inf};
                         appendNewRow(obj,newRow);
@@ -85,7 +85,7 @@ classdef parametersClass < handle
                         name = inputCell{1};
                         values = [inputCell{2} inputCell{3} inputCell{4}];
                         if ~isnumeric(values)
-                            error('Expecting numberic valus as params 2 - 4');
+                            error('Expecting numeric values as params 2 - 4');
                         end
                         newRow = {name,values(1),values(2),values(3),false,'uniform',0,Inf};
                         appendNewRow(obj,newRow);
@@ -97,7 +97,7 @@ classdef parametersClass < handle
                         values = [inputCell{2} inputCell{3} inputCell{4}];
                         fit = inputCell{5};
                         if ~isnumeric(values)
-                            error('Expecting numberic valus as params 2 - 4');
+                            error('Expecting numeric values as params 2 - 4');
                         end
                         
                         if ~islogical(fit)
@@ -115,7 +115,7 @@ classdef parametersClass < handle
                         priorValues = [inputCell{7} inputCell{8}];
                         
                         if ~isnumeric(values)
-                            error('Expecting numberic valus as params 2 - 4');
+                            error('Expecting numeric values as params 2 - 4');
                         end
                         
                         if ~islogical(fit)

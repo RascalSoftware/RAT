@@ -67,7 +67,7 @@ classdef dataClass < handle
                         
                     case 2
                         
-                        % Two inputs suppled - assume both name and data
+                        % Two inputs supplied - assume both name and data
                         % supplied;
                         newName = inputs{1};
                         newData = inputs{2};
@@ -127,7 +127,7 @@ classdef dataClass < handle
             % and type.
             toBeParsed = inputs(2:end);
 
-            % Make an 'iputParser' object...
+            % Make an 'inputParser' object...
             p = inputParser;
             
             % dataRange and simRange need to be [1 x 2] arrays

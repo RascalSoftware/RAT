@@ -160,8 +160,15 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
         end
 
+        function testAddRowInvalid(testCase, invalidInputCell)
+            % testAddRowInvalid Test adding a row to a multi type table
+            % If we initialise with a cell array containing more than one
+            % field (except for seven) it should raise an error
+            testCase.verifyError(@() testCase.exampleTable.addRow(invalidInputCell), 'MATLAB:table:vertcat:SizeMismatchWithCell');
+        end
 
-        %MATLAB:table:vertcat:SizeMismatchWithCell
+
+        
 
 
 

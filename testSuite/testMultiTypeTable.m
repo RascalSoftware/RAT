@@ -39,9 +39,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         abs_tolerance = 1.0e-5;  % Absolute tolerance for equality of floats
     end
 
-%% Read in test data
+%% Set up test data
 
-    methods (TestClassSetup, ParameterCombination="sequential")
+    methods (TestClassSetup)
 
         function initialiseTypesTable(testCase)
             % initialiseTypesTable Set up a types table with a single row
@@ -55,12 +55,16 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.initialTypesTable(1,:) = {'','','','','','',''};
         end
 
+    end
+
+    methods (TestMethodSetup)
+
         function initialiseMultiTypeTable(testCase)
             % initialiseTypesTable Set up an example multi type table
             % for testing
             % This example is used in the backgrounds class for the example
             % "DPPC_standard_layers.m"
-            testCase.exampleTable = multiTypeTable({'Background D2O', 'constant', 'Backs Par 1','','','',''});
+            testCase.exampleTable = multiTypeTable({'Background D2O', 'constant', 'Backs par 1','','','',''});
             
             testCase.exampleTable.typesTable(2,:) = {'Background SMW','constant','Backs par SMW','','','',''};
             testCase.exampleTable.typesTable(3,:) = {'Background H2O','constant','Backs par H2O','','','',''};
@@ -75,7 +79,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
     end
 
 %% Test Multi Type Table Class Routines
-    methods (Test, ParameterCombination="exhaustive")
+    methods (Test)
 
         function testInitialiseMultiTypeTable(testCase, validInputCell)
             % testInitialiseMultiTypeTable Test the routine to initialise
@@ -122,6 +126,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             % We can add a row using a cell array of length zero, one, or
             % seven only.
+            origRows = height(testCase.exampleTable.typesTable);
 
             % Test a zero length cell array
             % The routine creates the following name for the row
@@ -130,7 +135,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             testCase.exampleTable.addRow({});
 
-            testCase.verifySize(testCase.exampleTable.typesTable, [4 7]);
+            testCase.verifySize(testCase.exampleTable.typesTable, [origRows+1 7]);
 
             testCase.verifyEqual(testCase.exampleTable.typesTable{end, :}, expectedRow);
             testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
@@ -142,7 +147,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             testCase.exampleTable.addRow({rowName});
 
-            testCase.verifySize(testCase.exampleTable.typesTable, [5 7]);
+            testCase.verifySize(testCase.exampleTable.typesTable, [origRows+2 7]);
 
             testCase.verifyEqual(testCase.exampleTable.typesTable{end, :}, expectedRow);
             testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
@@ -153,7 +158,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             testCase.exampleTable.addRow(rowData);
             
-            testCase.verifySize(testCase.exampleTable.typesTable, [6 7]);
+            testCase.verifySize(testCase.exampleTable.typesTable, [origRows+3 7]);
 
             testCase.verifyEqual(testCase.exampleTable.typesTable{end, :}, string(rowData));
             testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
@@ -167,8 +172,40 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.addRow(invalidInputCell), 'MATLAB:table:vertcat:SizeMismatchWithCell');
         end
 
+        function testSetValue(testCase)
+            % Test setting values in the multitype table using both names
+            % and indices to refer to rows and columns
+            % Note that the routine requires a single cell array rather
+            % than a variable number of arguments
 
-        
+            % Row and column indices
+            testCase.exampleTable.setValue({1, 7, 'Added'})
+            expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Added"];
+            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow);
+
+            % Row name and column index
+            testCase.exampleTable.setValue({'Background SMW', 7, 'Added'})
+            expectedRow = ["Background SMW" "constant" "Backs par SMW" "" "" "" "Added"];
+            testCase.verifyEqual(testCase.exampleTable.typesTable{2, :}, expectedRow);
+
+            % Row index and column name
+            testCase.exampleTable.setValue({3, 'Value 1', 'Changed'})
+            expectedRow = ["Background H2O" "constant" "Changed" "" "" "" ""];
+            testCase.verifyEqual(testCase.exampleTable.typesTable{3, :}, expectedRow);
+
+            % Row and column names
+            testCase.exampleTable.setValue({'Background D2O', 'Value 5', 'Changed'})
+            expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Changed"];
+            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow);
+        end
+
+        function testSetValueTooFewParams(testCase)
+            % If we initialise with a cell array containing fewer than
+            % three values it should raise an error
+            testCase.verifyError(@() testCase.exampleTable.setValue({1}), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.setValue({1, 1}), 'MATLAB:badsubscript');
+        end
+
 
 
 

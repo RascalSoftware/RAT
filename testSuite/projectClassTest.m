@@ -198,4 +198,3 @@ assert(isequal(obj.bulkOut.paramsTable{end,1}, 'SLD ACMW'), 'addBulkOut method n
 
 
 
-

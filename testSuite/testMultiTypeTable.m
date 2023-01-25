@@ -279,8 +279,43 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
         end
 
+        function testRemoveRow(testCase)
+            remainingRows = testCase.exampleTable.typesTable(2:end,:);
+            testCase.exampleTable.removeRow({1});
 
+            testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows);
 
+            % "typesAutoNameCounter" is not also reduced by one -- is this
+            % right??
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
+            %testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+        end
+
+        function testRemoveRowMultiple(testCase)
+            % Test removing multuple rows from a multi type table
+            origNumRows = height(testCase.exampleTable.typesTable);
+            remainingRows = testCase.exampleTable.typesTable(2,:);
+            testCase.exampleTable.removeRow({[1 3]});
+
+            testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows);
+
+            % "typesAutoNameCounter" is not also reduced by one -- is this
+            % right??
+            % Should "typesCount" always equal the number of rows?
+            testCase.verifyEqual(testCase.exampleTable.typesCount, origNumRows-1);
+            %testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+        end
+
+        function testRemoveRowInvalid(testCase)
+            rows = height(testCase.exampleTable.typesTable);
+            testCase.verifyError(@() testCase.exampleTable.removeRow({0}), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.removeRow({0.5}), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.removeRow({rows+1}), 'MATLAB:table:RowIndexOutOfRange');
+            % "typesAutoNameCounter" is not also reduced by one -- is this
+            % right??
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
+            %testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+        end
 
 
 

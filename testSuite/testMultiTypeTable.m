@@ -269,6 +269,17 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
         end
 
+        function testAppendNewRowDuplicateName(testCase)
+            % Test that appending a new row with a duplicate name raises an
+            % error
+            newRow = {'Background D2O','constant','','','','',''};
+            testCase.verifyError(@() testCase.exampleTable.appendNewRow(newRow), '');
+
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
+            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+        end
+
+
 
 
 

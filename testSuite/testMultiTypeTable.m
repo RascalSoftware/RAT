@@ -228,7 +228,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             %
             % !!! THIS IS A BUG !!! 
             % This should raise an error for being an invalid row name but
-            % instead does nothings
+            % instead does nothing
             %
             %testCase.verifyError(@() testCase.exampleTable.setValue({'Invalid Name', 7, 'Added'}), '')
             testCase.verifyEqual(testCase.exampleTable.setValue({'Invalid Name', 7, 'Added'}), testCase.exampleTable);
@@ -237,7 +237,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             %
             % !!! THIS IS A BUG !!! 
             % This should raise an error for being an invalid row name but
-            % instead does nothings
+            % instead does nothing
             %
             %testCase.verifyError(@() testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), '')
             testCase.verifyEqual(testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), testCase.exampleTable);
@@ -259,6 +259,15 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.setValue({1, 1}), 'MATLAB:badsubscript');
         end
 
+        function testAppendNewRow(testCase)
+            newRow = {'New Row','constant','','','','',''};
+            newTable = [testCase.exampleTable.typesTable; newRow];
+            testCase.exampleTable.appendNewRow(newRow);
+
+            testCase.verifyEqual(testCase.exampleTable.typesTable, newTable);
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
+            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+        end
 
 
 

@@ -21,8 +21,8 @@ pipeline
                     steps 
                     {
 
-                        runMATLABCommand 'BuildScript'
-                        runMATLABCommand 'TestRatScript'
+                        runMATLABCommand 'buildScript'
+                        runMATLABCommand 'testRatScript'
                     }
                 }
              
@@ -38,8 +38,8 @@ pipeline
                     }
                     steps 
                     {
-                        runMATLABCommand 'BuildScript'
-                        runMATLABCommand 'TestRatScript'
+                        runMATLABCommand 'buildScript'
+                        runMATLABCommand 'testRatScript'
                     }   
 
                 }

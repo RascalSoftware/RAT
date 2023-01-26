@@ -279,23 +279,36 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
-            a=textscan(evalc('testCase.exampleTable.displayTypesTable()'),'%s','Delimiter','\r','TextType','string');
-            displayedTable = a{:};
+            display=textscan(evalc('testCase.exampleTable.displayTypesTable()'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = display{:};
 
             % Check headers
-            for j = 1:testCase.numCols
-                testCase.verifySubstring(displayedTable(1), testCase.exampleTable.typesTable.Properties.VariableNames{j})
+            % Convert multi-type table variable names to a string array
+            varNames = string(testCase.exampleTable.typesTable.Properties.VariableNames);
+
+            % The bold formatting used in the output means we cannot
+            % compare the strings directly, so check that each variable
+            % name is in the header
+            for i = 1:testCase.numCols
+                testCase.verifySubstring(displayedTable(1), varNames(i));
             end
 
             % Check table contents - when displayed, row 2 is a set of
             % lines, so row 3 is the first line of data
-            % We need to include " character in search - also allows for
-            % search with empty strings
+            % We need to include the '"' character around each string to
+            % match the output
             for i = 1:testCase.numRows
-                for j = 1:testCase.numCols
-                    testCase.verifySubstring(displayedTable(i+2), strcat('"',testCase.exampleTable.typesTable{i,j},'"'))
-                end
+                % Replace multiple spaces in output table with a single
+                % space using regular expressions
+                outRow = strip(regexprep(displayedTable(i+2), '\s+', ' '));
+
+                % Get data from this row, add '"' characters to
+                % match output, join into a single string, and then
+                % prepend the row index
+                rowString = string(i) + " " + strip(strjoin(strcat('"',testCase.exampleTable.typesTable{i,:},'"')));
+                testCase.verifyEqual(outRow, rowString);
             end
+
         end
 
     end

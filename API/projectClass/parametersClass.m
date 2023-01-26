@@ -1,5 +1,4 @@
 classdef parametersClass < handle
-    
     % This is the class definition for
     % the parameters block.
     
@@ -15,8 +14,14 @@ classdef parametersClass < handle
     
     methods
         function obj = parametersClass(startCell)
-            
             % Class constructor.
+            % Creates a Parameter object. The startCell argument should be 
+            % a cell array with the content of the first parameter. A 
+            % parameter consists of a name (string), min (double), value (double), 
+            % max (double), fit flag (logical), prior type (string), mu (double), 
+            % and sigma (double) values in that order.
+            %
+            % params = parametersClass({'Tails', 10, 20, 30, true, 'uniform', 0, Inf});
             sz = [1 8];
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
@@ -24,23 +29,41 @@ classdef parametersClass < handle
             obj.paramsTable(1,:) = startCell;
             obj.paramCount = 1;
             obj.paramAutoNameCounter = 1;
+            % FIXME no check for bad values
+            % obj.paramCount = 0;
+            % obj.paramAutoNameCounter = 0;
+            % obj.addParam(startCell)
+            % 
         end
         
-        function obj = setInitialValue(varargin)
-            initialValue = varargin{2};
-            obj.paramsTable(1,:) = initialValue;
-            obj.paramCount = 1;
-            obj.paramAutoNameCounter = 1;
-        end
+        % Unused method
+        % function obj = setInitialValue(varargin)
+        %     initialValue = varargin{2};
+        %     obj.paramsTable(1,:) = initialValue;
+        %     obj.paramCount = 1;
+        %     obj.paramAutoNameCounter = 1;
+        % end
         
         function names = getParamNames(obj)
-            
+            % Returns a N x 1 cell array of names of the parameter 
+            % in the object. 
+            % 
+            % names = params.getParamNames();
             names = obj.paramsTable{:,1}; 
-            
         end
         
         function obj = addParam(obj,varargin)
-            
+            % Adds an new parameter to the parameters table. Defaults 
+            % values are used when adding the parameter if no arguments are 
+            % provided, otherwise a subset of the arguments can be provided.
+            % The following are assumed from number of arguments: 
+            % for 1 input, the name only is provided
+            % for 2 inputs, the name and value are provided
+            % for 4 inputs, the name, min, value, and max are provided
+            % for 5 inputs, the name, min, value, max, and fit? are provided
+            % for 8 inputs, all parameter properties are provided
+            %
+            % params.addParam('Tails Roughness');  
             if isempty(varargin)
                 % No input parameter
                 % Add an empty parameter row
@@ -54,94 +77,78 @@ classdef parametersClass < handle
                 
                 % First input must be a parameter name
                 if ~ischar(inputCell{1})
-                    error('First value must be param name');
+                    error('First value must be param name (char)');
                 end
                 
-                inputLength = length(inputCell);
+                values = [1, 2, 3];
+                fit = false;
+                priorType = 'uniform';
+                priorValues = [0, Inf];
                 
-                switch inputLength
-                    
+                switch length(inputCell)     
                     % If length is 1, assume name only
                     % and fill in the rest with defaults
                     case 1
                         name = inputCell{1};
-                        newRow = {name,1,2,3,false,'uniform',0,Inf};
-                        appendNewRow(obj,newRow);
                         
-                        % If length is 2, assume name an value
-                        % pair. Fill in the rest automatically
+                    % If length is 2, assume name an value
+                    % pair. Fill in the rest automatically
                     case 2
                         name = inputCell{1};
-                        value = inputCell{2};
-                        if ~isnumeric(value)
-                            error('Expecting numeric value as param 2');
-                        end
-                        newRow = {name,value,value,value,false,'uniform',0,Inf};
-                        appendNewRow(obj,newRow);
                         
-                        % If length is 4, assume we are getting the
-                        % limits as well as the values
+                    % If length is 4, assume we are getting the
+                    % limits as well as the values
                     case 4
                         name = inputCell{1};
                         values = [inputCell{2} inputCell{3} inputCell{4}];
-                        if ~isnumeric(values)
-                            error('Expecting numeric values as params 2 - 4');
-                        end
-                        newRow = {name,values(1),values(2),values(3),false,'uniform',0,Inf};
-                        appendNewRow(obj,newRow);
                         
-                        % If length is 5, then assume we are setting
-                        % everything except priors
+                    % If length is 5, then assume we are setting
+                    % everything except priors
                     case 5
                         name = inputCell{1};
                         values = [inputCell{2} inputCell{3} inputCell{4}];
                         fit = inputCell{5};
-                        if ~isnumeric(values)
-                            error('Expecting numeric values as params 2 - 4');
-                        end
                         
-                        if ~islogical(fit)
-                            error('Expecting logical value for param 5')
-                        end
-                        newRow = {name,values(1),values(2),values(3),fit,'uniform',0,Inf};
-                        appendNewRow(obj,newRow);
-                        
-                        % Case 8 must be everything including the prior
+                    % Case 8 must be everything including the prior
                     case 8
                         name = inputCell{1};
                         values = [inputCell{2} inputCell{3} inputCell{4}];
                         fit = inputCell{5};
                         priorType = inputCell{6};
                         priorValues = [inputCell{7} inputCell{8}];
-                        
-                        if ~isnumeric(values)
-                            error('Expecting numeric values as params 2 - 4');
-                        end
-                        
-                        if ~islogical(fit)
-                            error('Expecting logical value for param 5')
-                        end
-                        
-                        if ~strcmpi(priorType,{'uniform','gaussian','jeffreys'})
-                            error('Prior type must be ''uniform'', ''gaussian'' or ''jeffreys''');
-                        end
-                        
-                        if ~isnumeric(priorValues)
-                            error('Prior values must be numeric');
-                        end
-                        
-                        newRow = {name,values(1),values(2),values(3),fit,priorType,priorValues(1),priorValues(2)};
-                        appendNewRow(obj,newRow);
                        
-                        
-                        % If not one of these options, throw an error
+                    % If not one of these options, throw an error
                     otherwise
-                        error('Unrecognised inputs to ''addrow''');
+                        error('Unrecognised inputs to ''addParam''');    
                 end
+                
+                % Type validation
+                if ~isnumeric(values)
+                    error('Expecting numeric values as params 2 - 4');
+                end
+                
+                if ~islogical(fit)
+                    error('Expecting logical value for param 5')
+                end
+                
+                if ~strcmpi(priorType,{'uniform', 'gaussian', 'jeffreys'})
+                    error('Prior type must be ''uniform'', ''gaussian'' or ''jeffreys''');
+                end
+                
+                if ~isnumeric(priorValues)
+                    error('Prior values must be numeric');
+                end
+                    
+                newRow = {name, values(1), values(2), values(3), fit, priorType, priorValues(1), priorValues(2)};
+                appendNewRow(obj, newRow);
             end
         end
         
         function obj = removeParam(obj,varargin)
+            % Removes a parameter from the parameters table. 
+            % Expects index or name of parameter to remove
+            %
+            % params.removeParam(2); 
             if isempty(varargin)
                 error('Need to specify a parameter');
             end
@@ -153,8 +160,10 @@ classdef parametersClass < handle
         end
         
         function obj = setParameter(obj,varargin)
-            % General purpose set method using name value pairs
-            
+            % General purpose set parameter method. Expects a cell array with
+            % index or name of parameter and keyword/value pairs to set
+            %
+            % params.setParameter({2, 'value', 50});
             inputValues = varargin{:};
             tab = obj.paramsTable;
             
@@ -192,9 +201,11 @@ classdef parametersClass < handle
         end
         
         function obj = setPrior(obj,varargin)
-%        If the input is a string, it looks for the row with that name in the table.
-%        2. If the input is a number, it looks for the row with that index in the table.
-
+            % Sets the prior of an existing parameter. Expects a cell array with
+            % index or name of parameter and the new prior type ('uniform',
+            % 'gaussian', 'jeffreys') with mu and sigma value if applicable
+            %
+            % params.setPrior(2, 'gaussian', 1, 2);
             inputValues = varargin{:};
             tab = obj.paramsTable;
             
@@ -206,8 +217,8 @@ classdef parametersClass < handle
             end
             
             priorType = inputValues{2};
-            if ~strcmpi(priorType,{'uniform','gaussian','jeffries'})
-                error('Prior needs to be ''unifom'',''gaussian'', or ''jeffreys''');
+            if ~strcmpi(priorType,{'uniform','gaussian','jeffreys'})
+                error('Prior needs to be ''uniform'',''gaussian'', or ''jeffreys''');
             end
             
             priorType = lower(priorType);
@@ -228,6 +239,10 @@ classdef parametersClass < handle
         end
         
         function obj = setValue(obj,varargin)
+            % Sets the value of an existing parameter. Expects a cell array with
+            % index or name of parameter and the new value
+            %
+            % params.setValue({2, 3.4});
             inputValues = varargin{:};
             tab = obj.paramsTable;
             if length(inputValues) ~= 2
@@ -250,6 +265,10 @@ classdef parametersClass < handle
         end
         
         function obj = setName(obj,varargin)
+            % Sets the name of an existing parameter. Expects a cell array with
+            % index or name of parameter and the new name
+            %
+            % params.setName({2, 'new name'});
             tab = obj.paramsTable;
             inputValues = varargin{:};
             if length(inputValues) ~= 2
@@ -272,6 +291,10 @@ classdef parametersClass < handle
         end
         
         function obj = setConstr(obj, varargin)
+            % Sets the constraints of an existing parameter. Expects a cell array with 
+            % index or name of parameter and new min and max of the parameter's value
+            %
+            % params.setConstr({2, 0, 100});
             tab = obj.paramsTable;
             inputValues = varargin{:};
             if length(inputValues) ~= 3
@@ -295,10 +318,12 @@ classdef parametersClass < handle
             tab(row,4) = {max};
             obj.paramsTable = tab;
         end
-        
-        
+                
         function obj = setFit(obj, varargin)
-            
+            % Sets the 'fit' to off or on for parameter. Expects a cell array with 
+            % index or name of parameter and new fit flag
+            %
+            % params.setFit({2, true});
             if iscell(varargin) && length(varargin) == 1
                 varargin = varargin{:};
             end
@@ -323,11 +348,13 @@ classdef parametersClass < handle
             obj.paramsTable = tab;
         end
         
-        function set.paramsTable(obj,table)
-            obj.paramsTable = table;
-        end
+        % function set.paramsTable(obj,table)
+        %     % Setter for the paramsTable property
+        %     obj.paramsTable = table;
+        % end
         
         function set.showPriors(obj,flag)
+            % Setter for the showPriors property
             if ~islogical(flag)
                 error('Show priors must be true or false');
             end
@@ -335,8 +362,9 @@ classdef parametersClass < handle
         end
         
         function displayParametersTable(obj)
+            % Displays the parameter table
             array = obj.paramsTable;
-            p = [1:size(array,1)];
+            p = 1:size(array,1);
             p = p(:);
             p = table(p);
             if ~obj.showPriors
@@ -348,10 +376,7 @@ classdef parametersClass < handle
         
         
         function outStruct = toStruct(obj)
-            
-            % Convert the class parameters into
-            % a structure array.
-            
+            % Converts the class parameters into a structure array.
             paramNames = table2cell(obj.paramsTable(:,1));
             
             % Want these to be class 'char' rather than 'string'
@@ -404,8 +429,7 @@ classdef parametersClass < handle
             % paramConstr
             % params
             % fitYesNo
-            % priors
-            
+            % priors    
         end
         
     end
@@ -414,6 +438,10 @@ classdef parametersClass < handle
     methods (Access = protected)
         
         function appendNewRow(obj,row)
+            % Appends a new row to the table. Expects a cell array  
+            % with row values to append
+            % 
+            % obj.appendNewRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
             tab = obj.paramsTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))
@@ -426,6 +454,10 @@ classdef parametersClass < handle
         end
         
         function removeRow(obj, row)
+            % Removes a specified row of the table. Expects
+            % index or name of row to remove
+            %
+            % obj.removeRow(1)
             tab = obj.paramsTable;
             
             if ischar(row)
@@ -464,7 +496,7 @@ end
 
 
 function row = findRowIndex(name,tab)
-    % Get loist of rownames from table..
+    % Gets list of row names from table.
     namesList = tab{:,1};
     
     % Strip leading or trailing whitaspaces from names and name
@@ -473,6 +505,7 @@ function row = findRowIndex(name,tab)
     
     % Compare 'name' to list ignoring case
     index = strcmpi(name, namesList);
+    % FIXME replace with ~any(index)
     if isempty(index)
         error('Unrecognised parameter name');
     end
@@ -483,7 +516,8 @@ end
 
 
 function inputBlock = parseParameterInput(varargin)
-
+    % Parses parameter keyword/value pairs in a cell array 
+    % into a structure 
     defaultName = '';
     defaultMin = [];
     defaultMax = [];   
@@ -501,7 +535,4 @@ function inputBlock = parseParameterInput(varargin)
     
     parse(p,inputVals{:});
     inputBlock = p.Results;
-
 end
-
-

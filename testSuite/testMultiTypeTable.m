@@ -4,9 +4,10 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 % used within the Project Class in RAT.
 %
 % In this class, we test:
-% ?????????????????
+% multiTypeTable, addRow, setValue, appendNewRow, removeRow
 %
-% We use an example
+% We use an example multi type table from the backgrounds class for the
+% example calculation "DPPC_standard_layers.m"
 %
 % Paul Sharp 26/01/23
 %
@@ -17,11 +18,10 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         % lengths (2--6, >8) are invalid. Zero length is a sepcific case.
         validInputCell = {{''},  {'','','','','','',''}}
         invalidInputCell = {{'',''}, {'','',''}, {'','','',''}, {'','','','',''}, {'','','','','',''}, {'','','','','','','',''}}
-
-        rowInput = {{}, {'Link'}, {'Rauru', 'Saria', 'Darunia', 'Ruto', 'Impa', 'Nabooru', 'Zelda'}}
+        rowInput = {{}, {'Link'}, {'Rauru', 'Saria', 'Darunia', 'Ruto', 'Impa', 'Nabooru', 'Zelda'}} % Inputs for "addRow"
         addedRow={{'New background 3','constant','','','','',''}, ...
                   {'Link','constant','','','','',''}, ...
-                  {'Rauru', 'Saria', 'Darunia', 'Ruto', 'Impa', 'Nabooru', 'Zelda'}}
+                  {'Rauru', 'Saria', 'Darunia', 'Ruto', 'Impa', 'Nabooru', 'Zelda'}} % Resulting additional rows from "addRow"
     end
 
     properties
@@ -270,9 +270,5 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols]);
             testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
         end
-
-
-
-
     end
 end

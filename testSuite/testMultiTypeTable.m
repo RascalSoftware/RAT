@@ -4,7 +4,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 % used within the Project Class in RAT.
 %
 % In this class, we test:
-% multiTypeTable, addRow, setValue, appendNewRow, removeRow
+% multiTypeTable, addRow, setValue, appendNewRow, removeRow,
+% displayTypesTable
 %
 % We use an example multi type table from the backgrounds class for the
 % example calculation "DPPC_standard_layers.m"
@@ -270,5 +271,32 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols]);
             testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
         end
+
+        function testDisplayTypesTable(testCase)
+            % Test the routine to display the types table by capturing the
+            % output and checking the table headers and data are contained
+            % within the correct rows
+
+            % Capture the standard output and format into string array -
+            % one element for each row of the output
+            a=textscan(evalc('testCase.exampleTable.displayTypesTable()'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = a{:};
+
+            % Check headers
+            for j = 1:testCase.numCols
+                testCase.verifySubstring(displayedTable(1), testCase.exampleTable.typesTable.Properties.VariableNames{j})
+            end
+
+            % Check table contents - when displayed, row 2 is a set of
+            % lines, so row 3 is the first line of data
+            % We need to include " character in search - also allows for
+            % search with empty strings
+            for i = 1:testCase.numRows
+                for j = 1:testCase.numCols
+                    testCase.verifySubstring(displayedTable(i+2), strcat('"',testCase.exampleTable.typesTable{i,j},'"'))
+                end
+            end
+        end
+
     end
 end

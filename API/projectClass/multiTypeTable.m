@@ -59,7 +59,7 @@ classdef multiTypeTable < handle
             rowPar = in{1};
             
             if ischar(rowPar)
-                row = findIndex(rowPar, rowNames);
+                row = findRowIndex(rowPar, rowNames);
             elseif isnumeric(rowPar)
                 if (rowPar < 1) || (rowPar > length(rowNames))
                    error('Row number out of range');  
@@ -76,7 +76,7 @@ classdef multiTypeTable < handle
             colNames = obj.typesTable.Properties.VariableNames;
 
             if ischar(colPar)
-                col = findIndex(colPar,colNames);
+                col = findRowIndex(colPar,colNames);
             elseif isnumeric(colPar)
                 if (colPar < 1) || (colPar > length(colNames))
                     error('Column number out out of range');
@@ -129,7 +129,7 @@ classdef multiTypeTable < handle
     
 end
 
-function row = findIndex(name, namesList)
+function row = findRowIndex(name, namesList)
 
     % Strip leading or trailing whitaspaces from names..
     namesList = strip(namesList);

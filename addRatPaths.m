@@ -62,12 +62,14 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'minimisers','mcmcstat_new','private');
     fullfile(ratRoot,'minimisers','mcmcstat_new','src');
     fullfile(ratRoot,'minimisers','DE');
-    fullfile(ratRoot,'minimisers','Paramonte');
+
     fullfile(ratRoot,'minimisers','generalUtils','bayesStats');
     fullfile(ratRoot,'utilities');
     fullfile(ratRoot,'utilities','plotting');
     fullfile(ratRoot,'utilities','misc');
     fullfile(ratRoot,'utilities','misc','projectClassToR1');
+
+    fullfile(ratRoot,'3rdParty','Paramonte');
     
 };
 

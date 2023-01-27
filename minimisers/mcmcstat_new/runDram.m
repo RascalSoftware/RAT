@@ -124,20 +124,20 @@ for i = 1:length(fitNames)
     % Find this parameter in the priors list
     parPos = find(strcmp(priorNames,name));
     
-    coder.varsize('newPos',[1,1],[0,0]);
-    newPos = 1;
-    if length(parPos) > 1
-        newPos = parPos(1);
-    elseif isempty(parPos)
-        newPos = 1;
-    end
+%     coder.varsize('newPos',[1,1],[0,0]);
+%     newPos = 1;
+%     if length(parPos) > 1
+%         newPos = parPos(1);
+%     elseif isempty(parPos)
+%         newPos = 1;
+%     end
     
 %     if isempty(parPos) || length(parPos) > 1
 %         error('Can"t identify this fitting parameter');
 %     end
     
-    mu = real(str2double(priorVals{newPos,2}));
-    sigma = real(str2double(priorVals{newPos,3}));
+    mu = real(str2double(priorVals{parPos,2}));
+    sigma = real(str2double(priorVals{parPos,3}));
     
     thisGroup = {name, value, min, max, mu, sigma};
     params{i} = thisGroup;

@@ -4,7 +4,7 @@ function ss = reflectivity_fitModel(theta,data,problem)
 % Calls reflectivity calculation and returns the value of chisquared
 
 pars = theta;                                % Current parameter values from mcmcstat
-%problem = data{1}.problem{1};               % Struct needed for the calculation
+problem = data.problem;                   % Struct needed for the calculation
 %allProblem = data{1}.problem;
 problemDef = problem{1};
 controls = problem{2};

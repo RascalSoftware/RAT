@@ -274,30 +274,30 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
         function testDisplayTypesTable(testCase)
             % Test the routine to display the types table by capturing the
-            % output and checking the table headers and data are contained
-            % within the correct rows
+            % output and comparing with the table headers and data 
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
-            display=textscan(evalc('testCase.exampleTable.displayTypesTable()'),'%s','Delimiter','\r','TextType','string');
+            display = textscan(evalc('testCase.exampleTable.displayTypesTable()'),'%s','Delimiter','\r','TextType','string');
             displayedTable = display{:};
 
             % Check headers
-            % Convert multi-type table variable names to a string array
-            varNames = string(testCase.exampleTable.typesTable.Properties.VariableNames);
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions
+            outVars = strip(regexprep(displayedTable(1), '\s+', ' '));
 
-            % The bold formatting used in the output means we cannot
-            % compare the strings directly, so check that each variable
-            % name is in the header
-            for i = 1:testCase.numCols
-                testCase.verifySubstring(displayedTable(1), varNames(i));
-            end
+            % Convert multi-type table variable names to a string array,
+            % add "<strong> tags to match output (NOTE - tags must apppear
+            % before and after each variable otherwise comparison fails),
+            % join into a single string, and then prepend an extra header
+            % used for the row index
+            varString = "<strong>p</strong> " + strip(strjoin(strcat("<strong>",string(testCase.exampleTable.typesTable.Properties.VariableNames),"</strong>")));
+            testCase.verifyEqual(outVars, varString);
 
             % Check table contents - when displayed, row 2 is a set of
             % lines, so row 3 is the first line of data
-            % We need to include the '"' character around each string to
-            % match the output
             for i = 1:testCase.numRows
+
                 % Replace multiple spaces in output table with a single
                 % space using regular expressions
                 outRow = strip(regexprep(displayedTable(i+2), '\s+', ' '));
@@ -307,6 +307,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
                 % prepend the row index
                 rowString = string(i) + " " + strip(strjoin(strcat('"',testCase.exampleTable.typesTable{i,:},'"')));
                 testCase.verifyEqual(outRow, rowString);
+                
             end
 
         end

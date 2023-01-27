@@ -10,13 +10,13 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 % We use an example multi type table from the backgrounds class for the
 % example calculation "DPPC_standard_layers.m"
 %
-% Paul Sharp 26/01/23
+% Paul Sharp 27/01/23
 %
 %% Declare properties and parameters
 
     properties (TestParameter)
         % Cell arrays of length one or length seven are valid, other
-        % lengths (2--6, >8) are invalid. Zero length is a sepcific case.
+        % lengths (2-6, >8) are invalid. Zero length is a sepcific case.
         validInputCell = {{''},  {'','','','','','',''}}
         invalidInputCell = {{'',''}, {'','',''}, {'','','',''}, {'','','','',''}, {'','','','','',''}, {'','','','','','','',''}}
         rowInput = {{}, {'Link'}, {'Rauru', 'Saria', 'Darunia', 'Ruto', 'Impa', 'Nabooru', 'Zelda'}} % Inputs for "addRow"
@@ -85,14 +85,14 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % cell array, or a seven element cell array
             testTable = multiTypeTable(validInputCell);
 
-            testCase.verifySize(testTable.typesTable, [1 7]);
+            testCase.verifySize(testTable.typesTable, [1 7], "multiTypeTable does not initialise correctly");
 
-            testCase.verifyEqual(testTable.typesTable, testCase.initialTypesTable);
-            testCase.verifyEqual(testTable.allowedTypes, testCase.initialAllowedTypes);
-            testCase.verifyEqual(testTable.allowedActions, testCase.initialAllowedActions);
-            testCase.verifyEqual(testTable.typesCount, testCase.initialTypesCount);
-            testCase.verifyEqual(testTable.typesAutoNameCounter, testCase.initialTypesAutoNameCounter);
-            testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString);
+            testCase.verifyEqual(testTable.typesTable, testCase.initialTypesTable, "multiTypeTable does not initialise correctly");
+            testCase.verifyEqual(testTable.allowedTypes, testCase.initialAllowedTypes, "multiTypeTable does not initialise correctly");
+            testCase.verifyEqual(testTable.allowedActions, testCase.initialAllowedActions, "multiTypeTable does not initialise correctly");
+            testCase.verifyEqual(testTable.typesCount, testCase.initialTypesCount, "multiTypeTable does not initialise correctly");
+            testCase.verifyEqual(testTable.typesAutoNameCounter, testCase.initialTypesAutoNameCounter, "multiTypeTable does not initialise correctly");
+            testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString, "multiTypeTable does not initialise correctly");
         end
 
         function testInitialiseEmptyMultiTypeTable(testCase)
@@ -121,9 +121,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             testCase.exampleTable.addRow(rowInput);
 
-            testCase.verifyEqual(testCase.exampleTable.typesTable, expectedTable);
-            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
-            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+            testCase.verifyEqual(testCase.exampleTable.typesTable, expectedTable, "addRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable), "addRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable), "addRow does not work correctly");
         end
 
         function testAddRowInvalid(testCase, invalidInputCell)
@@ -145,27 +145,27 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Row and column indices
             testCase.exampleTable.setValue({1, 7, 'Added'});
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Added"];
-            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow);
+            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, "setValue does not work correctly");
 
             % Row name and column index
             testCase.exampleTable.setValue({'Background SMW', 7, 'Added'});
             expectedRow = ["Background SMW" "constant" "Backs par SMW" "" "" "" "Added"];
-            testCase.verifyEqual(testCase.exampleTable.typesTable{2, :}, expectedRow);
+            testCase.verifyEqual(testCase.exampleTable.typesTable{2, :}, expectedRow, "setValue does not work correctly");
 
             % Row index and column name
             testCase.exampleTable.setValue({3, 'Value 1', 'Changed'});
             expectedRow = ["Background H2O" "constant" "Changed" "" "" "" ""];
-            testCase.verifyEqual(testCase.exampleTable.typesTable{3, :}, expectedRow);
+            testCase.verifyEqual(testCase.exampleTable.typesTable{3, :}, expectedRow, "setValue does not work correctly");
 
             % Row and column names
             testCase.exampleTable.setValue({'Background D2O', 'Value 5', 'Changed'});
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Changed"];
-            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow);
+            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, "setValue does not work correctly");
 
             % Use name to change name
             testCase.exampleTable.setValue({'Background D2O', 'Name', 'New Name'});
             expectedRow = ["New Name" "constant" "Backs par 1" "" "" "" "Changed"];
-            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow);
+            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, "setValue does not work correctly");
         end
 
         function testSetValueInvalid(testCase)
@@ -175,12 +175,12 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % than a variable number of arguments
 
             % Row indices
-            testCase.verifyError(@() testCase.exampleTable.setValue({0, testCase.numCols, 'Added'}), '')
-            testCase.verifyError(@() testCase.exampleTable.setValue({testCase.numRows+1, testCase.numCols, 'Added'}), '')
+            testCase.verifyError(@() testCase.exampleTable.setValue({0, testCase.numCols, 'Added'}), ?MException)
+            testCase.verifyError(@() testCase.exampleTable.setValue({testCase.numRows+1, testCase.numCols, 'Added'}), ?MException)
 
             % Column indices
-            testCase.verifyError(@() testCase.exampleTable.setValue({1, 0, 'Added'}), '')
-            testCase.verifyError(@() testCase.exampleTable.setValue({1, testCase.numCols+1, 'Added'}), '')
+            testCase.verifyError(@() testCase.exampleTable.setValue({1, 0, 'Added'}), ?MException)
+            testCase.verifyError(@() testCase.exampleTable.setValue({1, testCase.numCols+1, 'Added'}), ?MException)
 
             % Row name
             %
@@ -188,7 +188,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % This should raise an error for being an invalid row name but
             % instead does nothing
             %
-            %testCase.verifyError(@() testCase.exampleTable.setValue({'Invalid Name', cols, 'Added'}), '')
+            %testCase.verifyError(@() testCase.exampleTable.setValue({'Invalid Name', cols, 'Added'}), ?MException)
             testCase.verifyEqual(testCase.exampleTable.setValue({'Invalid Name', testCase.numCols, 'Added'}), testCase.exampleTable);
 
             % Column name
@@ -197,7 +197,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % This should raise an error for being an invalid row name but
             % instead does nothing
             %
-            %testCase.verifyError(@() testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), '')
+            %testCase.verifyError(@() testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), ?MException)
             testCase.verifyEqual(testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), testCase.exampleTable);
 
             % Floats for row and column
@@ -223,9 +223,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             testCase.exampleTable.appendNewRow(newRow);
 
-            testCase.verifyEqual(testCase.exampleTable.typesTable, expectedTable);
-            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
-            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+            testCase.verifyEqual(testCase.exampleTable.typesTable, expectedTable, "appendNewRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable), "appendNewRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable), "appendNewRow does not work correctly");
         end
 
         function testAppendNewRowDuplicateName(testCase)
@@ -233,11 +233,11 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % an error
             newRow = {'Background D2O','constant','','','','',''};
 
-            testCase.verifyError(@() testCase.exampleTable.appendNewRow(newRow), '');
+            testCase.verifyError(@() testCase.exampleTable.appendNewRow(newRow), ?MException);
 
-            testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols]);
-            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
-            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable));
+            testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite duplicate names");
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable), "Table parameters have changed despite duplicate names");
+            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable), "Table parameters have changed despite duplicate names");
         end
 
         function testRemoveRow(testCase)
@@ -245,8 +245,12 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             remainingRows = testCase.exampleTable.typesTable(2:end,:);
             testCase.exampleTable.removeRow({1});
 
-            testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows);
-            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
+            testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, "removeRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable), "removeRow does not work correctly");
+            
+            % Note that "typesAutoNameCounter" should not be reduced.
+            % This is to prevent the possibility of duplicate row names
+            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, testCase.numRows, "removeRow does not work correctly");
         end
 
         function testRemoveRowMultiple(testCase)
@@ -255,9 +259,13 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             remainingRows = testCase.exampleTable.typesTable(2,:);
             testCase.exampleTable.removeRow({[1 3]});
 
-            testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows);
-            % Should "typesCount" always equal the number of rows?
-            testCase.verifyEqual(testCase.exampleTable.typesCount, testCase.numRows-1);
+            testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, "removeRow does not work correctly");
+            % Should "typesCount" always equal the current number of rows?
+            testCase.verifyEqual(testCase.exampleTable.typesCount, testCase.numRows-1, "removeRow does not work correctly");
+
+            % Note that "typesAutoNameCounter" should not be reduced.
+            % This is to prevent the possibility of duplicate row names
+            testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, testCase.numRows, "removeRow does not work correctly");
         end
 
         function testRemoveRowInvalid(testCase)
@@ -268,8 +276,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.removeRow({0.5}), 'MATLAB:badsubscript');
             testCase.verifyError(@() testCase.exampleTable.removeRow({testCase.numRows+1}), 'MATLAB:table:RowIndexOutOfRange');
 
-            testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols]);
-            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable));
+            testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite no rows being removed");
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable), "Table parameters have changed despite no rows being removed");
         end
 
         function testDisplayTypesTable(testCase)
@@ -292,7 +300,11 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % join into a single string, and then prepend an extra header
             % used for the row index
             varString = "<strong>p</strong> " + strip(strjoin(strcat("<strong>",string(testCase.exampleTable.typesTable.Properties.VariableNames),"</strong>")));
-            testCase.verifyEqual(outVars, varString);
+            testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
+
+            % Make sure the output has the right number of rows before
+            % continuing
+            testCase.assertSize(displayedTable, [testCase.numRows+2, 1], 'Table does not have the right number of rows');
 
             % Check table contents - when displayed, row 2 is a set of
             % lines, so row 3 is the first line of data
@@ -306,8 +318,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
                 % match output, join into a single string, and then
                 % prepend the row index
                 rowString = string(i) + " " + strip(strjoin(strcat('"',testCase.exampleTable.typesTable{i,:},'"')));
-                testCase.verifyEqual(outRow, rowString);
-                
+                testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+
             end
 
         end

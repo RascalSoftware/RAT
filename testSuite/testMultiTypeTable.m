@@ -19,10 +19,10 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         % lengths (2-6, >8) are invalid. Zero length is a sepcific case.
         validInputCell = {{''},  {'','','','','','',''}}
         invalidInputCell = {{'',''}, {'','',''}, {'','','',''}, {'','','','',''}, {'','','','','',''}, {'','','','','','','',''}}
-        rowInput = {{}, {'Link'}, {'Rauru', 'Saria', 'Darunia', 'Ruto', 'Impa', 'Nabooru', 'Zelda'}} % Inputs for "addRow"
+        rowInput = {{}, "Added background", {'Full background', 'constant', 'Back Par 1', 'Back Par 2','Back Par 3', 'Back Par 4', 'Back Par 5'}} % Inputs for "addRow"
         addedRow={{'New background 3','constant','','','','',''}, ...
-                  {'Link','constant','','','','',''}, ...
-                  {'Rauru', 'Saria', 'Darunia', 'Ruto', 'Impa', 'Nabooru', 'Zelda'}} % Resulting additional rows from "addRow"
+                  {'Added background','constant','','','','',''}, ...
+                  {'Full background', 'constant', 'Back Par 1', 'Back Par 2','Back Par 3', 'Back Par 4', 'Back Par 5'}} % Resulting additional rows from "addRow"
     end
 
     properties

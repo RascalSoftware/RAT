@@ -1,8 +1,7 @@
 classdef multiTypeTable < handle
     
-    
-    % This is the class definition for
-    % the backgrounds and resolutions tables.
+    % This is the class definition for the backgrounds and resolutions
+    % tables.
     
     properties
         typesTable = table;
@@ -16,7 +15,10 @@ classdef multiTypeTable < handle
     methods
        
         function obj = multiTypeTable(startCell)
-        % Constructor
+            % Initialises a multi-type table with a single row The expected
+            % input is a cell array of length one OR length seven
+            %
+            % multiTable = multiTypeTable({'First Row'});
             sz = [1 7];
             varTypes = {'string','string','string','string','string','string','string'};
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
@@ -27,6 +29,12 @@ classdef multiTypeTable < handle
         end
         
         function obj = addRow(obj,addParams)
+            % Adds a row to the multi-type table. The row can be specified
+            % with no details (a length-zero object), just a name
+            % (a single string), or ALL of the parameters (a length seven
+            % cell array)
+            %
+            % multiTable.addRow("New Row")
             switch length(addParams)
                 case 0
                     % No Parameter. Add empty row
@@ -50,7 +58,12 @@ classdef multiTypeTable < handle
         end
         
         function obj = setValue(obj,varargin)
-            
+            % Change the value of a given parameter in the table. The row
+            % and column of the parameter can both be specified by either
+            % name or index. The expected input is three values: row,
+            % column, newValue
+            %
+            % multiTable.setValue(1, 1, "origin");
             in = varargin{:};
             tab = obj.typesTable;
             
@@ -87,7 +100,7 @@ classdef multiTypeTable < handle
                 error('Unrecognised column index');
             end
             
-           % Set the value
+            % Set the value
             tab(row,col) = in(3);
             obj.typesTable = tab;
 
@@ -95,6 +108,11 @@ classdef multiTypeTable < handle
   
         
         function appendNewRow(obj,row)
+            % Appends a row to the multi-type table. This routine should
+            % not be called directly, instead using "addRow". The expected
+            % input is a length seven cell array.
+            %
+            % multiTable.appendNewRow({'New Row','','','','','',''})
             tab = obj.typesTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))
@@ -107,6 +125,12 @@ classdef multiTypeTable < handle
         end
         
         function removeRow(obj,row)
+            % Removes a row from the multi-type table. The expected
+            % input is a length one cell array.
+            % NOTE that an input such as {[1 3]} leads to multiple rows
+            % being removed from the table
+            %
+            % multiTable.removeRow({2})
             tab = obj.typesTable;
             thisRow = row{:};
             tab(thisRow,:) = [];
@@ -115,14 +139,15 @@ classdef multiTypeTable < handle
         end
         
         function displayTypesTable(obj)
-            
+            % Display the multi-type Table in the terminal.
+            %
+            % multiTable.displayTypesTable()
             array = obj.typesTable;
-            p = [1:size(array,1)];
+            p = 1:size(array,1);
             p = p(:);
             p = table(p);
             all = [p array];
             disp(all);
-
         end
     
     end
@@ -130,8 +155,11 @@ classdef multiTypeTable < handle
 end
 
 function row = findRowIndex(name, namesList)
+    % Find the index of a row in the multi-type table given its name. The
+    % expected inputs are the name of the row and the full list of row
+    % names.
 
-    % Strip leading or trailing whitaspaces from names..
+    % Strip leading or trailing whitespaces from names
     namesList = strip(namesList);
     name = strip(name);
     
@@ -145,8 +173,3 @@ function row = findRowIndex(name, namesList)
     row = find(index);
 
 end
-
-
-%function con = findColIndex(name, namesList)
-
-

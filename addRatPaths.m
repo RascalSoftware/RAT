@@ -17,6 +17,7 @@ ratRoot = pwd;  % Returns base RAT directory
 
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','backSorts');
+    fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
     fullfile(ratRoot,'targetFunctions','common','callReflectivity');
     fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations');
     fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations','Abeles');
@@ -52,9 +53,8 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'API','outputFcn');
     fullfile(ratRoot,'API','controlsDef');
     fullfile(ratRoot,'API','projectClass');
-    fullfile(ratRoot,'tests');
-    fullfile(ratRoot,'testSuite','reflectivity_calculation');
-    fullfile(ratRoot,'testSuite','standardTF_reflectivityCalculationTest');
+    fullfile(ratRoot,'tests','testCommonFunctions');
+    fullfile(ratRoot,'tests','standardTFReflectivityCalculation');
     fullfile(ratRoot,'minimisers','simplex');
     fullfile(ratRoot,'minimisers','generalUtils');
     fullfile(ratRoot,'minimisers','NSMain');

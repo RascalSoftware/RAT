@@ -24,7 +24,7 @@ classdef multiTypeTable < handle
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
             obj.typesTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             obj.typesCount = 0;
-            obj.typesAutoNameCounter = 0;
+            obj.typesAutoNameCounter = 1;
             obj.addRow(startCell);
         end
         
@@ -54,10 +54,16 @@ classdef multiTypeTable < handle
                     % characters if necessary
                     newRow = [addParams, repmat({''}, 1, 7-length(addParams))];
 
-                % Pass in only the first seven values to ensure input is
-                % not too long
-                appendNewRow(obj,newRow(1:7));
+                    % Check type is one of the allowed types
+                    if ~strcmpi(newRow(2),obj.allowedTypes)
+                        error('Unrecognised background type %s. Must be ''constant'',''data'', or ''function''', typeVal);
+                    end
             end
+
+            % Pass in only the first seven values to ensure input is
+            % not too long
+            appendNewRow(obj,newRow(1:7));
+
         end
         
         function obj = setValue(obj,varargin)

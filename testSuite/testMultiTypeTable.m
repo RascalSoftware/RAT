@@ -10,19 +10,39 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 % We use an example multi type table from the backgrounds class for the
 % example calculation "DPPC_standard_layers.m"
 %
-% Paul Sharp 27/01/23
+% Paul Sharp 30/01/23
 %
 %% Declare properties and parameters
 
     properties (TestParameter)
-        % Cell arrays of length one or length seven are valid, other
-        % lengths (2-6, >8) are invalid. Zero length is a sepcific case.
-        validInputCell = {{''},  {'','','','','','',''}}
-        invalidInputCell = {{'',''}, {'','',''}, {'','','',''}, {'','','','',''}, {'','','','','',''}, {'','','','','','','',''}}
-        rowInput = {{}, "Added background", {'Full background', 'constant', 'Back Par 1', 'Back Par 2','Back Par 3', 'Back Par 4', 'Back Par 5'}} % Inputs for "addRow"
-        addedRow={{'New background 3','constant','','','','',''}, ...
-                  {'Added background','constant','','','','',''}, ...
-                  {'Full background', 'constant', 'Back Par 1', 'Back Par 2','Back Par 3', 'Back Par 4', 'Back Par 5'}} % Resulting additional rows from "addRow"
+        % Cell arrays for initialising a multi type table
+        inputCell = {{},...
+                     {' 1'},...
+                     {' 1', 'constant'},...
+                     [{' 1', 'constant'}, repmat({''}, 1, 1)],...
+                     [{' 1', 'constant'}, repmat({''}, 1, 2)],...
+                     [{' 1', 'constant'}, repmat({''}, 1, 3)],...
+                     [{' 1', 'constant'}, repmat({''}, 1, 4)],...
+                     [{' 1', 'constant'}, repmat({''}, 1, 5)],...
+                     [{' 1', 'constant'}, repmat({''}, 1, 6)]}
+
+        rowInput = {{},...
+                    {'Added background'},...
+                    {'Name and Type', 'constant'},...
+                    {'Three params', 'constant', 'Back Par 1'},...
+                    {'Four params', 'constant', 'Back Par 1', 'Back Par 2'},...
+                    {'Five params', 'constant', 'Back Par 1', 'Back Par 2', 'Back Par 3'},...
+                    {'Six params', 'constant', 'Back Par 1', 'Back Par 2', 'Back Par 3', 'Back Par 4'},...
+                    {'Full background', 'constant', 'Back Par 1', 'Back Par 2', 'Back Par 3', 'Back Par 4', 'Back Par 5'}} % Inputs for "addRow"
+
+        addedRow = {{'New background 3','constant','','','','',''},...
+                    {'Added background','constant','','','','',''},...
+                    {'Name and Type','constant','','','','',''},...
+                    {'Three params','constant','Back Par 1','','','',''},...
+                    {'Four params','constant','Back Par 1','Back Par 2','','',''},...
+                    {'Five params','constant','Back Par 1','Back Par 2','Back Par 3','',''},...
+                    {'Six params','constant','Back Par 1','Back Par 2','Back Par 3','Back Par 4',''},...
+                    {'Full background', 'constant', 'Back Par 1', 'Back Par 2','Back Par 3', 'Back Par 4', 'Back Par 5'}} % Resulting additional rows from "addRow"
     end
 
     properties
@@ -31,7 +51,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         initialAllowedTypes = {'constant'  'data'  'function'};
         initialAllowedActions = {'add'  'subtract'};
         initialTypesCount = 1;
-        initialTypesAutoNameCounter = 1;
+        initialTypesAutoNameCounter = 2;
         initialTypesAutoNameString = [];
         numRows                 % Number of rows in exampleTable
         numCols                 % Number of columns in exampleTable
@@ -48,7 +68,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             tableNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
 
             testCase.initialTypesTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
-            testCase.initialTypesTable(1,:) = {'','','','','','',''};
+            testCase.initialTypesTable(1,:) = {' 1','constant','','','','',''};
         end
 
     end
@@ -80,10 +100,11 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
     methods (Test, ParameterCombination="sequential")
 
-        function testInitialiseMultiTypeTable(testCase, validInputCell)
-            % A multi-type table can be initialised using a one-element
-            % cell array, or a seven element cell array
-            testTable = multiTypeTable(validInputCell);
+        function testInitialiseMultiTypeTable(testCase, inputCell)
+            % A multi-type table can be initialised using a cell array of
+            % any length, with the values in the cell array filling
+            % the table variables in order.
+            testTable = multiTypeTable(inputCell);
 
             testCase.verifySize(testTable.typesTable, [1 7], "multiTypeTable does not initialise correctly");
 
@@ -101,22 +122,11 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() multiTypeTable(), 'MATLAB:minrhs');
         end
 
-        function testInitialiseEmptyCellMultiTypeTable(testCase)
-            % If we initialise a multi-type table with an empty cell array,
-            % it should raise an error
-            testCase.verifyError(@() multiTypeTable({}), 'MATLAB:table:RowDimensionMismatch');
-        end
-
-        function testInitialiseInvalidMultiTypeTable(testCase, invalidInputCell)
-            % If we initialise a multi-type table with a cell array
-            % containing more than one field (except for seven) it should
-            % raise an error
-            testCase.verifyError(@() multiTypeTable(invalidInputCell), 'MATLAB:table:VarDimensionMismatch');
-        end
-
         function testAddRow(testCase, rowInput, addedRow)
             % Test adding a row to a multi-type table. We can add a row
-            % using a cell array of length zero, one, or seven only.
+            % using a cell array of any length, with the specified
+            % parameters filling the first set of variables in the table,
+            % and empty strings filling and unspecified values.
             expectedTable = [testCase.exampleTable.typesTable; addedRow];
 
             testCase.exampleTable.addRow(rowInput);
@@ -126,15 +136,15 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleTable.typesAutoNameCounter, height(testCase.exampleTable.typesTable), "addRow does not work correctly");
         end
 
-        function testAddRowInvalid(testCase, invalidInputCell)
+        %function testAddRowInvalid(testCase, invalidInputCell)
             % Test adding a row to a multi type table. If we use an input
             % cell array containing more than one field (except for seven)
             % it should raise an error
             %
             % !!! THIS IS A BUG !!! - This should be handled in "addRow"
             %
-            testCase.verifyError(@() testCase.exampleTable.addRow(invalidInputCell), 'MATLAB:table:vertcat:SizeMismatchWithCell');
-        end
+        %    testCase.verifyError(@() testCase.exampleTable.addRow(invalidInputCell), 'MATLAB:table:vertcat:SizeMismatchWithCell');
+        %end
 
         function testSetValue(testCase)
             % Test setting values in the multi-type table using both names
@@ -287,7 +297,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Capture the standard output and format into string array -
             % one element for each row of the output
             display = textscan(evalc('testCase.exampleTable.displayTypesTable()'),'%s','Delimiter','\r','TextType','string');
-            displayedTable = display{:}
+            displayedTable = display{:};
 
             % Check headers
             % Replace multiple spaces in output table with a single

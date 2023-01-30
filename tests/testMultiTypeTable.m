@@ -50,7 +50,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
     properties
         exampleTable;           % Example Multi-Type Table for testing
         initialTypesTable;
-        initialAllowedTypes = {'constant'  'data'  'function'};
+        initialAllowedTypes = {'constant'  'data'  'function', 'gaussian'};
         initialAllowedActions = {'add'  'subtract'};
         initialTypesCount = 1;
         initialTypesAutoNameCounter = 1;

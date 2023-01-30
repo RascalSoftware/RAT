@@ -1,13 +1,13 @@
 classdef testMultiTypeTable < matlab.unittest.TestCase
 %%
-% testMultiTypeTable Class based unit tests for the Multi Type Table Class
+% testMultiTypeTable Class based unit tests for the multiTypeTable Class
 % used within the Project Class in RAT.
 %
 % In this class, we test:
 % multiTypeTable, addRow, setValue, appendNewRow, removeRow,
 % displayTypesTable, findRowIndex
 %
-% We use an example multi type table from the backgrounds class for the
+% We use an example multi-type table from the backgrounds class for the
 % example calculation "DPPC_standard_layers.m"
 %
 % Paul Sharp 30/01/23
@@ -312,6 +312,10 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             testCase.verifyEqual(multiTypeTable.findRowIndex("Background SMW", tableRows), 2);
             testCase.verifyEqual(multiTypeTable.findRowIndex("Value 3", tableCols), 5);
+
+            % Check whitespace still matches
+            testCase.verifyEqual(multiTypeTable.findRowIndex(" Background D2O", tableRows), 1);
+            testCase.verifyEqual(multiTypeTable.findRowIndex(" Type ", tableCols), 2);
 
             testCase.verifyError(@() multiTypeTable.findRowIndex("Invalid Row", tableRows), ?MException)
             testCase.verifyError(@() multiTypeTable.findRowIndex("Value 3", tableRows), ?MException)

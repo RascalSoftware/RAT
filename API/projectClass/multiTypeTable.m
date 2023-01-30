@@ -8,52 +8,55 @@ classdef multiTypeTable < handle
         allowedTypes = {'constant','data','function'};
         allowedActions = {'add','subtract'};
         typesCount;
-        typesAutoNameCounter
-        typesAutoNameString
+        typesAutoNameCounter;
+        typesAutoNameString;
     end
     
     methods
        
         function obj = multiTypeTable(startCell)
-            % Initialises a multi-type table with a single row The expected
-            % input is a cell array of length one OR length seven
+            % Initialises a multi-type table with a single row.
+            % The expected input is a cell array of length zero to seven.
             %
             % multiTable = multiTypeTable({'First Row'});
-            sz = [1 7];
+            sz = [0 7];
             varTypes = {'string','string','string','string','string','string','string'};
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
             obj.typesTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.typesTable(1,:) = startCell;
-            obj.typesCount = 1;
-            obj.typesAutoNameCounter = 1;
+            obj.typesCount = 0;
+            obj.typesAutoNameCounter = 0;
+            obj.addRow(startCell);
         end
         
         function obj = addRow(obj,addParams)
             % Adds a row to the multi-type table. The row can be specified
-            % with no details (a length-zero object), just a name
-            % (a single string), or ALL of the parameters (a length seven
-            % cell array)
+            % with up to seven parameters, with empty strings used for
+            % values that are not specified.
             %
             % multiTable.addRow("New Row")
             switch length(addParams)
+
                 case 0
                     % No Parameter. Add empty row
                     thisName = char(obj.typesAutoNameString);
                     thisNum = obj.typesAutoNameCounter;
                     name = sprintf('%s %d',thisName,thisNum);
                     newRow = {name,'constant','','','','',''};
-                    appendNewRow(obj,newRow);
                     
                 case 1
                     % One parameter: assume this is a name
                     newRow = {addParams,'constant','','','','',''};
-                    appendNewRow(obj,newRow);
-                    
+
                 otherwise
-                    % More than one parameter. Parsed externally in call so just build
-                    % the row
-                    newRow = addParams;
-                    appendNewRow(obj,newRow);
+                    % Two or more parameters are specified. 
+                    % Assume the specified parameters refer to each table
+                    % entry in order, then pad the row with empty
+                    % characters if necessary
+                    newRow = [addParams, repmat({''}, 1, 7-length(addParams))];
+
+                % Pass in only the first seven values to ensure input is
+                % not too long
+                appendNewRow(obj,newRow(1:7));
             end
         end
         

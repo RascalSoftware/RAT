@@ -287,7 +287,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Capture the standard output and format into string array -
             % one element for each row of the output
             display = textscan(evalc('testCase.exampleTable.displayTypesTable()'),'%s','Delimiter','\r','TextType','string');
-            displayedTable = display{:};
+            displayedTable = display{:}
 
             % Check headers
             % Replace multiple spaces in output table with a single

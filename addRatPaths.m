@@ -1,6 +1,6 @@
 
 % Add the paths needed for RAT to the current Matlab session.
-% This pust be run from the base RAT directory.
+% This must be run from the base RAT directory.
 
 % RAT (will soon) allow use of the Paramonte library for Bayesian
 % inference.
@@ -53,9 +53,8 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'API','outputFcn');
     fullfile(ratRoot,'API','controlsDef');
     fullfile(ratRoot,'API','projectClass');
-    fullfile(ratRoot,'tests');
-    fullfile(ratRoot,'testSuite','testCommonFunctions');
-    fullfile(ratRoot,'testSuite','standardTFReflectivityCalculation');
+    fullfile(ratRoot,'tests','testCommonFunctions');
+    fullfile(ratRoot,'tests','standardTFReflectivityCalculation');
     fullfile(ratRoot,'minimisers','simplex');
     fullfile(ratRoot,'minimisers','generalUtils');
     fullfile(ratRoot,'minimisers','NSMain');

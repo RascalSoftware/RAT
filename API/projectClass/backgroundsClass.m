@@ -4,11 +4,11 @@ classdef backgroundsClass < handle
     % Backgrounds are defined in a two stage process. Firstly we define the
     % actual fitted parameters. These are held in a 'ParametersClass'
     % table. Then, we group these into the backgrounds themselves using a
-    % multiTypeTable. So, we can then use th ebackground parameters to
+    % multiTypeTable. So, we can then use the background parameters to
     % either define background as  constant, data or a function. For
     % constant only one parameter is supplied to multi type table. For data
     % only the itself is supplied as a cell. For function, the function
-    % name is supplied, allong with up to three parameters (from the
+    % name is supplied, along with up to three parameters (from the
     % parameters table) which are then supplied to the function to
     % calculate the background. 
     % In each case, the background can either be added to the simulation or

@@ -1,7 +1,7 @@
 classdef resolutionsClass < handle
      
-    % This makes the rosolutions class.
-    % Like Backgrounds, reolutions are defined in a two stage process. Firstly we define the
+    % This makes the resolutions class.
+    % Like Backgrounds, resolutions are defined in a two stage process. Firstly we define the
     % actual fitted parameters. These are held in a 'ParametersClass'
     % table. Then, we group these into the resolutions themselves using a
     % multiTypeTable. So, we can then use the resolution parameters to
@@ -9,7 +9,7 @@ classdef resolutionsClass < handle
     % constant only one parameter is supplied to multi type table. For data
     % the name is supplied, along with the name of the data in the 
     % data table. For function, the function
-    % name is supplied, allong with up to three parameters (from the
+    % name is supplied, along with up to three parameters (from the
     % parameters table) which are then supplied to the function to
     % calculate the resolution. 
     
@@ -158,7 +158,7 @@ classdef resolutionsClass < handle
                        % Resolution is assumed to be given by a 4th column 
                        % of a datafile. We don't have access to the
                        % datafiles at this point so this (i.e. that data is
-                       % [n x 4] ) will be chacked downstream
+                       % [n x 4] ) will be checked downstream
                        thisRow = {in(1), in(2), '', '', '', '', ''};
                 end
             end

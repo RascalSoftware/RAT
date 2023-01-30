@@ -191,31 +191,10 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.setValue({1, testCase.numCols+1, 'Added'}), ?MException)
 
             % Row name
-            %
-            % !!! THIS IS A BUG !!! 
-            % This should raise an error for being an invalid row name but
-            % instead does nothing
-            %
-            %testCase.verifyError(@() testCase.exampleTable.setValue({'Invalid Name', cols, 'Added'}), ?MException)
-            testCase.verifyEqual(testCase.exampleTable.setValue({'Invalid Name', testCase.numCols, 'Added'}), testCase.exampleTable);
+            testCase.verifyError(@() testCase.exampleTable.setValue({'Invalid Name', testCase.numCols, 'Added'}), ?MException)
 
             % Column name
-            %
-            % !!! THIS IS A BUG !!! 
-            % This should raise an error for being an invalid row name but
-            % instead does nothing
-            %
-            %testCase.verifyError(@() testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), ?MException)
-            testCase.verifyEqual(testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), testCase.exampleTable);
-
-            % Floats for row and column
-            %
-            % !!! THIS IS A BUG !!! 
-            % These should raise an error for being non-integers rather
-            % than bad subscripts
-            %
-            testCase.verifyError(@() testCase.exampleTable.setValue({1, 1.5, 'Added'}), 'MATLAB:badsubscript')
-            testCase.verifyError(@() testCase.exampleTable.setValue({1.5, 1, 'Added'}), 'MATLAB:badsubscript')        
+            testCase.verifyError(@() testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), ?MException)
         end
 
         function testSetValueTooFewParams(testCase)

@@ -83,10 +83,12 @@ classdef multiTypeTable < handle
             if ischar(rowPar)
                 row = findRowIndex(rowPar, rowNames);
             elseif isnumeric(rowPar)
-                if (rowPar < 1) || (rowPar > length(rowNames))
+                % This rounds any float values down to an integer
+                rowIndex = floor(rowPar);
+                if (rowIndex < 1) || (rowIndex > length(rowNames))
                    error('Row number out of range');  
                 else
-                    row = rowPar;
+                    row = rowIndex;
                 end
             else
                 error('Unrecognised row index');
@@ -100,10 +102,12 @@ classdef multiTypeTable < handle
             if ischar(colPar)
                 col = findRowIndex(colPar,colNames);
             elseif isnumeric(colPar)
-                if (colPar < 1) || (colPar > length(colNames))
+                % This rounds any float values down to an integer
+                colIndex = floor(colPar);
+                if (colIndex < 1) || (colIndex > length(colNames))
                     error('Column number out out of range');
                 else
-                    col = colPar;
+                    col = colIndex;
                 end
             else
                 error('Unrecognised column index');
@@ -174,11 +178,11 @@ function row = findRowIndex(name, namesList)
     
     % Compare 'name' to list ignoring case
     index = strcmpi(name, namesList);
-    if isempty(index)
+    if any(index)
+        % Non-zero value in array is the row index
+        row = find(index);
+    else
         error('Unrecognised parameter name');
     end
-    
-    % Non-zero value in array is the row index
-    row = find(index);
 
 end

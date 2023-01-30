@@ -1,6 +1,6 @@
 
 % Add the paths needed for RAT to the current Matlab session.
-% This pust be run from the base RAT directory.
+% This must be run from the base RAT directory.
 
 % RAT (will soon) allow use of the Paramonte library for Bayesian
 % inference.

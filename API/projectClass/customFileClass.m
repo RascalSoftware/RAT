@@ -1,6 +1,6 @@
 classdef customFileClass < handle
     
-    % A container class for holding customf files for either
+    % A container class for holding custom files for either
     % models, backgrounds or resolutions.
     properties
         

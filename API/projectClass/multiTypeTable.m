@@ -130,7 +130,7 @@ classdef multiTypeTable < handle
             thisRow = row{:};
             tab(thisRow,:) = [];
             obj.typesTable = tab;
-            obj.typesCount = obj.typesCount - 1;
+            obj.typesCount = height(obj.typesTable);
         end
         
         function displayTypesTable(obj)
@@ -144,10 +144,6 @@ classdef multiTypeTable < handle
             all = [p array];
             disp(all);
         end
-
-    end
-
-    methods(Access = protected)
 
         function appendNewRow(obj,row)
             % Appends a row to the multi-type table. The expected input is

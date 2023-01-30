@@ -247,8 +247,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.exampleTable.removeRow({[1 3]});
 
             testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, "removeRow does not work correctly");
-            % Should "typesCount" always equal the current number of rows?
-            testCase.verifyEqual(testCase.exampleTable.typesCount, testCase.numRows-1, "removeRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesCount, height(testCase.exampleTable.typesTable), "removeRow does not work correctly");
 
             % Note that "typesAutoNameCounter" should not be reduced.
             % This is to prevent the possibility of duplicate row names

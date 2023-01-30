@@ -9,7 +9,7 @@ classdef multiTypeTable < handle
         allowedActions = {'add','subtract'};
         typesCount;
         typesAutoNameCounter;
-        typesAutoNameString;
+        typesAutoNameString= 'Row';
     end
     
     methods
@@ -24,7 +24,7 @@ classdef multiTypeTable < handle
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
             obj.typesTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             obj.typesCount = 0;
-            obj.typesAutoNameCounter = 1;
+            obj.typesAutoNameCounter = 0;
             obj.addRow(startCell);
         end
         

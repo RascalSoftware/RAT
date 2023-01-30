@@ -9,14 +9,14 @@ classdef multiTypeTable < handle
         allowedActions = {'add','subtract'};
         typesCount;
         typesAutoNameCounter;
-        typesAutoNameString= 'Row';
+        typesAutoNameString = 'Row';
     end
     
     methods
        
         function obj = multiTypeTable(startCell)
             % Initialises a multi-type table with a single row.
-            % The expected input is a cell array of length zero to seven.
+            % The expected input is a cell array.
             %
             % multiTable = multiTypeTable({'First Row'});
             sz = [0 7];
@@ -55,8 +55,8 @@ classdef multiTypeTable < handle
                     newRow = [addParams, repmat({''}, 1, 7-length(addParams))];
 
                     % Check type is one of the allowed types
-                    if ~strcmpi(newRow(2),obj.allowedTypes)
-                        error('Unrecognised background type %s. Must be ''constant'',''data'', or ''function''', typeVal);
+                    if ~strcmpi(newRow{2}, obj.allowedTypes)
+                        error('Unrecognised type ''%s''. Must be one of the types defined in ''obj.allowedTypes''', newRow{2});
                     end
             end
 
@@ -167,9 +167,9 @@ classdef multiTypeTable < handle
     methods(Static)
 
         function row = findRowIndex(name, namesList)
-            % Find the index of a row in the multi-type table given its name. The
-            % expected inputs are the name of the row and the full list of row
-            % names.
+            % Find the index of a row in the multi-type table given its
+            % name. The expected inputs are the name of the row and the
+            % full list of row names.
         
             % Strip leading or trailing whitespaces from names
             namesList = strip(namesList);

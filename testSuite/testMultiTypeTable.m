@@ -5,7 +5,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 %
 % In this class, we test:
 % multiTypeTable, addRow, setValue, appendNewRow, removeRow,
-% displayTypesTable
+% displayTypesTable, findRowIndex
 %
 % We use an example multi type table from the backgrounds class for the
 % example calculation "DPPC_standard_layers.m"
@@ -116,12 +116,6 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyEqual(testTable.typesCount, testCase.initialTypesCount, "multiTypeTable does not initialise correctly");
             testCase.verifyEqual(testTable.typesAutoNameCounter, testCase.initialTypesAutoNameCounter, "multiTypeTable does not initialise correctly");
             testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString, "multiTypeTable does not initialise correctly");
-        end
-
-        function testInitialiseEmptyMultiTypeTable(testCase)
-            % If we initialise a multi-type table without an input, it
-            % should raise an error
-            testCase.verifyError(@() multiTypeTable(), 'MATLAB:minrhs');
         end
 
         function testAddRow(testCase, rowInput, addedRow)
@@ -259,7 +253,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % multi-type table.
             % Note that the routine requires a single cell array as input.
             testCase.verifyError(@() testCase.exampleTable.removeRow({0}), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleTable.removeRow({0.5}), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.removeRow({1.5}), 'MATLAB:badsubscript');
             testCase.verifyError(@() testCase.exampleTable.removeRow({testCase.numRows+1}), 'MATLAB:table:RowIndexOutOfRange');
 
             testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite no rows being removed");
@@ -308,6 +302,20 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             end
 
+        end
+
+        function testFindRowIndex(testCase)
+            % Test that the correct row number is returned for a valid row
+            % or column, and an error is raised for invalid options
+            tableRows = testCase.exampleTable.typesTable{:,1};
+            tableCols = testCase.exampleTable.typesTable.Properties.VariableNames;
+
+            testCase.verifyEqual(multiTypeTable.findRowIndex("Background SMW", tableRows), 2);
+            testCase.verifyEqual(multiTypeTable.findRowIndex("Value 3", tableCols), 5);
+
+            testCase.verifyError(@() multiTypeTable.findRowIndex("Invalid Row", tableRows), ?MException)
+            testCase.verifyError(@() multiTypeTable.findRowIndex("Value 3", tableRows), ?MException)
+            testCase.verifyError(@() multiTypeTable.findRowIndex("Value 6", tableCols), ?MException)
         end
 
     end

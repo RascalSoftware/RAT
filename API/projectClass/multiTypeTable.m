@@ -81,7 +81,7 @@ classdef multiTypeTable < handle
             rowPar = in{1};
             
             if ischar(rowPar)
-                row = findRowIndex(rowPar, rowNames);
+                row = obj.findRowIndex(rowPar, rowNames);
             elseif isnumeric(rowPar)
                 % This rounds any float values down to an integer
                 rowIndex = floor(rowPar);
@@ -100,7 +100,7 @@ classdef multiTypeTable < handle
             colNames = obj.typesTable.Properties.VariableNames;
 
             if ischar(colPar)
-                col = findRowIndex(colPar,colNames);
+                col = obj.findRowIndex(colPar,colNames);
             elseif isnumeric(colPar)
                 % This rounds any float values down to an integer
                 colIndex = floor(colPar);
@@ -118,25 +118,7 @@ classdef multiTypeTable < handle
             obj.typesTable = tab;
 
         end
-  
-        
-        function appendNewRow(obj,row)
-            % Appends a row to the multi-type table. This routine should
-            % not be called directly, instead using "addRow". The expected
-            % input is a length seven cell array.
-            %
-            % multiTable.appendNewRow({'New Row','','','','','',''})
-            tab = obj.typesTable;
-            newName = row{1};
-            if any(strcmp(newName,tab{:,1}))
-                error('Duplicate parameter names not allowed');
-            end
-            tab = [tab ; row];
-            obj.typesTable = tab;
-            obj.typesCount = obj.typesCount + 1;
-            obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
-        end
-        
+
         function removeRow(obj,row)
             % Removes a row from the multi-type table. The expected
             % input is a length one cell array.
@@ -162,27 +144,52 @@ classdef multiTypeTable < handle
             all = [p array];
             disp(all);
         end
-    
+
     end
-    
-end
 
-function row = findRowIndex(name, namesList)
-    % Find the index of a row in the multi-type table given its name. The
-    % expected inputs are the name of the row and the full list of row
-    % names.
+    methods(Access = protected)
 
-    % Strip leading or trailing whitespaces from names
-    namesList = strip(namesList);
-    name = strip(name);
-    
-    % Compare 'name' to list ignoring case
-    index = strcmpi(name, namesList);
-    if any(index)
-        % Non-zero value in array is the row index
-        row = find(index);
-    else
-        error('Unrecognised parameter name');
+        function appendNewRow(obj,row)
+            % Appends a row to the multi-type table. The expected input is
+            % a length seven cell array.
+            %
+            % multiTable.appendNewRow({'New Row','','','','','',''})
+            tab = obj.typesTable;
+            newName = row{1};
+            if any(strcmp(newName,tab{:,1}))
+                error('Duplicate parameter names not allowed');
+            end
+            tab = [tab ; row];
+            obj.typesTable = tab;
+            obj.typesCount = obj.typesCount + 1;
+            obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
+
+        end
+
+    end
+
+    methods(Static)
+
+        function row = findRowIndex(name, namesList)
+            % Find the index of a row in the multi-type table given its name. The
+            % expected inputs are the name of the row and the full list of row
+            % names.
+        
+            % Strip leading or trailing whitespaces from names
+            namesList = strip(namesList);
+            name = strip(name);
+            
+            % Compare 'name' to list ignoring case
+            index = strcmpi(name, namesList);
+            if any(index)
+                % Non-zero value in array is the row index
+                row = find(index);
+            else
+                error('Unrecognised parameter name');
+            end
+
+        end
+
     end
 
 end

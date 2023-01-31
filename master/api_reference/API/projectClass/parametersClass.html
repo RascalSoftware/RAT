@@ -6,7 +6,7 @@
   <meta name="keywords" content="parametersClass">
   <meta name="description" content="">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
   <meta name="robots" content="index, follow">
   <link type="text/css" rel="stylesheet" href="../../m2html.css">
   <script type="text/javascript">
@@ -146,7 +146,7 @@ This function is called by:
 0074                         name = inputCell{1};
 0075                         value = inputCell{2};
 0076                         <span class="keyword">if</span> ~isnumeric(value)
-0077                             error(<span class="string">'Expecting numberic value as param 2'</span>);
+0077                             error(<span class="string">'Expecting numeric value as param 2'</span>);
 0078                         <span class="keyword">end</span>
 0079                         newRow = {name,value,value,value,false,<span class="string">'uniform'</span>,0,Inf};
 0080                         <a href="#_sub16" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
@@ -157,7 +157,7 @@ This function is called by:
 0085                         name = inputCell{1};
 0086                         values = [inputCell{2} inputCell{3} inputCell{4}];
 0087                         <span class="keyword">if</span> ~isnumeric(values)
-0088                             error(<span class="string">'Expecting numberic valus as params 2 - 4'</span>);
+0088                             error(<span class="string">'Expecting numeric values as params 2 - 4'</span>);
 0089                         <span class="keyword">end</span>
 0090                         newRow = {name,values(1),values(2),values(3),false,<span class="string">'uniform'</span>,0,Inf};
 0091                         <a href="#_sub16" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
@@ -169,7 +169,7 @@ This function is called by:
 0097                         values = [inputCell{2} inputCell{3} inputCell{4}];
 0098                         fit = inputCell{5};
 0099                         <span class="keyword">if</span> ~isnumeric(values)
-0100                             error(<span class="string">'Expecting numberic valus as params 2 - 4'</span>);
+0100                             error(<span class="string">'Expecting numeric values as params 2 - 4'</span>);
 0101                         <span class="keyword">end</span>
 0102                         
 0103                         <span class="keyword">if</span> ~islogical(fit)
@@ -187,7 +187,7 @@ This function is called by:
 0115                         priorValues = [inputCell{7} inputCell{8}];
 0116                         
 0117                         <span class="keyword">if</span> ~isnumeric(values)
-0118                             error(<span class="string">'Expecting numberic valus as params 2 - 4'</span>);
+0118                             error(<span class="string">'Expecting numeric values as params 2 - 4'</span>);
 0119                         <span class="keyword">end</span>
 0120                         
 0121                         <span class="keyword">if</span> ~islogical(fit)
@@ -195,7 +195,7 @@ This function is called by:
 0123                         <span class="keyword">end</span>
 0124                         
 0125                         <span class="keyword">if</span> ~strcmpi(priorType,{<span class="string">'uniform'</span>,<span class="string">'gaussian'</span>,<span class="string">'jeffreys'</span>})
-0126                             error(<span class="string">'Prior type must be ''uniform'', ''gaussuan'' or ''jeffreys'''</span>);
+0126                             error(<span class="string">'Prior type must be ''uniform'', ''gaussian'' or ''jeffreys'''</span>);
 0127                         <span class="keyword">end</span>
 0128                         
 0129                         <span class="keyword">if</span> ~isnumeric(priorValues)
@@ -579,6 +579,6 @@ This function is called by:
 0507 
 </pre></div>
 
-<hr><address>Generated on Fri 13-Jan-2023 14:08:39 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Tue 31-Jan-2023 15:40:27 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -36,7 +36,6 @@ digraph m2html {
   resolutionsClass -> parametersClass;
   resolutionsClass -> resolutionsClass;
   singleCalculation -> reflectivity_calculation_wrapper;
-  call_customLayers 2 -> callMatlabCustomLayers;
   call_customLayers -> callMatlabCustomLayers;
   callReflectivity -> data_resolution_polly;
   callReflectivity -> resolution_polly;
@@ -197,7 +196,6 @@ digraph m2html {
   resolution_polly [URL="targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly.html"];
   resolution_polly_paraPoints [URL="targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.html"];
   backSort [URL="targetFunctions/common/backSorts/backSort.html"];
-  call_customLayers 2 [URL="targetFunctions/common/callCustomLayers/call_customLayers 2.html"];
   call_customLayers [URL="targetFunctions/common/callCustomLayers/call_customLayers.html"];
   callMatlabCustomLayers [URL="targetFunctions/common/callMatlabFunction/callMatlabCustomLayers.html"];
   matlabFunctionWrapper [URL="targetFunctions/common/callMatlabFunction/matlabFunctionWrapper.html"];

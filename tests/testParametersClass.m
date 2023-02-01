@@ -29,8 +29,8 @@ classdef testParametersClass < matlab.unittest.TestCase
                                  string(testCase.parameters(1, :)), 'Start parameter not set correctly');
             testCase.verifySize(params.paramsTable, [1, 8], 'Parameters has wrong dimension');
             
-            % This should fail but it doesn't
-            % newParameter = parametersClass({2, 10, 20, 30, true, 'fred', 0, Inf});
+            % bad start type
+            testCase.verifyError(@() parametersClass({2, 10, 20, 30, true, 'fred', 0, Inf}), ?MException);
         end
 
         function testGetNames(testCase)
@@ -95,7 +95,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             paramNames = convertCharsToStrings(testCase.parameters(:, 1));
             % Checks that parameter can be removed
             testCase.verifyError(@() params.removeParam(), ?MException);
-            % testCase.verifyError(@() params.removeParam('bad name'), ?MException);
+            testCase.verifyError(@() params.removeParam('bad name'), ?MException);
             params.removeParam(1);
             testCase.verifySize(params.paramsTable, [8, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:end, 1), 'removeParam method not working');
@@ -105,6 +105,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.removeParam('Tails Roughness');
             testCase.verifySize(params.paramsTable, [4, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames([2, 4, 5, 6], 1), 'removeParam method not working');
+            testCase.verifyError(@() params.removeParam(11), ?MException);
         end
 
         function testSetParams(testCase)
@@ -143,7 +144,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyFalse(params.paramsTable{1, 5}, 'setParameter method not working');
             params.setFit({'Heads', true});
             testCase.verifyTrue(params.paramsTable{1, 5}, 'setParameter method not working');   
-            % testCase.verifyError(@() params.setFit({'Not present', false}), ?MException)
+            testCase.verifyError(@() params.setFit({'Not present', false}), ?MException)
             % Checks that parameter priors can be modified
             testCase.verifyError(@() params.setPrior({1, '2'}), ?MException);
             params.setPrior({1, 'gaussian', 1, 2});
@@ -157,31 +158,53 @@ classdef testParametersClass < matlab.unittest.TestCase
         function testDisplayTable(testCase)
             import matlab.unittest.constraints.ContainsSubstring
             % Check that the content of the parameter table are printed
+            actualHeader = {'Name', 'Min', 'Value', 'Max', 'Fit?', 'Prior Type', 'mu', 'sigma'};
+            
             params = parametersClass(testCase.parameters(1, :));
             display = evalc('params.displayParametersTable()');
             testCase.verifyNotEmpty(display, 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "Name", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "Min", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "Value", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "Max", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "Fit?", 'displayParametersTable method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("Prior Type"), 'displayParametersTable method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("mu"), 'displayParametersTable method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("sigma"), 'displayParametersTable method not working');
+            
+            displayArray = textscan(display,'%s','Delimiter','\r','TextType','string');
+            displayArray = strip(displayArray{1});
+            % display table should be height of parameter table plus header and divider row
+            testCase.verifyLength(displayArray, height(params.paramsTable) + 2)
+            % Remove html tags used to format header then split table when
+            % 2 or more spaces are found to avoid splitting param names with
+            % single space
+            displayHeader = eraseBetween(displayArray{1}, '<', '>', 'Boundaries','inclusive');
+            displayHeader = regexp(displayHeader, '\s{2,}', 'split');
+            % display header should be first 5 parameters plus index column
+            testCase.verifyLength(displayHeader, 6)
+            testCase.verifyEqual(displayHeader(2:6), actualHeader(1:5))
+	        row = regexp(displayArray{3}, '\s{2,}', 'split');
+            row = string(replace(row, '"', ''));
+            testCase.verifyLength(row, 6)
+            testCase.verifyEqual(row(2:end), string(testCase.parameters(1, 1:5)))
+                   
+            % Change showPrior to show the full table
+            params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:3, :))];
             testCase.verifyError(@setShowPriors, ?MException);  % showPrior should be logical 
             function setShowPriors
                 params.showPriors = 'a';
             end
             params.showPriors = true;
+
             display = evalc('params.displayParametersTable()');
-            testCase.verifySubstring(display, "Name", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "Min", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "Value", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "Max", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "Fit?", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "Prior Type", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "mu", 'displayParametersTable method not working');
-            testCase.verifySubstring(display, "sigma", 'displayParametersTable method not working');
+            displayArray = textscan(display,'%s','Delimiter','\r','TextType','string');
+            displayArray = strip(displayArray{1});
+            testCase.verifyLength(displayArray, height(params.paramsTable) + 2)
+            displayHeader = eraseBetween(displayArray{1}, '<', '>', 'Boundaries','inclusive');
+            displayHeader = regexp(displayHeader, '\s{2,}', 'split');
+            % display header should be width of parameters table plus index column
+            testCase.verifyLength(displayHeader, width(params.paramsTable)+1)
+            testCase.verifyEqual(displayHeader(2:end), actualHeader(1:end))
+	        
+            for i=1:height(params.paramsTable)-2
+                row = regexp(displayArray{i+2}, '\s{2,}', 'split');
+                row = string(replace(row, '"', ''));
+                testCase.verifyLength(row, width(params.paramsTable)+1)
+                testCase.verifyEqual(row(2:end), string(testCase.parameters(i, 1:end)))
+            end
         end
 
         function testToStruct(testCase)

@@ -7,9 +7,12 @@ classdef parametersClass < handle
         showPriors = false;
     end
     
-    properties (Access = private)
+    properties (Access = private)   
+        paramAutoNameCounter;
+    end
+    
+    properties (Dependent)
         paramCount;
-        paramAutoNameCounter
     end
     
     methods
@@ -22,27 +25,18 @@ classdef parametersClass < handle
             % and sigma (double) values in that order.
             %
             % params = parametersClass({'Tails', 10, 20, 30, true, 'uniform', 0, Inf});
-            sz = [1 8];
+            sz = [0, 8];
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
             obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.paramsTable(1,:) = startCell;
-            obj.paramCount = 1;
-            obj.paramAutoNameCounter = 1;
-            % FIXME no check for bad values
-            % obj.paramCount = 0;
-            % obj.paramAutoNameCounter = 0;
-            % obj.addParam(startCell)
-            % 
+            obj.paramAutoNameCounter = 0;
+            obj.addParam(startCell);
+           
         end
         
-        % Unused method
-        % function obj = setInitialValue(varargin)
-        %     initialValue = varargin{2};
-        %     obj.paramsTable(1,:) = initialValue;
-        %     obj.paramCount = 1;
-        %     obj.paramAutoNameCounter = 1;
-        % end
+        function count = get.paramCount(obj)
+            count = height(obj.paramsTable);
+        end
         
         function names = getParamNames(obj)
             % Returns a N x 1 cell array of names of the parameter 
@@ -95,6 +89,7 @@ classdef parametersClass < handle
                     % pair. Fill in the rest automatically
                     case 2
                         name = inputCell{1};
+                        values = [inputCell{2} inputCell{2} inputCell{2}];
                         
                     % If length is 4, assume we are getting the
                     % limits as well as the values
@@ -169,12 +164,12 @@ classdef parametersClass < handle
             
             if ischar(inputValues{1})
                 name = string(inputValues{1});
-                row = findRowIndex(name,tab);
+                row = obj.findRowIndex(name,tab);
             else
                 row = inputValues{1};
             end
            
-            inputBlock = parseParameterInput(inputValues(2:end));
+            inputBlock = obj.parseParameterInput(inputValues(2:end));
             
             if ~isempty(inputBlock.name)
                 obj.setName({row,inputBlock.name});
@@ -211,7 +206,7 @@ classdef parametersClass < handle
             
             if ischar(inputValues{1})
                 name = string(inputValues{1});
-                row = findRowIndex(name,tab);
+                row = obj.findRowIndex(name,tab);
             else
                 row = inputValues{1};
             end
@@ -251,7 +246,7 @@ classdef parametersClass < handle
             
             if ischar(inputValues{1})
                 name = string(inputValues{1});
-                row = findRowIndex(name,tab);
+                row = obj.findRowIndex(name,tab);
             else
                 row = inputValues{1};
             end
@@ -277,7 +272,7 @@ classdef parametersClass < handle
             
             if ischar(inputValues{1})
                 name = string(inputValues{1});
-                row = findRowIndex(name,tab);
+                row = obj.findRowIndex(name,tab);
             else
                 row = inputValues{1};
             end
@@ -309,7 +304,7 @@ classdef parametersClass < handle
             
             if ischar(inputValues{1})
                 name = string(inputValues{1});
-                row = findRowIndex(name,tab);
+                row = obj.findRowIndex(name,tab);
             else
                 row = inputValues{1};
             end
@@ -339,7 +334,7 @@ classdef parametersClass < handle
             
             if ischar(varargin{1})
                 name = string(varargin{1});
-                row = findRowIndex(name,tab);
+                row = obj.findRowIndex(name,tab);
             else
                 row = varargin{1};
             end
@@ -347,11 +342,6 @@ classdef parametersClass < handle
             tab(row,5) = varargin(2);
             obj.paramsTable = tab;
         end
-        
-        % function set.paramsTable(obj,table)
-        %     % Setter for the paramsTable property
-        %     obj.paramsTable = table;
-        % end
         
         function set.showPriors(obj,flag)
             % Setter for the showPriors property
@@ -449,7 +439,6 @@ classdef parametersClass < handle
             end
             tab = [tab ; row];
             obj.paramsTable = tab;
-            obj.paramCount = obj.paramCount + 1;
             obj.paramAutoNameCounter = obj.paramAutoNameCounter + 1;
         end
         
@@ -463,76 +452,67 @@ classdef parametersClass < handle
             if ischar(row)
                 % Assume a row name
                 index = strcmp(row, tab{:,1});
-                if isempty(index)
+                if ~any(index)
                     error('Unrecognised parameter name');
                 end
                 row = find(index);
             end
             
-            numRows = size(tab,1);
-            if row == numRows
-                % Removing the last row
-                newTab = tab(1:end-1,:);
-                
-            elseif row == 1
-                newTab = tab(2:end,:);
-                
-            else
-                % Removing a row somewhere in the centre
-                tab1 = tab(1:row-1,:);
-                tab2 = tab(row+1:end,:);
-                newTab = [tab1 ; tab2];
+            if (row < 1) || (row > obj.paramCount)
+                error('Row index out out of range');
             end
             
-            obj.paramsTable = newTab;
-            obj.paramCount = obj.paramCount - 1;
+            tab(row, :) = [];
+            obj.paramsTable = tab;   
+        end
+    end
+
+    methods (Static)
+        function row = findRowIndex(name,tab)
+            % Gets index with given row name from table.
+            %
+            % obj.parseParameterInput({'name', 'param'})
+            namesList = tab{:,1};
             
+            % Strip leading or trailing white spaces from names and name
+            namesList = strip(namesList);
+            name = strip(name);
+            
+            % Compare 'name' to list ignoring case
+            index = strcmpi(name, namesList);
+            if ~any(index)
+                error('Unrecognised parameter name');
+            end
+            
+            % Non-zero value in array is the row index
+            row = find(index);
         end
         
-
+        
+        function inputBlock = parseParameterInput(varargin)
+            % Parses parameter keyword/value pairs in a cell array 
+            % into a structure.
+            %
+            % obj.parseParameterInput({'name', 'param'})
+            defaultName = '';
+            defaultMin = [];
+            defaultMax = [];   
+            defaultValue = [];
+            defaultFit = [];
+        
+            p = inputParser;
+            addParameter(p,'name',  defaultName,   @ischar);
+            addParameter(p,'min',   defaultMin,    @isnumeric);
+            addParameter(p,'value', defaultValue,  @isnumeric);
+            addParameter(p,'max',   defaultMax,    @isnumeric);
+            addParameter(p,'fit',   defaultFit,    @islogical);
+            
+            inputVals = varargin{:};
+            
+            parse(p,inputVals{:});
+            inputBlock = p.Results;
+        end
+        
     end
 
-end
-
-
-function row = findRowIndex(name,tab)
-    % Gets list of row names from table.
-    namesList = tab{:,1};
-    
-    % Strip leading or trailing whitaspaces from names and name
-    namesList = strip(namesList);
-    name = strip(name);
-    
-    % Compare 'name' to list ignoring case
-    index = strcmpi(name, namesList);
-    % FIXME replace with ~any(index)
-    if isempty(index)
-        error('Unrecognised parameter name');
-    end
-    
-    % Non-zero value in array is the row index
-    row = find(index);
-end
-
-
-function inputBlock = parseParameterInput(varargin)
-    % Parses parameter keyword/value pairs in a cell array 
-    % into a structure 
-    defaultName = '';
-    defaultMin = [];
-    defaultMax = [];   
-    defaultValue = [];
-    defaultFit = [];
-
-    p = inputParser;
-    addParameter(p,'name',  defaultName,   @ischar);
-    addParameter(p,'min',   defaultMin,    @isnumeric);
-    addParameter(p,'value', defaultValue,  @isnumeric);
-    addParameter(p,'max',   defaultMax,    @isnumeric);
-    addParameter(p,'fit',   defaultFit,    @islogical);
-    
-    inputVals = varargin{:};
-    
-    parse(p,inputVals{:});
-    inputBlock = p.Results;
 end

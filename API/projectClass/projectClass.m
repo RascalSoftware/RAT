@@ -273,7 +273,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     for n = 1:dims(2)
                         tablePar = laysTable{m,n};   % Should be a string
                         if isequal(findParam,tablePar)
-                            obj.layers.layersTable(m,n) = {""};
+                            obj.layers.layersTable(m,n) = "";
                         end
                     end
                 end
@@ -503,7 +503,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.setBackgroundName(varargin);
         end
         
-        function obj = setBacksPar(obj,varargin);
+        function obj = setBacksPar(obj,varargin)
             % Sets the value of an existing background parameter. Expects
             % index or name of parameter and keyword/value pairs to set
             %

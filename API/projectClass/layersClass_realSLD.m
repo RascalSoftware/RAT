@@ -43,7 +43,7 @@ classdef layersClass_realSLD < handle
                 case 'empty named'
                     % Add an empty named layer 
                     layerName = varargin{1}{2};
-                    newRow = {layerName{:},'','','','','bulk out'};
+                    newRow = [layerName(:)',{''},{''},{''},{''},{'bulk out'}];
                     appendNewRow(obj,newRow);
                 
                 case 'full layer'
@@ -178,7 +178,7 @@ classdef layersClass_realSLD < handle
                 disp(dummyTable);
                 fprintf('\n');
             end
-            p = [1:len];
+            p = 1:len;
             p = p(:);
             p = table(p);
             all = [p array];

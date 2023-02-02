@@ -81,7 +81,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
     methods (TestClassSetup, ParameterCombination="sequential")
 
         function loadTestDataInputs(testCase, inputsFile)
-            % loadTestDataInputs Read test input data from file
             testCase.inputs = load(inputsFile);
 
             testCase.problemDefInput = testCase.inputs.inputs.problemDefInput;
@@ -94,7 +93,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
         
         function loadTestDataOutputs(testCase, outputsFile)
-            % loadTestDataOutputs Read expected values for outputs from file
             testCase.outputs = load(outputsFile);
 
             testCase.expectedProblem = testCase.outputs.outputs.problem;
@@ -107,7 +105,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function loadTFParams(testCase, TFFile)
-            % loadTestDataOutputs Read expected values for outputs from file
             testCase.TFParams = load(TFFile);
 
             testCase.TFReflectivity = testCase.TFParams.TFParams.reflectivity;
@@ -129,8 +126,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function setCurrentFolder(testCase)
-            % setCurrentFolder Set the current folder to be the directory
-            % recorded in the test data
+            % Set the current folder to be the directory recorded in the
+            % test data
             import matlab.unittest.fixtures.CurrentFolderFixture
 
             testDirectory = testCase.problemDefCells{14}{1}{3};
@@ -148,7 +145,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Test High Level RAT Routines
 
         function testRAT(testCase)
-            % testRAT Test the highest-level RAT routine
             [problem, result] = RAT(testCase.problemDefInput,testCase.controlsInput);
 
             testCase.verifyEqual(problem, testCase.expectedProblemOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -156,8 +152,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testRATMain(testCase)
-            % testRATMain Test the routine that determines the calculation
-            % RAT will perform
+            % Test the routine that determines the calculation RAT will
+            % perform
             % Note that we test only a single reflectivity calculation at
             % present
 
@@ -170,8 +166,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testSingleCalculation(testCase)
-            % testSingleCalculation Test the routine performing a single
-            % reflectivity calculation
             [problem, result] = singleCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -179,9 +173,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testReflectivityCalculationWrapper(testCase)
-            % testReflectivityCalculationWrapper Test the routine that
-            % chooses how to perform the reflectivity calculation
-
+            % Test the routine that chooses how to perform the
+            % reflectivity calculation
             % Note that the routine is always set to choose the "mex"
             % version of the reflectivity calculation
             [problem, result] = reflectivity_calculation_wrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
@@ -193,7 +186,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Test Reflectivity Calculation Routines
 
         function testReflectivityCalculation(testCase, whichParallel, useCompiled)
-            % testReflectivityCalculation Test the reflectivity calculation.
+            % Test the reflectivity calculation.
             % We will test the serial and parallel (over both points and
             % contrasts) versions of the calculation, using both the MATLAB
             % and comiled (MEX) versions of each.
@@ -205,8 +198,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testStandardTFReflectivityCalculation(testCase)
-            % teststandardTFReflectivityCalculation Test the standard TF
-            % version of the reflectivity calculation.
             [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF_reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -219,10 +210,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testStandardTFLayersReflectivityCalculation(testCase, TFFile)
-            % teststandardTFStanLayReflectivityCalculation Test the
-            % particular standard TF version of the reflectivity calculation
-            % for each layer type.
-
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
@@ -243,10 +230,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testStandardTFLayersSerialReflectivityCalculation(testCase, TFFile)
-            % teststandardTFStanLayReflectivityCalculation Test the serial
-            % version of the particular standard TF version of the
-            % reflectivity calculation for each layer type.
-
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
@@ -284,10 +267,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testStandardTFLayersParallelContrastsReflectivityCalculation(testCase, TFFile)
-            % teststandardTFStanLayReflectivityCalculation Test the
-            % parallel contrasts version of the particular standard TF
-            % version of the reflectivity calculation for each layer type.
-
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
@@ -325,10 +304,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testStandardTFLayersParallelPointsReflectivityCalculation(testCase, TFFile)
-            % teststandardTFStanLayReflectivityCalculation Test the
-            % parallel points version of the particular standard TF
-            % version of the reflectivity calculation for each layer type.
-
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
@@ -368,8 +343,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Test Pre- and Post-Processing Routines
 
         function testRatParseClasstoStructs_new(testCase)
-            % testRATParseClasstoStructs_new Test the routine that converts
-            % an input ProjectClass to a struct
             [problem, problem_cells, problem_limits, problem_priors, controls_struct] = RatParseClassToStructs_new(testCase.problemDefInput, testCase.controlsInput);
 
             testCase.verifyEqual(problem, testCase.problemDef, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -380,8 +353,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testRATParseCells(testCase)
-            % testRATParseCells Test the routine that extracts data from
-            % "problemDef_cells"
             [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = RAT_parse_cells(testCase.problemDefCells);
 
             testCase.verifyEqual(repeatLayers, testCase.problemDefCells{1}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -394,8 +365,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end        
 
         function testExtractProblemParams(testCase)
-            % testExtractProblemParams Test the routine that extracts
-            % "problemDef" parameters
             [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
             cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
             numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(testCase.problemDef);
@@ -424,8 +393,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testParseResultToStruct(testCase)
-            % testParseResultToStruct Test the routine that partially
-            % constructs a results struct
             resultStruct = parseResultToStruct(testCase.expectedProblem, testCase.expectedResult);
             testCase.verifyEqual(resultStruct, testCase.expectedResultOutStruct, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
@@ -439,8 +406,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testRATParseOutToProjectClass(testCase)
-            % testRATParseOutToProjectClass Test the routine that creates
-            % an output problem class
             problemOut = RATparseOutToProjectClass(testCase.problemDefInput, testCase.expectedProblemOutStruct, testCase.expectedProblem, testCase.expectedResult);
             testCase.verifyEqual(problemOut, testCase.expectedProblemOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end

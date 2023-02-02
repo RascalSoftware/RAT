@@ -25,4 +25,3 @@ assert(isequal(control.display, 'iter'), 'set.display method is not working')
 
 
 
-

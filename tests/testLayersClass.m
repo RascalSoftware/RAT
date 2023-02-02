@@ -12,6 +12,12 @@ classdef testLayersClass < matlab.unittest.TestCase
 %
 %% Declare properties and parameters
 
+    properties (TestParameter)
+        % Cell arrays for initialising a multi type table
+        LayerInput = {{'empty'}}
+        addedLayer = {{'Layer 1','','','','','bulk out'}}
+    end
+
     properties
         exampleClass;           % Example layers class for testing
         initialLayersTable      % Empty table to compare to initialisation
@@ -57,7 +63,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
 %% Test Layers Real SLD Class Routines
 
-    methods (Test)
+    methods (Test, ParameterCombination="sequential")
 
         function testInitialiseLayersClass(testCase)
             % On initialisation we set up a layers class with an empty
@@ -66,6 +72,22 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             testCase.verifySize(testClass.layersTable, [0 6], "layerClassRealSLD does not initialise correctly");
             testCase.verifyEqual(testClass.layersTable, testCase.initialLayersTable, "layerClassRealSLD does not initialise correctly");
+        end
+
+        function testAddLayer(testCase, LayerInput, addedLayer)
+            % Test adding a layer to the layers class.
+            % We can add a layer with no parameters, just a layer name, or
+            % a fully defined layer.
+            % The first parameter should be either "empty", "empty named",
+            % or "full layer" to determine how many parameters will then be
+            % specified: none for "empty", one for "empty named", and
+            % either a length four or length six cell array for "full
+            % layer"             
+            expectedTable = [testCase.exampleClass.layersTable; addedLayer];
+
+            testCase.exampleClass.addLayer(LayerInput);
+
+            testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
         end
 
     end

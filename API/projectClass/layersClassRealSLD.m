@@ -50,18 +50,10 @@ classdef layersClassRealSLD < handle
                     % add a layer that is fully defined
                     layerDetails = varargin{1}{2}{:};
                     
-                    switch length(layerDetails)
-                        case 4
-                            % No hydration
-                            layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};
-                        case 6
-                            % With hydration
-                            layerDetails = layerDetails;
-                        otherwise
-                            error('Can''t recognise layer details');
-                    end
-
-                    if (length(layerDetails) ~= 6)
+                    if length(layerDetails) == 4
+                        % No hydration
+                        layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};
+                    elseif length(layerDetails) ~= 6
                         error('Can''t define a layer from partial details')
                     end
                     

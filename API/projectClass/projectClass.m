@@ -6,7 +6,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     %
     % Sub objects used are:
     % parametersClass       - parameter definition with priors
-    % layersClass_realSLD   - layers defined as (d,rho_real,rough,hydration)
+    % layersClassRealSLD   - layers defined as (d,rho_real,rough,hydration)
     % backgroundsClass      - 
     % resolutionsClass      -
     % dataClass             -
@@ -17,7 +17,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         experimentName
         Geometry
         parameters          % parametersClass object
-        layers              % layersClass_realSLD object
+        layers              % layersClassRealSLD object
         bulkIn              % parametersClass object
         bulkOut             % parametersClass object
         background          % backgroundsClass object
@@ -61,7 +61,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.parameters = parametersClass({'Substrate Roughness',1, 3, 5,true,'uniform',0,Inf});
             
             % Initialise the layers table
-            obj.layers = layersClass_realSLD();
+            obj.layers = layersClassRealSLD();
             
             % Initialise bulkIn table
             obj.bulkIn = parametersClass({'SLD Air',0,0,0,false,'uniform',0,Inf});

@@ -1,4 +1,4 @@
-classdef layersClass_realSLD < handle
+classdef layersClassRealSLD < handle
     
     % This is the class definition for the
     % layers block with no absorption.
@@ -14,7 +14,7 @@ classdef layersClass_realSLD < handle
     
     methods
         
-        function obj = layersClass_realSLD()
+        function obj = layersClassRealSLD()
             
             % Class constructor
             

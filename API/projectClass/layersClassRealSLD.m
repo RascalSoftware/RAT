@@ -108,7 +108,7 @@ classdef layersClassRealSLD < handle
             
             % Find the row index if we have a layer name
             if ischar(inputValues{1})
-                row = findRowIndex(inputValues{1},layerNames);
+                row = obj.findRowIndex(inputValues{1},layerNames);
             else
                 row = inputValues{1};
             end
@@ -188,17 +188,28 @@ classdef layersClassRealSLD < handle
         
     end
     
-end
+    methods(Static)
 
-function row = findRowIndex(name,rowNames)
-    index = find(strcmpi(name, rowNames));
-    
-    if isempty(index)
-        error('Layer name not found');
+        function row = findRowIndex(name,rowNames)
+            % Find the index of a row in the multi-type table given its
+            % name. The expected inputs are the name of the row and the
+            % full list of row names.
+
+            % Strip leading or trailing whitespaces from names
+            rowNames = strip(rowNames);
+            name = strip(name);
+
+            % Compare 'name' to list ignoring case
+            index = strcmpi(name, rowNames);
+            if any(index)
+                % Non-zero value in array is the row index
+                row = find(index);
+            else
+                error('Layer name not found');
+            end
+        
+        end
     end
-    
-    row = index;
-
 end
 
 

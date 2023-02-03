@@ -343,6 +343,20 @@ classdef testLayersClass < matlab.unittest.TestCase
 
         end
 
+        function testFindRowIndex(testCase)
+            % Test that the correct row number is returned for a valid row,
+            % and an error is raised for invalid options
+            tableRows = testCase.exampleClass.layersTable{:,1};
+
+            testCase.verifyEqual(multiTypeTable.findRowIndex("Bil Tail", tableRows), 2);
+
+            % Check whitespace still matches
+            testCase.verifyEqual(multiTypeTable.findRowIndex(" Bil Inner Head", tableRows), 1);
+
+            testCase.verifyError(@() multiTypeTable.findRowIndex("Invalid Row", tableRows), ?MException)
+            testCase.verifyError(@() multiTypeTable.findRowIndex("Thickness", tableRows), ?MException)
+        end
+
     end
 
 end

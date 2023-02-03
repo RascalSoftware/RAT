@@ -133,8 +133,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         end
 
         function testAddRowInvalidType(testCase)
-            % Test adding a row to a multi type table. If we use an
-            % invalid type it should raise an error
+            % Test adding a row to a multi type table.
+            % If we use an invalid type it should raise an error
             testCase.verifyError(@() testCase.exampleTable.addRow({'Invalid Row', 'Invalid Type'}), ?MException);
         end
 

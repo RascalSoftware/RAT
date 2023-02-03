@@ -15,7 +15,7 @@ classdef testLayersClass < matlab.unittest.TestCase
     properties (TestParameter)
         % Cell arrays for initialising a multi type table
         layerInput = {{'empty'},...
-                      {'empty named', 'Named Layer'},...
+                      {'empty named', {{'Named Layer'}}},...
                       {'full layer', {{'Oxide Names Layer',...
                                        'Oxide thick',...
                                        'Oxide SLD',...
@@ -58,12 +58,14 @@ classdef testLayersClass < matlab.unittest.TestCase
                        'Water hydr',...
                        'bulk out'}
                        }
+        invalidOption = {'invalid option', 'Empty', 'EMPTY NAMED'}
     end
 
     properties
         exampleClass;           % Example layers class for testing
         initialLayersTable      % Empty table to compare to initialisation
         parameters              % Example parameters class used in "addLayer"
+        numParams               % Number of parameters in the example class
         numRows                 % Number of rows in exampleClass.layersTable
         numCols                 % Number of columns in exampleClass.layersTable
     end
@@ -105,6 +107,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             testCase.parameters = parametersClass(testParams(1, :));
             testCase.parameters.paramsTable = [testCase.parameters.paramsTable; vertcat(testParams(2:end, :))];
+            testCase.numRows = length(testParams);
         end
 
     end
@@ -158,6 +161,45 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
         end
 
+        function testAddRowInvalidOption(testCase, invalidOption)
+            % Test adding a layer to the layers class.
+            % If we use an invalid option the code does nothing.
+            % !!!! THIS IS A BUG - it should raise an error !!!!
+            testCase.exampleClass.addLayer({invalidOption}, testCase.parameters.paramsTable);
+            testCase.verifySize(testCase.exampleClass.layersTable, [testCase.numRows testCase.numCols], "Layer table parameters have changed despite no rows being added");
+        end
+
+        function testAddRowInvalidNamedLayer(testCase)
+            % Test adding a layer to the layers class.
+            % If we use an invalid input for the layer name it should
+            % raise an error
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'empty named', {{'Named Layer', 'extra param'}}}), 'MATLAB:table:vertcat:VertcatMethodFailed');
+        end
+
+        function testAddRowInvalidFullLayer(testCase)
+            % Test adding a layer to the layers class.
+            % If we use an invalid set of layer parameters when adding a
+            % "full layer" it should raise an error
+
+            % Invalid length for full layer parameters
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2}}}, testCase.parameters.paramsTable), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3}}}, testCase.parameters.paramsTable), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3, 1, 4}}}, testCase.parameters.paramsTable), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3, 1, 4, 'none', 5}}}, testCase.parameters.paramsTable), ?MException)
+
+            % Invalid hydrate type
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, 1, 4, 'surface'}}}, testCase.parameters.paramsTable), ?MException)
+
+            % Invalid parameter names
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'}}}, testCase.parameters.paramsTable), ?MException)
+
+            % Invalid parameter indices
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, 0}}}, testCase.parameters.paramsTable), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, testCase.numParams+1}}}, testCase.parameters.paramsTable), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', NaN ,3, 0}}}, testCase.parameters.paramsTable), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, NaN, 0}}}, testCase.parameters.paramsTable), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, NaN}}}, testCase.parameters.paramsTable), ?MException)          
+        end
 
         
 

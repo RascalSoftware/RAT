@@ -267,7 +267,81 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.toStruct(), string(testCase.exampleClass.layersTable{:,:}))
         end
 
+        function testDisplayLayersTable(testCase)
+            % Test the routine to display the layers table by capturing
+            % the output and comparing with the table headers and data 
 
+            % Capture the standard output and format into string array -
+            % one element for each row of the output
+            display = textscan(evalc('testCase.exampleClass.displayLayersTable()'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = display{:};
+
+            % Check headers
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions, and remove "<strong>" tags
+            outVars = eraseBetween(strip(regexprep(displayedTable(1), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+
+            % Convert table variable names to a string array, join into a
+            % single string, and then prepend an extra header used for the
+            % row index
+            varString = "p " + strip(strjoin(string(testCase.exampleClass.layersTable.Properties.VariableNames)));
+            testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
+
+            % Make sure the output has the right number of rows before
+            % continuing
+            testCase.assertSize(displayedTable, [testCase.numRows+2, 1], 'Table does not have the right number of rows');
+
+            % Check table contents - when displayed, row 2 is a set of
+            % lines, so row 3 is the first line of data
+            for i = 1:testCase.numRows
+
+                % Replace multiple spaces in output table with a single
+                % space using regular expressions
+                outRow = strip(regexprep(displayedTable(i+2), '\s+', ' '));
+
+                % Get data from this row, add '"' characters to
+                % match output, join into a single string, and then
+                % prepend the row index
+                rowString = string(i) + " " + strip(strjoin(strcat('"',testCase.exampleClass.layersTable{i,:},'"')));
+                testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+
+            end
+
+        end
+
+        function testDisplayLayersTableEmpty(testCase)
+            % Test the routine to display the layers table of an empty
+            % layers class by capturing the output and comparing with the
+            % table headers and data
+            emptyClass = layersClassRealSLD();
+
+            % Capture the standard output and format into string array -
+            % one element for each row of the output
+            display = textscan(evalc('emptyClass.displayLayersTable()'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = display{:};
+
+            % Check headers
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions, and remove "<strong>" tags
+            outVars = eraseBetween(strip(regexprep(displayedTable(1), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+
+            % Convert table variable names to a string array, join into a
+            % single string, and then prepend an extra header used for the
+            % row index
+            varString = strip(strjoin(string(emptyClass.layersTable.Properties.VariableNames)));
+            testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
+
+            % Make sure the output has the right number of rows before
+            % continuing
+            testCase.assertSize(displayedTable, [3, 1], 'Table does not have the right number of rows');
+
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions
+            outRow = strip(regexprep(displayedTable(3), '\s+', ' '));
+            rowString = "0 0 0 0 0 0";
+            testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+
+        end
 
     end
 

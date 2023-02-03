@@ -31,7 +31,7 @@ classdef layersClassRealSLD < handle
         function obj = addLayer(obj,varargin)
             
             whatToAdd = varargin{1}{1};
-            
+
             switch whatToAdd
                 case 'empty'
                     % Add an empty layer
@@ -43,7 +43,7 @@ classdef layersClassRealSLD < handle
                 case 'empty named'
                     % Add an empty named layer 
                     layerName = varargin{1}{2};
-                    newRow = [layerName(:)',{''},{''},{''},{''},{'bulk out'}];
+                    newRow = {layerName,'','','','','bulk out'};
                     appendNewRow(obj,newRow);
                 
                 case 'full layer'

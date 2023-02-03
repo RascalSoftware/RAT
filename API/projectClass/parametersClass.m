@@ -15,15 +15,14 @@ classdef parametersClass < handle
     
     methods
         function obj = parametersClass(startCell)
-            
             % Class constructor.
-            sz = [1 8];
+            sz = [0 8];
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
             obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.paramsTable(1,:) = startCell;
             obj.paramCount = 1;
-            obj.paramAutoNameCounter = 1;
+            obj.paramAutoNameCounter = 0;
+            obj.addParam(startCell);
         end
         
         function obj = setInitialValue(varargin)

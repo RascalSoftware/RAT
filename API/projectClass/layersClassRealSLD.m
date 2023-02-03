@@ -119,7 +119,7 @@ classdef layersClassRealSLD < handle
             
             col = inputValues{2};
             if ~isnumeric(col) || col < 2  || col > 6
-                error('Parameter 2 should be a number between 2 and 5')
+                error('Parameter 2 should be a number between 2 and 6')
             end
             
             val = inputValues{3};

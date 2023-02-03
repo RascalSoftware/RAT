@@ -121,10 +121,10 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.exampleClass = layersClassRealSLD();
 
             %testCase.exampleClass.layersTable(1,:) = {'Oxide Layer', 'Oxide thick', 'Oxide SLD', 'Substrate Roughness', 'Oxide Hydration', 'bulk out'};
-            %testCase.exampleClass.layersTable(2,:) = {'Water Layer', 'Water thick', 'Water SLD', 'Bilayer heads rough', 'Water hydr', 'Bulk out'};
-            testCase.exampleClass.layersTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'Bulk out'};
+            %testCase.exampleClass.layersTable(2,:) = {'Water Layer', 'Water thick', 'Water SLD', 'Bilayer heads rough', 'Water hydr', 'bulk out'};
+            testCase.exampleClass.layersTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'};
             testCase.exampleClass.layersTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer heads rough', 'Bilayer tails hydr', 'bulk out'};
-            testCase.exampleClass.layersTable(3,:) = {'Bil outer head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'Bulk out'};
+            testCase.exampleClass.layersTable(3,:) = {'Bil outer head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'};
 
             testCase.numRows = height(testCase.exampleClass.layersTable);
             testCase.numCols = width(testCase.exampleClass.layersTable);
@@ -201,7 +201,62 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, NaN}}}, testCase.parameters.paramsTable), ?MException)          
         end
 
-        
+        function testSetLayerValue(testCase)
+            % Test setting values in the layers class table using both
+            % names and indices to refer to rows. Columns can be referred
+            % to only by index.
+            % Note that the routine requires a single cell array rather
+            % than a variable number of arguments.
+
+            % Row and column indices
+            testCase.exampleClass.setLayerValue({1, 5, 'Changed'});
+            expectedRow = ["Bil inner head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Changed", "bulk out"];
+            testCase.verifyEqual(testCase.exampleClass.layersTable{1, :}, expectedRow, "setValue does not work correctly");
+
+            % Row name and column index
+            testCase.exampleClass.setLayerValue({'Bil Tail', 3, 'Changed'});
+            expectedRow = ["Bil tail", "Bilayer tails thick", "Changed", "Bilayer heads rough", "Bilayer tails hydr", "bulk out"];
+            testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, "setValue does not work correctly");
+
+            % Change hydration type
+            testCase.exampleClass.setLayerValue({3, 6, 'bulk in'});
+            expectedRow = ["Bil outer head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Bilayer heads hydr", "bulk in"];
+            testCase.verifyEqual(testCase.exampleClass.layersTable{3, :}, expectedRow, "setValue does not work correctly");
+        end
+
+        function testSetLayerValueInvalid(testCase)
+            % Test setting values in the layers class table using invalid
+            % values of both names and indices to refer to rows and columns
+            % Note that the routine requires a single cell array rather
+            % than a variable number of arguments
+
+            % Row indices
+            testCase.verifyError(@() testCase.exampleClass.setValue({0, testCase.numCols, 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setValue({testCase.numRows+1, testCase.numCols, 'Changed'}), ?MException)
+
+            % Column indices
+            testCase.verifyError(@() testCase.exampleClass.setValue({1, 0, 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setValue({1, 1, 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setValue({1, testCase.numCols+1, 'Changed'}), ?MException)
+
+            % Row name
+            testCase.verifyError(@() testCase.exampleClass.setValue({'Invalid Name', testCase.numCols, 'none'}), ?MException)
+
+            % Column name - not accepted whether valid or not
+            testCase.verifyError(@() testCase.exampleClass.setValue({1, 'SLD', 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setValue({1, 'Invalid Name', 'Changed'}), ?MException)
+
+            % Invalid data types
+            testCase.verifyError(@() testCase.exampleClass.setValue({testCase.initialLayersTable, testCase.numCols, 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setValue({1, datetime('today'), 'Changed'}), ?MException)
+        end
+
+        function testSetLayerValueTooFewParams(testCase)
+            % If we call "setLayerValue" with a cell array containing
+            % fewer than three values it should raise an error
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1}), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 6}), 'MATLAB:badsubscript');
+        end
 
 
     end

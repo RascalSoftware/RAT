@@ -82,20 +82,12 @@ classdef layersClassRealSLD < handle
                         elseif isnumeric(thisParam)
                             % Must be a parameter number (unless p=5 which
                             % can be Nan)
-                            if i == 5
-                                if isnan(thisParam)
-                                    thisRow{i} = NaN;
-                                elseif (thisParam < 1) || (thisParam > numPars)
-                                     error('Parameter ''%d'' is out of range of params list')
-                                else 
-                                     thisRow{i} = paramNames{thisParam};
-                                end
-                            else
-                                if (thisParam < 1) || (thisParam > numPars)
-                                    error('Parameter ''%d'' is out of range of params list')
-                                else
-                                    thisRow{i} = paramNames{thisParam};
-                                end
+                            if isnan(thisParam) && i == 5
+                                thisRow{i} = NaN;
+                            elseif (thisParam < 1) || (thisParam > numPars)
+                                 error('Parameter ''%d'' is out of range of params list')
+                            else 
+                                 thisRow{i} = paramNames{thisParam};
                             end
                         end 
                         

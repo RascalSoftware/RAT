@@ -23,7 +23,7 @@ classdef testParametersClass < matlab.unittest.TestCase
 
     methods (Test)
         function testCreation(testCase)
-            % Tests project class can be created and the start parameters is set correctly  
+            % Tests parameters class can be created and the start parameters is set correctly  
             params = parametersClass(testCase.parameters(1, :));
             testCase.verifyEqual(string(params.paramsTable{1, :}), ...
                                  string(testCase.parameters(1, :)), 'Start parameter not set correctly');
@@ -99,7 +99,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.removeParam(1);
             testCase.verifySize(params.paramsTable, [8, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:end, 1), 'removeParam method not working');
-            params.removeParam(8, 7, 6);  % is this intended?
+            params.removeParam(6, 7, 8);
             testCase.verifySize(params.paramsTable, [5, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:6, 1), 'removeParam method not working');
             params.removeParam('Tails Roughness');
@@ -112,6 +112,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             params = parametersClass(testCase.parameters(1, :));
             params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
             % Checks that parameter can be modified
+            testCase.verifyError(@() params.setParameter({0, 'Tails', 2}), ?MException);
             params.setParameter({1, 'name', 'Heads'});
             testCase.verifyEqual(params.paramsTable{1, 1}, "Heads", 'setParameter method not working');
             params.setParameter({'Tails Roughness', 'name', 'Tails?', 'min', 1, 'value', 1, 'max', 1, 'fit', false});

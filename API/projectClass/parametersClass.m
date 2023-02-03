@@ -85,7 +85,7 @@ classdef parametersClass < handle
                     case 1
                         name = inputCell{1};
                         
-                    % If length is 2, assume name an value
+                    % If length is 2, assume name and value
                     % pair. Fill in the rest automatically
                     case 2
                         name = inputCell{1};
@@ -148,9 +148,14 @@ classdef parametersClass < handle
                 error('Need to specify a parameter');
             end
             
+            rowInput = varargin;
+            if isa(varargin{1}, 'double')
+                rowInput = cell2mat(rowInput);
+                rowInput = num2cell(sort(rowInput, 'descend'));
+            end
+
             for i = 1:length(varargin)
-                thisInput =  varargin{i};
-                removeRow(obj,thisInput);
+                obj.removeRow(rowInput{i});
             end
         end
         
@@ -160,15 +165,7 @@ classdef parametersClass < handle
             %
             % params.setParameter({2, 'value', 50});
             inputValues = varargin{:};
-            tab = obj.paramsTable;
-            
-            if ischar(inputValues{1})
-                name = string(inputValues{1});
-                row = obj.findRowIndex(name,tab);
-            else
-                row = inputValues{1};
-            end
-           
+            row = obj.getValidRow(inputValues(1));
             inputBlock = obj.parseParameterInput(inputValues(2:end));
             
             if ~isempty(inputBlock.name)
@@ -204,13 +201,7 @@ classdef parametersClass < handle
             inputValues = varargin{:};
             tab = obj.paramsTable;
             
-            if ischar(inputValues{1})
-                name = string(inputValues{1});
-                row = obj.findRowIndex(name,tab);
-            else
-                row = inputValues{1};
-            end
-            
+            row = obj.getValidRow(inputValues(1));
             priorType = inputValues{2};
             if ~strcmpi(priorType,{'uniform','gaussian','jeffreys'})
                 error('Prior needs to be ''uniform'',''gaussian'', or ''jeffreys''');
@@ -244,13 +235,7 @@ classdef parametersClass < handle
                 error('Need p (or name) / value pair to set');
             end
             
-            if ischar(inputValues{1})
-                name = string(inputValues{1});
-                row = obj.findRowIndex(name,tab);
-            else
-                row = inputValues{1};
-            end
-            
+            row = obj.getValidRow(inputValues(1));
             if ~isnumeric(inputValues{2})
                 error('Value must be numeric');
             end
@@ -270,13 +255,7 @@ classdef parametersClass < handle
                 error('Wrong number of values for setName');
             end
             
-            if ischar(inputValues{1})
-                name = string(inputValues{1});
-                row = obj.findRowIndex(name,tab);
-            else
-                row = inputValues{1};
-            end
-            
+            row = obj.getValidRow(inputValues(1));
             if ~ischar(inputValues{2})
                 error('New name must be char');
             end
@@ -302,13 +281,7 @@ classdef parametersClass < handle
                 error('min and max need to be numeric');
             end
             
-            if ischar(inputValues{1})
-                name = string(inputValues{1});
-                row = obj.findRowIndex(name,tab);
-            else
-                row = inputValues{1};
-            end
-            
+            row = obj.getValidRow(inputValues(1));            
             tab(row,2) = {min};
             tab(row,4) = {max};
             obj.paramsTable = tab;
@@ -332,13 +305,7 @@ classdef parametersClass < handle
                 error('Need true or false for Fit? value');
             end
             
-            if ischar(varargin{1})
-                name = string(varargin{1});
-                row = obj.findRowIndex(name,tab);
-            else
-                row = varargin{1};
-            end
-            
+            row = obj.getValidRow(varargin(1));           
             tab(row,5) = varargin(2);
             obj.paramsTable = tab;
         end
@@ -464,6 +431,21 @@ classdef parametersClass < handle
             
             tab(row, :) = [];
             obj.paramsTable = tab;   
+        end
+        
+        function index = getValidRow(obj, row)
+            % Gets valid row with given name or index  
+            %
+            % obj.getValidRow('param name'})
+            if ischar(row{1})
+                name = string(row{1});
+                index = obj.findRowIndex(name, obj.paramsTable);
+            else
+                index = row{1};
+                if (index < 1) || (index > obj.paramCount)
+                    error('Row index out out of range');
+                end     
+            end
         end
     end
 

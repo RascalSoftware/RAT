@@ -258,6 +258,16 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 6}), 'MATLAB:badsubscript');
         end
 
+        function testGetLayersNames(testCase)
+            layersNames = testCase.exampleClass.layersTable{:,1};
+            testCase.verifyEqual(testCase.exampleClass.getLayersNames(), layersNames)
+        end
+
+        function testtoStruct(testCase)
+            testCase.verifyEqual(testCase.exampleClass.toStruct(), string(testCase.exampleClass.layersTable{:,:}))
+        end
+
+
 
     end
 

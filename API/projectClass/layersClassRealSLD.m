@@ -29,7 +29,7 @@ classdef layersClassRealSLD < handle
         end
         
         function obj = addLayer(obj, whatToAdd, paramNames)
-            
+
             switch length(whatToAdd)
 
                 case 0
@@ -45,9 +45,9 @@ classdef layersClassRealSLD < handle
                     appendNewRow(obj,newRow);
                 
                 otherwise
-                    % Add a layer that is fully defined
                     layerDetails = whatToAdd;
 
+                    % Add a layer that is fully defined
                     if length(layerDetails) == 4
                         % No hydration
                         layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};

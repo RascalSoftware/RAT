@@ -273,7 +273,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     for n = 1:dims(2)
                         tablePar = laysTable{m,n};   % Should be a string
                         if isequal(findParam,tablePar)
-                            obj.layers.layersTable(m,n) = "";
+                            obj.layers.layersTable(m,n) = {""};
                         end
                     end
                 end
@@ -369,9 +369,21 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Layers class will also need to know which parameters are
             % currently defined (could also be done here rather than in
             % object)
-            whatToAdd = varargin;
+            if isempty(varargin)
+                % No input, so empty layer
+                whatToAdd = {};
+                
+            elseif ischar(varargin{:})
+                % Input is string, so named empty layer
+                whatToAdd = varargin;
+                
+            elseif iscell(varargin{:})
+                % Input is cell, so adding layer with parameters
+                whatToAdd = varargin{:};
+            end
+
             paramNames = obj.parameters.paramsTable{:,1};
-            
+
             % Call the addLayers method
             obj.layers.addLayer(whatToAdd,paramNames);
             

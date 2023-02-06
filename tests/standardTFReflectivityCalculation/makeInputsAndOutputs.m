@@ -26,7 +26,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save('testSuite\standardTFReflectivityCalculation\customLayersInputs','inputs');
+save('tests\standardTFReflectivityCalculation\customLayersInputs','inputs');
 
 % (b) Outputs
 [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -48,7 +48,7 @@ outputs.resultOutStruct = resultOutStruct;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save('testSuite\standardTFReflectivityCalculation\customLayersOutputs','outputs');
+save('tests\standardTFReflectivityCalculation\customLayersOutputs','outputs');
 
 % (c) TF Parameters
 [problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -76,7 +76,7 @@ TFParams.resols = resols;
 TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
 
-save('testSuite\standardTFReflectivityCalculation\customLayersTFParams','TFParams');
+save('tests\standardTFReflectivityCalculation\customLayersTFParams','TFParams');
 
 %%
 % 2. Custom XY.
@@ -98,7 +98,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save('testSuite\standardTFReflectivityCalculation\customXYInputs','inputs');
+save('tests\standardTFReflectivityCalculation\customXYInputs','inputs');
 
 % (b) Outputs
 [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -120,7 +120,7 @@ outputs.resultOutStruct = resultOutStruct;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save('testSuite\standardTFReflectivityCalculation\customXYOutputs','outputs');
+save('tests\standardTFReflectivityCalculation\customXYOutputs','outputs');
 
 % (c) TF Parameters
 [problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -148,7 +148,7 @@ TFParams.resols = resols;
 TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
 
-save('testSuite\standardTFReflectivityCalculation\customXYTFParams','TFParams');
+save('tests\standardTFReflectivityCalculation\customXYTFParams','TFParams');
 
 %%
 % 3. Standard Layers
@@ -169,7 +169,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save('testSuite\standardTFReflectivityCalculation\standardLayersInputs','inputs');
+save('tests\standardTFReflectivityCalculation\standardLayersInputs','inputs');
 
 % (b) Outputs
 [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -191,7 +191,7 @@ outputs.resultOutStruct = resultOutStruct;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save('testSuite\standardTFReflectivityCalculation\standardLayersOutputs','outputs');
+save('tests\standardTFReflectivityCalculation\standardLayersOutputs','outputs');
 
 % (c) TF Parameters
 [problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
@@ -219,4 +219,4 @@ TFParams.resols = resols;
 TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
 
-save('testSuite\standardTFReflectivityCalculation\standardLayersTFParams','TFParams');
+save('tests\standardTFReflectivityCalculation\standardLayersTFParams','TFParams');

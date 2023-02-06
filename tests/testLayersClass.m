@@ -161,21 +161,6 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
         end
 
-        %function testAddRowInvalidOption(testCase, invalidOption)
-            % Test adding a layer to the layers class.
-            % If we use an invalid option the code does nothing.
-            % !!!! THIS IS A BUG - it should raise an error !!!!
-        %    testCase.exampleClass.addLayer({invalidOption}, testCase.parameterNames);
-        %    testCase.verifySize(testCase.exampleClass.layersTable, [testCase.numRows testCase.numCols], "Layer table parameters have changed despite no rows being added");
-        %end
-
-        %function testAddRowInvalidNamedLayer(testCase)
-            % Test adding a layer to the layers class.
-            % If we use an invalid input for the layer name it should
-            % raise an error
-        %    testCase.verifyError(@() testCase.exampleClass.addLayer({'empty named', {{'Named Layer', 'extra param'}}}), 'MATLAB:table:vertcat:VertcatMethodFailed');
-        %end
-
         function testAddRowInvalidFullLayer(testCase)
             % Test adding a layer to the layers class.
             % If we use an invalid set of layer parameters when adding a

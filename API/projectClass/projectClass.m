@@ -399,13 +399,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 error('Three parameters expected into setLayerValue');
             end
             inputPars = varargin;
+            paramNames = obj.parameters.paramsTable{:,1};
             
             % Check if set value exists as a parameter
-            inputVal = inputPars{3};
-            inputPars{3} = layersClassRealSLD.findParameter(inputVal, obj.parameters.paramsTable{:,1});
+            %inputVal = inputPars{3};
+            %inputPars{3} = layersClassRealSLD.findParameter(inputVal, obj.parameters.paramsTable{:,1});
             
             % call the layers class to set the value
-            obj.layers.setLayerValue(inputPars);           
+            obj.layers.setLayerValue(inputPars, paramNames);           
         end
         
         % ---------------------------------------------------------------

@@ -85,10 +85,8 @@ classdef layersClassRealSLD < handle
             
         end
         
-        function obj = setLayerValue(obj,varargin)
-            
-            % Sets a value in a  layer
-            inputValues = varargin{1};
+        function obj = setLayerValue(obj, inputValues, paramNames)
+            % Sets a value in a layer
 
             rowPar = inputValues{1};
             layerNames = obj.layersTable{:,1};
@@ -129,12 +127,14 @@ classdef layersClassRealSLD < handle
             if ~isnumeric(col) || col < 2  || col > 6
                 error('Parameter 2 should be a number between 2 and 6')
             end
-            
-            val = inputValues{3};
+
             if col == 6
-                if ~(strcmpi(val,obj.allowedHydration))
+                if ~(strcmpi(inputValues{3},obj.allowedHydration))
                     error('Column 6 of layer must be ''bulk in'', ''bulk out'' or ''none''');
                 end
+                val = inputValues{3};
+            else
+                val = obj.findParameter(inputValues{3}, paramNames);
             end
                 
             obj.layersTable(row,col) = {string(val)};

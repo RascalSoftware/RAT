@@ -14,22 +14,20 @@ classdef testLayersClass < matlab.unittest.TestCase
 
     properties (TestParameter)
         % Cell arrays for initialising a multi type table
-        layerInput = {{'empty'},...
-                      {'empty named', {{'Named Layer'}}},...
-                      {'full layer', {{'Oxide Names Layer',...
-                                       'Oxide thick',...
-                                       'Oxide SLD',...
-                                       'Substrate Roughness'}}},...
-                      {'full layer', {{'Water Names Layer',...
-                                       'Water thick',...
-                                       'Water SLD',...
-                                       'Bilayer heads rough',...
-                                       'Water hydr',...
-                                       'bulk out'}}},...
-                      {'full layer', {{'Oxide Indices Layer', 2, 3, 1}}},...
-                      {'full layer', {{'Water Indices Layer',...
-                                       13, 14, 8, 15,... 
-                                       'bulk out'}}}
+        layerInput = {{},...
+                      {'Named Layer'},...
+                      {'Oxide Names Layer',...
+                        'Oxide thick',...
+                        'Oxide SLD',...
+                        'Substrate Roughness'},...
+                      {'Water Names Layer',...
+                        'Water thick',...
+                        'Water SLD',...
+                        'Bilayer heads rough',...
+                        'Water hydr',...
+                        'bulk out'},...
+                      {'Oxide Indices Layer', 2, 3, 1},...
+                      {'Water Indices Layer', 13, 14, 8, 15, 'bulk out'}
                        }
         addedLayer = {{'Layer 1','','','','','bulk out'},...
                       {'Named Layer','','','','','bulk out'},...
@@ -58,7 +56,6 @@ classdef testLayersClass < matlab.unittest.TestCase
                        'Water hydr',...
                        'bulk out'}
                        }
-        invalidOption = {'invalid option', 'Empty', 'EMPTY NAMED'}
     end
 
     properties
@@ -164,20 +161,20 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
         end
 
-        function testAddRowInvalidOption(testCase, invalidOption)
+        %function testAddRowInvalidOption(testCase, invalidOption)
             % Test adding a layer to the layers class.
             % If we use an invalid option the code does nothing.
             % !!!! THIS IS A BUG - it should raise an error !!!!
-            testCase.exampleClass.addLayer({invalidOption}, testCase.parameterNames);
-            testCase.verifySize(testCase.exampleClass.layersTable, [testCase.numRows testCase.numCols], "Layer table parameters have changed despite no rows being added");
-        end
+        %    testCase.exampleClass.addLayer({invalidOption}, testCase.parameterNames);
+        %    testCase.verifySize(testCase.exampleClass.layersTable, [testCase.numRows testCase.numCols], "Layer table parameters have changed despite no rows being added");
+        %end
 
-        function testAddRowInvalidNamedLayer(testCase)
+        %function testAddRowInvalidNamedLayer(testCase)
             % Test adding a layer to the layers class.
             % If we use an invalid input for the layer name it should
             % raise an error
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'empty named', {{'Named Layer', 'extra param'}}}), 'MATLAB:table:vertcat:VertcatMethodFailed');
-        end
+        %    testCase.verifyError(@() testCase.exampleClass.addLayer({'empty named', {{'Named Layer', 'extra param'}}}), 'MATLAB:table:vertcat:VertcatMethodFailed');
+        %end
 
         function testAddRowInvalidFullLayer(testCase)
             % Test adding a layer to the layers class.
@@ -185,23 +182,23 @@ classdef testLayersClass < matlab.unittest.TestCase
             % "full layer" it should raise an error
 
             % Invalid length for full layer parameters
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2}}}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3}}}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3, 1, 4}}}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3, 1, 4, 'none', 5}}}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2, 3}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2, 3, 1, 4}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2, 3, 1, 4, 'none', 5}, testCase.parameterNames), ?MException)
 
             % Invalid hydrate type
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, 1, 4, 'surface'}}}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, 3, 1, 4, 'surface'}, testCase.parameterNames), ?MException)
 
             % Invalid parameter names
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'}}}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'}, testCase.parameterNames), ?MException)
 
             % Invalid parameter indices
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, 0}}}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, testCase.numParams+1}}}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', NaN ,3, 0}}}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, NaN, 0}}}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, NaN}}}, testCase.parameterNames), ?MException)          
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, 3, 0}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, 3, testCase.numParams+1}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', NaN ,3, 0}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, NaN, 0}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, 3, NaN}, testCase.parameterNames), ?MException)          
         end
 
         function testSetLayerValue(testCase)

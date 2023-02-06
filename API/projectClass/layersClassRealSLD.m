@@ -30,26 +30,24 @@ classdef layersClassRealSLD < handle
         
         function obj = addLayer(obj, whatToAdd, paramNames)
             
-            add = whatToAdd{1};
+            switch length(whatToAdd)
 
-            switch add
-                case 'empty'
+                case 0
                     % Add an empty layer
                     layerNum = obj.layersAutoNameCounter;
                     layerName = sprintf('Layer %d',layerNum);
                     newRow = {layerName,'','','','','bulk out'};
                     appendNewRow(obj,newRow);
                     
-                case 'empty named'
-                    % Add an empty named layer 
-                    layerName = whatToAdd{2};
-                    newRow = {layerName,'','','','','bulk out'};
+                case 1
+                    % Add an empty named layer
+                    newRow = {whatToAdd,'','','','','bulk out'};
                     appendNewRow(obj,newRow);
                 
-                case 'full layer'
-                    % add a layer that is fully defined
-                    layerDetails = whatToAdd{2}{:};
-                    
+                otherwise
+                    % Add a layer that is fully defined
+                    layerDetails = whatToAdd;
+
                     if length(layerDetails) == 4
                         % No hydration
                         layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};

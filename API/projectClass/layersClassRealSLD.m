@@ -249,6 +249,8 @@ classdef layersClassRealSLD < handle
                     error('Parameter "%d" is out of range', paramIndex);
                 end
                 param = paramNames{paramIndex};
+            else
+                error('Parameter %s is not in a recognizable format', inputVal);
             end
         end
 

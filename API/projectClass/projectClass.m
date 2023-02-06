@@ -364,7 +364,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % SLD, roughness, hydration, and hydrate with, or provided 
             % a name to create an empty layer.
             %
-            %  problem.addLayer('New Layer');
+            % problem.addLayer('New Layer');
             
             % Layers class will also need to know which parameters are
             % currently defined (could also be done here rather than in
@@ -382,16 +382,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 whatToAdd = varargin{:};
             end
 
-            paramNames = obj.parameters.paramsTable{:,1};
-
-            % Call the addLayers method
-            obj.layers.addLayer(whatToAdd,paramNames);
+            % Call the addLayer method
+            obj.layers.addLayer(whatToAdd,obj.parameters.paramsTable{:,1});
             
         end
 
         function obj = removeLayer(obj,varargin)
-            % Removes a layer from the project. Expects
-            % index of layer to remove
+            % Removes layer(s) from the layers object. Expects
+            % index of layer(s) to remove.
             %
             % problem.removeLayer(1);
             obj.layers.removeLayer(varargin);
@@ -407,14 +405,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 error('Three parameters expected into setLayerValue');
             end
             inputPars = varargin;
-            paramNames = obj.parameters.paramsTable{:,1};
-            
-            % Check if set value exists as a parameter
-            %inputVal = inputPars{3};
-            %inputPars{3} = layersClassRealSLD.findParameter(inputVal, obj.parameters.paramsTable{:,1});
             
             % call the layers class to set the value
-            obj.layers.setLayerValue(inputPars, paramNames);           
+            obj.layers.setLayerValue(inputPars, obj.parameters.paramsTable{:,1});           
         end
         
         % ---------------------------------------------------------------

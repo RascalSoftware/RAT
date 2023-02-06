@@ -120,8 +120,6 @@ classdef testLayersClass < matlab.unittest.TestCase
             % "DPPC_standard_layers.m"
             testCase.exampleClass = layersClassRealSLD();
 
-            %testCase.exampleClass.layersTable(1,:) = {'Oxide Layer', 'Oxide thick', 'Oxide SLD', 'Substrate Roughness', 'Oxide Hydration', 'bulk out'};
-            %testCase.exampleClass.layersTable(2,:) = {'Water Layer', 'Water thick', 'Water SLD', 'Bilayer heads rough', 'Water hydr', 'bulk out'};
             testCase.exampleClass.layersTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'};
             testCase.exampleClass.layersTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer heads rough', 'Bilayer tails hydr', 'bulk out'};
             testCase.exampleClass.layersTable(3,:) = {'Bil outer head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'};
@@ -148,12 +146,8 @@ classdef testLayersClass < matlab.unittest.TestCase
         function testAddLayer(testCase, layerInput, addedLayer)
             % Test adding a layer to the layers class.
             % We can add a layer with no parameters, just a layer name, or
-            % a fully defined layer.
-            % The first parameter should be either "empty", "empty named",
-            % or "full layer" to determine how many parameters will then be
-            % specified: none for "empty", one for "empty named", and
-            % either a length four or length six cell array for "full
-            % layer"             
+            % a fully defined layer, which consists of either a length
+            % four or length six cell array     
             expectedTable = [testCase.exampleClass.layersTable; addedLayer];
 
             testCase.exampleClass.addLayer(layerInput, testCase.parameterNames);
@@ -163,10 +157,10 @@ classdef testLayersClass < matlab.unittest.TestCase
 
         function testAddRowInvalidFullLayer(testCase)
             % Test adding a layer to the layers class.
-            % If we use an invalid set of layer parameters when adding a
-            % "full layer" it should raise an error
+            % If we use an invalid set of layer parameters it should raise
+            % an error
 
-            % Invalid length for full layer parameters
+            % Invalid length for layer parameters
             testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2}, testCase.parameterNames), ?MException)
             testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2, 3}, testCase.parameterNames), ?MException)
             testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2, 3, 1, 4}, testCase.parameterNames), ?MException)
@@ -188,10 +182,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
         function testSetLayerValue(testCase)
             % Test setting values in the layers class table using both
-            % names and indices to refer to rows. Columns can be referred
-            % to only by index.
-            % Note that the routine requires a single cell array rather
-            % than a variable number of arguments.
+            % names and indices to refer to rows and columns.
 
             % Row and column indices
             testCase.exampleClass.setLayerValue({1, 5, 'Water hydr'}, testCase.parameterNames);
@@ -222,8 +213,6 @@ classdef testLayersClass < matlab.unittest.TestCase
         function testSetLayerValueInvalid(testCase)
             % Test setting values in the layers class table using invalid
             % values of both names and indices to refer to rows and columns
-            % Note that the routine requires a single cell array rather
-            % than a variable number of arguments
 
             % Row indices
             testCase.verifyError(@() testCase.exampleClass.setLayerValue({0, testCase.numCols, 'Changed'}, testCase.parameterNames), ?MException)
@@ -248,8 +237,8 @@ classdef testLayersClass < matlab.unittest.TestCase
         function testSetLayerValueTooFewParams(testCase)
             % If we call "setLayerValue" with a cell array containing
             % fewer than three values it should raise an error
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1}), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 6}), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1}, testCase.parameterNames), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 6}, testCase.parameterNames), 'MATLAB:badsubscript');
         end
 
         function testRemoveLayer(testCase)
@@ -266,12 +255,11 @@ classdef testLayersClass < matlab.unittest.TestCase
             remainingRows = testCase.exampleClass.layersTable(2,:);
             testCase.exampleClass.removeLayer({[1 3]});
 
-            testCase.verifyEqual(testCase.exampleClass.layersTable, remainingRows, "removeRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.layersTable, remainingRows, "removeLayer does not work correctly");
         end
 
         function testGetLayersNames(testCase)
-            layersNames = testCase.exampleClass.layersTable{:,1};
-            testCase.verifyEqual(testCase.exampleClass.getLayersNames(), layersNames)
+            testCase.verifyEqual(testCase.exampleClass.getLayersNames(), testCase.exampleClass.layersTable{:,1})
         end
 
         function testToStruct(testCase)
@@ -317,7 +305,6 @@ classdef testLayersClass < matlab.unittest.TestCase
                 testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
 
             end
-
         end
 
         function testDisplayLayersTableEmpty(testCase)
@@ -351,7 +338,6 @@ classdef testLayersClass < matlab.unittest.TestCase
             outRow = strip(regexprep(displayedTable(3), '\s+', ' '));
             rowString = "0 0 0 0 0 0";
             testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
-
         end
 
         function testFindRowIndex(testCase)
@@ -359,14 +345,30 @@ classdef testLayersClass < matlab.unittest.TestCase
             % and an error is raised for invalid options
             tableRows = testCase.exampleClass.layersTable{:,1};
 
-            testCase.verifyEqual(multiTypeTable.findRowIndex("Bil Tail", tableRows), 2);
+            testCase.verifyEqual(layersClassRealSLD.findRowIndex("Bil Tail", tableRows), 2);
 
             % Check whitespace still matches
-            testCase.verifyEqual(multiTypeTable.findRowIndex(" Bil Inner Head", tableRows), 1);
+            testCase.verifyEqual(layersClassRealSLD.findRowIndex(" Bil Inner Head", tableRows), 1);
 
-            testCase.verifyError(@() multiTypeTable.findRowIndex("Invalid Row", tableRows), ?MException)
-            testCase.verifyError(@() multiTypeTable.findRowIndex("Thickness", tableRows), ?MException)
+            testCase.verifyError(@() layersClassRealSLD.findRowIndex("Invalid Row", tableRows), ?MException)
+            testCase.verifyError(@() layersClassRealSLD.findRowIndex("Thickness", tableRows), ?MException)
         end
+
+        function testFindParameter(testCase)
+            % Test that the correct parameter is returned for a valid
+            % input name or index, and an error is raised for invalid options
+            outParam = layersClassRealSLD.findParameter('Oxide Hydration', testCase.parameterNames);
+            testCase.verifyEqual(outParam, 'Oxide Hydration')
+
+            outParam = layersClassRealSLD.findParameter(10, testCase.parameterNames);
+            testCase.verifyEqual(outParam, 'Bilayer tails SLD')
+
+            testCase.verifyError(@() layersClassRealSLD.findParameter('Invalid Param', testCase.parameterNames), ?MException)
+            testCase.verifyError(@() layersClassRealSLD.findParameter(0, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() layersClassRealSLD.findParameter(16, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() layersClassRealSLD.findParameter(datetime('today'), testCase.parameterNames), ?MException)
+        end
+
 
     end
 

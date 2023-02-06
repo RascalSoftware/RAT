@@ -28,11 +28,11 @@ classdef layersClassRealSLD < handle
             
         end
         
-        function obj = addLayer(obj,varargin)
+        function obj = addLayer(obj, whatToAdd, paramNames)
             
-            whatToAdd = varargin{1}{1};
+            add = whatToAdd{1};
 
-            switch whatToAdd
+            switch add
                 case 'empty'
                     % Add an empty layer
                     layerNum = obj.layersAutoNameCounter;
@@ -42,13 +42,13 @@ classdef layersClassRealSLD < handle
                     
                 case 'empty named'
                     % Add an empty named layer 
-                    layerName = varargin{1}{2};
+                    layerName = whatToAdd{2};
                     newRow = {layerName,'','','','','bulk out'};
                     appendNewRow(obj,newRow);
                 
                 case 'full layer'
                     % add a layer that is fully defined
-                    layerDetails = varargin{1}{2}{:};
+                    layerDetails = whatToAdd{2}{:};
                     
                     if length(layerDetails) == 4
                         % No hydration
@@ -66,7 +66,6 @@ classdef layersClassRealSLD < handle
                     
                     % Check that the parameter names given are real
                     % parameters or numbers
-                    paramNames = varargin{2}{:,1};
                     numPars = length(paramNames);
                     thisRow = {name};
                     

@@ -381,8 +381,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Layers class will also need to know which parameters are
             % currently defined (could also be done here rather than in
             % object)
-            table = obj.parameters.paramsTable;
-            paramNames = table(:,1);
+            paramNames = obj.parameters.paramsTable{:,1};
             
             % Call the addLayers method
             obj.layers.addLayer(whatToAdd,paramNames);

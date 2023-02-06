@@ -8,7 +8,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 % We use an example layers class from example calculation
 % "DPPC_standard_layers.m"
 %
-% Paul Sharp 03/02/23
+% Paul Sharp 06/02/23
 %
 %% Declare properties and parameters
 
@@ -65,6 +65,7 @@ classdef testLayersClass < matlab.unittest.TestCase
         exampleClass;           % Example layers class for testing
         initialLayersTable      % Empty table to compare to initialisation
         parameters              % Example parameters class used in "addLayer"
+        parameterNames          % Names of parameters inthe example class
         numParams               % Number of parameters in the example class
         numRows                 % Number of rows in exampleClass.layersTable
         numCols                 % Number of columns in exampleClass.layersTable
@@ -107,6 +108,8 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             testCase.parameters = parametersClass(testParams(1, :));
             testCase.parameters.paramsTable = [testCase.parameters.paramsTable; vertcat(testParams(2:end, :))];
+
+            testCase.parameterNames = testCase.parameters.paramsTable{:, 1};
             testCase.numRows = length(testParams);
         end
 
@@ -156,7 +159,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % layer"             
             expectedTable = [testCase.exampleClass.layersTable; addedLayer];
 
-            testCase.exampleClass.addLayer(layerInput, testCase.parameters.paramsTable);
+            testCase.exampleClass.addLayer(layerInput, testCase.parameterNames);
 
             testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
         end
@@ -165,7 +168,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Test adding a layer to the layers class.
             % If we use an invalid option the code does nothing.
             % !!!! THIS IS A BUG - it should raise an error !!!!
-            testCase.exampleClass.addLayer({invalidOption}, testCase.parameters.paramsTable);
+            testCase.exampleClass.addLayer({invalidOption}, testCase.parameterNames);
             testCase.verifySize(testCase.exampleClass.layersTable, [testCase.numRows testCase.numCols], "Layer table parameters have changed despite no rows being added");
         end
 
@@ -182,23 +185,23 @@ classdef testLayersClass < matlab.unittest.TestCase
             % "full layer" it should raise an error
 
             % Invalid length for full layer parameters
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2}}}, testCase.parameters.paramsTable), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3}}}, testCase.parameters.paramsTable), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3, 1, 4}}}, testCase.parameters.paramsTable), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3, 1, 4, 'none', 5}}}, testCase.parameters.paramsTable), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2}}}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3}}}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3, 1, 4}}}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Incomplete Oxide', 2, 3, 1, 4, 'none', 5}}}, testCase.parameterNames), ?MException)
 
             % Invalid hydrate type
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, 1, 4, 'surface'}}}, testCase.parameters.paramsTable), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, 1, 4, 'surface'}}}, testCase.parameterNames), ?MException)
 
             % Invalid parameter names
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'}}}, testCase.parameters.paramsTable), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'}}}, testCase.parameterNames), ?MException)
 
             % Invalid parameter indices
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, 0}}}, testCase.parameters.paramsTable), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, testCase.numParams+1}}}, testCase.parameters.paramsTable), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', NaN ,3, 0}}}, testCase.parameters.paramsTable), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, NaN, 0}}}, testCase.parameters.paramsTable), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, NaN}}}, testCase.parameters.paramsTable), ?MException)          
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, 0}}}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, testCase.numParams+1}}}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', NaN ,3, 0}}}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, NaN, 0}}}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'full layer', {{'Oxide Layer', 2, 3, NaN}}}, testCase.parameterNames), ?MException)          
         end
 
         function testSetLayerValue(testCase)

@@ -41,13 +41,13 @@ classdef layersClassRealSLD < handle
                     
                 case 1
                     % Add an empty named layer
-                    newRow = {whatToAdd,'','','','','bulk out'};
+                    newRow = {whatToAdd{1},'','','','','bulk out'};
                     appendNewRow(obj,newRow);
                 
                 otherwise
+                    % Add a layer that is fully defined
                     layerDetails = whatToAdd;
 
-                    % Add a layer that is fully defined
                     if length(layerDetails) == 4
                         % No hydration
                         layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};
@@ -101,20 +101,43 @@ classdef layersClassRealSLD < handle
             
             % Sets a value in a  layer
             inputValues = varargin{1};
+
+            rowPar = inputValues{1};
             layerNames = obj.layersTable{:,1};
             
             % Find the row index if we have a layer name
-            if ischar(inputValues{1})
-                row = obj.findRowIndex(inputValues{1},layerNames);
+            if ischar(rowPar)
+                row = obj.findRowIndex(rowPar,layerNames);
+            elseif isnumeric(rowPar)
+                % This rounds any float values down to an integer
+                rowIndex = floor(rowPar);
+                if (rowIndex < 1) || (rowIndex > length(layerNames))
+                    error('Layer index out out of range');
+                else
+                    row = rowIndex;
+                end
             else
-                row = inputValues{1};
-            end
-            
-            if ~isnumeric(row)
                 error('Layer not recognised');
             end
             
-            col = inputValues{2};
+            colPar = inputValues{2};
+            colNames = obj.layersTable.Properties.VariableNames;
+
+            % Find the column index if we have a column name
+            if ischar(colPar)
+                col = obj.findRowIndex(colPar,colNames);
+            elseif isnumeric(colPar)
+                % This rounds any float values down to an integer
+                colIndex = floor(colPar);
+                if (colIndex < 1) || (colIndex > length(colNames))
+                    error('Column number out out of range');
+                else
+                    col = colIndex;
+                end
+            else
+                error('Unrecognised column index');
+            end
+
             if ~isnumeric(col) || col < 2  || col > 6
                 error('Parameter 2 should be a number between 2 and 6')
             end

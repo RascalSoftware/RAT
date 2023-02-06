@@ -194,13 +194,23 @@ classdef testLayersClass < matlab.unittest.TestCase
             % than a variable number of arguments.
 
             % Row and column indices
-            testCase.exampleClass.setLayerValue({1, 5, 'Changed'});
-            expectedRow = ["Bil inner head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Changed", "bulk out"];
+            testCase.exampleClass.setLayerValue({1, 5, 'Test Hydr'});
+            expectedRow = ["Bil inner head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Test Hydr", "bulk out"];
             testCase.verifyEqual(testCase.exampleClass.layersTable{1, :}, expectedRow, "setValue does not work correctly");
 
             % Row name and column index
-            testCase.exampleClass.setLayerValue({'Bil Tail', 3, 'Changed'});
-            expectedRow = ["Bil tail", "Bilayer tails thick", "Changed", "Bilayer heads rough", "Bilayer tails hydr", "bulk out"];
+            testCase.exampleClass.setLayerValue({'Bil Tail', 3, 'Test SLD'});
+            expectedRow = ["Bil tail", "Bilayer tails thick", "Test SLD", "Bilayer heads rough", "Bilayer tails hydr", "bulk out"];
+            testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, "setValue does not work correctly");
+
+            % Row index and column name
+            testCase.exampleClass.setLayerValue({1, 'Roughness', 'Test Rough'});
+            expectedRow = ["Bil inner head", "Bilayer heads thick", "Bilayer heads SLD", "Test Rough", "Test Hydr", "bulk out"];
+            testCase.verifyEqual(testCase.exampleClass.layersTable{1, :}, expectedRow, "setValue does not work correctly");
+
+            % Row and column names
+            testCase.exampleClass.setLayerValue({'Bil Tail', 'Thickness', 'Test Thickness'});
+            expectedRow = ["Bil tail", "Test Thickness", "Test SLD", "Bilayer heads rough", "Bilayer tails hydr", "bulk out"];
             testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, "setValue does not work correctly");
 
             % Change hydration type
@@ -216,24 +226,23 @@ classdef testLayersClass < matlab.unittest.TestCase
             % than a variable number of arguments
 
             % Row indices
-            testCase.verifyError(@() testCase.exampleClass.setValue({0, testCase.numCols, 'Changed'}), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.setValue({testCase.numRows+1, testCase.numCols, 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({0, testCase.numCols, 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({testCase.numRows+1, testCase.numCols, 'Changed'}), ?MException)
 
             % Column indices
-            testCase.verifyError(@() testCase.exampleClass.setValue({1, 0, 'Changed'}), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.setValue({1, 1, 'Changed'}), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.setValue({1, testCase.numCols+1, 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 0, 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 1, 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, testCase.numCols+1, 'Changed'}), ?MException)
 
             % Row name
-            testCase.verifyError(@() testCase.exampleClass.setValue({'Invalid Name', testCase.numCols, 'none'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({'Invalid Name', testCase.numCols, 'none'}), ?MException)
 
-            % Column name - not accepted whether valid or not
-            testCase.verifyError(@() testCase.exampleClass.setValue({1, 'SLD', 'Changed'}), ?MException)
+            % Column name
             testCase.verifyError(@() testCase.exampleClass.setValue({1, 'Invalid Name', 'Changed'}), ?MException)
 
             % Invalid data types
-            testCase.verifyError(@() testCase.exampleClass.setValue({testCase.initialLayersTable, testCase.numCols, 'Changed'}), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.setValue({1, datetime('today'), 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({testCase.initialLayersTable, testCase.numCols, 'Changed'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, datetime('today'), 'Changed'}), ?MException)
         end
 
         function testSetLayerValueTooFewParams(testCase)
@@ -248,7 +257,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.getLayersNames(), layersNames)
         end
 
-        function testtoStruct(testCase)
+        function testToStruct(testCase)
             testCase.verifyEqual(testCase.exampleClass.toStruct(), string(testCase.exampleClass.layersTable{:,:}))
         end
 

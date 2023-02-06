@@ -227,6 +227,10 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.removeParam('Heads Thickness');
             testCase.verifyEqual(testCase.project.layers.layersTable{2, 2}, "", 'param not removed from layers');
             testCase.verifyEqual(testCase.project.layers.layersTable{7, 2}, "", 'param not removed from layers');
+            % Test removing a layer
+            testCase.project.removeLayer(1);
+            testCase.verifySize(testCase.project.layers.layersTable, [6, 6], 'Layers has wrong dimension');
+            testCase.verifyEqual(testCase.project.layers.layersTable{:, 1}, ["Deuterated Heads"; "Deuterated Tails"; "Hydrogenated Tails"; "Layer 5"; "New Layer"; "Another Layer"], 'removeLayer method not working');
         end
 
         function testData(testCase)

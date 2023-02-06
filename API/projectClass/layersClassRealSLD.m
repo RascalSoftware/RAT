@@ -140,6 +140,21 @@ classdef layersClassRealSLD < handle
             obj.layersTable(row,col) = {string(val)};
             
         end
+
+        function removeLayer(obj, layer)
+            % Removes a layer from the layers table. The expected input is
+            % a length one cell array.
+            % NOTE that an input such as {[1 3]} leads to multiple rows
+            % being removed from the table
+            %
+            % layers.removeLayer({2})
+            tab = obj.layersTable;
+            thisRow = layer{:};
+            tab(thisRow,:) = [];
+            obj.layersTable = tab;
+            obj.layersCount = height(obj.layersTable);
+        end
+
         
         function layersNames = getLayersNames(obj)
             

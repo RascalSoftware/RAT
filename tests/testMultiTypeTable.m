@@ -239,7 +239,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         end
 
         function testRemoveRowMultiple(testCase)
-            % Test removing multuple rows from a multi-type table
+            % Test removing multiple rows from a multi-type table
             % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleTable.typesTable(2,:);
             testCase.exampleTable.removeRow({[1 3]});

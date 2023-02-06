@@ -64,30 +64,18 @@ classdef layersClassRealSLD < handle
                     
                     % Check that the parameter names given are real
                     % parameters or numbers
-                    numPars = length(paramNames);
                     thisRow = {name};
                     
-                    for i = 2:5
-                        thisParam = layerDetails{i};
-                        if ischar(thisParam)
-                            % Must be a parameter name
-                            if ~strcmp(thisParam,paramNames)
-                                error('Unrecognised parameter %s in layers definition',thisParam)
-                            end
-                            thisRow{i} = thisParam;
-                            
-                        elseif isnumeric(thisParam)
-                            % Must be a parameter number (unless p=5 which
-                            % can be Nan)
-                            if isnan(thisParam) && i == 5
-                                thisRow{i} = NaN;
-                            elseif (thisParam < 1) || (thisParam > numPars)
-                                error('Parameter ''%d'' is out of range of params list')
-                            else
-                                thisRow{i} = paramNames{thisParam};
-                            end
-                        end 
-                        
+                    % Must be a parameter name or number . . .
+                    for i = 2:4                       
+                        thisRow{i} = obj.findParameter(layerDetails{i}, paramNames);
+                    end
+
+                    %  . . . (unless p=5 which can also be Nan)
+                    if isnan(layerDetails{5})
+                        thisRow{5} = NaN;
+                    else
+                        thisRow{5} = obj.findParameter(layerDetails{5}, paramNames);
                     end
                     
                     thisRow = [thisRow hydrateWhat];
@@ -243,7 +231,7 @@ classdef layersClassRealSLD < handle
             elseif isnumeric(inputVal)
                 paramIndex = floor(inputVal);
                 if paramIndex < 1 || paramIndex > length(paramNames)
-                    error('Parameter is out of range');
+                    error('Parameter "%d" is out of range', paramIndex);
                 end
                 param = paramNames{paramIndex};
             end

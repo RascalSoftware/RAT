@@ -9,7 +9,7 @@ function newR1Problem = projectClassToR1(r2Problem,varargin)
 
 %% Work out inputs and create directories if necessary
 if ~isempty(varargin)
-    pars = parseParameterInput(varargin);
+    pars = parametersClass.parseParameterInput(varargin);
     
     % Use the named r1Problem
     r1Problem = pars.r1Problem;
@@ -456,7 +456,7 @@ end
 
 end
 
-function inputBlock = parseParameterInput(varargin)
+function inputBlock = (varargin)
 
     default_r1Problem = struct('empty',0);
     default_dirName = 'newDirectory';   

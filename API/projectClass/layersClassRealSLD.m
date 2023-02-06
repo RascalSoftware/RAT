@@ -82,9 +82,9 @@ classdef layersClassRealSLD < handle
                             if isnan(thisParam) && i == 5
                                 thisRow{i} = NaN;
                             elseif (thisParam < 1) || (thisParam > numPars)
-                                 error('Parameter ''%d'' is out of range of params list')
-                            else 
-                                 thisRow{i} = paramNames{thisParam};
+                                error('Parameter ''%d'' is out of range of params list')
+                            else
+                                thisRow{i} = paramNames{thisParam};
                             end
                         end 
                         
@@ -211,7 +211,7 @@ classdef layersClassRealSLD < handle
     methods(Static)
 
         function row = findRowIndex(name,rowNames)
-            % Find the index of a row in the multi-type table given its
+            % Find the index of a row in the layers class table given its
             % name. The expected inputs are the name of the row and the
             % full list of row names.
 
@@ -227,8 +227,28 @@ classdef layersClassRealSLD < handle
             else
                 error('Layer name not found');
             end
-        
         end
+
+        function param = findParameter(inputVal, paramNames)
+            % Find whether or not a proposed layer parameter is included
+            % in a list of parameters, or obtain a parameter by index.
+            % The expected inputs are the potential layer parameter value
+            % (either name or index) and a list of parameter names.
+
+            if ischar(inputVal)
+                if ~any(strcmpi(inputVal, paramNames))
+                    error('Parameter %s not recognized', inputVal);
+                end
+                param = inputVal;
+            elseif isnumeric(inputVal)
+                paramIndex = floor(inputVal);
+                if paramIndex < 1 || paramIndex > length(paramNames)
+                    error('Parameter is out of range');
+                end
+                param = paramNames{paramIndex};
+            end
+        end
+
     end
 end
 

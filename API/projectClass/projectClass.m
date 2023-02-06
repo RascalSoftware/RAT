@@ -402,18 +402,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Check if set value exists as a parameter
             inputVal = inputPars{3};
-            parNames = obj.parameters.paramsTable{:,1};
-            
-            if ischar(inputVal)
-                if ~any(strcmpi(inputVal,parNames))
-                    error('Parameter %s not recognized',inputVal);
-                end
-            elseif isnumeric(inputVal)
-                if inputVal < 1 || inputVal > length(parNames)
-                    error('Parameter is out of range')
-                end
-                inputPars{3} = parNames{inputVal};
-            end
+            inputPars{3} = layersClassRealSLD.findParameter(inputVal, obj.parameters.paramsTable{:,1});
             
             % call the layers class to set the value
             obj.layers.setLayerValue(inputPars);           

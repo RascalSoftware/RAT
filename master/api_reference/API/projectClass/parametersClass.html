@@ -48,7 +48,7 @@ This function is called by:
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="#_sub1" class="code">function obj = parametersClass(startCell)</a></li>
-<li><a href="#_sub2" class="code">function obj = setInitialValue(varargin)</a></li>
+<li><a href="#_sub2" class="code">function count = get.paramCount(obj)</a></li>
 <li><a href="#_sub3" class="code">function names = getParamNames(obj)</a></li>
 <li><a href="#_sub4" class="code">function obj = addParam(obj,varargin)</a></li>
 <li><a href="#_sub5" class="code">function obj = removeParam(obj,varargin)</a></li>
@@ -58,12 +58,12 @@ This function is called by:
 <li><a href="#_sub9" class="code">function obj = setName(obj,varargin)</a></li>
 <li><a href="#_sub10" class="code">function obj = setConstr(obj, varargin)</a></li>
 <li><a href="#_sub11" class="code">function obj = setFit(obj, varargin)</a></li>
-<li><a href="#_sub12" class="code">function set.paramsTable(obj,table)</a></li>
-<li><a href="#_sub13" class="code">function set.showPriors(obj,flag)</a></li>
-<li><a href="#_sub14" class="code">function displayParametersTable(obj)</a></li>
-<li><a href="#_sub15" class="code">function outStruct = toStruct(obj)</a></li>
-<li><a href="#_sub16" class="code">function appendNewRow(obj,row)</a></li>
-<li><a href="#_sub17" class="code">function removeRow(obj, row)</a></li>
+<li><a href="#_sub12" class="code">function set.showPriors(obj,flag)</a></li>
+<li><a href="#_sub13" class="code">function displayParametersTable(obj)</a></li>
+<li><a href="#_sub14" class="code">function outStruct = toStruct(obj)</a></li>
+<li><a href="#_sub15" class="code">function appendNewRow(obj,row)</a></li>
+<li><a href="#_sub16" class="code">function removeRow(obj, row)</a></li>
+<li><a href="#_sub17" class="code">function index = getValidRow(obj, row)</a></li>
 <li><a href="#_sub18" class="code">function row = findRowIndex(name,tab)</a></li>
 <li><a href="#_sub19" class="code">function inputBlock = parseParameterInput(varargin)</a></li>
 </ul>
@@ -71,514 +71,507 @@ This function is called by:
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre>0001 classdef <a href="parametersClass.html" class="code" title="">parametersClass</a> &lt; handle
-0002     
-0003     <span class="comment">% This is the class definition for</span>
-0004     <span class="comment">% the parameters block.</span>
-0005     
-0006     properties
-0007         paramsTable = table;
-0008         showPriors = false;
-0009     <span class="keyword">end</span>
-0010     
-0011     properties (Access = private)
-0012         paramCount;
-0013         paramAutoNameCounter
-0014     <span class="keyword">end</span>
-0015     
-0016     methods
-0017         <a name="_sub0" href="#_subfunctions" class="code">function obj = parametersClass(startCell)</a>
-0018             
-0019             <span class="comment">% Class constructor.</span>
-0020             sz = [1 8];
-0021             varTypes = {<span class="string">'string'</span>,<span class="string">'double'</span>,<span class="string">'double'</span>,<span class="string">'double'</span>,<span class="string">'logical'</span>,<span class="string">'string'</span>,<span class="string">'double'</span>,<span class="string">'double'</span>};
-0022             varNames = {<span class="string">'Name'</span>,<span class="string">'Min'</span>,<span class="string">'Value'</span>,<span class="string">'Max'</span>,<span class="string">'Fit?'</span>,<span class="string">'Prior Type'</span>,<span class="string">'mu'</span>,<span class="string">'sigma'</span>};
-0023             obj.paramsTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,varTypes,<span class="string">'VariableNames'</span>,varNames);
-0024             obj.paramsTable(1,:) = startCell;
-0025             obj.paramCount = 1;
-0026             obj.paramAutoNameCounter = 1;
-0027         <span class="keyword">end</span>
-0028         
-0029         <a name="_sub1" href="#_subfunctions" class="code">function obj = setInitialValue(varargin)</a>
-0030             initialValue = varargin{2};
-0031             obj.paramsTable(1,:) = initialValue;
-0032             obj.paramCount = 1;
-0033             obj.paramAutoNameCounter = 1;
-0034         <span class="keyword">end</span>
-0035         
-0036         <a name="_sub2" href="#_subfunctions" class="code">function names = getParamNames(obj)</a>
-0037             
-0038             names = obj.paramsTable{:,1}; 
-0039             
-0040         <span class="keyword">end</span>
-0041         
-0042         <a name="_sub3" href="#_subfunctions" class="code">function obj = addParam(obj,varargin)</a>
-0043             
-0044             <span class="keyword">if</span> isempty(varargin)
-0045                 <span class="comment">% No input parameter</span>
-0046                 <span class="comment">% Add an empty parameter row</span>
-0047                 name = sprintf(<span class="string">'new parameter %d'</span>,obj.paramAutoNameCounter);
-0048                 newRow = {name,0,0,0,false,<span class="string">'uniform'</span>,0,Inf};
-0049                 <a href="#_sub16" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
-0050             <span class="keyword">end</span>
-0051             
-0052             <span class="keyword">if</span> iscell(varargin) &amp;&amp; ~isempty(varargin)
-0053                 inputCell = varargin{:};
-0054                 
-0055                 <span class="comment">% First input must be a parameter name</span>
-0056                 <span class="keyword">if</span> ~ischar(inputCell{1})
-0057                     error(<span class="string">'First value must be param name'</span>);
-0058                 <span class="keyword">end</span>
-0059                 
-0060                 inputLength = length(inputCell);
-0061                 
-0062                 <span class="keyword">switch</span> inputLength
-0063                     
-0064                     <span class="comment">% If length is 1, assume name only</span>
-0065                     <span class="comment">% and fill in the rest with defaults</span>
-0066                     <span class="keyword">case</span> 1
-0067                         name = inputCell{1};
-0068                         newRow = {name,1,2,3,false,<span class="string">'uniform'</span>,0,Inf};
-0069                         <a href="#_sub16" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
-0070                         
-0071                         <span class="comment">% If length is 2, assume name an value</span>
-0072                         <span class="comment">% pair. Fill in the rest automatically</span>
-0073                     <span class="keyword">case</span> 2
-0074                         name = inputCell{1};
-0075                         value = inputCell{2};
-0076                         <span class="keyword">if</span> ~isnumeric(value)
-0077                             error(<span class="string">'Expecting numeric value as param 2'</span>);
-0078                         <span class="keyword">end</span>
-0079                         newRow = {name,value,value,value,false,<span class="string">'uniform'</span>,0,Inf};
-0080                         <a href="#_sub16" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
-0081                         
-0082                         <span class="comment">% If length is 4, assume we are getting the</span>
-0083                         <span class="comment">% limits as well as the values</span>
-0084                     <span class="keyword">case</span> 4
-0085                         name = inputCell{1};
-0086                         values = [inputCell{2} inputCell{3} inputCell{4}];
-0087                         <span class="keyword">if</span> ~isnumeric(values)
-0088                             error(<span class="string">'Expecting numeric values as params 2 - 4'</span>);
-0089                         <span class="keyword">end</span>
-0090                         newRow = {name,values(1),values(2),values(3),false,<span class="string">'uniform'</span>,0,Inf};
-0091                         <a href="#_sub16" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
-0092                         
-0093                         <span class="comment">% If length is 5, then assume we are setting</span>
-0094                         <span class="comment">% everything except priors</span>
-0095                     <span class="keyword">case</span> 5
-0096                         name = inputCell{1};
-0097                         values = [inputCell{2} inputCell{3} inputCell{4}];
-0098                         fit = inputCell{5};
-0099                         <span class="keyword">if</span> ~isnumeric(values)
-0100                             error(<span class="string">'Expecting numeric values as params 2 - 4'</span>);
-0101                         <span class="keyword">end</span>
-0102                         
-0103                         <span class="keyword">if</span> ~islogical(fit)
-0104                             error(<span class="string">'Expecting logical value for param 5'</span>)
-0105                         <span class="keyword">end</span>
-0106                         newRow = {name,values(1),values(2),values(3),fit,<span class="string">'uniform'</span>,0,Inf};
-0107                         <a href="#_sub16" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
-0108                         
-0109                         <span class="comment">% Case 8 must be everything including the prior</span>
-0110                     <span class="keyword">case</span> 8
-0111                         name = inputCell{1};
-0112                         values = [inputCell{2} inputCell{3} inputCell{4}];
-0113                         fit = inputCell{5};
-0114                         priorType = inputCell{6};
-0115                         priorValues = [inputCell{7} inputCell{8}];
-0116                         
-0117                         <span class="keyword">if</span> ~isnumeric(values)
-0118                             error(<span class="string">'Expecting numeric values as params 2 - 4'</span>);
-0119                         <span class="keyword">end</span>
-0120                         
-0121                         <span class="keyword">if</span> ~islogical(fit)
-0122                             error(<span class="string">'Expecting logical value for param 5'</span>)
-0123                         <span class="keyword">end</span>
-0124                         
-0125                         <span class="keyword">if</span> ~strcmpi(priorType,{<span class="string">'uniform'</span>,<span class="string">'gaussian'</span>,<span class="string">'jeffreys'</span>})
-0126                             error(<span class="string">'Prior type must be ''uniform'', ''gaussian'' or ''jeffreys'''</span>);
-0127                         <span class="keyword">end</span>
-0128                         
-0129                         <span class="keyword">if</span> ~isnumeric(priorValues)
-0130                             error(<span class="string">'Prior values must be numeric'</span>);
-0131                         <span class="keyword">end</span>
-0132                         
-0133                         newRow = {name,values(1),values(2),values(3),fit,priorType,priorValues(1),priorValues(2)};
-0134                         <a href="#_sub16" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
-0135                        
-0136                         
-0137                         <span class="comment">% If not one of these options, throw an error</span>
-0138                     <span class="keyword">otherwise</span>
-0139                         error(<span class="string">'Unrecognised inputs to ''addrow'''</span>);
-0140                 <span class="keyword">end</span>
-0141             <span class="keyword">end</span>
-0142         <span class="keyword">end</span>
-0143         
-0144         <a name="_sub4" href="#_subfunctions" class="code">function obj = removeParam(obj,varargin)</a>
-0145             <span class="keyword">if</span> isempty(varargin)
-0146                 error(<span class="string">'Need to specify a parameter'</span>);
-0147             <span class="keyword">end</span>
-0148             
-0149             <span class="keyword">for</span> i = 1:length(varargin)
-0150                 thisInput =  varargin{i};
-0151                 <a href="#_sub17" class="code" title="subfunction removeRow(obj, row)">removeRow</a>(obj,thisInput);
-0152             <span class="keyword">end</span>
-0153         <span class="keyword">end</span>
-0154         
-0155         <a name="_sub5" href="#_subfunctions" class="code">function obj = setParameter(obj,varargin)</a>
-0156             <span class="comment">% General purpose set method using name value pairs</span>
-0157             
-0158             inputValues = varargin{:};
-0159             tab = obj.paramsTable;
-0160             
-0161             <span class="keyword">if</span> ischar(inputValues{1})
-0162                 name = string(inputValues{1});
-0163                 row = <a href="#_sub18" class="code" title="subfunction row = findRowIndex(name,tab)">findRowIndex</a>(name,tab);
-0164             <span class="keyword">else</span>
-0165                 row = inputValues{1};
-0166             <span class="keyword">end</span>
-0167            
-0168             inputBlock = <a href="#_sub19" class="code" title="subfunction inputBlock = parseParameterInput(varargin)">parseParameterInput</a>(inputValues(2:end));
-0169             
-0170             <span class="keyword">if</span> ~isempty(inputBlock.name)
-0171                 obj.setName({row,inputBlock.name});
-0172             <span class="keyword">end</span>
-0173             
-0174             <span class="keyword">if</span> ~isempty(inputBlock.min)
-0175                 max = obj.paramsTable{row,4};
-0176                 obj.setConstr({row,inputBlock.min,max});
-0177             <span class="keyword">end</span>
-0178             
-0179             <span class="keyword">if</span> ~isempty(inputBlock.max)
-0180                 min = obj.paramsTable{row,2};
-0181                 obj.setConstr({row,min,inputBlock.max});
-0182             <span class="keyword">end</span>
-0183             
-0184             <span class="keyword">if</span> ~isempty(inputBlock.value)
-0185                 obj.setValue({row,inputBlock.value});
-0186             <span class="keyword">end</span>
-0187             
-0188             <span class="keyword">if</span> ~isempty(inputBlock.fit)
-0189                 obj.setFit(row,inputBlock.fit);
-0190             <span class="keyword">end</span>
-0191 
-0192         <span class="keyword">end</span>
-0193         
-0194         <a name="_sub6" href="#_subfunctions" class="code">function obj = setPrior(obj,varargin)</a>
-0195 <span class="comment">%        If the input is a string, it looks for the row with that name in the table.</span>
-0196 <span class="comment">%        2. If the input is a number, it looks for the row with that index in the table.</span>
-0197 
-0198             inputValues = varargin{:};
-0199             tab = obj.paramsTable;
-0200             
-0201             <span class="keyword">if</span> ischar(inputValues{1})
-0202                 name = string(inputValues{1});
-0203                 row = <a href="#_sub18" class="code" title="subfunction row = findRowIndex(name,tab)">findRowIndex</a>(name,tab);
-0204             <span class="keyword">else</span>
-0205                 row = inputValues{1};
-0206             <span class="keyword">end</span>
-0207             
-0208             priorType = inputValues{2};
-0209             <span class="keyword">if</span> ~strcmpi(priorType,{<span class="string">'uniform'</span>,<span class="string">'gaussian'</span>,<span class="string">'jeffries'</span>})
-0210                 error(<span class="string">'Prior needs to be ''unifom'',''gaussian'', or ''jeffreys'''</span>);
-0211             <span class="keyword">end</span>
-0212             
-0213             priorType = lower(priorType);
-0214             <span class="keyword">switch</span> priorType
-0215                 <span class="keyword">case</span> <span class="string">'uniform'</span>
-0216                     tab(row,6) = {<span class="string">'uniform'</span>};
-0217                     tab(row,7) = {0};
-0218                     tab(row,8) = {Inf};
-0219                     
-0220                 <span class="keyword">case</span> <span class="string">'gaussian'</span>
-0221                     tab(row,6) = {<span class="string">'gaussian'</span>};             
-0222                     tab(row,7) = inputValues(3);
-0223                     tab(row,8) = inputValues(4);
-0224             <span class="keyword">end</span>
-0225     
-0226             obj.paramsTable = tab;
-0227             
-0228         <span class="keyword">end</span>
-0229         
-0230         <a name="_sub7" href="#_subfunctions" class="code">function obj = setValue(obj,varargin)</a>
-0231             inputValues = varargin{:};
-0232             tab = obj.paramsTable;
-0233             <span class="keyword">if</span> length(inputValues) ~= 2
-0234                 error(<span class="string">'Need p (or name) / value pair to set'</span>);
-0235             <span class="keyword">end</span>
-0236             
-0237             <span class="keyword">if</span> ischar(inputValues{1})
-0238                 name = string(inputValues{1});
-0239                 row = <a href="#_sub18" class="code" title="subfunction row = findRowIndex(name,tab)">findRowIndex</a>(name,tab);
-0240             <span class="keyword">else</span>
-0241                 row = inputValues{1};
-0242             <span class="keyword">end</span>
-0243             
-0244             <span class="keyword">if</span> ~isnumeric(inputValues{2})
-0245                 error(<span class="string">'Value must be numeric'</span>);
-0246             <span class="keyword">end</span>
-0247             value = inputValues{2};
-0248             tab(row,3) = {value};
-0249             obj.paramsTable = tab;
-0250         <span class="keyword">end</span>
-0251         
-0252         <a name="_sub8" href="#_subfunctions" class="code">function obj = setName(obj,varargin)</a>
-0253             tab = obj.paramsTable;
-0254             inputValues = varargin{:};
-0255             <span class="keyword">if</span> length(inputValues) ~= 2
-0256                 error(<span class="string">'Wrong number of values for setName'</span>);
-0257             <span class="keyword">end</span>
-0258             
-0259             <span class="keyword">if</span> ischar(inputValues{1})
-0260                 name = string(inputValues{1});
-0261                 row = <a href="#_sub18" class="code" title="subfunction row = findRowIndex(name,tab)">findRowIndex</a>(name,tab);
-0262             <span class="keyword">else</span>
-0263                 row = inputValues{1};
-0264             <span class="keyword">end</span>
-0265             
-0266             <span class="keyword">if</span> ~ischar(inputValues{2})
-0267                 error(<span class="string">'New name must be char'</span>);
-0268             <span class="keyword">end</span>
-0269             name = inputValues{2};
-0270             tab(row,1) = {name};
-0271             obj.paramsTable = tab;
-0272         <span class="keyword">end</span>
-0273         
-0274         <a name="_sub9" href="#_subfunctions" class="code">function obj = setConstr(obj, varargin)</a>
-0275             tab = obj.paramsTable;
-0276             inputValues = varargin{:};
-0277             <span class="keyword">if</span> length(inputValues) ~= 3
-0278                 error(<span class="string">'Need p (or name) / min / max set'</span>);
-0279             <span class="keyword">end</span>
-0280             
-0281             min = inputValues{2};
-0282             max = inputValues{3};
-0283             <span class="keyword">if</span> ~(isnumeric(min) &amp;&amp; isnumeric(max))
-0284                 error(<span class="string">'min and max need to be numeric'</span>);
-0285             <span class="keyword">end</span>
-0286             
-0287             <span class="keyword">if</span> ischar(inputValues{1})
-0288                 name = string(inputValues{1});
-0289                 row = <a href="#_sub18" class="code" title="subfunction row = findRowIndex(name,tab)">findRowIndex</a>(name,tab);
-0290             <span class="keyword">else</span>
-0291                 row = inputValues{1};
-0292             <span class="keyword">end</span>
-0293             
-0294             tab(row,2) = {min};
-0295             tab(row,4) = {max};
-0296             obj.paramsTable = tab;
-0297         <span class="keyword">end</span>
-0298         
-0299         
-0300         <a name="_sub10" href="#_subfunctions" class="code">function obj = setFit(obj, varargin)</a>
-0301             
-0302             <span class="keyword">if</span> iscell(varargin) &amp;&amp; length(varargin) == 1
-0303                 varargin = varargin{:};
-0304             <span class="keyword">end</span>
-0305             
-0306             tab = obj.paramsTable;
-0307             <span class="keyword">if</span> length(varargin) ~= 2
-0308                 error(<span class="string">'Need p (or name) / val pair set'</span>);
-0309             <span class="keyword">end</span>
-0310             
-0311             <span class="keyword">if</span> ~islogical(varargin{2})
-0312                 error(<span class="string">'Need true or false for Fit? value'</span>);
-0313             <span class="keyword">end</span>
-0314             
-0315             <span class="keyword">if</span> ischar(varargin{1})
-0316                 name = string(varargin{1});
-0317                 row = <a href="#_sub18" class="code" title="subfunction row = findRowIndex(name,tab)">findRowIndex</a>(name,tab);
-0318             <span class="keyword">else</span>
-0319                 row = varargin{1};
-0320             <span class="keyword">end</span>
-0321             
-0322             tab(row,5) = varargin(2);
-0323             obj.paramsTable = tab;
-0324         <span class="keyword">end</span>
-0325         
-0326         <a name="_sub11" href="#_subfunctions" class="code">function set.paramsTable(obj,table)</a>
-0327             obj.paramsTable = table;
-0328         <span class="keyword">end</span>
-0329         
-0330         <a name="_sub12" href="#_subfunctions" class="code">function set.showPriors(obj,flag)</a>
-0331             <span class="keyword">if</span> ~islogical(flag)
-0332                 error(<span class="string">'Show priors must be true or false'</span>);
-0333             <span class="keyword">end</span>
-0334             obj.showPriors = flag;
-0335         <span class="keyword">end</span>
-0336         
-0337         <a name="_sub13" href="#_subfunctions" class="code">function displayParametersTable(obj)</a>
-0338             array = obj.paramsTable;
-0339             p = [1:size(array,1)];
-0340             p = p(:);
-0341             p = table(p);
-0342             <span class="keyword">if</span> ~obj.showPriors
-0343                 array = array(:,1:5);
-0344             <span class="keyword">end</span>
-0345             all = [p array];
-0346             disp(all);
-0347         <span class="keyword">end</span>
-0348         
-0349         
-0350         <a name="_sub14" href="#_subfunctions" class="code">function outStruct = toStruct(obj)</a>
-0351             
-0352             <span class="comment">% Convert the class parameters into</span>
-0353             <span class="comment">% a structure array.</span>
-0354             
-0355             paramNames = table2cell(obj.paramsTable(:,1));
-0356             
-0357             <span class="comment">% Want these to be class 'char' rather than 'string'</span>
-0358             <span class="keyword">for</span> n = 1:length(paramNames)
-0359                 paramNames{n} = char(paramNames{n});
-0360             <span class="keyword">end</span>
-0361             outStruct.paramNames = paramNames;
+0002     <span class="comment">% This is the class definition for</span>
+0003     <span class="comment">% the parameters block.</span>
+0004     
+0005     properties
+0006         paramsTable = table;
+0007         showPriors = false;
+0008     <span class="keyword">end</span>
+0009     
+0010     properties (Access = private)   
+0011         paramAutoNameCounter;
+0012     <span class="keyword">end</span>
+0013     
+0014     properties (Dependent)
+0015         paramCount;
+0016     <span class="keyword">end</span>
+0017     
+0018     methods
+0019         <a name="_sub0" href="#_subfunctions" class="code">function obj = parametersClass(startCell)</a>
+0020             <span class="comment">% Class constructor.</span>
+0021             <span class="comment">% Creates a Parameter object. The startCell argument should be</span>
+0022             <span class="comment">% a cell array with the content of the first parameter. A</span>
+0023             <span class="comment">% parameter consists of a name (string), min (double), value (double),</span>
+0024             <span class="comment">% max (double), fit flag (logical), prior type (string), mu (double),</span>
+0025             <span class="comment">% and sigma (double) values in that order.</span>
+0026             <span class="comment">%</span>
+0027             <span class="comment">% params = parametersClass({'Tails', 10, 20, 30, true, 'uniform', 0, Inf});</span>
+0028             sz = [0, 8];
+0029             varTypes = {<span class="string">'string'</span>,<span class="string">'double'</span>,<span class="string">'double'</span>,<span class="string">'double'</span>,<span class="string">'logical'</span>,<span class="string">'string'</span>,<span class="string">'double'</span>,<span class="string">'double'</span>};
+0030             varNames = {<span class="string">'Name'</span>,<span class="string">'Min'</span>,<span class="string">'Value'</span>,<span class="string">'Max'</span>,<span class="string">'Fit?'</span>,<span class="string">'Prior Type'</span>,<span class="string">'mu'</span>,<span class="string">'sigma'</span>};
+0031             obj.paramsTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,varTypes,<span class="string">'VariableNames'</span>,varNames);
+0032             obj.paramAutoNameCounter = 0;
+0033             obj.addParam(startCell);
+0034            
+0035         <span class="keyword">end</span>
+0036         
+0037         <a name="_sub1" href="#_subfunctions" class="code">function count = get.paramCount(obj)</a>
+0038             count = height(obj.paramsTable);
+0039         <span class="keyword">end</span>
+0040         
+0041         <a name="_sub2" href="#_subfunctions" class="code">function names = getParamNames(obj)</a>
+0042             <span class="comment">% Returns a N x 1 cell array of names of the parameter</span>
+0043             <span class="comment">% in the object.</span>
+0044             <span class="comment">%</span>
+0045             <span class="comment">% names = params.getParamNames();</span>
+0046             names = obj.paramsTable{:,1}; 
+0047         <span class="keyword">end</span>
+0048         
+0049         <a name="_sub3" href="#_subfunctions" class="code">function obj = addParam(obj,varargin)</a>
+0050             <span class="comment">% Adds an new parameter to the parameters table. Defaults</span>
+0051             <span class="comment">% values are used when adding the parameter if no arguments are</span>
+0052             <span class="comment">% provided, otherwise a subset of the arguments can be provided.</span>
+0053             <span class="comment">% The following are assumed from number of arguments:</span>
+0054             <span class="comment">% for 1 input, the name only is provided</span>
+0055             <span class="comment">% for 2 inputs, the name and value are provided</span>
+0056             <span class="comment">% for 4 inputs, the name, min, value, and max are provided</span>
+0057             <span class="comment">% for 5 inputs, the name, min, value, max, and fit? are provided</span>
+0058             <span class="comment">% for 8 inputs, all parameter properties are provided</span>
+0059             <span class="comment">%</span>
+0060             <span class="comment">% params.addParam('Tails Roughness');</span>
+0061             <span class="keyword">if</span> isempty(varargin)
+0062                 <span class="comment">% No input parameter</span>
+0063                 <span class="comment">% Add an empty parameter row</span>
+0064                 name = sprintf(<span class="string">'new parameter %d'</span>,obj.paramAutoNameCounter);
+0065                 newRow = {name,0,0,0,false,<span class="string">'uniform'</span>,0,Inf};
+0066                 <a href="#_sub15" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow);
+0067             <span class="keyword">end</span>
+0068             
+0069             <span class="keyword">if</span> iscell(varargin) &amp;&amp; ~isempty(varargin)
+0070                 inputCell = varargin{:};
+0071                 
+0072                 <span class="comment">% First input must be a parameter name</span>
+0073                 <span class="keyword">if</span> ~ischar(inputCell{1})
+0074                     error(<span class="string">'First value must be param name (char)'</span>);
+0075                 <span class="keyword">end</span>
+0076                 
+0077                 values = [1, 2, 3];
+0078                 fit = false;
+0079                 priorType = <span class="string">'uniform'</span>;
+0080                 priorValues = [0, Inf];
+0081                 
+0082                 <span class="keyword">switch</span> length(inputCell)     
+0083                     <span class="comment">% If length is 1, assume name only</span>
+0084                     <span class="comment">% and fill in the rest with defaults</span>
+0085                     <span class="keyword">case</span> 1
+0086                         name = inputCell{1};
+0087                         
+0088                     <span class="comment">% If length is 2, assume name and value</span>
+0089                     <span class="comment">% pair. Fill in the rest automatically</span>
+0090                     <span class="keyword">case</span> 2
+0091                         name = inputCell{1};
+0092                         values = [inputCell{2} inputCell{2} inputCell{2}];
+0093                         
+0094                     <span class="comment">% If length is 4, assume we are getting the</span>
+0095                     <span class="comment">% limits as well as the values</span>
+0096                     <span class="keyword">case</span> 4
+0097                         name = inputCell{1};
+0098                         values = [inputCell{2} inputCell{3} inputCell{4}];
+0099                         
+0100                     <span class="comment">% If length is 5, then assume we are setting</span>
+0101                     <span class="comment">% everything except priors</span>
+0102                     <span class="keyword">case</span> 5
+0103                         name = inputCell{1};
+0104                         values = [inputCell{2} inputCell{3} inputCell{4}];
+0105                         fit = inputCell{5};
+0106                         
+0107                     <span class="comment">% Case 8 must be everything including the prior</span>
+0108                     <span class="keyword">case</span> 8
+0109                         name = inputCell{1};
+0110                         values = [inputCell{2} inputCell{3} inputCell{4}];
+0111                         fit = inputCell{5};
+0112                         priorType = inputCell{6};
+0113                         priorValues = [inputCell{7} inputCell{8}];
+0114                        
+0115                     <span class="comment">% If not one of these options, throw an error</span>
+0116                     <span class="keyword">otherwise</span>
+0117                         error(<span class="string">'Unrecognised inputs to ''addParam'''</span>);    
+0118                 <span class="keyword">end</span>
+0119                 
+0120                 <span class="comment">% Type validation</span>
+0121                 <span class="keyword">if</span> ~isnumeric(values)
+0122                     error(<span class="string">'Expecting numeric values as params 2 - 4'</span>);
+0123                 <span class="keyword">end</span>
+0124                 
+0125                 <span class="keyword">if</span> ~islogical(fit)
+0126                     error(<span class="string">'Expecting logical value for param 5'</span>)
+0127                 <span class="keyword">end</span>
+0128                 
+0129                 <span class="keyword">if</span> ~strcmpi(priorType,{<span class="string">'uniform'</span>, <span class="string">'gaussian'</span>, <span class="string">'jeffreys'</span>})
+0130                     error(<span class="string">'Prior type must be ''uniform'', ''gaussian'' or ''jeffreys'''</span>);
+0131                 <span class="keyword">end</span>
+0132                 
+0133                 <span class="keyword">if</span> ~isnumeric(priorValues)
+0134                     error(<span class="string">'Prior values must be numeric'</span>);
+0135                 <span class="keyword">end</span>
+0136                     
+0137                 newRow = {name, values(1), values(2), values(3), fit, priorType, priorValues(1), priorValues(2)};
+0138                 <a href="#_sub15" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj, newRow);
+0139             <span class="keyword">end</span>
+0140         <span class="keyword">end</span>
+0141         
+0142         <a name="_sub4" href="#_subfunctions" class="code">function obj = removeParam(obj,varargin)</a>
+0143             <span class="comment">% Removes a parameter from the parameters table.</span>
+0144             <span class="comment">% Expects index or name of parameter to remove</span>
+0145             <span class="comment">%</span>
+0146             <span class="comment">% params.removeParam(2);</span>
+0147             <span class="keyword">if</span> isempty(varargin)
+0148                 error(<span class="string">'Need to specify a parameter'</span>);
+0149             <span class="keyword">end</span>
+0150             
+0151             rowInput = varargin;
+0152             <span class="keyword">if</span> isa(varargin{1}, <span class="string">'double'</span>)
+0153                 rowInput = cell2mat(rowInput);
+0154                 rowInput = num2cell(sort(rowInput, <span class="string">'descend'</span>));
+0155             <span class="keyword">end</span>
+0156 
+0157             <span class="keyword">for</span> i = 1:length(varargin)
+0158                 obj.removeRow(rowInput{i});
+0159             <span class="keyword">end</span>
+0160         <span class="keyword">end</span>
+0161         
+0162         <a name="_sub5" href="#_subfunctions" class="code">function obj = setParameter(obj,varargin)</a>
+0163             <span class="comment">% General purpose set parameter method. Expects a cell array with</span>
+0164             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
+0165             <span class="comment">%</span>
+0166             <span class="comment">% params.setParameter({2, 'value', 50});</span>
+0167             inputValues = varargin{:};
+0168             row = obj.getValidRow(inputValues(1));
+0169             inputBlock = obj.parseParameterInput(inputValues(2:end));
+0170             
+0171             <span class="keyword">if</span> ~isempty(inputBlock.name)
+0172                 obj.setName({row,inputBlock.name});
+0173             <span class="keyword">end</span>
+0174             
+0175             <span class="keyword">if</span> ~isempty(inputBlock.min)
+0176                 max = obj.paramsTable{row,4};
+0177                 obj.setConstr({row,inputBlock.min,max});
+0178             <span class="keyword">end</span>
+0179             
+0180             <span class="keyword">if</span> ~isempty(inputBlock.max)
+0181                 min = obj.paramsTable{row,2};
+0182                 obj.setConstr({row,min,inputBlock.max});
+0183             <span class="keyword">end</span>
+0184             
+0185             <span class="keyword">if</span> ~isempty(inputBlock.value)
+0186                 obj.setValue({row,inputBlock.value});
+0187             <span class="keyword">end</span>
+0188             
+0189             <span class="keyword">if</span> ~isempty(inputBlock.fit)
+0190                 obj.setFit(row,inputBlock.fit);
+0191             <span class="keyword">end</span>
+0192 
+0193         <span class="keyword">end</span>
+0194         
+0195         <a name="_sub6" href="#_subfunctions" class="code">function obj = setPrior(obj,varargin)</a>
+0196             <span class="comment">% Sets the prior of an existing parameter. Expects a cell array with</span>
+0197             <span class="comment">% index or name of parameter and the new prior type ('uniform',</span>
+0198             <span class="comment">% 'gaussian', 'jeffreys') with mu and sigma value if applicable</span>
+0199             <span class="comment">%</span>
+0200             <span class="comment">% params.setPrior(2, 'gaussian', 1, 2);</span>
+0201             inputValues = varargin{:};
+0202             tab = obj.paramsTable;
+0203             
+0204             row = obj.getValidRow(inputValues(1));
+0205             priorType = inputValues{2};
+0206             <span class="keyword">if</span> ~strcmpi(priorType,{<span class="string">'uniform'</span>,<span class="string">'gaussian'</span>,<span class="string">'jeffreys'</span>})
+0207                 error(<span class="string">'Prior needs to be ''uniform'',''gaussian'', or ''jeffreys'''</span>);
+0208             <span class="keyword">end</span>
+0209             
+0210             priorType = lower(priorType);
+0211             <span class="keyword">switch</span> priorType
+0212                 <span class="keyword">case</span> <span class="string">'uniform'</span>
+0213                     tab(row,6) = {<span class="string">'uniform'</span>};
+0214                     tab(row,7) = {0};
+0215                     tab(row,8) = {Inf};
+0216                     
+0217                 <span class="keyword">case</span> <span class="string">'gaussian'</span>
+0218                     tab(row,6) = {<span class="string">'gaussian'</span>};             
+0219                     tab(row,7) = inputValues(3);
+0220                     tab(row,8) = inputValues(4);
+0221             <span class="keyword">end</span>
+0222     
+0223             obj.paramsTable = tab;
+0224             
+0225         <span class="keyword">end</span>
+0226         
+0227         <a name="_sub7" href="#_subfunctions" class="code">function obj = setValue(obj,varargin)</a>
+0228             <span class="comment">% Sets the value of an existing parameter. Expects a cell array with</span>
+0229             <span class="comment">% index or name of parameter and the new value</span>
+0230             <span class="comment">%</span>
+0231             <span class="comment">% params.setValue({2, 3.4});</span>
+0232             inputValues = varargin{:};
+0233             tab = obj.paramsTable;
+0234             <span class="keyword">if</span> length(inputValues) ~= 2
+0235                 error(<span class="string">'Need p (or name) / value pair to set'</span>);
+0236             <span class="keyword">end</span>
+0237             
+0238             row = obj.getValidRow(inputValues(1));
+0239             <span class="keyword">if</span> ~isnumeric(inputValues{2})
+0240                 error(<span class="string">'Value must be numeric'</span>);
+0241             <span class="keyword">end</span>
+0242             value = inputValues{2};
+0243             tab(row,3) = {value};
+0244             obj.paramsTable = tab;
+0245         <span class="keyword">end</span>
+0246         
+0247         <a name="_sub8" href="#_subfunctions" class="code">function obj = setName(obj,varargin)</a>
+0248             <span class="comment">% Sets the name of an existing parameter. Expects a cell array with</span>
+0249             <span class="comment">% index or name of parameter and the new name</span>
+0250             <span class="comment">%</span>
+0251             <span class="comment">% params.setName({2, 'new name'});</span>
+0252             tab = obj.paramsTable;
+0253             inputValues = varargin{:};
+0254             <span class="keyword">if</span> length(inputValues) ~= 2
+0255                 error(<span class="string">'Wrong number of values for setName'</span>);
+0256             <span class="keyword">end</span>
+0257             
+0258             row = obj.getValidRow(inputValues(1));
+0259             <span class="keyword">if</span> ~ischar(inputValues{2})
+0260                 error(<span class="string">'New name must be char'</span>);
+0261             <span class="keyword">end</span>
+0262             name = inputValues{2};
+0263             tab(row,1) = {name};
+0264             obj.paramsTable = tab;
+0265         <span class="keyword">end</span>
+0266         
+0267         <a name="_sub9" href="#_subfunctions" class="code">function obj = setConstr(obj, varargin)</a>
+0268             <span class="comment">% Sets the constraints of an existing parameter. Expects a cell array with</span>
+0269             <span class="comment">% index or name of parameter and new min and max of the parameter's value</span>
+0270             <span class="comment">%</span>
+0271             <span class="comment">% params.setConstr({2, 0, 100});</span>
+0272             tab = obj.paramsTable;
+0273             inputValues = varargin{:};
+0274             <span class="keyword">if</span> length(inputValues) ~= 3
+0275                 error(<span class="string">'Need p (or name) / min / max set'</span>);
+0276             <span class="keyword">end</span>
+0277             
+0278             min = inputValues{2};
+0279             max = inputValues{3};
+0280             <span class="keyword">if</span> ~(isnumeric(min) &amp;&amp; isnumeric(max))
+0281                 error(<span class="string">'min and max need to be numeric'</span>);
+0282             <span class="keyword">end</span>
+0283             
+0284             row = obj.getValidRow(inputValues(1));            
+0285             tab(row,2) = {min};
+0286             tab(row,4) = {max};
+0287             obj.paramsTable = tab;
+0288         <span class="keyword">end</span>
+0289                 
+0290         <a name="_sub10" href="#_subfunctions" class="code">function obj = setFit(obj, varargin)</a>
+0291             <span class="comment">% Sets the 'fit' to off or on for parameter. Expects a cell array with</span>
+0292             <span class="comment">% index or name of parameter and new fit flag</span>
+0293             <span class="comment">%</span>
+0294             <span class="comment">% params.setFit({2, true});</span>
+0295             <span class="keyword">if</span> iscell(varargin) &amp;&amp; length(varargin) == 1
+0296                 varargin = varargin{:};
+0297             <span class="keyword">end</span>
+0298             
+0299             tab = obj.paramsTable;
+0300             <span class="keyword">if</span> length(varargin) ~= 2
+0301                 error(<span class="string">'Need p (or name) / val pair set'</span>);
+0302             <span class="keyword">end</span>
+0303             
+0304             <span class="keyword">if</span> ~islogical(varargin{2})
+0305                 error(<span class="string">'Need true or false for Fit? value'</span>);
+0306             <span class="keyword">end</span>
+0307             
+0308             row = obj.getValidRow(varargin(1));           
+0309             tab(row,5) = varargin(2);
+0310             obj.paramsTable = tab;
+0311         <span class="keyword">end</span>
+0312         
+0313         <a name="_sub11" href="#_subfunctions" class="code">function set.showPriors(obj,flag)</a>
+0314             <span class="comment">% Setter for the showPriors property</span>
+0315             <span class="keyword">if</span> ~islogical(flag)
+0316                 error(<span class="string">'Show priors must be true or false'</span>);
+0317             <span class="keyword">end</span>
+0318             obj.showPriors = flag;
+0319         <span class="keyword">end</span>
+0320         
+0321         <a name="_sub12" href="#_subfunctions" class="code">function displayParametersTable(obj)</a>
+0322             <span class="comment">% Displays the parameter table</span>
+0323             array = obj.paramsTable;
+0324             p = 1:size(array,1);
+0325             p = p(:);
+0326             p = table(p);
+0327             <span class="keyword">if</span> ~obj.showPriors
+0328                 array = array(:,1:5);
+0329             <span class="keyword">end</span>
+0330             all = [p array];
+0331             disp(all);
+0332         <span class="keyword">end</span>
+0333         
+0334         
+0335         <a name="_sub13" href="#_subfunctions" class="code">function outStruct = toStruct(obj)</a>
+0336             <span class="comment">% Converts the class parameters into a structure array.</span>
+0337             paramNames = table2cell(obj.paramsTable(:,1));
+0338             
+0339             <span class="comment">% Want these to be class 'char' rather than 'string'</span>
+0340             <span class="keyword">for</span> n = 1:length(paramNames)
+0341                 paramNames{n} = char(paramNames{n});
+0342             <span class="keyword">end</span>
+0343             outStruct.paramNames = paramNames;
+0344             
+0345             outStruct.nParams = size(obj.paramsTable,1);
+0346             
+0347             mins = obj.paramsTable{:,2};
+0348             maxs = obj.paramsTable{:,4};
+0349             <span class="keyword">for</span> i = 1:length(mins)
+0350                 constr{i} = [mins(i) maxs(i)];
+0351             <span class="keyword">end</span>
+0352             
+0353             <span class="comment">%constr = [mins maxs];</span>
+0354             outStruct.paramConstr = constr;
+0355             
+0356             outStruct.params = obj.paramsTable{:,3};
+0357             
+0358             outStruct.fitYesNo = double(obj.paramsTable{:,5});
+0359             
+0360             priors = table2cell(obj.paramsTable(:,6:8));
+0361             priors = [outStruct.paramNames priors];
 0362             
-0363             outStruct.nParams = size(obj.paramsTable,1);
-0364             
-0365             mins = obj.paramsTable{:,2};
-0366             maxs = obj.paramsTable{:,4};
-0367             <span class="keyword">for</span> i = 1:length(mins)
-0368                 constr{i} = [mins(i) maxs(i)];
-0369             <span class="keyword">end</span>
-0370             
-0371             <span class="comment">%constr = [mins maxs];</span>
-0372             outStruct.paramConstr = constr;
+0363             <span class="comment">% Group each row into one cell. Should be a way of doing this</span>
+0364             <span class="comment">% without a loop but I can't quite see it right now...</span>
+0365             <span class="keyword">for</span> i = 1:size(priors,1)
+0366                 thisPrior = priors(i,:);
+0367                 val2 = char(thisPrior{2});
+0368                 thisPrior{2} = val2;
+0369                 pp(i) = {thisPrior};
+0370             <span class="keyword">end</span>
+0371             
+0372             outStruct.priors = pp(:);
 0373             
-0374             outStruct.params = obj.paramsTable{:,3};
-0375             
-0376             outStruct.fitYesNo = double(obj.paramsTable{:,5});
-0377             
-0378             priors = table2cell(obj.paramsTable(:,6:8));
-0379             priors = [outStruct.paramNames priors];
-0380             
-0381             <span class="comment">% Group each row into one cell. Should be a way of doing this</span>
-0382             <span class="comment">% without a loop but I can't quite see it right now...</span>
-0383             <span class="keyword">for</span> i = 1:size(priors,1)
-0384                 thisPrior = priors(i,:);
-0385                 val2 = char(thisPrior{2});
-0386                 thisPrior{2} = val2;
-0387                 pp(i) = {thisPrior};
-0388             <span class="keyword">end</span>
-0389             
-0390             outStruct.priors = pp(:);
-0391             
-0392             
-0393             <span class="comment">% Need to force some of the outputs</span>
-0394             <span class="comment">% to be row vectors, so transpose them</span>
-0395             outStruct.paramNames = outStruct.paramNames';
-0396             <span class="comment">%outStruct.paramConstr = outStruct.paramConstr;</span>
-0397             outStruct.params = outStruct.params';
-0398             outStruct.fitYesNo = outStruct.fitYesNo';
-0399             
-0400             <span class="comment">% Fields order needs to be...</span>
-0401             
-0402             <span class="comment">% paramNames</span>
-0403             <span class="comment">% nParams</span>
-0404             <span class="comment">% paramConstr</span>
-0405             <span class="comment">% params</span>
-0406             <span class="comment">% fitYesNo</span>
-0407             <span class="comment">% priors</span>
-0408             
-0409         <span class="keyword">end</span>
-0410         
-0411     <span class="keyword">end</span>
-0412     
-0413     
-0414     methods (Access = protected)
-0415         
-0416         <a name="_sub15" href="#_subfunctions" class="code">function appendNewRow(obj,row)</a>
+0374             
+0375             <span class="comment">% Need to force some of the outputs</span>
+0376             <span class="comment">% to be row vectors, so transpose them</span>
+0377             outStruct.paramNames = outStruct.paramNames';
+0378             <span class="comment">%outStruct.paramConstr = outStruct.paramConstr;</span>
+0379             outStruct.params = outStruct.params';
+0380             outStruct.fitYesNo = outStruct.fitYesNo';
+0381             
+0382             <span class="comment">% Fields order needs to be...</span>
+0383             
+0384             <span class="comment">% paramNames</span>
+0385             <span class="comment">% nParams</span>
+0386             <span class="comment">% paramConstr</span>
+0387             <span class="comment">% params</span>
+0388             <span class="comment">% fitYesNo</span>
+0389             <span class="comment">% priors</span>
+0390         <span class="keyword">end</span>
+0391         
+0392     <span class="keyword">end</span>
+0393     
+0394     
+0395     methods (Access = protected)
+0396         
+0397         <a name="_sub14" href="#_subfunctions" class="code">function appendNewRow(obj,row)</a>
+0398             <span class="comment">% Appends a new row to the table. Expects a cell array</span>
+0399             <span class="comment">% with row values to append</span>
+0400             <span class="comment">%</span>
+0401             <span class="comment">% obj.appendNewRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})</span>
+0402             tab = obj.paramsTable;
+0403             newName = row{1};
+0404             <span class="keyword">if</span> any(strcmp(newName,tab{:,1}))
+0405                 error(<span class="string">'Duplicate parameter names not allowed'</span>);
+0406             <span class="keyword">end</span>
+0407             tab = [tab ; row];
+0408             obj.paramsTable = tab;
+0409             obj.paramAutoNameCounter = obj.paramAutoNameCounter + 1;
+0410         <span class="keyword">end</span>
+0411         
+0412         <a name="_sub15" href="#_subfunctions" class="code">function removeRow(obj, row)</a>
+0413             <span class="comment">% Removes a specified row of the table. Expects</span>
+0414             <span class="comment">% index or name of row to remove</span>
+0415             <span class="comment">%</span>
+0416             <span class="comment">% obj.removeRow(1)</span>
 0417             tab = obj.paramsTable;
-0418             newName = row{1};
-0419             <span class="keyword">if</span> any(strcmp(newName,tab{:,1}))
-0420                 error(<span class="string">'Duplicate parameter names not allowed'</span>);
-0421             <span class="keyword">end</span>
-0422             tab = [tab ; row];
-0423             obj.paramsTable = tab;
-0424             obj.paramCount = obj.paramCount + 1;
-0425             obj.paramAutoNameCounter = obj.paramAutoNameCounter + 1;
-0426         <span class="keyword">end</span>
-0427         
-0428         <a name="_sub16" href="#_subfunctions" class="code">function removeRow(obj, row)</a>
-0429             tab = obj.paramsTable;
-0430             
-0431             <span class="keyword">if</span> ischar(row)
-0432                 <span class="comment">% Assume a row name</span>
-0433                 index = strcmp(row, tab{:,1});
-0434                 <span class="keyword">if</span> isempty(index)
-0435                     error(<span class="string">'Unrecognised parameter name'</span>);
-0436                 <span class="keyword">end</span>
-0437                 row = find(index);
-0438             <span class="keyword">end</span>
-0439             
-0440             numRows = size(tab,1);
-0441             <span class="keyword">if</span> row == numRows
-0442                 <span class="comment">% Removing the last row</span>
-0443                 newTab = tab(1:end-1,:);
-0444                 
-0445             <span class="keyword">elseif</span> row == 1
-0446                 newTab = tab(2:<span class="keyword">end</span>,:);
-0447                 
-0448             <span class="keyword">else</span>
-0449                 <span class="comment">% Removing a row somewhere in the centre</span>
-0450                 tab1 = tab(1:row-1,:);
-0451                 tab2 = tab(row+1:<span class="keyword">end</span>,:);
-0452                 newTab = [tab1 ; tab2];
-0453             <span class="keyword">end</span>
-0454             
-0455             obj.paramsTable = newTab;
-0456             obj.paramCount = obj.paramCount - 1;
-0457             
-0458         <span class="keyword">end</span>
-0459         
-0460 
-0461     <span class="keyword">end</span>
-0462 
-0463 <span class="keyword">end</span>
-0464 
-0465 
-0466 <a name="_sub17" href="#_subfunctions" class="code">function row = findRowIndex(name,tab)</a>
-0467     <span class="comment">% Get loist of rownames from table..</span>
-0468     namesList = tab{:,1};
-0469     
-0470     <span class="comment">% Strip leading or trailing whitaspaces from names and name</span>
-0471     namesList = strip(namesList);
-0472     name = strip(name);
-0473     
-0474     <span class="comment">% Compare 'name' to list ignoring case</span>
-0475     index = strcmpi(name, namesList);
-0476     <span class="keyword">if</span> isempty(index)
-0477         error(<span class="string">'Unrecognised parameter name'</span>);
-0478     <span class="keyword">end</span>
-0479     
-0480     <span class="comment">% Non-zero value in array is the row index</span>
-0481     row = find(index);
-0482 <span class="keyword">end</span>
-0483 
-0484 
-0485 <a name="_sub18" href="#_subfunctions" class="code">function inputBlock = parseParameterInput(varargin)</a>
-0486 
-0487     defaultName = <span class="string">''</span>;
-0488     defaultMin = [];
-0489     defaultMax = [];   
-0490     defaultValue = [];
-0491     defaultFit = [];
-0492 
-0493     p = inputParser;
-0494     addParameter(p,<span class="string">'name'</span>,  defaultName,   @ischar);
-0495     addParameter(p,<span class="string">'min'</span>,   defaultMin,    @isnumeric);
-0496     addParameter(p,<span class="string">'value'</span>, defaultValue,  @isnumeric);
-0497     addParameter(p,<span class="string">'max'</span>,   defaultMax,    @isnumeric);
-0498     addParameter(p,<span class="string">'fit'</span>,   defaultFit,    @islogical);
-0499     
-0500     inputVals = varargin{:};
-0501     
-0502     parse(p,inputVals{:});
-0503     inputBlock = p.Results;
-0504 
-0505 <span class="keyword">end</span>
-0506 
-0507 
+0418             
+0419             <span class="keyword">if</span> ischar(row)
+0420                 <span class="comment">% Assume a row name</span>
+0421                 index = strcmp(row, tab{:,1});
+0422                 <span class="keyword">if</span> ~any(index)
+0423                     error(<span class="string">'Unrecognised parameter name'</span>);
+0424                 <span class="keyword">end</span>
+0425                 row = find(index);
+0426             <span class="keyword">end</span>
+0427             
+0428             <span class="keyword">if</span> (row &lt; 1) || (row &gt; obj.paramCount)
+0429                 error(<span class="string">'Row index out out of range'</span>);
+0430             <span class="keyword">end</span>
+0431             
+0432             tab(row, :) = [];
+0433             obj.paramsTable = tab;   
+0434         <span class="keyword">end</span>
+0435         
+0436         <a name="_sub16" href="#_subfunctions" class="code">function index = getValidRow(obj, row)</a>
+0437             <span class="comment">% Gets valid row with given name or index</span>
+0438             <span class="comment">%</span>
+0439             <span class="comment">% obj.getValidRow('param name'})</span>
+0440             <span class="keyword">if</span> ischar(row{1})
+0441                 name = string(row{1});
+0442                 index = obj.findRowIndex(name, obj.paramsTable);
+0443             <span class="keyword">else</span>
+0444                 index = row{1};
+0445                 <span class="keyword">if</span> (index &lt; 1) || (index &gt; obj.paramCount)
+0446                     error(<span class="string">'Row index out out of range'</span>);
+0447                 <span class="keyword">end</span>     
+0448             <span class="keyword">end</span>
+0449         <span class="keyword">end</span>
+0450     <span class="keyword">end</span>
+0451 
+0452     methods (Static)
+0453         <a name="_sub17" href="#_subfunctions" class="code">function row = findRowIndex(name,tab)</a>
+0454             <span class="comment">% Gets index with given row name from table.</span>
+0455             <span class="comment">%</span>
+0456             <span class="comment">% obj.parseParameterInput({'name', 'param'})</span>
+0457             namesList = tab{:,1};
+0458             
+0459             <span class="comment">% Strip leading or trailing white spaces from names and name</span>
+0460             namesList = strip(namesList);
+0461             name = strip(name);
+0462             
+0463             <span class="comment">% Compare 'name' to list ignoring case</span>
+0464             index = strcmpi(name, namesList);
+0465             <span class="keyword">if</span> ~any(index)
+0466                 error(<span class="string">'Unrecognised parameter name'</span>);
+0467             <span class="keyword">end</span>
+0468             
+0469             <span class="comment">% Non-zero value in array is the row index</span>
+0470             row = find(index);
+0471         <span class="keyword">end</span>
+0472         
+0473         
+0474         <a name="_sub18" href="#_subfunctions" class="code">function inputBlock = parseParameterInput(varargin)</a>
+0475             <span class="comment">% Parses parameter keyword/value pairs in a cell array</span>
+0476             <span class="comment">% into a structure.</span>
+0477             <span class="comment">%</span>
+0478             <span class="comment">% obj.parseParameterInput({'name', 'param'})</span>
+0479             defaultName = <span class="string">''</span>;
+0480             defaultMin = [];
+0481             defaultMax = [];   
+0482             defaultValue = [];
+0483             defaultFit = [];
+0484         
+0485             p = inputParser;
+0486             addParameter(p,<span class="string">'name'</span>,  defaultName,   @ischar);
+0487             addParameter(p,<span class="string">'min'</span>,   defaultMin,    @isnumeric);
+0488             addParameter(p,<span class="string">'value'</span>, defaultValue,  @isnumeric);
+0489             addParameter(p,<span class="string">'max'</span>,   defaultMax,    @isnumeric);
+0490             addParameter(p,<span class="string">'fit'</span>,   defaultFit,    @islogical);
+0491             
+0492             inputVals = varargin{:};
+0493             
+0494             parse(p,inputVals{:});
+0495             inputBlock = p.Results;
+0496         <span class="keyword">end</span>
+0497         
+0498     <span class="keyword">end</span>
+0499 
+0500 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 31-Jan-2023 15:40:27 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 07-Feb-2023 09:42:39 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

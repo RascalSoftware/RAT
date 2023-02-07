@@ -1,7 +1,7 @@
 classdef layersClassRealSLD < handle
     
-    % This is the class definition for the
-    % layers block with no absorption.
+    % This is the class definition for the layers block with no absorption.
+
     properties
         layersTable = table
     end
@@ -15,9 +15,9 @@ classdef layersClassRealSLD < handle
     methods
         
         function obj = layersClassRealSLD()
-            
-            % Class constructor
-            
+            % Constructor a layers class including an empty layers table
+            %
+            % layers = layersClassRealSLD();          
             sz = [0 6];
             varTypes = {'string','string','string','string','string','string'};
             varNames = {'Name','Thickness','SLD','Roughness','Hydration','Hydrate with'};
@@ -29,7 +29,19 @@ classdef layersClassRealSLD < handle
         end
         
         function obj = addLayer(obj, whatToAdd, paramNames)
-
+            % Add a layer to the layers table
+            % The expected input is a cell array of layer parameters and
+            % a string array of parameter names defined in the project's
+            % parameter class. The layer can be specified with no
+            % parameters (an empty cell array), just a layer name,
+            % or a fully defined layer, which consists of either a length
+            % four (no hydration) or length six cell array. Parameters can
+            % be specified either by name of by index.
+            %
+            % layers.addLayer({}, parameters.paramsTable{:, 1});
+            % layers.addLayer({'New layer'}, parameters.paramsTable{:, 1});
+            % layers.addLayer({'Another layer', 1, 2, 3},...
+            %                  parameters.paramsTable{:, 1});
             switch length(whatToAdd)
 
                 case 0
@@ -86,8 +98,14 @@ classdef layersClassRealSLD < handle
         end
         
         function obj = setLayerValue(obj, inputValues, paramNames)
-            % Sets a value in a layer
-
+            % Change the value of a given layer parameter in the table
+            % (excluding the layer name). The row and column of the
+            % parameter can both be specified by either name or index.
+            % The expected input is a cell array consisting of three
+            % values: row, column, newValue, and a string array of
+            % parameter names defined in the project's parameter class.
+            %
+            % layers.setLayerValue(1, 1, "origin", parameters.paramsTable{:, 1});
             rowPar = inputValues{1};
             layerNames = obj.layersTable{:,1};
             
@@ -157,13 +175,18 @@ classdef layersClassRealSLD < handle
 
         
         function layersNames = getLayersNames(obj)
-            
+            % Get a string array pf the names of each of the layers defined
+            % in the class.
+            %
+            % layers.getLayersNames()
             layersNames = obj.layersTable{:,1};
             
         end
         
         function outStruct = toStruct(obj)
-            
+            % Convert the layers class to a struct.
+            %
+            % layers.toStruct()            
             %outStruct = table2cell(obj.layersTable);
             outStruct = obj.layersTable{:,:};
             
@@ -171,8 +194,9 @@ classdef layersClassRealSLD < handle
         
 
         function displayLayersTable(obj)
-            
             % Displays the layers table with numbered rows
+            %
+            % layers.displayLayersTable()
             array = obj.layersTable;
             len = size(array,1);
             if len == 0
@@ -198,6 +222,10 @@ classdef layersClassRealSLD < handle
     methods (Access = protected)
         
         function appendNewRow(obj,row)
+            % Appends a row to the layers table. The expected input is
+            % a length six cell array.
+            %
+            % layers.appendNewRow({'New Row','','','','','bulk out'});
             tab = obj.layersTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))
@@ -243,14 +271,17 @@ classdef layersClassRealSLD < handle
                     error('Parameter %s not recognized', inputVal);
                 end
                 param = inputVal;
+
             elseif isnumeric(inputVal)
                 paramIndex = floor(inputVal);
                 if paramIndex < 1 || paramIndex > length(paramNames)
                     error('Parameter "%d" is out of range', paramIndex);
                 end
                 param = paramNames{paramIndex};
+
             else
                 error('Parameter %s is not in a recognizable format', inputVal);
+                
             end
         end
 

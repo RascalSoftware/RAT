@@ -4,16 +4,18 @@ classdef testLayersClass < matlab.unittest.TestCase
 % used within the Project Class in RAT.
 %
 % In this class, we test:
+% layersClassRealSLD, addLayer, setLayerValue, removeLayer,
+% getLayersNames, toStruct, displayLayersTable, findRowIndex, findParameter
 %
 % We use an example layers class from example calculation
 % "DPPC_standard_layers.m"
 %
-% Paul Sharp 06/02/23
+% Paul Sharp 07/02/23
 %
 %% Declare properties and parameters
 
     properties (TestParameter)
-        % Cell arrays for initialising a multi type table
+        % Cell arrays for adding layers
         layerInput = {{},...
                       {'Named Layer'},...
                       {'Oxide Names Layer',...
@@ -220,7 +222,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             % Column indices
             testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 0, 'Changed'}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 1, 'Changed'}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 1, 'Changed'}, testCase.parameterNames), ?MException) % Can't change name
             testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, testCase.numCols+1, 'Changed'}, testCase.parameterNames), ?MException)
 
             % Row name
@@ -287,7 +289,8 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
-            % continuing
+            % continuing - output consists of table header, divider row
+            % and the defined table rows
             testCase.assertSize(displayedTable, [testCase.numRows+2, 1], 'Table does not have the right number of rows');
 
             % Check table contents - when displayed, row 2 is a set of
@@ -295,13 +298,13 @@ classdef testLayersClass < matlab.unittest.TestCase
             for i = 1:testCase.numRows
 
                 % Replace multiple spaces in output table with a single
-                % space using regular expressions
-                outRow = strip(regexprep(displayedTable(i+2), '\s+', ' '));
+                % space using regular expressions, and remove '"'
+                % characters
+                outRow = strip(replace(regexprep(displayedTable(i+2), '\s+', ' '), '"', ''));
 
-                % Get data from this row, add '"' characters to
-                % match output, join into a single string, and then
-                % prepend the row index
-                rowString = string(i) + " " + strip(strjoin(strcat('"',testCase.exampleClass.layersTable{i,:},'"')));
+                % Get data from this row, join into a single string, and
+                % then prepend the row index
+                rowString = string(i) + " " + strip(strjoin(testCase.exampleClass.layersTable{i,:}));
                 testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
 
             end
@@ -343,7 +346,7 @@ classdef testLayersClass < matlab.unittest.TestCase
         function testFindRowIndex(testCase)
             % Test that the correct row number is returned for a valid row,
             % and an error is raised for invalid options
-            tableRows = testCase.exampleClass.layersTable{:,1};
+            tableRows = testCase.exampleClass.layersTable{:, 1};
 
             testCase.verifyEqual(layersClassRealSLD.findRowIndex("Bil Tail", tableRows), 2);
 
@@ -365,7 +368,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             testCase.verifyError(@() layersClassRealSLD.findParameter('Invalid Param', testCase.parameterNames), ?MException)
             testCase.verifyError(@() layersClassRealSLD.findParameter(0, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() layersClassRealSLD.findParameter(16, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() layersClassRealSLD.findParameter(testCase.numParams+1, testCase.parameterNames), ?MException)
             testCase.verifyError(@() layersClassRealSLD.findParameter(datetime('today'), testCase.parameterNames), ?MException)
         end
 

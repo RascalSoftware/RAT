@@ -285,7 +285,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
-            % continuing
+            % continuing - output consists of table header, divider row
+            % and the defined table rows
             testCase.assertSize(displayedTable, [testCase.numRows+2, 1], 'Table does not have the right number of rows');
 
             % Check table contents - when displayed, row 2 is a set of
@@ -293,13 +294,13 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             for i = 1:testCase.numRows
 
                 % Replace multiple spaces in output table with a single
-                % space using regular expressions
-                outRow = strip(regexprep(displayedTable(i+2), '\s+', ' '));
+                % space using regular expressions, and remove '"'
+                % characters
+                outRow = strip(replace(regexprep(displayedTable(i+2), '\s+', ' '), '"', ''));                
 
-                % Get data from this row, add '"' characters to
-                % match output, join into a single string, and then
-                % prepend the row index
-                rowString = string(i) + " " + strip(strjoin(strcat('"',testCase.exampleTable.typesTable{i,:},'"')));
+                % Get data from this row, join into a single string, and
+                % then prepend the row index
+                rowString = string(i) + " " + strip(strjoin(testCase.exampleTable.typesTable{i,:}));
                 testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
 
             end

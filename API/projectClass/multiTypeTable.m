@@ -35,7 +35,7 @@ classdef multiTypeTable < handle
             % with up to seven parameters, with empty strings used for
             % values that are not specified.
             %
-            % multiTable.addRow("New Row")
+            % multiTable.addRow("New Row");
             switch length(addParams)
 
                 case 0
@@ -127,7 +127,7 @@ classdef multiTypeTable < handle
             % NOTE that an input such as {[1 3]} leads to multiple rows
             % being removed from the table
             %
-            % multiTable.removeRow({2})
+            % multiTable.removeRow({2});
             tab = obj.typesTable;
             thisRow = row{:};
             tab(thisRow,:) = [];
@@ -138,7 +138,7 @@ classdef multiTypeTable < handle
         function displayTypesTable(obj)
             % Display the multi-type Table in the terminal.
             %
-            % multiTable.displayTypesTable()
+            % multiTable.displayTypesTable();
             array = obj.typesTable;
             p = 1:size(array,1);
             p = p(:);
@@ -151,7 +151,7 @@ classdef multiTypeTable < handle
             % Appends a row to the multi-type table. The expected input is
             % a length seven cell array.
             %
-            % multiTable.appendNewRow({'New Row','','','','','',''})
+            % multiTable.appendNewRow({'New Row','','','','','',''});
             tab = obj.typesTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))

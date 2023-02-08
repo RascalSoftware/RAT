@@ -404,10 +404,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if length(varargin) ~= 3
                 error('Three parameters expected into setLayerValue');
             end
-            inputPars = varargin;
-            
+
             % call the layers class to set the value
-            obj.layers.setLayerValue(inputPars, obj.parameters.paramsTable{:,1});           
+            obj.layers.setLayerValue(varargin{1}, varargin{2}, varargin{3}, obj.parameters.paramsTable{:,1});           
         end
         
         % ---------------------------------------------------------------

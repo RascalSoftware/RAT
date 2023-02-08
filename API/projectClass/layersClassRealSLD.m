@@ -97,19 +97,18 @@ classdef layersClassRealSLD < handle
             
         end
         
-        function obj = setLayerValue(obj, inputValues, paramNames)
+        function obj = setLayerValue(obj, rowPar, colPar, inputValue, paramNames)
             % Change the value of a given layer parameter in the table
             % (excluding the layer name). The row and column of the
             % parameter can both be specified by either name or index.
-            % The expected input is a cell array consisting of three
-            % values: row, column, newValue, and a string array of
-            % parameter names defined in the project's parameter class.
+            % The expected input is a row parameter (name or index), a
+            % column parameter (name or index), the new value to be set at
+            % that row and column, and a string array of parameter names
+            % defined in the project's parameter class.
             %
             % layers.setLayerValue(1, 1, "origin", parameters.paramsTable{:, 1});
-            %disp(inputValues);
-            %disp(class(inputValues));
-            rowPar = inputValues{1};
             layerNames = obj.layersTable{:,1};
+            colNames = obj.layersTable.Properties.VariableNames;
             
             % Find the row index if we have a layer name
             if ischar(rowPar)
@@ -126,9 +125,6 @@ classdef layersClassRealSLD < handle
                 error('Layer not recognised');
             end
             
-            colPar = inputValues{2};
-            colNames = obj.layersTable.Properties.VariableNames;
-
             % Find the column index if we have a column name
             if ischar(colPar)
                 col = obj.findRowIndex(colPar,colNames);
@@ -149,12 +145,12 @@ classdef layersClassRealSLD < handle
             end
 
             if col == 6
-                if ~(strcmpi(inputValues{3},obj.allowedHydration))
+                if ~(strcmpi(inputValue,obj.allowedHydration))
                     error('Column 6 of layer must be ''bulk in'', ''bulk out'' or ''none''');
                 end
-                val = inputValues{3};
+                val = inputValue;
             else
-                val = obj.findParameter(inputValues{3}, paramNames);
+                val = obj.findParameter(inputValue, paramNames);
             end
                 
             obj.layersTable(row,col) = {string(val)};

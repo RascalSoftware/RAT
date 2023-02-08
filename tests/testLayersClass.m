@@ -252,7 +252,7 @@ classdef testLayersClass < matlab.unittest.TestCase
         function testRemoveLayer(testCase)
             % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleClass.layersTable(2:end,:);
-            testCase.exampleClass.removeLayer({1});
+            testCase.exampleClass.removeLayer(1);
 
             testCase.verifyEqual(testCase.exampleClass.layersTable, remainingRows, "removeLayer does not work correctly");
         end
@@ -261,7 +261,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Test removing multiple rows from a layers table
             % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleClass.layersTable(2,:);
-            testCase.exampleClass.removeLayer({[1 3]});
+            testCase.exampleClass.removeLayer([1 3]);
 
             testCase.verifyEqual(testCase.exampleClass.layersTable, remainingRows, "removeLayer does not work correctly");
         end

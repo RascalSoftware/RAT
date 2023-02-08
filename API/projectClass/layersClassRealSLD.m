@@ -106,6 +106,8 @@ classdef layersClassRealSLD < handle
             % parameter names defined in the project's parameter class.
             %
             % layers.setLayerValue(1, 1, "origin", parameters.paramsTable{:, 1});
+            %disp(inputValues);
+            %disp(class(inputValues));
             rowPar = inputValues{1};
             layerNames = obj.layersTable{:,1};
             
@@ -161,14 +163,12 @@ classdef layersClassRealSLD < handle
 
         function removeLayer(obj, layer)
             % Removes a layer from the layers table. The expected input is
-            % a length one cell array.
-            % NOTE that an input such as {[1 3]} leads to multiple rows
-            % being removed from the table
+            % an integer or array of integers, i.e., an input such as
+            % [1 3] leads to multiple rows being removed from the table
             %
-            % layers.removeLayer({2})
+            % layers.removeLayer(2)
             tab = obj.layersTable;
-            thisRow = layer{:};
-            tab(thisRow,:) = [];
+            tab(layer,:) = [];
             obj.layersTable = tab;
             obj.layersCount = height(obj.layersTable);
         end
@@ -179,8 +179,7 @@ classdef layersClassRealSLD < handle
             % in the class.
             %
             % layers.getLayersNames()
-            layersNames = obj.layersTable{:,1};
-            
+            layersNames = obj.layersTable{:,1};  
         end
         
         function outStruct = toStruct(obj)
@@ -189,7 +188,6 @@ classdef layersClassRealSLD < handle
             % layers.toStruct()            
             %outStruct = table2cell(obj.layersTable);
             outStruct = obj.layersTable{:,:};
-            
         end
         
 

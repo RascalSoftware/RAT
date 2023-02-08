@@ -387,12 +387,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
         end
 
-        function obj = removeLayer(obj,varargin)
+        function obj = removeLayer(obj,layer)
             % Removes layer(s) from the layers object. Expects
             % index of layer(s) to remove.
             %
             % problem.removeLayer(1);
-            obj.layers.removeLayer(varargin);
+            obj.layers.removeLayer(layer);
         end
 
         function obj = setLayerValue(obj,varargin)

@@ -10,7 +10,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 % We use an example layers class from example calculation
 % "DPPC_standard_layers.m"
 %
-% Paul Sharp 07/02/23
+% Paul Sharp 08/02/23
 %
 %% Declare properties and parameters
 
@@ -157,7 +157,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
         end
 
-        function testAddRowInvalidFullLayer(testCase)
+        function testAddLayerInvalidFullLayer(testCase)
             % Test adding a layer to the layers class.
             % If we use an invalid set of layer parameters it should raise
             % an error
@@ -173,6 +173,9 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             % Invalid parameter names
             testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'}, testCase.parameterNames), ?MException)
+
+            % Duplicate layer names
+            testCase.verifyError(@() testCase.exampleClass.addLayer({'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'}, testCase.parameterNames), ?MException)
 
             % Invalid parameter indices
             testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, 3, 0}, testCase.parameterNames), ?MException)
@@ -231,6 +234,9 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Column name
             testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 'Invalid Name', 'Changed'}, testCase.parameterNames), ?MException)
 
+            % Invalid hydrate type
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, 6, 'Invalid hydrate'}, testCase.parameterNames), ?MException)
+            
             % Invalid data types
             testCase.verifyError(@() testCase.exampleClass.setLayerValue({testCase.initialLayersTable, testCase.numCols, 'Changed'}, testCase.parameterNames), ?MException)
             testCase.verifyError(@() testCase.exampleClass.setLayerValue({1, datetime('today'), 'Changed'}, testCase.parameterNames), ?MException)

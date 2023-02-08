@@ -16,8 +16,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
     properties (TestParameter)
         % Cell arrays for adding layers
-        layerInput = {{},...
-                      {'Named Layer'},...
+        layerInput = {'Named Layer',...
                       {'Oxide Names Layer',...
                         'Oxide thick',...
                         'Oxide SLD',...
@@ -31,8 +30,7 @@ classdef testLayersClass < matlab.unittest.TestCase
                       {'Oxide Indices Layer', 2, 3, 1},...
                       {'Water Indices Layer', 13, 14, 8, 15, 'bulk out'}
                        }
-        addedLayer = {{'Layer 1','','','','','bulk out'},...
-                      {'Named Layer','','','','','bulk out'},...
+        addedLayer = {{'Named Layer','','','','','bulk out'},...
                       {'Oxide Names Layer',...
                        'Oxide thick',...
                        'Oxide SLD',...
@@ -152,7 +150,21 @@ classdef testLayersClass < matlab.unittest.TestCase
             % four or length six cell array     
             expectedTable = [testCase.exampleClass.layersTable; addedLayer];
 
-            testCase.exampleClass.addLayer(layerInput, testCase.parameterNames);
+            testCase.exampleClass.addLayer(testCase.parameterNames, layerInput);
+
+            testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
+        end
+
+        function testAddLayerEmpty(testCase)
+            % Test adding a layer to the layers class, with no input
+            % parameters.
+            % We can add a layer with no parameters, just a layer name, or
+            % a fully defined layer, which consists of either a length
+            % four or length six cell array
+            newLayer = {'Layer 1','','','','','bulk out'};
+            expectedTable = [testCase.exampleClass.layersTable; newLayer];
+
+            testCase.exampleClass.addLayer(testCase.parameterNames);
 
             testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
         end
@@ -163,26 +175,26 @@ classdef testLayersClass < matlab.unittest.TestCase
             % an error
 
             % Invalid length for layer parameters
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2, 3}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2, 3, 1, 4}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Incomplete Oxide', 2, 3, 1, 4, 'none', 5}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Incomplete Oxide', 2}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Incomplete Oxide', 2, 3}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Incomplete Oxide', 2, 3, 1, 4}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Incomplete Oxide', 2, 3, 1, 4, 'none', 5}), ?MException)
 
             % Invalid hydrate type
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, 3, 1, 4, 'surface'}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', 2, 3, 1, 4, 'surface'}), ?MException)
 
             % Invalid parameter names
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'}), ?MException)
 
             % Duplicate layer names
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'}, testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'}), ?MException)
 
             % Invalid parameter indices
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, 3, 0}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, 3, testCase.numParams+1}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', NaN ,3, 0}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, NaN, 0}, testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addLayer({'Oxide Layer', 2, 3, NaN}, testCase.parameterNames), ?MException)          
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', 2, 3, 0}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', 2, 3, testCase.numParams+1}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', NaN ,3, 0}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', 2, NaN, 0}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', 2, 3, NaN}), ?MException)          
         end
 
         function testSetLayerValue(testCase)

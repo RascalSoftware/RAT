@@ -365,26 +365,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % a name to create an empty layer.
             %
             % problem.addLayer('New Layer');
-            
-            % Layers class will also need to know which parameters are
-            % currently defined (could also be done here rather than in
-            % object)
-            if isempty(varargin)
-                % No input, so empty layer
-                whatToAdd = {};
-                
-            elseif ischar(varargin{:})
-                % Input is string, so named empty layer
-                whatToAdd = varargin;
-                
-            elseif iscell(varargin{:})
-                % Input is cell, so adding layer with parameters
-                whatToAdd = varargin{:};
-            end
-
-            % Call the addLayer method
-            obj.layers.addLayer(whatToAdd,obj.parameters.paramsTable{:,1});
-            
+            obj.layers.addLayer(obj.parameters.paramsTable{:,1}, varargin{:});        
         end
 
         function obj = removeLayer(obj,layer)

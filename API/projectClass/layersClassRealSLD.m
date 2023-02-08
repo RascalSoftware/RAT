@@ -28,70 +28,68 @@ classdef layersClassRealSLD < handle
             
         end
         
-        function obj = addLayer(obj, whatToAdd, paramNames)
+        function obj = addLayer(obj, paramNames, varargin)
             % Add a layer to the layers table
-            % The expected input is a cell array of layer parameters and
-            % a string array of parameter names defined in the project's
-            % parameter class. The layer can be specified with no
-            % parameters (an empty cell array), just a layer name,
-            % or a fully defined layer, which consists of either a length
-            % four (no hydration) or length six cell array. Parameters can
-            % be specified either by name of by index.
+            % The expected input is a string array of parameter names
+            % defined in the project's parameter class and a variable
+            % number of layer parameters. The layer can be specified with
+            % no parameters, just a layer name (char), or a fully defined
+            % layer, which consists of either four (no hydration) or six
+            % parameters. Parameters can be specified either by name or
+            % by index.
             %
-            % layers.addLayer({}, parameters.paramsTable{:, 1});
-            % layers.addLayer({'New layer'}, parameters.paramsTable{:, 1});
-            % layers.addLayer({'Another layer', 1, 2, 3},...
-            %                  parameters.paramsTable{:, 1});
-            switch length(whatToAdd)
-
-                case 0
-                    % Add an empty layer
-                    layerNum = obj.layersAutoNameCounter;
-                    layerName = sprintf('Layer %d',layerNum);
-                    newRow = {layerName,'','','','','bulk out'};
-                    appendNewRow(obj,newRow);
-                    
-                case 1
-                    % Add an empty named layer
-                    newRow = {whatToAdd{1},'','','','','bulk out'};
-                    appendNewRow(obj,newRow);
+            % layers.addLayer(parameters.paramsTable{:, 1});
+            % layers.addLayer(parameters.paramsTable{:, 1}, 'New layer');
+            % layers.addLayer(parameters.paramsTable{:, 1},...
+            %                 'Another layer', 1, 2, 3);
+            if isempty(varargin)
+                % Add an empty layer
+                layerNum = obj.layersAutoNameCounter;
+                layerName = sprintf('Layer %d',layerNum);
+                newRow = {layerName,'','','','','bulk out'};
+                appendNewRow(obj,newRow);
                 
-                otherwise
-                    % Add a layer that is fully defined
-                    layerDetails = whatToAdd;
+            elseif ischar(varargin{:})
+                % Add an empty named layer
+                newRow = {varargin{1},'','','','','bulk out'};
+                appendNewRow(obj,newRow);
+            
+            else
+                % Add a layer that is fully defined
+                layerDetails = varargin{:};
 
-                    if length(layerDetails) == 4
-                        % No hydration
-                        layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};
-                    elseif length(layerDetails) ~= 6
-                        error('Can''t define a layer from partial details')
-                    end
-                    
-                    name = layerDetails{1};
-                    hydrateWhat = layerDetails{end};
-                    
-                    if ~strcmpi(hydrateWhat,obj.allowedHydration)
-                        error('Hydrate type must be ''bulk in'', ''bulk out'' or ''none''');
-                    end
-                    
-                    % Check that the parameter names given are real
-                    % parameters or numbers
-                    thisRow = {name};
-                    
-                    % Must be a parameter name or number . . .
-                    for i = 2:4                       
-                        thisRow{i} = obj.findParameter(layerDetails{i}, paramNames);
-                    end
+                if length(layerDetails) == 4
+                    % No hydration
+                    layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};
+                elseif length(layerDetails) ~= 6
+                    error('Can''t define a layer from partial details')
+                end
+                
+                name = layerDetails{1};
+                hydrateWhat = layerDetails{end};
+                
+                if ~strcmpi(hydrateWhat,obj.allowedHydration)
+                    error('Hydrate type must be ''bulk in'', ''bulk out'' or ''none''');
+                end
+                
+                % Check that the parameter names given are real
+                % parameters or numbers
+                thisRow = {name};
+                
+                % Must be a parameter name or number . . .
+                for i = 2:4                       
+                    thisRow{i} = obj.findParameter(layerDetails{i}, paramNames);
+                end
 
-                    %  . . . (unless p=5 which can also be Nan)
-                    if isnan(layerDetails{5})
-                        thisRow{5} = NaN;
-                    else
-                        thisRow{5} = obj.findParameter(layerDetails{5}, paramNames);
-                    end
-                    
-                    thisRow = [thisRow hydrateWhat];
-                    appendNewRow(obj,thisRow);
+                %  . . . (unless p=5 which can also be Nan)
+                if isnan(layerDetails{5})
+                    thisRow{5} = NaN;
+                else
+                    thisRow{5} = obj.findParameter(layerDetails{5}, paramNames);
+                end
+                
+                thisRow = [thisRow hydrateWhat];
+                appendNewRow(obj,thisRow);
                     
             end
             

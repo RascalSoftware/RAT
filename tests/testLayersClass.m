@@ -232,26 +232,30 @@ classdef testLayersClass < matlab.unittest.TestCase
             % values of both names and indices to refer to rows and columns
 
             % Row indices
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(0, testCase.numCols, 'Changed', testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.numRows+1, testCase.numCols, 'Changed', testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(0, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.numRows+1, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), ?MException)
 
             % Column indices
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 0, 'Changed', testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 0, 'Substrate Roughness', testCase.parameterNames), ?MException)
             testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 1, 'Changed', testCase.parameterNames), ?MException) % Can't change name
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, testCase.numCols+1, 'Changed', testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, testCase.numCols+1, 'Substrate Roughness', testCase.parameterNames), ?MException)
 
             % Row name
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue('Invalid Name', testCase.numCols, 'none', testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue('Invalid Name', testCase.numCols, 'Substrate Roughness', testCase.parameterNames), ?MException)
 
             % Column name
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 'Invalid Name', 'Changed', testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 'Invalid Name', 'Substrate Roughness', testCase.parameterNames), ?MException)
 
             % Invalid hydrate type
             testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 6, 'Invalid hydrate', testCase.parameterNames), ?MException)
+
+            % Float values within range
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(3, 2.5, 'Substrate Roughness', testCase.parameterNames), 'MATLAB:badsubscript')
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(2.5, 3, 'Substrate Roughness', testCase.parameterNames), 'MATLAB:badsubscript')
             
             % Invalid data types
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.initialLayersTable, testCase.numCols, 'Changed', testCase.parameterNames), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, datetime('today'), 'Changed', testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.initialLayersTable, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, datetime('today'), 'Substrate Roughness', testCase.parameterNames), ?MException)
         end
 
         function testRemoveLayer(testCase)

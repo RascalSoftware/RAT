@@ -13,7 +13,7 @@ classdef multiTypeTable < handle
         typesAutoNameString = 'Row';
     end
 
-    properties (Dependent)
+    properties (Dependent, SetAccess = private)
         typesCount;
     end
 
@@ -92,11 +92,10 @@ classdef multiTypeTable < handle
                 row = obj.findRowIndex(rowPar, rowNames);
             elseif isnumeric(rowPar)
                 % This rounds any float values down to an integer
-                rowIndex = floor(rowPar);
-                if (rowIndex < 1) || (rowIndex > length(rowNames))
+                if (rowPar < 1) || (rowPar > obj.typesCount)
                    error('Row number out of range');  
                 else
-                    row = rowIndex;
+                    row = rowPar;
                 end
             else
                 error('Unrecognised row index');
@@ -110,12 +109,10 @@ classdef multiTypeTable < handle
             if ischar(colPar)
                 col = obj.findRowIndex(colPar,colNames);
             elseif isnumeric(colPar)
-                % This rounds any float values down to an integer
-                colIndex = floor(colPar);
-                if (colIndex < 1) || (colIndex > length(colNames))
+                if (colPar < 1) || (colPar > length(colNames))
                     error('Column number out out of range');
                 else
-                    col = colIndex;
+                    col = colPar;
                 end
             else
                 error('Unrecognised column index');

@@ -88,7 +88,6 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             testCase.exampleTable.allowedTypes = {'constant', 'data', 'function'};
             testCase.exampleTable.allowedActions = {'add','subtract'};
-            testCase.exampleTable.typesCount = 3;
             testCase.exampleTable.typesAutoNameCounter = 3;
             testCase.exampleTable.typesAutoNameString = 'New background';
 
@@ -189,6 +188,10 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             % Column name
             testCase.verifyError(@() testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), ?MException)
+
+            % Float values within range
+            testCase.verifyError(@() testCase.exampleTable.setValue({1, 2.5, 'Added'}), 'MATLAB:badsubscript')
+            testCase.verifyError(@() testCase.exampleTable.setValue({2.5, 1, 'New Name'}), 'MATLAB:badsubscript')
 
             % Invalid data types
             testCase.verifyError(@() testCase.exampleTable.setValue({testCase.initialTypesTable, testCase.numCols, 'Added'}), ?MException)

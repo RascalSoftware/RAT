@@ -11,7 +11,7 @@ classdef layersClassRealSLD < handle
         allowedHydration = {'bulk in','bulk out','none'}; 
     end
 
-    properties (Dependent)
+    properties (Dependent, SetAccess = private)
         layersCount;
     end
     
@@ -118,12 +118,10 @@ classdef layersClassRealSLD < handle
             if ischar(rowPar)
                 row = obj.findRowIndex(rowPar,layerNames);
             elseif isnumeric(rowPar)
-                % This rounds any float values down to an integer
-                rowIndex = floor(rowPar);
-                if (rowIndex < 1) || (rowIndex > length(layerNames))
+                if (rowPar < 1) || (rowPar > obj.layersCount)
                     error('Layer index out out of range');
                 else
-                    row = rowIndex;
+                    row = rowPar;
                 end
             else
                 error('Layer not recognised');
@@ -133,12 +131,10 @@ classdef layersClassRealSLD < handle
             if ischar(colPar)
                 col = obj.findRowIndex(colPar,colNames);
             elseif isnumeric(colPar)
-                % This rounds any float values down to an integer
-                colIndex = floor(colPar);
-                if (colIndex < 1) || (colIndex > length(colNames))
+                if (colPar < 1) || (colPar > length(colNames))
                     error('Column number out out of range');
                 else
-                    col = colIndex;
+                    col = colPar;
                 end
             else
                 error('Unrecognised column index');

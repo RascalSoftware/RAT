@@ -7,9 +7,12 @@ classdef layersClassRealSLD < handle
     end
     
     properties (Access = private)
-        layersCount
         layersAutoNameCounter
         allowedHydration = {'bulk in','bulk out','none'}; 
+    end
+
+    properties (Dependent)
+        layersCount;
     end
     
     methods
@@ -23,11 +26,14 @@ classdef layersClassRealSLD < handle
             varNames = {'Name','Thickness','SLD','Roughness','Hydration','Hydrate with'};
             obj.layersTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             %obj.layersTable(1,:) = {'Layer 1','', '', '', '','bulk out'};
-            obj.layersCount = 0;
             obj.layersAutoNameCounter = 1;
             
         end
-        
+
+        function count = get.layersCount(obj)
+            count = height(obj.layersTable);
+        end
+
         function obj = addLayer(obj, paramNames, varargin)
             % Add a layer to the layers table
             % The expected input is a string array of parameter names
@@ -164,7 +170,6 @@ classdef layersClassRealSLD < handle
             tab = obj.layersTable;
             tab(layer,:) = [];
             obj.layersTable = tab;
-            obj.layersCount = height(obj.layersTable);
         end
 
         
@@ -225,7 +230,6 @@ classdef layersClassRealSLD < handle
             end
             tab = [tab ; row];
             obj.layersTable = tab;
-            obj.layersCount = obj.layersCount + 1;
             obj.layersAutoNameCounter = obj.layersAutoNameCounter + 1;
         end
         

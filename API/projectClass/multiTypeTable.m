@@ -9,11 +9,14 @@ classdef multiTypeTable < handle
         % We need to be clearer on what the (default) allowedTypes should be. !!!!!!
         allowedTypes = {'constant','data','function','gaussian'};
         allowedActions = {'add','subtract'};
-        typesCount;
         typesAutoNameCounter;
         typesAutoNameString = 'Row';
     end
-    
+
+    properties (Dependent)
+        typesCount;
+    end
+
     methods
        
         function obj = multiTypeTable(startCell)
@@ -25,11 +28,14 @@ classdef multiTypeTable < handle
             varTypes = {'string','string','string','string','string','string','string'};
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
             obj.typesTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.typesCount = 0;
             obj.typesAutoNameCounter = 0;
             obj.addRow(startCell);
         end
-        
+
+        function count = get.typesCount(obj)
+           count = height(obj.typesTable);
+        end
+
         function obj = addRow(obj,addParams)
             % Adds a row to the multi-type table. The row can be specified
             % with up to seven parameters, with empty strings used for
@@ -132,7 +138,6 @@ classdef multiTypeTable < handle
             thisRow = row{:};
             tab(thisRow,:) = [];
             obj.typesTable = tab;
-            obj.typesCount = height(obj.typesTable);
         end
         
         function displayTypesTable(obj)
@@ -159,7 +164,6 @@ classdef multiTypeTable < handle
             end
             tab = [tab ; row];
             obj.typesTable = tab;
-            obj.typesCount = obj.typesCount + 1;
             obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
 
         end

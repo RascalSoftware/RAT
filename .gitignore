@@ -15,7 +15,8 @@ desktop.ini
 htmlcov/
 
 # Build
--lang
+-lang*
+paramonte_out/
 codegen/
 *.mexa64
 *.mexw64

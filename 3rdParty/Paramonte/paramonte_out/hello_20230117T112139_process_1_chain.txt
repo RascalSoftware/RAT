@@ -1,1 +1,0 @@
-ProcessID,DelayedRejectionStage,MeanAcceptanceRate,AdaptationMeasure,BurninLocation,SampleWeight,SampleLogFunc,Substrate Roughness,Oxide thick,Oxide Hydration,Water thick,Bilayer heads thick,Bilayer heads SLD,Bilayer heads hydr,Bilayer heads rough,Bilayer tails thick,Bilayer tails hydr,Bilayer tails rough,Backs par D2O,Backs par SMW,Backs par H2O,SLD D2O,SLD SMW,SLD H2O

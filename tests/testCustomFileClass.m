@@ -13,6 +13,14 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 %% Declare properties and parameters
 
     properties (TestParameter)
+        fileInput = {{'New Entry'},...
+                     {'Row and file name', 'file.m'},...
+                     {'Full entry', 'otherFile.m', 'matlab', 'pwd'}
+                    }
+        addedRow = {{'New Entry','','matlab','pwd'},...
+                    {'Row and file name','file.m','octave','pwd'},...
+                    {'Full entry', 'otherFile.m', 'matlab', 'pwd'}
+                   }
     end
 
     properties
@@ -75,6 +83,18 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyEqual(testClass.fileTable, testCase.exampleClass.fileTable, "customFileClass does not initialise correctly");
         end
 
+        function testAddFile(testCase, fileInput, addedRow)
+            % Test adding a custom file entry to the custom file class.
+            % We can add a custom file entry with no parameters, just a
+            % custom object name, a custom object name with the filename,
+            % and a fully defined custom file entry consisting of: a
+            % custom object name, a filename, language and file path.  
+            expectedTable = [testCase.exampleClass.fileTable; addedRow];
+
+            testCase.exampleClass.addFile(fileInput{:});
+
+            testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, "addFile does not work correctly");
+        end
 
     end
 

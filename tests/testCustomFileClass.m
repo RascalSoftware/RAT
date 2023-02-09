@@ -120,6 +120,9 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'matlab', 'pwd'}), ?MException)
             testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), ?MException)
 
+            % Invalid type for custom object
+            testCase.verifyError(@() testCase.exampleClass.addFile({42}), ?MException)
+            
             % Duplicate custom object names
             testCase.verifyError(@() testCase.exampleClass.addFile({'DPPC Model'}), ?MException)        
         end

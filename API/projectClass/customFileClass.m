@@ -31,12 +31,10 @@ classdef customFileClass < handle
             varTypes = {'string','string','string','string'};
             varNames = {'Name','Filename','Language','path'};
             obj.fileTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            
+            obj.autoFileNameCounter = 1;
+
             if ~isempty(startCell)
                 obj.fileTable(1,:) = startCell;%{'Substrate Roughness',1 3 5,true,'uniform',0,Inf};
-                obj.autoFileNameCounter = 1;
-            else
-                obj.autoFileNameCounter = 1;
             end
             
         end

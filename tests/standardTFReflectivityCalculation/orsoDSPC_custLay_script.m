@@ -99,7 +99,7 @@ problem.addBackground('Background H2O','constant','Backs par H2O');
 
 % And edit the other one....
 problem.setBackgroundValue(1,'name','Background D2O');
-problem.setBackgroundValue(1,'value','Backs par D2O');
+problem.setBackgroundValue(1,'Value 1','Backs par D2O');
 
 % Finally modify some of the other parameters to be more suitable values
 % for a solid / liquid experiment.

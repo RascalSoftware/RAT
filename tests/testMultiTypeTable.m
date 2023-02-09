@@ -88,7 +88,6 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             testCase.exampleTable.allowedTypes = {'constant', 'data', 'function'};
             testCase.exampleTable.allowedActions = {'add','subtract'};
-            testCase.exampleTable.typesCount = 3;
             testCase.exampleTable.typesAutoNameCounter = 3;
             testCase.exampleTable.typesAutoNameString = 'New background';
 
@@ -133,8 +132,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         end
 
         function testAddRowInvalidType(testCase)
-            % Test adding a row to a multi type table. If we use an
-            % invalid type it should raise an error
+            % Test adding a row to a multi type table.
+            % If we use an invalid type it should raise an error
             testCase.verifyError(@() testCase.exampleTable.addRow({'Invalid Row', 'Invalid Type'}), ?MException);
         end
 
@@ -190,6 +189,10 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Column name
             testCase.verifyError(@() testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), ?MException)
 
+            % Float values within range
+            testCase.verifyError(@() testCase.exampleTable.setValue({1, 2.5, 'Added'}), 'MATLAB:badsubscript')
+            testCase.verifyError(@() testCase.exampleTable.setValue({2.5, 1, 'New Name'}), 'MATLAB:badsubscript')
+
             % Invalid data types
             testCase.verifyError(@() testCase.exampleTable.setValue({testCase.initialTypesTable, testCase.numCols, 'Added'}), ?MException)
             testCase.verifyError(@() testCase.exampleTable.setValue({1, datetime('today'), 'Added'}), ?MException)
@@ -239,7 +242,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         end
 
         function testRemoveRowMultiple(testCase)
-            % Test removing multuple rows from a multi-type table
+            % Test removing multiple rows from a multi-type table
             % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleTable.typesTable(2,:);
             testCase.exampleTable.removeRow({[1 3]});
@@ -285,7 +288,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
-            % continuing
+            % continuing - output consists of table header, divider row
+            % and the defined table rows
             testCase.assertSize(displayedTable, [testCase.numRows+2, 1], 'Table does not have the right number of rows');
 
             % Check table contents - when displayed, row 2 is a set of
@@ -293,13 +297,13 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             for i = 1:testCase.numRows
 
                 % Replace multiple spaces in output table with a single
-                % space using regular expressions
-                outRow = strip(regexprep(displayedTable(i+2), '\s+', ' '));
+                % space using regular expressions, and remove '"'
+                % characters
+                outRow = strip(replace(regexprep(displayedTable(i+2), '\s+', ' '), '"', ''));                
 
-                % Get data from this row, add '"' characters to
-                % match output, join into a single string, and then
-                % prepend the row index
-                rowString = string(i) + " " + strip(strjoin(strcat('"',testCase.exampleTable.typesTable{i,:},'"')));
+                % Get data from this row, join into a single string, and
+                % then prepend the row index
+                rowString = string(i) + " " + strip(strjoin(testCase.exampleTable.typesTable{i,:}));
                 testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
 
             end

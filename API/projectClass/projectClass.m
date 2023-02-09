@@ -6,7 +6,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     %
     % Sub objects used are:
     % parametersClass       - parameter definition with priors
-    % layersClass_realSLD   - layers defined as (d,rho_real,rough,hydration)
+    % layersClassRealSLD   - layers defined as (d,rho_real,rough,hydration)
     % backgroundsClass      - 
     % resolutionsClass      -
     % dataClass             -
@@ -17,7 +17,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         experimentName
         Geometry
         parameters          % parametersClass object
-        layers              % layersClass_realSLD object
+        layers              % layersClassRealSLD object
         bulkIn              % parametersClass object
         bulkOut             % parametersClass object
         background          % backgroundsClass object
@@ -61,7 +61,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.parameters = parametersClass({'Substrate Roughness',1, 3, 5,true,'uniform',0,Inf});
             
             % Initialise the layers table
-            obj.layers = layersClass_realSLD();
+            obj.layers = layersClassRealSLD();
             
             % Initialise bulkIn table
             obj.bulkIn = parametersClass({'SLD Air',0,0,0,false,'uniform',0,Inf});
@@ -364,31 +364,18 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % SLD, roughness, hydration, and hydrate with, or provided 
             % a name to create an empty layer.
             %
-            %  problem.addLayer('New Layer');
-            if isempty(varargin)
-                % No input, so empty layer
-                whatToAdd = {'empty'};
-                
-            elseif ischar(varargin{:})
-                % Input is string, so named empty layer
-                whatToAdd = {'empty named', varargin};
-                
-            elseif iscell(varargin{:})
-                % Input is cell, so adding layer with parameters
-                whatToAdd = {'full layer', varargin};
-            end
-            
-            % Layers class will also need to know which parameters are
-            % currently defined (could also be done here rather than in
-            % object)
-            table = obj.parameters.paramsTable;
-            paramNames = table(:,1);
-            
-            % Call the addLayers method
-            obj.layers.addLayer(whatToAdd,paramNames);
-            
+            % problem.addLayer('New Layer');
+            obj.layers.addLayer(obj.parameters.paramsTable{:,1}, varargin{:});        
         end
-        
+
+        function obj = removeLayer(obj,layer)
+            % Removes layer(s) from the layers object. Expects
+            % index of layer(s) to remove.
+            %
+            % problem.removeLayer(1);
+            obj.layers.removeLayer(layer);
+        end
+
         function obj = setLayerValue(obj,varargin)
             % Sets a value of a given layer. Expects the row/name and
             % column of layer value to set, then the name/index of the 
@@ -398,25 +385,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if length(varargin) ~= 3
                 error('Three parameters expected into setLayerValue');
             end
-            inputPars = varargin;
-            
-            % Check if set value exists as a parameter
-            inputVal = inputPars{3};
-            parNames = obj.parameters.paramsTable{:,1};
-            
-            if ischar(inputVal)
-                if ~any(strcmpi(inputVal,parNames))
-                    error('Parameter %s not recognized',inputVal);
-                end
-            elseif isnumeric(inputVal)
-                if inputVal < 1 || inputVal > length(parNames)
-                    error('Parameter is out of range')
-                end
-                inputPars{3} = parNames{inputVal};
-            end
-            
+
             % call the layers class to set the value
-            obj.layers.setLayerValue(inputPars);           
+            obj.layers.setLayerValue(varargin{1}, varargin{2}, varargin{3}, obj.parameters.paramsTable{:,1});           
         end
         
         % ---------------------------------------------------------------
@@ -503,7 +474,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.setBackgroundName(varargin);
         end
         
-        function obj = setBacksPar(obj,varargin);
+        function obj = setBacksPar(obj,varargin)
             % Sets the value of an existing background parameter. Expects
             % index or name of parameter and keyword/value pairs to set
             %

@@ -9,11 +9,14 @@ classdef multiTypeTable < handle
         % We need to be clearer on what the (default) allowedTypes should be. !!!!!!
         allowedTypes = {'constant','data','function','gaussian'};
         allowedActions = {'add','subtract'};
-        typesCount;
         typesAutoNameCounter;
         typesAutoNameString = 'Row';
     end
-    
+
+    properties (Dependent, SetAccess = private)
+        typesCount;
+    end
+
     methods
        
         function obj = multiTypeTable(startCell)
@@ -25,17 +28,20 @@ classdef multiTypeTable < handle
             varTypes = {'string','string','string','string','string','string','string'};
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
             obj.typesTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.typesCount = 0;
             obj.typesAutoNameCounter = 0;
             obj.addRow(startCell);
         end
-        
+
+        function count = get.typesCount(obj)
+           count = height(obj.typesTable);
+        end
+
         function obj = addRow(obj,addParams)
             % Adds a row to the multi-type table. The row can be specified
             % with up to seven parameters, with empty strings used for
             % values that are not specified.
             %
-            % multiTable.addRow("New Row")
+            % multiTable.addRow("New Row");
             switch length(addParams)
 
                 case 0
@@ -86,11 +92,10 @@ classdef multiTypeTable < handle
                 row = obj.findRowIndex(rowPar, rowNames);
             elseif isnumeric(rowPar)
                 % This rounds any float values down to an integer
-                rowIndex = floor(rowPar);
-                if (rowIndex < 1) || (rowIndex > length(rowNames))
+                if (rowPar < 1) || (rowPar > obj.typesCount)
                    error('Row number out of range');  
                 else
-                    row = rowIndex;
+                    row = rowPar;
                 end
             else
                 error('Unrecognised row index');
@@ -104,12 +109,10 @@ classdef multiTypeTable < handle
             if ischar(colPar)
                 col = obj.findRowIndex(colPar,colNames);
             elseif isnumeric(colPar)
-                % This rounds any float values down to an integer
-                colIndex = floor(colPar);
-                if (colIndex < 1) || (colIndex > length(colNames))
+                if (colPar < 1) || (colPar > length(colNames))
                     error('Column number out out of range');
                 else
-                    col = colIndex;
+                    col = colPar;
                 end
             else
                 error('Unrecognised column index');
@@ -127,18 +130,17 @@ classdef multiTypeTable < handle
             % NOTE that an input such as {[1 3]} leads to multiple rows
             % being removed from the table
             %
-            % multiTable.removeRow({2})
+            % multiTable.removeRow({2});
             tab = obj.typesTable;
             thisRow = row{:};
             tab(thisRow,:) = [];
             obj.typesTable = tab;
-            obj.typesCount = height(obj.typesTable);
         end
         
         function displayTypesTable(obj)
             % Display the multi-type Table in the terminal.
             %
-            % multiTable.displayTypesTable()
+            % multiTable.displayTypesTable();
             array = obj.typesTable;
             p = 1:size(array,1);
             p = p(:);
@@ -151,7 +153,7 @@ classdef multiTypeTable < handle
             % Appends a row to the multi-type table. The expected input is
             % a length seven cell array.
             %
-            % multiTable.appendNewRow({'New Row','','','','','',''})
+            % multiTable.appendNewRow({'New Row','','','','','',''});
             tab = obj.typesTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))
@@ -159,7 +161,6 @@ classdef multiTypeTable < handle
             end
             tab = [tab ; row];
             obj.typesTable = tab;
-            obj.typesCount = obj.typesCount + 1;
             obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
 
         end

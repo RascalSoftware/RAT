@@ -21,6 +21,16 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                     {'Row and file name','file.m','octave','pwd'},...
                     {'Full entry', 'otherFile.m', 'matlab', 'pwd'}
                    }
+        inputData = {{1, 'name', 'New Model'},...
+                     {1, 'filename', 'model.m'},...
+                     {1, 'language', 'octave'},...
+                     {1, 'language', 'octave', 'filename', 'model.m', 'name', 'New Model'}
+                    }
+        expectedRow = {["New Model", "DPPC_customXY.m", "matlab", "../../"],...
+                       ["DPPC Model", "model.m", "matlab", "../../"],...
+                       ["DPPC Model", "DPPC_customXY.m", "octave", "../../"],...
+                       ["New Model", "model.m", "octave", "../../"]
+                      }
     end
 
     properties
@@ -120,11 +130,23 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'matlab', 'pwd'}), ?MException)
             testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), ?MException)
 
-            % Invalid type for custom object
+            % Invalid types
             testCase.verifyError(@() testCase.exampleClass.addFile({42}), ?MException)
-            
+            % Unreachable without testing appendNewRow directly (but
+            % method is (~will be) private)
+            %testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid file', 42}), ?MException)
+            %testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid file', 'file.m', 'matlab', 42}), ?MException)
+
+            % Unrecognised language
+            testCase.verifyError(@() testCase.exampleClass.addFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), ?MException)
+
             % Duplicate custom object names
             testCase.verifyError(@() testCase.exampleClass.addFile({'DPPC Model'}), ?MException)        
+        end
+
+        function testSetCustomFile(testCase, inputData, expectedRow)
+            testCase.exampleClass.setCustomFile(inputData);
+            testCase.verifyEqual(testCase.exampleClass.fileTable{1, :}, expectedRow, "setCustomFile does not work correctly");
         end
 
     end

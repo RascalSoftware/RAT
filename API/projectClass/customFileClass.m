@@ -61,7 +61,7 @@ classdef customFileClass < handle
                 switch length(inputs)
                     
                     case 1
-                        
+
                         % One input supplied - assume just name provided
                         newName = inputs{1};
                         if ~ischar(newName)
@@ -72,18 +72,17 @@ classdef customFileClass < handle
                         appendNewRow(obj,newRow);%,newUserDataRow);
                         
                     case 2
-                        
+
                         % Two inputs suppled - assume both name and
                         % filename supplied;
                         newName = string(inputs{1});
                         newFile = string(inputs{2});
-                        
-                        
-                        
+
                         newRow = {newName, newFile,"octave","pwd"};
                         appendNewRow(obj,newRow);% ,newUserDataRow);
                         
                     case 4
+
                         % Four inputs = assume all inputs supplied
                         newName = string(inputs{1});
                         newFile = string(inputs{2});
@@ -133,7 +132,7 @@ classdef customFileClass < handle
             
            
 
-            % Make an 'iputParser' object...
+            % Make an 'inputParser' object...
             p = inputParser;
             
 %             % dataRange and simRange need to be [1 x 2] arrays
@@ -253,7 +252,7 @@ classdef customFileClass < handle
             tableSize = size(tab);
             
             if tableSize(1) == 0
-                displayTable(1,:) = {"","","",""};
+                displayTable(1,:) = ["","","",""];
             else
                 
                 for i = 1:tableSize(1)
@@ -342,7 +341,7 @@ classdef customFileClass < handle
             end
             
             if ~isstring(path)
-                error('Path mjst be a string');
+                error('Path must be a string');
             end
 
             row = {{newName}, {fileName}, {language}, {path}};

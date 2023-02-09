@@ -39,10 +39,7 @@ classdef controlsDef < matlab.mixin.CustomDisplay
         adaptint = 100;
         burnin = 100;
         repeats = 1; 
-        
-        %(5) Paramonte..
-        
-        
+
     end
     
     %------------------------- Set and Get ------------------------------
@@ -240,6 +237,10 @@ classdef controlsDef < matlab.mixin.CustomDisplay
              end
              obj.repeats = val;
         end
+
+
+
+
     end  
     %------------------------- Display Methods --------------------------
     

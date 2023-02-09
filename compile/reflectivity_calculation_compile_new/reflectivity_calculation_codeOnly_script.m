@@ -131,5 +131,6 @@ cfg.DataTypeReplacement = 'CoderTypeDefs';
 ARGS = makeCompileArgs();
 
 %% Invoke MATLAB Coder.
-codegen -config cfg -package -lang:c++ reflectivity_calculation -args ARGS{1}
+codegen -config cfg reflectivity_calculation -args ARGS{1}
+
 

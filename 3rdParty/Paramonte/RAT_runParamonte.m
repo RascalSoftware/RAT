@@ -1,6 +1,16 @@
-function [outProblemDef,results,pmpd] = RAT_runParamonte(problem,inputControls,pmPars)
+function [outProblemDef,results,outPmpd] = RAT_runParamonte(problem,inputControls,pmPars)
 
 global logFunc;
+
+% Check the input classes to make sure they are of correct type
+if ~isa(pmPars,'pmPars')
+    error('Third input must be a ''pmPars'' object');
+elseif ~isa(problem,'projectClass')
+    error('First input must be a ''projectClass'' object');
+elseif ~isa(inputControls,'controlsDef')
+    error('Second input must be a ''controlsDef'' object');
+end
+
 
 rng('default');
 
@@ -39,7 +49,7 @@ pmpd = pm.ParaDRAM();
 scaledMins = zeros(length(testPars),1);
 scaledMaxs = ones(length(testPars),1);
 
-if isfield(pmPars,'covMat')
+if ~isempty(pmPars.covMat)
     pmpd.spec.proposalStartCovMat = covMat; % Note SCALED covmat
 end
 
@@ -50,16 +60,16 @@ end
 % end
 
 % if isfield(pmPars,'burninAdapt')
-%     pmpd.spec.burninAdaptationMeasure = pmPars.burninAdapt;
+%     pmpd.spec.burninAdaptationMeasure = 1e-2; %pmPars.burninAdapt;
 % end
 
-if isfield(pmPars,'delayedRejectionCount')
+if ~isempty(pmPars.delayedRejectionCount)
     pmpd.spec.delayedRejectionCount = pmPars.delayedRejectionCount;
 end
 
 name = pmPars.name;
 pmpd.reportEnabled = false;
-pmpd.spec.outputFileName = sprintf("./paramonte_out/%s_%s",name,datestr(now)); 
+pmpd.spec.outputFileName = sprintf("./paramonte_out/%s",name);%,datestr(now,30)); 
 pmpd.spec.domainLowerLimitVec = scaledMins;%problemDef.fitconstr(:,1);
 pmpd.spec.domainUpperLimitVec = scaledMaxs;%problemDef.fitconstr(:,2);
 pmpd.spec.overwriteRequested = true;
@@ -70,19 +80,18 @@ pmpd.spec.sampleRefinementCount = pmPars.chainSize;
 %pmpd.spec.overwriteRequested = true;
 %pmpd.spec.proposalStartCovMat = covMat;
 %pmpd.spec.greedyAdaptationCount = pmPars.greedyAdaptationCount;
-pmpd.spec.variableNameList = string(fitNames);
+pmpd.spec.variableNameList = fitNames;
 
-pmpd.mpiEnabled = false;
+pmpd.mpiEnabled = pmPars.mpi;
 pmpd.reportEnabled = false;
-% pmpd.spec.parallelizationModel = 'singleChain';
+pmpd.spec.parallelizationModel = 'multiChain';
 pmpd.spec.chainSize = pmPars.chainSize; %10000;
 
 pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective function
                 , @logFunc.get  ... the objective function
                 );
-            
 
-[outProblemDef,results] = processParamonteRuns(problem,inputControls,pmPars.name,pmPars.chainTrim);    
+[outProblemDef,results,outPmpd] = processParamonteRuns(problem,inputControls,pmPars.name,pmPars.chainTrim);    
         
 
 % pmpd.readChain();

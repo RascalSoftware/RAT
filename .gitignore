@@ -10,12 +10,14 @@ old
 # System files
 desktop.ini
 .DS_Store
+.bash_profile
 
 # Unit test / coverage reports
 htmlcov/
 
 # Build
--lang
+-lang*
+paramonte_out/
 codegen/
 *.mexa64
 *.mexw64

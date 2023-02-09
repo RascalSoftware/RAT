@@ -195,7 +195,7 @@ savepostinss = getpar(options,'savepostinss',0);
 
 % Model options
 sigma2  = getpar(model,'sigma2',[]);     % initial value for the error variance
-N       = getpar(model,'N',getN(data));  % no of obs
+N       = 1; %getpar(model,'N',getN(data));  % no of obs
 ssfun   = model.ssfun;%getpar(model,'ssfun',[]);      % sum of squares function
 modelfun= getpar(model,'modelfun',[]);   % model function
 priorfun= getpar(model,'priorfun',[]);   % prior function

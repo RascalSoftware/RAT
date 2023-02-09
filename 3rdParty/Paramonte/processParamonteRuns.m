@@ -1,5 +1,5 @@
 
-function [outProblemDef,result] = processFits(problem,controls,chainName,chainTrim)
+function [outProblemDef,result,pmpd] = processFits(problem,controls,chainName,chainTrim)
 
 % problem = load(name);
 % problem = problem.twentyMNProblem;
@@ -22,7 +22,10 @@ chainTable = pmpd.chainList{1}.df;
 
 chain = chainTable{2:end,8:end};
 
-scaledChain = chain(chainTrim:end,:);
+npoints = floor(chainTrim * size(chain,1));
+
+% only take last part of chain...
+scaledChain = chain((end-npoints):end,:);
 
 limits = problemDef.fitconstr;
 rows = size(scaledChain,1);

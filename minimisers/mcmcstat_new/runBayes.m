@@ -20,11 +20,12 @@ numberOfContrasts = problemDef.numberOfContrasts;
 % for i = 1:numberOfContrasts
 %     data{i} =  structDefineType;
 % end
-data = cell(1,numberOfContrasts);
+data.data = cell(1,numberOfContrasts);
+data.problem = problem;
 for i = 1:numberOfContrasts
     thisData = problemDef_cells{2}{i};
     if ~isempty(thisData)
-        data{i} = [thisData(:,:)];
+        data.data{i} = [thisData(:,:)];
     end
     %data{i}.problem = problem;
 end
@@ -45,6 +46,7 @@ qcov = diag(qcov);
 model.modelfun      = 'refModel';                  % will return a reflectivity curve
 model.ssfun         = 'reflectivity_fitModel';     % will return chi squared
 model.nbatch        = numberOfContrasts;
+model.N = 1;
 
 options.method      = 'dram';          % adaptation method (mh, am, dr, dram)
 options.nsimu       = nsimu;           % no of simulation%
@@ -69,7 +71,8 @@ for i = 1:loop
         fprintf('Running loop %d of %d ',i,loop);
     end
 
-    [results,chain,s2chain,sschain] = mcmcrun_compile(model, data, problem, params, options, results, display);
+    %[results,chain,s2chain,sschain] = mcmcrun_compile(model, data, problem, params, options, results, display);
+    [results,chain,s2chain,sschain] = mcmcrun(model, data, params, options, results);
     
     if ~ strcmpi(display,'off')
         fprintf('\n');

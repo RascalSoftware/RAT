@@ -91,7 +91,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % custom object name, a filename, language and file path.  
             expectedTable = [testCase.exampleClass.fileTable; addedRow];
 
-            testCase.exampleClass.addFile(fileInput{:});
+            testCase.exampleClass.addFile(fileInput);
 
             testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, "addFile does not work correctly");
         end

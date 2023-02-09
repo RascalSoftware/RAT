@@ -107,7 +107,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.parameters.paramsTable = [testCase.parameters.paramsTable; vertcat(testParams(2:end, :))];
 
             testCase.parameterNames = testCase.parameters.paramsTable{:, 1};
-            testCase.numRows = length(testParams);
+            testCase.numParams = length(testParams);
         end
 
     end

@@ -34,10 +34,8 @@ classdef customFileClass < handle
             
             if ~isempty(startCell)
                 obj.fileTable(1,:) = startCell;%{'Substrate Roughness',1 3 5,true,'uniform',0,Inf};
-                obj.fileCount = 1;
                 obj.autoFileNameCounter = 1;
             else
-                obj.fileCount = 0;
                 obj.autoFileNameCounter = 1;
             end
             
@@ -352,7 +350,6 @@ classdef customFileClass < handle
             row = {{newName}, {fileName}, {language}, {path}};
             tab = [tab ; row];
             obj.fileTable = tab;
-            obj.fileCount = obj.fileCount + 1;
             obj.autoFileNameCounter = obj.autoFileNameCounter + 1;
             
         end

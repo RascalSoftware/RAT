@@ -47,8 +47,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
             testCase.exampleClass.fileTable(1,:) = {'DPPC Model', 'DPPC_customXY.m', 'matlab', '../../'};
 
-            testCase.numRows = height(testCase.exampleClass.layersTable);
-            testCase.numCols = width(testCase.exampleClass.layersTable);
+            testCase.numRows = height(testCase.exampleClass.fileTable);
+            testCase.numCols = width(testCase.exampleClass.fileTable);
         end
 
     end
@@ -57,6 +57,23 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
     methods (Test, ParameterCombination="sequential")
 
+        function testInitialiseCustomFileClassEmpty(testCase)
+            % On initialisation we set up a custom file class with an
+            % either an empty file table, or a table with a single row
+            testClass = customFileClass();
+
+            testCase.verifySize(testClass.fileTable, [0 4], "customFileClass does not initialise correctly");
+            testCase.verifyEqual(testClass.fileTable, testCase.initialFileTable, "customFileClass does not initialise correctly");
+        end
+
+        function testInitialiseCustomFileClassOneRow(testCase)
+            % On initialisation we set up a custom file class with an
+            % either an empty file table, or a table with a single row
+            testClass = customFileClass({'DPPC Model', 'DPPC_customXY.m', 'matlab', '../../'});
+
+            testCase.verifySize(testClass.fileTable, [1 4], "customFileClass does not initialise correctly");
+            testCase.verifyEqual(testClass.fileTable, testCase.exampleClass.fileTable, "customFileClass does not initialise correctly");
+        end
 
 
     end

@@ -21,9 +21,9 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                     {'Row and file name','file.m','octave','pwd'},...
                     {'Full entry', 'otherFile.m', 'matlab', 'pwd'}
                    }
-        inputData = {{1, 'name', 'New Model'},...
+        inputData = {{'DPPC Model', 'name', 'New Model'},...
                      {1, 'filename', 'model.m'},...
-                     {1, 'language', 'octave'},...
+                     {'DPPC Model', 'language', 'octave'},...
                      {1, 'language', 'octave', 'filename', 'model.m', 'name', 'New Model'}
                     }
         expectedRow = {["New Model", "DPPC_customXY.m", "matlab", "../../"],...
@@ -34,7 +34,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
     end
 
     properties
-        exampleClass;           % Example layers class for testing
+        exampleClass;           % Example custom file class for testing
         initialFileTable        % Empty table to compare to initialisation
         numRows                 % Number of rows in exampleClass.fileTable
         numCols                 % Number of columns in exampleClass.fileTable
@@ -126,27 +126,48 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addFile({}), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'matlab', 'pwd'}), ?MException)
-            testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addFile({}), 'customFileClass:addFile:InvalidInput')
+            testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'matlab', 'pwd'}), 'customFileClass:addFile:InvalidInput')
+            testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), 'customFileClass:addFile:InvalidInput')
 
             % Invalid types
-            testCase.verifyError(@() testCase.exampleClass.addFile({42}), ?MException)
-            % Unreachable without testing appendNewRow directly (but
-            % method is (~will be) private)
-            %testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid file', 42}), ?MException)
-            %testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid file', 'file.m', 'matlab', 42}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addFile({42}), 'customFileClass:addFile:InvalidType')
+            % Unreachable without testing appendNewRow directly
+            % (but method is (~will be) private)
+            %testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid file', 42}), 'customFileClass:appendNewRow:InvalidType')
+            %testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid file', 'file.m', 'matlab', 42}), 'customFileClass:appendNewRow:InvalidType')
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.addFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), ?MException)
+            testCase.verifyError(@() testCase.exampleClass.addFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), 'customFileClass:appendNewRow:InvalidOption')
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.addFile({'DPPC Model'}), ?MException)        
+            testCase.verifyError(@() testCase.exampleClass.addFile({'DPPC Model'}), 'customFileClass:appendNewRow:DuplicateName')
         end
 
         function testSetCustomFile(testCase, inputData, expectedRow)
             testCase.exampleClass.setCustomFile(inputData);
             testCase.verifyEqual(testCase.exampleClass.fileTable{1, :}, expectedRow, "setCustomFile does not work correctly");
+        end
+
+        function testSetCustomFileInvalid(testCase)
+            % Test setting values in the files table
+            % If the inputs are invalid, it should raise an error
+
+            %Invalid row
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({0, 'Name', 'Invalid'}), 'customFileClass:setCustomFile:IndexOutOfRange');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({testCase.numRows+1, 'Name', 'Invalid'}), 'customFileClass:setCustomFile:IndexOutOfRange');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({'Undefined row', 'Name', 'Invalid'}), 'customFileClass:setCustomFile:NameNotRecognised');
+
+
+
+
+        end
+
+        function testSetCustomFileTooFewParams(testCase)
+            % If we call "setCustomFile" with a cell array containing
+            % fewer than three values it should raise an error
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1}), 'customFileClass:setCustomFile:TooFewInputs');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 1}), 'customFileClass:setCustomFile:TooFewInputs');
         end
 
     end

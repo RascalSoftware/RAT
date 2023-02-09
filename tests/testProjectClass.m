@@ -464,7 +464,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.customFile.fileTable, [2, 4], 'custom file table has wrong dimension');    
             testCase.verifyEqual(testCase.project.customFile.fileTable{:, 1}, ["model 1"; "model 2"], 'addCustomFile method not working');
             testCase.verifyEqual(testCase.project.customFile.fileTable{:, 2}, ["custom.m"; "custom.cpp"], 'addCustomFile method not working');
-            testCase.verifyEqual(testCase.project.customFile.fileTable{:, 3}, ["matlab"; "cpp"], 'addCustomFi6le method not working');
+            testCase.verifyEqual(testCase.project.customFile.fileTable{:, 3}, ["matlab"; "cpp"], 'addCustomFile method not working');
             testCase.verifyEqual(testCase.project.customFile.fileTable{:, 4}, ["pwd"; "c:/temp"], 'addCustomFile method not working');
             % Checks that custom file can be modified
             % Cannot set path due to unimplemented field 'setCustomPath' for class 'customFileClass'.

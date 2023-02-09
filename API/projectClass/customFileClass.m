@@ -2,12 +2,17 @@ classdef customFileClass < handle
     
     % A container class for holding custom files for either
     % models, backgrounds or resolutions.
+
     properties
-        
-        fileTable;
-        fileCount = 0;
+        fileTable = table;
+    end
+
+    properties (Access = private)
         autoFileNameCounter;
-        
+    end
+
+    properties (Dependent, SetAccess = private)
+        fileCount;
     end
     
     methods
@@ -37,7 +42,11 @@ classdef customFileClass < handle
             end
             
         end
-        
+
+        function count = get.fileCount(obj)
+            count = height(obj.fileTable);
+        end
+
         function obj = addFile(obj,varargin)
             
             if isempty(varargin)

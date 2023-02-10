@@ -8,7 +8,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 % We use an example custom file class from example calculation
 % "DPPC_customXY.m"
 %
-% Paul Sharp 09/02/23
+% Paul Sharp 10/02/23
 %
 %% Declare properties and parameters
 
@@ -24,13 +24,19 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         inputData = {{'DPPC Model', 'name', 'New Model'},...
                      {1, 'filename', 'model.m'},...
                      {'DPPC Model', 'language', 'octave'},...
-                     {1, 'language', 'octave', 'filename', 'model.m', 'name', 'New Model'}
+                     {1, 'language', 'octave', 'filename', 'model.m', 'name', 'New Model'},...
                     }
         expectedRow = {["New Model", "DPPC_customXY.m", "matlab", "../../"],...
                        ["DPPC Model", "model.m", "matlab", "../../"],...
                        ["DPPC Model", "DPPC_customXY.m", "octave", "../../"],...
-                       ["New Model", "model.m", "octave", "../../"]
+                       ["New Model", "model.m", "octave", "../../"],...
                       }
+        invalidInputData = {{'DPPC Model', 'name', 42},...
+                            {1, 'filename', datetime('today')},...
+                            {'DPPC Model', 'language', table()},...
+                            {1, 'path', {'path', 'to', 'file'}}
+                           }
+
     end
 
     properties
@@ -149,7 +155,11 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.fileTable{1, :}, expectedRow, "setCustomFile does not work correctly");
         end
 
-        function testSetCustomFileInvalid(testCase)
+        function testSetCustomFileInvalidType(testCase, invalidInputData)
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(invalidInputData), 'MATLAB:InputParser:ArgumentFailedValidation');
+        end
+
+        function testSetCustomFileInvalidInput(testCase)
             % Test setting values in the files table
             % If the inputs are invalid, it should raise an error
 

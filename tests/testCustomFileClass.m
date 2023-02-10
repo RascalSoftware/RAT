@@ -168,8 +168,17 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({testCase.numRows+1, 'Name', 'Invalid'}), 'customFileClass:setCustomFile:IndexOutOfRange');
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({'Undefined row', 'Name', 'Invalid'}), 'customFileClass:setCustomFile:NameNotRecognised');
 
+            % Unrecognised language
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Language', 'Fortran'}), 'customFileClass:setCustomLanguage:InvalidOption')
 
+            % HMMMMMMMM
+            % Duplicate custom object names
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Language', 'Fortran'}), 'customFileClass:setCustomName:DuplicateName')
 
+            % !!!! THIS IS A BUG !!!!
+            % Use a string rather than char for the name
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Name', "String Name"}), 'customFileClass:setCustomName:InvalidType')
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Filename', "String Name"}), 'customFileClass:setFileName:InvalidType')
 
         end
 

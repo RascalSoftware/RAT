@@ -170,7 +170,7 @@ classdef layersClassRealSLD < handle
 
         
         function layersNames = getLayersNames(obj)
-            % Get a string array pf the names of each of the layers defined
+            % Get a string array of the names of each of the layers defined
             % in the class.
             %
             % layers.getLayersNames()

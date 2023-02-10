@@ -106,7 +106,7 @@ classdef customFileClass < handle
            
             % Set the value of an existing custom file object
             inputs = varargin{:};
-            customNames = obj.fileTable{:,1};
+            customNames = obj.getCustomNames;
             
             % Always need three or more inputs to set data value
             if length(inputs) < 3
@@ -214,6 +214,14 @@ classdef customFileClass < handle
             obj.fileTable{whichCustom,2} = {name};  
         end
 
+        function names = getCustomNames(obj)
+            % Get a string array of the names of each of the custom file
+            % objects defined in the class.
+            %
+            % customFiles.getLayersNames()
+            names = obj.fileTable{:,1};  
+        end
+
         
         function displayCustomFileObject(obj)
             
@@ -231,7 +239,7 @@ classdef customFileClass < handle
             tableSize = size(tab);
             
             if tableSize(1) == 0
-                displayTable(1,:) = ["","","",""];
+                displayTable(1,:) = {'','','',''};
             else
                 
                 for i = 1:tableSize(1)

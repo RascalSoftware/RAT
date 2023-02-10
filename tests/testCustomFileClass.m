@@ -298,6 +298,32 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
         end
 
+        function testToStruct(testCase)
+            fileStruct = testCase.exampleClass.toStruct();
+            testCase.verifyClass(fileStruct, 'struct');
+            for i = 1:testCase.numRows
+                testCase.verifyEqual(string(fileStruct.files{i}), testCase.exampleClass.fileTable{i, 2:end});
+            end
+        end
+
+        function testToStructEmpty(testCase)
+            % Test converting an empty custom file class to a struct
+            emptyClass = customFileClass();
+            fileStruct = emptyClass.toStruct();
+            testCase.verifyClass(fileStruct, 'struct');
+            testCase.verifyEqual(fileStruct.files, {});
+        end
+
+        function testToStructPwd(testCase)
+            % Test converting an custom file class to a struct correctly
+            % interprets the present working directory
+            emptyClass = customFileClass({'Test pwd', 'file.m', 'matlab', 'pwd'});
+            fileStruct = emptyClass.toStruct();
+            testCase.verifyClass(fileStruct, 'struct');
+            testCase.verifyEqual(string(fileStruct.files{:}), ["file.m" "matlab" pwd]);
+        end
+
+
 
     end
 

@@ -20,8 +20,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                      {'Row and file name', 'file.m'},...
                      {'Full entry', 'otherFile.m', 'matlab', 'pwd'}
                     }
-        addedRow = {{'New Entry','','matlab','pwd'},...
-                    {'Row and file name','file.m','octave','pwd'},...
+        addedRow = {{'New Entry', '', 'matlab', 'pwd'},...
+                    {'Row and file name', 'file.m', 'octave', 'pwd'},...
                     {'Full entry', 'otherFile.m', 'matlab', 'pwd'}
                    }
         testRow = {1, 1, 2, 2}
@@ -147,7 +147,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Invalid types
             testCase.verifyError(@() testCase.exampleClass.addFile({42}), 'customFileClass:addFile:InvalidType')
             % Unreachable without testing appendNewRow directly
-            % (but method is (~will be) private)
+            % (but method is private)
             %testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid file', 42}), 'customFileClass:appendNewRow:InvalidType')
             %testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid file', 'file.m', 'matlab', 42}), 'customFileClass:appendNewRow:InvalidType')
 
@@ -223,7 +223,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Check table contents - when displayed, row 3 is a set of
             % lines, so row 4 is the first line of data
             for i = 1:testCase.numRows
-
+                
                 % Replace multiple spaces in output table with a single
                 % space using regular expressions, and remove '"'
                 % characters
@@ -356,8 +356,6 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyClass(fileStruct, 'struct');
             testCase.verifyEqual(string(fileStruct.files{:}), ["file.m" "matlab" pwd]);
         end
-
-
 
     end
 

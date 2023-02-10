@@ -270,7 +270,7 @@ classdef customFileClass < handle
             numberOfFiles = obj.fileCount;
             
             if numberOfFiles > 0
-                filesList = cell(numberOfFiles, 3);
+                filesList = cell(numberOfFiles, 1);
                 for i = 1:numberOfFiles
                     thisRow = obj.fileTable{i,:};
                     thisFile = thisRow{2};
@@ -280,7 +280,7 @@ classdef customFileClass < handle
                     if strcmpi(thisPath,'pwd')
                         thisPath = pwd;
                     end
-                    filesList{i,:} = {thisFile, thisType, thisPath};
+                    filesList{i} = {thisFile, thisType, thisPath};
                 end
                 fileStruct.files = filesList;
             else

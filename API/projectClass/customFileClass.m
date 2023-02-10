@@ -195,7 +195,7 @@ classdef customFileClass < handle
             end
             
             existingNames = obj.fileTable{:,1};
-            if strcmpi(name,existingNames)
+            if any(strcmpi(name,existingNames))
                 error('customFileClass:setCustomName:DuplicateName', 'Duplicate custom names are not allowed');
             end
             

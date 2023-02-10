@@ -4,6 +4,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 % used within the Project Class in RAT.
 %
 % In this class, we test:
+% customFileClass, addFile, setCustomFile, displayCustomFileObject,
+% toStruct
 %
 % We use an example custom file class combining the custom file classes
 % from the example calculations "DPPC_customXY.m" and

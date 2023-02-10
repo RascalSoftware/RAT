@@ -270,6 +270,7 @@ classdef customFileClass < handle
             numberOfFiles = obj.fileCount;
             
             if numberOfFiles > 0
+                filesList = cell(numberOfFiles, 3);
                 for i = 1:numberOfFiles
                     thisRow = obj.fileTable{i,:};
                     thisFile = thisRow{2};
@@ -327,7 +328,7 @@ classdef customFileClass < handle
         end
 
         function obj = setCustomLanguage(obj,whichCustom,lang)
-           % Check wheter a specified language is supported, and set the
+           % Check whether a specified language is supported, and set the
            % file entry if so.
            if ~strcmpi(lang,{'octave','matlab','python','cpp'})
                error('customFileClass:setCustomLanguage:InvalidOption', 'Language must be octave, matlab,cpp or python');

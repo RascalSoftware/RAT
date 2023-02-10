@@ -266,6 +266,39 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
         end
 
+        function testDisplayCustomFileObjectEmptyRow(testCase)
+            % Test the routine to display the file table of a custom file
+            % class with empty row entries by capturing the output and
+            % comparing with the table headers and data
+            emptyRowClass = customFileClass({'Test Row', '', '', ''});
+
+            % Capture the standard output and format into string array -
+            % one element for each row of the output
+            display = textscan(evalc('emptyRowClass.displayCustomFileObject()'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = display{:};
+
+            % Check headers
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions, and remove "<strong>" tags
+            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+
+            % Convert table variable names to a string array and join into
+            % a single string
+            varString = strip(strjoin(string(emptyRowClass.fileTable.Properties.VariableNames)));
+            testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
+
+            % Make sure the output has the right number of rows before
+            % continuing
+            testCase.assertSize(displayedTable, [4, 1], 'Table does not have the right number of rows');
+
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions, and remove '"' characters
+            outRow = strip(replace(regexprep(displayedTable(4), '\s+', ' '), '"', ''));
+            rowString = "Test Row No File - pwd";
+            testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+        end
+
+
     end
 
 end

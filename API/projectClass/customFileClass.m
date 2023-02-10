@@ -5,6 +5,9 @@ classdef customFileClass < handle
 
     properties
         fileTable = table;
+        exceptionDuplicateName = MException('RAT:DuplicateName', 'Duplicate custom file names are not allowed');
+        exceptionInvalidOption = MException('RAT:InvalidOption', 'Language must be: matlab, octave, cpp or python');
+        exceptionInvalidType = MException('RAT:InvalidType', 'Input must be a character or string')
     end
 
     properties (Access = private)
@@ -81,7 +84,8 @@ classdef customFileClass < handle
                         % One input supplied - assume just name provided
                         newName = inputs{1};
                         if ~ischar(newName)
-                            error('customFileClass:addFile:InvalidType', 'Single input is expected to be a custom object name');
+                            throw(obj.exceptionInvalidType);
+                            %error('RAT:InvalidType', 'Single input is expected to be a custom object name');
                         end
                         
                         newRow = {newName,"","matlab","pwd"};
@@ -111,7 +115,9 @@ classdef customFileClass < handle
                     otherwise
 
                         % Other length of inputs is not recognised
-                        error('customFileClass:addFile:InvalidInput', 'Unrecognised input into addFile');
+                        %error('RAT:InvalidInput', 'Unrecognised input into addFile');
+                        exceptionInvalidInput = MException('RAT:InvalidInput', 'Unrecognised input into addFile');
+                        throw(exceptionInvalidInput);
                         
                 end
             end
@@ -133,18 +139,18 @@ classdef customFileClass < handle
             
             % Always need three or more inputs to set data value
             if length(inputs) < 3
-                error('customFileClass:setCustomFile:TooFewInputs', 'At least three inputs expected into ''setCustomFile''');
+                error('RAT:TooFewInputs', 'At least three inputs expected into ''setCustomFile''');
             end
                 
             % First input needs to be a data number or name
             whichCustom = inputs{1};
             if isnumeric(whichCustom)
                 if (whichCustom > obj.fileCount) || (whichCustom < 1)
-                    error('customFileClass:setCustomFile:IndexOutOfRange', 'Custom file object %d is not recognised', whichCustom);
+                    error('RAT:IndexOutOfRange', 'The index %d is not within the range 1 -- %d', whichCustom, obj.fileCount);
                 end
             elseif ischar(whichCustom)
                 if ~strcmpi(whichCustom,customNames)
-                    error('customFileClass:setCustomFile:NameNotRecognised', 'Custom file object name %s not recognised', whichCustom);
+                    error('RAT:NameNotRecognised', 'Custom file object name %s not recognised', whichCustom);
                 else
                     whichCustom = find(strcmpi(whichCustom,customNames));
                 end
@@ -300,7 +306,8 @@ classdef customFileClass < handle
             tab = obj.fileTable;
             newName = newRow{1};
             if any(strcmpi(newName,tab{:,1}))
-                error('customFileClass:appendNewRow:DuplicateName', 'Duplicate custom file names not allowed');
+                throw(obj.exceptionDuplicateName)
+                %error('RAT:DuplicateName', 'Duplicate custom file names not allowed');
             end
             
             % Carry out checks of Data type and ranges
@@ -309,15 +316,18 @@ classdef customFileClass < handle
             path = newRow{4};
                 
             if ~isstring(fileName)
-                error('customFileClass:appendNewRow:InvalidType', 'filename must be a string');
+                throw(obj.exceptionInvalidType);
+                %error('RAT:InvalidType', 'filename must be a string');
             end
             
             if ~strcmpi(language,{'matlab','octave','python','cpp'})
-                error('customFileClass:appendNewRow:InvalidOption', 'Custom file must be matlab, octave,cpp or python');
+                throw(obj.exceptionInvalidOption)
+                %error('RAT:InvalidOption', 'Language must be matlab, octave,cpp or python');
             end
             
             if ~isstring(path)
-                error('customFileClass:appendNewRow:InvalidType', 'Path must be a string');
+                throw(obj.exceptionInvalidType);
+                %error('RAT:InvalidType', 'Path must be a string');
             end
 
             row = {{newName}, {fileName}, {language}, {path}};
@@ -331,7 +341,8 @@ classdef customFileClass < handle
            % Check whether a specified language is supported, and set the
            % file entry if so.
            if ~strcmpi(lang,{'octave','matlab','python','cpp'})
-               error('customFileClass:setCustomLanguage:InvalidOption', 'Language must be octave, matlab,cpp or python');
+               throw(obj.exceptionInvalidOption)
+               %error('RAT:InvalidOption', 'Language must be octave, matlab,cpp or python');
            end
            
            obj.fileTable{whichCustom,3} = {lang};
@@ -344,12 +355,14 @@ classdef customFileClass < handle
 
             % Name must be a char and not an existing name
             if ~ischar(name)
-                error('customFileClass:setCustomName:InvalidType', 'Name must be a string / character array');
+                throw(obj.exceptionInvalidType);
+                %error('RAT:InvalidType', 'Name must be a string / character array');
             end
             
             existingNames = obj.fileTable{:,1};
             if any(strcmpi(name,existingNames))
-                error('customFileClass:setCustomName:DuplicateName', 'Duplicate custom names are not allowed');
+                throw(obj.exceptionDuplicateName)
+                %error('RAT:DuplicateName', 'Duplicate custom names are not allowed');
             end
             
             % Set the relevant name
@@ -363,7 +376,8 @@ classdef customFileClass < handle
 
             % Name must be a char and not an existing name
             if ~ischar(name)
-                error('customFileClass:setFileName:InvalidType', 'Filename must be a string / character array');
+                throw(obj.exceptionInvalidType);
+                %error('RAT:InvalidType', 'Filename must be a string / character array');
             end
 
             % Set the relevant file name

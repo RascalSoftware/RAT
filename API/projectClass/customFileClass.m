@@ -179,41 +179,6 @@ classdef customFileClass < handle
 %         
 %         end
 
-        function obj = setCustomLanguage(obj,whichCustom,lang)
-           if ~strcmpi(lang,{'octave','matlab','python','cpp'})
-               error('customFileClass:setCustomLanguage:InvalidOption', 'Language must be octave, matlab,cpp or python');
-           end
-           
-           obj.fileTable{whichCustom,3} = {lang};
-        end
-        
-        
-        function obj = setCustomName(obj,whichCustom,name)  
-            % Name must be a char and not an existing name
-            if ~ischar(name)
-                error('customFileClass:setCustomName:InvalidType', 'Name must be a string / character array');
-            end
-            
-            existingNames = obj.fileTable{:,1};
-            if any(strcmpi(name,existingNames))
-                error('customFileClass:setCustomName:DuplicateName', 'Duplicate custom names are not allowed');
-            end
-            
-            % Set the relevant name
-            obj.fileTable{whichCustom,1} = {name};
-        end
-        
-        
-        function obj = setFileName(obj,whichCustom,name)  
-            % Name must be a char and not an existing name
-            if ~ischar(name)
-                error('customFileClass:setFileName:InvalidType', 'Filename must be a string / character array');
-            end
-
-            % Set the relevant file name
-            obj.fileTable{whichCustom,2} = {name};  
-        end
-
         function names = getCustomNames(obj)
             % Get a string array of the names of each of the custom file
             % objects defined in the class.
@@ -303,9 +268,12 @@ classdef customFileClass < handle
             else
                 fileStruct.files = {};
             end
-            
         end
-        
+
+    end
+
+    methods(Access = protected)
+
         function obj = appendNewRow(obj,newRow)
             
             tab = obj.fileTable;
@@ -337,7 +305,42 @@ classdef customFileClass < handle
             obj.autoFileNameCounter = obj.autoFileNameCounter + 1;
             
         end
+
+        function obj = setCustomLanguage(obj,whichCustom,lang)
+           if ~strcmpi(lang,{'octave','matlab','python','cpp'})
+               error('customFileClass:setCustomLanguage:InvalidOption', 'Language must be octave, matlab,cpp or python');
+           end
+           
+           obj.fileTable{whichCustom,3} = {lang};
+        end
         
+        
+        function obj = setCustomName(obj,whichCustom,name)  
+            % Name must be a char and not an existing name
+            if ~ischar(name)
+                error('customFileClass:setCustomName:InvalidType', 'Name must be a string / character array');
+            end
+            
+            existingNames = obj.fileTable{:,1};
+            if any(strcmpi(name,existingNames))
+                error('customFileClass:setCustomName:DuplicateName', 'Duplicate custom names are not allowed');
+            end
+            
+            % Set the relevant name
+            obj.fileTable{whichCustom,1} = {name};
+        end
+        
+        
+        function obj = setFileName(obj,whichCustom,name)  
+            % Name must be a char and not an existing name
+            if ~ischar(name)
+                error('customFileClass:setFileName:InvalidType', 'Filename must be a string / character array');
+            end
+
+            % Set the relevant file name
+            obj.fileTable{whichCustom,2} = {name};  
+        end
+
     end
     
 end

@@ -5,8 +5,9 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 %
 % In this class, we test:
 %
-% We use an example custom file class from example calculation
-% "DPPC_customXY.m"
+% We use an example custom file class combining the custom file classes
+% from the example calculations "DPPC_customXY.m" and
+% "orsoDSPC_custLay_script.m"
 %
 % Paul Sharp 10/02/23
 %
@@ -21,27 +22,29 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                     {'Row and file name','file.m','octave','pwd'},...
                     {'Full entry', 'otherFile.m', 'matlab', 'pwd'}
                    }
+        testRow = {1, 1, 2, 2}
         inputData = {{'DPPC Model', 'name', 'New Model'},...
                      {1, 'filename', 'model.m'},...
-                     {'DPPC Model', 'language', 'octave'},...
-                     {1, 'language', 'octave', 'filename', 'model.m', 'name', 'New Model'},...
+                     {'DSPC Model', 'language', 'octave'},...
+                     {2, 'language', 'octave', 'filename', 'model.m', 'name', 'New Model'},...
                     }
         expectedRow = {["New Model", "DPPC_customXY.m", "matlab", "../../"],...
                        ["DPPC Model", "model.m", "matlab", "../../"],...
-                       ["DPPC Model", "DPPC_customXY.m", "octave", "../../"],...
+                       ["DSPC Model", "customBilayer.m", "octave", "../../"],...
                        ["New Model", "model.m", "octave", "../../"],...
                       }
         invalidInputData = {{'DPPC Model', 'name', 42},...
                             {1, 'filename', datetime('today')},...
-                            {'DPPC Model', 'language', table()},...
-                            {1, 'path', {'path', 'to', 'file'}}
+                            {'DSPC Model', 'language', table()},...
+                            {2, 'path', {'path', 'to', 'file'}}
                            }
 
     end
 
     properties
         exampleClass;           % Example custom file class for testing
-        initialFileTable        % Empty table to compare to initialisation
+        initialFileTableEmpty   % Empty table to compare to initialisation
+        initialFileTableOneRow  % Table with one row to compare to initialisation
         numRows                 % Number of rows in exampleClass.fileTable
         numCols                 % Number of columns in exampleClass.fileTable
     end
@@ -51,12 +54,14 @@ classdef testCustomFileClass < matlab.unittest.TestCase
     methods (TestClassSetup)
 
         function initialiseFileTable(testCase)
-            % Set up an empty file table 
-            sz = [0 4];
+            % Set up an empty file table and a table with one row
             tableTypes = {'string','string','string','string'};
             tableNames = {'Name','Filename','Language','path'};
 
-            testCase.initialFileTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
+            testCase.initialFileTableEmpty = table('Size',[0 4],'VariableTypes',tableTypes,'VariableNames',tableNames);
+
+            testCase.initialFileTableOneRow = table('Size',[1 4],'VariableTypes',tableTypes,'VariableNames',tableNames);
+            testCase.initialFileTableOneRow{1, :} = {'DPPC Model', 'DPPC_customXY.m', 'matlab', '../../'};
         end
 
     end
@@ -65,11 +70,12 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
         function initialiseCustomFileClass(testCase)
             % Set up an example custom file class for testing
-            % This example is used in the example calculation
-            % "DPPC_customXY.m"
+            % These examples are used in the example calculations
+            % "DPPC_customXY.m" and "orsoDSPC_custLay_script.m"
             testCase.exampleClass = customFileClass();
 
             testCase.exampleClass.fileTable(1,:) = {'DPPC Model', 'DPPC_customXY.m', 'matlab', '../../'};
+            testCase.exampleClass.fileTable(2,:) = {'DSPC Model', 'customBilayer.m', 'matlab', '../../'};
 
             testCase.numRows = height(testCase.exampleClass.fileTable);
             testCase.numCols = width(testCase.exampleClass.fileTable);
@@ -87,7 +93,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testClass = customFileClass();
 
             testCase.verifySize(testClass.fileTable, [0 4], "customFileClass does not initialise correctly");
-            testCase.verifyEqual(testClass.fileTable, testCase.initialFileTable, "customFileClass does not initialise correctly");
+            testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableEmpty, "customFileClass does not initialise correctly");
         end
 
         function testInitialiseCustomFileClassOneRow(testCase)
@@ -96,7 +102,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testClass = customFileClass({'DPPC Model', 'DPPC_customXY.m', 'matlab', '../../'});
 
             testCase.verifySize(testClass.fileTable, [1 4], "customFileClass does not initialise correctly");
-            testCase.verifyEqual(testClass.fileTable, testCase.exampleClass.fileTable, "customFileClass does not initialise correctly");
+            testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableOneRow, "customFileClass does not initialise correctly");
         end
 
         function testAddFile(testCase, fileInput, addedRow)
@@ -150,9 +156,9 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.addFile({'DPPC Model'}), 'customFileClass:appendNewRow:DuplicateName')
         end
 
-        function testSetCustomFile(testCase, inputData, expectedRow)
+        function testSetCustomFile(testCase, testRow, inputData, expectedRow)
             testCase.exampleClass.setCustomFile(inputData);
-            testCase.verifyEqual(testCase.exampleClass.fileTable{1, :}, expectedRow, "setCustomFile does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.fileTable{testRow, :}, expectedRow, "setCustomFile does not work correctly");
         end
 
         function testSetCustomFileInvalidType(testCase, invalidInputData)
@@ -163,7 +169,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Test setting values in the files table
             % If the inputs are invalid, it should raise an error
 
-            %Invalid row
+            % Invalid row
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({0, 'Name', 'Invalid'}), 'customFileClass:setCustomFile:IndexOutOfRange');
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({testCase.numRows+1, 'Name', 'Invalid'}), 'customFileClass:setCustomFile:IndexOutOfRange');
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({'Undefined row', 'Name', 'Invalid'}), 'customFileClass:setCustomFile:NameNotRecognised');
@@ -171,14 +177,13 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Unrecognised language
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Language', 'Fortran'}), 'customFileClass:setCustomLanguage:InvalidOption')
 
-            % HMMMMMMMM
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Language', 'Fortran'}), 'customFileClass:setCustomName:DuplicateName')
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({2, 'Name', 'DPPC Model'}), 'customFileClass:setCustomName:DuplicateName')
 
             % !!!! THIS IS A BUG !!!!
             % Use a string rather than char for the name
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Name', "String Name"}), 'customFileClass:setCustomName:InvalidType')
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Filename', "String Name"}), 'customFileClass:setFileName:InvalidType')
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({2, 'Filename', "String Name"}), 'customFileClass:setFileName:InvalidType')
 
         end
 

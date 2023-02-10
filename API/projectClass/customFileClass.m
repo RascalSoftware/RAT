@@ -122,6 +122,8 @@ classdef customFileClass < handle
             elseif ischar(whichCustom)
                 if ~strcmpi(whichCustom,customNames)
                     error('customFileClass:setCustomFile:NameNotRecognised', 'Custom file object name %s not recognised', whichCustom);
+                else
+                    whichCustom = find(strcmpi(whichCustom,customNames));
                 end
             end
             
@@ -152,12 +154,6 @@ classdef customFileClass < handle
             % Any fields in results that are not empty are being set,
             % so call the relevant set method for these (which will carry
             % out some additional checks)
-            
-            % Pass numeric identifyer for data into subfunctions
-            if ~isnumeric(whichCustom)
-                whichCustom = find(strcmpi(whichCustom,customNames));
-            end
-            
             if ~isempty(results.filename)
                 obj.setFileName(whichCustom,results.filename);
             end
@@ -184,56 +180,40 @@ classdef customFileClass < handle
 %         end
 
         function obj = setCustomLanguage(obj,whichCustom,lang)
-            
            if ~strcmpi(lang,{'octave','matlab','python','cpp'})
                error('customFileClass:setCustomLanguage:InvalidOption', 'Language must be octave, matlab,cpp or python');
            end
            
            obj.fileTable{whichCustom,3} = {lang};
-           
         end
         
         
-        function obj = setCustomName(obj,whichCustom,name)
-            
+        function obj = setCustomName(obj,whichCustom,name)  
             % Name must be a char and not an existing name
             if ~ischar(name)
                 error('customFileClass:setCustomName:InvalidType', 'Name must be a string / character array');
             end
             
-            existingNames = obj.getCustomNames;
+            existingNames = obj.fileTable{:,1};
             if strcmpi(name,existingNames)
                 error('customFileClass:setCustomName:DuplicateName', 'Duplicate custom names are not allowed');
             end
             
             % Set the relevant name
             obj.fileTable{whichCustom,1} = {name};
-            
         end
         
         
-        function obj = setFileName(obj,whichCustom,name)
-            
+        function obj = setFileName(obj,whichCustom,name)  
             % Name must be a char and not an existing name
             if ~ischar(name)
                 error('customFileClass:setFileName:InvalidType', 'Filename must be a string / character array');
             end
 
             % Set the relevant file name
-            obj.fileTable{whichCustom,2} = {name};
-            
+            obj.fileTable{whichCustom,2} = {name};  
         end
-        
-        
-        
-        
-        
-        function names = getCustomNames(obj)
-            
-           names = obj.fileTable{:,1}; 
-            
-        end
-        
+
         
         function displayCustomFileObject(obj)
             

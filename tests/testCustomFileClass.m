@@ -56,7 +56,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         function initialiseFileTable(testCase)
             % Set up an empty file table and a table with one row
             tableTypes = {'string','string','string','string'};
-            tableNames = {'Name','Filename','Language','path'};
+            tableNames = {'Name','Filename','Language','Path'};
 
             testCase.initialFileTableEmpty = table('Size',[0 4],'VariableTypes',tableTypes,'VariableNames',tableNames);
 
@@ -192,6 +192,78 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % fewer than three values it should raise an error
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({1}), 'customFileClass:setCustomFile:TooFewInputs');
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 1}), 'customFileClass:setCustomFile:TooFewInputs');
+        end
+
+        function testDisplayCustomFileObject(testCase)
+            % Test the routine to display the file table by capturing the
+            % output and comparing with the table headers and data
+
+            % Capture the standard output and format into string array -
+            % one element for each row of the output
+            display = textscan(evalc('testCase.exampleClass.displayCustomFileObject()'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = display{:};
+
+            % Check headers
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions, and remove "<strong>" tags
+            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+
+            % Convert table variable names to a string array and join into
+            % a single string
+            varString = strip(strjoin(string(testCase.exampleClass.fileTable.Properties.VariableNames)));
+            testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
+
+            % Make sure the output has the right number of rows before
+            % continuing - output consists of "Custom Files" string,
+            % table header, divider row and the defined table rows
+            testCase.assertSize(displayedTable, [testCase.numRows+3, 1], 'Table does not have the right number of rows');
+
+            % Check table contents - when displayed, row 3 is a set of
+            % lines, so row 4 is the first line of data
+            for i = 1:testCase.numRows
+
+                % Replace multiple spaces in output table with a single
+                % space using regular expressions, and remove '"'
+                % characters
+                outRow = strip(replace(regexprep(displayedTable(i+3), '\s+', ' '), '"', ''));
+
+                % Get data from this row and join into a single string
+                rowString = strip(strjoin(testCase.exampleClass.fileTable{i,:}));
+                testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+
+            end
+        end
+
+        function testDisplayCustomFileObjectEmpty(testCase)
+            % Test the routine to display the file table of an empty
+            % custom file class by capturing the output and comparing with
+            % the table headers and data
+            emptyClass = customFileClass();
+
+            % Capture the standard output and format into string array -
+            % one element for each row of the output
+            display = textscan(evalc('emptyClass.displayCustomFileObject()'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = display{:};
+
+            % Check headers
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions, and remove "<strong>" tags
+            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+
+            % Convert table variable names to a string array and join into
+            % a single string
+            varString = strip(strjoin(string(emptyClass.fileTable.Properties.VariableNames)));
+            testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
+
+            % Make sure the output has the right number of rows before
+            % continuing
+            testCase.assertSize(displayedTable, [4, 1], 'Table does not have the right number of rows');
+
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions
+            outRow = strip(regexprep(displayedTable(4), '\s+', ' '));
+            rowString = string('"" "" "" ""');
+            testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
         end
 
     end

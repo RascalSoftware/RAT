@@ -29,7 +29,7 @@ classdef customFileClass < handle
             
             sz = [nStartRows 4];
             varTypes = {'string','string','string','string'};
-            varNames = {'Name','Filename','Language','path'};
+            varNames = {'Name','Filename','Language','Path'};
             obj.fileTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             obj.autoFileNameCounter = 1;
 

@@ -65,6 +65,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
 
     fullfile(ratRoot,'minimisers','generalUtils','bayesStats');
     fullfile(ratRoot,'utilities');
+    fullfile(ratRoot,'utilities','exceptions');
     fullfile(ratRoot,'utilities','plotting');
     fullfile(ratRoot,'utilities','misc');
     fullfile(ratRoot,'utilities','misc','projectClassToR1');

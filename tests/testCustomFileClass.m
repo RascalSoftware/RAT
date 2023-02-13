@@ -140,9 +140,9 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addFile({}), 'RAT:InvalidInput')
-            testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'matlab', 'pwd'}), 'RAT:InvalidInput')
-            testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), 'RAT:InvalidInput')
+            testCase.verifyError(@() testCase.exampleClass.addFile({}), 'RAT:InvalidNumberOfInputs')
+            testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'matlab', 'pwd'}), 'RAT:InvalidNumberOfInputs')
+            testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), 'RAT:InvalidNumberOfInputs')
 
             % Invalid types
             testCase.verifyError(@() testCase.exampleClass.addFile({42}), 'RAT:InvalidType')
@@ -192,8 +192,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         function testSetCustomFileTooFewParams(testCase)
             % If we call "setCustomFile" with a cell array containing
             % fewer than three values it should raise an error
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1}), 'RAT:TooFewInputs');
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 1}), 'RAT:TooFewInputs');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1}), 'RAT:InvalidNumberOfInputs');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 1}), 'RAT:InvalidNumberOfInputs');
         end
 
         function testDisplayCustomFileObject(testCase)

@@ -84,7 +84,8 @@ classdef customFileClass < handle
                         % One input supplied - assume just name provided
                         newName = inputs{1};
                         if ~ischar(newName)
-                            throw(obj.exceptionInvalidType);
+                            throw(invalidType('The custom message'));
+                            %throw(obj.exceptionInvalidType);
                             %error('RAT:InvalidType', 'Single input is expected to be a custom object name');
                         end
                         

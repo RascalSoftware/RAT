@@ -673,7 +673,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % problem.addCustomFile('model 1', 'custom.m', 'matlab', 'pwd');
             obj.customFile.addCustomFile(varargin);
         end
-        
+
+        function obj = removeCustomFile(obj, index)
+            % Removes custom file entry(ies) from the custom files object.
+            % Expects index of entry(ies) to remove.
+            %
+            % problem.removeCustomFile(1);
+            obj.customFile.removeCustomFile(index);
+        end
+
         function obj = setCustomFile(obj,varargin)
             % Edits an existing custom file parameter. Expects the
             % index of custom file to edit and key-value pairs

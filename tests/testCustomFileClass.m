@@ -186,6 +186,27 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 1}), 'RAT:InvalidNumberOfInputs');
         end
 
+        function testRemoveCustomFile(testCase)
+            % Note that the routine requires a single cell array as input
+            remainingRows = testCase.exampleClass.fileTable(2:end,:);
+            testCase.exampleClass.removeCustomFile(1);
+
+            testCase.verifyEqual(testCase.exampleClass.fileTable, remainingRows, "removeCustomFile does not work correctly");
+        end
+
+        function testRemoveCustomFileMultiple(testCase)
+            % Test removing multiple rows from a layers table
+            % Note that the routine requires a single cell array as input
+            
+            % Put dummy third row in table
+            testCase.exampleClass.fileTable(3, :) = {'Test Row', '', '', ''};
+
+            remainingRows = testCase.exampleClass.fileTable(2,:);
+            testCase.exampleClass.removeCustomFile([1 3]);
+
+            testCase.verifyEqual(testCase.exampleClass.fileTable, remainingRows, "removeCustomFile does not work correctly");
+        end
+
         function testDisplayCustomFileObject(testCase)
             % Test the routine to display the file table by capturing the
             % output and comparing with the table headers and data

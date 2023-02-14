@@ -473,6 +473,11 @@ classdef testProjectClass < matlab.unittest.TestCase
             % testCase.verifyEqual(testCase.project.customFile.fileTable{2, 4}, "/home/folder", 'setCustomFile method not working');
             testCase.project.setCustomFile('model 1', 'language', 'matlab');
             testCase.verifyEqual(testCase.project.customFile.fileTable{1, 3}, "matlab", 'setCustomFile method not working');
+            % Test removing a row
+            testCase.project.removeCustomFile(1);
+            testCase.verifySize(testCase.project.customFile.fileTable, [1, 4], 'custom file table has wrong dimension');
+            testCase.verifyEqual(testCase.project.customFile.fileTable{1, :}, ["model 2", "cust.m", "cpp", "c:/temp"], 'removeCustomFile method not working');
+
         end
 
         function testToStruct(testCase)

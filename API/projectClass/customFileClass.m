@@ -182,6 +182,17 @@ classdef customFileClass < handle
 
         end
 
+        function removeCustomFile(obj, row)
+            % Removes a file entry from the file table. The expected input
+            % is an integer or array of integers, i.e., an input such as
+            % [1 3] leads to multiple rows being removed from the table
+            %
+            % customFiles.removeCustomFile(2)
+            tab = obj.fileTable;
+            tab(row,:) = [];
+            obj.fileTable = tab;
+        end
+
         function names = getCustomNames(obj)
             % Get a string array of the names of each of the custom file
             % objects defined in the class.

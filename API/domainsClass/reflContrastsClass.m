@@ -203,7 +203,7 @@ classdef reflContrastsClass < handle
             % This function is only really called from 
             % projectClass if a data name has been updated.
             % Looks through the 'data' field of the contrasts
-            % and if it maches nameChange.oldName then
+            % and if it matches nameChange.oldName then
             % this is updated to nameChange.newName
             
             oldName = nameChange.oldName;

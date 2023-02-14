@@ -46,8 +46,8 @@ end
 
 %% Geometry and exp type block
 % Get parameters from R2
-geometry = r2Problem.Geometry;
-type = r2Problem.ModelType;
+geometry = r2Problem.geometry;
+type = r2Problem.modelType;
 name = r2Problem.experimentName;
 
 % Put these into the R1 struct..

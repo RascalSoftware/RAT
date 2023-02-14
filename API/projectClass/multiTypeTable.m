@@ -163,7 +163,7 @@ classdef multiTypeTable < handle
             tab = obj.typesTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))
-                error('Duplicate parameter names not allowed');
+                throw(duplicateName('Duplicate parameter names not allowed'));
             end
             tab = [tab ; row];
             obj.typesTable = tab;

@@ -196,7 +196,6 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             expectedTable = [testCase.exampleTable.typesTable; newRow];
 
             testCase.exampleTable.appendNewRow(newRow);
-
             testCase.verifyEqual(testCase.exampleTable.typesTable, expectedTable, "appendNewRow does not work correctly");
         end
 
@@ -205,8 +204,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % an error
             newRow = {'Background D2O','constant','','','','',''};
 
-            testCase.verifyError(@() testCase.exampleTable.appendNewRow(newRow), ?MException);
-
+            testCase.verifyError(@() testCase.exampleTable.appendNewRow(newRow), duplicateName.errorID);
             testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite duplicate names");
         end
 
@@ -294,9 +292,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyEqual(multiTypeTable.findRowIndex(" Background D2O", tableRows), 1);
             testCase.verifyEqual(multiTypeTable.findRowIndex(" Type ", tableCols), 2);
 
-            testCase.verifyError(@() multiTypeTable.findRowIndex("Invalid Row", tableRows), ?MException);
-            testCase.verifyError(@() multiTypeTable.findRowIndex("Value 3", tableRows), ?MException);
-            testCase.verifyError(@() multiTypeTable.findRowIndex("Value 6", tableCols), ?MException);
+            testCase.verifyError(@() multiTypeTable.findRowIndex("Invalid Row", tableRows), nameNotRecognised.errorID);
+            testCase.verifyError(@() multiTypeTable.findRowIndex("Value 3", tableRows), nameNotRecognised.errorID);
+            testCase.verifyError(@() multiTypeTable.findRowIndex("Value 6", tableCols), nameNotRecognised.errorID);
         end
 
     end

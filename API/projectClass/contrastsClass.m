@@ -3,8 +3,8 @@ classdef contrastsClass < handle
     properties
         numberOfContrasts = 0
         contrastsTable
-        contrasts = {};
-        contrastAutoNameCounter = 1;
+        contrasts = {}
+        contrastAutoNameCounter = 1
     end
     
     methods

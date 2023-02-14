@@ -8,17 +8,17 @@ classdef layersClassRealSLD < handle
     
     properties (Access = private)
         layersAutoNameCounter
-        allowedHydration = {'bulk in','bulk out','none'}; 
+        allowedHydration = {'bulk in', 'bulk out', 'none'} 
     end
 
     properties (Dependent, SetAccess = private)
-        layersCount;
+        layersCount
     end
     
     methods
         
         function obj = layersClassRealSLD()
-            % Constructor a layers class including an empty layers table
+            % Construct a layers class including an empty layers table
             %
             % layers = layersClassRealSLD();          
             sz = [0 6];
@@ -167,10 +167,9 @@ classdef layersClassRealSLD < handle
             tab(layer,:) = [];
             obj.layersTable = tab;
         end
-
-        
+ 
         function layersNames = getLayersNames(obj)
-            % Get a string array pf the names of each of the layers defined
+            % Get a string array of the names of each of the layers defined
             % in the class.
             %
             % layers.getLayersNames()

@@ -464,15 +464,20 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.customFile.fileTable, [2, 4], 'custom file table has wrong dimension');    
             testCase.verifyEqual(testCase.project.customFile.fileTable{:, 1}, ["model 1"; "model 2"], 'addCustomFile method not working');
             testCase.verifyEqual(testCase.project.customFile.fileTable{:, 2}, ["custom.m"; "custom.cpp"], 'addCustomFile method not working');
-            testCase.verifyEqual(testCase.project.customFile.fileTable{:, 3}, ["matlab"; "cpp"], 'addCustomFi6le method not working');
+            testCase.verifyEqual(testCase.project.customFile.fileTable{:, 3}, ["matlab"; "cpp"], 'addCustomFile method not working');
             testCase.verifyEqual(testCase.project.customFile.fileTable{:, 4}, ["pwd"; "c:/temp"], 'addCustomFile method not working');
             % Checks that custom file can be modified
             % Cannot set path due to unimplemented field 'setCustomPath' for class 'customFileClass'.
             testCase.project.setCustomFile(2, 'filename', 'cust.m');  %, 'path', '/home/folder');
             testCase.verifyEqual(testCase.project.customFile.fileTable{2, 2}, "cust.m", 'setCustomFile method not working');
             % testCase.verifyEqual(testCase.project.customFile.fileTable{2, 4}, "/home/folder", 'setCustomFile method not working');
-            testCase.project.setCustomFile('model 1', 'language', 'octave');
-            testCase.verifyEqual(testCase.project.customFile.fileTable{1, 3}, "octave", 'setCustomFile method not working');
+            testCase.project.setCustomFile('model 1', 'language', 'matlab');
+            testCase.verifyEqual(testCase.project.customFile.fileTable{1, 3}, "matlab", 'setCustomFile method not working');
+            % Test removing a row
+            testCase.project.removeCustomFile(1);
+            testCase.verifySize(testCase.project.customFile.fileTable, [1, 4], 'custom file table has wrong dimension');
+            testCase.verifyEqual(testCase.project.customFile.fileTable{1, :}, ["model 2", "cust.m", "cpp", "c:/temp"], 'removeCustomFile method not working');
+
         end
 
         function testToStruct(testCase)

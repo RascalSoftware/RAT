@@ -5,13 +5,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     % hydration.
     %
     % Sub objects used are:
-    % parametersClass       - parameter definition with priors
+    % parametersClass      - parameter definition with priors
     % layersClassRealSLD   - layers defined as (d,rho_real,rough,hydration)
-    % backgroundsClass      - 
-    % resolutionsClass      -
-    % dataClass             -
-    % contrastsClass        -
-    % customFileClass       -
+    % backgroundsClass     - 
+    % resolutionsClass     -
+    % dataClass            -
+    % contrastsClass       -
+    % customFileClass      -
     
     properties
         experimentName
@@ -35,7 +35,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     properties (Access = private)
         
-        experimentType = 'Non polarized no absorption';
+        experimentType = 'Non polarized no absorption'
         
     end
     
@@ -671,9 +671,17 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % language (matlab, octave, or cpp), and working directory
             % 
             % problem.addCustomFile('model 1', 'custom.m', 'matlab', 'pwd');
-            obj.customFile.addFile(varargin{:});
+            obj.customFile.addCustomFile(varargin);
         end
-        
+
+        function obj = removeCustomFile(obj, index)
+            % Removes custom file entry(ies) from the custom files object.
+            % Expects index of entry(ies) to remove.
+            %
+            % problem.removeCustomFile(1);
+            obj.customFile.removeCustomFile(index);
+        end
+
         function obj = setCustomFile(obj,varargin)
             % Edits an existing custom file parameter. Expects the
             % index of custom file to edit and key-value pairs

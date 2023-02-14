@@ -22,7 +22,7 @@ classdef resolutionsClass < handle
     end
     
     properties (Access = private)
-       allowedTypes = {'constant', 'data', 'function'};
+       allowedTypes = {'constant', 'data', 'function'}
     end
     
 

@@ -2,96 +2,116 @@ classdef customFileClass < handle
     
     % A container class for holding custom files for either
     % models, backgrounds or resolutions.
+
     properties
-        
-        fileTable;
-        fileCount = 0;
-        autoFileNameCounter;
-        
+        fileTable = table
+    end
+
+    properties(Access = private, Constant, Hidden)
+        duplicateNameMessage = "Duplicate custom file names are not allowed"
+        invalidLanguageMessage = "Language must be: matlab, python, or cpp"
+    end
+
+    properties(Access = private, Constant)
+        supportedLanguages = {'matlab', 'python', 'cpp'}
+    end
+
+    properties (Access = private)
+        autoFileNameCounter
+    end
+
+    properties (Dependent, SetAccess = private)
+        fileCount
     end
     
     methods
         
         function obj = customFileClass(varargin)
-            
-            if ~isempty(varargin)
-                startCell = varargin{:};
-                nStartRows = 1;
-            else
-                startCell = [];
-                nStartRows = 0;
-            end
-            
-            sz = [nStartRows 4];
+            % Construct a custom file class containing either an empty
+            % table or one with a single row.
+            % No input is required for an empty table, otherwise the
+            % parameters for the first row should be provided.
+            %
+            % customFiles = customFileClass()           
+            sz = [0 4];
             varTypes = {'string','string','string','string'};
-            varNames = {'Name','Filename','Language','path'};
+            varNames = {'Name','Filename','Language','Path'};
             obj.fileTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            
-            if ~isempty(startCell)
-                obj.fileTable(1,:) = startCell;%{'Substrate Roughness',1 3 5,true,'uniform',0,Inf};
-                obj.fileCount = 1;
-                obj.autoFileNameCounter = 1;
-            else
-                obj.fileCount = 0;
-                obj.autoFileNameCounter = 1;
-            end
-            
+            obj.autoFileNameCounter = 1;
+
+            if ~isempty(varargin)
+                obj.addCustomFile(varargin{:});
+            end          
         end
-        
-        function obj = addFile(obj,varargin)
-            
+
+        function count = get.fileCount(obj)
+            count = height(obj.fileTable);
+        end
+
+        function obj = addCustomFile(obj,varargin)
+            % Add an entry to the file table.
+            % A custom file entry can be added with no parameters, just the
+            % name of the custom file entry, the name of the entry
+            % alongside a filename, or can be fully defined by specifying
+            % the name of the custom file entry, filename, language, and
+            % file path
+            %
+            % customFiles.addCustomFile()
+            % customFiles.addCustomFile('New Row')
+            % customFiles.addCustomFile('New Row', 'file.m')
+            % customFiles.addCustomFile('New Row', 'file.m', 'matlab', 'pwd')
             if isempty(varargin)
                 
                 % Nothing supplied - add empty data row
                 nameVal = obj.autoFileNameCounter();
                 newName = sprintf('New custom file %d', nameVal);
                 
-                newRow = {newName, "", "Octave", "pwd"};
+                newRow = {newName, "", "matlab", "pwd"};
                 appendNewRow(obj,newRow);
+
             else
                 
-                inputs = varargin;
-                
+                inputs = varargin{:};
+
                 % Check length of added data
                 switch length(inputs)
                     
                     case 1
-                        
+
                         % One input supplied - assume just name provided
                         newName = inputs{1};
                         if ~ischar(newName)
-                            error('Single input is expected to be a custom object name');
+                            throw(invalidType('Single input is expected to be a custom object name'));
                         end
                         
                         newRow = {newName,"","matlab","pwd"};
-                        appendNewRow(obj,newRow);%,newUserDataRow);
+                        appendNewRow(obj,newRow);
                         
                     case 2
-                        
+
                         % Two inputs suppled - assume both name and
                         % filename supplied;
                         newName = string(inputs{1});
                         newFile = string(inputs{2});
-                        
-                        
-                        
-                        newRow = {newName, newFile,"octave","pwd"};
-                        appendNewRow(obj,newRow);% ,newUserDataRow);
+
+                        newRow = {newName,newFile,"matlab","pwd"};
+                        appendNewRow(obj,newRow);
                         
                     case 4
+
                         % Four inputs = assume all inputs supplied
                         newName = string(inputs{1});
                         newFile = string(inputs{2});
                         newLang = string(inputs{3});
                         newPath = string(inputs{4});
                         
-                        newRow = {newName, newFile, newLang, newPath };
+                        newRow = {newName, newFile, newLang, newPath};
                         appendNewRow(obj,newRow);
                         
                     otherwise
-                        
+
                         % Other length of inputs is not recognised
-                        error('Unrecognised input into addData');
+                        throw(invalidNumberOfInputs('Unrecognised input into addCustomFile'));
                         
                 end
             end
@@ -99,25 +119,34 @@ classdef customFileClass < handle
         end
         
         function obj = setCustomFile(obj, varargin)
-           
-            % Set the value of an existing custom file object
+            % Change the value of a given parameter in the file table.
+            % The expected inputs are the row of the file entry of
+            % interest (given either by name of index), and key-value pairs
+            % of the parameter(s) to change. The values of the keys are:
+            % "Name", "Filename", "Language", and "Path".
+            % NOTE changing the path using this routine is not implemented
+            %
+            % customFiles.setcustomFile(1, "Name", "New Name",...
+            %                           "Language", "Octave")
             inputs = varargin{:};
-            customNames = obj.fileTable{:,1};
+            customNames = obj.getCustomNames;
             
             % Always need three or more inputs to set data value
             if length(inputs) < 3
-                error('At least three inputs expected into ''setCustomFile''');
+                throw(invalidNumberOfInputs('At least three inputs expected into ''setCustomFile'''));
             end
                 
             % First input needs to be a data number or name
             whichCustom = inputs{1};
             if isnumeric(whichCustom)
                 if (whichCustom > obj.fileCount) || (whichCustom < 1)
-                    error('Custom file object %d is not recognised', whichCustom);
+                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', whichCustom, obj.fileCount)));
                 end
             elseif ischar(whichCustom)
                 if ~strcmpi(whichCustom,customNames)
-                    error('Data name %s not recognised', whichCustom);
+                    throw(nameNotRecognised(sprintf('Custom file object name %s not recognised', whichCustom)));
+                else
+                    whichCustom = find(strcmpi(whichCustom,customNames));
                 end
             end
             
@@ -125,17 +154,9 @@ classdef customFileClass < handle
             % being set and make sure the data is of the correct size
             % and type.
             toBeParsed = inputs(2:end);
-            
-           
 
-            % Make an 'iputParser' object...
+            % Make an 'inputParser' object...
             p = inputParser;
-            
-%             % dataRange and simRange need to be [1 x 2] arrays
-%             isDimsRanges = @(x)all(size(x) == [1,2]);
-            
-%             % Data needs to be an [n x >3] array
-%             isDimsData = @(x) size(x,2) > 3;
 
             addParameter(p,'name','', @(x) isstring(x) || ischar(x))
             addParameter(p,'filename','', @(x) isstring(x) || ischar(x))
@@ -148,12 +169,6 @@ classdef customFileClass < handle
             % Any fields in results that are not empty are being set,
             % so call the relevant set method for these (which will carry
             % out some additional checks)
-            
-            % Pass numeric identifyer for data into subfunctions
-            if ~isnumeric(whichCustom)
-                whichCustom = find(strcmpi(whichCustom,customNames));
-            end
-            
             if ~isempty(results.filename)
                 obj.setFileName(whichCustom,results.filename);
             end
@@ -163,6 +178,7 @@ classdef customFileClass < handle
             end
             
             if ~isempty(results.path)
+                % NOT IMPLEMENTED
                 obj.setCustomPath(whichCustom,results.path);
             end
             
@@ -171,71 +187,30 @@ classdef customFileClass < handle
             end            
 
         end
-        
-%         function obj = setDataRange(obj,whichData,range)
-%             
-%             r = [range(1) range(2)];
-%             obj.dataTable{whichData,3} = {range};
-%         
-%         end
 
-        function obj = setCustomLanguage(obj,whichCustom,lang)
-            
-           if ~strcmpi(lang,{'octave','matlab','python','cpp'})
-               error('Language must be octave, matlab,cpp or python');
-           end
-           
-           obj.fileTable{whichCustom,3} = {lang};
-           
+        function removeCustomFile(obj, row)
+            % Removes a file entry from the file table. The expected input
+            % is an integer or array of integers, i.e., an input such as
+            % [1 3] leads to multiple rows being removed from the table
+            %
+            % customFiles.removeCustomFile(2)
+            tab = obj.fileTable;
+            tab(row,:) = [];
+            obj.fileTable = tab;
         end
-        
-        
-        function obj = setCustomName(obj,whichCustom,name)
-            
-            % Name must be a char and not an existing name
-            if ~ischar(name)
-                error('Name must be a string / character array');
-            end
-            
-            existingNames = obj.getCustomNames;
-            if strcmpi(name,existingNames)
-                error('Duplicate custom names are not allowed');
-            end
-            
-            % Set the relevant name
-            obj.fileTable{whichCustom,1} = {name};
-            
-        end
-        
-        
-        function obj = setFileName(obj,whichCustom,name)
-            
-            % Name must be a char and not an existing name
-            if ~ischar(name)
-                error('Filename must be a string / character array');
-            end
-           
-            
-            % Set the relevant file name
-            obj.fileTable{whichCustom,2} = {name};
-            
-        end
-        
-        
-        
-        
-        
+
         function names = getCustomNames(obj)
-            
-           names = obj.fileTable{:,1}; 
-            
+            % Get a string array of the names of each of the custom file
+            % objects defined in the class.
+            %
+            % customFiles.getLayersNames()
+            names = obj.fileTable{:,1};  
         end
-        
-        
+
         function displayCustomFileObject(obj)
-            
-            % Display the table object. 
-            
+            % Display the file table.
+            %
+            % customFiles.displayCustomFileObject()            
             fprintf('    Custom Files: ------------------------------------------------------------------------------------------------------ \n\n');
             
             tab = obj.fileTable;
@@ -248,7 +223,7 @@ classdef customFileClass < handle
             tableSize = size(tab);
             
             if tableSize(1) == 0
-                displayTable(1,:) = {"","","",""};
+                displayTable(1,:) = {'','','',''};
             else
                 
                 for i = 1:tableSize(1)
@@ -293,10 +268,13 @@ classdef customFileClass < handle
         end
         
         function fileStruct = toStruct(obj)
-            
+            % Convert the custom files class to a struct
+            %
+            % customFiles.toStruct()
             numberOfFiles = obj.fileCount;
             
             if numberOfFiles > 0
+                filesList = cell(numberOfFiles, 1);
                 for i = 1:numberOfFiles
                     thisRow = obj.fileTable{i,:};
                     thisFile = thisRow{2};
@@ -306,68 +284,77 @@ classdef customFileClass < handle
                     if strcmpi(thisPath,'pwd')
                         thisPath = pwd;
                     end
-                    filesList{i,:} = {thisFile, thisType, thisPath};
+                    filesList{i} = {thisFile, thisType, thisPath};
                 end
                 fileStruct.files = filesList;
             else
                 fileStruct.files = {};
             end
-            
         end
-        
+
+    end
+
+    methods(Access = protected)
+
         function obj = appendNewRow(obj,newRow)
-            
+            % Appends a row to the layers table. The expected input is
+            % a length four cell array.
+            %
+            % customFiles.appendNewRow({'New Row','file.m','matlab','pwd'});
             tab = obj.fileTable;
             newName = newRow{1};
             if any(strcmpi(newName,tab{:,1}))
-                error('Duplicate custom file names not allowed');
+                throw(duplicateName(obj.duplicateNameMessage));
             end
             
             % Carry out checks of Data type and ranges
             fileName = newRow{2};
             language = newRow{3};
             path = newRow{4};
-                
-            if ~isstring(fileName)
-                error('filename must be a string');
-            end
-            
-            if ~strcmpi(language,{'matlab','octave','python','cpp'})
-                error('Custom file must be matlab, octave,cpp or python');
-            end
-            
-            if ~isstring(path)
-                error('Path mjst be a string');
+
+            if ~strcmpi(language, obj.supportedLanguages)
+                throw(invalidOption(obj.invalidLanguageMessage));
             end
 
-            row = {{newName}, {fileName}, {language}, {path}};
+            row = {newName, fileName, language, path};
             tab = [tab ; row];
             obj.fileTable = tab;
-            obj.fileCount = obj.fileCount + 1;
             obj.autoFileNameCounter = obj.autoFileNameCounter + 1;
             
         end
+
+        function obj = setCustomLanguage(obj,whichCustom,lang)
+           % Check whether a specified language is supported, and set the
+           % file entry if so.
+           if ~strcmpi(lang, obj.supportedLanguages)
+               throw(invalidOption(obj.invalidLanguageMessage));
+           end
+           
+           obj.fileTable{whichCustom,3} = {lang};
+        end
         
+        
+        function obj = setCustomName(obj,whichCustom,name) 
+            % Check a potential new name is already
+            % specified, and set it if not
+
+            % Name must not be an existing name
+            existingNames = obj.fileTable{:,1};
+            if any(strcmpi(name,existingNames))
+                throw(duplicateName(obj.duplicateNameMessage));
+            end
+            
+            % Set the relevant name
+            obj.fileTable{whichCustom,1} = {name};
+        end
+        
+        
+        function obj = setFileName(obj,whichCustom,name)
+            % Set a new filename
+            obj.fileTable{whichCustom,2} = {name};  
+        end
+
     end
     
 end
-
-function inputBlock = parseDataInput(inputVals)
-
-    defaultName = '';
-    defaultData = [];
-    defaultRange = [obj.defaultSimMin obj.defaultSimMax];
-    defaultSimRange = [obj.defaultSimMin obj.defaultSimMax];
-
-    p = inputParser;
-    addParameter(p,'name', defaultName, @ischar);
-    addParameter(p,'data', defaultData, @isnumeric);
-    addParameter(p,'data range', defaultRange, @(a) validateattributes(a,{'double'},{'size',[1 2]}));
-    addParameter(p,'sim range', defaultSimRange, @(a) validateattributes(a,{'double'},{'size',[1 2]}));
-
-    parse(p,inputVals{:});
-    inputBlock = p.Results;
-
-end
-
     

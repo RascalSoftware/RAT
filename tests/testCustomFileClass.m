@@ -126,7 +126,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % custom object name, a custom object name with the filename,
             % and a fully defined custom file entry consisting of: a
             % custom object name, a filename, language and file path.
-            newRow = {'New custom file 1', '', 'Octave', 'pwd'};
+            newRow = {'New custom file 1', '', 'octave', 'pwd'};
             expectedTable = [testCase.exampleClass.fileTable; newRow];
 
             testCase.exampleClass.addFile();

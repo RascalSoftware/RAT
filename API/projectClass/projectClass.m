@@ -5,13 +5,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     % hydration.
     %
     % Sub objects used are:
-    % parametersClass       - parameter definition with priors
+    % parametersClass      - parameter definition with priors
     % layersClassRealSLD   - layers defined as (d,rho_real,rough,hydration)
-    % backgroundsClass      - 
-    % resolutionsClass      -
-    % dataClass             -
-    % contrastsClass        -
-    % customFileClass       -
+    % backgroundsClass     - 
+    % resolutionsClass     -
+    % dataClass            -
+    % contrastsClass       -
+    % customFileClass      -
     
     properties
         experimentName
@@ -35,7 +35,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     properties (Access = private)
         
-        experimentType = 'Non polarized no absorption';
+        experimentType = 'Non polarized no absorption'
         
     end
     

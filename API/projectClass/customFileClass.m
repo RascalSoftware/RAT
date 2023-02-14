@@ -4,17 +4,18 @@ classdef customFileClass < handle
     % models, backgrounds or resolutions.
 
     properties
-        fileTable = table;
-        duplicateNameMessage = "Duplicate custom file names are not allowed";
-        invalidLanguageMessage = "Language must be: matlab, octave, cpp or python";
+        fileTable = table
+        duplicateNameMessage = "Duplicate custom file names are not allowed"
+        invalidLanguageMessage = "Language must be: matlab, octave, cpp or python"
+        supportedLanguages = {'octave', 'matlab', 'python', 'cpp'}
     end
 
     properties (Access = private)
-        autoFileNameCounter;
+        autoFileNameCounter
     end
 
     properties (Dependent, SetAccess = private)
-        fileCount;
+        fileCount
     end
     
     methods
@@ -68,7 +69,7 @@ classdef customFileClass < handle
                 nameVal = obj.autoFileNameCounter();
                 newName = sprintf('New custom file %d', nameVal);
                 
-                newRow = {newName, "", "Octave", "pwd"};
+                newRow = {newName, "", "octave", "pwd"};
                 appendNewRow(obj,newRow);
 
             else
@@ -96,7 +97,7 @@ classdef customFileClass < handle
                         newName = string(inputs{1});
                         newFile = string(inputs{2});
 
-                        newRow = {newName, newFile,"octave","pwd"};
+                        newRow = {newName,newFile,"octave","pwd"};
                         appendNewRow(obj,newRow);
                         
                     case 4
@@ -314,7 +315,7 @@ classdef customFileClass < handle
                 throw(invalidType('Filename must be a string'));
             end
             
-            if ~strcmpi(language,{'matlab','octave','python','cpp'})
+            if ~strcmpi(language, obj.supportedLanguages)
                 throw(invalidOption(obj.invalidLanguageMessage));
             end
             
@@ -332,7 +333,7 @@ classdef customFileClass < handle
         function obj = setCustomLanguage(obj,whichCustom,lang)
            % Check whether a specified language is supported, and set the
            % file entry if so.
-           if ~strcmpi(lang,{'octave','matlab','python','cpp'})
+           if ~strcmpi(lang, obj.supportedLanguages)
                throw(invalidOption(obj.invalidLanguageMessage));
            end
            

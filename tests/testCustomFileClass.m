@@ -177,12 +177,6 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
             % Duplicate custom object names
             testCase.verifyError(@() testCase.exampleClass.setCustomFile({2, 'Name', 'DPPC Model'}), 'RAT:DuplicateName')
-
-            % !!!! THIS IS A BUG !!!!
-            % Use a string rather than char for the name
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Name', "String Name"}), 'RAT:InvalidType')
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({2, 'Filename', "String Name"}), 'RAT:InvalidType')
-
         end
 
         function testSetCustomFileTooFewParams(testCase)

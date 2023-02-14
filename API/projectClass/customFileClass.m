@@ -294,20 +294,12 @@ classdef customFileClass < handle
             fileName = newRow{2};
             language = newRow{3};
             path = newRow{4};
-                
-            if ~isstring(fileName)
-                throw(invalidType('Filename must be a string'));
-            end
-            
+
             if ~strcmpi(language, obj.supportedLanguages)
                 throw(invalidOption(obj.invalidLanguageMessage));
             end
-            
-            if ~isstring(path)
-                throw(invalidType('Path must be a string'));
-            end
 
-            row = {{newName}, {fileName}, {language}, {path}};
+            row = {newName, fileName, language, path};
             tab = [tab ; row];
             obj.fileTable = tab;
             obj.autoFileNameCounter = obj.autoFileNameCounter + 1;
@@ -326,14 +318,10 @@ classdef customFileClass < handle
         
         
         function obj = setCustomName(obj,whichCustom,name) 
-            % Check a potential new name is a character and not already
-            % specified, and set it if so
+            % Check a potential new name is already
+            % specified, and set it if not
 
-            % Name must be a char and not an existing name
-            if ~ischar(name)
-                throw(invalidType('Name must be a string / character array'));
-            end
-            
+            % Name must not be an existing name
             existingNames = obj.fileTable{:,1};
             if any(strcmpi(name,existingNames))
                 throw(duplicateName(obj.duplicateNameMessage));
@@ -345,15 +333,7 @@ classdef customFileClass < handle
         
         
         function obj = setFileName(obj,whichCustom,name)
-            % Check a potential new name is a character and not already
-            % specified (??????), and set it if so
-
-            % Name must be a char and not an existing name
-            if ~ischar(name)
-                throw(invalidType('Filename must be a string / character array'));
-            end
-
-            % Set the relevant file name
+            % Set a new filename
             obj.fileTable{whichCustom,2} = {name};  
         end
 

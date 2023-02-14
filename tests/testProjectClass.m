@@ -471,8 +471,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setCustomFile(2, 'filename', 'cust.m');  %, 'path', '/home/folder');
             testCase.verifyEqual(testCase.project.customFile.fileTable{2, 2}, "cust.m", 'setCustomFile method not working');
             % testCase.verifyEqual(testCase.project.customFile.fileTable{2, 4}, "/home/folder", 'setCustomFile method not working');
-            testCase.project.setCustomFile('model 1', 'language', 'octave');
-            testCase.verifyEqual(testCase.project.customFile.fileTable{1, 3}, "octave", 'setCustomFile method not working');
+            testCase.project.setCustomFile('model 1', 'language', 'matlab');
+            testCase.verifyEqual(testCase.project.customFile.fileTable{1, 3}, "matlab", 'setCustomFile method not working');
         end
 
         function testToStruct(testCase)

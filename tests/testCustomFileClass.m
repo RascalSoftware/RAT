@@ -4,7 +4,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 % used within the Project Class in RAT.
 %
 % In this class, we test:
-% customFileClass, addFile, setCustomFile, displayCustomFileObject,
+% customFileClass, addCustomFile, setCustomFile, displayCustomFileObject,
 % toStruct
 %
 % We use an example custom file class combining the custom file classes
@@ -18,22 +18,22 @@ classdef testCustomFileClass < matlab.unittest.TestCase
     properties (TestParameter)
         fileInput = {{'New Entry'},...
                      {'Row and file name', 'file.m'},...
-                     {'Full entry', 'otherFile.m', 'matlab', 'pwd'}
+                     {'Full entry', 'otherFile.m', 'python', 'pwd'}
                     }
         addedRow = {{'New Entry', '', 'matlab', 'pwd'},...
-                    {'Row and file name', 'file.m', 'octave', 'pwd'},...
-                    {'Full entry', 'otherFile.m', 'matlab', 'pwd'}
+                    {'Row and file name', 'file.m', 'matlab', 'pwd'},...
+                    {'Full entry', 'otherFile.m', 'python', 'pwd'}
                    }
         testRow = {1, 1, 2, 2}
         inputData = {{'DPPC Model', 'name', 'New Model'},...
                      {1, 'filename', 'model.m'},...
-                     {'DSPC Model', 'language', 'octave'},...
-                     {2, 'language', 'octave', 'filename', 'model.m', 'name', 'New Model'},...
+                     {'DSPC Model', 'language', 'python'},...
+                     {2, 'language', 'python', 'filename', 'model.m', 'name', 'New Model'},...
                     }
         expectedRow = {["New Model", "DPPC_customXY.m", "matlab", "../../"],...
                        ["DPPC Model", "model.m", "matlab", "../../"],...
-                       ["DSPC Model", "customBilayer.m", "octave", "../../"],...
-                       ["New Model", "model.m", "octave", "../../"],...
+                       ["DSPC Model", "customBilayer.m", "python", "../../"],...
+                       ["New Model", "model.m", "python", "../../"],...
                       }
         invalidInputData = {{'DPPC Model', 'name', 42},...
                             {1, 'filename', datetime('today')},...
@@ -107,7 +107,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableOneRow, "customFileClass does not initialise correctly");
         end
 
-        function testAddFile(testCase, fileInput, addedRow)
+        function testAddCustomFile(testCase, fileInput, addedRow)
             % Test adding a custom file entry to the custom file class.
             % We can add a custom file entry with no parameters, just a
             % custom object name, a custom object name with the filename,
@@ -115,47 +115,43 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % custom object name, a filename, language and file path.  
             expectedTable = [testCase.exampleClass.fileTable; addedRow];
 
-            testCase.exampleClass.addFile(fileInput);
+            testCase.exampleClass.addCustomFile(fileInput);
 
             testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, "addFile does not work correctly");
         end
 
-        function testAddFileEmpty(testCase)
+        function testAddCustomFileEmpty(testCase)
             % Test adding a custom file entry to the custom file class.
             % We can add a custom file entry with no parameters, just a
             % custom object name, a custom object name with the filename,
             % and a fully defined custom file entry consisting of: a
             % custom object name, a filename, language and file path.
-            newRow = {'New custom file 1', '', 'octave', 'pwd'};
+            newRow = {'New custom file 1', '', 'matlab', 'pwd'};
             expectedTable = [testCase.exampleClass.fileTable; newRow];
 
-            testCase.exampleClass.addFile();
+            testCase.exampleClass.addCustomFile();
 
             testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, "addFile does not work correctly");
         end
 
-        function testAddFileInvalid(testCase)
+        function testAddCustomFileInvalid(testCase)
             % Test adding a custom file entry to the custom file class.
             % If we use an invalid set of custom file parameters it should
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addFile({}), 'RAT:InvalidNumberOfInputs')
-            testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'matlab', 'pwd'}), 'RAT:InvalidNumberOfInputs')
-            testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), 'RAT:InvalidNumberOfInputs')
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({}), 'RAT:InvalidNumberOfInputs')
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'matlab', 'pwd'}), 'RAT:InvalidNumberOfInputs')
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), 'RAT:InvalidNumberOfInputs')
 
             % Invalid types
-            testCase.verifyError(@() testCase.exampleClass.addFile({42}), 'RAT:InvalidType')
-            % Unreachable without testing appendNewRow directly
-            % (but method is private)
-            %testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid file', 42}), 'RAT:InvalidType')
-            %testCase.verifyError(@() testCase.exampleClass.addFile({'Invalid file', 'file.m', 'matlab', 42}), 'RAT:InvalidType')
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({42}), 'RAT:InvalidType')
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.addFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), 'RAT:InvalidOption')
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), 'RAT:InvalidOption')
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.addFile({'DPPC Model'}), 'RAT:DuplicateName')
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'DPPC Model'}), 'RAT:DuplicateName')
         end
 
         function testSetCustomFile(testCase, testRow, inputData, expectedRow)

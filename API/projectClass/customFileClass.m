@@ -51,7 +51,7 @@ classdef customFileClass < handle
             count = height(obj.fileTable);
         end
 
-        function obj = addFile(obj,varargin)
+        function obj = addCustomFile(obj,varargin)
             % Add an entry to the file table.
             % A custom file entry can be added with no parameters, just the
             % name of the custom file entry, the name of the entry
@@ -59,10 +59,10 @@ classdef customFileClass < handle
             % the name of the custom file entry, filename, language, and
             % file path
             %
-            % customFiles.addFile()
-            % customFiles.addFile('New Row')
-            % customFiles.addFile('New Row', 'file.m')
-            % customFiles.addFile('New Row', 'file.m', 'matlab', 'pwd')            
+            % customFiles.addCustomFile()
+            % customFiles.addCustomFile('New Row')
+            % customFiles.addCustomFile('New Row', 'file.m')
+            % customFiles.addCustomFile('New Row', 'file.m', 'matlab', 'pwd')            
             if isempty(varargin)
                 
                 % Nothing supplied - add empty data row

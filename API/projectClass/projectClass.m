@@ -671,7 +671,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % language (matlab, octave, or cpp), and working directory
             % 
             % problem.addCustomFile('model 1', 'custom.m', 'matlab', 'pwd');
-            obj.customFile.addFile(varargin);
+            obj.customFile.addCustomFile(varargin);
         end
         
         function obj = setCustomFile(obj,varargin)

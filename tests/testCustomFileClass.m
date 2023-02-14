@@ -268,7 +268,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Test the routine to display the file table of a custom file
             % class with empty row entries by capturing the output and
             % comparing with the table headers and data
-            emptyRowClass = customFileClass({'Test Row', '', '', ''});
+            emptyRowClass = customFileClass();
+            emptyRowClass.fileTable(1, :) = {'Test Row', '', '', ''};
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
@@ -300,11 +301,12 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Test the routine to display the file table of a custom file
             % class with a long file path by capturing the output and
             % comparing with the table headers and data
-            emptyRowClass = customFileClass({'Test Row', '', '', 'really/long/file/path'});
+            longPathClass = customFileClass();
+            longPathClass.fileTable(1, :) = {'Test Row', '', '', 'really/long/file/path'};
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
-            display = textscan(evalc('emptyRowClass.displayCustomFileObject()'),'%s','Delimiter','\r','TextType','string');
+            display = textscan(evalc('longPathClass.displayCustomFileObject()'),'%s','Delimiter','\r','TextType','string');
             displayedTable = display{:};
 
             % Check headers
@@ -314,7 +316,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
             % Convert table variable names to a string array and join into
             % a single string
-            varString = strip(strjoin(string(emptyRowClass.fileTable.Properties.VariableNames)));
+            varString = strip(strjoin(string(longPathClass.fileTable.Properties.VariableNames)));
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before

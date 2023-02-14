@@ -26,25 +26,16 @@ classdef customFileClass < handle
             % No input is required for an empty table, otherwise the
             % parameters for the first row should be provided.
             %
-            % customFiles = customFileClass()
-            if ~isempty(varargin)
-                startCell = varargin{:};
-                nStartRows = 1;
-            else
-                startCell = [];
-                nStartRows = 0;
-            end
-            
-            sz = [nStartRows 4];
+            % customFiles = customFileClass()           
+            sz = [0 4];
             varTypes = {'string','string','string','string'};
             varNames = {'Name','Filename','Language','Path'};
             obj.fileTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             obj.autoFileNameCounter = 1;
 
-            if ~isempty(startCell)
-                obj.fileTable(1,:) = startCell;
-            end
-            
+            if ~isempty(varargin)
+                obj.addCustomFile(varargin{:});
+            end          
         end
 
         function count = get.fileCount(obj)
@@ -62,7 +53,7 @@ classdef customFileClass < handle
             % customFiles.addCustomFile()
             % customFiles.addCustomFile('New Row')
             % customFiles.addCustomFile('New Row', 'file.m')
-            % customFiles.addCustomFile('New Row', 'file.m', 'matlab', 'pwd')            
+            % customFiles.addCustomFile('New Row', 'file.m', 'matlab', 'pwd')
             if isempty(varargin)
                 
                 % Nothing supplied - add empty data row
@@ -75,7 +66,7 @@ classdef customFileClass < handle
             else
                 
                 inputs = varargin{:};
-                
+
                 % Check length of added data
                 switch length(inputs)
                     
@@ -114,7 +105,7 @@ classdef customFileClass < handle
                     otherwise
 
                         % Other length of inputs is not recognised
-                        throw(invalidNumberOfInputs('Unrecognised input into addFile'));
+                        throw(invalidNumberOfInputs('Unrecognised input into addCustomFile'));
                         
                 end
             end

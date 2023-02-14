@@ -140,18 +140,18 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({}), 'RAT:InvalidNumberOfInputs')
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'matlab', 'pwd'}), 'RAT:InvalidNumberOfInputs')
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), 'RAT:InvalidNumberOfInputs')
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({}), invalidNumberOfInputs.errorID)
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'matlab', 'pwd'}), invalidNumberOfInputs.errorID)
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), invalidNumberOfInputs.errorID)
 
             % Invalid types
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({42}), 'RAT:InvalidType')
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({42}), invalidType.errorID)
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), 'RAT:InvalidOption')
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), invalidOption.errorID)
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'DPPC Model'}), 'RAT:DuplicateName')
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'DPPC Model'}), duplicateName.errorID)
         end
 
         function testSetCustomFile(testCase, testRow, inputData, expectedRow)
@@ -168,22 +168,22 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % If the inputs are invalid, it should raise an error
 
             % Invalid row
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({0, 'Name', 'Invalid'}), 'RAT:IndexOutOfRange');
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({testCase.numRows+1, 'Name', 'Invalid'}), 'RAT:IndexOutOfRange');
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({'Undefined row', 'Name', 'Invalid'}), 'RAT:NameNotRecognised');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({0, 'Name', 'Invalid'}), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({testCase.numRows+1, 'Name', 'Invalid'}), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({'Undefined row', 'Name', 'Invalid'}), nameNotRecognised.errorID);
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Language', 'Fortran'}), 'RAT:InvalidOption')
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Language', 'Fortran'}), invalidOption.errorID)
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({2, 'Name', 'DPPC Model'}), 'RAT:DuplicateName')
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({2, 'Name', 'DPPC Model'}), duplicateName.errorID)
         end
 
         function testSetCustomFileTooFewParams(testCase)
             % If we call "setCustomFile" with a cell array containing
             % fewer than three values it should raise an error
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1}), 'RAT:InvalidNumberOfInputs');
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 1}), 'RAT:InvalidNumberOfInputs');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1}), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 1}), invalidNumberOfInputs.errorID);
         end
 
         function testRemoveCustomFile(testCase)

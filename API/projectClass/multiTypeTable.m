@@ -5,9 +5,6 @@ classdef multiTypeTable < handle
     
     properties
         typesTable = table
-    end
-
-    properties(Access = private, Constant, Hidden)
         typesAutoNameString = 'Row'
     end
 
@@ -73,7 +70,7 @@ classdef multiTypeTable < handle
 
                     % Check type is one of the allowed types
                     if ~strcmpi(newRow{2}, obj.allowedTypes)
-                        error('Unrecognised type ''%s''. Must be one of the types defined in ''obj.allowedTypes''', newRow{2});
+                        throw(invalidOption(sprintf('Unrecognised type ''%s''. Must be one of the types defined in ''obj.allowedTypes''', newRow{2})));
                     end
             end
 
@@ -102,12 +99,12 @@ classdef multiTypeTable < handle
             elseif isnumeric(rowPar)
                 % This rounds any float values down to an integer
                 if (rowPar < 1) || (rowPar > obj.typesCount)
-                   error('Row number out of range');  
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', rowPar, obj.typesCount)));
                 else
                     row = rowPar;
                 end
             else
-                error('Unrecognised row index');
+                throw(invalidType('Unrecognised row index'));
             end
             
             % Second parameter needs to be either a column name or
@@ -119,12 +116,12 @@ classdef multiTypeTable < handle
                 col = obj.findRowIndex(colPar,colNames);
             elseif isnumeric(colPar)
                 if (colPar < 1) || (colPar > length(colNames))
-                    error('Column number out out of range');
+                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', colPar, length(colNames))));
                 else
                     col = colPar;
                 end
             else
-                error('Unrecognised column index');
+                throw(invalidType('Unrecognised column index'));
             end
             
             % Set the value
@@ -193,7 +190,7 @@ classdef multiTypeTable < handle
                 % Non-zero value in array is the row index
                 row = find(index);
             else
-                error('Unrecognised parameter name');
+                throw(nameNotRecognised('Unrecognised parameter name'));
             end
 
         end

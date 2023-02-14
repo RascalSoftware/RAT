@@ -259,7 +259,6 @@ classdef testLayersClass < matlab.unittest.TestCase
         end
 
         function testRemoveLayer(testCase)
-            % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleClass.layersTable(2:end,:);
             testCase.exampleClass.removeLayer(1);
 
@@ -268,11 +267,20 @@ classdef testLayersClass < matlab.unittest.TestCase
 
         function testRemoveLayerMultiple(testCase)
             % Test removing multiple rows from a layers table
-            % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleClass.layersTable(2,:);
             testCase.exampleClass.removeLayer([1 3]);
 
             testCase.verifyEqual(testCase.exampleClass.layersTable, remainingRows, "removeLayer does not work correctly");
+        end
+
+        function testRemoveLayerInvalid(testCase)
+            % Test using invalid row indices to remove rows from a
+            % layers table.
+            testCase.verifyError(@() testCase.exampleClass.removeLayer(0), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleClass.removeLayer(1.5), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleClass.removeLayer(testCase.numRows+1), 'MATLAB:table:RowIndexOutOfRange');
+
+            testCase.verifySize(testCase.exampleClass.layersTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite no rows being removed");
         end
 
         function testGetLayersNames(testCase)

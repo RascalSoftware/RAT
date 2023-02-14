@@ -7,7 +7,7 @@ classdef customFileClass < handle
         fileTable = table
         duplicateNameMessage = "Duplicate custom file names are not allowed"
         invalidLanguageMessage = "Language must be: matlab, octave, cpp or python"
-        supportedLanguages = {'octave', 'matlab', 'python', 'cpp'}
+        supportedLanguages = {'matlab', 'python', 'cpp'}
     end
 
     properties (Access = private)
@@ -69,7 +69,7 @@ classdef customFileClass < handle
                 nameVal = obj.autoFileNameCounter();
                 newName = sprintf('New custom file %d', nameVal);
                 
-                newRow = {newName, "", "octave", "pwd"};
+                newRow = {newName, "", "matlab", "pwd"};
                 appendNewRow(obj,newRow);
 
             else
@@ -97,7 +97,7 @@ classdef customFileClass < handle
                         newName = string(inputs{1});
                         newFile = string(inputs{2});
 
-                        newRow = {newName,newFile,"octave","pwd"};
+                        newRow = {newName,newFile,"matlab","pwd"};
                         appendNewRow(obj,newRow);
                         
                     case 4
@@ -190,13 +190,6 @@ classdef customFileClass < handle
             end            
 
         end
-        
-%         function obj = setDataRange(obj,whichData,range)
-%             
-%             r = [range(1) range(2)];
-%             obj.dataTable{whichData,3} = {range};
-%         
-%         end
 
         function names = getCustomNames(obj)
             % Get a string array of the names of each of the custom file
@@ -376,23 +369,4 @@ classdef customFileClass < handle
     end
     
 end
-
-function inputBlock = parseDataInput(inputVals)
-
-    defaultName = '';
-    defaultData = [];
-    defaultRange = [obj.defaultSimMin obj.defaultSimMax];
-    defaultSimRange = [obj.defaultSimMin obj.defaultSimMax];
-
-    p = inputParser;
-    addParameter(p,'name', defaultName, @ischar);
-    addParameter(p,'data', defaultData, @isnumeric);
-    addParameter(p,'data range', defaultRange, @(a) validateattributes(a,{'double'},{'size',[1 2]}));
-    addParameter(p,'sim range', defaultSimRange, @(a) validateattributes(a,{'double'},{'size',[1 2]}));
-
-    parse(p,inputVals{:});
-    inputBlock = p.Results;
-
-end
-
     

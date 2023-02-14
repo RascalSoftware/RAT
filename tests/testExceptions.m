@@ -11,24 +11,35 @@ classdef testExceptions < matlab.unittest.TestCase
 %
 %% Declare properties and parameters
 
+    properties (TestParameter)
+        customException = {@duplicateName,...
+                           @indexOutOfRange,...
+                           }
+        identifier = {'RAT:DuplicateName',...
+                      'RAT:IndexOutOfRange',...
+                      }
+        defaultMessage = {'The given name has already been used',...
+                          'The given index is out of range',...
+                          }
 
-%% Set up test data
-
+    end
 
 %% Test Exception Classes
 
     methods (Test, ParameterCombination="sequential")
 
-        function testException(testCase)
+        function testException(testCase, customException, identifier, defaultMessage)
 
             % Check default
-            ME = duplicateName();
-            testCase.verifyEqual(ME.identifier, 'RAT:DuplicateName');
-            testCase.verifyEqual(ME.message, 'The given name has already been used');
+            ME = customException();
+            testCase.verifyEqual(ME.identifier, identifier);
+            testCase.verifyEqual(ME.message, defaultMessage);
+
+            testCase.verifyError(@() throw(ME), identifier);
 
             % Check custom message
-            ME = duplicateName('Message from the test suite');
-            testCase.verifyEqual(ME.identifier, 'RAT:DuplicateName');
+            ME = customException('Message from the test suite');
+            testCase.verifyEqual(ME.identifier, identifier);
             testCase.verifyEqual(ME.message, 'Message from the test suite');
 
             % A non-text message should raise an error

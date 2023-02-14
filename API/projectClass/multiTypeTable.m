@@ -4,17 +4,17 @@ classdef multiTypeTable < handle
     % tables.
     
     properties
-        typesTable = table;
+        typesTable = table
         % !!!!!! PS - Need to add gaussian here, otherwise projectClass tests fail
         % We need to be clearer on what the (default) allowedTypes should be. !!!!!!
-        allowedTypes = {'constant','data','function','gaussian'};
-        allowedActions = {'add','subtract'};
-        typesAutoNameCounter;
-        typesAutoNameString = 'Row';
+        allowedTypes = {'constant','data','function','gaussian'}
+        allowedActions = {'add','subtract'}
+        typesAutoNameCounter
+        typesAutoNameString = 'Row'
     end
 
     properties (Dependent, SetAccess = private)
-        typesCount;
+        typesCount
     end
 
     methods

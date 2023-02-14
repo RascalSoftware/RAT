@@ -59,7 +59,7 @@ classdef testLayersClass < matlab.unittest.TestCase
     end
 
     properties
-        exampleClass;           % Example layers class for testing
+        exampleClass            % Example layers class for testing
         initialLayersTable      % Empty table to compare to initialisation
         parameters              % Example parameters class used in "addLayer"
         parameterNames          % Names of parameters inthe example class

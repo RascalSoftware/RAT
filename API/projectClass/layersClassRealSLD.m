@@ -8,7 +8,7 @@ classdef layersClassRealSLD < handle
     
     properties (Access = private)
         layersAutoNameCounter
-        allowedHydration = {'bulk in','bulk out','none'} 
+        allowedHydration = {'bulk in', 'bulk out', 'none'} 
     end
 
     properties (Dependent, SetAccess = private)

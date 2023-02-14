@@ -24,7 +24,7 @@ classdef backgroundsClass < handle
     
     properties (Access = private)
         
-       allowedTypes = {'constant', 'data', 'function'};
+       allowedTypes = {'constant', 'data', 'function'}
         
     end
     

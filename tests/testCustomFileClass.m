@@ -85,7 +85,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
     end
 
-%% Test Layers Real SLD Class Routines
+%% Test Custom File Class Routines
 
     methods (Test, ParameterCombination="sequential")
 

@@ -5,8 +5,14 @@ classdef customFileClass < handle
 
     properties
         fileTable = table
+    end
+
+    properties(Access = private, Constant, Hidden)
         duplicateNameMessage = "Duplicate custom file names are not allowed"
-        invalidLanguageMessage = "Language must be: matlab, octave, cpp or python"
+        invalidLanguageMessage = "Language must be: matlab, python, or cpp"
+    end
+
+    properties(Access = private, Constant)
         supportedLanguages = {'matlab', 'python', 'cpp'}
     end
 

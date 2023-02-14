@@ -97,13 +97,15 @@ This function is called by:
 0050             <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'\nRunning Nested Sampler\n\n'</span>));
 0051         <span class="keyword">end</span>            
 0052         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);   
-0053     <span class="keyword">case</span> <span class="string">'paramonte'</span>
-0054         <span class="comment">% TODO</span>
-0055 <span class="keyword">end</span>
-0056 
+0053 <span class="comment">%     case 'dream'</span>
+0054 <span class="comment">%         if ~strcmpi(controls.display,'off')</span>
+0055 <span class="comment">%             ratSendTextOutput(sprintf('\nRunning DREAM\n\n'));</span>
+0056         
 0057 <span class="keyword">end</span>
+0058 
+0059 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 07-Feb-2023 09:42:39 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Feb-2023 12:42:57 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

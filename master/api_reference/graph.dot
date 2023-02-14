@@ -20,14 +20,14 @@ digraph m2html {
   contrastsClass -> contrastsClass;
   customFileClass -> customFileClass;
   dataClass -> dataClass;
-  layersClass_realSLD -> layersClass_realSLD;
+  layersClassRealSLD -> layersClassRealSLD;
   multiTypeTable -> multiTypeTable;
   parametersClass -> parametersClass;
   projectClass -> backgroundsClass;
   projectClass -> contrastsClass;
   projectClass -> customFileClass;
   projectClass -> dataClass;
-  projectClass -> layersClass_realSLD;
+  projectClass -> layersClassRealSLD;
   projectClass -> mergeStructs;
   projectClass -> parametersClass;
   projectClass -> projectClass;
@@ -183,7 +183,7 @@ digraph m2html {
   contrastsClass [URL="API/projectClass/contrastsClass.html"];
   customFileClass [URL="API/projectClass/customFileClass.html"];
   dataClass [URL="API/projectClass/dataClass.html"];
-  layersClass_realSLD [URL="API/projectClass/layersClass_realSLD.html"];
+  layersClassRealSLD [URL="API/projectClass/layersClassRealSLD.html"];
   mergeStructs [URL="API/projectClass/mergeStructs.html"];
   multiTypeTable [URL="API/projectClass/multiTypeTable.html"];
   parametersClass [URL="API/projectClass/parametersClass.html"];

@@ -113,291 +113,292 @@ This function is called by:
 0039         adaptint = 100;
 0040         burnin = 100;
 0041         repeats = 1; 
-0042         
-0043         <span class="comment">%(5) Paramonte..</span>
-0044         
-0045         
-0046     <span class="keyword">end</span>
-0047     
-0048     <span class="comment">%------------------------- Set and Get ------------------------------</span>
-0049     methods
-0050         <a name="_sub0" href="#_subfunctions" class="code">function obj = set.parallel(obj,val)</a>
-0051             <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'single'</span>, <span class="string">'points'</span>, <span class="string">'contrasts'</span>, <span class="string">'all'</span>})
-0052                 error(<span class="string">'Type must be ''single'', ''points'', ''contrasts'', ''all'' '</span>);
-0053             <span class="keyword">end</span>
-0054 
-0055             obj.parallel = val;
-0056         <span class="keyword">end</span>
-0057         
-0058         <a name="_sub1" href="#_subfunctions" class="code">function obj = set.procedure(obj,val)</a>
-0059             <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'calculate'</span>,<span class="string">'simplex'</span>,<span class="string">'DE'</span>,<span class="string">'Bayes'</span>,<span class="string">'NS'</span>})
-0060                 error(<span class="string">'Type must be ''calculate'', ''simplex'', ''DE'', ''Bayes'' or ''NS'' '</span>);
-0061             <span class="keyword">end</span>
-0062             
-0063             obj.procedure = val;
-0064         <span class="keyword">end</span>
-0065         
-0066         
-0067         <a name="_sub2" href="#_subfunctions" class="code">function obj = set.calcSldDuringFit(obj,val)</a>
-0068             <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'yes'</span>,<span class="string">'no'</span>})
-0069                 error(<span class="string">'Type must be ''yes'' or ''no'' '</span>);
-0070             <span class="keyword">end</span>
-0071             
-0072 <span class="comment">%             if strcmpi(val,'no')</span>
-0073 <span class="comment">%                 warning('Will automatically default to ''yes'' if resample is set in problemDef')</span>
-0074 <span class="comment">%             end</span>
-0075             obj.calcSldDuringFit = val;
-0076         <span class="keyword">end</span>
-0077         
-0078         
-0079          <span class="comment">%Simplex control methods</span>
-0080          <a name="_sub3" href="#_subfunctions" class="code">function obj = set.display(obj,val)</a>
-0081              <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'off'</span>,<span class="string">'iter'</span>,<span class="string">'notify'</span>,<span class="string">'final'</span>})
-0082                  error(<span class="string">'Display must be set to ''off'', ''iter'', ''notify'' or ''final'' '</span>);
-0083              <span class="keyword">end</span>
-0084              obj.display = val;
-0085          <span class="keyword">end</span>
-0086          
-0087          <a name="_sub4" href="#_subfunctions" class="code">function obj = set.tolX(obj,val)</a>
-0088              <span class="keyword">if</span> ~isnumeric(val)
-0089                  error(<span class="string">'tolX must be numeric'</span>);
-0090              <span class="keyword">end</span>
-0091              obj.tolX = val;
-0092          <span class="keyword">end</span>
-0093          
-0094          <a name="_sub5" href="#_subfunctions" class="code">function obj = set.tolFun(obj,val)</a>
-0095              <span class="keyword">if</span> ~isnumeric(val)
-0096                  error(<span class="string">'tolFun must be numeric'</span>);
-0097              <span class="keyword">end</span>
-0098              obj.tolFun = val;
-0099          <span class="keyword">end</span>
-0100          
-0101          <a name="_sub6" href="#_subfunctions" class="code">function obj = set.maxFunEvals(obj,val)</a>
-0102              <span class="keyword">if</span> ~isnumeric(val)
-0103                  error(<span class="string">'maxFunEvals must be numeric'</span>);
-0104              <span class="keyword">end</span>
-0105              obj.maxFunEvals = val;
-0106          <span class="keyword">end</span>
-0107          
-0108          <a name="_sub7" href="#_subfunctions" class="code">function obj = set.maxIter(obj,val)</a>
-0109              <span class="keyword">if</span> ~isnumeric(val)
-0110                  error(<span class="string">'maxIter must be numeric'</span>);
-0111              <span class="keyword">end</span>
-0112              obj.maxIter = val;
-0113          <span class="keyword">end</span>
-0114          
-0115          <span class="comment">%DE controls methods</span>
-0116          <a name="_sub8" href="#_subfunctions" class="code">function obj = set.populationSize(obj,val)</a>
-0117              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1)
-0118                  error(<span class="string">'populationSize must be numeric and &gt;1'</span>);
-0119              <span class="keyword">end</span>
-0120              obj.populationSize = val;
-0121          <span class="keyword">end</span>
-0122          
-0123          <a name="_sub9" href="#_subfunctions" class="code">function obj = set.F_weight(obj,val)</a>
-0124              <span class="keyword">if</span> ~isnumeric(val)
-0125                  error(<span class="string">'F_weight must be numeric'</span>);
-0126              <span class="keyword">end</span>
-0127              obj.F_weight = val;
-0128          <span class="keyword">end</span>
-0129          
-0130          <a name="_sub10" href="#_subfunctions" class="code">function obj = set.crossoverProbability(obj,val)</a>
-0131              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 || val &gt; 1)
-0132                  error(<span class="string">'crossoverProbability must be between 0 and 1'</span>);
-0133              <span class="keyword">end</span>
-0134              obj.crossoverProbability = val;
-0135          <span class="keyword">end</span>
-0136          
-0137          <a name="_sub11" href="#_subfunctions" class="code">function obj = set.strategy(obj,val)</a>
-0138              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1 || val &gt; 6)
-0139                  error(<span class="string">'strategy must be 1 - 6'</span>)
-0140              <span class="keyword">end</span>
-0141                  <span class="keyword">switch</span> val
-0142                      <span class="keyword">case</span> 1
-0143                          message = <span class="string">'Selecting DE/rand/1'</span>;
-0144                      <span class="keyword">case</span> 2
-0145                          message = <span class="string">'Selecting DE/local-to-best/1'</span>;
-0146                      <span class="keyword">case</span> 3
-0147                          message = <span class="string">'Selecting DE/best/1 with jitter'</span>;
-0148                      <span class="keyword">case</span> 4
-0149                          message = <span class="string">'Selecting DE/rand/1 with per-vector-dither'</span>;
-0150                      <span class="keyword">case</span> 5
-0151                          message = <span class="string">'Selecting DE/rand/1 with per-generation-dither'</span>;
-0152                      <span class="keyword">case</span> 6
-0153                          message = <span class="string">'Selecting DE/rand/1 either-or-algorithm'</span>;
-0154                      <span class="keyword">otherwise</span>
-0155                          error(<span class="string">'Unrecognised DE strategy'</span>);
-0156                  <span class="keyword">end</span>
-0157                  disp(message);
-0158              
-0159              obj.strategy = val;
-0160          <span class="keyword">end</span>
-0161          
-0162          <a name="_sub12" href="#_subfunctions" class="code">function obj = set.targetValue(obj,val)</a>
-0163              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1 )
-0164                  error(<span class="string">'Target value must be &gt; 1'</span>)
-0165              <span class="keyword">end</span> 
-0166          obj.targetValue = val;
-0167          <span class="keyword">end</span>
-0168          
-0169          <a name="_sub13" href="#_subfunctions" class="code">function obj = set.numGenerations(obj,val)</a>
-0170              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1 )
-0171                  error(<span class="string">'numGenerations value must be &gt; 1'</span>)
-0172              <span class="keyword">end</span> 
-0173          obj.numGenerations = val;
-0174          <span class="keyword">end</span>
-0175          
-0176          
-0177 
-0178         <span class="comment">%NS control methods</span>
-0179         <a name="_sub14" href="#_subfunctions" class="code">function obj = set.Nlive(obj,val)</a>
-0180              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1)
-0181                  error(<span class="string">'Nlive must be a positive number'</span>);
-0182              <span class="keyword">end</span>
-0183              obj.Nlive = val;
-0184         <span class="keyword">end</span>
-0185         
-0186         <a name="_sub15" href="#_subfunctions" class="code">function obj = set.Nmcmc(obj,val)</a>
-0187             <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0)
-0188                 error(<span class="string">'Nmcmc must be 0 or positive integer'</span>)
-0189             <span class="keyword">end</span>
-0190             obj.Nmcmc = val;
-0191         <span class="keyword">end</span>
-0192         
-0193         <a name="_sub16" href="#_subfunctions" class="code">function obj = set.propScale(obj,val)</a>
-0194              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 || val &gt; 1)
-0195                  error(<span class="string">'propscale must be between 0 and 1'</span>);
-0196              <span class="keyword">end</span>
-0197              obj.propScale = val;
-0198         <span class="keyword">end</span>
-0199         
-0200         <a name="_sub17" href="#_subfunctions" class="code">function obj = set.nsTolerance(obj,val)</a>
-0201              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 )
-0202                  error(<span class="string">'Stopping tolerance must be a positive number'</span>);
-0203              <span class="keyword">end</span>
-0204              obj.nsTolerance = val;
-0205         <span class="keyword">end</span>
-0206         
-0207         <span class="comment">% Bayes control methods.</span>
-0208         <a name="_sub18" href="#_subfunctions" class="code">function obj = set.method(obj,val)</a>
-0209              <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'DRAM'</span>,<span class="string">'Delayed Rejection'</span>,<span class="string">'Adaptive Metropolis'</span>,<span class="string">'Metropolis Hastings'</span>})
-0210                  error(<span class="string">'Display must be set to ''DRAM'',''Delayed Rejection'',''Adaptive Metropolis'' or ''Metropolis Hastings'' '</span>);
-0211              <span class="keyword">end</span>
-0212              obj.method = val;
-0213         <span class="keyword">end</span>
-0214              
-0215         <a name="_sub19" href="#_subfunctions" class="code">function obj = set.nsimu(obj,val)</a>
-0216              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 )
-0217                  error(<span class="string">'nsumu must be a positive number'</span>);
-0218              <span class="keyword">end</span>
-0219              obj.nsimu = val;
-0220         <span class="keyword">end</span>
-0221         
-0222         <a name="_sub20" href="#_subfunctions" class="code">function obj = set.adaptint(obj,val)</a>
-0223              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 )
-0224                  error(<span class="string">'adaptint must be a positive number'</span>);
-0225              <span class="keyword">end</span>
-0226              obj.adaptint = val;
-0227         <span class="keyword">end</span>
-0228             
-0229         <a name="_sub21" href="#_subfunctions" class="code">function obj = set.burnin(obj,val)</a>
-0230              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 )
-0231                  error(<span class="string">'burnin must be a positive number'</span>);
-0232              <span class="keyword">end</span>
-0233              obj.burnin = val;
-0234         <span class="keyword">end</span>
-0235         
-0236          
-0237         <a name="_sub22" href="#_subfunctions" class="code">function obj = set.repeats(obj,val)</a>
-0238              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1 )
-0239                  error(<span class="string">'burnin must be a positive number &gt; 1'</span>);
-0240              <span class="keyword">end</span>
-0241              obj.repeats = val;
-0242         <span class="keyword">end</span>
-0243     <span class="keyword">end</span>  
-0244     <span class="comment">%------------------------- Display Methods --------------------------</span>
-0245     
-0246     methods (Access = protected)
-0247         <a name="_sub23" href="#_subfunctions" class="code">function groups = getPropertyGroups(obj)</a>
-0248             
+0042 
+0043     <span class="keyword">end</span>
+0044     
+0045     <span class="comment">%------------------------- Set and Get ------------------------------</span>
+0046     methods
+0047         <a name="_sub0" href="#_subfunctions" class="code">function obj = set.parallel(obj,val)</a>
+0048             <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'single'</span>, <span class="string">'points'</span>, <span class="string">'contrasts'</span>, <span class="string">'all'</span>})
+0049                 error(<span class="string">'Type must be ''single'', ''points'', ''contrasts'', ''all'' '</span>);
+0050             <span class="keyword">end</span>
+0051 
+0052             obj.parallel = val;
+0053         <span class="keyword">end</span>
+0054         
+0055         <a name="_sub1" href="#_subfunctions" class="code">function obj = set.procedure(obj,val)</a>
+0056             <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'calculate'</span>,<span class="string">'simplex'</span>,<span class="string">'DE'</span>,<span class="string">'Bayes'</span>,<span class="string">'NS'</span>})
+0057                 error(<span class="string">'Type must be ''calculate'', ''simplex'', ''DE'', ''Bayes'' or ''NS'' '</span>);
+0058             <span class="keyword">end</span>
+0059             
+0060             obj.procedure = val;
+0061         <span class="keyword">end</span>
+0062         
+0063         
+0064         <a name="_sub2" href="#_subfunctions" class="code">function obj = set.calcSldDuringFit(obj,val)</a>
+0065             <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'yes'</span>,<span class="string">'no'</span>})
+0066                 error(<span class="string">'Type must be ''yes'' or ''no'' '</span>);
+0067             <span class="keyword">end</span>
+0068             
+0069 <span class="comment">%             if strcmpi(val,'no')</span>
+0070 <span class="comment">%                 warning('Will automatically default to ''yes'' if resample is set in problemDef')</span>
+0071 <span class="comment">%             end</span>
+0072             obj.calcSldDuringFit = val;
+0073         <span class="keyword">end</span>
+0074         
+0075         
+0076          <span class="comment">%Simplex control methods</span>
+0077          <a name="_sub3" href="#_subfunctions" class="code">function obj = set.display(obj,val)</a>
+0078              <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'off'</span>,<span class="string">'iter'</span>,<span class="string">'notify'</span>,<span class="string">'final'</span>})
+0079                  error(<span class="string">'Display must be set to ''off'', ''iter'', ''notify'' or ''final'' '</span>);
+0080              <span class="keyword">end</span>
+0081              obj.display = val;
+0082          <span class="keyword">end</span>
+0083          
+0084          <a name="_sub4" href="#_subfunctions" class="code">function obj = set.tolX(obj,val)</a>
+0085              <span class="keyword">if</span> ~isnumeric(val)
+0086                  error(<span class="string">'tolX must be numeric'</span>);
+0087              <span class="keyword">end</span>
+0088              obj.tolX = val;
+0089          <span class="keyword">end</span>
+0090          
+0091          <a name="_sub5" href="#_subfunctions" class="code">function obj = set.tolFun(obj,val)</a>
+0092              <span class="keyword">if</span> ~isnumeric(val)
+0093                  error(<span class="string">'tolFun must be numeric'</span>);
+0094              <span class="keyword">end</span>
+0095              obj.tolFun = val;
+0096          <span class="keyword">end</span>
+0097          
+0098          <a name="_sub6" href="#_subfunctions" class="code">function obj = set.maxFunEvals(obj,val)</a>
+0099              <span class="keyword">if</span> ~isnumeric(val)
+0100                  error(<span class="string">'maxFunEvals must be numeric'</span>);
+0101              <span class="keyword">end</span>
+0102              obj.maxFunEvals = val;
+0103          <span class="keyword">end</span>
+0104          
+0105          <a name="_sub7" href="#_subfunctions" class="code">function obj = set.maxIter(obj,val)</a>
+0106              <span class="keyword">if</span> ~isnumeric(val)
+0107                  error(<span class="string">'maxIter must be numeric'</span>);
+0108              <span class="keyword">end</span>
+0109              obj.maxIter = val;
+0110          <span class="keyword">end</span>
+0111          
+0112          <span class="comment">%DE controls methods</span>
+0113          <a name="_sub8" href="#_subfunctions" class="code">function obj = set.populationSize(obj,val)</a>
+0114              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1)
+0115                  error(<span class="string">'populationSize must be numeric and &gt;1'</span>);
+0116              <span class="keyword">end</span>
+0117              obj.populationSize = val;
+0118          <span class="keyword">end</span>
+0119          
+0120          <a name="_sub9" href="#_subfunctions" class="code">function obj = set.F_weight(obj,val)</a>
+0121              <span class="keyword">if</span> ~isnumeric(val)
+0122                  error(<span class="string">'F_weight must be numeric'</span>);
+0123              <span class="keyword">end</span>
+0124              obj.F_weight = val;
+0125          <span class="keyword">end</span>
+0126          
+0127          <a name="_sub10" href="#_subfunctions" class="code">function obj = set.crossoverProbability(obj,val)</a>
+0128              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 || val &gt; 1)
+0129                  error(<span class="string">'crossoverProbability must be between 0 and 1'</span>);
+0130              <span class="keyword">end</span>
+0131              obj.crossoverProbability = val;
+0132          <span class="keyword">end</span>
+0133          
+0134          <a name="_sub11" href="#_subfunctions" class="code">function obj = set.strategy(obj,val)</a>
+0135              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1 || val &gt; 6)
+0136                  error(<span class="string">'strategy must be 1 - 6'</span>)
+0137              <span class="keyword">end</span>
+0138                  <span class="keyword">switch</span> val
+0139                      <span class="keyword">case</span> 1
+0140                          message = <span class="string">'Selecting DE/rand/1'</span>;
+0141                      <span class="keyword">case</span> 2
+0142                          message = <span class="string">'Selecting DE/local-to-best/1'</span>;
+0143                      <span class="keyword">case</span> 3
+0144                          message = <span class="string">'Selecting DE/best/1 with jitter'</span>;
+0145                      <span class="keyword">case</span> 4
+0146                          message = <span class="string">'Selecting DE/rand/1 with per-vector-dither'</span>;
+0147                      <span class="keyword">case</span> 5
+0148                          message = <span class="string">'Selecting DE/rand/1 with per-generation-dither'</span>;
+0149                      <span class="keyword">case</span> 6
+0150                          message = <span class="string">'Selecting DE/rand/1 either-or-algorithm'</span>;
+0151                      <span class="keyword">otherwise</span>
+0152                          error(<span class="string">'Unrecognised DE strategy'</span>);
+0153                  <span class="keyword">end</span>
+0154                  disp(message);
+0155              
+0156              obj.strategy = val;
+0157          <span class="keyword">end</span>
+0158          
+0159          <a name="_sub12" href="#_subfunctions" class="code">function obj = set.targetValue(obj,val)</a>
+0160              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1 )
+0161                  error(<span class="string">'Target value must be &gt; 1'</span>)
+0162              <span class="keyword">end</span> 
+0163          obj.targetValue = val;
+0164          <span class="keyword">end</span>
+0165          
+0166          <a name="_sub13" href="#_subfunctions" class="code">function obj = set.numGenerations(obj,val)</a>
+0167              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1 )
+0168                  error(<span class="string">'numGenerations value must be &gt; 1'</span>)
+0169              <span class="keyword">end</span> 
+0170          obj.numGenerations = val;
+0171          <span class="keyword">end</span>
+0172          
+0173          
+0174 
+0175         <span class="comment">%NS control methods</span>
+0176         <a name="_sub14" href="#_subfunctions" class="code">function obj = set.Nlive(obj,val)</a>
+0177              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1)
+0178                  error(<span class="string">'Nlive must be a positive number'</span>);
+0179              <span class="keyword">end</span>
+0180              obj.Nlive = val;
+0181         <span class="keyword">end</span>
+0182         
+0183         <a name="_sub15" href="#_subfunctions" class="code">function obj = set.Nmcmc(obj,val)</a>
+0184             <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0)
+0185                 error(<span class="string">'Nmcmc must be 0 or positive integer'</span>)
+0186             <span class="keyword">end</span>
+0187             obj.Nmcmc = val;
+0188         <span class="keyword">end</span>
+0189         
+0190         <a name="_sub16" href="#_subfunctions" class="code">function obj = set.propScale(obj,val)</a>
+0191              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 || val &gt; 1)
+0192                  error(<span class="string">'propscale must be between 0 and 1'</span>);
+0193              <span class="keyword">end</span>
+0194              obj.propScale = val;
+0195         <span class="keyword">end</span>
+0196         
+0197         <a name="_sub17" href="#_subfunctions" class="code">function obj = set.nsTolerance(obj,val)</a>
+0198              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 )
+0199                  error(<span class="string">'Stopping tolerance must be a positive number'</span>);
+0200              <span class="keyword">end</span>
+0201              obj.nsTolerance = val;
+0202         <span class="keyword">end</span>
+0203         
+0204         <span class="comment">% Bayes control methods.</span>
+0205         <a name="_sub18" href="#_subfunctions" class="code">function obj = set.method(obj,val)</a>
+0206              <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'DRAM'</span>,<span class="string">'Delayed Rejection'</span>,<span class="string">'Adaptive Metropolis'</span>,<span class="string">'Metropolis Hastings'</span>})
+0207                  error(<span class="string">'Display must be set to ''DRAM'',''Delayed Rejection'',''Adaptive Metropolis'' or ''Metropolis Hastings'' '</span>);
+0208              <span class="keyword">end</span>
+0209              obj.method = val;
+0210         <span class="keyword">end</span>
+0211              
+0212         <a name="_sub19" href="#_subfunctions" class="code">function obj = set.nsimu(obj,val)</a>
+0213              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 )
+0214                  error(<span class="string">'nsumu must be a positive number'</span>);
+0215              <span class="keyword">end</span>
+0216              obj.nsimu = val;
+0217         <span class="keyword">end</span>
+0218         
+0219         <a name="_sub20" href="#_subfunctions" class="code">function obj = set.adaptint(obj,val)</a>
+0220              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 )
+0221                  error(<span class="string">'adaptint must be a positive number'</span>);
+0222              <span class="keyword">end</span>
+0223              obj.adaptint = val;
+0224         <span class="keyword">end</span>
+0225             
+0226         <a name="_sub21" href="#_subfunctions" class="code">function obj = set.burnin(obj,val)</a>
+0227              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 0 )
+0228                  error(<span class="string">'burnin must be a positive number'</span>);
+0229              <span class="keyword">end</span>
+0230              obj.burnin = val;
+0231         <span class="keyword">end</span>
+0232         
+0233          
+0234         <a name="_sub22" href="#_subfunctions" class="code">function obj = set.repeats(obj,val)</a>
+0235              <span class="keyword">if</span> (~isnumeric(val) || val &lt; 1 )
+0236                  error(<span class="string">'burnin must be a positive number &gt; 1'</span>);
+0237              <span class="keyword">end</span>
+0238              obj.repeats = val;
+0239         <span class="keyword">end</span>
+0240 
+0241 
+0242 
+0243 
+0244     <span class="keyword">end</span>  
+0245     <span class="comment">%------------------------- Display Methods --------------------------</span>
+0246     
+0247     methods (Access = protected)
+0248         <a name="_sub23" href="#_subfunctions" class="code">function groups = getPropertyGroups(obj)</a>
 0249             
-0250             masterPropList = struct(<span class="string">'parallel'</span>, {obj.parallel},<span class="keyword">...</span>
-0251                 <span class="string">'procedure'</span>, {obj.procedure},<span class="keyword">...</span>
-0252                 <span class="string">'calcSldDuringFit'</span>, {obj.calcSldDuringFit},<span class="keyword">...</span>
-0253                 <span class="string">'display'</span>, {obj.display},<span class="keyword">...</span>
-0254                 <span class="string">'tolX'</span>, {obj.tolX},<span class="keyword">...</span>
-0255                 <span class="string">'tolFun'</span>, {obj.tolFun},<span class="keyword">...</span>
-0256                 <span class="string">'maxFunEvals'</span>, {obj.maxFunEvals},<span class="keyword">...</span>
-0257                 <span class="string">'maxIter'</span>, {obj.maxIter},<span class="keyword">...</span>
-0258                 <span class="string">'populationSize'</span>, {obj.populationSize},<span class="keyword">...</span>
-0259                 <span class="string">'F_weight'</span>, {obj.F_weight},<span class="keyword">...</span>
-0260                 <span class="string">'crossoverProbability'</span>, {obj.crossoverProbability},<span class="keyword">...</span>
-0261                 <span class="string">'strategy'</span>, {obj.strategy},<span class="keyword">...</span>
-0262                 <span class="string">'targetValue'</span>, {obj.targetValue},<span class="keyword">...</span>
-0263                 <span class="string">'numGenerations'</span>, {obj.numGenerations},<span class="keyword">...</span>
-0264                 <span class="string">'Nlive'</span>, {obj.Nlive},<span class="keyword">...</span>
-0265                 <span class="string">'Nmcmc'</span>, {obj.Nmcmc'},<span class="keyword">...</span>
-0266                 <span class="string">'propScale'</span>, {obj.propScale},<span class="keyword">...</span>
-0267                 <span class="string">'nsTolerance'</span>, {obj.nsTolerance},<span class="keyword">...</span>
-0268                 <span class="string">'method'</span>, {obj.method},<span class="keyword">...</span>
-0269                 <span class="string">'nsimu'</span>, {obj.nsimu},<span class="keyword">...</span>
-0270                 <span class="string">'adaptint'</span>, {obj.adaptint},<span class="keyword">...</span>
-0271                 <span class="string">'burnin'</span>, {obj.burnin},<span class="keyword">...</span>
-0272                 <span class="string">'repeats'</span>, {obj.repeats},<span class="keyword">...</span>
-0273                 <span class="string">'resamPars'</span>, {obj.resamPars});
-0274  
-0275             simplexCell = {<span class="string">'tolX'</span>,<span class="keyword">...</span>
-0276                 <span class="string">'tolFun'</span>,<span class="keyword">...</span>
-0277                 <span class="string">'maxFunEvals'</span>,<span class="keyword">...</span>
-0278                 <span class="string">'maxIter'</span>};
-0279             
-0280             DECell = {<span class="string">'populationSize'</span>,<span class="keyword">...</span>
-0281                 <span class="string">'F_weight'</span>,<span class="keyword">...</span>
-0282                 <span class="string">'crossoverProbability'</span>,<span class="keyword">...</span>
-0283                 <span class="string">'strategy'</span>,<span class="keyword">...</span>
-0284                 <span class="string">'targetValue'</span>,<span class="keyword">...</span>
-0285                 <span class="string">'numGenerations'</span>};
-0286 
-0287             NSCell = {<span class="string">'Nlive'</span>,<span class="keyword">...</span>
-0288                 <span class="string">'Nmcmc'</span>,<span class="keyword">...</span>
-0289                 <span class="string">'propScale'</span>,<span class="keyword">...</span>
-0290                 <span class="string">'nsTolerance'</span>}; 
-0291             
-0292             BayesCell = {<span class="string">'method'</span>,<span class="keyword">...</span>
-0293                 <span class="string">'nsimu'</span>,<span class="keyword">...</span>
-0294                 <span class="string">'adaptint'</span>,<span class="keyword">...</span>
-0295                 <span class="string">'burnin'</span>,<span class="keyword">...</span>
-0296                 <span class="string">'repeats'</span>};
-0297             
-0298             <span class="keyword">if</span> isscalar(obj)
-0299                 <span class="keyword">if</span> strcmpi(obj.procedure,<span class="string">'calculate'</span>)
-0300                     dispPropList = rmfield(masterPropList,[DECell simplexCell NSCell BayesCell]);
-0301                 <span class="keyword">elseif</span> strcmpi(obj.procedure,<span class="string">'simplex'</span>)
-0302                     dispPropList = rmfield(masterPropList,[DECell NSCell BayesCell]);
-0303                 <span class="keyword">elseif</span> strcmpi(obj.procedure,<span class="string">'DE'</span>)
-0304                     dispPropList = rmfield(masterPropList,[simplexCell NSCell BayesCell]);
-0305                 <span class="keyword">elseif</span> strcmpi(obj.procedure,<span class="string">'NS'</span>)
-0306                     dispPropList = rmfield(masterPropList,[simplexCell DECell BayesCell]);
-0307                 <span class="keyword">elseif</span> strcmpi(obj.procedure,<span class="string">'Bayes'</span>)
-0308                     dispPropList = rmfield(masterPropList,[simplexCell DECell NSCell]);
-0309                 <span class="keyword">end</span>
-0310                 
-0311                 <span class="keyword">if</span> ~isempty(dispPropList)
-0312                     groups = matlab.mixin.util.PropertyGroup(dispPropList);
-0313                 <span class="keyword">else</span>
-0314                     groups = matlab.mixin.util.PropertyGroup(masterPropList);
-0315                 <span class="keyword">end</span>
-0316                 
-0317             <span class="keyword">else</span>
-0318                 groups = <a href="#_sub24" class="code" title="subfunction groups = getPropertyGroups(obj)">getPropertyGroups</a>@matlab.mixin.CustomDisplay(obj);
-0319             <span class="keyword">end</span>
-0320             
-0321         <span class="keyword">end</span>
-0322   
-0323     <span class="keyword">end</span>
-0324 <span class="keyword">end</span>
+0250             
+0251             masterPropList = struct(<span class="string">'parallel'</span>, {obj.parallel},<span class="keyword">...</span>
+0252                 <span class="string">'procedure'</span>, {obj.procedure},<span class="keyword">...</span>
+0253                 <span class="string">'calcSldDuringFit'</span>, {obj.calcSldDuringFit},<span class="keyword">...</span>
+0254                 <span class="string">'display'</span>, {obj.display},<span class="keyword">...</span>
+0255                 <span class="string">'tolX'</span>, {obj.tolX},<span class="keyword">...</span>
+0256                 <span class="string">'tolFun'</span>, {obj.tolFun},<span class="keyword">...</span>
+0257                 <span class="string">'maxFunEvals'</span>, {obj.maxFunEvals},<span class="keyword">...</span>
+0258                 <span class="string">'maxIter'</span>, {obj.maxIter},<span class="keyword">...</span>
+0259                 <span class="string">'populationSize'</span>, {obj.populationSize},<span class="keyword">...</span>
+0260                 <span class="string">'F_weight'</span>, {obj.F_weight},<span class="keyword">...</span>
+0261                 <span class="string">'crossoverProbability'</span>, {obj.crossoverProbability},<span class="keyword">...</span>
+0262                 <span class="string">'strategy'</span>, {obj.strategy},<span class="keyword">...</span>
+0263                 <span class="string">'targetValue'</span>, {obj.targetValue},<span class="keyword">...</span>
+0264                 <span class="string">'numGenerations'</span>, {obj.numGenerations},<span class="keyword">...</span>
+0265                 <span class="string">'Nlive'</span>, {obj.Nlive},<span class="keyword">...</span>
+0266                 <span class="string">'Nmcmc'</span>, {obj.Nmcmc'},<span class="keyword">...</span>
+0267                 <span class="string">'propScale'</span>, {obj.propScale},<span class="keyword">...</span>
+0268                 <span class="string">'nsTolerance'</span>, {obj.nsTolerance},<span class="keyword">...</span>
+0269                 <span class="string">'method'</span>, {obj.method},<span class="keyword">...</span>
+0270                 <span class="string">'nsimu'</span>, {obj.nsimu},<span class="keyword">...</span>
+0271                 <span class="string">'adaptint'</span>, {obj.adaptint},<span class="keyword">...</span>
+0272                 <span class="string">'burnin'</span>, {obj.burnin},<span class="keyword">...</span>
+0273                 <span class="string">'repeats'</span>, {obj.repeats},<span class="keyword">...</span>
+0274                 <span class="string">'resamPars'</span>, {obj.resamPars});
+0275  
+0276             simplexCell = {<span class="string">'tolX'</span>,<span class="keyword">...</span>
+0277                 <span class="string">'tolFun'</span>,<span class="keyword">...</span>
+0278                 <span class="string">'maxFunEvals'</span>,<span class="keyword">...</span>
+0279                 <span class="string">'maxIter'</span>};
+0280             
+0281             DECell = {<span class="string">'populationSize'</span>,<span class="keyword">...</span>
+0282                 <span class="string">'F_weight'</span>,<span class="keyword">...</span>
+0283                 <span class="string">'crossoverProbability'</span>,<span class="keyword">...</span>
+0284                 <span class="string">'strategy'</span>,<span class="keyword">...</span>
+0285                 <span class="string">'targetValue'</span>,<span class="keyword">...</span>
+0286                 <span class="string">'numGenerations'</span>};
+0287 
+0288             NSCell = {<span class="string">'Nlive'</span>,<span class="keyword">...</span>
+0289                 <span class="string">'Nmcmc'</span>,<span class="keyword">...</span>
+0290                 <span class="string">'propScale'</span>,<span class="keyword">...</span>
+0291                 <span class="string">'nsTolerance'</span>}; 
+0292             
+0293             BayesCell = {<span class="string">'method'</span>,<span class="keyword">...</span>
+0294                 <span class="string">'nsimu'</span>,<span class="keyword">...</span>
+0295                 <span class="string">'adaptint'</span>,<span class="keyword">...</span>
+0296                 <span class="string">'burnin'</span>,<span class="keyword">...</span>
+0297                 <span class="string">'repeats'</span>};
+0298             
+0299             <span class="keyword">if</span> isscalar(obj)
+0300                 <span class="keyword">if</span> strcmpi(obj.procedure,<span class="string">'calculate'</span>)
+0301                     dispPropList = rmfield(masterPropList,[DECell simplexCell NSCell BayesCell]);
+0302                 <span class="keyword">elseif</span> strcmpi(obj.procedure,<span class="string">'simplex'</span>)
+0303                     dispPropList = rmfield(masterPropList,[DECell NSCell BayesCell]);
+0304                 <span class="keyword">elseif</span> strcmpi(obj.procedure,<span class="string">'DE'</span>)
+0305                     dispPropList = rmfield(masterPropList,[simplexCell NSCell BayesCell]);
+0306                 <span class="keyword">elseif</span> strcmpi(obj.procedure,<span class="string">'NS'</span>)
+0307                     dispPropList = rmfield(masterPropList,[simplexCell DECell BayesCell]);
+0308                 <span class="keyword">elseif</span> strcmpi(obj.procedure,<span class="string">'Bayes'</span>)
+0309                     dispPropList = rmfield(masterPropList,[simplexCell DECell NSCell]);
+0310                 <span class="keyword">end</span>
+0311                 
+0312                 <span class="keyword">if</span> ~isempty(dispPropList)
+0313                     groups = matlab.mixin.util.PropertyGroup(dispPropList);
+0314                 <span class="keyword">else</span>
+0315                     groups = matlab.mixin.util.PropertyGroup(masterPropList);
+0316                 <span class="keyword">end</span>
+0317                 
+0318             <span class="keyword">else</span>
+0319                 groups = <a href="#_sub24" class="code" title="subfunction groups = getPropertyGroups(obj)">getPropertyGroups</a>@matlab.mixin.CustomDisplay(obj);
+0320             <span class="keyword">end</span>
+0321             
+0322         <span class="keyword">end</span>
+0323   
+0324     <span class="keyword">end</span>
+0325 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 07-Feb-2023 09:42:39 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Feb-2023 12:42:57 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

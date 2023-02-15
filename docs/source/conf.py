@@ -47,3 +47,7 @@ bgcolor = 'white'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 pygments_dark_style  = 'monokai'
+
+html_logo = 'images/RATLogo.png'
+
+html_theme_options = { 'logo_only': True}

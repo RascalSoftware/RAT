@@ -5,6 +5,11 @@
 
 .. _RAT: 
 
+.. image:: images/RATBanner.png
+    :alt: RAT banner
+
+|
+
 Welcome to RAT's documentation!
 ===============================
 
@@ -27,6 +32,7 @@ Index
    userDocumentation
    support
    about
+   userManual
 
 
 

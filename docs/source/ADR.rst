@@ -1,4 +1,7 @@
+.. image:: images/RATBanner.png
+    :alt: RAT banner
 
+|
 
 ==============================
 Architectural Decision Records

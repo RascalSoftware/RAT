@@ -1,3 +1,7 @@
+.. image:: images/RATBanner.png
+    :alt: RAT banner
+
+|
 
 .. _api:
 

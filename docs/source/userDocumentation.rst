@@ -1,5 +1,10 @@
 .. _userDocs:
 
+.. image:: images/RATBanner.png
+    :alt: RAT banner
+
+|
+
 ====================
 User Documentation
 ====================

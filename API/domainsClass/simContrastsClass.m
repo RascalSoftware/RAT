@@ -51,7 +51,7 @@ classdef simContrastsClass < handle
             modelArray = varargin{:};
             
             switch modelType
-                case 'standard'
+                case 'standard layers'
                     modelArray = cellstr(modelArray);
                     for i = 1:length(modelArray)
                         if ~strcmpi(modelArray{i},allowedNames)
@@ -59,7 +59,7 @@ classdef simContrastsClass < handle
                         end
                     end
                     
-                case 'custom'
+                case {'custom layers', 'custom xy'}
                     modelArray = cellstr(modelArray);
                     if length(modelArray) > 1
                         error('Only 1 model value allowed for ''custom''');

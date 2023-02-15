@@ -95,7 +95,7 @@ classdef reflContrastsClass < handle
             modelArray = varargin{:};
             
             switch modelType
-                case 'standard'
+                case 'standard layers'
                     modelArray = cellstr(modelArray);
                     for i = 1:length(modelArray)
                         if ~strcmpi(modelArray{i},allowedNames)
@@ -103,7 +103,7 @@ classdef reflContrastsClass < handle
                         end
                     end
                     
-                case 'custom'
+                case {'custom layers', 'custom xy'}
                     modelArray = cellstr(modelArray);
                     if length(modelArray) > 1
                         error('Only 1 model value allowed for ''custom''');
@@ -203,7 +203,7 @@ classdef reflContrastsClass < handle
             % This function is only really called from 
             % projectClass if a data name has been updated.
             % Looks through the 'data' field of the contrasts
-            % and if it maches nameChange.oldName then
+            % and if it matches nameChange.oldName then
             % this is updated to nameChange.newName
             
             oldName = nameChange.oldName;

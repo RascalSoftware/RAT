@@ -140,18 +140,18 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({}), invalidNumberOfInputs.errorID)
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'matlab', 'pwd'}), invalidNumberOfInputs.errorID)
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), invalidNumberOfInputs.errorID)
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({}), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'matlab', 'pwd'}), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), invalidNumberOfInputs.errorID);
 
             % Invalid types
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({42}), invalidType.errorID)
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({42}), invalidType.errorID);
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), invalidOption.errorID)
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), invalidOption.errorID);
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'DPPC Model'}), duplicateName.errorID)
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'DPPC Model'}), duplicateName.errorID);
         end
 
         function testSetCustomFile(testCase, testRow, inputData, expectedRow)

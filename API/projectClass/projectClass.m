@@ -15,7 +15,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     properties
         experimentName
-        Geometry
+        geometry
         parameters          % parametersClass object
         layers              % layersClassRealSLD object
         bulkIn              % parametersClass object
@@ -28,9 +28,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         data                % dataClass object
         customFile          % Custom file object
         
-        UsePriors = false
+        usePriors = false
 
-        ModelType = 'standard layers'
+        modelType = 'standard layers'
     end
     
     properties (Access = private)
@@ -55,7 +55,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
 
             obj.experimentName = name;
-            obj.Geometry = 'air/substrate';
+            obj.geometry = 'air/substrate';
             
             % Initialise the Parameters Table
             obj.parameters = parametersClass({'Substrate Roughness',1, 3, 5,true,'uniform',0,Inf});
@@ -104,7 +104,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if ~islogical(showFlag)
                 error('usePriors must be logical ''true'' or ''false''');
             end
-            obj.UsePriors = showFlag;
+            obj.usePriors = showFlag;
             
             % Also need to set the flag in sub-objects
             % where relevant..
@@ -146,9 +146,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
             
             if strcmpi(val,'air/substrate')
-                obj.Geometry = 'air/substrate';
+                obj.geometry = 'air/substrate';
             elseif strcmpi(val,'substrate/liquid')
-                obj.Geometry = 'substrate/liquid';
+                obj.geometry = 'substrate/liquid';
             end
         end
         
@@ -166,7 +166,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 error('experiment type has to be Standard Layers, Custom Layers or Custom XY');
             end
             
-            obj.ModelType = lower(val);
+            obj.modelType = lower(val);
             
         end
         
@@ -781,21 +781,19 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Make a different allowed list depending on whether 
             % it is custom or layers
-            ModelType = obj.ModelType;
+            modelType = lower(obj.modelType);
             
-            if ~strcmpi(ModelType,{'custom layers','custom xy'})
+            if ~strcmpi(modelType, {'custom layers','custom xy'})
                 % Standard Layers
                 allowedValues = obj.layers.getLayersNames();
-                ModelType = 'standard';
                 inputVals = inputVals{:};
             else
                 % Custom models
                 allowedValues = obj.customFile.getCustomNames();
-                ModelType = 'custom';
             end
             
             % Call the setContrastModel method
-            obj.contrasts.setContrastModel(thisContrast,ModelType,allowedValues,inputVals);
+            obj.contrasts.setContrastModel(thisContrast, modelType, allowedValues, inputVals);
 
         end
         
@@ -808,18 +806,18 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             generalStruct.TF = 'standardTF';
             
             % Add the 'general' fields
-            thisType = obj.ModelType;
+            thisType = obj.modelType;
             
             switch lower(thisType)
                 case 'standard layers'
-                    generalStruct.ModelType = 'layers';
+                    generalStruct.modelType = 'layers';
                 case 'custom layers'
-                    generalStruct.ModelType = 'custom layers';
+                    generalStruct.modelType = 'custom layers';
                 case 'custom xy'
-                    generalStruct.ModelType = 'custom xy';
+                    generalStruct.modelType = 'custom xy';
             end
                      
-            generalStruct.geometry = obj.Geometry;
+            generalStruct.geometry = obj.geometry;
             
             % Parameters
             params = obj.parameters.toStruct();
@@ -861,7 +859,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             layersValues = layersCell(:,2:end);
             paramNames = string(paramStruct.paramNames);
             
-            switch generalStruct.ModelType
+            switch generalStruct.modelType
                 case 'layers'
                     numberOfLayers = layersStruct.numberOfLayers;
                     
@@ -902,7 +900,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             allNames = obj.getAllAllowedNames;
             dataTable = obj.data.dataTable;
             
-            modelType = generalStruct.ModelType;
+            modelType = generalStruct.modelType;
             contrastStruct = obj.contrasts.toStruct(allNames,modelType,dataTable);
             
             % Merge all the outputs into one large structure
@@ -939,9 +937,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % Display methods
         function group = getPropertyGroup1(obj)
             % Initial Parameters at the start of the class
-            masterPropList = struct('ModelType',{obj.ModelType},...
+            masterPropList = struct('modelType',{obj.modelType},...
                 'experimentName',{obj.experimentName},...
-                'Geometry', obj.Geometry);
+                'geometry', obj.geometry);
             
             if isscalar(obj)
                 group = matlab.mixin.util.PropertyGroup(masterPropList);
@@ -967,7 +965,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.parameters.displayParametersTable;
             
             % Display the layers table if not a custom model
-            val = obj.ModelType;
+            val = obj.modelType;
             if ~any(strcmpi(val,{'custom layers','custom xy'}))
                 fprintf('\n    Layers: -------------------------------------------------------------------------------------------------- \n\n');
                 obj.layers.displayLayersTable;

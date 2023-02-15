@@ -83,12 +83,12 @@ classdef testProjectClass < matlab.unittest.TestCase
 
         function testGeometry(testCase)
             % Test default geometry
-            testCase.verifyEqual(testCase.project.Geometry, 'air/substrate', 'Geometry not set correctly');
+            testCase.verifyEqual(testCase.project.geometry, 'air/substrate', 'Geometry not set correctly');
             % Test possible model type with varied case
             testCase.project.setGeometry('Substrate/liquid');
-            testCase.verifyEqual(testCase.project.Geometry, 'substrate/liquid', 'Geometry not set correctly');
+            testCase.verifyEqual(testCase.project.geometry, 'substrate/liquid', 'Geometry not set correctly');
             testCase.project.setGeometry('aIr/SuBstRate');
-            testCase.verifyEqual(testCase.project.Geometry, 'air/substrate', 'Geometry not set correctly');
+            testCase.verifyEqual(testCase.project.geometry, 'air/substrate', 'Geometry not set correctly');
             % Test bad inputs 
             testCase.verifyError(@() testCase.project.setGeometry('anything'), ?MException)
             testCase.verifyError(@() testCase.project.setGeometry(2), ?MException)
@@ -96,14 +96,14 @@ classdef testProjectClass < matlab.unittest.TestCase
 
         function testModelType(testCase)
             % Test default model type
-            testCase.verifyEqual(testCase.project.ModelType, 'standard layers', 'Model type not set correctly');
+            testCase.verifyEqual(testCase.project.modelType, 'standard layers', 'Model type not set correctly');
             % Test possible model type with varied case
             testCase.project.setModelType('custom Layers');
-            testCase.verifyEqual(testCase.project.ModelType, 'custom layers', 'Model type not set correctly');
+            testCase.verifyEqual(testCase.project.modelType, 'custom layers', 'Model type not set correctly');
             testCase.project.setModelType('Custom XY');
-            testCase.verifyEqual(testCase.project.ModelType, 'custom xy', 'Model type not set correctly');
+            testCase.verifyEqual(testCase.project.modelType, 'custom xy', 'Model type not set correctly');
             testCase.project.setModelType('STANDARD LAYERS');
-            testCase.verifyEqual(testCase.project.ModelType, 'standard layers', 'Model type not set correctly');
+            testCase.verifyEqual(testCase.project.modelType, 'standard layers', 'Model type not set correctly');
             % Test bad inputs 
             testCase.verifyError(@() testCase.project.setModelType('anything'), ?MException)
             testCase.verifyError(@() testCase.project.setModelType(2), ?MException)
@@ -111,9 +111,9 @@ classdef testProjectClass < matlab.unittest.TestCase
 
         function testUsePriors(testCase)
             % Test default use prior value
-            testCase.verifyFalse(testCase.project.UsePriors, 'Use priors not set correctly');
+            testCase.verifyFalse(testCase.project.usePriors, 'Use priors not set correctly');
             testCase.project.setUsePriors(true);
-            testCase.verifyTrue(testCase.project.UsePriors, 'Use priors not set correctly');
+            testCase.verifyTrue(testCase.project.usePriors, 'Use priors not set correctly');
             % Changing usePriors also changes the showPriors value of the parameters
             testCase.verifyTrue(testCase.project.parameters.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.bulkIn.showPriors, 'Parameter show priors not set correctly');
@@ -123,7 +123,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyTrue(testCase.project.background.backPars.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.resolution.resolPars.showPriors, 'Parameter show priors not set correctly');
             testCase.project.setUsePriors(false);
-            testCase.verifyFalse(testCase.project.UsePriors, 'Use Priors type not set correctly');
+            testCase.verifyFalse(testCase.project.usePriors, 'Use Priors type not set correctly');
             testCase.verifyFalse(testCase.project.parameters.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.bulkIn.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.bulkOut.showPriors, 'Parameter show priors not set correctly');
@@ -484,7 +484,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % FIXME: toStruct carshes with the default
             % projectStruct = testCase.project.toStruct();
             % testCase.verifyEqual(projectStruct.experimentName, testCase.project.experimentName, 'toStruct method not working');
-            % testCase.verifyEqual(projectStruct.geometry, testCase.project.Geometry, 'toStruct method not working');
+            % testCase.verifyEqual(projectStruct.geometry, testCase.project.geometry, 'toStruct method not working');
             % testCase.verifyEqual(projectStruct.TF, 'standardTF', 'toStruct method not working');
             % testCase.verifyEqual(projectStruct.paramNames, {'Substrate Roughness'}, 'toStruct method not working');
             % testCase.verifyEqual(projectStruct.backgroundNames, testCase.project.background.backgrounds.typesTable{:, 1}, 'toStruct method not working');
@@ -512,7 +512,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Test properties are written to struct
             projectStruct = testCase.project.toStruct();
             testCase.verifyEqual(projectStruct.experimentName, testCase.project.experimentName, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.geometry, testCase.project.Geometry, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.geometry, testCase.project.geometry, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.TF, 'standardTF', 'toStruct method not working');
             testCase.verifyEqual(projectStruct.paramNames, reshape(convertStringsToChars(testCase.project.parameters.paramsTable{:, 1}), 1, []), 'toStruct method not working');
             testCase.verifyEqual(projectStruct.backgroundNames, testCase.project.background.backgrounds.typesTable{:, 1}, 'toStruct method not working');

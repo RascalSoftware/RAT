@@ -130,7 +130,7 @@ problemDef_cells{13} = resolNames;
 problemDef_cells{14} = customFiles';
 
 % Fix for cell array bug with custom layers - is this needed still??
-if strcmpi(inputStruct.ModelType,'custom layers') || strcmpi(inputStruct.ModelType,'custom xy')
+if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelType,'custom xy')
     for i = 1:length(problemDef_cells{5})
         problemDef_cells{5}{i} = 0;
     end
@@ -333,7 +333,7 @@ problemDef.nbs = inputStruct.nbsubs;
 problemDef.res = inputStruct.resolPars; %inputStruct.resolutions;           % **** note resolPar workaround (todo) ****          
 problemDef.params = inputStruct.params;
 problemDef.numberOfLayers = inputStruct.numberOfLayers;
-problemDef.modelType = inputStruct.ModelType;
+problemDef.modelType = inputStruct.modelType;
 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
 
 % if isfield(inputStruct,'modelFilename')

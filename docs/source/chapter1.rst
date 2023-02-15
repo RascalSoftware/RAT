@@ -1,10 +1,6 @@
-.. image:: images/RATBanner.png
-    :alt: RAT banner
-
-|
+|RAT banner|
 
 .. _chapter1:
-
 
 Chapter 1 - Introduction.
 .........................
@@ -135,3 +131,4 @@ We can see that our model is looking fairly sensible, but that our guess values 
 
 To do something more than just simulating the reflectivity, we change the procedure we specify in the controlsDef class. At the moment, controls.procedure is set to ‘calculate’, which does a one time calculation of the reflectivity given the current parameters only. To do a fit, we can just change the ‘procedure’ attribute of our controlsDef from ‘calculate’ to ‘simplex’, which reveals a new set of parameters in the controlsDef block.
 
+|RasCAL banner|

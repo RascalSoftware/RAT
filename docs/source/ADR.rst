@@ -1,7 +1,4 @@
-.. image:: images/RATBanner.png
-    :alt: RAT banner
-
-|
+|RAT banner|
 
 ==============================
 Architectural Decision Records
@@ -329,3 +326,5 @@ Update:
 
 God did help us. This method didn’t work out but this work can be used
 to compile RAT successfully! (A diff use currently being planned)
+
+|RasCAL banner|

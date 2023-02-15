@@ -50,4 +50,12 @@ pygments_dark_style  = 'monokai'
 
 html_logo = 'images/RATLogo.png'
 
-html_theme_options = { 'logo_only': True}
+html_theme_options = { 'logo_only': True }
+
+rst_prolog = """
+.. |RasCAL banner| image:: images/RasCALBanner.png
+    :alt: RasCAL banner
+
+.. |RAT banner| image:: images/RATBanner.png
+    :alt: RAT banner
+"""

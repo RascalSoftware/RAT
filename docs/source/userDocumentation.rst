@@ -1,9 +1,6 @@
+|RAT banner|
+
 .. _userDocs:
-
-.. image:: images/RATBanner.png
-    :alt: RAT banner
-
-|
 
 ====================
 User Documentation
@@ -65,4 +62,6 @@ Lets say your file is called **myModel.cpp** and your function is called **myCus
 
             g++ -c myModel.cpp -o myModel.o -std=c++11  Generate an object file
             g++ -shared myModel.o -o myModel.so  outputs a .so named myModel.so
+
+|RasCAL banner| 
 

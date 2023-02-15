@@ -1,7 +1,4 @@
-.. image:: images/RATBanner.png
-    :alt: RAT banner
-
-|
+|RAT banner|
 
 .. _userManual:
 
@@ -15,5 +12,5 @@ User Manual
 
    chapter1
    chapter2
-   
 
+|RasCAL banner|

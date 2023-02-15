@@ -1,9 +1,7 @@
-.. image:: images/RATBanner.png
-    :alt: RAT banner
-
-|
+|RAT banner|
 
 ==============
 RAT Tutorial
 ==============
 
+|RasCAL banner|

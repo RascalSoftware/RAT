@@ -1,7 +1,4 @@
-.. image:: images/RATBanner.png
-    :alt: RAT banner
-
-|
+|RAT banner|
 
 .. _devDocs:
 
@@ -229,6 +226,8 @@ References for Developers
    This can be found in RasCal Planner in Microsoft Planner.
 
 2. 
+
+|RasCAL banner|
 
 
 

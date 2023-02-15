@@ -1,7 +1,4 @@
-.. image:: images/RATBanner.png
-    :alt: RAT banner
-
-|
+|RAT banner|
 
 ============
 Installation
@@ -57,7 +54,7 @@ If you are on IDAAS or have already compiled the MEX file and want to use RAT in
 3. If you run any script from the test/examples folder, it will use the MEX version of RAT.
 
 
-
+|RasCAL banner|
 
 
 

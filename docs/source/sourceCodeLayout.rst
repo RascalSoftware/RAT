@@ -1,7 +1,4 @@
-.. image:: images/RATBanner.png
-    :alt: RAT banner
-
-|
+|RAT banner|
 
 .. _sourceCodeLayout:
 
@@ -19,3 +16,4 @@ Source Code Layout
    devDocumentation
    ADR
 
+|RasCAL banner|

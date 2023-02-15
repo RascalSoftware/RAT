@@ -1,7 +1,4 @@
-.. image:: images/RATBanner.png
-    :alt: RAT banner
-
-|
+|RAT banner|
 
 .. _targetFunctions:
 
@@ -181,3 +178,4 @@ standard_TF_custXY_paraContrasts
 
 .. autofunction:: standardTF_custXY_paraContrasts
 
+|RasCAL banner|

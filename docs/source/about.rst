@@ -1,7 +1,4 @@
-.. image:: images/RATBanner.png
-    :alt: RAT banner
-
-|
+|RAT banner|
 
 .. _about:
 
@@ -30,3 +27,5 @@ About Team
 
 - Dr. Arwel Hughes
 - Sethu Pavan Venkata Reddy Pastula
+
+|RasCAL banner|

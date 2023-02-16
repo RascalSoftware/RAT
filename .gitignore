@@ -5,6 +5,7 @@ old
 # IDE folders and files
 .vscode/
 *.asv
+*.bak
 *.m~
 
 # System files

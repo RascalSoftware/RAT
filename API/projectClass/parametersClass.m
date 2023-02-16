@@ -3,8 +3,8 @@ classdef parametersClass < handle
     % the parameters block.
     
     properties
-        paramsTable = table;
-        showPriors = false;
+        paramsTable = table
+        showPriors = false
     end
 
     properties(Access = private, Constant, Hidden)
@@ -12,11 +12,11 @@ classdef parametersClass < handle
     end
 
     properties (Access = private)   
-        paramAutoNameCounter;
+        paramAutoNameCounter=1
     end
     
     properties (Dependent)
-        paramCount;
+        paramCount
     end
     
     methods
@@ -33,9 +33,7 @@ classdef parametersClass < handle
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
             obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.paramAutoNameCounter = 0;
-            obj.addParam(startCell);
-           
+            obj.addParam(startCell);      
         end
         
         function count = get.paramCount(obj)
@@ -51,7 +49,7 @@ classdef parametersClass < handle
         end
         
         function obj = addParam(obj,varargin)
-            % Adds an new parameter to the parameters table. Defaults 
+            % Adds an new parameter to the parameters table. Default 
             % values are used when adding the parameter if no arguments are 
             % provided, otherwise a subset of the arguments can be provided.
             % The following are assumed from number of arguments: 
@@ -78,39 +76,31 @@ classdef parametersClass < handle
                     throw(invalidType('First value must be param name (char)'));
                 end
                 
+                % If length is 1, assume name only
+                % and fill in the rest with defaults
+                name = inputCell{1};
                 values = [1, 2, 3];
                 fit = false;
                 priorType = 'uniform';
                 priorValues = [0, Inf];
                 
-                switch length(inputCell)     
-                    % If length is 1, assume name only
-                    % and fill in the rest with defaults
-                    case 1
-                        name = inputCell{1};
-                        
-                    % If length is 2, assume name and value
-                    % pair. Fill in the rest automatically
+                switch length(inputCell)
+                    case 1                           
                     case 2
-                        name = inputCell{1};
+                        % If length is 2, assume name and value
+                        % pair. Fill in the rest automatically
                         values = [inputCell{2} inputCell{2} inputCell{2}];
-                        
-                    % If length is 4, assume we are getting the
-                    % limits as well as the values
                     case 4
-                        name = inputCell{1};
-                        values = [inputCell{2} inputCell{3} inputCell{4}];
-                        
-                    % If length is 5, then assume we are setting
-                    % everything except priors
+                        % If length is 4, assume we are getting the
+                        % limits as well as the values
+                        values = [inputCell{2} inputCell{3} inputCell{4}]; 
                     case 5
-                        name = inputCell{1};
+                         % If length is 5, then assume we are setting
+                         % everything except priors
                         values = [inputCell{2} inputCell{3} inputCell{4}];
                         fit = inputCell{5};
-                        
-                    % Case 8 must be everything including the prior
                     case 8
-                        name = inputCell{1};
+                        % Case 8 must be everything including the prior
                         values = [inputCell{2} inputCell{3} inputCell{4}];
                         fit = inputCell{5};
                         priorType = inputCell{6};
@@ -457,7 +447,7 @@ classdef parametersClass < handle
         function row = findRowIndex(name,tab)
             % Gets index with given row name from table.
             %
-            % obj.parseParameterInput({'name', 'param'})
+            % obj.findRowIndex('param')
             namesList = tab{:,1};
             
             % Strip leading or trailing white spaces from names and name

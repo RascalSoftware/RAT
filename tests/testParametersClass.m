@@ -43,14 +43,14 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
             names = params.getParamNames();
             testCase.verifyEqual(names, convertCharsToStrings(testCase.parameters(:, 1)), 'Start parameter not set correctly');
-            testCase.verifySize(names, [length(testCase.parameters), 1], 'Parameters has wrong dimension');
+            testCase.verifySize(names, [size(testCase.parameters, 1), 1], 'Parameters has wrong dimension');
         end
 
         function testAddParams(testCase)
             params = parametersClass(testCase.parameters(1, :));
             % Checks that parameter can be added
             params.addParam();
-            testCase.verifyEqual(params.paramsTable{end, 1}, "new parameter 1", 'addParam method not working');
+            testCase.verifyEqual(params.paramsTable{end, 1}, "new parameter 2", 'addParam method not working');
             testCase.verifySize(params.paramsTable, [2, 8], 'Parameters has wrong dimension');
             params.addParam({'NewParam2'});
             testCase.verifyEqual(params.paramsTable{end, 1}, "NewParam2", 'addParam method not working');

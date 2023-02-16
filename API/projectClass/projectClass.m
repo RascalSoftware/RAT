@@ -32,13 +32,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
         modelType = 'standard layers'
     end
-    
-    properties (Access = private)
-        
-        experimentType = 'Non polarized no absorption'
-        
-    end
-    
+       
     methods
 
         function obj = projectClass(varargin)
@@ -86,7 +80,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution = resolutionsClass(resolPars,resolutions);
             
             % Initialise data object
-            obj.data = dataClass({'Simulation',{[]},{[]}, {[]}});
+            obj.data = dataClass('Simulation', [], [], []);
             
             % Initialise Contrasts object.
             obj.contrasts = contrastsClass();
@@ -545,12 +539,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of data and the data array
             % 
             % problem.addData('Sim 2', data);
-            obj.data.addData(varargin);
+            obj.data.addData(varargin{:});
         end
         
-        function obj = removeData(obj,varargin)
-            % This method is TODO, both here and in the dataClass subclass
-            disp('Todo');
+        function obj = removeData(obj, row)
+            % Removes a dataset. Expects the index or array of
+            % indices of dataset(s) to remove.
+            % 
+            % problem.removeData(2);
+            obj.data.removeData(row);
         end
         
         function obj = setData(obj, varargin)
@@ -558,7 +555,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of data to edit and key-value pairs
             %
             % problem.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3));
-            nameChanged = obj.data.setData(varargin);
+            nameChanged = obj.data.setData(varargin{:});
             
             if ~isempty(nameChanged)
                 obj.contrasts.updateContrastName(nameChanged);
@@ -921,17 +918,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     % ------------------------------------------------------------------
     
     methods (Access = protected)
-        
-        function paramNum = findPar(obj, paramName)
-            existingNames = obj.parameters.paramsTable{:,1};
-            index = strcmp(paramName, existingNames);
-            if isempty(index)
-                paramNum = -1;
-            else
-                paramNum = find(index);
-            end
-        end
-        
         % Display methods
         function group = getPropertyGroup1(obj)
             % Initial Parameters at the start of the class

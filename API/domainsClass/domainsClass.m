@@ -101,21 +101,19 @@ classdef domainsClass < projectClass
             
             % Make a different allowed list depending on whether 
             % it is custom or layers
-            ModelType = obj.ModelType;
+            modelType = obj.modelType;
             
-            if ~strcmpi(ModelType,{'custom layers','custom xy'})
+            if ~strcmpi(modelType, {'custom layers','custom xy'})
                 % Standard Layers
                 allowedValues = obj.layers.getLayersNames();
-                ModelType = 'standard';
                 inputVals = inputVals{:};
             else
                 % Custom models
                 allowedValues = obj.customFile.getCustomNames();
-                ModelType = 'custom';
             end
             
             % Call the setContrastModel method
-            obj.simContrast.setSimContrastModel(thisSimContrast,ModelType,allowedValues,inputVals);
+            obj.simContrast.setSimContrastModel(thisSimContrast, modelType, allowedValues, inputVals);
 
         end
         
@@ -155,21 +153,19 @@ classdef domainsClass < projectClass
             
             % Make a different allowed list depending on whether 
             % it is custom or layers
-            ModelType = obj.ModelType;
+            modelType = lower(obj.modelType);
             
-            if ~strcmpi(ModelType,{'custom layers','custom xy'})
+            if ~strcmpi(modelType, {'custom layers','custom xy'})
                 % Standard Layers
                 allowedValues = obj.layers.getLayersNames();
-                ModelType = 'standard';
                 inputVals = inputVals{:};
             else
                 % Custom models
                 allowedValues = obj.customFile.getCustomNames();
-                ModelType = 'custom';
             end
             
             % Call the setContrastModel method
-            obj.reflContrast.setReflContrastModel(thisReflContrast,ModelType,allowedValues,inputVals);
+            obj.reflContrast.setReflContrastModel(thisReflContrast, modelType, allowedValues, inputVals);
   
         end
         
@@ -224,18 +220,18 @@ classdef domainsClass < projectClass
             generalStruct.TF = 'domainsTF';
             
             % Add the 'general' fields
-            thisType = obj.ModelType;
+            thisType = obj.modelType;
             
             switch lower(thisType)
                 case 'standard layers'
-                    generalStruct.ModelType = 'layers';
+                    generalStruct.modelType = 'layers';
                 case 'custom layers'
-                    generalStruct.ModelType = 'custom layers';
+                    generalStruct.modelType = 'custom layers';
                 case 'custom xy'
-                    generalStruct.ModelType = 'custom xy';
+                    generalStruct.modelType = 'custom xy';
             end
                      
-            generalStruct.geometry = obj.Geometry;
+            generalStruct.geometry = obj.geometry;
             
             % Parameters
             params = obj.parameters.toStruct();
@@ -277,7 +273,7 @@ classdef domainsClass < projectClass
             layersValues = layersCell(:,2:end);
             paramNames = string(paramStruct.paramNames);
             
-            switch generalStruct.ModelType
+            switch generalStruct.modelType
                 case 'layers'
                     numberOfLayers = layersStruct.numberOfLayers;
                     
@@ -318,7 +314,7 @@ classdef domainsClass < projectClass
             allNames = obj.getAllAllowedNames;
             dataTable = obj.data.dataTable;
             
-            modelType = generalStruct.ModelType;
+            modelType = generalStruct.modelType;
             reflContrastStruct = obj.reflContrast.toStruct(allNames,modelType,dataTable);
             %simContrastStruct = obj.simContrast.toStruct(allNames,modelType,dataTable);
             
@@ -393,9 +389,9 @@ classdef domainsClass < projectClass
         % Display methods
         function group = getPropertyGroup1(obj)
             % Initial Parameters at the start of the class
-            masterPropList = struct('ModelType',{obj.ModelType},...
+            masterPropList = struct('modelType',{obj.modelType},...
                 'experimentName',{obj.experimentName},...
-                'Geometry', obj.Geometry);
+                'geometry', obj.geometry);
             
             if isscalar(obj)
                 group = matlab.mixin.util.PropertyGroup(masterPropList);
@@ -421,7 +417,7 @@ classdef domainsClass < projectClass
             obj.parameters.displayParametersTable;
             
             % Display the layers table if not a custom model
-            val = obj.ModelType;
+            val = obj.modelType;
             if ~any(strcmpi(val,{'custom layers','custom xy'}))
                 fprintf('    Layers: -------------------------------------------------------------------------------------------------- \n\n');
                 obj.layers.displayLayersTable;

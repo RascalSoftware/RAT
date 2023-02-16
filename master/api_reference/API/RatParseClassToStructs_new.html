@@ -176,7 +176,7 @@ This function is called by:
 0130 problemDef_cells{14} = customFiles';
 0131 
 0132 <span class="comment">% Fix for cell array bug with custom layers - is this needed still??</span>
-0133 <span class="keyword">if</span> strcmpi(inputStruct.ModelType,<span class="string">'custom layers'</span>) || strcmpi(inputStruct.ModelType,<span class="string">'custom xy'</span>)
+0133 <span class="keyword">if</span> strcmpi(inputStruct.modelType,<span class="string">'custom layers'</span>) || strcmpi(inputStruct.modelType,<span class="string">'custom xy'</span>)
 0134     <span class="keyword">for</span> i = 1:length(problemDef_cells{5})
 0135         problemDef_cells{5}{i} = 0;
 0136     <span class="keyword">end</span>
@@ -379,7 +379,7 @@ This function is called by:
 0333 problemDef.res = inputStruct.resolPars; <span class="comment">%inputStruct.resolutions;           % **** note resolPar workaround (todo) ****</span>
 0334 problemDef.params = inputStruct.params;
 0335 problemDef.numberOfLayers = inputStruct.numberOfLayers;
-0336 problemDef.modelType = inputStruct.ModelType;
+0336 problemDef.modelType = inputStruct.modelType;
 0337 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
 0338 
 0339 <span class="comment">% if isfield(inputStruct,'modelFilename')</span>
@@ -457,6 +457,6 @@ This function is called by:
 0411 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Feb-2023 12:42:57 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Thu 16-Feb-2023 13:09:13 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

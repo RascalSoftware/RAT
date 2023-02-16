@@ -66,8 +66,8 @@ This function is called by:
 0003     properties
 0004         numberOfContrasts = 0
 0005         contrastsTable
-0006         contrasts = {};
-0007         contrastAutoNameCounter = 1;
+0006         contrasts = {}
+0007         contrastAutoNameCounter = 1
 0008     <span class="keyword">end</span>
 0009     
 0010     methods
@@ -193,7 +193,7 @@ This function is called by:
 0130             modelArray = varargin{:};
 0131             
 0132             <span class="keyword">switch</span> modelType
-0133                 <span class="keyword">case</span> <span class="string">'standard'</span>
+0133                 <span class="keyword">case</span> <span class="string">'standard layers'</span>
 0134                     <span class="comment">% cell array of strings.</span>
 0135                     modelArray = cellstr(modelArray);
 0136                     <span class="keyword">for</span> i = 1:length(modelArray)
@@ -202,7 +202,7 @@ This function is called by:
 0139                         <span class="keyword">end</span>
 0140                     <span class="keyword">end</span>
 0141                     
-0142                 <span class="keyword">case</span> <span class="string">'custom'</span>
+0142                 <span class="keyword">case</span> {<span class="string">'custom layers'</span>, <span class="string">'custom xy'</span>}
 0143                     modelArray = cellstr(modelArray);
 0144                     <span class="keyword">if</span> length(modelArray) &gt; 1
 0145                         error(<span class="string">'Only 1 model value allowed for ''custom'''</span>);
@@ -553,6 +553,6 @@ This function is called by:
 0490 
 </pre></div>
 
-<hr><address>Generated on Tue 14-Feb-2023 12:42:57 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Thu 16-Feb-2023 13:09:13 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

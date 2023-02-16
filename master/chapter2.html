@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2 The Problem Definition Input Class. &mdash; RAT 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/design-tabs.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3 Custom Models." href="chapter3.html" />
+    <link rel="prev" title="1 Introduction." href="chapter1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/ratLogo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">RAT Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sourceCodeLayout.html">Source Code Layout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userDocumentation.html">User Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About RAT</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="userManual.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter1.html"><span class="sectnum">1</span> Introduction.</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><span class="sectnum">2</span> The Problem Definition Input Class.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basics"><span class="sectnum">2.1</span> Basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-methods-for-the-projectclass"><span class="sectnum">2.2</span> Class Methods for the projectClass</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#project-defining-methods"><span class="sectnum">2.2.1</span> <strong>Project Defining Methods</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-parameters-block"><span class="sectnum">2.2.2</span> <strong>The ‘Parameters’ Block.</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-layers-block-standard-layers-models-only"><span class="sectnum">2.2.3</span> <strong>The Layers Block (Standard Layers models only)</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bulk-phases"><span class="sectnum">2.2.4</span> <strong>Bulk Phases.</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scalefactors"><span class="sectnum">2.2.5</span> <strong>Scalefactors</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#backgrounds"><span class="sectnum">2.2.6</span> <strong>Backgrounds</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resolutions"><span class="sectnum">2.2.7</span> <strong>Resolutions</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data"><span class="sectnum">2.2.8</span> <strong>Data</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#putting-it-all-together-defining-contrasts"><span class="sectnum">2.2.9</span> <strong>Putting it all together – defining contrasts</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#a-complete-example"><span class="sectnum">2.2.10</span> <strong>A complete example</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chapter3.html"><span class="sectnum">3</span> Custom Models.</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RAT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="userManual.html">User Manual</a></li>
+      <li class="breadcrumb-item active"><span class="sectnum">2</span> The Problem Definition Input Class.</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/chapter2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="chapter2"></span><section id="the-problem-definition-input-class">
+<h1><span class="sectnum">2</span> The Problem Definition Input Class.<a class="headerlink" href="#the-problem-definition-input-class" title="Permalink to this heading"></a></h1>
+<section id="basics">
+<h2><span class="sectnum">2.1</span> Basics<a class="headerlink" href="#basics" title="Permalink to this heading"></a></h2>
+<p>In the previous chapter, we saw an example of how we set up and run an analysis using the RAT toolbox. Every call to the toolbox has two parts: the <strong>problem definition</strong> class, where we define the model, add the data and define our contrasts, and the <strong>controls class</strong> where we tell the toolbox what type of analysis we would like to do. The reason for splitting things up in this way is that once our model is defined, we can interact with it in various ways without needing to modify the model. So, we can experiment with our data, trying out different types of analysis (more of that in chapter 4), and explore the landscape of solutions by simply modifying the <em>controls</em> class, leaving the <em>problem</em> class alone.</p>
+<p>As well as having two inputs, RAT always provides two outputs, so the call to the toolbox is always of this form:-</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">problem</span><span class="p">,</span><span class="w"> </span><span class="n">results</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RAT</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="w"> </span><span class="n">controls</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case we have called our inputs <em>problem</em> and <em>controls</em>, but they can be called anything. Likewise, we have called our outputs <em>problem</em> and <em>results</em>, but we are free to call them anything we like. We will look at the outputs in more detail in the next section.</p>
+<p>The first input, <em>problem</em>, is an instance of a class called <em>projectClass</em>:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">(</span><span class="s">&#39;my project&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="nb">class</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+
+<span class="nb">ans</span><span class="w"> </span><span class="p">=</span>
+<span class="w">     </span><span class="s">&#39;projectClass&#39;</span>
+</pre></div>
+</div>
+<p>And if we take a look at it, we can see the class contains a series of sections, where we can define our parameters, make different kinds of model, load in our data and do everything we need to set up our model.</p>
+<img alt="model (first half)" src="_images/model1.png" />
+<img alt="model (second half)" src="_images/model2.png" />
+<p>We can see that the class has a number of attributes, defining all we need for our analysis. In our case, we have no parameters or data, and have not defined any contrasts, so this will not do anything useful in RAT. Defining a model is a case of populating the sections in the project class, which we do using the class methods:</p>
+<img alt="Project Class Methods" src="_images/projectClassMethods.png" />
+<p>It’s clear from the method names (i.e. <em>addData</em>) that these methods are going to be useful to us for building our model. In the following sections, we will look at each of these methods and see how they can be used to define our reflectivity analysis problem. (There is also a utility which will convert a RasCAL model into a <em>projectClass</em> for use in RAT, which we will look at the end of the chapter. This means that you can use the RasCAL GUI to set up your model if you like and then use the speed of RAT to conduct your analysis.)</p>
+<p>In terms of the outputs, note that we have called the first output <em>problem</em>, but we don’t need to do that. The first of the two outputs is another <strong>projectClass</strong>, but updated with the results of the calculation. So, if we run a fit, the fitted parameters will be updated with the best fit values of our procedure. In giving the output the same name as the input, we’re overwriting our input with best fit values, but if you don’t want to do this, you can give the inputs and outputs different names (e.g. ‘[outProblem,results] = RAT(problem,controls)’’ or whatever you like). The second output can also be called whatever you like, and this is a struct containing the simulated reflectivities, SLD’s and so on from whatever procedure you have asked RAT to do:</p>
+<a class="reference internal image-reference" href="_images/reflectivitiesStruct.png"><img alt="Reflectivities Struct" src="_images/reflectivitiesStruct.png" style="width: 300px;" /></a>
+<p>We will look at this struct in more detail in a later chapter. In the next sections, we’ll discuss the methods of the <strong>projectClass</strong>, and see how they allow us to build up a model by populating the various sections.</p>
+</section>
+<section id="class-methods-for-the-projectclass">
+<h2><span class="sectnum">2.2</span> Class Methods for the projectClass<a class="headerlink" href="#class-methods-for-the-projectclass" title="Permalink to this heading"></a></h2>
+<section id="project-defining-methods">
+<h3><span class="sectnum">2.2.1</span> <strong>Project Defining Methods</strong><a class="headerlink" href="#project-defining-methods" title="Permalink to this heading"></a></h3>
+<p>The first step is always to create an instance of the <strong>projectClass</strong> to hold our model. This is always done by assigning <strong>projectClass</strong> to our variable name (we will mostly use <em>problem</em> in this manual, but it can be anything), which always requires a name for our project as an input:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">(</span><span class="s">&#39;My Problem&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This creates an instance of <strong>projectClass</strong> and assigns it to the variable <em>problem</em>, and gives it the title ‘My Problem’.</p>
+<p>The first part of the created <em>problem</em> has two other settable fields: <em>modelType</em> and <em>Geometry</em>.</p>
+<p><strong>Geometry -</strong> This can be set to either <em>air/substrate</em> or <em>substrate/liquid</em> using the <strong>setGeometry</strong> method. It can take the values of <em>air/substrate</em> or <em>substrate/liquid</em>.</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="s">&#39;air/substrate&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="s">&#39;substrate/liquid&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The effect of this parameter is in the numbering of roughness’s in layer models. In any model for n-layers, there are always n+1 associated interfaces, and hence n+1 roughness parameters required. In RAT, the bulk interface roughness is a protected parameter and always exists (see next section), and this parameter controls where this roughness is placed in the layer stack. So, for two layers defined with thickness, SLD and roughness as [d<sub>1</sub>, <span class="math notranslate nohighlight">\(\rho_\mathrm{1}\)</span>, r<sub>1</sub>] and [d<sub>2</sub>, <span class="math notranslate nohighlight">\(\rho_\mathrm{2}\)</span>, r<sub>2</sub>], then for the <em>substrate/liquid</em> geometry the substrate roughness is placed as the first roughness the beam meets, and the layer roughness’s refer to the interface after the particular layer. For the <em>air/substrate</em> case, the opposite is true, and the substrate roughness is the last roughness in the stack, with the layer roughness referring to the interface before each layer, as shown.</p>
+<p>ModelType - As is the case for RasCAL, there are three ways of defining models in RAT:-</p>
+<ul class="simple">
+<li><p><strong>Standard Layers</strong> - The model is defined in terms of parameters, which are distributed into layers, and subsequently grouped into contrasts. No external functions are needed.</p></li>
+<li><p><strong>Custom Layers</strong> - Parameters are again defined and grouped into layers, but this time the layer definitions come from a user model script. This then gives complete flexibility of how layers are defined, so allowing models to be written in terms of area per molecule or material density, for example. This custom script controls translating these input parameters into a [d, <span class="math notranslate nohighlight">\(\rho\)</span>, r] model. This is probably the most useful operating mode for RasCAL.</p></li>
+<li><p><strong>Custom XY-Profile</strong> - This modelling mode also relies on a custom model function, but in this case does away with [d, <span class="math notranslate nohighlight">\(\rho\)</span>, r] layers completely. Instead, the custom function uses the parameters to define a continuous SLD profile, which RAT then uses to calculate the reflectivity.</p></li>
+</ul>
+<p>The model type is set using the <strong>setModelType</strong> method:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">setModelType</span><span class="p">(</span><span class="s">&#39;standard layers&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">setModelType</span><span class="p">(</span><span class="s">&#39;custom layers&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">setModelType</span><span class="p">(</span><span class="s">&#39;custom XY&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Custom modelling is described in more depth in Chapter 3.</p>
+</section>
+<section id="the-parameters-block">
+<h3><span class="sectnum">2.2.2</span> <strong>The ‘Parameters’ Block.</strong><a class="headerlink" href="#the-parameters-block" title="Permalink to this heading"></a></h3>
+<p>Any model, where it be layers or anything else is always defined by parameters. These appear in the parameters block and are specified by a name, a value, minimum and maximum ranges and a flag defining whether the parameter is fitted or fixed:</p>
+<a class="reference internal image-reference" href="_images/parameterBlock.png"><img alt="Parameter Block" src="_images/parameterBlock.png" style="width: 500px;" /></a>
+<p>The substrate roughness is a protected parameter in all cases (it defines the Fresnel roughness) and cannot be renamed or deleted. Its values can be set to any numerical values however.</p>
+<p>To add a parameter, you can use the <strong>addParam</strong> method, either by just specifying a name, in which case the parameter takes on default values, or by specifying the whole parameter at once (note the Matlab cell array curly brackets syntax for the latter):</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">addParam</span><span class="p">(</span><span class="s">&#39;My new param&#39;</span><span class="p">);</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">addParam</span><span class="p">({</span><span class="s">&#39;My other new param&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="nb">false</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>To avoid having to make a whole load of <strong>addParam</strong> statements for large projects with many parameters, you can define them at once in a cell array, and add them using the <strong>addParamGroup</strong> method (again notice the curly brackets syntax - this is a {cell array of {cell arrays}} :</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">pGroup</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{{</span><span class="s">&#39;Layer thick&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">          </span><span class="p">{</span><span class="s">&#39;Layer SLD&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">,</span><span class="w"> </span><span class="mf">3e-6</span><span class="w"> </span><span class="mf">5e-6</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">          </span><span class="p">{</span><span class="s">&#39;Layer rough&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">}};</span>
+
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">addParamGroup</span><span class="p">(</span><span class="n">pGroup</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The resulting parameters block looks like this:</p>
+<a class="reference internal image-reference" href="_images/resultingParameterBlock1.png"><img alt="Parameter Block after adding param group" src="_images/resultingParameterBlock1.png" style="width: 600px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Parameters can’t have duplicate names. Attempting to duplicate a name will throw an error.</p>
+</div>
+<p>To subsequently change the values of the parameters (including names), there are a few methods you can use. For each of the methods, you can refer to the parameter by its name or its number. There are dedicated methods for each of the attributes of the parameters:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">setParamName</span><span class="p">(</span><span class="s">&#39;My new param&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;My changed param&#39;</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setParamConstr</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.96</span><span class="p">,</span><span class="mf">3.62</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setParamValue</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mf">20.22</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setParamFit</span><span class="p">(</span><span class="s">&#39;Layer rough&#39;</span><span class="p">,</span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/resultingParameterBlock2.png"><img alt="Parameter Block after changing properties" src="_images/resultingParameterBlock2.png" style="width: 600px;" /></a>
+<p>Alternatively, you can set a number of properties of a given parameter at once using name / value pairs.</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">setParameter</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;thick&#39;</span><span class="p">,</span><span class="s">&#39;min&#39;</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="s">&#39;max&#39;</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="s">&#39;fit&#39;</span><span class="p">,</span><span class="nb">false</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/resultingParameterBlock3.png"><img alt="Parameter Block after changing properties using set parameter" src="_images/resultingParameterBlock3.png" style="width: 600px;" /></a>
+<p>You can remove a parameter from the block using its name or number. Note that if you remove a parameter from the middle of the block, subsequent parameter numbers will change. Also, if you try to remove the substrate roughness you will get an error:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">removeParam</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/resultingParameterBlock4.png"><img alt="Parameter Block after removing a parameter" src="_images/resultingParameterBlock4.png" style="width: 600px;" /></a>
+<a class="reference internal image-reference" href="_images/parameterRemoveError.png"><img alt="Error when trying to remove Substrate Roughness" src="_images/parameterRemoveError.png" style="width: 600px;" /></a>
+</section>
+<section id="the-layers-block-standard-layers-models-only">
+<h3><span class="sectnum">2.2.3</span> <strong>The Layers Block (Standard Layers models only)</strong><a class="headerlink" href="#the-layers-block-standard-layers-models-only" title="Permalink to this heading"></a></h3>
+<p>For each of the custom models cases, the model building is done using a script (discussed in detail in chapter 3). For standard layers models however, model building is done by grouping the parameters into layers, and then into contrasts (as is the case for RasCAL). The layers block is not visible when either of the two custom modes is selected. Again, layers are built using methods of the project class. As an example here, we make a new project class, add some parameters, and create some layers.</p>
+<p>For this example, we will make two layers representing a deuterated and hydrogenated version of the same layer. So, the layers will share all their parameters except for the SLD.</p>
+<p>Start by making a new project, and adding the parameters we will need:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">(</span><span class="s">&#39;Layers Example&#39;</span><span class="p">);</span>
+
+<span class="n">params</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{{</span><span class="s">&#39;Layer Thickness&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">};</span>
+<span class="w">          </span><span class="p">{</span><span class="s">&#39;H SLD&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">6e-6</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">4e-6</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">1e-6</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">};</span>
+<span class="w">          </span><span class="p">{</span><span class="s">&#39;D SLD&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">5e-6</span><span class="p">,</span><span class="w"> </span><span class="mf">7e-6</span><span class="p">,</span><span class="w"> </span><span class="mf">9e-6</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">          </span><span class="p">{</span><span class="s">&#39;Layer rough&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">          </span><span class="p">{</span><span class="s">&#39;Layer hydr&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">}};</span>
+
+<span class="n">problem</span><span class="p">.</span><span class="n">addParamGroup</span><span class="p">(</span><span class="n">params</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>A layer is defined in terms of a name, thickness, SLD, roughness and (optional) hydration, along with details of which bulk phase is hydrating the layer. The easiest way to define these is to group the parameters into cell arrays, and then add them to the project as a layers group:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="c">% Make the layers</span>
+<span class="n">H_layer</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;H Layer&#39;</span><span class="p">,</span><span class="s">&#39;Layer Thickness&#39;</span><span class="p">,</span><span class="s">&#39;H SLD&#39;</span><span class="p">,</span><span class="s">&#39;Layer rough&#39;</span><span class="p">,</span><span class="s">&#39;Layer hydr&#39;</span><span class="p">,</span><span class="s">&#39;bulk out&#39;</span><span class="p">};</span>
+<span class="n">D_layer</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;D Layer&#39;</span><span class="p">,</span><span class="s">&#39;Layer Thickness&#39;</span><span class="p">,</span><span class="s">&#39;D SLD&#39;</span><span class="p">,</span><span class="s">&#39;Layer rough&#39;</span><span class="p">,</span><span class="s">&#39;Layer hydr&#39;</span><span class="p">,</span><span class="s">&#39;bulk out&#39;</span><span class="p">};</span>
+
+<span class="c">% Add them to the project - as a cell array{}..</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">addLayerGroup</span><span class="p">({</span><span class="n">H_layer</span><span class="p">,</span><span class="w"> </span><span class="n">D_layer</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>Our two layers now appear in the Layers block of the project:</p>
+<img alt="Layers after adding two layers" src="_images/twoLayerGroup.png" />
+<p>Note that in RAT, hydration is percent hydration between 0 and 100. It is not necessary to define a hydration at all, and we can also make layers without this parameter:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="c">% Non hydrated layer</span>
+<span class="n">Dry_Layer</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;Dry Layer&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Layer Thickness&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;D SLD&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Layer rough&#39;</span><span class="p">};</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">Dry_Layer</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="Layers after adding third dry layer" src="_images/threeLayerGroup1.png" />
+<p>To set the value of an existing layer, you can use the ‘setLayerValue’ method, at the moment using numbers for the layer number, layer parameter and parameter to be changed. So for example:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">setLayerValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>changes parameter 2 (Thickness) of Layer 1 (H Layer) to the 3rd Parameter of the parameter block (H SLD):</p>
+<img alt="Layers after changing thickness" src="_images/threeLayerGroup2.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will soon be changed to allow the use of names rather than numbers if required because numbers are not very intuitive.</p>
+</div>
+<p>The layers are then used to set up the contrasts as usual with a standard layers model.</p>
+</section>
+<section id="bulk-phases">
+<h3><span class="sectnum">2.2.4</span> <strong>Bulk Phases.</strong><a class="headerlink" href="#bulk-phases" title="Permalink to this heading"></a></h3>
+<p>These are treated in the same way as parameters e.g.</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addBulkIn</span><span class="p">({</span><span class="s">&#39;Silicon&#39;</span><span class="p">,</span><span class="mf">2.0e-6</span><span class="p">,</span><span class="mf">2.07e-6</span><span class="p">,</span><span class="mf">2.1e-6</span><span class="p">,</span><span class="nb">false</span><span class="p">});</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">({</span><span class="s">&#39;H2O&#39;</span><span class="p">,</span><span class="o">-</span><span class="mf">0.6e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.56e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5e-6</span><span class="p">,</span><span class="nb">false</span><span class="p">});</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/bulkPhases.png"><img alt="Bulk In and Bulk Out" src="_images/bulkPhases.png" style="width: 600px;" /></a>
+<p>There are no individual methods for each parameter of these, but the values can be modified using name / value pairs as is the case for parameters, using the <strong>setBulkIn</strong> and <strong>setBulkOut</strong> methods e.g.</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">pproblem</span><span class="p">.</span><span class="n">setBulkOut</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;value&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">5.9e-6</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;fit&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="scalefactors">
+<h3><span class="sectnum">2.2.5</span> <strong>Scalefactors</strong><a class="headerlink" href="#scalefactors" title="Permalink to this heading"></a></h3>
+<p>The <em>scalefactors</em> are another parameters block like the bulk phases. You can add <em>scalefactors</em> with the <strong>addScalefactor</strong> method. Similarly, you can set the values with the <strong>setScalefactor</strong> method as with the previous blocks.</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addScalefactor</span><span class="p">({</span><span class="s">&#39;New Scalefactor&#39;</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">,</span><span class="nb">true</span><span class="p">});</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setScalefactor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;value&#39;</span><span class="p">,</span><span class="mf">1.01</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="backgrounds">
+<h3><span class="sectnum">2.2.6</span> <strong>Backgrounds</strong><a class="headerlink" href="#backgrounds" title="Permalink to this heading"></a></h3>
+</section>
+<section id="resolutions">
+<h3><span class="sectnum">2.2.7</span> <strong>Resolutions</strong><a class="headerlink" href="#resolutions" title="Permalink to this heading"></a></h3>
+</section>
+<section id="data">
+<h3><span class="sectnum">2.2.8</span> <strong>Data</strong><a class="headerlink" href="#data" title="Permalink to this heading"></a></h3>
+</section>
+<section id="putting-it-all-together-defining-contrasts">
+<h3><span class="sectnum">2.2.9</span> <strong>Putting it all together – defining contrasts</strong><a class="headerlink" href="#putting-it-all-together-defining-contrasts" title="Permalink to this heading"></a></h3>
+<p>As is the case for RasCAL, once we have defined the various aspects of our project i.e. backgrounds, data and so on, we group these together into contrasts to make out fitting project. We can add a contrast using just it’s name, and edit it later, or we can specify which parts of our project we want to add to the contrast using name value pairs:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addContrast</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;D-tail/H-Head/D2O&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;background&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Background D2O&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;resolution&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Resolution 1&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;scalefactor&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Scalefactor 1&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;nbs&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;SLD D2O&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;nba&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;SLD air&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;data&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;D-tail / H-head / D2O&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The values which we add must refer to names within the other blocks of the project. So, if you try to add a <em>scalefactor</em> called ‘scalefactor1’ when this name doesn’t exist in the <em>scalefactors</em> block, then an error will result.</p>
+<p>Once we have added the contrasts, then we need to set the model, either by adding layers for a <em>standard layers</em> project, or a custom model file (we will discuss these in chapter 3). To add either layers or a custom file, we use the <strong>setModel</strong> method. In the case of layers, we give a list of layer names, in order from bulk in to bulk out. So for a monolayer for example, we would specify tails and then heads in a cell array:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">setContrastModel</span><span class="p">(</span><span class="mi">1</span><span class="p">,{</span><span class="s">&#39;Deuterated tails&#39;</span><span class="p">,</span><span class="s">&#39;Hydrogenated heads&#39;</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>The data can be either a datafile or the simulation object in the data block. Once we have defined our contrasts they appear in the <em>contrasts</em> block at the end of the project when it is displayed.</p>
+</section>
+<section id="a-complete-example">
+<h3><span class="sectnum">2.2.10</span> <strong>A complete example</strong><a class="headerlink" href="#a-complete-example" title="Permalink to this heading"></a></h3>
+<p>In Chapter 1, we showed an example of a pre-loaded problem definition class, which we used to analyse data from two contrasts of a lipid monolayer. Now, rather than loading in a pre-defined version of this problem we can use our class methods to build this from scratch, and do the same analysis as we did there, but this time from a script.</p>
+<p>To start, we first make an instance of the project class:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">(</span><span class="s">&#39;DSPC monolayers&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Then we need to define the parameters we need. We’ll do this by making a parameters block, and adding these to project class with the <strong>addParamGroup</strong> method:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="c">% Define the parameters:</span>
+<span class="n">Parameters</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c">%       Name                min     val     max      fit?</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&#39;Tails Thickness&#39;</span><span class="p">,</span><span class="w">         </span><span class="mi">10</span><span class="p">,</span><span class="w">     </span><span class="mi">20</span><span class="p">,</span><span class="w">      </span><span class="mi">30</span><span class="p">,</span><span class="w">     </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&#39;Heads Thickness&#39;</span><span class="p">,</span><span class="w">          </span><span class="mi">3</span><span class="p">,</span><span class="w">     </span><span class="mi">11</span><span class="p">,</span><span class="w">      </span><span class="mi">16</span><span class="p">,</span><span class="w">     </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&#39;Tails Roughness&#39;</span><span class="p">,</span><span class="w">          </span><span class="mi">2</span><span class="p">,</span><span class="w">     </span><span class="mi">5</span><span class="p">,</span><span class="w">       </span><span class="mi">9</span><span class="p">,</span><span class="w">      </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&#39;Heads Roughness&#39;</span><span class="p">,</span><span class="w">          </span><span class="mi">2</span><span class="p">,</span><span class="w">     </span><span class="mi">5</span><span class="p">,</span><span class="w">       </span><span class="mi">9</span><span class="p">,</span><span class="w">      </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&#39;Deuterated Tails SLD&#39;</span><span class="p">,</span><span class="w">    </span><span class="mf">4e-6</span><span class="p">,</span><span class="w">   </span><span class="mf">6e-6</span><span class="p">,</span><span class="w">    </span><span class="mf">2e-5</span><span class="p">,</span><span class="w">   </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&#39;Hydrogenated Tails SLD&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">0.6e-6</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">0.4e-6</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">      </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&#39;Deuterated Heads SLD&#39;</span><span class="p">,</span><span class="w">    </span><span class="mf">1e-6</span><span class="p">,</span><span class="w">   </span><span class="mf">3e-6</span><span class="p">,</span><span class="w">    </span><span class="mf">8e-6</span><span class="p">,</span><span class="w">   </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&#39;Hydrogenated Heads SLD&#39;</span><span class="p">,</span><span class="w">  </span><span class="mf">0.1e-6</span><span class="p">,</span><span class="w"> </span><span class="mf">1.4e-6</span><span class="p">,</span><span class="w">  </span><span class="mf">3e-6</span><span class="p">,</span><span class="w">   </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&#39;Heads Hydration&#39;</span><span class="p">,</span><span class="w">         </span><span class="mi">0</span><span class="p">,</span><span class="w">      </span><span class="mf">0.3</span><span class="p">,</span><span class="w">     </span><span class="mf">0.5</span><span class="p">,</span><span class="w">    </span><span class="nb">true</span><span class="p">};</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="n">problem</span><span class="p">.</span><span class="n">addParamGroup</span><span class="p">(</span><span class="n">Parameters</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Next we need to group the parameters into our layers. We need four layers in all, representing deuterated and hydrogenated versions of the heads and tails:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">H_Heads</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;Hydrogenated Heads&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Heads Thickness&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Hydrogenated Heads SLD&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Heads Roughness&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Heads Hydration&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;bulk out&#39;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="n">D_Heads</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;Deuterated Heads&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Heads Thickness&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Deuterated Heads SLD&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Heads Roughness&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Heads Hydration&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;bulk out&#39;</span><span class="w"> </span><span class="p">};</span>
+
+<span class="n">D_Tails</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;Deuterated Tails&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Tails Thickness&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Deuterated Tails SLD&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Tails Roughness&#39;</span><span class="p">};</span>
+
+<span class="n">H_Tails</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;Hydrogenated Tails&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Tails Thickness&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Hydrogenated Tails SLD&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">           </span><span class="s">&#39;Tails Roughness&#39;</span><span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The headgroups are hydrated and so share a hydration parameter, whereas the tails are not.</p>
+</div>
+<p>We add our layers to the project using the <strong>addLayerGroup</strong> method:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addLayerGroup</span><span class="p">({</span><span class="n">H_Heads</span><span class="p">;</span><span class="w"> </span><span class="n">D_Heads</span><span class="p">;</span><span class="w"> </span><span class="n">H_Tails</span><span class="p">;</span><span class="w"> </span><span class="n">D_Tails</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>We are using two different subphases: D2O and ACMW. We need a different constant background for each, so we need two ‘backPar’ parameters. There is already one background parameter in the project as a default, so we rename this and add a second one:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">setBacksParName</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Backs value ACMW&#39;</span><span class="p">);</span><span class="w"> </span><span class="c">% Use existing backsPar</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setBacksParValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">5.5e-6</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">addBacksPar</span><span class="p">(</span><span class="s">&#39;Backs Value D2O&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-8</span><span class="p">,</span><span class="w"> </span><span class="mf">2.8e-6</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-5</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Use these parameters to define two constant backgrounds, again using the existing default for one of them:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addBackground</span><span class="p">(</span><span class="s">&#39;Background D2O&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;constant&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Backs Value D2O&#39;</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setBackgroundValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Background ACMW&#39;</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setBackgroundValue</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Backs Value ACMW&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We need two subphases for our project. D2O is already in the project as a default, so we only need to add the bulk out for ACMW</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">({</span><span class="s">&#39;SLD ACMW&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">1e-6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>Now we need to add the data. We read in the two files into MATLAB, and put the data into the data block with appropriate names:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">d13ACM</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">dlmread</span><span class="p">(</span><span class="s">&#39;d13acmw20.dat&#39;</span><span class="p">);</span>
+<span class="n">d70d2O</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">dlmread</span><span class="p">(</span><span class="s">&#39;d70d2o20.dat&#39;</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">addData</span><span class="p">(</span><span class="s">&#39;H-tail / D-head / ACMW&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">d13ACM</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">addData</span><span class="p">(</span><span class="s">&#39;D-tail / H-head / D2O&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">d70d2O</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We have everything we need to now build our contrasts. We have two contrasts in all, and we build them using name / value pairs for all the different parts of the contrasts (i.e. selecting which background and bulk phases etc we need using the names we have given them.)</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addContrast</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;D-tail/H-Head/D2O&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;background&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Background D2O&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;resolution&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Resolution 1&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;scalefactor&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Scalefactor 1&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;nbs&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;SLD D2O&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;nba&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;SLD air&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;data&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;D-tail / H-head / D2O&#39;</span><span class="p">);</span>
+
+<span class="n">problem</span><span class="p">.</span><span class="n">addContrast</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;H-tail/D-Head/ACMW&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;background&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Background ACMW&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;resolution&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Resolution 1&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;scalefactor&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Scalefactor 1&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;nbs&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;SLD ACMW&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;nba&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;SLD air&#39;</span><span class="p">,</span><span class="k">...</span>
+<span class="w">                    </span><span class="s">&#39;data&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;H-tail / D-head / ACMW&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To define the models for each contrast, we add the relevant layers as appropriate:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">setContrastModel</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;Deuterated tails&#39;</span><span class="p">,</span><span class="s">&#39;Hydrogenated heads&#39;</span><span class="p">});</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setContrastModel</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&#39;hydrogenated tails&#39;</span><span class="p">,</span><span class="s">&#39;deuterated heads&#39;</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>We need to make sure that we are fitting the relevant backgrounds, scalefactors and bulk phase values:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">setBacksPar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;fit&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setBacksPar</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s">&#39;fit&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setScalefactor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;fit&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">setBulkOut</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;fit&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now have a look at our project, to make sure it all looks reasonable</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="nb">disp</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Display the details of problem (first half)" src="_images/dispProblem1.png" />
+<img alt="Display the details of problem (second half)" src="_images/dispProblem2.png" />
+<p>Now we’ll calculate this to check the agreement with the data. We need an instance of the controls class, with the procedure attribute set to <em>calculate</em> (the default):</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">controlsDef</span><span class="p">();</span>
+<span class="n">controls</span><span class="p">.</span><span class="n">parallel</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;points&#39;</span><span class="p">;</span>
+
+<span class="nb">disp</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/dispControls.png"><img alt="Displays Controls" src="_images/dispControls.png" style="width: 400px;" /></a>
+<p>We then send all of this to RAT, and plot the output:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">problem</span><span class="p">,</span><span class="n">results</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RAT</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="n">controls</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="Displays the RAT processing and chi squared" src="_images/ratRun1.png" />
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="nb">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="nb">clf</span><span class="p">;</span>
+<span class="n">plotRefSLD</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="w"> </span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Displays reflectivity and SLD plot" src="_images/plot1.png" />
+<p>This looks sensible, but clearly our guess values for the parameters are slightly wide of the mark. To do a fit, we change the <em>procedure</em> attribute of the controls class to <strong>simplex</strong> (we will look at the controls class in more detail in chapter 4):</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span><span class="p">.</span><span class="n">procedure</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;simplex&#39;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/controlsProcedure.png"><img alt="Displays control def with properties" src="_images/controlsProcedure.png" style="width: 300px;" /></a>
+<p>Now when we send our classes to RAT, we will run a <strong>simplex</strong> fit on our model:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">out</span><span class="p">,</span><span class="n">results</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RAT</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="n">controls</span><span class="p">);</span>
+</pre></div>
+</div>
+<img alt="Displays the RAT processing time and chi squared" src="_images/ratRun2.png" />
+<p>We have two output parameters, ‘out’ and ‘result’. The first is an instance of our project class, but with the parameters values updated to the best fit values, and <em>results</em> contains the best fit curves and some other details, which we will look at in more depth in chapter 5.</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="nb">disp</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="Displays Out (first half)" src="_images/dispOut1.png" />
+<img alt="Displays Out (second half)" src="_images/dispOut2.png" />
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="nb">disp</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/dispResults1.png"><img alt="Displays results" src="_images/dispResults1.png" style="width: 300px;" /></a>
+<p>We can now plot the results of our fit:</p>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="nb">figure</span><span class="p">;</span><span class="w"> </span><span class="n">clf</span>
+<span class="s">plotRefSLD(out,results)</span>
+</pre></div>
+</div>
+<img alt="Displays reflectivity and SLD plot" src="_images/plot2.png" />
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="chapter1.html" class="btn btn-neutral float-left" title="1 Introduction." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="chapter3.html" class="btn btn-neutral float-right" title="3 Custom Models." accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Arwel Hughes,Sethu Pastula.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

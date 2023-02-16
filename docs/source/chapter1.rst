@@ -1,5 +1,3 @@
-|RAT banner|
-
 .. _chapter1:
 
 .. section-numbering::
@@ -134,5 +132,3 @@ This contains the results of our calculations, so for us including the SLD profi
 We can see that our model is looking fairly sensible, but that our guess values for the parameters are pretty wide off the mark.
 
 To do something more than just simulating the reflectivity, we change the procedure we specify in the *controlsDef* class. At the moment, controls.procedure is set to **calculate**, which does a one-time calculation of the reflectivity given the current parameters only. To do a fit, we can just change the *procedure* attribute of our *controlsDef* from **calculate** to **simplex**, which reveals a new set of parameters in the *controlsDef* block.
-
-|RasCAL banner|

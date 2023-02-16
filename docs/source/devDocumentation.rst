@@ -1,5 +1,3 @@
-|RAT banner|
-
 .. _devDocs:
 
 ========================
@@ -227,7 +225,6 @@ References for Developers
 
 2. 
 
-|RasCAL banner|
 
 
 

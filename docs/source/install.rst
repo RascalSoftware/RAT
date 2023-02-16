@@ -1,5 +1,3 @@
-|RAT banner|
-
 ============
 Installation
 ============
@@ -52,9 +50,6 @@ If you are on IDAAS or have already compiled the MEX file and want to use RAT in
 2. Change the variable "type = 'm'; " to " type = 'mex'; "
 
 3. If you run any script from the test/examples folder, it will use the MEX version of RAT.
-
-
-|RasCAL banner|
 
 
 

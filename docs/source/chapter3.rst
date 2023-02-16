@@ -1,5 +1,3 @@
-|RAT banner|
-
 .. _chapter3:
 
 .. section-numbering::
@@ -432,5 +430,3 @@ Custom XY Profile Models
 Although many systems can be well described by layers, sometimes these are not the most appropriate. So for example, we may want to incorporate SLD profiles from molecular simulations, or use interfaces that are not error functions. In these cases, a second type of custom model can be used, where instead of the custom model function outputting a list of layers, it builds a continuous SLD profile, which is then microsliced by RAT to calculate the reflectivity. This gives a high degree of flexibility for the type of model that can be generated.
 
 (tbc)
-
-|RasCAL banner|

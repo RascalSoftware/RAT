@@ -1,5 +1,3 @@
-|RAT banner|
-
 .. _chapter2:
 
 .. section-numbering::
@@ -518,5 +516,3 @@ We can now plot the results of our fit:
 
 .. image:: images/userManual/chapter2/plot2.png
     :alt: Displays reflectivity and SLD plot
-
-|RasCAL banner|

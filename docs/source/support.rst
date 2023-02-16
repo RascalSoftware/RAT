@@ -1,5 +1,3 @@
-|RAT banner|
-
 =======
 Support
 =======
@@ -10,7 +8,6 @@ The other good way is to open an issue on Github_.
 
 .. _Github: https://github.com/arwelHughes/RAT
 
-|RasCAL banner|
 
 
 

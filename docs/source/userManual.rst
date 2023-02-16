@@ -1,5 +1,3 @@
-|RAT banner|
-
 .. _userManual:
 
 ===========
@@ -14,4 +12,3 @@ User Manual
    chapter2
    chapter3
 
-|RasCAL banner|

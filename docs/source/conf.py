@@ -53,9 +53,6 @@ html_logo = 'images/ratLogo.png'
 html_theme_options = { 'logo_only': True }
 
 rst_prolog = """
-.. |RasCAL banner| image:: images/rascalBanner.png
-    :alt: RasCAL banner
-
 .. |RAT banner| image:: images/ratBanner.png
     :alt: RAT banner
 """

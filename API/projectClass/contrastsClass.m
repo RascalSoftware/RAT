@@ -21,7 +21,7 @@ classdef contrastsClass < handle
         end
 
         function count = get.numberOfContrasts(obj)
-            count = height(obj.contrastsTable);
+            count = length(obj.contrasts);
         end
 
         function obj = addContrast(obj, allowedNames, varargin)
@@ -84,7 +84,7 @@ classdef contrastsClass < handle
                 inputVals = {'name', thisName};
                 
             else
-                % Evereything else
+                % Everything else
                 inputVals = varargin{:};
             end
             
@@ -92,7 +92,6 @@ classdef contrastsClass < handle
             thisContrast = inputBlock;
             
             obj.contrasts{end+1} = thisContrast;
-            obj.numberOfContrasts = obj.numberOfContrasts + 1;
             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
         
         end
@@ -126,9 +125,6 @@ classdef contrastsClass < handle
 
             % Remove the contrast from the contrasts cell array
             obj.contrasts(whichContrast) = [];
-
-            % update numberOfContrasts
-            obj.numberOfContrasts = length(obj.contrasts);
 
         end
 

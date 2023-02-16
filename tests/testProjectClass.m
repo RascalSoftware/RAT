@@ -152,20 +152,20 @@ classdef testProjectClass < matlab.unittest.TestCase
             
             % Test adding parameters
             testCase.project.addParam();
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "new parameter 10", 'addParam method not working');
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "new parameter 11", 'addParam method not working');
             testCase.verifySize(testCase.project.parameters.paramsTable, [11, 8], 'Parameters has wrong dimension');
             testCase.project.addParam('NewParam2');
             testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "NewParam2", 'addParam method not working');
             testCase.verifySize(testCase.project.parameters.paramsTable, [12, 8], 'Parameters has wrong dimension');
             % Test removing parameters
             testCase.project.removeParam('NewParam2');
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "new parameter 10", 'removeParam method not working');
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "new parameter 11", 'removeParam method not working');
             testCase.verifySize(testCase.project.parameters.paramsTable, [11, 8], 'Parameters has wrong dimension');
             testCase.verifyError(@() testCase.project.removeParam('Substrate Roughness'), ?MException) % can't remove substrate roughness
             testCase.project.removeParam(11);
             testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "Heads Hydration", 'removeParam method not working');
             testCase.verifySize(testCase.project.parameters.paramsTable, [10, 8], 'Parameters has wrong dimension');
-             % Test setting the different parameter propeties
+             % Test setting the different parameter properties
             testCase.project.setParameter(2, 'value', 50);
             testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 3}, 50, 'setParameter method not working');
             testCase.project.setParamValue(2, 13);
@@ -245,7 +245,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.addData('Sim 2', data);
             testCase.verifySize(testCase.project.data.dataTable, [2, 4], 'data has wrong dimension');
             testCase.verifyEqual(testCase.project.data.dataTable{:, 1}, ["Simulation"; "Sim 2"], 'addData method not working');
-            testCase.project.removeData(1);  % unimplemented
             % Test modifying data
             testCase.project.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3), 'dataRange', [0, 1],'simRange', [1, 2]);
             expected = {"Sim 1", {zeros(4, 3)}, {[0, 1]}, {[1, 2]}};
@@ -253,6 +252,10 @@ classdef testProjectClass < matlab.unittest.TestCase
                 testCase.verifyEqual(testCase.project.data.dataTable{1, i}, expected{i}, 'setData method not working');
             end
             testCase.verifyEqual(testCase.project.data.dataTable{2, 1}, "Sim 2", 'setData method not working');
+            % Tests that data can be removed
+            testCase.project.removeData(2);
+            testCase.verifySize(testCase.project.data.dataTable, [1, 4], 'data has wrong dimension');
+            testCase.verifyEqual(testCase.project.data.dataTable{:, 1}, "Sim 1", 'removeData method not working');
         end
 
         function testBulkIn(testCase)

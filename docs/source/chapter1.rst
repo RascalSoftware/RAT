@@ -2,15 +2,17 @@
 
 .. _chapter1:
 
-Chapter 1 - Introduction.
-.........................
+.. section-numbering::
 
-1. What is RAT.
-===============
+Introduction.
+.............
+
+What is RAT.
+============
 For any calculation problem, the process of interacting with our data …… xxxx
 
-1.2 RAT basic modelling principle
-=================================
+RAT basic modelling principle
+=============================
 Even when we are at the calculations point our data analysis - that the data has been properly reduced and we have some idea of a modelling strategy, we can still then split the problem specification into two parts.
 
 * The **Model Definition** describes our data, our model, the various parameters we may have along with their limits or priors, and other quantities such as bulk SLD's or backgrounds.
@@ -39,8 +41,8 @@ In the next section, we will look at an example calculation, in order to introdu
 
 Within each problem class, there is the option of *Custom Layer* or *Custom XY* model definitions. These will be discussed in more detail in chapter 3.
 
-1.3. An example - A simple model of a lipid layer
-=================================================
+An example - A simple model of a lipid layer
+============================================
 
 **(a) Specifying the Model.**
 

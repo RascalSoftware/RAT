@@ -2,11 +2,14 @@
 
 .. _chapter2:
 
-Chapter 2 - The Problem Definition Input Class.
-...............................................
+.. section-numbering::
+    :start: 2
 
-1. Basics
-=========
+The Problem Definition Input Class.
+...................................
+
+Basics
+======
 
 In the previous chapter, we saw an example of how we set up and run an analysis using the RAT toolbox. Every call to the toolbox has two parts: the **problem definition** class, where we define the model, add the data and define our contrasts, and the **controls class** where we tell the toolbox what type of analysis we would like to do. The reason for splitting things up in this way is that once our model is defined, we can interact with it in various ways without needing to modify the model. So, we can experiment with our data, trying out different types of analysis (more of that in chapter 4), and explore the landscape of solutions by simply modifying the *controls* class, leaving the *problem* class alone. 
 
@@ -50,11 +53,11 @@ In terms of the outputs, note that we have called the first output *problem*, bu
 
 We will look at this struct in more detail in a later chapter. In the next sections, we'll discuss the methods of the **projectClass**, and see how they allow us to build up a model by populating the various sections.
 
-2. Class Methods for the projectClass
-=====================================
+Class Methods for the projectClass
+==================================
 
-**(a) Project Defining Methods**
-++++++++++++++++++++++++++++++++
+**Project Defining Methods**
+++++++++++++++++++++++++++++
 
 The first step is always to create an instance of the **projectClass** to hold our model. This is always done by assigning **projectClass** to our variable name (we will mostly use *problem* in this manual, but it can be anything), which always requires a name for our project as an input:
 
@@ -91,8 +94,8 @@ The model type is set using the **setModelType** method:
 
 Custom modelling is described in more depth in Chapter 3.
 
-**(b) The ‘Parameters’ Block.**
-+++++++++++++++++++++++++++++++
+**The ‘Parameters’ Block.**
++++++++++++++++++++++++++++
 
 Any model, where it be layers or anything else is always defined by parameters. These appear in the parameters block and are specified by a name, a value, minimum and maximum ranges and a flag defining whether the parameter is fitted or fixed:
 
@@ -165,8 +168,8 @@ You can remove a parameter from the block using its name or number. Note that if
     :width: 600
     :alt: Error when trying to remove Substrate Roughness
 
-**(c) The Layers Block (Standard Layers models only)**
-++++++++++++++++++++++++++++++++++++++++++++++++++++++
+**The Layers Block (Standard Layers models only)**
+++++++++++++++++++++++++++++++++++++++++++++++++++
 
 For each of the custom models cases, the model building is done using a script (discussed in detail in chapter 3). For standard layers models however, model building is done by grouping the parameters into layers, and then into contrasts (as is the case for RasCAL). The layers block is not visible when either of the two custom modes is selected. Again, layers are built using methods of the project class. As an example here, we make a new project class, add some parameters, and create some layers.
 
@@ -229,8 +232,8 @@ changes parameter 2 (Thickness) of Layer 1 (H Layer) to the 3rd Parameter of the
 
 The layers are then used to set up the contrasts as usual with a standard layers model.
 
-**(d) Bulk Phases.**
-++++++++++++++++++++
+**Bulk Phases.**
+++++++++++++++++
 
 These are treated in the same way as parameters e.g.
 
@@ -249,8 +252,8 @@ There are no individual methods for each parameter of these, but the values can 
 
     pproblem.setBulkOut(1, 'value', 5.9e-6, 'fit', true);
 
-**(e) Scalefactors**
-++++++++++++++++++++
+**Scalefactors**
+++++++++++++++++
 The *scalefactors* are another parameters block like the bulk phases. You can add *scalefactors* with the **addScalefactor** method. Similarly, you can set the values with the **setScalefactor** method as with the previous blocks.
 
 .. code:: MATLAB
@@ -258,17 +261,17 @@ The *scalefactors* are another parameters block like the bulk phases. You can ad
     problem.addScalefactor({'New Scalefactor',0.9,1.0,1.1,true});
     problem.setScalefactor(1,'value',1.01);
 
-**(f) Backgrounds**
-+++++++++++++++++++
+**Backgrounds**
++++++++++++++++
 
-**(g) Resolutions**
-+++++++++++++++++++
+**Resolutions**
++++++++++++++++
 
-**(h) Data**
-++++++++++++
+**Data**
+++++++++
 
-**(i) Putting it all together – defining contrasts**
-++++++++++++++++++++++++++++++++++++++++++++++++++++
+**Putting it all together – defining contrasts**
+++++++++++++++++++++++++++++++++++++++++++++++++
 
 As is the case for RasCAL, once we have defined the various aspects of our project i.e. backgrounds, data and so on, we group these together into contrasts to make out fitting project. We can add a contrast using just it's name, and edit it later, or we can specify which parts of our project we want to add to the contrast using name value pairs:
 
@@ -292,8 +295,8 @@ Once we have added the contrasts, then we need to set the model, either by addin
 
 The data can be either a datafile or the simulation object in the data block. Once we have defined our contrasts they appear in the *contrasts* block at the end of the project when it is displayed.
 
-**(j) A complete example**
-++++++++++++++++++++++++++
+**A complete example**
+++++++++++++++++++++++
 In Chapter 1, we showed an example of a pre-loaded problem definition class, which we used to analyse data from two contrasts of a lipid monolayer. Now, rather than loading in a pre-defined version of this problem we can use our class methods to build this from scratch, and do the same analysis as we did there, but this time from a script.
 
 To start, we first make an instance of the project class:

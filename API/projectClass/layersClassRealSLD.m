@@ -68,14 +68,14 @@ classdef layersClassRealSLD < handle
                     % No hydration
                     layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};
                 elseif length(layerDetails) ~= 6
-                    error('Can''t define a layer from partial details')
+                    throw(invalidNumberOfInputs('Incorrect number of parameters for layer definition. Either 0, 1, 4, or 6 inputs are required.'));
                 end
                 
                 name = layerDetails{1};
                 hydrateWhat = layerDetails{end};
                 
                 if ~strcmpi(hydrateWhat,obj.allowedHydration)
-                    error('Hydrate type must be ''bulk in'', ''bulk out'' or ''none''');
+                    throw(invalidOption(sprintf('Hydrate type is ''%s'', but it must be ''bulk in'', ''bulk out'' or ''none''', hydrateWhat)));
                 end
                 
                 % Check that the parameter names given are real
@@ -119,12 +119,12 @@ classdef layersClassRealSLD < handle
                 row = obj.findRowIndex(rowPar,layerNames);
             elseif isnumeric(rowPar)
                 if (rowPar < 1) || (rowPar > obj.layersCount)
-                    error('Layer index out out of range');
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', rowPar, obj.layersCount)));
                 else
                     row = rowPar;
                 end
             else
-                error('Layer not recognised');
+                throw(invalidType('Layer type not recognised'));
             end
             
             % Find the column index if we have a column name
@@ -132,21 +132,21 @@ classdef layersClassRealSLD < handle
                 col = obj.findRowIndex(colPar,colNames);
             elseif isnumeric(colPar)
                 if (colPar < 1) || (colPar > length(colNames))
-                    error('Column number out out of range');
+                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', colPar, length(colNames))));
                 else
                     col = colPar;
                 end
             else
-                error('Unrecognised column index');
+                throw(invalidType('Layer table column type not recognised'));
             end
 
             if ~isnumeric(col) || col < 2  || col > 6
-                error('Parameter 2 should be a number between 2 and 6')
+                throw(indexOutOfRange('Column index should be a number between 2 and 6'));
             end
 
             if col == 6
                 if ~(strcmpi(inputValue,obj.allowedHydration))
-                    error('Column 6 of layer must be ''bulk in'', ''bulk out'' or ''none''');
+                    throw(invalidOption(sprintf('Column 6 of layer is ''%s'', but must be ''bulk in'', ''bulk out'' or ''none''', inputValue)));
                 end
                 val = inputValue;
             else
@@ -221,7 +221,7 @@ classdef layersClassRealSLD < handle
             tab = obj.layersTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))
-                error('Duplicate layer names are not allowed');
+                throw(duplicateName('Duplicate layer names are not allowed'));
             end
             tab = [tab ; row];
             obj.layersTable = tab;
@@ -247,7 +247,7 @@ classdef layersClassRealSLD < handle
                 % Non-zero value in array is the row index
                 row = find(index);
             else
-                error('Layer name not found');
+                throw(nameNotRecognised('Layer name not found'));
             end
         end
 
@@ -259,19 +259,19 @@ classdef layersClassRealSLD < handle
 
             if ischar(inputVal)
                 if ~any(strcmpi(inputVal, paramNames))
-                    error('Parameter %s not recognized', inputVal);
+                    throw(nameNotRecognised(sprintf('Parameter %s not recognized', inputVal)));
                 end
                 param = inputVal;
 
             elseif isnumeric(inputVal)
                 paramIndex = floor(inputVal);
                 if paramIndex < 1 || paramIndex > length(paramNames)
-                    error('Parameter "%d" is out of range', paramIndex);
+                    throw(indexOutOfRange(sprintf('Parameter "%d" is out of range 1 - %d', paramIndex, length(paramNames))));
                 end
                 param = paramNames{paramIndex};
 
             else
-                error('Parameter %s is not in a recognizable format', inputVal);
+                throw(invalidType(sprintf('Parameter %s is not in a recognizable format', inputVal)));
                 
             end
         end

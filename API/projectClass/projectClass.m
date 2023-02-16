@@ -32,13 +32,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
         modelType = 'standard layers'
     end
-    
-    properties (Access = private)
-        
-        experimentType = 'Non polarized no absorption'
-        
-    end
-    
+       
     methods
 
         function obj = projectClass(varargin)
@@ -49,7 +43,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if isempty(varargin)
                 name = '';
             elseif ~ischar(varargin{1})
-                error('Input must be char');
+                throw(invalidType('Input must be char'));
             else
                 name = varargin{1};
             end
@@ -86,7 +80,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution = resolutionsClass(resolPars,resolutions);
             
             % Initialise data object
-            obj.data = dataClass({'Simulation',{[]},{[]}, {[]}});
+            obj.data = dataClass('Simulation', [], [], []);
             
             % Initialise Contrasts object.
             obj.contrasts = contrastsClass();
@@ -102,7 +96,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % problem.setUsePriors(true); 
             if ~islogical(showFlag)
-                error('usePriors must be logical ''true'' or ''false''');
+                throw(invalidType('usePriors must be logical ''true'' or ''false'''));
             end
             obj.usePriors = showFlag;
             
@@ -138,17 +132,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % problem.setGeometry('Substrate/liquid');
             if ~ischar(val)
-                error('Expecting char array')
+                throw(invalidType('Geometry must be a char array'))
             end
-            
-            if ~any(strcmpi(val,{'Air/substrate','Substrate/Liquid'}))
-                error('Expecting Air/Substrate or Substrate/Liquid')
-            end
-            
+
             if strcmpi(val,'air/substrate')
                 obj.geometry = 'air/substrate';
             elseif strcmpi(val,'substrate/liquid')
                 obj.geometry = 'substrate/liquid';
+            else
+                throw(invalidOption('Expecting ''Air/Substrate'' or ''Substrate/Liquid'''))
             end
         end
         
@@ -159,11 +151,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % problem.setModelType('Custom Layers');
             
             if ~ischar(val)
-                error('Expecting a char array');
+                throw(invalidType('Expecting a char array'));
             end
             
             if ~any(strcmpi(val,{'standard layers','custom layers','custom xy'}))
-                error('experiment type has to be Standard Layers, Custom Layers or Custom XY');
+                throw(invalidOption('experiment type has to be Standard Layers, Custom Layers or Custom XY'));
             end
             
             obj.modelType = lower(val);
@@ -200,7 +192,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             input = varargin{:};
             if ~iscell(input)
-                error('Expecting a cell array of parameters');
+                throw(invalidType('Expecting a cell array of parameters'));
             end
             
             for i = 1:length(input)
@@ -249,7 +241,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 
                 % Make sure we don't remove substrate roughness
                 if (isequal(thisParam{1},1)) || (strcmpi(thisParam{1},'Substrate Roughness'))
-                    error('Can''t remove protected parameter Substrate Roughness');
+                    throw(invalidOption('Can''t remove protected parameter Substrate Roughness'));
                 end
                 
                 if iscell(thisParam)
@@ -315,7 +307,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % problem.setParamName(2, 'new name');
             inputValue = varargin;
             if (isequal(inputValue{1},1)) || (strcmpi(inputValue{1},'Substrate Roughness'))
-                error('Can''t rename protected parameter Substrate Roughness');
+                throw(invalidOption('Can''t rename protected parameter Substrate Roughness'));
             end
             obj.parameters.setName(varargin); %= updatedParams;
         end
@@ -348,7 +340,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % problem.addLayerGroup({'Layer 1'; 'Layer 2'});
             input = varargin{:};
             if ~iscell(input)
-                error('Expecting a cell array of layers');
+                throw(invalidType('Expecting a cell array of layers'));
             end
             
             for i = 1:length(input)
@@ -383,7 +375,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % 
             % problem.setLayerValue(1, 2, 'Tails Thickness');
             if length(varargin) ~= 3
-                error('Three parameters expected into setLayerValue');
+                throw(invalidNumberOfInputs('Three parameters expected into setLayerValue'));
             end
 
             % call the layers class to set the value
@@ -547,12 +539,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of data and the data array
             % 
             % problem.addData('Sim 2', data);
-            obj.data.addData(varargin);
+            obj.data.addData(varargin{:});
         end
         
-        function obj = removeData(obj,varargin)
-            % This method is TODO, both here and in the dataClass subclass
-            disp('Todo');
+        function obj = removeData(obj, row)
+            % Removes a dataset. Expects the index or array of
+            % indices of dataset(s) to remove.
+            % 
+            % problem.removeData(2);
+            obj.data.removeData(row);
         end
         
         function obj = setData(obj, varargin)
@@ -560,7 +555,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of data to edit and key-value pairs
             %
             % problem.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3));
-            nameChanged = obj.data.setData(varargin);
+            nameChanged = obj.data.setData(varargin{:});
             
             if ~isempty(nameChanged)
                 obj.contrasts.updateContrastName(nameChanged);
@@ -730,14 +725,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Find if we are referencing and existing contrast
             if isnumeric(firstInput)
                 if (firstInput < 1 || firstInput > numberOfContrasts)
-                    error('Contrast number %d is out of range',firstInput);
+                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', firstInput, numberOfContrasts)));
                 end
                 thisContrast = firstInput;
                 
             elseif ischar(firstInput)
                 [present,idx] = ismember(firstInput, contrastNames);
                 if ~present
-                    error('Contrast %s is not recognised',firstInput)
+                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised',firstInput)));
                 end
                 thisContrast = idx;
                 
@@ -766,14 +761,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Find if we are referencing and existing contrast
             if isnumeric(firstInput)
                 if (firstInput < 1 || firstInput > numberOfContrasts)
-                    error('Contrast number %d is out of range',firstInput);
+                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', firstInput, numberOfContrasts)));
                 end
                 thisContrast = firstInput;
                 
             elseif ischar(firstInput)
                 [present,idx] = ismember(firstInput, contrastNames);
                 if ~present
-                    error('Contrast %s is not recognised',firstInput)
+                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised', firstInput)));
                 end
                 thisContrast = idx;
                 
@@ -923,17 +918,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     % ------------------------------------------------------------------
     
     methods (Access = protected)
-        
-        function paramNum = findPar(obj, paramName)
-            existingNames = obj.parameters.paramsTable{:,1};
-            index = strcmp(paramName, existingNames);
-            if isempty(index)
-                paramNum = -1;
-            else
-                paramNum = find(index);
-            end
-        end
-        
         % Display methods
         function group = getPropertyGroup1(obj)
             % Initial Parameters at the start of the class

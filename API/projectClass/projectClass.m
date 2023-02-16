@@ -138,7 +138,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if strcmpi(val,'air/substrate')
                 obj.geometry = 'air/substrate';
             elseif strcmpi(val,'substrate/liquid')
-                obj.Geometry = 'substrate/liquid';
+                obj.geometry = 'substrate/liquid';
             else
                 throw(invalidOption('Expecting ''Air/Substrate'' or ''Substrate/Liquid'''))
             end

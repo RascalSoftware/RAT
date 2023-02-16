@@ -48,14 +48,14 @@ bgcolor = 'white'
 html_static_path = ['_static']
 pygments_dark_style  = 'monokai'
 
-html_logo = 'images/RATLogo.png'
+html_logo = 'images/ratLogo.png'
 
 html_theme_options = { 'logo_only': True }
 
 rst_prolog = """
-.. |RasCAL banner| image:: images/RasCALBanner.png
+.. |RasCAL banner| image:: images/rascalBanner.png
     :alt: RasCAL banner
 
-.. |RAT banner| image:: images/RATBanner.png
+.. |RAT banner| image:: images/ratBanner.png
     :alt: RAT banner
 """

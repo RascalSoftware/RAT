@@ -5,16 +5,16 @@
 Chapter 3 - Custom Models.
 ..........................
 
-The Standard Layers approach is useful for quickly setting up simple models, but parameterising models in this way is not always the best way of analysing data. For example, in the case of lipids, it is often natural and intuitive to analyse the data in terms of area per lipid rather than in terms of d, rho and roughness. Similarly, for solid state samples thinking in terms of density and composition is often more appropriate than SLD. In common with RasCAL1, you can parameterise your model in any way you like, and then rather than building the model in the input class, the model is constructed using a custom model script. This is by far the most powerful method for using RAT for data analysis, as virtually any type of model can be implemented in this way.
+The Standard Layers approach is useful for quickly setting up simple models, but parameterising models in this way is not always the best way of analysing data. For example, in the case of lipids, it is often natural and intuitive to analyse the data in terms of area per lipid rather than in terms of d, :math:`\rho` and roughness. Similarly, for solid state samples thinking in terms of density and composition is often more appropriate than SLD. In common with RasCAL, you can parameterise your model in any way you like, and then rather than building the model in the input class, the model is constructed using a custom model script. This is by far the most powerful method for using RAT for data analysis, as virtually any type of model can be implemented in this way.
 
-Again in common with RasCAl1, there are two main options for custom modelling:
+Again in common with RasCAL, there are two main options for custom modelling:
 
-* Custom Layers - In this method, the parameters are grouped into layers within the script, with the output then defining layers as [d rho r] triplets.
+* **Custom Layers** - In this method, the parameters are grouped into layers within the script, with the output then defining layers as [d, :math:`\rho`, r] triplets.
 
-* Custom XY Profile - In this method the input parameters are used to create a z (in Angstroms) versus SLD curve, from which the reflectivity is calculated. 
+* **Custom XY Profile** - In this method the input parameters are used to create a z (in Angstroms) versus SLD curve, from which the reflectivity is calculated. 
 
 .. note::
-    Slight difference between RasCAL1 and RAT custom models:
+    Slight difference between RasCAL and RAT custom models:
     Custom models are identical between RasCAL and RAT, except for a slight difference between the number of outputs. Historically, rascal models output two parameters, the first being the result of the calculation (custom layers or custom XY), and the second being the bulk roughness:
 
     .. code:: MATLAB
@@ -27,17 +27,17 @@ Again in common with RasCAl1, there are two main options for custom modelling:
 
         layers = myCustomModel(params, bulk_in, bulk_out, contrast)
     
-    Otherwise, the model scripts are identical between rascal and RAT. 
+    Otherwise, the model scripts are identical between RasCAL and RAT. 
         
-    It's important to remove the second output parameter, as this is interpreted as a penalty to be applied to chi-squared, in order to implement model based constraints, and if this is not what it is, there may be unpredictable results. This is discussed in more detail in Chapter 5.
+    It's important to remove the second output parameter, as this is interpreted as a penalty to be applied to chi-squared, in order to implement model-based constraints, and if this is not what it is, there may be unpredictable results. This is discussed in more detail in Chapter 5.
 
 
 1. Custom Layers Models - DSPC bilayer example.
 ===============================================
 
-In biophysical studies, one of the most common parameters of interest is the area occupied per lipid, be it in a bilayer or a monolayer. Often for lipids, the volume occupied per component is known, which leads to a simple way of calculating the thickness of the head and tail groups. Let the volume of the heads and tails be V\ :sub:`Head` and V\ :sub:`Tail` respectively. Then, for a given Area per Lipid, the thickness of the two layers will be given by :math:`D_\mathrm{Head} = \frac{V_\mathrm{Head}}{APM}`	for the headgroup thickness, and :math:`D_\mathrm{Tail} = \frac{V_\mathrm{Tail}}{APM}` for the tail layers. 
+In biophysical studies, one of the most common parameters of interest is the area occupied per lipid, be it in a bilayer or a monolayer. Often for lipids, the volume occupied per component is known, which leads to a simple way of calculating the thickness of the head and tail groups. Let the volume of the heads and tails be V\ :sub:`Head` and V\ :sub:`Tail` respectively. Then, for a given Area per Lipid, the thickness of the two layers will be given by :math:`D_\mathrm{Head} = \frac{V_\mathrm{Head}}{APM}` for the headgroup thickness, and :math:`D_\mathrm{Tail} = \frac{V_\mathrm{Tail}}{APM}` for the tail layers. 
 
-In terms of the SLD's, because the volume and composition of each layers are known, then for each, the SLD can be calculated as :math:`\rho = \frac {\sum_{i} n_\mathrm{i} b_\mathrm{i}}{V}` in the usual way. Using literature values for the volumes therefore, rather than parameterising a lipid in terms of thickness, roughness, SLD and coverage of the lipid layers (i.e. head and tail) separately, we can just use a single APM parameter for the whole lipid. In terms of the calculation, we still specify d, :math:`\rho`, rough and coverage on a per layer basis for RAT, but we calculate these in a script for the bilayer from the APM and known composition and volume. This not only gives us the ability to fit our data using more realistic biophysical parameters (in our case APM), but also reduces the number of parameters (dimensions) of our model 
+In terms of the SLD's, because the volume and composition of each layer is known, then for each, the SLD can be calculated as :math:`\rho = \frac {\sum_{i} n_\mathrm{i} b_\mathrm{i}}{V}` in the usual way. Using literature values for the volumes therefore, rather than parameterising a lipid in terms of thickness, roughness, SLD and coverage of the lipid layers (i.e. head and tail) separately, we can just use a single APM parameter for the whole lipid. In terms of the calculation, we still specify d, :math:`\rho`, rough and coverage on a per layer basis for RAT, but we calculate these in a script for the bilayer from the APM and known composition and volume. This not only gives us the ability to fit our data using more realistic biophysical parameters (in our case APM), but also reduces the number of parameters (dimensions) of our model.
 
 The figure shows the system we are measuring. We have a single, hydrogenated DSPC bilayer supported on a silicon surface. The silicon is, as always, coated with an oxide layer. The bilayer may or may not be complete (i.e. partially hydrated) so we will need hydration parameters, and there is the possibility of a thin water layer between the bilayer and the substrate. We also need some roughness parameters, both for the substrate and the bilayer itself. We will build a custom model for this and use it to analyse the bilayer data at three contrasts.
 
@@ -69,7 +69,7 @@ Looking at our system, we can see that we are going to need 8 parameters in tota
 
 These are the parameters that we will define in the parameters block.
 
-We start in the usual way by making in instance of the *projectClass*, but this time we change the project type to *custom layers*, and also change the geometry to *solid/liquid*:
+We start in the usual way by making in instance of the **projectClass**, but this time we change the project type to *custom layers*, and also change the geometry to *solid/liquid*:
 
 .. code:: MATLAB
 
@@ -77,14 +77,14 @@ We start in the usual way by making in instance of the *projectClass*, but this 
     problem.setModelType('custom layers');
     problem.setGeometry('Substrate/liquid');
 
-If you look at the class, you will see that the *layers* block is no longer visible. We aren't going to need this for custom layers. Instead, we need a custom script, which takes our inputs and converts this in to a list of [d, rho, r] layers.
+If you look at the class, you will see that the *layers* block is no longer visible. We aren't going to need this for *custom layers*. Instead, we need a custom script, which takes our inputs and converts this in to a list of [d, :math:`\rho`, r] layers.
 
-First, we add our seven parameters (remember that Substrate Roughness is always there as the first parameter), which we do as before using the *addParamGroup* method:
+First, we add our seven parameters (remember that Substrate Roughness is always there as the first parameter), which we do as before using the **addParamGroup** method:
 
 .. code:: MATLAB
 
     Parameters = {
-        %       Name                min         val         max     fit? 
+            %  Name                min          val         max     fit? 
             {'Oxide thick',         5,          20,         60,     true   };
             {'Oxide Hydration'      0,          0.2,        0.5,    true   };
             {'Lipid APM'            45          55          65      true   };
@@ -96,7 +96,7 @@ First, we add our seven parameters (remember that Substrate Roughness is always 
         
     problem.addParamGroup(Parameters);
 
-The custom file that we are going to use is called *customBilayer.m*. This is a Matlab (or Octave - both are identical) function, which takes our input parameters and translates them into a list of layers. To add the file, we use the *addCustomFile* method:
+The custom file that we are going to use is called *customBilayer.m*. This is a MATLAB (or Octave - both are identical) function, which takes our input parameters and translates them into a list of layers. To add the file, we use the **addCustomFile** method:
 
 .. code:: MATLAB
 
@@ -104,18 +104,18 @@ The custom file that we are going to use is called *customBilayer.m*. This is a 
     problem.addCustomFile({'DSPC Model', 'customBilayer.m' ,'matlab',  'pwd'});
 
 
-The custom files are in exactly the same format at those in RasCAL1. To add it to our project in RAT we always need to specify four things:
+The custom files are in exactly the same format at those in RasCAL. To add it to our project in RAT we always need to specify four things:
 
-* Name - This is any name we choose for this custom file. This is the name we use later to add this to the contrasts.
+* **Name** - This is any name we choose for this custom file. This is the name we use later to add this to the contrasts.
 
-* Filename - This is the actual filename of the custom file, including its file extension (matlab and octave are both '.m')
+* **Filename** - This is the actual filename of the custom file, including its file extension (MATLAB and octave are both '.m')
 
-* Language - The language which we are going to use to process the file. We are choosing Matlab, which means that the native Matlab interpreter (i.e. the one we are using to call the project in this example) will be used to process the script. There is further discussion on the languages available and their merits in chapter 6.
+* **Language** - The language which we are going to use to process the file. We are choosing MATLAB, which means that the native MATLAB interpreter (i.e. the one we are using to call the project in this example) will be used to process the script. There is further discussion on the languages available and their merits in chapter 6.
 
-* Path - The path to our custom file. In this case it's in the same directory as the model script (pwd).
+* **Path** - The path to our custom file. In this case it's in the same directory as the model script (pwd).
 
 
-At this point it's useful to look at customBilayer.m and then go through it section by section:
+At this point it's useful to look at *customBilayer.m* and then go through it section by section:
 
 .. code:: MATLAB
 
@@ -209,7 +209,7 @@ The standard format for a custom layers file always has 4 inputs:
 
 .. code:: MATLAB
 
-    (params,bulk_in,bulk_out,contrast)
+    (params, bulk_in, bulk_out, contrast)
 
 Params is a list of parameter values for the layers, which appear in the same order that we defined them in our parameters block, so is always a [1 x nParams] array of doubles. It's useful to split this array into its individual parameters at the start of the custom file, although you don't have to do this:
 
@@ -228,7 +228,7 @@ The next two inputs are arrays of all the bulk in and bulk out values for all th
 
 :math:`SLD_\mathrm{Hydrated layer} = (Hydration * SLD_\mathrm{water}) + ((1-Hydration)*SLD_\mathrm{layer})`
 
-The input parameter bulk_in is an array which is a list of the current SLD's  for all the contrasts, so the current SLD of the water (which may be being fitted) is given by bulk_out(contrast). Therefore, the effective SLD of the oxide layer at a particular contrast is given by:
+The input parameter *bulk_in* is an array which is a list of the current SLD's for all the contrasts, so the current SLD of the water (which may be being fitted) is given by bulk_out(contrast). Therefore, the effective SLD of the oxide layer at a particular contrast is given by:
 
 .. code:: MATLAB
 
@@ -249,7 +249,7 @@ To work out the thickness of the lipid layers, we use literature values for the 
     headThick = vHead / lipidAPM;
     tailThick = vTail / lipidAPM;
 
-For the SLD's, we again make use of these volumes, but we need to work our the sum of the scattering lengths from the layers compositions:
+For the SLD's, we again make use of these volumes, but we need to work out the sum of the scattering lengths from the layers compositions:
 
 .. code:: MATLAB
 
@@ -298,7 +298,7 @@ We then put these together to make our stack:
 
 .. code:: MATLAB
 
-    output = [oxide ; water ; head ; tail ; tail ; head];
+    output = [oxide; water; head; tail; tail; head];
 
 Note the use of semicolons. In Matlab / Octave syntax, this concatenates arrays columnwise. So if you take an array a = [a1, a2, a3], and another b = [b1, b2, b3], then [a ; b] produces an array that looks like this:
 
@@ -355,32 +355,32 @@ The rest of the custom model is defined in the same way as the standard layers m
 
     % Make the contrasts...
     problem.addContrast('name','Bilayer / D2O',...
-        'background','Background D2O',...
-        'resolution','Resolution 1',...
-        'scalefactor', 'Scalefactor 1',...
-        'nbs', 'SLD D2O',...        % This is bulk out ('Nb Subs')
-        'nba', 'Silicon',...        % This is bulk in ('Nb Air')
-        'data', 'Bilayer / D2O');
+                        'background','Background D2O',...
+                        'resolution','Resolution 1',...
+                        'scalefactor', 'Scalefactor 1',...
+                        'nbs', 'SLD D2O',...        % This is bulk out ('Nb Subs')
+                        'nba', 'Silicon',...        % This is bulk in ('Nb Air')
+                        'data', 'Bilayer / D2O');
 
     % SMW contrast..
     problem.addContrast('name','Bilayer / SMW',...
-        'background','Background SMW',...
-        'resolution','Resolution 1',...
-        'scalefactor', 'Scalefactor 1',...
-        'nbs', 'SLD SMW',...        % This is bulk out
-        'nba', 'Silicon',...        % This is bulk in
-        'data', 'Bilayer / SMW');
+                        'background','Background SMW',...
+                        'resolution','Resolution 1',...
+                        'scalefactor', 'Scalefactor 1',...
+                        'nbs', 'SLD SMW',...        % This is bulk out
+                        'nba', 'Silicon',...        % This is bulk in
+                        'data', 'Bilayer / SMW');
 
     % SMW contrast..
     problem.addContrast('name','Bilayer / H2O',...
-        'background','Background H2O',...
-        'resolution','Resolution 1',...
-        'scalefactor', 'Scalefactor 1',...
-        'nbs', 'SLD H2O',...        % This is bulk out
-        'nba', 'Silicon',...        % This is bulk in
-        'data', 'Bilayer / H2O');
+                        'background','Background H2O',...
+                        'resolution','Resolution 1',...
+                        'scalefactor', 'Scalefactor 1',...
+                        'nbs', 'SLD H2O',...        % This is bulk out
+                        'nba', 'Silicon',...        % This is bulk in
+                        'data', 'Bilayer / H2O');
 
-Finally, we add the model, again using the *setContrastModel* method, but in this case we give the name of our custom model from the custom files block (rather than a list of layers):
+Finally, we add the model, again using the **setContrastModel** method, but in this case we give the name of our custom model from the custom files block (rather than a list of layers):
 
 .. code:: MATLAB
 
@@ -419,7 +419,7 @@ To run this, we make a controls block as before, and pass this to RAT. This time
 
     [problem,results] = RAT(problem,controls);
 
-.. image:: images/userManual/chapter3/RATRun.png
+.. image:: images/userManual/chapter3/ratRun.png
     :alt: Displays RAT executing calculations
 
 

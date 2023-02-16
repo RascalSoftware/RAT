@@ -221,7 +221,6 @@ priorVals = allPriors(:,2:end);
 priors.priorNames = priorNames;
 priors.priorVals = priorVals;
 
-
 %Split up the contrastBacks array
 contrastBacks = inputStruct.contrastBacks;
 for i = 1:length(contrastBacks)
@@ -396,6 +395,10 @@ controls.burnin = inputControls.burnin;
 controls.resamPars = inputControls.resamPars;% [0.95 10];
 controls.updateFreq = inputControls.updateFreq;
 controls.updatePlotFreq = inputControls.updatePlotFreq;
+controls.gwBurnin = inputControls.gwBurnIn;
+controls.StepSize = inputControls.StepSize;
+controls.ThinChain = inputControls.ThinChain;
+controls.nSteps = inputControls.nSteps;
 
 %Also need to deal with the checks...
 checks.params_fitYesNo = inputStruct.paramFitYesNo;

@@ -50,10 +50,11 @@ switch lower(action)
             ratSendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));
         end            
         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);   
-%     case 'dream'
-%         if ~strcmpi(controls.display,'off')
-%             ratSendTextOutput(sprintf('\nRunning DREAM\n\n'));
-        
+    case 'gwmcmc'
+        if ~strcmpi(controls.display,'off')
+            ratSendTextOutput(sprintf('\nRunning Goodman and Weare MCMC \n\n'));
+        end   
+        [outProblemDef,problem,results,bayesResults] = runGwMcmc(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 end
 
 end

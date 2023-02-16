@@ -40,6 +40,12 @@ classdef controlsDef < matlab.mixin.CustomDisplay
         burnin = 100;
         repeats = 1; 
 
+        % (5) Goodman and Weare MCMC
+        nSteps = 50000;
+        gwBurnIn = 0.4000;
+        StepSize = 2;
+        ThinChain = 10;
+
     end
     
     %------------------------- Set and Get ------------------------------
@@ -51,197 +57,220 @@ classdef controlsDef < matlab.mixin.CustomDisplay
 
             obj.parallel = val;
         end
-        
+
         function obj = set.procedure(obj,val)
-            if ~strcmpi(val,{'calculate','simplex','DE','Bayes','NS'})
-                error('Type must be ''calculate'', ''simplex'', ''DE'', ''Bayes'' or ''NS'' ');
+            if ~strcmpi(val,{'calculate','simplex','DE','Bayes','NS','gwMCMC'})
+                error('Type must be ''calculate'', ''simplex'', ''DE'', ''Bayes'', ''NS'' or ''gwMCMC'' ');
             end
-            
+
             obj.procedure = val;
         end
-        
-        
+
+
         function obj = set.calcSldDuringFit(obj,val)
             if ~strcmpi(val,{'yes','no'})
                 error('Type must be ''yes'' or ''no'' ');
             end
-            
-%             if strcmpi(val,'no')
-%                 warning('Will automatically default to ''yes'' if resample is set in problemDef')
-%             end
+
+            %             if strcmpi(val,'no')
+            %                 warning('Will automatically default to ''yes'' if resample is set in problemDef')
+            %             end
             obj.calcSldDuringFit = val;
         end
-        
-        
-         %Simplex control methods
-         function obj = set.display(obj,val)
-             if ~strcmpi(val,{'off','iter','notify','final'})
-                 error('Display must be set to ''off'', ''iter'', ''notify'' or ''final'' ');
-             end
-             obj.display = val;
-         end
-         
-         function obj = set.tolX(obj,val)
-             if ~isnumeric(val)
-                 error('tolX must be numeric');
-             end
-             obj.tolX = val;
-         end
-         
-         function obj = set.tolFun(obj,val)
-             if ~isnumeric(val)
-                 error('tolFun must be numeric');
-             end
-             obj.tolFun = val;
-         end
-         
-         function obj = set.maxFunEvals(obj,val)
-             if ~isnumeric(val)
-                 error('maxFunEvals must be numeric');
-             end
-             obj.maxFunEvals = val;
-         end
-         
-         function obj = set.maxIter(obj,val)
-             if ~isnumeric(val)
-                 error('maxIter must be numeric');
-             end
-             obj.maxIter = val;
-         end
-         
-         %DE controls methods
-         function obj = set.populationSize(obj,val)
-             if (~isnumeric(val) || val < 1)
-                 error('populationSize must be numeric and >1');
-             end
-             obj.populationSize = val;
-         end
-         
-         function obj = set.F_weight(obj,val)
-             if ~isnumeric(val)
-                 error('F_weight must be numeric');
-             end
-             obj.F_weight = val;
-         end
-         
-         function obj = set.crossoverProbability(obj,val)
-             if (~isnumeric(val) || val < 0 || val > 1)
-                 error('crossoverProbability must be between 0 and 1');
-             end
-             obj.crossoverProbability = val;
-         end
-         
-         function obj = set.strategy(obj,val)
-             if (~isnumeric(val) || val < 1 || val > 6)
-                 error('strategy must be 1 - 6')
-             end
-                 switch val
-                     case 1
-                         message = 'Selecting DE/rand/1';
-                     case 2
-                         message = 'Selecting DE/local-to-best/1';
-                     case 3
-                         message = 'Selecting DE/best/1 with jitter';
-                     case 4
-                         message = 'Selecting DE/rand/1 with per-vector-dither';
-                     case 5
-                         message = 'Selecting DE/rand/1 with per-generation-dither';
-                     case 6
-                         message = 'Selecting DE/rand/1 either-or-algorithm';
-                     otherwise
-                         error('Unrecognised DE strategy');
-                 end
-                 disp(message);
-             
-             obj.strategy = val;
-         end
-         
-         function obj = set.targetValue(obj,val)
-             if (~isnumeric(val) || val < 1 )
-                 error('Target value must be > 1')
-             end 
-         obj.targetValue = val;
-         end
-         
-         function obj = set.numGenerations(obj,val)
-             if (~isnumeric(val) || val < 1 )
-                 error('numGenerations value must be > 1')
-             end 
-         obj.numGenerations = val;
-         end
-         
-         
+
+
+        %Simplex control methods
+        function obj = set.display(obj,val)
+            if ~strcmpi(val,{'off','iter','notify','final'})
+                error('Display must be set to ''off'', ''iter'', ''notify'' or ''final'' ');
+            end
+            obj.display = val;
+        end
+
+        function obj = set.tolX(obj,val)
+            if ~isnumeric(val)
+                error('tolX must be numeric');
+            end
+            obj.tolX = val;
+        end
+
+        function obj = set.tolFun(obj,val)
+            if ~isnumeric(val)
+                error('tolFun must be numeric');
+            end
+            obj.tolFun = val;
+        end
+
+        function obj = set.maxFunEvals(obj,val)
+            if ~isnumeric(val)
+                error('maxFunEvals must be numeric');
+            end
+            obj.maxFunEvals = val;
+        end
+
+        function obj = set.maxIter(obj,val)
+            if ~isnumeric(val)
+                error('maxIter must be numeric');
+            end
+            obj.maxIter = val;
+        end
+
+        %DE controls methods
+        function obj = set.populationSize(obj,val)
+            if (~isnumeric(val) || val < 1)
+                error('populationSize must be numeric and >1');
+            end
+            obj.populationSize = val;
+        end
+
+        function obj = set.F_weight(obj,val)
+            if ~isnumeric(val)
+                error('F_weight must be numeric');
+            end
+            obj.F_weight = val;
+        end
+
+        function obj = set.crossoverProbability(obj,val)
+            if (~isnumeric(val) || val < 0 || val > 1)
+                error('crossoverProbability must be between 0 and 1');
+            end
+            obj.crossoverProbability = val;
+        end
+
+        function obj = set.strategy(obj,val)
+            if (~isnumeric(val) || val < 1 || val > 6)
+                error('strategy must be 1 - 6')
+            end
+            switch val
+                case 1
+                    message = 'Selecting DE/rand/1';
+                case 2
+                    message = 'Selecting DE/local-to-best/1';
+                case 3
+                    message = 'Selecting DE/best/1 with jitter';
+                case 4
+                    message = 'Selecting DE/rand/1 with per-vector-dither';
+                case 5
+                    message = 'Selecting DE/rand/1 with per-generation-dither';
+                case 6
+                    message = 'Selecting DE/rand/1 either-or-algorithm';
+                otherwise
+                    error('Unrecognised DE strategy');
+            end
+            disp(message);
+
+            obj.strategy = val;
+        end
+
+        function obj = set.targetValue(obj,val)
+            if (~isnumeric(val) || val < 1 )
+                error('Target value must be > 1')
+            end
+            obj.targetValue = val;
+        end
+
+        function obj = set.numGenerations(obj,val)
+            if (~isnumeric(val) || val < 1 )
+                error('numGenerations value must be > 1')
+            end
+            obj.numGenerations = val;
+        end
+
+
 
         %NS control methods
         function obj = set.Nlive(obj,val)
-             if (~isnumeric(val) || val < 1)
-                 error('Nlive must be a positive number');
-             end
-             obj.Nlive = val;
+            if (~isnumeric(val) || val < 1)
+                error('Nlive must be a positive number');
+            end
+            obj.Nlive = val;
         end
-        
+
         function obj = set.Nmcmc(obj,val)
             if (~isnumeric(val) || val < 0)
                 error('Nmcmc must be 0 or positive integer')
             end
             obj.Nmcmc = val;
         end
-        
+
         function obj = set.propScale(obj,val)
-             if (~isnumeric(val) || val < 0 || val > 1)
-                 error('propscale must be between 0 and 1');
-             end
-             obj.propScale = val;
+            if (~isnumeric(val) || val < 0 || val > 1)
+                error('propscale must be between 0 and 1');
+            end
+            obj.propScale = val;
         end
-        
+
         function obj = set.nsTolerance(obj,val)
-             if (~isnumeric(val) || val < 0 )
-                 error('Stopping tolerance must be a positive number');
-             end
-             obj.nsTolerance = val;
+            if (~isnumeric(val) || val < 0 )
+                error('Stopping tolerance must be a positive number');
+            end
+            obj.nsTolerance = val;
         end
-        
-        % Bayes control methods. 
+
+        % Bayes control methods.
         function obj = set.method(obj,val)
-             if ~strcmpi(val,{'DRAM','Delayed Rejection','Adaptive Metropolis','Metropolis Hastings'})
-                 error('Display must be set to ''DRAM'',''Delayed Rejection'',''Adaptive Metropolis'' or ''Metropolis Hastings'' ');
-             end
-             obj.method = val;
+            if ~strcmpi(val,{'DRAM','Delayed Rejection','Adaptive Metropolis','Metropolis Hastings'})
+                error('Display must be set to ''DRAM'',''Delayed Rejection'',''Adaptive Metropolis'' or ''Metropolis Hastings'' ');
+            end
+            obj.method = val;
         end
-             
+
         function obj = set.nsimu(obj,val)
-             if (~isnumeric(val) || val < 0 )
-                 error('nsumu must be a positive number');
-             end
-             obj.nsimu = val;
+            if (~isnumeric(val) || val < 0 )
+                error('nsumu must be a positive number');
+            end
+            obj.nsimu = val;
         end
-        
+
         function obj = set.adaptint(obj,val)
-             if (~isnumeric(val) || val < 0 )
-                 error('adaptint must be a positive number');
-             end
-             obj.adaptint = val;
+            if (~isnumeric(val) || val < 0 )
+                error('adaptint must be a positive number');
+            end
+            obj.adaptint = val;
         end
-            
+
         function obj = set.burnin(obj,val)
-             if (~isnumeric(val) || val < 0 )
-                 error('burnin must be a positive number');
-             end
-             obj.burnin = val;
+            if (~isnumeric(val) || val < 0 )
+                error('burnin must be a positive number');
+            end
+            obj.burnin = val;
         end
-        
-         
+
+
         function obj = set.repeats(obj,val)
-             if (~isnumeric(val) || val < 1 )
-                 error('burnin must be a positive number > 1');
-             end
-             obj.repeats = val;
+            if (~isnumeric(val) || val < 1 )
+                error('repeats must be a positive number >= 1');
+            end
+            obj.repeats = val;
         end
 
+        % gwMCMC controls methods...
+        function obj.set.nSteps(obj,val)
+            if ~isnumeric(val) || val < 1 || isnan(val) || isinf(val)
+                error('nSteps must be a positive integer');
+            end
+        end
 
+        function obj = set.gwBurnIn(obj,val)
+            if (~isnumeric(val) || val < 0 || val > 1 )
+                error('gwBurnin must be a fractional value between 0 and 1');
+            end
+            obj.gwBurnIn = val;
+        end
 
+        function obj = set.StepSize(obj,val)
+            if ~isnumeric(val)
+                error('StepSize must be numeric');
+            end
+        end
 
-    end  
+        function obj = set.ThinChain(obj,val)
+            if ~isnumeric(val)
+                error('ThinChain must be numeric');
+            end
+        end
+
+    end
     %------------------------- Display Methods --------------------------
     
     methods (Access = protected)
@@ -271,7 +300,11 @@ classdef controlsDef < matlab.mixin.CustomDisplay
                 'adaptint', {obj.adaptint},...
                 'burnin', {obj.burnin},...
                 'repeats', {obj.repeats},...
-                'resamPars', {obj.resamPars});
+                'resamPars', {obj.resamPars},...
+                'gwBurnIn', {obj.gwBurnIn},...
+                'StepSize', {obj.StepSize},...
+                'ThinChain', {obj.ThinChain},...
+                'nSteps', {obj.nSteps});
  
             simplexCell = {'tolX',...
                 'tolFun',...
@@ -295,18 +328,25 @@ classdef controlsDef < matlab.mixin.CustomDisplay
                 'adaptint',...
                 'burnin',...
                 'repeats'};
+
+            gwMcmcCell = {'gwBurnIn',...
+                'StepSize',...
+                'ThinChain',...
+                'nSteps'};
             
             if isscalar(obj)
                 if strcmpi(obj.procedure,'calculate')
-                    dispPropList = rmfield(masterPropList,[DECell simplexCell NSCell BayesCell]);
+                    dispPropList = rmfield(masterPropList,[DECell simplexCell NSCell BayesCell gwMcmcCell]);
                 elseif strcmpi(obj.procedure,'simplex')
-                    dispPropList = rmfield(masterPropList,[DECell NSCell BayesCell]);
+                    dispPropList = rmfield(masterPropList,[DECell NSCell BayesCell gwMcmcCell]);
                 elseif strcmpi(obj.procedure,'DE')
-                    dispPropList = rmfield(masterPropList,[simplexCell NSCell BayesCell]);
+                    dispPropList = rmfield(masterPropList,[simplexCell NSCell BayesCell gwMcmcCell]);
                 elseif strcmpi(obj.procedure,'NS')
-                    dispPropList = rmfield(masterPropList,[simplexCell DECell BayesCell]);
+                    dispPropList = rmfield(masterPropList,[simplexCell DECell BayesCell gwMcmcCell]);
                 elseif strcmpi(obj.procedure,'Bayes')
-                    dispPropList = rmfield(masterPropList,[simplexCell DECell NSCell]);
+                    dispPropList = rmfield(masterPropList,[simplexCell DECell NSCell gwMcmcCell]);
+                elseif strcmpi(obj.procedure,'gwMCMC')
+                    dispPropList = rmfield(masterPropList,[simplexCell DECell NSCell BayesCell]);
                 end
                 
                 if ~isempty(dispPropList)

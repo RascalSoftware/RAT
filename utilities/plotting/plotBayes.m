@@ -10,7 +10,7 @@ function plotBayes(problem,results,varargin)
         h3 = figure(40); clf
         mcmcplot(results.chain,[],results.fitNames,'hist');
         
-        h4 = figure(5); clf; 
+        h4 = figure(50); clf; 
         plotBayesCorrFig(results.chain,results.fitNames,h4)      
         
         h6 = figure(60); clf

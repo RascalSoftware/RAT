@@ -47,3 +47,12 @@ bgcolor = 'white'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 pygments_dark_style  = 'monokai'
+
+html_logo = 'images/ratLogo.png'
+
+html_theme_options = { 'logo_only': True }
+
+rst_prolog = """
+.. |RAT banner| image:: images/ratBanner.png
+    :alt: RAT banner
+"""

@@ -76,6 +76,7 @@ classdef testDataClass < matlab.unittest.TestCase
             testCase.data.addData();
             testCase.verifySize(testCase.data.dataTable, [5, 4], 'data has wrong dimension');
             testCase.verifyEqual(testCase.data.dataTable{:, 1}, ["New data 1"; "Sim 2"; "Sim 3"; "Bilayer / SMW"; "New data 5"], 'addData method not working');
+            testCase.verifyError(@() testCase.data.addData('Another Sim', repmat(1:-1:-1, 3, 1)'), invalidValue.errorID);
             % appendNewRow changes the ranges to match the data and throws warning
             testCase.verifyWarning(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1], [0, 0]), '');  
             testCase.verifyEqual(testCase.data.dataTable{end, 3}, {[0, 0]}, 'addData method not working');
@@ -92,7 +93,7 @@ classdef testDataClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.data.dataTable{:, 1}, ["New data 1"; "Bilayer / D2O"; "Bilayer / H2O"], "removeData does not work correctly");
             % Test removing multiple rows
             testCase.data.removeData([1 3]);
-            testCase.verifyEqual(testCase.data.dataTable{:, 1}, ["Bilayer / D2O"], "removeData does not work correctly");
+            testCase.verifyEqual(testCase.data.dataTable{:, 1}, "Bilayer / D2O", "removeData does not work correctly");
         end
 
         function testSetdata(testCase)
@@ -140,7 +141,7 @@ classdef testDataClass < matlab.unittest.TestCase
             displayHeader = eraseBetween(displayArray{2}, '<', '>', 'Boundaries','inclusive');
             displayHeader = regexp(displayHeader, '\s{2,}', 'split');
             testCase.verifyEqual(displayHeader, actualHeader);
-            actualRow = {"New data 1", "No Data", "-", "[ 0.0050 , 0.7000 ]"};
+            actualRow = ["New data 1", "No Data", "-", "[ 0.0050 , 0.7000 ]"];
 	        row = regexp(displayArray{4}, '\s{2,}', 'split');
             row = string(replace(row, '"', ''));
             testCase.verifyLength(row, length(actualHeader));
@@ -154,7 +155,7 @@ classdef testDataClass < matlab.unittest.TestCase
             displayHeader = eraseBetween(displayArray{2}, '<', '>', 'Boundaries','inclusive');
             displayHeader = regexp(displayHeader, '\s{2,}', 'split');
             testCase.verifyEqual(displayHeader, actualHeader);
-            actualRow = {"Bilayer / SMW", "Data array: [3 x 3]", "[ -1.0000 , 1.0000 ]", "-"};
+            actualRow = ["Bilayer / SMW", "Data array: [3 x 3]", "[ -1.0000 , 1.0000 ]", "-"];
 	        row = regexp(displayArray{5}, '\s{2,}', 'split');
             row = string(replace(row, '"', ''));
             testCase.verifyLength(row, length(actualHeader));

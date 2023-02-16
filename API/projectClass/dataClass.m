@@ -71,7 +71,6 @@ classdef dataClass < handle
                     case 2  
                         % Two inputs supplied - assume both name and data
                         % supplied;
-                        % newName = inputs{1};
                         newData = inputs{2};
                         
                         newDataX = newData(:,1);
@@ -116,11 +115,9 @@ classdef dataClass < handle
             if isnumeric(whichData)
                 if (whichData > obj.dataCount) || (whichData < 1)
                     throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', whichData, obj.dataCount)));
-                    %error('Data %d is not recognised', whichData);
                 end
             elseif ischar(whichData)
                 if ~strcmpi(whichData,dataNames)
-                    % error('Data name %s not recognised', whichData);
                     throw(nameNotRecognised(sprintf('Data object name %s not recognised', whichData)));
                 else
                     whichData = find(strcmpi(whichData,dataNames));
@@ -291,9 +288,12 @@ classdef dataClass < handle
                     throw(invalidType('Data range and sim range must be [1 x 2] numeric arrays'));
                 end
 
-                dataX = data(:,1);              % First column is always Q
-                realDataRange = [dataX(1),dataX(end)];
-                
+                dataX = data(:, 1);  % First column is always Q
+                realDataRange = [dataX(1), dataX(end)];
+                if realDataRange(1) > realDataRange(2)
+                    throw(invalidValue('Data is expected to be sorted (ascending order) by the first column'));
+                end
+
                 if dataRange(1) < realDataRange(1)
                     warning('dataRange(1) can''t be less than min data value - resetting');
                     dataRange(1) = realDataRange(1);

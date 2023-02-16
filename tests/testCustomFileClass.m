@@ -140,18 +140,18 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({}), invalidNumberOfInputs.errorID)
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'matlab', 'pwd'}), invalidNumberOfInputs.errorID)
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), invalidNumberOfInputs.errorID)
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({}), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'matlab', 'pwd'}), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), invalidNumberOfInputs.errorID);
 
             % Invalid types
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({42}), invalidType.errorID)
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({42}), invalidType.errorID);
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), invalidOption.errorID)
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), invalidOption.errorID);
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'DPPC Model'}), duplicateName.errorID)
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'DPPC Model'}), duplicateName.errorID);
         end
 
         function testSetCustomFile(testCase, testRow, inputData, expectedRow)
@@ -187,7 +187,6 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         end
 
         function testRemoveCustomFile(testCase)
-            % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleClass.fileTable(2:end,:);
             testCase.exampleClass.removeCustomFile(1);
 
@@ -195,8 +194,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         end
 
         function testRemoveCustomFileMultiple(testCase)
-            % Test removing multiple rows from a layers table
-            % Note that the routine requires a single cell array as input
+            % Test removing multiple rows from a file table
             
             % Put dummy third row in table
             testCase.exampleClass.fileTable(3, :) = {'Test Row', '', '', ''};
@@ -205,6 +203,16 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.exampleClass.removeCustomFile([1 3]);
 
             testCase.verifyEqual(testCase.exampleClass.fileTable, remainingRows, "removeCustomFile does not work correctly");
+        end
+
+        function testRemoveCustomFileInvalid(testCase)
+            % Test using invalid row indices to remove rows from a
+            % file table.
+            testCase.verifyError(@() testCase.exampleClass.removeCustomFile(0), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleClass.removeCustomFile(1.5), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleClass.removeCustomFile(testCase.numRows+1), 'MATLAB:table:RowIndexOutOfRange');
+
+            testCase.verifySize(testCase.exampleClass.fileTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite no rows being removed");
         end
 
         function testDisplayCustomFileObject(testCase)

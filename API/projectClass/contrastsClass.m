@@ -1,10 +1,16 @@
 classdef contrastsClass < handle
     
     properties
-        numberOfContrasts = 0
         contrastsTable
         contrasts = {}
-        contrastAutoNameCounter = 1
+    end
+
+    properties (Access = private)
+        contrastAutoNameCounter
+    end
+
+    properties (Dependent, SetAccess = private)
+        numberOfContrasts
     end
     
     methods
@@ -13,7 +19,11 @@ classdef contrastsClass < handle
             % Class Constructor
             %obj.addContrast({},{'name','Contrast 1'});
         end
-        
+
+        function count = get.numberOfContrasts(obj)
+            count = height(obj.contrastsTable);
+        end
+
         function obj = addContrast(obj, allowedNames, varargin)
             
             % Parsing Input Types....

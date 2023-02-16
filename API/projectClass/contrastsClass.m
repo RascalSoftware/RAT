@@ -18,6 +18,7 @@ classdef contrastsClass < handle
         function  obj = contrastsClass()
             % Class Constructor
             %obj.addContrast({},{'name','Contrast 1'});
+            obj.contrastAutoNameCounter = 1;
         end
 
         function count = get.numberOfContrasts(obj)
@@ -70,12 +71,10 @@ classdef contrastsClass < handle
             %     varargin{:} = 1×4 cell array  - {'name'}    {'my contrast'}    {'backround'}    {'background 1'}
             %     length(varargin{:}) = 4
             %     isempty(varargin{:}) - logical 0
-    
-            
+
             if isempty(varargin{:})
                 % No input at all
-                contrastNumber = obj.contrastAutoNameCounter;
-                contrastName = sprintf('New contrast %d',contrastNumber);
+                contrastName = sprintf('New contrast %d', obj.contrastAutoNameCounter);
                 inputVals = {'name', contrastName};
                 
             elseif length(varargin{:}) == 1

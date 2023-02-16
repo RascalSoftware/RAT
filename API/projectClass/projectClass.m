@@ -728,7 +728,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Find if we are referencing and existing contrast
             if isnumeric(firstInput)
                 if (firstInput < 1 || firstInput > numberOfContrasts)
-                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d',firstInput, numberOfContrasts)));
+                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', firstInput, numberOfContrasts)));
                 end
                 thisContrast = firstInput;
                 

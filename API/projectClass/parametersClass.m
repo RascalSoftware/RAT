@@ -6,7 +6,11 @@ classdef parametersClass < handle
         paramsTable = table;
         showPriors = false;
     end
-    
+
+    properties(Access = private, Constant, Hidden)
+        invalidPriorsMessage = "Prior type must be ''uniform'', ''gaussian'' or ''jeffreys''"
+    end
+
     properties (Access = private)   
         paramAutoNameCounter;
     end
@@ -127,7 +131,7 @@ classdef parametersClass < handle
                 end
                 
                 if ~strcmpi(priorType,{'uniform', 'gaussian', 'jeffreys'})
-                    throw(invalidOption('Prior type must be ''uniform'', ''gaussian'' or ''jeffreys'''));
+                    throw(invalidOption(obj.invalidPriorsMessage));
                 end
                 
                 if ~isnumeric(priorValues)
@@ -204,7 +208,7 @@ classdef parametersClass < handle
             row = obj.getValidRow(inputValues(1));
             priorType = inputValues{2};
             if ~strcmpi(priorType,{'uniform','gaussian','jeffreys'})
-                throw(invalidOption('Prior needs to be ''uniform'',''gaussian'', or ''jeffreys'''));
+                throw(invalidOption(obj.invalidPriorsMessage));
             end
             
             priorType = lower(priorType);

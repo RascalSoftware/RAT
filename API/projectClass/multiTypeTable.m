@@ -101,7 +101,7 @@ classdef multiTypeTable < handle
                     row = rowPar;
                 end
             else
-                throw(invalidType('Unrecognised row index'));
+                throw(invalidType('Unrecognised row'));
             end
             
             % Second parameter needs to be either a column name or
@@ -118,7 +118,7 @@ classdef multiTypeTable < handle
                     col = colPar;
                 end
             else
-                throw(invalidType('Unrecognised column index'));
+                throw(invalidType('Unrecognised column'));
             end
             
             % Set the value

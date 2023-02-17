@@ -43,11 +43,6 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custLay');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custXY');    
-       
-    %fullfile(ratRoot,'targetFunctions','domains_TF');
-    %fullfile(ratRoot,'targetFunctions','domains_TF','domainsTF_stanLay');
-    %fullfile(ratRoot,'targetFunctions','domains_TF','domainsTF_custLay');
-    %fullfile(ratRoot,'targetFunctions','domains_TF','domainsTF_custXY');   
     
     fullfile(ratRoot,'API');
     fullfile(ratRoot,'API','outputFcn');

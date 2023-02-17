@@ -63,7 +63,7 @@ for i = 1:numberOfContrasts
 end
            
 switch lower(type)
-    case 'layers'
+    case 'standard layers'
         % Standard layers calculation
 %         [problem,reflectivity,Simulation,...
 %          shifted_data,layerSlds,sldProfiles,...

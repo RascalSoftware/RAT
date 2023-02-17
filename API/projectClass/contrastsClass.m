@@ -285,7 +285,7 @@ classdef contrastsClass < handle
                 
                 
                 switch modelType
-                    case 'layers'
+                    case 'standard layers'
                         thisModel = thisContrast.model;
                         thisLayerArray = [];
                         for n = 1:length(thisModel)

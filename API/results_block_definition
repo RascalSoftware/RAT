@@ -1,8 +1,0 @@
-
-
-results{1} = reflectivity;
-results{2} = Simulation;
-results{3} = shifted_data;
-results{4} = layerSlds;
-results{5} = sldProfiles;
-results{6} = allLayers;

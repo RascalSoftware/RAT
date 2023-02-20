@@ -23,8 +23,6 @@ end
 disp('Adding paths Initiated')
 addRatPaths;
 disp('Adding paths Completed')
-disp('Compiling RAT to mex Initiated')
-disp('Compiling RAT to mex Completed')
 
 allTests = TestSuite.fromFolder('tests','IncludingSubfolders', true);
 disp('Running unit tests')

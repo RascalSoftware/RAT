@@ -801,17 +801,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             generalStruct.TF = 'standardTF';
             
             % Add the 'general' fields
-            thisType = obj.modelType;
-            
-            switch lower(thisType)
-                case 'standard layers'
-                    generalStruct.modelType = 'layers';
-                case 'custom layers'
-                    generalStruct.modelType = 'custom layers';
-                case 'custom xy'
-                    generalStruct.modelType = 'custom xy';
-            end
-                     
+            generalStruct.modelType = lower(obj.modelType);  
             generalStruct.geometry = obj.geometry;
             
             % Parameters
@@ -855,7 +845,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             paramNames = string(paramStruct.paramNames);
             
             switch generalStruct.modelType
-                case 'layers'
+                case 'standard layers'
                     numberOfLayers = layersStruct.numberOfLayers;
                     
                     if numberOfLayers > 0

@@ -56,6 +56,3 @@ If you are on IDAAS or have already compiled the MEX file and want to use RAT in
 
 
 
-
-
-

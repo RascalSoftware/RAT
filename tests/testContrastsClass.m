@@ -276,6 +276,17 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.contrasts{1}, testContrast, "setContrast does not work correctly");
         end
 
+        function testGetAllContrastNames(testCase)
+            testCase.verifyEqual(testCase.exampleClass.getAllContrastNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Bilayer / H2O'}, "getAllContrastNames does not work correctly");
+        end
+
+        function testGetAllContrastNamesInvalid(testCase)
+            % If we try to get contrast names when no contrasts are
+            % defined we should raise an error
+            emptyContrasts = contrastsClass();
+            testCase.verifyError(@() emptyContrasts.getAllContrastNames, invalidValue.errorID);
+        end
+
 
     end
 

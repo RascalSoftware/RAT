@@ -227,7 +227,7 @@ classdef contrastsClass < handle
             contrastNames = cell(1,nContrasts);
             
             if nContrasts == 0
-                error('Can''t get contrast names when no contrasts defined')
+                throw(invalidValue('Can''t get contrast names when no contrasts defined'));
             end
             
             for i = 1:nContrasts

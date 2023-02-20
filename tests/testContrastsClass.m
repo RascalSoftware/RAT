@@ -17,7 +17,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
                          {'Named Contrast'}, ...
                          {'name', 'Few params', ...
                           'background', 'Background D2O', ...
-                          'resolution', 'Resolution 1'}, ...
+                          'resolution', 'Resolution 1', ...
+                          'model', {'Oxide Layer', 'Water Layer'}}, ...
                          {'name', 'All params', ...
                           'background', 'Background H2O', ...
                           'data', 'Simulation', ...
@@ -223,20 +224,33 @@ classdef testContrastsClass < matlab.unittest.TestCase
         end
 
         function testSetContrastModelStandard(testCase)
-            newModel = {'Oxide Layer', 'Water Layer'};
+            % Test setting a model for a contrast from the contrasts class
+            % when the model type is "standard layers"
+            testModel = {'Oxide Layer', 'Water Layer'};
 
-            testCase.exampleClass.setContrastModel(1, 'standard layers', testCase.layerNames, newModel);
-            testCase.verifyEqual(testCase.exampleClass.contrasts{1}.model, newModel, "setContrastModel does not work correctly");
+            testCase.exampleClass.setContrastModel(1, 'standard layers', testCase.layerNames, testModel);
+            testCase.verifyEqual(testCase.exampleClass.contrasts{1}.model, testModel, "setContrastModel does not work correctly");
         end
 
         function testSetContrastModelCustom(testCase)
-            newModel = {'DPPC Model'};
+            % Test setting a model for a contrast from the contrasts class
+            % for a "custom" model type
+            testModel = {'DPPC Model'};
 
-            testCase.exampleClass.setContrastModel(2, 'custom XY', testCase.customNames, newModel);
-            testCase.verifyEqual(testCase.exampleClass.contrasts{2}.model, newModel, "setContrastModel does not work correctly");
+            testCase.exampleClass.setContrastModel(2, 'custom XY', testCase.customNames, testModel);
+            testCase.verifyEqual(testCase.exampleClass.contrasts{2}.model, testModel, "setContrastModel does not work correctly");
         end
 
+        function testSetContrastModelInvalid(testCase)
+            % Test setting a model for a contrast from the contrasts class
+            % If the input is invalid we should raise an error
+            testModel = {'Oxide Layer', 'Carbide Layer'};
 
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'standard layers', testCase.layerNames, testModel), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'custom layers', testCase.layerNames, testModel), invalidValue.errorID); % More than one input not allowed
+
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'custom layers', testCase.layerNames, {'Carbide Layer'}), nameNotRecognised.errorID);
+        end
 
     end
 

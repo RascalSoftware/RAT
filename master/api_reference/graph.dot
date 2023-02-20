@@ -49,18 +49,6 @@ digraph m2html {
   makeSLDProfiles -> makeSLDProfileXY;
   adaptive_new -> sldFunc;
   resampleLayers -> adaptive_new;
-  domainsTF_custlay_single -> RAT_parse_cells;
-  domainsTF_custlay_single -> extractProblemParams;
-  domainsTF_custlay_single -> backSort;
-  domainsTF_custlay_single -> standardTF_layers_core;
-  domainsTF_custLay_reflectivityCalculation -> domainsTF_custlay_single;
-  domainsTF_custXY_reflectivityCalculation -> standardTF_custXY_paraContrasts;
-  domainsTF_custXY_reflectivityCalculation -> standardTF_custXY_paraPoints;
-  domainsTF_custXY_reflectivityCalculation -> standardTF_custXY_single;
-  domainsTF_reflectivityCalculation -> domainsTF_custLay_reflectivityCalculation;
-  domainsTF_stanLay_reflectivityCalculation -> standardTF_stanlay_paraContrasts;
-  domainsTF_stanLay_reflectivityCalculation -> standardTF_stanlay_paraPoints;
-  domainsTF_stanLay_reflectivityCalculation -> standardTF_stanlay_single;
   reflectivity_calculation -> standardTF_reflectivityCalculation;
   reflectivity_calculation_test_wrapper -> reflectivity_calculation;
   reflectivity_calculation_wrapper -> reflectivity_calculation;
@@ -177,7 +165,6 @@ digraph m2html {
   defaultRatOutputFunction [URL="API/outputFcn/defaultRatOutputFunction.html"];
   ratOutputClass [URL="API/outputFcn/ratOutputClass.html"];
   ratSendTextOutput [URL="API/outputFcn/ratSendTextOutput.html"];
-  ratUpdateFunction [URL="API/outputFcn/ratUpdateFunction.html"];
   parseResultToStruct [URL="API/parseResultToStruct.html"];
   backgroundsClass [URL="API/projectClass/backgroundsClass.html"];
   contrastsClass [URL="API/projectClass/contrastsClass.html"];
@@ -241,11 +228,6 @@ digraph m2html {
   resampleLayers [URL="targetFunctions/common/resampleLayers/resampleLayers.html"];
   sldFunc [URL="targetFunctions/common/resampleLayers/sldFunc.html"];
   shiftdata [URL="targetFunctions/common/shiftData/shiftdata.html"];
-  domainsTF_custlay_single [URL="targetFunctions/domains_TF/domainsTF_custLay/domainsTF_custlay_single.html"];
-  domainsTF_custLay_reflectivityCalculation [URL="targetFunctions/domains_TF/domainsTF_custLay_reflectivityCalculation.html"];
-  domainsTF_custXY_reflectivityCalculation [URL="targetFunctions/domains_TF/domainsTF_custXY_reflectivityCalculation.html"];
-  domainsTF_reflectivityCalculation [URL="targetFunctions/domains_TF/domainsTF_reflectivityCalculation.html"];
-  domainsTF_stanLay_reflectivityCalculation [URL="targetFunctions/domains_TF/domainsTF_stanLay_reflectivityCalculation.html"];
   reflectivity_calculation [URL="targetFunctions/reflectivity_calculation/reflectivity_calculation.html"];
   reflectivity_calculation_test_wrapper [URL="targetFunctions/reflectivity_calculation/reflectivity_calculation_test_wrapper.html"];
   reflectivity_calculation_wrapper [URL="targetFunctions/reflectivity_calculation/reflectivity_calculation_wrapper.html"];

@@ -8,5 +8,4 @@ digraph m2html {
   defaultRatOutputFunction [URL="defaultRatOutputFunction.html"];
   ratOutputClass [URL="ratOutputClass.html"];
   ratSendTextOutput [URL="ratSendTextOutput.html"];
-  ratUpdateFunction [URL="ratUpdateFunction.html"];
 }

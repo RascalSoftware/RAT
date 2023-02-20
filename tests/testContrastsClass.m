@@ -8,7 +8,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 % We use an example contrasts class from the example calculation
 % "DPPC_standard_layers.m"
 %
-% Paul Sharp 16/02/23
+% Paul Sharp 20/02/23
 %
 %% Declare properties and parameters
 
@@ -58,7 +58,12 @@ classdef testContrastsClass < matlab.unittest.TestCase
         allowedNames            % Full set of ALL parameter names in the project
         defaultContrasts        % Contrasts struct with default values
         exampleClass            % Example contrasts class for testing
+        layerNames              % The names of the layers in the project
         numContrasts            % Number of Contrasts defined in exampleClass
+
+        % Define the custom files from "orsoDPPC_cuastLay_script.m",
+        % and "DPPC_customXY.m" 
+        customNames = ["DSPC Model" "DPPC Model"]
     end
 
 %% Set up test data
@@ -71,12 +76,14 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % in this project
             % This example is a reduced version of the allowed names used
             % in the example calculation "DPPC_standard_layers.m"
+            testCase.layerNames = ["Oxide Layer" "Water Layer" "Bil inner head" "Bil tail" "Bil outer head"];
+
             testCase.allowedNames = struct( ...
                 'backsNames', ["Background D2O" "Background SMW" "Background H2O"], ...
                 'bulkInNames', 'Silicon', ...
                 'bulkOutNames', ["SLD D2O" "SLD SMW" "SLD H2O"], ...
                 'resolsNames', 'Resolution 1', ...
-                'layersNames',  ["Oxide Layer" "Water Layer" "Bil inner head" "Bil tail" "Bil outer head"], ...
+                'layersNames',  testCase.layerNames, ...
                 'dataNames',  ["Simulation" "Bilayer / D2O" "Bilayer / SMW" "Bilayer / H2O"], ...
                 'scalefacNames', 'Scalefactor 1', ...
                 'customNames',  strings([0 1]) ...
@@ -149,7 +156,6 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 );
         end
 
-
     end
 
 %% Test Contrasts Class Routines
@@ -214,6 +220,20 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.removeContrast(testCase.numContrasts+1), indexOutOfRange.errorID);
 
             testCase.verifyError(@() testCase.exampleClass.removeContrast('Unrecognised Name'), nameNotRecognised.errorID);
+        end
+
+        function testSetContrastModelStandard(testCase)
+            newModel = {'Oxide Layer', 'Water Layer'};
+
+            testCase.exampleClass.setContrastModel(1, 'standard layers', testCase.layerNames, newModel);
+            testCase.verifyEqual(testCase.exampleClass.contrasts{1}.model, newModel, "setContrastModel does not work correctly");
+        end
+
+        function testSetContrastModelCustom(testCase)
+            newModel = {'DPPC Model'};
+
+            testCase.exampleClass.setContrastModel(2, 'custom XY', testCase.customNames, newModel);
+            testCase.verifyEqual(testCase.exampleClass.contrasts{2}.model, newModel, "setContrastModel does not work correctly");
         end
 
 

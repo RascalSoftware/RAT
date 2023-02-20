@@ -129,30 +129,30 @@ classdef contrastsClass < handle
             
             % Determine which contrast is being set
             thisContrast = obj.contrasts{whichContrast};
-            modelArray = varargin{:};
-            
+            modelArray = cellstr(varargin{:});
+
             switch modelType
                 case 'standard layers'
                     % cell array of strings.
-                    modelArray = cellstr(modelArray);
                     for i = 1:length(modelArray)
-                        if ~strcmpi(modelArray{i},allowedNames)
-                            error('Layer %s is not recognised',modelArray{i});
+                        if ~strcmpi(modelArray{i}, allowedNames)
+                            throw(nameNotRecognised(sprintf('Layer %s is not recognised',modelArray{i})));
                         end
                     end
                     
                 case {'custom layers', 'custom xy'}
-                    modelArray = cellstr(modelArray);
                     if length(modelArray) > 1
-                        error('Only 1 model value allowed for ''custom''');
+                        throw(invalidValue('Only 1 model value allowed for ''custom'''));
                     end
                     
-                    if ~strcmpi(modelArray,allowedNames)
-                        error('Custom name is not recognised');
+                    if ~strcmpi(modelArray, allowedNames)
+                        throw(nameNotRecognised('Custom name is not recognised'));
                     end
             end
+
             thisContrast.model = modelArray;
             obj.contrasts{whichContrast} = thisContrast;
+
         end
         
         function obj = setContrast(obj, whichContrast, allowedNames, varargin)

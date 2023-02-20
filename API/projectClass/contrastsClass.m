@@ -101,9 +101,6 @@ classdef contrastsClass < handle
 
             % First determine if contrast is being referenced by name or
             % number...
-            if iscell(whichContrast)
-                whichContrast = whichContrast{:};
-            end
 
             % If the input is a string, find the index of the relevant
             % contrast...
@@ -113,13 +110,13 @@ classdef contrastsClass < handle
                 
                 % Throw an error if the name is not matched
                 if isempty(whichContrast)
-                    error('Contrast name not found');
+                    throw(nameNotRecognised('Contrast name not found'));
                 end
             end
            
             % Check to make sure the number is in range
-            if whichContrast < 0 || whichContrast > obj.numberOfContrasts
-                error('Specified contrast is not in range..')
+            if whichContrast < 1 || whichContrast > obj.numberOfContrasts
+                throw(indexOutOfRange('Specified contrast is not in range..'));
             end
 
             % Remove the contrast from the contrasts cell array

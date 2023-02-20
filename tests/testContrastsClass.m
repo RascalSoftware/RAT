@@ -35,6 +35,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                         {'scalefactor', 'Invalid'}, ...
                         {'model', 42}
                         }
+        removeInput = {1, 'Bilayer / D2O'}
         changedFields = {{{'name', 'New contrast 1'}}, ...
                          {{'name', 'Named Contrast'}}, ...
                          {{'name', 'Few params'}, ...
@@ -57,6 +58,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
         allowedNames            % Full set of ALL parameter names in the project
         defaultContrasts        % Contrasts struct with default values
         exampleClass            % Example contrasts class for testing
+        numContrasts            % Number of Contrasts defined in exampleClass
     end
 
 %% Set up test data
@@ -127,6 +129,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'model', {{'Oxide Layer', 'Water Layer', 'Bil inner head', 'Bil tail', 'Bil tail', 'Bil outer head'}} ...
                 )};
 
+            testCase.numContrasts = length(testCase.exampleClass.contrasts);
+
         end
 
         function initialiseDefaultContrastsStruct(testCase)
@@ -191,6 +195,28 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.addContrast(testCase.allowedNames, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
             testCase.verifyError(@() testCase.exampleClass.addContrast(testCase.allowedNames, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
         end
+
+        function testRemoveContrast(testCase, removeInput)
+            % Test removing a contrast from the contrasts class.
+            % Contrasts can be specified either by name or by index, but
+            % only one contrast can be removed at a time.
+            remainingContrasts = testCase.exampleClass.contrasts(2:end);
+            testCase.exampleClass.removeContrast(removeInput);
+
+            testCase.verifyEqual(testCase.exampleClass.contrasts, remainingContrasts, "removeContrast does not work correctly");
+        end
+
+        function testRemoveContrastInvalid(testCase)
+            % Test removing a contrast from the contrasts class.
+            % If contrast names or indices are invalid, we should raise an
+            % error
+            testCase.verifyError(@() testCase.exampleClass.removeContrast(0), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.removeContrast(testCase.numContrasts+1), indexOutOfRange.errorID);
+
+            testCase.verifyError(@() testCase.exampleClass.removeContrast('Unrecognised Name'), nameNotRecognised.errorID);
+        end
+
+
 
     end
 

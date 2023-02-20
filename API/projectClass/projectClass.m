@@ -706,7 +706,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of resolution to remove
             %
             % problem.removeContrast(1);
-            obj.contrasts.removeContrast(varargin);
+            obj.contrasts.removeContrast(varargin{:});
         end
 
         

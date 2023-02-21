@@ -8,7 +8,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 % We use an example contrasts class from the example calculation
 % "DPPC_standard_layers.m"
 %
-% Paul Sharp 20/02/23
+% Paul Sharp 21/02/23
 %
 %% Declare properties and parameters
 
@@ -285,6 +285,45 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % defined we should raise an error
             emptyContrasts = contrastsClass();
             testCase.verifyError(@() emptyContrasts.getAllContrastNames, invalidValue.errorID);
+        end
+
+        function testUpdateContrastName(testCase)
+            % Test the rouitine that updates the data entry of the
+            % contrast as data names are changed.
+
+            nameChanged = struct('oldName', 'Bilayer / H2O', 'newName', 'Test Data Name');
+            testCase.exampleClass.updateContrastName(nameChanged);
+
+            % Get the updated data names
+            dataNames = cell(1, testCase.numContrasts);
+            for i=1:testCase.numContrasts
+                dataNames{i} = testCase.exampleClass.contrasts{i}.data;
+            end
+
+            testCase.verifyEqual(dataNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Test Data Name'}, "updateContrastNames does not work correctly");
+        end
+
+        function testUpdateContrastNameNotFound(testCase)
+            % Test the rouitine that updates the data entry of the
+            % contrast as data names are changed. If the old name is not
+            % found, nothing should happen.
+
+            % Get the original data names
+            oldDataNames = cell(1, testCase.numContrasts);
+            for i=1:testCase.numContrasts
+                oldDataNames{i} = testCase.exampleClass.contrasts{i}.data;
+            end
+
+            nameChanged = struct('oldName', 'Unused Data Name', 'newName', 'Test Data Name');
+            testCase.exampleClass.updateContrastName(nameChanged);
+
+            % Get the updated data names
+            dataNames = cell(1, testCase.numContrasts);
+            for i=1:testCase.numContrasts
+                dataNames{i} = testCase.exampleClass.contrasts{i}.data;
+            end
+
+            testCase.verifyEqual(dataNames, oldDataNames, "updateContrastNames does not work correctly");
         end
 
 

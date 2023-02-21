@@ -885,8 +885,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             allNames = obj.getAllAllowedNames;
             dataTable = obj.data.dataTable;
             
-            modelType = generalStruct.modelType;
-            contrastStruct = obj.contrasts.toStruct(allNames,modelType,dataTable);
+            contrastStruct = obj.contrasts.toStruct(allNames,generalStruct.modelType,dataTable);
             
             % Merge all the outputs into one large structure
             outStruct = mergeStructs(generalStruct,...

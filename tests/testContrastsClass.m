@@ -56,10 +56,17 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
     properties
         allowedNames            % Full set of ALL parameter names in the project
+        dataTable               % Example data table needed when converting to a struct
         defaultContrasts        % Contrasts struct with default values
         exampleClass            % Example contrasts class for testing
+        exampleStruct           % The example class converted to a struct
         layerNames              % The names of the layers in the project
         numContrasts            % Number of Contrasts defined in exampleClass
+
+        % Data from data class
+        D2OData
+        SMWData
+        H2OData
 
         % Define the custom files from "orsoDPPC_cuastLay_script.m",
         % and "DPPC_customXY.m" 
@@ -69,6 +76,14 @@ classdef testContrastsClass < matlab.unittest.TestCase
 %% Set up test data
 
     methods (TestClassSetup)
+
+        function readClassData(testCase)
+            % Read in the data used in the example calculation
+            % "DPPC_standard_layers.m"
+            testCase.D2OData = readmatrix('c_PLP0016596.dat');
+            testCase.SMWData = readmatrix('c_PLP0016601.dat');
+            testCase.H2OData = readmatrix('c_PLP0016607.dat');
+        end
 
         function initialiseAllowedNames(testCase)
             % The values for each parameter in the contrast class MUST
@@ -88,6 +103,39 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'scalefacNames', 'Scalefactor 1', ...
                 'customNames',  strings([0 1]) ...
                 );
+        end
+
+        function initialiseDataTable(testCase)
+            varTypes = {'string','cell','cell','cell'};
+            varNames = {'Name','Data','Data Range','Simulation Range'};
+            testCase.dataTable = table('Size',[4 4],'VariableTypes',varTypes,'VariableNames',varNames); 
+
+            testCase.dataTable(1,:) = {"Simulation", [], [], {[0.0050 0.7000]}};
+            testCase.dataTable(2,:) = {"Bilayer / D2O", testCase.D2OData(:,1:3), {[0.0130 0.3500]}, {[0.0057 0.3961]}};
+            testCase.dataTable(3,:) = {"Bilayer / SMW", testCase.SMWData(:,1:3), {[0.0130 0.3500]}, {[0.0076 0.3300]}};
+            testCase.dataTable(4,:) = {"Bilayer / H2O", testCase.H2OData(:,1:3), {[0.0130 0.3500]}, {[0.0063 0.3305]}};
+        end
+
+        function initialiseContrastsStruct(testCase)
+            testCase.exampleStruct = struct( ...
+                'contrastShifts', [1 1 1], ...
+                'contrastScales', [1 1 1], ...
+                'contrastNbas', [1 1 1], ...
+                'contrastNbss', [1 2 3], ...
+                'contrastRes', [1 1 1], ...
+                'resample', [0 0 0], ...
+                'dataPresent', [1 1 1], ...
+                'contrastCustomFile', [NaN NaN NaN], ...
+                'numberOfContrasts', 3 ...
+                );
+
+            testCase.exampleStruct.contrastBacks = {[1 1] [2 1] [3 1]};
+            testCase.exampleStruct.contrastLayers = {[1 2 3 4 4 5] [1 2 3 4 4 5] [1 2 3 4 4 5]};
+            testCase.exampleStruct.contrastRepeatSLDs = {[0 1] [0 1] [0 1]};
+            testCase.exampleStruct.dataLimits = {[0.0130 0.3500] [0.0130 0.3500] [0.0130 0.3500]};
+            testCase.exampleStruct.simLimits = {[0.0057 0.3961] [0.0076 0.3300] [0.0063 0.3305]};
+            testCase.exampleStruct.allData = {testCase.D2OData(:,1:3) testCase.SMWData(:,1:3) testCase.H2OData(:,1:3)};
+
         end
 
     end
@@ -324,6 +372,10 @@ classdef testContrastsClass < matlab.unittest.TestCase
             end
 
             testCase.verifyEqual(dataNames, oldDataNames, "updateContrastNames does not work correctly");
+        end
+
+        function testToStruct(testCase)
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.dataTable), testCase.exampleStruct);
         end
 
 

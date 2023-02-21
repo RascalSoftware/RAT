@@ -50,7 +50,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.layers.layersTable = [paramsTable; vertcat(testCase.layers{1:2})];  
             testCase.project.resolution.resolutions.typesTable{1, 1} = "Resolution 2";
             testCase.project.background.backgrounds.typesTable{1, 1} = "Background H2O";
-            testCase.project.resolution.resolutions.typesTable{1, 1} = "Resolution 2";
             testCase.project.data.dataTable{1, 1} = "Sim 1";
             
             typesTable = testCase.project.background.backgrounds.typesTable;

@@ -471,7 +471,7 @@ function inputBlock = parseContrastInput(allowedNames,inputVals)
     expectedScalefac = cellstr(allowedNames.scalefacNames);
     expectedCustom = cellstr(allowedNames.customNames);
     
-    expectedModel = [expectedLayers ; expectedCustom];
+    expectedModel = [expectedLayers, expectedCustom];
 
     p = inputParser;
     addParameter(p,'name',          defaultName,        @ischar);

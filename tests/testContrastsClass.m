@@ -6,7 +6,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
 % In this class, we test:
 %
 % We use an example contrasts class from the example calculation
-% "DPPC_standard_layers.m"
+% "DPPC_standard_layers.m", with some elements from the example
+% calculations "orsoDSPC_custLay_script.m" and "DPPC_customXY.m"
 %
 % Paul Sharp 21/02/23
 %
@@ -60,17 +61,18 @@ classdef testContrastsClass < matlab.unittest.TestCase
         defaultContrasts        % Contrasts struct with default values
         exampleClass            % Example contrasts class for testing
         exampleStruct           % The example class converted to a struct
-        layerNames              % The names of the layers in the project
         numContrasts            % Number of Contrasts defined in exampleClass
+
+        % Define the layers from "DPPC_standard_layers.m"
+        layerNames = ["Oxide Layer" "Water Layer" "Bil inner head" "Bil tail" "Bil outer head"]
+        % Define the custom files from "orsoDSPC_custLay_script.m" and
+        % "DPPC_customXY.m" 
+        customNames = ["DSPC Model" "DPPC Model"]
 
         % Data from data class
         D2OData
         SMWData
         H2OData
-
-        % Define the custom files from "orsoDPPC_cuastLay_script.m",
-        % and "DPPC_customXY.m" 
-        customNames = ["DSPC Model" "DPPC Model"]
     end
 
 %% Set up test data
@@ -87,12 +89,11 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
         function initialiseAllowedNames(testCase)
             % The values for each parameter in the contrast class MUST
-            % correspond to parameters defined in the corresponding class
-            % in this project
+            % be defined in the corresponding parameters in this class
             % This example is a reduced version of the allowed names used
-            % in the example calculation "DPPC_standard_layers.m"
-            testCase.layerNames = ["Oxide Layer" "Water Layer" "Bil inner head" "Bil tail" "Bil outer head"];
-
+            % in the example calculation "DPPC_standard_layers.m", with
+            % the customNames from "orsoDSPC_custLay_script.m" and
+            % "DPPC_custXY_script.m"
             testCase.allowedNames = struct( ...
                 'backsNames', ["Background D2O" "Background SMW" "Background H2O"], ...
                 'bulkInNames', 'Silicon', ...
@@ -101,11 +102,13 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'layersNames',  testCase.layerNames, ...
                 'dataNames',  ["Simulation" "Bilayer / D2O" "Bilayer / SMW" "Bilayer / H2O"], ...
                 'scalefacNames', 'Scalefactor 1', ...
-                'customNames',  strings([0 1]) ...
+                'customNames',  testCase.customNames ...
                 );
         end
 
         function initialiseDataTable(testCase)
+            % The data table defined in "DPPC_standard_layers.m" which is
+            % required when converting a contrast class to a struct
             varTypes = {'string','cell','cell','cell'};
             varNames = {'Name','Data','Data Range','Simulation Range'};
             testCase.dataTable = table('Size',[4 4],'VariableTypes',varTypes,'VariableNames',varNames); 
@@ -114,28 +117,6 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.dataTable(2,:) = {"Bilayer / D2O", testCase.D2OData(:,1:3), {[0.0130 0.3500]}, {[0.0057 0.3961]}};
             testCase.dataTable(3,:) = {"Bilayer / SMW", testCase.SMWData(:,1:3), {[0.0130 0.3500]}, {[0.0076 0.3300]}};
             testCase.dataTable(4,:) = {"Bilayer / H2O", testCase.H2OData(:,1:3), {[0.0130 0.3500]}, {[0.0063 0.3305]}};
-        end
-
-        function initialiseContrastsStruct(testCase)
-            testCase.exampleStruct = struct( ...
-                'contrastShifts', [1 1 1], ...
-                'contrastScales', [1 1 1], ...
-                'contrastNbas', [1 1 1], ...
-                'contrastNbss', [1 2 3], ...
-                'contrastRes', [1 1 1], ...
-                'resample', [0 0 0], ...
-                'dataPresent', [1 1 1], ...
-                'contrastCustomFile', [NaN NaN NaN], ...
-                'numberOfContrasts', 3 ...
-                );
-
-            testCase.exampleStruct.contrastBacks = {[1 1] [2 1] [3 1]};
-            testCase.exampleStruct.contrastLayers = {[1 2 3 4 4 5] [1 2 3 4 4 5] [1 2 3 4 4 5]};
-            testCase.exampleStruct.contrastRepeatSLDs = {[0 1] [0 1] [0 1]};
-            testCase.exampleStruct.dataLimits = {[0.0130 0.3500] [0.0130 0.3500] [0.0130 0.3500]};
-            testCase.exampleStruct.simLimits = {[0.0057 0.3961] [0.0076 0.3300] [0.0063 0.3305]};
-            testCase.exampleStruct.allData = {testCase.D2OData(:,1:3) testCase.SMWData(:,1:3) testCase.H2OData(:,1:3)};
-
         end
 
     end
@@ -189,8 +170,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
         end
 
         function initialiseDefaultContrastsStruct(testCase)
-            % Create a contrasts struct with the default values for each
-            % parameter
+            % Create a struct used in the contrasts class with the default
+            % values for each parameter
             testCase.defaultContrasts = struct( ...
                 'name', '', ...
                 'background', '', ...
@@ -202,6 +183,30 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'resample', false,...
                 'model', '' ...
                 );
+        end
+
+        function initialiseContrastsStruct(testCase)
+            % The contrast class from the example calculation
+            % "DPPC_standard_layers.m" converted to a struct
+            testCase.exampleStruct = struct( ...
+                'contrastShifts', [1 1 1], ...
+                'contrastScales', [1 1 1], ...
+                'contrastNbas', [1 1 1], ...
+                'contrastNbss', [1 2 3], ...
+                'contrastRes', [1 1 1], ...
+                'resample', [0 0 0], ...
+                'dataPresent', [1 1 1], ...
+                'contrastCustomFile', [NaN NaN NaN], ...
+                'numberOfContrasts', 3 ...
+                );
+
+            testCase.exampleStruct.contrastBacks = {[1 1] [2 1] [3 1]};
+            testCase.exampleStruct.contrastLayers = {[1 2 3 4 4 5] [1 2 3 4 4 5] [1 2 3 4 4 5]};
+            testCase.exampleStruct.contrastRepeatSLDs = {[0 1] [0 1] [0 1]};
+            testCase.exampleStruct.dataLimits = {[0.0130 0.3500] [0.0130 0.3500] [0.0130 0.3500]};
+            testCase.exampleStruct.simLimits = {[0.0057 0.3961] [0.0076 0.3300] [0.0063 0.3305]};
+            testCase.exampleStruct.allData = {testCase.D2OData(:,1:3) testCase.SMWData(:,1:3) testCase.H2OData(:,1:3)};
+
         end
 
     end
@@ -273,19 +278,21 @@ classdef testContrastsClass < matlab.unittest.TestCase
         function testSetContrastModelStandard(testCase)
             % Test setting a model for a contrast from the contrasts class
             % when the model type is "standard layers"
+            contrastIndex = 1;
             testModel = {'Oxide Layer', 'Water Layer'};
 
-            testCase.exampleClass.setContrastModel(1, 'standard layers', testCase.layerNames, testModel);
-            testCase.verifyEqual(testCase.exampleClass.contrasts{1}.model, testModel, "setContrastModel does not work correctly");
+            testCase.exampleClass.setContrastModel(contrastIndex, 'standard layers', testCase.layerNames, testModel);
+            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, "setContrastModel does not work correctly");
         end
 
         function testSetContrastModelCustom(testCase)
             % Test setting a model for a contrast from the contrasts class
             % for a "custom" model type
+            contrastIndex = 2;
             testModel = {'DPPC Model'};
 
-            testCase.exampleClass.setContrastModel(2, 'custom XY', testCase.customNames, testModel);
-            testCase.verifyEqual(testCase.exampleClass.contrasts{2}.model, testModel, "setContrastModel does not work correctly");
+            testCase.exampleClass.setContrastModel(contrastIndex, 'custom XY', testCase.customNames, testModel);
+            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, "setContrastModel does not work correctly");
         end
 
         function testSetContrastModelInvalid(testCase)
@@ -294,12 +301,14 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testModel = {'Oxide Layer', 'Carbide Layer'};
 
             testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'standard layers', testCase.layerNames, testModel), nameNotRecognised.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'custom layers', testCase.layerNames, testModel), invalidValue.errorID); % More than one input not allowed
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'custom layers', testCase.layerNames, testModel), invalidValue.errorID); % More than one input not allowed for non-standard layers
 
             testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'custom layers', testCase.layerNames, {'Carbide Layer'}), nameNotRecognised.errorID);
         end
 
         function testSetContrast(testCase)
+            contrastIndex = 1;
+
             setContrastInput = {
                 'name', 'New Contrast', ...
                 'background', 'Background SMW', ...
@@ -320,8 +329,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'model', {{'Water Layer'}} ...
                 );
 
-            testCase.exampleClass.setContrast(1, testCase.allowedNames, setContrastInput);
-            testCase.verifyEqual(testCase.exampleClass.contrasts{1}, testContrast, "setContrast does not work correctly");
+            testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, setContrastInput);
+            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, testContrast, "setContrast does not work correctly");
         end
 
         function testGetAllContrastNames(testCase)
@@ -352,9 +361,9 @@ classdef testContrastsClass < matlab.unittest.TestCase
         end
 
         function testUpdateContrastNameNotFound(testCase)
-            % Test the rouitine that updates the data entry of the
-            % contrast as data names are changed. If the old name is not
-            % found, nothing should happen.
+            % Test the routine that updates the data entry of the contrast
+            % as data names are changed. If the old name is not found,
+            % nothing should happen.
 
             % Get the original data names
             oldDataNames = cell(1, testCase.numContrasts);
@@ -376,8 +385,19 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
         function testToStruct(testCase)
             testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.dataTable), testCase.exampleStruct);
-        end
 
+            % Modify exampleClass and exampleStruct to be valid for a
+            % custom layers model - the differences are that there can
+            % only be one entry for model and we check for custom files
+            % rather than layers
+            for i=1:testCase.numContrasts
+                testCase.exampleClass.contrasts{i}.model = {'DSPC Model'};
+            end
+            testCase.exampleStruct.contrastLayers = {{} {} {}};
+            testCase.exampleStruct.contrastCustomFile = [1 1 1];
+
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'custom layers', testCase.dataTable), testCase.exampleStruct);
+        end
 
     end
 

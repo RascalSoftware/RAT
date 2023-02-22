@@ -534,6 +534,64 @@ classdef testContrastsClass < matlab.unittest.TestCase
             end
         end
 
+        function testDisplayContrastsObjectEmpty(testCase)
+            % Test the routine to display the a table of an empty
+            % contrasts object by capturing the output and comparing with
+            % the expected table headers and contrasts data
+
+            % Make an empty contrast object
+            emptyContrasts = contrastsClass();
+
+            emptyContrasts.contrasts = {struct('name', '', ...
+                                               'data', '', ...
+                                               'background', '', ...
+                                               'nba', '', ...
+                                               'nbs', '', ...
+                                               'resolution', '', ...
+                                               'scalefactor', '', ...
+                                               'resample', '', ...
+                                               'model', '')};
+
+            % Capture the standard output and format into string array -
+            % one element for each row of the output
+            display = textscan(evalc('emptyContrasts.displayContrastsObject()'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = display{:};
+
+            % Check headers
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions, and remove "<strong>" tags
+            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+            headerString = "p 1";
+            testCase.verifyEqual(outVars, headerString, 'Table headers do not match variable names');
+
+            % Make sure the output has the right number of rows before
+            % continuing - output consists of "Contrasts" string,
+            % table header, divider row, a row for each of the nine
+            % parameters and an extra row for additional model parameters
+            disp(emptyContrasts.contrasts{1}.model);
+            disp(length(emptyContrasts.contrasts{1}.model));
+            expectedRows = 12;
+            testCase.assertSize(displayedTable, [expectedRows, 1], 'Table does not have the right number of rows');
+
+            % Construct string array of contrast parameters to compare
+            % with the rows of the displayed table
+            rowString = ["name" "Data" "Background" "Bulk in" "Bulk out" ...
+                "Scalefactor" "Resolution" "Resample" "Model"];
+
+            % Check table contents - when displayed, row 3 is a set of
+            % lines, so row 4 is the first line of data
+            for i = 4:expectedRows
+                
+                % Replace multiple spaces in output table with a single
+                % space using regular expressions, and remove '"'
+                % characters
+                outRow = strip(replace(regexprep(displayedTable(i), '\s+', ' '), '"', ''));
+
+                testCase.verifyEqual(outRow, rowString(i-3), "Row does not contain the correct data");
+
+            end
+        end
+
     end
 
 end

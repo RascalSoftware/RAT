@@ -267,10 +267,15 @@ classdef contrastsClass < handle
             contrastNbss = ones(1,nContrasts);
             contrastRes = ones(1,nContrasts);
             resample = ones(1,nContrasts);
-            contrastRepeatSLDs = cell(1,nContrasts);
-            contrastData = cell(1,nContrasts);
+            contrastCustomFile = ones(1,nContrasts);
             contrastNames = cell(1,nContrasts);
+            contrastRepeatSLDs = cell(1,nContrasts);
             
+            dataPresent = ones(1,nContrasts);
+            dataLimits = cell(1,nContrasts);
+            simLimits = cell(1,nContrasts);
+            allData = cell(1,nContrasts);
+
             for i = 1:nContrasts
                                 
                 thisContrast = obj.contrasts{i};
@@ -284,12 +289,11 @@ classdef contrastsClass < handle
                 resample(i) = thisContrast.resample;
                 contrastRepeatSLDs{i} = [0 1]; % todo
                 contrastNames{i} = thisContrast.name;
-                
-                
+
                 switch modelType
                     case 'standard layers'
                         thisModel = thisContrast.model;
-                        thisLayerArray = [];
+                        thisLayerArray = ones(1,length(thisModel));
                         for n = 1:length(thisModel)
                             thisLayer = thisModel{n};
                             thisLayerNum = find(strcmpi(thisLayer,allowedNames.layersNames));
@@ -309,8 +313,6 @@ classdef contrastsClass < handle
                     actualData = dataTable{thisDataVal,2}{:};
                     if isempty(actualData)
                         dataPresent(i) = 0;
-                    else
-                        dataPresent(i) = 1;
                     end
                     thisDataLimit = dataTable{thisDataVal,3}{:};
                     if isempty(thisDataLimit)
@@ -359,23 +361,13 @@ classdef contrastsClass < handle
             maxModelSize = 1;
             
             for i = 1:nContrasts
-                thisContrast = obj.contrasts{i};%{:};
+                thisContrast = obj.contrasts{i};
                 thisModel = thisContrast.model;
                 if length(thisModel) > maxModelSize
                     maxModelSize = length(thisModel);
                 end
             end
-            
-            sz = [(maxModelSize+8) nContrasts];
-            varTypes = cell(1,nContrasts);
-            varNames = cell(1,nContrasts);
-            for i = 1:nContrasts
-                varNames{i} = num2str(i);
-                varTypes{i} = 'string';
-            end
-            
-            %obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            
+                        
             val = ["name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Model"];
             modelRows = cell((maxModelSize-1),1);
             if ~isempty(modelRows)
@@ -383,13 +375,13 @@ classdef contrastsClass < handle
                     modelRows{n} = '';
                 end
             end
+
             p = [val ; modelRows];
             totalRows = length(p);
             contrastsCell = cell(totalRows,nContrasts);
-            %contrastsCell(:,1) = column1;
             
             for i = 1:nContrasts
-                thisContrast = obj.contrasts{i};%{:};
+                thisContrast = obj.contrasts{i};
                 contrastsCell(1,i) = {thisContrast.name};
                 contrastsCell(2,i) = {thisContrast.data};
                 contrastsCell(3,i) = {thisContrast.background};
@@ -410,6 +402,13 @@ classdef contrastsClass < handle
             end
             
             sz = size(contrastsCell);
+            varTypes = cell(1,nContrasts);
+            varNames = cell(1,nContrasts);
+            for i = 1:nContrasts
+                varNames{i} = num2str(i);
+                varTypes{i} = 'string';
+            end
+
             thisTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             
             % Make sure that there are no empty cells - make them empty
@@ -430,24 +429,6 @@ classdef contrastsClass < handle
 
     end
     
-    methods (Access = protected)
-        
-        function contrast = makeEmptyContrastStruct(obj)
-            
-            contrast = struct('name','',...
-                'Data',...
-                'Background',...
-                'Bulk in',...
-                'Bulk out',...
-                'Resolution',...
-                'Scalefactor',...
-                'Resample',...
-                'Model');
-            
-        end
-        
-    end       % End protected methods
-
 end    % End classdef
 
 function inputBlock = parseContrastInput(allowedNames,inputVals)

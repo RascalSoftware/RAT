@@ -752,33 +752,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of contrast parameter and cell array of layer names
             %
             % problem.setContrastModel(1, {'layer 1'})
-            firstInput = varargin{1};
+            contrastInput = varargin{1};
             inputVals = varargin(2:end);
-            
-            contrastNames = obj.contrasts.getAllContrastNames();
-            numberOfContrasts = obj.contrasts.numberOfContrasts;
-            
-            % Find if we are referencing and existing contrast
-            if isnumeric(firstInput)
-                if (firstInput < 1 || firstInput > numberOfContrasts)
-                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', firstInput, numberOfContrasts)));
-                end
-                thisContrast = firstInput;
-                
-            elseif ischar(firstInput)
-                [present,idx] = ismember(firstInput, contrastNames);
-                if ~present
-                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised', firstInput)));
-                end
-                thisContrast = idx;
-                
-            end
-            
+                        
             % Make a different allowed list depending on whether 
             % it is custom or layers
-            modelType = lower(obj.modelType);
-            
-            if ~strcmpi(modelType, {'custom layers','custom xy'})
+            if ~strcmpi(obj.modelType, {'custom layers','custom xy'})
                 % Standard Layers
                 allowedValues = obj.layers.getLayersNames();
                 inputVals = inputVals{:};
@@ -788,7 +767,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
             
             % Call the setContrastModel method
-            obj.contrasts.setContrastModel(thisContrast, modelType, allowedValues, inputVals);
+            obj.contrasts.setContrastModel(contrastInput, obj.modelType, allowedValues, inputVals);
 
         end
         

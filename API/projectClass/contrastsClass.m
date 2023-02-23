@@ -17,7 +17,6 @@ classdef contrastsClass < handle
         
         function  obj = contrastsClass()
             % Class Constructor
-            %obj.addContrast({},{'name','Contrast 1'});
             obj.contrastAutoNameCounter = 1;
         end
 
@@ -125,33 +124,43 @@ classdef contrastsClass < handle
         end
 
 
-        function obj = setContrastModel(obj, whichContrast, modelType, allowedNames, varargin)
+        function obj = setContrastModel(obj, contrastInput, modelType, allowedNames, varargin)
             
+            % Find if we are referencing and existing contrast
+            disp(contrastInput)
+            if isnumeric(contrastInput)
+                if (contrastInput < 1 || contrastInput > obj.numberOfContrasts)
+                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', contrastInput, obj.numberOfContrasts)));
+                end
+                contrastIndex = contrastInput;
+                
+            elseif ischar(contrastInput)
+                [present,idx] = ismember(contrastInput, obj.getAllContrastNames());
+                if ~present
+                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised', contrastInput)));
+                end
+                contrastIndex = idx;
+                
+            end
+
             % Determine which contrast is being set
-            thisContrast = obj.contrasts{whichContrast};
+            thisContrast = obj.contrasts{contrastIndex};
             modelArray = cellstr(varargin{:});
 
-            switch modelType
-                case 'standard layers'
-                    % cell array of strings.
-                    for i = 1:length(modelArray)
-                        if ~strcmpi(modelArray{i}, allowedNames)
-                            throw(nameNotRecognised(sprintf('Layer %s is not recognised',modelArray{i})));
-                        end
-                    end
-                    
-                case {'custom layers', 'custom xy'}
-                    if length(modelArray) > 1
-                        throw(invalidValue('Only 1 model value allowed for ''custom'''));
-                    end
-                    
-                    if ~strcmpi(modelArray, allowedNames)
-                        throw(nameNotRecognised('Custom name is not recognised'));
-                    end
+            if any(strcmpi(modelType, {'custom layers', 'custom xy'}))
+                if length(modelArray) > 1
+                    throw(invalidValue('Only 1 model value allowed for ''custom'''));
+                end
+            end
+
+            for i = 1:length(modelArray)
+                if ~strcmpi(modelArray{i}, allowedNames)
+                    throw(nameNotRecognised(sprintf('Layer/Custom Name %s is not recognised', modelArray{i})));
+                end
             end
 
             thisContrast.model = modelArray;
-            obj.contrasts{whichContrast} = thisContrast;
+            obj.contrasts{contrastIndex} = thisContrast;
 
         end
         
@@ -277,7 +286,7 @@ classdef contrastsClass < handle
             allData = cell(1,nContrasts);
 
             for i = 1:nContrasts
-                                
+
                 thisContrast = obj.contrasts{i};
                 
                 contrastBacks{i} =  [find(strcmpi(thisContrast.background,allowedNames.backsNames)), 1];

@@ -716,34 +716,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % inputs are name / value pairs for the parts involved
             %
             % problem.setContrast(1, 'name', 'contrast')
-            firstInput = varargin{1};
+            contrastInput = varargin{1};
             inputVals = varargin(2:end);
-            
-            contrastNames = obj.contrasts.getAllContrastNames();
-            numberOfContrasts = obj.contrasts.numberOfContrasts;
-            
-            % Find if we are referencing and existing contrast
-            if isnumeric(firstInput)
-                if (firstInput < 1 || firstInput > numberOfContrasts)
-                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', firstInput, numberOfContrasts)));
-                end
-                thisContrast = firstInput;
-                
-            elseif ischar(firstInput)
-                [present,idx] = ismember(firstInput, contrastNames);
-                if ~present
-                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised',firstInput)));
-                end
-                thisContrast = idx;
-                
-            end
-            
+                        
             % Get the list of allowed values depending on what is
             % set for the other contrasts.
             allowedValues = obj.getAllAllowedNames;
             
             % Call the setContrast method
-            obj.contrasts.setContrast(thisContrast,allowedValues,inputVals);
+            obj.contrasts.setContrast(contrastInput,allowedValues,inputVals);
             
         end
         

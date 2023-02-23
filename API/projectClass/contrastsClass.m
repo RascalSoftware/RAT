@@ -164,12 +164,27 @@ classdef contrastsClass < handle
 
         end
         
-        function obj = setContrast(obj, whichContrast, allowedNames, varargin)
+        function obj = setContrast(obj, contrastInput, allowedNames, varargin)
             
             % Set a value within a contrast.
 
-            % Determine which contrast is being set
-            thisContrast = obj.contrasts{whichContrast};
+            % Find if we are referencing an existing contrast
+            if isnumeric(contrastInput)
+                if (contrastInput < 1 || contrastInput > obj.numberOfContrasts)
+                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', contrastInput, obj.numberOfContrasts)));
+                end
+                contrastIndex = contrastInput;
+                
+            elseif ischar(contrastInput)
+                [present,idx] = ismember(contrastInput, obj.getAllContrastNames());
+                if ~present
+                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised',contrastInput)));
+                end
+                contrastIndex = idx;
+                
+            end
+
+            thisContrast = obj.contrasts{contrastIndex};
 
             % Check to see if the inputs are valid
             % Do something slightly different if we are setting
@@ -227,7 +242,7 @@ classdef contrastsClass < handle
                     
             %end
             
-            obj.contrasts{whichContrast} = thisContrast;
+            obj.contrasts{contrastIndex} = thisContrast;
             
         end
         

@@ -1,136 +1,157 @@
 classdef resolutionsClass < handle
-     
-    % This makes the resolutions class.
-    % Like Backgrounds, resolutions are defined in a two stage process. Firstly we define the
+    % Resolutions are defined in a two stage process. Firstly we define the
     % actual fitted parameters. These are held in a 'ParametersClass'
     % table. Then, we group these into the resolutions themselves using a
     % multiTypeTable. So, we can then use the resolution parameters to
-    % either define resolution as  constant, data or a function. For
-    % constant only one parameter is supplied to multi type table. For data
-    % the name is supplied, along with the name of the data in the 
-    % data table. For function, the function
-    % name is supplied, along with up to three parameters (from the
-    % parameters table) which are then supplied to the function to
-    % calculate the resolution. 
+    % either define resolution as  constant, data or a function. 
+    % 
+    % For constant only one parameter is supplied to multi type table. 
+    % 
+    % For data the name is supplied, along with the name of the data in the 
+    % data table. 
+    % 
+    % For function, the function name is supplied, along with up to three parameters (from the
+    % parameters table) which are then supplied to the function to calculate the resolution. 
     
-    properties
-        
+    properties   
        resolPars 
        resolutions
-       showPriors = false
-       
+    end
+
+    properties(Dependent)
+       showPriors
+    end
+    
+    properties(Access = private, Constant, Hidden)
+       invalidTypeMessage = "Unrecognised type '%s'. Must be one of the types defined in 'obj.allowedTypes'"
     end
     
     properties (Access = private)
-       allowedTypes = {'constant', 'data', 'function'}
+       allowedTypes = {'constant', 'data', 'function', 'gaussian'}
     end
     
-
     methods
-        function  obj = resolutionsClass(varargin) 
-            
-            startResolPars = varargin{1};
-            startResolutions = varargin{2};
-            
-            % Make a table to hold the fittable variables
-            obj.resolPars = parametersClass(startResolPars);
+        function  obj = resolutionsClass(parameters, startResolution) 
+            % Creates a Resolutions object. The arguments should be 
+            % a cell array with the content of the first parameter and a
+            % cell array with the first resolution entry
+            %
+            % resolution = resolutionsClass({'Tails', 10, 20, 30, true, 'uniform', 0, Inf},... 
+            %                                {'Resolution 1', 'constant', 'Tails'});
+            obj.resolPars = parametersClass(parameters);
             
             % Make a multiType table to define the actual resolutions
-            obj.resolutions = multiTypeTable(startResolutions);
+            obj.resolutions = multiTypeTable(startResolution);
             obj.resolutions.allowedTypes = obj.allowedTypes;
             obj.resolutions.typesAutoNameString = 'New Resolution';
-
+        end
+        
+        function flag = get.showPriors(obj)
+            flag = obj.resolPars.showPriors;
+        end
+        
+        function set.showPriors(obj, value)
+            obj.resolPars.showPriors = value;
         end
         
         function names = getResolNames(obj)
-            
+            % Returns a N x 1 cell array of names of the resolutions 
+            % in the object. 
+            % 
+            % names = resolution.getResolNames();
             resolTable = obj.resolutions.typesTable;
-            names = resolTable{:,1};
-            
+            names = resolTable{:,1};   
         end
         
         function names = getResolParNames(obj)
-            
-            resolParTable = obj.resolPars.paramsTable;
-            names = resolParTable{:,1};
-            
+            % Returns a N x 1 cell array of parameter names in the resolutions 
+            % object. 
+            % 
+            % names = resolution.getResolParNames();
+            names = obj.resolPars.getParamNames();
         end
 
-        
         % --- resolParams table edit methods -----------------------
-        
-        function obj = addResolPar(obj,varargin)
-            
-            % Add a parameter to the resol parameter table
-            in = varargin{:};
-            resolParsTable = obj.resolPars;
-            if isempty(in)
-                % Empty call - pass no parameter
-                resolParsTable = resolParsTable.addParam();
-            elseif length(in) == 1
-                % Name only being passed
-                resolParsTable = resolParsTable.addParam(in);
-            else
-                % Passing a fuller expression - pass it all
-                resolParsTable = resolParsTable.addParam(in);
-            end
-            obj.resolPars = resolParsTable;    
-
+        function addResolPar(obj,varargin)
+            % Adds a new resolution parameter. A parameter consists 
+            % of a name, min, value, max, fit flag, prior type', mu,
+            % and sigma
+            %
+            % resolution.addResolPar('ResolPar 1', 1e-8, 2.8e-6, 1e-5, true);
+            obj.resolPars.addParam(varargin);  
         end
         
-        function obj = setResolParValue(obj,varargin)
-            % Set a parameter value in the resol parameter table
-            obj.resolPars.setValue(varargin{:});
+        function setResolParValue(obj,varargin)
+            % Sets the value of existing resolution            
+            % parameter. Expects index or name of parameter 
+            % and new value to set
+            %
+            % resolution.setResolParValue(1, 5.5e-6);
+            obj.resolPars.setValue(varargin);
         end
         
-        function obj = setResolParConstr(obj,varargin)
-            % Set a parameter constraint in the resol parameter table
-            obj.resolPars.setConstr(varargin{:});
+        function setResolParConstr(obj,varargin)
+            % Sets the constraint of existing resolution            
+            % parameter value. Expects index or name of parameter 
+            % and new minimum and maximum value to set
+            %
+            % resolution.setResolParValue(1, 2, 3);
+            obj.resolPars.setConstr(varargin);
         end
         
-        function obj = setResolParName(obj,varargin)
-           % Set a parameter name in the resol parameter table 
-           obj.resolPars.setName(varargin{:});
+        function setResolParName(obj,varargin)
+            % Sets the name of existing resolution            
+            % parameter. Expects index or name of parameter 
+            % and new name to set
+            %
+            % resolution.setResolParName(1, 'new_name');
+            obj.resolPars.setName(varargin);
         end
         
-        function obj = removeResolPar(obj,varargin)
-            % Remove a parameter from the backsPar table
+        function removeResolPar(obj, varargin)
+            % Removes a given resolution parameter.
+            % Expects index or name of parameter(s) to remove
+            % 
+            % resolution.removeResolPar(2);
             obj.resolPars.removeParam(varargin{:});
         end
         
-        function obj = setResolPar(obj, varargin)
-           % General purpose backPar set using name / value pairs
-           obj.resolPars.setParameter(varargin{:});
-            
+        function setResolPar(obj, varargin)
+            % Sets the value of an existing resolution parameter. Expects
+            % index or name of parameter and keyword/value pairs to set
+            %
+            % resolution.setResolPar(1, 'name', 'ResolPar');
+            obj.resolPars.setParameter(varargin);
         end
         
         % ---------------------------------------------------------
          
-        function obj = addResolution(obj,varargin)
-            
-            % Decide on what type of set we are
-            % doing, make sure the inputs are valid and build the row cell
-            % to be added
-            
-            in = varargin{:};
-            paramNames = obj.resolPars.paramsTable{:,1};
+        function addResolution(obj,varargin)
+            % Adds a new entry to the resolution table.  
+            %
+            % resolution.addResolution('New Row');
+            % resolution.addResolution('New Row', 'constant', 'param_name');
+            % resolution.addResolution('New Row', 'function', 'function_name', 'param_name');
+            % resolution.addResolution('New Row', 'data');
+            in = varargin;
             
             if isempty(in)
                 thisRow = {};
             else
-                thisRow = {'','','','','','',''};
+                thisRow = {'','','','','','',''}; 
+                if length(in) == 1
+                    % Assume the input is just a name
+                    thisRow = {in};
+                else
+                    thisRow{1} = in;
+                end
             end
             
-            if length(in) == 1
-                % Assume the input is just a name
-                thisRow{1} = in;
-            
-            elseif length(in) > 1
-               
+            if length(in) > 1 
                % Check that second param is legal
                typeVal = in{2};
-               if ~strcmpi(typeVal,obj.allowedTypes)
-                    error('Unrecognised resolution type %s. Must be ''constant'',''data'', or ''function''', typeVal);
+               if ~strcmpi(typeVal, obj.allowedTypes)
+                   throw(invalidOption(sprintf(obj.invalidTypeMessage, typeVal)));
                end
 
                thisRow{1} = in{1};
@@ -141,7 +162,7 @@ classdef resolutionsClass < handle
                switch typeVal
                    case 'constant'
                        % Param 3 must be a valid parameter
-                       thisParam = parseParam(in(3),paramNames);
+                       thisParam = obj.validateParam(in(3));
                        thisRow{3} = thisParam;
 
                    case 'function'
@@ -150,7 +171,7 @@ classdef resolutionsClass < handle
                        % list or numbers in range
                        thisRow{3} = in{3};
                        for i = 4:length(in)
-                          thisParam = parseParam(in(i),paramNames);
+                          thisParam = obj.validateParam(in(i));
                           thisRow{i} = thisParam;
                        end
                        
@@ -162,62 +183,49 @@ classdef resolutionsClass < handle
                        thisRow = {in(1), in(2), '', '', '', '', ''};
                 end
             end
-            obj.resolutions.addRow(thisRow);
-                
+            obj.resolutions.addRow(thisRow);      
         end
         
-        function obj = removeResolution(obj, varargin)
-            thisRow = varargin{:};
-            obj.resolutions.removeRow(thisRow);
+        function removeResolution(obj, row)
+            % Removes a resolution entry from the table. Expects the 
+            % index or array of indices of resolution(s) to remove.
+            %
+            % resolution.removeResolution(2);
+            %  resolution.removeResolution([1, 3]);
+            obj.resolutions.removeRow({row});
         end
         
-        function obj = setResolutionValue(obj,varargin)
-            
-            in = varargin{:};
-            if length(in) ~= 3
-                error('Expect three inputs into setResolutionValue');
-            end
-            
-            % Need to check that param 3 is allowed
-            % If it's col 1 or 3, anything is allowed
-            % If it's col(2) must be in allowed type of table
-            % Other cols must be existing param name or number,
-            col = in{2};
-            
+        function setResolutionValue(obj, row, col, value)
+            % Changes the value of a given resolution in the table. Expects the row
+            % and column of the parameter as name or index and the new value. 
+            %
+            % resolution.setResolutionValue(1, 1, "res 1");       
             if isnumeric(col)
-                if col == 2
-                    col = 'type';
-                elseif col == 1
+                if col == 1
                     col = 'name';
+                elseif col == 2
+                    col = 'type';
                 elseif col == 3
                     col = 'Value 1';
                 end
             end
                     
             if strcmpi(col,'name') || strcmpi(col,'Value 1')
-                % Do Nothing - any value is allowed so use as is 
-                inputPar = in{3};
+                inputPar = value;
             elseif strcmpi(col,'type') 
-                allowedList = {'constant','data','function'};
-                inputPar = parseParam(in{3},allowedList);
+                if ~strcmpi(value, obj.allowedTypes)
+                   throw(invalidOption(sprintf(obj.invalidTypeMessage, value)));
+                end
+                inputPar = value;
             else
-                allowedList = obj.resolPars.paramsTable{:,1};
-                inputPar = parseParam(in{3},allowedList);
+                inputPar = obj.validateParam(value);
             end
-            
-            in{3} = inputPar;
-            obj.resolutions.setValue(in);
-        
-        end
-        
-        function obj = setResolutionName(obj,varargin)
-            
-            disp('todo');
-            
+           
+            obj.resolutions.setValue({row, col, inputPar}); 
         end
         
         function resolStruct = toStruct(obj)
-    
+            % Converts the class parameters into a structure array.
             resolParamsStruct = obj.resolPars.toStruct();
             
             resolStruct.resolParNames = resolParamsStruct.paramNames;
@@ -233,66 +241,41 @@ classdef resolutionsClass < handle
             
             resolStruct.resolutionNames = resolutionNames;
             resolStruct.resolutionTypes = resolutionTypes;
-            resolStruct.resolutionValues = resolutionValues;
-            
+            resolStruct.resolutionValues = resolutionValues;  
          end
-
         
         function displayResolutionsObject(obj)
-            
+            % Displays the resolution parameters and resolution table.
             fprintf('    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
             fprintf('    (a) Resolutions Parameters: \n');
             obj.resolPars.displayParametersTable;
             
             fprintf('    (b) Resolutions:  \n')
             obj.resolutions.displayTypesTable;
-            %fprintf('\n    ----------------------------------------------------------------------------------- \n\n');
-            
-        end
-      
-    end
-    
-end
-
-function thisPar = parseParam(par,parList)
-    
-    if iscell(par)
-        par = par{:};
+        end 
     end
 
-    if isnumeric(par)
-        if (par < 1) || (par > length(parList))
-            error('Resolution Parameter %d is out of range',par);
-        else
-            thisPar = parList(par);
+    methods (Access = protected)
+        function thisPar = validateParam(obj, par)
+            % Checks that given parameter index or name is valid, then returns the
+            % parameter name. 
+            %
+            % param = obj.validateParam('param_name');
+            if iscell(par)
+                par = par{:};
+            end
+            parList = obj.getResolParNames(); 
+            if isnumeric(par)
+                if (par < 1) || (par > length(parList))
+                    throw(indexOutOfRange(sprintf('Resolution Parameter %d is out of range', par)));
+                end
+                thisPar = parList(par);
+            else
+                if ~strcmpi(par, parList)
+                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', par)));
+                end
+                thisPar = par;
+            end   
         end
-    elseif ischar(par)
-        if ~strcmpi(par,parList)
-            error('Parameter %s is not recognised',par);
-        else
-            thisPar = par;
-        end
-    elseif isempty(par)
-        error('Resolution parameter not recognised');
     end
-    
 end 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-

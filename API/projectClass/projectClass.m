@@ -15,7 +15,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     properties
         experimentName
-        Geometry
+        geometry
         parameters          % parametersClass object
         layers              % layersClassRealSLD object
         bulkIn              % parametersClass object
@@ -28,17 +28,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         data                % dataClass object
         customFile          % Custom file object
         
-        UsePriors = false
+        usePriors = false
 
-        ModelType = 'standard layers'
+        modelType = 'standard layers'
     end
-    
-    properties (Access = private)
-        
-        experimentType = 'Non polarized no absorption'
-        
-    end
-    
+       
     methods
 
         function obj = projectClass(varargin)
@@ -49,13 +43,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if isempty(varargin)
                 name = '';
             elseif ~ischar(varargin{1})
-                error('Input must be char');
+                throw(invalidType('Input must be char'));
             else
                 name = varargin{1};
             end
 
             obj.experimentName = name;
-            obj.Geometry = 'air/substrate';
+            obj.geometry = 'air/substrate';
             
             % Initialise the Parameters Table
             obj.parameters = parametersClass({'Substrate Roughness',1, 3, 5,true,'uniform',0,Inf});
@@ -86,7 +80,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution = resolutionsClass(resolPars,resolutions);
             
             % Initialise data object
-            obj.data = dataClass({'Simulation',{[]},{[]}, {[]}});
+            obj.data = dataClass('Simulation', [], [], []);
             
             % Initialise Contrasts object.
             obj.contrasts = contrastsClass();
@@ -102,9 +96,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % problem.setUsePriors(true); 
             if ~islogical(showFlag)
-                error('usePriors must be logical ''true'' or ''false''');
+                throw(invalidType('usePriors must be logical ''true'' or ''false'''));
             end
-            obj.UsePriors = showFlag;
+            obj.usePriors = showFlag;
             
             % Also need to set the flag in sub-objects
             % where relevant..
@@ -138,17 +132,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % problem.setGeometry('Substrate/liquid');
             if ~ischar(val)
-                error('Expecting char array')
+                throw(invalidType('Geometry must be a char array'))
             end
-            
-            if ~any(strcmpi(val,{'Air/substrate','Substrate/Liquid'}))
-                error('Expecting Air/Substrate or Substrate/Liquid')
-            end
-            
+
             if strcmpi(val,'air/substrate')
-                obj.Geometry = 'air/substrate';
+                obj.geometry = 'air/substrate';
             elseif strcmpi(val,'substrate/liquid')
-                obj.Geometry = 'substrate/liquid';
+                obj.geometry = 'substrate/liquid';
+            else
+                throw(invalidOption('Expecting ''Air/Substrate'' or ''Substrate/Liquid'''))
             end
         end
         
@@ -159,14 +151,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % problem.setModelType('Custom Layers');
             
             if ~ischar(val)
-                error('Expecting a char array');
+                throw(invalidType('Expecting a char array'));
             end
             
             if ~any(strcmpi(val,{'standard layers','custom layers','custom xy'}))
-                error('experiment type has to be Standard Layers, Custom Layers or Custom XY');
+                throw(invalidOption('experiment type has to be Standard Layers, Custom Layers or Custom XY'));
             end
             
-            obj.ModelType = lower(val);
+            obj.modelType = lower(val);
             
         end
         
@@ -200,7 +192,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             input = varargin{:};
             if ~iscell(input)
-                error('Expecting a cell array of parameters');
+                throw(invalidType('Expecting a cell array of parameters'));
             end
             
             for i = 1:length(input)
@@ -249,7 +241,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 
                 % Make sure we don't remove substrate roughness
                 if (isequal(thisParam{1},1)) || (strcmpi(thisParam{1},'Substrate Roughness'))
-                    error('Can''t remove protected parameter Substrate Roughness');
+                    throw(invalidOption('Can''t remove protected parameter Substrate Roughness'));
                 end
                 
                 if iscell(thisParam)
@@ -315,7 +307,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % problem.setParamName(2, 'new name');
             inputValue = varargin;
             if (isequal(inputValue{1},1)) || (strcmpi(inputValue{1},'Substrate Roughness'))
-                error('Can''t rename protected parameter Substrate Roughness');
+                throw(invalidOption('Can''t rename protected parameter Substrate Roughness'));
             end
             obj.parameters.setName(varargin); %= updatedParams;
         end
@@ -348,7 +340,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % problem.addLayerGroup({'Layer 1'; 'Layer 2'});
             input = varargin{:};
             if ~iscell(input)
-                error('Expecting a cell array of layers');
+                throw(invalidType('Expecting a cell array of layers'));
             end
             
             for i = 1:length(input)
@@ -383,7 +375,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % 
             % problem.setLayerValue(1, 2, 'Tails Thickness');
             if length(varargin) ~= 3
-                error('Three parameters expected into setLayerValue');
+                throw(invalidNumberOfInputs('Three parameters expected into setLayerValue'));
             end
 
             % call the layers class to set the value
@@ -492,7 +484,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and new value to set
             %
             % problem.setResolParValue(1, 5.5e-6);
-            obj.resolution.setResolParValue(varargin);
+            obj.resolution.setResolParValue(varargin{:});
         end
         
         function obj = addResolPar(obj, varargin)
@@ -501,7 +493,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and sigma
             %
             % problem.addResolPar('ResolPar 1', 1e-8, 2.8e-6, 1e-5);
-            obj.resolution.addResolPar(varargin);
+            obj.resolution.addResolPar(varargin{:});
         end
         
         function obj = setResolPar(obj,varargin)
@@ -509,7 +501,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of parameter and keyword/value pairs to set
             %
             % problem.setResolPar(1, 'name', 'ResolPar');
-            obj.resolution.setResolPar(varargin);
+            obj.resolution.setResolPar(varargin{:});
         end
         
         function obj = removeResolPar(obj,varargin)
@@ -527,7 +519,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % up to 4 parameters
             %
             % problem.addResolution('name','constant','par');
-            obj.resolution.addResolution(varargin);
+            obj.resolution.addResolution(varargin{:});
         end
         
         function obj = removeResolution(obj,varargin)
@@ -535,7 +527,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of resolution to remove
             %
             % problem.removeResolution(1);
-            obj.resolution.removeResolution(varargin);
+            obj.resolution.removeResolution(varargin{:});
         end
         
         
@@ -547,12 +539,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of data and the data array
             % 
             % problem.addData('Sim 2', data);
-            obj.data.addData(varargin);
+            obj.data.addData(varargin{:});
         end
         
-        function obj = removeData(obj,varargin)
-            % This method is TODO, both here and in the dataClass subclass
-            disp('Todo');
+        function obj = removeData(obj, row)
+            % Removes a dataset. Expects the index or array of
+            % indices of dataset(s) to remove.
+            % 
+            % problem.removeData(2);
+            obj.data.removeData(row);
         end
         
         function obj = setData(obj, varargin)
@@ -560,7 +555,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of data to edit and key-value pairs
             %
             % problem.setData(1, 'name', 'Sim 1', 'data', zeros(4, 3));
-            nameChanged = obj.data.setData(varargin);
+            nameChanged = obj.data.setData(varargin{:});
             
             if ~isempty(nameChanged)
                 obj.contrasts.updateContrastName(nameChanged);
@@ -730,14 +725,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Find if we are referencing and existing contrast
             if isnumeric(firstInput)
                 if (firstInput < 1 || firstInput > numberOfContrasts)
-                    error('Contrast number %d is out of range',firstInput);
+                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', firstInput, numberOfContrasts)));
                 end
                 thisContrast = firstInput;
                 
             elseif ischar(firstInput)
                 [present,idx] = ismember(firstInput, contrastNames);
                 if ~present
-                    error('Contrast %s is not recognised',firstInput)
+                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised',firstInput)));
                 end
                 thisContrast = idx;
                 
@@ -766,14 +761,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Find if we are referencing and existing contrast
             if isnumeric(firstInput)
                 if (firstInput < 1 || firstInput > numberOfContrasts)
-                    error('Contrast number %d is out of range',firstInput);
+                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', firstInput, numberOfContrasts)));
                 end
                 thisContrast = firstInput;
                 
             elseif ischar(firstInput)
                 [present,idx] = ismember(firstInput, contrastNames);
                 if ~present
-                    error('Contrast %s is not recognised',firstInput)
+                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised', firstInput)));
                 end
                 thisContrast = idx;
                 
@@ -781,21 +776,19 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Make a different allowed list depending on whether 
             % it is custom or layers
-            ModelType = obj.ModelType;
+            modelType = lower(obj.modelType);
             
-            if ~strcmpi(ModelType,{'custom layers','custom xy'})
+            if ~strcmpi(modelType, {'custom layers','custom xy'})
                 % Standard Layers
                 allowedValues = obj.layers.getLayersNames();
-                ModelType = 'standard';
                 inputVals = inputVals{:};
             else
                 % Custom models
                 allowedValues = obj.customFile.getCustomNames();
-                ModelType = 'custom';
             end
             
             % Call the setContrastModel method
-            obj.contrasts.setContrastModel(thisContrast,ModelType,allowedValues,inputVals);
+            obj.contrasts.setContrastModel(thisContrast, modelType, allowedValues, inputVals);
 
         end
         
@@ -808,18 +801,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             generalStruct.TF = 'standardTF';
             
             % Add the 'general' fields
-            thisType = obj.ModelType;
-            
-            switch lower(thisType)
-                case 'standard layers'
-                    generalStruct.ModelType = 'layers';
-                case 'custom layers'
-                    generalStruct.ModelType = 'custom layers';
-                case 'custom xy'
-                    generalStruct.ModelType = 'custom xy';
-            end
-                     
-            generalStruct.geometry = obj.Geometry;
+            generalStruct.modelType = lower(obj.modelType);  
+            generalStruct.geometry = obj.geometry;
             
             % Parameters
             params = obj.parameters.toStruct();
@@ -861,8 +844,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             layersValues = layersCell(:,2:end);
             paramNames = string(paramStruct.paramNames);
             
-            switch generalStruct.ModelType
-                case 'layers'
+            switch generalStruct.modelType
+                case 'standard layers'
                     numberOfLayers = layersStruct.numberOfLayers;
                     
                     if numberOfLayers > 0
@@ -902,7 +885,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             allNames = obj.getAllAllowedNames;
             dataTable = obj.data.dataTable;
             
-            modelType = generalStruct.ModelType;
+            modelType = generalStruct.modelType;
             contrastStruct = obj.contrasts.toStruct(allNames,modelType,dataTable);
             
             % Merge all the outputs into one large structure
@@ -925,23 +908,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     % ------------------------------------------------------------------
     
     methods (Access = protected)
-        
-        function paramNum = findPar(obj, paramName)
-            existingNames = obj.parameters.paramsTable{:,1};
-            index = strcmp(paramName, existingNames);
-            if isempty(index)
-                paramNum = -1;
-            else
-                paramNum = find(index);
-            end
-        end
-        
         % Display methods
         function group = getPropertyGroup1(obj)
             % Initial Parameters at the start of the class
-            masterPropList = struct('ModelType',{obj.ModelType},...
+            masterPropList = struct('modelType',{obj.modelType},...
                 'experimentName',{obj.experimentName},...
-                'Geometry', obj.Geometry);
+                'geometry', obj.geometry);
             
             if isscalar(obj)
                 group = matlab.mixin.util.PropertyGroup(masterPropList);
@@ -967,7 +939,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.parameters.displayParametersTable;
             
             % Display the layers table if not a custom model
-            val = obj.ModelType;
+            val = obj.modelType;
             if ~any(strcmpi(val,{'custom layers','custom xy'}))
                 fprintf('\n    Layers: -------------------------------------------------------------------------------------------------- \n\n');
                 obj.layers.displayLayersTable;

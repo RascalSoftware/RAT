@@ -175,4 +175,3 @@ standard_TF_custXY_paraContrasts
 .. automodule:: targetFunctions.standard_TF.standardTF_custXY
 
 .. autofunction:: standardTF_custXY_paraContrasts
-

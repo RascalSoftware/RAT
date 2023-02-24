@@ -130,7 +130,7 @@ classdef contrastsClass < handle
             modelArray = varargin{:};
             
             switch modelType
-                case 'standard'
+                case 'standard layers'
                     % cell array of strings.
                     modelArray = cellstr(modelArray);
                     for i = 1:length(modelArray)
@@ -139,7 +139,7 @@ classdef contrastsClass < handle
                         end
                     end
                     
-                case 'custom'
+                case {'custom layers', 'custom xy'}
                     modelArray = cellstr(modelArray);
                     if length(modelArray) > 1
                         error('Only 1 model value allowed for ''custom''');
@@ -285,7 +285,7 @@ classdef contrastsClass < handle
                 
                 
                 switch modelType
-                    case 'layers'
+                    case 'standard layers'
                         thisModel = thisContrast.model;
                         thisLayerArray = [];
                         for n = 1:length(thisModel)

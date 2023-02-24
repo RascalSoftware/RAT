@@ -3,16 +3,20 @@ classdef parametersClass < handle
     % the parameters block.
     
     properties
-        paramsTable = table;
-        showPriors = false;
+        paramsTable = table
+        showPriors = false
     end
-    
+
+    properties(Access = private, Constant, Hidden)
+        invalidPriorsMessage = "Prior type must be ''uniform'', ''gaussian'' or ''jeffreys''"
+    end
+
     properties (Access = private)   
-        paramAutoNameCounter;
+        paramAutoNameCounter=1
     end
     
     properties (Dependent)
-        paramCount;
+        paramCount
     end
     
     methods
@@ -29,9 +33,7 @@ classdef parametersClass < handle
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
             obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.paramAutoNameCounter = 0;
-            obj.addParam(startCell);
-           
+            obj.addParam(startCell);      
         end
         
         function count = get.paramCount(obj)
@@ -47,7 +49,7 @@ classdef parametersClass < handle
         end
         
         function obj = addParam(obj,varargin)
-            % Adds an new parameter to the parameters table. Defaults 
+            % Adds an new parameter to the parameters table. Default 
             % values are used when adding the parameter if no arguments are 
             % provided, otherwise a subset of the arguments can be provided.
             % The following are assumed from number of arguments: 
@@ -71,42 +73,34 @@ classdef parametersClass < handle
                 
                 % First input must be a parameter name
                 if ~ischar(inputCell{1})
-                    error('First value must be param name (char)');
+                    throw(invalidType('First value must be param name (char)'));
                 end
                 
+                % If length is 1, assume name only
+                % and fill in the rest with defaults
+                name = inputCell{1};
                 values = [1, 2, 3];
                 fit = false;
                 priorType = 'uniform';
                 priorValues = [0, Inf];
                 
-                switch length(inputCell)     
-                    % If length is 1, assume name only
-                    % and fill in the rest with defaults
-                    case 1
-                        name = inputCell{1};
-                        
-                    % If length is 2, assume name and value
-                    % pair. Fill in the rest automatically
+                switch length(inputCell)
+                    case 1                           
                     case 2
-                        name = inputCell{1};
+                        % If length is 2, assume name and value
+                        % pair. Fill in the rest automatically
                         values = [inputCell{2} inputCell{2} inputCell{2}];
-                        
-                    % If length is 4, assume we are getting the
-                    % limits as well as the values
                     case 4
-                        name = inputCell{1};
-                        values = [inputCell{2} inputCell{3} inputCell{4}];
-                        
-                    % If length is 5, then assume we are setting
-                    % everything except priors
+                        % If length is 4, assume we are getting the
+                        % limits as well as the values
+                        values = [inputCell{2} inputCell{3} inputCell{4}]; 
                     case 5
-                        name = inputCell{1};
+                         % If length is 5, then assume we are setting
+                         % everything except priors
                         values = [inputCell{2} inputCell{3} inputCell{4}];
                         fit = inputCell{5};
-                        
-                    % Case 8 must be everything including the prior
                     case 8
-                        name = inputCell{1};
+                        % Case 8 must be everything including the prior
                         values = [inputCell{2} inputCell{3} inputCell{4}];
                         fit = inputCell{5};
                         priorType = inputCell{6};
@@ -114,24 +108,24 @@ classdef parametersClass < handle
                        
                     % If not one of these options, throw an error
                     otherwise
-                        error('Unrecognised inputs to ''addParam''');    
+                        throw(invalidNumberOfInputs('Unrecognised inputs to ''addParam'''));
                 end
                 
                 % Type validation
                 if ~isnumeric(values)
-                    error('Expecting numeric values as params 2 - 4');
+                    throw(invalidType('Expecting numeric values as params 2 - 4'));
                 end
                 
                 if ~islogical(fit)
-                    error('Expecting logical value for param 5')
+                    throw(invalidType('Expecting logical value for param 5'));
                 end
                 
                 if ~strcmpi(priorType,{'uniform', 'gaussian', 'jeffreys'})
-                    error('Prior type must be ''uniform'', ''gaussian'' or ''jeffreys''');
+                    throw(invalidOption(obj.invalidPriorsMessage));
                 end
                 
                 if ~isnumeric(priorValues)
-                    error('Prior values must be numeric');
+                    throw(invalidType('Prior values must be numeric'));
                 end
                     
                 newRow = {name, values(1), values(2), values(3), fit, priorType, priorValues(1), priorValues(2)};
@@ -145,7 +139,7 @@ classdef parametersClass < handle
             %
             % params.removeParam(2); 
             if isempty(varargin)
-                error('Need to specify a parameter');
+                throw(invalidNumberOfInputs('Need to specify a parameter'));
             end
             
             rowInput = varargin;
@@ -204,7 +198,7 @@ classdef parametersClass < handle
             row = obj.getValidRow(inputValues(1));
             priorType = inputValues{2};
             if ~strcmpi(priorType,{'uniform','gaussian','jeffreys'})
-                error('Prior needs to be ''uniform'',''gaussian'', or ''jeffreys''');
+                throw(invalidOption(obj.invalidPriorsMessage));
             end
             
             priorType = lower(priorType);
@@ -232,12 +226,12 @@ classdef parametersClass < handle
             inputValues = varargin{:};
             tab = obj.paramsTable;
             if length(inputValues) ~= 2
-                error('Need p (or name) / value pair to set');
+                throw(invalidNumberOfInputs('Need p (or name) / value pair to set'));
             end
             
             row = obj.getValidRow(inputValues(1));
             if ~isnumeric(inputValues{2})
-                error('Value must be numeric');
+                throw(invalidType('Value must be numeric'));
             end
             value = inputValues{2};
             tab(row,3) = {value};
@@ -252,12 +246,12 @@ classdef parametersClass < handle
             tab = obj.paramsTable;
             inputValues = varargin{:};
             if length(inputValues) ~= 2
-                error('Wrong number of values for setName');
+                throw(invalidNumberOfInputs('Wrong number of values for setName'));
             end
             
             row = obj.getValidRow(inputValues(1));
             if ~ischar(inputValues{2})
-                error('New name must be char');
+                throw(invalidType('New name must be char'));
             end
             name = inputValues{2};
             tab(row,1) = {name};
@@ -272,13 +266,13 @@ classdef parametersClass < handle
             tab = obj.paramsTable;
             inputValues = varargin{:};
             if length(inputValues) ~= 3
-                error('Need p (or name) / min / max set');
+                throw(invalidNumberOfInputs('Need p (or name) / min / max set'));
             end
             
             min = inputValues{2};
             max = inputValues{3};
             if ~(isnumeric(min) && isnumeric(max))
-                error('min and max need to be numeric');
+                throw(invalidType('min and max need to be numeric'));
             end
             
             row = obj.getValidRow(inputValues(1));            
@@ -298,11 +292,11 @@ classdef parametersClass < handle
             
             tab = obj.paramsTable;
             if length(varargin) ~= 2
-                error('Need p (or name) / val pair set');
+                throw(invalidNumberOfInputs('Need p (or name) / val pair set'));
             end
             
             if ~islogical(varargin{2})
-                error('Need true or false for Fit? value');
+                throw(invalidType('Need true or false for Fit? value'));
             end
             
             row = obj.getValidRow(varargin(1));           
@@ -313,7 +307,7 @@ classdef parametersClass < handle
         function set.showPriors(obj,flag)
             % Setter for the showPriors property
             if ~islogical(flag)
-                error('Show priors must be true or false');
+                throw(invalidType('Show priors must be true or false'));
             end
             obj.showPriors = flag;
         end
@@ -402,7 +396,7 @@ classdef parametersClass < handle
             tab = obj.paramsTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))
-                error('Duplicate parameter names not allowed');
+                throw(duplicateName('Duplicate parameter names not allowed'));
             end
             tab = [tab ; row];
             obj.paramsTable = tab;
@@ -420,13 +414,13 @@ classdef parametersClass < handle
                 % Assume a row name
                 index = strcmp(row, tab{:,1});
                 if ~any(index)
-                    error('Unrecognised parameter name');
+                    throw(nameNotRecognised('Unrecognised parameter name'));
                 end
                 row = find(index);
             end
             
             if (row < 1) || (row > obj.paramCount)
-                error('Row index out out of range');
+                throw(indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.paramCount)));
             end
             
             tab(row, :) = [];
@@ -443,7 +437,7 @@ classdef parametersClass < handle
             else
                 index = row{1};
                 if (index < 1) || (index > obj.paramCount)
-                    error('Row index out out of range');
+                    throw(indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.paramCount)));
                 end     
             end
         end
@@ -453,7 +447,7 @@ classdef parametersClass < handle
         function row = findRowIndex(name,tab)
             % Gets index with given row name from table.
             %
-            % obj.parseParameterInput({'name', 'param'})
+            % obj.findRowIndex('param')
             namesList = tab{:,1};
             
             % Strip leading or trailing white spaces from names and name
@@ -463,7 +457,7 @@ classdef parametersClass < handle
             % Compare 'name' to list ignoring case
             index = strcmpi(name, namesList);
             if ~any(index)
-                error('Unrecognised parameter name');
+                throw(nameNotRecognised('Unrecognised parameter name'));
             end
             
             % Non-zero value in array is the row index

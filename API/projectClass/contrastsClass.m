@@ -1,4 +1,7 @@
 classdef contrastsClass < handle
+
+    % This class holds the parameters for each contrast used in the
+    % simulation
     
     properties
         contrastsTable
@@ -17,6 +20,8 @@ classdef contrastsClass < handle
         
         function  obj = contrastsClass()
             % Class Constructor
+            %
+            % contrasts = contrastsClass()
             obj.contrastAutoNameCounter = 1;
         end
 
@@ -25,6 +30,14 @@ classdef contrastsClass < handle
         end
 
         function obj = addContrast(obj, allowedNames, varargin)
+            % Add a contrast to the class
+            % A class can be added with no input parameters, just a class
+            % name, or a set of key-value pairs.
+            %
+            % contrasts.addContrast()
+            % contrasts.addContrast('New Contrast')
+            % contrasts.addContrast('name', 'new contrast', ... 
+            %                       'background', 'Background H2O')
             
             % Parsing Input Types....
             
@@ -94,6 +107,11 @@ classdef contrastsClass < handle
 
         function obj = removeContrast(obj, whichContrast)
             % Removes a contrast from the list.
+            % The contrast can be specified either by name or by index, but
+            % only one contrast can be removed at a time.
+            %
+            % contrasts.removeContrast('Named Contrast')
+            % contrasts.removeContrast(1)
 
             % First determine if contrast is being referenced by name or
             % number...
@@ -122,6 +140,13 @@ classdef contrastsClass < handle
 
 
         function obj = setContrastModel(obj, contrastInput, modelType, allowedNames, varargin)
+            % Set the value of the model parameter in a contrast.
+            % The expected input is the contrast (specified either by name
+            % or index), the model type, the allowed values (either layers
+            % for standard layers or custom files for custom models) and a
+            % variable muber of arguments for the model itself.
+            %
+            % contrasts.setContrastModel(1, 'standard layers', allowedNames, 'Oxide Model')
             
             % Find if we are referencing an existing contrast
             if isnumeric(contrastInput)
@@ -143,6 +168,7 @@ classdef contrastsClass < handle
             thisContrast = obj.contrasts{contrastIndex};
             modelArray = cellstr(varargin{:});
 
+            % Check the input is as expected
             if any(strcmpi(modelType, {'custom layers', 'custom xy'}))
                 if length(modelArray) > 1
                     throw(invalidValue('Only 1 model value allowed for ''custom'''));
@@ -162,6 +188,14 @@ classdef contrastsClass < handle
         
         function obj = setContrast(obj, contrastInput, allowedNames, varargin)
             % Set a value within a contrast.
+            % The expected input is the contrast (specified either by name
+            % or index), the allowed values for all parameters and a
+            % set of key-value pairs for the parameter values to be
+            % changed.
+            %
+            % contrasts.setContrast(1, allowedNames, ...
+            %                       'name', 'New contrast name', ... 
+            %                       'background', 'New Background')
 
             % Find if we are referencing an existing contrast
             if isnumeric(contrastInput)
@@ -242,6 +276,9 @@ classdef contrastsClass < handle
         end
         
         function contrastNames = getAllContrastNames(obj)
+            % Get the names of all contrasts defined in the class.
+            %
+            % contrasts.getAllContrastNames()
             nContrasts = obj.numberOfContrasts;
             contrastNames = cell(1,nContrasts);
             
@@ -256,13 +293,14 @@ classdef contrastsClass < handle
         end
         
         function obj = updateContrastName(obj,nameChange)
-           
-            % This function is only really called from 
-            % projectClass if a data name has been updated.
-            % Looks through the 'data' field of the contrasts
-            % and if it matches nameChange.oldName then
-            % this is updated to nameChange.newName
-            
+            % Update the "data" parameter in a contrast if the name is
+            % changed in the data class.           
+            % This function is only really called from projectClass if a
+            % data name has been updated. It looks through the 'data'
+            % field of the contrasts and if it matches nameChange.oldName
+            % then this is updated to nameChange.newName
+            %
+            % contrasts.updateContrastName(nameChange)            
             oldName = nameChange.oldName;
             newName = nameChange.newName;
             
@@ -276,7 +314,11 @@ classdef contrastsClass < handle
         end
         
         function contrastStruct = toStruct(obj,allowedNames,modelType,dataTable)
-            
+            % Convert the contrasts class to a struct.
+            % The expected input is the allowed names for each parameter,
+            % the model type and the data table from the data class.
+            %
+            % contrasts.toStruct(allowedNames, "standard layers", dataTable)
             nContrasts = obj.numberOfContrasts;
             contrastBacks = cell(1,nContrasts);
             contrastLayers = cell(1,nContrasts);
@@ -368,6 +410,9 @@ classdef contrastsClass < handle
         end
         
         function displayContrastsObject(obj)
+            % Display the contrasts object as a table.
+            %
+            % contrasts.displayContrastsObject()
             makeContrastsTable(obj);
             fprintf('    Constrasts: ---------------------------------------------------------------------------------------------- \n\n');
             disp(obj.contrastsTable);
@@ -450,7 +495,14 @@ classdef contrastsClass < handle
     methods(Static)
 
         function inputBlock = parseContrastInput(allowedNames,inputVals)
-        
+            % Parse the parameters given for the contrast, assigning
+            % default values to those unspecified and ensuring specified
+            % values are of the correct type, and included in the list of
+            % allowed names where necessary.
+            %
+            % contrastsClass.parseContrastInput(allowedNames, ...
+            %                                   'name', 'Contrast Name', ...
+            %                                   'background', 'Background H2O')        
             defaultName = '';
             defaultBack = '';
             defaultData = '';   

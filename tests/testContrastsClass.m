@@ -9,7 +9,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 % "DPPC_standard_layers.m", with some elements from the example
 % calculations "orsoDSPC_custLay_script.m" and "DPPC_customXY.m"
 %
-% Paul Sharp 22/02/23
+% Paul Sharp 24/02/23
 %
 %% Declare properties and parameters
 
@@ -241,20 +241,6 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.contrasts, expectedContrasts, "addContrast does not work correctly");
         end
 
-        function testAddContrastInvalidOption(testCase, invalidInput)
-            % Test adding a contrast to the contrasts class.
-            % If values for each parameter are not valid options, we
-            % should raise an error
-            testCase.verifyError(@() testCase.exampleClass.addContrast(testCase.allowedNames, invalidInput), 'MATLAB:unrecognizedStringChoice');
-        end
-
-        function testAddContrastInvalidType(testCase)
-            % Test adding a contrast to the contrasts class.
-            % If values for the name an logical parameters are an invalid
-            % type, we should raise an error
-            testCase.verifyError(@() testCase.exampleClass.addContrast(testCase.allowedNames, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
-            testCase.verifyError(@() testCase.exampleClass.addContrast(testCase.allowedNames, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
-        end
 
         function testRemoveContrast(testCase, removeInput)
             % Test removing a contrast from the contrasts class.
@@ -579,6 +565,58 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 testCase.verifyEqual(outRow, rowString(i-3), "Row does not contain the correct data");
 
             end
+        end
+
+        function testParseContrastInput(testCase)
+            setContrastInput = {
+                'name', 'New Contrast', ...
+                'background', 'Background SMW', ...
+                'data', 'Simulation', ...
+                'nba', 'Silicon', ...
+                'nbs', 'SLD SMW', ...
+                'resample', true, ...
+                'resolution', 'Test Resolution', ...
+                'scalefactor', 'Test Scalefactor', ...
+                'model', 'Water Layer'};
+
+            testContrast = struct( ...
+                'name', 'New Contrast', ...
+                'background', 'Background SMW', ...
+                'data', 'Simulation', ...
+                'nba', 'Silicon', ...
+                'nbs', 'SLD SMW', ...
+                'resolution', 'Test Resolution', ...
+                'scalefactor', 'Test Scalefactor', ...
+                'resample', true,...
+                'model', {'Water Layer'} ...
+                );
+
+            contrastStruct = contrastsClass.parseContrastInput(testCase.allowedNames, setContrastInput);
+            testCase.verifyEqual(contrastStruct, testContrast, "parseContrastInput does not work correctly");
+        end
+
+        function testParseContrastInputEmpty(testCase)
+            % Test parsing input data for a contrast within the contrasts
+            % class.
+            % If the input is empty, we should return the default values
+            testCase.verifyEqual(contrastsClass.parseContrastInput(testCase.allowedNames, {}), testCase.defaultContrastParams);
+        end
+
+        function testParseContrastInputInvalidOption(testCase, invalidInput)
+            % Test parsing input data for a contrast within the contrasts
+            % class.
+            % If values for each parameter are not valid options, we
+            % should raise an error
+            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, invalidInput), 'MATLAB:unrecognizedStringChoice');
+        end
+
+        function testParseContrastInputInvalidType(testCase)
+            % Test parsing input data for a contrast within the contrasts
+            % class.
+            % If values for the name and resample parameters are an
+            % invalid type, we should raise an error
+            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
         end
 
     end

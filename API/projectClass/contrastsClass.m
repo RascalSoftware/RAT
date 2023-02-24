@@ -86,9 +86,7 @@ classdef contrastsClass < handle
                 inputVals = varargin{:};
             end
             
-            inputBlock = parseContrastInput(allowedNames,inputVals);
-            thisContrast = inputBlock;
-            
+            thisContrast = obj.parseContrastInput(allowedNames,inputVals);
             obj.contrasts{end+1} = thisContrast;
             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
         
@@ -115,7 +113,7 @@ classdef contrastsClass < handle
            
             % Check to make sure the number is in range
             if whichContrast < 1 || whichContrast > obj.numberOfContrasts
-                throw(indexOutOfRange('Specified contrast is not in range..'));
+                throw(indexOutOfRange(sprintf('Specified contrast %d is not in range 1 - %d', whichContrast, obj.numberOfContrasts)));
             end
 
             % Remove the contrast from the contrasts cell array
@@ -126,8 +124,7 @@ classdef contrastsClass < handle
 
         function obj = setContrastModel(obj, contrastInput, modelType, allowedNames, varargin)
             
-            % Find if we are referencing and existing contrast
-            disp(contrastInput)
+            % Find if we are referencing an existing contrast
             if isnumeric(contrastInput)
                 if (contrastInput < 1 || contrastInput > obj.numberOfContrasts)
                     throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', contrastInput, obj.numberOfContrasts)));
@@ -202,7 +199,7 @@ classdef contrastsClass < handle
 %                     thisContrast.model = modelArray;
                 %otherwise
                     
-                    inputBlock = parseContrastInput(allowedNames,varargin{:});
+                    inputBlock = obj.parseContrastInput(allowedNames,varargin{:});
                     
                     if ~isempty(inputBlock.background)
                         thisContrast.background = inputBlock.background;
@@ -369,7 +366,6 @@ classdef contrastsClass < handle
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.numberOfContrasts = nContrasts;
-            %contrastStruct.contrastNames = contrastNames;
             
         end
         
@@ -453,45 +449,48 @@ classdef contrastsClass < handle
 
     end
     
-end    % End classdef
+    methods(Static)
 
-function inputBlock = parseContrastInput(allowedNames,inputVals)
-
-    defaultName = '';
-    defaultBack = '';
-    defaultData = '';   
-    defaultNba = '';
-    defaultNbs = '';
-    defaultScalefac = '';
-    defaultResol = '';
-    defaultResample = false;
-    defaultModel = '';
-
-    expectedBacks = cellstr(allowedNames.backsNames);
-    expectedData = cellstr(allowedNames.dataNames);
-    expectedBulkin = cellstr(allowedNames.bulkInNames);
-    expectedBulkout = cellstr(allowedNames.bulkOutNames);
-    expectedResols = cellstr(allowedNames.resolsNames);
-    expectedLayers = cellstr(allowedNames.layersNames);
-    expectedScalefac = cellstr(allowedNames.scalefacNames);
-    expectedCustom = cellstr(allowedNames.customNames);
-    
-    expectedModel = [expectedLayers, expectedCustom];
-
-    p = inputParser;
-    addParameter(p,'name',          defaultName,        @ischar);
-    addParameter(p,'background',    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
-    addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
-    addParameter(p,'nba',           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
-    addParameter(p,'nbs',           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
-    addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
-    addParameter(p,'scalefactor',   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
-    addParameter(p,'resample',      defaultResample,    @islogical);
-    addParameter(p,'model',         defaultModel,       @(x) any(validatestring(x,expectedModel)));
+        function inputBlock = parseContrastInput(allowedNames,inputVals)
         
-    parse(p,inputVals{:});
-    inputBlock = p.Results;
+            defaultName = '';
+            defaultBack = '';
+            defaultData = '';   
+            defaultNba = '';
+            defaultNbs = '';
+            defaultScalefac = '';
+            defaultResol = '';
+            defaultResample = false;
+            defaultModel = '';
+        
+            expectedBacks = cellstr(allowedNames.backsNames);
+            expectedData = cellstr(allowedNames.dataNames);
+            expectedBulkin = cellstr(allowedNames.bulkInNames);
+            expectedBulkout = cellstr(allowedNames.bulkOutNames);
+            expectedResols = cellstr(allowedNames.resolsNames);
+            expectedLayers = cellstr(allowedNames.layersNames);
+            expectedScalefac = cellstr(allowedNames.scalefacNames);
+            expectedCustom = cellstr(allowedNames.customNames);
+            
+            expectedModel = [expectedLayers, expectedCustom];
+        
+            p = inputParser;
+            addParameter(p,'name',          defaultName,        @ischar);
+            addParameter(p,'background',    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
+            addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
+            addParameter(p,'nba',           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
+            addParameter(p,'nbs',           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
+            addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
+            addParameter(p,'scalefactor',   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
+            addParameter(p,'resample',      defaultResample,    @islogical);
+            addParameter(p,'model',         defaultModel,       @(x) any(validatestring(x,expectedModel)));
+                
+            parse(p,inputVals{:});
+            inputBlock = p.Results;
+        
+        end
 
+    end
 end
 
 

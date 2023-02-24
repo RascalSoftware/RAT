@@ -7,7 +7,7 @@ if isempty(isInitialised)
 end
 
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs_new(problemDefInput,controls);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(problemDefInput,controls);
 [problemDef,~] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 
 % %Define variable size for code generation

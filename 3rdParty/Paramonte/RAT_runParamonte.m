@@ -15,7 +15,7 @@ end
 rng('default');
 
 % Split problem using the routines from RAT..
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs_new(problem,inputControls);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(problem,inputControls);
 
 %controls.para = 'points';
 

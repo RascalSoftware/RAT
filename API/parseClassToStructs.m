@@ -1,4 +1,4 @@
-function [problemDef,problemDef_cells,problemDef_limits,controls] = parseClassToStructs(inputProblemDef,inputControls)
+function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)
 
 % Breaks up the classes into the relevant structures for inputting into C
 
@@ -56,80 +56,231 @@ function [problemDef,problemDef_cells,problemDef_limits,controls] = parseClassTo
 % {13}- inputProblemDef.resolNames
 %       {1 x nNba} array of cells
 %       Each cell is {1 x Inf char}
+%
+% {14} - inputProblemDef.customFiles
+%          array of cells
+%       Each cell is {fName, lang, path}
+
  
+% First parse the class to a structure variable.
+
+inputStruct = inputProblemDef.toStruct();
 
 %Start by removing the cell arrays
-repeatLayers = inputProblemDef.contrastRepeatSLDs;
-allData = inputProblemDef.allData;
-dataLimits = inputProblemDef.dataLimits;
-simLimits = inputProblemDef.simLimits;
-contrastLayers = inputProblemDef.contrastLayers;
-layersDetails = inputProblemDef.layersDetails;
-paramNames = inputProblemDef.paramNames;
-backsNames = inputProblemDef.backgroundNames;
-sfNames = inputProblemDef.scalefactorNames;
-shiftsNames = inputProblemDef.qzshiftNames;
-nbaNames = inputProblemDef.nbairNames;
-nbsNames = inputProblemDef.nbsubNames;
-resolNames = inputProblemDef.resolutionNames;
+repeatLayers = inputStruct.contrastRepeatSLDs; %*****
+allData = inputStruct.allData;
+dataLimits = inputStruct.dataLimits;
+simLimits = inputStruct.simLimits;
+contrastLayers = inputStruct.contrastLayers;
+layersDetails = inputStruct.layersDetails;
+paramNames = inputStruct.paramNames;
+paramPriors = inputStruct.paramPriors;
+backsNames = inputStruct.backParNames;
+backsPriors = inputStruct.backsPriors; % 
+sfNames = inputStruct.scalefactorNames;
+scalesPriors = inputStruct.scalefactorPriors;
+shiftsNames = inputStruct.qzshiftNames; % TODO
+shiftPriors = inputStruct.qzshiftPriors;
+nbaNames = inputStruct.nbairNames;
+nbaPriors = inputStruct.nbaPriors;
+nbsNames = inputStruct.nbsubNames;
+nbsPriors = inputStruct.nbsPriors;
+resolNames = inputStruct.resolParNames;         % ******* ToDo
+resolParPriors = inputStruct.resolParPriors;
+customFiles = inputStruct.files;
 
-% Pull out all the cell arrays into one array
+% If any of the contrastLayers are empty, replace the empty cells by zero
+% thickness layers
+for i = 1:length(contrastLayers)
+    thisLayers = contrastLayers{i};
+    if isempty(thisLayers)
+        thisLayers = 0;
+        contrastLayers{i} = thisLayers;
+    end
+end
+
+% Do the same for layersDetails
+if isempty(layersDetails)
+    layersDetails = {0};
+end
+
+% When there are custom files, we need to strip the file extension
+% from the filename if it's present
+for i = 1:length(customFiles)
+    thisCustomFileCell = customFiles{i};
+    [~,name,~] = fileparts(thisCustomFileCell{1});
+    thisCustomFileCell{1} = name;
+    customFiles{i} = thisCustomFileCell;
+end
+
+% Pull out all the cell arrays (except priors) into one array
 problemDef_cells{1} = repeatLayers;
 problemDef_cells{2} = allData;
 problemDef_cells{3} = dataLimits;
 problemDef_cells{4} = simLimits;
 problemDef_cells{5} = contrastLayers;
-
-% Fix for cell array bug with custom layers
-if strcmpi(inputProblemDef.modelType,'custom layers') || strcmpi(inputProblemDef.modelType,'Custom XY')
-    for i = 1:length(problemDef_cells{5})
-        problemDef_cells{5}{i} = 0;
-    end
-end
-
 problemDef_cells{6} = layersDetails;
 problemDef_cells{7} = paramNames;
-problemDef_cells{8} = backsNames;
+problemDef_cells{8} = backsNames;             
 problemDef_cells{9} = sfNames;
 problemDef_cells{10} = shiftsNames;
 problemDef_cells{11} = nbaNames;
 problemDef_cells{12} = nbsNames;
 problemDef_cells{13} = resolNames;
+problemDef_cells{14} = customFiles';
+
+% Fix for cell array bug with custom layers - is this needed still??
+if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelType,'custom xy')
+    for i = 1:length(problemDef_cells{5})
+        problemDef_cells{5}{i} = 0;
+    end
+    
+    problemDef_cells{6} = {0};
+    
+end
+
+% Also the custom files array..
+if isempty(problemDef_cells{14})
+    problemDef_cells{14} = {{'','',''}};
+end
+
+% Put the priors into their own array
+priors.paramPriors = paramPriors;
+priors.backsPriors = backsPriors;
+priors.resolPriors = resolParPriors;
+priors.nbaPriors = nbaPriors;
+priors.nbsPriors = nbsPriors;
+priors.shiftPriors = shiftPriors;
+priors.scalesPriors = scalesPriors;
+
+totalNumber = size(priors.paramPriors,1) + size(priors.backsPriors,1) + ...
+    size(priors.resolPriors,1) + size(priors.nbaPriors,1) + size(priors.nbsPriors,1) + ...
+    size(priors.shiftPriors,1) + size(priors.scalesPriors,1);
+
+allPriors = cell(totalNumber,4);
+cellCount = 1;
+for i = 1:size(priors.paramPriors,1)
+    allPriors{cellCount,1} = priors.paramPriors{i}{1};
+    allPriors{cellCount,2} = priors.paramPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.paramPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.paramPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.backsPriors,1)
+    allPriors{cellCount,1} = priors.backsPriors{i}{1};
+    allPriors{cellCount,2} = priors.backsPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.backsPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.backsPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.resolPriors,1)
+    allPriors{cellCount,1} = priors.resolPriors{i}{1};
+    allPriors{cellCount,2} = priors.resolPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.resolPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.resolPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.nbaPriors,1)
+    allPriors{cellCount,1} = priors.nbaPriors{i}{1};
+    allPriors{cellCount,2} = priors.nbaPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.nbaPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.nbaPriors{i}{4}); 
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.nbsPriors,1)
+    allPriors{cellCount,1} = priors.nbsPriors{i}{1};
+    allPriors{cellCount,2} = priors.nbsPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.nbsPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.nbsPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.shiftPriors,1)
+    allPriors{cellCount,1} = priors.shiftPriors{i}{1};
+    allPriors{cellCount,2} = priors.shiftPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.shiftPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.shiftPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.scalesPriors,1)
+    allPriors{cellCount,1} = priors.scalesPriors{i}{1};
+    allPriors{cellCount,2} = priors.scalesPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.scalesPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.scalesPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+priorNames = allPriors(:,1);
+priorVals = allPriors(:,2:end);
+
+priors.priorNames = priorNames;
+priors.priorVals = priorVals;
+
 
 %Split up the contrastBacks array
-contrastBacks = inputProblemDef.contrastBacks;
+contrastBacks = inputStruct.contrastBacks;
 for i = 1:length(contrastBacks)
     problemDef.contrastBacks(i) = contrastBacks{i}(1);
     problemDef.contrastBacksType(i) = contrastBacks{i}(2);
 end
     
+% Here we need to do the same with the contrastResolutions array
+contrastResols = inputStruct.contrastRes;
+resolTypes = inputStruct.resolutionTypes;
+for i = 1:length(contrastResols)
+    % Check the type of the resolution that each contrast is pointing to.
+    % If it is a constant, point to the number of the corresponding
+    % resolution par. If it's data, then set it to zero
+    thisResol = contrastResols(i);      % Which reolution
+    thisType = resolTypes{thisResol};   % What type is it?
+    
+    if strcmpi(thisType,'data')
+        % Resolution is in the datafile. Set contrastRes to zero
+        contrastRes(i) = -1;
+    else
+        % Resolution is a resolParam, the nname of which should
+        % be in the first column of resolutionValues
+        whichResolParName = inputStruct.resolutionValues{thisResol,1};
+        
+        % Find which resolPar this is, and set contrastRes to this number
+        resolParNumber = find(strcmpi(whichResolParName,resolNames));
+        contrastRes(i) = resolParNumber;
+    end
+end
+        
+
 %Now make the limits array
-for i = 1:length(inputProblemDef.paramConstr)
-    problemDef_limits.params(i,:) = inputProblemDef.paramConstr{i};
+for i = 1:length(inputStruct.paramConstr)
+    problemDef_limits.params(i,:) = inputStruct.paramConstr{i};
 end
 
-for i = 1:length(inputProblemDef.backgroundConstr)
-    problemDef_limits.backs(i,:) = inputProblemDef.backgroundConstr{i};
+for i = 1:length(inputStruct.backParconstr)
+    problemDef_limits.backs(i,:) = inputStruct.backParconstr{i};
 end
 
-for i = 1:length(inputProblemDef.scalefactorConstr)
-    problemDef_limits.scales(i,:) = inputProblemDef.scalefactorConstr{i};
+for i = 1:length(inputStruct.scalefactorConstr)
+    problemDef_limits.scales(i,:) = inputStruct.scalefactorConstr{i};
 end
 
-for i = 1:length(inputProblemDef.qzshiftConstr)
-    problemDef_limits.shifts(i,:) = inputProblemDef.qzshiftConstr{i};
+for i = 1:length(inputStruct.qzshiftConstr)
+    problemDef_limits.shifts(i,:) = inputStruct.qzshiftConstr{i};
 end
 
-for i = 1:length(inputProblemDef.nbairConstr)
-    problemDef_limits.nba(i,:) = inputProblemDef.nbairConstr{i};
+for i = 1:length(inputStruct.nbairConstr)
+    problemDef_limits.nba(i,:) = inputStruct.nbairConstr{i};
 end
 
-for i = 1:length(inputProblemDef.nbsubConstr)
-    problemDef_limits.nbs(i,:) = inputProblemDef.nbsubConstr{i};
+for i = 1:length(inputStruct.nbsubConstr)
+    problemDef_limits.nbs(i,:) = inputStruct.nbsubConstr{i};
 end
 
-for i = 1:length(inputProblemDef.resolutionConstr)
-    problemDef_limits.res(i,:) = inputProblemDef.resolutionConstr{i};
+for i = 1:length(inputStruct.resolParConstr)
+    problemDef_limits.res(i,:) = inputStruct.resolParConstr{i};
 end
 
 %Now remove all these fields from inputProblemDef
@@ -151,40 +302,64 @@ removedFields = {'contrastRepeatSLDs',...
     'scalefactorConstr',...
     'nbairConstr',...
     'nbsubConstr',...
-    'resolutionConstr'};
+    'resolutionConstr',...
+    'files'};
 
 %Make the problemDef structure from the bits left.....
-problemDef.TF = 'standardTF'; %for now....
-problemDef.resample = inputProblemDef.resample;
-problemDef.dataPresent = inputProblemDef.dataPresent;
-problemDef.numberOfContrasts = inputProblemDef.numberOfContrasts;
-problemDef.geometry = inputProblemDef.experimentGeometry;
+
+% *************************************************************************
+% NOTE - not using the more complicated background and resolution
+% definitions for now - instead use the background names and backsPar
+% values.... fix this next
+% **********************************************************************8
+
+
+problemDef.TF = inputStruct.TF;%'standardTF';
+problemDef.resample = inputStruct.resample;
+problemDef.dataPresent = inputStruct.dataPresent;
+problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
+problemDef.geometry = inputStruct.geometry;
 %problemDef.contrastBacks = contrastBacks;
-problemDef.contrastShifts = inputProblemDef.contrastShifts;
-problemDef.contrastScales = inputProblemDef.contrastScales;
-problemDef.contrastNbas = inputProblemDef.contrastNbas;
-problemDef.contrastNbss = inputProblemDef.contrastNbss;
-problemDef.contrastRes = inputProblemDef.contrastRes;
-problemDef.backs = inputProblemDef.backgrounds;
-problemDef.shifts = inputProblemDef.qzshifts;
-problemDef.sf = inputProblemDef.scalefactors;
-problemDef.nba = inputProblemDef.nbairs;
-problemDef.nbs = inputProblemDef.nbsubs;
-problemDef.res = inputProblemDef.resolutions;
-problemDef.params = inputProblemDef.params;
-problemDef.numberOfLayers = inputProblemDef.numberOfLayers;
-problemDef.modelType = inputProblemDef.modelType;
-if ~isempty(inputProblemDef.modelFilename)
-    [path,fname,extension] = fileparts(inputProblemDef.modelFilename);
-else
-    fname = '0';
-end
-problemDef.modelFilename = fname;
-problemDef.path = pwd;
-problemDef.modelLanguage = inputProblemDef.modelLanguage;
-if isempty(inputProblemDef.modelLanguage)
-    problemDef.modelLanguage = 'matlab';
-end
+problemDef.contrastShifts = inputStruct.contrastShifts;
+problemDef.contrastScales = inputStruct.contrastScales;
+problemDef.contrastNbas = inputStruct.contrastNbas;
+problemDef.contrastNbss = inputStruct.contrastNbss;
+problemDef.contrastRes = contrastRes;
+problemDef.backs = inputStruct.backParVals; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
+problemDef.shifts = inputStruct.qzshifts;
+problemDef.sf = inputStruct.scalefactors;
+problemDef.nba = inputStruct.nbairs;
+problemDef.nbs = inputStruct.nbsubs;
+problemDef.res = inputStruct.resolPars; %inputStruct.resolutions;           % **** note resolPar workaround (todo) ****          
+problemDef.params = inputStruct.params;
+problemDef.numberOfLayers = inputStruct.numberOfLayers;
+problemDef.modelType = inputStruct.modelType;
+problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
+
+% if isfield(inputStruct,'modelFilename')
+%     if ~isempty(inputStruct.modelFilename)
+%         [path,fname,extension] = fileparts(inputStruct.modelFilename);
+%     else
+%         fname = '';
+%         path = pwd;
+%     end
+% else
+%     fname = '';
+%     path = pwd;
+% end
+%     
+% problemDef.modelFilename = fname;
+% problemDef.path = path;
+% 
+% if isfield(inputStruct,'modelLanguage')
+%     if ~isempty(inputStruct.modelLanguage)
+%         problemDef.modelLanguage = inputStruct.modelLanguage;
+%     else
+%         problemDef.modelLanguage = 'matlab';
+%     end
+% else
+%     problemDef.modelLanguage = '';
+% end
     
 problemDef.fitpars = [];
 problemDef.otherpars = [];
@@ -216,92 +391,25 @@ switch inputControls.calcSldDuringFit
         controls.calcSld = 1;
 end
 
-%Also need to deal with the checks...
+controls.resamPars = inputControls.resamPars;% [0.95 10];
+controls.updateFreq = inputControls.updateFreq;
+controls.updatePlotFreq = inputControls.updatePlotFreq;
 
-checks.params_fitYesNo = inputProblemDef.paramFitYesNo;
-checks.backs_fitYesNo = inputProblemDef.backgroundFitYesNo;
-checks.shifts_fitYesNo = inputProblemDef.qzshiftFitYesNo;
-checks.scales_fitYesNo = inputProblemDef.scalefactorFitYesNo;
-checks.nbairs_fitYesNo = inputProblemDef.nbairFitYesNo;
-checks.nbsubs_fitYesNo = inputProblemDef.nbsubFitYesNo;
-checks.resol_fitYesNo = inputProblemDef.resolutionFitYesNo;
+controls.nSamples = inputControls.nSamples;
+controls.nChains = inputControls.nChains;   
+controls.lambda = inputControls.lambda;      
+controls.p_unit_gamma = inputControls.p_unit_gamma;
+controls.boundHandling = inputControls.boundHandling;
+
+%Also need to deal with the checks...
+checks.params_fitYesNo = inputStruct.paramFitYesNo;
+checks.backs_fitYesNo = inputStruct.backParFitYesNo;
+checks.shifts_fitYesNo = inputStruct.qzshiftFitYesNo;
+checks.scales_fitYesNo = inputStruct.scalefactorFitYesNo;
+checks.nbairs_fitYesNo = inputStruct.nbaFitYesNo;
+checks.nbsubs_fitYesNo = inputStruct.nbsFitYesNo;
+checks.resol_fitYesNo = inputStruct.resolFitYesNo;
 
 controls.checks = checks;
-
-
-
-
-
-
-
-
-
-
-
-
-%********* Old API problem structure******
-%              resample: [7×1 double]
-%     numberOfContrasts: 7
-%              geometry: 'Air / Liquid (or solid)'
-%                nbairs: [0 0 0 0 0 0 0]
-%                nbsubs: [0 6.3500e-06 0 6.3500e-06 0 6.3500e-06 6.3500e-06]
-%         contrastBacks: [2 1 2 1 2 1 1]
-%        contrastShifts: [1 1 1 1 1 1 1]
-%        contrastScales: [1 1 1 1 1 1 1]
-%          contrastNbas: [1 1 1 1 1 1 1]
-%          contrastNbss: [2 1 2 1 2 1 1]
-%           contrastRes: [1 1 1 1 1 1 1]
-%                 backs: [2.9718e-06 5.1473e-06]
-%                shifts: 0
-%                    sf: 0.2325
-%                   nba: 0
-%                   nbs: [6.3500e-06 0]
-%                   res: 0.0300
-%           dataPresent: [1 1 1 1 1 1 1]
-%               nParams: 10
-%                params: [6.9950 18.6911 6.9473e-06 3.0000 -2.2818e-07 7.0421 5.8839e-06 3.0000 1.8126e-06 10.0536]
-%        numberOfLayers: 4
-%             whichType: 1
-%            fileHandle: []
-%                  lang: []
-%                module: []
-%               fitpars: [18×1 double]
-%             otherpars: [0×1 double]
-%             fitconstr: [18×2 double]
-%           otherconstr: [0×2 double]
-%             fitConstr: [18×2 double]
-
-
-%old API limits structure....
-% problemDef_limits = 
-% 
-%   struct with fields:
-% 
-%     params: [10×2 double]
-%      backs: [2×2 double]
-%     scales: [0.1000 0.4000]
-%     shifts: [-0.0300 0.0300]
-%        nba: [-1.0000e-05 1.0000e-05]
-%        nbs: [2×2 double]
-%        res: [0.0100 0.0500]
-
-
-
-
-
-
-
-
-
-
-%new API style problem struct....
-
-
-
-
-
-
-
-
 
 end

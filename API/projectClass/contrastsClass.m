@@ -93,7 +93,6 @@ classdef contrastsClass < handle
         end
 
         function obj = removeContrast(obj, whichContrast)
-        
             % Removes a contrast from the list.
 
             % First determine if contrast is being referenced by name or
@@ -162,7 +161,6 @@ classdef contrastsClass < handle
         end
         
         function obj = setContrast(obj, contrastInput, allowedNames, varargin)
-            
             % Set a value within a contrast.
 
             % Find if we are referencing an existing contrast

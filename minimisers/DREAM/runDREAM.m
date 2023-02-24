@@ -1,4 +1,4 @@
-function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDef,problemDef_cells,problemDef_limits,controls,priors,dreamC)
+function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDef,problemDef_cells,problemDef_limits,controls,priors)
 
 % Get the priors for the fitted parameters...
 [problemDef,fitParamNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
@@ -12,34 +12,34 @@ ratInputs.controls = controls;
 ratInputs.priors = priorList;
 
 % Get the parameters from the user
-totalGen = dreamC.nSamples;                 % Total number of generations
-nChains = dreamC.nChains;                   % Number of chains
+totalGen = controls.nSamples;                   % Total number of generations
+nChains = controls.nChains;                     % Number of chains
 
 % Set the relevant parameters for the DREAM sampler....
-DREAMPar.d = length(fitParamNames);         % Dimension of the problem
-DREAMPar.N = nChains;                       % Number of Markov Chains
-DREAMPar.T = ceil(totalGen / nChains);      % Number of generations per chain
-%DREAMPar.lik = 1;                           % Model output is likelihood
+DREAMPar.d = length(fitParamNames);             % Dimension of the problem
+DREAMPar.N = nChains;                           % Number of Markov Chains
+DREAMPar.T = ceil(totalGen / nChains);          % Number of generations per chain
+%DREAMPar.lik = 1;                              % Model output is likelihood
 
 % Parallel or not...
 DREAMPar.parallel = 'no';
 DREAMPar.CPU = 1;
 
 % Jump probabilities...
-DREAMPar.lambda = dreamC.lambda;
-DREAMPar.p_unit_gamma = dreamC.p_unit_gamma;
+DREAMPar.lambda = controls.lambda;
+DREAMPar.p_unit_gamma = controls.p_unit_gamma;
 
 % This will change...
 % Initial sampling and parameter range
-Par_info.prior = 'uniform';             % Latin hypercube sampling
+Par_info.prior = 'uniform';           
 
 Par_info.min = problemDef.fitconstr(:,1)';
 Par_info.max = problemDef.fitconstr(:,2)';
-Par_info.boundhandling = dreamC.boundHandling;
+Par_info.boundhandling = controls.boundHandling;
 
-if dreamC.prior
+%if dreamC.prior
     Par_info.mvnpdf = true;
-end
+%end
 
 % Run the sampler....
 %[chain,output,fx] = rat_DREAM(DREAMPar,Par_info,[],ratInputs);

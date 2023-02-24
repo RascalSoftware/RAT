@@ -397,6 +397,12 @@ controls.resamPars = inputControls.resamPars;% [0.95 10];
 controls.updateFreq = inputControls.updateFreq;
 controls.updatePlotFreq = inputControls.updatePlotFreq;
 
+controls.nSamples = inputControls.nSamples;
+controls.nChains = inputControls.nChains;   
+controls.lambda = inputControls.lambda;      
+controls.p_unit_gamma = inputControls.p_unit_gamma;
+controls.boundHandling = inputControls.boundHandling;
+
 %Also need to deal with the checks...
 checks.params_fitYesNo = inputStruct.paramFitYesNo;
 checks.backs_fitYesNo = inputStruct.backParFitYesNo;

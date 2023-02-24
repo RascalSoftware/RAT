@@ -56,14 +56,14 @@ switch lower(action)
         end
         
         % DEV and debug - this will be moved to controls...
-        dreamC.nSamples = 100000;           % Total number of samples
-        dreamC.nChains = 10;                % Number of MCMC chains..
-        dreamC.lambda = 0.5;                % Jump probabilities
-        dreamC.p_unit_gamma = 0.2;
-        dreamC.boundHandling = 'fold';      % Boundary handling
-        dreamC.prior = true;
+%         dreamC.nSamples = 100000;           % Total number of samples
+%         dreamC.nChains = 10;                % Number of MCMC chains..
+%         dreamC.lambda = 0.5;                % Jump probabilities
+%         dreamC.p_unit_gamma = 0.2;
+%         dreamC.boundHandling = 'fold';      % Boundary handling
+%         dreamC.prior = true;
 
-        [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDef_cells,problemDef_limits,controls,priors,dreamC);
+        [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 end
 
 end

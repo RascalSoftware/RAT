@@ -21,7 +21,7 @@ else
 end
 
 disp('Adding paths Initiated')
-addRatPaths;
+addPaths;
 disp('Adding paths Completed')
 
 allTests = TestSuite.fromFolder('tests','IncludingSubfolders', true);

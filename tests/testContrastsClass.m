@@ -285,6 +285,12 @@ classdef testContrastsClass < matlab.unittest.TestCase
         function testSetContrastModelInvalid(testCase)
             % Test setting a model for a contrast from the contrasts class
             % If the input is invalid we should raise an error
+
+            % Contrast must be recognisable by name or index
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(0, 'standard layers', testCase.layerNames, {'Oxide Layer'}), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(testCase.numContrasts+1, 'standard layers', testCase.layerNames, {'Oxide Layer'}), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Invalid Contrast', 'standard layers', testCase.layerNames, {'Oxide Layer'}), nameNotRecognised.errorID);
+
             testModel = {'Oxide Layer', 'Carbide Layer'};
 
             testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'standard layers', testCase.layerNames, testModel), nameNotRecognised.errorID);
@@ -320,6 +326,25 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, setContrastInput);
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, testContrast, "setContrast does not work correctly");
+        end
+
+        function testSetContrastInvalid(testCase)
+            % Test setting parameter values within a contrast
+            % Contrast must be recognisable by name or index
+
+            setContrastInput = {
+                'name', 'New Contrast', ...
+                'background', 'Background SMW', ...
+                'data', 'Simulation', ...
+                'nbs', 'SLD SMW', ...
+                'resample', true, ...
+                'resolution', 'Test Resolution', ...
+                'scalefactor', 'Test Scalefactor', ...
+                'model', 'Water Layer'};
+
+            testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, setContrastInput), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, setContrastInput), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, setContrastInput), nameNotRecognised.errorID);
         end
 
         function testGetAllContrastNames(testCase)

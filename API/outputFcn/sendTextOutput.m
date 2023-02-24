@@ -1,4 +1,4 @@
-function ratSendTextOutput(text,in2)
+function sendTextOutput(text,in2)
 
 persistent ratOut
 

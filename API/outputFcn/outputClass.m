@@ -1,4 +1,4 @@
-classdef ratOutputClass < handle
+classdef outputClass < handle
     
     % The main RAT output class. It creates a 'ratUpdate' event
     % and then passes update information to any listeners which
@@ -14,12 +14,12 @@ classdef ratOutputClass < handle
 
 	methods
 	   function triggerEvent(obj)
-            notify(obj,'ratUpdate',SpecialEventDataClass(obj.customEventData));
+            notify(obj,'ratUpdate',specialEventDataClass(obj.customEventData));
        end
        
        function set.customEventData(obj,value)
             obj.customEventData = value;  
-            %notify(obj,ratUpdate,SpecialEventDataClass(value)); 
+            %notify(obj,ratUpdate,specialEventDataClass(value)); 
        end
 	end
 end

@@ -154,7 +154,6 @@ if ~isfield(DREAMPar,'restart') || strcmp(DREAMPar.restart,'no')
 
     % Create computing environment (depending whether multi-core is used)
     [DREAMPar] = DREAM_calc_setup(DREAMPar);
-    f_handle = '';% Func_name;
 
     % Now check how the measurement sigma is arranged (estimated or defined)
     Meas_info = Check_sigma(Meas_info); T_start = 2;
@@ -176,7 +175,8 @@ elseif strcmp(DREAMPar.restart,'yes')
 end
 
 % Initialize waitbar. 
-h = waitbar(0,'Running DREAM - Please wait...');  
+textProgressBar('init',0);
+% h = waitbar(0,'Running DREAM - Please wait...');  
 totaccept = 0; tic;
 
 % Now start iteration ...
@@ -233,10 +233,9 @@ for t = T_start : DREAMPar.T
     log_L(t,1:DREAMPar.N+1) = [ t * DREAMPar.N X(1:DREAMPar.N,DREAMPar.d+2)'];
     
     % Update the waitbar. TJP Edit to check for graphical enviro
-    if usejava('desktop')
-        waitbar(t/DREAMPar.T,h);
-    end    
-    
+    % waitbar(t/DREAMPar.T,h);
+    textProgressBar('DREAM: ',t/DREAMPar.T);
+   
     % If t equal to MCMC.steps then convergence checks and updates
     if mod(t,DREAMPar.steps) == 0
         
@@ -287,6 +286,6 @@ output.RunTime = toc;
 [chain,output,fx] = DREAM_end(DREAMPar,Meas_info,chain,output,iteration,iloc);
 
 % Close the waitbar
-if usejava('desktop')
-    close(h);
-end
+textProgressBar('end',1);
+%close(h);
+

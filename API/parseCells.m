@@ -1,4 +1,4 @@
-function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = RAT_parse_cells(problemDef_cells)
+function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDef_cells)
 
 % Splits up the master input list of all arrays into separate arrays
 % The min input array 'problemDef_cells' is a master array where

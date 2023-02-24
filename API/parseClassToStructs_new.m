@@ -1,4 +1,4 @@
-function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(inputProblemDef,inputControls)
+function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs_new(inputProblemDef,inputControls)
 
 % Breaks up the classes into the relevant structures for inputting into C
 

@@ -1,4 +1,4 @@
-function outProblemDef = RATparseOutToProblemDef2(problemDefInput,outProblemStruct,problem,result)
+function outProblemDef = parseOutToProblemDef2(problemDefInput,outProblemStruct,problem,result)
 
 
 %Reconstruct the problemDef class as an output

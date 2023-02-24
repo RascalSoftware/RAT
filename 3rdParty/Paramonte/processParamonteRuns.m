@@ -6,7 +6,7 @@ function [outProblemDef,result,pmpd] = processFits(problem,controls,chainName,ch
 % 
 % controls = controlsDef();
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(problem,controls);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs_new(problem,controls);
 problemDefInput = problemDef;
 
 [problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
@@ -61,6 +61,6 @@ result = mergeStructs(result,bayesResults);
 [~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 result.fitNames = fitNames;
 
-outProblemDef = RATparseOutToProjectClass(problem,problemDef,[],[]);
+outProblemDef = parseOutToProjectClass(problem,problemDef,[],[]);
 
 end

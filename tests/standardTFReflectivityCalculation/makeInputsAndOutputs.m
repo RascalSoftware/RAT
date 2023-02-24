@@ -16,7 +16,7 @@ controlsInput = controlsDef();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customLayersProblem,controlsInput);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs_new(customLayersProblem,controlsInput);
 
 inputs.problemDefInput = customLayersProblem;
 inputs.problemDef = problemDef;
@@ -88,7 +88,7 @@ controlsInput = controlsDef();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customXYProblem,controlsInput);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs_new(customXYProblem,controlsInput);
 
 inputs.problemDefInput = customXYProblem;
 inputs.problemDef = problemDef;
@@ -159,7 +159,7 @@ controlsInput = controlsDef();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(standardProblem,controlsInput);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs_new(standardProblem,controlsInput);
 
 inputs.problemDefInput = standardProblem;
 inputs.problemDef = problemDef;

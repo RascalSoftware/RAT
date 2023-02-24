@@ -7,7 +7,7 @@ if isempty(isInitialised)
 end
 
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(problemDefInput,controls);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs_new(problemDefInput,controls);
 [problemDef,~] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 
 % %Define variable size for code generation
@@ -109,7 +109,7 @@ end
 [~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 result.fitNames = fitNames;
 
-outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result);
+outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct,problem,result);
 
 if ~strcmpi(controls.display,'off')
    ratSendTextOutput(sprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n'));

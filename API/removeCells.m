@@ -1,4 +1,4 @@
-function [problemDef,problemDef_cells,problemDef_limits] = RAT_remove_cells(problemDef,controls)
+function [problemDef,problemDef_cells,problemDef_limits] = removeCells(problemDef,controls)
 
 repeatLayers = problemDef.repeatLayers;
 allData = problemDef.allData;

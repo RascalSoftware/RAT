@@ -15,7 +15,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 % standardTF_custlay_paraContrasts, standardTF_custXY_paraContrasts,
 % standardTF_stanlay_paraPoints, standardTF_custlay_paraPoints,
 % standardTF_custXY_paraPoints,
-% RatParseClasstoStructs_new, RAT_parse_cells, extractProblemParams
+% RatParseClasstoStructs_new, parseCells, extractProblemParams
 % parseResultToStruct, RATParseOutToProjectClass
 %
 % We are using the test cases for a standard TF reflectivity calculation
@@ -343,7 +343,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Test Pre- and Post-Processing Routines
 
         function testRatParseClasstoStructs_new(testCase)
-            [problem, problem_cells, problem_limits, problem_priors, controls_struct] = RatParseClassToStructs_new(testCase.problemDefInput, testCase.controlsInput);
+            [problem, problem_cells, problem_limits, problem_priors, controls_struct] = parseClassToStructs_new(testCase.problemDefInput, testCase.controlsInput);
 
             testCase.verifyEqual(problem, testCase.problemDef, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(problem_cells, testCase.problemDefCells, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -353,7 +353,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testRATParseCells(testCase)
-            [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = RAT_parse_cells(testCase.problemDefCells);
+            [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(testCase.problemDefCells);
 
             testCase.verifyEqual(repeatLayers, testCase.problemDefCells{1}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(allData, testCase.problemDefCells{2}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -406,7 +406,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testRATParseOutToProjectClass(testCase)
-            problemOut = RATparseOutToProjectClass(testCase.problemDefInput, testCase.expectedProblemOutStruct, testCase.expectedProblem, testCase.expectedResult);
+            problemOut = parseOutToProjectClass(testCase.problemDefInput, testCase.expectedProblemOutStruct, testCase.expectedProblem, testCase.expectedResult);
             testCase.verifyEqual(problemOut, testCase.expectedProblemOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 

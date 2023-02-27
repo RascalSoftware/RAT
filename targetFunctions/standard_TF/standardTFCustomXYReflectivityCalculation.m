@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custXY_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
+function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
 
 % Custom XP profile reflectivity calculation for standardTF
 

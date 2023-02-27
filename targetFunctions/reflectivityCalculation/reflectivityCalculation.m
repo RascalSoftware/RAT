@@ -80,7 +80,7 @@ coder.varsize('allLayers{:}',[10000 3],[1 0]);
 whichTF = problemDef.TF;
 switch whichTF
     case 'standardTF'
-        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
     %case 'standardTFAbs'
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
     %case 'oilWaterTF'

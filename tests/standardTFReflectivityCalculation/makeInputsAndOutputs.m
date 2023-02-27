@@ -51,7 +51,7 @@ outputs.resultOut = resultOut;
 save('tests\standardTFReflectivityCalculation\customLayersOutputs','outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -123,7 +123,7 @@ outputs.resultOut = resultOut;
 save('tests\standardTFReflectivityCalculation\customXYOutputs','outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -194,7 +194,7 @@ outputs.resultOut = resultOut;
 save('tests\standardTFReflectivityCalculation\standardLayersOutputs','outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;

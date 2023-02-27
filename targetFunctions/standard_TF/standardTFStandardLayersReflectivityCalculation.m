@@ -1,19 +1,18 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_custLay_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
+function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
 
-% Custom layers reflectivity calculation for standardTF
-
+% Standard layers reflectivity calculation for standardTF
 % This function decides on parallelisation options before calling the
-% relevant version of the main custom layers calculation. It is more
-% efficient to have multiple versions of the core calculation, each dealing
-% with a different scheme for paralellisation. These are:
-% single    - single threaded teflectivity calculation
+% relevant version ofthe main standard layers calculation. Parallelisation 
+% is either over the outer loop ('contrasts'), or the inner loop
+% ('points'). The easiest way to do this is to have multiple versions of 
+% the same core calculation, rather than trying to make the paralell
+% for loops conditional (although that would be much neater) There are:
 % points    - parallelise over points in the reflectivity calculation
-% contrasts - parallelise over contrasts.
-
+% contrasts - parallelise over contrasts (outer for loop)
 
 
 % Pre-allocation - It's necessary to
-% pre-allocate the memory for all the arrays
+% pre-define the types for all the arrays
 % for compilation, so do this in this block.
 numberOfContrasts = problemDef.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
@@ -55,40 +54,32 @@ allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 1 1; 1 1 1];
 end
-% End pre-allocation
+% ------- End type definitions -------------
+
 
 para = controls.para;
 
 switch para
     case 'single'
-            
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = standardTF_custlay_single(problemDef,problemDef_cells,...
-             problemDef_limits,controls);
-        
-    case 'points'
-        
-          [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = standardTF_custlay_paraPoints(problemDef,problemDef_cells,...
+             allRoughs] = standardTF_stanlay_single(problemDef,problemDef_cells,...
              problemDef_limits,controls);
          
-    case 'contrasts'
-        
+     case 'points'
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = standardTF_custlay_paraContrasts(problemDef,problemDef_cells,...
+             allRoughs] = standardTF_stanlay_paraPoints(problemDef,problemDef_cells,...
              problemDef_limits,controls);
 
-%           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
-%              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-%              allRoughs] = dev_custlay_paraContrasts(problemDef,problemDef_cells,...
-%              problemDef_limits,controls);
-            
-        
+    case 'contrasts'
+          [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+             allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,...
+             problemDef_limits,controls);        
 end
 
+% Package everything into one array for tidy output
 problem.ssubs = outSsubs;
 problem.backgrounds = backgs;
 problem.qshifts = qshifts;
@@ -102,3 +93,4 @@ problem.allSubRough = allRoughs;
 problem.resample = problemDef.resample;
 
 end
+

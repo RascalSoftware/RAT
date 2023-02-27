@@ -558,7 +558,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             nameChanged = obj.data.setData(varargin{:});
             
             if ~isempty(nameChanged)
-                obj.contrasts.updateContrastName(nameChanged);
+                obj.contrasts.updateDataName(nameChanged);
             end
         end
         

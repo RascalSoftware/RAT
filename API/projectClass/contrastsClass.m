@@ -274,7 +274,7 @@ classdef contrastsClass < handle
             end
         end
         
-        function obj = updateContrastName(obj,nameChange)
+        function obj = updateDataName(obj,nameChange)
             % Update the "data" parameter in a contrast if the name is
             % changed in the data class.           
             % This function is only really called from projectClass if a
@@ -282,7 +282,7 @@ classdef contrastsClass < handle
             % field of the contrasts and if it matches nameChange.oldName
             % then this is updated to nameChange.newName
             %
-            % contrasts.updateContrastName(nameChange)            
+            % contrasts.updateDataName(nameChange)            
             oldName = nameChange.oldName;
             newName = nameChange.newName;
             

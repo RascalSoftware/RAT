@@ -5,7 +5,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 %
 % In this class, we test:
 % contrastsClass, addContrast, removeContrast, setContrastModel,
-% setContrast, getAllContrastNames, updateContrastName, toStruct,
+% setContrast, getAllContrastNames, updateDataName, toStruct,
 % displayContrastsObject, parseContrastInput
 %
 % We use an example contrasts class from the example calculation
@@ -355,12 +355,12 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyError(@() emptyContrasts.getAllContrastNames, invalidValue.errorID);
         end
 
-        function testUpdateContrastName(testCase)
+        function testUpdateDataName(testCase)
             % Test the rouitine that updates the data entry of the
             % contrast as data names are changed.
 
             nameChanged = struct('oldName', 'Bilayer / H2O', 'newName', 'Test Data Name');
-            testCase.exampleClass.updateContrastName(nameChanged);
+            testCase.exampleClass.updateDataName(nameChanged);
 
             % Get the updated data names
             dataNames = cell(1, testCase.numContrasts);
@@ -368,10 +368,10 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 dataNames{i} = testCase.exampleClass.contrasts{i}.data;
             end
 
-            testCase.verifyEqual(dataNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Test Data Name'}, "updateContrastNames does not work correctly");
+            testCase.verifyEqual(dataNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Test Data Name'}, "updateDataNames does not work correctly");
         end
 
-        function testUpdateContrastNameNotFound(testCase)
+        function testUpdateDataNameNotFound(testCase)
             % Test the routine that updates the data entry of the contrast
             % as data names are changed. If the old name is not found,
             % nothing should happen.
@@ -383,7 +383,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             end
 
             nameChanged = struct('oldName', 'Unused Data Name', 'newName', 'Test Data Name');
-            testCase.exampleClass.updateContrastName(nameChanged);
+            testCase.exampleClass.updateDataName(nameChanged);
 
             % Get the updated data names
             dataNames = cell(1, testCase.numContrasts);
@@ -391,7 +391,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 dataNames{i} = testCase.exampleClass.contrasts{i}.data;
             end
 
-            testCase.verifyEqual(dataNames, oldDataNames, "updateContrastNames does not work correctly");
+            testCase.verifyEqual(dataNames, oldDataNames, "updateDataNames does not work correctly");
         end
 
         function testToStructStandardLayers(testCase)

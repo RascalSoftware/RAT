@@ -99,6 +99,7 @@ classdef contrastsClass < handle
             end
             
             thisContrast = obj.parseContrastInput(allowedNames,inputVals);
+            thisContrast.model = '';
             obj.contrasts{end+1} = thisContrast;
             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
         
@@ -137,13 +138,14 @@ classdef contrastsClass < handle
 
         end
 
-
         function obj = setContrastModel(obj, contrastInput, modelType, allowedNames, varargin)
             % Set the value of the model parameter in a contrast.
             % The expected input is the contrast (specified either by name
             % or index), the model type, the allowed values (either layers
             % for standard layers or custom files for custom models) and a
             % variable muber of arguments for the model itself.
+            % Note that the model can only be set here, and not in
+            % "addContrast" or "setContrast".
             %
             % contrasts.setContrastModel(1, 'standard layers', allowedNames, 'Oxide Model')
             
@@ -225,11 +227,6 @@ classdef contrastsClass < handle
             
             if ~isempty(inputBlock.data)
                 thisContrast.data = inputBlock.data;
-            end
-            
-            if ~isempty(inputBlock.model)
-                warning('Set model using "setContrastModel"')
-                thisContrast.model = {inputBlock.model};
             end
             
             if ~isempty(inputBlock.name)
@@ -489,18 +486,13 @@ classdef contrastsClass < handle
             defaultScalefac = '';
             defaultResol = '';
             defaultResample = false;
-            defaultModel = '';
         
             expectedBacks = cellstr(allowedNames.backsNames);
             expectedData = cellstr(allowedNames.dataNames);
             expectedBulkin = cellstr(allowedNames.bulkInNames);
             expectedBulkout = cellstr(allowedNames.bulkOutNames);
             expectedResols = cellstr(allowedNames.resolsNames);
-            expectedLayers = cellstr(allowedNames.layersNames);
             expectedScalefac = cellstr(allowedNames.scalefacNames);
-            expectedCustom = cellstr(allowedNames.customNames);
-            
-            expectedModel = [expectedLayers, expectedCustom];
         
             p = inputParser;
             addParameter(p,'name',          defaultName,        @ischar);
@@ -511,7 +503,6 @@ classdef contrastsClass < handle
             addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
             addParameter(p,'scalefactor',   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
             addParameter(p,'resample',      defaultResample,    @islogical);
-            addParameter(p,'model',         defaultModel,       @(x) any(validatestring(x,expectedModel)));
                 
             parse(p,inputVals{:});
             inputBlock = p.Results;

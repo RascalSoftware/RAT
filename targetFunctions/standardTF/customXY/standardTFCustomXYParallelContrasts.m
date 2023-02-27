@@ -77,7 +77,7 @@ for i = 1:numberOfContrasts
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
     
 %     thisCustomFile = customFiles{cCustFiles(i)};
-%     [sldProfile,allRoughs(i)] = call_customLayers(params,i,thisCustomFile,nbas,nbss(i),numberOfContrasts);
+%     [sldProfile,allRoughs(i)] = callCustomLayers(params,i,thisCustomFile,nbas,nbss(i),numberOfContrasts);
     
     sldProfiles{i} = sldProf{i};
 
@@ -86,7 +86,7 @@ for i = 1:numberOfContrasts
     layerSlds{i} = layerSld;
     allLayers{i} = layerSld;
 
-    shifted_dat =  shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
+    shifted_dat =  shiftData(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
     shifted_data{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles_realOnly';

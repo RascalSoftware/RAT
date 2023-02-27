@@ -1,6 +1,6 @@
-function sldVal = sldFunc(x,SLD)
+function sldVal = SLDFunction(x,SLD)
 
-% sldVal = sldFunc(x,SLD)
+% sldVal = SLDFunction(x,SLD)
 % SLD = [x rho;....xn rho]
 %   x = value in Angstrom.
 %
@@ -16,7 +16,7 @@ function sldVal = sldFunc(x,SLD)
 % 
 % SLD = sldProfile;
 
-%SLD = getappdata(0,'sldFuncSLD');
+%SLD = getappdata(0,'SLDFunctionSLD');
 
 z = SLD(:,1);
 rho = SLD(:,2);

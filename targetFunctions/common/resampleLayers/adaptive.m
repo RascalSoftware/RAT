@@ -1,4 +1,4 @@
-function out = adaptive_new(sldProfile, startDomain, minAngle, nPoints)
+function out = adaptive(sldProfile, startDomain, minAngle, nPoints)
 %% adaptive: evaluates a matlab function on a given range
 %
 % 'adaptive.m' allows to sample a function using a reduced number of
@@ -373,7 +373,7 @@ newValues = cell(1, no_outputs);
     %[newValues{:}] = func(x(i));
     %y(i,:) = cell2mat(newValues);
     
-    y(i) = sldFunc(x(i),sldProfile);
+    y(i) = SLDFunction(x(i),sldProfile);
   end
 %end
 end

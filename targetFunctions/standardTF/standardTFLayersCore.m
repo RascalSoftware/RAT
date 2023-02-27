@@ -55,7 +55,7 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
 % ------------------------------------------------------------------------
 
 % Bulid up the layers matrix for this contrast
-[theseLayers, ssubs] = groupLayers_Mod(contrastLayers,rough,geometry,nba,nbs);
+[theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,nba,nbs);
 
 % Make the SLD profiles.
 % If resampling is needed, then enforce the calcSLD flag, so as to catch
@@ -81,7 +81,7 @@ else
 end
 
 % Apply scale factors and q shifts to the data
-shifted_dat = shiftdata(sf,qshift,dataPresent,data,dataLimits,simLimits);
+shifted_dat = shiftData(sf,qshift,dataPresent,data,dataLimits,simLimits);
 
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles_realOnly';

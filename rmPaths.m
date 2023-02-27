@@ -1,7 +1,7 @@
 ratRoot = pwd;
 
 ratPaths = {fullfile(ratRoot,'targetFunctions','common');
-    fullfile(ratRoot,'targetFunctions','common','backSorts');
+    fullfile(ratRoot,'targetFunctions','common','backSort');
     fullfile(ratRoot,'targetFunctions','common','callModules');
     fullfile(ratRoot,'targetFunctions','common','callReflectivity');
     fullfile(ratRoot,'targetFunctions','common','chiSquared');

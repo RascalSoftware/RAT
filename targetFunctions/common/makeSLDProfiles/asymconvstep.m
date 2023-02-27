@@ -1,4 +1,4 @@
-function f = Asymconvstep(x,xw,xcen,s1,s2,h)
+function f = asymconvstep(x,xw,xcen,s1,s2,h)
 % Produces a step function convoluted with differnt error functions
 % on each side.
 % Convstep (x,xw,xcen,s1,s2,h)

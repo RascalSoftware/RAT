@@ -1,9 +1,9 @@
-function [outLayers, outSsubs] = groupLayers_Mod(allLayers,allRoughs,geometry,nbair,nbsubs)
+function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,nbair,nbsubs)
 %Arrange layers according to geometry and apply any coverage correction.
 %
 % USAGE::
 %
-%     [outLayers, outSsubs] = groupLayers_Mod(allLayers,allRoughs,numberOfContrasts,geometry,nbairs,nbsubs)
+%     [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,numberOfContrasts,geometry,nbairs,nbsubs)
 %
 % INPUTS:
 %

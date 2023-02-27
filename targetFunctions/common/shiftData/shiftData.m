@@ -1,4 +1,4 @@
-function shifted_data = shiftdata(scalefac,horshift,dataPresent,data,dataLimits,simLimits)
+function shifted_data = shiftData(scalefac,horshift,dataPresent,data,dataLimits,simLimits)
 % Shifts the data according to scale factor. If there is no data, makes 
 % x-data over the simulation range.
 %

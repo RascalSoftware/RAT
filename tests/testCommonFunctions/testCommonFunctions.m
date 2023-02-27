@@ -45,8 +45,8 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         adaptiveOutputs;
         resampleLayersInputs;
         resampleLayersOutputs;
-        sldFuncInputs;
-        sldFuncOutputs;
+        SLDFunctionInputs;
+        SLDFunctionOutputs;
 
         data_resolution_polly_paraPointsInputs;
         data_resolution_polly_paraPointsOutputs;
@@ -136,8 +136,8 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         end
 
         function loadGroupLayersMod(testCase)
-            inputs = load('groupLayers_ModInputs.mat');
-            outputs = load('groupLayers_ModOutputs.mat');
+            inputs = load('groupLayersModInputs.mat');
+            outputs = load('groupLayersModOutputs.mat');
             testCase.groupLayersModInputs = inputs.inputs;
             testCase.groupLayersModOutputs = outputs.outputs;
         end
@@ -184,11 +184,11 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.resampleLayersOutputs = outputs.outputs;
         end
 
-        function loadsldFunc(testCase)
-            inputs = load('sldFuncInputs.mat');
-            outputs = load('sldFuncOutputs.mat');
-            testCase.sldFuncInputs = inputs.inputs;
-            testCase.sldFuncOutputs = outputs.outputs;
+        function loadSLDFunction(testCase)
+            inputs = load('SLDFunctionInputs.mat');
+            outputs = load('SLDFunctionOutputs.mat');
+            testCase.SLDFunctionInputs = inputs.inputs;
+            testCase.SLDFunctionOutputs = outputs.outputs;
         end
 %{
         function loadData_resolution_polly_paraPoints(testCase)
@@ -227,7 +227,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 
         function testShiftData(testCase)
             %testShiftData
-            out1 = shiftdata(testCase.shiftDataInputs{:});
+            out1 = shiftData(testCase.shiftDataInputs{:});
             outputs = {out1};
             testCase.verifyEqual(testCase.shiftDataOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
@@ -308,9 +308,9 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   groupLayers_Mod(testCase)
+            %   groupLayersMod(testCase)
            
-            [out1,out2] = groupLayers_Mod(testCase.groupLayersModInputs{1:end});
+            [out1,out2] = groupLayersMod(testCase.groupLayersModInputs{1:end});
             outputs = {out1,out2};
             testCase.verifyEqual(testCase.groupLayersModOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
@@ -420,7 +420,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             % Example:
             %   adaptive(testCase)
  
-            [out1] = adaptive_new(testCase.adaptiveInputs{1:end});
+            [out1] = adaptive(testCase.adaptiveInputs{1:end});
             outputs = out1; %INTENTIONAL
             testCase.verifyEqual(testCase.adaptiveOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
@@ -451,11 +451,11 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   sldFunc(testCase)
+            %   SLDFunction(testCase)
             
-            out1 = sldFunc(testCase.sldFuncInputs{1:end});
+            out1 = SLDFunction(testCase.SLDFunctionInputs{1:end});
             outputs = {out1};
-            testCase.verifyEqual(testCase.sldFuncOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.SLDFunctionOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
 %{

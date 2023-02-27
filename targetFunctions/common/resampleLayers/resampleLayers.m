@@ -3,7 +3,7 @@ function newSLD = resampleLayers_new(sldProfile,resamPars)
 
 
 % Function handle for adaptive resampling
-% f = @(x) sldFunc(x);
+% f = @(x) SLDFunction(x);
 % 
 x = sldProfile(:,1);
 prof = sldProfile(:,2);
@@ -17,7 +17,7 @@ minAngle = resamPars(1);
 nPoints = resamPars(2);
 
 newX = linspace(xstart,xend,100);
-out = adaptive_new(sldProfile, [xstart xend], minAngle*pi, nPoints);
+out = adaptive(sldProfile, [xstart xend], minAngle*pi, nPoints);
 yy = out{1};
 
 newX = yy(:,1);

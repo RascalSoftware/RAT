@@ -1,4 +1,4 @@
-function [output,sRough] = call_customLayers(params,contrast,thisCustomFile,bulkIn,bulkOut,nContrasts)
+function [output,sRough] = callCustomLayers(params,contrast,thisCustomFile,bulkIn,bulkOut,nContrasts)
 
 % Call a custom layers function
 % This function calls a custom model, which can be in Matlab, Python or

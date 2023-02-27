@@ -85,7 +85,7 @@ for i = 1:numberOfContrasts
     layerSlds{i} = layerSld;
     allLayers{i} = layerSld;
 
-    shifted_dat =  shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
+    shifted_dat =  shiftData(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
     shifted_data{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles_realOnly';

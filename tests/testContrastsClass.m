@@ -336,6 +336,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, testCase.newValues);
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, expectedContrast, "setContrast does not work correctly");
+            testCase.verifyWarning(@() testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, testCase.newValues), '');
         end
 
         function testSetContrastInvalid(testCase)

@@ -215,60 +215,46 @@ classdef contrastsClass < handle
             thisContrast = obj.contrasts{contrastIndex};
 
             % Check to see if the inputs are valid
-            % Do something slightly different if we are setting
-            % model because we have to check a larger array
-            %switch varargin{1}{1}
-                
-                %case 'model'
-%                     modelArray = varargin{1}{2};
-%                     modelArray = cellstr(modelArray);
-%                     for i = 1:length(modelArray)
-%                         if ~strcmpi(modelArray{i},allowedNames.layersNames)
-%                             error('Layer %s is not recognised',modelArray{i});
-%                         end
-%                     end
-%                     thisContrast.model = modelArray;
-                %otherwise
-                    
-                    inputBlock = obj.parseContrastInput(allowedNames,varargin{:});
-                    
-                    if ~isempty(inputBlock.background)
-                        thisContrast.background = inputBlock.background;
-                    end
-                    
-                    if ~isempty(inputBlock.data)
-                        thisContrast.data = inputBlock.data;
-                    end
-                    
-                    if ~isempty(inputBlock.model)
-                        thisContrast.model = {inputBlock.model};
-                    end
-                    
-                    if ~isempty(inputBlock.name)
-                        thisContrast.name = inputBlock.name;
-                    end
-                    
-                    if ~isempty(inputBlock.nba)
-                        thisContrast.nba = inputBlock.nba;
-                    end
-                    
-                    if ~isempty(inputBlock.nbs)
-                        thisContrast.nbs = inputBlock.nbs;
-                    end
-                    
-                    if ~isempty(inputBlock.resolution)
-                        thisContrast.resolution = inputBlock.resolution;
-                    end
-                    
-                    if ~isempty(inputBlock.resample)
-                        thisContrast.resample = inputBlock.resample;
-                    end
-                    
-                    if ~isempty(inputBlock.scalefactor)
-                        thisContrast.scalefactor = inputBlock.scalefactor;
-                    end
-                    
-            %end
+            % Raise a warning if we try to set the model as this should be
+            % done elsewhere
+            inputBlock = obj.parseContrastInput(allowedNames,varargin{:});
+            
+            if ~isempty(inputBlock.background)
+                thisContrast.background = inputBlock.background;
+            end
+            
+            if ~isempty(inputBlock.data)
+                thisContrast.data = inputBlock.data;
+            end
+            
+            if ~isempty(inputBlock.model)
+                warning('Set model using "setContrastModel"')
+                thisContrast.model = {inputBlock.model};
+            end
+            
+            if ~isempty(inputBlock.name)
+                thisContrast.name = inputBlock.name;
+            end
+            
+            if ~isempty(inputBlock.nba)
+                thisContrast.nba = inputBlock.nba;
+            end
+            
+            if ~isempty(inputBlock.nbs)
+                thisContrast.nbs = inputBlock.nbs;
+            end
+            
+            if ~isempty(inputBlock.resolution)
+                thisContrast.resolution = inputBlock.resolution;
+            end
+            
+            if ~isempty(inputBlock.resample)
+                thisContrast.resample = inputBlock.resample;
+            end
+            
+            if ~isempty(inputBlock.scalefactor)
+                thisContrast.scalefactor = inputBlock.scalefactor;
+            end
             
             obj.contrasts{contrastIndex} = thisContrast;
             

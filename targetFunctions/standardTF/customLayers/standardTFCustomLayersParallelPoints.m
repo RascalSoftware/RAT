@@ -68,7 +68,7 @@ case 'matlab'
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 % 
 case 'cpp'
-    [allLayers,allRoughs] = loopCppCustlayWrapper_CustLaypoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    [allLayers,allRoughs] = loopCppCustomLayersWrapperCustomLayersPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
     
     

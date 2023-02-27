@@ -1,36 +1,5 @@
-function [allLayers,allRoughs] =  loopCppCustlayWrapper_CustLaycontrast (cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+function [allLayers,allRoughs] =  loopCppCustomLayersWrapperCustomLayersPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
 shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
-% This is the function that deals with the *C++ Custom User Scripts*.
-% This calls a mex called **testDLL_mex** which is a wrapper for the C++ class Library in **libManager.h**.
-% Library Class uses **dylib.hpp** to load the dynamic library at runtime. The dynamic library would be the 
-% user's custom c++ script compiled into a **DLL/dylib/.so** file.
-%
-%     INPUTS:
-%
-%        * cBacks  :         Which background value is associated with each contrast
-%        * cShifts  :        Which qz_shift value is associated with each contrast
-%        * cScales  :        Which scalefactor value is associated with each contrast
-%        * cNbas  :          Which NBa value is associated with each contrast
-%        * cNbss  :          Which Nbs value is associated with each contrast
-%        * cRes  :           Which resolution value is associated with each contrast
-%        * backs  :          List of all background values.
-%        * shifts  :         List of all qz-shift values
-%        * sf :              List of all scalefactor values
-%        * nba :             List of all nba values
-%        * nbs :             List of all nbs values
-%        * res :             List of all resolution values
-%        * cCustFiles :      
-%        * numberOfContrasts : Number of contrasts
-%        * customFiles :      Cell of all custom user script files
-%        * params :           Structure of all parameters
-%
-%
-%     OUTPUTS:
-%
-%        * allLayers :        Cell of all layers
-%        * allRoughs :        Cell of all roughnesses
-%
-
 
 
     coder.extrinsic('testDLL_mex');

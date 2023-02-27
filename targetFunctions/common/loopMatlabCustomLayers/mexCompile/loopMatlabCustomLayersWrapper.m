@@ -1,4 +1,4 @@
-function [allLayers, allRoughs] = loopMatalbCustlayWrapper_XYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+function [allLayers, allRoughs] = loopMatlabCustomLayersWrapper(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
      shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
  
  %#codegen
@@ -7,7 +7,6 @@ function [allLayers, allRoughs] = loopMatalbCustlayWrapper_XYContrasts(cBacks,cS
  % necessary to deal with typedef problems for the coder if feval is used
  % directly from the main function
  tempAllLayers = cell(numberOfContrasts,1);
- tempAllRoughs = zeros(numberOfContrasts,1);
  allLayers = cell(numberOfContrasts,1);
  allRoughs = zeros(numberOfContrasts,1);
  
@@ -17,11 +16,12 @@ function [allLayers, allRoughs] = loopMatalbCustlayWrapper_XYContrasts(cBacks,cS
  end
  coder.varsize('tempAllLayers{:}',[10000 5],[1 1]);
  
-% Dummy values to allow code generation to proceed....
-for i = 1:numberOfContrasts
-    tempAllLayers{i} = [0 0 0];
-    tempAllRoughs(i) = 1;
-end
+ % Call the Matlab parallel loop for the custom models.....
+ % We do this using feval, which automatically makes this function call
+ % only extrinsic... the loop is then handled in the matlab file (using 
+ % paralell computing toolbox)
+ [tempAllLayers, tempAllRoughs] = feval('loopMatlabCustomLayers',cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
  
  % All the following is intended to be casting from mxArray's to doubles.
  % I'm not sure if all of this is necessary, but it compiles...
@@ -38,3 +38,4 @@ end
  allRoughs = tempAllRoughs;
  
 end
+ 

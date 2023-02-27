@@ -1,4 +1,4 @@
-function [allLayers, allRoughs] = loopMatalbCustlayWrapper_XYSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+function [allLayers, allRoughs] = loopMatlabCustomLayersWrapperXYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
      shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
  
  %#codegen
@@ -19,7 +19,7 @@ function [allLayers, allRoughs] = loopMatalbCustlayWrapper_XYSingle(cBacks,cShif
  
 % Dummy values to allow code generation to proceed....
 for i = 1:numberOfContrasts
-    tempAllLayers{i} = [0 0];
+    tempAllLayers{i} = [0 0 0];
     tempAllRoughs(i) = 1;
 end
  
@@ -38,4 +38,3 @@ end
  allRoughs = tempAllRoughs;
  
 end
- 

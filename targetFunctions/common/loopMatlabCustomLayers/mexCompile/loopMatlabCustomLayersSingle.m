@@ -1,5 +1,5 @@
 
-function [outLayers, allRoughs] = loopMatlabCustomLayers_points(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,...
+function [outLayers, allRoughs] = loopMatlabCustomLayersSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,...
     nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
 
 % This function excecutes in the base Matlab workspace.
@@ -38,7 +38,7 @@ for i = 1:numberOfContrasts
             if thisHydrWhat == 0                 % Bulk out
                 thisBulkHydr = bulkIn;
             else
-                thisBulkHydr = bulkOut;
+                thisBulkHydr = bulkOuts(i);
             end
             newSld = (thisHydration * thisBulkHydr) + ((1-thisHydration) * thisSLD);
             thisSldVal = newSld(1,1);   % Reassignment to keep codegen happy

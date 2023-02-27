@@ -1,4 +1,4 @@
-function [allLayers,allRoughs] =  loopCppCustlayWrapper_XYSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+function [allLayers,allRoughs] =  loopCppCustomLayersWrapperXYSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
 shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
 
 
@@ -83,7 +83,7 @@ end
 % 
 % 
 % 
-% % elsefunction [allLayers,allRoughs] =  loopCppCustlayWrapper_XYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+% % elsefunction [allLayers,allRoughs] =  loopCppCustomLayersWrapperXYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
 % shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
 % 
 % 

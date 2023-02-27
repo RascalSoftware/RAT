@@ -484,7 +484,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and new value to set
             %
             % problem.setResolParValue(1, 5.5e-6);
-            obj.resolution.setResolParValue(varargin);
+            obj.resolution.setResolParValue(varargin{:});
         end
         
         function obj = addResolPar(obj, varargin)
@@ -493,7 +493,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and sigma
             %
             % problem.addResolPar('ResolPar 1', 1e-8, 2.8e-6, 1e-5);
-            obj.resolution.addResolPar(varargin);
+            obj.resolution.addResolPar(varargin{:});
         end
         
         function obj = setResolPar(obj,varargin)
@@ -501,7 +501,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of parameter and keyword/value pairs to set
             %
             % problem.setResolPar(1, 'name', 'ResolPar');
-            obj.resolution.setResolPar(varargin);
+            obj.resolution.setResolPar(varargin{:});
         end
         
         function obj = removeResolPar(obj,varargin)
@@ -519,7 +519,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % up to 4 parameters
             %
             % problem.addResolution('name','constant','par');
-            obj.resolution.addResolution(varargin);
+            obj.resolution.addResolution(varargin{:});
         end
         
         function obj = removeResolution(obj,varargin)
@@ -527,7 +527,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of resolution to remove
             %
             % problem.removeResolution(1);
-            obj.resolution.removeResolution(varargin);
+            obj.resolution.removeResolution(varargin{:});
         end
         
         

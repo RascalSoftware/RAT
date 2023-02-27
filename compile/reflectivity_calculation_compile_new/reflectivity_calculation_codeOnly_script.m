@@ -1,7 +1,7 @@
 % REFLECTIVITY_CALCULATION_CODEONLY_SCRIPT   Generate static library
-%  reflectivity_calculation from reflectivity_calculation.
+%  reflectivityCalculation from reflectivityCalculation.
 % 
-% Script generated from project 'reflectivity_calculation.prj' on 07-Jul-2021.
+% Script generated from project 'reflectivityCalculation.prj' on 07-Jul-2021.
 % 
 % See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.
 
@@ -22,7 +22,7 @@ cfg.CodeFormattingTool = 'MathWorks';
 cfg.RunInitializeFcn = false;
 cfg.DataTypeReplacement = 'CoderTypeDefs';
 
-%% Define argument types for entry-point 'reflectivity_calculation'.
+%% Define argument types for entry-point 'reflectivityCalculation'.
 % ARGS = cell(1,1);
 % ARGS{1} = cell(4,1);
 % ARGS_1_1 = struct;
@@ -131,6 +131,6 @@ cfg.DataTypeReplacement = 'CoderTypeDefs';
 ARGS = makeCompileArgs();
 
 %% Invoke MATLAB Coder.
-codegen -config cfg reflectivity_calculation -args ARGS{1}
+codegen -config cfg reflectivityCalculation -args ARGS{1}
 
 

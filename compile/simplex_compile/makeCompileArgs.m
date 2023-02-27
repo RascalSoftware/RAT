@@ -1,6 +1,6 @@
 function ARGS = makeCompileArgs()
 
-% Define the arguments for compiling reflectivity_calculation
+% Define the arguments for compiling reflectivityCalculation
 % using codegen.
 
 %% Define argument types for entry-point 'reflectivity_calculation'.

@@ -1,7 +1,7 @@
 % REFLECTIVITY_CALCULATION_COMPILE_SCRIPT   Generate MEX-function
-%  reflectivity_calculation_mex from reflectivity_calculation.
+%  reflectivityCalculation_mex from reflectivityCalculation.
 % 
-% Script generated from project 'reflectivity_calculation.prj' on 15-Apr-2021.
+% Script generated from project 'reflectivityCalculation.prj' on 15-Apr-2021.
 % 
 % See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.
 
@@ -16,7 +16,7 @@ cfg.TargetLang = 'C++';
 % Define the input argument types..
 ARGS = makeCompileArgs();
 
-% %% Define argument types for entry-point 'reflectivity_calculation'.
+% %% Define argument types for entry-point 'reflectivityCalculation'.
 % ARGS = cell(1,1);
 % ARGS{1} = cell(4,1);
 % ARGS_1_1 = struct;
@@ -124,5 +124,5 @@ ARGS = makeCompileArgs();
 
 
 %% Invoke MATLAB Coder.
-codegen -config cfg reflectivity_calculation -args ARGS{1}
+codegen -config cfg reflectivityCalculation -args ARGS{1}
 

@@ -18,7 +18,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay_parallel');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custLay_single');
     fullfile(ratRoot,'API');
-    fullfile(ratRoot,'API','reflectivity_calculation');
+    fullfile(ratRoot,'API','reflectivityCalculation');
     fullfile(ratRoot,'tests');
     fullfile(ratRoot,'minimisers','simplex');
     fullfile(ratRoot,'minimisers','generalUtils');

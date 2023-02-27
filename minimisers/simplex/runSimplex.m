@@ -131,6 +131,6 @@ x = simplex_xtransform(xu,params);
 
 problemDef.fitpars = x;
 problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 end

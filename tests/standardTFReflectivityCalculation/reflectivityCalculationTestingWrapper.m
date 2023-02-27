@@ -1,6 +1,6 @@
-function [problem,result] = reflectivity_calculation_testing_wrapper(problemDef,problemDef_cells,problemDef_limits,controls,useCompiled,whichParallel)
+function [problem,result] = reflectivityCalculationTestingWrapper(problemDef,problemDef_cells,problemDef_limits,controls,useCompiled,whichParallel)
 
-% This is a wrapper function for testing 'reflectivity_calculation'. It can
+% This is a wrapper function for testing 'reflectivityCalculation'. It can
 % be made to go down all three calculation types - 'standard layers',
 % 'custom layers' or 'custom XY' depending on the four first inputs.
 %
@@ -25,9 +25,9 @@ controls.para = whichParallel;   % 'contrasts', 'points', 'single'
 
 
 if useCompiled
-    [problem,result] = reflectivity_calculation_mex(problemDef,problemDef_cells,problemDef_limits,controls);
+    [problem,result] = reflectivityCalculation_mex(problemDef,problemDef_cells,problemDef_limits,controls);
 else
-    [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
+    [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 end
 
 

@@ -1,9 +1,9 @@
-function [problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls)
+function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls)
 
-% Dummy reflectivity_calculation_wrapper for compiles
+% Dummy reflectivityCalculationWrapper for compiles
 
 % This is just a wrapper function for choosing between
-% the Matlab and Mex version of reflectivity_calculation.
+% the Matlab and Mex version of reflectivityCalculation.
 % This is for development and will be removed for the 
 % eventual fully compiled toolbox
 
@@ -31,7 +31,7 @@ function [problem,result] = reflectivity_calculation_wrapper(problemDef,problemD
 % 
 %  switch type
 %      case 'mex'
-%         [problem,result] = reflectivity_calculation_mex(problemDef,problemDef_cells,problemDef_limits,controls);
+%         [problem,result] = reflectivityCalculation_mex(problemDef,problemDef_cells,problemDef_limits,controls);
 %      otherwise
-        [problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
+        [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 %end

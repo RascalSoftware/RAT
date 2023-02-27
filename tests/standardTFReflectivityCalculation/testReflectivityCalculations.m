@@ -177,7 +177,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % reflectivity calculation
             % Note that the routine is always set to choose the "mex"
             % version of the reflectivity calculation
-            [problem, result] = reflectivity_calculation_wrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+            [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -191,7 +191,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % contrasts) versions of the calculation, using both the MATLAB
             % and comiled (MEX) versions of each.
             
-            [problem, result] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls, useCompiled, whichParallel);
+            [problem, result] = reflectivityCalculationTestingWrapper(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls, useCompiled, whichParallel);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);

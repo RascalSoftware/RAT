@@ -1,14 +1,15 @@
 
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = standardTF_stanlay_paraContrasts(problemDef,problemDef_cells,...
+    allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDef_cells,...
     problemDef_limits,controls)
-% Standard Layers calculation paralelised over the outer loop
+% Standard Layers calculation paralelised over the inner loop
 % This is the main reflectivity calculation of the standard layers
 % calculation type. It extracts the required paramters for the contrasts
 % from the input arrays, then passes the main calculation to
 % 'standardLayersCore', which carries out the calculation iteslf. 
 % The core calculation is common for both standard and custom layers.
+
 
 % Extract individual cell arrays
 [repeatLayers,...
@@ -62,11 +63,11 @@ end
 % to be done once, and so is done outside the contrasts loop
 outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 
-% Resample parameters is required
+% Resample params if required
 resamPars = controls.resamPars;
 
-% Parallel loop over all the contrasts
-parfor i = 1:numberOfContrasts
+% Loop over all the contrasts
+for i = 1:numberOfContrasts
     
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
@@ -94,7 +95,7 @@ parfor i = 1:numberOfContrasts
     % Now call the core standardTF_stanlay reflectivity calculation
     % In this case we are single cored, so we do not parallelise over
     % points
-    paralellPoints = 'single';
+    paralellPoints = 'points';
     
     % Call the core layers calculation
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,...

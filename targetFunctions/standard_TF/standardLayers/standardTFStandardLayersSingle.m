@@ -1,8 +1,14 @@
 
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = standardTF_stanlay_paraAll(problemDef,problemDef_cells,...
+    allRoughs] = standardTFStandardLayersSingle(problemDef,problemDef_cells,...
     problemDef_limits,controls)
+% Single theraded version of the Standard Layers calculation 
+% This is the main reflectivity calculation of the standard layers
+% calculation type. It extracts the required paramters for the contrasts
+% from the input arrays, then passes the main calculation to
+% 'standardLayersCore', which carries out the calculation iteslf. 
+% The core calculation is common for both standard and custom layers.
 
 
 % Extract individual cell arrays
@@ -11,17 +17,17 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  dataLimits,...
  simLimits,...
  contrastLayers,...
- layersDetails] = parseCells(problemDef_cells);
+ layersDetails...
+ customFiles] = parseCells(problemDef_cells);
 
-% Extract individual parameters from problemDef
+% Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-numberOfLayers, resample, backsType] =  extractProblemParams(problemDef);
+numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
 
-calcSld = controls.calcSld;   
+calcSld = controls.calcSld;      
 
 % Allocate the memory for the output arrays before the main loop
-%   --- Begin memory allocation ---
 backgs = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
 sfs = zeros(numberOfContrasts,1);
@@ -47,9 +53,9 @@ end
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 ; 1];
+    allLayers{i} = [1 1 1; 1 1 1];
 end
-% ---end memory allocation---
+% end memory allocation.
 
 
 % First we need to allocate the absolute values of the input
@@ -57,8 +63,11 @@ end
 % to be done once, and so is done outside the contrasts loop
 outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 
-% Parallel over all the contrasts
-parfor i = 1:numberOfContrasts
+% Resample params if requiired
+resamPars = controls.resamPars;
+
+% Loop over all the contrasts
+for i = 1:numberOfContrasts
     
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
@@ -84,15 +93,16 @@ parfor i = 1:numberOfContrasts
     thisBacksType = backsType(i);
     
     % Now call the core standardTF_stanlay reflectivity calculation
-    % In this case we parallelise over points.
-    paralellPoints = 'points';
+    % In this case we are single cored, so we do not parallelise over
+    % points
+    paralellPoints = 'single';
     
-    % Call the calculation
-    [sldProfile,reflect,Simul,shifted_dat,layerSld,...
+    % Call the core layers calculation
+    [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,...
         thisChiSquared,thisSsubs] = standardTFLayersCore(thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,paralellPoints);
+    thisBackground,thisResol,thisBacksType,nParams,paralellPoints,resamPars);
    
     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 
@@ -112,6 +122,14 @@ parfor i = 1:numberOfContrasts
     nbss(i) = thisNbs;
     resols(i) = thisResol;
     allRoughs(i) = thisRough;
+    allLayers{i} = resampledLayers;
 end
 
 end
+
+
+
+
+
+
+

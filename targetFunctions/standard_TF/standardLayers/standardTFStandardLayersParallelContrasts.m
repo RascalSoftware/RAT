@@ -1,15 +1,14 @@
 
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = standardTF_stanlay_single(problemDef,problemDef_cells,...
+    allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDef_cells,...
     problemDef_limits,controls)
-% Single theraded version of the Standard Layers calculation 
+% Standard Layers calculation paralelised over the outer loop
 % This is the main reflectivity calculation of the standard layers
 % calculation type. It extracts the required paramters for the contrasts
 % from the input arrays, then passes the main calculation to
 % 'standardLayersCore', which carries out the calculation iteslf. 
 % The core calculation is common for both standard and custom layers.
-
 
 % Extract individual cell arrays
 [repeatLayers,...
@@ -53,7 +52,7 @@ end
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 1 1; 1 1 1];
+    allLayers{i} = [1 1 ; 1 1];
 end
 % end memory allocation.
 
@@ -63,11 +62,11 @@ end
 % to be done once, and so is done outside the contrasts loop
 outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 
-% Resample params if requiired
+% Resample parameters is required
 resamPars = controls.resamPars;
 
-% Loop over all the contrasts
-for i = 1:numberOfContrasts
+% Parallel loop over all the contrasts
+parfor i = 1:numberOfContrasts
     
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
@@ -126,10 +125,3 @@ for i = 1:numberOfContrasts
 end
 
 end
-
-
-
-
-
-
-

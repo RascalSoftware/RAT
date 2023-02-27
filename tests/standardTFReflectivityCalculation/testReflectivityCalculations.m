@@ -11,10 +11,10 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 % standardTFCustomLayersReflectivityCalculation,
 % standardTFCustomXYReflectivityCalculation, 
 % standardTFStandardLayersSingle, standardTFCustomLayersSingle,
-% standardTF_custXY_single, standardTFStandardLayersParallelContrasts,
-% standardTFCustomLayersParallelContrasts, standardTF_custXY_paraContrasts,
+% standardTFCustomXYSingle, standardTFStandardLayersParallelContrasts,
+% standardTFCustomLayersParallelContrasts, standardTFCustomXYParallelContrasts,
 % standardTFStandardLayersParallelPoints, standardTFCustomLayersParallelPoints,
-% standardTF_custXY_paraPoints,
+% standardTFCustomXYParallelPoints,
 % RatParseClasstoStructs_new, parseCells, extractProblemParams
 % parseResultToStruct, RATParseOutToProjectClass
 %
@@ -245,7 +245,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_custXY_single(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFCustomXYSingle(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
             end
 
@@ -282,7 +282,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_custXY_paraContrasts(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFCustomXYParallelContrasts(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
             end
 
@@ -319,7 +319,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_custXY_paraPoints(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFCustomXYParallelPoints(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
             end
 

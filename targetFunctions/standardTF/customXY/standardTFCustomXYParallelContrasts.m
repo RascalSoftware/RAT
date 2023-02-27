@@ -1,10 +1,7 @@
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = standardTF_custXY_paraPoints(problemDef,problemDef_cells,...
+    allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDef_cells,...
     problemDef_limits,controls)
-
-% Multi threaded version of the custom XY profile over reflectivity points
-% for standardTF reflectivity calculation. 
 
 
 % Extract individual cell arrays
@@ -40,37 +37,36 @@ reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
-%coder.varsize('reflectivity{:}',[10000 2],[1 0]);
+coder.varsize('reflectivity{:}',[10000 2],[1 0]);
 
 Simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     Simulation{i} = [1 1 ; 1 1];
 end
-%coder.varsize('Simulation{:}',[10000 2],[1 0]);
-
-allLayers = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    allLayers{i} = [1 ; 1];
-end
+coder.varsize('Simulation{:}',[10000 2],[1 0]);
 sldProf = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     sldProf{i} = [1 ; 1];
+end
+allLayers = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    allLayers{i} = [1 ; 1];
 end
 sldProfiles = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     sldProfiles{i} = [1 ; 1];
 end
-%coder.varsize('allLayers{:}',[10000 3],[1 1]);
-    % Depending on custom layer language we change the functions used
+coder.varsize('allLayers{:}',[10000 3],[1 1]);
+% Depending on custom layer language we change the functions used
 lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
 switch lang 
 case 'matlab'
     % Call the Matlab parallel loop to process the custom models.....
-    [sldProf, allRoughs] = loopMatalbCustlayWrapper_XYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    [sldProf, allRoughs] = loopMatalbCustlayWrapper_XYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 % 
 case 'cpp'
-    [sldProf,allRoughs] = loopCppCustlayWrapper_XYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    [sldProf,allRoughs] = loopCppCustlayWrapper_XYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
     
     
@@ -89,11 +85,12 @@ for i = 1:numberOfContrasts
     layerSld = resampleLayers(sldProfiles{i},resamPars);
     layerSlds{i} = layerSld;
     allLayers{i} = layerSld;
+
     shifted_dat =  shiftdata(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
     shifted_data{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles_realOnly';
-    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'points',reflectivityType);
+    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'single',reflectivityType);
     
     [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgs(i),backsType(i));
     

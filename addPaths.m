@@ -39,10 +39,10 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'compile','DE_compile');
 
     fullfile(ratRoot,'targetFunctions','reflectivityCalculation');
-    fullfile(ratRoot,'targetFunctions','standard_TF');
-    fullfile(ratRoot,'targetFunctions','standard_TF','standardLayers');
-    fullfile(ratRoot,'targetFunctions','standard_TF','customLayers');
-    fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custXY');    
+    fullfile(ratRoot,'targetFunctions','standardTF');
+    fullfile(ratRoot,'targetFunctions','standardTF','standardLayers');
+    fullfile(ratRoot,'targetFunctions','standardTF','customLayers');
+    fullfile(ratRoot,'targetFunctions','standardTF','customXY');    
     
     fullfile(ratRoot,'API');
     fullfile(ratRoot,'API','outputFcn');

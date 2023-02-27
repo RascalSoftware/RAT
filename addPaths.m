@@ -40,8 +40,8 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
 
     fullfile(ratRoot,'targetFunctions','reflectivityCalculation');
     fullfile(ratRoot,'targetFunctions','standard_TF');
-    fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_stanLay');
-    fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custLay');
+    fullfile(ratRoot,'targetFunctions','standard_TF','standardLayers');
+    fullfile(ratRoot,'targetFunctions','standard_TF','customLayers');
     fullfile(ratRoot,'targetFunctions','standard_TF','standardTF_custXY');    
     
     fullfile(ratRoot,'API');

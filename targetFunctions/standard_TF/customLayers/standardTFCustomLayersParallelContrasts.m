@@ -1,12 +1,16 @@
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = standardTF_custlay_single(problemDef,problemDef_cells,...
+    allRoughs] = standardTFCustomLayersParallelContrasts(problemDef,problemDef_cells,...
     problemDef_limits,controls)
-% Single threaded version of the custom layers, standardTF reflectivity
-% calculation. The function extracts the relevant parameters from the input
+% Multi threaded version of the custom layers over reflectivity contrasts for standardTF reflectivity calculation. 
+% The function extracts the relevant parameters from the input
 % arrays, allocates these on a pre-contrast basis, then calls the 'core' 
 % calculation (the core layers standardTf calc is shared between multiple
 % calculation types).
+% This differs from the other two paralellisations in that the custom model
+% files are processed in a paralell loop (using the Matlab Paralell
+% Computing Toolbox) outside the main loop, before the main loop is then processed
+% in the compiled version using OpenMP.
 
 
 % Extract individual cell arrays
@@ -55,37 +59,37 @@ allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
+coder.varsize('allLayers{:}',[1000,5],[1,1]);
+
 
 %   --- End Memory Allocation ---
 
-% Resampling parameters
+
+
 resamPars = controls.resamPars;
 
 % Depending on custom layer language we change the functions used
 lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
+
 switch lang 
 case 'matlab'
     % Call the Matlab parallel loop to process the custom models.....
-    [allLayers, allRoughs] = loopMatalbCustlayWrapper_CustLaysingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    [allLayers, allRoughs] = loopMatalbCustlayWrapper_CustLaycontrast(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 case 'cpp'
-    [allLayers,allRoughs] = loopCppCustlayWrapper_CustLaysingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params); 
+    [allLayers,allRoughs] = loopCppCustlayWrapper_CustLaycontrast(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 end
 
-
-% Single cored over all contrasts
-for i = 1:numberOfContrasts
-    
+% Multi cored over all contrasts
+parfor i = 1:numberOfContrasts
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
     % First need to decide which values of the backrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
-    
     % Get the custom layers output for this contrast
     thisContrastLayers = allLayers{i};
-
     % For the other parameters, we extract the correct ones from the input
     % arrays
     thisRough = allRoughs(i);      

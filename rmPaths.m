@@ -9,7 +9,6 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','makeSLDProfiles');
     fullfile(ratRoot,'targetFunctions','common','shiftData');
     fullfile(ratRoot,'targetFunctions','common','unpackParams');
-    fullfile(ratRoot,'targetFunctions','common','legacyChanges');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
     fullfile(ratRoot,'targetFunctions','common','matlabEngineCaller_customLayers');
     fullfile(ratRoot,'targetFunctions','standardTF');

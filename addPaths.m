@@ -26,7 +26,6 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','groupLayers');
     fullfile(ratRoot,'targetFunctions','common','makeSLDProfiles');
     fullfile(ratRoot,'targetFunctions','common','shiftData');
-    fullfile(ratRoot,'targetFunctions','common','legacyChanges');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
     % fullfile(ratRoot,'targetFunctions','common','callCustomLayers');
     % fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');

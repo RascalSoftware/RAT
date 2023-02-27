@@ -1,4 +1,4 @@
-function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)
+function out = abelesParallelPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)
 
 	
 % nbair = nbairs(thisCont);

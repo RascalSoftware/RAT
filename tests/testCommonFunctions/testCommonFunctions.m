@@ -156,16 +156,16 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.makeSLDProfileXYOutputs = outputs.outputs;
         end
 
-        function loadabeles_paraPoints(testCase)
-            inputs = load('abeles_paraPointsInputs.mat');
-            outputs = load('abeles_paraPointsOutputs.mat');
+        function loadabelesParallelPoints(testCase)
+            inputs = load('abelesParallelPointsInputs.mat');
+            outputs = load('abelesParallelPointsOutputs.mat');
             testCase.abelesParaPointsInputs = inputs.inputs;
             testCase.abelesParaPointsOutputs = outputs.outputs;
         end
 
-        function loadabeles_single(testCase)
-            inputs = load('abeles_singleInputs.mat');
-            outputs = load('abeles_singleOutputs.mat');
+        function loadabelesSingle(testCase)
+            inputs = load('abelesSingleInputs.mat');
+            outputs = load('abelesSingleOutputs.mat');
             testCase.abelesSingleInputs = inputs.inputs;
             testCase.abelesSingleOutputs = outputs.outputs;
         end
@@ -381,9 +381,9 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   abeles_paraPoints(testCase)
+            %   abelesParallelPoints(testCase)
 
-            out1 = abeles_paraPoints(testCase.abelesParaPointsInputs{1:end});
+            out1 = abelesParallelPoints(testCase.abelesParaPointsInputs{1:end});
             outputs = {out1};
 
             testCase.verifyEqual(testCase.abelesParaPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -400,9 +400,9 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   abeles_single(testCase)
+            %   abelesSingle(testCase)
             
-            out1 = abeles_single(testCase.abelesSingleInputs{1:end});
+            out1 = abelesSingle(testCase.abelesSingleInputs{1:end});
             outputs = {out1};
             testCase.verifyEqual(testCase.abelesSingleOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 

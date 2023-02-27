@@ -1,4 +1,4 @@
-function out = abeles_single(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)
+function out = abelesSingle(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)
 
 	
 % nbair = nbairs(thisCont);

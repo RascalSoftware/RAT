@@ -58,7 +58,7 @@ switch refType
                 % Parallelise over points
                 
                 % Calculate reflectivity....
-                simRef = abeles_paraPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
+                simRef = abelesParallelPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
                 
                 % Apply resolution
                 
@@ -76,7 +76,7 @@ switch refType
                 % Single cored over points
                 
                 % Calculate reflectivity.....
-                simRef = abeles_single(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
+                simRef = abelesSingle(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
                 
                 % Apply resolution correction...
                 if res == -1

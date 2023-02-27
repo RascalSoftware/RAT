@@ -250,10 +250,6 @@ end
 dataClass = r2Problem.data;         % Data class object
 contrasts = r2Problem.contrasts;    % Contrasts class object
 
-% Ensure contrasts table has been built (normally only happens when
-% contrast class is displayed
-r2Problem.contrasts.makeContrastsTable();
-
 numberOfContrasts = contrasts.numberOfContrasts;
 r1Problem.numberOfContrasts = numberOfContrasts;
 
@@ -276,7 +272,6 @@ data = cell(numberOfContrasts,1);
 contrastNames = cell(numberOfContrasts,1);
 contrastFiles = cell(numberOfContrasts,1);
 dataPath = {};
-contrastTable = table2cell(contrasts.contrastsTable);
 
 for i = 1:numberOfContrasts
     thisContrast = contrasts.contrasts{i};

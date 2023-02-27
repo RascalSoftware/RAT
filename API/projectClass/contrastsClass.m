@@ -4,7 +4,6 @@ classdef contrastsClass < handle
     % simulation
     
     properties
-        contrastsTable
         contrasts = {}
     end
 
@@ -412,14 +411,7 @@ classdef contrastsClass < handle
         function displayContrastsObject(obj)
             % Display the contrasts object as a table.
             %
-            % contrasts.displayContrastsObject()
-            makeContrastsTable(obj);
-            fprintf('    Constrasts: ---------------------------------------------------------------------------------------------- \n\n');
-            disp(obj.contrastsTable);
-        end
-        
-        function obj = makeContrastsTable(obj)
-            
+            % contrasts.displayContrastsObject()           
             nContrasts = obj.numberOfContrasts;
             maxModelSize = 1;
             
@@ -486,8 +478,8 @@ classdef contrastsClass < handle
             thisTable(:,:) = contrastsCell;
             valTable = table(p);
             totalTable = [valTable thisTable];
-            obj.contrastsTable = totalTable;
-            
+            fprintf('    Constrasts: ---------------------------------------------------------------------------------------------- \n\n');
+            disp(totalTable);
         end
 
     end

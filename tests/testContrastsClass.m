@@ -237,9 +237,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
         function testInitialiseContrastsClass(testCase)
             testClass = contrastsClass();
-
             testCase.verifyEqual(testClass.contrasts, {}, "contrastsClass does not initialise correctly");
-            testCase.verifyEqual(testClass.contrastsTable, [], "contrastsClass does not initialise correctly");
         end
 
         function testAddContrast(testCase, contrastInput, changedFields)

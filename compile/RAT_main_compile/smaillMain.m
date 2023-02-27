@@ -7,6 +7,6 @@ problemDef_limits = i.problemDef_limits;
 priors = i.priors;
 controls = i.controls;
 
-[outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[outProblemStruct,problem,result,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 
 

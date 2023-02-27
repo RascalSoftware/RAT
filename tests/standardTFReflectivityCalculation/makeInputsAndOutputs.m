@@ -34,7 +34,7 @@ save('tests\standardTFReflectivityCalculation\customLayersInputs','inputs');
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;
@@ -106,7 +106,7 @@ save('tests\standardTFReflectivityCalculation\customXYInputs','inputs');
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;
@@ -177,7 +177,7 @@ save('tests\standardTFReflectivityCalculation\standardLayersInputs','inputs');
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;

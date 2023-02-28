@@ -1,4 +1,4 @@
-function CR = Draw_CR(DREAMPar,pCR);
+function CR = Draw_CR(DREAMPar,pCR)
 % Generates CR values based on current crossover probabilities
 
 switch DREAMPar.adapt_pCR
@@ -13,7 +13,7 @@ switch DREAMPar.adapt_pCR
         r = randperm(DREAMPar.N * DREAMPar.steps);
         
         % Then generate CR values for each chain
-        for zz = 1:DREAMPar.nCR,
+        for zz = 1:DREAMPar.nCR
             
             % Define start and end
             i_start = L2(1,zz) + 1; i_end = L2(1,zz+1);
@@ -24,7 +24,7 @@ switch DREAMPar.adapt_pCR
             % Assign these indices DREAMPar.CR(zz)
             CR(idx,1) = zz/DREAMPar.nCR;
             
-        end;
+        end
         
         % Now reshape CR
         CR = reshape(CR,DREAMPar.N,DREAMPar.steps);

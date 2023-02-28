@@ -18,14 +18,7 @@ if strcmp(DREAMPar.parallel,'no')
     % We use 1 CPU (processor)
     DREAMPar.CPU = 1;
 else
-
-
-    currenPool = gcp;
-    if isempty(gcp)
-        parpool;
-        currenPool = gcp;
-    end
-    DREAMPar.CPU = currenPool.NumWorkers;
+    DREAMPar.CPU = 0;% Treat this now as a flag - 0 is parfor.        currenPool.NumWorkers;
 
 
     % If input/output writing is done we need directories for each worker

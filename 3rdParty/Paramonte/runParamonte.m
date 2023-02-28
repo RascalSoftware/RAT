@@ -1,4 +1,4 @@
-function [outProblemDef,results,outPmpd] = RAT_runParamonte(problem,inputControls,pmPars)
+function [outProblemDef,results,outPmpd] = runParamonte(problem,inputControls,pmPars)
 
 global logFunc;
 
@@ -20,7 +20,7 @@ rng('default');
 %controls.para = 'points';
 
 % Make an instance of the paramonte objective function class
-logFunc = ratPmLogFunc();
+logFunc = pmLogFunction();
 
 [problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemDef_cells,problemDef_limits,priors,controls.checks);
 nDims = length(problemDef.fitpars);

@@ -1,4 +1,4 @@
-classdef ratPmLogFunc
+classdef pmLogFunction
 
     properties 
         

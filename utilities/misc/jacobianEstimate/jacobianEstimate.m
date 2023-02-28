@@ -1,6 +1,6 @@
-function [jac,err] = jacobianest(fun,x0)
+function [jac,err] = jacobianEstimate(fun,x0)
 % gradest: estimate of the Jacobian matrix of a vector valued function of n variables
-% usage: [jac,err] = jacobianest(fun,x0)
+% usage: [jac,err] = jacobianEstimate(fun,x0)
 %
 % 
 % arguments: (input)
@@ -27,7 +27,7 @@ function [jac,err] = jacobianest(fun,x0)
 %  ydata = 1+2*exp(0.75*xdata);
 %  fun = @(c) ((c(1)+c(2)*exp(c(3)*xdata)) - ydata).^2;
 %
-%  [jac,err] = jacobianest(fun,[1 1 1])
+%  [jac,err] = jacobianEstimate(fun,[1 1 1])
 %
 %  jac =
 %           -2           -2            0

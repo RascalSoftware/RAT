@@ -88,7 +88,7 @@ problem.setBulkOut(2,'fit',false);
 %%
 
 % Make the controls class...
-controls = controlsDef();
+controls = controlsClass();
 controls.parallel = 'points';
 controls.procedure = 'bayes';
 controls.nsimu = 30000;

@@ -7,8 +7,8 @@ if ~isa(pmPars,'pmPars')
     error('Third input must be a ''pmPars'' object');
 elseif ~isa(problem,'projectClass')
     error('First input must be a ''projectClass'' object');
-elseif ~isa(inputControls,'controlsDef')
-    error('Second input must be a ''controlsDef'' object');
+elseif ~isa(inputControls,'controlsClass')
+    error('Second input must be a ''controlsClass'' object');
 end
 
 

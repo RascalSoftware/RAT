@@ -139,7 +139,7 @@ problem.setScalefactor(1,'fit',true);
 problem
 
 % Make the controls class...
-controls = controlsDef();
+controls = controlsClass();
 % controls.calcSldDuringFit = 'no';
 % controls.procedure = 'bayes';
 % controls.parallel = 'contrasts';

@@ -1,5 +1,5 @@
 
-function newSLD = resampleLayers_new(sldProfile,resamPars)
+function newSLD = resampleLayers(sldProfile,resamPars)
 
 
 % Function handle for adaptive resampling

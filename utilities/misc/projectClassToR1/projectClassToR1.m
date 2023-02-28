@@ -410,7 +410,7 @@ r1Problem.repeatLayers = contrastRepeatSLDs;
 % Finally need to actually fill in some calculation results in the r1
 % model. We can do this using RAT...
 
-controls = controlsDef;
+controls = controlsClass;
 controls.display = 'off';
 [~,results] = RAT(r2Problem,controls);
 

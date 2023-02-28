@@ -1,5 +1,4 @@
-classdef controlsDef < matlab.mixin.CustomDisplay
-    
+classdef controlsClass < matlab.mixin.CustomDisplay
     
     properties
         

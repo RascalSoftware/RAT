@@ -330,7 +330,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 %            firstArg = testCase.jacobianEstInputs{1};
 %            secondArg = testCase.jacobianEstInputs{2};
 %             
-%            outputs = jacobianest(firstArg,secondArg);
+%            outputs = jacobianEstimate(firstArg,secondArg);
 %
 %            testCase.verifyEqual(testCase.jacobianEstOutputs,outputs);
 %        end

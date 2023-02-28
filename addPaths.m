@@ -16,10 +16,10 @@
 ratRoot = pwd;  % Returns base RAT directory
 
 ratPaths = {
-    
+
     fullfile(ratRoot,'API');
-    fullfile(ratRoot,'API','controlsDef');
-    fullfile(ratRoot,'API','outputFcn');
+    fullfile(ratRoot,'API','controlsClass');
+    fullfile(ratRoot,'API','outputFunction');
     fullfile(ratRoot,'API','projectClass');
 
     fullfile(ratRoot,'compile','DE_compile');
@@ -69,7 +69,7 @@ ratPaths = {
     fullfile(ratRoot,'utilities','misc','projectClassToR1');
     fullfile(ratRoot,'utilities','plotting');
 
-    fullfile(ratRoot,'3rdParty','Paramonte');
+    fullfile(ratRoot,'3rdParty','paramonte');
     
 };
 

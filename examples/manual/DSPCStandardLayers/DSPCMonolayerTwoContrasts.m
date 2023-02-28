@@ -102,7 +102,7 @@ problem.setScalefactor(1,'fit',true);
 problem
 
 % Make the controls class...
-controls = controlsDef();
+controls = controlsClass();
 
 [problem,results] = RAT(problem,controls);
 

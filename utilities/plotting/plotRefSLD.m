@@ -2,7 +2,7 @@ function plotRefSLD(problem,result)
 
 
 % Convert the problem class to a struct.
-controls = controlsDef();
+controls = controlsClass();
 modelType = problem.modelType;
 [problemDef,~,~,~,~] = parseClassToStructs(problem,controls);
 

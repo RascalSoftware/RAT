@@ -256,7 +256,7 @@ problem.setUsePriors(true);
 problem.setParamPrior('Bilayer heads thick','gaussian',10,0.2);
 problem.setParamPrior('Bilayer heads sld','gaussian',1.4e-6,2e-7)          
           
-% controls = controlsDef;
+% controls = controlsClass;
 % controls.procedure = 'bayes';
 % controls.calcSldDuringFit = 'no';
 % controls.nsimu = 5000;

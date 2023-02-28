@@ -99,7 +99,7 @@ disp('debug');
 %%
 
 % Make a controls block
-controls = controlsDef();
+controls = controlsClass();
 controls.parallel = 'points';
 
 %%

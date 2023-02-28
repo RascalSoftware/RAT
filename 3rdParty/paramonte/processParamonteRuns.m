@@ -4,7 +4,7 @@ function [outProblemDef,result,pmpd] = processFits(problem,controls,chainName,ch
 % problem = load(name);
 % problem = problem.twentyMNProblem;
 % 
-% controls = controlsDef();
+% controls = controlsClass();
 
 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(problem,controls);
 problemDefInput = problemDef;

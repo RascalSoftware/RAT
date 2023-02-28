@@ -1,4 +1,4 @@
-function [outSLD,sub_rough] = DPPC_customXY(params,bulkIn,bulkOut,contrast)
+function [outSLD,sub_rough] = DPPCCustomXY(params,bulkIn,bulkOut,contrast)
 
 % We need to load in the existing
 % DPPC number densities and

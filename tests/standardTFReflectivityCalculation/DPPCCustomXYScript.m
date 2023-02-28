@@ -1,4 +1,4 @@
-function problem = DPPC_custXY_script()
+function problem = DPPCCustomXYScript()
 
 %%
 % Start by making an empty project
@@ -34,7 +34,7 @@ problem.setBulkOut(1,'fit',true,'min',5e-6);
 
 %%
 % Now add the custom file to the project..
-problem.addCustomFile('DPPC Model','DPPC_customXY.m','matlab','../../');
+problem.addCustomFile('DPPC Model','DPPCCustomXY.m','matlab','../../');
 
 
 %% 

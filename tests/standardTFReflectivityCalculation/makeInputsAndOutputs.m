@@ -10,7 +10,7 @@
 %%
 % 1. Custom Layers.
 ratRoot = getappdata(0,'ratRoot');
-customLayersProblem = orsoDSPC_custLay_script();
+customLayersProblem = orsoDSPCCustomLayers();
 controlsInput = controlsDef();
 
 % Supress printing of RAT output for testing
@@ -82,7 +82,7 @@ save('tests\standardTFReflectivityCalculation\customLayersTFParams','TFParams');
 % 2. Custom XY.
 % (a) Inputs
 ratRoot = getappdata(0,'ratRoot');
-customXYProblem = DPPC_custXY_script();
+customXYProblem = DPPCCustomXYScript();
 controlsInput = controlsDef();
 
 % Supress printing of RAT output for testing
@@ -153,7 +153,7 @@ save('tests\standardTFReflectivityCalculation\customXYTFParams','TFParams');
 %%
 % 3. Standard Layers
 % (a) Inputs
-standardProblem = DPPC_standard_layers();
+standardProblem = DPPCStandardLayers();
 controlsInput = controlsDef();
 
 % Supress printing of RAT output for testing

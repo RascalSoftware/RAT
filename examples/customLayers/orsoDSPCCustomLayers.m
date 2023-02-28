@@ -1,4 +1,4 @@
-%function problem = orsoDSPC_custLay_script()
+%function problem = orsoDSPCCustomLayers()
 
 %% Custom Layers Example for Supported DSPC layer.
 % 

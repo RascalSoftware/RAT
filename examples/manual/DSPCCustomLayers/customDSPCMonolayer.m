@@ -1,4 +1,4 @@
-function [output,subRough] = custom_DSPC_monolayer(params,bulkIn,bulkOut,contrast)
+function [output,subRough] = customDSPCMonolayer(params,bulkIn,bulkOut,contrast)
 
 
 % Split up the input params array

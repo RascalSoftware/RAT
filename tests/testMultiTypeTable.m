@@ -8,7 +8,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 % displayTypesTable, findRowIndex
 %
 % We use an example multi-type table from the backgrounds class for the
-% example calculation "DPPC_standard_layers.m"
+% example calculation "DPPCStandardLayers.m"
 %
 % Paul Sharp 01/02/23
 %
@@ -78,7 +78,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         function initialiseMultiTypeTable(testCase)
             % Set up an example multi-type table for testing
             % This example is used in the backgrounds class for the
-            % example calculation "DPPC_standard_layers.m"
+            % example calculation "DPPCStandardLayers.m"
             testCase.exampleTable = multiTypeTable({'Background D2O', 'constant', 'Backs par 1','','','',''});
             
             testCase.exampleTable.typesTable(2,:) = {'Background SMW','constant','Backs par SMW','','','',''};

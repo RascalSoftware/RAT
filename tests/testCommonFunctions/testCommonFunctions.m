@@ -256,7 +256,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         end
 
         function testCallReflectivity(testCase)
-            % testCallReflectivity from orsoDSPC_stanLay_script
+            % testCallReflectivity from orsoDSPCStandardLayers
             %
             % Inputs:
             %   testCase - class instance
@@ -271,7 +271,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         end
 
         function testAllocateLayersForContrast(testCase)
-            % testAllocateLayersForContrast from orsoDSPC_stanLay_script
+            % testAllocateLayersForContrast from orsoDSPCStandardLayers
             % 
             % Inputs:
             %   testCase - class instance

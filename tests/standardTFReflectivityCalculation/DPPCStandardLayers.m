@@ -1,4 +1,4 @@
-function problem = DPPC_standard_layers() 
+function problem = DPPCStandardLayers() 
 
 %% ORSO Lipid Example 1 - DSPC Bilayer Analysed Using a Standard Layers Model.
 % 

@@ -1,9 +1,9 @@
-function problem = orsoDSPC_custLay_script()
+function problem = orsoDSPCCustomLayers()
 
 %% Custom Layers Example for Supported DSPC layer.
 % 
 % 
-% Example of using Custom layers to model a DSPC supportd bilayer.
+% Example of using Custom layers to model a DSPC supported bilayer.
 % 
 % 
 % 

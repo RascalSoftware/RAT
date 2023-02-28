@@ -599,7 +599,7 @@ This function is called by:
 0484             <span class="comment">% and new value to set</span>
 0485             <span class="comment">%</span>
 0486             <span class="comment">% problem.setResolParValue(1, 5.5e-6);</span>
-0487             obj.resolution.setResolParValue(varargin);
+0487             obj.resolution.setResolParValue(varargin{:});
 0488         <span class="keyword">end</span>
 0489         
 0490         <a name="_sub29" href="#_subfunctions" class="code">function obj = addResolPar(obj, varargin)</a>
@@ -608,7 +608,7 @@ This function is called by:
 0493             <span class="comment">% and sigma</span>
 0494             <span class="comment">%</span>
 0495             <span class="comment">% problem.addResolPar('ResolPar 1', 1e-8, 2.8e-6, 1e-5);</span>
-0496             obj.resolution.addResolPar(varargin);
+0496             obj.resolution.addResolPar(varargin{:});
 0497         <span class="keyword">end</span>
 0498         
 0499         <a name="_sub30" href="#_subfunctions" class="code">function obj = setResolPar(obj,varargin)</a>
@@ -616,7 +616,7 @@ This function is called by:
 0501             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
 0502             <span class="comment">%</span>
 0503             <span class="comment">% problem.setResolPar(1, 'name', 'ResolPar');</span>
-0504             obj.resolution.setResolPar(varargin);
+0504             obj.resolution.setResolPar(varargin{:});
 0505         <span class="keyword">end</span>
 0506         
 0507         <a name="_sub31" href="#_subfunctions" class="code">function obj = removeResolPar(obj,varargin)</a>
@@ -634,7 +634,7 @@ This function is called by:
 0519             <span class="comment">% up to 4 parameters</span>
 0520             <span class="comment">%</span>
 0521             <span class="comment">% problem.addResolution('name','constant','par');</span>
-0522             obj.resolution.addResolution(varargin);
+0522             obj.resolution.addResolution(varargin{:});
 0523         <span class="keyword">end</span>
 0524         
 0525         <a name="_sub33" href="#_subfunctions" class="code">function obj = removeResolution(obj,varargin)</a>
@@ -642,7 +642,7 @@ This function is called by:
 0527             <span class="comment">% index of resolution to remove</span>
 0528             <span class="comment">%</span>
 0529             <span class="comment">% problem.removeResolution(1);</span>
-0530             obj.resolution.removeResolution(varargin);
+0530             obj.resolution.removeResolution(varargin{:});
 0531         <span class="keyword">end</span>
 0532         
 0533         
@@ -673,7 +673,7 @@ This function is called by:
 0558             nameChanged = obj.data.setData(varargin{:});
 0559             
 0560             <span class="keyword">if</span> ~isempty(nameChanged)
-0561                 obj.contrasts.updateContrastName(nameChanged);
+0561                 obj.contrasts.updateDataName(nameChanged);
 0562             <span class="keyword">end</span>
 0563         <span class="keyword">end</span>
 0564         
@@ -821,7 +821,7 @@ This function is called by:
 0706             <span class="comment">% index or name of resolution to remove</span>
 0707             <span class="comment">%</span>
 0708             <span class="comment">% problem.removeContrast(1);</span>
-0709             obj.contrasts.removeContrast(varargin);
+0709             obj.contrasts.removeContrast(varargin{:});
 0710         <span class="keyword">end</span>
 0711 
 0712         
@@ -831,271 +831,230 @@ This function is called by:
 0716             <span class="comment">% inputs are name / value pairs for the parts involved</span>
 0717             <span class="comment">%</span>
 0718             <span class="comment">% problem.setContrast(1, 'name', 'contrast')</span>
-0719             firstInput = varargin{1};
+0719             contrastInput = varargin{1};
 0720             inputVals = varargin(2:end);
-0721             
-0722             contrastNames = obj.contrasts.getAllContrastNames();
-0723             numberOfContrasts = obj.contrasts.numberOfContrasts;
-0724             
-0725             <span class="comment">% Find if we are referencing and existing contrast</span>
-0726             <span class="keyword">if</span> isnumeric(firstInput)
-0727                 <span class="keyword">if</span> (firstInput &lt; 1 || firstInput &gt; numberOfContrasts)
-0728                     throw(indexOutOfRange(sprintf(<span class="string">'Contrast number %d is out of range 1 - %d'</span>, firstInput, numberOfContrasts)));
-0729                 <span class="keyword">end</span>
-0730                 thisContrast = firstInput;
-0731                 
-0732             <span class="keyword">elseif</span> ischar(firstInput)
-0733                 [present,idx] = ismember(firstInput, contrastNames);
-0734                 <span class="keyword">if</span> ~present
-0735                     throw(nameNotRecognised(sprintf(<span class="string">'Contrast %s is not recognised'</span>,firstInput)));
-0736                 <span class="keyword">end</span>
-0737                 thisContrast = idx;
-0738                 
-0739             <span class="keyword">end</span>
-0740             
-0741             <span class="comment">% Get the list of allowed values depending on what is</span>
-0742             <span class="comment">% set for the other contrasts.</span>
-0743             allowedValues = obj.getAllAllowedNames;
-0744             
-0745             <span class="comment">% Call the setContrast method</span>
-0746             obj.contrasts.setContrast(thisContrast,allowedValues,inputVals);
-0747             
-0748         <span class="keyword">end</span>
-0749         
-0750         <a name="_sub53" href="#_subfunctions" class="code">function obj = setContrastModel(obj,varargin)</a>
-0751             <span class="comment">% Edits the model of an existing contrast parameter. Expects the</span>
-0752             <span class="comment">% index of contrast parameter and cell array of layer names</span>
-0753             <span class="comment">%</span>
-0754             <span class="comment">% problem.setContrastModel(1, {'layer 1'})</span>
-0755             firstInput = varargin{1};
-0756             inputVals = varargin(2:end);
-0757             
-0758             contrastNames = obj.contrasts.getAllContrastNames();
-0759             numberOfContrasts = obj.contrasts.numberOfContrasts;
-0760             
-0761             <span class="comment">% Find if we are referencing and existing contrast</span>
-0762             <span class="keyword">if</span> isnumeric(firstInput)
-0763                 <span class="keyword">if</span> (firstInput &lt; 1 || firstInput &gt; numberOfContrasts)
-0764                     throw(indexOutOfRange(sprintf(<span class="string">'Contrast number %d is out of range 1 - %d'</span>, firstInput, numberOfContrasts)));
-0765                 <span class="keyword">end</span>
-0766                 thisContrast = firstInput;
-0767                 
-0768             <span class="keyword">elseif</span> ischar(firstInput)
-0769                 [present,idx] = ismember(firstInput, contrastNames);
-0770                 <span class="keyword">if</span> ~present
-0771                     throw(nameNotRecognised(sprintf(<span class="string">'Contrast %s is not recognised'</span>, firstInput)));
-0772                 <span class="keyword">end</span>
-0773                 thisContrast = idx;
-0774                 
-0775             <span class="keyword">end</span>
-0776             
-0777             <span class="comment">% Make a different allowed list depending on whether</span>
-0778             <span class="comment">% it is custom or layers</span>
-0779             modelType = lower(obj.modelType);
-0780             
-0781             <span class="keyword">if</span> ~strcmpi(modelType, {<span class="string">'custom layers'</span>,<span class="string">'custom xy'</span>})
-0782                 <span class="comment">% Standard Layers</span>
-0783                 allowedValues = obj.layers.getLayersNames();
-0784                 inputVals = inputVals{:};
-0785             <span class="keyword">else</span>
-0786                 <span class="comment">% Custom models</span>
-0787                 allowedValues = obj.customFile.getCustomNames();
-0788             <span class="keyword">end</span>
-0789             
-0790             <span class="comment">% Call the setContrastModel method</span>
-0791             obj.contrasts.setContrastModel(thisContrast, modelType, allowedValues, inputVals);
-0792 
-0793         <span class="keyword">end</span>
-0794         
-0795         <a name="_sub54" href="#_subfunctions" class="code">function outStruct = toStruct(obj)    </a>
-0796             <span class="comment">% Converts the class parameters into a struct array for input into</span>
-0797             <span class="comment">% the RAT toolbox</span>
-0798             
-0799             <span class="comment">% Set which type of experiment this is</span>
-0800             generalStruct.experimentName = obj.experimentName;
-0801             generalStruct.TF = <span class="string">'standardTF'</span>;
+0721                         
+0722             <span class="comment">% Get the list of allowed values depending on what is</span>
+0723             <span class="comment">% set for the other contrasts.</span>
+0724             allowedValues = obj.getAllAllowedNames;
+0725             
+0726             <span class="comment">% Call the setContrast method</span>
+0727             obj.contrasts.setContrast(contrastInput,allowedValues,inputVals);
+0728             
+0729         <span class="keyword">end</span>
+0730         
+0731         <a name="_sub53" href="#_subfunctions" class="code">function obj = setContrastModel(obj,varargin)</a>
+0732             <span class="comment">% Edits the model of an existing contrast parameter. Expects the</span>
+0733             <span class="comment">% index of contrast parameter and cell array of layer names</span>
+0734             <span class="comment">%</span>
+0735             <span class="comment">% problem.setContrastModel(1, {'layer 1'})</span>
+0736             contrastInput = varargin{1};
+0737             inputVals = varargin(2:end);
+0738                         
+0739             <span class="comment">% Make a different allowed list depending on whether</span>
+0740             <span class="comment">% it is custom or layers</span>
+0741             <span class="keyword">if</span> ~strcmpi(obj.modelType, {<span class="string">'custom layers'</span>,<span class="string">'custom xy'</span>})
+0742                 <span class="comment">% Standard Layers</span>
+0743                 allowedValues = obj.layers.getLayersNames();
+0744                 inputVals = inputVals{:};
+0745             <span class="keyword">else</span>
+0746                 <span class="comment">% Custom models</span>
+0747                 allowedValues = obj.customFile.getCustomNames();
+0748             <span class="keyword">end</span>
+0749             
+0750             <span class="comment">% Call the setContrastModel method</span>
+0751             obj.contrasts.setContrastModel(contrastInput, obj.modelType, allowedValues, inputVals);
+0752 
+0753         <span class="keyword">end</span>
+0754         
+0755         <a name="_sub54" href="#_subfunctions" class="code">function outStruct = toStruct(obj)    </a>
+0756             <span class="comment">% Converts the class parameters into a struct array for input into</span>
+0757             <span class="comment">% the RAT toolbox</span>
+0758             
+0759             <span class="comment">% Set which type of experiment this is</span>
+0760             generalStruct.experimentName = obj.experimentName;
+0761             generalStruct.TF = <span class="string">'standardTF'</span>;
+0762             
+0763             <span class="comment">% Add the 'general' fields</span>
+0764             generalStruct.modelType = lower(obj.modelType);  
+0765             generalStruct.geometry = obj.geometry;
+0766             
+0767             <span class="comment">% Parameters</span>
+0768             params = obj.parameters.toStruct();
+0769             paramStruct = cell2struct(struct2cell(params),{<span class="string">'paramNames'</span>,<span class="keyword">...</span>
+0770                 <span class="string">'nParams'</span>,<span class="string">'paramConstr'</span>,<span class="string">'params'</span>,<span class="string">'paramFitYesNo'</span>,<span class="string">'paramPriors'</span>});
+0771             
+0772             <span class="comment">% Backgrounds</span>
+0773             backgroundStruct = obj.background.toStruct();
+0774             
+0775             <span class="comment">% Resolutions</span>
+0776             resolutionStruct = obj.resolution.toStruct();
+0777             
+0778             <span class="comment">% Bulk in</span>
+0779             bulkInStruct = obj.bulkIn.toStruct();
+0780             bulkInStruct = cell2struct(struct2cell(bulkInStruct),{<span class="string">'nbairNames'</span>,<span class="keyword">...</span>
+0781                 <span class="string">'nNba'</span>,<span class="string">'nbairConstr'</span>,<span class="string">'nbairs'</span>,<span class="string">'nbaFitYesNo'</span>,<span class="string">'nbaPriors'</span>});
+0782             
+0783             <span class="comment">% Bulk out</span>
+0784             bulkOutStruct = obj.bulkOut.toStruct();
+0785             bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{<span class="string">'nbsubNames'</span>,<span class="keyword">...</span>
+0786                 <span class="string">'nNbs'</span>,<span class="string">'nbsubConstr'</span>,<span class="string">'nbsubs'</span>,<span class="string">'nbsFitYesNo'</span>,<span class="string">'nbsPriors'</span>});
+0787             
+0788             <span class="comment">% Scalefactors</span>
+0789             scalefactorStruct = obj.scalefactors.toStruct();
+0790             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{<span class="string">'scalefactorNames'</span>,<span class="keyword">...</span>
+0791                 <span class="string">'nScalefcators'</span>,<span class="string">'scalefactorConstr'</span>,<span class="string">'scalefactors'</span>,<span class="string">'scalefactorFitYesNo'</span>,<span class="string">'scalefactorPriors'</span>});
+0792             
+0793             <span class="comment">% Qzshifts</span>
+0794             qzshiftStruct = obj.qzshifts.toStruct();
+0795             qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{<span class="string">'qzshiftNames'</span>,<span class="keyword">...</span>
+0796                 <span class="string">'nQzshifts'</span>,<span class="string">'qzshiftConstr'</span>,<span class="string">'qzshifts'</span>,<span class="string">'qzshiftFitYesNo'</span>,<span class="string">'qzshiftPriors'</span>});
+0797             
+0798             <span class="comment">% Layers</span>
+0799             layersCell = obj.layers.toStruct();
+0800             layersStruct.numberOfLayers = size(layersCell,1);
+0801             layersStruct.layersnames = layersCell(:,1);
 0802             
-0803             <span class="comment">% Add the 'general' fields</span>
-0804             generalStruct.modelType = lower(obj.modelType);  
-0805             generalStruct.geometry = obj.geometry;
+0803             <span class="comment">% parse the layers details</span>
+0804             layersValues = layersCell(:,2:end);
+0805             paramNames = string(paramStruct.paramNames);
 0806             
-0807             <span class="comment">% Parameters</span>
-0808             params = obj.parameters.toStruct();
-0809             paramStruct = cell2struct(struct2cell(params),{<span class="string">'paramNames'</span>,<span class="keyword">...</span>
-0810                 <span class="string">'nParams'</span>,<span class="string">'paramConstr'</span>,<span class="string">'params'</span>,<span class="string">'paramFitYesNo'</span>,<span class="string">'paramPriors'</span>});
-0811             
-0812             <span class="comment">% Backgrounds</span>
-0813             backgroundStruct = obj.background.toStruct();
-0814             
-0815             <span class="comment">% Resolutions</span>
-0816             resolutionStruct = obj.resolution.toStruct();
-0817             
-0818             <span class="comment">% Bulk in</span>
-0819             bulkInStruct = obj.bulkIn.toStruct();
-0820             bulkInStruct = cell2struct(struct2cell(bulkInStruct),{<span class="string">'nbairNames'</span>,<span class="keyword">...</span>
-0821                 <span class="string">'nNba'</span>,<span class="string">'nbairConstr'</span>,<span class="string">'nbairs'</span>,<span class="string">'nbaFitYesNo'</span>,<span class="string">'nbaPriors'</span>});
-0822             
-0823             <span class="comment">% Bulk out</span>
-0824             bulkOutStruct = obj.bulkOut.toStruct();
-0825             bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{<span class="string">'nbsubNames'</span>,<span class="keyword">...</span>
-0826                 <span class="string">'nNbs'</span>,<span class="string">'nbsubConstr'</span>,<span class="string">'nbsubs'</span>,<span class="string">'nbsFitYesNo'</span>,<span class="string">'nbsPriors'</span>});
-0827             
-0828             <span class="comment">% Scalefactors</span>
-0829             scalefactorStruct = obj.scalefactors.toStruct();
-0830             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{<span class="string">'scalefactorNames'</span>,<span class="keyword">...</span>
-0831                 <span class="string">'nScalefcators'</span>,<span class="string">'scalefactorConstr'</span>,<span class="string">'scalefactors'</span>,<span class="string">'scalefactorFitYesNo'</span>,<span class="string">'scalefactorPriors'</span>});
-0832             
-0833             <span class="comment">% Qzshifts</span>
-0834             qzshiftStruct = obj.qzshifts.toStruct();
-0835             qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{<span class="string">'qzshiftNames'</span>,<span class="keyword">...</span>
-0836                 <span class="string">'nQzshifts'</span>,<span class="string">'qzshiftConstr'</span>,<span class="string">'qzshifts'</span>,<span class="string">'qzshiftFitYesNo'</span>,<span class="string">'qzshiftPriors'</span>});
-0837             
-0838             <span class="comment">% Layers</span>
-0839             layersCell = obj.layers.toStruct();
-0840             layersStruct.numberOfLayers = size(layersCell,1);
-0841             layersStruct.layersnames = layersCell(:,1);
-0842             
-0843             <span class="comment">% parse the layers details</span>
-0844             layersValues = layersCell(:,2:end);
-0845             paramNames = string(paramStruct.paramNames);
-0846             
-0847             <span class="keyword">switch</span> generalStruct.modelType
-0848                 <span class="keyword">case</span> <span class="string">'standard layers'</span>
-0849                     numberOfLayers = layersStruct.numberOfLayers;
-0850                     
-0851                     <span class="keyword">if</span> numberOfLayers &gt; 0
-0852                         <span class="comment">% Standard layers with layers present</span>
-0853                         <span class="keyword">for</span> i = 1:layersStruct.numberOfLayers
-0854                             thisLayer = layersValues(i,:);
-0855                             min = find(strcmpi(thisLayer{1},paramNames));
-0856                             val = find(strcmpi(thisLayer{2},paramNames));
-0857                             max = find(strcmpi(thisLayer{3},paramNames));
-0858                             <span class="keyword">if</span> ismissing(thisLayer(4))
-0859                                 hydr = NaN;
-0860                             <span class="keyword">else</span>
-0861                                 hydr = find(strcmpi(thisLayer{4},paramNames));
-0862                             <span class="keyword">end</span>
-0863                             <span class="keyword">if</span> strcmpi(thisLayer{5},<span class="string">'bulk in'</span>)
-0864                                 hydrWhat = 1;
-0865                             <span class="keyword">else</span>
-0866                                 hydrWhat = 2;
-0867                             <span class="keyword">end</span>
-0868                             layersDetails{i} = [min val max hydr hydrWhat];
-0869                         <span class="keyword">end</span>
-0870                         layersStruct.layersDetails = layersDetails(:);
-0871                     <span class="keyword">else</span>
-0872                         <span class="comment">% No layers present - still need to set</span>
-0873                         <span class="comment">% layersDetails</span>
-0874                         layersStruct.layersDetails = {};
-0875                     <span class="keyword">end</span>
-0876                 <span class="keyword">otherwise</span>
-0877                     <span class="comment">% Not standard layers experiment type</span>
-0878                     layersStruct.layersDetails = {};
-0879             <span class="keyword">end</span>
-0880             
-0881             <span class="comment">% Custom files</span>
-0882             customFileStruct = obj.customFile.toStruct();
-0883             
-0884             <span class="comment">% Contrasts.</span>
-0885             allNames = obj.getAllAllowedNames;
-0886             dataTable = obj.data.dataTable;
+0807             <span class="keyword">switch</span> generalStruct.modelType
+0808                 <span class="keyword">case</span> <span class="string">'standard layers'</span>
+0809                     numberOfLayers = layersStruct.numberOfLayers;
+0810                     
+0811                     <span class="keyword">if</span> numberOfLayers &gt; 0
+0812                         <span class="comment">% Standard layers with layers present</span>
+0813                         <span class="keyword">for</span> i = 1:layersStruct.numberOfLayers
+0814                             thisLayer = layersValues(i,:);
+0815                             min = find(strcmpi(thisLayer{1},paramNames));
+0816                             val = find(strcmpi(thisLayer{2},paramNames));
+0817                             max = find(strcmpi(thisLayer{3},paramNames));
+0818                             <span class="keyword">if</span> ismissing(thisLayer(4))
+0819                                 hydr = NaN;
+0820                             <span class="keyword">else</span>
+0821                                 hydr = find(strcmpi(thisLayer{4},paramNames));
+0822                             <span class="keyword">end</span>
+0823                             <span class="keyword">if</span> strcmpi(thisLayer{5},<span class="string">'bulk in'</span>)
+0824                                 hydrWhat = 1;
+0825                             <span class="keyword">else</span>
+0826                                 hydrWhat = 2;
+0827                             <span class="keyword">end</span>
+0828                             layersDetails{i} = [min val max hydr hydrWhat];
+0829                         <span class="keyword">end</span>
+0830                         layersStruct.layersDetails = layersDetails(:);
+0831                     <span class="keyword">else</span>
+0832                         <span class="comment">% No layers present - still need to set</span>
+0833                         <span class="comment">% layersDetails</span>
+0834                         layersStruct.layersDetails = {};
+0835                     <span class="keyword">end</span>
+0836                 <span class="keyword">otherwise</span>
+0837                     <span class="comment">% Not standard layers experiment type</span>
+0838                     layersStruct.layersDetails = {};
+0839             <span class="keyword">end</span>
+0840             
+0841             <span class="comment">% Custom files</span>
+0842             customFileStruct = obj.customFile.toStruct();
+0843             
+0844             <span class="comment">% Contrasts.</span>
+0845             allNames = obj.getAllAllowedNames;
+0846             dataTable = obj.data.dataTable;
+0847             
+0848             contrastStruct = obj.contrasts.toStruct(allNames,generalStruct.modelType,dataTable);
+0849             
+0850             <span class="comment">% Merge all the outputs into one large structure</span>
+0851             outStruct = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(generalStruct,<span class="keyword">...</span>
+0852                 paramStruct,<span class="keyword">...</span>
+0853                 backgroundStruct,<span class="keyword">...</span>
+0854                 resolutionStruct,<span class="keyword">...</span>
+0855                 bulkInStruct,<span class="keyword">...</span>
+0856                 bulkOutStruct,<span class="keyword">...</span>
+0857                 scalefactorStruct,<span class="keyword">...</span>
+0858                 qzshiftStruct,<span class="keyword">...</span>
+0859                 layersStruct,<span class="keyword">...</span>
+0860                 customFileStruct,<span class="keyword">...</span>
+0861                 contrastStruct);
+0862             
+0863         <span class="keyword">end</span>
+0864         
+0865     <span class="keyword">end</span>     <span class="comment">% end public methods</span>
+0866     
+0867     <span class="comment">% ------------------------------------------------------------------</span>
+0868     
+0869     methods (Access = protected)
+0870         <span class="comment">% Display methods</span>
+0871         <a name="_sub55" href="#_subfunctions" class="code">function group = getPropertyGroup1(obj)</a>
+0872             <span class="comment">% Initial Parameters at the start of the class</span>
+0873             masterPropList = struct(<span class="string">'modelType'</span>,{obj.modelType},<span class="keyword">...</span>
+0874                 <span class="string">'experimentName'</span>,{obj.experimentName},<span class="keyword">...</span>
+0875                 <span class="string">'geometry'</span>, obj.geometry);
+0876             
+0877             <span class="keyword">if</span> isscalar(obj)
+0878                 group = matlab.mixin.util.PropertyGroup(masterPropList);
+0879             <span class="keyword">else</span>
+0880                 group = <a href="#_sub56" class="code" title="subfunction group = getPropertyGroup1(obj)">getPropertyGroup1</a>@matlab.mixin.CustomDisplay(obj);
+0881             <span class="keyword">end</span>
+0882         <span class="keyword">end</span>
+0883         
+0884         <a name="_sub56" href="#_subfunctions" class="code">function displayScalarObject(obj)</a>
+0885             <span class="comment">% Display the whole class. Call the display methods for</span>
+0886             <span class="comment">% the sub-classes where appropriate</span>
 0887             
-0888             modelType = generalStruct.modelType;
-0889             contrastStruct = obj.contrasts.toStruct(allNames,modelType,dataTable);
-0890             
-0891             <span class="comment">% Merge all the outputs into one large structure</span>
-0892             outStruct = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(generalStruct,<span class="keyword">...</span>
-0893                 paramStruct,<span class="keyword">...</span>
-0894                 backgroundStruct,<span class="keyword">...</span>
-0895                 resolutionStruct,<span class="keyword">...</span>
-0896                 bulkInStruct,<span class="keyword">...</span>
-0897                 bulkOutStruct,<span class="keyword">...</span>
-0898                 scalefactorStruct,<span class="keyword">...</span>
-0899                 qzshiftStruct,<span class="keyword">...</span>
-0900                 layersStruct,<span class="keyword">...</span>
-0901                 customFileStruct,<span class="keyword">...</span>
-0902                 contrastStruct);
-0903             
-0904         <span class="keyword">end</span>
-0905         
-0906     <span class="keyword">end</span>     <span class="comment">% end public methods</span>
-0907     
-0908     <span class="comment">% ------------------------------------------------------------------</span>
-0909     
-0910     methods (Access = protected)
-0911         <span class="comment">% Display methods</span>
-0912         <a name="_sub55" href="#_subfunctions" class="code">function group = getPropertyGroup1(obj)</a>
-0913             <span class="comment">% Initial Parameters at the start of the class</span>
-0914             masterPropList = struct(<span class="string">'modelType'</span>,{obj.modelType},<span class="keyword">...</span>
-0915                 <span class="string">'experimentName'</span>,{obj.experimentName},<span class="keyword">...</span>
-0916                 <span class="string">'geometry'</span>, obj.geometry);
-0917             
-0918             <span class="keyword">if</span> isscalar(obj)
-0919                 group = matlab.mixin.util.PropertyGroup(masterPropList);
-0920             <span class="keyword">else</span>
-0921                 group = <a href="#_sub56" class="code" title="subfunction group = getPropertyGroup1(obj)">getPropertyGroup1</a>@matlab.mixin.CustomDisplay(obj);
-0922             <span class="keyword">end</span>
-0923         <span class="keyword">end</span>
-0924         
-0925         <a name="_sub56" href="#_subfunctions" class="code">function displayScalarObject(obj)</a>
-0926             <span class="comment">% Display the whole class. Call the display methods for</span>
-0927             <span class="comment">% the sub-classes where appropriate</span>
-0928             
-0929             <span class="comment">% There are two versions, depending on whether the model</span>
-0930             <span class="comment">% is standard layers or custom, the difference being</span>
-0931             <span class="comment">% the display of the layers table..</span>
-0932             
-0933             <span class="comment">% Display initial properties</span>
-0934             startProps = <a href="#_sub56" class="code" title="subfunction group = getPropertyGroup1(obj)">getPropertyGroup1</a>(obj);
-0935             matlab.mixin.CustomDisplay.displayPropertyGroups(obj,startProps);
-0936             
-0937             <span class="comment">% Display the parameters table</span>
-0938             fprintf(<span class="string">'\n    Parameters: ---------------------------------------------------------------------------------------------- \n\n'</span>);
-0939             obj.parameters.displayParametersTable;
-0940             
-0941             <span class="comment">% Display the layers table if not a custom model</span>
-0942             val = obj.modelType;
-0943             <span class="keyword">if</span> ~any(strcmpi(val,{<span class="string">'custom layers'</span>,<span class="string">'custom xy'</span>}))
-0944                 fprintf(<span class="string">'\n    Layers: -------------------------------------------------------------------------------------------------- \n\n'</span>);
-0945                 obj.layers.displayLayersTable;
-0946             <span class="keyword">end</span>
-0947             
-0948             <span class="comment">% Display the Bulk In table</span>
-0949             fprintf(<span class="string">'\n    Bulk In: -------------------------------------------------------------------------------------------------- \n\n'</span>);
-0950             obj.bulkIn.displayParametersTable;
-0951             
-0952             <span class="comment">% Display the Bulk Out table</span>
-0953             fprintf(<span class="string">'\n    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n'</span>);
-0954             obj.bulkOut.displayParametersTable;
-0955             
-0956             <span class="comment">% Display the Scalefactors table</span>
-0957             fprintf(<span class="string">'\n    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n'</span>);
-0958             obj.scalefactors.displayParametersTable;
-0959 
-0960             <span class="comment">% Display the backgrounds object</span>
-0961             obj.background.displayBackgroundsObject;
-0962             
-0963             <span class="comment">% Display the resolutions object</span>
-0964             obj.resolution.displayResolutionsObject;
-0965             
-0966             <span class="comment">% Display the data object</span>
-0967             obj.data.displayDataObject;
-0968             
-0969             <span class="comment">% Display custome files object</span>
-0970             obj.customFile.displayCustomFileObject;
-0971             
-0972             <span class="comment">% Display the contrasts object</span>
-0973             obj.contrasts.displayContrastsObject;
-0974             
-0975         <span class="keyword">end</span>
-0976         
-0977         
-0978     <span class="keyword">end</span>
-0979     
-0980 <span class="keyword">end</span>
-0981 
+0888             <span class="comment">% There are two versions, depending on whether the model</span>
+0889             <span class="comment">% is standard layers or custom, the difference being</span>
+0890             <span class="comment">% the display of the layers table..</span>
+0891             
+0892             <span class="comment">% Display initial properties</span>
+0893             startProps = <a href="#_sub56" class="code" title="subfunction group = getPropertyGroup1(obj)">getPropertyGroup1</a>(obj);
+0894             matlab.mixin.CustomDisplay.displayPropertyGroups(obj,startProps);
+0895             
+0896             <span class="comment">% Display the parameters table</span>
+0897             fprintf(<span class="string">'\n    Parameters: ---------------------------------------------------------------------------------------------- \n\n'</span>);
+0898             obj.parameters.displayParametersTable;
+0899             
+0900             <span class="comment">% Display the layers table if not a custom model</span>
+0901             val = obj.modelType;
+0902             <span class="keyword">if</span> ~any(strcmpi(val,{<span class="string">'custom layers'</span>,<span class="string">'custom xy'</span>}))
+0903                 fprintf(<span class="string">'\n    Layers: -------------------------------------------------------------------------------------------------- \n\n'</span>);
+0904                 obj.layers.displayLayersTable;
+0905             <span class="keyword">end</span>
+0906             
+0907             <span class="comment">% Display the Bulk In table</span>
+0908             fprintf(<span class="string">'\n    Bulk In: -------------------------------------------------------------------------------------------------- \n\n'</span>);
+0909             obj.bulkIn.displayParametersTable;
+0910             
+0911             <span class="comment">% Display the Bulk Out table</span>
+0912             fprintf(<span class="string">'\n    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n'</span>);
+0913             obj.bulkOut.displayParametersTable;
+0914             
+0915             <span class="comment">% Display the Scalefactors table</span>
+0916             fprintf(<span class="string">'\n    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n'</span>);
+0917             obj.scalefactors.displayParametersTable;
+0918 
+0919             <span class="comment">% Display the backgrounds object</span>
+0920             obj.background.displayBackgroundsObject;
+0921             
+0922             <span class="comment">% Display the resolutions object</span>
+0923             obj.resolution.displayResolutionsObject;
+0924             
+0925             <span class="comment">% Display the data object</span>
+0926             obj.data.displayDataObject;
+0927             
+0928             <span class="comment">% Display custome files object</span>
+0929             obj.customFile.displayCustomFileObject;
+0930             
+0931             <span class="comment">% Display the contrasts object</span>
+0932             obj.contrasts.displayContrastsObject;
+0933             
+0934         <span class="keyword">end</span>
+0935         
+0936         
+0937     <span class="keyword">end</span>
+0938     
+0939 <span class="keyword">end</span>
+0940 
 </pre></div>
 
-<hr><address>Generated on Mon 20-Feb-2023 10:03:47 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 28-Feb-2023 17:31:48 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

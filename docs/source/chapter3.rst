@@ -349,7 +349,7 @@ The rest of the custom model is defined in the same way as the standard layers m
 
     % And edit the other one....
     problem.setBackgroundValue(1,'name','Background D2O');
-    problem.setBackgroundValue(1,'value','Backs par D2O');
+    problem.setBackgroundValue(1,'value 1','Backs par D2O');
 
     % Set the scalefactor...
     problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',true);

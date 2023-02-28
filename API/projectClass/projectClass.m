@@ -558,7 +558,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             nameChanged = obj.data.setData(varargin{:});
             
             if ~isempty(nameChanged)
-                obj.contrasts.updateContrastName(nameChanged);
+                obj.contrasts.updateDataName(nameChanged);
             end
         end
         
@@ -706,7 +706,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of resolution to remove
             %
             % problem.removeContrast(1);
-            obj.contrasts.removeContrast(varargin);
+            obj.contrasts.removeContrast(varargin{:});
         end
 
         
@@ -716,34 +716,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % inputs are name / value pairs for the parts involved
             %
             % problem.setContrast(1, 'name', 'contrast')
-            firstInput = varargin{1};
+            contrastInput = varargin{1};
             inputVals = varargin(2:end);
-            
-            contrastNames = obj.contrasts.getAllContrastNames();
-            numberOfContrasts = obj.contrasts.numberOfContrasts;
-            
-            % Find if we are referencing and existing contrast
-            if isnumeric(firstInput)
-                if (firstInput < 1 || firstInput > numberOfContrasts)
-                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', firstInput, numberOfContrasts)));
-                end
-                thisContrast = firstInput;
-                
-            elseif ischar(firstInput)
-                [present,idx] = ismember(firstInput, contrastNames);
-                if ~present
-                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised',firstInput)));
-                end
-                thisContrast = idx;
-                
-            end
-            
+                        
             % Get the list of allowed values depending on what is
             % set for the other contrasts.
             allowedValues = obj.getAllAllowedNames;
             
             % Call the setContrast method
-            obj.contrasts.setContrast(thisContrast,allowedValues,inputVals);
+            obj.contrasts.setContrast(contrastInput,allowedValues,inputVals);
             
         end
         
@@ -752,33 +733,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of contrast parameter and cell array of layer names
             %
             % problem.setContrastModel(1, {'layer 1'})
-            firstInput = varargin{1};
+            contrastInput = varargin{1};
             inputVals = varargin(2:end);
-            
-            contrastNames = obj.contrasts.getAllContrastNames();
-            numberOfContrasts = obj.contrasts.numberOfContrasts;
-            
-            % Find if we are referencing and existing contrast
-            if isnumeric(firstInput)
-                if (firstInput < 1 || firstInput > numberOfContrasts)
-                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', firstInput, numberOfContrasts)));
-                end
-                thisContrast = firstInput;
-                
-            elseif ischar(firstInput)
-                [present,idx] = ismember(firstInput, contrastNames);
-                if ~present
-                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised', firstInput)));
-                end
-                thisContrast = idx;
-                
-            end
-            
+                        
             % Make a different allowed list depending on whether 
             % it is custom or layers
-            modelType = lower(obj.modelType);
-            
-            if ~strcmpi(modelType, {'custom layers','custom xy'})
+            if ~strcmpi(obj.modelType, {'custom layers','custom xy'})
                 % Standard Layers
                 allowedValues = obj.layers.getLayersNames();
                 inputVals = inputVals{:};
@@ -788,7 +748,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
             
             % Call the setContrastModel method
-            obj.contrasts.setContrastModel(thisContrast, modelType, allowedValues, inputVals);
+            obj.contrasts.setContrastModel(contrastInput, obj.modelType, allowedValues, inputVals);
 
         end
         
@@ -885,8 +845,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             allNames = obj.getAllAllowedNames;
             dataTable = obj.data.dataTable;
             
-            modelType = generalStruct.modelType;
-            contrastStruct = obj.contrasts.toStruct(allNames,modelType,dataTable);
+            contrastStruct = obj.contrasts.toStruct(allNames,generalStruct.modelType,dataTable);
             
             % Merge all the outputs into one large structure
             outStruct = mergeStructs(generalStruct,...

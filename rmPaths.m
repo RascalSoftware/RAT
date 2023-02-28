@@ -1,40 +1,58 @@
 ratRoot = pwd;
 
-ratPaths = {fullfile(ratRoot,'targetFunctions','common');
-    fullfile(ratRoot,'targetFunctions','common','backSort');
-    fullfile(ratRoot,'targetFunctions','common','callModules');
-    fullfile(ratRoot,'targetFunctions','common','callReflectivity');
-    fullfile(ratRoot,'targetFunctions','common','chiSquared');
-    fullfile(ratRoot,'targetFunctions','common','groupLayers');
-    fullfile(ratRoot,'targetFunctions','common','makeSLDProfiles');
-    fullfile(ratRoot,'targetFunctions','common','shiftData');
-    fullfile(ratRoot,'targetFunctions','common','unpackParams');
-    fullfile(ratRoot,'targetFunctions','common','resampleLayers');
-    fullfile(ratRoot,'targetFunctions','common','matlabEngineCaller_customLayers');
-    fullfile(ratRoot,'targetFunctions','standardTF');
-    fullfile(ratRoot,'targetFunctions','standardTF','standardLayers');
-    fullfile(ratRoot,'targetFunctions','standardTF','customLayers');
-    fullfile(ratRoot,'targetFunctions','standardTF','customXY');    
+ratPaths = {
+    
     fullfile(ratRoot,'API');
-    fullfile(ratRoot,'API','reflectivityCalculation');
-    fullfile(ratRoot,'tests');
-    fullfile(ratRoot,'minimisers','simplex');
-    fullfile(ratRoot,'minimisers','generalUtils');
-    fullfile(ratRoot,'minimisers','DE');
-    fullfile(ratRoot,'minimisers','NSMain');
-    fullfile(ratRoot,'utilities');
-    fullfile(ratRoot,'utilities','plotting');
-    fullfile(ratRoot,'utilities','testing');
     fullfile(ratRoot,'API','controlsDef');
+    fullfile(ratRoot,'API','outputFcn');
     fullfile(ratRoot,'API','projectClass');
-};
 
+    fullfile(ratRoot,'compile','DE_compile');
+    fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
+    fullfile(ratRoot,'compile','simplex_compile');
+
+    fullfile(ratRoot,'minimisers','DE');
+    fullfile(ratRoot,'minimisers','generalUtils');
+    fullfile(ratRoot,'minimisers','generalUtils','bayesStats');
+    fullfile(ratRoot,'minimisers','mcmcstat_new');
+    fullfile(ratRoot,'minimisers','mcmcstat_new','src');
+    fullfile(ratRoot,'minimisers','NSMain');
+    fullfile(ratRoot,'minimisers','simplex');
+
+    fullfile(ratRoot,'targetFunctions','common');
+    fullfile(ratRoot,'targetFunctions','common','backSort');
+    fullfile(ratRoot,'targetFunctions','common','callMatlabFunction');
+    fullfile(ratRoot,'targetFunctions','common','callReflectivity');
+    fullfile(ratRoot,'targetFunctions','common','costFunctions','chiSquared');
+    fullfile(ratRoot,'targetFunctions','common','groupLayers');
+    fullfile(ratRoot,'targetFunctions','common','loopCppCustomLayersWrapper');
+    fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');  
+    fullfile(ratRoot,'targetFunctions','common','makeSLDProfiles');
+    fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations');
+    fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations','Abeles');
+    fullfile(ratRoot,'targetFunctions','common','resampleLayers');
+    fullfile(ratRoot,'targetFunctions','common','resolutionFunctions','simpleGaussian');   
+    fullfile(ratRoot,'targetFunctions','common','shiftData');
+    
+    fullfile(ratRoot,'targetFunctions','reflectivityCalculation');
+    fullfile(ratRoot,'targetFunctions','standardTF');
+    fullfile(ratRoot,'targetFunctions','standardTF','customLayers');
+    fullfile(ratRoot,'targetFunctions','standardTF','customXY');
+    fullfile(ratRoot,'targetFunctions','standardTF','standardLayers');
+    
+    fullfile(ratRoot,'tests','standardTFReflectivityCalculation');
+    fullfile(ratRoot,'tests','testCommonFunctions');
+
+    fullfile(ratRoot,'utilities');
+    fullfile(ratRoot,'utilities','exceptions');
+    fullfile(ratRoot,'utilities','misc');
+    fullfile(ratRoot,'utilities','misc','projectClassToR1');
+    fullfile(ratRoot,'utilities','plotting');
+
+    fullfile(ratRoot,'3rdParty','Paramonte');
+    
+};
 
 for i = 1:length(ratPaths)
     rmpath(ratPaths{i});
 end
-
-disp('debug');
-
-
-    

@@ -49,7 +49,7 @@ ratPaths = {
     fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');  
     fullfile(ratRoot,'targetFunctions','common','makeSLDProfiles');
     fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations');
-    fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations','Abeles');
+    fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations','abeles');
     fullfile(ratRoot,'targetFunctions','common','resampleLayers');
     fullfile(ratRoot,'targetFunctions','common','resolutionFunctions','simpleGaussian');   
     fullfile(ratRoot,'targetFunctions','common','shiftData');

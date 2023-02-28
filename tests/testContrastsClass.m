@@ -348,17 +348,9 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.getAllContrastNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Bilayer / H2O'}, "getAllContrastNames does not work correctly");
         end
 
-        function testGetAllContrastNamesInvalid(testCase)
-            % If we try to get contrast names when no contrasts are
-            % defined we should raise an error
-            emptyContrasts = contrastsClass();
-            testCase.verifyError(@() emptyContrasts.getAllContrastNames, invalidValue.errorID);
-        end
-
         function testUpdateDataName(testCase)
-            % Test the rouitine that updates the data entry of the
-            % contrast as data names are changed.
-
+            % Test the routine that updates the data entry of the contrast
+            % as data names are changed.
             nameChanged = struct('oldName', 'Bilayer / H2O', 'newName', 'Test Data Name');
             testCase.exampleClass.updateDataName(nameChanged);
 

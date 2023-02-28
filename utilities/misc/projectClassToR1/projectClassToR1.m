@@ -451,7 +451,7 @@ end
 
 end
 
-function inputBlock = (varargin)
+function inputBlock = parseR1Problem(varargin)
 
     default_r1Problem = struct('empty',0);
     default_dirName = 'newDirectory';   

@@ -37,52 +37,6 @@ classdef contrastsClass < handle
             % contrasts.addContrast('New Contrast')
             % contrasts.addContrast('name', 'new contrast', ... 
             %                       'background', 'Background H2O')
-            
-            % Parsing Input Types....
-            
-            % 1 No input at all.
-            % p.addContrast()
-            % varargin =
-            %     1×1 cell array
-            %     {0×0 cell}
-            %
-            % -   length(varargin) = 1
-            %     isempty(varargin) = logical 0
-            %
-            %     varargin{:} - 0x0 empty cell array
-            %     length(varargin{:}) = 0
-            %     isempty(varargin{:}) - logical 1
-            %
-            %
-            %
-            %  % 2. Just name string
-            %  p.addContrast('my contrast')
-            %  varargin =
-            %     1×1 cell array
-            %     {1×1 cell}
-            %
-            %     length(varargin) = 1
-            %     isempty(varargin) = logical 0
-            %
-            %     varargin{:} - 1×1 cell array - {'my contrast'}
-            %     length(varargin{:}) = 1
-            %     isempty(varargin{:}) - logical 0
-            %
-            %
-            %  % Longer input
-            %  p.addContrast('name','my contrast','backround','background 1')
-            %
-            %  varargin =
-            %     1×1 cell array
-            %     {1×4 cell}
-            %
-            %     length(varargin) = 1
-            %     isempty(varargin) = logical 0
-            %
-            %     varargin{:} = 1×4 cell array  - {'name'}    {'my contrast'}    {'backround'}    {'background 1'}
-            %     length(varargin{:}) = 4
-            %     isempty(varargin{:}) - logical 0
-
             if isempty(varargin{:})
                 % No input at all
                 contrastName = sprintf('New contrast %d', obj.contrastAutoNameCounter);
@@ -143,7 +97,7 @@ classdef contrastsClass < handle
             % The expected input is the contrast (specified either by name
             % or index), the model type, the allowed values (either layers
             % for standard layers or custom files for custom models) and a
-            % variable muber of arguments for the model itself.
+            % variable number of arguments for the model itself.
             % Note that the model can only be set here, and not in
             % "addContrast" or "setContrast".
             %
@@ -263,11 +217,7 @@ classdef contrastsClass < handle
             % contrasts.getAllContrastNames()
             nContrasts = obj.numberOfContrasts;
             contrastNames = cell(1,nContrasts);
-            
-            if nContrasts == 0
-                throw(invalidValue('Can''t get contrast names when no contrasts defined'));
-            end
-            
+                        
             for i = 1:nContrasts
                 thisContrast = obj.contrasts{i};
                 contrastNames{i} = thisContrast.name;

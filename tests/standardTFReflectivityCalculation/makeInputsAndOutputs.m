@@ -1,5 +1,5 @@
 % This is a helper function to make the inputs and outputs for the Unit
-% Tests. When changes are made to projectClass and controlsDef, it is
+% Tests. When changes are made to projectClass and controlsClass, it is
 % necessary to run this function so that the changes (i.e. number of
 % fields) are set in inputs and outputs to the tests.
 
@@ -11,7 +11,7 @@
 % 1. Custom Layers.
 ratRoot = getappdata(0,'ratRoot');
 customLayersProblem = orsoDSPCCustomLayers();
-controlsInput = controlsDef();
+controlsInput = controlsClass();
 
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
@@ -83,7 +83,7 @@ save('tests\standardTFReflectivityCalculation\customLayersTFParams','TFParams');
 % (a) Inputs
 ratRoot = getappdata(0,'ratRoot');
 customXYProblem = DPPCCustomXYScript();
-controlsInput = controlsDef();
+controlsInput = controlsClass();
 
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
@@ -154,7 +154,7 @@ save('tests\standardTFReflectivityCalculation\customXYTFParams','TFParams');
 % 3. Standard Layers
 % (a) Inputs
 standardProblem = DPPCStandardLayers();
-controlsInput = controlsDef();
+controlsInput = controlsClass();
 
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';

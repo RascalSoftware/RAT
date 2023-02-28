@@ -1,11 +1,11 @@
-% Write Unit tests for controlsDef class
+% Write Unit tests for controlsClass class
 % Test each method of the class and its properties 
 % under the following conditions:
 % 1. The Controls class has a method that assigns an object to the class
 
 
 %: Instantiate the class
-control = controlsDef();
+control = controlsClass();
 
 % Test if set.parallel method is working
 control.parallel = 'single';

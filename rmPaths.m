@@ -7,7 +7,7 @@ ratPaths = {
     fullfile(ratRoot,'API','outputFunction');
     fullfile(ratRoot,'API','projectClass');
 
-    fullfile(ratRoot,'compile','DE_compile');
+    fullfile(ratRoot,'compile','DE');
     fullfile(ratRoot,'compile','reflectivityCalculation');
     fullfile(ratRoot,'compile','simplex');
 

@@ -22,7 +22,7 @@ pipeline
                     {
 
                         runMATLABCommand 'buildScript'
-                        runMATLABCommand 'testRatScript'
+                        runMATLABCommand 'testScript'
                         sh 'mkdir build_linux'
                         sh 'cp -R compile/* build_linux/'
                         sh 'zip -r build_linux.zip build_linux -x "**/-lang:c++.zip"'
@@ -43,7 +43,7 @@ pipeline
                     steps 
                     {
                         runMATLABCommand 'buildScript'
-                        runMATLABCommand 'testRatScript'
+                        runMATLABCommand 'testScript'
                         bat 'mkdir build_windows'
                         bat "xcopy /E /I compile build_windows"
                         bat 'tar --exclude="**/-lang:c++.zip" -acvf build_windows.zip build_windows'

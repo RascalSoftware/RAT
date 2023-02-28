@@ -21,7 +21,7 @@ ratPaths = {fullfile(ratRoot,'targetFunctions','common');
     fullfile(ratRoot,'targetFunctions','common','callReflectivity');
     fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations');
     fullfile(ratRoot,'targetFunctions','common','reflectivityCalculations','Abeles');
-    fullfile(ratRoot,'targetFunctions','common','Resolution_Functions','Simple_Gaussian');
+    fullfile(ratRoot,'targetFunctions','common','resolutionFunctions','simpleGaussian');
     fullfile(ratRoot,'targetFunctions','common','costFunctions','chiSquared');
     fullfile(ratRoot,'targetFunctions','common','groupLayers');
     fullfile(ratRoot,'targetFunctions','common','makeSLDProfiles');

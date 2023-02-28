@@ -65,11 +65,11 @@ switch refType
                 % Note: paraPoints gives an error during valifation, so use
                 % single cored resolution as a workaround for now.
                 if res == -1
-                    %simRef = data_resolution_polly_paraPoints(simXdata,simRef,simResolData,length(simXdata));
-                    simRef = data_resolution_polly(simXdata,simRef,simResolData,length(simXdata));
+                    %simRef = dataResolutionPollyParallelPoints(simXdata,simRef,simResolData,length(simXdata));
+                    simRef = dataResolutionPolly(simXdata,simRef,simResolData,length(simXdata));
                 else
-                    %simRef = resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata));
-                    simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
+                    %simRef = resolutionPollyParallelPoints(simXdata,simRef,res,length(simXdata));
+                    simRef = resolutionPolly(simXdata,simRef,res,length(simXdata));
                 end
                 
             otherwise
@@ -80,9 +80,9 @@ switch refType
                 
                 % Apply resolution correction...
                 if res == -1
-                    simRef = data_resolution_polly(simXdata,simRef,simResolData,length(simXdata));
+                    simRef = dataResolutionPolly(simXdata,simRef,simResolData,length(simXdata));
                 else
-                    simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
+                    simRef = resolutionPolly(simXdata,simRef,res,length(simXdata));
                 end
         end
 end

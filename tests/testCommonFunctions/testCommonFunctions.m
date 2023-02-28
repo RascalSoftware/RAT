@@ -48,14 +48,14 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         SLDFunctionInputs;
         SLDFunctionOutputs;
 
-        data_resolution_polly_paraPointsInputs;
-        data_resolution_polly_paraPointsOutputs;
+        dataResolutionPollyParallelPointsInputs;
+        dataResolutionPollyParallelPointsOutputs;
         
-        data_resolution_pollyInputs;
-        data_resolution_pollyOutputs;
+        dataResolutionPollyInputs;
+        dataResolutionPollyOutputs;
         
-        resolution_polly_paraPointsInputs;
-        resolution_polly_paraPointsOutputs;
+        resolutionPollyParallelPointsInputs;
+        resolutionPollyParallelPointsOutputs;
         
         resolutionPollyInputs;
         resolutionPollyOutputs;
@@ -191,23 +191,23 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.SLDFunctionOutputs = outputs.outputs;
         end
 %{
-        function loadData_resolution_polly_paraPoints(testCase)
-            inputs = load('data_resolution_polly_paraPoints.mat');
-            testCase.data_resolution_polly_paraPoints = inputs.data_resolution_polly_paraPoints;
+        function loadData_resolutionPollyParallelPoints(testCase)
+            inputs = load('dataResolutionPollyParallelPoints.mat');
+            testCase.dataResolutionPollyParallelPoints = inputs.dataResolutionPollyParallelPoints;
         end
 
-        function loadData_resolution_polly(testCase)
-            inputs = load('data_resolution_polly.mat');
-            testCase.data_resolution_polly = inputs.data_resolution_polly;
+        function loadData_resolutionPolly(testCase)
+            inputs = load('dataResolutionPolly.mat');
+            testCase.dataResolutionPolly = inputs.dataResolutionPolly;
         end
-        function loadresolution_polly_paraPoints(testCase) 
-            inputs = load('resolution_polly_paraPoints.mat');
-            testCase.resolution_polly_paraPoints = inputs.resolution_polly_paraPoints;
+        function loadresolutionPollyParallelPoints(testCase) 
+            inputs = load('resolutionPollyParallelPoints.mat');
+            testCase.resolutionPollyParallelPoints = inputs.resolutionPollyParallelPoints;
         end
 %}
-        function loadresolution_polly(testCase)
-            inputs = load('resolution_pollyInputs.mat');
-            outputs = load('resolution_pollyOutputs.mat');
+        function loadresolutionPolly(testCase)
+            inputs = load('resolutionPollyInputs.mat');
+            outputs = load('resolutionPollyOutputs.mat');
             testCase.resolutionPollyInputs = inputs.inputs;
             testCase.resolutionPollyOutputs = outputs.outputs;
         end 
@@ -459,8 +459,8 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 
         end
 %{
-        function data_resolution_polly_paraPoints_test(testCase)
-            % test data_resolution_polly_paraPoints
+        function dataResolutionPollyParallelPoints_test(testCase)
+            % test dataResolutionPollyParallelPoints
             %
             % Inputs:
             %   testCase - class instance
@@ -469,22 +469,22 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   data_resolution_polly_paraPoints(testCase)
+            %   dataResolutionPollyParallelPoints(testCase)
             
             %
-            firstArg = testCase.data_resolution_polly_paraPointsInputs{1};
-            secondArg = testCase.data_resolution_polly_paraPointsInputs{2};
-            thirdArg = testCase.data_resolution_polly_paraPointsInputs{3};
-            fourthArg = testCase.data_resolution_polly_paraPointsInputs{4};
+            firstArg = testCase.dataResolutionPollyParallelPointsInputs{1};
+            secondArg = testCase.dataResolutionPollyParallelPointsInputs{2};
+            thirdArg = testCase.dataResolutionPollyParallelPointsInputs{3};
+            fourthArg = testCase.dataResolutionPollyParallelPointsInputs{4};
             
-            outputs = data_resolution_polly_paraPoints(firstArg,secondArg,thirdArg,fourthArg);
+            outputs = dataResolutionPollyParallelPoints(firstArg,secondArg,thirdArg,fourthArg);
 
-            testCase.verifyEqual(testCase.data_resolution_polly_paraPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.dataResolutionPollyParallelPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
 
-        function data_resolution_polly_test(testCase)
-            % test data_resolution_polly
+        function dataResolutionPolly_test(testCase)
+            % test dataResolutionPolly
             %
             % Inputs:
             %   testCase - class instance
@@ -493,22 +493,22 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   data_resolution_polly(testCase)
+            %   dataResolutionPolly(testCase)
             
             %
-            firstArg = testCase.data_resolution_pollyInputs{1};
-            secondArg = testCase.data_resolution_pollyInputs{2};
-            thirdArg = testCase.data_resolution_pollyInputs{3};
-            fourthArg = testCase.data_resolution_pollyInputs{4};
+            firstArg = testCase.dataResolutionPollyInputs{1};
+            secondArg = testCase.dataResolutionPollyInputs{2};
+            thirdArg = testCase.dataResolutionPollyInputs{3};
+            fourthArg = testCase.dataResolutionPollyInputs{4};
             
-            outputs = data_resolution_polly(firstArg,secondArg,thirdArg,fourthArg);
+            outputs = dataResolutionPolly(firstArg,secondArg,thirdArg,fourthArg);
 
-            testCase.verifyEqual(testCase.data_resolution_pollyOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.dataResolutionPollyOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
     
-        function resolution_polly_paraPoints(testCase)
-            % test resolution_polly_paraPoints
+        function resolutionPollyParallelPoints(testCase)
+            % test resolutionPollyParallelPoints
             %
             % Inputs:
             %   testCase - class instance
@@ -516,9 +516,9 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             % Outputs:
             %   none
 
-            outputs = resolution_polly_paraPoints(testCase.resolution_polly_paraPointsInputs{1:end});
+            outputs = resolutionPollyParallelPoints(testCase.resolutionPollyParallelPointsInputs{1:end});
 
-            testCase.verifyEqual(testCase.resolution_polly_paraPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.resolutionPollyParallelPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
  %}    
@@ -533,9 +533,9 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   resolution_polly(testCase)
+            %   resolutionPolly(testCase)
             
-            out1 = resolution_polly(testCase.resolutionPollyInputs{1:end});
+            out1 = resolutionPolly(testCase.resolutionPollyInputs{1:end});
             outputs = {out1};
             testCase.verifyEqual(testCase.resolutionPollyOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 

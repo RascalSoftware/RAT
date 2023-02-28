@@ -1,4 +1,4 @@
-function out = resolution_polly(xdata,ydata,res,points)
+function out = resolutionPolly(xdata,ydata,res,points)
 % Apply resolution correction
 
 

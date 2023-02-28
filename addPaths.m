@@ -24,7 +24,7 @@ ratPaths = {
 
     fullfile(ratRoot,'compile','DE_compile');
     fullfile(ratRoot,'compile','reflectivityCalculation');
-    fullfile(ratRoot,'compile','simplex_compile');
+    fullfile(ratRoot,'compile','simplex');
 
     fullfile(ratRoot,'minimisers','DREAM');
     fullfile(ratRoot,'minimisers','DREAM','diagnostics');

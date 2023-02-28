@@ -131,5 +131,5 @@ cfg.DataTypeReplacement = 'CoderTypeDefs';
 ARGS = makeCompileArgs();
 
 %% Invoke MATLAB Coder.
-codegen -config cfg -package -lang:c++ RATMain -args ARGS{1}
+codegen -config cfg -package -lang:c++ RAT_main -args ARGS{1}
 

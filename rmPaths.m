@@ -9,7 +9,7 @@ ratPaths = {
 
     fullfile(ratRoot,'compile','DE_compile');
     fullfile(ratRoot,'compile','reflectivityCalculation');
-    fullfile(ratRoot,'compile','simplex_compile');
+    fullfile(ratRoot,'compile','simplex');
 
     fullfile(ratRoot,'minimisers','DE');
     fullfile(ratRoot,'minimisers','generalUtils');

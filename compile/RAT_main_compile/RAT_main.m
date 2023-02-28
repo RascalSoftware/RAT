@@ -1,4 +1,4 @@
-function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors)
+function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors)
 
 
 result = cell(6,1);

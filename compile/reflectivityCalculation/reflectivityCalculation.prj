@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.coder" plugin-version="R2021a">
-  <configuration file="C:\Users\gnn85523\projects\RAT\compile\reflectivity_calculation_compile_new\reflectivity_calculation.prj" location="C:\Users\gnn85523\projects\RAT\compile\reflectivity_calculation_compile_new" name="reflectivity_calculation" target="target.unifiedcoder" target-name="MATLAB Coder">
+  <configuration file="C:\Users\gnn85523\projects\RAT\compile\reflectivityCalculation\reflectivityCalculation.prj" location="C:\Users\gnn85523\projects\RAT\compile\reflectivityCalculation" name="reflectivityCalculation" target="target.unifiedcoder" target-name="MATLAB Coder">
     <profile key="profile.mex">
       <param.BuiltInstrumentedMex />
       <param.RanInstrumentedMex />
@@ -576,7 +576,7 @@
     </param.TestSnippets>
     <param.ExternalFcnMajority />
     <param.UseGlobals>option.UseGlobals.No</param.UseGlobals>
-    <param.outputfile>${PROJECT_ROOT}\codegen\lib\reflectivity_calculation\reflectivity_calculation.lib</param.outputfile>
+    <param.outputfile>${PROJECT_ROOT}\codegen\lib\reflectivityCalculation\reflectivityCalculation.lib</param.outputfile>
     <param.version />
     <param.HasECoderFeatures>true</param.HasECoderFeatures>
     <param.HasGpuCoder>true</param.HasGpuCoder>
@@ -599,15 +599,15 @@
     <var.DismissScreener>true</var.DismissScreener>
     <param.unifiedParamStorage />
     <param.hdlParamStorage />
-    <var.gc.lastOutputRoot>codegen/lib/reflectivity_calculation</var.gc.lastOutputRoot>
+    <var.gc.lastOutputRoot>codegen/lib/reflectivityCalculation</var.gc.lastOutputRoot>
     <var.gc.lastOutputType>C_CODE</var.gc.lastOutputType>
     <var.gc.preBuildChecksum>446836816</var.gc.preBuildChecksum>
-    <var.cfi.lastOutputRoot>codegen/mex/reflectivity_calculation</var.cfi.lastOutputRoot>
+    <var.cfi.lastOutputRoot>codegen/mex/reflectivityCalculation</var.cfi.lastOutputRoot>
     <var.cfi.preBuildChecksum>644687037</var.cfi.preBuildChecksum>
     <var.lastCfiTestSnippet>makeCompileInputs_script</var.lastCfiTestSnippet>
     <var.outdatedOnRestore />
-    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/API/RAT_parse_cells.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/API/extractProblemParams.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/compile/reflectivity_calculation_compile_new/reflectivity_calculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/backSorts/backSort.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/callReflectivity.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/chiSquared/chiSquared.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/allocateParamsToLayers.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfiles.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/adaptive.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/resampleLayers.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/sldFunc.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/shiftData/shiftdata.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/call_customLayers.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraContrasts.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_layers_core.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay_reflectivityCalculation.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;1582828891&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
-    <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;C:\Users\gnn85523\projects\RAT\compile\reflectivity_calculation_compile_new\reflectivity_calculation.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
+    <var.lastUserSourceChecksum>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;checksum&gt;&lt;includedFiles&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/API/RAT_parse_cells.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/API/extractProblemParams.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/compile/reflectivityCalculation_compile_new/reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/backSorts/backSort.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/applyBackgroundCorrection.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/callReflectivity/callReflectivity.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/costFunctions/chiSquared/chiSquared.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/allocateLayersForContrast.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/allocateParamsToLayers.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/groupLayers/groupLayers_Mod.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/asymconvstep.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfileXY.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/makeSLDProfiles/makeSLDProfiles.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/reflectivityCalculations/Abeles/abeles_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/adaptive.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/resampleLayers.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/resampleLayers/sldFunc.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/common/shiftData/shiftdata.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/call_customLayers.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay/standardTF_custlay_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custLay_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraContrasts.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_custXY_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_layers_core.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_reflectivityCalculation.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraContrasts.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_paraPoints.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay/standardTF_stanlay_single.m&lt;/file&gt;&lt;file&gt;/Users/arwel/Documents/coding/RAT/targetFunctions/standard_TF/standardTF_stanLay_reflectivityCalculation.m&lt;/file&gt;&lt;/includedFiles&gt;&lt;value&gt;1582828891&lt;/value&gt;&lt;/checksum&gt;</var.lastUserSourceChecksum>
+    <var.sourceSetState>&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;&lt;sourceModel&gt;&lt;primarySourceFiles&gt;&lt;file&gt;C:\Users\gnn85523\projects\RAT\compile\reflectivityCalculation\reflectivityCalculation.m&lt;/file&gt;&lt;/primarySourceFiles&gt;&lt;fixedPointSourceFiles/&gt;&lt;fixedPointSourceRegistered&gt;false&lt;/fixedPointSourceRegistered&gt;&lt;fixedPointSourceSelected&gt;false&lt;/fixedPointSourceSelected&gt;&lt;/sourceModel&gt;</var.sourceSetState>
     <param.forceMexBuild>false</param.forceMexBuild>
     <param.NoDefaultJIT />
     <param.configImportActive>false</param.configImportActive>
@@ -621,10 +621,10 @@
     <param.EnableStructExplosion />
     <param.ForceANSIC />
     <param.NumCompileJobs />
-    <param.mex.outputfile>reflectivity_calculation_mex</param.mex.outputfile>
-    <param.grt.outputfile>reflectivity_calculation</param.grt.outputfile>
+    <param.mex.outputfile>reflectivityCalculation_mex</param.mex.outputfile>
+    <param.grt.outputfile>reflectivityCalculation</param.grt.outputfile>
     <param.artifact>option.target.artifact.lib</param.artifact>
-    <param.outputfile>${PROJECT_ROOT}\codegen\lib\reflectivity_calculation\reflectivity_calculation.lib</param.outputfile>
+    <param.outputfile>${PROJECT_ROOT}\codegen\lib\reflectivityCalculation\reflectivityCalculation.lib</param.outputfile>
     <param.CppNamespace />
     <param.CppPackagesToNamespaces />
     <param.CppNamespaceForMathworksCode />
@@ -852,7 +852,7 @@
       <param.FixedPointUseDesignRanges />
     </unset>
     <fileset.entrypoints>
-      <file custom-data-expanded="false" value="${PROJECT_ROOT}\reflectivity_calculation.m">
+      <file custom-data-expanded="false" value="${PROJECT_ROOT}\reflectivityCalculation.m">
         <Marker>1625653514018</Marker>
       </file>
     </fileset.entrypoints>
@@ -860,8 +860,8 @@
       <file>${PROJECT_ROOT}\makeCompileInputs_script.m</file>
     </fileset.testbench>
     <fileset.inputtypes>
-      <file custom-data-expanded="false" value="${PROJECT_ROOT}\reflectivity_calculation.m">
-        <Inputs fileName="reflectivity_calculation.m" functionName="reflectivity_calculation">
+      <file custom-data-expanded="false" value="${PROJECT_ROOT}\reflectivityCalculation.m">
+        <Inputs fileName="reflectivityCalculation.m" functionName="reflectivityCalculation">
           <Input Name="problemDef" typeId="0">
             <Field Name="contrastBacks" typeId="1" />
             <Field Name="contrastBacksType" typeId="1" />
@@ -1100,7 +1100,7 @@
       </file>
     </fileset.inputtypes>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\codegen\lib\reflectivity_calculation" name="reflectivity_calculation.lib" optional="false">C:\Users\gnn85523\projects\RAT\compile\reflectivity_calculation_compile_new\codegen\lib\reflectivity_calculation\reflectivity_calculation.lib</file>
+      <file location="${PROJECT_ROOT}\codegen\lib\reflectivityCalculation" name="reflectivityCalculation.lib" optional="false">C:\Users\gnn85523\projects\RAT\compile\reflectivityCalculation\codegen\lib\reflectivityCalculation\reflectivityCalculation.lib</file>
     </build-deliverables>
     <workflow />
     <matlab>

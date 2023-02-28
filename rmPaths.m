@@ -8,7 +8,7 @@ ratPaths = {
     fullfile(ratRoot,'API','projectClass');
 
     fullfile(ratRoot,'compile','DE_compile');
-    fullfile(ratRoot,'compile','reflectivity_calculation_compile_new');
+    fullfile(ratRoot,'compile','reflectivityCalculation');
     fullfile(ratRoot,'compile','simplex_compile');
 
     fullfile(ratRoot,'minimisers','DE');

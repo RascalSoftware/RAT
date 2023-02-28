@@ -32,7 +32,7 @@ problem.setBulkOut(1,'fit',true,'min',5e-6);
 
 %%
 % Now add the custom file to the project..
-problem.addCustomFile('DPPC Model','DPPC_customXY.m','matlab','pwd');
+problem.addCustomFile('DPPC Model','DPPCCustomXY.m','matlab','pwd');
 
 
 %% 

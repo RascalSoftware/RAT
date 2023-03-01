@@ -19,7 +19,7 @@ function [allLayers, allRoughs] = loopMatlabCustomLayersWrapperXYContrasts(cBack
  % Call the Matlab parallel loop for the custom models.....
  % We do this using feval, which automatically makes this function call
  % only extrinsic... the loop is then handled in the matlab file (using 
- % paralell computing toolbox)
+ % parallel computing toolbox)
  [tempAllLayers, tempAllRoughs] = feval('loopMatlabCustomLayers',cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
      shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
  

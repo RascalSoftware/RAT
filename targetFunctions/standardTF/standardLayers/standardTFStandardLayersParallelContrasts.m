@@ -94,14 +94,14 @@ parfor i = 1:numberOfContrasts
     % Now call the core standardTF_stanlay reflectivity calculation
     % In this case we are single cored, so we do not parallelise over
     % points
-    paralellPoints = 'single';
+    parallelPoints = 'single';
     
     % Call the core layers calculation
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,...
         thisChiSquared,thisSsubs] = standardTFLayersCore(thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,paralellPoints,resamPars);
+    thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars);
    
     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 

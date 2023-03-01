@@ -5,7 +5,7 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,all
 % relevant version ofthe main standard layers calculation. Parallelisation 
 % is either over the outer loop ('contrasts'), or the inner loop
 % ('points'). The easiest way to do this is to have multiple versions of 
-% the same core calculation, rather than trying to make the paralell
+% the same core calculation, rather than trying to make the parallel
 % for loops conditional (although that would be much neater) There are:
 % points    - parallelise over points in the reflectivity calculation
 % contrasts - parallelise over contrasts (outer for loop)

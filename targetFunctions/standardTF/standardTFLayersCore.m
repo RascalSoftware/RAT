@@ -2,7 +2,7 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
     standardTFLayersCore(contrastLayers, rough, ...
     geometry, nba, nbs, resample, calcSld, sf, qshift,...
     dataPresent, data, dataLimits, simLimits, repeatLayers,...
-    background,resol,backsType,params,paralellPoints,resamPars)
+    background,resol,backsType,params,parallelPoints,resamPars)
 
 %   This is the main reflectivity calculation for all Layers models in the 
 %   standard target function. 
@@ -40,7 +40,7 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
 %   resol           :
 %   backsType       :
 %   params          :
-%   paralellPoints  :
+%   parallelPoints  :
 %
 % Outputs:
 %
@@ -85,7 +85,7 @@ shifted_dat = shiftData(sf,qshift,dataPresent,data,dataLimits,simLimits);
 
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles_realOnly';
-[reflect,Simul] = callReflectivity(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,paralellPoints,reflectivityType);
+[reflect,Simul] = callReflectivity(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,parallelPoints,reflectivityType);
 
 % Apply background correction, either to the simulation or the data
 [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,background,backsType);

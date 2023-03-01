@@ -7,8 +7,8 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
 % arrays, allocates these on a pre-contrast basis, then calls the 'core' 
 % calculation (the core layers standardTf calc is shared between multiple
 % calculation types).
-% This differs from the other two paralellisations in that the custom model
-% files are processed in a paralell loop (using the Matlab Paralell
+% This differs from the other two parallelisations in that the custom model
+% files are processed in a parallel loop (using the Matlab Paralell
 % Computing Toolbox) outside the main loop, before the main loop is then processed
 % in the compiled version using OpenMP.
 
@@ -105,7 +105,7 @@ parfor i = 1:numberOfContrasts
     % Now call the core standardTF_stanlay reflectivity calculation
     % In this case we are single cored, so we do not parallelise over
     % points
-    paralellPoints = 'single';
+    parallelPoints = 'single';
     
     % Call the reflectivity calculation
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
@@ -113,7 +113,7 @@ parfor i = 1:numberOfContrasts
     (thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,paralellPoints,resamPars);
+    thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars);
    
     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 

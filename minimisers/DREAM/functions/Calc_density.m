@@ -47,7 +47,17 @@ if strcmp(DREAMPar.ABC,'no')
         for i = 1:DREAMPar.N                                  % Loop over all the chains..
             PR(i) = gaussLogPrior(x(i,:),ratInputs);          % mvnpdf automatically goes over all pars
         end
-        log_PR = log(PR);
+        
+        % Take log of any non-zero values..
+        log_PR = zeros(DREAMPar.N,1);
+        for i = 1:length(PR)
+            if PR(i) ~= 0
+                log_PR(i) = log(PR(i));     % Does it even need to be log?
+            else
+                % Otherwise keep the zero values
+                log_PR(i) = 0;
+            end
+        end
         log_PR = log_PR(:);         % Enforce column vector
     
     

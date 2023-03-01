@@ -255,9 +255,9 @@ for rep = 1:reps
             C = C - repmat(mean(C,2),1,p);
         end
     case 'sample'
-        C = double(X(randsample(n,k),:)); % X may be logical
+        C = double(X(ns_randsample(n,k),:)); % X may be logical
     case 'cluster'
-        Xsubset = X(randsample(n,floor(.1*n)),:);
+        Xsubset = X(ns_randsample(n,floor(.1*n)),:);
         [dum, C] = kmeans(Xsubset, k, varargin{:}, 'start','sample', 'replicates',1);
     case 'numeric'
         C = CC(:,:,rep);

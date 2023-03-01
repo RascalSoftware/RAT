@@ -66,7 +66,7 @@ case 'matlab'
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 % 
 case 'cpp'
-    [sldProf,allRoughs] = loopCppCustomLayersWrapperXYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+    [sldProf,allRoughs] = loopCppWrapperCustomXYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
     
     

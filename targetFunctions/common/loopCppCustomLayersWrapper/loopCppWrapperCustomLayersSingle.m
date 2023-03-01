@@ -1,4 +1,4 @@
-function [allLayers,allRoughs] =  loopCppCustomLayersWrapperCustomLayersPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+function [allLayers,allRoughs] =  loopCppWrapperCustomLayersSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
 shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
 
 
@@ -24,8 +24,10 @@ shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
             %coder.extrinsic('testDLL_mex');
             output = zeros(8,3);
             sRough = 0.0;
+            % This is the function that calls the C++ header function that loads the library,function and calls it with the supplied arguments
             [output,sRough] = testDLL_mex(params,nba,nbs,i,cLibName,cfunctionName);
             
+            % THIS IS THE STUFF THAT NEEDS REFINING cause it will break for larger size x in (x,3)
             output = reshape(output,3,8)'; % convert to 3 x from top down and transpose 
             mask = (output >= 0) & (output <= 2.6e-100); % mask the zeros/extremely small positive useless nums or use ...
             %mask = (abs(output) <= 2.6e-100);

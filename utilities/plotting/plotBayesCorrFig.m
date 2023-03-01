@@ -6,7 +6,7 @@ y = chain;
 nPars = size(chain,2);
 for i = 1:nPars
     
-    [N,edges] = histcounts(chain(:,i),15, 'Normalization','pdf');
+    [N,edges] = histcounts(chain(:,i),50, 'Normalization','pdf');
     edges2 = edges(2:end) - (edges(2)-edges(1))/2;
     N2 = smoothdata(N, 'movmean');
     newDists{i} = [N2(:) edges2(:)];
@@ -82,7 +82,9 @@ for i=rows:-1:1
         
         %n = hist3(data,[30 30]);
         
-        plot(xx,yy,'.','parent',ax(i,j));
+        %plot(xx,yy,'.','parent',ax(i,j));
+        plotContours(xx,yy,ax(i,j));
+
         %contour(ax(i,j),n,[20 20],'k-');
         %axes(ax(i,j));
         %contour(n,20);
@@ -162,7 +164,7 @@ if dohist % Put a histogram on the diagonal for plotmatrix(y) case
             histax = findax(1);
         end
         thisHist = newDists{i};
-        hhist(i) = bar(thisHist(:,2),thisHist(:,1),'w');
+        hhist(i) = bar(thisHist(:,2),thisHist(:,1),1,'w');
         
         %hhist(i) = histogram(histax,y(:,i,:));
 %         set(histax,'xtick',[],'ytick',[],'xgrid','off','ygrid','off');
@@ -316,5 +318,27 @@ z = -1:(1/bw):1;
 k = .75 * (1 - z.^2); % epanechnikov-like weights
 k = k ./ sum(k);
 Z = filter2(k'*k,Y);
+
+end
+
+% ---------------------------------------------------------------------
+function plotContours(x,y,ax)
+
+nbins = [100 100];
+
+[N,C] = hist3([x(:) y(:)],nbins);
+K=(1/25)*ones(5);
+N=conv2(N,K,'same');
+
+NN = N/sum(N(:));
+NS = sort(NN(:));
+
+levels = interp1q(cumsum(NS),NS,[0.015 0.1 0.3 0.65 0.9]')';
+
+contourf(C{1},C{2},NN',levels,'parent',ax);
+
+colormap(flipud(gray(5)));
+
+hold on
 
 end

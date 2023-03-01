@@ -32,13 +32,14 @@ classdef controlsDef < matlab.mixin.CustomDisplay
         Nmcmc = 0
         propScale = 0.1     %Used if MCMC is used
         nsTolerance = 0.1     %Target stopping tolerance
-        
-        %(4) Bayes MCMC
-        method = 'dram';
-        nsimu = 1000;
-        adaptint = 100;
-        burnin = 100;
-        repeats = 1; 
+
+        %(4) DREAM
+        nSamples = 50000;          % Total number of samples
+        nChains = 10;               % Number of MCMC chains..
+        lambda = 0.5;               % Jump probabilities
+        p_unit_gamma = 0.2;
+        boundHandling = 'fold';     % Boundary handling
+        % prior = true;
 
     end
     
@@ -53,8 +54,8 @@ classdef controlsDef < matlab.mixin.CustomDisplay
         end
         
         function obj = set.procedure(obj,val)
-            if ~strcmpi(val,{'calculate','simplex','DE','Bayes','NS'})
-                error('Type must be ''calculate'', ''simplex'', ''DE'', ''Bayes'' or ''NS'' ');
+            if ~strcmpi(val,{'calculate','simplex','DE', 'NS','dream'})
+                error('Type must be ''calculate'', ''simplex'', ''DE'', ''dream'' or ''NS'' ');
             end
             
             obj.procedure = val;
@@ -200,46 +201,42 @@ classdef controlsDef < matlab.mixin.CustomDisplay
              end
              obj.nsTolerance = val;
         end
-        
-        % Bayes control methods. 
-        function obj = set.method(obj,val)
-             if ~strcmpi(val,{'DRAM','Delayed Rejection','Adaptive Metropolis','Metropolis Hastings'})
-                 error('Display must be set to ''DRAM'',''Delayed Rejection'',''Adaptive Metropolis'' or ''Metropolis Hastings'' ');
-             end
-             obj.method = val;
-        end
-             
-        function obj = set.nsimu(obj,val)
+
+        % DREAM methods
+        function obj = set.nSamples(obj,val)
              if (~isnumeric(val) || val < 0 )
                  error('nsumu must be a positive number');
              end
-             obj.nsimu = val;
-        end
-        
-        function obj = set.adaptint(obj,val)
-             if (~isnumeric(val) || val < 0 )
-                 error('adaptint must be a positive number');
-             end
-             obj.adaptint = val;
-        end
-            
-        function obj = set.burnin(obj,val)
-             if (~isnumeric(val) || val < 0 )
-                 error('burnin must be a positive number');
-             end
-             obj.burnin = val;
-        end
-        
-         
-        function obj = set.repeats(obj,val)
-             if (~isnumeric(val) || val < 1 )
-                 error('burnin must be a positive number > 1');
-             end
-             obj.repeats = val;
-        end
+             obj.nSamples = val;
+        end 
 
+        function obj = set.nChains(obj,val)
+             if ~(round(val) == val) || val <= 0 || isnan(val) || isinf(val)
+                 error('nChains must be a positive integer > 0');
+             end
+             obj.nChains = val;
+        end 
 
+        function obj = set.lambda(obj,val)
+             if (val < 0 || val > 1)
+                 error('Jump probability lambda must be a fraction betweem 0 and 1');
+             end
+             obj.lambdA = val;
+        end 
 
+        function obj = set.p_unit_gamma(obj,val)
+             if (val < 0 || val > 1)
+                 error('P_unit_gamma must be a fraction betweem 0 and 1');
+             end
+             obj.p_unit_gamma = val;
+        end 
+
+        function obj = set.boundHandling(obj,val)
+             if ~strcmpi(val{'none','reflect','bound','fold'})
+                 error('Boundary handling must be ''none'', ''reflect'', ''bound'' or ''none''');
+             end
+             obj.boundHandling = val;
+        end 
 
     end  
     %------------------------- Display Methods --------------------------
@@ -266,12 +263,12 @@ classdef controlsDef < matlab.mixin.CustomDisplay
                 'Nmcmc', {obj.Nmcmc'},...
                 'propScale', {obj.propScale},...
                 'nsTolerance', {obj.nsTolerance},...
-                'method', {obj.method},...
-                'nsimu', {obj.nsimu},...
-                'adaptint', {obj.adaptint},...
-                'burnin', {obj.burnin},...
-                'repeats', {obj.repeats},...
-                'resamPars', {obj.resamPars});
+                'resamPars', {obj.resamPars},...
+                'nSamples', {obj.nSamples},...          
+                'nChains', {obj.nChains},...
+                'lambda', {obj.lambda},...
+                'p_unit_gamma', {obj.p_unit_gamma},...
+                'boundHandling', {obj.boundHandling});
  
             simplexCell = {'tolX',...
                 'tolFun',...
@@ -290,23 +287,32 @@ classdef controlsDef < matlab.mixin.CustomDisplay
                 'propScale',...
                 'nsTolerance'}; 
             
-            BayesCell = {'method',...
-                'nsimu',...
-                'adaptint',...
-                'burnin',...
-                'repeats'};
+%             BayesCell = {'method',...
+%                 'nsimu',...
+%                 'adaptint',...
+%                 'burnin',...
+%                 'repeats'};
+
+            DreamCell = {'nSamples',...          
+                'nChains',...
+                'lambda',...
+                'p_unit_gamma',...
+                'boundHandling'};
             
             if isscalar(obj)
                 if strcmpi(obj.procedure,'calculate')
-                    dispPropList = rmfield(masterPropList,[DECell simplexCell NSCell BayesCell]);
+                    dispPropList = rmfield(masterPropList,[DECell simplexCell NSCell DreamCell]);
                 elseif strcmpi(obj.procedure,'simplex')
-                    dispPropList = rmfield(masterPropList,[DECell NSCell BayesCell]);
+                    dispPropList = rmfield(masterPropList,[DECell NSCell DreamCell]);
                 elseif strcmpi(obj.procedure,'DE')
-                    dispPropList = rmfield(masterPropList,[simplexCell NSCell BayesCell]);
+                    dispPropList = rmfield(masterPropList,[simplexCell NSCell DreamCell]);
                 elseif strcmpi(obj.procedure,'NS')
-                    dispPropList = rmfield(masterPropList,[simplexCell DECell BayesCell]);
-                elseif strcmpi(obj.procedure,'Bayes')
-                    dispPropList = rmfield(masterPropList,[simplexCell DECell NSCell]);
+                    dispPropList = rmfield(masterPropList,[simplexCell DECell DreamCell]);
+%                 elseif strcmpi(obj.procedure,'Bayes')
+%                     dispPropList = rmfield(masterPropList,[simplexCell DECell NSCell DreamCell]);
+                elseif strcmpi(obj.procedure,'dream')
+                    dispPropList = rmfield(masterPropList,[DECell simplexCell NSCell]);
+
                 end
                 
                 if ~isempty(dispPropList)

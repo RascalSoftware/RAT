@@ -26,7 +26,7 @@ problem.addParamGroup(Parameters);
 problem.setParamConstr(1,2,13);
 
 % Add the custom layers file
-problem.addCustomFile({'DSPC Model','custom_DSPC_monolayer.m','matlab','pwd'});
+problem.addCustomFile('DSPC Model','custom_DSPC_monolayer.m','matlab','pwd');
 %% 
 % 
 
@@ -45,7 +45,7 @@ problem.setBackgroundValue(1,3,'Backs Value ACMW');
 % 
 
 % Also need an additional bulk out
-problem.addBulkOut({'SLD ACMW' -1e-6,0.0,1e-6,true});
+problem.addBulkOut('SLD ACMW',-1e-6,0.0,1e-6,true);
 
 % Add the data files
 d13ACM = dlmread('d13acmw20.dat');

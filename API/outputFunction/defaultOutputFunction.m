@@ -6,7 +6,7 @@ function defaultOutputFunction(eventrc,eventdata)
 
 %disp('Hello World');
 
-outData = eventdata.ratUpdateData;
+outData = eventdata.updateData;
 outText = outData.textUpdate;
 sprintf('%s \n',outText);
 

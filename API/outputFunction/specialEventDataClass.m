@@ -1,10 +1,10 @@
 classdef (ConstructOnLoad) specialEventDataClass < event.EventData
    properties
-      ratUpdateData
+      updateData
    end
    methods
       function eventData = specialEventDataClass(value)
-         eventData.ratUpdateData = value;
+         eventData.updateData = value;
       end
    end
 end

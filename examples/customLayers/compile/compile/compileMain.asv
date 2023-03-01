@@ -1,9 +1,0 @@
-
-sub_rough = 10;
-oxide_thick = 20;
-oxide_hydration = 0.3;
-lipidAPM = params(4);
-headHydration = params(5);
-bilayerHydration = params(6);
-bilayerRough = params(7);
-waterThick = params(8);

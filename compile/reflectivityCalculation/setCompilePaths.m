@@ -24,7 +24,7 @@ function setCompilePaths(which)
 % <RATroot>/targetFunctions/common/loopMatlabCustomLayers/sourceCompile
 
 % First get the RAT root directory
-ratRoot = getappdata(0,'ratRoot');
+root = getappdata(0,'root');
 
 % Get a list of all the paths currently on paths list...
 pathCell = regexp(path, pathsep, 'split');
@@ -32,11 +32,11 @@ pathCell = regexp(path, pathsep, 'split');
 % Choose the relevant directory based on the input... 
 switch which
     case 'mex'
-        addDir = fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');
-        rmDir = fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers','sourceCompile');
+        addDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');
+        rmDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','sourceCompile');
     otherwise
-        addDir = fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers','sourceCompile');
-        rmDir = fullfile(ratRoot,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');
+        addDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','sourceCompile');
+        rmDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');
 end
 
 % Add the 'add dir' if it is not currently on the Matlab path list..

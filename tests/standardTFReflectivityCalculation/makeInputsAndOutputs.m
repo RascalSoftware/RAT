@@ -9,7 +9,7 @@
 
 %%
 % 1. Custom Layers.
-ratRoot = getappdata(0,'ratRoot');
+root = getappdata(0,'root');
 customLayersProblem = orsoDSPCCustomLayers();
 controlsInput = controlsClass();
 
@@ -81,7 +81,6 @@ save('tests\standardTFReflectivityCalculation\customLayersTFParams','TFParams');
 %%
 % 2. Custom XY.
 % (a) Inputs
-ratRoot = getappdata(0,'ratRoot');
 customXYProblem = DPPCCustomXYScript();
 controlsInput = controlsClass();
 

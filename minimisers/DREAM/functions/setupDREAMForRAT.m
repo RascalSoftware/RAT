@@ -1,4 +1,4 @@
-function [DREAMPar] = RATDREAMCalcSetup(DREAMPar)
+function [DREAMPar] = setupDREAMForRAT(DREAMPar)
 % Sets up sequential / parallel
 
 %global DREAM_dir EXAMPLE_dir;

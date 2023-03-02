@@ -1,4 +1,4 @@
-function [log_L] = Whittle(Meas_info,fx)
+function [log_L] = whittle(Meas_info,fx)
 % Calculates whittle's log-likelihood function using spectral analysis
 
 % Do the following
@@ -55,5 +55,5 @@ y_f = per_obs./ per_tot;
 % Define which elements of per_tot are larger than zero
 idx = per_tot > 0;
 
-% Now calculate Whittle's log-likelihood
+% Now calculate whittle's log-likelihood
 log_L = - ( sum ( log (per_tot ( idx ) ) ) + sum(y_f ( idx ) ) );

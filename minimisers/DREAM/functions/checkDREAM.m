@@ -1,4 +1,4 @@
-function stop = DREAMCheck(DREAMPar,Par_info,Meas_info)
+function stop = checkDREAM(DREAMPar,Par_info,Meas_info)
 % Check for setup errors
 
 % Assign stop to be No
@@ -26,7 +26,7 @@ if strcmp(Par_info,'latin')
     % Error -- if lhs is used -> requires explicit parameter ranges
     if ( sum(isinf(Par_info.min)) == DREAMPar.d )
         stop = 'yes';
-        error('DREAM ERROR: Latin hypercube sampling selected but parameter ranges not defined -> Set Par_info.min and Par_info.max!!\n');
+        error('DREAM ERROR: latinHypercubeSampling hypercube sampling selected but parameter ranges not defined -> Set Par_info.min and Par_info.max!!\n');
     end
 end
 

@@ -1,4 +1,4 @@
-function fx = RATEvaluateModel(x,DREAMPar,Meas_info,ratInputs)
+function fx = evaluateRATModel(x,DREAMPar,Meas_info,ratInputs)
 
 % RAT function evaluation
 

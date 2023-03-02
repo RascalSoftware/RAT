@@ -122,7 +122,7 @@ function [chain,output,fx,log_L] = ratDREAM(DREAMPar,Par_info,Meas_info,ratInput
 % Version 1.3: September 2010     Explicit treatment of prior distribution                      %
 % Version 1.4: October 2010       Limits of acceptability (GLUE) and few small changes          %
 % Version 1.5: April 2011         Small maintenance updates -- 2 external executables           %
-% Version 1.6: August 2011        Whittle likelihood function (SPECTRAL ANALYSIS !!)            %
+% Version 1.6: August 2011        whittle likelihood function (SPECTRAL ANALYSIS !!)            %
 % Version 1.7: April 2012         Simplified code (removed variables) + graphical interface     %
 % Version 1.8: May 2012           Added new option for Approximate Bayesian Computation         %
 % Version 1.9: June 2012          Simulations stored, new example, and updated likelihood func. %
@@ -143,23 +143,23 @@ if ~isfield(DREAMPar,'restart') || strcmp(DREAMPar.restart,'no')
 
     % Initialize the main variables used in DREAM
     [DREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = DREAMSetup(DREAMPar,Par_info,Meas_info);
+        gen] = setupDREAM(DREAMPar,Par_info,Meas_info);
 
     % Check for setup errors
-    % [stop,fid] = DREAMCheck(DREAMPar,Par_info,Meas_info);
-    stop = DREAMCheck(DREAMPar,Par_info,Meas_info);
+    % [stop,fid] = checkDREAM(DREAMPar,Par_info,Meas_info);
+    stop = checkDREAM(DREAMPar,Par_info,Meas_info);
 
     % Return to main program
 %   if strcmp(stop,'yes'); return; end
 
     % Create computing environment (depending whether multi-core is used)
-    [DREAMPar] = DREAMCalcSetup(DREAMPar);
+    [DREAMPar] = setDREAMParam(DREAMPar);
 
     % Now check how the measurement sigma is arranged (estimated or defined)
     Meas_info = checkSigma(Meas_info); T_start = 2;
 
     % Create the initial states of each of the chains (initial population)
-    [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = DREAMInitialize(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs);
+    [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs);
 
 elseif strcmp(DREAMPar.restart,'yes')
 
@@ -210,7 +210,7 @@ for t = T_start : DREAMPar.T
         % store the distance between the simualted and observed signatures
         
         % Store the model simulations (if appropriate)
-        DREAMStoreResults ( DREAMPar , fx , Meas_info , 'a+' );
+        storeDREAMResults ( DREAMPar , fx , Meas_info , 'a+' );
     end
     
     % Check whether we update the crossover values

@@ -1,4 +1,4 @@
-function ParSet = genparset(chain)
+function ParSet = genParSet(chain)
 % Generates a 2D matrix ParSet from 3D array chain
 
 % Determine how many elements in chain

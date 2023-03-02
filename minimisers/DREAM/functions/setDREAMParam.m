@@ -1,4 +1,4 @@
-function [DREAMPar] = DREAMCalcSetup(DREAMPar)
+function [DREAMPar] = setDREAMParam(DREAMPar)
 % Sets up sequential / parallel
 
 % global DREAM_dir EXAMPLE_dir;

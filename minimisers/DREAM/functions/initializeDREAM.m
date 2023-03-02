@@ -1,4 +1,4 @@
-function [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = RATDREAMInitialize(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs)
+function [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs)
 % Initializes the starting positions of the Markov chains 
 
 % Create the initial positions of the chains
@@ -10,11 +10,11 @@ switch Par_info.prior
         [x] = repmat(Par_info.min,DREAMPar.N,1) + rand(DREAMPar.N,DREAMPar.d) .* ( repmat(Par_info.max - Par_info.min,DREAMPar.N,1) );
         
     case {'latin'}
-        % Initialize chains with Latin hypercube sampling
+        % Initialize chains with latinHypercubeSampling hypercube sampling
         if isfield(Par_info,'min_initial') && isfield(Par_info,'max_initial')
-            [x] = Latin(Par_info.min_initial,Par_info.max_initial,DREAMPar.N);
+            [x] = latinHypercubeSampling(Par_info.min_initial,Par_info.max_initial,DREAMPar.N);
         else            
-            [x] = Latin(Par_info.min,Par_info.max,DREAMPar.N);
+            [x] = latinHypercubeSampling(Par_info.min,Par_info.max,DREAMPar.N);
         end
     case {'normal'}
         
@@ -24,19 +24,16 @@ switch Par_info.prior
     case {'prior'}
         
         % Create the initial position of each chain by drawing each parameter individually from the prior
+        for qq = 1:DREAMPar.d
+            for zz = 1:DREAMPar.N
+                x(zz,qq) = eval(char(Par_info.prior_marginal(qq)));
+            end
+        end
         
-        % **** Will use our own pdf here ******
-
-%         for qq = 1:DREAMPar.d,
-%             for zz = 1:DREAMPar.N,
-%                 x(zz,qq) = eval(char(Par_info.prior_marginal(qq)));
-%             end;
-%         end;
-%         
     otherwise
         
         error('unknown initial sampling method');
-end;
+end
 
 % If specified do boundary handling ( "Bound","Reflect","Fold")
 if isfield(Par_info,'boundhandling')
@@ -44,17 +41,16 @@ if isfield(Par_info,'boundhandling')
 end
 
 % Now evaluate the model ( = pdf ) and return fx
-[fx] = RATEvaluateModel(x,DREAMPar,Meas_info,ratInputs);
+[fx] = evaluateModel(x,DREAMPar,Meas_info,ratInputs);
 
 % Calculate the log-likelihood and log-prior of x (fx)
-%[log_L_x,log_PR_x] = ratcalcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs);
-[log_L_x,log_PR_x] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info);
+[log_L_x,log_PR_x] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs);
 
 % Define starting x values, corresponding density, log densty and simulations (Xfx)
-X = [x log_PR_x log_L_x];
+X = [x log_PR_x(:) log_L_x];
 
 % Store the model simulations (if appropriate)
-DREAMStoreResults ( DREAMPar , fx , Meas_info , 'w+' );
+storeDREAMResults ( DREAMPar , fx , Meas_info , 'w+' );
 
 % Set the first point of each of the DREAMPar.N chain equal to the initial X values
 chain(1,1:DREAMPar.d+2,1:DREAMPar.N) = reshape(X',1,DREAMPar.d+2,DREAMPar.N);

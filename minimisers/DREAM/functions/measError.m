@@ -1,9 +1,9 @@
-function [out] = MeasError(Y)
+function [out] = measError(Y)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                                               %
 % Function that estimates the measurement error of a given calibration data series              % 
 %                                                                                               %
-% SYNOPSIS:     [out] = MeasError(Y);                                                           %
+% SYNOPSIS:     [out] = measError(Y);                                                           %
 %                                                                                               %
 % Input:        Y = calibration data (single vector) of N by 1                                  %
 %                                                                                               %
@@ -45,10 +45,10 @@ end
 F = 6 * 5 * 4 / 6;
 
 % Now calculate the measurement error
-MeasError = sqrt( 1/F * Ytot(:,2).^2);
+measError = sqrt( 1/F * Ytot(:,2).^2);
 
 % Return vector
-out = [Y1 MeasError];
+out = [Y1 measError];
 
 % If line is horizontal --> homosocedastic (error independent on magnitude measured data);
 % Otherwise heteroscedastic.

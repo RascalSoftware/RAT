@@ -2,7 +2,7 @@ function outStruct = lowerCaseStruct(inputStruct)
 
 % A helper function to change all fieldnames in the input struct to lower
 % case. This removes all the 'illegal' (from a Coder perspective) 'eval' and
-% 'strvcat' from 'DREAMSetup.m' (and maybe others...)
+% 'strvcat' from 'setupDREAM.m' (and maybe others...)
 
 % Get the fieldnames...
 names = fieldnames(inputStruct);

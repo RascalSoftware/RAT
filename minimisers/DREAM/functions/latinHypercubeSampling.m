@@ -1,5 +1,5 @@
-function x = Latin(minn,maxn,N)
-% Latin Hypercube sampling
+function x = latinHypercubeSampling(minn,maxn,N)
+% latinHypercubeSampling Hypercube sampling
 
 % Initialize array ran with random numbers
 y = rand(N,size(minn,2));

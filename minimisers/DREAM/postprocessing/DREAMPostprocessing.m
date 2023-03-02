@@ -18,7 +18,7 @@
 % ------------------------------------------------------------------------------------------------------------
 
 % First assemble all chain in one matrix
-ParSet = genparset(chain); DREAMPar.N = size(chain,3);
+ParSet = genParSet(chain); DREAMPar.N = size(chain,3);
 
 % Take the last 25% of the posterior samples -- assume that these samples
 % are posterior samples (double check that R_stat < 1.2 for all parameters)

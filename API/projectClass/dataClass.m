@@ -97,37 +97,33 @@ classdef dataClass < handle
             end 
         end
         
-        function nameChanged = setData(obj, varargin)
+        function nameChanged = setData(obj, dataPar, varargin)
             % Sets the values of an existing dataset. Expects the
             % index or name of parameter and keyword/value pairs to set
             %
             % data.setData(2, 'name', 'new_name');
-            inputs = varargin;
             dataNames = obj.dataTable{:,1};
             
             % Always need three or more inputs to set data value
-            if length(inputs) < 3
-                throw(invalidNumberOfInputs('At least three inputs expected into ''setData'''));
+            if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
+                throw(invalidNumberOfInputs('The input to ''setData'' should be a data entry and a set of name-value pairs'));
             end
                 
             % First input needs to be a data number or name
-            whichData = inputs{1};
-            if isnumeric(whichData)
-                if (whichData > obj.dataCount) || (whichData < 1)
-                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', whichData, obj.dataCount)));
+            if isnumeric(dataPar)
+                if (dataPar > obj.dataCount) || (dataPar < 1)
+                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', dataPar, obj.dataCount)));
                 end
-            elseif ischar(whichData)
-                if ~strcmpi(whichData,dataNames)
-                    throw(nameNotRecognised(sprintf('Data object name %s not recognised', whichData)));
+            elseif ischar(dataPar)
+                if ~strcmpi(dataPar,dataNames)
+                    throw(nameNotRecognised(sprintf('Data object name %s not recognised', dataPar)));
                 else
-                    whichData = find(strcmpi(whichData,dataNames));
+                    dataPar = find(strcmpi(dataPar,dataNames));
                 end
             end
             
-            % Parse the remaining name value pairs to see what is 
-            % being set and make sure the data is of the correct size
-            % and type.
-            toBeParsed = inputs(2:end);
+            % Parse the name value pairs to see what is being set and make
+            % sure the data is of the correct size and type.
 
             % Make an 'inputParser' object...
             p = inputParser;
@@ -142,7 +138,7 @@ classdef dataClass < handle
             addParameter(p,'data',[], @(x) isnumeric(x) && isDimsData(x))
             addParameter(p,'dataRange',[], @(x) isnumeric(x) && isDimsRanges(x))
             addParameter(p,'simRange', [], @(x) isnumeric(x) && isDimsRanges(x)) 
-            parse(p,toBeParsed{:});
+            parse(p,varargin{:});
                 
             results = p.Results;
             
@@ -153,19 +149,19 @@ classdef dataClass < handle
             nameChanged = []; % Flag which is passed up to the calling function (to change contrasts if necessary)
             
             if ~isempty(results.name)
-                nameChanged = obj.setDataName(whichData,results.name);
+                nameChanged = obj.setDataName(dataPar,results.name);
             end
             
             if ~isempty(results.data)
-                obj.dataTable{whichData, 2} = {results.data};
+                obj.dataTable{dataPar, 2} = {results.data};
             end
             
             if ~isempty(results.dataRange)
-                obj.dataTable{whichData, 3} = {results.dataRange};
+                obj.dataTable{dataPar, 3} = {results.dataRange};
             end
             
             if ~isempty(results.simRange)
-                obj.dataTable{whichData, 4} = {results.simRange};
+                obj.dataTable{dataPar, 4} = {results.simRange};
             end
 
         end

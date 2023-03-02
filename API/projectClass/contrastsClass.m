@@ -92,12 +92,12 @@ classdef contrastsClass < handle
 
         end
 
-        function obj = setContrastModel(obj, contrastInput, modelType, allowedNames, varargin)
+        function obj = setContrastModel(obj, contrastInput, modelType, allowedNames, model)
             % Set the value of the model parameter in a contrast.
             % The expected input is the contrast (specified either by name
             % or index), the model type, the allowed values (either layers
-            % for standard layers or custom files for custom models) and a
-            % variable number of arguments for the model itself.
+            % for standard layers or custom files for custom models) and
+            % either a string or cell array for the model itself.
             % Note that the model can only be set here, and not in
             % "addContrast" or "setContrast".
             %
@@ -121,7 +121,7 @@ classdef contrastsClass < handle
 
             % Determine which contrast is being set
             thisContrast = obj.contrasts{contrastIndex};
-            modelArray = cellstr(varargin{:});
+            modelArray = cellstr(model);
 
             % Check the input is as expected
             if any(strcmpi(modelType, {'custom layers', 'custom xy'}))
@@ -173,7 +173,7 @@ classdef contrastsClass < handle
             % Check to see if the inputs are valid
             % Raise a warning if we try to set the model as this should be
             % done elsewhere
-            inputBlock = obj.parseContrastInput(allowedNames,varargin{:});
+            inputBlock = obj.parseContrastInput(allowedNames, varargin{:});
             
             if ~isempty(inputBlock.background)
                 thisContrast.background = inputBlock.background;

@@ -689,14 +689,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         %
         %   Editing of Contrasts Block
         
-        function obj = addContrast(obj,varargin)
+        function obj = addContrast(obj, varargin)
             % Adds a new contrast parameter. Expects a parameter name, and with 
             % key-value pairs with one or more of the following "data", "background", 
             % "bulk in", "bulk out", "scalefactor", "resolution", "resample", "model
             % 
             % problem.addContrast('contrast 1', 'nba', 'Silicon');
             allowedNames = obj.getAllAllowedNames();
-            obj.contrasts.addContrast(allowedNames,varargin);
+            obj.contrasts.addContrast(allowedNames, varargin);
             
         end
 
@@ -709,45 +709,40 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         end
 
         
-        function obj = setContrast(obj,varargin)   
+        function obj = setContrast(obj, contrastInput, varargin)   
             % Allow setting of all parameters in terms of name value pairs.
             % First input must be contrast number or name, subsequent
             % inputs are name / value pairs for the parts involved
             %
             % problem.setContrast(1, 'name', 'contrast')
-            contrastInput = varargin{1};
-            inputVals = varargin(2:end);
                         
             % Get the list of allowed values depending on what is
             % set for the other contrasts.
             allowedValues = obj.getAllAllowedNames;
             
             % Call the setContrast method
-            obj.contrasts.setContrast(contrastInput,allowedValues,inputVals);
+            obj.contrasts.setContrast(contrastInput, allowedValues, varargin);
             
         end
         
-        function obj = setContrastModel(obj,varargin)
-            % Edits the model of an existing contrast parameter. Expects the
-            % index of contrast parameter and cell array of layer names
+        function obj = setContrastModel(obj, contrastInput, model)
+            % Edits the model of an existing contrast parameter. Expects
+            % the index of contrast parameter and cell array of layer names
             %
             % problem.setContrastModel(1, {'layer 1'})
-            contrastInput = varargin{1};
-            inputVals = varargin(2:end);
                         
             % Make a different allowed list depending on whether 
             % it is custom or layers
             if ~strcmpi(obj.modelType, {'custom layers','custom xy'})
                 % Standard Layers
                 allowedValues = obj.layers.getLayersNames();
-                inputVals = inputVals{:};
             else
                 % Custom models
                 allowedValues = obj.customFile.getCustomNames();
             end
             
             % Call the setContrastModel method
-            obj.contrasts.setContrastModel(contrastInput, obj.modelType, allowedValues, inputVals);
+            obj.contrasts.setContrastModel(contrastInput, obj.modelType, allowedValues, model);
 
         end
         

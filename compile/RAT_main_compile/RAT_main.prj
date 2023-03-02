@@ -967,7 +967,7 @@
             <Field Name="maxFunEvals" typeId="3" />
             <Field Name="maxIter" typeId="3" />
             <Field Name="populationSize" typeId="3" />
-            <Field Name="F_weight" typeId="3" />
+            <Field Name="fWeight" typeId="3" />
             <Field Name="F_CR" typeId="3" />
             <Field Name="VTR" typeId="3" />
             <Field Name="numGen" typeId="3" />

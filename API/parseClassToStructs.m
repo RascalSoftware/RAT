@@ -375,7 +375,7 @@ controls.tolFun = inputControls.tolFun;
 controls.maxFunEvals = inputControls.maxFunEvals;
 controls.maxIter = inputControls.maxIter;
 controls.populationSize = inputControls.populationSize;
-controls.F_weight = inputControls.F_weight;
+controls.fWeight = inputControls.fWeight;
 controls.F_CR = inputControls.crossoverProbability;
 controls.VTR = inputControls.targetValue;
 controls.numGen = inputControls.numGenerations;
@@ -398,7 +398,7 @@ controls.updatePlotFreq = inputControls.updatePlotFreq;
 controls.nSamples = inputControls.nSamples;
 controls.nChains = inputControls.nChains;   
 controls.lambda = inputControls.lambda;      
-controls.p_unit_gamma = inputControls.p_unit_gamma;
+controls.pUnitGamma = inputControls.pUnitGamma;
 controls.boundHandling = inputControls.boundHandling;
 
 %Also need to deal with the checks...

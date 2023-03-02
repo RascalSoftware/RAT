@@ -2,7 +2,7 @@ function [outDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,ite
         gen] = setupDREAM(DREAMPar,Par_info,Meas_info)
 % Initializes the main variables used in DREAM
 % To keep coder happy, we have to define the full version of DREAMPar here
-fieldNames = {'d','N','T','parallel','CPU','lambda','p_unit_gamma','nCR','delta','steps',...
+fieldNames = {'d','N','T','parallel','CPU','lambda','pUnitGamma','nCR','delta','steps',...
     'zeta','outlier','adapt_pCR','thinning','epsilon','ABC','IO','modout','restart','save','R'};
 values = cell(length(fieldNames),1);
 outDREAMPar = cell2struct(values,fieldNames);
@@ -32,7 +32,7 @@ end
 % Set default values algorithmic variables DREAM - if not specified
 value = {3,3,max(max(floor(DREAMPar.T/50),1),50),0.05,1e-12,'iqr',0.2,'no',1,0.025};
 % Name variable
-name = {'nCR','delta','steps','lambda','zeta','outlier','p_unit_gamma','adapt_pCR','thinning','epsilon'};
+name = {'nCR','delta','steps','lambda','zeta','outlier','pUnitGamma','adapt_pCR','thinning','epsilon'};
 for j = 1 : numel(name)
     if ~isfield(DREAMPar,name(j))
         % Set variable of DREAMPar to "No"

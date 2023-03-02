@@ -15,8 +15,8 @@ I_NP = controls.populationSize;
 % I_itermax       maximum number of iterations (generations)
 I_itermax = controls.numGen;
 
-% F_weight        DE-stepsize F_weight ex [0, 2]
-F_weight = controls.F_weight; 
+% fWeight        DE-stepsize fWeight ex [0, 2]
+fWeight = controls.fWeight; 
 
 % F_CR            crossover probabililty constant ex [0, 1]
 F_CR = controls.F_CR; 
@@ -34,7 +34,7 @@ F_CR = controls.F_CR;
 %                      Classical DE with dither to become even more robust.
 %                5 --> DE/rand/1 with per-generation-dither:
 %                      Classical DE with dither to become even more robust.
-%                      Choosing F_weight = 0.3 is a good start here.
+%                      Choosing fWeight = 0.3 is a good start here.
 %                6 --> DE/rand/1 either-or-algorithm:
 %                      Alternates between differential mutation and three-point-
 %                      recombination.           
@@ -63,7 +63,7 @@ coder.varsize('S_struct.FVr_lim_up', [1 Inf],[0 1]);
 coder.varsize('S_struct.FVr_lim_lo', [1 Inf],[0 1]);
 
 coder.varsize('S_struct.I_NP', [1 1],[0 0]);
-coder.varsize('S_struct.F_weight', [1 1],[0 0]);
+coder.varsize('S_struct.fWeight', [1 1],[0 0]);
 coder.varsize('S_struct.F_CR', [1 1],[0 0]);
 coder.varsize('S_struct.I_D', [1 1],[0 0]);
 coder.varsize('S_struct.FVr_minbound', [1 Inf],[0 1]);
@@ -85,7 +85,7 @@ S_struct.FVr_lim_up = FVr_lim_up;
 S_struct.FVr_lim_lo = FVr_lim_lo;
 
 S_struct.I_NP         = I_NP;
-S_struct.F_weight     = F_weight;
+S_struct.fWeight     = fWeight;
 S_struct.F_CR         = F_CR;
 S_struct.I_D          = I_D;
 S_struct.FVr_minbound = FVr_minbound;

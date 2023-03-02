@@ -105,7 +105,7 @@ for i=1:nvar
       g1=g(1:nf-1,i); g2=g(2:nf,i);
       cstat=(g2-g1)'*ginv*(g2-g1); 
       df=nf-1;
-      p = 1-chis_prb(cstat,df);
+      p = 1-chisPrb(cstat,df);
       result(i).pmean(k) = eg;
       result(i).nse(k) = nse;
       result(i).prob(k) = p;

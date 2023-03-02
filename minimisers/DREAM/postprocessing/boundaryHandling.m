@@ -1,4 +1,4 @@
-function [x] = Boundary_handling(x,Par_info)
+function [x] = boundaryHandling(x,Par_info)
 % Function to check whether parameter values remain within prior bounds
 
 % First determine the size of new

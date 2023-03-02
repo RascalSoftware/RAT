@@ -1,4 +1,4 @@
-function CR = Draw_CR(DREAMPar,pCR)
+function CR = drawCR(DREAMPar,pCR)
 % Generates CR values based on current crossover probabilities
 
 switch DREAMPar.adapt_pCR

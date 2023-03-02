@@ -1,4 +1,4 @@
-function [pCR,lCR] = Adapt_pCR(DREAMPar,CR,delta_tot,lCRold) 
+function [pCR,lCR] = adaptPCR(DREAMPar,CR,delta_tot,lCRold) 
 % Updates the probabilities of the various crossover values
 
 % Make CR to be a single vector

@@ -1,7 +1,7 @@
-function prt_coda(results,vnames,fid)
+function prtCoda(results,vnames,fid)
 % PURPOSE: Prints convergence diagnostics from DREAM samples
 %---------------------------------------------------
-% USAGE: prt_coda(results,vnames,fid)
+% USAGE: prtCoda(results,vnames,fid)
 % Where: results = a structure returned by coda, raftery, apm, momentg
 %        fid     = file-id for printing results to a file
 %                  (defaults to the MATLAB command window)
@@ -9,7 +9,7 @@ function prt_coda(results,vnames,fid)
 %  NOTES:   e.g. vnames = ['beta    ',
 %                          'sigma   '];  NOTE: fixed width
 %           e.g. fid = fopen('gibbs.out','wr');
-%  use prt_coda(results,[],fid) to print to a file with no vnames
+%  use prtCoda(results,[],fid) to print to a file with no vnames
 % --------------------------------------------------
 %  RETURNS: nothing, just prints the diagnostic results
 % --------------------------------------------------
@@ -24,7 +24,7 @@ function prt_coda(results,vnames,fid)
 % jpl@jpl.econ.utoledo.edu
 
 if ~isstruct(results)
-    error('prt_coda requires structure argument');
+    error('prtCoda requires structure argument');
 elseif nargin == 1
     nflag = 0; fid = 1;
 elseif nargin == 2
@@ -36,7 +36,7 @@ elseif nargin == 3
         nflag = 1;
     end
 else
-    error('Wrong # of arguments to prt_coda');
+    error('Wrong # of arguments to prtCoda');
 end
 
 nvar = results(1).nvar;
@@ -264,6 +264,6 @@ switch results(1).meth
 
 
     otherwise
-        error('results structure not known by prt_coda function');
+        error('results structure not known by prtCoda function');
 
 end

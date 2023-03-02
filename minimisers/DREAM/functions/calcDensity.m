@@ -1,4 +1,4 @@
-function [log_L,log_PR] = Calc_density(x,fx,DREAMPar,Par_info,Meas_info,ratInputs)
+function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs)
 % Now calculate the likelihood (not used) and log-likelihood (used)
 
 % % If number of measurements larger than 0 --> simulation

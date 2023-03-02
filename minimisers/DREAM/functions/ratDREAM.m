@@ -143,30 +143,30 @@ if ~isfield(DREAMPar,'restart') || strcmp(DREAMPar.restart,'no')
 
     % Initialize the main variables used in DREAM
     [DREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = DREAM_setup(DREAMPar,Par_info,Meas_info);
+        gen] = DREAMSetup(DREAMPar,Par_info,Meas_info);
 
     % Check for setup errors
-    % [stop,fid] = DREAM_check(DREAMPar,Par_info,Meas_info);
-    stop = DREAM_check(DREAMPar,Par_info,Meas_info);
+    % [stop,fid] = DREAMCheck(DREAMPar,Par_info,Meas_info);
+    stop = DREAMCheck(DREAMPar,Par_info,Meas_info);
 
     % Return to main program
 %   if strcmp(stop,'yes'); return; end
 
     % Create computing environment (depending whether multi-core is used)
-    [DREAMPar] = DREAM_calc_setup(DREAMPar);
+    [DREAMPar] = DREAMCalcSetup(DREAMPar);
 
     % Now check how the measurement sigma is arranged (estimated or defined)
-    Meas_info = Check_sigma(Meas_info); T_start = 2;
+    Meas_info = checkSigma(Meas_info); T_start = 2;
 
     % Create the initial states of each of the chains (initial population)
-    [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = DREAM_initialize(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs);
+    [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = DREAMInitialize(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs);
 
 elseif strcmp(DREAMPar.restart,'yes')
 
     % Print to screen restart run
     disp('Restart run');
     % If a restart run is being done: just load the output from the previous ongoing trial
-    load DREAM.mat; [CR] = Draw_CR(DREAMPar,pCR); DREAMPar.T = 2 * DREAMPar.T;
+    load DREAM.mat; [CR] = drawCR(DREAMPar,pCR); DREAMPar.T = 2 * DREAMPar.T;
     % And make sure we add zeros to "chain" array
     chain = [chain ; nan(size(chain,1)-1,size(chain,2),size(chain,3))];
     % Open warning file and set T_start
@@ -186,16 +186,16 @@ for t = T_start : DREAMPar.T
     [xold,log_PR_xold,log_L_xold] = deal(X(:,1:end-2),X(:,end-1),X(:,end));
     
     % Now generate candidate in each sequence using current point and members of X
-    [xnew,CR(:,gen)] = Calc_proposal(xold,CR(:,gen),DREAMPar,Table_gamma,Par_info);
+    [xnew,CR(:,gen)] = calcProposal(xold,CR(:,gen),DREAMPar,Table_gamma,Par_info);
     
     % Now evaluate the model ( = pdf ) and return fx
-    [fx_new] = Evaluate_model(xnew,DREAMPar,Meas_info,ratInputs);
+    [fx_new] = evaluateModel(xnew,DREAMPar,Meas_info,ratInputs);
     
     % Calculate the log-likelihood and log-prior of x (fx)
-    [log_L_xnew,log_PR_xnew] = Calc_density(xnew,fx_new,DREAMPar,Par_info,Meas_info,ratInputs);
+    [log_L_xnew,log_PR_xnew] = calcDensity(xnew,fx_new,DREAMPar,Par_info,Meas_info,ratInputs);
     
     % Calculate the Metropolis ratio
-    [accept,idx_ac] = Metropolis_rule(DREAMPar,log_L_xnew,log_PR_xnew,log_L_xold,log_PR_xold);
+    [accept,idx_ac] = metropolisRule(DREAMPar,log_L_xnew,log_PR_xnew,log_L_xold,log_PR_xold);
     
     % And update X and the model simulation
     X(idx_ac,1:DREAMPar.d+2) = [xnew(idx_ac,1:DREAMPar.d) log_PR_xnew(idx_ac,1) log_L_xnew(idx_ac,1)]; 
@@ -210,7 +210,7 @@ for t = T_start : DREAMPar.T
         % store the distance between the simualted and observed signatures
         
         % Store the model simulations (if appropriate)
-        DREAM_store_results ( DREAMPar , fx , Meas_info , 'a+' );
+        DREAMStoreResults ( DREAMPar , fx , Meas_info , 'a+' );
     end
     
     % Check whether we update the crossover values
@@ -220,7 +220,7 @@ for t = T_start : DREAMPar.T
         % Compute the Euclidean distance between new X and old X
         delta_normX = sum(((xold(1:end,1:DREAMPar.d) - X(1:end,1:DREAMPar.d))./r).^2,2);
         % Use this information to update sum_p2 to update N_CR
-        delta_tot = Calc_delta(DREAMPar,delta_tot,delta_normX,CR(1:DREAMPar.N,gen));
+        delta_tot = calcDelta(DREAMPar,delta_tot,delta_normX,CR(1:DREAMPar.N,gen));
     end
 
     % Update gen
@@ -246,18 +246,18 @@ for t = T_start : DREAMPar.T
         if ( t <= DREAMPar.T / 10 )
             if strcmp(DREAMPar.adapt_pCR,'yes')
                 % Update pCR values
-                [pCR,lCR] = Adapt_pCR(DREAMPar,CR,delta_tot,lCR);
+                [pCR,lCR] = adaptPCR(DREAMPar,CR,delta_tot,lCR);
             end
         else
             % See whether there are any outlier chains, and remove them to current best value of X
-            [X,log_L(1:t,2:DREAMPar.N+1),output.outlier] = Remove_outlier(X,log_L(1:t,2:DREAMPar.N+1),output.outlier,DREAMPar);
+            [X,log_L(1:t,2:DREAMPar.N+1),output.outlier] = removeOutlier(X,log_L(1:t,2:DREAMPar.N+1),output.outlier,DREAMPar);
         end
         
         % Store diagnostic information -- Probability of individual crossover values
         output.CR(iteration,1:DREAMPar.nCR+1) = [ t * DREAMPar.N pCR];
         
         % Generate new crossover values
-        CR = Draw_CR(DREAMPar,pCR);
+        CR = drawCR(DREAMPar,pCR);
         
         % Calculate Gelman and Rubin Convergence Diagnostic
         start_idx = max(1,floor(iloc/2)); end_idx = iloc;
@@ -283,7 +283,7 @@ end
 output.RunTime = toc;
 
 % Variables have been pre-allocated --> need to remove zeros at end
-[chain,output,fx] = DREAM_end(DREAMPar,Meas_info,chain,output,iteration,iloc);
+[chain,output,fx] = DREAMEnd(DREAMPar,Meas_info,chain,output,iteration,iloc);
 
 % Close the waitbar
 textProgressBar('end',1);

@@ -1,4 +1,4 @@
-function [delta_tot] = Calc_delta(DREAMPar,delta_tot,delta_normX,CR)
+function [delta_tot] = calcDelta(DREAMPar,delta_tot,delta_normX,CR)
 % Calculate total normalized Euclidean distance for each crossover value
 
 % Derive sum_p2 for each different CR value 

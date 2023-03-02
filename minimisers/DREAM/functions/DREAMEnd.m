@@ -1,4 +1,4 @@
-function [ chain , output , fx ] = DREAM_end(DREAMPar,Meas_info,chain,output,iteration,iloc)
+function [ chain , output , fx ] = DREAMEnd(DREAMPar,Meas_info,chain,output,iteration,iloc)
 % Finalize return arguments, file writing, and setup calculation
 
 %global DREAM_dir EXAMPLE_dir
@@ -19,7 +19,7 @@ for j = 1:DREAMPar.N
     % First calculate diagnostics
     diagnostic{j} = coda(chain(floor(0.5*iloc):iloc,1:DREAMPar.d,j));
     % Now write to file DREAM.out
-    diagnostic{j}(1).chain_number = j; prt_coda(diagnostic{j},[],fid);
+    diagnostic{j}(1).chain_number = j; prtCoda(diagnostic{j},[],fid);
 end
 % Now close the file again
 fclose(fid);

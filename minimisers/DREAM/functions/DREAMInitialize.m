@@ -1,4 +1,4 @@
-function [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = ratDREAM_initialize(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs)
+function [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = DREAMInitialize(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs)
 % Initializes the starting positions of the Markov chains 
 
 % Create the initial positions of the chains
@@ -24,37 +24,33 @@ switch Par_info.prior
     case {'prior'}
         
         % Create the initial position of each chain by drawing each parameter individually from the prior
+        for qq = 1:DREAMPar.d
+            for zz = 1:DREAMPar.N
+                x(zz,qq) = eval(char(Par_info.prior_marginal(qq)));
+            end
+        end
         
-        % **** Will use our own pdf here ******
-
-%         for qq = 1:DREAMPar.d,
-%             for zz = 1:DREAMPar.N,
-%                 x(zz,qq) = eval(char(Par_info.prior_marginal(qq)));
-%             end;
-%         end;
-%         
     otherwise
         
         error('unknown initial sampling method');
-end;
+end
 
 % If specified do boundary handling ( "Bound","Reflect","Fold")
 if isfield(Par_info,'boundhandling')
-    [x] = Boundary_handling(x,Par_info);
+    [x] = boundaryHandling(x,Par_info);
 end
 
 % Now evaluate the model ( = pdf ) and return fx
-[fx] = ratEvaluate_model(x,DREAMPar,Meas_info,ratInputs);
+[fx] = evaluateModel(x,DREAMPar,Meas_info,ratInputs);
 
 % Calculate the log-likelihood and log-prior of x (fx)
-%[log_L_x,log_PR_x] = ratCalc_density(x,fx,DREAMPar,Par_info,Meas_info,ratInputs);
-[log_L_x,log_PR_x] = Calc_density(x,fx,DREAMPar,Par_info,Meas_info);
+[log_L_x,log_PR_x] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs);
 
 % Define starting x values, corresponding density, log densty and simulations (Xfx)
-X = [x log_PR_x log_L_x];
+X = [x log_PR_x(:) log_L_x];
 
 % Store the model simulations (if appropriate)
-DREAM_store_results ( DREAMPar , fx , Meas_info , 'w+' );
+DREAMStoreResults ( DREAMPar , fx , Meas_info , 'w+' );
 
 % Set the first point of each of the DREAMPar.N chain equal to the initial X values
 chain(1,1:DREAMPar.d+2,1:DREAMPar.N) = reshape(X',1,DREAMPar.d+2,DREAMPar.N);
@@ -63,7 +59,7 @@ chain(1,1:DREAMPar.d+2,1:DREAMPar.N) = reshape(X',1,DREAMPar.d+2,DREAMPar.N);
 pCR = (1/DREAMPar.nCR) * ones(1,DREAMPar.nCR);
 
 % Generate the actula CR value, lCR and delta_tot
-CR = Draw_CR(DREAMPar,pCR); lCR = zeros(1,DREAMPar.nCR); delta_tot = zeros(1,DREAMPar.nCR);
+CR = drawCR(DREAMPar,pCR); lCR = zeros(1,DREAMPar.nCR); delta_tot = zeros(1,DREAMPar.nCR);
 
 % Save pCR values in memory
 output.CR(1,1:DREAMPar.nCR+1) = [ DREAMPar.N pCR ]; 

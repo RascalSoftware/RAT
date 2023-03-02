@@ -43,7 +43,7 @@ Par_info.boundhandling = controls.boundHandling;
 
 % Run the sampler....
 %[chain,output,fx] = rat_DREAM(DREAMPar,Par_info,[],ratInputs);
-%Func_name = @ratDreamWrapper;
+%Func_name = @DREAMWrapper;
 [chain,output,fx] = ratDREAM(DREAMPar,Par_info,[],ratInputs);
 
 % Combine all chains....

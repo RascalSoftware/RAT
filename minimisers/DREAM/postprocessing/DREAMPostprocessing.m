@@ -529,10 +529,10 @@ if ~isempty(fx_post)
     fig_number = fig_number + 1;
     
     % We start with the total uncertainty
-    Fill_Ranges([1:size(tot_unc,1)],tot_unc(:,1),tot_unc(:,2),[0.75 0.75 0.75]); hold on;
+    fillRanges([1:size(tot_unc,1)],tot_unc(:,1),tot_unc(:,2),[0.75 0.75 0.75]); hold on;
     
     % And then plot the parameter uncertainty
-    Fill_Ranges([1:size(tot_unc,1)],par_unc(:,1),par_unc(:,2),[0.25 0.25 0.25]);
+    fillRanges([1:size(tot_unc,1)],par_unc(:,1),par_unc(:,2),[0.25 0.25 0.25]);
     
     % Now add the observations
     plot([1:size(tot_unc,1)],Meas_info.Y,'r.');

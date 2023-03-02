@@ -1,4 +1,4 @@
-function [accept,idx_accept] = Metropolis_rule(DREAMPar,log_L_xnew,log_PR_xnew,log_L_xold,log_PR_xold)
+function [accept,idx_accept] = metropolisRule(DREAMPar,log_L_xnew,log_PR_xnew,log_L_xold,log_PR_xold)
 % Metropolis rule for acceptance or rejection
 
 switch DREAMPar.ABC

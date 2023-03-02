@@ -1,5 +1,5 @@
 function [outDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = DREAM_setup(DREAMPar,Par_info,Meas_info)
+        gen] = DREAMSetup(DREAMPar,Par_info,Meas_info)
 % Initializes the main variables used in DREAM
 % To keep coder happy, we have to define the full version of DREAMPar here
 fieldNames = {'d','N','T','parallel','CPU','lambda','p_unit_gamma','nCR','delta','steps',...

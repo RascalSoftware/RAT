@@ -1,4 +1,4 @@
-function [X,log_L,outlier] = Remove_outlier(X,log_L,outlier,DREAMPar)
+function [X,log_L,outlier] = removeOutlier(X,log_L,outlier,DREAMPar)
 % Finds outlier chains and removes them when needed
 
 % Determine the number of elements of L_density

@@ -1,4 +1,4 @@
-function directCompare_3D(mcmcChains)
+function directCompare3D(mcmcChains)
 
 useSaved = true;
 

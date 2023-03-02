@@ -1,7 +1,7 @@
-function rn=chis_rnd(nn,v)
+function rn=chisRnd(nn,v)
 % PURPOSE: generates random chi-squared deviates
 %---------------------------------------------------
-% USAGE:   rchi = chis_rnd(n,v)
+% USAGE:   rchi = chisRnd(n,v)
 % where:   n = a scalar for the size of the vector to be generated
 %              or n(1) = nrows, n(2) = ncols for a matrix to be generated
 %          v = the degrees of freedom

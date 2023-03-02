@@ -1,4 +1,4 @@
-function [h] = Fill_Ranges(x,y_low,y_up,color)
+function [h] = fillRanges(x,y_low,y_up,color)
 % Fill the ranges with a given color
 % 
 % SYNOPSIS: bounds(x,ylow,yupper);

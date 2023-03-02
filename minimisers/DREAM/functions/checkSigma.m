@@ -1,4 +1,4 @@
-function Meas_info = Check_sigma(Meas_info)
+function Meas_info = checkSigma(Meas_info)
 % Now check how the measurement sigma is arranged (estimated or defined)
 
 % Check whether the measurement error is estimated jointly with the parameters

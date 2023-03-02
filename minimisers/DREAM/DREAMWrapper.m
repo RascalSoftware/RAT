@@ -1,4 +1,4 @@
-function Lik = ratDreamWrapper(pars,ratInputs)
+function Lik = DREAMWrapper(pars,ratInputs)
 
 % Get the inputs for Reflectivity Calculation
 

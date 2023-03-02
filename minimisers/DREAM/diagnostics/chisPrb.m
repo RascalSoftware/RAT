@@ -1,7 +1,7 @@
-function prob = chis_prb(x,v)
+function prob = chisPrb(x,v)
 % PURPOSE: computes the chi-squared probability function
 %---------------------------------------------------
-% USAGE: prob = chis_prb(x,v)
+% USAGE: prob = chisPrb(x,v)
 % where: x = the value to test
 %            (may be a matrix size(v), or a scalar)
 %        v = the degrees of freedom
@@ -11,7 +11,7 @@ function prob = chis_prb(x,v)
 %        prob = the probability of observing a chi-squared
 %               value <= x, i.e., prob(x | v).
 % --------------------------------------------------
-% SEE ALSO: chis_d, chis_pdf, chis_cdf, chis_inv, chis_rnd
+% SEE ALSO: chis_d, chis_pdf, chis_cdf, chis_inv, chisRnd
 %---------------------------------------------------
 
 % written by:
@@ -23,7 +23,7 @@ function prob = chis_prb(x,v)
 
 
 if nargin ~= 2
-    error('Wrong # of arguments to chis_prb');
+    error('Wrong # of arguments to chisPrb');
 end
 
 prob = gammainc(x/2, v/2);

@@ -1,4 +1,4 @@
-function [fx] = Evaluate_model(x,DREAMPar,Meas_info,ratInputs)
+function [fx] = evaluateModel(x,DREAMPar,Meas_info,ratInputs)
 % This function computes the likelihood and log-likelihood of each d-vector
 % of x values
 %
@@ -21,7 +21,7 @@ if ( DREAMPar.CPU == 1 )         % Sequential evaluation
     for ii = 1:DREAMPar.N
         % Execute the model and return the model simulation
         %fx(:,ii) = f_handle(x(ii,:), ratInputs);
-        fx(:,ii) = ratDreamWrapper(x(ii,:),ratInputs);
+        fx(:,ii) = DREAMWrapper(x(ii,:),ratInputs);
     end
 
 elseif ( DREAMPar.CPU > 1 )      % Parallel evaluation
@@ -42,7 +42,7 @@ elseif ( DREAMPar.CPU > 1 )      % Parallel evaluation
     %
     %                 % Execute the model and return the model simulation
     %                 %fx(:,ii) = f_handle( [ x(ii,:) t.id ], ratInputs );
-    %                 fx(:,ii) = ratDreamWrapper( [ x(ii,:) t.id ],ratInputs );
+    %                 fx(:,ii) = DREAMWrapper( [ x(ii,:) t.id ],ratInputs );
     %             end
     %
     %         else
@@ -50,7 +50,7 @@ elseif ( DREAMPar.CPU > 1 )      % Parallel evaluation
     %             parfor ii = 1:DREAMPar.N
     %                 % Execute the model and return the model simulation
     %                 %fx(:,ii) = f_handle( [ x(ii,:) t.id ], ratInputs );
-    %                 fx(:,ii) = ratDreamWrapper( [ x(ii,:) t.id ],ratInputs );
+    %                 fx(:,ii) = DREAMWrapper( [ x(ii,:) t.id ],ratInputs );
     %             end
     %
     %         end
@@ -60,7 +60,7 @@ elseif ( DREAMPar.CPU > 1 )      % Parallel evaluation
     parfor ii = 1:DREAMPar.N
         % Execute the model and return the model simulation
         %fx(:,ii) = f_handle(x(ii,:), ratInputs);
-        fx(:,ii) = ratDreamWrapper(x(ii,:),ratInputs);
+        fx(:,ii) = DREAMWrapper(x(ii,:),ratInputs);
     end
 
 end

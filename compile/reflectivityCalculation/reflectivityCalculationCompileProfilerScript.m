@@ -125,5 +125,5 @@ ARGS = makeCompileArgs();
 
 
 %% Invoke MATLAB Coder.
-codegen -config cfg reflectivity_calculation -args ARGS{1}
+codegen -config cfg reflectivityCalculation -args ARGS{1}
 

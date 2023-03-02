@@ -1,4 +1,4 @@
-function [x_new,CR] = Calc_proposal(X,CR,DREAMPar,Table_gamma,Par_info)
+function [x_new,CR] = calcProposal(X,CR,DREAMPar,Table_gamma,Par_info)
 % Calculate candidate points using discrete proposal distribution
 
 % % % % Calculate the ergodicity perturbation
@@ -154,5 +154,5 @@ x_new = X + dx;
 
 % If specified do boundary handling ( "Bound","Reflect","Fold")
 if isfield(Par_info,'boundhandling')
-    [x_new] = Boundary_handling(x_new,Par_info);
+    [x_new] = boundaryHandling(x_new,Par_info);
 end

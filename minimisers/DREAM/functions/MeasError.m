@@ -1,4 +1,4 @@
-function [out] = MeasError(Y);
+function [out] = MeasError(Y)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                                               %
 % Function that estimates the measurement error of a given calibration data series              % 
@@ -39,7 +39,7 @@ for zz = 1:3,
     % Create new Ytot 
     Ytot = [Y1 Y2];
     
-end;
+end
     
 % How many possible combinations?
 F = 6 * 5 * 4 / 6;

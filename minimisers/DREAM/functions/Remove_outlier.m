@@ -101,7 +101,7 @@ t_crit_2 = tinv(alpha/N,N-2)^2;
 % Now calculate Grubbs critical value
 z_crit = (N-1)/sqrt(N)*(sqrt(t_crit_2/(N-2+t_crit_2)));
 % Then check whether to reject null-hypothesis
-if (G > z_crit),
+if (G > z_crit)
     % Indeed, an outlier chain (reject null-hypothesis of no outlier)
     idx_outlier = find(log_L == min(log_L));
 else
@@ -189,7 +189,7 @@ peirce_r = [-1,1,2,3,4,5,6,7,8,9;
 N = numel(log_L);
 
 % find row index to use in table for this sample
-if ( N < 61 ) && ( N > 2 ),
+if ( N < 61 ) && ( N > 2 )
     n_ind = find(peirce_r(:,1) == N);
 else
     if N >= 61

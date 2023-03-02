@@ -12,7 +12,7 @@ function [R_stat] = Gelman(chain,DREAMPar)
 % Compute the dimensions of chain
 [n,nrY,m] = size(chain);
 
-if (n < 10),
+if (n < 10)
     % Set the R-statistic to a large value
     R_stat = NaN(1,DREAMPar.d);
 else
@@ -23,7 +23,7 @@ else
     B = n * var(mean_chain);
     
     % Step 2: Compute the variance of the various chain
-    for zz = 1:DREAMPar.N,
+    for zz = 1:DREAMPar.N
         var_chain(zz,:) = var(chain(:,:,zz));
     end;
     
@@ -39,4 +39,4 @@ else
     % Step 5: Compute the R-statistic
     R_stat = sqrt((m + 1)/m * sigma2 ./ W - (n-1)/m/n);
     
-end;
+end

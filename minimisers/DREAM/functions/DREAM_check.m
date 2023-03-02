@@ -1,4 +1,4 @@
-function stop = DREAM_check(DREAMPar,Par_info,Meas_info);
+function stop = DREAM_check(DREAMPar,Par_info,Meas_info)
 % Check for setup errors
 
 % Assign stop to be No

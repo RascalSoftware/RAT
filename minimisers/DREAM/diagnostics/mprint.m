@@ -52,7 +52,7 @@ if nargin == 1
 elseif nargin == 2
     if ~isstruct(info)
         error('mprint: you must supply the options as a structure variable');
-    end;
+    end
     fields = fieldnames(info);
     nf = length(fields);
     for i=1:nf
@@ -65,41 +65,41 @@ elseif nargin == 2
                 fmt = fmts;
             else
                 error('mprint: wrong # of formats in string -- need nvar');
-            end;
+            end
         elseif strcmp(fields{i},'fid')
             fid = info.fid;
-        elseif strcmp(fields{i},'begc');
+        elseif strcmp(fields{i},'begc')
             begc = info.begc;
-        elseif strcmp(fields{i},'begr');
+        elseif strcmp(fields{i},'begr')
             begr = info.begr;
-        elseif strcmp(fields{i},'endc');
+        elseif strcmp(fields{i},'endc')
             endc = info.endc;
-        elseif strcmp(fields{i},'endr');
+        elseif strcmp(fields{i},'endr')
             endr = info.endr;
-        elseif strcmp(fields{i},'width');
+        elseif strcmp(fields{i},'width')
             cwidth = info.width;
-        elseif strcmp(fields{i},'cnames');
+        elseif strcmp(fields{i},'cnames')
             cnames = info.cnames;
             cflag = 1;
-        elseif strcmp(fields{i},'rnames');
+        elseif strcmp(fields{i},'rnames')
             rnames = info.rnames;
             rflag = 1;
-        elseif strcmp(fields{i},'rflag');
+        elseif strcmp(fields{i},'rflag')
             rnum = info.rflag;
-        end;
-    end;
+        end
+    end
 
 else
     error('Wrong # of arguments to mprint');
 
-end; % end of if-elseif input checking
+end % end of if-elseif input checking
 
 
 % see if the user supplied row names and set rnum
 % correct her mistake if she did this
 if rflag == 1
     rnum = 0;
-end;
+end
 
 % parse formats
 if nfmts == 1
@@ -119,7 +119,7 @@ if nfmts == 1
         f2 = strtok(f2,'f');
         fflag = 1;
         dflag = 0;
-    end;
+    end
     f2 = str2num(f2);
     nwide = floor(cwidth/f2); % 80 columns divided by format
     nvar = endc-begc+1;
@@ -131,7 +131,7 @@ else %  wrapping in this case is based on widest format in the list
     dflagv = zeros(nfmts,1);
     fflagv = zeros(nfmts,1);
     decimalv = zeros(nfmts,1);
-    for ii=1:nfmts;
+    for ii=1:nfmts
         f1 = strtok(fmt(ii,:),'%');
         f2 = strtok(f1,'.');
         if strcmp(f1,f2)
@@ -148,15 +148,15 @@ else %  wrapping in this case is based on widest format in the list
             f2 = strtok(f2,'f');
             fflagv(ii,1) = 1;
             dflagv(ii,1) = 0;
-        end;
+        end
         f2v(ii,1) = str2num(f2);
         nwidev(ii,1) = floor(cwidth/f2v(ii,1)); % cwidth columns divided by format
         nvar = endc-begc+1;
         nsetsv(ii,1) = ceil(nvar/nwidev(ii,1));
-    end;
+    end
     nsets = min(nsetsv);
     nwide = max(nwidev);
-end;
+end
 
 % if we have row and column labels
 % adjust variable labels and column heading strings
@@ -164,11 +164,11 @@ end;
 
 if rnum == 1
     dstr = 'Obs#';
-end;
+end
 
 if cflag == 1 % we have column headings
     [vsize nsize] = size(cnames); % error check cnames argument
-    if vsize ~= nvars; error('Wrong # cnames in mprint'); end;
+    if vsize ~= nvars; error('Wrong # cnames in mprint'); end
     if nfmts == 1 % case of only 1 format string
         nmax = max(f2,nsize); % build format strings
         % based on widest format
@@ -181,7 +181,7 @@ if cflag == 1 % we have column headings
             ffmt = [ffmt,'.'];
             ffmt = [ffmt,decimal];
             ffmt = [ffmt,'f '];
-        end;
+        end
     else % we have multiple format strings, process each
         sfmtv = []; fmtv = [];
         for ii=1:nfmts % find and parse multiple formats
@@ -196,9 +196,9 @@ if cflag == 1 % we have column headings
                 ffmtv{ii} = [ffmtv{ii},'.'];
                 ffmtv{ii} = [ffmtv{ii},decimalv(ii,1)];
                 ffmtv{ii} = [ffmtv{ii},'f '];
-            end;
-        end; % end of for ii loop
-    end; % end of if-else
+            end
+        end % end of for ii loop
+    end % end of if-else
 elseif cflag == 0 % we have no column headings
     if nfmts == 1 % case of only 1 format string
         nmax = f2; % augment format string with a space (the hard way)
@@ -209,7 +209,7 @@ elseif cflag == 0 % we have no column headings
             ffmt = [ffmt,'.'];
             ffmt = [ffmt,decimal];
             ffmt = [ffmt,'f '];
-        end;
+        end
     else % we have multiple format strings, process each
         sfmtv = []; fmtv = [];
         for ii=1:nfmts % find and parse multiple formats
@@ -221,29 +221,29 @@ elseif cflag == 0 % we have no column headings
                 ffmtv{ii} = [ffmtv{ii},'.'];
                 ffmtv{ii} = [ffmtv{ii},decimalv(ii,1)];
                 ffmtv{ii} = [ffmtv{ii},'f '];
-            end;
-        end; % end of for ii loop
-    end; % end of if-else
-end; % end of if-elseif cflag == 0,1
+            end
+        end % end of for ii loop
+    end % end of if-else
+end % end of if-elseif cflag == 0,1
 
 if rflag == 1 % we have row labels
     [vsize nsize] = size(rnames); % error check cnames argument
-    if vsize ~= nobs+1; error('Wrong # rnames in mprint'); end;
+    if vsize ~= nobs+1; error('Wrong # rnames in mprint'); end
     rfmt = ['%', num2str(nsize)];
     rfmt = [rfmt,'s '];
-end; % end of if rflag == 1
+end % end of if rflag == 1
 
 if (rflag == 0 & cflag == 0)
     ffmt = fmt;
-end;
+end
 
 % print matrix
-for j=1:nsets;
+for j=1:nsets
     if nfmts == 1 % print row header and column headers
         if rnum == 1;fprintf(fid,'%5s ',dstr);
         elseif rflag == 1
             fprintf(fid,rfmt,rnames(1,:));
-        end;
+        end
         if cflag == 1
             for i = (j-1)*nwide+begc:j*nwide+begc-1
                 if i <= endc
@@ -254,15 +254,15 @@ for j=1:nsets;
                     %else
                     %fprintf(fid,sfmt,strjust(cnames(i,:)));
                     %end;
-                end;
-            end;
-        end;
+                end
+            end
+        end
         fprintf(fid,'\n');
     else % we have multiple formats
         if rnum == 1;fprintf(fid,'%5s ',dstr);
         elseif rflag == 1
             fprintf(fid,rfmt,rnames(1,:));
-        end;
+        end
         if cflag == 1
             for i = (j-1)*nwide+begc:j*nwide+begc-1
                 if i <= endc
@@ -273,26 +273,26 @@ for j=1:nsets;
                     %else
                     %fprintf(fid,sfmtv{i},strjust(cnames(i,:)));
                     %end;
-                end;
-            end;
-        end;
+                end
+            end
+        end
         fprintf(fid,'\n');
-    end; % end of if-else nfmts
-    for k = begr:endr; % print row labels and numbers in matrix
+    end % end of if-else nfmts
+    for k = begr:endr % print row labels and numbers in matrix
         if rnum == 1; fprintf(fid,'%5d ',k);
         elseif rflag == 1
             fprintf(fid,rfmt,rnames(k+1,:));
-        end;
+        end
         for l = (j-1)*nwide+begc:j*nwide+begc-1
             if l <= endc
                 if nfmts == 1
                     fprintf(fid,ffmt,y(k,l));
                 else
                     fprintf(fid,ffmtv{l},y(k,l));
-                end;
-            end;
-        end; % end of for l
+                end
+            end
+        end % end of for l
         fprintf(fid,'\n');
-    end; % end of for k
+    end % end of for k
     fprintf(fid,'\n');
-end; % end of for j
+end % end of for j

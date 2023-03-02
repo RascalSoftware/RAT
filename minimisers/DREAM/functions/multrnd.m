@@ -78,19 +78,19 @@ function [X,Y] = multrnd(n,p,m)
 %           Internet at the URL address http://hcohl.shell42.com/as/frameindex.htm
 %
 
-if nargin < 3,
-    if nargin == 2,
+if nargin < 3
+    if nargin == 2
         m = 1;
     else
         error('You need to input at least two arguments.');
         return,
-    end;
-end;
+    end
+end
 
-if (length(n)~=1) | (fix(n) ~= n) | (n < 0),
+if (length(n)~=1) | (fix(n) ~= n) | (n < 0)
    error('n must be a positive integer.');
    return,
-end;
+end
 
 P = sum(p);
 %if P ~= 1,
@@ -102,13 +102,13 @@ for i = 1:m
     o = ones(1,n);
     s = cumsum(p/P);
     r = rand(1,n);
-    for j = 1:length(p);
+    for j = 1:length(p)
         o = o + (r > s(j)); 
-    end;
-    for j = 1:length(p);
+    end
+    for j = 1:length(p)
         X(i,j) = sum(o == j); 
-    end;
-end;
+    end
+end
 
 Y = X./n;
 return,

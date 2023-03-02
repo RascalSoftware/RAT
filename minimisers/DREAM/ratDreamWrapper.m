@@ -14,7 +14,7 @@ problem.fitpars = pars;
 problem = unpackparams(problem,control);
 
 % Calculate....
-[outProblem,results] = reflectivity_calculation_wrapper(problem,cells,limits,control);
+[outProblem,results] = reflectivityCalculationWrapper(problem,cells,limits,control);
 
 % Function value is chi-squared....
 chiSquared = outProblem.calculations.sum_chi;

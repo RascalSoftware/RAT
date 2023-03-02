@@ -24,7 +24,7 @@ function [alpha, beta] = mcest(d,n)
 % I have repackaged it to make it easier to use.
 
 t = zeros(2,2);
-for i1 = 2:n;
+for i1 = 2:n
     t(d(i1-1)+1,d(i1)+1) = t(d(i1-1)+1,d(i1)+1)+1;
-end;
+end
 alpha = t(1,2)/(t(1,1)+t(1,2)); beta = t(2,1)/(t(2,1)+t(2,2));

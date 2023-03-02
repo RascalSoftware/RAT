@@ -1,4 +1,4 @@
-function [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info,Meas_info, varargin);
+function [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info,Meas_info, varargin)
 % ----------------------------------------------------------------------------------------------%
 %                                                                                               %
 % DDDDDDDDDDDDDDD    RRRRRRRRRRRRRR     EEEEEEEEEEEEEEEE       AAAAA       MMM             MMM  %
@@ -128,24 +128,24 @@ function [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info,Meas_info, 
 % --------------------------------------------------------------------------------------------- %
 
 % Check how many input variables
-if nargin < 4, Meas_info.Y = []; end;
-if isempty(Meas_info), Meas_info.Y = []; end;
+if nargin < 4, Meas_info.Y = []; end
+if isempty(Meas_info), Meas_info.Y = []; end
 
-if ~isfield(DREAMPar,'restart') || strcmp(DREAMPar.restart,'no'),
+if ~isfield(DREAMPar,'restart') || strcmp(DREAMPar.restart,'no')
     % Initialize the main variables used in DREAM
     [DREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
         gen] = DREAM_setup(DREAMPar,Par_info,Meas_info);
     % Check for setup errors
     [stop,fid] = DREAM_check(DREAMPar,Par_info,Meas_info);
     % Return to main program
-    if strcmp(stop,'yes'); return; end;
+    if strcmp(stop,'yes'); return; end
     % Create computing environment (depending whether multi-core is used)
     [DREAMPar,f_handle] = DREAM_calc_setup(DREAMPar,Func_name);
     % Now check how the measurement sigma is arranged (estimated or defined)
     Meas_info = Check_sigma(Meas_info); T_start = 2;
     % Create the initial states of each of the chains (initial population)
     [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = DREAM_initialize(DREAMPar,Par_info,Meas_info,f_handle,chain,output,log_L, varargin{:});
-elseif strcmp(DREAMPar.restart,'yes'),
+elseif strcmp(DREAMPar.restart,'yes')
     % Print to screen restart run
     disp('Restart run');
     % If a restart run is being done: just load the output from the previous ongoing trial
@@ -154,7 +154,7 @@ elseif strcmp(DREAMPar.restart,'yes'),
     chain = [chain ; nan(size(chain,1)-1,size(chain,2),size(chain,3))];
     % Open warning file and set T_start
     fid = fopen('warning_file.txt','a+'); T_start = t + 1;
-end;
+end
 
 % Initialize waitbar. TJP Edit to check for graphical enviro
 if usejava('desktop')
@@ -163,7 +163,7 @@ end
 totaccept = 0; tic;
 
 % Now start iteration ...
-for t = T_start : DREAMPar.T,
+for t = T_start : DREAMPar.T
     
     % Unoack current state of chain and associated log-likelihood and log-prior values
     [xold,log_PR_xold,log_L_xold] = deal(X(:,1:end-2),X(:,end-1),X(:,end));
@@ -184,7 +184,7 @@ for t = T_start : DREAMPar.T,
     X(idx_ac,1:DREAMPar.d+2) = [xnew(idx_ac,1:DREAMPar.d) log_PR_xnew(idx_ac,1) log_L_xnew(idx_ac,1)]; fx(:,idx_ac) = fx_new(:,idx_ac);
     
     % Check whether to add the current points to the chains or not?
-    if mod(t,DREAMPar.thinning) == 0,
+    if mod(t,DREAMPar.thinning) == 0
         % Store the current sample in chain
         iloc = iloc + 1; chain(iloc,1:DREAMPar.d+2,1:DREAMPar.N) = reshape(X',1,DREAMPar.d+2,DREAMPar.N);
         
@@ -197,14 +197,14 @@ for t = T_start : DREAMPar.T,
     end
     
     % Check whether we update the crossover values
-    if strcmp(DREAMPar.adapt_pCR,'yes');
+    if strcmp(DREAMPar.adapt_pCR,'yes')
         % Calculate the standard deviation of each dimension of X
         r = repmat(std(X(1:DREAMPar.N,1:DREAMPar.d)),DREAMPar.N,1);
         % Compute the Euclidean distance between new X and old X
         delta_normX = sum(((xold(1:end,1:DREAMPar.d) - X(1:end,1:DREAMPar.d))./r).^2,2);
         % Use this information to update sum_p2 to update N_CR
         delta_tot = Calc_delta(DREAMPar,delta_tot,delta_normX,CR(1:DREAMPar.N,gen));
-    end;
+    end
     % Update gen
     gen = gen + 1;
     
@@ -220,21 +220,21 @@ for t = T_start : DREAMPar.T,
     end    
     
     % If t equal to MCMC.steps then convergence checks and updates
-    if mod(t,DREAMPar.steps) == 0,
+    if mod(t,DREAMPar.steps) == 0
         
         % Save some important output -- Acceptance Rate
         output.AR(iteration,1:2) = [ t * DREAMPar.N 100 * sum(totaccept) / (DREAMPar.N * DREAMPar.steps)];
         
         % Check whether to update individual pCR values
-        if ( t <= DREAMPar.T / 10 );
-            if strcmp(DREAMPar.adapt_pCR,'yes');
+        if ( t <= DREAMPar.T / 10 )
+            if strcmp(DREAMPar.adapt_pCR,'yes')
                 % Update pCR values
                 [pCR,lCR] = Adapt_pCR(DREAMPar,CR,delta_tot,lCR);
-            end;
+            end
         else
             % See whether there are any outlier chains, and remove them to current best value of X
             [X,log_L(1:t,2:DREAMPar.N+1),output.outlier] = Remove_outlier(X,log_L(1:t,2:DREAMPar.N+1),output.outlier,DREAMPar,fid);
-        end;
+        end
         
         % Store diagnostic information -- Probability of individual crossover values
         output.CR(iteration,1:DREAMPar.nCR+1) = [ t * DREAMPar.N pCR];
@@ -252,16 +252,16 @@ for t = T_start : DREAMPar.T,
         iteration = iteration + 1;  gen = 1; totaccept = 0;
         
         % Save the output or not?
-        if strcmp(lower(DREAMPar.save),'yes');
+        if strcmp(lower(DREAMPar.save),'yes')
             
             % Store in memory
             save DREAM.mat
             
-        end;
+        end
         
-    end;
+    end
     
-end;
+end
 
 % -------------------------------------------------------------------------
 

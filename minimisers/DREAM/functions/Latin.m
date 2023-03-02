@@ -1,4 +1,4 @@
-function x = LHS(minn,maxn,N)
+function x = Latin(minn,maxn,N)
 % Latin Hypercube sampling
 
 % Initialize array ran with random numbers

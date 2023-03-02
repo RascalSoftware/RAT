@@ -1,4 +1,4 @@
-function [log_L] = Whittle(Meas_info,fx);
+function [log_L] = Whittle(Meas_info,fx)
 % Calculates whittle's log-likelihood function using spectral analysis
 
 % Do the following

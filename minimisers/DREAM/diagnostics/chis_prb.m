@@ -24,6 +24,6 @@ function prob = chis_prb(x,v)
 
 if nargin ~= 2
     error('Wrong # of arguments to chis_prb');
-end;
+end
 
 prob = gammainc(x/2, v/2);

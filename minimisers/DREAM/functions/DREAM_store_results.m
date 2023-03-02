@@ -1,4 +1,4 @@
-function DREAM_store_results ( DREAMPar , fx , Meas_info , id );
+function DREAM_store_results ( DREAMPar , fx , Meas_info , id )
 % Stores the results of DREAM to binary files
 
 % Append current model simulations of X to file "fx.bin"

@@ -39,30 +39,30 @@ function y = ppnd(p)
  f2=1.2258202635e-02; 
  q = p - 0.5;
   
-    if (abs(q) <= split1),
+    if (abs(q) <= split1)
      r = const1 - q * q;
   y = q * (((a3*r+a2)*r+a1)*r+a0)/(((b3*r+b2)*r+b1)*r+1.0);
   return;
- elseif  (q < 0.0),
+ elseif  (q < 0.0)
   r = p; 
- else,
+    else
   r = 1 - p;
- end;     % end of if
- if (r <= 0.0);
+    end     % end of if
+ if (r <= 0.0)
    y = 0.0;
    return;
- end;     % end of if
+ end     % end of if
  
  r = sqrt(-log(r));
  
- if (r <= split2);
+ if (r <= split2)
   r = r - const2;
   y = (((c3*r+c2)*r+c1)*r+c0)/((d2*r+d1)*r+1.0);
- else,
+ else
   r = r - split2;
   y = (((e3*r+e2)*r+e1)*r+e0)/((f2*r+f1)*r+1.0);
- end;      % end of if; 
- if (q < 0.0);
+ end      % end of if; 
+ if (q < 0.0)
   y = -y;
   return; 
-    end;      % end of if
+ end      % end of if

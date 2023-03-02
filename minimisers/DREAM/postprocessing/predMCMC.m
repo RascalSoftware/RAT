@@ -1,10 +1,10 @@
-function [par_unc,tot_unc] = predMCMC(RMSE_MAP,fx_post,PredInt);
+function [par_unc,tot_unc] = predMCMC(RMSE_MAP,fx_post,PredInt)
 % Calculates the desired parameter and total prediction uncertainty from the MCMC samples
 %
 % If PredInt is not defined, automatically assume 95% uncertainty ranges
-if nargin < 5,
+if nargin < 5
     PredInt = 95;
-end;
+end
 
 % Define the lower bound of the prediction interval
 alpha = ( 100 - PredInt ) / 2;

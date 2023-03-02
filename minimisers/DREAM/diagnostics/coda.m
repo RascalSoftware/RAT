@@ -75,24 +75,24 @@ function result = coda(draws,vnames,info,fid)
 num_draws = length(draws);
 if num_draws < 50
     error('coda: at least 50 draws are required');
-end;
+end
 
 
 if nargout == 1 % don't print, return a structure
     pflag = 1;
 else
     pflag = 0; % print to the command window
-end;
+end
 
 if nargin == 4
     if ~isstruct(info)
         error('coda: must supply options as a structure');
-    end;
+    end
     nflag = 0;
     [vsize junk] = size(vnames); % user may supply a blank vnames argument
     if vsize > 0
         nflag = 1; % we have variable names
-    end;
+    end
     fields = fieldnames(info);
     nf = length(fields);
     q = 0.025; r = 0.01; s = 0.95;
@@ -106,20 +106,20 @@ if nargin == 4
             s = info.s;
         elseif strcmp(fields{i},'p1')
             p1 = info.p1;
-        elseif strcmp(fields{i},'p2');
+        elseif strcmp(fields{i},'p2')
             p2 = info.p2;
-        end;
-    end;
+        end
+    end
 
 elseif nargin == 3
     if ~isstruct(info)
         error('coda: must supply options as a structure');
-    end;
+    end
     nflag = 0;
     [vsize junk] = size(vnames); % user may supply a blank vnames argument
     if vsize > 0
         nflag = 1; % we have variable names
-    end;
+    end
     fields = fieldnames(info);
     nf = length(fields);
     q = 0.025; r = 0.01; s = 0.95;
@@ -134,10 +134,10 @@ elseif nargin == 3
             s = info.s;
         elseif strcmp(fields{i},'p1')
             p1 = info.p1;
-        elseif strcmp(fields{i},'p2');
+        elseif strcmp(fields{i},'p2')
             p2 = info.p2;
-        end;
-    end;
+        end
+    end
 
 elseif nargin == 2
     nflag = 1; % we have variable names
@@ -153,7 +153,7 @@ elseif nargin == 1
 
 else
     error('Wrong # of arguments to coda');
-end;
+end
 
 result.q = q;
 result.r = r;
@@ -165,26 +165,26 @@ if nflag == 0 % no variable names make some up
     Vname = [];
     for i=1:nvar
         Vname{i} = str2mat(['variable ',num2str(i)]);
-    end;
+    end
 
 elseif (nflag == 1) % the user supplied variable names
     Vname = [];
     [tst_n nsize] = size(vnames);
     if tst_n ~= nvar
         error('Wrong # of variable names in coda -- check vnames argument');
-    end;
+    end
     nmax = min(nsize,16); % truncate vnames to 16-characters
     for i=1:nvar
         Vname{i} = vnames(i,1:nmax);
-    end;
-end; % end of nflag issue
+    end
+end % end of nflag issue
 
 % =======> do SACF diagnostics
 nlag = 25;
 aout = zeros(25,nvar);
-for i=1:nvar;
+for i=1:nvar
     aout(:,i) = sacf(draws(:,i),nlag,1);
-end;
+end
 
 % pull out sacf's at 1,5,10,25
 aprt = zeros(nvar,4);
@@ -196,13 +196,13 @@ aprt(:,4) = aout(25,:)';
 % ========> do Raftery-Lewis diagnostics
 rafout =  raftery(draws,q,r,s);
 rout = zeros(nvar,5);
-for i=1:nvar;
+for i=1:nvar
     rout(i,1) = rafout(i).kthin;
     rout(i,2) = rafout(i).nburn;
     rout(i,3) = rafout(i).n;
     rout(i,4) = rafout(i).nmin;
     rout(i,5) = rafout(i).irl;
-end;
+end
 
 % =========> do Geweke diagnostics
 geweke = momentg(draws);
@@ -239,7 +239,7 @@ if pflag == 0 % print results to command window
     rnames = vstring;
     for i=1:nvar
         rnames = strvcat(rnames,Vname{i});
-    end;
+    end
     in.fmt = '%12.3f';
     in.fid = fid;
     in.cnames = cnames;
@@ -277,7 +277,7 @@ if pflag == 0 % print results to command window
     gout = zeros(nvar,4);
     for i=1:nvar
         gout(i,:) = [geweke(i).pmean geweke(i).pstd geweke(i).nse geweke(i).rne];
-    end;
+    end
     in3.cnames = cnames;
     in3.rnames = rnames;
     in3.fid = fid;
@@ -296,7 +296,7 @@ if pflag == 0 % print results to command window
     for i=1:nvar
         gout2(i,:) = [geweke(i).nse1 geweke(i).rne1 geweke(i).nse2 geweke(i).rne2 ...
             geweke(i).nse3 geweke(i).rne3];
-    end;
+    end
     in4.cnames = cnames;
     in4.fid = fid;
     in4.fmt = '%12.6f';
@@ -321,12 +321,12 @@ if pflag == 0 % print results to command window
             gout3(k,1) = resapm(i).pmean(k);
             gout3(k,2) = resapm(i).nse(k);
             gout3(k,3) = resapm(i).prob(k);
-        end;
+        end
 
         mprint(gout3,in);
-    end;
+    end
 
-end; % end of if pflag == 0
+end % end of if pflag == 0
 
 if pflag == 1 % return results structure
 

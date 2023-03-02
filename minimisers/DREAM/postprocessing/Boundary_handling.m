@@ -1,4 +1,4 @@
-function [x] = Boundary_handling(x,Par_info);
+function [x] = Boundary_handling(x,Par_info)
 % Function to check whether parameter values remain within prior bounds
 
 % First determine the size of new
@@ -14,7 +14,7 @@ min_d = repmat(Par_info.min,m,1); max_d = repmat(Par_info.max,m,1);
 [ii_up] = find(x > max_d); 
 
 % Reflection
-if strcmp(Par_info.boundhandling,'reflect');
+if strcmp(Par_info.boundhandling,'reflect')
 
     % reflect in min
     x(ii_low)= 2 * min_d(ii_low) - x(ii_low);     
@@ -22,10 +22,10 @@ if strcmp(Par_info.boundhandling,'reflect');
     % reflect in max
     x(ii_up)= 2 * max_d(ii_up) - x(ii_up); 
 
-end;
+end
 
 % Bound
-if strcmp(Par_info.boundhandling,'bound');
+if strcmp(Par_info.boundhandling,'bound')
 
     % set lower values to min
     x(ii_low)= min_d(ii_low); 
@@ -33,10 +33,10 @@ if strcmp(Par_info.boundhandling,'bound');
     % set upper values to max
     x(ii_up)= max_d(ii_up);
 
-end;
+end
 
 % Folding
-if strcmp(Par_info.boundhandling,'fold');
+if strcmp(Par_info.boundhandling,'fold')
 
     % Fold parameter space lower values
     x(ii_low) = max_d(ii_low) - ( min_d(ii_low) - x(ii_low) );
@@ -44,7 +44,7 @@ if strcmp(Par_info.boundhandling,'fold');
     % Fold parameter space upper values
     x(ii_up) = min_d(ii_up) + ( x(ii_up) - max_d(ii_up) );
 
-end;
+end
 
 % Now double check in case elements are still out of bound -- this is
 % theoretically possible if values are very small or large

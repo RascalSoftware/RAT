@@ -2,9 +2,9 @@ function plotRefSLD(problem,result)
 
 
 % Convert the problem class to a struct.
-controls = controlsDef();
+controls = controlsClass();
 modelType = problem.modelType;
-[problemDef,~,~,~,~] = RatParseClassToStructs_new(problem,controls);
+[problemDef,~,~,~,~] = parseClassToStructs(problem,controls);
 
 reflectivity = result.reflectivity;
 shifted_data = result.shifted_data;

@@ -24,31 +24,31 @@ function [g2, bic] = mctest(d,n)
 % I have repackaged it to make it easier to use.
 
 m1 = zeros(2,2); m2 = zeros(2,2); g2 = 0.0; bic = 0.0;
-for i=3:n;      % count states
+for i=3:n      % count states
     i1 = d(i-2,1)+1; i2 = d(i-1,1)+1; i3 = d(i,1)+1;
-    if (i3 == 1); m1(i1,i2) = m1(i1,i2) + 1; end;
-    if (i3 == 2); m2(i1,i2) = m2(i1,i2) + 1; end;
-end;       % end of for i
-for i1 = 1:2;
-    for i2 = 1:2;
-        for i3 = 1:2;
-            if (i3 == 1);
-                if (m1(i1,i2) ~= 0);
+    if (i3 == 1); m1(i1,i2) = m1(i1,i2) + 1; end
+    if (i3 == 2); m2(i1,i2) = m2(i1,i2) + 1; end
+end       % end of for i
+for i1 = 1:2
+    for i2 = 1:2
+        for i3 = 1:2
+            if (i3 == 1)
+                if (m1(i1,i2) ~= 0)
                     t1 = m1(i1,i2)+m2(i1,i2); t2 = m1(1,i2)+m1(2,i2);
                     t3 = m1(1,i2)+m2(1,i2); t4 = m1(2,i2)+m2(2,i2);
                     fitted = (t1*t2)/(t3+t4); focus = m1(i1,i2);
                     g2 = g2 + log(focus/fitted)*focus;
-                end;      % end of if m1
-            end;       % end of if i3
-            if (i3 == 2);
-                if (m2(i1,i2) ~= 0);
+                end      % end of if m1
+            end       % end of if i3
+            if (i3 == 2)
+                if (m2(i1,i2) ~= 0)
                     t1 = m1(i1,i2) + m2(i1,i2); t2 = m2(1,i2) + m2(2,i2);
                     t3 = m1(1,i2) + m2(1,i2); t4 = m1(2,i2) + m2(2,i2);
                     fitted = (t1*t2)/(t3+t4); focus = m2(i1,i2);
                     g2 = g2 + log(focus/fitted)*focus;
-                end;      % end of if m2
-            end;        % end of if i3
-        end;       % end of for i3
-    end;        % end of for i2
-end;         % end of for i1
+                end      % end of if m2
+            end        % end of if i3
+        end       % end of for i3
+    end        % end of for i2
+end         % end of for i1
 g2 = g2*2.0; bic = g2 - log(n - 2.0)*2.0;

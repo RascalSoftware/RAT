@@ -8,7 +8,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 % getLayersNames, toStruct, displayLayersTable, findRowIndex, findParameter
 %
 % We use an example layers class from example calculation
-% "DPPC_standard_layers.m"
+% "DPPCStandardLayers.m"
 %
 % Paul Sharp 08/02/23
 %
@@ -83,7 +83,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
         function initialiseParameters(testCase)
             % Set up an example parameters class. This example is used in
-            % the example calculation "DPPC_standard_layers.m"
+            % the example calculation "DPPCStandardLayers.m"
             testParams = {
                 %       Name           min      val     max   fit? 'Prior Type' 'mu' 'sigma'
                 'Substrate Roughness', 1,        3,       5,   true, 'uniform',  0,   Inf;
@@ -117,7 +117,7 @@ classdef testLayersClass < matlab.unittest.TestCase
         function initialiseLayersClass(testCase)
             % Set up an example layers class for testing
             % This example is used in the example calculation
-            % "DPPC_standard_layers.m"
+            % "DPPCStandardLayers.m"
             testCase.exampleClass = layersClassRealSLD();
 
             testCase.exampleClass.layersTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'};

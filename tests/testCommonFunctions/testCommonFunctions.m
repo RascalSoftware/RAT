@@ -36,8 +36,8 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         makeSLDProfileXYInputs;
         makeSLDProfileXYOutputs;
         
-        abelesParaPointsInputs;
-        abelesParaPointsOutputs;
+        abelesParallelPointsInputs;
+        abelesParallelPointsOutputs;
         abelesSingleInputs;
         abelesSingleOutputs;
         
@@ -45,17 +45,17 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         adaptiveOutputs;
         resampleLayersInputs;
         resampleLayersOutputs;
-        sldFuncInputs;
-        sldFuncOutputs;
+        SLDFunctionInputs;
+        SLDFunctionOutputs;
 
-        data_resolution_polly_paraPointsInputs;
-        data_resolution_polly_paraPointsOutputs;
+        dataResolutionPollyParallelPointsInputs;
+        dataResolutionPollyParallelPointsOutputs;
         
-        data_resolution_pollyInputs;
-        data_resolution_pollyOutputs;
+        dataResolutionPollyInputs;
+        dataResolutionPollyOutputs;
         
-        resolution_polly_paraPointsInputs;
-        resolution_polly_paraPointsOutputs;
+        resolutionPollyParallelPointsInputs;
+        resolutionPollyParallelPointsOutputs;
         
         resolutionPollyInputs;
         resolutionPollyOutputs;
@@ -136,8 +136,8 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         end
 
         function loadGroupLayersMod(testCase)
-            inputs = load('groupLayers_ModInputs.mat');
-            outputs = load('groupLayers_ModOutputs.mat');
+            inputs = load('groupLayersModInputs.mat');
+            outputs = load('groupLayersModOutputs.mat');
             testCase.groupLayersModInputs = inputs.inputs;
             testCase.groupLayersModOutputs = outputs.outputs;
         end
@@ -156,58 +156,58 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.makeSLDProfileXYOutputs = outputs.outputs;
         end
 
-        function loadabeles_paraPoints(testCase)
-            inputs = load('abeles_paraPointsInputs.mat');
-            outputs = load('abeles_paraPointsOutputs.mat');
-            testCase.abelesParaPointsInputs = inputs.inputs;
-            testCase.abelesParaPointsOutputs = outputs.outputs;
+        function loadAbelesParallelPoints(testCase)
+            inputs = load('abelesParallelPointsInputs.mat');
+            outputs = load('abelesParallelPointsOutputs.mat');
+            testCase.abelesParallelPointsInputs = inputs.inputs;
+            testCase.abelesParallelPointsOutputs = outputs.outputs;
         end
 
-        function loadabeles_single(testCase)
-            inputs = load('abeles_singleInputs.mat');
-            outputs = load('abeles_singleOutputs.mat');
+        function loadAbelesSingle(testCase)
+            inputs = load('abelesSingleInputs.mat');
+            outputs = load('abelesSingleOutputs.mat');
             testCase.abelesSingleInputs = inputs.inputs;
             testCase.abelesSingleOutputs = outputs.outputs;
         end
 
-        function loadadaptive(testCase)
+        function loadAdaptive(testCase)
             inputs = load('adaptiveInputs.mat');
             outputs = load('adaptiveOutputs.mat');
             testCase.adaptiveInputs = inputs.adaptiveInputs;
             testCase.adaptiveOutputs = outputs.adaptiveOutputs; 
         end
 
-        function loadresampleLayers(testCase)
+        function loadResampleLayers(testCase)
             inputs = load('resampleLayersInputs.mat');
             outputs = load('resampleLayersOutputs.mat');
             testCase.resampleLayersInputs = inputs.inputs;
             testCase.resampleLayersOutputs = outputs.outputs;
         end
 
-        function loadsldFunc(testCase)
-            inputs = load('sldFuncInputs.mat');
-            outputs = load('sldFuncOutputs.mat');
-            testCase.sldFuncInputs = inputs.inputs;
-            testCase.sldFuncOutputs = outputs.outputs;
+        function loadSLDFunction(testCase)
+            inputs = load('SLDFunctionInputs.mat');
+            outputs = load('SLDFunctionOutputs.mat');
+            testCase.SLDFunctionInputs = inputs.inputs;
+            testCase.SLDFunctionOutputs = outputs.outputs;
         end
 %{
-        function loadData_resolution_polly_paraPoints(testCase)
-            inputs = load('data_resolution_polly_paraPoints.mat');
-            testCase.data_resolution_polly_paraPoints = inputs.data_resolution_polly_paraPoints;
+        function loadData_resolutionPollyParallelPoints(testCase)
+            inputs = load('dataResolutionPollyParallelPoints.mat');
+            testCase.dataResolutionPollyParallelPoints = inputs.dataResolutionPollyParallelPoints;
         end
 
-        function loadData_resolution_polly(testCase)
-            inputs = load('data_resolution_polly.mat');
-            testCase.data_resolution_polly = inputs.data_resolution_polly;
+        function loadData_resolutionPolly(testCase)
+            inputs = load('dataResolutionPolly.mat');
+            testCase.dataResolutionPolly = inputs.dataResolutionPolly;
         end
-        function loadresolution_polly_paraPoints(testCase) 
-            inputs = load('resolution_polly_paraPoints.mat');
-            testCase.resolution_polly_paraPoints = inputs.resolution_polly_paraPoints;
+        function loadresolutionPollyParallelPoints(testCase) 
+            inputs = load('resolutionPollyParallelPoints.mat');
+            testCase.resolutionPollyParallelPoints = inputs.resolutionPollyParallelPoints;
         end
 %}
-        function loadresolution_polly(testCase)
-            inputs = load('resolution_pollyInputs.mat');
-            outputs = load('resolution_pollyOutputs.mat');
+        function loadResolutionPolly(testCase)
+            inputs = load('resolutionPollyInputs.mat');
+            outputs = load('resolutionPollyOutputs.mat');
             testCase.resolutionPollyInputs = inputs.inputs;
             testCase.resolutionPollyOutputs = outputs.outputs;
         end 
@@ -227,7 +227,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 
         function testShiftData(testCase)
             %testShiftData
-            out1 = shiftdata(testCase.shiftDataInputs{:});
+            out1 = shiftData(testCase.shiftDataInputs{:});
             outputs = {out1};
             testCase.verifyEqual(testCase.shiftDataOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
@@ -256,7 +256,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         end
 
         function testCallReflectivity(testCase)
-            % testCallReflectivity from orsoDSPC_stanLay_script
+            % testCallReflectivity from orsoDSPCStandardLayers
             %
             % Inputs:
             %   testCase - class instance
@@ -271,7 +271,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
         end
 
         function testAllocateLayersForContrast(testCase)
-            % testAllocateLayersForContrast from orsoDSPC_stanLay_script
+            % testAllocateLayersForContrast from orsoDSPCStandardLayers
             % 
             % Inputs:
             %   testCase - class instance
@@ -308,15 +308,15 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   groupLayers_Mod(testCase)
+            %   groupLayersMod(testCase)
            
-            [out1,out2] = groupLayers_Mod(testCase.groupLayersModInputs{1:end});
+            [out1,out2] = groupLayersMod(testCase.groupLayersModInputs{1:end});
             outputs = {out1,out2};
             testCase.verifyEqual(testCase.groupLayersModOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
  
-%        function testJacobianEst(testCase)
-            % testJacobianEst
+%        function testJacobianEstimate(testCase)
+            % testJacobianEstimate
             %
             % Inputs:
             %   testCase - class instance
@@ -325,14 +325,14 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   jacobianEst(testCase)
+            %   jacobianEstimate(testCase)
             
-%            firstArg = testCase.jacobianEstInputs{1};
-%            secondArg = testCase.jacobianEstInputs{2};
+%            firstArg = testCase.jacobianEstimateInputs{1};
+%            secondArg = testCase.jacobianEstimateInputs{2};
 %             
-%            outputs = jacobianest(firstArg,secondArg);
+%            outputs = jacobianEstimate(firstArg,secondArg);
 %
-%            testCase.verifyEqual(testCase.jacobianEstOutputs,outputs);
+%            testCase.verifyEqual(testCase.jacobianEstimateOutputs,outputs);
 %        end
 
         function testMakeSLDProfiles(testCase)
@@ -371,8 +371,8 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.makeSLDProfileXYOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
-        function testAbelesParaPoints(testCase)
-            % testAbelesParaPoints
+        function testAbelesParallelPoints(testCase)
+            % testAbelesParallelPoints
             %
             % Inputs:
             %   testCase - class instance
@@ -381,12 +381,12 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   abeles_paraPoints(testCase)
+            %   abelesParallelPoints(testCase)
 
-            out1 = abeles_paraPoints(testCase.abelesParaPointsInputs{1:end});
+            out1 = abelesParallelPoints(testCase.abelesParallelPointsInputs{1:end});
             outputs = {out1};
 
-            testCase.verifyEqual(testCase.abelesParaPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.abelesParallelPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
 
@@ -400,9 +400,9 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   abeles_single(testCase)
+            %   abelesSingle(testCase)
             
-            out1 = abeles_single(testCase.abelesSingleInputs{1:end});
+            out1 = abelesSingle(testCase.abelesSingleInputs{1:end});
             outputs = {out1};
             testCase.verifyEqual(testCase.abelesSingleOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
@@ -420,7 +420,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             % Example:
             %   adaptive(testCase)
  
-            [out1] = adaptive_new(testCase.adaptiveInputs{1:end});
+            [out1] = adaptive(testCase.adaptiveInputs{1:end});
             outputs = out1; %INTENTIONAL
             testCase.verifyEqual(testCase.adaptiveOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
@@ -441,8 +441,8 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.resampleLayersOutputs,out1, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
-        function testSLDFunc(testCase)
-            % testSLDFunc
+        function testSLDFunction(testCase)
+            % testSLDFunction
             %
             % Inputs:
             %   testCase - class instance
@@ -451,16 +451,16 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   sldFunc(testCase)
+            %   SLDFunction(testCase)
             
-            out1 = sldFunc(testCase.sldFuncInputs{1:end});
+            out1 = SLDFunction(testCase.SLDFunctionInputs{1:end});
             outputs = {out1};
-            testCase.verifyEqual(testCase.sldFuncOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.SLDFunctionOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
 %{
-        function data_resolution_polly_paraPoints_test(testCase)
-            % test data_resolution_polly_paraPoints
+        function testDataResolutionPollyParallelPoints(testCase)
+            % test tetsDataResolutionPollyParallelPoints
             %
             % Inputs:
             %   testCase - class instance
@@ -469,22 +469,22 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   data_resolution_polly_paraPoints(testCase)
+            %   dataResolutionPollyParallelPoints(testCase)
             
             %
-            firstArg = testCase.data_resolution_polly_paraPointsInputs{1};
-            secondArg = testCase.data_resolution_polly_paraPointsInputs{2};
-            thirdArg = testCase.data_resolution_polly_paraPointsInputs{3};
-            fourthArg = testCase.data_resolution_polly_paraPointsInputs{4};
+            firstArg = testCase.dataResolutionPollyParallelPointsInputs{1};
+            secondArg = testCase.dataResolutionPollyParallelPointsInputs{2};
+            thirdArg = testCase.dataResolutionPollyParallelPointsInputs{3};
+            fourthArg = testCase.dataResolutionPollyParallelPointsInputs{4};
             
-            outputs = data_resolution_polly_paraPoints(firstArg,secondArg,thirdArg,fourthArg);
+            outputs = dataResolutionPollyParallelPoints(firstArg,secondArg,thirdArg,fourthArg);
 
-            testCase.verifyEqual(testCase.data_resolution_polly_paraPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.dataResolutionPollyParallelPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
 
-        function data_resolution_polly_test(testCase)
-            % test data_resolution_polly
+%         function testDataResolutionPollyparallel(testCase)
+            % test dataResolutionPolly
             %
             % Inputs:
             %   testCase - class instance
@@ -493,22 +493,22 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   data_resolution_polly(testCase)
+            %   dataResolutionPolly(testCase)
             
             %
-            firstArg = testCase.data_resolution_pollyInputs{1};
-            secondArg = testCase.data_resolution_pollyInputs{2};
-            thirdArg = testCase.data_resolution_pollyInputs{3};
-            fourthArg = testCase.data_resolution_pollyInputs{4};
+            firstArg = testCase.dataResolutionPollyInputs{1};
+            secondArg = testCase.dataResolutionPollyInputs{2};
+            thirdArg = testCase.dataResolutionPollyInputs{3};
+            fourthArg = testCase.dataResolutionPollyInputs{4};
             
-            outputs = data_resolution_polly(firstArg,secondArg,thirdArg,fourthArg);
+            outputs = dataResolutionPolly(firstArg,secondArg,thirdArg,fourthArg);
 
-            testCase.verifyEqual(testCase.data_resolution_pollyOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.dataResolutionPollyOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
     
-        function resolution_polly_paraPoints(testCase)
-            % test resolution_polly_paraPoints
+        function resolutionPollyParallelPoints(testCase)
+            % test resolutionPollyParallelPoints
             %
             % Inputs:
             %   testCase - class instance
@@ -516,9 +516,9 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             % Outputs:
             %   none
 
-            outputs = resolution_polly_paraPoints(testCase.resolution_polly_paraPointsInputs{1:end});
+            outputs = resolutionPollyParallelPoints(testCase.resolutionPollyParallelPointsInputs{1:end});
 
-            testCase.verifyEqual(testCase.resolution_polly_paraPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.resolutionPollyParallelPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 
         end
  %}    
@@ -533,9 +533,9 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   none
             %
             % Example:
-            %   resolution_polly(testCase)
+            %   resolutionPolly(testCase)
             
-            out1 = resolution_polly(testCase.resolutionPollyInputs{1:end});
+            out1 = resolutionPolly(testCase.resolutionPollyInputs{1:end});
             outputs = {out1};
             testCase.verifyEqual(testCase.resolutionPollyOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
 

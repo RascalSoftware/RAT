@@ -58,31 +58,31 @@ switch refType
                 % Parallelise over points
                 
                 % Calculate reflectivity....
-                simRef = abeles_paraPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
+                simRef = abelesParallelPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
                 
                 % Apply resolution
                 
                 % Note: paraPoints gives an error during valifation, so use
                 % single cored resolution as a workaround for now.
                 if res == -1
-                    %simRef = data_resolution_polly_paraPoints(simXdata,simRef,simResolData,length(simXdata));
-                    simRef = data_resolution_polly(simXdata,simRef,simResolData,length(simXdata));
+                    %simRef = dataResolutionPollyParallelPoints(simXdata,simRef,simResolData,length(simXdata));
+                    simRef = dataResolutionPolly(simXdata,simRef,simResolData,length(simXdata));
                 else
-                    %simRef = resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata));
-                    simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
+                    %simRef = resolutionPollyParallelPoints(simXdata,simRef,res,length(simXdata));
+                    simRef = resolutionPolly(simXdata,simRef,res,length(simXdata));
                 end
                 
             otherwise
                 % Single cored over points
                 
                 % Calculate reflectivity.....
-                simRef = abeles_single(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
+                simRef = abelesSingle(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
                 
                 % Apply resolution correction...
                 if res == -1
-                    simRef = data_resolution_polly(simXdata,simRef,simResolData,length(simXdata));
+                    simRef = dataResolutionPolly(simXdata,simRef,simResolData,length(simXdata));
                 else
-                    simRef = resolution_polly(simXdata,simRef,res,length(simXdata));
+                    simRef = resolutionPolly(simXdata,simRef,res,length(simXdata));
                 end
         end
 end

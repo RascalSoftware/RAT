@@ -7,7 +7,7 @@ if isempty(isInitialised)
 end
 
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(problemDefInput,controls);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(problemDefInput,controls);
 [problemDef,~] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 
 % %Define variable size for code generation
@@ -45,8 +45,8 @@ end
 % Only do this once so it can be modified
 % by other apps using RAT (i.e. Rascal)
 if ~isInitialised
-    ratOut = ratOutputClass();
-    ratListener = listener(ratOut,'ratUpdate',@defaultRatOutputFunction);
+    ratOut = outputClass();
+    ratListener = listener(ratOut,'ratUpdate',@defaultOutputFunction);
     %ratListener = listener(ratOut,'ratUpdate',@bayesAddInfoText);
     setappdata(0,'ratOut',{ratOut ; ratListener});
     isInitialised = true;
@@ -75,12 +75,12 @@ end
 % If display is not silent print a
 % line confirminf RAT is starting
 if ~strcmpi(controls.display,'off')
-    ratSendTextOutput(sprintf('Starting RAT ________________________________________________________________________________________________ \n'));
+    sendTextOutput(sprintf('Starting RAT ________________________________________________________________________________________________ \n'));
 end
 
 tic
-[outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
-ratSendTextOutput(sprintf('\n'));
+[outProblemStruct,problem,result,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+sendTextOutput(sprintf('\n'));
 
 if ~strcmpi(controls.display,'off')
     toc
@@ -92,7 +92,7 @@ if controls.calcSld == 0
     originalProc = controls.proc;
     controls.calcSld = 1;
     controls.proc = 'calculate';
-    [outProblemStruct,problem,result,~] = RAT_main(outProblemStruct,problemDef_cells,problemDef_limits,controls,priors);
+    [outProblemStruct,problem,result,~] = RATMain(outProblemStruct,problemDef_cells,problemDef_limits,controls,priors);
     controls.proc = originalProc;
 end
 
@@ -109,10 +109,10 @@ end
 [~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 result.fitNames = fitNames;
 
-outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result);
+outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct,problem,result);
 
 if ~strcmpi(controls.display,'off')
-   ratSendTextOutput(sprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n'));
+   sendTextOutput(sprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n'));
 end
 
 end

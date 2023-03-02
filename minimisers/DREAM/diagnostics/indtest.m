@@ -24,17 +24,17 @@ function [g2, bic] = indtest(d,n)
 % I have repackaged it to make it easier to use.
 
 t = zeros(2,2);
-for i1 = 2:n;
+for i1 = 2:n
     t(d(i1-1)+1,d(i1)+1)=t(d(i1-1)+1,d(i1)+1)+1;
-end;
+end
 dcm1 = n - 1.0;  g2 = 0.0;
-for i1 = 1:2;
-    for i2 = 1:2;
-        if(t(i1,i2) ~= 0);
+for i1 = 1:2
+    for i2 = 1:2
+        if(t(i1,i2) ~= 0)
             t1 = t(i1,1) + t(i1,2); t2 = t(1,i2) + t(2,i2);
             fitted = (t1*t2)/dcm1; focus = t(i1,i2);
             g2 = g2 + log(focus/fitted)*focus;
-        end;
-    end;
-end;
+        end
+    end
+end
 g2 = g2*2.0; bic = g2 - log(dcm1);

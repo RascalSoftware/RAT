@@ -94,12 +94,12 @@ result.q = q;
 result.r = r;
 result.s = s;
 
-for nv = 1:nvar; % big loop over variables
+for nv = 1:nvar % big loop over variables
 
-    if (q > 0.0),
+    if (q > 0.0)
         cutpt = empquant(runs,q);
         work = (runs <= cutpt);
-    else,
+    else
         q = 0.0;
         i1 = find(runs == 0); i2 = find(runs == 1);
         ct1 = size(i1);   ct2 = size(i2);
@@ -107,25 +107,25 @@ for nv = 1:nvar; % big loop over variables
         work = runs;
         q = sum(runs);
         q = q/n;
-    end;      % end of if;
+    end      % end of if;
 
     kthin = 1; bic = 1.0; epss = 0.001;
 
-    while(bic > 0);
+    while(bic > 0)
         [tcnt tmp] = thin(work,n,kthin);
         [g2 bic] = mctest(tmp,tcnt);
         kthin = kthin+1;
-    end;      % end of while
+    end      % end of while
 
     kthin = kthin-1;
     [alpha beta]=mcest(tmp,tcnt);
     kmind=kthin;
     [g2 bic]=indtest(tmp,tcnt);
 
-    while(bic > 0);
+    while(bic > 0)
         [tcnt tmp] = thin(work,n,kmind); [g2 bic] = indtest(tmp,tcnt);
         kmind = kmind + 1;
-    end;      % end of while
+    end      % end of while
 
     psum  = alpha + beta;
     tmp1  = log(psum*epss/max(alpha,beta)) / log(abs(1.0 - psum));
@@ -145,4 +145,4 @@ for nv = 1:nvar; % big loop over variables
     result(nv).nmin = nmin;
     result(nv).n = nburn+nprec;
 
-end; % end of big loop over variables
+end % end of big loop over variables

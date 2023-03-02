@@ -57,7 +57,7 @@ ntaper=[4 8 15];
 ns = floor(ndraw/NG);
 nuse = ns*NG;
 
-for jf = 1:nvar; % loop over all variables
+for jf = 1:nvar % loop over all variables
     cnt = 0;
     cn = zeros(NG);
     cd = zeros(NG);
@@ -68,9 +68,9 @@ for jf = 1:nvar; % loop over all variables
 
     % form sufficiency statistics needed below
     td=0; tn=0; tdd=0; tnn=0; tdn=0; tvar=0;
-    for ig=1:NG;
+    for ig=1:NG
         gd=0; gn=0; gdd=0; gdn=0; gnn=0; gvar=0;
-        for is = 1:ns;
+        for is = 1:ns
             cnt = cnt + 1;
             g = draws(cnt,jf);
             ad = 1;
@@ -81,7 +81,7 @@ for jf = 1:nvar; % loop over all variables
             gdd = gdd + ad*ad;
             gnn = gnn + an*an;
             gvar = gvar + an*g;
-        end; % end of for is
+        end % end of for is
         td = td+gd;
         tn = tn+gn;
         tdn = tdn+gdn;
@@ -95,19 +95,19 @@ for jf = 1:nvar; % loop over all variables
         cdd(ig)=gdd/ns;
         cnn(ig)=gnn/ns;
         cvar(ig)=gvar/ns;
-    end; %for ig
+    end %for ig
 
     eg = tn/td;
     varg = tvar/td - eg^2;
     sdg = -1;
-    if (varg>0); sdg=sqrt(varg); end;
+    if (varg>0); sdg=sqrt(varg); end
     % save posterior means and std deviations to results structure
     results(jf).pmean = eg;
     results(jf).pstd = sdg;
 
     % numerical standard error assuming no serial correlation
     varnum=(tnn-2*eg*tdn+tdd*eg^2)/(td^2);
-    sdnum=-1; if (varnum>0); sdnum=sqrt(varnum); end;
+    sdnum=-1; if (varnum>0); sdnum=sqrt(varnum); end
     % save to results structure
     results(jf).nse = sdnum;
     results(jf).rne = varg/(nuse*varnum);
@@ -115,39 +115,39 @@ for jf = 1:nvar; % loop over all variables
     %get autocovariance of grouped means
     barn=tn/nuse;
     bard=td/nuse;
-    for ig=1:NG;
+    for ig=1:NG
         cn(ig)=cn(ig)-barn;
         cd(ig)=cd(ig)-bard;
-    end;
-    for lag=0:NG-1;
+    end
+    for lag=0:NG-1
         ann=0; add=0; and=0; adn=0;
-        for ig=lag+1:NG;
+        for ig=lag+1:NG
             ann=ann+cn(ig)*cn(ig-lag);
             add=add+cd(ig)*cd(ig-lag);
             and=and+cn(ig)*cd(ig-lag);
             adn=adn+cd(ig)*cd(ig-lag);
-        end; %ig
+        end %ig
         % index 0 not allowed, lag+1 stands for lag
         rnn(lag+1)=ann/NG;
         rdd(lag+1)=add/NG;
         rnd(lag+1)=and/NG;
         rdn(lag+1)=adn/NG;
-    end; %lag
+    end %lag
 
     % numerical standard error with tapered autocovariance functions
-    for mm=1:3;
+    for mm=1:3
         m=ntaper(mm);
         am=m;
         snn=rnn(1); sdd=rdd(1); snd=rnd(1);
-        for lag=1:m-1;
+        for lag=1:m-1
             att=1-lag/am;
             snn=snn+2*att*rnn(lag+1);
             sdd=sdd+2*att*rdd(lag+1);
             snd=snd+att*(rnd(lag+1) + rnd(lag+1));
-        end; %lag
+        end %lag
         varnum=ns*nuse*(snn-2*eg*snd+sdd*eg^2)/(td^2);
         sdnum=-1;
-        if (varnum>0); sdnum=sqrt(varnum); end;
+        if (varnum>0); sdnum=sqrt(varnum); end
 
         % save results in structure
         if mm == 1
@@ -159,8 +159,8 @@ for jf = 1:nvar; % loop over all variables
         elseif mm == 3
             results(jf).nse3 = sdnum;
             results(jf).rne3 = varg/(nuse*varnum);
-        end;
+        end
 
-    end; % end of for mm loop
+    end % end of for mm loop
 
-end; % end of loop over variables
+end % end of loop over variables

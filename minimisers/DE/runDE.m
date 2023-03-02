@@ -104,7 +104,7 @@ S_struct.FVr_bestmem = [0 0];
 [res,problemDef] = RAT_deopt(@intrafun,problemDef,problemDef_limits,problemDef_cells,@plotIt,controls,S_struct);
 problemDef.fitpars = res;
 problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 if ~strcmpi(controls.display,'off')
     fprintf('Final chi squared is %g\n',problem.calculations.sum_chi);
@@ -136,7 +136,7 @@ coder.varsize('S_MSE.FVr_oa',[1 1],[0 0]);
 
 problemDef.fitpars = p;
 problemDef = unpackparams(problemDef,controls);
-[problemDef,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+[problemDef,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 fval = problemDef.calculations.sum_chi;
 
 S_MSE.I_nc      = 0;%no constraints                 THESE FIRST FEW VALS MAY BE WRONG

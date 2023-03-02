@@ -8,8 +8,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 % displayCustomFileObject, toStruct
 %
 % We use an example custom file class combining the custom file classes
-% from the example calculations "DPPC_customXY.m" and
-% "orsoDSPC_custLay_script.m"
+% from the example calculations "DPPCCustomXY.m" and
+% "orsoDSPCCustomLayers.m"
 %
 % Paul Sharp 10/02/23
 %
@@ -30,7 +30,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                      {'DSPC Model', 'language', 'python'},...
                      {2, 'language', 'python', 'filename', 'model.m', 'name', 'New Model'},...
                     }
-        expectedRow = {["New Model", "DPPC_customXY.m", "matlab", "../../"],...
+        expectedRow = {["New Model", "DPPCCustomXY.m", "matlab", "../../"],...
                        ["DPPC Model", "model.m", "matlab", "../../"],...
                        ["DSPC Model", "customBilayer.m", "python", "../../"],...
                        ["New Model", "model.m", "python", "../../"],...
@@ -63,7 +63,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.initialFileTableEmpty = table('Size',[0 4],'VariableTypes',tableTypes,'VariableNames',tableNames);
 
             testCase.initialFileTableOneRow = table('Size',[1 4],'VariableTypes',tableTypes,'VariableNames',tableNames);
-            testCase.initialFileTableOneRow{1, :} = {'DPPC Model', 'DPPC_customXY.m', 'matlab', '../../'};
+            testCase.initialFileTableOneRow{1, :} = {'DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../'};
         end
 
     end
@@ -73,10 +73,10 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         function initialiseCustomFileClass(testCase)
             % Set up an example custom file class for testing
             % These examples are used in the example calculations
-            % "DPPC_customXY.m" and "orsoDSPC_custLay_script.m"
+            % "DPPCCustomXY.m" and "orsoDSPCCustomLayers.m"
             testCase.exampleClass = customFileClass();
 
-            testCase.exampleClass.fileTable(1,:) = {'DPPC Model', 'DPPC_customXY.m', 'matlab', '../../'};
+            testCase.exampleClass.fileTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../'};
             testCase.exampleClass.fileTable(2,:) = {'DSPC Model', 'customBilayer.m', 'matlab', '../../'};
 
             testCase.numRows = height(testCase.exampleClass.fileTable);
@@ -101,7 +101,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         function testInitialiseCustomFileClassOneRow(testCase)
             % On initialisation we set up a custom file class with an
             % either an empty file table, or a table with a single row
-            testClass = customFileClass({'DPPC Model', 'DPPC_customXY.m', 'matlab', '../../'});
+            testClass = customFileClass({'DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../'});
 
             testCase.verifySize(testClass.fileTable, [1 4], "customFileClass does not initialise correctly");
             testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableOneRow, "customFileClass does not initialise correctly");

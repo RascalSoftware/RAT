@@ -1,5 +1,5 @@
 % This is a helper function to make the inputs and outputs for the Unit
-% Tests. When changes are made to projectClass and controlsDef, it is
+% Tests. When changes are made to projectClass and controlsClass, it is
 % necessary to run this function so that the changes (i.e. number of
 % fields) are set in inputs and outputs to the tests.
 
@@ -9,14 +9,14 @@
 
 %%
 % 1. Custom Layers.
-ratRoot = getappdata(0,'ratRoot');
-customLayersProblem = orsoDSPC_custLay_script();
-controlsInput = controlsDef();
+root = getappdata(0,'root');
+customLayersProblem = orsoDSPCCustomLayers();
+controlsInput = controlsClass();
 
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customLayersProblem,controlsInput);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(customLayersProblem,controlsInput);
 
 inputs.problemDefInput = customLayersProblem;
 inputs.problemDef = problemDef;
@@ -29,12 +29,12 @@ inputs.controls = controls;
 save('tests\standardTFReflectivityCalculation\customLayersInputs','inputs');
 
 % (b) Outputs
-[problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;
@@ -51,7 +51,7 @@ outputs.resultOut = resultOut;
 save('tests\standardTFReflectivityCalculation\customLayersOutputs','outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -63,7 +63,7 @@ TFParams.allLayers = allLayers;
 
 [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
- allRoughs] = standardTF_custlay_single(problemDef,problemDef_cells,...
+ allRoughs] = standardTFCustomLayersSingle(problemDef,problemDef_cells,...
               problemDef_limits,controls);
 
 TFParams.outSsubs = outSsubs;
@@ -81,14 +81,13 @@ save('tests\standardTFReflectivityCalculation\customLayersTFParams','TFParams');
 %%
 % 2. Custom XY.
 % (a) Inputs
-ratRoot = getappdata(0,'ratRoot');
-customXYProblem = DPPC_custXY_script();
-controlsInput = controlsDef();
+customXYProblem = DPPCCustomXYScript();
+controlsInput = controlsClass();
 
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(customXYProblem,controlsInput);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(customXYProblem,controlsInput);
 
 inputs.problemDefInput = customXYProblem;
 inputs.problemDef = problemDef;
@@ -101,12 +100,12 @@ inputs.controls = controls;
 save('tests\standardTFReflectivityCalculation\customXYInputs','inputs');
 
 % (b) Outputs
-[problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;
@@ -123,7 +122,7 @@ outputs.resultOut = resultOut;
 save('tests\standardTFReflectivityCalculation\customXYOutputs','outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -135,7 +134,7 @@ TFParams.allLayers = allLayers;
 
 [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
- allRoughs] = standardTF_custXY_single(problemDef,problemDef_cells,...
+ allRoughs] = standardTFCustomXYSingle(problemDef,problemDef_cells,...
               problemDef_limits,controls);
 
 TFParams.outSsubs = outSsubs;
@@ -153,13 +152,13 @@ save('tests\standardTFReflectivityCalculation\customXYTFParams','TFParams');
 %%
 % 3. Standard Layers
 % (a) Inputs
-standardProblem = DPPC_standard_layers();
-controlsInput = controlsDef();
+standardProblem = DPPCStandardLayers();
+controlsInput = controlsClass();
 
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(standardProblem,controlsInput);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(standardProblem,controlsInput);
 
 inputs.problemDefInput = standardProblem;
 inputs.problemDef = problemDef;
@@ -172,12 +171,12 @@ inputs.controls = controls;
 save('tests\standardTFReflectivityCalculation\standardLayersInputs','inputs');
 
 % (b) Outputs
-[problem,result] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;
@@ -194,7 +193,7 @@ outputs.resultOut = resultOut;
 save('tests\standardTFReflectivityCalculation\standardLayersOutputs','outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -206,7 +205,7 @@ TFParams.allLayers = allLayers;
 
 [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
- allRoughs] = standardTF_stanlay_single(problemDef,problemDef_cells,...
+ allRoughs] = standardTFStandardLayersSingle(problemDef,problemDef_cells,...
               problemDef_limits,controls);
 
 TFParams.outSsubs = outSsubs;

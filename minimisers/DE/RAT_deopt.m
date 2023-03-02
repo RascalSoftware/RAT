@@ -330,7 +330,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
   if (I_refresh > 0)
      if ((rem(I_iter,I_refresh) == 0) || I_iter == 1) && strcmpi(controls.display,'iter')
        %fprintf('Iteration: %d,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %d\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP);
-       ratSendTextOutput(sprintf('Iteration: %g,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %g\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP));
+       sendTextOutput(sprintf('Iteration: %g,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %g\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP));
 
        %disp(S_bestval);
        %var(FM_pop)
@@ -356,6 +356,6 @@ end %---end while ((I_iter < I_itermax) ...
 
 % problemDef.fitpars = x;
 % problemDef = unpackparams(problemDef,controls);
-% [problem,res] = reflectivity_calculation(problemDef,problemDef_cells,problemDef_limits,controls);
+% [problem,res] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 

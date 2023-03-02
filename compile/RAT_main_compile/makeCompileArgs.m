@@ -1,9 +1,9 @@
 function ARGS = makeCompileArgs()
 
-% Define the arguments for compiling reflectivity_calculation
+% Define the arguments for compiling reflectivityCalculation
 % using codegen.
 
-%% Define argument types for entry-point 'reflectivity_calculation'.
+%% Define argument types for entry-point 'reflectivityCalculation'.
 ARGS = cell(1,1);
 ARGS{1} = cell(5,1);
 ARGS_1_1 = struct;

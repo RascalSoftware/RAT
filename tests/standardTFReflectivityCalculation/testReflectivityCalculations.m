@@ -6,16 +6,16 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 % In this class, we test:
 % RAT, RATMain, singleCalculation,
 % reflectivityCalculationWrapper,
-% reflectivityCalculation, standardTF_reflectivityCalculation,
-% standardTF_stanLay_reflectivityCalculation,
-% standardTF_custLay_reflectivityCalculation,
-% standardTF_custXY_reflectivityCalculation, 
-% standardTF_stanlay_single, standardTF_custlay_single,
-% standardTF_custXY_single, standardTF_stanlay_paraContrasts,
-% standardTF_custlay_paraContrasts, standardTF_custXY_paraContrasts,
-% standardTF_stanlay_paraPoints, standardTF_custlay_paraPoints,
-% standardTF_custXY_paraPoints,
-% RatParseClasstoStructs_new, RAT_parse_cells, extractProblemParams
+% reflectivityCalculation, standardTFReflectivityCalculation,
+% standardTFStandardLayersReflectivityCalculation,
+% standardTFCustomLayersReflectivityCalculation,
+% standardTFCustomXYReflectivityCalculation, 
+% standardTFStandardLayersSingle, standardTFCustomLayersSingle,
+% standardTFCustomXYSingle, standardTFStandardLayersParallelContrasts,
+% standardTFCustomLayersParallelContrasts, standardTFCustomXYParallelContrasts,
+% standardTFStandardLayersParallelPoints, standardTFCustomLayersParallelPoints,
+% standardTFCustomXYParallelPoints,
+% RatParseClasstoStructs_new, parseCells, extractProblemParams
 % parseResultToStruct, RATParseOutToProjectClass
 %
 % We are using the test cases for a standard TF reflectivity calculation
@@ -157,7 +157,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % Note that we test only a single reflectivity calculation at
             % present
 
-            [outProblemDef, problem, result, bayesResults] = RAT_main(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls,testCase.priors);
+            [outProblemDef, problem, result, bayesResults] = RATMain(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls,testCase.priors);
 
             testCase.verifyEqual(outProblemDef, testCase.expectedProblemOutStruct, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -177,7 +177,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % reflectivity calculation
             % Note that the routine is always set to choose the "mex"
             % version of the reflectivity calculation
-            [problem, result] = reflectivity_calculation_wrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+            [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -191,14 +191,14 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % contrasts) versions of the calculation, using both the MATLAB
             % and comiled (MEX) versions of each.
             
-            [problem, result] = reflectivity_calculation_testing_wrapper(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls, useCompiled, whichParallel);
+            [problem, result] = reflectivityCalculationTestingWrapper(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls, useCompiled, whichParallel);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(result, testCase.expectedResult, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 
         function testStandardTFReflectivityCalculation(testCase)
-            [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF_reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+            [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTFReflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(reflectivity, testCase.TFReflectivity, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -213,11 +213,11 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF_stanLay_reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTFStandardLayersReflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
                 case 'customLayersTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF_custLay_reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTFCustomLayersReflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
                 case 'customXYTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF_custXY_reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTFCustomXYReflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
             end
 
             testCase.verifyEqual(problem, testCase.expectedProblem, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -235,17 +235,17 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 case 'standardLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_stanlay_single(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFStandardLayersSingle(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
                 case 'customLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_custlay_single(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFCustomLayersSingle(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_custXY_single(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFCustomXYSingle(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
             end
 
@@ -272,17 +272,17 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 case 'standardLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_stanlay_paraContrasts(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFStandardLayersParallelContrasts(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
                 case 'customLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_custlay_paraContrasts(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFCustomLayersParallelContrasts(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_custXY_paraContrasts(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFCustomXYParallelContrasts(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
             end
 
@@ -309,17 +309,17 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 case 'standardLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_stanlay_paraPoints(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFStandardLayersParallelPoints(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
                 case 'customLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_custlay_paraPoints(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFCustomLayersParallelPoints(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF_custXY_paraPoints(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = standardTFCustomXYParallelPoints(testCase.problemDef,testCase.problemDefCells,...
                     testCase.problemDefLimits,testCase.controls);
             end
 
@@ -343,7 +343,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Test Pre- and Post-Processing Routines
 
         function testRatParseClasstoStructs_new(testCase)
-            [problem, problem_cells, problem_limits, problem_priors, controls_struct] = RatParseClassToStructs_new(testCase.problemDefInput, testCase.controlsInput);
+            [problem, problem_cells, problem_limits, problem_priors, controls_struct] = parseClassToStructs(testCase.problemDefInput, testCase.controlsInput);
 
             testCase.verifyEqual(problem, testCase.problemDef, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(problem_cells, testCase.problemDefCells, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -353,7 +353,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testRATParseCells(testCase)
-            [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = RAT_parse_cells(testCase.problemDefCells);
+            [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(testCase.problemDefCells);
 
             testCase.verifyEqual(repeatLayers, testCase.problemDefCells{1}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
             testCase.verifyEqual(allData, testCase.problemDefCells{2}, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
@@ -406,7 +406,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testRATParseOutToProjectClass(testCase)
-            problemOut = RATparseOutToProjectClass(testCase.problemDefInput, testCase.expectedProblemOutStruct, testCase.expectedProblem, testCase.expectedResult);
+            problemOut = parseOutToProjectClass(testCase.problemDefInput, testCase.expectedProblemOutStruct, testCase.expectedProblem, testCase.expectedResult);
             testCase.verifyEqual(problemOut, testCase.expectedProblemOut, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
         end
 

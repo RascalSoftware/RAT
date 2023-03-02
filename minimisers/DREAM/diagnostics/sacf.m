@@ -25,7 +25,7 @@ elseif nargin == 3
     flag = gflag;
 else
     error('Wrong # of arguments to spacf');
-end;
+end
 
 n = length(y);
 rho = zeros(m,1);
@@ -60,6 +60,6 @@ if flag == 0
     tt=1:m;
     plot(tt,ul,'*r',tt,ll,'*r');
     hold off;
-end;
+end
 
 

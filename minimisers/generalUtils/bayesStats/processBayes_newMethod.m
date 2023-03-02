@@ -23,7 +23,7 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 % controls.calcSld = 1;
 % problemDef.fitpars = bestPars_max;
 % problemDef = unpackparams(problemDef,controls);
-% [outProblem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+% [outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 % bestFitMax_Ref = result(1);
 % bestFitMax_Sld = result(5);
 % bestFitMax_chi = outProblem.calculations.sum_chi;
@@ -31,7 +31,7 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 % Calculate 'mean' best fit curves
 % problemDef.fitpars = parConfInts.mean;
 % problemDef = unpackparams(problemDef,controlsStruct);
-[outProblem,result] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controlsStruct);
+[outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controlsStruct);
 p = parseResultToStruct(outProblem,result);
 bestFitMean.Ref = p.reflectivity;
 bestFitMean.Sld = p.sldProfiles;

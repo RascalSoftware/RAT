@@ -11,7 +11,7 @@ problemDef.fitpars = firstRow;
 problemDef = unpackparams(problemDef,controlsStruct);
 
 % Calc the reflectivities....
-[calcProblem,calcResult] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controlsStruct);
+[calcProblem,calcResult] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controlsStruct);
 
 % 'result' is currently a cell array. Convert this to a struct because it's
 % easier to work with fieldnames...
@@ -51,7 +51,7 @@ for i = 2:nsample
     problemDef = unpackparams(problemDef,controlsStruct);
 
     % Calc the reflectivities....
-    [calcProblem,calcResult] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controlsStruct);
+    [calcProblem,calcResult] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controlsStruct);
 
     % 'result' is currently a cell array. Convert this to a struct because it's
     % easier to work with fieldnames...

@@ -11,13 +11,17 @@ paths = {
     fullfile(root,'compile','reflectivityCalculation');
     fullfile(root,'compile','simplex');
 
-    fullfile(root,'minimisers','DE');
+    fullfile(root,'minimisers','DREAM');
+    fullfile(root,'minimisers','DREAM','diagnostics');
+    fullfile(root,'minimisers','DREAM','functions');
+    fullfile(root,'minimisers','DREAM','postprocessing');
     fullfile(root,'minimisers','generalUtils');
     fullfile(root,'minimisers','generalUtils','bayesStats');
-    fullfile(root,'minimisers','mcmcstat_new');
-    fullfile(root,'minimisers','mcmcstat_new','src');
-    fullfile(root,'minimisers','NSMain');
     fullfile(root,'minimisers','simplex');
+    %fullfile(root,'minimisers','DE');
+    %fullfile(root,'minimisers','mcmcstat_new');
+    %fullfile(root,'minimisers','mcmcstat_new','src');
+    %fullfile(root,'minimisers','NSMain');
 
     fullfile(root,'targetFunctions','common');
     fullfile(root,'targetFunctions','common','backSort');

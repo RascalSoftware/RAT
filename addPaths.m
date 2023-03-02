@@ -1,4 +1,3 @@
-
 % Add the paths needed for RAT to the current Matlab session.
 % This must be run from the base RAT directory.
 
@@ -26,17 +25,17 @@ paths = {
     fullfile(root,'compile','reflectivityCalculation');
     fullfile(root,'compile','simplex');
 
-    fullfile(ratRoot,'minimisers','DREAM');
-    fullfile(ratRoot,'minimisers','DREAM','diagnostics');
-    fullfile(ratRoot,'minimisers','DREAM','functions');
-    fullfile(ratRoot,'minimisers','DREAM','postprocessing');
-    fullfile(ratRoot,'minimisers','generalUtils');
-    fullfile(ratRoot,'minimisers','generalUtils','bayesStats');
-    fullfile(ratRoot,'minimisers','simplex');
-    %fullfile(ratRoot,'minimisers','DE');
-    %fullfile(ratRoot,'minimisers','mcmcstat_new');
-    %fullfile(ratRoot,'minimisers','mcmcstat_new','src');
-    %fullfile(ratRoot,'minimisers','NSMain');
+    fullfile(root,'minimisers','DREAM');
+    fullfile(root,'minimisers','DREAM','diagnostics');
+    fullfile(root,'minimisers','DREAM','functions');
+    fullfile(root,'minimisers','DREAM','postprocessing');
+    fullfile(root,'minimisers','generalUtils');
+    fullfile(root,'minimisers','generalUtils','bayesStats');
+    fullfile(root,'minimisers','simplex');
+    %fullfile(root,'minimisers','DE');
+    %fullfile(root,'minimisers','mcmcstat_new');
+    %fullfile(root,'minimisers','mcmcstat_new','src');
+    %fullfile(root,'minimisers','NSMain');
 
     fullfile(root,'targetFunctions','common');
     fullfile(root,'targetFunctions','common','backSort');

@@ -177,7 +177,7 @@ end
 
 % print out acceptance ratio
 if verbose
-    ratSendTextOutput(sprintf('Acceptance ratio: %1.4f, \n', acctot/(Ntimes*Nmcmc)));
+    sendTextOutput(sprintf('Acceptance ratio: %1.4f, \n', acctot/(Ntimes*Nmcmc)));
 end
 
 return

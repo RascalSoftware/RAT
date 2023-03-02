@@ -1,4 +1,4 @@
-% MYSMALLFUNC_SCRIPT   Generate static library mySmallFunc from mySmallFunc.
+% MYSMALLFUNCSCRIPT   Generate static library mySmallFunc from mySmallFunc.
 % 
 % Script generated from project 'mySmallFunc.prj' on 21-Sep-2022.
 % 

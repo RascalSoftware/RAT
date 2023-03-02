@@ -42,7 +42,7 @@ switch lower(action)
         [outProblemDef,problem,results] = runDE_mex(problemDef,problemDef_cells,problemDef_limits,controls);
 %     case 'bayes'
 %         if ~strcmpi(controls.display,'off')
-%             ratSendTextOutput(sprintf('\nRunning DRAM\n\n'));
+%             sendTextOutput(sprintf('\nRunning DRAM\n\n'));
 %         end        
 %         [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,controls,priors);
     case 'ns'
@@ -52,7 +52,7 @@ switch lower(action)
         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);   
     case 'dream'
         if ~strcmpi(controls.display,'off')
-            ratSendTextOutput(sprintf('\nRunning DREAM\n\n'));
+            sendTextOutput(sprintf('\nRunning DREAM\n\n'));
         end
         [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 end

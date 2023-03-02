@@ -212,7 +212,7 @@ if haveoutputfcn || haveplotfcn
     if stop
         [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
         if  prnt > 0
-            ratSendTextOutput(output.message)
+            sendTextOutput(output.message)
         end
         return;
     end
@@ -220,10 +220,10 @@ end
 
 % Print out initial f(x) as 0th iteration
 if prnt == 3
-    ratSendTextOutput(' ')
-    ratSendTextOutput(header)
+    sendTextOutput(' ')
+    sendTextOutput(header)
     out = sprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how);
-    ratSendTextOutput(out)
+    sendTextOutput(out)
 elseif prnt == 4
     % Option never used in RAT
     
@@ -235,14 +235,14 @@ elseif prnt == 4
 %     oc2 = onCleanup(@()set(0,'formatspacing',formatsave.formatspacing));
 %     format compact
 %     format short e
-%     ratSendTextOutput(' ')
-%     ratSendTextOutput(how)
-%     ratSendTextOutput('v = ')
-%     ratSendTextOutput(sprintf('%g',v))
-%     ratSendTextOutput('fv = ')
-%     ratSendTextOutput(sprintf('%g',fv))
-%     ratSendTextOutput('func_evals = ')
-%     ratSendTextOutput(sprintf('%g',func_evals))
+%     sendTextOutput(' ')
+%     sendTextOutput(how)
+%     sendTextOutput('v = ')
+%     sendTextOutput(sprintf('%g',v))
+%     sendTextOutput('fv = ')
+%     sendTextOutput(sprintf('%g',fv))
+%     sendTextOutput('func_evals = ')
+%     sendTextOutput(sprintf('%g',func_evals))
 end
 % OutputFcn and PlotFcns call
 if haveoutputfcn || haveplotfcn
@@ -251,7 +251,7 @@ if haveoutputfcn || haveplotfcn
     if stop  % Stop per user request.
         [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
         if  prnt > 0
-            ratSendTextOutput(output.message)
+            sendTextOutput(output.message)
         end
         return;
     end
@@ -281,16 +281,16 @@ how = 'initial simplex';
 itercount = itercount + 1;
 func_evals = n+1;
 if prnt == 3
-    ratSendTextOutput(sprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how))
+    sendTextOutput(sprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how))
 elseif prnt == 4
-%     ratSendTextOutput(' ')
-%     ratSendTextOutput(how)
-%     ratSendTextOutput('v = ')
-%     ratSendTextOutput(sprintf('%g',v))
-%     ratSendTextOutput('fv = ')
-%     ratSendTextOutput(sprintf('%g',fv))
-%     ratSendTextOutput('func_evals = ')
-%     ratSendTextOutput(sprintf('%g',func_evals))
+%     sendTextOutput(' ')
+%     sendTextOutput(how)
+%     sendTextOutput('v = ')
+%     sendTextOutput(sprintf('%g',v))
+%     sendTextOutput('fv = ')
+%     sendTextOutput(sprintf('%g',fv))
+%     sendTextOutput('func_evals = ')
+%     sendTextOutput(sprintf('%g',func_evals))
 end
 % OutputFcn and PlotFcns call
 if haveoutputfcn || haveplotfcn
@@ -299,7 +299,7 @@ if haveoutputfcn || haveplotfcn
     if stop  % Stop per user request.
         [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
         if  prnt > 0
-            ratSendTextOutput(output.message)
+            sendTextOutput(output.message)
         end
         return;
     end
@@ -393,16 +393,16 @@ while func_evals < maxfun && itercount < maxiter
     v = v(:,j);
     itercount = itercount + 1;
     if prnt == 3
-        ratSendTextOutput(sprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how));
+        sendTextOutput(sprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how));
     elseif prnt == 4
-%         ratSendTextOutput(' ')
-%         ratSendTextOutput(num2str(how))
-%         ratSendTextOutput('v = ')
-%         ratSendTextOutput(v)
-%         ratSendTextOutput('fv = ')
-%         ratSendTextOutput(fv)
-%         ratSendTextOutput('func_evals = ')
-%         ratSendTextOutput(num2str(func_evals))
+%         sendTextOutput(' ')
+%         sendTextOutput(num2str(how))
+%         sendTextOutput('v = ')
+%         sendTextOutput(v)
+%         sendTextOutput('fv = ')
+%         sendTextOutput(fv)
+%         sendTextOutput('func_evals = ')
+%         sendTextOutput(num2str(func_evals))
     end
     % OutputFcn and PlotFcns call
     if haveoutputfcn || haveplotfcn
@@ -411,7 +411,7 @@ while func_evals < maxfun && itercount < maxiter
         if stop  % Stop per user request.
             [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
             if  prnt > 0
-                ratSendTextOutput(output.message)
+                sendTextOutput(output.message)
             end
             return;
         end
@@ -458,8 +458,8 @@ if buildOutputStruct
 end
 
 if printMsg
-    ratSendTextOutput(' ')
-    ratSendTextOutput(msg)
+    sendTextOutput(' ')
+    sendTextOutput(msg)
 end
 
 %--------------------------------------------------------------------------

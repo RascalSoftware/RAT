@@ -676,12 +676,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.customFile.removeCustomFile(index);
         end
 
-        function obj = setCustomFile(obj,varargin)
+        function obj = setCustomFile(obj, customPar, varargin)
             % Edits an existing custom file parameter. Expects the
             % index of custom file to edit and key-value pairs
             %
             % problem.setCustomFile(2, 'filename', 'custom.cpp');
-            obj.customFile.setCustomFile(varargin);
+            obj.customFile.setCustomFile(customPar, varargin{:});
         end
         
         

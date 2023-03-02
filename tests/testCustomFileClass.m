@@ -155,12 +155,12 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         end
 
         function testSetCustomFile(testCase, testRow, inputData, expectedRow)
-            testCase.exampleClass.setCustomFile(inputData);
+            testCase.exampleClass.setCustomFile(inputData{:});
             testCase.verifyEqual(testCase.exampleClass.fileTable{testRow, :}, expectedRow, "setCustomFile does not work correctly");
         end
 
         function testSetCustomFileInvalidType(testCase, invalidInputData)
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(invalidInputData), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(invalidInputData{:}), 'MATLAB:InputParser:ArgumentFailedValidation');
         end
 
         function testSetCustomFileInvalidInput(testCase)
@@ -168,22 +168,24 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % If the inputs are invalid, it should raise an error
 
             % Invalid row
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({0, 'Name', 'Invalid'}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({testCase.numRows+1, 'Name', 'Invalid'}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({'Undefined row', 'Name', 'Invalid'}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(0, 'Name', 'Invalid'), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(testCase.numRows+1, 'Name', 'Invalid'), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile('Undefined row', 'Name', 'Invalid'), nameNotRecognised.errorID);
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Language', 'Fortran'}), invalidOption.errorID)
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 'Language', 'Fortran'), invalidOption.errorID)
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({2, 'Name', 'DPPC Model'}), duplicateName.errorID)
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'DPPC Model'), duplicateName.errorID)
         end
 
-        function testSetCustomFileTooFewParams(testCase)
-            % If we call "setCustomFile" with a cell array containing
-            % fewer than three values it should raise an error
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 1}), invalidNumberOfInputs.errorID);
+        function testSetCustomFileInvalidNumberOfParams(testCase)
+            % If we call "setCustomFile" with fewer than three values or
+            % an even number of values (i.e., not name-value pairs) it
+            % should raise an error
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 1), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), invalidNumberOfInputs.errorID);
         end
 
         function testRemoveCustomFile(testCase)

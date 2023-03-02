@@ -118,7 +118,7 @@ classdef customFileClass < handle
             
         end
         
-        function obj = setCustomFile(obj, varargin)
+        function obj = setCustomFile(obj, customPar, varargin)
             % Change the value of a given parameter in the file table.
             % The expected inputs are the row of the file entry of
             % interest (given either by name of index), and key-value pairs
@@ -128,32 +128,28 @@ classdef customFileClass < handle
             %
             % customFiles.setcustomFile(1, "Name", "New Name",...
             %                           "Language", "Octave")
-            inputs = varargin{:};
             customNames = obj.getCustomNames;
             
             % Always need three or more inputs to set data value
-            if length(inputs) < 3
-                throw(invalidNumberOfInputs('At least three inputs expected into ''setCustomFile'''));
+            if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
+                throw(invalidNumberOfInputs('The input to ''setCustomFile'' should be a file entry and a set of name-value pairs'));
             end
                 
             % First input needs to be a data number or name
-            whichCustom = inputs{1};
-            if isnumeric(whichCustom)
-                if (whichCustom > obj.fileCount) || (whichCustom < 1)
-                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', whichCustom, obj.fileCount)));
+            if isnumeric(customPar)
+                if (customPar > obj.fileCount) || (customPar < 1)
+                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', customPar, obj.fileCount)));
                 end
-            elseif ischar(whichCustom)
-                if ~strcmpi(whichCustom,customNames)
-                    throw(nameNotRecognised(sprintf('Custom file object name %s not recognised', whichCustom)));
+            elseif ischar(customPar)
+                if ~strcmpi(customPar,customNames)
+                    throw(nameNotRecognised(sprintf('Custom file object name %s not recognised', customPar)));
                 else
-                    whichCustom = find(strcmpi(whichCustom,customNames));
+                    customPar = find(strcmpi(customPar,customNames));
                 end
             end
             
-            % Parse the remaining name value pairs to see what is 
-            % being set and make sure the data is of the correct size
-            % and type.
-            toBeParsed = inputs(2:end);
+            % Parse the name value pairs to see what is being set and make
+            % sure the data is of the correct size and type.
 
             % Make an 'inputParser' object...
             p = inputParser;
@@ -162,7 +158,7 @@ classdef customFileClass < handle
             addParameter(p,'filename','', @(x) isstring(x) || ischar(x))
             addParameter(p,'language','', @(x) isstring(x) || ischar(x))
             addParameter(p,'path','', @(x) isstring(x) || ischar(x)) 
-            parse(p,toBeParsed{:});
+            parse(p, varargin{:});
                 
             results = p.Results;
             
@@ -170,20 +166,20 @@ classdef customFileClass < handle
             % so call the relevant set method for these (which will carry
             % out some additional checks)
             if ~isempty(results.filename)
-                obj.setFileName(whichCustom,results.filename);
+                obj.setFileName(customPar,results.filename);
             end
             
             if ~isempty(results.language)
-                obj.setCustomLanguage(whichCustom,results.language);
+                obj.setCustomLanguage(customPar,results.language);
             end
             
             if ~isempty(results.path)
                 % NOT IMPLEMENTED
-                obj.setCustomPath(whichCustom,results.path);
+                obj.setCustomPath(customPar,results.path);
             end
             
             if ~isempty(results.name)
-                obj.setCustomName(whichCustom,results.name);
+                obj.setCustomName(customPar,results.name);
             end            
 
         end

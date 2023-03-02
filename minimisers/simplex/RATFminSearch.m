@@ -1,4 +1,4 @@
-function [x,fval,exitflag,output] = fminsearch(funfcn,x,options,dis,varargin)
+function [x,fval,exitflag,output] = FMinSearch(funfcn,x,options,dis,varargin)
 %FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
 %   X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer 
 %   X of the function FUN.  FUN is a function handle.  FUN accepts input X and 

@@ -119,12 +119,12 @@ end
 % now we can call fminsearch, but with our own
 % intra-objective function.
 
-[xu,fval,exitflag,output] = ratFminsearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDef_cells,problemDef_limits,controls,params,300);
+[xu,fval,exitflag,output] = RATFminSearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDef_cells,problemDef_limits,controls,params,300);
 
 %[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemDef,problemDef_cells,problemDef_limits,controls,options,params,300);
 
 % undo the variable transformations into the original space
-x = simplex_xtransform(xu,params);
+x = simplexXTransform(xu,params);
 
 % final reshape
 %x = reshape(x,xsize);

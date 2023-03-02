@@ -1,4 +1,4 @@
-function fval = simplexIntrafun(x,problemDef,problemDef_cells,problemDef_limits,controls,params,maxEval);
+function fval = simplexIntrafun(x,problemDef,problemDef_cells,problemDef_limits,controls,params,maxEval)
 
 
 %problemDef,problemDef_cells,problemDef_limits,controls,params,300
@@ -8,7 +8,7 @@ function fval = simplexIntrafun(x,problemDef,problemDef_cells,problemDef_limits,
 % transform variables, then call original function
 a = 'debug';
 % transform
-xtrans = simplex_xtransform(x,params);
+xtrans = simplexXTransform(x,params);
 
 %Unpck the params..
 problemDef.fitpars = xtrans;

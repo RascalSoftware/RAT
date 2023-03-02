@@ -1,4 +1,4 @@
-function xtrans = simplex_xtransform(x,params);
+function xtrans = simplexXTransform(x,params)
 % converts unconstrained variables into their original domains
 
 xtrans = x;

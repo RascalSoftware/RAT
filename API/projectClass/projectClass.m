@@ -343,7 +343,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
             
             for i = 1:length(input)
-                obj = addLayer(obj,input{i});
+                obj = addLayer(obj,input{i}{:});
             end
             
         end

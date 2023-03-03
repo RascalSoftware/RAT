@@ -207,7 +207,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.layers.layersTable{6, 1}, "New Layer", 'addLayer method not working');
             layer = testCase.layers{1};
             layer{1} = 'Another Layer';
-            testCase.project.addLayer(layer);  % Adds layer with name only
+            testCase.project.addLayer(layer{:});  % Adds layer with full set of parameters
             testCase.verifySize(testCase.project.layers.layersTable, [7, 6], 'Layers has wrong dimension');
             testCase.verifyEqual(testCase.project.layers.layersTable{7, 1}, "Another Layer", 'addLayer method not working');
             % Test setting value in a layer

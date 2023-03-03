@@ -48,22 +48,22 @@ classdef layersClassRealSLD < handle
             % layers.addLayer(parameters.paramsTable{:, 1}, 'New layer');
             % layers.addLayer(parameters.paramsTable{:, 1},...
             %                 'Another layer', 1, 2, 3);
-            if isempty(varargin)
+            layerDetails = varargin;
+
+            if isempty(layerDetails)
                 % Add an empty layer
                 layerNum = obj.layersAutoNameCounter;
                 layerName = sprintf('Layer %d',layerNum);
                 newRow = {layerName,'','','','','bulk out'};
                 appendNewRow(obj,newRow);
                 
-            elseif ischar(varargin{:})
+            elseif length(layerDetails) == 1 && ischar(layerDetails{1})
                 % Add an empty named layer
                 newRow = {varargin{1},'','','','','bulk out'};
                 appendNewRow(obj,newRow);
             
             else
                 % Add a layer that is fully defined
-                layerDetails = varargin{:};
-
                 if length(layerDetails) == 4
                     % No hydration
                     layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};

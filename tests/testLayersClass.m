@@ -16,7 +16,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
     properties (TestParameter)
         % Cell arrays for adding layers
-        layerInput = {'Named Layer',...
+        layerInput = {{'Named Layer'},...
                       {'Oxide Names Layer',...
                         'Oxide thick',...
                         'Oxide SLD',...
@@ -150,7 +150,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % four or length six cell array     
             expectedTable = [testCase.exampleClass.layersTable; addedLayer];
 
-            testCase.exampleClass.addLayer(testCase.parameterNames, layerInput);
+            testCase.exampleClass.addLayer(testCase.parameterNames, layerInput{:});
 
             testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
         end
@@ -175,26 +175,26 @@ classdef testLayersClass < matlab.unittest.TestCase
             % an error
 
             % Invalid length for layer parameters
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Incomplete Oxide', 2}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Incomplete Oxide', 2, 3}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Incomplete Oxide', 2, 3, 1, 4}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Incomplete Oxide', 2, 3, 1, 4, 'none', 5}), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4, 'none', 5), invalidNumberOfInputs.errorID);
 
             % Invalid hydrate type
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', 2, 3, 1, 4, 'surface'}), invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 1, 4, 'surface'), invalidOption.errorID);
 
             % Invalid parameter names
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'), nameNotRecognised.errorID);
 
             % Duplicate layer names
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'}), duplicateName.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'), duplicateName.errorID);
 
             % Invalid parameter indices
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', 2, 3, 0}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', 2, 3, testCase.numParams+1}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', NaN ,3, 0}), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', 2, NaN, 0}), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, {'Oxide Layer', 2, 3, NaN}), 'MATLAB:badsubscript');         
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 0), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, testCase.numParams+1), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', NaN ,3, 0), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, NaN, 0), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, NaN), 'MATLAB:badsubscript');         
         end
 
         function testSetLayerValue(testCase)

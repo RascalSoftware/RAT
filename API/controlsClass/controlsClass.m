@@ -57,7 +57,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         
         function obj = set.calcSldDuringFit(obj,val)
             if ~islogical(val)
-                throw(invalidValue('Type must be logical ''true'' or ''false'''));
+                throw(invalidType('Type must be logical ''true'' or ''false'''));
             end
             obj.calcSldDuringFit = val;
         end
@@ -73,68 +73,59 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             if length(val) ~= 2
                 throw(invalidValue('resamPars must have length of 2'));
             end
-            if (~isnumeric(val(1)) || val(1) < 0 || val(1) > 1)
+            
+            validateNumber(val, 'resamPars must be a number array');
+            
+            if (val(1) < 0 || val(1) > 1)
                 throw(invalidValue('resamPars(0) must be between 0 and 1'));
             end
-            if (~isnumeric(val(2)) || val(2) <= 0)
-                throw(invalidValue('resamPars(1) must be a number greater than 0'));
+            if val(2) <= 0
+                throw(invalidValue('resamPars(1) must be greater than 0'));
             end
             obj.resamPars = val;
         end  
 
         % Simplex control methods        
-        function obj = set.tolX(obj,val)
-            if ~isnumeric(val)
-                throw(invalidValue('tolX must be number'));
-            end
-            obj.tolX = val;
+        function obj = set.tolX(obj, val)
+            obj.tolX = validateNumber(val, 'tolX must be a number');
         end
          
-        function obj = set.tolFun(obj,val)
-            if ~isnumeric(val)
-                throw(invalidValue('tolFun must be number'));
-            end
-            obj.tolFun = val;
+        function obj = set.tolFun(obj, val)
+            obj.tolFun = validateNumber(val, 'tolFun must be a number');
         end
         
-        function obj = set.maxFunEvals(obj,val)
-            if ~isnumeric(val)
-                throw(invalidValue('maxFunEvals must be number'));
-            end
-            obj.maxFunEvals = val;
+        function obj = set.maxFunEvals(obj, val)
+            obj.maxFunEvals = validateNumber(val, 'maxFunEvals must be a number');
         end
         
-        function obj = set.maxIter(obj,val)
-            if ~isnumeric(val)
-                throw(invalidValue('maxIter must be number'));
-            end
-            obj.maxIter = val;
+        function obj = set.maxIter(obj, val)
+            obj.maxIter = validateNumber(val, 'maxIter must be a number');
         end
         
         % DE controls methods
-        function obj = set.populationSize(obj,val)
-            if (~isnumeric(val) || val < 1)
-                throw(invalidValue('populationSize must be a number greater or equal to 1'));
+        function obj = set.populationSize(obj, val)
+            validateNumber(val, 'populationSize must be a number');
+            if val < 1
+                throw(invalidValue('populationSize must be greater or equal to 1'));
             end
             obj.populationSize = val;
         end
         
         function obj = set.fWeight(obj,val)
-            if ~isnumeric(val)
-                throw(invalidValue('fWeight must be number'));
-            end
-            obj.fWeight = val;
+            obj.fWeight = validateNumber(val,'fWeight must be a number');
         end
         
         function obj = set.crossoverProbability(obj,val)
-            if (~isnumeric(val) || val < 0 || val > 1)
-                throw(invalidValue('crossoverProbability must be a number between 0 and 1'));
+            validateNumber(val, 'crossoverProbability must be a number');
+            if (val < 0 || val > 1)
+                throw(invalidValue('crossoverProbability must be between 0 and 1'));
             end
             obj.crossoverProbability = val;
         end
         
         function obj = set.strategy(obj,val)
-            if (~isnumeric(val) || ~(round(val) == val) || val < 1 || val > 6)
+            validateNumber(val, 'strategy must be a number');
+            if (~(round(val) == val) || val < 1 || val > 6)
                 throw(invalidValue('strategy must be an integer between 1 and 6'));
             end
             switch val
@@ -156,73 +147,83 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
         
         function obj = set.targetValue(obj,val)
-            if (~isnumeric(val) || val < 1 )
-                throw(invalidValue('Target value must be a number greater or equal to 1'));
+            validateNumber(val, 'targetValue must be a number');
+            if val < 1
+                throw(invalidValue('targetValue must be greater or equal to 1'));
             end 
-        obj.targetValue = val;
+            obj.targetValue = val;
         end
         
-        function obj = set.numGenerations(obj,val)
-            if (~isnumeric(val) || val < 1 )
-                throw(invalidValue('numGenerations value must be a number greater or equal to 1'));
+        function obj = set.numGenerations(obj, val)
+            validateNumber(val, 'numGenerations value must be a number');
+            if val < 1
+                throw(invalidValue('numGenerations must be greater or equal to 1'));
             end 
-        obj.numGenerations = val;
+            obj.numGenerations = val;
         end
          
         % NS control methods
-        function obj = set.Nlive(obj,val)
-            if (~isnumeric(val) || val < 1)
-                throw(invalidValue('Nlive must be a number greater or equal to 1'));
+        function obj = set.Nlive(obj, val)
+            validateNumber(val, 'Nlive must be a number');
+            if val < 1
+                throw(invalidValue('Nlive must be greater or equal to 1'));
             end
             obj.Nlive = val;
         end
         
-        function obj = set.Nmcmc(obj,val)
-            if (~isnumeric(val) || val < 0)
-                throw(invalidValue('Nmcmc must be a number greater or equal than 0'));
+        function obj = set.Nmcmc(obj, val)
+            validateNumber(val, 'Nmcmc must be a number');
+            if val < 0
+                throw(invalidValue('Nmcmc must be greater or equal than 0'));
             end
             obj.Nmcmc = val;
         end
         
-        function obj = set.propScale(obj,val)
-             if (~isnumeric(val) || val < 0 || val > 1)
-                throw(invalidValue('propScale must be a number between 0 and 1'));
-             end
-             obj.propScale = val;
+        function obj = set.propScale(obj, val)
+            validateNumber(val, 'propScale must be a number');
+            if (val < 0 || val > 1)
+                throw(invalidValue('propScale must be between 0 and 1'));
+            end
+            obj.propScale = val;
         end
         
         function obj = set.nsTolerance(obj,val)
-             if (~isnumeric(val) || val < 0 )
-                throw(invalidValue('nsTolerance must be a number greater or equal to 0'));
-             end
-             obj.nsTolerance = val;
+            validateNumber(val, 'nsTolerance must be a number ');
+            if val < 0
+                throw(invalidValue('nsTolerance must be greater or equal to 0'));
+            end
+            obj.nsTolerance = val;
         end
 
         % DREAM methods
         function obj = set.nSamples(obj,val)
-            if (~isnumeric(val) || val < 0)
-                throw(invalidValue('nSample must be a number greater oe equal to 0'));
+            validateNumber(val, 'nSample must be a number ');
+            if val < 0
+                throw(invalidValue('nSample must be greater or equal to 0'));
             end
             obj.nSamples = val;
         end 
 
         function obj = set.nChains(obj,val)
-            if (~isnumeric(val) || ~(round(val) == val) || val <= 0 || isnan(val) || isinf(val))
+            validateNumber(val, 'nChains must be a number ');
+            if (~(round(val) == val) || val <= 0 || isnan(val) || isinf(val))
                 throw(invalidValue('nChains must be a finite integer greater than 0'));
             end
             obj.nChains = val;
         end 
 
         function obj = set.lambda(obj,val)
-            if (~isnumeric(val) || val < 0 || val > 1)
+            validateNumber(val, 'lambda must be a number');
+            if (val < 0 || val > 1)
                 throw(invalidValue('Jump probability lambda must be a fraction between 0 and 1'));
             end
             obj.lambda = val;
         end 
 
         function obj = set.pUnitGamma(obj,val)
-            if (~isnumeric(val) || val < 0 || val > 1)
-                throw(invalidValue('P_unit_gamma must be a fraction between 0 and 1'));
+            validateNumber(val, 'pUnitGamma must be a number');
+            if (val < 0 || val > 1)
+                throw(invalidValue('pUnitGamma must be a fraction between 0 and 1'));
             end
             obj.pUnitGamma = val;
         end 

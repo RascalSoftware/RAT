@@ -696,7 +696,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % 
             % problem.addContrast('contrast 1', 'nba', 'Silicon');
             allowedNames = obj.getAllAllowedNames();
-            obj.contrasts.addContrast(allowedNames, varargin);
+            obj.contrasts.addContrast(allowedNames, varargin{:});
             
         end
 
@@ -721,7 +721,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             allowedValues = obj.getAllAllowedNames;
             
             % Call the setContrast method
-            obj.contrasts.setContrast(contrastInput, allowedValues, varargin);
+            obj.contrasts.setContrast(contrastInput, allowedValues, varargin{:});
             
         end
         

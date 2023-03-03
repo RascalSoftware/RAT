@@ -252,7 +252,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             expectedContrasts = [testCase.exampleClass.contrasts, addedContrast];
 
-            testCase.exampleClass.addContrast(testCase.allowedNames, contrastInput);
+            testCase.exampleClass.addContrast(testCase.allowedNames, contrastInput{:});
             testCase.verifyEqual(testCase.exampleClass.contrasts, expectedContrasts, "addContrast does not work correctly");
         end
 
@@ -332,7 +332,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'model', {{'Oxide Layer', 'Water Layer', 'Bil inner head', 'Bil tail', 'Bil tail', 'Bil outer head'}} ...
                 );
 
-            testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, testCase.newValues);
+            testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, testCase.newValues{:});
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, expectedContrast, "setContrast does not work correctly");
         end
 

@@ -37,19 +37,19 @@ classdef contrastsClass < handle
             % contrasts.addContrast('New Contrast')
             % contrasts.addContrast('name', 'new contrast', ... 
             %                       'background', 'Background H2O')
-            if isempty(varargin{:})
+            if isempty(varargin)
                 % No input at all
                 contrastName = sprintf('New contrast %d', obj.contrastAutoNameCounter);
                 inputVals = {'name', contrastName};
                 
-            elseif length(varargin{:}) == 1
+            elseif length(varargin) == 1
                 % Just name of contrast
-                thisName = varargin{1}{:};
+                thisName = varargin{1};
                 inputVals = {'name', thisName};
                 
             else
                 % Everything else
-                inputVals = varargin{:};
+                inputVals = varargin;
             end
             
             thisContrast = obj.parseContrastInput(allowedNames,inputVals);
@@ -173,7 +173,7 @@ classdef contrastsClass < handle
             % Check to see if the inputs are valid
             % Raise a warning if we try to set the model as this should be
             % done elsewhere
-            inputBlock = obj.parseContrastInput(allowedNames, varargin{:});
+            inputBlock = obj.parseContrastInput(allowedNames, varargin);
             
             if ~isempty(inputBlock.background)
                 thisContrast.background = inputBlock.background;

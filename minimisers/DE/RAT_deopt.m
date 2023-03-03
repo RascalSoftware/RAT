@@ -6,8 +6,8 @@
 %                   using the differential evolution (DE) algorithm.
 %                   DE works best if [FVr_minbound,FVr_maxbound] covers the region where the
 %                   global minimum is expected. DE is also somewhat sensitive to
-%                   the choice of the stepsize F_weight. A good initial guess is to
-%                   choose F_weight from interval [0.5, 1], e.g. 0.8. F_CR, the crossover
+%                   the choice of the stepsize fWeight. A good initial guess is to
+%                   choose fWeight from interval [0.5, 1], e.g. 0.8. F_CR, the crossover
 %                   probability constant from interval [0, 1] helps to maintain
 %                   the diversity of the population but should be close to 1 for most. 
 %                   practical cases. Only separable problems do better with CR close to 0.
@@ -43,7 +43,7 @@
 %                   I_D          (I)    Number of parameters of the objective function. 
 %                   I_NP         (I)    Number of population members.
 %                   I_itermax    (I)    Maximum number of iterations (generations).
-%                   F_weight     (I)    DE-stepsize F_weight from interval [0, 2].
+%                   fWeight     (I)    DE-stepsize fWeight from interval [0, 2].
 %                   F_CR         (I)    Crossover probability constant from interval [0, 1].
 %                   I_strategy   (I)    1 --> DE/rand/1             
 %                                       2 --> DE/local-to-best/1             
@@ -100,7 +100,7 @@ stopflag = 0;
 I_best_index = 1;      
 
 I_NP         = S_struct.I_NP;
-F_weight     = S_struct.F_weight;
+fWeight     = S_struct.fWeight;
 F_CR         = S_struct.F_CR;
 I_D          = S_struct.I_D;
 FVr_minbound = S_struct.FVr_minbound;
@@ -255,20 +255,20 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
   FM_mpo = FM_mui < 0.5;    % inverse mask to FM_mui
   FM_origin = zeros(I_NP,2);
   if (I_strategy == 1)
-    %fprintf('Iteration: %d,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %d\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP));rategy == 1)                             % DE/rand/1
-    FM_ui = FM_pm3 + F_weight*(FM_pm1 - FM_pm2);   % differential variation
+    %fprintf('Iteration: %d,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %d\n',I_iter,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP));rategy == 1)                             % DE/rand/1
+    FM_ui = FM_pm3 + fWeight*(FM_pm1 - FM_pm2);   % differential variation
     FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;     % crossover
     FM_origin = FM_pm3;
   elseif (I_strategy == 2)                         % DE/local-to-best/1
-    FM_ui = FM_popold + F_weight*(FM_bm-FM_popold) + F_weight*(FM_pm1 - FM_pm2);
+    FM_ui = FM_popold + fWeight*(FM_bm-FM_popold) + fWeight*(FM_pm1 - FM_pm2);
     FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;
     FM_origin = FM_popold;
   elseif (I_strategy == 3)                         % DE/best/1 with jitter
-    FM_ui = FM_bm + (FM_pm1 - FM_pm2).*((1-0.9999)*rand(I_NP,I_D)+F_weight);               
+    FM_ui = FM_bm + (FM_pm1 - FM_pm2).*((1-0.9999)*rand(I_NP,I_D)+fWeight);               
     FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;
     FM_origin = FM_bm;
   elseif (I_strategy == 4)                         % DE/rand/1 with per-vector-dither
-     f1 = ((1-F_weight)*rand(I_NP,1)+F_weight);
+     f1 = ((1-fWeight)*rand(I_NP,1)+fWeight);
      for k=1:I_D
         FM_pm5(:,k)=f1;
      end
@@ -276,16 +276,16 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
      FM_origin = FM_pm3;
      FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;     % crossover
   elseif (I_strategy == 5)                          % DE/rand/1 with per-vector-dither
-     f1 = ((1-F_weight)*rand+F_weight);
+     f1 = ((1-fWeight)*rand+fWeight);
      FM_ui = FM_pm3 + (FM_pm1 - FM_pm2)*f1;         % differential variation
      FM_origin = FM_pm3;
      FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;     % crossover
   else                                              % either-or-algorithm
      if (rand < 0.5);                               % Pmu = 0.5
-        FM_ui = FM_pm3 + F_weight*(FM_pm1 - FM_pm2);% differential variation
+        FM_ui = FM_pm3 + fWeight*(FM_pm1 - FM_pm2);% differential variation
         FM_origin = FM_pm3;
      else                                           % use F-K-Rule: K = 0.5(F+1)
-        FM_ui = FM_pm3 + 0.5*(F_weight+1.0)*(FM_pm1 + FM_pm2 - 2*FM_pm3);
+        FM_ui = FM_pm3 + 0.5*(fWeight+1.0)*(FM_pm1 + FM_pm2 - 2*FM_pm3);
      end
      FM_ui = FM_popold.*FM_mpo + FM_ui.*FM_mui;     % crossover     
   end
@@ -329,8 +329,8 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
 
   if (I_refresh > 0)
      if ((rem(I_iter,I_refresh) == 0) || I_iter == 1) && strcmpi(controls.display,'iter')
-       %fprintf('Iteration: %d,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %d\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP);
-       sendTextOutput(sprintf('Iteration: %g,  Best: %f,  F_weight: %f,  F_CR: %f,  I_NP: %g\n',I_iter,S_bestval.FVr_oa(1),F_weight,F_CR,I_NP));
+       %fprintf('Iteration: %d,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %d\n',I_iter,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP);
+       sendTextOutput(sprintf('Iteration: %g,  Best: %f,  fWeight: %f,  F_CR: %f,  I_NP: %g\n',I_iter,S_bestval.FVr_oa(1),fWeight,F_CR,I_NP));
 
        %disp(S_bestval);
        %var(FM_pop)

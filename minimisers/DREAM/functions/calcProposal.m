@@ -118,7 +118,7 @@ rnd_jump = DREAMPar.lambda * (2 * rand(DREAMPar.N,DREAMPar.d) - 1);
 dx = zeros(DREAMPar.N,DREAMPar.d);               
 
 % Determine when jumprate is 1
-gamma = randsample([0 1],DREAMPar.N,true,[ 1 - DREAMPar.p_unit_gamma DREAMPar.p_unit_gamma ]);   
+gamma = randsample([0 1],DREAMPar.N,true,[ 1 - DREAMPar.pUnitGamma DREAMPar.pUnitGamma ]);   
 
 % Create N proposals
 for i = 1:DREAMPar.N               

@@ -27,7 +27,7 @@ DREAMPar.CPU = 1;
 
 % Jump probabilities...
 DREAMPar.lambda = controls.lambda;
-DREAMPar.p_unit_gamma = controls.p_unit_gamma;
+DREAMPar.pUnitGamma = controls.pUnitGamma;
 
 % This will change...
 % Initial sampling and parameter range

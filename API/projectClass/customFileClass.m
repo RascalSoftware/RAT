@@ -48,7 +48,7 @@ classdef customFileClass < handle
             count = height(obj.fileTable);
         end
 
-        function obj = addCustomFile(obj,varargin)
+        function obj = addCustomFile(obj, varargin)
             % Add an entry to the file table.
             % A custom file entry can be added with no parameters, just the
             % name of the custom file entry, the name of the entry
@@ -71,7 +71,7 @@ classdef customFileClass < handle
 
             else
                 
-                inputs = varargin{:};
+                inputs = varargin;
 
                 % Check length of added data
                 switch length(inputs)

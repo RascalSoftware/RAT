@@ -101,7 +101,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         function testInitialiseCustomFileClassOneRow(testCase)
             % On initialisation we set up a custom file class with an
             % either an empty file table, or a table with a single row
-            testClass = customFileClass({'DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../'});
+            testClass = customFileClass('DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../');
 
             testCase.verifySize(testClass.fileTable, [1 4], "customFileClass does not initialise correctly");
             testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableOneRow, "customFileClass does not initialise correctly");
@@ -115,7 +115,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % custom object name, a filename, language and file path.  
             expectedTable = [testCase.exampleClass.fileTable; addedRow];
 
-            testCase.exampleClass.addCustomFile(fileInput);
+            testCase.exampleClass.addCustomFile(fileInput{:});
 
             testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, "addFile does not work correctly");
         end
@@ -140,18 +140,17 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'matlab', 'pwd'}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'matlab', 'pwd'), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'), invalidNumberOfInputs.errorID);
 
             % Invalid types
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({42}), invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile(42), invalidType.errorID);
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Unrecognised language', 'file.m', 'fortran', 'pwd'), invalidOption.errorID);
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'DPPC Model'}), duplicateName.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('DPPC Model'), duplicateName.errorID);
         end
 
         function testSetCustomFile(testCase, testRow, inputData, expectedRow)
@@ -374,8 +373,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         function testToStructPwd(testCase)
             % Test converting an custom file class to a struct correctly
             % interprets the present working directory
-            emptyClass = customFileClass({'Test pwd', 'file.m', 'matlab', 'pwd'});
-            fileStruct = emptyClass.toStruct();
+            pwdClass = customFileClass('Test pwd', 'file.m', 'matlab', 'pwd');
+            fileStruct = pwdClass.toStruct();
             testCase.verifyClass(fileStruct, 'struct');
             testCase.verifyEqual(string(fileStruct.files{:}), ["file.m" "matlab" pwd]);
         end

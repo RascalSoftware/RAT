@@ -75,9 +75,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background = backgroundsClass(backPars,backgrounds);
             
             % Initialise resolution object
-            resolPars = {'Resolution par 1',0.01,0.03,0.05,false,'uniform',0,Inf};
-            resolutions = {'Resolution 1','gaussian','Resolution par 1','','','',''};
-            obj.resolution = resolutionsClass(resolPars,resolutions);
+            resolPars = parametersClass({'Resolution par 1',0.01,0.03,0.05,false,'uniform',0,Inf});
+            resolutions = {'Resolution 1','constant','Resolution par 1','','','',''};
+            obj.resolution = resolutionsClass(resolPars, resolutions);
             
             % Initialise data object
             obj.data = dataClass('Simulation', [], [], []);
@@ -172,13 +172,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             names.bulkInNames = obj.bulkIn.getParamNames();
             names.bulkOutNames = obj.bulkOut.getParamNames();
             names.resolsNames = obj.resolution.getResolNames();
-            names.resolParNames = obj.resolution.getResolParNames();
+            names.resolParNames = obj.resolution.resolPars.getParamNames();
             names.layersNames = obj.layers.getLayersNames();
             names.dataNames = obj.data.getDataNames();
             names.scalefacNames = obj.scalefactors.getParamNames();
             names.qzShiftNames = obj.qzshifts.getParamNames();
-            names.customNames = obj.customFile.getCustomNames();
-            
+            names.customNames = obj.customFile.getCustomNames(); 
         end
         
         % ---------------------------------  
@@ -484,7 +483,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and new value to set
             %
             % problem.setResolParValue(1, 5.5e-6);
-            obj.resolution.setResolParValue(varargin{:});
+            obj.resolution.resolPars.setValue(varargin);
         end
         
         function obj = addResolPar(obj, varargin)
@@ -493,7 +492,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and sigma
             %
             % problem.addResolPar('ResolPar 1', 1e-8, 2.8e-6, 1e-5);
-            obj.resolution.addResolPar(varargin{:});
+            obj.resolution.resolPars.addParam(varargin);
         end
         
         function obj = setResolPar(obj,varargin)
@@ -501,7 +500,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of parameter and keyword/value pairs to set
             %
             % problem.setResolPar(1, 'name', 'ResolPar');
-            obj.resolution.setResolPar(varargin{:});
+            obj.resolution.resolPars.setParameter(varargin);
         end
         
         function obj = removeResolPar(obj,varargin)
@@ -509,7 +508,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of parameter to remove
             % 
             % problem.removeResolPar(2);
-            obj.resolution.removeResolPar(varargin{:});
+            obj.resolution.resolPars.removeParam(varargin{:});
         end
         
         % Resolutions

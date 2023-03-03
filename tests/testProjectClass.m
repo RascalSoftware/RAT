@@ -354,7 +354,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Checks the default resolution parameter 
             testCase.verifySize(testCase.project.resolution.resolutions.typesTable, [1, 7], 'resolution has wrong dimension');
             testCase.verifyEqual(string(testCase.project.resolution.resolutions.typesTable{1, :}),...
-                                    string({'Resolution 1', 'gaussian', 'Resolution par 1', '', '', '', ''}), 'resolution default');
+                                    string({'Resolution 1', 'constant', 'Resolution par 1', '', '', '', ''}), 'resolution default');
             % Checks that resolution can be added
             testCase.project.addResolution('Resolution 2', 'constant','Resolution par 1','','','','');
             testCase.verifySize(testCase.project.resolution.resolutions.typesTable, [2, 7], 'resolution has wrong dimension');

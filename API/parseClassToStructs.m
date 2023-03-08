@@ -259,8 +259,8 @@ for i = 1:length(inputStruct.paramConstr)
     problemDef_limits.params(i,:) = inputStruct.paramConstr{i};
 end
 
-for i = 1:length(inputStruct.backParconstr)
-    problemDef_limits.backs(i,:) = inputStruct.backParconstr{i};
+for i = 1:length(inputStruct.backParConstr)
+    problemDef_limits.backs(i,:) = inputStruct.backParConstr{i};
 end
 
 for i = 1:length(inputStruct.scalefactorConstr)

@@ -409,7 +409,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.background.backgrounds.typesTable{1, 1}, "Background ACMW", 'setBackgroundValue method not working');
             % Checks that background name can be modified
             testCase.project.setBackgroundName(1, 'Background H2O');
-            testCase.verifyEqual(testCase.project.background.backgrounds.typesTable{1, 1}, "Background H2O", 'setBackgroundValue method not working');
+            testCase.verifyEqual(testCase.project.background.backgrounds.typesTable{1, 1}, "Background H2O", 'setBackgroundName method not working');
         end
 
         function testContrast(testCase)

@@ -394,7 +394,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and sigma
             %
             % problem.addBacksPar('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
-            obj.background.addBacksPar(varargin);
+            obj.background.addBacksPar(varargin{:});
         end
         
         function obj = removeBacksPar(obj, varargin)
@@ -411,7 +411,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and new value to set
             %
             % problem.setBacksParValue(1, 5.5e-6);
-            obj.background.setBacksParValue(varargin);
+            obj.background.setBacksParValue(varargin{:});
         end
         
         function obj = setBacksParConstr(obj,varargin)
@@ -420,7 +420,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and new min and max of the parameter's value
             %
             % problem.setBacksParConstr(1, 0, 1);
-            obj.background.setBacksParConstr(varargin);
+            obj.background.setBacksParConstr(varargin{:});
         end
         
         function obj = setBacksParName(obj,varargin)
@@ -429,7 +429,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and the new name
             %
             % problem.setBacksParName(2, 'new name');
-            obj.background.setBacksParName(varargin);
+            obj.background.setBacksParName(varargin{:});
         end
         
         % (2) Backgrounds
@@ -439,7 +439,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % up to 4 parameters
             %
             % problem.addBackground('name','constant','par');
-            obj.background.addBackground(varargin);
+            obj.background.addBackground(varargin{:});
         end
         
         function obj = removeBackground(obj,varargin)
@@ -447,7 +447,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of background to remove
             %
             % problem.removeBackground(1);
-            obj.background.removeBackground(varargin);
+            obj.background.removeBackground(varargin{:});
         end
         
         function obj = setBackgroundValue(obj,varargin)
@@ -455,7 +455,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of background and keyword/value pairs to set
             %
             % problem.setBackgroundValue(1, 'name', 'Background ACMW');
-            obj.background.setBackgroundValue(varargin);
+            obj.background.setBackgroundValue(varargin{:});
         end
         
         function obj = setBackgroundName(obj,varargin)
@@ -463,7 +463,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of background and the new name
             %
             % problem.setBackgroundName(2, 'new name');
-            obj.background.setBackgroundName(varargin);
+            obj.background.setBackgroundName(varargin{:});
         end
         
         function obj = setBacksPar(obj,varargin)
@@ -471,7 +471,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of parameter and keyword/value pairs to set
             %
             % problem.setBacksPar(1, 'name', 'Backs Value H2O');
-            obj.background.setBacksPar(varargin);
+            obj.background.setBacksPar(varargin{:});
         end
         
         % -------------------------------------------------------------

@@ -52,7 +52,6 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             function setShowPriors
                 testCase.resolution.showPriors = 'a';
             end
-            testCase.resolution.showPriors = true;
         end
         
         function testGetResolNames(testCase)

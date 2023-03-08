@@ -70,9 +70,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.qzshifts = parametersClass({'Qz shift 1',-1e-4,0,1e-4,false,'uniform',0,Inf});
             
             % Initialise backs object
-            backPars = {'Backs par 1',1e-7,1e-6,1e-5,false,'uniform',0,Inf};
+            backPars = parametersClass({'Backs par 1',1e-7,1e-6,1e-5,false,'uniform',0,Inf});
             backgrounds = {'Background 1','constant','Backs Par 1','','','',''};
-            obj.background = backgroundsClass(backPars,backgrounds);
+            obj.background = backgroundsClass(backPars, backgrounds);
             
             % Initialise resolution object
             resolPars = parametersClass({'Resolution par 1',0.01,0.03,0.05,false,'uniform',0,Inf});
@@ -168,7 +168,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % set parameter names for the project.
             names.paramNames = obj.parameters.getParamNames();
             names.backsNames = obj.background.getBackgroundNames();
-            names.backParNames = obj.background.getBacksParNames();
+            names.backParNames = obj.background.backPars.getParamNames();
             names.bulkInNames = obj.bulkIn.getParamNames();
             names.bulkOutNames = obj.bulkOut.getParamNames();
             names.resolsNames = obj.resolution.getResolNames();
@@ -393,7 +393,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and sigma
             %
             % problem.addBacksPar('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
-            obj.background.addBacksPar(varargin{:});
+            obj.background.backPars.addParam(varargin);
         end
         
         function obj = removeBacksPar(obj, varargin)
@@ -401,7 +401,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of parameter to remove
             % 
             % problem.removeBacksPar(2);
-            obj.background.removeBacksPar(varargin{:});
+            obj.background.backPars.removeParam(varargin{:});
         end
         
         function obj = setBacksParValue(obj,varargin)
@@ -410,7 +410,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and new value to set
             %
             % problem.setBacksParValue(1, 5.5e-6);
-            obj.background.setBacksParValue(varargin{:});
+            obj.background.backPars.setValue(varargin);
         end
         
         function obj = setBacksParConstr(obj,varargin)
@@ -419,7 +419,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and new min and max of the parameter's value
             %
             % problem.setBacksParConstr(1, 0, 1);
-            obj.background.setBacksParConstr(varargin{:});
+            obj.background.backPars.setConstr(varargin);
         end
         
         function obj = setBacksParName(obj,varargin)
@@ -428,7 +428,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and the new name
             %
             % problem.setBacksParName(2, 'new name');
-            obj.background.setBacksParName(varargin{:});
+            obj.background.backPars.setName(varargin);
         end
         
         % (2) Backgrounds
@@ -449,12 +449,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.removeBackground(varargin{:});
         end
         
-        function obj = setBackgroundValue(obj,varargin)
+        function obj = setBackground(obj,varargin)
             % Sets the value of an existing background. Expects
             % index or name of background and keyword/value pairs to set
             %
             % problem.setBackgroundValue(1, 'name', 'Background ACMW');
-            obj.background.setBackgroundValue(varargin{:});
+            obj.background.setBackground(varargin{:});
         end
         
         function obj = setBackgroundName(obj,varargin)
@@ -470,7 +470,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of parameter and keyword/value pairs to set
             %
             % problem.setBacksPar(1, 'name', 'Backs Value H2O');
-            obj.background.setBacksPar(varargin{:});
+            obj.background.backPars.setParameter(varargin);
         end
         
         % -------------------------------------------------------------

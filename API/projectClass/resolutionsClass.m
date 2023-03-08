@@ -27,23 +27,24 @@ classdef resolutionsClass < handle
     end
     
     properties (Access = private)
-       allowedTypes = {'constant', 'data', 'function', 'gaussian'}
+       allowedTypes = {'constant', 'data', 'function'}
     end
     
     methods
-        function  obj = resolutionsClass(parameters, startCell) 
+        function  obj = resolutionsClass(parameters, startResolution) 
             % Creates a Resolutions object. The arguments should be 
             % an instance of the parameter class with the resolution parameters and a
-            % with the first resolution entry
+            % cell array with the first resolution entry
             %
             % params = parametersClass({'Resolution par 1', 0.01, 0.03, 0.05, false});
-            % resolution = resolutionsClass(params ,{'Resolution 1', 'constant', 'Tails'});
+            % resolution = resolutionsClass(params , {'Resolution 1', 'constant', 'Tails'});
             obj.resolPars = parameters;
             
             % Make a multiType table to define the actual resolutions
-            obj.resolutions = multiTypeTable(startCell);
+            obj.resolutions = multiTypeTable();
             obj.resolutions.allowedTypes = obj.allowedTypes;
             obj.resolutions.typesAutoNameString = 'New Resolution';
+            obj.addResolution(startResolution{:});
         end
         
         function flag = get.showPriors(obj)

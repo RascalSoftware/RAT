@@ -18,7 +18,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.parameters = {
                     % Name               min   val   max  fit? 'Prior Type','mu','sigma'
                     'Resolution par 1', 0.01, 0.03, 0.05, false, 'uniform', 0, Inf;
-                    'Resolution par 2', 0.1, 0.19, 1.0, true, 'guassian', -1, 1;
+                    'Resolution par 2', 0.1, 0.19, 1.0, true, 'gaussian', -1, 1;
                     'Resolution par 3', 0.2, 0.17, 1.1, false, 'uniform', 0, Inf;
                     };
             testCase.resolutions = {
@@ -212,7 +212,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             expected.resolFitYesNo = [0, 1, 0];
             expected.nResolPars = 3;
             expected.resolParPriors= {{'Resolution par 1', 'uniform', 0, Inf};... 
-                                        {'Resolution par 2', 'guassian', -1, 1};... 
+                                        {'Resolution par 2', 'gaussian', -1, 1};... 
                                         {'Resolution par 3', 'uniform', 0, Inf}};
             expected.resolutionNames = ["Resolution 1"; "Resolution 2"; "Resolution 3"];
             expected.resolutionTypes = ["constant"; "constant"; "function"];

@@ -5,8 +5,6 @@ classdef multiTypeTable < handle
     
     properties
         typesTable = table
-        % !!!!!! PS - Need to add gaussian here, otherwise projectClass tests fail
-        % We need to be clearer on what the (default) allowedTypes should be. !!!!!!
         allowedTypes = {'constant', 'data', 'function'}
         allowedActions = {'add', 'subtract'}
         typesAutoNameString = 'Row'
@@ -22,17 +20,15 @@ classdef multiTypeTable < handle
 
     methods
        
-        function obj = multiTypeTable(startCell)
+        function obj = multiTypeTable()
             % Initialises a multi-type table with a single row.
-            % The expected input is a cell array.
             %
-            % multiTable = multiTypeTable({'First Row'});
+            % multiTable = multiTypeTable();
             sz = [0 7];
             varTypes = {'string','string','string','string','string','string','string'};
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
             obj.typesTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             obj.typesAutoNameCounter = 0;
-            obj.addRow(startCell);
         end
 
         function count = get.typesCount(obj)

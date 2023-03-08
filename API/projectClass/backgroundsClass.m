@@ -30,22 +30,24 @@ classdef backgroundsClass < handle
     end
     
     properties (Access = private)
-       allowedTypes = {'constant', 'data', 'function', 'gaussian'}
+       allowedTypes = {'constant', 'data', 'function'}
     end
     
     methods
-        function  obj = backgroundsClass(parameters, startBackgrounds)
-            % Creates a background object. The arguments should be two
-            % a cell arrays of parameters and the background
+        function  obj = backgroundsClass(parameters, startBackground)
+            % Creates a background object. The arguments should be 
+            % an instance of the parameter class with the background parameters
+            % and a cell array of  backgrounds
             %
-            % background = backgroundClass({'Backs par 1', 1e-7, 1e-6, 1e-5, false, 'uniform', 0, Inf},... 
-            %                                {'Background 1', 'constant', 'Backs Par 1','','','',''});
-            obj.backPars = parametersClass(parameters);
+            % params = parametersClass({'Backs par 1', 1e-7, 1e-6, 1e-5, false, 'uniform', 0, Inf});
+            % background = backgroundClass(params, {'Background 1', 'constant', 'Backs Par 1'});
+            obj.backPars = parameters;
             
             % Make a multiType table to define the actual backgrounds
-            obj.backgrounds = multiTypeTable(startBackgrounds);
+            obj.backgrounds = multiTypeTable();
             obj.backgrounds.allowedTypes = obj.allowedTypes;
             obj.backgrounds.typesAutoNameString = 'New background';
+            obj.addBackground(startBackground{:});
         end
 
         function flag = get.showPriors(obj)
@@ -64,72 +66,7 @@ classdef backgroundsClass < handle
             backsTable = obj.backgrounds.typesTable;
             names = backsTable{:,1};      
         end
-        
-        function names = getBacksParNames(obj)
-            % Returns a N x 1 cell array of parameter names in  
-            % the backgrounds object.
-            % 
-            % names = background.getBacksParNames();
-            backsParTable = obj.backPars.paramsTable;
-            names = backsParTable{:,1};       
-        end
-        
-        % --- backParams table edit methods -----------------------
-        function obj = addBacksPar(obj,varargin)
-            % Adds a new background parameter. A parameter consists 
-            % of a name, min, value, max, fit flag, prior type', mu,
-            % and sigma
-            %
-            % background.addBacksPar('Backs par 1', 1e-7, 1e-6, 1e-5, false, 'uniform', 0, Inf);
-            obj.backPars.addParam(varargin);
-             
-        end
-        
-        function obj = setBacksParValue(obj,varargin)
-            % Sets the value of existing background            
-            % parameter. Expects index or name of parameter 
-            % and new value to set
-            %
-            % background.setBacksParValue(1, 5.5e-6);
-            obj.backPars.setValue(varargin);
-        end
-        
-        function obj = setBacksParConstr(obj,varargin)
-            % Sets the constraint of existing background            
-            % parameter value. Expects index or name of parameter 
-            % and new minimum and maximum value to set
-            %
-            % background.setBacksParValue(1, 2, 3);
-            obj.backPars.setConstr(varargin);
-        end
-        
-        function obj = setBacksParName(obj,varargin) 
-            % Sets the name of existing background            
-            % parameter. Expects index or name of parameter 
-            % and new name to set
-            %
-            % background.setBacksParName(1, 'new_name');
-           obj.backPars.setName(varargin);
-        end
-        
-        function obj = removeBacksPar(obj,varargin)
-            % Removes a given background parameter.
-            % Expects index or name of parameter(s) to remove
-            % 
-            % background.removeBacksPar(2);
-            obj.backPars.removeParam(varargin{:});
-        end
-        
-        function obj = setBacksPar(obj, varargin)
-            % Sets the value of an existing background parameter. Expects
-            % index or name of parameter and keyword/value pairs to set
-            %
-            % background.setBacksPar(1, 'name', 'BackPar');
-           obj.backPars.setParameter(varargin);  
-        end
-        
-        % ---------------------------------------------------------
-         
+                 
         function obj = addBackground(obj,varargin)
             % Adds a new entry to the background table.  
             %
@@ -178,6 +115,12 @@ classdef backgroundsClass < handle
                           thisParam = obj.validateParam(in(i));
                           thisRow{i} = thisParam;
                        end
+                   case 'data'
+                       % Background is assumed to be given by a 4th column 
+                       % of a datafile. We don't have access to the
+                       % datafiles at this point so this (i.e. that data is
+                       % [n x 4] ) will be checked downstream
+                       thisRow = {in(1), in(2), '', '', '', '', ''};
                 end
             end
             obj.backgrounds.addRow(thisRow);   
@@ -192,33 +135,49 @@ classdef backgroundsClass < handle
             obj.backgrounds.removeRow({row});
         end
         
-        function obj = setBackgroundValue(obj, row, col, value)
-            % Changes the value of a given background in the table. Expects the row
-            % and column of the parameter as name or index and the new value. 
+        function obj = setBackground(obj, row, varargin)
+            % Changes the value of a given background in the table. Expects the 
+            % index or name of background and keyword/value pairs to set. 
             %
-            % background.setBackgroundValue(1, 1, "back 1"); 
-            if isnumeric(col)
-                if col == 2
-                    col = 'type';
-                elseif col == 1
-                    col = 'name';
-                elseif col == 3
-                    col = 'Value 1';
+            % background.setBackground(1, 'name', 'back 1', 'type', 'constant', 'value1', 'param_name');
+            if ischar(row)
+                row = obj.backgrounds.findRowIndex(row, obj.getBackgroundNames());
+            elseif isnumeric(row)
+                count = obj.backgrounds.typesCount;
+                if (row < 1) || (row > count)
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, count)));
                 end
-            end
-                    
-            if strcmpi(col,'name') || strcmpi(col,'Value 1') 
-                inputPar = value;
-            elseif strcmpi(col,'type') 
-                if ~strcmpi(value, obj.allowedTypes)
-                   throw(invalidOption(sprintf(obj.invalidTypeMessage, value)));
-                end
-                inputPar = value;
             else
-                inputPar = obj.validateParam(value);
+                throw(invalidType('Unrecognised row'));
             end
             
-            obj.backgrounds.setValue({row, col, inputPar});
+            p = inputParser;
+            addParameter(p, 'name', obj.backgrounds.typesTable{row, 1}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'type', obj.backgrounds.typesTable{row, 2}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'value1', obj.backgrounds.typesTable{row, 3}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'value2', obj.backgrounds.typesTable{row, 4}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'value3', obj.backgrounds.typesTable{row, 5}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'value4', obj.backgrounds.typesTable{row, 6}, @(x) isstring(x) || ischar(x));
+
+            parse(p, varargin{:});
+            inputBlock = p.Results;
+
+            obj.backgrounds.setValue({row, 1, inputBlock.name});
+            
+            if ~strcmpi(inputBlock.type, obj.allowedTypes)
+               throw(invalidOption(sprintf(obj.invalidTypeMessage, inputBlock.type)));
+            end
+            obj.backgrounds.setValue({row, 2, inputBlock.type});      
+            
+            values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
+            for i = 1:4
+                value = convertStringsToChars(values{i});
+                % for fuction type, value 1 is the function name so not validation is done 
+                if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,'function'))
+                    value = obj.validateParam(value);
+                end
+                obj.backgrounds.setValue({row, i + 2, value});
+            end
         end
          
         function obj = setBackgroundName(obj, index, name)
@@ -273,7 +232,7 @@ classdef backgroundsClass < handle
             if iscell(par)
                 par = par{:};
             end
-            parList = obj.getBacksParNames();
+            parList = obj.backPars.getParamNames();
             if isnumeric(par)
                 if (par < 1) || (par > length(parList))
                     throw(indexOutOfRange(sprintf('Background Parameter %d is out of range', par)));

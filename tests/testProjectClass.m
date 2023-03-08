@@ -405,7 +405,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.background.backgrounds.typesTable, [1, 7], 'background has wrong dimension');
             testCase.verifyEqual(testCase.project.background.backgrounds.typesTable{:, 1}, "Background D2O", 'addBackground method not working');
             % Checks that background value can be modified
-            testCase.project.setBackgroundValue(1, 'name', 'Background ACMW');
+            testCase.project.setBackground(1, 'name', 'Background ACMW');
             testCase.verifyEqual(testCase.project.background.backgrounds.typesTable{1, 1}, "Background ACMW", 'setBackgroundValue method not working');
             % Checks that background name can be modified
             testCase.project.setBackgroundName(1, 'Background H2O');

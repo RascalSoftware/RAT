@@ -89,9 +89,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
     methods (Test, ParameterCombination="sequential")
 
         function testInitialiseMultiTypeTable(testCase)
-            % A multi-type table can be initialised using a cell array of
-            % any length, with the values in the cell array filling
-            % the table variables in order.
+            % Tests Multi-Type Table object can be created
             testTable = multiTypeTable();
 
             testCase.verifySize(testTable.typesTable, [0 7], "multiTypeTable does not initialise correctly");

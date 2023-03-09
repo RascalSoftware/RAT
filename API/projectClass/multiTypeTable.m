@@ -21,7 +21,7 @@ classdef multiTypeTable < handle
     methods
        
         function obj = multiTypeTable()
-            % Initialises a multi-type table with a single row.
+            % Initialises a multi-type table.
             %
             % multiTable = multiTypeTable();
             sz = [0 7];

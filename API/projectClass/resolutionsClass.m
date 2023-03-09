@@ -115,8 +115,8 @@ classdef resolutionsClass < handle
                        
                    case 'data'
                        % Resolution is assumed to be given by a 4th column 
-                       % of a datafile. We don't have access to the
-                       % datafiles at this point so this (i.e. that data is
+                       % of a data file. We don't have access to the
+                       % data files at this point so this (i.e. that data is
                        % [n x 4] ) will be checked downstream
                        thisRow = {in(1), in(2), '', '', '', '', ''};
                 end
@@ -170,7 +170,7 @@ classdef resolutionsClass < handle
             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
             for i = 1:4
                 value = convertStringsToChars(values{i});
-                % for fuction type, value 1 is the function name so not validation is done 
+                % for function type, value 1 is the function name so no validation is done 
                 if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,'function'))
                     value = obj.validateParam(value);
                 end

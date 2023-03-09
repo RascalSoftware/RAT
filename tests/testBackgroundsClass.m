@@ -32,12 +32,15 @@
 
    methods (Test)
       function testCreation(testCase)
-         % Tests background class can be created and the start parameters is set correctly  
+         % Tests background class can be created and the start parameters is set correctly
          params = parametersClass(testCase.parameters(1, :));
+         params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
+         
          background = backgroundsClass(params, testCase.backgrounds(1, :));
+         
          testCase.verifyEqual(string(background.backPars.paramsTable{1, :}), ...
                               string(testCase.parameters(1, :)), 'Start background parameter not set correctly');
-         testCase.verifySize(background.backPars.paramsTable, [1, 8], 'background Parameters has wrong dimension');
+         testCase.verifySize(background.backPars.paramsTable, [3, 8], 'background Parameters has wrong dimension');
          
          testCase.verifyEqual(string(background.backgrounds.typesTable{1, :}), ...
                               string(testCase.backgrounds(1, :)), 'Start background parameter not set correctly');
@@ -47,6 +50,7 @@
       function testShowPrior(testCase)
          % Tests showPrior property
          testCase.verifyFalse(testCase.background.showPriors);
+         testCase.verifyFalse(testCase.background.backPars.showPriors);
          testCase.background.showPriors = true;
          testCase.verifyTrue(testCase.background.showPriors);
          testCase.verifyTrue(testCase.background.backPars.showPriors);

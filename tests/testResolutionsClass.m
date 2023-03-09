@@ -49,6 +49,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
         function testShowPrior(testCase)
             % Tests showPrior property
             testCase.verifyFalse(testCase.resolution.showPriors);
+            testCase.verifyFalse(testCase.resolution.resolPars.showPriors);
             testCase.resolution.showPriors = true;
             testCase.verifyTrue(testCase.resolution.showPriors);
             testCase.verifyTrue(testCase.resolution.resolPars.showPriors);

@@ -162,12 +162,12 @@ classdef backgroundsClass < handle
             parse(p, varargin{:});
             inputBlock = p.Results;
 
-            obj.backgrounds.setValue({row, 1, inputBlock.name});
+            obj.backgrounds.setValue(row, 1, inputBlock.name);
             
             if ~strcmpi(inputBlock.type, obj.allowedTypes)
                throw(invalidOption(sprintf(obj.invalidTypeMessage, inputBlock.type)));
             end
-            obj.backgrounds.setValue({row, 2, inputBlock.type});      
+            obj.backgrounds.setValue(row, 2, inputBlock.type);
             
             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
             for i = 1:4
@@ -176,7 +176,7 @@ classdef backgroundsClass < handle
                 if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,'function'))
                     value = obj.validateParam(value);
                 end
-                obj.backgrounds.setValue({row, i + 2, value});
+                obj.backgrounds.setValue(row, i + 2, value);
             end
         end
          
@@ -188,7 +188,7 @@ classdef backgroundsClass < handle
             if ~ischar(name)
                 throw(invalidType(sprintf('%s must be a character array', name)));
             end
-            obj.backgrounds.setValue({index, 'name', name});
+            obj.backgrounds.setValue(index, 'name', name);
         end
 
         function displayBackgroundsObject(obj)

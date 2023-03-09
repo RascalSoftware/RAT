@@ -73,19 +73,17 @@ classdef multiTypeTable < handle
 
         end
         
-        function obj = setValue(obj,varargin)
+        function obj = setValue(obj, rowPar, colPar, value)
             % Change the value of a given parameter in the table. The row
             % and column of the parameter can both be specified by either
             % name or index. The expected input is three values: row,
-            % column, newValue
+            % column, value
             %
             % multiTable.setValue(1, 1, "origin");
-            in = varargin{:};
             tab = obj.typesTable;
             
             % First parameter needs to be either a row name or number
             rowNames = obj.typesTable{:,1};
-            rowPar = in{1};
             
             if ischar(rowPar)
                 row = obj.findRowIndex(rowPar, rowNames);
@@ -102,7 +100,6 @@ classdef multiTypeTable < handle
             
             % Second parameter needs to be either a column name or
             % number.
-            colPar = in{2};
             colNames = obj.typesTable.Properties.VariableNames;
 
             if ischar(colPar)
@@ -118,7 +115,7 @@ classdef multiTypeTable < handle
             end
             
             % Set the value
-            tab(row,col) = in(3);
+            tab(row, col) = {value};
             obj.typesTable = tab;
 
         end

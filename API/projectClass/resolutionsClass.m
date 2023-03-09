@@ -160,12 +160,12 @@ classdef resolutionsClass < handle
             parse(p, varargin{:});
             inputBlock = p.Results;
 
-            obj.resolutions.setValue({row, 1, inputBlock.name});
+            obj.resolutions.setValue(row, 1, inputBlock.name);
             
             if ~strcmpi(inputBlock.type, obj.allowedTypes)
                throw(invalidOption(sprintf(obj.invalidTypeMessage, inputBlock.type)));
             end
-            obj.resolutions.setValue({row, 2, inputBlock.type});      
+            obj.resolutions.setValue(row, 2, inputBlock.type);      
             
             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
             for i = 1:4
@@ -174,7 +174,7 @@ classdef resolutionsClass < handle
                 if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,'function'))
                     value = obj.validateParam(value);
                 end
-                obj.resolutions.setValue({row, i + 2, value});
+                obj.resolutions.setValue(row, i + 2, value);
             end
         end
         

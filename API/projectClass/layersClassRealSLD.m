@@ -59,7 +59,7 @@ classdef layersClassRealSLD < handle
                 
             elseif length(layerDetails) == 1 && ischar(layerDetails{1})
                 % Add an empty named layer
-                newRow = {varargin{1},'','','','','bulk out'};
+                newRow = {layerDetails{1},'','','','','bulk out'};
                 appendNewRow(obj,newRow);
             
             else

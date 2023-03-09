@@ -199,7 +199,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         function testRemoveRow(testCase)
             % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleTable.typesTable(2:end,:);
-            testCase.exampleTable.removeRow({1});
+            testCase.exampleTable.removeRow(1);
 
             testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, "removeRow does not work correctly");
         end
@@ -208,7 +208,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Test removing multiple rows from a multi-type table
             % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleTable.typesTable(2,:);
-            testCase.exampleTable.removeRow({[1 3]});
+            testCase.exampleTable.removeRow([1 3]);
 
             testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, "removeRow does not work correctly");
         end
@@ -217,9 +217,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Test using invalid row indices to remove rows from a
             % multi-type table.
             % Note that the routine requires a single cell array as input.
-            testCase.verifyError(@() testCase.exampleTable.removeRow({0}), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleTable.removeRow({1.5}), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleTable.removeRow({testCase.numRows+1}), 'MATLAB:table:RowIndexOutOfRange');
+            testCase.verifyError(@() testCase.exampleTable.removeRow(0), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.removeRow(1.5), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.removeRow(testCase.numRows+1), 'MATLAB:table:RowIndexOutOfRange');
 
             testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite no rows being removed");
         end

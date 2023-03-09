@@ -132,7 +132,7 @@ classdef backgroundsClass < handle
             %
             % background.removeBackground(2);
             % background.removeBackground([1, 3]);
-            obj.backgrounds.removeRow({row});
+            obj.backgrounds.removeRow(row);
         end
         
         function obj = setBackground(obj, row, varargin)

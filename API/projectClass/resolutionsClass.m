@@ -129,8 +129,8 @@ classdef resolutionsClass < handle
             % index or array of indices of resolution(s) to remove.
             %
             % resolution.removeResolution(2);
-            %  resolution.removeResolution([1, 3]);
-            obj.resolutions.removeRow({row});
+            % resolution.removeResolution([1, 3]);
+            obj.resolutions.removeRow(row);
         end
         
         function setResolution(obj, row, varargin)

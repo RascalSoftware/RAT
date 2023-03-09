@@ -122,14 +122,13 @@ classdef multiTypeTable < handle
 
         function removeRow(obj,row)
             % Removes a row from the multi-type table. The expected
-            % input is a length one cell array.
-            % NOTE that an input such as {[1 3]} leads to multiple rows
+            % input is an integer or integer array.
+            % NOTE that an input such as [1 3] leads to multiple rows
             % being removed from the table
             %
-            % multiTable.removeRow({2});
+            % multiTable.removeRow(2);
             tab = obj.typesTable;
-            thisRow = row{:};
-            tab(thisRow,:) = [];
+            tab(row, :) = [];
             obj.typesTable = tab;
         end
         

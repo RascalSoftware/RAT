@@ -27,23 +27,24 @@ classdef resolutionsClass < handle
     end
     
     properties (Access = private)
-       allowedTypes = {'constant', 'data', 'function', 'gaussian'}
+       allowedTypes = {'constant', 'data', 'function'}
     end
     
     methods
         function  obj = resolutionsClass(parameters, startResolution) 
             % Creates a Resolutions object. The arguments should be 
-            % a cell array with the content of the first parameter and a
+            % an instance of the parameter class with the resolution parameters and a
             % cell array with the first resolution entry
             %
-            % resolution = resolutionsClass({'Tails', 10, 20, 30, true, 'uniform', 0, Inf},... 
-            %                                {'Resolution 1', 'constant', 'Tails'});
-            obj.resolPars = parametersClass(parameters);
+            % params = parametersClass({'Resolution par 1', 0.01, 0.03, 0.05, false});
+            % resolution = resolutionsClass(params , {'Resolution 1', 'constant', 'Tails'});
+            obj.resolPars = parameters;
             
             % Make a multiType table to define the actual resolutions
-            obj.resolutions = multiTypeTable(startResolution);
+            obj.resolutions = multiTypeTable();
             obj.resolutions.allowedTypes = obj.allowedTypes;
             obj.resolutions.typesAutoNameString = 'New Resolution';
+            obj.addResolution(startResolution{:});
         end
         
         function flag = get.showPriors(obj)
@@ -62,69 +63,6 @@ classdef resolutionsClass < handle
             resolTable = obj.resolutions.typesTable;
             names = resolTable{:,1};   
         end
-        
-        function names = getResolParNames(obj)
-            % Returns a N x 1 cell array of parameter names in the resolutions 
-            % object. 
-            % 
-            % names = resolution.getResolParNames();
-            names = obj.resolPars.getParamNames();
-        end
-
-        % --- resolParams table edit methods -----------------------
-        function addResolPar(obj,varargin)
-            % Adds a new resolution parameter. A parameter consists 
-            % of a name, min, value, max, fit flag, prior type', mu,
-            % and sigma
-            %
-            % resolution.addResolPar('ResolPar 1', 1e-8, 2.8e-6, 1e-5, true);
-            obj.resolPars.addParam(varargin);  
-        end
-        
-        function setResolParValue(obj,varargin)
-            % Sets the value of existing resolution            
-            % parameter. Expects index or name of parameter 
-            % and new value to set
-            %
-            % resolution.setResolParValue(1, 5.5e-6);
-            obj.resolPars.setValue(varargin);
-        end
-        
-        function setResolParConstr(obj,varargin)
-            % Sets the constraint of existing resolution            
-            % parameter value. Expects index or name of parameter 
-            % and new minimum and maximum value to set
-            %
-            % resolution.setResolParValue(1, 2, 3);
-            obj.resolPars.setConstr(varargin);
-        end
-        
-        function setResolParName(obj,varargin)
-            % Sets the name of existing resolution            
-            % parameter. Expects index or name of parameter 
-            % and new name to set
-            %
-            % resolution.setResolParName(1, 'new_name');
-            obj.resolPars.setName(varargin);
-        end
-        
-        function removeResolPar(obj, varargin)
-            % Removes a given resolution parameter.
-            % Expects index or name of parameter(s) to remove
-            % 
-            % resolution.removeResolPar(2);
-            obj.resolPars.removeParam(varargin{:});
-        end
-        
-        function setResolPar(obj, varargin)
-            % Sets the value of an existing resolution parameter. Expects
-            % index or name of parameter and keyword/value pairs to set
-            %
-            % resolution.setResolPar(1, 'name', 'ResolPar');
-            obj.resolPars.setParameter(varargin);
-        end
-        
-        % ---------------------------------------------------------
          
         function addResolution(obj,varargin)
             % Adds a new entry to the resolution table.  
@@ -177,8 +115,8 @@ classdef resolutionsClass < handle
                        
                    case 'data'
                        % Resolution is assumed to be given by a 4th column 
-                       % of a datafile. We don't have access to the
-                       % datafiles at this point so this (i.e. that data is
+                       % of a data file. We don't have access to the
+                       % data files at this point so this (i.e. that data is
                        % [n x 4] ) will be checked downstream
                        thisRow = {in(1), in(2), '', '', '', '', ''};
                 end
@@ -195,33 +133,49 @@ classdef resolutionsClass < handle
             obj.resolutions.removeRow({row});
         end
         
-        function setResolutionValue(obj, row, col, value)
-            % Changes the value of a given resolution in the table. Expects the row
-            % and column of the parameter as name or index and the new value. 
+        function setResolution(obj, row, varargin)
+            % Changes the value of a given resolution in the table. Expects the 
+            % index or name of resolution and keyword/value pairs to set. 
             %
-            % resolution.setResolutionValue(1, 1, "res 1");       
-            if isnumeric(col)
-                if col == 1
-                    col = 'name';
-                elseif col == 2
-                    col = 'type';
-                elseif col == 3
-                    col = 'Value 1';
+            % resolution.setResolution(1, 'name', 'res 1', 'type', 'constant', 'value1', 'param_name');
+            if ischar(row)
+                row = obj.resolutions.findRowIndex(row, obj.getResolNames());
+            elseif isnumeric(row)
+                count = obj.resolutions.typesCount;
+                if (row < 1) || (row > count)
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, count)));
                 end
-            end
-                    
-            if strcmpi(col,'name') || strcmpi(col,'Value 1')
-                inputPar = value;
-            elseif strcmpi(col,'type') 
-                if ~strcmpi(value, obj.allowedTypes)
-                   throw(invalidOption(sprintf(obj.invalidTypeMessage, value)));
-                end
-                inputPar = value;
             else
-                inputPar = obj.validateParam(value);
+                throw(invalidType('Unrecognised row'));
             end
-           
-            obj.resolutions.setValue({row, col, inputPar}); 
+            
+            p = inputParser;
+            addParameter(p, 'name', obj.resolutions.typesTable{row, 1}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'type', obj.resolutions.typesTable{row, 2}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'value1', obj.resolutions.typesTable{row, 3}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'value2', obj.resolutions.typesTable{row, 4}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'value3', obj.resolutions.typesTable{row, 5}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'value4', obj.resolutions.typesTable{row, 6}, @(x) isstring(x) || ischar(x));
+
+            parse(p, varargin{:});
+            inputBlock = p.Results;
+
+            obj.resolutions.setValue({row, 1, inputBlock.name});
+            
+            if ~strcmpi(inputBlock.type, obj.allowedTypes)
+               throw(invalidOption(sprintf(obj.invalidTypeMessage, inputBlock.type)));
+            end
+            obj.resolutions.setValue({row, 2, inputBlock.type});      
+            
+            values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
+            for i = 1:4
+                value = convertStringsToChars(values{i});
+                % for function type, value 1 is the function name so no validation is done 
+                if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,'function'))
+                    value = obj.validateParam(value);
+                end
+                obj.resolutions.setValue({row, i + 2, value});
+            end
         end
         
         function resolStruct = toStruct(obj)
@@ -264,7 +218,7 @@ classdef resolutionsClass < handle
             if iscell(par)
                 par = par{:};
             end
-            parList = obj.getResolParNames(); 
+            parList = obj.resolPars.getParamNames(); 
             if isnumeric(par)
                 if (par < 1) || (par > length(parList))
                     throw(indexOutOfRange(sprintf('Resolution Parameter %d is out of range', par)));

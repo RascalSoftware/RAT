@@ -16,15 +16,6 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
     properties (TestParameter)
         % Cell arrays for initialising a multi type table
-        inputCell = {{},...
-                     {'Row 0'},...
-                     {'Row 0', 'constant'},...
-                     [{'Row 0', 'constant'}, repmat({''}, 1, 1)],...
-                     [{'Row 0', 'constant'}, repmat({''}, 1, 2)],...
-                     [{'Row 0', 'constant'}, repmat({''}, 1, 3)],...
-                     [{'Row 0', 'constant'}, repmat({''}, 1, 4)],...
-                     [{'Row 0', 'constant'}, repmat({''}, 1, 5)],...
-                     [{'Row 0', 'constant'}, repmat({''}, 1, 6)]}
 
         rowInput = {{},...
                     {'Added background'},...
@@ -36,7 +27,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
                     {'Full background', 'data', 'Back Par 1', 'Back Par 2', 'Back Par 3', 'Back Par 4', 'Back Par 5'},...
                     {'Overfilled background', 'constant', 'Back Par 1', 'Back Par 2', 'Back Par 3', 'Back Par 4', 'Back Par 5', 'Back Par 6'}} % Inputs for "addRow"
 
-        addedRow = {{'New background 1','constant','','','','',''},...
+        addedRow = {{'New background 0','constant','','','','',''},...
                     {'Added background','constant','','','','',''},...
                     {'Name and Type','data','','','','',''},...
                     {'Three params','function','Back Par 1','','','',''},...
@@ -50,7 +41,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
     properties
         exampleTable            % Example Multi-Type Table for testing
         initialTypesTable
-        initialAllowedTypes = {'constant'  'data'  'function', 'gaussian'}
+        initialAllowedTypes = {'constant'  'data'  'function'}
         initialAllowedActions = {'add'  'subtract'}
         initialTypesAutoNameString = 'Row'
         numRows                 % Number of rows in exampleTable
@@ -63,12 +54,11 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
         function initialiseTypesTable(testCase)
             % Set up a types table with a single row of empty strings
-            sz = [1 7];
+            sz = [0 7];
             tableTypes = {'string','string','string','string','string','string','string'};
             tableNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
 
             testCase.initialTypesTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
-            testCase.initialTypesTable(1,:) = {'Row 0','constant','','','','',''};
         end
 
     end
@@ -79,8 +69,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Set up an example multi-type table for testing
             % This example is used in the backgrounds class for the
             % example calculation "DPPCStandardLayers.m"
-            testCase.exampleTable = multiTypeTable({'Background D2O', 'constant', 'Backs par 1','','','',''});
-            
+            testCase.exampleTable = multiTypeTable();
+            testCase.exampleTable.typesTable(1,:) = {'Background D2O', 'constant', 'Backs par 1','','','',''};
             testCase.exampleTable.typesTable(2,:) = {'Background SMW','constant','Backs par SMW','','','',''};
             testCase.exampleTable.typesTable(3,:) = {'Background H2O','constant','Backs par H2O','','','',''};
 
@@ -98,13 +88,11 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
     methods (Test, ParameterCombination="sequential")
 
-        function testInitialiseMultiTypeTable(testCase, inputCell)
-            % A multi-type table can be initialised using a cell array of
-            % any length, with the values in the cell array filling
-            % the table variables in order.
-            testTable = multiTypeTable(inputCell);
+        function testInitialiseMultiTypeTable(testCase)
+            % Tests Multi-Type Table object can be created
+            testTable = multiTypeTable();
 
-            testCase.verifySize(testTable.typesTable, [1 7], "multiTypeTable does not initialise correctly");
+            testCase.verifySize(testTable.typesTable, [0 7], "multiTypeTable does not initialise correctly");
 
             testCase.verifyEqual(testTable.typesTable, testCase.initialTypesTable, "multiTypeTable does not initialise correctly");
             testCase.verifyEqual(testTable.allowedTypes, testCase.initialAllowedTypes, "multiTypeTable does not initialise correctly");

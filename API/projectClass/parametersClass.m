@@ -48,7 +48,7 @@ classdef parametersClass < handle
             names = obj.paramsTable{:,1}; 
         end
         
-        function obj = addParam(obj,varargin)
+        function obj = addParam(obj, varargin)
             % Adds an new parameter to the parameters table. Default 
             % values are used when adding the parameter if no arguments are 
             % provided, otherwise a subset of the arguments can be provided.
@@ -133,70 +133,74 @@ classdef parametersClass < handle
             end
         end
         
-        function obj = removeParam(obj,varargin)
+        function obj = removeParam(obj, rowInput)
             % Removes a parameter from the parameters table. 
-            % Expects index or name of parameter to remove
+            % Expects a cell array of indices or parameter names to remove
             %
-            % params.removeParam(2); 
-            if isempty(varargin)
+            % params.removeParam({2});
+            if isempty(rowInput)
                 throw(invalidNumberOfInputs('Need to specify a parameter'));
             end
-            
-            rowInput = varargin;
-            if isa(varargin{1}, 'double')
+
+            if isa(rowInput{1}, 'double')
                 rowInput = cell2mat(rowInput);
                 rowInput = num2cell(sort(rowInput, 'descend'));
             end
 
-            for i = 1:length(varargin)
+            for i = 1:length(rowInput)
                 obj.removeRow(rowInput{i});
             end
         end
         
-        function obj = setParameter(obj,varargin)
-            % General purpose set parameter method. Expects a cell array with
-            % index or name of parameter and keyword/value pairs to set
+        function obj = setParameter(obj, param, varargin)
+            % General purpose set parameter method. Expects index or name
+            % of parameter and keyword/value pairs to set
             %
-            % params.setParameter({2, 'value', 50});
-            inputValues = varargin{:};
-            row = obj.getValidRow(inputValues(1));
-            inputBlock = obj.parseParameterInput(inputValues(2:end));
+            % params.setParameter(2, 'value', 50);
+
+            % Always need three or more inputs to set parameter value
+            if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
+                throw(invalidNumberOfInputs('The input to ''setParameter'' should be a index/parameter name and a set of name-value pairs'));
+            end
+
+            row = obj.getValidRow(param);
+            inputBlock = obj.parseParameterInput(varargin{:});
             
             if ~isempty(inputBlock.name)
-                obj.setName({row,inputBlock.name});
+                obj.setName(row, inputBlock.name);
             end
             
             if ~isempty(inputBlock.min)
-                max = obj.paramsTable{row,4};
-                obj.setConstr({row,inputBlock.min,max});
+                max = obj.paramsTable{row, 4};
+                obj.setConstr(row, inputBlock.min, max);
             end
             
             if ~isempty(inputBlock.max)
-                min = obj.paramsTable{row,2};
-                obj.setConstr({row,min,inputBlock.max});
+                min = obj.paramsTable{row, 2};
+                obj.setConstr(row, min, inputBlock.max);
             end
             
             if ~isempty(inputBlock.value)
-                obj.setValue({row,inputBlock.value});
+                obj.setValue(row, inputBlock.value);
             end
             
             if ~isempty(inputBlock.fit)
-                obj.setFit(row,inputBlock.fit);
+                obj.setFit(row, inputBlock.fit);
             end
 
         end
         
-        function obj = setPrior(obj,varargin)
-            % Sets the prior of an existing parameter. Expects a cell array with
-            % index or name of parameter and the new prior type ('uniform',
+        function obj = setPrior(obj, param, varargin)
+            % Sets the prior of an existing parameter. Expects index or
+            % name of parameter and the new prior type ('uniform',
             % 'gaussian', 'jeffreys') with mu and sigma value if applicable
             %
             % params.setPrior(2, 'gaussian', 1, 2);
-            inputValues = varargin{:};
+            inputValues = varargin;
             tab = obj.paramsTable;
             
-            row = obj.getValidRow(inputValues(1));
-            priorType = inputValues{2};
+            row = obj.getValidRow(param);
+            priorType = inputValues{1};
             if ~strcmpi(priorType,{'uniform','gaussian','jeffreys'})
                 throw(invalidOption(obj.invalidPriorsMessage));
             end
@@ -210,101 +214,80 @@ classdef parametersClass < handle
                     
                 case 'gaussian'
                     tab(row,6) = {'gaussian'};             
-                    tab(row,7) = inputValues(3);
-                    tab(row,8) = inputValues(4);
+                    tab(row,7) = inputValues(2);
+                    tab(row,8) = inputValues(3);
             end
     
             obj.paramsTable = tab;
             
         end
         
-        function obj = setValue(obj,varargin)
-            % Sets the value of an existing parameter. Expects a cell array with
-            % index or name of parameter and the new value
+        function obj = setValue(obj, rowInput, value)
+            % Sets the value of an existing parameter. Expects index or
+            % name of parameter and the new value
             %
-            % params.setValue({2, 3.4});
-            inputValues = varargin{:};
-            tab = obj.paramsTable;
-            if length(inputValues) ~= 2
-                throw(invalidNumberOfInputs('Need p (or name) / value pair to set'));
-            end
-            
-            row = obj.getValidRow(inputValues(1));
-            if ~isnumeric(inputValues{2})
+            % params.setValue(2, 3.4);
+            tab = obj.paramsTable;           
+            row = obj.getValidRow(rowInput);
+
+            if ~isnumeric(value)
                 throw(invalidType('Value must be numeric'));
             end
-            value = inputValues{2};
+
             tab(row,3) = {value};
             obj.paramsTable = tab;
         end
         
-        function obj = setName(obj,varargin)
-            % Sets the name of an existing parameter. Expects a cell array with
-            % index or name of parameter and the new name
+        function obj = setName(obj, rowInput, name)
+            % Sets the name of an existing parameter.
+            % Expects index or name of parameter and the new name
             %
-            % params.setName({2, 'new name'});
-            tab = obj.paramsTable;
-            inputValues = varargin{:};
-            if length(inputValues) ~= 2
-                throw(invalidNumberOfInputs('Wrong number of values for setName'));
-            end
-            
-            row = obj.getValidRow(inputValues(1));
-            if ~ischar(inputValues{2})
+            % params.setName(2, 'new name');
+            tab = obj.paramsTable;           
+            row = obj.getValidRow(rowInput);
+
+            if ~ischar(name)
                 throw(invalidType('New name must be char'));
             end
-            name = inputValues{2};
-            tab(row,1) = {name};
+
+            tab(row, 1) = {name};
             obj.paramsTable = tab;
         end
         
-        function obj = setConstr(obj, varargin)
+        function obj = setConstr(obj, rowInput, min, max)
             % Sets the constraints of an existing parameter. Expects a cell array with 
             % index or name of parameter and new min and max of the parameter's value
             %
             % params.setConstr({2, 0, 100});
             tab = obj.paramsTable;
-            inputValues = varargin{:};
-            if length(inputValues) ~= 3
-                throw(invalidNumberOfInputs('Need p (or name) / min / max set'));
-            end
-            
-            min = inputValues{2};
-            max = inputValues{3};
+            row = obj.getValidRow(rowInput);
+
             if ~(isnumeric(min) && isnumeric(max))
                 throw(invalidType('min and max need to be numeric'));
             end
             
-            row = obj.getValidRow(inputValues(1));            
-            tab(row,2) = {min};
-            tab(row,4) = {max};
+            tab(row, 2) = {min};
+            tab(row, 4) = {max};
             obj.paramsTable = tab;
         end
                 
-        function obj = setFit(obj, varargin)
-            % Sets the 'fit' to off or on for parameter. Expects a cell array with 
-            % index or name of parameter and new fit flag
+        function obj = setFit(obj, rowInput, fitFlag)
+            % Sets the 'fit' to off or on for parameter.
+            % Expects index or name of parameter and new fit flag
             %
-            % params.setFit({2, true});
-            if iscell(varargin) && length(varargin) == 1
-                varargin = varargin{:};
-            end
-            
+            % params.setFit(2, true);           
             tab = obj.paramsTable;
-            if length(varargin) ~= 2
-                throw(invalidNumberOfInputs('Need p (or name) / val pair set'));
-            end
-            
-            if ~islogical(varargin{2})
+            row = obj.getValidRow(rowInput);
+
+            if ~islogical(fitFlag)
                 throw(invalidType('Need true or false for Fit? value'));
             end
-            
-            row = obj.getValidRow(varargin(1));           
-            tab(row,5) = varargin(2);
+           
+            tab(row, 5) = {fitFlag};
             obj.paramsTable = tab;
         end
         
-        function set.showPriors(obj,flag)
+        function set.showPriors(obj, flag)
             % Setter for the showPriors property
             if ~islogical(flag)
                 throw(invalidType('Show priors must be true or false'));
@@ -430,12 +413,12 @@ classdef parametersClass < handle
         function index = getValidRow(obj, row)
             % Gets valid row with given name or index  
             %
-            % obj.getValidRow('param name'})
-            if ischar(row{1})
-                name = string(row{1});
+            % obj.getValidRow('param name')
+            if ischar(row)
+                name = string(row);
                 index = obj.findRowIndex(name, obj.paramsTable);
             else
-                index = row{1};
+                index = row;
                 if (index < 1) || (index > obj.paramCount)
                     throw(indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.paramCount)));
                 end     
@@ -466,10 +449,9 @@ classdef parametersClass < handle
         
         
         function inputBlock = parseParameterInput(varargin)
-            % Parses parameter keyword/value pairs in a cell array 
-            % into a structure.
+            % Parses parameter keyword/value pairs into a structure.
             %
-            % obj.parseParameterInput({'name', 'param'})
+            % obj.parseParameterInput('name', 'param')
             defaultName = '';
             defaultMin = [];
             defaultMax = [];   
@@ -482,10 +464,8 @@ classdef parametersClass < handle
             addParameter(p,'value', defaultValue,  @isnumeric);
             addParameter(p,'max',   defaultMax,    @isnumeric);
             addParameter(p,'fit',   defaultFit,    @islogical);
-            
-            inputVals = varargin{:};
-            
-            parse(p,inputVals{:});
+                       
+            parse(p, varargin{:});
             inputBlock = p.Results;
         end
         

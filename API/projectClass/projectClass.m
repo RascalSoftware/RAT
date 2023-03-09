@@ -236,15 +236,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Remove the param
             for i = 1:numberOfParams
-                thisParam = varargin;%{i};
+                thisParam = varargin;
                 
                 % Make sure we don't remove substrate roughness
                 if (isequal(thisParam{1},1)) || (strcmpi(thisParam{1},'Substrate Roughness'))
                     throw(invalidOption('Can''t remove protected parameter Substrate Roughness'));
-                end
-                
-                if iscell(thisParam)
-                    thisParam = thisParam{:};
                 end
                 
                 % No need to check validity of the parameter
@@ -272,61 +268,60 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
         end
         
-        function obj = setParameter(obj,varargin)
+        function obj = setParameter(obj, param, varargin)
             % General purpose set parameter method. Expects
             % index or name of parameter and keyword/value pairs to set
             %
             % problem.setParameter(2, 'value', 50);
-            obj.parameters.setParameter(varargin);
+            obj.parameters.setParameter(param, varargin{:});
         end
         
         
-        function obj = setParamValue(obj,varargin)
+        function obj = setParamValue(obj, rowInput, value)
             % Sets the value of a given parameter. Expects
             % index or name of parameter and new value to set
             %
             % problem.setParamValue(2, 50);
-            obj.parameters.setValue(varargin);
+            obj.parameters.setValue(rowInput, value);
         end
         
-        function obj = setParamConstr(obj,varargin)
+        function obj = setParamConstr(obj, rowInput, min, max)
             % Sets the constraints of an existing parameter.
             % Expects index or name of parameter and new min 
             % and max of the parameter's value
             %
             % problem.setParamConstr(2, 0, 100);
-            obj.parameters.setConstr(varargin);
+            obj.parameters.setConstr(rowInput, min, max);
         end
         
-        function obj = setParamName(obj,varargin)
+        function obj = setParamName(obj, rowInput, name)
             % Sets the name of an existing parameter
             % Expects index or name of parameter and the
             % new name
             %
             % problem.setParamName(2, 'new name');
-            inputValue = varargin;
-            if (isequal(inputValue{1},1)) || (strcmpi(inputValue{1},'Substrate Roughness'))
+            if (isequal(rowInput, 1)) || (strcmpi(rowInput, 'Substrate Roughness'))
                 throw(invalidOption('Can''t rename protected parameter Substrate Roughness'));
             end
-            obj.parameters.setName(varargin); %= updatedParams;
+            obj.parameters.setName(rowInput, name);
         end
         
-        function obj = setParamFit(obj,varargin)
+        function obj = setParamFit(obj, rowInput, fitFlag)
             % Sets the 'fit' to off or on for parameter.
             % Expects index or name of parameter and 
             % new fit flag
             %
             % problem.setParamFit(2, true);
-            obj.parameters.setFit(varargin);
+            obj.parameters.setFit(rowInput, fitFlag);
         end
         
-        function obj = setParamPrior(obj,varargin)
+        function obj = setParamPrior(obj, param, varargin)
             % Sets the prior type of the parameter.
             % Expects index or name of parameter and 
             % new prior type('uniform','gaussian','jeffreys')
             %
             % problem.setParamPrior(2, 'uniform');        
-            obj.parameters.setPrior(varargin);  
+            obj.parameters.setPrior(param, varargin{:});  
         end
         
         % -----------------------------------------------------
@@ -401,7 +396,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of parameter to remove
             % 
             % problem.removeBacksPar(2);
-            obj.background.backPars.removeParam(varargin{:});
+            obj.background.backPars.removeParam(varargin);
         end
         
         function obj = setBacksParValue(obj,varargin)
@@ -410,7 +405,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and new value to set
             %
             % problem.setBacksParValue(1, 5.5e-6);
-            obj.background.backPars.setValue(varargin);
+            obj.background.backPars.setValue(varargin{:});
         end
         
         function obj = setBacksParConstr(obj,varargin)
@@ -419,7 +414,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and new min and max of the parameter's value
             %
             % problem.setBacksParConstr(1, 0, 1);
-            obj.background.backPars.setConstr(varargin);
+            obj.background.backPars.setConstr(varargin{:});
         end
         
         function obj = setBacksParName(obj,varargin)
@@ -428,7 +423,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and the new name
             %
             % problem.setBacksParName(2, 'new name');
-            obj.background.backPars.setName(varargin);
+            obj.background.backPars.setName(varargin{:});
         end
         
         % (2) Backgrounds
@@ -470,7 +465,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of parameter and keyword/value pairs to set
             %
             % problem.setBacksPar(1, 'name', 'Backs Value H2O');
-            obj.background.backPars.setParameter(varargin);
+            obj.background.backPars.setParameter(varargin{:});
         end
         
         % -------------------------------------------------------------
@@ -483,7 +478,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and new value to set
             %
             % problem.setResolParValue(1, 5.5e-6);
-            obj.resolution.resolPars.setValue(varargin);
+            obj.resolution.resolPars.setValue(varargin{:});
         end
         
         function obj = addResolPar(obj, varargin)
@@ -500,7 +495,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index or name of parameter and keyword/value pairs to set
             %
             % problem.setResolPar(1, 'name', 'ResolPar');
-            obj.resolution.resolPars.setParameter(varargin);
+            obj.resolution.resolPars.setParameter(varargin{:});
         end
         
         function obj = removeResolPar(obj,varargin)
@@ -508,7 +503,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of parameter to remove
             % 
             % problem.removeResolPar(2);
-            obj.resolution.resolPars.removeParam(varargin{:});
+            obj.resolution.resolPars.removeParam(varargin);
         end
         
         % Resolutions
@@ -578,7 +573,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of bulk-out to remove
             % 
             % problem.removeBulkOut(2);
-            obj.bulkOut.removeParam(varargin{:});
+            obj.bulkOut.removeParam(varargin);
         end
         
         function obj = setBulkOut(obj,varargin)
@@ -586,7 +581,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of bulk-out to edit and key-value pairs
             %
             % problem.setBulkOut(1, 'name', 'SLD H2O', 'min', 2.07e-6);
-            obj.bulkOut.setParameter(varargin);
+            obj.bulkOut.setParameter(varargin{:});
         end
         
         
@@ -606,7 +601,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of bulk-in to remove
             % 
             % problem.removeBulkIn(2);
-            obj.bulkIn.removeParam(varargin{:});
+            obj.bulkIn.removeParam(varargin);
         end
         
         function obj = setBulkIn(obj,varargin)
@@ -614,7 +609,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of bulk-in to edit and key-value pairs
             %
             % problem.setBulkIn(1, 'name', 'Silicon', 'max', 2.07e-6);
-            obj.bulkIn.setParameter(varargin);
+            obj.bulkIn.setParameter(varargin{:});
         end
         
         % -------------------------------------------------------------------
@@ -633,7 +628,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of scale factor to remove
             % 
             % problem.removeScalefactor(2);
-           obj.scalefactors.removeParam(varargin{:}); 
+           obj.scalefactors.removeParam(varargin); 
         end
         
         function obj = setScalefactor(obj,varargin)
@@ -641,7 +636,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of scale factor to edit and key-value pairs
             %
             % problem.setScalefactor(1, 'name','Scalefactor 1', 'value', 0.23251);
-            obj.scalefactors.setParameter(varargin);
+            obj.scalefactors.setParameter(varargin{:});
         end
         
 

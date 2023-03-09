@@ -94,65 +94,60 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
             paramNames = convertCharsToStrings(testCase.parameters(:, 1));
             % Checks that parameter can be removed
-            testCase.verifyError(@() params.removeParam(), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() params.removeParam('bad name'), nameNotRecognised.errorID);
-            params.removeParam(1);
+            testCase.verifyError(@() params.removeParam({'bad name'}), nameNotRecognised.errorID);
+            params.removeParam({1});
             testCase.verifySize(params.paramsTable, [8, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:end, 1), 'removeParam method not working');
-            params.removeParam(6, 7, 8);
+            params.removeParam({6, 7, 8});
             testCase.verifySize(params.paramsTable, [5, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:6, 1), 'removeParam method not working');
-            params.removeParam('Tails Roughness');
+            params.removeParam({'Tails Roughness'});
             testCase.verifySize(params.paramsTable, [4, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames([2, 4, 5, 6], 1), 'removeParam method not working');
-            testCase.verifyError(@() params.removeParam(11), indexOutOfRange.errorID);
+            testCase.verifyError(@() params.removeParam({11}), indexOutOfRange.errorID);
         end
 
         function testSetParams(testCase)
             params = parametersClass(testCase.parameters(1, :));
             params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
             % Checks that parameter can be modified
-            testCase.verifyError(@() params.setParameter({0, 'Tails', 2}), indexOutOfRange.errorID);
-            params.setParameter({1, 'name', 'Heads'});
+            testCase.verifyError(@() params.setParameter(0, 'Tails', 2), indexOutOfRange.errorID);
+            params.setParameter(1, 'name', 'Heads');
             testCase.verifyEqual(params.paramsTable{1, 1}, "Heads", 'setParameter method not working');
-            params.setParameter({'Tails Roughness', 'name', 'Tails?', 'min', 1, 'value', 1, 'max', 1, 'fit', false});
+            params.setParameter('Tails Roughness', 'name', 'Tails?', 'min', 1, 'value', 1, 'max', 1, 'fit', false);
             testCase.verifyEqual(params.paramsTable{3, 1:5}, ["Tails?", 1, 1, 1, false], 'setParameter method not working');
             % Checks that parameter name can be modified
-            testCase.verifyError(@() params.setName({1, 'Tails', 2}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() params.setName({1, 2}), invalidType.errorID);
-            params.setName({1, 'Tails'});
+            testCase.verifyError(@() params.setName(1, 2), invalidType.errorID);
+            params.setName(1, 'Tails');
             testCase.verifyEqual(params.paramsTable{1, 1}, "Tails", 'setParameter method not working');
-            params.setName({'Tails', 'Heads'});
+            params.setName('Tails', 'Heads');
             testCase.verifyEqual(params.paramsTable{1, 1}, "Heads", 'setParameter method not working');
             % Checks that parameter value can be modified
-            testCase.verifyError(@() params.setValue({1, 'Tails', 2}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() params.setValue({1, '2'}), invalidType.errorID);
-            params.setValue({1, 15});
+            testCase.verifyError(@() params.setValue(1, '2'), invalidType.errorID);
+            params.setValue(1, 15);
             testCase.verifyEqual(params.paramsTable{1, 3}, 15, 'setParameter method not working');
-            params.setValue({'Heads', 20});
+            params.setValue('Heads', 20);
             testCase.verifyEqual(params.paramsTable{1, 3}, 20, 'setParameter method not working');
             % Checks that parameter constraints can be modified
-            testCase.verifyError(@() params.setConstr({1}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() params.setConstr({1, '3', '4'}), invalidType.errorID);
-            params.setConstr({1, 1, 45});
+            testCase.verifyError(@() params.setConstr(1, '3', '4'), invalidType.errorID);
+            params.setConstr(1, 1, 45);
             testCase.verifyEqual(params.paramsTable{1, [2, 4]}, [1, 45], 'setParameter method not working');
-            params.setConstr({'Heads', 10, 30});
+            params.setConstr('Heads', 10, 30);
             testCase.verifyEqual(params.paramsTable{1, [2, 4]}, [10, 30], 'setParameter method not working');  
             % Checks that parameter fit can be modified
-            testCase.verifyError(@() params.setFit({1}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() params.setFit({1, '2'}), invalidType.errorID);
-            params.setFit({1, false});
+            testCase.verifyError(@() params.setFit(1, '2'), invalidType.errorID);
+            params.setFit(1, false);
             testCase.verifyFalse(params.paramsTable{1, 5}, 'setParameter method not working');
-            params.setFit({'Heads', true});
+            params.setFit('Heads', true);
             testCase.verifyTrue(params.paramsTable{1, 5}, 'setParameter method not working');   
-            testCase.verifyError(@() params.setFit({'Not present', false}), nameNotRecognised.errorID)
+            testCase.verifyError(@() params.setFit('Not present', false), nameNotRecognised.errorID)
             % Checks that parameter priors can be modified
-            testCase.verifyError(@() params.setPrior({1, '2'}), invalidOption.errorID);
-            params.setPrior({1, 'gaussian', 1, 2});
+            testCase.verifyError(@() params.setPrior(1, '2'), invalidOption.errorID);
+            params.setPrior(1, 'gaussian', 1, 2);
             testCase.verifyEqual(params.paramsTable{1, 6:8}, ["gaussian", 1, 2], 'setParameter method not working');
-            params.setPrior({'Heads', 'uniform'});
+            params.setPrior('Heads', 'uniform');
             testCase.verifyEqual(params.paramsTable{1, 6:8}, ["uniform", 0, Inf], 'setParameter method not working');
-            params.setPrior({'Heads', 'jeffreys'});
+            params.setPrior('Heads', 'jeffreys');
             % testCase.verifyEqual(params.paramsTable{1, 6}, "jeffries", 'setParameter method not working');
         end
 

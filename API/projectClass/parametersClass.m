@@ -20,20 +20,33 @@ classdef parametersClass < handle
     end
     
     methods
-        function obj = parametersClass(startCell)
+        function obj = parametersClass(varargin)
             % Class constructor.
-            % Creates a Parameter object. The startCell argument should be 
-            % a cell array with the content of the first parameter. A 
-            % parameter consists of a name (string), min (double), value (double), 
-            % max (double), fit flag (logical), prior type (string), mu (double), 
-            % and sigma (double) values in that order.
+            % Creates a Parameter object. The arguments should be 
+            % the content of the first parameter. A parameter consists of
+            % a name (string), min (double), value (double), max (double),
+            % fit flag (logical), prior type (string), mu (double), and
+            % sigma (double) values in that order.
+            % Default values are used when adding the parameter if no
+            % arguments are provided, otherwise a subset of the arguments
+            % can be provided.
+            % The following are assumed from number of arguments: 
+            % for 1 input, the name only is provided
+            % for 2 inputs, the name and value are provided
+            % for 4 inputs, the name, min, value, and max are provided
+            % for 5 inputs, the name, min, value, max, and fit? are provided
+            % for 8 inputs, all parameter properties are provided
             %
-            % params = parametersClass({'Tails', 10, 20, 30, true, 'uniform', 0, Inf});
+            % params = parametersClass('Tails', 10, 20, 30, true, 'uniform', 0, Inf);
             sz = [0, 8];
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
             obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.addParam(startCell);      
+            if isempty(varargin)
+                obj.addParam();
+            else
+                obj.addParam(varargin{:});
+            end
         end
         
         function count = get.paramCount(obj)
@@ -69,7 +82,7 @@ classdef parametersClass < handle
             end
             
             if iscell(varargin) && ~isempty(varargin)
-                inputCell = varargin{:};
+                inputCell = varargin;
                 
                 % First input must be a parameter name
                 if ~ischar(inputCell{1})

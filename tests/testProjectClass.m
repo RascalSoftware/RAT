@@ -77,7 +77,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(newProject.experimentName, '', 'Experiment name not set correctly');
             newProject = projectClass('New experiment');
             testCase.verifyEqual(newProject.experimentName, 'New experiment', 'Experiment name not set correctly');
-            testCase.verifyError(@() projectClass(1), invalidType.errorID)
+            testCase.verifyError(@() projectClass(1), 'MATLAB:validators:mustBeTextScalar')
         end
 
         function testGeometry(testCase)
@@ -141,8 +141,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(string(testCase.project.parameters.paramsTable{1, :}), ...
                                     string({'Substrate Roughness', 1, 3, 5, true, 'uniform', 0, Inf}), 'Parameters default');
 
-            testCase.verifyError(@() testCase.project.addParamGroup('parameters'), invalidType.errorID)
-            testCase.project.addParamGroup(testCase.parameters);
+            testCase.project.addParamGroup(testCase.parameters{:});
             testCase.verifySize(testCase.project.parameters.paramsTable, [10, 8], 'Parameters has wrong dimension');
             for i = 1:length(testCase.parameters)
                 testCase.verifyEqual(string(testCase.project.parameters.paramsTable{i+1, :}),...
@@ -303,8 +302,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(string(testCase.project.scalefactors.paramsTable{1, :}),...
                                     string({'Scalefactor 1', 0.02, 0.23, 0.25, false, 'uniform', 0, Inf}), 'scalefactors default');
             % Checks that scale factors can be added
-            testCase.project.addScalefactor({'Scalefactor 2', 0.1, 0.19, 1.0, true});
-            testCase.project.addScalefactor({'Scalefactor 3', 0.2, 0.17, 1.1, false});
+            testCase.project.addScalefactor('Scalefactor 2', 0.1, 0.19, 1.0, true);
+            testCase.project.addScalefactor('Scalefactor 3', 0.2, 0.17, 1.1, false);
             testCase.verifySize(testCase.project.scalefactors.paramsTable, [3, 8], 'scalefactors has wrong dimension');
             testCase.verifyEqual(testCase.project.scalefactors.paramsTable{end,1}, "Scalefactor 3", 'addScalefactor method not working');
             % Checks that scale factors can be removed
@@ -323,7 +322,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(string(testCase.project.qzshifts.paramsTable{1, :}),...
                                     string({'Qz shift 1', -1e-4, 0, 1e-4, false, 'uniform', 0, Inf}), 'qzshifts default');
             % Checks that Qz shift can be added
-            testCase.project.addQzshift({'Qz shift 2', -2e-4, 0, 2e-4, false});
+            testCase.project.addQzshift('Qz shift 2', -2e-4, 0, 2e-4, false);
             testCase.verifySize(testCase.project.qzshifts.paramsTable, [2, 8], 'qzshifts has wrong dimension');
             testCase.verifyEqual(testCase.project.qzshifts.paramsTable{end, 1}, "Qz shift 2", 'addQzshift method not working');
         end

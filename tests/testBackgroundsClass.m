@@ -8,7 +8,7 @@
 
    methods(TestMethodSetup)
       function createBackground(testCase)
-         params = parametersClass(testCase.parameters(1, :));
+         params = parametersClass(testCase.parameters{1, :});
          testCase.background = backgroundsClass(params, testCase.backgrounds(1, :));
       end
    end
@@ -33,7 +33,7 @@
    methods (Test)
       function testCreation(testCase)
          % Tests background class can be created and the start parameters is set correctly
-         params = parametersClass(testCase.parameters(1, :));
+         params = parametersClass(testCase.parameters{1, :});
          params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
          
          background = backgroundsClass(params, testCase.backgrounds(1, :));

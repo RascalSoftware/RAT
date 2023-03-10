@@ -35,47 +35,43 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
        
     methods
 
-        function obj = projectClass(varargin)
+        function obj = projectClass(experimentName)
             % Creates a Project object. The only argument is the 
-            % experiment name which is a char array
+            % experiment name which is a char array, which is optional
             %
             % problem = projectClass('New experiment');
-            if isempty(varargin)
-                name = '';
-            elseif ~ischar(varargin{1})
-                throw(invalidType('Input must be char'));
-            else
-                name = varargin{1};
+            arguments
+                experimentName {mustBeTextScalar} = ''
             end
 
-            obj.experimentName = name;
+            obj.experimentName = experimentName;
             obj.geometry = 'air/substrate';
             
             % Initialise the Parameters Table
-            obj.parameters = parametersClass({'Substrate Roughness',1, 3, 5,true,'uniform',0,Inf});
+            obj.parameters = parametersClass('Substrate Roughness',1, 3, 5,true,'uniform',0,Inf);
             
             % Initialise the layers table
             obj.layers = layersClassRealSLD();
             
             % Initialise bulkIn table
-            obj.bulkIn = parametersClass({'SLD Air',0,0,0,false,'uniform',0,Inf});
+            obj.bulkIn = parametersClass('SLD Air',0,0,0,false,'uniform',0,Inf);
             
             % Initialise bulkOut table
-            obj.bulkOut = parametersClass({'SLD D2O',6.2e-6,6.35e-6,6.35e-6,false,'uniform',0,Inf});
+            obj.bulkOut = parametersClass('SLD D2O',6.2e-6,6.35e-6,6.35e-6,false,'uniform',0,Inf);
             
             % Initialise scalefactors table
-            obj.scalefactors = parametersClass({'Scalefactor 1',0.02,0.23,0.25,false,'uniform',0,Inf});
+            obj.scalefactors = parametersClass('Scalefactor 1',0.02,0.23,0.25,false,'uniform',0,Inf);
             
             % Initialise qzshifts table
-            obj.qzshifts = parametersClass({'Qz shift 1',-1e-4,0,1e-4,false,'uniform',0,Inf});
+            obj.qzshifts = parametersClass('Qz shift 1',-1e-4,0,1e-4,false,'uniform',0,Inf);
             
             % Initialise backs object
-            backPars = parametersClass({'Backs par 1',1e-7,1e-6,1e-5,false,'uniform',0,Inf});
+            backPars = parametersClass('Backs par 1',1e-7,1e-6,1e-5,false,'uniform',0,Inf);
             backgrounds = {'Background 1','constant','Backs Par 1','','','',''};
             obj.background = backgroundsClass(backPars, backgrounds);
             
             % Initialise resolution object
-            resolPars = parametersClass({'Resolution par 1',0.01,0.03,0.05,false,'uniform',0,Inf});
+            resolPars = parametersClass('Resolution par 1',0.01,0.03,0.05,false,'uniform',0,Inf);
             resolutions = {'Resolution 1','constant','Resolution par 1','','','',''};
             obj.resolution = resolutionsClass(resolPars, resolutions);
             
@@ -183,24 +179,27 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % ---------------------------------  
         % Editing Parameters Block
         
-        function obj = addParamGroup(obj,varargin)
-            % Adds a group of parameters to the parameters object. Expects a cell
-            % array of parameter cell arrays.
+        function obj = addParamGroup(obj, varargin)
+            % Adds a group of parameters to the parameters object.
+            % Expects a series of parameter cell arrays.
             %
-            % problem.addParamGroup({{'Tails Thickness'}; {'Heads Thickness'}});
-            
-            input = varargin{:};
-            if ~iscell(input)
-                throw(invalidType('Expecting a cell array of parameters'));
+            % problem.addParamGroup({'Tails Thickness'}, {'Heads Thickness'});
+
+            % If the input is wrapped in a cell (so varargin is a cell of a cell)
+            % need to unwrap one layer of it, otherwise keep varargin as it is
+            if iscell(varargin{:})
+                paramGroup = varargin{:};
+            else
+                paramGroup = varargin;
             end
-            
-            for i = 1:length(input)
-                obj = addParam(obj,input{i});
+
+            for i = 1:length(paramGroup)
+                obj = addParam(obj, paramGroup{i});
             end
         end
         
         
-        function obj = addParam(obj,varargin)
+        function obj = addParam(obj, varargin)
             % Adds an individual parameter to the parameters object.
             % Check how many parameters we are adding and make sure all 
             % the inputs are cells. A parameter consists of a name, min,
@@ -219,12 +218,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 else
                     thisParam = varargin;
                 end
-                obj.parameters.addParam(thisParam);
+                obj.parameters.addParam(thisParam{:});
             end
             
         end
                 
-        function obj = removeParam(obj,varargin)
+        function obj = removeParam(obj, varargin)
             % Removes a parameter from the parameters object. The 
             % parameter will also be removed from the layers array 
             % if it is in use. Expects index or name of parameter to 
@@ -388,7 +387,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and sigma
             %
             % problem.addBacksPar('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
-            obj.background.backPars.addParam(varargin);
+            obj.background.backPars.addParam(varargin{:});
         end
         
         function obj = removeBacksPar(obj, varargin)
@@ -487,7 +486,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % and sigma
             %
             % problem.addResolPar('ResolPar 1', 1e-8, 2.8e-6, 1e-5);
-            obj.resolution.resolPars.addParam(varargin);
+            obj.resolution.resolPars.addParam(varargin{:});
         end
         
         function obj = setResolPar(obj,varargin)
@@ -565,7 +564,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of bulk-out, min, value, max, and if fit is off or on
             % 
             % problem.addBulkOut('SLD ACMW', -1e-6, 0.0, 1e-6, true);
-            obj.bulkOut.addParam(varargin);
+            obj.bulkOut.addParam(varargin{:});
         end
         
         function obj = removeBulkOut(obj,varargin)
@@ -593,7 +592,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of bulk-in, min, value, max, and if fit is off or on
             % 
             % problem.addBulkIn('Silicon', -1e-6, 0.0, 1e-6, true);
-            obj.bulkIn.addParam(varargin);
+            obj.bulkIn.addParam(varargin{:});
         end
         
         function obj = removeBulkIn(obj,varargin)
@@ -619,7 +618,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new scale factor parameter. Expects the name
             % of scale factor, min, value, max, and if fit is off or on
             % 
-            % problem.addScalefactor({'Scalefactor 2', 0.1, 0.19, 1.0, true});
+            % problem.addScalefactor('Scalefactor 2', 0.1, 0.19, 1.0, true);
             obj.scalefactors.addParam(varargin{:});
         end
         
@@ -647,7 +646,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new qz shift parameter. Expects the name
             % of qz shift, min, value, max, and if fit is off or on
             % 
-            % problem..addQzshift({'Qz shift 2', -0.2e-4, 0, 2e-4, false});
+            % problem..addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);
             obj.qzshifts.addParam(varargin{:}); 
         end
         

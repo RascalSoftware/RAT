@@ -103,7 +103,7 @@ classdef testLayersClass < matlab.unittest.TestCase
                 'Water hydr',          100,    100,     100,  false, 'uniform',  0,   Inf;
                 };
 
-            testCase.parameters = parametersClass(testParams(1, :));
+            testCase.parameters = parametersClass(testParams{1, :});
             testCase.parameters.paramsTable = [testCase.parameters.paramsTable; vertcat(testParams(2:end, :))];
 
             testCase.parameterNames = testCase.parameters.paramsTable{:, 1};

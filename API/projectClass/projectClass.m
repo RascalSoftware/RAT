@@ -689,12 +689,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
         end
 
-        function obj = removeContrast(obj, varargin)
+        function obj = removeContrast(obj, contrastInput)
             % Removes a specified contrast parameter. Expects
             % index or name of resolution to remove
             %
             % problem.removeContrast(1);
-            obj.contrasts.removeContrast(varargin{:});
+            obj.contrasts.removeContrast(contrastInput);
         end
 
         
@@ -734,10 +734,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.contrasts.setContrastModel(contrastInput, obj.modelType, allowedValues, model);
 
         end
-        
+
+        % ----------------------------------------------------------------
+
         function outStruct = toStruct(obj)    
-            % Converts the class parameters into a struct array for input into
-            % the RAT toolbox
+            % Converts the class parameters into a struct array for input
+            % into the RAT toolbox
             
             % Set which type of experiment this is
             generalStruct.experimentName = obj.experimentName;
@@ -915,7 +917,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.contrasts.displayContrastsObject;
             
         end
-        
         
     end
     

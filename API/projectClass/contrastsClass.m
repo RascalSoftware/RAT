@@ -59,7 +59,7 @@ classdef contrastsClass < handle
         
         end
 
-        function obj = removeContrast(obj, whichContrast)
+        function obj = removeContrast(obj, contrastInput)
             % Removes a contrast from the list.
             % The contrast can be specified either by name or by index, but
             % only one contrast can be removed at a time.
@@ -72,23 +72,23 @@ classdef contrastsClass < handle
 
             % If the input is a string, find the index of the relevant
             % contrast...
-            if ischar(whichContrast)
+            if ischar(contrastInput)
                 contrastNames = getAllContrastNames(obj);
-                whichContrast = find(strcmp(contrastNames,whichContrast));
+                contrastInput = find(strcmp(contrastNames,contrastInput));
                 
                 % Throw an error if the name is not matched
-                if isempty(whichContrast)
+                if isempty(contrastInput)
                     throw(nameNotRecognised('Contrast name not found'));
                 end
             end
            
             % Check to make sure the number is in range
-            if whichContrast < 1 || whichContrast > obj.numberOfContrasts
-                throw(indexOutOfRange(sprintf('Specified contrast %d is not in range 1 - %d', whichContrast, obj.numberOfContrasts)));
+            if contrastInput < 1 || contrastInput > obj.numberOfContrasts
+                throw(indexOutOfRange(sprintf('Specified contrast %d is not in range 1 - %d', contrastInput, obj.numberOfContrasts)));
             end
 
             % Remove the contrast from the contrasts cell array
-            obj.contrasts(whichContrast) = [];
+            obj.contrasts(contrastInput) = [];
 
         end
 

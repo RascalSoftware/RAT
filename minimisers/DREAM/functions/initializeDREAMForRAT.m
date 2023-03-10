@@ -72,4 +72,4 @@ output.CR(1,1:DREAMPar.nCR+1) = [ DREAMPar.N pCR ];
 log_L(1,1:DREAMPar.N+1) = [ DREAMPar.N log_L_x' ];
 
 % Compute the R-statistic
-[output.R_stat(1,1:DREAMPar.d+1)] = [ DREAMPar.N Gelman(chain(1,1:DREAMPar.d,1:DREAMPar.N),DREAMPar) ];
+[output.R_stat(1,1:DREAMPar.d+1)] = [ DREAMPar.N gelman(chain(1,1:DREAMPar.d,1:DREAMPar.N),DREAMPar) ];

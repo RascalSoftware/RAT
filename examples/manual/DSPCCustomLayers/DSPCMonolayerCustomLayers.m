@@ -26,7 +26,7 @@ problem.addParamGroup(Parameters);
 problem.setParamConstr(1,2,13);
 
 % Add the custom layers file
-problem.addCustomFile('DSPC Model','custom_DSPC_monolayer.m','matlab','pwd');
+problem.addCustomFile('DSPC Model','customDSPCMonolayer.m','matlab','pwd');
 %% 
 % 
 
@@ -38,8 +38,7 @@ problem.setBacksParValue(1,5.5e-6);
 problem.addBacksPar('Backs Value D2O',1e-8,2.8e-6,1e-5);
 
 problem.addBackground('Background D2O','constant','Backs Value D2O');
-problem.setBackgroundValue(1,'name','Background ACMW');
-problem.setBackgroundValue(1,3,'Backs Value ACMW');
+problem.setBackground(1,'name','Background ACMW', 'value1', 'Backs Value ACMW');
 
 %% 
 % 
@@ -90,9 +89,9 @@ problem.setBulkOut(2,'fit',false);
 % Make the controls class...
 controls = controlsClass();
 controls.parallel = 'points';
-controls.procedure = 'bayes';
-controls.nsimu = 30000;
-controls.repeats = 3;
+controls.procedure = 'dream';
+% controls.nsimu = 30000;
+% controls.repeats = 3;
 
 [problem,results] = RAT(problem,controls);
 

@@ -125,32 +125,32 @@
          testCase.background.backPars.paramsTable = [testCase.background.backPars.paramsTable; vertcat(testCase.parameters(2:end, :))];
          
          testCase.background.setBackground('Background 1', 'name', 'Back 1');
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 1}, "Back 1", 'setBackgroundValue method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 1}, "Back 1", 'setBackground method not working');
          testCase.background.setBackground(1, 'name', 'Background 1');
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 1}, "Background 1", 'setBackgroundValue method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 1}, "Background 1", 'setBackground method not working');
 
          testCase.background.setBackground(1, 'type', 'constant');
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 2}, "constant", 'setBackgroundValue method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 2}, "constant", 'setBackground method not working');
          testCase.background.setBackground('Background 1', 'type', 'function'); 
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 2}, "function", 'setBackgroundValue method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 2}, "function", 'setBackground method not working');
          testCase.verifyError(@() testCase.background.setBackground(2, 'type', 'random'), invalidOption.errorID);
          
          testCase.background.setBackground(3, 'Value1', 'random');
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 3}, "random", 'setBackgroundValue method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 3}, "random", 'setBackground method not working');
          testCase.background.setBackground('Background 3', 'Value1', 'Background par 1');
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 3}, "Background par 1", 'setBackgroundValue method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 3}, "Background par 1", 'setBackground method not working');
          
          testCase.background.setBackground(2, 'Value2', 'Background par 1');
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{2, 4}, "Background par 1", 'setBackgroundValue method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{2, 4}, "Background par 1", 'setBackground method not working');
          testCase.verifyError(@() testCase.background.setBackground(2, 'Value2', 'random'), nameNotRecognised.errorID);
          testCase.verifyError(@() testCase.background.setBackground(5, 'Value2', 'random'), indexOutOfRange.errorID);
          testCase.verifyError(@() testCase.background.setBackground(true, 'Value2', 'random'), invalidType.errorID);
          
          testCase.background.setBackground(3, 'name', 'New Name', 'type', 'constant', 'value1', 'Background par 3', 'value2', '');
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 1}, "New Name", 'setBackgroundValue method not working');
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 2}, "constant", 'setBackgroundValue method not working');
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 3}, "Background par 3", 'setBackgroundValue method not working');
-         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 4}, "", 'setBackgroundValue method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 1}, "New Name", 'setBackground method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 2}, "constant", 'setBackground method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 3}, "Background par 3", 'setBackground method not working');
+         testCase.verifyEqual(testCase.background.backgrounds.typesTable{3, 4}, "", 'setBackground method not working');
       end
 
       function testDisplayBackgroundsObject(testCase)

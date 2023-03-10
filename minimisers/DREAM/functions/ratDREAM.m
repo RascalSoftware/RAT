@@ -263,7 +263,7 @@ for t = T_start : DREAMPar.T
         start_idx = max(1,floor(iloc/2)); end_idx = iloc;
         
         % Compute the R-statistic using 50% burn-in from chain
-        [output.R_stat(iteration,1:DREAMPar.d+1)] = [ t * DREAMPar.N Gelman(chain(start_idx:end_idx,1:DREAMPar.d,1:DREAMPar.N),DREAMPar)];
+        [output.R_stat(iteration,1:DREAMPar.d+1)] = [ t * DREAMPar.N gelman(chain(start_idx:end_idx,1:DREAMPar.d,1:DREAMPar.N),DREAMPar)];
         
         % Update the iteration, set gen back to 1 and totaccept to zero
         iteration = iteration + 1;  gen = 1; totaccept = 0;

@@ -127,7 +127,7 @@ bilOuterHead = {
 % 
 % Add these layers to the project:
 
-problem.addLayerGroup({waterLayer ; bilInnerHead ; bilTails ; bilOuterHead})
+problem.addLayerGroup(waterLayer, bilInnerHead, bilTails, bilOuterHead)
 %% 
 % We have three datasets we need to consider - the bilayer against D2O, Silicon 
 % Matched water and H2O. Load these datafiles in and put them in the data block....

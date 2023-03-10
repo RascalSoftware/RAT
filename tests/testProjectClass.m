@@ -187,8 +187,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Test default layer
             testCase.verifySize(testCase.project.layers.layersTable, [0, 6], 'Layers has wrong dimension');
             % Test adding LayerGroup
-            testCase.verifyError(@() testCase.project.addLayerGroup([]), invalidType.errorID)
-            testCase.project.addLayerGroup(testCase.layers);
+            testCase.project.addLayerGroup(testCase.layers{:});
             testCase.verifySize(testCase.project.layers.layersTable, [4, 6], 'Layers has wrong dimension');
             for i = 1:length(testCase.layers)
                 for j = 1:length(testCase.layers{i})
@@ -210,7 +209,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.layers.layersTable, [7, 6], 'Layers has wrong dimension');
             testCase.verifyEqual(testCase.project.layers.layersTable{7, 1}, "Another Layer", 'addLayer method not working');
             % Test setting value in a layer
-            testCase.verifyError(@() testCase.project.setLayerValue(1), invalidNumberOfInputs.errorID)  % not enough arguments
             testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 'Tail'), nameNotRecognised.errorID)  % parameter does not exist
             testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 11), indexOutOfRange.errorID)  % index greater than parameter table
             testCase.project.setLayerValue(1, 2, 'Tails Thickness');

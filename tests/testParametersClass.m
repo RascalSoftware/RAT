@@ -98,7 +98,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.removeParam(1);
             testCase.verifySize(params.paramsTable, [8, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:end, 1), 'removeParam method not working');
-            params.removeParam([6, 7, 8]);
+            params.removeParam(6, 7, 8);
             testCase.verifySize(params.paramsTable, [5, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:6, 1), 'removeParam method not working');
             params.removeParam('Tails Roughness');

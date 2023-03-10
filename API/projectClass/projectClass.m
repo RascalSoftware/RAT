@@ -226,25 +226,21 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         function obj = removeParam(obj, varargin)
             % Removes a parameter from the parameters object. The 
             % parameter will also be removed from the layers array 
-            % if it is in use. Expects index or name of parameter to 
-            % remove
+            % if it is in use. Expects series of indices or names of
+            % parameters to remove
             %
-            % problem.removeParam(2); 
-            removing = varargin;
-            numberOfParams = length(removing);
-            
-            % Remove the param
-            for i = 1:numberOfParams
-                thisParam = varargin;
+            % problem.removeParam(2);
+            for i = 1:length(varargin)
+                thisParam = varargin{i};
                 
                 % Make sure we don't remove substrate roughness
-                if (isequal(thisParam{1},1)) || (strcmpi(thisParam{1},'Substrate Roughness'))
+                if (isequal(thisParam, 1)) || (strcmpi(thisParam, 'Substrate Roughness'))
                     throw(invalidOption('Can''t remove protected parameter Substrate Roughness'));
                 end
                 
                 % No need to check validity of the parameter
                 % as this is done in the parameters class
-                obj.parameters.removeParam(thisParam{:});
+                obj.parameters.removeParam(thisParam);
                 
                 % Need to check if it is used in the layers
                 % array and remove it if so. Should be able
@@ -326,34 +322,37 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % -----------------------------------------------------
         
         % Editing of layers block
-        function obj = addLayerGroup(obj,varargin)
+        function obj = addLayerGroup(obj, varargin)
             % Adds a group of layers to the layers object. Expects 
-            % a cell array of layer cell arrays
+            % a series of layer cell arrays
             %
-            % problem.addLayerGroup({'Layer 1'; 'Layer 2'});
-            input = varargin{:};
-            if ~iscell(input)
-                throw(invalidType('Expecting a cell array of layers'));
-            end
-            
-            for i = 1:length(input)
-                obj = addLayer(obj,input{i}{:});
+            % problem.addLayerGroup('Layer 1', 'Layer 2');            
+            for i = 1:length(varargin)
+                obj = addLayer(obj, varargin{i});
             end
             
         end
         
-        
-        function obj = addLayer(obj,varargin)
-            % Adds a single layer to the layers object. Expects a cell
-            % array containing layer details which are name, thickness,
-            % SLD, roughness, hydration, and hydrate with, or provided 
-            % a name to create an empty layer.
+        function obj = addLayer(obj, varargin)
+            % Adds a single layer to the layers object. Expects layer
+            % details which are name, thickness, SLD, roughness,
+            % hydration, and hydrate with, or provide with no details,
+            % or just a name, to create an empty layer.
             %
             % problem.addLayer('New Layer');
-            obj.layers.addLayer(obj.parameters.paramsTable{:,1}, varargin{:});        
+
+            % If the input is wrapped in a cell (so varargin is a cell of a cell)
+            % need to unwrap one layer of it, otherwise keep varargin as it is
+            if length(varargin) == 1 && iscell(varargin{:})
+                thisLayer = varargin{:};
+            else
+                thisLayer = varargin;
+            end
+
+            obj.layers.addLayer(obj.parameters.paramsTable{:,1}, thisLayer{:});        
         end
 
-        function obj = removeLayer(obj,layer)
+        function obj = removeLayer(obj, layer)
             % Removes layer(s) from the layers object. Expects
             % index of layer(s) to remove.
             %
@@ -361,18 +360,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.layers.removeLayer(layer);
         end
 
-        function obj = setLayerValue(obj,varargin)
+        function obj = setLayerValue(obj, rowPar, colPar, inputValue)
             % Sets a value of a given layer. Expects the row/name and
             % column of layer value to set, then the name/index of the 
             % parameter to set the value to.
             % 
             % problem.setLayerValue(1, 2, 'Tails Thickness');
-            if length(varargin) ~= 3
-                throw(invalidNumberOfInputs('Three parameters expected into setLayerValue'));
-            end
-
-            % call the layers class to set the value
-            obj.layers.setLayerValue(varargin{1}, varargin{2}, varargin{3}, obj.parameters.paramsTable{:,1});           
+            obj.layers.setLayerValue(rowPar, colPar, inputValue, obj.parameters.paramsTable{:,1});           
         end
         
         % ---------------------------------------------------------------

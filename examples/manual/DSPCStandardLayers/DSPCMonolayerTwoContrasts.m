@@ -49,7 +49,7 @@ H_Tails = {'Hydrogenated Tails',...
 
 % Add the parameters and Layers to the project:
 problem.addParamGroup(Parameters);
-problem.addLayerGroup({H_Heads; D_Heads; H_Tails; D_Tails});
+problem.addLayerGroup(H_Heads, D_Heads, H_Tails, D_Tails);
 
 % Increase the constr range for Substrate Roughness (param 1)
 problem.setParamConstr(1,2,13);

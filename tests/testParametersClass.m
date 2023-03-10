@@ -94,17 +94,17 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
             paramNames = convertCharsToStrings(testCase.parameters(:, 1));
             % Checks that parameter can be removed
-            testCase.verifyError(@() params.removeParam({'bad name'}), nameNotRecognised.errorID);
-            params.removeParam({1});
+            testCase.verifyError(@() params.removeParam('bad name'), nameNotRecognised.errorID);
+            params.removeParam(1);
             testCase.verifySize(params.paramsTable, [8, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:end, 1), 'removeParam method not working');
-            params.removeParam({6, 7, 8});
+            params.removeParam([6, 7, 8]);
             testCase.verifySize(params.paramsTable, [5, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:6, 1), 'removeParam method not working');
-            params.removeParam({'Tails Roughness'});
+            params.removeParam('Tails Roughness');
             testCase.verifySize(params.paramsTable, [4, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames([2, 4, 5, 6], 1), 'removeParam method not working');
-            testCase.verifyError(@() params.removeParam({11}), indexOutOfRange.errorID);
+            testCase.verifyError(@() params.removeParam(11), indexOutOfRange.errorID);
         end
 
         function testSetParams(testCase)

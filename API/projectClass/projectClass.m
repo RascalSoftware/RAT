@@ -245,7 +245,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 
                 % No need to check validity of the parameter
                 % as this is done in the parameters class
-                obj.parameters.removeParam(thisParam);
+                obj.parameters.removeParam(thisParam{:});
                 
                 % Need to check if it is used in the layers
                 % array and remove it if so. Should be able
@@ -396,7 +396,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of parameter to remove
             % 
             % problem.removeBacksPar(2);
-            obj.background.backPars.removeParam(varargin);
+            obj.background.backPars.removeParam(varargin{:});
         end
         
         function obj = setBacksParValue(obj,varargin)
@@ -503,7 +503,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index or name of parameter to remove
             % 
             % problem.removeResolPar(2);
-            obj.resolution.resolPars.removeParam(varargin);
+            obj.resolution.resolPars.removeParam(varargin{:});
         end
         
         % Resolutions
@@ -573,7 +573,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of bulk-out to remove
             % 
             % problem.removeBulkOut(2);
-            obj.bulkOut.removeParam(varargin);
+            obj.bulkOut.removeParam(varargin{:});
         end
         
         function obj = setBulkOut(obj,varargin)
@@ -601,7 +601,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of bulk-in to remove
             % 
             % problem.removeBulkIn(2);
-            obj.bulkIn.removeParam(varargin);
+            obj.bulkIn.removeParam(varargin{:});
         end
         
         function obj = setBulkIn(obj,varargin)
@@ -628,7 +628,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of scale factor to remove
             % 
             % problem.removeScalefactor(2);
-           obj.scalefactors.removeParam(varargin); 
+           obj.scalefactors.removeParam(varargin{:}); 
         end
         
         function obj = setScalefactor(obj,varargin)

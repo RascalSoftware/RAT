@@ -135,16 +135,14 @@ classdef parametersClass < handle
         
         function obj = removeParam(obj, rowInput)
             % Removes a parameter from the parameters table. 
-            % Expects a cell array of indices or parameter names to remove
+            % Expects a single parameter name or index/array of indices
+            % to remove
             %
-            % params.removeParam({2});
-            if isempty(rowInput)
-                throw(invalidNumberOfInputs('Need to specify a parameter'));
-            end
-
-            if isa(rowInput{1}, 'double')
-                rowInput = cell2mat(rowInput);
+            % params.removeParam(2);
+            if isa(rowInput(1), 'double')
                 rowInput = num2cell(sort(rowInput, 'descend'));
+            elseif ischar(rowInput)
+                rowInput = {rowInput};
             end
 
             for i = 1:length(rowInput)

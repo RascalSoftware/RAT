@@ -392,68 +392,69 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.backPars.removeParam(varargin{:});
         end
         
-        function obj = setBacksParValue(obj,varargin)
+        function obj = setBacksParValue(obj, rowInput, value)
             % Sets the value of existing background            
             % parameter. Expects index or name of parameter 
             % and new value to set
             %
             % problem.setBacksParValue(1, 5.5e-6);
-            obj.background.backPars.setValue(varargin{:});
+            obj.background.backPars.setValue(rowInput, value);
         end
         
-        function obj = setBacksParConstr(obj,varargin)
+        function obj = setBacksParConstr(obj, rowInput, min, max)
             % Sets the constraints of existing background
             % parameter. Expects index or name of parameter 
             % and new min and max of the parameter's value
             %
             % problem.setBacksParConstr(1, 0, 1);
-            obj.background.backPars.setConstr(varargin{:});
+            obj.background.backPars.setConstr(rowInput, min, max);
         end
         
-        function obj = setBacksParName(obj,varargin)
+        function obj = setBacksParName(obj, rowInput, name)
             % Sets the name of an existing background 
             % parameter. Expects index or name of parameter 
             % and the new name
             %
             % problem.setBacksParName(2, 'new name');
-            obj.background.backPars.setName(varargin{:});
+            obj.background.backPars.setName(rowInput, name);
         end
         
         % (2) Backgrounds
-        function obj = addBackground(obj,varargin)
+        function obj = addBackground(obj, varargin)
             % Adds a background to the project. Expects a 
             % cell array with background name and type and 
             % up to 4 parameters
             %
-            % problem.addBackground('name','constant','par');
+            % problem.addBackground('name', 'constant', 'par');
             obj.background.addBackground(varargin{:});
         end
         
-        function obj = removeBackground(obj,varargin)
+        function obj = removeBackground(obj, row)
             % Removes background from the project. Expects
-            % index of background to remove
+            % index or array of indices of background(s) of background(s)
+            % to remove
             %
             % problem.removeBackground(1);
-            obj.background.removeBackground(varargin{:});
+            obj.background.removeBackground(row);
         end
         
-        function obj = setBackground(obj,varargin)
+        function obj = setBackground(obj, row, varargin)
             % Sets the value of an existing background. Expects
             % index or name of background and keyword/value pairs to set
             %
             % problem.setBackground(1, 'name', 'Background ACMW');
-            obj.background.setBackground(varargin{:});
+            obj.background.setBackground(row, varargin{:});
         end
         
-        function obj = setBackgroundName(obj,varargin)
+        function obj = setBackgroundName(obj, index, name)
             % Sets the name of an existing Background.
             % Expects index or name of background and the new name
             %
             % problem.setBackgroundName(2, 'new name');
-            obj.background.setBackgroundName(varargin{:});
+            obj.background.setBackgroundName(index, name);
         end
         
-        function obj = setBacksPar(obj,varargin)
+        function obj = setBacksPar(obj, varargin)
             % Sets the value of an existing background parameter. Expects
             % index or name of parameter and keyword/value pairs to set
             %
@@ -465,13 +466,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         %   Editing of Resolutions block
         
         % Resol Pars
-        function obj = setResolParValue(obj,varargin)
+        function obj = setResolParValue(obj, rowInput, value)
             % Sets the value of existing resolution            
             % parameter. Expects index or name of parameter 
             % and new value to set
             %
             % problem.setResolParValue(1, 5.5e-6);
-            obj.resolution.resolPars.setValue(varargin{:});
+            obj.resolution.resolPars.setValue(rowInput, value);
         end
         
         function obj = addResolPar(obj, varargin)
@@ -509,12 +510,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution.addResolution(varargin{:});
         end
         
-        function obj = removeResolution(obj,varargin)
+        function obj = removeResolution(obj, row)
             % Removes resolution from the project. Expects
             % index of resolution to remove
             %
             % problem.removeResolution(1);
-            obj.resolution.removeResolution(varargin{:});
+            obj.resolution.removeResolution(row);
         end
         
         
@@ -688,7 +689,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
         end
 
-        function obj = removeContrast(obj,varargin)
+        function obj = removeContrast(obj, varargin)
             % Removes a specified contrast parameter. Expects
             % index or name of resolution to remove
             %

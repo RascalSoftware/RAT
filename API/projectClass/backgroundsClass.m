@@ -67,7 +67,7 @@ classdef backgroundsClass < handle
             names = backsTable{:,1};      
         end
                  
-        function obj = addBackground(obj,varargin)
+        function obj = addBackground(obj, varargin)
             % Adds a new entry to the background table.  
             %
             % background.addBackground('New Row');

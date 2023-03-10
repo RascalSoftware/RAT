@@ -1,0 +1,12 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  standardTFReflectivityCalculation -> standardTFCustomLayersReflectivityCalculation;
+  standardTFReflectivityCalculation -> standardTFCustomXYReflectivityCalculation;
+  standardTFReflectivityCalculation -> standardTFStandardLayersReflectivityCalculation;
+
+  standardTFCustomLayersReflectivityCalculation [URL="standardTFCustomLayersReflectivityCalculation.html"];
+  standardTFCustomXYReflectivityCalculation [URL="standardTFCustomXYReflectivityCalculation.html"];
+  standardTFLayersCore [URL="standardTFLayersCore.html"];
+  standardTFReflectivityCalculation [URL="standardTFReflectivityCalculation.html"];
+  standardTFStandardLayersReflectivityCalculation [URL="standardTFStandardLayersReflectivityCalculation.html"];
+}

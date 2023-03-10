@@ -3,5 +3,5 @@ digraph m2html {
 
   allocateLayersForContrast [URL="allocateLayersForContrast.html"];
   allocateParamsToLayers [URL="allocateParamsToLayers.html"];
-  groupLayers_Mod [URL="groupLayers_Mod.html"];
+  groupLayersMod [URL="groupLayersMod.html"];
 }

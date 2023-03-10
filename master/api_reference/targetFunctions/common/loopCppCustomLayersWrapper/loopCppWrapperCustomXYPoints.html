@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of loopCppWrapperCustomXYPoints</title>
+  <meta name="keywords" content="loopCppWrapperCustomXYPoints">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions -->
+<!-- # common -->
+<!-- menu.html loopCppCustomLayersWrapper -->
+
+<h1>loopCppWrapperCustomXYPoints
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [allLayers,allRoughs] =  loopCppWrapperCustomXYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [allLayers,allRoughs] =  loopCppWrapperCustomXYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,</a><span class="keyword">...</span>
+0002 shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
+0003 
+0004 
+0005     coder.extrinsic(<span class="string">'testDLL_mex'</span>);
+0006     allLayers = cell(numberOfContrasts,1);
+0007     <span class="keyword">for</span> i = 1:numberOfContrasts
+0008         allLayers{i} = [1 ; 1];
+0009     <span class="keyword">end</span>
+0010     coder.varsize(<span class="string">'allLayers{:}'</span>,[1000,5],[1,1]);
+0011     
+0012         
+0013     allRoughs = zeros(numberOfContrasts,1);
+0014     cfunctionName =[customFiles{1}{1},0]; <span class="comment">%; % dll name must be same as function name</span>
+0015     cLibName = [customFiles{1}{3},0]; <span class="comment">%customFiles{1}{3};</span>
+0016  
+0017     numberOfContrasts = int32(numberOfContrasts);
+0018 <span class="comment">%     strLibName = string(LibName);</span>
+0019 <span class="comment">%     strfunctionName = string(functionName);</span>
+0020     <span class="keyword">if</span> coder.target(<span class="string">'MEX'</span>)
+0021         
+0022         <span class="keyword">for</span> i = 1:numberOfContrasts
+0023             <span class="comment">% call mex function % params,nba,nbs,numberOfContrasts,output,subrough,libName,functionName);</span>
+0024             <span class="comment">%coder.extrinsic('testDLL_mex');</span>
+0025             output = zeros(8,2);
+0026             sRough = 0.0;
+0027             [output,sRough] = testDLL_mex(params,nba,nbs,i,cLibName,cfunctionName);
+0028             
+0029             output = reshape(output,2,8)'; <span class="comment">% convert to 3 x from top down and transpose</span>
+0030             mask = (output &gt;= 0) &amp; (output &lt;= 2.6e-100); <span class="comment">% mask the zeros/extremely small positive useless nums or use ...</span>
+0031             <span class="comment">%mask = (abs(output) &lt;= 2.6e-100);</span>
+0032             output(mask) = NaN;
+0033             output = rmmissing(output);
+0034 
+0035             allLayers{i} = output;
+0036             allRoughs(i) = sRough;
+0037 
+0038         <span class="keyword">end</span>
+0039         
+0040     <span class="keyword">end</span>
+0041     
+0042 
+0043 
+0044     
+0045     
+0046    <span class="keyword">if</span> coder.target(<span class="string">'MATLAB'</span>)
+0047         
+0048         <span class="keyword">for</span> i = 1:numberOfContrasts
+0049             <span class="comment">% call mex function % params,nba,nbs,numberOfContrasts,output,subrough,libName,functionName);</span>
+0050             <span class="comment">%coder.extrinsic('testDLL_mex');</span>
+0051             [output,sRough] = testDLL_mex(params,nba,nbs,i,cLibName,cfunctionName);
+0052 
+0053             output = reshape(output,3,8)'; <span class="comment">% convert to 3 x from top down and transpose</span>
+0054             mask = (output &gt;= 0) &amp; (output &lt;= 2.6e-100); <span class="comment">% mask the zeros/extremely small positive useless nums or use ...</span>
+0055             <span class="comment">%mask = (abs(output) &lt;= 2.6e-100);</span>
+0056             output(mask) = NaN;
+0057             output = rmmissing(output);
+0058 
+0059             allLayers{i} = output;
+0060             allRoughs(i) = sRough;
+0061 
+0062         <span class="keyword">end</span>
+0063    <span class="keyword">end</span>
+0064 
+0065 
+0066 
+0067     
+0068 <span class="keyword">end</span> 
+0069  
+0070 
+0071 <span class="comment">% if customFiles has multiple elements, then do this</span>
+0072     <span class="comment">% TALK WITH MARTYN ABOUT THIS</span>
+0073 <span class="comment">% if length(customFiles) &gt; 1</span>
+0074 <span class="comment">%     % create a cell array of same size as customFiles</span>
+0075 <span class="comment">%     customModels = cell(1,length(customFiles));</span>
+0076 <span class="comment">%     for i=1:length(customModels)</span>
+0077 <span class="comment">%         customModels(i) = customFiles{i}{2}; % load the custom function names into it</span>
+0078 <span class="comment">%     end</span>
+0079 
+0080 <span class="comment">%     % load all the functions from DLL based on the customModels</span>
+0081 
+0082 
+0083 
+0084 
+0085 <span class="comment">% else</span>
+0086 <span class="comment">%     % if there is only 1 function</span>
+0087     
+0088 <span class="comment">% end</span>
+0089 
+0090 <span class="comment">% assumin only one custom function</span>
+</pre></div>
+
+<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

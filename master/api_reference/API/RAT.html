@@ -33,12 +33,12 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="RAT_main.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors)">RAT_main</a>	</li>
-<li><a href="RATparseOutToProjectClass.html" class="code" title="function outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result)">RATparseOutToProjectClass</a>	Reconstruct the problemDef class as an output</li>
-<li><a href="RatParseClassToStructs_new.html" class="code" title="function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(inputProblemDef,inputControls)">RatParseClassToStructs_new</a>	Breaks up the classes into the relevant structures for inputting into C</li>
-<li><a href="../API/outputFcn/defaultRatOutputFunction.html" class="code" title="function defaultRatOutputFunction(eventrc,eventdata)">defaultRatOutputFunction</a>	The default RAT output function.</li>
-<li><a href="../API/outputFcn/ratOutputClass.html" class="code" title="">ratOutputClass</a>	</li>
-<li><a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>	</li>
+<li><a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors)">RATMain</a>	</li>
+<li><a href="../API/outputFunction/defaultOutputFunction.html" class="code" title="function defaultOutputFunction(eventrc,eventdata)">defaultOutputFunction</a>	The default RAT output function.</li>
+<li><a href="../API/outputFunction/outputClass.html" class="code" title="">outputClass</a>	</li>
+<li><a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>	</li>
+<li><a href="parseClassToStructs.html" class="code" title="function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)">parseClassToStructs</a>	Breaks up the classes into the relevant structures for inputting into C</li>
+<li><a href="parseOutToProjectClass.html" class="code" title="function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct,problem,result)">parseOutToProjectClass</a>	Reconstruct the problemDef class as an output</li>
 <li><a href="parseResultToStruct.html" class="code" title="function result = parseResultToStruct(problem,results)">parseResultToStruct</a>	</li>
 <li><a href="../API/projectClass/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>	</li>
 </ul>
@@ -59,7 +59,7 @@ This function is called by:
 0007 <span class="keyword">end</span>
 0008 
 0009 
-0010 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = <a href="RatParseClassToStructs_new.html" class="code" title="function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(inputProblemDef,inputControls)">RatParseClassToStructs_new</a>(problemDefInput,controls);
+0010 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = <a href="parseClassToStructs.html" class="code" title="function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)">parseClassToStructs</a>(problemDefInput,controls);
 0011 [problemDef,~] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 0012 
 0013 <span class="comment">% %Define variable size for code generation</span>
@@ -97,8 +97,8 @@ This function is called by:
 0045 <span class="comment">% Only do this once so it can be modified</span>
 0046 <span class="comment">% by other apps using RAT (i.e. Rascal)</span>
 0047 <span class="keyword">if</span> ~isInitialised
-0048     ratOut = <a href="../API/outputFcn/ratOutputClass.html" class="code" title="">ratOutputClass</a>();
-0049     ratListener = listener(ratOut,<span class="string">'ratUpdate'</span>,@<a href="../API/outputFcn/defaultRatOutputFunction.html" class="code" title="function defaultRatOutputFunction(eventrc,eventdata)">defaultRatOutputFunction</a>);
+0048     ratOut = <a href="../API/outputFunction/outputClass.html" class="code" title="">outputClass</a>();
+0049     ratListener = listener(ratOut,<span class="string">'ratUpdate'</span>,@<a href="../API/outputFunction/defaultOutputFunction.html" class="code" title="function defaultOutputFunction(eventrc,eventdata)">defaultOutputFunction</a>);
 0050     <span class="comment">%ratListener = listener(ratOut,'ratUpdate',@bayesAddInfoText);</span>
 0051     setappdata(0,<span class="string">'ratOut'</span>,{ratOut ; ratListener});
 0052     isInitialised = true;
@@ -127,12 +127,12 @@ This function is called by:
 0075 <span class="comment">% If display is not silent print a</span>
 0076 <span class="comment">% line confirminf RAT is starting</span>
 0077 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0078     <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'Starting RAT ________________________________________________________________________________________________ \n'</span>));
+0078     <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'Starting RAT ________________________________________________________________________________________________ \n'</span>));
 0079 <span class="keyword">end</span>
 0080 
 0081 tic
-0082 [outProblemStruct,problem,result,bayesResults] = <a href="RAT_main.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors)">RAT_main</a>(problemDef,problemDef_cells,problemDef_limits,controls,priors);
-0083 <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'\n'</span>));
+0082 [outProblemStruct,problem,result,bayesResults] = <a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors)">RATMain</a>(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+0083 <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\n'</span>));
 0084 
 0085 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
 0086     toc
@@ -144,7 +144,7 @@ This function is called by:
 0092     originalProc = controls.proc;
 0093     controls.calcSld = 1;
 0094     controls.proc = <span class="string">'calculate'</span>;
-0095     [outProblemStruct,problem,result,~] = <a href="RAT_main.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors)">RAT_main</a>(outProblemStruct,problemDef_cells,problemDef_limits,controls,priors);
+0095     [outProblemStruct,problem,result,~] = <a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors)">RATMain</a>(outProblemStruct,problemDef_cells,problemDef_limits,controls,priors);
 0096     controls.proc = originalProc;
 0097 <span class="keyword">end</span>
 0098 
@@ -154,17 +154,17 @@ This function is called by:
 0102     result.bestFitPars = outProblemStruct.fitpars;
 0103 <span class="keyword">end</span>
 0104 
-0105 <span class="keyword">if</span> any((strcmpi(controls.proc,{<span class="string">'bayes'</span>,<span class="string">'NS'</span>})))
+0105 <span class="keyword">if</span> any((strcmpi(controls.proc,{<span class="string">'bayes'</span>,<span class="string">'NS'</span>,<span class="string">'dream'</span>})))
 0106     result = <a href="../API/projectClass/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(result,bayesResults);
 0107 <span class="keyword">end</span>
 0108 
 0109 [~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 0110 result.fitNames = fitNames;
 0111 
-0112 outProblemDef = <a href="RATparseOutToProjectClass.html" class="code" title="function outProblemDef = RATparseOutToProjectClass(problemDefInput,outProblemStruct,problem,result)">RATparseOutToProjectClass</a>(problemDefInput,outProblemStruct,problem,result);
+0112 outProblemDef = <a href="parseOutToProjectClass.html" class="code" title="function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct,problem,result)">parseOutToProjectClass</a>(problemDefInput,outProblemStruct,problem,result);
 0113 
 0114 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0115    <a href="../API/outputFcn/ratSendTextOutput.html" class="code" title="function ratSendTextOutput(text,in2)">ratSendTextOutput</a>(sprintf(<span class="string">'\nFinished RAT ______________________________________________________________________________________________ \n\n'</span>));
+0115    <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nFinished RAT ______________________________________________________________________________________________ \n\n'</span>));
 0116 <span class="keyword">end</span>
 0117 
 0118 <span class="keyword">end</span>
@@ -172,6 +172,6 @@ This function is called by:
 0120 
 </pre></div>
 
-<hr><address>Generated on Tue 28-Feb-2023 17:31:48 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

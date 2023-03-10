@@ -2,7 +2,6 @@
 digraph m2html {
   backgroundsClass -> backgroundsClass;
   backgroundsClass -> multiTypeTable;
-  backgroundsClass -> parametersClass;
   contrastsClass -> contrastsClass;
   customFileClass -> customFileClass;
   dataClass -> dataClass;
@@ -19,7 +18,6 @@ digraph m2html {
   projectClass -> projectClass;
   projectClass -> resolutionsClass;
   resolutionsClass -> multiTypeTable;
-  resolutionsClass -> parametersClass;
   resolutionsClass -> resolutionsClass;
 
   backgroundsClass [URL="backgroundsClass.html"];

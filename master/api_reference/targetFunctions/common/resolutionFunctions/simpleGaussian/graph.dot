@@ -1,0 +1,8 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+
+  dataResolutionPolly [URL="dataResolutionPolly.html"];
+  dataResolutionPollyParallelPoints [URL="dataResolutionPollyParallelPoints.html"];
+  resolutionPolly [URL="resolutionPolly.html"];
+  resolutionPollyParallelPoints [URL="resolutionPollyParallelPoints.html"];
+}

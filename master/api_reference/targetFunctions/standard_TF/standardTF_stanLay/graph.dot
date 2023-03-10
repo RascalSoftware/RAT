@@ -1,8 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  standardTF_stanlay_paraAll [URL="standardTF_stanlay_paraAll.html"];
-  standardTF_stanlay_paraContrasts [URL="standardTF_stanlay_paraContrasts.html"];
-  standardTF_stanlay_paraPoints [URL="standardTF_stanlay_paraPoints.html"];
-  standardTF_stanlay_single [URL="standardTF_stanlay_single.html"];
-}

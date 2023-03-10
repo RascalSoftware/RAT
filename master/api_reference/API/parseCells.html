@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of parseCells</title>
+  <meta name="keywords" content="parseCells">
+  <meta name="description" content="Splits up the master input list of all arrays into separate arrays">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html API -->
+
+<h1>parseCells
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Splits up the master input list of all arrays into separate arrays</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDef_cells) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Splits up the master input list of all arrays into separate arrays
+ The min input array 'problemDef_cells' is a master array where
+ all the cell arrays are grouped together. There are
+ repeatLayers      - controls repeating of the layers stack
+ allData           - Array of all the data arrays
+ dataLimits        - Min max limits in q for the data arrays
+ simLimits         - Limits in Q for the reflkectivity simulations
+ Layers details    - Master array of all available layers
+ contrastLayers    - Which specific combination of arrays are needed for
+                     each contrast.
+ Custom files      - Filenames and path for any custom files used
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../targetFunctions/standardTF/customLayers/standardTFCustomLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomLayersParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomLayersParallelContrasts</a>	Multi threaded version of the custom layers over reflectivity contrasts for standardTF reflectivity calculation.</li>
+<li><a href="../targetFunctions/standardTF/customLayers/standardTFCustomLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomLayersParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomLayersParallelPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li>
+<li><a href="../targetFunctions/standardTF/customLayers/standardTFCustomLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomLayersSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomLayersSingle</a>	Single threaded version of the custom layers, standardTF reflectivity</li>
+<li><a href="../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelContrasts</a>	Extract individual cell arrays</li>
+<li><a href="../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
+<li><a href="../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYSingle</a>	Extract individual cell arrays</li>
+<li><a href="../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersParallelContrasts</a>	Standard Layers calculation paralelised over the outer loop</li>
+<li><a href="../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersParallelPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
+<li><a href="../targetFunctions/standardTF/standardLayers/standardTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersSingle</a>	Single theraded version of the Standard Layers calculation</li>
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDef_cells)</a>
+0002 
+0003 <span class="comment">% Splits up the master input list of all arrays into separate arrays</span>
+0004 <span class="comment">% The min input array 'problemDef_cells' is a master array where</span>
+0005 <span class="comment">% all the cell arrays are grouped together. There are</span>
+0006 <span class="comment">% repeatLayers      - controls repeating of the layers stack</span>
+0007 <span class="comment">% allData           - Array of all the data arrays</span>
+0008 <span class="comment">% dataLimits        - Min max limits in q for the data arrays</span>
+0009 <span class="comment">% simLimits         - Limits in Q for the reflkectivity simulations</span>
+0010 <span class="comment">% Layers details    - Master array of all available layers</span>
+0011 <span class="comment">% contrastLayers    - Which specific combination of arrays are needed for</span>
+0012 <span class="comment">%                     each contrast.</span>
+0013 <span class="comment">% Custom files      - Filenames and path for any custom files used</span>
+0014 
+0015 
+0016 repeatLayers = problemDef_cells{1};
+0017 allData = problemDef_cells{2};
+0018 dataLimits = problemDef_cells{3};
+0019 simLimits = problemDef_cells{4};
+0020 contrastLayers = problemDef_cells{5};
+0021 layersDetails = problemDef_cells{6};
+0022 customFiles = problemDef_cells{14};
+0023 
+0024 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of loopMatlabWrapperCustomLayersPoints</title>
+  <meta name="keywords" content="loopMatlabWrapperCustomLayersPoints">
+  <meta name="description" content="#codegen">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions -->
+<!-- # common -->
+<!-- # loopMatlabCustomLayers -->
+<!-- menu.html sourceCompile -->
+
+<h1>loopMatlabWrapperCustomLayersPoints
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>#codegen</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [allLayers, allRoughs] = loopMatlabWrapperCustomLayersPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">#codegen
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../targetFunctions/standardTF/customLayers/standardTFCustomLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomLayersParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomLayersParallelPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li>
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [allLayers, allRoughs] = loopMatlabWrapperCustomLayersPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,</a><span class="keyword">...</span>
+0002      shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
+0003  
+0004  <span class="comment">%#codegen</span>
+0005  
+0006  <span class="comment">% This is a dummy function to allow source compile to proceed</span>
+0007  tempAllLayers = cell(numberOfContrasts,1);
+0008  tempAllRoughs = zeros(numberOfContrasts,1);
+0009  allLayers = cell(numberOfContrasts,1);
+0010  allRoughs = zeros(numberOfContrasts,1);
+0011  
+0012  <span class="keyword">for</span> i = 1:numberOfContrasts
+0013      allLayers{i} = [1 , 1];    <span class="comment">% Type def as double (size not important)</span>
+0014      tempAllLayers{i} = [0 0 0 0 0];
+0015  <span class="keyword">end</span>
+0016  coder.varsize(<span class="string">'tempAllLayers{:}'</span>,[10000 5],[1 1]);
+0017  
+0018 <span class="comment">% Dummy values to allow code generation to proceed....</span>
+0019 <span class="keyword">for</span> i = 1:numberOfContrasts
+0020     tempAllLayers{i} = [0 0 0];
+0021     tempAllRoughs(i) = 1;
+0022 <span class="keyword">end</span>
+0023  
+0024  <span class="comment">% All the following is intended to be casting from mxArray's to doubles.</span>
+0025  <span class="comment">% I'm not sure if all of this is necessary, but it compiles...</span>
+0026  <span class="keyword">for</span> i = 1:numberOfContrasts
+0027      tempOut = tempAllLayers{i};
+0028      n = [0 0];
+0029      n = size(tempOut);
+0030      newOut = zeros(n);
+0031      newOut = tempOut;
+0032      allLayers{i} = newOut;
+0033  <span class="keyword">end</span>
+0034  
+0035  <span class="comment">%allLayers = tempAllLayers;</span>
+0036  allRoughs = tempAllRoughs;
+0037  
+0038 <span class="keyword">end</span>
+0039  
+</pre></div>
+
+<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

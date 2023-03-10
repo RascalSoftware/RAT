@@ -35,17 +35,17 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../targetFunctions/common/Resolution_Functions/Simple_Gaussian/data_resolution_polly.html" class="code" title="function out = data_resolution_polly(xdata,ydata,resData,points)">data_resolution_polly</a>	Apply resolution correction</li>
-<li><a href="../../../targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly.html" class="code" title="function out = resolution_polly(xdata,ydata,res,points)">resolution_polly</a>	Apply resolution correction</li>
-<li><a href="../../../targetFunctions/common/reflectivityCalculations/Abeles/abeles_paraPoints.html" class="code" title="function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_paraPoints</a>	nbair = nbairs(thisCont);</li>
-<li><a href="../../../targetFunctions/common/reflectivityCalculations/Abeles/abeles_single.html" class="code" title="function out = abeles_single(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_single</a>	nbair = nbairs(thisCont);</li>
+<li><a href="../../../targetFunctions/common/reflectivityCalculations/abeles/abelesParallelPoints.html" class="code" title="function out = abelesParallelPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abelesParallelPoints</a>	nbair = nbairs(thisCont);</li>
+<li><a href="../../../targetFunctions/common/reflectivityCalculations/abeles/abelesSingle.html" class="code" title="function out = abelesSingle(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abelesSingle</a>	nbair = nbairs(thisCont);</li>
+<li><a href="../../../targetFunctions/common/resolutionFunctions/simpleGaussian/dataResolutionPolly.html" class="code" title="function out = dataResolutionPolly(xdata,ydata,resData,points)">dataResolutionPolly</a>	Apply resolution correction</li>
+<li><a href="../../../targetFunctions/common/resolutionFunctions/simpleGaussian/resolutionPolly.html" class="code" title="function out = resolutionPolly(xdata,ydata,res,points)">resolutionPolly</a>	Apply resolution correction</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_paraContrasts</a>	Extract individual cell arrays</li>
-<li><a href="../../../targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_paraPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
-<li><a href="../../../targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_single(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_single</a>	Extract individual cell arrays</li>
-<li><a href="../../../targetFunctions/standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints,resamPars)">standardTF_layers_core</a>	This is the main reflectivity calculation for all Layers models in the</li>
+<li><a href="../../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelContrasts</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
+<li><a href="../../../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYSingle</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars)">standardTFLayersCore</a>	This is the main reflectivity calculation for all Layers models in the</li>
 </ul>
 <!-- crossreference -->
 
@@ -112,31 +112,31 @@ This function is called by:
 0058                 <span class="comment">% Parallelise over points</span>
 0059                 
 0060                 <span class="comment">% Calculate reflectivity....</span>
-0061                 simRef = <a href="../../../targetFunctions/common/reflectivityCalculations/Abeles/abeles_paraPoints.html" class="code" title="function out = abeles_paraPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_paraPoints</a>(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); <span class="comment">%(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)</span>
+0061                 simRef = <a href="../../../targetFunctions/common/reflectivityCalculations/abeles/abelesParallelPoints.html" class="code" title="function out = abelesParallelPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abelesParallelPoints</a>(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); <span class="comment">%(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)</span>
 0062                 
 0063                 <span class="comment">% Apply resolution</span>
 0064                 
 0065                 <span class="comment">% Note: paraPoints gives an error during valifation, so use</span>
 0066                 <span class="comment">% single cored resolution as a workaround for now.</span>
 0067                 <span class="keyword">if</span> res == -1
-0068                     <span class="comment">%simRef = data_resolution_polly_paraPoints(simXdata,simRef,simResolData,length(simXdata));</span>
-0069                     simRef = <a href="../../../targetFunctions/common/Resolution_Functions/Simple_Gaussian/data_resolution_polly.html" class="code" title="function out = data_resolution_polly(xdata,ydata,resData,points)">data_resolution_polly</a>(simXdata,simRef,simResolData,length(simXdata));
+0068                     <span class="comment">%simRef = dataResolutionPollyParallelPoints(simXdata,simRef,simResolData,length(simXdata));</span>
+0069                     simRef = <a href="../../../targetFunctions/common/resolutionFunctions/simpleGaussian/dataResolutionPolly.html" class="code" title="function out = dataResolutionPolly(xdata,ydata,resData,points)">dataResolutionPolly</a>(simXdata,simRef,simResolData,length(simXdata));
 0070                 <span class="keyword">else</span>
-0071                     <span class="comment">%simRef = resolution_polly_paraPoints(simXdata,simRef,res,length(simXdata));</span>
-0072                     simRef = <a href="../../../targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly.html" class="code" title="function out = resolution_polly(xdata,ydata,res,points)">resolution_polly</a>(simXdata,simRef,res,length(simXdata));
+0071                     <span class="comment">%simRef = resolutionPollyParallelPoints(simXdata,simRef,res,length(simXdata));</span>
+0072                     simRef = <a href="../../../targetFunctions/common/resolutionFunctions/simpleGaussian/resolutionPolly.html" class="code" title="function out = resolutionPolly(xdata,ydata,res,points)">resolutionPolly</a>(simXdata,simRef,res,length(simXdata));
 0073                 <span class="keyword">end</span>
 0074                 
 0075             <span class="keyword">otherwise</span>
 0076                 <span class="comment">% Single cored over points</span>
 0077                 
 0078                 <span class="comment">% Calculate reflectivity.....</span>
-0079                 simRef = <a href="../../../targetFunctions/common/reflectivityCalculations/Abeles/abeles_single.html" class="code" title="function out = abeles_single(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abeles_single</a>(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
+0079                 simRef = <a href="../../../targetFunctions/common/reflectivityCalculations/abeles/abelesSingle.html" class="code" title="function out = abelesSingle(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)">abelesSingle</a>(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
 0080                 
 0081                 <span class="comment">% Apply resolution correction...</span>
 0082                 <span class="keyword">if</span> res == -1
-0083                     simRef = <a href="../../../targetFunctions/common/Resolution_Functions/Simple_Gaussian/data_resolution_polly.html" class="code" title="function out = data_resolution_polly(xdata,ydata,resData,points)">data_resolution_polly</a>(simXdata,simRef,simResolData,length(simXdata));
+0083                     simRef = <a href="../../../targetFunctions/common/resolutionFunctions/simpleGaussian/dataResolutionPolly.html" class="code" title="function out = dataResolutionPolly(xdata,ydata,resData,points)">dataResolutionPolly</a>(simXdata,simRef,simResolData,length(simXdata));
 0084                 <span class="keyword">else</span>
-0085                     simRef = <a href="../../../targetFunctions/common/Resolution_Functions/Simple_Gaussian/resolution_polly.html" class="code" title="function out = resolution_polly(xdata,ydata,res,points)">resolution_polly</a>(simXdata,simRef,res,length(simXdata));
+0085                     simRef = <a href="../../../targetFunctions/common/resolutionFunctions/simpleGaussian/resolutionPolly.html" class="code" title="function out = resolutionPolly(xdata,ydata,res,points)">resolutionPolly</a>(simXdata,simRef,res,length(simXdata));
 0086                 <span class="keyword">end</span>
 0087         <span class="keyword">end</span>
 0088 <span class="keyword">end</span>
@@ -147,6 +147,6 @@ This function is called by:
 0093 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 28-Feb-2023 17:31:48 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

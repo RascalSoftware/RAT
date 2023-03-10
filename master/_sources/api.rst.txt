@@ -207,7 +207,7 @@ Some of the methods of Background Class are:
 2. `setBacksParValue` - Set a parameter value in the back parameter table.
 3. `removeBacksPar` - Remove a parameter from the backsPar/ back parameter table.
 4. `addBackground` - Add a background to the background table. 
-5. `setBackgroundValue` - Set a background value in the background table. (Based on row)
+5. `setBackground` - Set a background value in the background table. (Based on row)
 
 
 .. note::

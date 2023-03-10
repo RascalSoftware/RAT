@@ -26,11 +26,11 @@
 <div class="box"><strong>Function handle for adaptive resampling</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function newSLD = resampleLayers_new(sldProfile,resamPars) </strong></div>
+<div class="box"><strong>function newSLD = resampleLayers(sldProfile,resamPars) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> Function handle for adaptive resampling
- f = @(x) sldFunc(x);
+ f = @(x) SLDFunction(x);
  
 </pre></div>
 
@@ -38,14 +38,14 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="adaptive_new.html" class="code" title="function out = adaptive_new(sldProfile, startDomain, minAngle, nPoints)">adaptive_new</a>	% adaptive: evaluates a matlab function on a given range</li>
+<li><a href="adaptive.html" class="code" title="function out = adaptive(sldProfile, startDomain, minAngle, nPoints)">adaptive</a>	% adaptive: evaluates a matlab function on a given range</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_paraContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_paraContrasts</a>	Extract individual cell arrays</li>
-<li><a href="../../../targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_paraPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_paraPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_paraPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
-<li><a href="../../../targetFunctions/standard_TF/standardTF_custXY/standardTF_custXY_single.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTF_custXY_single(problemDef,problemDef_cells,problemDef_limits,controls)">standardTF_custXY_single</a>	Extract individual cell arrays</li>
-<li><a href="../../../targetFunctions/standard_TF/standardTF_layers_core.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTF_layers_core(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,paralellPoints,resamPars)">standardTF_layers_core</a>	This is the main reflectivity calculation for all Layers models in the</li>
+<li><a href="../../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelContrasts</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
+<li><a href="../../../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYSingle</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars)">standardTFLayersCore</a>	This is the main reflectivity calculation for all Layers models in the</li>
 </ul>
 <!-- crossreference -->
 
@@ -53,11 +53,11 @@ This function is called by:
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre>0001 
-0002 <a name="_sub0" href="#_subfunctions" class="code">function newSLD = resampleLayers_new(sldProfile,resamPars)</a>
+0002 <a name="_sub0" href="#_subfunctions" class="code">function newSLD = resampleLayers(sldProfile,resamPars)</a>
 0003 
 0004 
 0005 <span class="comment">% Function handle for adaptive resampling</span>
-0006 <span class="comment">% f = @(x) sldFunc(x);</span>
+0006 <span class="comment">% f = @(x) SLDFunction(x);</span>
 0007 <span class="comment">%</span>
 0008 x = sldProfile(:,1);
 0009 prof = sldProfile(:,2);
@@ -71,7 +71,7 @@ This function is called by:
 0017 nPoints = resamPars(2);
 0018 
 0019 newX = linspace(xstart,xend,100);
-0020 out = <a href="adaptive_new.html" class="code" title="function out = adaptive_new(sldProfile, startDomain, minAngle, nPoints)">adaptive_new</a>(sldProfile, [xstart xend], minAngle*pi, nPoints);
+0020 out = <a href="adaptive.html" class="code" title="function out = adaptive(sldProfile, startDomain, minAngle, nPoints)">adaptive</a>(sldProfile, [xstart xend], minAngle*pi, nPoints);
 0021 yy = out{1};
 0022 
 0023 newX = yy(:,1);
@@ -99,6 +99,6 @@ This function is called by:
 0045 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 28-Feb-2023 17:31:48 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

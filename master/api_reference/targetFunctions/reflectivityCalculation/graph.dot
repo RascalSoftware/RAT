@@ -1,0 +1,9 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  reflectivityCalculationTestWrapper -> reflectivityCalculation;
+  reflectivityCalculationWrapper -> reflectivityCalculation;
+
+  reflectivityCalculation [URL="reflectivityCalculation.html"];
+  reflectivityCalculationTestWrapper [URL="reflectivityCalculationTestWrapper.html"];
+  reflectivityCalculationWrapper [URL="reflectivityCalculationWrapper.html"];
+}

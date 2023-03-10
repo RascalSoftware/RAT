@@ -46,7 +46,7 @@ This function is called by:
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function obj = multiTypeTable(startCell)</a></li>
+<li><a href="#_sub1" class="code">function obj = multiTypeTable()</a></li>
 <li><a href="#_sub2" class="code">function count = get.typesCount(obj)</a></li>
 <li><a href="#_sub3" class="code">function obj = addRow(obj,addParams)</a></li>
 <li><a href="#_sub4" class="code">function obj = setValue(obj,varargin)</a></li>
@@ -65,198 +65,194 @@ This function is called by:
 0005     
 0006     properties
 0007         typesTable = table
-0008         <span class="comment">% !!!!!! PS - Need to add gaussian here, otherwise projectClass tests fail</span>
-0009         <span class="comment">% We need to be clearer on what the (default) allowedTypes should be. !!!!!!</span>
-0010         allowedTypes = {<span class="string">'constant'</span>, <span class="string">'data'</span>, <span class="string">'function'</span>, <span class="string">'gaussian'</span>}
-0011         allowedActions = {<span class="string">'add'</span>, <span class="string">'subtract'</span>}
-0012         typesAutoNameString = <span class="string">'Row'</span>
-0013     <span class="keyword">end</span>
-0014 
-0015     properties (Access = private)
-0016         typesAutoNameCounter
-0017     <span class="keyword">end</span>
-0018 
-0019     properties (Dependent, SetAccess = private)
-0020         typesCount
-0021     <span class="keyword">end</span>
-0022 
-0023     methods
-0024        
-0025         <a name="_sub0" href="#_subfunctions" class="code">function obj = multiTypeTable(startCell)</a>
-0026             <span class="comment">% Initialises a multi-type table with a single row.</span>
-0027             <span class="comment">% The expected input is a cell array.</span>
-0028             <span class="comment">%</span>
-0029             <span class="comment">% multiTable = multiTypeTable({'First Row'});</span>
-0030             sz = [0 7];
-0031             varTypes = {<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>};
-0032             varNames = {<span class="string">'Name'</span>,<span class="string">'Type'</span>,<span class="string">'Value 1'</span>,<span class="string">'Value 2'</span>,<span class="string">'Value 3'</span>,<span class="string">'Value 4'</span>,<span class="string">'Value 5'</span>};
-0033             obj.typesTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,varTypes,<span class="string">'VariableNames'</span>,varNames);
-0034             obj.typesAutoNameCounter = 0;
-0035             obj.addRow(startCell);
+0008         allowedTypes = {<span class="string">'constant'</span>, <span class="string">'data'</span>, <span class="string">'function'</span>}
+0009         allowedActions = {<span class="string">'add'</span>, <span class="string">'subtract'</span>}
+0010         typesAutoNameString = <span class="string">'Row'</span>
+0011     <span class="keyword">end</span>
+0012 
+0013     properties (Access = private)
+0014         typesAutoNameCounter
+0015     <span class="keyword">end</span>
+0016 
+0017     properties (Dependent, SetAccess = private)
+0018         typesCount
+0019     <span class="keyword">end</span>
+0020 
+0021     methods
+0022        
+0023         <a name="_sub0" href="#_subfunctions" class="code">function obj = multiTypeTable()</a>
+0024             <span class="comment">% Initialises a multi-type table.</span>
+0025             <span class="comment">%</span>
+0026             <span class="comment">% multiTable = multiTypeTable();</span>
+0027             sz = [0 7];
+0028             varTypes = {<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>};
+0029             varNames = {<span class="string">'Name'</span>,<span class="string">'Type'</span>,<span class="string">'Value 1'</span>,<span class="string">'Value 2'</span>,<span class="string">'Value 3'</span>,<span class="string">'Value 4'</span>,<span class="string">'Value 5'</span>};
+0030             obj.typesTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,varTypes,<span class="string">'VariableNames'</span>,varNames);
+0031             obj.typesAutoNameCounter = 0;
+0032         <span class="keyword">end</span>
+0033 
+0034         <a name="_sub1" href="#_subfunctions" class="code">function count = get.typesCount(obj)</a>
+0035            count = height(obj.typesTable);
 0036         <span class="keyword">end</span>
 0037 
-0038         <a name="_sub1" href="#_subfunctions" class="code">function count = get.typesCount(obj)</a>
-0039            count = height(obj.typesTable);
-0040         <span class="keyword">end</span>
-0041 
-0042         <a name="_sub2" href="#_subfunctions" class="code">function obj = addRow(obj,addParams)</a>
-0043             <span class="comment">% Adds a row to the multi-type table. The row can be specified</span>
-0044             <span class="comment">% with up to seven parameters, with empty strings used for</span>
-0045             <span class="comment">% values that are not specified.</span>
-0046             <span class="comment">%</span>
-0047             <span class="comment">% multiTable.addRow(&quot;New Row&quot;);</span>
-0048             <span class="keyword">switch</span> length(addParams)
-0049 
-0050                 <span class="keyword">case</span> 0
-0051                     <span class="comment">% No Parameter. Add empty row</span>
-0052                     thisName = char(obj.typesAutoNameString);
-0053                     thisNum = obj.typesAutoNameCounter;
-0054                     name = sprintf(<span class="string">'%s %d'</span>,thisName,thisNum);
-0055                     newRow = {name,<span class="string">'constant'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
-0056                     
-0057                 <span class="keyword">case</span> 1
-0058                     <span class="comment">% One parameter: assume this is a name</span>
-0059                     newRow = {addParams,<span class="string">'constant'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
-0060 
-0061                 <span class="keyword">otherwise</span>
-0062                     <span class="comment">% Two or more parameters are specified.</span>
-0063                     <span class="comment">% Assume the specified parameters refer to each table</span>
-0064                     <span class="comment">% entry in order, then pad the row with empty</span>
-0065                     <span class="comment">% characters if necessary</span>
-0066                     newRow = [addParams, repmat({<span class="string">''</span>}, 1, 7-length(addParams))];
-0067 
-0068                     <span class="comment">% Check type is one of the allowed types</span>
-0069                     <span class="keyword">if</span> ~strcmpi(newRow{2}, obj.allowedTypes)
-0070                         throw(invalidOption(sprintf(<span class="string">'Unrecognised type ''%s''. Must be one of the types defined in ''obj.allowedTypes'''</span>, newRow{2})));
-0071                     <span class="keyword">end</span>
-0072             <span class="keyword">end</span>
+0038         <a name="_sub2" href="#_subfunctions" class="code">function obj = addRow(obj,addParams)</a>
+0039             <span class="comment">% Adds a row to the multi-type table. The row can be specified</span>
+0040             <span class="comment">% with up to seven parameters, with empty strings used for</span>
+0041             <span class="comment">% values that are not specified.</span>
+0042             <span class="comment">%</span>
+0043             <span class="comment">% multiTable.addRow(&quot;New Row&quot;);</span>
+0044             <span class="keyword">switch</span> length(addParams)
+0045 
+0046                 <span class="keyword">case</span> 0
+0047                     <span class="comment">% No Parameter. Add empty row</span>
+0048                     thisName = char(obj.typesAutoNameString);
+0049                     thisNum = obj.typesAutoNameCounter;
+0050                     name = sprintf(<span class="string">'%s %d'</span>,thisName,thisNum);
+0051                     newRow = {name,<span class="string">'constant'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+0052                     
+0053                 <span class="keyword">case</span> 1
+0054                     <span class="comment">% One parameter: assume this is a name</span>
+0055                     newRow = {addParams,<span class="string">'constant'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+0056 
+0057                 <span class="keyword">otherwise</span>
+0058                     <span class="comment">% Two or more parameters are specified.</span>
+0059                     <span class="comment">% Assume the specified parameters refer to each table</span>
+0060                     <span class="comment">% entry in order, then pad the row with empty</span>
+0061                     <span class="comment">% characters if necessary</span>
+0062                     newRow = [addParams, repmat({<span class="string">''</span>}, 1, 7-length(addParams))];
+0063 
+0064                     <span class="comment">% Check type is one of the allowed types</span>
+0065                     <span class="keyword">if</span> ~strcmpi(newRow{2}, obj.allowedTypes)
+0066                         throw(invalidOption(sprintf(<span class="string">'Unrecognised type ''%s''. Must be one of the types defined in ''obj.allowedTypes'''</span>, newRow{2})));
+0067                     <span class="keyword">end</span>
+0068             <span class="keyword">end</span>
+0069 
+0070             <span class="comment">% Pass in only the first seven values to ensure input is</span>
+0071             <span class="comment">% not too long</span>
+0072             <a href="#_sub7" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow(1:7));
 0073 
-0074             <span class="comment">% Pass in only the first seven values to ensure input is</span>
-0075             <span class="comment">% not too long</span>
-0076             <a href="#_sub7" class="code" title="subfunction appendNewRow(obj,row)">appendNewRow</a>(obj,newRow(1:7));
-0077 
-0078         <span class="keyword">end</span>
-0079         
-0080         <a name="_sub3" href="#_subfunctions" class="code">function obj = setValue(obj,varargin)</a>
-0081             <span class="comment">% Change the value of a given parameter in the table. The row</span>
-0082             <span class="comment">% and column of the parameter can both be specified by either</span>
-0083             <span class="comment">% name or index. The expected input is three values: row,</span>
-0084             <span class="comment">% column, newValue</span>
-0085             <span class="comment">%</span>
-0086             <span class="comment">% multiTable.setValue(1, 1, &quot;origin&quot;);</span>
-0087             in = varargin{:};
-0088             tab = obj.typesTable;
+0074         <span class="keyword">end</span>
+0075         
+0076         <a name="_sub3" href="#_subfunctions" class="code">function obj = setValue(obj,varargin)</a>
+0077             <span class="comment">% Change the value of a given parameter in the table. The row</span>
+0078             <span class="comment">% and column of the parameter can both be specified by either</span>
+0079             <span class="comment">% name or index. The expected input is three values: row,</span>
+0080             <span class="comment">% column, newValue</span>
+0081             <span class="comment">%</span>
+0082             <span class="comment">% multiTable.setValue(1, 1, &quot;origin&quot;);</span>
+0083             in = varargin{:};
+0084             tab = obj.typesTable;
+0085             
+0086             <span class="comment">% First parameter needs to be either a row name or number</span>
+0087             rowNames = obj.typesTable{:,1};
+0088             rowPar = in{1};
 0089             
-0090             <span class="comment">% First parameter needs to be either a row name or number</span>
-0091             rowNames = obj.typesTable{:,1};
-0092             rowPar = in{1};
-0093             
-0094             <span class="keyword">if</span> ischar(rowPar)
-0095                 row = obj.findRowIndex(rowPar, rowNames);
-0096             <span class="keyword">elseif</span> isnumeric(rowPar)
-0097                 <span class="comment">% This rounds any float values down to an integer</span>
-0098                 <span class="keyword">if</span> (rowPar &lt; 1) || (rowPar &gt; obj.typesCount)
-0099                     throw(indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, rowPar, obj.typesCount)));
-0100                 <span class="keyword">else</span>
-0101                     row = rowPar;
-0102                 <span class="keyword">end</span>
-0103             <span class="keyword">else</span>
-0104                 throw(invalidType(<span class="string">'Unrecognised row'</span>));
-0105             <span class="keyword">end</span>
-0106             
-0107             <span class="comment">% Second parameter needs to be either a column name or</span>
-0108             <span class="comment">% number.</span>
-0109             colPar = in{2};
-0110             colNames = obj.typesTable.Properties.VariableNames;
-0111 
-0112             <span class="keyword">if</span> ischar(colPar)
-0113                 col = obj.findRowIndex(colPar,colNames);
-0114             <span class="keyword">elseif</span> isnumeric(colPar)
-0115                 <span class="keyword">if</span> (colPar &lt; 1) || (colPar &gt; length(colNames))
-0116                     throw(indexOutOfRange(sprintf(<span class="string">'The column index %d is not within the range 1 - %d'</span>, colPar, length(colNames))));
-0117                 <span class="keyword">else</span>
-0118                     col = colPar;
-0119                 <span class="keyword">end</span>
-0120             <span class="keyword">else</span>
-0121                 throw(invalidType(<span class="string">'Unrecognised column'</span>));
-0122             <span class="keyword">end</span>
-0123             
-0124             <span class="comment">% Set the value</span>
-0125             tab(row,col) = in(3);
-0126             obj.typesTable = tab;
-0127 
-0128         <span class="keyword">end</span>
-0129 
-0130         <a name="_sub4" href="#_subfunctions" class="code">function removeRow(obj,row)</a>
-0131             <span class="comment">% Removes a row from the multi-type table. The expected</span>
-0132             <span class="comment">% input is a length one cell array.</span>
-0133             <span class="comment">% NOTE that an input such as {[1 3]} leads to multiple rows</span>
-0134             <span class="comment">% being removed from the table</span>
-0135             <span class="comment">%</span>
-0136             <span class="comment">% multiTable.removeRow({2});</span>
-0137             tab = obj.typesTable;
-0138             thisRow = row{:};
-0139             tab(thisRow,:) = [];
-0140             obj.typesTable = tab;
-0141         <span class="keyword">end</span>
-0142         
-0143         <a name="_sub5" href="#_subfunctions" class="code">function displayTypesTable(obj)</a>
-0144             <span class="comment">% Display the multi-type Table in the terminal.</span>
-0145             <span class="comment">%</span>
-0146             <span class="comment">% multiTable.displayTypesTable();</span>
-0147             array = obj.typesTable;
-0148             p = 1:size(array,1);
-0149             p = p(:);
-0150             p = table(p);
-0151             all = [p array];
-0152             disp(all);
-0153         <span class="keyword">end</span>
-0154 
-0155         <a name="_sub6" href="#_subfunctions" class="code">function appendNewRow(obj,row)</a>
-0156             <span class="comment">% Appends a row to the multi-type table. The expected input is</span>
-0157             <span class="comment">% a length seven cell array.</span>
-0158             <span class="comment">%</span>
-0159             <span class="comment">% multiTable.appendNewRow({'New Row','','','','','',''});</span>
-0160             tab = obj.typesTable;
-0161             newName = row{1};
-0162             <span class="keyword">if</span> any(strcmp(newName,tab{:,1}))
-0163                 throw(duplicateName(<span class="string">'Duplicate parameter names not allowed'</span>));
-0164             <span class="keyword">end</span>
-0165             tab = [tab ; row];
-0166             obj.typesTable = tab;
-0167             obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
+0090             <span class="keyword">if</span> ischar(rowPar)
+0091                 row = obj.findRowIndex(rowPar, rowNames);
+0092             <span class="keyword">elseif</span> isnumeric(rowPar)
+0093                 <span class="comment">% This rounds any float values down to an integer</span>
+0094                 <span class="keyword">if</span> (rowPar &lt; 1) || (rowPar &gt; obj.typesCount)
+0095                     throw(indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, rowPar, obj.typesCount)));
+0096                 <span class="keyword">else</span>
+0097                     row = rowPar;
+0098                 <span class="keyword">end</span>
+0099             <span class="keyword">else</span>
+0100                 throw(invalidType(<span class="string">'Unrecognised row'</span>));
+0101             <span class="keyword">end</span>
+0102             
+0103             <span class="comment">% Second parameter needs to be either a column name or</span>
+0104             <span class="comment">% number.</span>
+0105             colPar = in{2};
+0106             colNames = obj.typesTable.Properties.VariableNames;
+0107 
+0108             <span class="keyword">if</span> ischar(colPar)
+0109                 col = obj.findRowIndex(colPar,colNames);
+0110             <span class="keyword">elseif</span> isnumeric(colPar)
+0111                 <span class="keyword">if</span> (colPar &lt; 1) || (colPar &gt; length(colNames))
+0112                     throw(indexOutOfRange(sprintf(<span class="string">'The column index %d is not within the range 1 - %d'</span>, colPar, length(colNames))));
+0113                 <span class="keyword">else</span>
+0114                     col = colPar;
+0115                 <span class="keyword">end</span>
+0116             <span class="keyword">else</span>
+0117                 throw(invalidType(<span class="string">'Unrecognised column'</span>));
+0118             <span class="keyword">end</span>
+0119             
+0120             <span class="comment">% Set the value</span>
+0121             tab(row,col) = in(3);
+0122             obj.typesTable = tab;
+0123 
+0124         <span class="keyword">end</span>
+0125 
+0126         <a name="_sub4" href="#_subfunctions" class="code">function removeRow(obj,row)</a>
+0127             <span class="comment">% Removes a row from the multi-type table. The expected</span>
+0128             <span class="comment">% input is a length one cell array.</span>
+0129             <span class="comment">% NOTE that an input such as {[1 3]} leads to multiple rows</span>
+0130             <span class="comment">% being removed from the table</span>
+0131             <span class="comment">%</span>
+0132             <span class="comment">% multiTable.removeRow({2});</span>
+0133             tab = obj.typesTable;
+0134             thisRow = row{:};
+0135             tab(thisRow,:) = [];
+0136             obj.typesTable = tab;
+0137         <span class="keyword">end</span>
+0138         
+0139         <a name="_sub5" href="#_subfunctions" class="code">function displayTypesTable(obj)</a>
+0140             <span class="comment">% Display the multi-type Table in the terminal.</span>
+0141             <span class="comment">%</span>
+0142             <span class="comment">% multiTable.displayTypesTable();</span>
+0143             array = obj.typesTable;
+0144             p = 1:size(array,1);
+0145             p = p(:);
+0146             p = table(p);
+0147             all = [p array];
+0148             disp(all);
+0149         <span class="keyword">end</span>
+0150 
+0151         <a name="_sub6" href="#_subfunctions" class="code">function appendNewRow(obj,row)</a>
+0152             <span class="comment">% Appends a row to the multi-type table. The expected input is</span>
+0153             <span class="comment">% a length seven cell array.</span>
+0154             <span class="comment">%</span>
+0155             <span class="comment">% multiTable.appendNewRow({'New Row','','','','','',''});</span>
+0156             tab = obj.typesTable;
+0157             newName = row{1};
+0158             <span class="keyword">if</span> any(strcmp(newName,tab{:,1}))
+0159                 throw(duplicateName(<span class="string">'Duplicate parameter names not allowed'</span>));
+0160             <span class="keyword">end</span>
+0161             tab = [tab ; row];
+0162             obj.typesTable = tab;
+0163             obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
+0164 
+0165         <span class="keyword">end</span>
+0166 
+0167     <span class="keyword">end</span>
 0168 
-0169         <span class="keyword">end</span>
+0169     methods(Static)
 0170 
-0171     <span class="keyword">end</span>
-0172 
-0173     methods(Static)
-0174 
-0175         <a name="_sub7" href="#_subfunctions" class="code">function row = findRowIndex(name, namesList)</a>
-0176             <span class="comment">% Find the index of a row in the multi-type table given its</span>
-0177             <span class="comment">% name. The expected inputs are the name of the row and the</span>
-0178             <span class="comment">% full list of row names.</span>
-0179         
-0180             <span class="comment">% Strip leading or trailing whitespaces from names</span>
-0181             namesList = strip(namesList);
-0182             name = strip(name);
-0183             
-0184             <span class="comment">% Compare 'name' to list ignoring case</span>
-0185             index = strcmpi(name, namesList);
-0186             <span class="keyword">if</span> any(index)
-0187                 <span class="comment">% Non-zero value in array is the row index</span>
-0188                 row = find(index);
-0189             <span class="keyword">else</span>
-0190                 throw(nameNotRecognised(<span class="string">'Unrecognised parameter name'</span>));
-0191             <span class="keyword">end</span>
+0171         <a name="_sub7" href="#_subfunctions" class="code">function row = findRowIndex(name, namesList)</a>
+0172             <span class="comment">% Find the index of a row in the multi-type table given its</span>
+0173             <span class="comment">% name. The expected inputs are the name of the row and the</span>
+0174             <span class="comment">% full list of row names.</span>
+0175         
+0176             <span class="comment">% Strip leading or trailing whitespaces from names</span>
+0177             namesList = strip(namesList);
+0178             name = strip(name);
+0179             
+0180             <span class="comment">% Compare 'name' to list ignoring case</span>
+0181             index = strcmpi(name, namesList);
+0182             <span class="keyword">if</span> any(index)
+0183                 <span class="comment">% Non-zero value in array is the row index</span>
+0184                 row = find(index);
+0185             <span class="keyword">else</span>
+0186                 throw(nameNotRecognised(<span class="string">'Unrecognised parameter name'</span>));
+0187             <span class="keyword">end</span>
+0188 
+0189         <span class="keyword">end</span>
+0190 
+0191     <span class="keyword">end</span>
 0192 
-0193         <span class="keyword">end</span>
-0194 
-0195     <span class="keyword">end</span>
-0196 
-0197 <span class="keyword">end</span>
+0193 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 28-Feb-2023 17:31:48 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

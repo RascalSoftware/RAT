@@ -187,7 +187,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % If the input is wrapped in a cell (so varargin is a cell of a cell)
             % need to unwrap one layer of it, otherwise keep varargin as it is
-            if iscell(varargin{:})
+            if length(varargin) == 1 && iscell(varargin{:})
                 paramGroup = varargin{:};
             else
                 paramGroup = varargin;
@@ -213,7 +213,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             else
                 % If the input is wrapped in a cell (so varargin is a cell of a cell)
                 % need to unwrap one layer of it, otherwise keep varargin as it is
-                if iscell(varargin{:})
+                if length(varargin) == 1 && iscell(varargin{:})
                     thisParam = varargin{:};
                 else
                     thisParam = varargin;

@@ -97,8 +97,7 @@ problem.addBackground('Background SMW','constant','Backs par SMW');
 problem.addBackground('Background H2O','constant','Backs par H2O');
 
 % And edit the other one....
-problem.setBackgroundValue(1,'name','Background D2O');
-problem.setBackgroundValue(1,'value 1','Backs par D2O');
+problem.setBackground(1,'name','Background D2O','value1','Backs par D2O');
 
 % Finally modify some of the other parameters to be more suitable values
 % for a solid / liquid experiment.
@@ -149,9 +148,9 @@ problem.setContrastModel(3,'DSPC Model');
 
 
 controls = controlsClass();
-controls.calcSldDuringFit = 'no';
-controls.nsimu = 7000;
-controls.repeats = 3;
+controls.calcSldDuringFit = false;
+% controls.nsimu = 7000;
+% controls.repeats = 3;
 controls.parallel = 'contrasts';
 
 

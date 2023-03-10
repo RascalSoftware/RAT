@@ -1,4 +1,4 @@
-function [R_stat] = Gelman(chain,DREAMPar)
+function [R_stat] = gelman(chain,DREAMPar)
 % Calculates the R-statistic convergence diagnostic
 % ----------------------------------------------------
 % For more information please refer to: Gelman, A. and D.R. Rubin, 1992. 

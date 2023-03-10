@@ -50,8 +50,7 @@ problem.addBackground('Background SMW','constant','Backs par SMW');
 problem.addBackground('Background H2O','constant','Backs par H2O');
 
 % And edit the other one....
-problem.setBackgroundValue(1,'name','Background D2O');
-problem.setBackgroundValue(1,'value 1','Backs par D2O');
+problem.setBackground(1,'name','Background D2O', 'value1','Backs par D2O');
 
 % Set the scalefactor...
 problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',true);

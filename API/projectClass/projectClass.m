@@ -453,7 +453,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Sets the value of an existing background. Expects
             % index or name of background and keyword/value pairs to set
             %
-            % problem.setBackgroundValue(1, 'name', 'Background ACMW');
+            % problem.setBackground(1, 'name', 'Background ACMW');
             obj.background.setBackground(varargin{:});
         end
         

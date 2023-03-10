@@ -373,8 +373,7 @@ Use these parameters to define two constant backgrounds, again using the existin
 .. code:: MATLAB
 
     problem.addBackground('Background D2O', 'constant', 'Backs Value D2O');
-    problem.setBackgroundValue(1, 'name', 'Background ACMW');
-    problem.setBackgroundValue(1, 3, 'Backs Value ACMW');
+    problem.setBackground(1, 'name', 'Background ACMW', 'value1', 'Backs Value ACMW');
 
 We need two subphases for our project. D2O is already in the project as a default, so we only need to add the bulk out for ACMW
 

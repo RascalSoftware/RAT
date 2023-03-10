@@ -62,8 +62,7 @@ problem.setBacksParValue(1,5.5e-6);
 problem.addBacksPar('Backs Value D2O',1e-8,2.8e-6,1e-5);
 
 problem.addBackground('Background D2O','constant','Backs Value D2O');
-problem.setBackgroundValue(1,'name','Background ACMW');
-problem.setBackgroundValue(1,3,'Backs Value ACMW');
+problem.setBackground(1,'name','Background ACMW', 'value1', 'Backs Value ACMW');
 
 % Also need an additional bulk out
 problem.addBulkOut('SLD ACMW',-1e-6,0.0,1e-6,true);

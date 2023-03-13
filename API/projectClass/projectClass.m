@@ -484,7 +484,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution.resolPars.addParam(varargin{:});
         end
         
-        function obj = setResolPar(obj,varargin)
+        function obj = setResolPar(obj, varargin)
             % Sets the value of an existing resolution parameter. Expects
             % index or name of parameter and keyword/value pairs to set
             %
@@ -492,7 +492,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.resolution.resolPars.setParameter(varargin{:});
         end
         
-        function obj = removeResolPar(obj,varargin)
+        function obj = removeResolPar(obj, varargin)
             % Removes a given resolution parameter.
             % Expects index or name of parameter to remove
             % 
@@ -501,7 +501,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         end
         
         % Resolutions
-        function obj = addResolution(obj,varargin)
+        function obj = addResolution(obj, varargin)
             % Adds a resolution to the project. Expects a 
             % cell array with resolution name and type and 
             % up to 4 parameters

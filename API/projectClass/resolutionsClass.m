@@ -64,7 +64,7 @@ classdef resolutionsClass < handle
             names = resolTable{:,1};   
         end
          
-        function addResolution(obj,varargin)
+        function addResolution(obj, varargin)
             % Adds a new entry to the resolution table.  
             %
             % resolution.addResolution('New Row');
@@ -90,6 +90,8 @@ classdef resolutionsClass < handle
                typeVal = in{2};
                if ~strcmpi(typeVal, obj.allowedTypes)
                    throw(invalidOption(sprintf(obj.invalidTypeMessage, typeVal)));
+               elseif any(strcmpi(typeVal, {'constant', 'function'})) && length(in) < 3
+                   throw(invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
                end
 
                thisRow{1} = in{1};

@@ -92,6 +92,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
                                     ["Resolution 5", "function", "function_name", "Resolution par 1", "Resolution par 3", "", ""], ...
                                     'addResolution method not working');
             testCase.verifyError(@() testCase.resolution.addResolution('New', 'fixed'), invalidOption.errorID);
+            testCase.verifyError(@() testCase.resolution.addResolution('New', 'constant'), invalidNumberOfInputs.errorID);           
             testCase.verifyError(@() testCase.resolution.addResolution('New', 'constant', 6), indexOutOfRange.errorID);
         end
 

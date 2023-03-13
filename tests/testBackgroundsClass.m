@@ -93,6 +93,7 @@
                               ["background 5", "function", "function_name", "background par 1", "background par 3", "", ""], ...
                               'addBackground method not working');
          testCase.verifyError(@() testCase.background.addBackground('New', 'fixed'), invalidOption.errorID);
+         testCase.verifyError(@() testCase.background.addBackground('New', 'constant'), invalidNumberOfInputs.errorID);
          testCase.verifyError(@() testCase.background.addBackground('New', 'constant', 6), indexOutOfRange.errorID);
       end
 

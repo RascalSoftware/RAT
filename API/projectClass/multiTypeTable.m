@@ -35,7 +35,7 @@ classdef multiTypeTable < handle
            count = height(obj.typesTable);
         end
 
-        function obj = addRow(obj,addParams)
+        function obj = addRow(obj, addParams)
             % Adds a row to the multi-type table. The row can be specified
             % with up to seven parameters, with empty strings used for
             % values that are not specified.

@@ -91,8 +91,10 @@ classdef backgroundsClass < handle
             if length(in) > 1
                % Check that second param is legal
                typeVal = in{2};
-               if ~strcmpi(typeVal,obj.allowedTypes)
-                    throw(invalidOption(sprintf(obj.invalidTypeMessage, typeVal)));
+               if ~strcmpi(typeVal, obj.allowedTypes)
+                   throw(invalidOption(sprintf(obj.invalidTypeMessage, typeVal)));              
+               elseif any(strcmpi(typeVal, {'constant', 'function'})) && length(in) < 3
+                    throw(invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
                end
 
                thisRow{1} = in{1};

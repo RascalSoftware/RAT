@@ -122,7 +122,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
         end
         
-        function obj = setGeometry(obj,val)
+        function obj = setGeometry(obj, val)
             % Sets the experiment geometry. The geometry should be a string,  
             % either "Air/Substrate" or "Substrate/Liquid" is permitted.
             %
@@ -140,7 +140,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
         end
         
-        function obj = setModelType(obj,val)
+        function obj = setModelType(obj, val)
             % Sets the experiment type. The type should be a string,  
             % either "standard layers", "custom layers", or "custom xy" is permitted.
             %
@@ -554,7 +554,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % ---------------------------------------------------------------
         %   Editing of Bulk out block
         
-        function obj = addBulkOut(obj,varargin)
+        function obj = addBulkOut(obj, varargin)
             % Adds a new bulk-out parameter. Expects the name
             % of bulk-out, min, value, max, and if fit is off or on
             % 
@@ -562,7 +562,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.bulkOut.addParam(varargin{:});
         end
         
-        function obj = removeBulkOut(obj,varargin)
+        function obj = removeBulkOut(obj, varargin)
             % Removes specified bulk-out parameter. Expects the name/index
             % of bulk-out to remove
             % 
@@ -570,7 +570,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.bulkOut.removeParam(varargin{:});
         end
         
-        function obj = setBulkOut(obj,varargin)
+        function obj = setBulkOut(obj, varargin)
             % Edits an existing bulk-out parameter. Expects the
             % index of bulk-out to edit and key-value pairs
             %
@@ -582,7 +582,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % ------------------------------------------------------------------
         % Editing of bulk in block
         
-        function obj = addBulkIn(obj,varargin)
+        function obj = addBulkIn(obj, varargin)
             % Adds a new bulk-in parameter. Expects the name
             % of bulk-in, min, value, max, and if fit is off or on
             % 
@@ -590,7 +590,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.bulkIn.addParam(varargin{:});
         end
         
-        function obj = removeBulkIn(obj,varargin)
+        function obj = removeBulkIn(obj, varargin)
             % Removes specified bulk-in parameter. Expects the name/index
             % of bulk-in to remove
             % 
@@ -598,7 +598,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.bulkIn.removeParam(varargin{:});
         end
         
-        function obj = setBulkIn(obj,varargin)
+        function obj = setBulkIn(obj, varargin)
             % Edits an existing bulk-in parameter. Expects the
             % index of bulk-in to edit and key-value pairs
             %
@@ -609,7 +609,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % -------------------------------------------------------------------
         % Editing of scalefactors block
         
-        function obj = addScalefactor(obj,varargin)
+        function obj = addScalefactor(obj, varargin)
             % Adds a new scale factor parameter. Expects the name
             % of scale factor, min, value, max, and if fit is off or on
             % 
@@ -617,7 +617,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.scalefactors.addParam(varargin{:});
         end
         
-        function obj = removeScalefactor(obj,varargin)
+        function obj = removeScalefactor(obj, varargin)
             % Removes specified scale factor parameter. Expects the name/index
             % of scale factor to remove
             % 
@@ -625,7 +625,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
            obj.scalefactors.removeParam(varargin{:}); 
         end
         
-        function obj = setScalefactor(obj,varargin)
+        function obj = setScalefactor(obj, varargin)
             % Edits an existing scale factor parameter. Expects the
             % index of scale factor to edit and key-value pairs
             %
@@ -637,7 +637,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % -----------------------------------------------------------------
         % Editing of qzshifts block
         
-        function obj = addQzshift(obj,varargin)
+        function obj = addQzshift(obj, varargin)
             % Adds a new qz shift parameter. Expects the name
             % of qz shift, min, value, max, and if fit is off or on
             % 

@@ -314,15 +314,18 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % -----------------------------------------------------
         
         % Editing of layers block
-        function obj = addLayerGroup(obj, varargin)
+        function obj = addLayerGroup(obj, layerGroup)
             % Adds a group of layers to the layers object. Expects 
-            % a series of layer cell arrays
+            % a cell array of layer cell arrays
             %
-            % problem.addLayerGroup('Layer 1', 'Layer 2');            
-            for i = 1:length(varargin)
-                obj = addLayer(obj, varargin{i});
-            end
-            
+            % problem.addLayerGroup({{'Layer 1'}, {'Layer 2'}});
+            for i = 1:length(layerGroup)
+                if iscell(layerGroup{i})
+                    obj = addLayer(obj, layerGroup{i});
+                else
+                    throw(invalidType('Expecting a cell array of parameters in ''addLayerGroup'''));
+                end
+            end  
         end
         
         function obj = addLayer(obj, varargin)
@@ -340,7 +343,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             else
                 thisLayer = varargin;
             end
-
             obj.layers.addLayer(obj.parameters.paramsTable{:,1}, thisLayer{:});        
         end
 

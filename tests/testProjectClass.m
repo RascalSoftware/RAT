@@ -187,7 +187,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Test default layer
             testCase.verifySize(testCase.project.layers.layersTable, [0, 6], 'Layers has wrong dimension');
             % Test adding LayerGroup
-            testCase.project.addLayerGroup(testCase.layers{:});
+            testCase.project.addLayerGroup(testCase.layers);
             testCase.verifySize(testCase.project.layers.layersTable, [4, 6], 'Layers has wrong dimension');
             for i = 1:length(testCase.layers)
                 for j = 1:length(testCase.layers{i})

@@ -335,15 +335,18 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % or just a name, to create an empty layer.
             %
             % problem.addLayer('New Layer');
-
-            % If the input is wrapped in a cell (so varargin is a cell of a cell)
-            % need to unwrap one layer of it, otherwise keep varargin as it is
-            if length(varargin) == 1 && iscell(varargin{:})
-                thisLayer = varargin{:};
+            if isempty(varargin)
+                obj.layers.addLayer(obj.parameters.paramsTable{:,1});
             else
-                thisLayer = varargin;
+                % If the input is wrapped in a cell (so varargin is a cell of a cell)
+                % need to unwrap one layer of it, otherwise keep varargin as it is
+                if length(varargin) == 1 && iscell(varargin{:})
+                    thisLayer = varargin{:};
+                else
+                    thisLayer = varargin;
+                end
+                obj.layers.addLayer(obj.parameters.paramsTable{:,1}, thisLayer{:});
             end
-            obj.layers.addLayer(obj.parameters.paramsTable{:,1}, thisLayer{:});        
         end
 
         function obj = removeLayer(obj, layer)

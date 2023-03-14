@@ -167,7 +167,7 @@ classdef parametersClass < handle
             end
         end
         
-        function obj = setParameter(obj, param, varargin)
+        function obj = setParameter(obj, row, varargin)
             % General purpose set parameter method. Expects index or name
             % of parameter and keyword/value pairs to set
             %
@@ -178,7 +178,7 @@ classdef parametersClass < handle
                 throw(invalidNumberOfInputs('The input to ''setParameter'' should be a index/parameter name and a set of name-value pairs'));
             end
 
-            row = obj.getValidRow(param);
+            row = obj.getValidRow(row);
             inputBlock = obj.parseParameterInput(varargin{:});
             
             if ~isempty(inputBlock.name)
@@ -205,7 +205,7 @@ classdef parametersClass < handle
 
         end
         
-        function obj = setPrior(obj, param, varargin)
+        function obj = setPrior(obj, row, varargin)
             % Sets the prior of an existing parameter. Expects index or
             % name of parameter and the new prior type ('uniform',
             % 'gaussian', 'jeffreys') with mu and sigma value if applicable
@@ -214,7 +214,7 @@ classdef parametersClass < handle
             inputValues = varargin;
             tab = obj.paramsTable;
             
-            row = obj.getValidRow(param);
+            row = obj.getValidRow(row);
             priorType = inputValues{1};
             if ~strcmpi(priorType,{'uniform','gaussian','jeffreys'})
                 throw(invalidOption(obj.invalidPriorsMessage));
@@ -237,13 +237,13 @@ classdef parametersClass < handle
             
         end
         
-        function obj = setValue(obj, rowInput, value)
+        function obj = setValue(obj, row, value)
             % Sets the value of an existing parameter. Expects index or
             % name of parameter and the new value
             %
             % params.setValue(2, 3.4);
             tab = obj.paramsTable;           
-            row = obj.getValidRow(rowInput);
+            row = obj.getValidRow(row);
 
             if ~isnumeric(value)
                 throw(invalidType('Value must be numeric'));
@@ -253,13 +253,13 @@ classdef parametersClass < handle
             obj.paramsTable = tab;
         end
         
-        function obj = setName(obj, rowInput, name)
+        function obj = setName(obj, row, name)
             % Sets the name of an existing parameter.
             % Expects index or name of parameter and the new name
             %
             % params.setName(2, 'new name');
             tab = obj.paramsTable;           
-            row = obj.getValidRow(rowInput);
+            row = obj.getValidRow(row);
 
             if ~ischar(name)
                 throw(invalidType('New name must be char'));
@@ -269,13 +269,14 @@ classdef parametersClass < handle
             obj.paramsTable = tab;
         end
         
-        function obj = setConstr(obj, rowInput, min, max)
-            % Sets the constraints of an existing parameter. Expects a cell array with 
-            % index or name of parameter and new min and max of the parameter's value
+        function obj = setConstr(obj, row, min, max)
+            % Sets the constraints of an existing parameter. Expects index
+            % or name of parameter and new min and max of the parameter's
+            % value
             %
             % params.setConstr({2, 0, 100});
             tab = obj.paramsTable;
-            row = obj.getValidRow(rowInput);
+            row = obj.getValidRow(row);
 
             if ~(isnumeric(min) && isnumeric(max))
                 throw(invalidType('min and max need to be numeric'));
@@ -286,13 +287,13 @@ classdef parametersClass < handle
             obj.paramsTable = tab;
         end
                 
-        function obj = setFit(obj, rowInput, fitFlag)
+        function obj = setFit(obj, row, fitFlag)
             % Sets the 'fit' to off or on for parameter.
             % Expects index or name of parameter and new fit flag
             %
             % params.setFit(2, true);           
             tab = obj.paramsTable;
-            row = obj.getValidRow(rowInput);
+            row = obj.getValidRow(row);
 
             if ~islogical(fitFlag)
                 throw(invalidType('Need true or false for Fit? value'));
@@ -386,7 +387,7 @@ classdef parametersClass < handle
     
     methods (Access = protected)
         
-        function appendNewRow(obj,row)
+        function appendNewRow(obj, row)
             % Appends a new row to the table. Expects a cell array  
             % with row values to append
             % 
@@ -442,7 +443,7 @@ classdef parametersClass < handle
     end
 
     methods (Static)
-        function row = findRowIndex(name,tab)
+        function row = findRowIndex(name, tab)
             % Gets index with given row name from table.
             %
             % obj.findRowIndex('param')

@@ -212,25 +212,25 @@ classdef resolutionsClass < handle
     end
 
     methods (Access = protected)
-        function thisPar = validateParam(obj, par)
+        function thisPar = validateParam(obj, param)
             % Checks that given parameter index or name is valid, then returns the
             % parameter name. 
             %
             % param = obj.validateParam('param_name');
-            if iscell(par)
-                par = par{:};
+            if iscell(param)
+                param = param{:};
             end
             parList = obj.resolPars.getParamNames(); 
-            if isnumeric(par)
-                if (par < 1) || (par > length(parList))
-                    throw(indexOutOfRange(sprintf('Resolution Parameter %d is out of range', par)));
+            if isnumeric(param)
+                if (param < 1) || (param > length(parList))
+                    throw(indexOutOfRange(sprintf('Resolution Parameter %d is out of range', param)));
                 end
-                thisPar = parList(par);
+                thisPar = parList(param);
             else
-                if ~strcmpi(par, parList)
-                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', par)));
+                if ~strcmpi(param, parList)
+                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', param)));
                 end
-                thisPar = par;
+                thisPar = param;
             end   
         end
     end

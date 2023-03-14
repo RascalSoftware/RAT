@@ -67,7 +67,7 @@ classdef customFileClass < handle
                 newName = sprintf('New custom file %d', nameVal);
                 
                 newRow = {newName, "", "matlab", "pwd"};
-                appendNewRow(obj,newRow);
+                appendNewRow(obj, newRow);
 
             else
                 
@@ -85,7 +85,7 @@ classdef customFileClass < handle
                         end
                         
                         newRow = {newName,"","matlab","pwd"};
-                        appendNewRow(obj,newRow);
+                        appendNewRow(obj, newRow);
                         
                     case 2
 
@@ -95,7 +95,7 @@ classdef customFileClass < handle
                         newFile = string(inputs{2});
 
                         newRow = {newName,newFile,"matlab","pwd"};
-                        appendNewRow(obj,newRow);
+                        appendNewRow(obj, newRow);
                         
                     case 4
 
@@ -106,7 +106,7 @@ classdef customFileClass < handle
                         newPath = string(inputs{4});
                         
                         newRow = {newName, newFile, newLang, newPath};
-                        appendNewRow(obj,newRow);
+                        appendNewRow(obj, newRow);
                         
                     otherwise
 
@@ -118,7 +118,7 @@ classdef customFileClass < handle
             
         end
         
-        function obj = setCustomFile(obj, customPar, varargin)
+        function obj = setCustomFile(obj, row, varargin)
             % Change the value of a given parameter in the file table.
             % The expected inputs are the row of the file entry of
             % interest (given either by name of index), and key-value pairs
@@ -136,15 +136,15 @@ classdef customFileClass < handle
             end
                 
             % First input needs to be a data number or name
-            if isnumeric(customPar)
-                if (customPar > obj.fileCount) || (customPar < 1)
-                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', customPar, obj.fileCount)));
+            if isnumeric(row)
+                if (row > obj.fileCount) || (row < 1)
+                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.fileCount)));
                 end
-            elseif ischar(customPar)
-                if ~strcmpi(customPar,customNames)
-                    throw(nameNotRecognised(sprintf('Custom file object name %s not recognised', customPar)));
+            elseif ischar(row)
+                if ~strcmpi(row, customNames)
+                    throw(nameNotRecognised(sprintf('Custom file object name %s not recognised', row)));
                 else
-                    customPar = find(strcmpi(customPar,customNames));
+                    row = find(strcmpi(row, customNames));
                 end
             end
             
@@ -166,20 +166,20 @@ classdef customFileClass < handle
             % so call the relevant set method for these (which will carry
             % out some additional checks)
             if ~isempty(results.filename)
-                obj.setFileName(customPar,results.filename);
+                obj.setFileName(row,results.filename);
             end
             
             if ~isempty(results.language)
-                obj.setCustomLanguage(customPar,results.language);
+                obj.setCustomLanguage(row,results.language);
             end
             
             if ~isempty(results.path)
                 % NOT IMPLEMENTED
-                obj.setCustomPath(customPar,results.path);
+                obj.setCustomPath(row,results.path);
             end
             
             if ~isempty(results.name)
-                obj.setCustomName(customPar,results.name);
+                obj.setCustomName(row,results.name);
             end            
 
         end
@@ -292,21 +292,21 @@ classdef customFileClass < handle
 
     methods(Access = protected)
 
-        function obj = appendNewRow(obj,newRow)
+        function obj = appendNewRow(obj, row)
             % Appends a row to the layers table. The expected input is
             % a length four cell array.
             %
             % customFiles.appendNewRow({'New Row','file.m','matlab','pwd'});
             tab = obj.fileTable;
-            newName = newRow{1};
+            newName = row{1};
             if any(strcmpi(newName,tab{:,1}))
                 throw(duplicateName(obj.duplicateNameMessage));
             end
             
             % Carry out checks of Data type and ranges
-            fileName = newRow{2};
-            language = newRow{3};
-            path = newRow{4};
+            fileName = row{2};
+            language = row{3};
+            path = row{4};
 
             if ~strcmpi(language, obj.supportedLanguages)
                 throw(invalidOption(obj.invalidLanguageMessage));
@@ -330,7 +330,7 @@ classdef customFileClass < handle
         end
         
         
-        function obj = setCustomName(obj,whichCustom,name) 
+        function obj = setCustomName(obj, whichCustom, name) 
             % Check a potential new name is already
             % specified, and set it if not
 

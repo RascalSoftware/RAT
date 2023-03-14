@@ -55,12 +55,10 @@ classdef layersClassRealSLD < handle
                 layerNum = obj.layersAutoNameCounter;
                 layerName = sprintf('Layer %d',layerNum);
                 newRow = {layerName,'','','','','bulk out'};
-                appendNewRow(obj,newRow);
                 
             elseif length(layerDetails) == 1 && ischar(layerDetails{1})
                 % Add an empty named layer
                 newRow = {layerDetails{1},'','','','','bulk out'};
-                appendNewRow(obj,newRow);
             
             else
                 % Add a layer that is fully defined
@@ -80,28 +78,29 @@ classdef layersClassRealSLD < handle
                 
                 % Check that the parameter names given are real
                 % parameters or numbers
-                thisRow = {name};
+                newRow = {name};
                 
                 % Must be a parameter name or number . . .
                 for i = 2:4                       
-                    thisRow{i} = obj.findParameter(layerDetails{i}, paramNames);
+                    newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
                 end
 
                 %  . . . (unless p=5 which can also be Nan)
                 if isnan(layerDetails{5})
-                    thisRow{5} = NaN;
+                    newRow{5} = NaN;
                 else
-                    thisRow{5} = obj.findParameter(layerDetails{5}, paramNames);
+                    newRow{5} = obj.findParameter(layerDetails{5}, paramNames);
                 end
                 
-                thisRow = [thisRow hydrateWhat];
-                appendNewRow(obj,thisRow);
-                    
+                newRow = [newRow hydrateWhat];
+
             end
-            
+
+            appendNewRow(obj, newRow);
+
         end
         
-        function obj = setLayerValue(obj, rowPar, colPar, inputValue, paramNames)
+        function obj = setLayerValue(obj, row, col, inputValue, paramNames)
             % Change the value of a given layer parameter in the table
             % (excluding the layer name). The row and column of the
             % parameter can both be specified by either name or index.
@@ -115,26 +114,22 @@ classdef layersClassRealSLD < handle
             colNames = obj.layersTable.Properties.VariableNames;
             
             % Find the row index if we have a layer name
-            if ischar(rowPar)
-                row = obj.findRowIndex(rowPar,layerNames);
-            elseif isnumeric(rowPar)
-                if (rowPar < 1) || (rowPar > obj.layersCount)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', rowPar, obj.layersCount)));
-                else
-                    row = rowPar;
+            if ischar(row)
+                row = obj.findRowIndex(row,layerNames);
+            elseif isnumeric(row)
+                if (row < 1) || (row > obj.layersCount)
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.layersCount)));
                 end
             else
                 throw(invalidType('Layer type not recognised'));
             end
             
             % Find the column index if we have a column name
-            if ischar(colPar)
-                col = obj.findRowIndex(colPar,colNames);
-            elseif isnumeric(colPar)
-                if (colPar < 1) || (colPar > length(colNames))
-                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', colPar, length(colNames))));
-                else
-                    col = colPar;
+            if ischar(col)
+                col = obj.findRowIndex(col,colNames);
+            elseif isnumeric(col)
+                if (col < 1) || (col > length(colNames))
+                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
                 end
             else
                 throw(invalidType('Layer table column type not recognised'));
@@ -213,7 +208,7 @@ classdef layersClassRealSLD < handle
     
     methods (Access = protected)
         
-        function appendNewRow(obj,row)
+        function appendNewRow(obj, row)
             % Appends a row to the layers table. The expected input is
             % a length six cell array.
             %
@@ -232,7 +227,7 @@ classdef layersClassRealSLD < handle
     
     methods(Static)
 
-        function row = findRowIndex(name,rowNames)
+        function row = findRowIndex(name, rowNames)
             % Find the index of a row in the layers class table given its
             % name. The expected inputs are the name of the row and the
             % full list of row names.

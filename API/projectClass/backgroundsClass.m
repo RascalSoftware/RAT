@@ -182,7 +182,7 @@ classdef backgroundsClass < handle
             end
         end
          
-        function obj = setBackgroundName(obj, index, name)
+        function obj = setBackgroundName(obj, row, name)
             % Sets the name of a given background in the table. Expects 
             % an index and the new name. 
             %
@@ -190,7 +190,7 @@ classdef backgroundsClass < handle
             if ~ischar(name)
                 throw(invalidType(sprintf('%s must be a character array', name)));
             end
-            obj.backgrounds.setValue(index, 'name', name);
+            obj.backgrounds.setValue(row, 'name', name);
         end
 
         function displayBackgroundsObject(obj)
@@ -226,26 +226,26 @@ classdef backgroundsClass < handle
     end
 
     methods (Access = protected)
-        function thisPar = validateParam(obj, par)
+        function thisPar = validateParam(obj, param)
             % Checks that given parameter index or name is valid, then returns the
             % parameter name. 
             %
             % param = obj.validateParam('param_name');
-            if iscell(par)
-                par = par{:};
+            if iscell(param)
+                param = param{:};
             end
             parList = obj.backPars.getParamNames();
-            if isnumeric(par)
-                if (par < 1) || (par > length(parList))
-                    throw(indexOutOfRange(sprintf('Background Parameter %d is out of range', par)));
+            if isnumeric(param)
+                if (param < 1) || (param > length(parList))
+                    throw(indexOutOfRange(sprintf('Background Parameter %d is out of range', param)));
                 else
-                    thisPar = parList(par);
+                    thisPar = parList(param);
                 end
-            elseif ischar(par)
-                if ~strcmpi(par,parList)
-                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', par)));
+            elseif ischar(param)
+                if ~strcmpi(param,parList)
+                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', param)));
                 else
-                    thisPar = par;
+                    thisPar = param;
                 end
             end
         end

@@ -55,7 +55,7 @@ classdef dataClass < handle
                 newSimRange = [obj.defaultSimMin, obj.defaultSimMax];
                 
                 newRow = {newName, [], newDataRange, newSimRange};
-                appendNewRow(obj,newRow);
+                appendNewRow(obj, newRow);
             else   
                 inputs = varargin;
                 newName = inputs{1};
@@ -97,9 +97,9 @@ classdef dataClass < handle
             end 
         end
         
-        function nameChanged = setData(obj, dataPar, varargin)
+        function nameChanged = setData(obj, row, varargin)
             % Sets the values of an existing dataset. Expects the
-            % index or name of parameter and keyword/value pairs to set
+            % index or name of dataset and keyword/value pairs to set
             %
             % data.setData(2, 'name', 'new_name');
             dataNames = obj.dataTable{:,1};
@@ -110,15 +110,15 @@ classdef dataClass < handle
             end
                 
             % First input needs to be a data number or name
-            if isnumeric(dataPar)
-                if (dataPar > obj.dataCount) || (dataPar < 1)
-                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', dataPar, obj.dataCount)));
+            if isnumeric(row)
+                if (row > obj.dataCount) || (row < 1)
+                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.dataCount)));
                 end
-            elseif ischar(dataPar)
-                if ~strcmpi(dataPar,dataNames)
-                    throw(nameNotRecognised(sprintf('Data object name %s not recognised', dataPar)));
+            elseif ischar(row)
+                if ~strcmpi(row, dataNames)
+                    throw(nameNotRecognised(sprintf('Data object name %s not recognised', row)));
                 else
-                    dataPar = find(strcmpi(dataPar,dataNames));
+                    row = find(strcmpi(row, dataNames));
                 end
             end
             
@@ -149,24 +149,24 @@ classdef dataClass < handle
             nameChanged = []; % Flag which is passed up to the calling function (to change contrasts if necessary)
             
             if ~isempty(results.name)
-                nameChanged = obj.setDataName(dataPar,results.name);
+                nameChanged = obj.setDataName(row,results.name);
             end
             
             if ~isempty(results.data)
-                obj.dataTable{dataPar, 2} = {results.data};
+                obj.dataTable{row, 2} = {results.data};
             end
             
             if ~isempty(results.dataRange)
-                obj.dataTable{dataPar, 3} = {results.dataRange};
+                obj.dataTable{row, 3} = {results.dataRange};
             end
             
             if ~isempty(results.simRange)
-                obj.dataTable{dataPar, 4} = {results.simRange};
+                obj.dataTable{row, 4} = {results.simRange};
             end
 
         end
         
-        function nameChanged = setDataName(obj,whichData,name)
+        function nameChanged = setDataName(obj, whichData, name)
             % Sets the name of an existing dataset. Expects index of data  
             % and the new name. Name must be a char and not an existing name.
             % Returns a structure with the new name and old name
@@ -258,21 +258,21 @@ classdef dataClass < handle
         end
     end
     methods(Access = protected)  
-        function obj = appendNewRow(obj,newRow)
+        function obj = appendNewRow(obj, row)
             % Appends a new row to the table. Expects a cell array  
             % with row values to append
             % 
             % obj.appendNewRow({'name', [], [], []})
             tab = obj.dataTable;
-            newName = newRow{1};
+            newName = row{1};
             if any(strcmpi(newName,tab{:,1}))
                 throw(duplicateName('Duplicate data names not allowed'));
             end
             
             % Carry out checks of Data type and ranges
-            data = newRow{2};
-            dataRange = newRow{3};
-            simRange = newRow{4};
+            data = row{2};
+            dataRange = row{3};
+            simRange = row{4};
             
             if ~isempty(data)   % Data supplied
                 

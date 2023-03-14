@@ -73,7 +73,7 @@ classdef multiTypeTable < handle
 
         end
         
-        function obj = setValue(obj, rowPar, colPar, value)
+        function obj = setValue(obj, row, col, value)
             % Change the value of a given parameter in the table. The row
             % and column of the parameter can both be specified by either
             % name or index. The expected input is three values: row,
@@ -85,14 +85,11 @@ classdef multiTypeTable < handle
             % First parameter needs to be either a row name or number
             rowNames = obj.typesTable{:,1};
             
-            if ischar(rowPar)
-                row = obj.findRowIndex(rowPar, rowNames);
-            elseif isnumeric(rowPar)
-                % This rounds any float values down to an integer
-                if (rowPar < 1) || (rowPar > obj.typesCount)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', rowPar, obj.typesCount)));
-                else
-                    row = rowPar;
+            if ischar(row)
+                row = obj.findRowIndex(row, rowNames);
+            elseif isnumeric(row)
+                if (row < 1) || (row > obj.typesCount)
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.typesCount)));
                 end
             else
                 throw(invalidType('Unrecognised row'));
@@ -102,13 +99,11 @@ classdef multiTypeTable < handle
             % number.
             colNames = obj.typesTable.Properties.VariableNames;
 
-            if ischar(colPar)
-                col = obj.findRowIndex(colPar,colNames);
-            elseif isnumeric(colPar)
-                if (colPar < 1) || (colPar > length(colNames))
-                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', colPar, length(colNames))));
-                else
-                    col = colPar;
+            if ischar(col)
+                col = obj.findRowIndex(col,colNames);
+            elseif isnumeric(col)
+                if (col < 1) || (col > length(colNames))
+                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
                 end
             else
                 throw(invalidType('Unrecognised column'));
@@ -120,7 +115,7 @@ classdef multiTypeTable < handle
 
         end
 
-        function removeRow(obj,row)
+        function removeRow(obj, row)
             % Removes a row from the multi-type table. The expected
             % input is an integer or integer array.
             % NOTE that an input such as [1 3] leads to multiple rows
@@ -144,7 +139,7 @@ classdef multiTypeTable < handle
             disp(all);
         end
 
-        function appendNewRow(obj,row)
+        function appendNewRow(obj, row)
             % Appends a row to the multi-type table. The expected input is
             % a length seven cell array.
             %

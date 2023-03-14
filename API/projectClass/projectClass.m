@@ -792,6 +792,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     
                     if numberOfLayers > 0
                         % Standard layers with layers present
+                        layersDetails = cell([1, layersStruct.numberOfLayers]);
                         for i = 1:layersStruct.numberOfLayers
                             thisLayer = layersValues(i,:);
                             min = find(strcmpi(thisLayer{1},paramNames));

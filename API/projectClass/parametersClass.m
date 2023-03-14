@@ -339,6 +339,7 @@ classdef parametersClass < handle
             
             mins = obj.paramsTable{:,2};
             maxs = obj.paramsTable{:,4};
+            constr = cell([1, length(mins)]);
             for i = 1:length(mins)
                 constr{i} = [mins(i) maxs(i)];
             end
@@ -355,7 +356,8 @@ classdef parametersClass < handle
             
             % Group each row into one cell. Should be a way of doing this
             % without a loop but I can't quite see it right now...
-            for i = 1:size(priors,1)
+            pp = cell([1, size(priors, 1)]);
+            for i = 1:size(priors, 1)
                 thisPrior = priors(i,:);
                 val2 = char(thisPrior{2});
                 thisPrior{2} = val2;

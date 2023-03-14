@@ -16,7 +16,7 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,
 % * domainsTF      - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
 %
 % * polarisedTF    - Target function for cases for polarised neutrons with polarisation analysis.
-%                       
+%   
     
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles
@@ -75,12 +75,18 @@ for i = 1:numberOfContrasts
 end
 coder.varsize('allLayers{:}',[10000 3],[1 0]);
 
+% We need an instance of the customModelClass to be passed around..
+persistent customClass
+
+if isempty(customClass)
+    customClass = customModelClass();
+end
 
 %Decide which target function we are calling ans call the relevant routines
 whichTF = problemDef.TF;
 switch whichTF
     case 'standardTF'
-        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls,customClass);
     %case 'standardTFAbs'
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
     %case 'oilWaterTF'

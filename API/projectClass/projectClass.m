@@ -215,15 +215,24 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end 
         end
                 
-        function obj = removeParam(obj, varargin)
+        function obj = removeParam(obj, row)
             % Removes a parameter from the parameters object. The 
             % parameter will also be removed from the layers array 
             % if it is in use. Expects series of indices or names of
             % parameters to remove
             %
             % problem.removeParam(2);
-            for i = 1:length(varargin)
-                thisParam = varargin{i};
+            if isa(row, 'double')
+                row = num2cell(sort(row, 'descend'));
+            elseif ischar(row) || isstring(row)
+                row = cellstr(row);
+            elseif iscell(row)
+            else
+                throw(invalidType('Unrecognised Row'))
+            end
+
+            for i = 1:length(row)
+                thisParam = row{i};
                 
                 % Make sure we don't remove substrate roughness
                 if (isequal(thisParam, 1)) || (strcmpi(thisParam, 'Substrate Roughness'))

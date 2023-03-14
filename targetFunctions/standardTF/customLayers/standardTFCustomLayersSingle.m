@@ -1,7 +1,7 @@
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
     allRoughs] = standardTFCustomLayersSingle(problemDef,problemDef_cells,...
-    problemDef_limits,controls)
+    problemDef_limits,controls,customClass)
 % Single threaded version of the custom layers, standardTF reflectivity
 % calculation. The function extracts the relevant parameters from the input
 % arrays, allocates these on a pre-contrast basis, then calls the 'core' 
@@ -61,17 +61,23 @@ end
 % Resampling parameters
 resamPars = controls.resamPars;
 
+para = false;
+
+% Process the custom models....
+[allLayers,allRoughs] = customClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para);
+
 % Depending on custom layer language we change the functions used
-lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
-switch lang 
-case 'matlab'
-    % Call the Matlab parallel loop to process the custom models.....
-    [allLayers, allRoughs] = loopMatlabWrapperCustomLayersSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-case 'cpp'
-    [allLayers,allRoughs] = loopCppWrapperCustomLayersSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params); 
-end
+% lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
+% switch lang 
+% case 'matlab'
+%     % Call the Matlab parallel loop to process the custom models.....
+%     [allLayers, allRoughs] = loopMatlabWrapperCustomLayersSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+% case 'cpp'
+%     [allLayers,allRoughs] = loopCppWrapperCustomLayersSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params); 
+% end
 
 
 % Single cored over all contrasts

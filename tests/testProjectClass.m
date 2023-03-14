@@ -147,6 +147,7 @@ classdef testProjectClass < matlab.unittest.TestCase
                 testCase.verifyEqual(string(testCase.project.parameters.paramsTable{i+1, :}),...
                                         string(testCase.parameters{i}) , 'Parameters not set correctly');
             end
+            testCase.verifyError(@() testCase.project.addParamGroup(testCase.parameters{1}), invalidType.errorID);
             
             % Test adding parameters
             testCase.project.addParam();
@@ -195,6 +196,7 @@ classdef testProjectClass < matlab.unittest.TestCase
                                             string(testCase.layers{i}{j}), 'addLayerGroup method not working');
                 end
             end
+            testCase.verifyError(@() testCase.project.addLayerGroup(testCase.layers{1}), invalidType.errorID);
 
             % Test adding single layer
             testCase.project.addLayer();  % Adds empty layer

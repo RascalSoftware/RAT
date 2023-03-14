@@ -23,7 +23,9 @@ classdef testParametersClass < matlab.unittest.TestCase
 
     methods (Test)
         function testCreation(testCase)
-            % Tests parameters class can be created and the start parameters is set correctly  
+            % Tests parameters class can be created and the start parameters is set correctly
+            params = parametersClass();
+            testCase.verifyEqual(params.paramsTable{end, 1}, "new parameter 1", 'addParam method not working');
             params = parametersClass(testCase.parameters{1, :});
             testCase.verifyEqual(string(params.paramsTable{1, :}), ...
                                  string(testCase.parameters(1, :)), 'Start parameter not set correctly');
@@ -104,6 +106,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.removeParam('Tails Roughness');
             testCase.verifySize(params.paramsTable, [4, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames([2, 4, 5, 6], 1), 'removeParam method not working');
+            testCase.verifyError(@() params.removeParam(), invalidNumberOfInputs.errorID);
             testCase.verifyError(@() params.removeParam(11), indexOutOfRange.errorID);
         end
 
@@ -112,6 +115,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
             % Checks that parameter can be modified
             testCase.verifyError(@() params.setParameter(0, 'Tails', 2), indexOutOfRange.errorID);
+            testCase.verifyError(@() params.setParameter(0, 'Tails'), invalidNumberOfInputs.errorID);
             params.setParameter(1, 'name', 'Heads');
             testCase.verifyEqual(params.paramsTable{1, 1}, "Heads", 'setParameter method not working');
             params.setParameter('Tails Roughness', 'name', 'Tails?', 'min', 1, 'value', 1, 'max', 1, 'fit', false);

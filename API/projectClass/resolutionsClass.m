@@ -64,7 +64,7 @@ classdef resolutionsClass < handle
             names = resolTable{:,1};   
         end
          
-        function addResolution(obj,varargin)
+        function addResolution(obj, varargin)
             % Adds a new entry to the resolution table.  
             %
             % resolution.addResolution('New Row');
@@ -90,6 +90,8 @@ classdef resolutionsClass < handle
                typeVal = in{2};
                if ~strcmpi(typeVal, obj.allowedTypes)
                    throw(invalidOption(sprintf(obj.invalidTypeMessage, typeVal)));
+               elseif any(strcmpi(typeVal, {'constant', 'function'})) && length(in) < 3
+                   throw(invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
                end
 
                thisRow{1} = in{1};
@@ -129,8 +131,8 @@ classdef resolutionsClass < handle
             % index or array of indices of resolution(s) to remove.
             %
             % resolution.removeResolution(2);
-            %  resolution.removeResolution([1, 3]);
-            obj.resolutions.removeRow({row});
+            % resolution.removeResolution([1, 3]);
+            obj.resolutions.removeRow(row);
         end
         
         function setResolution(obj, row, varargin)
@@ -160,12 +162,12 @@ classdef resolutionsClass < handle
             parse(p, varargin{:});
             inputBlock = p.Results;
 
-            obj.resolutions.setValue({row, 1, inputBlock.name});
+            obj.resolutions.setValue(row, 1, inputBlock.name);
             
             if ~strcmpi(inputBlock.type, obj.allowedTypes)
                throw(invalidOption(sprintf(obj.invalidTypeMessage, inputBlock.type)));
             end
-            obj.resolutions.setValue({row, 2, inputBlock.type});      
+            obj.resolutions.setValue(row, 2, inputBlock.type);      
             
             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
             for i = 1:4
@@ -174,7 +176,7 @@ classdef resolutionsClass < handle
                 if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,'function'))
                     value = obj.validateParam(value);
                 end
-                obj.resolutions.setValue({row, i + 2, value});
+                obj.resolutions.setValue(row, i + 2, value);
             end
         end
         
@@ -210,25 +212,25 @@ classdef resolutionsClass < handle
     end
 
     methods (Access = protected)
-        function thisPar = validateParam(obj, par)
+        function thisPar = validateParam(obj, param)
             % Checks that given parameter index or name is valid, then returns the
             % parameter name. 
             %
             % param = obj.validateParam('param_name');
-            if iscell(par)
-                par = par{:};
+            if iscell(param)
+                param = param{:};
             end
             parList = obj.resolPars.getParamNames(); 
-            if isnumeric(par)
-                if (par < 1) || (par > length(parList))
-                    throw(indexOutOfRange(sprintf('Resolution Parameter %d is out of range', par)));
+            if isnumeric(param)
+                if (param < 1) || (param > length(parList))
+                    throw(indexOutOfRange(sprintf('Resolution Parameter %d is out of range', param)));
                 end
-                thisPar = parList(par);
+                thisPar = parList(param);
             else
-                if ~strcmpi(par, parList)
-                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', par)));
+                if ~strcmpi(param, parList)
+                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', param)));
                 end
-                thisPar = par;
+                thisPar = param;
             end   
         end
     end

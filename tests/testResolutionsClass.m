@@ -8,7 +8,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
 
     methods(TestMethodSetup)
         function createResolution(testCase)
-            params = parametersClass(testCase.parameters(1, :));
+            params = parametersClass(testCase.parameters{1, :});
             testCase.resolution = resolutionsClass(params, testCase.resolutions(1, :));
         end
     end
@@ -33,7 +33,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
     methods (Test)
         function testCreation(testCase)
             % Tests resolution class can be created and the start parameters is set correctly
-            params = parametersClass(testCase.parameters(1, :));
+            params = parametersClass(testCase.parameters{1, :});
             params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
             
             resolution = resolutionsClass(params, testCase.resolutions(1, :));
@@ -92,6 +92,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
                                     ["Resolution 5", "function", "function_name", "Resolution par 1", "Resolution par 3", "", ""], ...
                                     'addResolution method not working');
             testCase.verifyError(@() testCase.resolution.addResolution('New', 'fixed'), invalidOption.errorID);
+            testCase.verifyError(@() testCase.resolution.addResolution('New', 'constant'), invalidNumberOfInputs.errorID);           
             testCase.verifyError(@() testCase.resolution.addResolution('New', 'constant', 6), indexOutOfRange.errorID);
         end
 

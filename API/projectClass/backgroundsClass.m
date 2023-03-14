@@ -67,7 +67,7 @@ classdef backgroundsClass < handle
             names = backsTable{:,1};      
         end
                  
-        function obj = addBackground(obj,varargin)
+        function obj = addBackground(obj, varargin)
             % Adds a new entry to the background table.  
             %
             % background.addBackground('New Row');
@@ -91,8 +91,10 @@ classdef backgroundsClass < handle
             if length(in) > 1
                % Check that second param is legal
                typeVal = in{2};
-               if ~strcmpi(typeVal,obj.allowedTypes)
-                    throw(invalidOption(sprintf(obj.invalidTypeMessage, typeVal)));
+               if ~strcmpi(typeVal, obj.allowedTypes)
+                   throw(invalidOption(sprintf(obj.invalidTypeMessage, typeVal)));              
+               elseif any(strcmpi(typeVal, {'constant', 'function'})) && length(in) < 3
+                    throw(invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
                end
 
                thisRow{1} = in{1};
@@ -132,7 +134,7 @@ classdef backgroundsClass < handle
             %
             % background.removeBackground(2);
             % background.removeBackground([1, 3]);
-            obj.backgrounds.removeRow({row});
+            obj.backgrounds.removeRow(row);
         end
         
         function obj = setBackground(obj, row, varargin)
@@ -162,12 +164,12 @@ classdef backgroundsClass < handle
             parse(p, varargin{:});
             inputBlock = p.Results;
 
-            obj.backgrounds.setValue({row, 1, inputBlock.name});
+            obj.backgrounds.setValue(row, 1, inputBlock.name);
             
             if ~strcmpi(inputBlock.type, obj.allowedTypes)
                throw(invalidOption(sprintf(obj.invalidTypeMessage, inputBlock.type)));
             end
-            obj.backgrounds.setValue({row, 2, inputBlock.type});      
+            obj.backgrounds.setValue(row, 2, inputBlock.type);
             
             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
             for i = 1:4
@@ -176,11 +178,11 @@ classdef backgroundsClass < handle
                 if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,'function'))
                     value = obj.validateParam(value);
                 end
-                obj.backgrounds.setValue({row, i + 2, value});
+                obj.backgrounds.setValue(row, i + 2, value);
             end
         end
          
-        function obj = setBackgroundName(obj, index, name)
+        function obj = setBackgroundName(obj, row, name)
             % Sets the name of a given background in the table. Expects 
             % an index and the new name. 
             %
@@ -188,7 +190,7 @@ classdef backgroundsClass < handle
             if ~ischar(name)
                 throw(invalidType(sprintf('%s must be a character array', name)));
             end
-            obj.backgrounds.setValue({index, 'name', name});
+            obj.backgrounds.setValue(row, 'name', name);
         end
 
         function displayBackgroundsObject(obj)
@@ -224,26 +226,26 @@ classdef backgroundsClass < handle
     end
 
     methods (Access = protected)
-        function thisPar = validateParam(obj, par)
+        function thisPar = validateParam(obj, param)
             % Checks that given parameter index or name is valid, then returns the
             % parameter name. 
             %
             % param = obj.validateParam('param_name');
-            if iscell(par)
-                par = par{:};
+            if iscell(param)
+                param = param{:};
             end
             parList = obj.backPars.getParamNames();
-            if isnumeric(par)
-                if (par < 1) || (par > length(parList))
-                    throw(indexOutOfRange(sprintf('Background Parameter %d is out of range', par)));
+            if isnumeric(param)
+                if (param < 1) || (param > length(parList))
+                    throw(indexOutOfRange(sprintf('Background Parameter %d is out of range', param)));
                 else
-                    thisPar = parList(par);
+                    thisPar = parList(param);
                 end
-            elseif ischar(par)
-                if ~strcmpi(par,parList)
-                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', par)));
+            elseif ischar(param)
+                if ~strcmpi(param,parList)
+                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', param)));
                 else
-                    thisPar = par;
+                    thisPar = param;
                 end
             end
         end

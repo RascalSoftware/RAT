@@ -125,27 +125,27 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % than a variable number of arguments.
 
             % Row and column indices
-            testCase.exampleTable.setValue({1, 7, 'Added'});
+            testCase.exampleTable.setValue(1, 7, 'Added');
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Added"];
             testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, "setValue does not work correctly");
 
             % Row name and column index
-            testCase.exampleTable.setValue({'Background SMW', 7, 'Added'});
+            testCase.exampleTable.setValue('Background SMW', 7, 'Added');
             expectedRow = ["Background SMW" "constant" "Backs par SMW" "" "" "" "Added"];
             testCase.verifyEqual(testCase.exampleTable.typesTable{2, :}, expectedRow, "setValue does not work correctly");
 
             % Row index and column name
-            testCase.exampleTable.setValue({3, 'Value 1', 'Changed'});
+            testCase.exampleTable.setValue(3, 'Value 1', 'Changed');
             expectedRow = ["Background H2O" "constant" "Changed" "" "" "" ""];
             testCase.verifyEqual(testCase.exampleTable.typesTable{3, :}, expectedRow, "setValue does not work correctly");
 
             % Row and column names
-            testCase.exampleTable.setValue({'Background D2O', 'Value 5', 'Changed'});
+            testCase.exampleTable.setValue('Background D2O', 'Value 5', 'Changed');
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Changed"];
             testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, "setValue does not work correctly");
 
             % Use name to change name
-            testCase.exampleTable.setValue({'Background D2O', 'Name', 'New Name'});
+            testCase.exampleTable.setValue('Background D2O', 'Name', 'New Name');
             expectedRow = ["New Name" "constant" "Backs par 1" "" "" "" "Changed"];
             testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, "setValue does not work correctly");
         end
@@ -157,33 +157,26 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % than a variable number of arguments
 
             % Row indices
-            testCase.verifyError(@() testCase.exampleTable.setValue({0, testCase.numCols, 'Added'}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleTable.setValue({testCase.numRows+1, testCase.numCols, 'Added'}), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(0, testCase.numCols, 'Added'), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(testCase.numRows+1, testCase.numCols, 'Added'), indexOutOfRange.errorID);
 
             % Column indices
-            testCase.verifyError(@() testCase.exampleTable.setValue({1, 0, 'Added'}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleTable.setValue({1, testCase.numCols+1, 'Added'}), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, 0, 'Added'), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, testCase.numCols+1, 'Added'), indexOutOfRange.errorID);
 
             % Row name
-            testCase.verifyError(@() testCase.exampleTable.setValue({'Invalid Name', testCase.numCols, 'Added'}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue('Invalid Name', testCase.numCols, 'Added'), nameNotRecognised.errorID);
 
             % Column name
-            testCase.verifyError(@() testCase.exampleTable.setValue({1, 'Invalid Name', 'Added'}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, 'Invalid Name', 'Added'), nameNotRecognised.errorID);
 
             % Float values within range
-            testCase.verifyError(@() testCase.exampleTable.setValue({1, 2.5, 'Added'}), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleTable.setValue({2.5, 1, 'New Name'}), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, 2.5, 'Added'), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.setValue(2.5, 1, 'New Name'), 'MATLAB:badsubscript');
 
             % Invalid data types
-            testCase.verifyError(@() testCase.exampleTable.setValue({testCase.initialTypesTable, testCase.numCols, 'Added'}), invalidType.errorID);
-            testCase.verifyError(@() testCase.exampleTable.setValue({1, datetime('today'), 'Added'}), invalidType.errorID);
-        end
-
-        function testSetValueTooFewParams(testCase)
-            % If we call "setValue" with a cell array containing fewer
-            % than three values it should raise an error
-            testCase.verifyError(@() testCase.exampleTable.setValue({1}), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleTable.setValue({1, 1}), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.setValue(testCase.initialTypesTable, testCase.numCols, 'Added'), invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, datetime('today'), 'Added'), invalidType.errorID);
         end
 
         function testAppendNewRow(testCase)
@@ -206,7 +199,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         function testRemoveRow(testCase)
             % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleTable.typesTable(2:end,:);
-            testCase.exampleTable.removeRow({1});
+            testCase.exampleTable.removeRow(1);
 
             testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, "removeRow does not work correctly");
         end
@@ -215,7 +208,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Test removing multiple rows from a multi-type table
             % Note that the routine requires a single cell array as input
             remainingRows = testCase.exampleTable.typesTable(2,:);
-            testCase.exampleTable.removeRow({[1 3]});
+            testCase.exampleTable.removeRow([1 3]);
 
             testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, "removeRow does not work correctly");
         end
@@ -224,9 +217,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Test using invalid row indices to remove rows from a
             % multi-type table.
             % Note that the routine requires a single cell array as input.
-            testCase.verifyError(@() testCase.exampleTable.removeRow({0}), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleTable.removeRow({1.5}), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleTable.removeRow({testCase.numRows+1}), 'MATLAB:table:RowIndexOutOfRange');
+            testCase.verifyError(@() testCase.exampleTable.removeRow(0), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.removeRow(1.5), 'MATLAB:badsubscript');
+            testCase.verifyError(@() testCase.exampleTable.removeRow(testCase.numRows+1), 'MATLAB:table:RowIndexOutOfRange');
 
             testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite no rows being removed");
         end

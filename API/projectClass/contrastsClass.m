@@ -37,19 +37,19 @@ classdef contrastsClass < handle
             % contrasts.addContrast('New Contrast')
             % contrasts.addContrast('name', 'new contrast', ... 
             %                       'background', 'Background H2O')
-            if isempty(varargin{:})
+            if isempty(varargin)
                 % No input at all
                 contrastName = sprintf('New contrast %d', obj.contrastAutoNameCounter);
                 inputVals = {'name', contrastName};
                 
-            elseif length(varargin{:}) == 1
+            elseif length(varargin) == 1
                 % Just name of contrast
-                thisName = varargin{1}{:};
+                thisName = varargin{1};
                 inputVals = {'name', thisName};
                 
             else
                 % Everything else
-                inputVals = varargin{:};
+                inputVals = varargin;
             end
             
             thisContrast = obj.parseContrastInput(allowedNames,inputVals);
@@ -59,7 +59,7 @@ classdef contrastsClass < handle
         
         end
 
-        function obj = removeContrast(obj, whichContrast)
+        function obj = removeContrast(obj, row)
             % Removes a contrast from the list.
             % The contrast can be specified either by name or by index, but
             % only one contrast can be removed at a time.
@@ -72,56 +72,54 @@ classdef contrastsClass < handle
 
             % If the input is a string, find the index of the relevant
             % contrast...
-            if ischar(whichContrast)
+            if ischar(row)
                 contrastNames = getAllContrastNames(obj);
-                whichContrast = find(strcmp(contrastNames,whichContrast));
+                row = find(strcmp(contrastNames,row));
                 
                 % Throw an error if the name is not matched
-                if isempty(whichContrast)
+                if isempty(row)
                     throw(nameNotRecognised('Contrast name not found'));
                 end
             end
            
             % Check to make sure the number is in range
-            if whichContrast < 1 || whichContrast > obj.numberOfContrasts
-                throw(indexOutOfRange(sprintf('Specified contrast %d is not in range 1 - %d', whichContrast, obj.numberOfContrasts)));
+            if row < 1 || row > obj.numberOfContrasts
+                throw(indexOutOfRange(sprintf('Specified contrast %d is not in range 1 - %d', row, obj.numberOfContrasts)));
             end
 
             % Remove the contrast from the contrasts cell array
-            obj.contrasts(whichContrast) = [];
+            obj.contrasts(row) = [];
 
         end
 
-        function obj = setContrastModel(obj, contrastInput, modelType, allowedNames, varargin)
+        function obj = setContrastModel(obj, row, modelType, allowedNames, model)
             % Set the value of the model parameter in a contrast.
             % The expected input is the contrast (specified either by name
             % or index), the model type, the allowed values (either layers
-            % for standard layers or custom files for custom models) and a
-            % variable number of arguments for the model itself.
+            % for standard layers or custom files for custom models) and
+            % either a string or cell array for the model itself.
             % Note that the model can only be set here, and not in
             % "addContrast" or "setContrast".
             %
             % contrasts.setContrastModel(1, 'standard layers', allowedNames, 'Oxide Model')
             
             % Find if we are referencing an existing contrast
-            if isnumeric(contrastInput)
-                if (contrastInput < 1 || contrastInput > obj.numberOfContrasts)
-                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', contrastInput, obj.numberOfContrasts)));
+            if isnumeric(row)
+                if (row < 1 || row > obj.numberOfContrasts)
+                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', row, obj.numberOfContrasts)));
                 end
-                contrastIndex = contrastInput;
-                
-            elseif ischar(contrastInput)
-                [present,idx] = ismember(contrastInput, obj.getAllContrastNames());
+                contrastIndex = row; 
+            elseif ischar(row)
+                [present,idx] = ismember(row, obj.getAllContrastNames());
                 if ~present
-                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised', contrastInput)));
+                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised', row)));
                 end
                 contrastIndex = idx;
-                
             end
 
             % Determine which contrast is being set
             thisContrast = obj.contrasts{contrastIndex};
-            modelArray = cellstr(varargin{:});
+            modelArray = cellstr(model);
 
             % Check the input is as expected
             if any(strcmpi(modelType, {'custom layers', 'custom xy'}))
@@ -141,7 +139,7 @@ classdef contrastsClass < handle
 
         end
         
-        function obj = setContrast(obj, contrastInput, allowedNames, varargin)
+        function obj = setContrast(obj, row, allowedNames, varargin)
             % Set a value within a contrast.
             % The expected input is the contrast (specified either by name
             % or index), the allowed values for all parameters and a
@@ -153,16 +151,16 @@ classdef contrastsClass < handle
             %                       'background', 'New Background')
 
             % Find if we are referencing an existing contrast
-            if isnumeric(contrastInput)
-                if (contrastInput < 1 || contrastInput > obj.numberOfContrasts)
-                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', contrastInput, obj.numberOfContrasts)));
+            if isnumeric(row)
+                if (row < 1 || row > obj.numberOfContrasts)
+                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', row, obj.numberOfContrasts)));
                 end
-                contrastIndex = contrastInput;
+                contrastIndex = row;
                 
-            elseif ischar(contrastInput)
-                [present,idx] = ismember(contrastInput, obj.getAllContrastNames());
+            elseif ischar(row)
+                [present,idx] = ismember(row, obj.getAllContrastNames());
                 if ~present
-                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised',contrastInput)));
+                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised',row)));
                 end
                 contrastIndex = idx;
                 
@@ -173,7 +171,7 @@ classdef contrastsClass < handle
             % Check to see if the inputs are valid
             % Raise a warning if we try to set the model as this should be
             % done elsewhere
-            inputBlock = obj.parseContrastInput(allowedNames,varargin{:});
+            inputBlock = obj.parseContrastInput(allowedNames, varargin);
             
             if ~isempty(inputBlock.background)
                 thisContrast.background = inputBlock.background;
@@ -224,7 +222,7 @@ classdef contrastsClass < handle
             end
         end
         
-        function obj = updateDataName(obj,nameChange)
+        function obj = updateDataName(obj, nameChange)
             % Update the "data" parameter in a contrast if the name is
             % changed in the data class.           
             % This function is only really called from projectClass if a
@@ -419,7 +417,7 @@ classdef contrastsClass < handle
     
     methods(Static)
 
-        function inputBlock = parseContrastInput(allowedNames,inputVals)
+        function inputBlock = parseContrastInput(allowedNames, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
@@ -454,7 +452,7 @@ classdef contrastsClass < handle
             addParameter(p,'scalefactor',   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
             addParameter(p,'resample',      defaultResample,    @islogical);
                 
-            parse(p,inputVals{:});
+            parse(p, inputValues{:});
             inputBlock = p.Results;
         
         end

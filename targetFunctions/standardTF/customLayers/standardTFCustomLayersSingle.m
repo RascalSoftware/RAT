@@ -26,7 +26,6 @@ numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problem
 calcSld = controls.calcSld;      
                      
 % Pre-Allocation of output arrays...
-
 backgs = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
 sfs = zeros(numberOfContrasts,1);
@@ -61,24 +60,11 @@ end
 % Resampling parameters
 resamPars = controls.resamPars;
 
-para = false;
+parallelFlag = false;
 
 % Process the custom models....
 [allLayers,allRoughs] = customClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para);
-
-% Depending on custom layer language we change the functions used
-% lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
-% switch lang 
-% case 'matlab'
-%     % Call the Matlab parallel loop to process the custom models.....
-%     [allLayers, allRoughs] = loopMatlabWrapperCustomLayersSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-% case 'cpp'
-%     [allLayers,allRoughs] = loopCppWrapperCustomLayersSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params); 
-% end
-
+                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,parallelFlag);
 
 % Single cored over all contrasts
 for i = 1:numberOfContrasts

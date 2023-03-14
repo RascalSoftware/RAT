@@ -71,6 +71,8 @@ paths = {
     fullfile(root,'utilities','plotting');
 
     fullfile(root,'3rdParty','paramonte');
+
+    fullfile(root,'compile')
     
 };
 

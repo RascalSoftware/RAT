@@ -8,8 +8,8 @@ function [output, sRough] = matlabCustomLayersSingle(cBacks,cShifts,cScales,cNba
 
 % Extract the relevant parameter values for this contrast
 % from the input arrays.
-% First need to decide which values of the backrounds, scalefactors
-% data shifts and bulk contrasts are associated with this contrast
+% First need to decide which values of the bulk SLD's are associated with
+% this contrast
 [~,~,~,thisNba,thisNbs,~] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 
 %thisCustomFile = customFiles{cCustFiles(i)};

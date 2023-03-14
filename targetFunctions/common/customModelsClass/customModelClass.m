@@ -16,7 +16,7 @@ classdef customModelClass < handle
     methods 
 
         function [allLayers,allRoughs] = processCustomLayers(obj,cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para)
+                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,parallelFlag)
 
         % Top-level function for processing custom layers for all the
         % contrasts. Because we want to allow users to 'mix and match'
@@ -35,51 +35,66 @@ classdef customModelClass < handle
         end
         coder.varsize('tempAllLayers{:}',[10000 5],[1 1]);
 
-        if para
-                parfor i = 1:numberOfContrasts
-                    % Choose which custom file is associated with this contrast
-                    thisCustomModel = customFiles{cCustFiles(i)};
+        if parallelFlag
+            parfor i = 1:numberOfContrasts
+                % Choose which custom file is associated with this contrast
+                thisCustomModel = customFiles{cCustFiles(i)};
 
-                    % Check what language it is....
-                    thisLanguage = thisCustomModel{2};
+                % Check what language it is....
+                thisLanguage = thisCustomModel{2};
 
-                    switch thisLanguage
-                        case 'matlab'
-                            [tempAllLayers{i},allRoughs(i)] = obj.matlabCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                shifts,sf,nba,nbs,res,thisCustomModel,params,i,numberOfContrasts);
-                       % case 'cpp'
-                       %     [tempAllLayers(i),allRoughs(i)] = obj.cppCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                       %        shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para,i,numberOfContrasts);
-                       % case 'python'
-                       %      [tempAllLayers(i),allRoughs(i)] = obj.pythonCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                       %            shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para,i,numberOfContrasts);
-                    end
+                % ... and path
+                thisPath = thisCustomModel{3};
+
+                % ....also file.
+                thisFile = thisCustomModel{1};
+
+                % Find values of 'bulkIn' and 'bulkOut' for thid
+                % contrast...
+                [~,~,~,bulkIn,bulkOut,~] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+
+                switch thisLanguage
+                    case 'matlab'
+                       [tempAllLayers{i},allRoughs(i)] = callMatlabCustomLayers(params,i,thisFile,thisPath,bulkIn,bulkOut,numberOfContrasts)
+                        % case 'cpp'
+                        %     [tempAllLayers(i),allRoughs(i)] = obj.cppCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+                        %        shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para,i,numberOfContrasts);
+                        % case 'python'
+                        %      [tempAllLayers(i),allRoughs(i)] = obj.pythonCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+                        %            shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para,i,numberOfContrasts);
                 end
-
+            end
         else
+            for i = 1:numberOfContrasts
+                % Choose which custom file is associated with this contrast
+                thisCustomModel = customFiles{cCustFiles(i)};
 
-                for i = 1:numberOfContrasts
-                    % Choose which custom file is associated with this contrast
-                    thisCustomModel = customFiles{cCustFiles(i)};
+                % Check what language it is....
+                thisLanguage = thisCustomModel{2};
 
-                    % Check what language it is....
-                    thisLanguage = thisCustomModel{2};
+                % ... and path
+                thisPath = thisCustomModel{3};
+                
+                % ....also file.
+                thisFile = thisCustomModel{1};
+                
+                % Find values of 'bulkIn' and 'bulkOut' for thid
+                % contrast...
+                [~,~,~,bulkIn,bulkOut,~] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 
-                    switch thisLanguage
-                        case 'matlab'
-                            [tempAllLayers{i},allRoughs(i)] = obj.matlabCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                shifts,sf,nba,nbs,res,thisCustomModel,params,i,numberOfContrasts);
-                       % case 'cpp'
-                       %     [tempAllLayers(i),allRoughs(i)] = obj.cppCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                       %        shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para,i,numberOfContrasts);
-                       % case 'python'
-                       %      [tempAllLayers(i),allRoughs(i)] = obj.pythonCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                       %            shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para,i,numberOfContrasts);
-                    end
+                switch thisLanguage
+                    case 'matlab'
+                       [tempAllLayers{i},allRoughs(i)] = callMatlabCustomLayers(params,i,thisFile,thisPath,bulkIn,bulkOut,numberOfContrasts);
+                        % case 'cpp'
+                        %     [tempAllLayers(i),allRoughs(i)] = obj.cppCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+                        %        shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para,i,numberOfContrasts);
+                        % case 'python'
+                        %      [tempAllLayers(i),allRoughs(i)] = obj.pythonCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+                        %            shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,para,i,numberOfContrasts);
                 end
+            end
         end
         allLayers = tempAllLayers;
-
         end
 
 
@@ -92,92 +107,54 @@ classdef customModelClass < handle
         end
 
 
-        % ******* Matlab custom models methods*******
 
-        function [allLayers, rough] = matlabCustomLayers(obj,cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                shifts,sf,nba,nbs,res,thisCustomModel,params,whichContrast,numberOfContrasts)
 
-            % Method to process Matlab custom layers user scripts.
-            % This version excecutes the custom model via extrinsic 'feval'
-            % into base Matlab workspace. This method will be removed when
-            % we make the Python API version and replaced with an external
-            % engine call..
-%             tempAllLayers = cell(numberOfContrasts,1);
-%             allLayers = cell(numberOfContrasts,1);
+%         function [allSLDs, allRoughs] = matlabCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+%                 shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
+% 
+%             %#codegen
+% 
+%             % Wrapper function for calling 'loopMatlabCustomXY'. This wrapper is
+%             % necessary to deal with typedef problems for the coder if feval is used
+%             % directly from the main function
+%             tempAllSLDs = cell(numberOfContrasts,1);
+%             allSLDs = cell(numberOfContrasts,1);
 %             allRoughs = zeros(numberOfContrasts,1);
-
-            %for i = 1:numberOfContrasts
-                allLayers = [1 , 1];    % Type def as double (size not important)
-                tempAllLayers = [0 0 0 0 0];
-            %end
-            coder.varsize('tempAllLayers',[10000 5],[1 1]);
-            coder.varsize('allLayers',[10000 5],[1 1]);
-
-            % Call the Matlab custom model. By using 'feval', we force the
-            % function to run in Matlab as extrinsic calls, rather than
-            % compiling them.
-            [tempAllLayers, tempRough] = feval('matlabCustomLayersSingle',cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                                    shifts,sf,nba,nbs,res,thisCustomModel,params,whichContrast,numberOfContrasts);
-
-            % All the following is intended to be casting from mxArray's to doubles.
-            % I'm not sure if all of this is necessary, but it compiles...
-            % for i = 1:numberOfContrasts
-            tempOut = tempAllLayers;
-            n = [0 0];
-            n = size(tempOut);
-            newOut = zeros(n);
-            newOut = tempOut;
-            allLayers = newOut;
-
-            rough = tempRough;
-        end
-
-        function [allSLDs, allRoughs] = matlabCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
-
-            %#codegen
-
-            % Wrapper function for calling 'loopMatlabCustomXY'. This wrapper is
-            % necessary to deal with typedef problems for the coder if feval is used
-            % directly from the main function
-            tempAllSLDs = cell(numberOfContrasts,1);
-            allSLDs = cell(numberOfContrasts,1);
-            allRoughs = zeros(numberOfContrasts,1);
-
-            for i = 1:numberOfContrasts
-                allSLDs{i} = [1 , 1];    % Type def as double (size not important)
-                tempAllSLDs{i} = [0 0 0 0 0];
-            end
-            coder.varsize('tempAllSLDs{:}',[10000 5],[1 1]);
-
-            % Call the Matlab custom model. Based on the input 'para', then
-            % we either run over all contrasts single cored (para ==
-            % false), or we ask the paralell computing toolbox to paralell
-            % over the contrasts. By using 'feval', we force these
-            % functions to run in Matlab as extrinsic calls, rather than
-            % compiling them.
-            if para
-                [tempAllSLDs, tempAllRoughs] = feval('matlabCustomXYSingle',cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-            else
-                [tempAllSLDs, tempAllRoughs] = feval('matlabCustomXYParallel',cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-            end
-
-            % All the following is intended to be casting from mxArray's to doubles.
-            % I'm not sure if all of this is necessary, but it compiles...
-            for i = 1:numberOfContrasts
-                tempOut = tempAllSLDs{i};
-                n = [0 0];
-                n = size(tempOut);
-                newOut = zeros(n);
-                newOut = tempOut;
-                allSLDs{i} = newOut;
-            end
-
-            %allLayers = tempAllLayers;
-            allRoughs = tempAllRoughs;
-        end
+% 
+%             for i = 1:numberOfContrasts
+%                 allSLDs{i} = [1 , 1];    % Type def as double (size not important)
+%                 tempAllSLDs{i} = [0 0 0 0 0];
+%             end
+%             coder.varsize('tempAllSLDs{:}',[10000 5],[1 1]);
+% 
+%             % Call the Matlab custom model. Based on the input 'para', then
+%             % we either run over all contrasts single cored (para ==
+%             % false), or we ask the paralell computing toolbox to paralell
+%             % over the contrasts. By using 'feval', we force these
+%             % functions to run in Matlab as extrinsic calls, rather than
+%             % compiling them.
+%             if para
+%                 [tempAllSLDs, tempAllRoughs] = feval('matlabCustomXYSingle',cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+%                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+%             else
+%                 [tempAllSLDs, tempAllRoughs] = feval('matlabCustomXYParallel',cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+%                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+%             end
+% 
+%             % All the following is intended to be casting from mxArray's to doubles.
+%             % I'm not sure if all of this is necessary, but it compiles...
+%             for i = 1:numberOfContrasts
+%                 tempOut = tempAllSLDs{i};
+%                 n = [0 0];
+%                 n = size(tempOut);
+%                 newOut = zeros(n);
+%                 newOut = tempOut;
+%                 allSLDs{i} = newOut;
+%             end
+% 
+%             %allLayers = tempAllLayers;
+%             allRoughs = tempAllRoughs;
+%         end
 
         % **** CPP Custom Model Methods ****
 

@@ -141,7 +141,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(string(testCase.project.parameters.paramsTable{1, :}), ...
                                     string({'Substrate Roughness', 1, 3, 5, true, 'uniform', 0, Inf}), 'Parameters default');
 
-            testCase.project.addParamGroup(testCase.parameters{:});
+            testCase.project.addParamGroup(testCase.parameters);
             testCase.verifySize(testCase.project.parameters.paramsTable, [10, 8], 'Parameters has wrong dimension');
             for i = 1:length(testCase.parameters)
                 testCase.verifyEqual(string(testCase.project.parameters.paramsTable{i+1, :}),...

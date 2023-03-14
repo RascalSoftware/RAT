@@ -179,22 +179,17 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         % ---------------------------------  
         % Editing Parameters Block
         
-        function obj = addParamGroup(obj, varargin)
+        function obj = addParamGroup(obj, paramGroup)
             % Adds a group of parameters to the parameters object.
-            % Expects a series of parameter cell arrays.
+            % Expects a cell array of parameter cell arrays.
             %
-            % problem.addParamGroup({'Tails Thickness'}, {'Heads Thickness'});
-
-            % If the input is wrapped in a cell (so varargin is a cell of a cell)
-            % need to unwrap one layer of it, otherwise keep varargin as it is
-            if length(varargin) == 1 && iscell(varargin{:})
-                paramGroup = varargin{:};
-            else
-                paramGroup = varargin;
-            end
-
+            % problem.addParamGroup({{'Tails Thickness'}, {'Heads Thickness'}});
             for i = 1:length(paramGroup)
-                obj = addParam(obj, paramGroup{i});
+                if iscell(paramGroup{i})
+                    obj = addParam(obj, paramGroup{i});
+                else
+                    throw(invalidType('Expecting a cell array of parameters in ''addParamGroup'''));
+                end
             end
         end
         
@@ -211,16 +206,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if isempty(varargin)
                 obj.parameters.addParam();
             else
-                % If the input is wrapped in a cell (so varargin is a cell of a cell)
-                % need to unwrap one layer of it, otherwise keep varargin as it is
                 if length(varargin) == 1 && iscell(varargin{:})
-                    thisParam = varargin{:};
+                    params = varargin{:};
                 else
-                    thisParam = varargin;
+                    params = varargin;
                 end
-                obj.parameters.addParam(thisParam{:});
-            end
-            
+                obj.parameters.addParam(params{:});
+            end 
         end
                 
         function obj = removeParam(obj, varargin)

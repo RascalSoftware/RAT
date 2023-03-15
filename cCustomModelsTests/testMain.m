@@ -4,7 +4,7 @@ nba = 2.073e-6;
 nbs  = [0 0 0];
 numberOfContrasts = int32(3);
 
-libName = 'customBilayer';
-funcName = 'customBilayer';
+libraryName = 'customBilayer';
+functionName = 'customBilayer';
 
-[allLayersArr,allRoughsArr] = testDLL(params,nba,nbs,numberOfContrasts,libraryName,functionName);
+[allLayersArr,allRoughsArr] = testDLL_mex(params,nba,nbs,numberOfContrasts,libraryName,functionName);

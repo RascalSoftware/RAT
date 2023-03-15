@@ -1,2 +1,2 @@
-g++ -c customBilayer.cpp -o customBilayer.o -std=c++11
-g++ -shared customBilayer.o -o customBilayer.dylib
+g++ -target X86_64 -c customBilayer.cpp -o customBilayer.o -std=c++11
+g++ -arch X86_64 -shared customBilayer.o -o customBilayer.dylib

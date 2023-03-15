@@ -1,11 +1,15 @@
-#include <vector>
-#include "dylib.hpp"
-#include "libManager.h"
+#include <iostream>
 
-class CustomBilayer {
+#if defined(_WIN32) || defined(_WIN64)
+#define LIB_EXPORT __declspec(dllexport)
+#else
+#define LIB_EXPORT
+#endif
 
-public:
-   DYLIB_API void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* rough)
+extern "C" {
+
+    LIB_EXPORT void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* rough)
+
     {
         double subRough = params[0];
         double oxideThick = params[1];
@@ -34,7 +38,7 @@ public:
         // Now make the lipid groups..
         double COO = (4*bo) + (2*bc);
         double GLYC = (3*bc) + (5*bh);
-        double CH3 = (2*bc) + (6*bh);             
+        double CH3 = (2*bc) + (6*bh);
         double PO4 = (1*bp) + (4*bo);
         double CH2 = (1*bc) + (2*bh);
         double CHOL = (5*bc) + (12*bh) + (1*bn);
@@ -65,37 +69,38 @@ public:
 
         // Make the layers
         output = new double[18];
-        
+
         // oxide...
         output[0] = oxideThick;
         output[1] = oxSLD;
         output[2] = subRough;
-        
+
         // Water...
         output[3] = waterThick;
         output[4] = bulkOut[contrast];
         output[5] = bilayerRough;
-        
+
         // Heads...
         output[6] = headThick;
         output[7] = headSLD;
         output[8] = bilayerRough;
-        
+
         // Tails...
         output[9] = tailThick;
         output[10] = tailSLD;
         output[11] = bilayerRough;
-        
+
         // Tails...
         output[12] = tailThick;
         output[13] = tailSLD;
         output[14] = bilayerRough;
-        
+
         // Heads...
         output[15] = headThick;
         output[16] = headSLD;
         output[17] = bilayerRough;
-        
+
         rough = &subRough;
     }
-};
+
+} // extern "C"

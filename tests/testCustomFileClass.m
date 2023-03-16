@@ -57,8 +57,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
         function initialiseFileTable(testCase)
             % Set up an empty file table and a table with one row
-            tableTypes = {'string','string','string','string'};
-            tableNames = {'Name','Filename','Language','Path'};
+            tableTypes = {'string', 'string', 'string', 'string'};
+            tableNames = {'Name', 'Filename', 'Language', 'Path'};
 
             testCase.initialFileTableEmpty = table('Size',[0 4],'VariableTypes',tableTypes,'VariableNames',tableNames);
 
@@ -94,8 +94,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % either an empty file table, or a table with a single row
             testClass = customFileClass();
 
-            testCase.verifySize(testClass.fileTable, [0 4], "customFileClass does not initialise correctly");
-            testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableEmpty, "customFileClass does not initialise correctly");
+            testCase.verifySize(testClass.fileTable, [0 4], 'customFileClass does not initialise correctly');
+            testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableEmpty, 'customFileClass does not initialise correctly');
         end
 
         function testInitialiseCustomFileClassOneRow(testCase)
@@ -103,8 +103,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % either an empty file table, or a table with a single row
             testClass = customFileClass('DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../');
 
-            testCase.verifySize(testClass.fileTable, [1 4], "customFileClass does not initialise correctly");
-            testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableOneRow, "customFileClass does not initialise correctly");
+            testCase.verifySize(testClass.fileTable, [1 4], 'customFileClass does not initialise correctly');
+            testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableOneRow, 'customFileClass does not initialise correctly');
         end
 
         function testAddCustomFile(testCase, fileInput, addedRow)
@@ -117,7 +117,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
             testCase.exampleClass.addCustomFile(fileInput{:});
 
-            testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, "addFile does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, 'addFile does not work correctly');
         end
 
         function testAddCustomFileEmpty(testCase)
@@ -131,7 +131,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
             testCase.exampleClass.addCustomFile();
 
-            testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, "addFile does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, 'addFile does not work correctly');
         end
 
         function testAddCustomFileInvalid(testCase)
@@ -155,7 +155,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
         function testSetCustomFile(testCase, testRow, inputData, expectedRow)
             testCase.exampleClass.setCustomFile(inputData{:});
-            testCase.verifyEqual(testCase.exampleClass.fileTable{testRow, :}, expectedRow, "setCustomFile does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.fileTable{testRow, :}, expectedRow, 'setCustomFile does not work correctly');
         end
 
         function testSetCustomFileInvalidType(testCase, invalidInputData)
@@ -191,7 +191,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             remainingRows = testCase.exampleClass.fileTable(2:end,:);
             testCase.exampleClass.removeCustomFile(1);
 
-            testCase.verifyEqual(testCase.exampleClass.fileTable, remainingRows, "removeCustomFile does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.fileTable, remainingRows, 'removeCustomFile does not work correctly');
         end
 
         function testRemoveCustomFileMultiple(testCase)
@@ -203,7 +203,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             remainingRows = testCase.exampleClass.fileTable(2,:);
             testCase.exampleClass.removeCustomFile([1 3]);
 
-            testCase.verifyEqual(testCase.exampleClass.fileTable, remainingRows, "removeCustomFile does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.fileTable, remainingRows, 'removeCustomFile does not work correctly');
         end
 
         function testRemoveCustomFileInvalid(testCase)
@@ -213,7 +213,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.removeCustomFile(1.5), 'MATLAB:badsubscript');
             testCase.verifyError(@() testCase.exampleClass.removeCustomFile(testCase.numRows+1), 'MATLAB:table:RowIndexOutOfRange');
 
-            testCase.verifySize(testCase.exampleClass.fileTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite no rows being removed");
+            testCase.verifySize(testCase.exampleClass.fileTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');
         end
 
         function testDisplayCustomFileObject(testCase)
@@ -285,7 +285,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % space using regular expressions
             outRow = strip(regexprep(displayedTable(4), '\s+', ' '));
             rowString = string('"" "" "" ""');
-            testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+            testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
         function testDisplayCustomFileObjectEmptyRow(testCase)
@@ -318,7 +318,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % space using regular expressions, and remove '"' characters
             outRow = strip(replace(regexprep(displayedTable(4), '\s+', ' '), '"', ''));
             rowString = "Test Row No File - pwd";
-            testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+            testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
         function testDisplayCustomFileObjectLongPath(testCase)
@@ -351,7 +351,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % space using regular expressions, and remove '"' characters
             outRow = strip(replace(regexprep(displayedTable(4), '\s+', ' '), '"', ''));
             rowString = "Test Row No File - ...g/file/path";
-            testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+            testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
         function testToStruct(testCase)

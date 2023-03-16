@@ -40,7 +40,7 @@ classdef testExceptions < matlab.unittest.TestCase
 
 %% Test Exception Classes
 
-    methods (Test, ParameterCombination="sequential")
+    methods (Test, ParameterCombination='sequential')
 
         function testException(testCase, customException, identifier, defaultMessage)
 

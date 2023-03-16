@@ -90,10 +90,10 @@ classdef testDataClass < matlab.unittest.TestCase
             % Checks that data can be removed
             testCase.addDataSets();
             testCase.data.removeData(3);
-            testCase.verifyEqual(testCase.data.dataTable{:, 1}, ["New data 1"; "Bilayer / D2O"; "Bilayer / H2O"], "removeData does not work correctly");
+            testCase.verifyEqual(testCase.data.dataTable{:, 1}, ["New data 1"; "Bilayer / D2O"; "Bilayer / H2O"], 'removeData does not work correctly');
             % Test removing multiple rows
             testCase.data.removeData([1 3]);
-            testCase.verifyEqual(testCase.data.dataTable{:, 1}, "Bilayer / D2O", "removeData does not work correctly");
+            testCase.verifyEqual(testCase.data.dataTable{:, 1}, "Bilayer / D2O", 'removeData does not work correctly');
         end
 
         function testSetdata(testCase)
@@ -125,7 +125,6 @@ classdef testDataClass < matlab.unittest.TestCase
          end
 
         function testDisplayTable(testCase)
-            import matlab.unittest.constraints.ContainsSubstring
             % Check that the content of the data table are printed
             actualHeader = {'Name', 'Data', 'Data Range', 'Simulation Range'};
             

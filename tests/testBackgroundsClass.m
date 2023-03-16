@@ -155,7 +155,6 @@
       end
 
       function testDisplayBackgroundsObject(testCase)
-         import matlab.unittest.constraints.ContainsSubstring
          % Check that the contents of the background are printed
          paramHeader = {'p', 'Name', 'Min', 'Value', 'Max', 'Fit?'};
          display = evalc('testCase.background.displayBackgroundsObject()');

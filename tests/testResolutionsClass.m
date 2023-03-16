@@ -142,7 +142,6 @@ classdef testResolutionsClass < matlab.unittest.TestCase
         end
 
         function testDisplayResolutionsObject(testCase)
-            import matlab.unittest.constraints.ContainsSubstring
             % Check that the contents of the resolution are printed
             paramHeader = {'p', 'Name', 'Min', 'Value', 'Max', 'Fit?'};
             display = evalc('testCase.resolution.displayResolutionsObject()');

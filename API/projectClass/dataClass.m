@@ -228,7 +228,7 @@ classdef dataClass < handle
                 
                 thisData = thisRow{1,2}{:};
                 if isempty(thisData)
-                    dataString = "No Data";
+                    dataString = 'No Data';
                 else
                     dataSize = size(thisData);
                     dataString = sprintf('Data array: [%d x %d]',dataSize(1),dataSize(2));
@@ -236,14 +236,14 @@ classdef dataClass < handle
                 
                 thisDataRange = thisRow{1,3}{:};
                 if isempty(thisDataRange)
-                    dataRangeString = "-";
+                    dataRangeString = '-';
                 else
                     dataRangeString = sprintf('[ %1.4f , %1.4f ]', thisDataRange(1), thisDataRange(2));
                 end
                 
                 thisSimRange = thisRow{1,4}{:};
                 if isempty(thisSimRange)
-                    simRangeString = "-";
+                    simRangeString = '-';
                 else
                     simRangeString = sprintf('[ %1.4f , %1.4f ]', thisSimRange(1), thisSimRange(2));
                 end   

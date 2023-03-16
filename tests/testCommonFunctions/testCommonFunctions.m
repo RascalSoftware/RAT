@@ -222,14 +222,14 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             % testChiSqaured
 
             outputs = chiSquared(testCase.chiSquaredInputs{1:end});
-            testCase.verifyEqual(testCase.chiSquaredOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.chiSquaredOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testShiftData(testCase)
             %testShiftData
             out1 = shiftData(testCase.shiftDataInputs{:});
             outputs = {out1};
-            testCase.verifyEqual(testCase.shiftDataOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.shiftDataOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testCallMatlabCustomLayers(testCase)
@@ -243,7 +243,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 
             [output1, output2] = callMatlabCustomLayers(testCase.callMatlabCustomLayersInputs{:});
             outputs = {output1, output2};
-            testCase.verifyEqual(testCase.callMatlabCustomLayersOutputs, outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.callMatlabCustomLayersOutputs, outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testApplyBackgroundCorrection(testCase)
@@ -251,7 +251,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 
             [out1,out2,out3] = applyBackgroundCorrection(testCase.applyBackgroundCorrectionInputs{:});
             outputs = {out1,out2,out3};
-            testCase.verifyEqual(testCase.applyBackgroundCorrectionOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.applyBackgroundCorrectionOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
 
         end
 
@@ -266,7 +266,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             
             [out1,out2]= callReflectivity(testCase.callReflectivityInputs{1:end});
             outputs = {out1,out2};
-            testCase.verifyEqual(testCase.callReflectivityOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.callReflectivityOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
 
         end
 
@@ -281,7 +281,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             
             out1 = allocateLayersForContrast(testCase.allocateLayersForContrastsInputs{1:end});
             outputs= {out1};
-            testCase.verifyEqual(testCase.allocateLayersForContrastsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.allocateLayersForContrastsOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testAllocatedParamsToLayers(testCase)
@@ -295,7 +295,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             
             out1 = allocateParamsToLayers(testCase.allocateParamsToLayersInputs{1:end});
             outputs = {out1};
-            testCase.verifyEqual(testCase.allocateParamsToLayersOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.allocateParamsToLayersOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testGroupLayersMod(testCase)
@@ -312,7 +312,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
            
             [out1,out2] = groupLayersMod(testCase.groupLayersModInputs{1:end});
             outputs = {out1,out2};
-            testCase.verifyEqual(testCase.groupLayersModOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.groupLayersModOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
  
 %        function testJacobianEstimate(testCase)
@@ -350,7 +350,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             
             out1 = makeSLDProfiles(testCase.makeSLDProfilesInputs{1:end});
             outputs = {out1};
-            testCase.verifyEqual(testCase.makeSLDProfilesOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.makeSLDProfilesOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testMakeSLDProfileXY(testCase)
@@ -368,7 +368,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             out1 = makeSLDProfileXY(testCase.makeSLDProfileXYInputs{1:end});
             outputs = {out1};
 
-            testCase.verifyEqual(testCase.makeSLDProfileXYOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.makeSLDProfileXYOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testAbelesParallelPoints(testCase)
@@ -386,7 +386,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             out1 = abelesParallelPoints(testCase.abelesParallelPointsInputs{1:end});
             outputs = {out1};
 
-            testCase.verifyEqual(testCase.abelesParallelPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.abelesParallelPointsOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
 
         end
 
@@ -404,7 +404,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             
             out1 = abelesSingle(testCase.abelesSingleInputs{1:end});
             outputs = {out1};
-            testCase.verifyEqual(testCase.abelesSingleOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.abelesSingleOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
 
         end
 
@@ -422,7 +422,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
  
             [out1] = adaptive(testCase.adaptiveInputs{1:end});
             outputs = out1; %INTENTIONAL
-            testCase.verifyEqual(testCase.adaptiveOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.adaptiveOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testResampleLayers(testCase)
@@ -438,7 +438,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             %   resampleLayers(testCase)
 
             out1 = resampleLayers(testCase.resampleLayersInputs{1:end});
-            testCase.verifyEqual(testCase.resampleLayersOutputs,out1, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.resampleLayersOutputs,out1, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
         function testSLDFunction(testCase)
@@ -455,7 +455,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             
             out1 = SLDFunction(testCase.SLDFunctionInputs{1:end});
             outputs = {out1};
-            testCase.verifyEqual(testCase.SLDFunctionOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.SLDFunctionOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
 
         end
 %{
@@ -479,7 +479,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             
             outputs = dataResolutionPollyParallelPoints(firstArg,secondArg,thirdArg,fourthArg);
 
-            testCase.verifyEqual(testCase.dataResolutionPollyParallelPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.dataResolutionPollyParallelPointsOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
 
         end
 
@@ -503,7 +503,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             
             outputs = dataResolutionPolly(firstArg,secondArg,thirdArg,fourthArg);
 
-            testCase.verifyEqual(testCase.dataResolutionPollyOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.dataResolutionPollyOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
 
         end
     
@@ -518,7 +518,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
 
             outputs = resolutionPollyParallelPoints(testCase.resolutionPollyParallelPointsInputs{1:end});
 
-            testCase.verifyEqual(testCase.resolutionPollyParallelPointsOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.resolutionPollyParallelPointsOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
 
         end
  %}    
@@ -537,7 +537,7 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             
             out1 = resolutionPolly(testCase.resolutionPollyInputs{1:end});
             outputs = {out1};
-            testCase.verifyEqual(testCase.resolutionPollyOutputs,outputs, "RelTol", testCase.tolerance, "AbsTol", testCase.abs_tolerance);
+            testCase.verifyEqual(testCase.resolutionPollyOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
 
         end        
 

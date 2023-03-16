@@ -73,7 +73,7 @@ for n = 1:length(names)
         % if found
         if strcmpi(names{n},varargin{i})
             if i+1 > nargin
-                error(["Expected an input value after the name '" names{i} "'."]);
+                error(['Expected an input value after the name '' names{i} ''.']);
             end
             % save filling info
             fp{n} = varargin{i+1};

@@ -240,7 +240,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     for n = 1:dims(2)
                         tablePar = laysTable{m,n};   % Should be a string
                         if isequal(findParam,tablePar)
-                            obj.layers.layersTable(m,n) = {""};
+                            obj.layers.layersTable(m,n) = {''};
                         end
                     end
                 end

@@ -8,7 +8,7 @@ classdef customFileClass < handle
     end
 
     properties(Access = private, Constant, Hidden)
-        duplicateNameMessage = "Duplicate custom file names are not allowed"
+        duplicateNameMessage = 'Duplicate custom file names are not allowed'
         invalidLanguageMessage = sprintf('Language must be a supportedLanguages enum or one of the following strings (%s)', ...
                                          strjoin(supportedLanguages.values(), ', '))
     end
@@ -63,7 +63,7 @@ classdef customFileClass < handle
                 nameVal = obj.autoFileNameCounter();
                 newName = sprintf('New custom file %d', nameVal);
                 
-                newRow = {newName, "", supportedLanguages.Matlab.value, "pwd"};
+                newRow = {newName, '', supportedLanguages.Matlab.value, 'pwd'};
                 appendNewRow(obj, newRow);
 
             else
@@ -81,7 +81,7 @@ classdef customFileClass < handle
                             throw(invalidType('Single input is expected to be a custom object name'));
                         end
                         
-                        newRow = {newName, "", supportedLanguages.Matlab.value, "pwd"};
+                        newRow = {newName, '', supportedLanguages.Matlab.value, 'pwd'};
                         appendNewRow(obj, newRow);
                         
                     case 2
@@ -91,7 +91,7 @@ classdef customFileClass < handle
                         newName = string(inputs{1});
                         newFile = string(inputs{2});
 
-                        newRow = {newName, newFile, supportedLanguages.Matlab.value, "pwd"};
+                        newRow = {newName, newFile, supportedLanguages.Matlab.value, 'pwd'};
                         appendNewRow(obj, newRow);
                         
                     case 4
@@ -227,21 +227,21 @@ classdef customFileClass < handle
                     
                     thisCustomFile = thisRow{1,2}{:};
                     if isempty(thisCustomFile)
-                        fileNameString = "No File";
+                        fileNameString = 'No File';
                     else
                         fileNameString = string(thisCustomFile);
                     end
                     
                     thisFileLanguage = thisRow{1,3}{:};
                     if isempty(thisFileLanguage)
-                        fileLanguageString = "-";
+                        fileLanguageString = '-';
                     else
                         fileLanguageString = thisFileLanguage;
                     end
                     
                     thisFilePath = thisRow{1,4}{:};
                     if isempty(thisFilePath)
-                        filePathString = "pwd";
+                        filePathString = 'pwd';
                     else
                         thisFilePath = char(thisFilePath);
                         if length(thisFilePath) > 10

@@ -4,10 +4,10 @@ function paths()
 
     if ismac % MacOs
         arch = string(computer('arch'));
-        incPath1= matlabRoot+'/'+"extern"+'/'+string(arch)+'/'+"include";
+        incPath1= matlabRoot+'/'+'extern'+'/'+string(arch)+'/'+'include';
         %incPath1 = append(matlabroot,'/','extern','/','include');
 
-        linkPath1 = matlabRoot+'/'+arch+'/'+"glnxa64";
+        linkPath1 = matlabRoot+'/'+arch+'/'+'glnxa64';
 
         %linkPath1 = append(matlabroot,'/',arch,'/','glnxa64')    APPEND,FULLFILE and STRCAT are not supported in MATLAB CODER
         %fullfile(matlabroot,arch,'glnxa64'); % NEED TO CONFIRM THIS
@@ -25,11 +25,11 @@ function paths()
 
     elseif isunix %LINUX
         arch = string(computer('arch'));
-        incPath1= matlabRoot+'/'+"extern"+'/'+"include";
+        incPath1= matlabRoot+'/'+'extern'+'/'+'include';
 
         %incPath1 = append(matlabroot,'/','extern','/','include');
 
-        linkPath1 = matlabRoot+'/'+arch+'/'+"glnxa64";
+        linkPath1 = matlabRoot+'/'+arch+'/'+'glnxa64';
         %linkPath1 = append(matlabroot,'/',arch,'/','glnxa64');
         %fullfile(matlabroot,arch,'glnxa64');
         linkFile1 = 'libeng.so';
@@ -45,10 +45,10 @@ function paths()
         
     elseif ispc % WINDOWS
         arch = string(computer('arch'));
-        %incPath1= matlabRoot+'\'+"extern"+'\'+"include";
+        %incPath1= matlabRoot+'\'+'extern'+'\'+'include';
         incPath1= 'C:\Program Files\MATLAB\R2021a\extern\include'
 
-        linkPath1 = 'C:\Program Files\MATLAB\R2021a\bin'+"win64";
+        linkPath1 = 'C:\Program Files\MATLAB\R2021a\bin'+'win64';
         %linkPath1 = fullfile(matlabroot,'extern','include','lib',arch,'mingw64');
         linkFile1 = 'libeng.lib';
         linkFile2 = 'libmx.lib';

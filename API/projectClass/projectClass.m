@@ -30,7 +30,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         usePriors = false
 
-        modelType = 'standard layers'
+        modelType = modelTypes.StandardLayers.value
     end
        
     methods
@@ -48,31 +48,31 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.geometry = 'air/substrate';
             
             % Initialise the Parameters Table
-            obj.parameters = parametersClass('Substrate Roughness',1, 3, 5,true,'uniform',0,Inf);
+            obj.parameters = parametersClass('Substrate Roughness',1, 3, 5,true,priorTypes.Uniform,0,Inf);
             
             % Initialise the layers table
             obj.layers = layersClassRealSLD();
             
             % Initialise bulkIn table
-            obj.bulkIn = parametersClass('SLD Air',0,0,0,false,'uniform',0,Inf);
+            obj.bulkIn = parametersClass('SLD Air',0,0,0,false,priorTypes.Uniform,0,Inf);
             
             % Initialise bulkOut table
-            obj.bulkOut = parametersClass('SLD D2O',6.2e-6,6.35e-6,6.35e-6,false,'uniform',0,Inf);
+            obj.bulkOut = parametersClass('SLD D2O',6.2e-6,6.35e-6,6.35e-6,false,priorTypes.Uniform,0,Inf);
             
             % Initialise scalefactors table
-            obj.scalefactors = parametersClass('Scalefactor 1',0.02,0.23,0.25,false,'uniform',0,Inf);
+            obj.scalefactors = parametersClass('Scalefactor 1',0.02,0.23,0.25,false,priorTypes.Uniform,0,Inf);
             
             % Initialise qzshifts table
-            obj.qzshifts = parametersClass('Qz shift 1',-1e-4,0,1e-4,false,'uniform',0,Inf);
+            obj.qzshifts = parametersClass('Qz shift 1',-1e-4,0,1e-4,false,priorTypes.Uniform,0,Inf);
             
             % Initialise backs object
-            backPars = parametersClass('Backs par 1',1e-7,1e-6,1e-5,false,'uniform',0,Inf);
-            backgrounds = {'Background 1','constant','Backs Par 1','','','',''};
+            backPars = parametersClass('Backs par 1',1e-7,1e-6,1e-5,false,priorTypes.Uniform,0,Inf);
+            backgrounds = {'Background 1',allowedTypes.Constant.value,'Backs Par 1','','','',''};
             obj.background = backgroundsClass(backPars, backgrounds);
             
             % Initialise resolution object
-            resolPars = parametersClass('Resolution par 1',0.01,0.03,0.05,false,'uniform',0,Inf);
-            resolutions = {'Resolution 1','constant','Resolution par 1','','','',''};
+            resolPars = parametersClass('Resolution par 1',0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
+            resolutions = {'Resolution 1',allowedTypes.Constant.value,'Resolution par 1','','','',''};
             obj.resolution = resolutionsClass(resolPars, resolutions);
             
             % Initialise data object
@@ -127,17 +127,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % either "Air/Substrate" or "Substrate/Liquid" is permitted.
             %
             % problem.setGeometry('Substrate/liquid');
-            if ~ischar(geometry)
-                throw(invalidType('Geometry must be a char array'))
-            end
-
-            if strcmpi(geometry, 'air/substrate')
-                obj.geometry = 'air/substrate';
-            elseif strcmpi(geometry, 'substrate/liquid')
-                obj.geometry = 'substrate/liquid';
-            else
-                throw(invalidOption('Expecting ''Air/Substrate'' or ''Substrate/Liquid'''))
-            end
+            invalidTypeMessage = sprintf('Geometry must be a geometryOptions enum or one of the following strings (%s)', ...
+                                         strjoin(geometryOptions.values(), ', '));
+            obj.geometry = validateOption(geometry, 'geometryOptions', invalidTypeMessage).value;
         end
         
         function obj = setModelType(obj, modelType)
@@ -145,17 +137,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % either "standard layers", "custom layers", or "custom xy" is permitted.
             %
             % problem.setModelType('Custom Layers');
-            
-            if ~ischar(modelType)
-                throw(invalidType('Expecting a char array'));
-            end
-            
-            if ~any(strcmpi(modelType, {'standard layers','custom layers','custom xy'}))
-                throw(invalidOption('experiment type has to be Standard Layers, Custom Layers or Custom XY'));
-            end
-            
-            obj.modelType = lower(modelType);
-            
+            invalidTypeMessage = sprintf('Experiment type must be a modelTypes enum or one of the following strings (%s)', ...
+                                         strjoin(modelTypes.values(), ', '));
+            obj.modelType = validateOption(modelType, 'modelTypes', invalidTypeMessage).value;
         end
         
 
@@ -796,7 +780,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             paramNames = string(paramStruct.paramNames);
             
             switch generalStruct.modelType
-                case 'standard layers'
+                case modelTypes.StandardLayers.value
                     numberOfLayers = layersStruct.numberOfLayers;
                     
                     if numberOfLayers > 0
@@ -812,7 +796,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                             else
                                 hydr = find(strcmpi(thisLayer{4},paramNames));
                             end
-                            if strcmpi(thisLayer{5},'bulk in')
+                            if strcmpi(thisLayer{5}, hydrationTypes.BulkIn.value)
                                 hydrWhat = 1;
                             else
                                 hydrWhat = 2;

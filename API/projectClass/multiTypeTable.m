@@ -5,7 +5,6 @@ classdef multiTypeTable < handle
     
     properties
         typesTable = table
-        allowedTypes = {'constant', 'data', 'function'}
         allowedActions = {'add', 'subtract'}
         typesAutoNameString = 'Row'
     end
@@ -48,11 +47,11 @@ classdef multiTypeTable < handle
                     thisName = char(obj.typesAutoNameString);
                     thisNum = obj.typesAutoNameCounter;
                     name = sprintf('%s %d',thisName,thisNum);
-                    newRow = {name,'constant','','','','',''};
+                    newRow = {name,allowedTypes.Constant.value,'','','','',''};
                     
                 case 1
                     % One parameter: assume this is a name
-                    newRow = {addParams,'constant','','','','',''};
+                    newRow = {addParams,allowedTypes.Constant.value,'','','','',''};
 
                 otherwise
                     % Two or more parameters are specified. 
@@ -62,14 +61,13 @@ classdef multiTypeTable < handle
                     newRow = [addParams, repmat({''}, 1, 7-length(addParams))];
 
                     % Check type is one of the allowed types
-                    if ~strcmpi(newRow{2}, obj.allowedTypes)
-                        throw(invalidOption(sprintf('Unrecognised type ''%s''. Must be one of the types defined in ''obj.allowedTypes''', newRow{2})));
-                    end
+                    invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...
+                                                 strjoin(allowedTypes.values(), ', '));
+                    newRow{2} = validateOption(newRow{2}, 'allowedTypes', invalidTypeMessage).value;
             end
 
-            % Pass in only the first seven values to ensure input is
-            % not too long
-            appendNewRow(obj,newRow(1:7));
+            % Pass in only the first seven values to ensure input is not too long
+            appendNewRow(obj, newRow(1:7));
 
         end
         

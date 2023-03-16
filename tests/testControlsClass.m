@@ -13,14 +13,14 @@ classdef testControlsClass < matlab.unittest.TestCase
     methods (Test)
         function testParallel(testCase)
             % Test if set.parallel method is working
-            testCase.controls.parallel = 'points';
-            testCase.verifyEqual(testCase.controls.parallel, 'points', 'set.parallel method is not working')
-            testCase.controls.parallel = 'contrasts';
-            testCase.verifyEqual(testCase.controls.parallel, 'contrasts', 'set.parallel method is not working')
-            testCase.controls.parallel = 'all';
-            testCase.verifyEqual(testCase.controls.parallel, 'all', 'set.parallel method is not working')
-            testCase.controls.parallel = 'single';
-            testCase.verifyEqual(testCase.controls.parallel, 'single', 'set.parallel method is not working')
+            testCase.controls.parallel = parallelOptions.Points;
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Points.value, 'set.parallel method is not working')
+            testCase.controls.parallel = parallelOptions.Contrasts;
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'set.parallel method is not working')
+            testCase.controls.parallel = upper(parallelOptions.All.value);
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.All.value, 'set.parallel method is not working')
+            testCase.controls.parallel = parallelOptions.Single.value;
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'set.parallel method is not working')
             testCase.verifyError(@setParallel, invalidOption.errorID);  % bad parallel option 
             function setParallel
                 testCase.controls.parallel = 'random';
@@ -29,16 +29,16 @@ classdef testControlsClass < matlab.unittest.TestCase
 
         function testProcedure(testCase)
             % Test if set.procedure method is working
-            testCase.controls.procedure = 'simplex';
-            testCase.verifyEqual(testCase.controls.procedure, 'simplex', 'set.procedure method is not working')
-            testCase.controls.procedure = 'de';
-            testCase.verifyEqual(testCase.controls.procedure, 'de', 'set.procedure method is not working')
-            testCase.controls.procedure = 'dream';
-            testCase.verifyEqual(testCase.controls.procedure, 'dream', 'set.procedure method is not working')
-            testCase.controls.procedure = 'ns';
-            testCase.verifyEqual(testCase.controls.procedure, 'ns', 'set.procedure method is not working')
-            testCase.controls.procedure = 'calculate';
-            testCase.verifyEqual(testCase.controls.procedure, 'calculate', 'set.procedure method is not working')
+            testCase.controls.procedure = procedures.Simplex;
+            testCase.verifyEqual(testCase.controls.procedure, procedures.Simplex.value, 'set.procedure method is not working')
+            testCase.controls.procedure = procedures.DE;
+            testCase.verifyEqual(testCase.controls.procedure, procedures.DE.value, 'set.procedure method is not working')
+            testCase.controls.procedure = procedures.Dream.value;
+            testCase.verifyEqual(testCase.controls.procedure, procedures.Dream.value, 'set.procedure method is not working')
+            testCase.controls.procedure = upper(procedures.NS.value);
+            testCase.verifyEqual(testCase.controls.procedure, procedures.NS.value, 'set.procedure method is not working')
+            testCase.controls.procedure = procedures.Calculate;
+            testCase.verifyEqual(testCase.controls.procedure, procedures.Calculate.value, 'set.procedure method is not working')
             testCase.verifyError(@setProcedure, invalidOption.errorID);  % bad procedure option 
             function setProcedure
                 testCase.controls.procedure = 'random';
@@ -47,14 +47,14 @@ classdef testControlsClass < matlab.unittest.TestCase
 
         function testDisplay(testCase)
             % Test if set.display method is working
-            testCase.controls.display = 'final';
-            testCase.verifyEqual(testCase.controls.display, 'final', 'set.display method is not working')            
-            testCase.controls.display = 'off';
-            testCase.verifyEqual(testCase.controls.display, 'off', 'set.display method is not working')
-            testCase.controls.display = 'iter';
-            testCase.verifyEqual(testCase.controls.display, 'iter', 'set.display method is not working')
-            testCase.controls.display = 'notify';
-            testCase.verifyEqual(testCase.controls.display, 'notify', 'set.display method is not working')
+            testCase.controls.display = displayOptions.Final;
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Final.value, 'set.display method is not working')            
+            testCase.controls.display = upper(displayOptions.Off.value);
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Off.value, 'set.display method is not working')
+            testCase.controls.display = displayOptions.Iter.value;
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'set.display method is not working')
+            testCase.controls.display = displayOptions.Notify;
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'set.display method is not working')
             testCase.verifyError(@setDisplay, invalidOption.errorID);  % bad display option 
             function setDisplay
                 testCase.controls.display = 'any';
@@ -150,14 +150,14 @@ classdef testControlsClass < matlab.unittest.TestCase
             end
             
             for i = 1:6
-                testCase.controls.strategy = i;
+                testCase.controls.strategy = strategyOptions.fromValue(i);
                 testCase.verifyEqual(testCase.controls.strategy, i, 'set.strategy method is not working')
             end
             % bad strategy type 
             testCase.verifyError(@() setStrategy('a'), invalidType.errorID);  
-            testCase.verifyError(@() setStrategy(7), invalidValue.errorID);
-            testCase.verifyError(@() setStrategy(3.14), invalidValue.errorID);
-            testCase.verifyError(@() setStrategy(0), invalidValue.errorID);
+            testCase.verifyError(@() setStrategy(7), invalidOption.errorID);
+            testCase.verifyError(@() setStrategy(3.14), invalidOption.errorID);
+            testCase.verifyError(@() setStrategy(0), invalidOption.errorID);
             function setStrategy(value)
                 testCase.controls.strategy = value;
             end
@@ -272,14 +272,14 @@ classdef testControlsClass < matlab.unittest.TestCase
                 testCase.controls.pUnitGamma = value;
             end
 
-            testCase.controls.boundHandling = 'none';
-            testCase.verifyEqual(testCase.controls.boundHandling, 'none', 'set.boundHandling method is not working')
-            testCase.controls.boundHandling = 'reflect';
-            testCase.verifyEqual(testCase.controls.boundHandling, 'reflect', 'set.boundHandling method is not working')
-            testCase.controls.boundHandling = 'Bound';
-            testCase.verifyEqual(testCase.controls.boundHandling, 'Bound', 'setboundHandling method is not working')
-            testCase.controls.boundHandling = 'fold';
-            testCase.verifyEqual(testCase.controls.boundHandling, 'fold', 'set.boundHandling method is not working')
+            testCase.controls.boundHandling = boundHandlingOptions.None;
+            testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.None.value, 'set.boundHandling method is not working')
+            testCase.controls.boundHandling = boundHandlingOptions.Reflect.value;
+            testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Reflect.value, 'set.boundHandling method is not working')
+            testCase.controls.boundHandling = upper(boundHandlingOptions.Bound.value);
+            testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Bound.value, 'setboundHandling method is not working')
+            testCase.controls.boundHandling = boundHandlingOptions.Fold;
+            testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Fold.value, 'set.boundHandling method is not working')
             testCase.verifyError(@setBoundHandling, invalidOption.errorID);  % bad method option 
             function setBoundHandling
                 testCase.controls.boundHandling = 'random';
@@ -308,7 +308,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyThat(display, ~ContainsSubstring("strategy"), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring("tolX"), 'getPropertyGroups method not working');
             
-            testCase.controls.procedure = 'ns';
+            testCase.controls.procedure = procedures.NS;
             display = evalc('disp(testCase.controls)');
             testCase.verifySubstring(display, "parallel: 'single'", 'getPropertyGroups method not working');
             testCase.verifySubstring(display, "procedure: 'ns'", 'getPropertyGroups method not working');
@@ -317,7 +317,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyThat(display, ~ContainsSubstring("method"), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring("strategy"), 'getPropertyGroups method not working');
             
-            testCase.controls.procedure = 'de';
+            testCase.controls.procedure = 'DE';
             testCase.controls.parallel = 'contrasts';
             display = evalc('disp(testCase.controls)');
             testCase.verifySubstring(display, "parallel: 'contrasts'", 'getPropertyGroups method not working');
@@ -328,7 +328,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyThat(display, ~ContainsSubstring("propScale"), 'getPropertyGroups method not working');
             
 
-            testCase.controls.procedure = 'simplex';
+            testCase.controls.procedure = procedures.Simplex;
             display = evalc('disp(testCase.controls)');
             testCase.verifySubstring(display, "parallel: 'contrasts'", 'getPropertyGroups method not working');
             testCase.verifySubstring(display, "procedure: 'simplex'", 'getPropertyGroups method not working');

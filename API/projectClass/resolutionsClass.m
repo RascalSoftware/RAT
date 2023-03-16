@@ -23,11 +23,8 @@ classdef resolutionsClass < handle
     end
     
     properties(Access = private, Constant, Hidden)
-       invalidTypeMessage = "Unrecognised type '%s'. Must be one of the types defined in 'obj.allowedTypes'"
-    end
-    
-    properties (Access = private)
-       allowedTypes = {'constant', 'data', 'function'}
+        invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...
+                                     strjoin(allowedTypes.values(), ', '))
     end
     
     methods
@@ -42,7 +39,6 @@ classdef resolutionsClass < handle
             
             % Make a multiType table to define the actual resolutions
             obj.resolutions = multiTypeTable();
-            obj.resolutions.allowedTypes = obj.allowedTypes;
             obj.resolutions.typesAutoNameString = 'New Resolution';
             obj.addResolution(startResolution{:});
         end
@@ -87,10 +83,9 @@ classdef resolutionsClass < handle
             
             if length(in) > 1 
                % Check that second param is legal
-               typeVal = in{2};
-               if ~strcmpi(typeVal, obj.allowedTypes)
-                   throw(invalidOption(sprintf(obj.invalidTypeMessage, typeVal)));
-               elseif any(strcmpi(typeVal, {'constant', 'function'})) && length(in) < 3
+               typeVal = validateOption(in{2}, 'allowedTypes', obj.invalidTypeMessage).value;
+
+               if any(strcmpi(typeVal, {allowedTypes.Constant.value, allowedTypes.Function.value})) && length(in) < 3
                    throw(invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
                end
 
@@ -100,12 +95,12 @@ classdef resolutionsClass < handle
                % Check that the other params inputted are either valid
                % resolution names, or numbers in range..
                switch typeVal
-                   case 'constant'
+                   case allowedTypes.Constant.value
                        % Param 3 must be a valid parameter
                        thisParam = obj.validateParam(in(3));
                        thisRow{3} = thisParam;
 
-                   case 'function'
+                   case allowedTypes.Function.value
                        % Param 3 is assumed to be function name
                        % any other given parameters must be in paramNames
                        % list or numbers in range
@@ -115,12 +110,12 @@ classdef resolutionsClass < handle
                           thisRow{i} = thisParam;
                        end
                        
-                   case 'data'
+                   case allowedTypes.Data.value
                        % Resolution is assumed to be given by a 4th column 
                        % of a data file. We don't have access to the
                        % data files at this point so this (i.e. that data is
                        % [n x 4] ) will be checked downstream
-                       thisRow = {in(1), in(2), '', '', '', '', ''};
+                       thisRow = {in{1}, in{2}, '', '', '', '', ''};
                 end
             end
             obj.resolutions.addRow(thisRow);      
@@ -153,7 +148,7 @@ classdef resolutionsClass < handle
             
             p = inputParser;
             addParameter(p, 'name', obj.resolutions.typesTable{row, 1}, @(x) isstring(x) || ischar(x));
-            addParameter(p, 'type', obj.resolutions.typesTable{row, 2}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'type', obj.resolutions.typesTable{row, 2}, @(x) isstring(x) || ischar(x) || isenum(x));
             addParameter(p, 'value1', obj.resolutions.typesTable{row, 3}, @(x) isstring(x) || ischar(x));
             addParameter(p, 'value2', obj.resolutions.typesTable{row, 4}, @(x) isstring(x) || ischar(x));
             addParameter(p, 'value3', obj.resolutions.typesTable{row, 5}, @(x) isstring(x) || ischar(x));
@@ -164,16 +159,15 @@ classdef resolutionsClass < handle
 
             obj.resolutions.setValue(row, 1, inputBlock.name);
             
-            if ~strcmpi(inputBlock.type, obj.allowedTypes)
-               throw(invalidOption(sprintf(obj.invalidTypeMessage, inputBlock.type)));
-            end
-            obj.resolutions.setValue(row, 2, inputBlock.type);      
-            
+            if ~isempty(inputBlock.type)
+                inputBlock.type = validateOption(inputBlock.type, 'allowedTypes', obj.invalidTypeMessage).value;
+                obj.resolutions.setValue(row, 2, inputBlock.type);
+            end    
             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
             for i = 1:4
                 value = convertStringsToChars(values{i});
                 % for function type, value 1 is the function name so no validation is done 
-                if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,'function'))
+                if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,allowedTypes.Function.value))
                     value = obj.validateParam(value);
                 end
                 obj.resolutions.setValue(row, i + 2, value);

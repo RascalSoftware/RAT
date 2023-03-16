@@ -8,9 +8,13 @@ classdef layersClassRealSLD < handle
     
     properties (Access = private)
         layersAutoNameCounter
-        allowedHydration = {'bulk in', 'bulk out', 'none'} 
     end
 
+    properties(Access = private, Constant, Hidden)
+        invalidTypeMessage = sprintf('Hydration type must be a HydrationTypes enum or one of the following strings (%s)', ...
+                                     strjoin(hydrationTypes.values(), ', '))
+    end
+    
     properties (Dependent, SetAccess = private)
         layersCount
     end
@@ -25,7 +29,6 @@ classdef layersClassRealSLD < handle
             varTypes = {'string','string','string','string','string','string'};
             varNames = {'Name','Thickness','SLD','Roughness','Hydration','Hydrate with'};
             obj.layersTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            %obj.layersTable(1,:) = {'Layer 1','', '', '', '','bulk out'};
             obj.layersAutoNameCounter = 1;
             
         end
@@ -54,27 +57,23 @@ classdef layersClassRealSLD < handle
                 % Add an empty layer
                 layerNum = obj.layersAutoNameCounter;
                 layerName = sprintf('Layer %d',layerNum);
-                newRow = {layerName,'','','','','bulk out'};
+                newRow = {layerName,'','','','',hydrationTypes.BulkOut.value};
                 
             elseif length(layerDetails) == 1 && ischar(layerDetails{1})
                 % Add an empty named layer
-                newRow = {layerDetails{1},'','','','','bulk out'};
+                newRow = {layerDetails{1},'','','','',hydrationTypes.BulkOut.value};
             
             else
                 % Add a layer that is fully defined
                 if length(layerDetails) == 4
                     % No hydration
-                    layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};
+                    layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,hydrationTypes.BulkIn.value};
                 elseif length(layerDetails) ~= 6
                     throw(invalidNumberOfInputs('Incorrect number of parameters for layer definition. Either 0, 1, 4, or 6 inputs are required.'));
                 end
                 
                 name = layerDetails{1};
-                hydrateWhat = layerDetails{end};
-                
-                if ~strcmpi(hydrateWhat,obj.allowedHydration)
-                    throw(invalidOption(sprintf('Hydrate type is ''%s'', but it must be ''bulk in'', ''bulk out'' or ''none''', hydrateWhat)));
-                end
+                hydration = validateOption(layerDetails{end}, 'hydrationTypes', obj.invalidTypeMessage).value;
                 
                 % Check that the parameter names given are real
                 % parameters or numbers
@@ -92,7 +91,7 @@ classdef layersClassRealSLD < handle
                     newRow{5} = obj.findParameter(layerDetails{5}, paramNames);
                 end
                 
-                newRow = [newRow hydrateWhat];
+                newRow = [newRow hydration];
 
             end
 
@@ -140,10 +139,7 @@ classdef layersClassRealSLD < handle
             end
 
             if col == 6
-                if ~(strcmpi(inputValue,obj.allowedHydration))
-                    throw(invalidOption(sprintf('Column 6 of layer is ''%s'', but must be ''bulk in'', ''bulk out'' or ''none''', inputValue)));
-                end
-                val = inputValue;
+                val = validateOption(inputValue, 'hydrationTypes', obj.invalidTypeMessage).value;
             else
                 val = obj.findParameter(inputValue, paramNames);
             end

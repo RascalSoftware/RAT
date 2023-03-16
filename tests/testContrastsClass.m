@@ -283,7 +283,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             contrastIndex = 1;
             testModel = {'Oxide Layer', 'Water Layer'};
 
-            testCase.exampleClass.setContrastModel(contrastIndex, 'standard layers', testCase.layerNames, testModel);
+            testCase.exampleClass.setContrastModel(contrastIndex, modelTypes.StandardLayers, testCase.layerNames, testModel);
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, "setContrastModel does not work correctly");
         end
 
@@ -293,7 +293,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             contrastIndex = 2;
             testModel = {'DPPC Model'};
 
-            testCase.exampleClass.setContrastModel(contrastIndex, 'custom XY', testCase.customNames, testModel);
+            testCase.exampleClass.setContrastModel(contrastIndex, modelTypes.CustomXY, testCase.customNames, testModel);
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, "setContrastModel does not work correctly");
         end
 
@@ -302,19 +302,21 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % If the input is invalid we should raise an error
 
             % Contrast must be recognisable by name or index
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(0, 'standard layers', testCase.layerNames, {'Oxide Layer'}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(testCase.numContrasts+1, 'standard layers', testCase.layerNames, {'Oxide Layer'}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Invalid Contrast', 'standard layers', testCase.layerNames, {'Oxide Layer'}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(0, modelTypes.StandardLayers.value, testCase.layerNames, {'Oxide Layer'}), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(testCase.numContrasts+1, modelTypes.StandardLayers.value, testCase.layerNames, {'Oxide Layer'}), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Invalid Contrast', modelTypes.StandardLayers.value, testCase.layerNames, {'Oxide Layer'}), nameNotRecognised.errorID);
 
             % Contrast models must be defined in allowed values, and only
             % one model is allowed for "custom layers" and "custom XY"
             testModel = {'Oxide Layer', 'Carbide Layer'};
 
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'standard layers', testCase.layerNames, testModel), nameNotRecognised.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'custom layers', testCase.layerNames, testModel), invalidValue.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'custom xy', testCase.layerNames, testModel), invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.StandardLayers.value, testCase.layerNames, testModel), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomLayers.value, testCase.layerNames, testModel), invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomXY.value, testCase.layerNames, testModel), invalidValue.errorID);
 
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'custom layers', testCase.layerNames, {'Carbide Layer'}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomLayers.value, testCase.layerNames, {'Carbide Layer'}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'randomLayers', testCase.customNames, {'DPPC Model'}), invalidOption.errorID);
+            
         end
 
         function testSetContrast(testCase)

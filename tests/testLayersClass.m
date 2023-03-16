@@ -26,35 +26,35 @@ classdef testLayersClass < matlab.unittest.TestCase
                         'Water SLD',...
                         'Bilayer heads rough',...
                         'Water hydr',...
-                        'bulk out'},...
+                        hydrationTypes.BulkOut.value},...
                       {'Oxide Indices Layer', 2, 3, 1},...
-                      {'Water Indices Layer', 13, 14, 8, 15, 'bulk out'}
+                      {'Water Indices Layer', 13, 14, 8, 15, hydrationTypes.BulkOut.value}
                        }
-        addedLayer = {{'Named Layer','','','','','bulk out'},...
+        addedLayer = {{'Named Layer','','','','',hydrationTypes.BulkOut.value},...
                       {'Oxide Names Layer',...
                        'Oxide thick',...
                        'Oxide SLD',...
                        'Substrate Roughness',...
                        NaN,...
-                       'bulk in'},...
+                       hydrationTypes.BulkIn.value},...
                       {'Water Names Layer',...
                        'Water thick',...
                        'Water SLD',...
                        'Bilayer heads rough',...
                        'Water hydr',...
-                       'bulk out'},...
+                       hydrationTypes.BulkOut.value},...
                       {'Oxide Indices Layer',...
                        'Oxide thick',...
                        'Oxide SLD',...
                        'Substrate Roughness',...
                        NaN,...
-                       'bulk in'},...
+                       hydrationTypes.BulkIn.value},...
                       {'Water Indices Layer',...
                        'Water thick',...
                        'Water SLD',...
                        'Bilayer heads rough',...
                        'Water hydr',...
-                       'bulk out'}
+                       hydrationTypes.BulkOut.value}
                        }
     end
 
@@ -62,7 +62,7 @@ classdef testLayersClass < matlab.unittest.TestCase
         exampleClass            % Example layers class for testing
         initialLayersTable      % Empty table to compare to initialisation
         parameters              % Example parameters class used in "addLayer"
-        parameterNames          % Names of parameters inthe example class
+        parameterNames          % Names of parameters in the example class
         numParams               % Number of parameters in the example class
         numRows                 % Number of rows in exampleClass.layersTable
         numCols                 % Number of columns in exampleClass.layersTable
@@ -86,21 +86,21 @@ classdef testLayersClass < matlab.unittest.TestCase
             % the example calculation "DPPCStandardLayers.m"
             testParams = {
                 %       Name           min      val     max   fit? 'Prior Type' 'mu' 'sigma'
-                'Substrate Roughness', 1,        3,       5,   true, 'uniform',  0,   Inf;
-                'Oxide thick',         5,       20,      60,   true, 'uniform',  0,   Inf;
-                'Oxide SLD',           3e-6,  3.41e-6,  4e-6, false, 'uniform',  0,   Inf;
-                'Oxide Hydration'      0,       20,      30,   true, 'uniform',  0,   Inf;
-                'Bilayer heads thick', 5,       10,      15,   true, 'uniform',  0,   Inf;
-                'Bilayer heads SLD',   1e-6,  1.47e-6,  3e-6,  true, 'uniform',  0,   Inf;
-                'Bilayer heads hydr',  20,      30,      50,   true, 'uniform',  0,   Inf;
-                'Bilayer heads rough'  5,        7,      15,   true, 'uniform',  0,   Inf;
-                'Bilayer tails thick', 10,      10,      20,   true, 'uniform',  0,   Inf;
-                'Bilayer tails SLD',   -5e-7, -4e-7,   -1e-7, false, 'uniform',  0,   Inf;
-                'Bilayer tails hydr',  0,       10,      20,   true, 'uniform',  0,   Inf;
-                'Bilayer tails rough', 5,        9,      15,   true, 'uniform',  0,   Inf;
-                'Water thick',         0,        1,      15,   true, 'uniform',  0,   Inf;
-                'Water SLD',           0,        0,       0,  false, 'uniform',  0,   Inf;
-                'Water hydr',          100,    100,     100,  false, 'uniform',  0,   Inf;
+                'Substrate Roughness', 1,        3,       5,   true, priorTypes.Uniform.value,  0,   Inf;
+                'Oxide thick',         5,       20,      60,   true, priorTypes.Uniform.value,  0,   Inf;
+                'Oxide SLD',           3e-6,  3.41e-6,  4e-6, false, priorTypes.Uniform.value,  0,   Inf;
+                'Oxide Hydration'      0,       20,      30,   true, priorTypes.Uniform.value,  0,   Inf;
+                'Bilayer heads thick', 5,       10,      15,   true, priorTypes.Uniform.value,  0,   Inf;
+                'Bilayer heads SLD',   1e-6,  1.47e-6,  3e-6,  true, priorTypes.Uniform.value,  0,   Inf;
+                'Bilayer heads hydr',  20,      30,      50,   true, priorTypes.Uniform.value,  0,   Inf;
+                'Bilayer heads rough'  5,        7,      15,   true, priorTypes.Uniform.value,  0,   Inf;
+                'Bilayer tails thick', 10,      10,      20,   true, priorTypes.Uniform.value,  0,   Inf;
+                'Bilayer tails SLD',   -5e-7, -4e-7,   -1e-7, false, priorTypes.Uniform.value,  0,   Inf;
+                'Bilayer tails hydr',  0,       10,      20,   true, priorTypes.Uniform.value,  0,   Inf;
+                'Bilayer tails rough', 5,        9,      15,   true, priorTypes.Uniform.value,  0,   Inf;
+                'Water thick',         0,        1,      15,   true, priorTypes.Uniform.value,  0,   Inf;
+                'Water SLD',           0,        0,       0,  false, priorTypes.Uniform.value,  0,   Inf;
+                'Water hydr',          100,    100,     100,  false, priorTypes.Uniform.value,  0,   Inf;
                 };
 
             testCase.parameters = parametersClass(testParams{1, :});
@@ -120,9 +120,9 @@ classdef testLayersClass < matlab.unittest.TestCase
             % "DPPCStandardLayers.m"
             testCase.exampleClass = layersClassRealSLD();
 
-            testCase.exampleClass.layersTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'};
-            testCase.exampleClass.layersTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer heads rough', 'Bilayer tails hydr', 'bulk out'};
-            testCase.exampleClass.layersTable(3,:) = {'Bil outer head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'};
+            testCase.exampleClass.layersTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
+            testCase.exampleClass.layersTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer heads rough', 'Bilayer tails hydr', hydrationTypes.BulkOut.value};
+            testCase.exampleClass.layersTable(3,:) = {'Bil outer head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
 
             testCase.numRows = height(testCase.exampleClass.layersTable);
             testCase.numCols = width(testCase.exampleClass.layersTable);
@@ -161,7 +161,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % We can add a layer with no parameters, just a layer name, or
             % a fully defined layer, which consists of either a length
             % four or length six cell array
-            newLayer = {'Layer 1','','','','','bulk out'};
+            newLayer = {'Layer 1','','','','',hydrationTypes.BulkOut.value};
             expectedTable = [testCase.exampleClass.layersTable; newLayer];
 
             testCase.exampleClass.addLayer(testCase.parameterNames);
@@ -178,7 +178,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2), invalidNumberOfInputs.errorID);
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3), invalidNumberOfInputs.errorID);
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4, 'none', 5), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4, hydrationTypes.None.value, 5), invalidNumberOfInputs.errorID);
 
             % Invalid hydrate type
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 1, 4, 'surface'), invalidOption.errorID);
@@ -187,7 +187,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'), nameNotRecognised.errorID);
 
             % Duplicate layer names
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', 'bulk out'), duplicateName.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value), duplicateName.errorID);
 
             % Invalid parameter indices
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 0), indexOutOfRange.errorID);
@@ -222,7 +222,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, "setValue does not work correctly");
 
             % Change hydration type
-            testCase.exampleClass.setLayerValue(3, 6, 'bulk in', testCase.parameterNames);
+            testCase.exampleClass.setLayerValue(3, 6, hydrationTypes.BulkIn.value, testCase.parameterNames);
             expectedRow = ["Bil outer head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Bilayer heads hydr", "bulk in"];
             testCase.verifyEqual(testCase.exampleClass.layersTable{3, :}, expectedRow, "setValue does not work correctly");
         end

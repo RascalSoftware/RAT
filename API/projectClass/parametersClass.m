@@ -8,7 +8,8 @@ classdef parametersClass < handle
     end
 
     properties(Access = private, Constant, Hidden)
-        invalidPriorsMessage = "Prior type must be ''uniform'', ''gaussian'' or ''jeffreys''"
+        invalidPriorsMessage = sprintf('Prior type must be a priorTypes enum or one of the following strings (%s)', ...
+                                       strjoin(priorTypes.values(), ', '))
     end
 
     properties (Access = private)   
@@ -37,7 +38,7 @@ classdef parametersClass < handle
             % for 5 inputs, the name, min, value, max, and fit? are provided
             % for 8 inputs, all parameter properties are provided
             %
-            % params = parametersClass('Tails', 10, 20, 30, true, 'uniform', 0, Inf);
+            % params = parametersClass('Tails', 10, 20, 30, true, priorTypes.Uniform.value, 0, Inf);
             sz = [0, 8];
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
@@ -77,7 +78,7 @@ classdef parametersClass < handle
                 % No input parameter
                 % Add an empty parameter row
                 name = sprintf('new parameter %d',obj.paramAutoNameCounter);
-                newRow = {name,0,0,0,false,'uniform',0,Inf};
+                newRow = {name,0,0,0,false,priorTypes.Uniform.value,0,Inf};
                 appendNewRow(obj,newRow);
             end
             
@@ -94,7 +95,7 @@ classdef parametersClass < handle
                 name = inputCell{1};
                 values = [1, 2, 3];
                 fit = false;
-                priorType = 'uniform';
+                priorType = priorTypes.Uniform.value;
                 priorValues = [0, Inf];
                 
                 switch length(inputCell)
@@ -133,10 +134,8 @@ classdef parametersClass < handle
                     throw(invalidType('Expecting logical value for param 5'));
                 end
                 
-                if ~strcmpi(priorType,{'uniform', 'gaussian', 'jeffreys'})
-                    throw(invalidOption(obj.invalidPriorsMessage));
-                end
-                
+                priorType = validateOption(priorType, 'priorTypes', obj.invalidPriorsMessage).value;
+                               
                 if ~isnumeric(priorValues)
                     throw(invalidType('Prior values must be numeric'));
                 end
@@ -209,25 +208,20 @@ classdef parametersClass < handle
             % name of parameter and the new prior type ('uniform',
             % 'gaussian', 'jeffreys') with mu and sigma value if applicable
             %
-            % params.setPrior(2, 'gaussian', 1, 2);
+            % params.setPrior(2, priorTypes.Gaussian, 1, 2);
             inputValues = varargin;
             tab = obj.paramsTable;
             
             row = obj.getValidRow(row);
-            priorType = inputValues{1};
-            if ~strcmpi(priorType,{'uniform','gaussian','jeffreys'})
-                throw(invalidOption(obj.invalidPriorsMessage));
-            end
-            
-            priorType = lower(priorType);
+            priorType = validateOption(inputValues{1}, 'priorTypes', obj.invalidPriorsMessage).value;
             switch priorType
-                case 'uniform'
-                    tab(row,6) = {'uniform'};
+                case priorTypes.Uniform.value
+                    tab(row,6) = {priorTypes.Uniform.value};
                     tab(row,7) = {0};
                     tab(row,8) = {Inf};
                     
-                case 'gaussian'
-                    tab(row,6) = {'gaussian'};             
+                case priorTypes.Gaussian.value
+                    tab(row,6) = {priorTypes.Gaussian.value};             
                     tab(row,7) = inputValues(2);
                     tab(row,8) = inputValues(3);
             end
@@ -392,7 +386,7 @@ classdef parametersClass < handle
             % Appends a new row to the table. Expects a cell array  
             % with row values to append
             % 
-            % obj.appendNewRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
+            % obj.appendNewRow({'Tails', 10, 20, 30, true, 'uniform' 0, Inf})
             tab = obj.paramsTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))

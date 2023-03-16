@@ -14,7 +14,12 @@ classdef contrastsClass < handle
     properties (Dependent, SetAccess = private)
         numberOfContrasts
     end
-    
+
+    properties(Access = private, Constant, Hidden)
+        invalidTypeMessage = sprintf('Model type must be a modelTypes enum or one of the following strings (%s)', ...
+                                     strjoin(modelTypes.values(), ', '))
+    end
+            
     methods
         
         function  obj = contrastsClass()
@@ -122,7 +127,8 @@ classdef contrastsClass < handle
             modelArray = cellstr(model);
 
             % Check the input is as expected
-            if any(strcmpi(modelType, {'custom layers', 'custom xy'}))
+            modelType = validateOption(modelType, 'modelTypes', obj.invalidTypeMessage).value;
+            if any(strcmpi(modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
                 if length(modelArray) > 1
                     throw(invalidValue('Only 1 model value allowed for ''custom'''));
                 end
@@ -281,8 +287,9 @@ classdef contrastsClass < handle
                 contrastRepeatSLDs{i} = [0 1]; % todo
                 contrastNames{i} = thisContrast.name;
 
+                modelType = validateOption(modelType, 'modelTypes', obj.invalidTypeMessage).value;
                 switch modelType
-                    case 'standard layers'
+                    case modelTypes.StandardLayers.value
                         thisModel = thisContrast.model;
                         thisLayerArray = ones(1,length(thisModel));
                         for n = 1:length(thisModel)

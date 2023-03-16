@@ -1,11 +1,11 @@
 classdef controlsClass < matlab.mixin.CustomDisplay
      
     properties
-        parallel = 'single'
-        procedure = 'calculate'
+        parallel = parallelOptions.Single.value
+        procedure = procedures.Calculate.value
         calcSldDuringFit = false
         resamPars = [0.9 50]
-        display = 'iter'
+        display = displayOptions.Iter.value
         
         %Procedure arguments
         %(1) Simplex
@@ -36,23 +36,22 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         nChains = 10               % Number of MCMC chains..
         lambda = 0.5               % Jump probabilities
         pUnitGamma = 0.2
-        boundHandling = 'fold'     % Boundary handling
+        boundHandling = boundHandlingOptions.Fold.value     % Boundary handling
     end
     
     %------------------------- Set and Get ------------------------------
     methods
         function obj = set.parallel(obj,val)
-            if ~strcmpi(val,{'single', 'points', 'contrasts', 'all'})
-                throw(invalidOption('Type must be ''single'', ''points'', ''contrasts'', ''all'''));
-            end
-            obj.parallel = val;
+            message =sprintf('parallel must be a parallelOptions enum or one of the following strings (%s)', ...
+                             strjoin(parallelOptions.values(), ', '));
+            obj.parallel = validateOption(val, 'parallelOptions', message).value;
+                                          
         end
         
         function obj = set.procedure(obj,val)
-            if ~strcmpi(val,{'calculate','simplex','DE', 'NS','dream'})
-                throw(invalidOption('Type must be ''calculate'', ''simplex'', ''DE'', ''dream'' or ''NS'''));
-            end
-            obj.procedure = val;
+            message =sprintf('procedure must be a procedures enum or one of the following strings (%s)', ...
+                             strjoin(procedures.values(), ', '));
+            obj.procedure = validateOption(val, 'procedures', message).value;
         end
         
         function obj = set.calcSldDuringFit(obj,val)
@@ -63,10 +62,9 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
 
         function obj = set.display(obj,val)
-            if ~strcmpi(val,{'off','iter','notify','final'})
-                throw(invalidOption('Display must be set to ''off'', ''iter'', ''notify'' or ''final'' '));
-            end
-            obj.display = val;
+            message =sprintf('display must be a displayOptions enum or one of the following strings (%s)', ...
+                             strjoin(displayOptions.values(), ', '));
+            obj.display = validateOption(val, 'displayOptions', message).value;
         end 
 
         function obj = set.resamPars(obj,val)
@@ -124,26 +122,10 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
         
         function obj = set.strategy(obj,val)
-            validateNumber(val, 'strategy must be a number');
-            if (~(round(val) == val) || val < 1 || val > 6)
-                throw(invalidValue('strategy must be an integer between 1 and 6'));
-            end
-            switch val
-                case 1
-                    message = 'Selecting DE/rand/1';
-                case 2
-                    message = 'Selecting DE/local-to-best/1';
-                case 3
-                    message = 'Selecting DE/best/1 with jitter';
-                case 4
-                    message = 'Selecting DE/rand/1 with per-vector-dither';
-                case 5
-                    message = 'Selecting DE/rand/1 with per-generation-dither';
-                case 6
-                    message = 'Selecting DE/rand/1 either-or-algorithm';
-            end
-            disp(message);   
-            obj.strategy = val;
+            message =sprintf('strategy must be a strategyOptions enum or one of the following integers (%s)', ...
+                             strjoin(string(strategyOptions.values()), ', '));
+  
+            obj.strategy = validateOption(val, 'strategyOptions', message).value;
         end
         
         function obj = set.targetValue(obj,val)
@@ -229,10 +211,9 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end 
 
         function obj = set.boundHandling(obj,val)
-            if ~strcmpi(val, {'none','reflect','bound','fold'})
-                throw(invalidOption('Boundary handling must be ''none'', ''reflect'', ''bound'' or ''none'''));
-            end
-            obj.boundHandling = val;
+            message =sprintf('boundHandling must be a boundHandlingOptions enum or one of the following strings (%s)', ...
+                             strjoin(boundHandlingOptions.values(), ', '));
+            obj.boundHandling = validateOption(val, 'boundHandlingOptions', message).value;
         end 
     end
 

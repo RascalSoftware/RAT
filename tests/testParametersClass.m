@@ -8,15 +8,15 @@ classdef testParametersClass < matlab.unittest.TestCase
         function createParameters(testCase)
             testCase.parameters = {
                     %       Name                min     val     max  fit? 'Prior Type','mu','sigma'
-                    'Tails Thickness',         10,     20,     30,  true, 'uniform', 0, Inf;
-                    'Heads Thickness',          3,     11,     16,  false, 'gaussian', -1, 1;
-                    'Tails Roughness',          2,     5,      9,   true, 'uniform', 0, Inf;
-                    'Heads Roughness',          2,     7,      9,   true, 'uniform', 0, Inf;
-                    'Deuterated Tails SLD',    4e-6,   6e-6,   2e-5, true, 'uniform', 0, Inf;
-                    'Hydrogenated Tails SLD', -0.6e-6, -0.4e-6, 0,  true, 'uniform', 0, Inf;
-                    'Deuterated Heads SLD',    1e-6,   3e-6,   8e-6, true, 'gaussian', 1, 2;
-                    'Hydrogenated Heads SLD',  0.1e-6,1.4e-6, 3e-6, true, 'uniform', 0, Inf;
-                    'Heads Hydration',         0,      10,   0.5,  true, 'uniform', 0, Inf;
+                    'Tails Thickness',         10,     20,     30,  true, priorTypes.Uniform.value, 0, Inf;
+                    'Heads Thickness',          3,     11,     16,  false, priorTypes.Gaussian.value, -1, 1;
+                    'Tails Roughness',          2,     5,      9,   true, priorTypes.Uniform.value, 0, Inf;
+                    'Heads Roughness',          2,     7,      9,   true, priorTypes.Uniform.value, 0, Inf;
+                    'Deuterated Tails SLD',    4e-6,   6e-6,   2e-5, true, priorTypes.Uniform.value, 0, Inf;
+                    'Hydrogenated Tails SLD', -0.6e-6, -0.4e-6, 0,  true, priorTypes.Uniform.value, 0, Inf;
+                    'Deuterated Heads SLD',    1e-6,   3e-6,   8e-6, true, priorTypes.Gaussian.value, 1, 2;
+                    'Hydrogenated Heads SLD',  0.1e-6,1.4e-6, 3e-6, true, priorTypes.Uniform.value, 0, Inf;
+                    'Heads Hydration',         0,      10,   0.5,  true, priorTypes.Uniform.value, 0, Inf;
                 };
         end
     end
@@ -79,16 +79,16 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyError(@() params.addParam('c', 1, 1, 1, true, 'u'), invalidNumberOfInputs.errorID);  % 6 values not accepted
             testCase.verifyError(@() params.addParam('c', 1, 1, 1, true, 'u', 1), invalidNumberOfInputs.errorID);  % 7 values not accepted
             testCase.verifyError(@() params.addParam('Param 7', 0, 1, 2, false, 'jeff', -1, 1), invalidOption.errorID); % bad prior type
-            testCase.verifyError(@() params.addParam('Param 7', 0, 1, 2, false, 'uniform', '-1', 1), invalidType.errorID); % bad prior value
-            params.addParam('Param 7', 0, 1, 2, false, 'jeffreys', -1, 1);
+            testCase.verifyError(@() params.addParam('Param 7', 0, 1, 2, false, priorTypes.Uniform, '-1', 1), invalidType.errorID); % bad prior value
+            params.addParam('Param 7', 0, 1, 2, false, priorTypes.Jeffreys, -1, 1);
             testCase.verifyEqual(params.paramsTable{end, 1}, "Param 7", 'addParam method not working');
             testCase.verifyEqual(params.paramsTable{end, 2:4}, [0, 1, 2], 'addParam method not working');
             testCase.verifyFalse(params.paramsTable{end, 5}, 'addParam method not working');
-            testCase.verifyEqual(params.paramsTable{end, 6}, "jeffreys", 'addParam method not working');
+            testCase.verifyEqual(params.paramsTable{end, 6}, string(priorTypes.Jeffreys.value), 'addParam method not working');
             testCase.verifyEqual(params.paramsTable{end, 7:8}, [-1, 1], 'addParam method not working');
             testCase.verifySize(params.paramsTable, [7, 8], 'Parameters has wrong dimension');
-            params.addParam('Param 8', 0, 1, 2, false, 'gaussian', -1, 1);
-            testCase.verifyEqual(params.paramsTable{end, 6}, "gaussian", 'addParam method not working');
+            params.addParam('Param 8', 0, 1, 2, false, priorTypes.Gaussian, -1, 1);
+            testCase.verifyEqual(params.paramsTable{end, 6}, string(priorTypes.Gaussian.value), 'addParam method not working');
         end
 
         function testRemoveParams(testCase) 
@@ -107,6 +107,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifySize(params.paramsTable, [4, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(params.paramsTable{:, 1}, paramNames([2, 4, 5, 6], 1), 'removeParam method not working');
             testCase.verifyError(@() params.removeParam(11), indexOutOfRange.errorID);
+            testCase.verifyError(@() params.removeParam(true), invalidType.errorID);
         end
 
         function testSetParams(testCase)
@@ -146,12 +147,12 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyError(@() params.setFit('Not present', false), nameNotRecognised.errorID)
             % Checks that parameter priors can be modified
             testCase.verifyError(@() params.setPrior(1, '2'), invalidOption.errorID);
-            params.setPrior(1, 'gaussian', 1, 2);
-            testCase.verifyEqual(params.paramsTable{1, 6:8}, ["gaussian", 1, 2], 'setParameter method not working');
-            params.setPrior('Heads', 'uniform');
-            testCase.verifyEqual(params.paramsTable{1, 6:8}, ["uniform", 0, Inf], 'setParameter method not working');
-            params.setPrior('Heads', 'jeffreys');
-            % testCase.verifyEqual(params.paramsTable{1, 6}, "jeffries", 'setParameter method not working');
+            params.setPrior(1, priorTypes.Gaussian, 1, 2);
+            testCase.verifyEqual(params.paramsTable{1, 6:8}, [string(priorTypes.Gaussian.value), 1, 2], 'setParameter method not working');
+            params.setPrior('Heads', priorTypes.Uniform);
+            testCase.verifyEqual(params.paramsTable{1, 6:8}, [string(priorTypes.Uniform.value), 0, Inf], 'setParameter method not working');
+            params.setPrior('Heads', priorTypes.Jeffreys);
+            % testCase.verifyEqual(params.paramsTable{1, 6}, string(priorTypes.Jeffreys.value), 'setParameter method not working');
         end
 
         function testDisplayTable(testCase)
@@ -216,7 +217,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(paramsStruct.paramConstr, {[10 30]}, 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.params, 20, 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.fitYesNo, 1, 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.priors, {{'Tails Thickness', 'uniform', 0, Inf}}, 'toStruct method not working');
+            testCase.verifyEqual(paramsStruct.priors, {{'Tails Thickness', priorTypes.Uniform.value, 0, Inf}}, 'toStruct method not working');
 
             params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:3, :))];
             paramsStruct = params.toStruct();
@@ -225,8 +226,8 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(paramsStruct.paramConstr, {[10, 30], [3, 16], [2, 9]}, 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.params, [20, 11, 5], 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.fitYesNo, [1, 0, 1], 'toStruct method not working');   
-            testCase.verifyEqual(paramsStruct.priors, {{'Tails Thickness', 'uniform', 0, Inf}; ...
-                                {'Heads Thickness', 'gaussian', -1, 1}; {'Tails Roughness', 'uniform', 0, Inf}}, 'toStruct method not working');
+            testCase.verifyEqual(paramsStruct.priors, {{'Tails Thickness', priorTypes.Uniform.value, 0, Inf}; ...
+                                {'Heads Thickness', priorTypes.Gaussian.value, -1, 1}; {'Tails Roughness', priorTypes.Uniform.value, 0, Inf}}, 'toStruct method not working');
         end
     end
 end

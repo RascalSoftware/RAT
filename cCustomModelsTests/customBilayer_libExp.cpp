@@ -105,8 +105,8 @@ extern "C" {
         output[16] = headSLD;
         output[17] = bilayerRough;
 
-        rough = &subRough;
-        std::cout << "roughness in func : " << rough << "\n";
+        *rough = subRough;
+        std::cout << "roughness in func : " << subRough << "\n";
 
         //outRough = subRough;
         //std::cout << "Value of outRough in customBilayer : " << outRough << "\n";

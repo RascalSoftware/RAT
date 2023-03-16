@@ -30,15 +30,24 @@ class Library
             // std::cout << "loading library" << std::endl;
         {       
 
+            std::cout << "Library name in libManager : " << libName  << "\n";
             //std::string libName = "mainFromGCC";
+            
             // creating an instance of dylib
             dylib library;
+            
             // load the library with libName 
             library = dylib (libName,dylib::extension);
+            
             // store the function pointer in a variable called func
             auto func = library.get_function<void(double*, double*, double*, int, double*, double*)>(functionName);
+            
             // pass the arguments to the function
-            func(params, bulk_in, bulk_out, contrast, tempOutput, roughness);         
+            func(params, bulk_in, bulk_out, contrast, tempOutput, roughness);   
+
+            std::cout << "rough_value in libManager : " << *roughness << "\n";
+            
+            //*roughness = rough_value;
         };
 };
 

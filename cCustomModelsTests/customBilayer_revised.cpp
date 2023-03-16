@@ -5,7 +5,7 @@
 class CustomBilayer {
 
 public:
-   DYLIB_API void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* rough)
+   void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* rough)
     {
         double subRough = params[0];
         double oxideThick = params[1];

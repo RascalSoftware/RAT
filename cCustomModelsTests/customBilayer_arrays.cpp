@@ -4,7 +4,7 @@
 class CustomBilayer {
 
 public:
-   DYLIB_API void customBilayer(double &params,double &bulk_in,double &bulk_out,int &contrast,double *output, double *rough);
+   void customBilayer(double &params,double &bulk_in,double &bulk_out,int &contrast,double *output, double *rough)
 
     {
         double sub_rough = params[0];

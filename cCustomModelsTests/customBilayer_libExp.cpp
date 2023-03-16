@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iterator>
 
 #if defined(_WIN32) || defined(_WIN64)
 #define LIB_EXPORT __declspec(dllexport)
@@ -6,7 +7,11 @@
 #define LIB_EXPORT
 #endif
 
+// We user extern "C" decorator to avoid name mangling....
 extern "C" {
+    LIB_EXPORT double outRough = 15.1;
+
+    LIB_EXPORT double outArray[18];
 
     LIB_EXPORT void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* rough)
 
@@ -101,6 +106,12 @@ extern "C" {
         output[17] = bilayerRough;
 
         rough = &subRough;
+        std::cout << "roughness in func : " << rough << "\n";
+
+        //outRough = subRough;
+        //std::cout << "Value of outRough in customBilayer : " << outRough << "\n";
+
+        //outArray = output;
     }
 
 } // extern "C"

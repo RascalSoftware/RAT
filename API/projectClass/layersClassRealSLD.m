@@ -144,7 +144,7 @@ classdef layersClassRealSLD < handle
                 val = obj.findParameter(inputValue, paramNames);
             end
                 
-            obj.layersTable(row,col) = {string(val)};
+            obj.layersTable(row,col) = {char(val)};
             
         end
 

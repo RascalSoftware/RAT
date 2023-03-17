@@ -239,7 +239,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 for m = 1:dims(1)
                     for n = 1:dims(2)
                         tablePar = laysTable{m,n};   % Should be a string
-                        if isequal(findParam,tablePar)
+                        if isequal(findParam, tablePar)
                             obj.layers.layersTable(m,n) = {''};
                         end
                     end
@@ -777,7 +777,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % parse the layers details
             layersValues = layersCell(:,2:end);
-            paramNames = string(paramStruct.paramNames);
+            paramNames = char(paramStruct.paramNames);
             
             switch generalStruct.modelType
                 case modelTypes.StandardLayers.value

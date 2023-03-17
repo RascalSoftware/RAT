@@ -88,8 +88,8 @@ classdef customFileClass < handle
 
                         % Two inputs suppled - assume both name and
                         % filename supplied;
-                        newName = string(inputs{1});
-                        newFile = string(inputs{2});
+                        newName = char(inputs{1});
+                        newFile = char(inputs{2});
 
                         newRow = {newName, newFile, supportedLanguages.Matlab.value, 'pwd'};
                         appendNewRow(obj, newRow);
@@ -97,10 +97,10 @@ classdef customFileClass < handle
                     case 4
 
                         % Four inputs = assume all inputs supplied
-                        newName = string(inputs{1});
-                        newFile = string(inputs{2});
-                        newLang = string(inputs{3});
-                        newPath = string(inputs{4});
+                        newName = char(inputs{1});
+                        newFile = char(inputs{2});
+                        newLang = char(inputs{3});
+                        newPath = char(inputs{4});
                         
                         newRow = {newName, newFile, newLang, newPath};
                         appendNewRow(obj, newRow);
@@ -229,7 +229,7 @@ classdef customFileClass < handle
                     if isempty(thisCustomFile)
                         fileNameString = 'No File';
                     else
-                        fileNameString = string(thisCustomFile);
+                        fileNameString = char(thisCustomFile);
                     end
                     
                     thisFileLanguage = thisRow{1,3}{:};
@@ -241,16 +241,14 @@ classdef customFileClass < handle
                     
                     thisFilePath = thisRow{1,4}{:};
                     if isempty(thisFilePath)
-                        filePathString = 'pwd';
+                        thisFilePath = 'pwd';
                     else
                         thisFilePath = char(thisFilePath);
                         if length(thisFilePath) > 10
                             thisFilePath = ['...' thisFilePath(end-10:end)];
                         end
-                        filePathString = string(thisFilePath);
                     end
-                    
-                    newDisplayRow = {nameString, fileNameString, fileLanguageString, filePathString};
+                    newDisplayRow = {nameString, fileNameString, fileLanguageString, thisFilePath};
                     displayTable(i,:) = newDisplayRow;
                     
                 end

@@ -42,14 +42,14 @@ classdef controlsClass < matlab.mixin.CustomDisplay
     %------------------------- Set and Get ------------------------------
     methods
         function obj = set.parallel(obj,val)
-            message =sprintf('parallel must be a parallelOptions enum or one of the following strings (%s)', ...
+            message = sprintf('parallel must be a parallelOptions enum or one of the following strings (%s)', ...
                              strjoin(parallelOptions.values(), ', '));
             obj.parallel = validateOption(val, 'parallelOptions', message).value;
                                           
         end
         
         function obj = set.procedure(obj,val)
-            message =sprintf('procedure must be a procedures enum or one of the following strings (%s)', ...
+            message = sprintf('procedure must be a procedures enum or one of the following strings (%s)', ...
                              strjoin(procedures.values(), ', '));
             obj.procedure = validateOption(val, 'procedures', message).value;
         end
@@ -62,7 +62,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
 
         function obj = set.display(obj,val)
-            message =sprintf('display must be a displayOptions enum or one of the following strings (%s)', ...
+            message = sprintf('display must be a displayOptions enum or one of the following strings (%s)', ...
                              strjoin(displayOptions.values(), ', '));
             obj.display = validateOption(val, 'displayOptions', message).value;
         end 
@@ -122,7 +122,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
         
         function obj = set.strategy(obj,val)
-            message =sprintf('strategy must be a strategyOptions enum or one of the following integers (%s)', ...
+            message = sprintf('strategy must be a strategyOptions enum or one of the following integers (%s)', ...
                              strjoin(string(strategyOptions.values()), ', '));
   
             obj.strategy = validateOption(val, 'strategyOptions', message).value;
@@ -211,7 +211,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end 
 
         function obj = set.boundHandling(obj,val)
-            message =sprintf('boundHandling must be a boundHandlingOptions enum or one of the following strings (%s)', ...
+            message = sprintf('boundHandling must be a boundHandlingOptions enum or one of the following strings (%s)', ...
                              strjoin(boundHandlingOptions.values(), ', '));
             obj.boundHandling = validateOption(val, 'boundHandlingOptions', message).value;
         end 

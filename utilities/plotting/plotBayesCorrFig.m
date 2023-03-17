@@ -234,8 +234,8 @@ function smoothhist2DLocal(X,lambda,nbins,outliercutoff,plottype)
 %       smoothhist2D(X,5,[100, 100],[],'surf');
 %
 %   Reference:
-%      Eilers, P.H.C. and Goeman, J.J (2004) 'Enhancing scaterplots with
-%      smoothed densities', Bioinformatics 20(5):623-628.
+%      Eilers, P.H.C. and Goeman, J.J (2004) "Enhancing scaterplots with
+%      smoothed densities", Bioinformatics 20(5):623-628.
 
 %   Copyright 2009 The MathWorks, Inc.
 %   Revision: 1.0  Date: 2006/12/12

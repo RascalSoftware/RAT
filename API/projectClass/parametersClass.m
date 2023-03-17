@@ -426,7 +426,7 @@ classdef parametersClass < handle
             %
             % obj.getValidRow('param name')
             if ischar(row)
-                name = string(row);
+                name = char(row);
                 index = obj.findRowIndex(name, obj.paramsTable);
             else
                 index = row;

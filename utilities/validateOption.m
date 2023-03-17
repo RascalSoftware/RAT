@@ -37,7 +37,7 @@ function mustBeCustomEnum(value)
     end
     
     metaClass = meta.class.fromName(value);
-    if isempty(metaClass) || metaClass.Enumeration ~= 1 || metaClass.SuperclassList.Name ~= "customEnum" 
-        throwAsCaller(invalidValue(sprintf('The enum class ("%s") must inherit customEnum and have an enumeration block.', value)));
+    if isempty(metaClass) || metaClass.Enumeration ~= 1 || metaClass.SuperclassList.Name ~= "customEnum"
+        throwAsCaller(invalidValue(sprintf('The enum class (''%s'') must inherit customEnum and have an enumeration block.', value)));
     end
 end

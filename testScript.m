@@ -3,7 +3,7 @@ import matlab.unittest.TestSuite;
 import matlab.unittest.plugins.CodeCoveragePlugin
 import matlab.unittest.plugins.codecoverage.CoverageReport
 
-sourceCodeFolder = ["API", "targetFunctions"];
+sourceCodeFolder = ["API", "targetFunctions", "utilities"];
 reportFolder = "htmlcov";
 reportFormat = CoverageReport(reportFolder);
 p = CodeCoveragePlugin.forFolder(sourceCodeFolder, ...

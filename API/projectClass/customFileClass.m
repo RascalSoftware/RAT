@@ -9,11 +9,8 @@ classdef customFileClass < handle
 
     properties(Access = private, Constant, Hidden)
         duplicateNameMessage = "Duplicate custom file names are not allowed"
-        invalidLanguageMessage = "Language must be: matlab, python, or cpp"
-    end
-
-    properties(Access = private, Constant)
-        supportedLanguages = {'matlab', 'python', 'cpp'}
+        invalidLanguageMessage = sprintf('Language must be a supportedLanguages enum or one of the following strings (%s)', ...
+                                         strjoin(supportedLanguages.values(), ', '))
     end
 
     properties (Access = private)
@@ -66,7 +63,7 @@ classdef customFileClass < handle
                 nameVal = obj.autoFileNameCounter();
                 newName = sprintf('New custom file %d', nameVal);
                 
-                newRow = {newName, "", "matlab", "pwd"};
+                newRow = {newName, "", supportedLanguages.Matlab.value, "pwd"};
                 appendNewRow(obj, newRow);
 
             else
@@ -84,7 +81,7 @@ classdef customFileClass < handle
                             throw(invalidType('Single input is expected to be a custom object name'));
                         end
                         
-                        newRow = {newName,"","matlab","pwd"};
+                        newRow = {newName, "", supportedLanguages.Matlab.value, "pwd"};
                         appendNewRow(obj, newRow);
                         
                     case 2
@@ -94,7 +91,7 @@ classdef customFileClass < handle
                         newName = string(inputs{1});
                         newFile = string(inputs{2});
 
-                        newRow = {newName,newFile,"matlab","pwd"};
+                        newRow = {newName, newFile, supportedLanguages.Matlab.value, "pwd"};
                         appendNewRow(obj, newRow);
                         
                     case 4
@@ -156,7 +153,7 @@ classdef customFileClass < handle
 
             addParameter(p,'name','', @(x) isstring(x) || ischar(x))
             addParameter(p,'filename','', @(x) isstring(x) || ischar(x))
-            addParameter(p,'language','', @(x) isstring(x) || ischar(x))
+            addParameter(p,'language','', @(x) isstring(x) || ischar(x) || isenum(x))
             addParameter(p,'path','', @(x) isstring(x) || ischar(x)) 
             parse(p, varargin{:});
                 
@@ -170,7 +167,8 @@ classdef customFileClass < handle
             end
             
             if ~isempty(results.language)
-                obj.setCustomLanguage(row,results.language);
+                results.language = validateOption(results.language, 'supportedLanguages', obj.invalidLanguageMessage).value;
+                obj.setCustomLanguage(row, results.language);
             end
             
             if ~isempty(results.path)
@@ -308,9 +306,7 @@ classdef customFileClass < handle
             language = row{3};
             path = row{4};
 
-            if ~strcmpi(language, obj.supportedLanguages)
-                throw(invalidOption(obj.invalidLanguageMessage));
-            end
+            language = validateOption(language, 'supportedLanguages', obj.invalidLanguageMessage).value;          
 
             row = {newName, fileName, language, path};
             tab = [tab ; row];
@@ -319,14 +315,10 @@ classdef customFileClass < handle
             
         end
 
-        function obj = setCustomLanguage(obj,whichCustom,lang)
+        function obj = setCustomLanguage(obj, row, language)
            % Check whether a specified language is supported, and set the
            % file entry if so.
-           if ~strcmpi(lang, obj.supportedLanguages)
-               throw(invalidOption(obj.invalidLanguageMessage));
-           end
-           
-           obj.fileTable{whichCustom,3} = {lang};
+           obj.fileTable{row, 3} = {validateOption(language, 'supportedLanguages', obj.invalidLanguageMessage).value};
         end
         
         

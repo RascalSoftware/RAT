@@ -13,21 +13,21 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project = projectClass('example');
             testCase.parameters = {
                     %       Name                min     val     max  fit? 'Prior Type','mu','sigma'
-                    {'Tails Thickness',         10,     20,     30,  true, 'uniform', 0, Inf};
-                    {'Heads Thickness',          3,     11,     16,  true, 'uniform', 0, Inf};
-                    {'Tails Roughness',          2,     5,      9,   true, 'uniform', 0, Inf};
-                    {'Heads Roughness',          2,     7,      9,   true, 'uniform', 0, Inf};
-                    {'Deuterated Tails SLD',    4e-6,   6e-6,   2e-5, true, 'uniform', 0, Inf};
-                    {'Hydrogenated Tails SLD', -0.6e-6, -0.4e-6, 0,  true, 'uniform', 0, Inf};
-                    {'Deuterated Heads SLD',    1e-6,   3e-6,   8e-6, true, 'uniform', 0, Inf};
-                    {'Hydrogenated Heads SLD',  0.1e-6,1.4e-6, 3e-6, true, 'uniform', 0, Inf};
-                    {'Heads Hydration',         0,      10,   0.5,  true, 'uniform', 0, Inf};
+                    {'Tails Thickness',         10,     20,     30,  true, priorTypes.Uniform.value, 0, Inf};
+                    {'Heads Thickness',          3,     11,     16,  true, priorTypes.Uniform.value, 0, Inf};
+                    {'Tails Roughness',          2,     5,      9,   true, priorTypes.Uniform.value, 0, Inf};
+                    {'Heads Roughness',          2,     7,      9,   true, priorTypes.Uniform.value, 0, Inf};
+                    {'Deuterated Tails SLD',    4e-6,   6e-6,   2e-5, true, priorTypes.Uniform.value, 0, Inf};
+                    {'Hydrogenated Tails SLD', -0.6e-6, -0.4e-6, 0,  true, priorTypes.Uniform.value, 0, Inf};
+                    {'Deuterated Heads SLD',    1e-6,   3e-6,   8e-6, true, priorTypes.Uniform.value, 0, Inf};
+                    {'Hydrogenated Heads SLD',  0.1e-6,1.4e-6, 3e-6, true, priorTypes.Uniform.value, 0, Inf};
+                    {'Heads Hydration',         0,      10,   0.5,  true, priorTypes.Uniform.value, 0, Inf};
                 };
             testCase.layers = { 
                   {'Hydrogenated Heads', 'Heads Thickness', 'Hydrogenated Heads SLD',...
-                   'Heads Roughness', 'Heads Hydration', 'bulk out' };      
+                   'Heads Roughness', 'Heads Hydration', hydrationTypes.BulkOut.value };      
                   {'Deuterated Heads', 'Heads Thickness', 'Deuterated Heads SLD',...
-                   'Heads Roughness', 'Heads Hydration', 'bulk out' };
+                   'Heads Roughness', 'Heads Hydration', hydrationTypes.BulkOut.value };
                   {'Deuterated Tails', 'Tails Thickness', 'Deuterated Tails SLD',...
                    'Tails Roughness'};
                   {'Hydrogenated Tails', 'Tails Thickness', 'Hydrogenated Tails SLD',...
@@ -82,12 +82,12 @@ classdef testProjectClass < matlab.unittest.TestCase
 
         function testGeometry(testCase)
             % Test default geometry
-            testCase.verifyEqual(testCase.project.geometry, 'air/substrate', 'Geometry not set correctly');
+            testCase.verifyEqual(testCase.project.geometry, geometryOptions.AirSubstrate.value, 'Geometry not set correctly');
             % Test possible model type with varied case
-            testCase.project.setGeometry('Substrate/liquid');
-            testCase.verifyEqual(testCase.project.geometry, 'substrate/liquid', 'Geometry not set correctly');
+            testCase.project.setGeometry(geometryOptions.SubstrateLiquid);
+            testCase.verifyEqual(testCase.project.geometry, geometryOptions.SubstrateLiquid.value, 'Geometry not set correctly');
             testCase.project.setGeometry('aIr/SuBstRate');
-            testCase.verifyEqual(testCase.project.geometry, 'air/substrate', 'Geometry not set correctly');
+            testCase.verifyEqual(testCase.project.geometry, geometryOptions.AirSubstrate.value, 'Geometry not set correctly');
             % Test bad inputs 
             testCase.verifyError(@() testCase.project.setGeometry('anything'), invalidOption.errorID)
             testCase.verifyError(@() testCase.project.setGeometry(2), invalidType.errorID)
@@ -95,14 +95,14 @@ classdef testProjectClass < matlab.unittest.TestCase
 
         function testModelType(testCase)
             % Test default model type
-            testCase.verifyEqual(testCase.project.modelType, 'standard layers', 'Model type not set correctly');
+            testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
             % Test possible model type with varied case
-            testCase.project.setModelType('custom Layers');
-            testCase.verifyEqual(testCase.project.modelType, 'custom layers', 'Model type not set correctly');
+            testCase.project.setModelType(modelTypes.CustomLayers);
+            testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomLayers.value, 'Model type not set correctly');
             testCase.project.setModelType('Custom XY');
-            testCase.verifyEqual(testCase.project.modelType, 'custom xy', 'Model type not set correctly');
+            testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomXY.value, 'Model type not set correctly');
             testCase.project.setModelType('STANDARD LAYERS');
-            testCase.verifyEqual(testCase.project.modelType, 'standard layers', 'Model type not set correctly');
+            testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
             % Test bad inputs 
             testCase.verifyError(@() testCase.project.setModelType('anything'), invalidOption.errorID)
             testCase.verifyError(@() testCase.project.setModelType(2), invalidType.errorID)
@@ -139,7 +139,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Test default parameter
             testCase.verifySize(testCase.project.parameters.paramsTable, [1, 8], 'Parameters has wrong dimension');
             testCase.verifyEqual(string(testCase.project.parameters.paramsTable{1, :}), ...
-                                    string({'Substrate Roughness', 1, 3, 5, true, 'uniform', 0, Inf}), 'Parameters default');
+                                    string({'Substrate Roughness', 1, 3, 5, true, priorTypes.Uniform.value, 0, Inf}), 'Parameters default');
 
             testCase.project.addParamGroup(testCase.parameters);
             testCase.verifySize(testCase.project.parameters.paramsTable, [10, 8], 'Parameters has wrong dimension');
@@ -178,7 +178,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.project.setParamName(1, 'name'), invalidOption.errorID) % can't rename substrate roughness
             testCase.project.setParamFit('Tails Thickness', false);
             testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 5}, false, 'setParamFit method not working');
-            testCase.project.setParamPrior(2, 'uniform');
+            testCase.project.setParamPrior(2, priorTypes.Uniform);
             testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 6}, "uniform", 'setParamPrior method not working');
         end
 
@@ -260,7 +260,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Checks the default Bulk-in
             testCase.verifySize(testCase.project.bulkIn.paramsTable, [1, 8], 'BulkIn has wrong dimension');
             testCase.verifyEqual(string(testCase.project.bulkIn.paramsTable{1, :}),...
-                                    string({'SLD Air', 0, 0, 0, false, 'uniform', 0, Inf}), 'BulkIn default');
+                                    string({'SLD Air', 0, 0, 0, false, priorTypes.Uniform.value, 0, Inf}), 'BulkIn default');
             % Tests that Bulk-in can be added
             testCase.project.addBulkIn('Silicon', 2.07e-6, 2.073e-6, 2.08e-6, false);
             testCase.verifySize(testCase.project.bulkIn.paramsTable, [2, 8], 'BulkIn has wrong dimension');
@@ -272,14 +272,14 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Tests that Bulk-in can be modified
             testCase.project.setBulkIn(1, 'name', 'Silicon', 'min', 2.07e-6, 'value',2.073e-6, 'max', 2.08e-6, 'fit', true);
             testCase.verifyEqual(string(testCase.project.bulkIn.paramsTable{1, :}),...
-                                    string({'Silicon', 2.07e-6, 2.073e-6, 2.08e-6, true, 'uniform', 0, Inf}), 'setBulkIn method not working');
+                                    string({'Silicon', 2.07e-6, 2.073e-6, 2.08e-6, true, priorTypes.Uniform.value, 0, Inf}), 'setBulkIn method not working');
         end
 
         function testBulkOut(testCase)
             % Checks the default Bulk-out
             testCase.verifySize(testCase.project.bulkOut.paramsTable, [1, 8], 'BulkOut has wrong dimension');
             testCase.verifyEqual(string(testCase.project.bulkOut.paramsTable{1, :}),...
-                                    string({'SLD D2O', 6.2e-6, 6.35e-6, 6.35e-6, false, 'uniform', 0, Inf}), 'BulkOut default');
+                                    string({'SLD D2O', 6.2e-6, 6.35e-6, 6.35e-6, false, priorTypes.Uniform.value, 0, Inf}), 'BulkOut default');
             % Tests that Bulk-out can be added
             testCase.project.addBulkOut('SLD ACMW', -1e-6, 0.0, 1e-6, true);
             testCase.verifySize(testCase.project.bulkOut.paramsTable, [2, 8], 'BulkOut has wrong dimension');
@@ -293,14 +293,14 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Tests that Bulk-out can be modified
             testCase.project.setBulkOut(1, 'name', 'SLD H2O', 'min', 2.07e-6, 'value',2.073e-6, 'max', 2.08e-6, 'fit', true);
             testCase.verifyEqual(string(testCase.project.bulkOut.paramsTable{1, :}),...
-                                    string({'SLD H2O', 2.07e-6, 2.073e-6, 2.08e-6, true, 'uniform', 0, Inf}), 'setBulkOut method not working');
+                                    string({'SLD H2O', 2.07e-6, 2.073e-6, 2.08e-6, true, priorTypes.Uniform.value, 0, Inf}), 'setBulkOut method not working');
         end
             
         function testScaleFactor(testCase)
             % Checks the default scale factors
             testCase.verifySize(testCase.project.scalefactors.paramsTable, [1, 8], 'scalefactors has wrong dimension');
             testCase.verifyEqual(string(testCase.project.scalefactors.paramsTable{1, :}),...
-                                    string({'Scalefactor 1', 0.02, 0.23, 0.25, false, 'uniform', 0, Inf}), 'scalefactors default');
+                                    string({'Scalefactor 1', 0.02, 0.23, 0.25, false, priorTypes.Uniform.value, 0, Inf}), 'scalefactors default');
             % Checks that scale factors can be added
             testCase.project.addScalefactor('Scalefactor 2', 0.1, 0.19, 1.0, true);
             testCase.project.addScalefactor('Scalefactor 3', 0.2, 0.17, 1.1, false);
@@ -313,14 +313,14 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Checks that scale factors can be modified
             testCase.project.setScalefactor(1, 'name','Scalefactor 1','min',0.1,'value',0.23251,'max',0.4,'fit',true);
             testCase.verifyEqual(string(testCase.project.scalefactors.paramsTable{1, :}),...
-                                    string({'Scalefactor 1', 0.1, 0.23251, 0.4, true, 'uniform', 0, Inf}), 'setBulkIn method not working');
+                                    string({'Scalefactor 1', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'setBulkIn method not working');
         end
             
         function testQzShift(testCase)
             % Checks the default Qz shift
             testCase.verifySize(testCase.project.qzshifts.paramsTable, [1, 8], 'qzshifts has wrong dimension');
             testCase.verifyEqual(string(testCase.project.qzshifts.paramsTable{1, :}),...
-                                    string({'Qz shift 1', -1e-4, 0, 1e-4, false, 'uniform', 0, Inf}), 'qzshifts default');
+                                    string({'Qz shift 1', -1e-4, 0, 1e-4, false, priorTypes.Uniform.value, 0, Inf}), 'qzshifts default');
             % Checks that Qz shift can be added
             testCase.project.addQzshift('Qz shift 2', -2e-4, 0, 2e-4, false);
             testCase.verifySize(testCase.project.qzshifts.paramsTable, [2, 8], 'qzshifts has wrong dimension');
@@ -331,7 +331,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Checks the default resolution parameter 
             testCase.verifySize(testCase.project.resolution.resolPars.paramsTable, [1, 8], 'resolution parameter has wrong dimension');
             testCase.verifyEqual(string(testCase.project.resolution.resolPars.paramsTable{1, :}),...
-                                    string({'Resolution par 1', 0.01, 0.03, 0.05, false, 'uniform', 0, Inf}), 'resolution parameter default');
+                                    string({'Resolution par 1', 0.01, 0.03, 0.05, false, priorTypes.Uniform.value, 0, Inf}), 'resolution parameter default');
             % Checks that resolution parameter can be added
             testCase.project.addResolPar('Resolution par 2', 0.1, 0.19, 1.0, true);
             testCase.project.addResolPar('Resolution par 3', 0.2, 0.17, 1.1, false);
@@ -349,13 +349,13 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setResolPar(2, 'name', 'ResolPar', 'min', 0, 'value', 0.5, 'max', 1,'fit',true);
             testCase.verifySize(testCase.project.resolution.resolPars.paramsTable, [2, 8], 'resolution parameter has wrong dimension');
             testCase.verifyEqual(string(testCase.project.resolution.resolPars.paramsTable{2, :}),...
-                                    string({'ResolPar', 0, 0.5, 1, true, 'uniform', 0, Inf}), 'setResolPar method not working');
+                                    string({'ResolPar', 0, 0.5, 1, true, priorTypes.Uniform.value, 0, Inf}), 'setResolPar method not working');
             % Checks the default resolution parameter 
             testCase.verifySize(testCase.project.resolution.resolutions.typesTable, [1, 7], 'resolution has wrong dimension');
             testCase.verifyEqual(string(testCase.project.resolution.resolutions.typesTable{1, :}),...
-                                    string({'Resolution 1', 'constant', 'Resolution par 1', '', '', '', ''}), 'resolution default');
+                                    string({'Resolution 1', allowedTypes.Constant.value, 'Resolution par 1', '', '', '', ''}), 'resolution default');
             % Checks that resolution can be added
-            testCase.project.addResolution('Resolution 2', 'constant','Resolution par 1','','','','');
+            testCase.project.addResolution('Resolution 2', allowedTypes.Constant,'Resolution par 1','','','','');
             testCase.verifySize(testCase.project.resolution.resolutions.typesTable, [2, 7], 'resolution has wrong dimension');
             testCase.verifyEqual(testCase.project.resolution.resolutions.typesTable{:, 1}, ["Resolution 1"; "Resolution 2"], 'addResolution method not working');
             % Checks that resolution can be removed
@@ -368,14 +368,14 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Checks the default background parameter 
             testCase.verifySize(testCase.project.background.backPars.paramsTable, [1, 8], 'background parameter has wrong dimension');
             testCase.verifyEqual(string(testCase.project.background.backPars.paramsTable{1, :}),...
-                                    string({'Backs par 1', 1e-7, 1e-6, 1e-5, false, 'uniform', 0, Inf}), 'background parameter default');
+                                    string({'Backs par 1', 1e-7, 1e-6, 1e-5, false, priorTypes.Uniform.value, 0, Inf}), 'background parameter default');
             % Checks that background parameter can be added
             testCase.project.addBacksPar('Backs Value D2O', 1e-8, 2.8e-6, 1e-5, true);
             testCase.verifyEqual(testCase.project.background.backPars.paramsTable{end,1}, "Backs Value D2O", 'addBacksPar method not working');
             % Checks that background parameter can be modified
             testCase.project.setBacksPar(1, 'name', 'Backs Value H2O', 'min', 0.1, 'value', 0.23251, 'max', 0.4, 'fit', true);
             testCase.verifyEqual(string(testCase.project.background.backPars.paramsTable{1, :}),...
-                                    string({'Backs Value H2O', 0.1, 0.23251, 0.4, true, 'uniform', 0, Inf}), 'setBacksPar method not working');
+                                    string({'Backs Value H2O', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'setBacksPar method not working');
             % Checks that background parameter can be removed
             testCase.project.removeBacksPar(2);
             testCase.verifySize(testCase.project.background.backPars.paramsTable, [1, 8], 'background has wrong dimension');
@@ -394,9 +394,9 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Checks the default background parameter 
             testCase.verifySize(testCase.project.background.backgrounds.typesTable, [1, 7], 'background has wrong dimension');
             testCase.verifyEqual(string(testCase.project.background.backgrounds.typesTable{1, :}),...
-                                      string({'Background 1', 'constant', 'Backs Par 1', '', '', '', ''}), 'background default');
+                                      string({'Background 1', allowedTypes.Constant.value, 'Backs Par 1', '', '', '', ''}), 'background default');
             % Checks that background can be added
-            testCase.project.addBackground('Background D2O','constant','Backs Value D2O');
+            testCase.project.addBackground('Background D2O',allowedTypes.Constant.value,'Backs Value D2O');
             testCase.verifySize(testCase.project.background.backgrounds.typesTable, [2, 7], 'background has wrong dimension');
             testCase.verifyEqual(testCase.project.background.backgrounds.typesTable{:, 1}, ["Background 1"; "Background D2O"], 'addBackground method not working');
             % Checks that background can be removed

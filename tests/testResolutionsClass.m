@@ -17,15 +17,15 @@ classdef testResolutionsClass < matlab.unittest.TestCase
         function createResolutions(testCase)
             testCase.parameters = {
                     % Name               min   val   max  fit? 'Prior Type','mu','sigma'
-                    'Resolution par 1', 0.01, 0.03, 0.05, false, 'uniform', 0, Inf;
-                    'Resolution par 2', 0.1, 0.19, 1.0, true, 'gaussian', -1, 1;
-                    'Resolution par 3', 0.2, 0.17, 1.1, false, 'uniform', 0, Inf;
+                    'Resolution par 1', 0.01, 0.03, 0.05, false, priorTypes.Uniform.value, 0, Inf;
+                    'Resolution par 2', 0.1, 0.19, 1.0, true, priorTypes.Gaussian.value, -1, 1;
+                    'Resolution par 3', 0.2, 0.17, 1.1, false, priorTypes.Uniform.value, 0, Inf;
                     };
             testCase.resolutions = {
-                    'Resolution 1', 'constant', 'Resolution par 1', '', '', '', '';
-                    'Resolution 2', 'constant', 'Resolution par 2', '', '', '', '';
-                    'Resolution 3', 'function', 'function_name', 'Resolution par 1', 'Resolution par 2', '', '';
-                    'Resolution 4', 'data', '', '', '', '', '';
+                    'Resolution 1', allowedTypes.Constant.value, 'Resolution par 1', '', '', '', '';
+                    'Resolution 2', allowedTypes.Constant.value, 'Resolution par 2', '', '', '', '';
+                    'Resolution 3', allowedTypes.Function.value, 'function_name', 'Resolution par 1', 'Resolution par 2', '', '';
+                    'Resolution 4', allowedTypes.Data.value, '', '', '', '', '';
                     };
         end
     end
@@ -77,23 +77,23 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             
             testCase.resolution.addResolution();
             testCase.verifyEqual(string(testCase.resolution.resolutions.typesTable{end, :}),...
-                                    string({'New Resolution 1', 'constant', '', '', '', '', ''}), 'addResolution method not working');
+                                    string({'New Resolution 1', allowedTypes.Constant.value, '', '', '', '', ''}), 'addResolution method not working');
             testCase.resolution.addResolution('New Res');
             testCase.verifyEqual(string(testCase.resolution.resolutions.typesTable{end, :}),...
-                                    string({'New Res', 'constant', '', '', '', '', ''}), 'addResolution method not working');
+                                    string({'New Res', allowedTypes.Constant.value, '', '', '', '', ''}), 'addResolution method not working');
             testCase.resolution.addResolution(testCase.resolutions{3, 1:5});
             testCase.verifyEqual(string(testCase.resolution.resolutions.typesTable{end, :}),...
                                     string(testCase.resolutions(3, :)), 'addResolution method not working');
             testCase.resolution.addResolution(testCase.resolutions{4, :});
             testCase.verifyEqual(string(testCase.resolution.resolutions.typesTable{end, :}),...
                                     string(testCase.resolutions(4, :)), 'addResolution method not working');
-            testCase.resolution.addResolution('Resolution 5', 'function', 'function_name', 1, 3);
+            testCase.resolution.addResolution('Resolution 5', allowedTypes.Function, 'function_name', 1, 3);
             testCase.verifyEqual(string(testCase.resolution.resolutions.typesTable{end, :}),...
-                                    ["Resolution 5", "function", "function_name", "Resolution par 1", "Resolution par 3", "", ""], ...
+                                    ["Resolution 5", string(allowedTypes.Function.value), "function_name", "Resolution par 1", "Resolution par 3", "", ""], ...
                                     'addResolution method not working');
             testCase.verifyError(@() testCase.resolution.addResolution('New', 'fixed'), invalidOption.errorID);
-            testCase.verifyError(@() testCase.resolution.addResolution('New', 'constant'), invalidNumberOfInputs.errorID);           
-            testCase.verifyError(@() testCase.resolution.addResolution('New', 'constant', 6), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.resolution.addResolution('New', allowedTypes.Constant), invalidNumberOfInputs.errorID);           
+            testCase.verifyError(@() testCase.resolution.addResolution('New', allowedTypes.Constant.value, 6), indexOutOfRange.errorID);
         end
 
         function testRemoveResolution(testCase)
@@ -117,10 +117,10 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.resolution.setResolution(1, 'name', 'Resolution 1');
             testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 1}, "Resolution 1", 'setResolutionValue method not working');
  
-            testCase.resolution.setResolution(1, 'type', 'constant');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 2}, "constant", 'setResolutionValue method not working');
-            testCase.resolution.setResolution('Resolution 1', 'type', 'function'); 
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 2}, "function", 'setResolutionValue method not working');
+            testCase.resolution.setResolution(1, 'type', allowedTypes.Constant.value);
+            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 2}, string(allowedTypes.Constant.value), 'setResolutionValue method not working');
+            testCase.resolution.setResolution('Resolution 1', 'type', allowedTypes.Function); 
+            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 2}, string(allowedTypes.Function.value), 'setResolutionValue method not working');
             testCase.verifyError(@() testCase.resolution.setResolution(2, 'type', 'random'), invalidOption.errorID);
             
             testCase.resolution.setResolution(3, 'Value1', 'random');
@@ -134,9 +134,9 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.resolution.setResolution(5, 'Value2', 'random'), indexOutOfRange.errorID);
             testCase.verifyError(@() testCase.resolution.setResolution(true, 'Value2', 'random'), invalidType.errorID);
             
-            testCase.resolution.setResolution(3, 'name', 'New Name', 'type', 'constant', 'value1', 'Resolution par 3', 'value2', '');
+            testCase.resolution.setResolution(3, 'name', 'New Name', 'type', allowedTypes.Constant, 'value1', 'Resolution par 3', 'value2', '');
             testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 1}, "New Name", 'setResolutionValue method not working');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 2}, "constant", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 2}, string(allowedTypes.Constant.value), 'setResolutionValue method not working');
             testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 3}, "Resolution par 3", 'setResolutionValue method not working');
             testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 4}, "", 'setResolutionValue method not working');
         end
@@ -199,9 +199,9 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             expected.resolPars = 0.0300;
             expected.resolFitYesNo = 0;
             expected.nResolPars = 1;
-            expected.resolParPriors= {{'Resolution par 1', 'uniform', 0, Inf}};
+            expected.resolParPriors= {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf}};
             expected.resolutionNames = "Resolution 1";
-            expected.resolutionTypes = "constant";
+            expected.resolutionTypes = string(allowedTypes.Constant.value);
             expected.resolutionValues = {"Resolution par 1", "", "", "", ""};
             testCase.verifyEqual(testCase.resolution.toStruct(), expected, 'toStruct method not working');
 
@@ -213,11 +213,12 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             expected.resolPars = [0.0300, 0.1900, 0.1700];
             expected.resolFitYesNo = [0, 1, 0];
             expected.nResolPars = 3;
-            expected.resolParPriors= {{'Resolution par 1', 'uniform', 0, Inf};... 
-                                        {'Resolution par 2', 'gaussian', -1, 1};... 
-                                        {'Resolution par 3', 'uniform', 0, Inf}};
+            expected.resolParPriors= {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf};... 
+                                        {'Resolution par 2', priorTypes.Gaussian.value, -1, 1};... 
+                                        {'Resolution par 3', priorTypes.Uniform.value, 0, Inf}};
             expected.resolutionNames = ["Resolution 1"; "Resolution 2"; "Resolution 3"];
-            expected.resolutionTypes = ["constant"; "constant"; "function"];
+            expected.resolutionTypes = [string(allowedTypes.Constant.value); string(allowedTypes.Constant.value); 
+                                        string(allowedTypes.Function.value)];
             expected.resolutionValues = {"Resolution par 1", "", "", "", ""; "Resolution par 2", "", "", "", "";...
                                             "function_name", "Resolution par 1", "Resolution par 2", "", ""};
             testCase.verifyEqual(testCase.resolution.toStruct(), expected, 'toStruct method not working');

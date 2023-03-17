@@ -123,8 +123,8 @@ classdef customFileClass < handle
             % "Name", "Filename", "Language", and "Path".
             % NOTE changing the path using this routine is not implemented
             %
-            % customFiles.setcustomFile(1, "Name", "New Name",...
-            %                           "Language", "Octave")
+            % customFiles.setcustomFile(1, 'Name', 'New Name',...
+            %                           'Language', 'Octave')
             customNames = obj.getCustomNames;
             
             % Always need three or more inputs to set data value

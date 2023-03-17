@@ -87,7 +87,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
 %% Test Custom File Class Routines
 
-    methods (Test, ParameterCombination="sequential")
+    methods (Test, ParameterCombination='sequential')
 
         function testInitialiseCustomFileClassEmpty(testCase)
             % On initialisation we set up a custom file class with an
@@ -251,7 +251,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
                 % Get data from this row and join into a single string
                 rowString = strip(strjoin(testCase.exampleClass.fileTable{i,:}));
-                testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+                testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
 
             end
         end

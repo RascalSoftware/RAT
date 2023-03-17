@@ -108,7 +108,7 @@ classdef layersClassRealSLD < handle
             % that row and column, and a string array of parameter names
             % defined in the project's parameter class.
             %
-            % layers.setLayerValue(1, 1, "origin", parameters.paramsTable{:, 1});
+            % layers.setLayerValue(1, 1, 'origin', parameters.paramsTable{:, 1});
             layerNames = obj.layersTable{:,1};
             colNames = obj.layersTable.Properties.VariableNames;
             
@@ -257,7 +257,7 @@ classdef layersClassRealSLD < handle
             elseif isnumeric(inputVal)
                 paramIndex = floor(inputVal);
                 if paramIndex < 1 || paramIndex > length(paramNames)
-                    throw(indexOutOfRange(sprintf('Parameter "%d" is out of range 1 - %d', paramIndex, length(paramNames))));
+                    throw(indexOutOfRange(sprintf('Parameter ''%d'' is out of range 1 - %d', paramIndex, length(paramNames))));
                 end
                 param = paramNames{paramIndex};
 

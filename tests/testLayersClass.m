@@ -132,7 +132,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
 %% Test Layers Real SLD Class Routines
 
-    methods (Test, ParameterCombination="sequential")
+    methods (Test, ParameterCombination='sequential')
 
         function testInitialiseLayersClass(testCase)
             % On initialisation we set up a layers class with an empty

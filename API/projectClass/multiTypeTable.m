@@ -39,7 +39,7 @@ classdef multiTypeTable < handle
             % with up to seven parameters, with empty strings used for
             % values that are not specified.
             %
-            % multiTable.addRow("New Row");
+            % multiTable.addRow('New Row');
             switch length(addParams)
 
                 case 0
@@ -77,7 +77,7 @@ classdef multiTypeTable < handle
             % name or index. The expected input is three values: row,
             % column, value
             %
-            % multiTable.setValue(1, 1, "origin");
+            % multiTable.setValue(1, 1, 'origin');
             tab = obj.typesTable;
             
             % First parameter needs to be either a row name or number

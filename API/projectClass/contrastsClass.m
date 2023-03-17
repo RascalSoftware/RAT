@@ -254,7 +254,7 @@ classdef contrastsClass < handle
             % The expected input is the allowed names for each parameter,
             % the model type and the data table from the data class.
             %
-            % contrasts.toStruct(allowedNames, "standard layers", dataTable)
+            % contrasts.toStruct(allowedNames, 'standard layers', dataTable)
             nContrasts = obj.numberOfContrasts;
             contrastBacks = cell(1,nContrasts);
             contrastLayers = cell(1,nContrasts);

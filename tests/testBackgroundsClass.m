@@ -130,7 +130,7 @@
          testCase.background.setBackground(1, 'name', 'Background 1');
          testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 1}, "Background 1", 'setBackground method not working');
 
-         testCase.background.setBackground(1, 'type', 'Constant');
+         testCase.background.setBackground(1, 'type', allowedTypes.Constant.value);
          testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 2}, string(allowedTypes.Constant.value), 'setBackground method not working');
          testCase.background.setBackground('Background 1', 'type', allowedTypes.Function); 
          testCase.verifyEqual(testCase.background.backgrounds.typesTable{1, 2}, string(allowedTypes.Function.value), 'setBackground method not working');

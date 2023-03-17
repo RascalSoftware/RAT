@@ -386,7 +386,7 @@ classdef parametersClass < handle
             % Appends a new row to the table. Expects a cell array  
             % with row values to append
             % 
-            % obj.appendNewRow({'Tails', 10, 20, 30, true, 'uniform' 0, Inf})
+            % obj.appendNewRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
             tab = obj.paramsTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))

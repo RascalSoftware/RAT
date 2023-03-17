@@ -117,7 +117,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.resolution.setResolution(1, 'name', 'Resolution 1');
             testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 1}, "Resolution 1", 'setResolutionValue method not working');
  
-            testCase.resolution.setResolution(1, 'type', 'Constant');
+            testCase.resolution.setResolution(1, 'type', allowedTypes.Constant.value);
             testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 2}, string(allowedTypes.Constant.value), 'setResolutionValue method not working');
             testCase.resolution.setResolution('Resolution 1', 'type', allowedTypes.Function); 
             testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 2}, string(allowedTypes.Function.value), 'setResolutionValue method not working');

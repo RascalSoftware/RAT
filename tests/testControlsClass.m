@@ -317,7 +317,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyThat(display, ~ContainsSubstring("method"), 'getPropertyGroups method not working');
             testCase.verifyThat(display, ~ContainsSubstring("strategy"), 'getPropertyGroups method not working');
             
-            testCase.controls.procedure = 'DE';
+            testCase.controls.procedure = upper(procedures.DE);
             testCase.controls.parallel = 'contrasts';
             display = evalc('disp(testCase.controls)');
             testCase.verifySubstring(display, "parallel: 'contrasts'", 'getPropertyGroups method not working');

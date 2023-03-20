@@ -18,6 +18,7 @@ paths = {
 
     fullfile(root,'API');
     fullfile(root,'API','controlsClass');
+    fullfile(root,'API','enums');
     fullfile(root,'API','outputFunction');
     fullfile(root,'API','projectClass');
 

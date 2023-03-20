@@ -8,9 +8,13 @@ classdef layersClassRealSLD < handle
     
     properties (Access = private)
         layersAutoNameCounter
-        allowedHydration = {'bulk in', 'bulk out', 'none'} 
     end
 
+    properties(Access = private, Constant, Hidden)
+        invalidTypeMessage = sprintf('Hydration type must be a HydrationTypes enum or one of the following strings (%s)', ...
+                                     strjoin(hydrationTypes.values(), ', '))
+    end
+    
     properties (Dependent, SetAccess = private)
         layersCount
     end
@@ -25,7 +29,6 @@ classdef layersClassRealSLD < handle
             varTypes = {'string','string','string','string','string','string'};
             varNames = {'Name','Thickness','SLD','Roughness','Hydration','Hydrate with'};
             obj.layersTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            %obj.layersTable(1,:) = {'Layer 1','', '', '', '','bulk out'};
             obj.layersAutoNameCounter = 1;
             
         end
@@ -48,60 +51,55 @@ classdef layersClassRealSLD < handle
             % layers.addLayer(parameters.paramsTable{:, 1}, 'New layer');
             % layers.addLayer(parameters.paramsTable{:, 1},...
             %                 'Another layer', 1, 2, 3);
-            if isempty(varargin)
+            layerDetails = varargin;
+
+            if isempty(layerDetails)
                 % Add an empty layer
                 layerNum = obj.layersAutoNameCounter;
                 layerName = sprintf('Layer %d',layerNum);
-                newRow = {layerName,'','','','','bulk out'};
-                appendNewRow(obj,newRow);
+                newRow = {layerName,'','','','',hydrationTypes.BulkOut.value};
                 
-            elseif ischar(varargin{:})
+            elseif length(layerDetails) == 1 && ischar(layerDetails{1})
                 % Add an empty named layer
-                newRow = {varargin{1},'','','','','bulk out'};
-                appendNewRow(obj,newRow);
+                newRow = {layerDetails{1},'','','','',hydrationTypes.BulkOut.value};
             
             else
                 % Add a layer that is fully defined
-                layerDetails = varargin{:};
-
                 if length(layerDetails) == 4
                     % No hydration
-                    layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,'bulk in'};
+                    layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,hydrationTypes.BulkIn.value};
                 elseif length(layerDetails) ~= 6
                     throw(invalidNumberOfInputs('Incorrect number of parameters for layer definition. Either 0, 1, 4, or 6 inputs are required.'));
                 end
                 
                 name = layerDetails{1};
-                hydrateWhat = layerDetails{end};
-                
-                if ~strcmpi(hydrateWhat,obj.allowedHydration)
-                    throw(invalidOption(sprintf('Hydrate type is ''%s'', but it must be ''bulk in'', ''bulk out'' or ''none''', hydrateWhat)));
-                end
+                hydration = validateOption(layerDetails{end}, 'hydrationTypes', obj.invalidTypeMessage).value;
                 
                 % Check that the parameter names given are real
                 % parameters or numbers
-                thisRow = {name};
+                newRow = {name};
                 
                 % Must be a parameter name or number . . .
                 for i = 2:4                       
-                    thisRow{i} = obj.findParameter(layerDetails{i}, paramNames);
+                    newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
                 end
 
                 %  . . . (unless p=5 which can also be Nan)
                 if isnan(layerDetails{5})
-                    thisRow{5} = NaN;
+                    newRow{5} = NaN;
                 else
-                    thisRow{5} = obj.findParameter(layerDetails{5}, paramNames);
+                    newRow{5} = obj.findParameter(layerDetails{5}, paramNames);
                 end
                 
-                thisRow = [thisRow hydrateWhat];
-                appendNewRow(obj,thisRow);
-                    
+                newRow = [newRow hydration];
+
             end
-            
+
+            appendNewRow(obj, newRow);
+
         end
         
-        function obj = setLayerValue(obj, rowPar, colPar, inputValue, paramNames)
+        function obj = setLayerValue(obj, row, col, inputValue, paramNames)
             % Change the value of a given layer parameter in the table
             % (excluding the layer name). The row and column of the
             % parameter can both be specified by either name or index.
@@ -115,26 +113,22 @@ classdef layersClassRealSLD < handle
             colNames = obj.layersTable.Properties.VariableNames;
             
             % Find the row index if we have a layer name
-            if ischar(rowPar)
-                row = obj.findRowIndex(rowPar,layerNames);
-            elseif isnumeric(rowPar)
-                if (rowPar < 1) || (rowPar > obj.layersCount)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', rowPar, obj.layersCount)));
-                else
-                    row = rowPar;
+            if ischar(row)
+                row = obj.findRowIndex(row,layerNames);
+            elseif isnumeric(row)
+                if (row < 1) || (row > obj.layersCount)
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.layersCount)));
                 end
             else
                 throw(invalidType('Layer type not recognised'));
             end
             
             % Find the column index if we have a column name
-            if ischar(colPar)
-                col = obj.findRowIndex(colPar,colNames);
-            elseif isnumeric(colPar)
-                if (colPar < 1) || (colPar > length(colNames))
-                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', colPar, length(colNames))));
-                else
-                    col = colPar;
+            if ischar(col)
+                col = obj.findRowIndex(col,colNames);
+            elseif isnumeric(col)
+                if (col < 1) || (col > length(colNames))
+                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
                 end
             else
                 throw(invalidType('Layer table column type not recognised'));
@@ -145,10 +139,7 @@ classdef layersClassRealSLD < handle
             end
 
             if col == 6
-                if ~(strcmpi(inputValue,obj.allowedHydration))
-                    throw(invalidOption(sprintf('Column 6 of layer is ''%s'', but must be ''bulk in'', ''bulk out'' or ''none''', inputValue)));
-                end
-                val = inputValue;
+                val = validateOption(inputValue, 'hydrationTypes', obj.invalidTypeMessage).value;
             else
                 val = obj.findParameter(inputValue, paramNames);
             end
@@ -213,7 +204,7 @@ classdef layersClassRealSLD < handle
     
     methods (Access = protected)
         
-        function appendNewRow(obj,row)
+        function appendNewRow(obj, row)
             % Appends a row to the layers table. The expected input is
             % a length six cell array.
             %
@@ -232,7 +223,7 @@ classdef layersClassRealSLD < handle
     
     methods(Static)
 
-        function row = findRowIndex(name,rowNames)
+        function row = findRowIndex(name, rowNames)
             % Find the index of a row in the layers class table given its
             % name. The expected inputs are the name of the row and the
             % full list of row names.

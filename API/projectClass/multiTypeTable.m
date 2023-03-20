@@ -5,7 +5,6 @@ classdef multiTypeTable < handle
     
     properties
         typesTable = table
-        allowedTypes = {'constant', 'data', 'function'}
         allowedActions = {'add', 'subtract'}
         typesAutoNameString = 'Row'
     end
@@ -35,7 +34,7 @@ classdef multiTypeTable < handle
            count = height(obj.typesTable);
         end
 
-        function obj = addRow(obj,addParams)
+        function obj = addRow(obj, addParams)
             % Adds a row to the multi-type table. The row can be specified
             % with up to seven parameters, with empty strings used for
             % values that are not specified.
@@ -48,11 +47,11 @@ classdef multiTypeTable < handle
                     thisName = char(obj.typesAutoNameString);
                     thisNum = obj.typesAutoNameCounter;
                     name = sprintf('%s %d',thisName,thisNum);
-                    newRow = {name,'constant','','','','',''};
+                    newRow = {name,allowedTypes.Constant.value,'','','','',''};
                     
                 case 1
                     % One parameter: assume this is a name
-                    newRow = {addParams,'constant','','','','',''};
+                    newRow = {addParams,allowedTypes.Constant.value,'','','','',''};
 
                 otherwise
                     % Two or more parameters are specified. 
@@ -62,39 +61,33 @@ classdef multiTypeTable < handle
                     newRow = [addParams, repmat({''}, 1, 7-length(addParams))];
 
                     % Check type is one of the allowed types
-                    if ~strcmpi(newRow{2}, obj.allowedTypes)
-                        throw(invalidOption(sprintf('Unrecognised type ''%s''. Must be one of the types defined in ''obj.allowedTypes''', newRow{2})));
-                    end
+                    invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...
+                                                 strjoin(allowedTypes.values(), ', '));
+                    newRow{2} = validateOption(newRow{2}, 'allowedTypes', invalidTypeMessage).value;
             end
 
-            % Pass in only the first seven values to ensure input is
-            % not too long
-            appendNewRow(obj,newRow(1:7));
+            % Pass in only the first seven values to ensure input is not too long
+            appendNewRow(obj, newRow(1:7));
 
         end
         
-        function obj = setValue(obj,varargin)
+        function obj = setValue(obj, row, col, value)
             % Change the value of a given parameter in the table. The row
             % and column of the parameter can both be specified by either
             % name or index. The expected input is three values: row,
-            % column, newValue
+            % column, value
             %
             % multiTable.setValue(1, 1, "origin");
-            in = varargin{:};
             tab = obj.typesTable;
             
             % First parameter needs to be either a row name or number
             rowNames = obj.typesTable{:,1};
-            rowPar = in{1};
             
-            if ischar(rowPar)
-                row = obj.findRowIndex(rowPar, rowNames);
-            elseif isnumeric(rowPar)
-                % This rounds any float values down to an integer
-                if (rowPar < 1) || (rowPar > obj.typesCount)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', rowPar, obj.typesCount)));
-                else
-                    row = rowPar;
+            if ischar(row)
+                row = obj.findRowIndex(row, rowNames);
+            elseif isnumeric(row)
+                if (row < 1) || (row > obj.typesCount)
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.typesCount)));
                 end
             else
                 throw(invalidType('Unrecognised row'));
@@ -102,37 +95,33 @@ classdef multiTypeTable < handle
             
             % Second parameter needs to be either a column name or
             % number.
-            colPar = in{2};
             colNames = obj.typesTable.Properties.VariableNames;
 
-            if ischar(colPar)
-                col = obj.findRowIndex(colPar,colNames);
-            elseif isnumeric(colPar)
-                if (colPar < 1) || (colPar > length(colNames))
-                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', colPar, length(colNames))));
-                else
-                    col = colPar;
+            if ischar(col)
+                col = obj.findRowIndex(col,colNames);
+            elseif isnumeric(col)
+                if (col < 1) || (col > length(colNames))
+                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
                 end
             else
                 throw(invalidType('Unrecognised column'));
             end
             
             % Set the value
-            tab(row,col) = in(3);
+            tab(row, col) = {value};
             obj.typesTable = tab;
 
         end
 
-        function removeRow(obj,row)
+        function removeRow(obj, row)
             % Removes a row from the multi-type table. The expected
-            % input is a length one cell array.
-            % NOTE that an input such as {[1 3]} leads to multiple rows
+            % input is an integer or integer array.
+            % NOTE that an input such as [1 3] leads to multiple rows
             % being removed from the table
             %
-            % multiTable.removeRow({2});
+            % multiTable.removeRow(2);
             tab = obj.typesTable;
-            thisRow = row{:};
-            tab(thisRow,:) = [];
+            tab(row, :) = [];
             obj.typesTable = tab;
         end
         
@@ -148,7 +137,7 @@ classdef multiTypeTable < handle
             disp(all);
         end
 
-        function appendNewRow(obj,row)
+        function appendNewRow(obj, row)
             % Appends a row to the multi-type table. The expected input is
             % a length seven cell array.
             %

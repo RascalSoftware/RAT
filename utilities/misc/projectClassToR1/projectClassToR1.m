@@ -1,4 +1,4 @@
-function newR1Problem = projectClassToR1(r2Problem,varargin)
+function newR1Problem = projectClassToR1(r2Problem, varargin)
 
 % Takes an instance of project class and makes this into an r1 type struct.
 % Also creates the datafiles directory and saves the data if asked...
@@ -9,7 +9,7 @@ function newR1Problem = projectClassToR1(r2Problem,varargin)
 
 %% Work out inputs and create directories if necessary
 if ~isempty(varargin)
-    pars = parametersClass.parseParameterInput(varargin);
+    pars = parametersClass.parseParameterInput(varargin{:});
     
     % Use the named r1Problem
     r1Problem = pars.r1Problem;
@@ -466,9 +466,7 @@ function inputBlock = parseR1Problem(varargin)
     addParameter(p,'saveProject',   default_saveProject,    @islogical);
     addParameter(p,'fileName',      default_fileName,       @ischar);
     
-    inputVals = varargin{:};
-    
-    parse(p,inputVals{:});
+    parse(p, varargin{:});
     inputBlock = p.Results;
     
     % Check the r1Problem really is one by making sure it has the bare

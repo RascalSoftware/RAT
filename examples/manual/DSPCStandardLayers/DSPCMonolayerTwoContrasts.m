@@ -113,5 +113,3 @@ try
 catch
     throw(exampleFail('The DSPCMonolayerTwoContrasts example failed'));
 end
-
-

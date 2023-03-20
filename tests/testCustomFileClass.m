@@ -20,20 +20,20 @@ classdef testCustomFileClass < matlab.unittest.TestCase
                      {'Row and file name', 'file.m'},...
                      {'Full entry', 'otherFile.m', 'python', 'pwd'}
                     }
-        addedRow = {{'New Entry', '', 'matlab', 'pwd'},...
-                    {'Row and file name', 'file.m', 'matlab', 'pwd'},...
-                    {'Full entry', 'otherFile.m', 'python', 'pwd'}
+        addedRow = {{'New Entry', '', supportedLanguages.Matlab.value, 'pwd'},...
+                    {'Row and file name', 'file.m', supportedLanguages.Matlab.value, 'pwd'},...
+                    {'Full entry', 'otherFile.m', supportedLanguages.Python.value, 'pwd'}
                    }
         testRow = {1, 1, 2, 2}
         inputData = {{'DPPC Model', 'name', 'New Model'},...
                      {1, 'filename', 'model.m'},...
-                     {'DSPC Model', 'language', 'python'},...
-                     {2, 'language', 'python', 'filename', 'model.m', 'name', 'New Model'},...
+                     {'DSPC Model', 'language', upper(supportedLanguages.Python.value)},...
+                     {2, 'language', supportedLanguages.Python, 'filename', 'model.m', 'name', 'New Model'},...
                     }
-        expectedRow = {["New Model", "DPPCCustomXY.m", "matlab", "../../"],...
-                       ["DPPC Model", "model.m", "matlab", "../../"],...
-                       ["DSPC Model", "customBilayer.m", "python", "../../"],...
-                       ["New Model", "model.m", "python", "../../"],...
+        expectedRow = {["New Model", "DPPCCustomXY.m", string(supportedLanguages.Matlab.value), "../../"],...
+                       ["DPPC Model", "model.m", string(supportedLanguages.Matlab.value), "../../"],...
+                       ["DSPC Model", "customBilayer.m", string(supportedLanguages.Python.value), "../../"],...
+                       ["New Model", "model.m", string(supportedLanguages.Python.value), "../../"],...
                       }
         invalidInputData = {{'DPPC Model', 'name', 42},...
                             {1, 'filename', datetime('today')},...
@@ -101,7 +101,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         function testInitialiseCustomFileClassOneRow(testCase)
             % On initialisation we set up a custom file class with an
             % either an empty file table, or a table with a single row
-            testClass = customFileClass({'DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../'});
+            testClass = customFileClass('DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../');
 
             testCase.verifySize(testClass.fileTable, [1 4], "customFileClass does not initialise correctly");
             testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableOneRow, "customFileClass does not initialise correctly");
@@ -115,7 +115,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % custom object name, a filename, language and file path.  
             expectedTable = [testCase.exampleClass.fileTable; addedRow];
 
-            testCase.exampleClass.addCustomFile(fileInput);
+            testCase.exampleClass.addCustomFile(fileInput{:});
 
             testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, "addFile does not work correctly");
         end
@@ -140,27 +140,26 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'matlab', 'pwd'}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'}), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'matlab', 'pwd'), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'), invalidNumberOfInputs.errorID);
 
             % Invalid types
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({42}), invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile(42), invalidType.errorID);
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'Unrecognised language', 'file.m', 'fortran', 'pwd'}), invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Unrecognised language', 'file.m', 'fortran', 'pwd'), invalidOption.errorID);
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile({'DPPC Model'}), duplicateName.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('DPPC Model'), duplicateName.errorID);
         end
 
         function testSetCustomFile(testCase, testRow, inputData, expectedRow)
-            testCase.exampleClass.setCustomFile(inputData);
+            testCase.exampleClass.setCustomFile(inputData{:});
             testCase.verifyEqual(testCase.exampleClass.fileTable{testRow, :}, expectedRow, "setCustomFile does not work correctly");
         end
 
         function testSetCustomFileInvalidType(testCase, invalidInputData)
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(invalidInputData), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(invalidInputData{:}), 'MATLAB:InputParser:ArgumentFailedValidation');
         end
 
         function testSetCustomFileInvalidInput(testCase)
@@ -168,22 +167,24 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % If the inputs are invalid, it should raise an error
 
             % Invalid row
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({0, 'Name', 'Invalid'}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({testCase.numRows+1, 'Name', 'Invalid'}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({'Undefined row', 'Name', 'Invalid'}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(0, 'Name', 'Invalid'), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(testCase.numRows+1, 'Name', 'Invalid'), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile('Undefined row', 'Name', 'Invalid'), nameNotRecognised.errorID);
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 'Language', 'Fortran'}), invalidOption.errorID)
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 'Language', 'Fortran'), invalidOption.errorID)
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({2, 'Name', 'DPPC Model'}), duplicateName.errorID)
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'DPPC Model'), duplicateName.errorID)
         end
 
-        function testSetCustomFileTooFewParams(testCase)
-            % If we call "setCustomFile" with a cell array containing
-            % fewer than three values it should raise an error
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1}), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile({1, 1}), invalidNumberOfInputs.errorID);
+        function testSetCustomFileInvalidNumberOfParams(testCase)
+            % If we call "setCustomFile" with fewer than three values or
+            % an even number of values (i.e., not name-value pairs) it
+            % should raise an error
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 1), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), invalidNumberOfInputs.errorID);
         end
 
         function testRemoveCustomFile(testCase)
@@ -372,8 +373,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         function testToStructPwd(testCase)
             % Test converting an custom file class to a struct correctly
             % interprets the present working directory
-            emptyClass = customFileClass({'Test pwd', 'file.m', 'matlab', 'pwd'});
-            fileStruct = emptyClass.toStruct();
+            pwdClass = customFileClass('Test pwd', 'file.m', 'matlab', 'pwd');
+            fileStruct = pwdClass.toStruct();
             testCase.verifyClass(fileStruct, 'struct');
             testCase.verifyEqual(string(fileStruct.files{:}), ["file.m" "matlab" pwd]);
         end

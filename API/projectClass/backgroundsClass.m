@@ -26,11 +26,8 @@ classdef backgroundsClass < handle
     end
 
     properties(Access = private, Constant, Hidden)
-       invalidTypeMessage = "Unrecognised type '%s'. Must be one of the types defined in 'obj.allowedTypes'"
-    end
-    
-    properties (Access = private)
-       allowedTypes = {'constant', 'data', 'function'}
+        invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...
+                                     strjoin(allowedTypes.values(), ', '))
     end
     
     methods
@@ -45,7 +42,6 @@ classdef backgroundsClass < handle
             
             % Make a multiType table to define the actual backgrounds
             obj.backgrounds = multiTypeTable();
-            obj.backgrounds.allowedTypes = obj.allowedTypes;
             obj.backgrounds.typesAutoNameString = 'New background';
             obj.addBackground(startBackground{:});
         end
@@ -67,7 +63,7 @@ classdef backgroundsClass < handle
             names = backsTable{:,1};      
         end
                  
-        function obj = addBackground(obj,varargin)
+        function obj = addBackground(obj, varargin)
             % Adds a new entry to the background table.  
             %
             % background.addBackground('New Row');
@@ -90,9 +86,10 @@ classdef backgroundsClass < handle
  
             if length(in) > 1
                % Check that second param is legal
-               typeVal = in{2};
-               if ~strcmpi(typeVal,obj.allowedTypes)
-                    throw(invalidOption(sprintf(obj.invalidTypeMessage, typeVal)));
+               typeVal = validateOption(in{2}, 'allowedTypes', obj.invalidTypeMessage).value;
+            
+               if any(strcmpi(typeVal, {allowedTypes.Constant.value, allowedTypes.Function.value})) && length(in) < 3
+                    throw(invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
                end
 
                thisRow{1} = in{1};
@@ -101,12 +98,12 @@ classdef backgroundsClass < handle
                % Check that the other params inputted are either valid
                % background names, or numbers in range..
                switch typeVal
-                   case 'constant'
+                   case allowedTypes.Constant.value
                        % Param 3 must be a valid parameter
                        thisParam = obj.validateParam(in(3));
                        thisRow{3} = thisParam;
 
-                   case 'function'
+                   case allowedTypes.Function.value
                        % Param 3 is assumed to be function name
                        % any other given parameters must be in paramNames
                        % list or numbers in range
@@ -115,12 +112,12 @@ classdef backgroundsClass < handle
                           thisParam = obj.validateParam(in(i));
                           thisRow{i} = thisParam;
                        end
-                   case 'data'
+                   case allowedTypes.Data.value
                        % Background is assumed to be given by a 4th column 
                        % of a data file. We don't have access to the
                        % data files at this point so this (i.e. that data is
                        % [n x 4] ) will be checked downstream
-                       thisRow = {in(1), in(2), '', '', '', '', ''};
+                       thisRow = {in{1}, in{2}, '', '', '', '', ''};
                 end
             end
             obj.backgrounds.addRow(thisRow);   
@@ -132,7 +129,7 @@ classdef backgroundsClass < handle
             %
             % background.removeBackground(2);
             % background.removeBackground([1, 3]);
-            obj.backgrounds.removeRow({row});
+            obj.backgrounds.removeRow(row);
         end
         
         function obj = setBackground(obj, row, varargin)
@@ -153,7 +150,7 @@ classdef backgroundsClass < handle
             
             p = inputParser;
             addParameter(p, 'name', obj.backgrounds.typesTable{row, 1}, @(x) isstring(x) || ischar(x));
-            addParameter(p, 'type', obj.backgrounds.typesTable{row, 2}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'type', obj.backgrounds.typesTable{row, 2}, @(x) isstring(x) || ischar(x) || isenum(x));
             addParameter(p, 'value1', obj.backgrounds.typesTable{row, 3}, @(x) isstring(x) || ischar(x));
             addParameter(p, 'value2', obj.backgrounds.typesTable{row, 4}, @(x) isstring(x) || ischar(x));
             addParameter(p, 'value3', obj.backgrounds.typesTable{row, 5}, @(x) isstring(x) || ischar(x));
@@ -162,25 +159,24 @@ classdef backgroundsClass < handle
             parse(p, varargin{:});
             inputBlock = p.Results;
 
-            obj.backgrounds.setValue({row, 1, inputBlock.name});
+            obj.backgrounds.setValue(row, 1, inputBlock.name);
             
-            if ~strcmpi(inputBlock.type, obj.allowedTypes)
-               throw(invalidOption(sprintf(obj.invalidTypeMessage, inputBlock.type)));
+            if ~isempty(inputBlock.type)
+                inputBlock.type = validateOption(inputBlock.type, 'allowedTypes', obj.invalidTypeMessage).value;
+                obj.backgrounds.setValue(row, 2, inputBlock.type);
             end
-            obj.backgrounds.setValue({row, 2, inputBlock.type});      
-            
             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
             for i = 1:4
                 value = convertStringsToChars(values{i});
                 % for function type, value 1 is the function name so no validation is done 
-                if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type,'function'))
+                if ~isempty(value) && ~(i==1 && strcmpi(inputBlock.type, allowedTypes.Function.value))
                     value = obj.validateParam(value);
                 end
-                obj.backgrounds.setValue({row, i + 2, value});
+                obj.backgrounds.setValue(row, i + 2, value);
             end
         end
          
-        function obj = setBackgroundName(obj, index, name)
+        function obj = setBackgroundName(obj, row, name)
             % Sets the name of a given background in the table. Expects 
             % an index and the new name. 
             %
@@ -188,7 +184,7 @@ classdef backgroundsClass < handle
             if ~ischar(name)
                 throw(invalidType(sprintf('%s must be a character array', name)));
             end
-            obj.backgrounds.setValue({index, 'name', name});
+            obj.backgrounds.setValue(row, 'name', name);
         end
 
         function displayBackgroundsObject(obj)
@@ -224,26 +220,26 @@ classdef backgroundsClass < handle
     end
 
     methods (Access = protected)
-        function thisPar = validateParam(obj, par)
+        function thisPar = validateParam(obj, param)
             % Checks that given parameter index or name is valid, then returns the
             % parameter name. 
             %
             % param = obj.validateParam('param_name');
-            if iscell(par)
-                par = par{:};
+            if iscell(param)
+                param = param{:};
             end
             parList = obj.backPars.getParamNames();
-            if isnumeric(par)
-                if (par < 1) || (par > length(parList))
-                    throw(indexOutOfRange(sprintf('Background Parameter %d is out of range', par)));
+            if isnumeric(param)
+                if (param < 1) || (param > length(parList))
+                    throw(indexOutOfRange(sprintf('Background Parameter %d is out of range', param)));
                 else
-                    thisPar = parList(par);
+                    thisPar = parList(param);
                 end
-            elseif ischar(par)
-                if ~strcmpi(par,parList)
-                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', par)));
+            elseif ischar(param)
+                if ~strcmpi(param,parList)
+                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', param)));
                 else
-                    thisPar = par;
+                    thisPar = param;
                 end
             end
         end

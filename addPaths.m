@@ -67,6 +67,12 @@ paths = {
     fullfile(root,'utilities','misc','projectClassToR1');
     fullfile(root,'utilities','plotting');
 
+    fullfile(root,'examples', 'standardLayers');
+    fullfile(root,'examples', 'customLayers');
+    fullfile(root,'examples', 'customXY');
+    fullfile(root,'examples', 'manual', 'DSPCCustomLayers');
+    fullfile(root,'examples', 'manual', 'DSPCStandardLayers');
+
     fullfile(root,'3rdParty','paramonte');
     
 };

@@ -3,8 +3,8 @@
 function paths()
 
     if ismac % MacOs
-        arch = char(computer('arch'));
-        incPath1= matlabRoot+'/'+'extern'+'/'+char(arch)+'/'+'include';
+        arch = computer('arch');
+        incPath1= matlabRoot+'/'+'extern'+'/'+arch+'/'+'include';
         %incPath1 = append(matlabroot,'/','extern','/','include');
 
         linkPath1 = matlabRoot+'/'+arch+'/'+'glnxa64';
@@ -24,7 +24,7 @@ function paths()
 
 
     elseif isunix %LINUX
-        arch = char(computer('arch'));
+        arch = computer('arch');
         incPath1= matlabRoot+'/'+'extern'+'/'+'include';
 
         %incPath1 = append(matlabroot,'/','extern','/','include');
@@ -44,9 +44,9 @@ function paths()
 
         
     elseif ispc % WINDOWS
-        arch = char(computer('arch'));
+        arch = computer('arch');
         %incPath1= matlabRoot+'\'+'extern'+'\'+'include';
-        incPath1 = 'C:\Program Files\MATLAB\R2021a\extern\include'
+        incPath1 = 'C:\Program Files\MATLAB\R2021a\extern\include';
 
         linkPath1 = 'C:\Program Files\MATLAB\R2021a\bin'+'win64';
         %linkPath1 = fullfile(matlabroot,'extern','include','lib',arch,'mingw64');

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iterator>
+#include <array>
 
 #if defined(_WIN32) || defined(_WIN64)
 #define LIB_EXPORT __declspec(dllexport)
@@ -7,7 +8,7 @@
 #define LIB_EXPORT
 #endif
 
-// We user extern "C" decorator to avoid name mangling....
+// We user extern "C" decorator to avoid name mangling (apparently!)....
 extern "C" {
     //LIB_EXPORT double outRough = 15.1;
 
@@ -25,7 +26,7 @@ extern "C" {
         double bilayerRough = params[6];
         double waterThick = params[7];
 
-        // We have a constant SLD for the oxide
+        // We have a constant SLD for the bilayer
         double oxideSLD = 3.41e-6;
 
         // Now make the lipid layers..
@@ -73,47 +74,47 @@ extern "C" {
         double tailSLD = (bilayerHydration * bulkOut[contrast]) + ((1 - bilayerHydration) * SLDtail);
 
         // Make the layers
-        output = new double[18];
+        //output = new double[18];
 
         const auto nLayers = 6;
-        static auto array = new double[18];
+        const auto array = new double[nLayers][3];
 
         // oxide...
-        array[0] = oxideThick;
-        array[1] = oxSLD;
-        array[2] = subRough;
+        array[0][0] = oxideThick;
+        array[0][1] = oxSLD;
+        array[0][2] = subRough;
 
         // Water...
-        array[3] = waterThick;
-        array[4] = bulkOut[contrast];
-        array[5] = bilayerRough;
+        array[1][0] = waterThick;
+        array[1][1] = bulkOut[contrast];
+        array[1][2] = bilayerRough;
 
         // Heads...
-        array[6] = headThick;
-        array[7] = headSLD;
-        array[8] = bilayerRough;
+        array[2][0] = headThick;
+        array[2][1] = headSLD;
+        array[2][2] = bilayerRough;
 
         // Tails...
-        array[9] = tailThick;
-        array[10] = tailSLD;
-        array[11] = bilayerRough;
+        array[3][0] = tailThick;
+        array[3][1] = tailSLD;
+        array[3][2] = bilayerRough;
 
         // Tails...
-        array[12] = tailThick;
-        array[13] = tailSLD;
-        array[14] = bilayerRough;
+        array[4][0] = tailThick;
+        array[4][1] = tailSLD;
+        array[4][2] = bilayerRough;
 
         // Heads...
-        array[15] = headThick;
-        array[16] = headSLD;
-        array[17] = bilayerRough;
+        array[5][0] = headThick;
+        array[5][1] = headSLD;
+        array[5][2] = bilayerRough;
 
         *rough = subRough;
         std::cout << "roughness in func : " << subRough << "\n";
-        std::cout << "Head SLD in func : " << headSLD << "\n";
-        std::cout << "Array[1] in func : " << array[1] << "\n";
 
-        output = array;
+        
+
+        output = *array;
 
         //outRough = subRough;
         //std::cout << "Value of outRough in customBilayer : " << outRough << "\n";

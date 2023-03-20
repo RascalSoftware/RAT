@@ -14,9 +14,9 @@ function [output,subRough] = testDLL(params,nba,nbs,numberOfContrasts,libraryNam
     coder.updateBuildInfo('addLinkFlags','-ldl');
 
     % Need to find a way to make this work with 100000,3
-    output = zeros(1000,3);
-    subRough =0.0;
-    coder.varsize('output',[1000 3],[1 0]);
+    output = 0.0; %zeros(1000,3);
+    subRough = 0.0;
+    coder.varsize('output',[1000 1],[1 0]);
 
     p = coder.opaque('Library','NULL','HeaderFile','libManager.h');
     % Make an instance 
@@ -39,7 +39,7 @@ function [output,subRough] = testDLL(params,nba,nbs,numberOfContrasts,libraryNam
         ,numberOfContrasts,coder.wref(output),coder.wref(subRough),libraryName,functionName);
 
     fprintf('subRough in testDLL is %g \n', subRough);
-    
+    fprintf('output 1  is %g \n',output(1));    
 end
 
 

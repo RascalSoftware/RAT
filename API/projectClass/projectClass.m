@@ -208,7 +208,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % problem.removeParam(2);
             if isa(row, 'double')
                 row = num2cell(sort(row, 'descend'));
-            elseif ischar(row) || isstring(row)
+            elseif isText(row)
                 row = cellstr(row);
             elseif iscell(row)
             else

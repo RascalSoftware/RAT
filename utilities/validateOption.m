@@ -32,7 +32,7 @@ end
 
 function mustBeCustomEnum(value)
     % Check for name of class with enumeration
-    if ~(ischar(value) || isstring(value))
+    if ~isText(value)
         throwAsCaller(invalidType('Enum class argument must be passed as string or char array.'));
     end
     

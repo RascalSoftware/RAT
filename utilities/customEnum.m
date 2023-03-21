@@ -32,7 +32,7 @@ classdef customEnum
          %
          % bulkInEnum = enum.fromValue('hydrationTypes', 'bulk in');   
          values = customEnum.values(name);
-         if ischar(value) || isstring(value)
+         if isText(value)
             index = find(strcmpi(value, values));
          else
             index = find(value==[values{:}]);

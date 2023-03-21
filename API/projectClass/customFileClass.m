@@ -151,10 +151,10 @@ classdef customFileClass < handle
             % Make an 'inputParser' object...
             p = inputParser;
 
-            addParameter(p,'name','', @(x) isstring(x) || ischar(x))
-            addParameter(p,'filename','', @(x) isstring(x) || ischar(x))
-            addParameter(p,'language','', @(x) isstring(x) || ischar(x) || isenum(x))
-            addParameter(p,'path','', @(x) isstring(x) || ischar(x)) 
+            addParameter(p,'name','', @(x) isText(x))
+            addParameter(p,'filename','', @(x) isText(x))
+            addParameter(p,'language','', @(x) isText(x) || isenum(x))
+            addParameter(p,'path','', @(x) isText(x)) 
             parse(p, varargin{:});
                 
             results = p.Results;

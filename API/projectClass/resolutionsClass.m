@@ -147,12 +147,12 @@ classdef resolutionsClass < handle
             end
             
             p = inputParser;
-            addParameter(p, 'name', obj.resolutions.typesTable{row, 1}, @(x) isstring(x) || ischar(x));
-            addParameter(p, 'type', obj.resolutions.typesTable{row, 2}, @(x) isstring(x) || ischar(x) || isenum(x));
-            addParameter(p, 'value1', obj.resolutions.typesTable{row, 3}, @(x) isstring(x) || ischar(x));
-            addParameter(p, 'value2', obj.resolutions.typesTable{row, 4}, @(x) isstring(x) || ischar(x));
-            addParameter(p, 'value3', obj.resolutions.typesTable{row, 5}, @(x) isstring(x) || ischar(x));
-            addParameter(p, 'value4', obj.resolutions.typesTable{row, 6}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'name', obj.resolutions.typesTable{row, 1}, @(x) isText(x));
+            addParameter(p, 'type', obj.resolutions.typesTable{row, 2}, @(x) isText(x) || isenum(x));
+            addParameter(p, 'value1', obj.resolutions.typesTable{row, 3}, @(x) isText(x));
+            addParameter(p, 'value2', obj.resolutions.typesTable{row, 4}, @(x) isText(x));
+            addParameter(p, 'value3', obj.resolutions.typesTable{row, 5}, @(x) isText(x));
+            addParameter(p, 'value4', obj.resolutions.typesTable{row, 6}, @(x) isText(x));
 
             parse(p, varargin{:});
             inputBlock = p.Results;

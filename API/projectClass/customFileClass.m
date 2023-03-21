@@ -77,7 +77,7 @@ classdef customFileClass < handle
 
                         % One input supplied - assume just name provided
                         newName = inputs{1};
-                        if ~ischar(newName)
+                        if ~isText(newName)
                             throw(invalidType('Single input is expected to be a custom object name'));
                         end
                         
@@ -137,7 +137,7 @@ classdef customFileClass < handle
                 if (row > obj.fileCount) || (row < 1)
                     throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.fileCount)));
                 end
-            elseif ischar(row)
+            elseif isText(row)
                 if ~strcmpi(row, customNames)
                     throw(nameNotRecognised(sprintf('Custom file object name %s not recognised', row)));
                 else

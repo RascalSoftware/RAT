@@ -59,8 +59,8 @@ classdef dataClass < handle
             else   
                 inputs = varargin;
                 newName = inputs{1};
-                if ~ischar(newName)
-                    throw(invalidType('First input is expected to be a data name (char)'));
+                if ~isText(newName)
+                    throw(invalidType('First input is expected to be a data name'));
                 end
                 newData = [];
                 newDataRange = [];
@@ -114,7 +114,7 @@ classdef dataClass < handle
                 if (row > obj.dataCount) || (row < 1)
                     throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.dataCount)));
                 end
-            elseif ischar(row)
+            elseif isText(row)
                 if ~strcmpi(row, dataNames)
                     throw(nameNotRecognised(sprintf('Data object name %s not recognised', row)));
                 else
@@ -134,7 +134,7 @@ classdef dataClass < handle
             % Data needs to be an [n x >3] array
             isDimsData = @(x) size(x,2) >= 3;
 
-            addParameter(p,'name','', @(x) ischar(x))
+            addParameter(p,'name','', @(x) isText(x))
             addParameter(p,'data',[], @(x) isnumeric(x) && isDimsData(x))
             addParameter(p,'dataRange',[], @(x) isnumeric(x) && isDimsRanges(x))
             addParameter(p,'simRange', [], @(x) isnumeric(x) && isDimsRanges(x)) 
@@ -172,8 +172,8 @@ classdef dataClass < handle
             % Returns a structure with the new name and old name
             %
             % names = data.setDataName({2, 'new name'});
-            if ~ischar(name)
-                throw(invalidType('Name must be a character array'));
+            if ~isText(name)
+                throw(invalidType('Name must be a character array or string'));
             end
             
             existingNames = obj.getDataNames;

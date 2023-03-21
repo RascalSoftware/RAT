@@ -83,7 +83,7 @@ classdef multiTypeTable < handle
             % First parameter needs to be either a row name or number
             rowNames = obj.typesTable{:,1};
             
-            if ischar(row)
+            if isText(row)
                 row = obj.findRowIndex(row, rowNames);
             elseif isnumeric(row)
                 if (row < 1) || (row > obj.typesCount)
@@ -97,7 +97,7 @@ classdef multiTypeTable < handle
             % number.
             colNames = obj.typesTable.Properties.VariableNames;
 
-            if ischar(col)
+            if isText(col)
                 col = obj.findRowIndex(col,colNames);
             elseif isnumeric(col)
                 if (col < 1) || (col > length(colNames))

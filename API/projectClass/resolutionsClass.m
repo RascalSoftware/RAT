@@ -135,7 +135,7 @@ classdef resolutionsClass < handle
             % index or name of resolution and keyword/value pairs to set. 
             %
             % resolution.setResolution(1, 'name', 'res 1', 'type', 'constant', 'value1', 'param_name');
-            if ischar(row)
+            if isText(row)
                 row = obj.resolutions.findRowIndex(row, obj.getResolNames());
             elseif isnumeric(row)
                 count = obj.resolutions.typesCount;

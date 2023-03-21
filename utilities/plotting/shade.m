@@ -218,7 +218,7 @@ end
 if iscell(fd)
     tmp = zeros(size(fd));
     for i = 1:numel(fd)
-        if ischar(fd{i})
+        if isText(fd{i})
             tmp(i) = str2ind(validatestring(fd{i},{'axis','bottom','top'},'shade','FillType'));
         else
             validateattributes(fd{i},{'numeric'},{'scalar'},'shade','FillType');
@@ -250,7 +250,7 @@ if isempty(fc)
 end
 
 % if length 1, repeat
-if ischar(fc)
+if isText(fc)
     fc = {fc};
     fc = repmat(fc,nf,1);
 elseif (iscell(fc) && numel(fc) == 1) || (~iscell(fc) && size(fc,1) == 1)
@@ -262,7 +262,7 @@ if iscell(fc)
     validateattributes(fc,{'cell'},{'vector','numel',nf},'shade','FillColor');
     tmp = zeros(numel(fc),3);
     for i = 1:numel(fc)
-        if ischar(fc{i})
+        if isText(fc{i})
             tmp(i,:) = str2rgb(validatestring(fc{i},{'y','m','c','r','g','b','w','k','yellow','magenta','cyan','red','green','blue','white','black'},'shade','FillColor'));
         else
             validateattributes(fc{i},{'numeric'},{'vector','numel',3},'shade','FillColor');

@@ -59,7 +59,7 @@ classdef layersClassRealSLD < handle
                 layerName = sprintf('Layer %d',layerNum);
                 newRow = {layerName,'','','','',hydrationTypes.BulkOut.value};
                 
-            elseif length(layerDetails) == 1 && ischar(layerDetails{1})
+            elseif length(layerDetails) == 1 && isText(layerDetails{1})
                 % Add an empty named layer
                 newRow = {layerDetails{1},'','','','',hydrationTypes.BulkOut.value};
             
@@ -113,7 +113,7 @@ classdef layersClassRealSLD < handle
             colNames = obj.layersTable.Properties.VariableNames;
             
             % Find the row index if we have a layer name
-            if ischar(row)
+            if isText(row)
                 row = obj.findRowIndex(row,layerNames);
             elseif isnumeric(row)
                 if (row < 1) || (row > obj.layersCount)
@@ -124,7 +124,7 @@ classdef layersClassRealSLD < handle
             end
             
             % Find the column index if we have a column name
-            if ischar(col)
+            if isText(col)
                 col = obj.findRowIndex(col,colNames);
             elseif isnumeric(col)
                 if (col < 1) || (col > length(colNames))
@@ -248,7 +248,7 @@ classdef layersClassRealSLD < handle
             % The expected inputs are the potential layer parameter value
             % (either name or index) and a list of parameter names.
 
-            if ischar(inputVal)
+            if isText(inputVal)
                 if ~any(strcmpi(inputVal, paramNames))
                     throw(nameNotRecognised(sprintf('Parameter %s not recognized', inputVal)));
                 end

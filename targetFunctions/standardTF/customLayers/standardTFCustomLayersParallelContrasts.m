@@ -64,8 +64,9 @@ resamPars = controls.resamPars;
 parallelFlag = true;
 
 % Process the custom models....
-[allLayers,allRoughs] = customClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+[allLayers,allRoughs] = customModelClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,parallelFlag);
+
 
 % Single cored over all contrasts
 parfor i = 1:numberOfContrasts

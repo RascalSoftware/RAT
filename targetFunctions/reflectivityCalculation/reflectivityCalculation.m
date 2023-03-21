@@ -76,11 +76,13 @@ end
 coder.varsize('allLayers{:}',[10000 3],[1 0]);
 
 % We need an instance of the customModelClass to be passed around..
-persistent customClass
+%persistent customClass
 
-if isempty(customClass)
-    customClass = customModelClass();
-end
+% if isempty(customClass)
+%     customClass = customModelClass();
+% end
+
+customClass = [];
 
 %Decide which target function we are calling ans call the relevant routines
 whichTF = problemDef.TF;

@@ -13,16 +13,22 @@ classdef customModelClass < handle
 
     end
 
-    methods 
+    methods (Static)
 
-        function [allLayers,allRoughs] = processCustomLayers(obj,cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+        function [allLayers,allRoughs] = processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,parallelFlag)
 
         % Top-level function for processing custom layers for all the
-        % contrasts. Because we want to allow users to 'mix and match'
-        % custom models from Cpp, Matlab or Python, we're not attempting
-        % any parallelisation across custom models any more. We simply loop
-        % through the contrasts and call whichever routines are applicable
+        % contrasts. 
+
+        % NOTE - we want users to be able to mix and match langauges for
+        % custom models, but, trying to call extrinsic Matlab functions
+        % from an OMP loop throws an error. So, even though the
+        % parallelFlag functionality is here it's not currently being
+        % invoked. The aim is to allow parallelisation only if there are no
+        % Matlab custom models in use (set by an upstream check and a
+        % flag). But this is not yet implememnted, so we just have strange
+        % looking two 'for' loops for now, rather than one being a parFor.
 
         % Do some pre-definitions to keep the compiler happy...
         tempAllLayers = cell(numberOfContrasts,1);
@@ -36,7 +42,8 @@ classdef customModelClass < handle
         coder.varsize('tempAllLayers{:}',[10000 5],[1 1]);
 
         if parallelFlag
-            parfor i = 1:numberOfContrasts
+            for i = 1:numberOfContrasts     % TODO - will be 'parfor' subject to further upstream checks..
+                
                 % Choose which custom file is associated with this contrast
                 thisCustomModel = customFiles{cCustFiles(i)};
 

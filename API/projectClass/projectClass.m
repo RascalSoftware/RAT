@@ -777,7 +777,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % parse the layers details
             layersValues = layersCell(:,2:end);
-            paramNames = char(paramStruct.paramNames);
             
             switch generalStruct.modelType
                 case modelTypes.StandardLayers.value

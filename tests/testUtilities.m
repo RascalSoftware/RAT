@@ -1,6 +1,14 @@
 classdef testUtilities < matlab.unittest.TestCase   
 
     methods (Test)
+        function testIsText(testCase)
+            testCase.verifyTrue(isText('character'), 'isText function is not working');
+            testCase.verifyTrue(isText("string"), 'isText function is not working');
+            testCase.verifyTrue(isText(["string", "array"]), 'isText function is not working');
+            testCase.verifyFalse(isText(2), 'isText function is not working');
+            testCase.verifyFalse(isText({'cell', 'array'}), 'isText function is not working');
+        end
+
         function testValidateNumber(testCase)
             testCase.verifyEqual(validateNumber(3), 3, 'validateNumber function is not working');
             testCase.verifyEqual(validateNumber(-1.6), -1.6, 'validateNumber function is not working');

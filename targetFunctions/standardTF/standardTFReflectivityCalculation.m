@@ -72,12 +72,12 @@ switch lower(type)
         % Custom layers with user supplied custom model file
         [problem,reflectivity,Simulation,...
             shifted_data,layerSlds,sldProfiles,...
-            allLayers] = standardTFCustomLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls,customClass);
+            allLayers] = standardTFCustomLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'custom xy'
         % Custom SLD profile with user defined model file
         [problem,reflectivity,Simulation,...
            shifted_data,layerSlds,sldProfiles,...
-           allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls,customClass);
+           allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 end
 
 end

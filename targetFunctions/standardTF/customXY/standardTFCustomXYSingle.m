@@ -9,8 +9,7 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  allData,...
  dataLimits,...
  simLimits,...
- contrastLayers,...
- layersDetails,...
+ ~,~,...        % Layers details N/A
  customFiles] = parseCells(problemDef_cells);
 
 % Extract individual parameters from problemDef struct
@@ -61,20 +60,25 @@ end
 % Resampling parameters
 resamPars = controls.resamPars;
 
-% Process the custom models. These can either be as a Matlab script, or a
-% user generated DLL
-lang = customFiles{1}{2}; 
-switch lang 
-case 'matlab'
-    % Call the Matlab parallel loop to process the custom models.....
-    [sldProf, allRoughs] = loopMatlabWrapperCustomXYSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+% % Process the custom models. These can either be as a Matlab script, or a
+% % user generated DLL
+% lang = customFiles{1}{2}; 
+% switch lang 
+% case 'matlab'
+%     % Call the Matlab parallel loop to process the custom models.....
+%     [sldProf, allRoughs] = loopMatlabWrapperCustomXYSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+% 
+% case 'cpp'
+%     [sldProf,allRoughs] = loopCppWrapperCustomXYSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+% end
 
-case 'cpp'
-    [sldProf,allRoughs] = loopCppWrapperCustomXYSingle(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-end
+% Process the custom models....
+parallelFlag = false;
 
+[sldProf,allRoughs] = customModelClass.processCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,parallelFlag);
 
 for i = 1:numberOfContrasts
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);

@@ -55,7 +55,7 @@ for i = 1:numberOfContrasts
             numberOfLayers = size(thisLayers,1);
             nrepeats = 1;
             newProf = makeSLDProfileXY(nbair,nbsub,ssub,thisLayers,numberOfLayers,nrepeats);
-            plot(newProf(:,1)-50,newProf(:,2));
+            plot(newProf(:,1)-49,newProf(:,2));
     end
 end
 

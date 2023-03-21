@@ -62,26 +62,29 @@ for i = 1:numberOfContrasts
 end
 %coder.varsize('allLayers{:}',[10000 3],[1 1]);
     % Depending on custom layer language we change the functions used
-lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
-switch lang 
-case 'matlab'
-    % Call the Matlab parallel loop to process the custom models.....
-    [sldProf, allRoughs] = loopMatlabWrapperCustomXYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-% 
-case 'cpp'
-    [sldProf,allRoughs] = loopCppWrapperCustomXYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-    
-    
-end
+% lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
+% switch lang 
+% case 'matlab'
+%     % Call the Matlab parallel loop to process the custom models.....
+%     [sldProf, allRoughs] = loopMatlabWrapperCustomXYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+% % 
+% case 'cpp'
+%     [sldProf,allRoughs] = loopCppWrapperCustomXYPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+%     
+%     
+% end
+
+% Process the custom models....
+parallelFlag = false;
+
+[sldProf,allRoughs] = customModelClass.processCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,parallelFlag);
 
 
 for i = 1:numberOfContrasts
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
-    
-%     thisCustomFile = customFiles{cCustFiles(i)};
-%     [sldProfile,allRoughs(i)] = callCustomLayers(params,i,thisCustomFile,nbas,nbss(i),numberOfContrasts);
     
     sldProfiles{i} = sldProf{i};
 

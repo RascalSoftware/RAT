@@ -1,4 +1,4 @@
-function [output,sRough] = callMatlabCustomLayers(params,contrast,funcName,path,bulkIn,bulkOut,nContrasts)
+function [output,sRough] = callMatlabCustomFunction(params,contrast,funcName,path,bulkIn,bulkOut,nContrasts)
 
 % Excecute a custom model function in the base Matlab workspace.
 

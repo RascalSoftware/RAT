@@ -156,7 +156,6 @@ classdef testParametersClass < matlab.unittest.TestCase
         end
 
         function testDisplayTable(testCase)
-            import matlab.unittest.constraints.ContainsSubstring
             % Check that the content of the parameter table are printed
             actualHeader = {'Name', 'Min', 'Value', 'Max', 'Fit?', 'Prior Type', 'mu', 'sigma'};
             

@@ -461,10 +461,10 @@ function inputBlock = parseR1Problem(varargin)
 
     p = inputParser;
     addParameter(p,'r1Problem',     default_r1Problem,      @isstruct);
-    addParameter(p,'dirName',       default_dirName,        @ischar);
-    addParameter(p,'dirPath',       default_dirPath,        @ischar);
+    addParameter(p,'dirName',       default_dirName,        @isText);
+    addParameter(p,'dirPath',       default_dirPath,        @isText);
     addParameter(p,'saveProject',   default_saveProject,    @islogical);
-    addParameter(p,'fileName',      default_fileName,       @ischar);
+    addParameter(p,'fileName',      default_fileName,       @isText);
     
     parse(p, varargin{:});
     inputBlock = p.Results;

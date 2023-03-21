@@ -5,7 +5,7 @@ classdef indexOutOfRange < MException
     methods
         function obj = indexOutOfRange(message)
             arguments
-                message {mustBeTextScalar} = "The given index is out of range"
+                message {mustBeTextScalar} = 'The given index is out of range'
             end
             obj = obj@MException(indexOutOfRange.errorID, message);
         end

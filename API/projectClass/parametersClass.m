@@ -86,8 +86,8 @@ classdef parametersClass < handle
                 inputCell = varargin;
                 
                 % First input must be a parameter name
-                if ~ischar(inputCell{1})
-                    throw(invalidType('First value must be param name (char)'));
+                if ~isText(inputCell{1})
+                    throw(invalidType('First value must be param name (text)'));
                 end
                 
                 % If length is 1, assume name only
@@ -153,7 +153,7 @@ classdef parametersClass < handle
             % params.removeParam(2);
             if isa(row, 'double')
                 row = num2cell(sort(row, 'descend'));
-            elseif ischar(row) || isstring(row)
+            elseif isText(row)
                 row = cellstr(row);
             elseif iscell(row)
             else
@@ -254,7 +254,7 @@ classdef parametersClass < handle
             tab = obj.paramsTable;           
             row = obj.getValidRow(row);
 
-            if ~ischar(name)
+            if ~isText(name)
                 throw(invalidType('New name must be char'));
             end
 
@@ -404,7 +404,7 @@ classdef parametersClass < handle
             % obj.removeRow(1)
             tab = obj.paramsTable;
             
-            if ischar(row)
+            if isText(row)
                 % Assume a row name
                 index = strcmp(row, tab{:,1});
                 if ~any(index)
@@ -425,9 +425,8 @@ classdef parametersClass < handle
             % Gets valid row with given name or index  
             %
             % obj.getValidRow('param name')
-            if ischar(row)
-                name = string(row);
-                index = obj.findRowIndex(name, obj.paramsTable);
+            if isText(row)
+                index = obj.findRowIndex(row, obj.paramsTable);
             else
                 index = row;
                 if (index < 1) || (index > obj.paramCount)
@@ -470,7 +469,7 @@ classdef parametersClass < handle
             defaultFit = [];
         
             p = inputParser;
-            addParameter(p,'name',  defaultName,   @ischar);
+            addParameter(p,'name',  defaultName,   @isText);
             addParameter(p,'min',   defaultMin,    @isnumeric);
             addParameter(p,'value', defaultValue,  @isnumeric);
             addParameter(p,'max',   defaultMax,    @isnumeric);

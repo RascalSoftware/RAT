@@ -155,7 +155,6 @@
       end
 
       function testDisplayBackgroundsObject(testCase)
-         import matlab.unittest.constraints.ContainsSubstring
          % Check that the contents of the background are printed
          paramHeader = {'p', 'Name', 'Min', 'Value', 'Max', 'Fit?'};
          display = evalc('testCase.background.displayBackgroundsObject()');
@@ -227,8 +226,8 @@
          expected.backParFitYesNo = [0, 1, 0];
          expected.nBackPars = 3;
          expected.backsPriors= {{'background par 1', priorTypes.Uniform.value, 0, Inf};... 
-                                 {'background par 2', priorTypes.Gaussian.value, -1, 1};... 
-                                 {'background par 3', priorTypes.Uniform.value, 0, Inf}};
+                                {'background par 2', priorTypes.Gaussian.value, -1, 1};... 
+                                {'background par 3', priorTypes.Uniform.value, 0, Inf}};
          expected.backgroundNames = ["background 1"; "background 2"; "background 3"];
          expected.backgroundTypes = [string(allowedTypes.Constant.value); string(allowedTypes.Constant.value); 
                                      string(allowedTypes.Function.value)];

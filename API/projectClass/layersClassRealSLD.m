@@ -59,7 +59,7 @@ classdef layersClassRealSLD < handle
                 layerName = sprintf('Layer %d',layerNum);
                 newRow = {layerName,'','','','',hydrationTypes.BulkOut.value};
                 
-            elseif length(layerDetails) == 1 && ischar(layerDetails{1})
+            elseif length(layerDetails) == 1 && isText(layerDetails{1})
                 % Add an empty named layer
                 newRow = {layerDetails{1},'','','','',hydrationTypes.BulkOut.value};
             
@@ -108,12 +108,12 @@ classdef layersClassRealSLD < handle
             % that row and column, and a string array of parameter names
             % defined in the project's parameter class.
             %
-            % layers.setLayerValue(1, 1, "origin", parameters.paramsTable{:, 1});
+            % layers.setLayerValue(1, 1, 'origin', parameters.paramsTable{:, 1});
             layerNames = obj.layersTable{:,1};
             colNames = obj.layersTable.Properties.VariableNames;
             
             % Find the row index if we have a layer name
-            if ischar(row)
+            if isText(row)
                 row = obj.findRowIndex(row,layerNames);
             elseif isnumeric(row)
                 if (row < 1) || (row > obj.layersCount)
@@ -124,7 +124,7 @@ classdef layersClassRealSLD < handle
             end
             
             % Find the column index if we have a column name
-            if ischar(col)
+            if isText(col)
                 col = obj.findRowIndex(col,colNames);
             elseif isnumeric(col)
                 if (col < 1) || (col > length(colNames))
@@ -144,7 +144,7 @@ classdef layersClassRealSLD < handle
                 val = obj.findParameter(inputValue, paramNames);
             end
                 
-            obj.layersTable(row,col) = {string(val)};
+            obj.layersTable(row,col) = {val};
             
         end
 
@@ -248,7 +248,7 @@ classdef layersClassRealSLD < handle
             % The expected inputs are the potential layer parameter value
             % (either name or index) and a list of parameter names.
 
-            if ischar(inputVal)
+            if isText(inputVal)
                 if ~any(strcmpi(inputVal, paramNames))
                     throw(nameNotRecognised(sprintf('Parameter %s not recognized', inputVal)));
                 end
@@ -257,7 +257,7 @@ classdef layersClassRealSLD < handle
             elseif isnumeric(inputVal)
                 paramIndex = floor(inputVal);
                 if paramIndex < 1 || paramIndex > length(paramNames)
-                    throw(indexOutOfRange(sprintf('Parameter "%d" is out of range 1 - %d', paramIndex, length(paramNames))));
+                    throw(indexOutOfRange(sprintf('Parameter ''%d'' is out of range 1 - %d', paramIndex, length(paramNames))));
                 end
                 param = paramNames{paramIndex};
 

@@ -132,15 +132,15 @@ classdef testLayersClass < matlab.unittest.TestCase
 
 %% Test Layers Real SLD Class Routines
 
-    methods (Test, ParameterCombination="sequential")
+    methods (Test, ParameterCombination='sequential')
 
         function testInitialiseLayersClass(testCase)
             % On initialisation we set up a layers class with an empty
             % layers table
             testClass = layersClassRealSLD();
 
-            testCase.verifySize(testClass.layersTable, [0 6], "layerClassRealSLD does not initialise correctly");
-            testCase.verifyEqual(testClass.layersTable, testCase.initialLayersTable, "layerClassRealSLD does not initialise correctly");
+            testCase.verifySize(testClass.layersTable, [0 6], 'layerClassRealSLD does not initialise correctly');
+            testCase.verifyEqual(testClass.layersTable, testCase.initialLayersTable, 'layerClassRealSLD does not initialise correctly');
         end
 
         function testAddLayer(testCase, layerInput, addedLayer)
@@ -152,7 +152,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             testCase.exampleClass.addLayer(testCase.parameterNames, layerInput{:});
 
-            testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, 'addLayer does not work correctly');
         end
 
         function testAddLayerEmpty(testCase)
@@ -166,7 +166,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             testCase.exampleClass.addLayer(testCase.parameterNames);
 
-            testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, "addLayer does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.layersTable, expectedTable, 'addLayer does not work correctly');
         end
 
         function testAddLayerInvalidFullLayer(testCase)
@@ -204,27 +204,27 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Row and column indices
             testCase.exampleClass.setLayerValue(1, 5, 'Water hydr', testCase.parameterNames);
             expectedRow = ["Bil inner head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Water hydr", "bulk out"];
-            testCase.verifyEqual(testCase.exampleClass.layersTable{1, :}, expectedRow, "setValue does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.layersTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Row name and column index
             testCase.exampleClass.setLayerValue('Bil Tail', 3, 'Water SLD', testCase.parameterNames);
             expectedRow = ["Bil tail", "Bilayer tails thick", "Water SLD", "Bilayer heads rough", "Bilayer tails hydr", "bulk out"];
-            testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, "setValue does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Row index and column name
             testCase.exampleClass.setLayerValue(1, 'Roughness', 'Substrate Roughness', testCase.parameterNames);
             expectedRow = ["Bil inner head", "Bilayer heads thick", "Bilayer heads SLD", "Substrate Roughness", "Water hydr", "bulk out"];
-            testCase.verifyEqual(testCase.exampleClass.layersTable{1, :}, expectedRow, "setValue does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.layersTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Row and column names
             testCase.exampleClass.setLayerValue('Bil Tail', 'Thickness', 'Water thick', testCase.parameterNames);
             expectedRow = ["Bil tail", "Water thick", "Water SLD", "Bilayer heads rough", "Bilayer tails hydr", "bulk out"];
-            testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, "setValue does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Change hydration type
             testCase.exampleClass.setLayerValue(3, 6, hydrationTypes.BulkIn.value, testCase.parameterNames);
             expectedRow = ["Bil outer head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Bilayer heads hydr", "bulk in"];
-            testCase.verifyEqual(testCase.exampleClass.layersTable{3, :}, expectedRow, "setValue does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.layersTable{3, :}, expectedRow, 'setValue does not work correctly');
         end
 
         function testSetLayerValueInvalid(testCase)
@@ -262,7 +262,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             remainingRows = testCase.exampleClass.layersTable(2:end,:);
             testCase.exampleClass.removeLayer(1);
 
-            testCase.verifyEqual(testCase.exampleClass.layersTable, remainingRows, "removeLayer does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.layersTable, remainingRows, 'removeLayer does not work correctly');
         end
 
         function testRemoveLayerMultiple(testCase)
@@ -270,7 +270,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             remainingRows = testCase.exampleClass.layersTable(2,:);
             testCase.exampleClass.removeLayer([1 3]);
 
-            testCase.verifyEqual(testCase.exampleClass.layersTable, remainingRows, "removeLayer does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.layersTable, remainingRows, 'removeLayer does not work correctly');
         end
 
         function testRemoveLayerInvalid(testCase)
@@ -280,7 +280,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.removeLayer(1.5), 'MATLAB:badsubscript');
             testCase.verifyError(@() testCase.exampleClass.removeLayer(testCase.numRows+1), 'MATLAB:table:RowIndexOutOfRange');
 
-            testCase.verifySize(testCase.exampleClass.layersTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite no rows being removed");
+            testCase.verifySize(testCase.exampleClass.layersTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');
         end
 
         function testGetLayersNames(testCase)
@@ -328,7 +328,7 @@ classdef testLayersClass < matlab.unittest.TestCase
                 % Get data from this row, join into a single string, and
                 % then prepend the row index
                 rowString = string(i) + " " + strip(strjoin(testCase.exampleClass.layersTable{i,:}));
-                testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+                testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
 
             end
         end
@@ -363,7 +363,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % space using regular expressions
             outRow = strip(regexprep(displayedTable(3), '\s+', ' '));
             rowString = "0 0 0 0 0 0";
-            testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+            testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
         function testFindRowIndex(testCase)
@@ -371,13 +371,13 @@ classdef testLayersClass < matlab.unittest.TestCase
             % and an error is raised for invalid options
             tableRows = testCase.exampleClass.layersTable{:, 1};
 
-            testCase.verifyEqual(layersClassRealSLD.findRowIndex("Bil Tail", tableRows), 2);
+            testCase.verifyEqual(layersClassRealSLD.findRowIndex('Bil Tail', tableRows), 2);
 
             % Check whitespace still matches
-            testCase.verifyEqual(layersClassRealSLD.findRowIndex(" Bil Inner Head", tableRows), 1);
+            testCase.verifyEqual(layersClassRealSLD.findRowIndex(' Bil Inner Head', tableRows), 1);
 
-            testCase.verifyError(@() layersClassRealSLD.findRowIndex("Invalid Row", tableRows), nameNotRecognised.errorID);
-            testCase.verifyError(@() layersClassRealSLD.findRowIndex("Thickness", tableRows), nameNotRecognised.errorID);
+            testCase.verifyError(@() layersClassRealSLD.findRowIndex('Invalid Row', tableRows), nameNotRecognised.errorID);
+            testCase.verifyError(@() layersClassRealSLD.findRowIndex('Thickness', tableRows), nameNotRecognised.errorID);
         end
 
         function testFindParameter(testCase)
@@ -394,7 +394,6 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() layersClassRealSLD.findParameter(testCase.numParams+1, testCase.parameterNames), indexOutOfRange.errorID);
             testCase.verifyError(@() layersClassRealSLD.findParameter(datetime('today'), testCase.parameterNames), invalidType.errorID);
         end
-
 
     end
 

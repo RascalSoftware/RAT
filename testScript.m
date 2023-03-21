@@ -3,12 +3,12 @@ import matlab.unittest.TestSuite;
 import matlab.unittest.plugins.CodeCoveragePlugin
 import matlab.unittest.plugins.codecoverage.CoverageReport
 
-sourceCodeFolder = ["API", "targetFunctions", "utilities"];
-reportFolder = "htmlcov";
+sourceCodeFolder = {'API', 'targetFunctions', 'utilities'};
+reportFolder = 'htmlcov';
 reportFormat = CoverageReport(reportFolder);
 p = CodeCoveragePlugin.forFolder(sourceCodeFolder, ...
-                                 "Producing", reportFormat, ...
-                                 "IncludingSubfolders", true);
+                                 'Producing', reportFormat, ...
+                                 'IncludingSubfolders', true);
 
 disp('Starting Parallel Pool')
 % if parallel pool has already been started, continue with it

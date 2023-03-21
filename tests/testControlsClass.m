@@ -291,56 +291,56 @@ classdef testControlsClass < matlab.unittest.TestCase
             % Check that the content of the controlsClass are printed
             display = evalc('disp(testCase.controls)');
             testCase.verifyNotEmpty(display, 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, "parallel: 'single'", 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, "procedure: 'calculate'", 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("tolX"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("method"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("propScale"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("strategy"), 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'parallel: ''single''', 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'procedure: ''calculate''', 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('tolX'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('method'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('propScale'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('strategy'), 'getPropertyGroups method not working');
 
             testCase.controls.procedure = 'dream';
             display = evalc('disp(testCase.controls)');
-            testCase.verifySubstring(display, "parallel: 'single'", 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, "procedure: 'dream'", 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, "nChains", 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("tolX"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("propScale"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("strategy"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("tolX"), 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'parallel: ''single''', 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'procedure: ''dream''', 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'nChains', 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('tolX'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('propScale'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('strategy'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('tolX'), 'getPropertyGroups method not working');
             
             testCase.controls.procedure = procedures.NS;
             display = evalc('disp(testCase.controls)');
-            testCase.verifySubstring(display, "parallel: 'single'", 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, "procedure: 'ns'", 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, "propScale", 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("tolX"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("method"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("strategy"), 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'parallel: ''single''', 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'procedure: ''ns''', 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'propScale', 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('tolX'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('method'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('strategy'), 'getPropertyGroups method not working');
             
             testCase.controls.procedure = upper(procedures.DE);
             testCase.controls.parallel = 'contrasts';
             display = evalc('disp(testCase.controls)');
-            testCase.verifySubstring(display, "parallel: 'contrasts'", 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, "procedure: 'de'", 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, "strategy", 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("tolX"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("method"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("propScale"), 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'parallel: ''contrasts''', 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'procedure: ''de''', 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'strategy', 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('tolX'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('method'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('propScale'), 'getPropertyGroups method not working');
             
 
             testCase.controls.procedure = procedures.Simplex;
             display = evalc('disp(testCase.controls)');
-            testCase.verifySubstring(display, "parallel: 'contrasts'", 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, "procedure: 'simplex'", 'getPropertyGroups method not working');
-            testCase.verifySubstring(display, "tolX", 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("method"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("propScale"), 'getPropertyGroups method not working');
-            testCase.verifyThat(display, ~ContainsSubstring("strategy"), 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'parallel: ''contrasts''', 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'procedure: ''simplex''', 'getPropertyGroups method not working');
+            testCase.verifySubstring(display, 'tolX', 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('method'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('propScale'), 'getPropertyGroups method not working');
+            testCase.verifyThat(display, ~ContainsSubstring('strategy'), 'getPropertyGroups method not working');
             
-            controls(1) = testCase.controls;
-            controls(2) = testCase.controls;
-            display = eraseBetween(sprintf(evalc('disp(controls)')), '<', '>','Boundaries','inclusive');
-            testCase.verifySubstring(display, "controlsClass array with properties", 'getPropertyGroups method not working');
+            testControls(1) = testCase.controls;
+            testControls(2) = testCase.controls;
+            display = eraseBetween(sprintf(evalc('disp(testControls)')), '<', '>','Boundaries','inclusive');
+            testCase.verifySubstring(display, 'controlsClass array with properties', 'getPropertyGroups method not working');
         end
     end
 end

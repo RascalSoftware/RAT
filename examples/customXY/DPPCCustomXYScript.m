@@ -93,7 +93,6 @@ problem.setContrastModel(1,'DPPC Model');
 problem.setContrastModel(2,'DPPC Model');
 problem.setContrastModel(3,'DPPC Model');
 
-disp('debug');
 
 %%
 
@@ -107,8 +106,8 @@ controls.parallel = 'points';
  [problem,results] = RAT(problem,controls);
 % 
 % % Plot the results....
-% figure(1); clf
-% plotRefSLD(problem,results);
+figure(1); clf
+plotRefSLD(problem,results);
 
 
 

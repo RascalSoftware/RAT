@@ -99,15 +99,15 @@ controls.procedure = 'dream';
 figure(10); clf
 plotRefSLD(problem,results)
 
-h2 = figure(2); clf
-sf = results.contrastParams.scalefactors;
-bayesShadedPlot(h2,results.predlims,results.shifted_data,sf);
+%h2 = figure(2); clf
+%sf = results.contrastParams.scalefactors;
+%bayesShadedPlot(h2,results.predlims,results.shifted_data,sf);
 
-h3 = figure(3); clf
-mcmcplot(results.chain,[],results.fitNames,'chainpanel');
+%h3 = figure(3); clf
+%mcmcplot(results.chain,[],results.fitNames,'chainpanel');
 
-h4 = figure(4); clf;
-plotBayesCorrFig(results.chain,results.fitNames,h4)
+%h4 = figure(4); clf;
+%plotBayesCorrFig(results.chain,results.fitNames,h4)
 
-h5 = figure(5);clf
-mcmcplot(results.chain,[],results.fitNames,'hist',15,'kernel');
+%h5 = figure(5);clf
+%mcmcplot(results.chain,[],results.fitNames,'hist',15,'kernel');

@@ -105,9 +105,9 @@ problem.setBackground(1,'name','Background D2O','value1','Backs par D2O');
 % Set the scalefactor...
 problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',true);
 
-%% 
-% 
-% 
+%%
+%
+%
 % Now add the three contrasts as before:
 
 % D2O contrast..
@@ -136,10 +136,10 @@ problem.addContrast('name','Bilayer / H2O',...
     'nbs', 'SLD H2O',...        % This is bulk out
     'nba', 'Silicon',...        % This is bulk in
     'data', 'Bilayer / H2O');
-%% 
+%%
 
-% 
-% 
+%
+%
 % And set the model for each..
 
 problem.setContrastModel(1,'DSPC Model');

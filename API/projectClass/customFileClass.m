@@ -8,7 +8,7 @@ classdef customFileClass < handle
     end
 
     properties(Access = private, Constant, Hidden)
-        duplicateNameMessage = "Duplicate custom file names are not allowed"
+        duplicateNameMessage = 'Duplicate custom file names are not allowed'
         invalidLanguageMessage = sprintf('Language must be a supportedLanguages enum or one of the following strings (%s)', ...
                                          strjoin(supportedLanguages.values(), ', '))
     end
@@ -63,7 +63,7 @@ classdef customFileClass < handle
                 nameVal = obj.autoFileNameCounter();
                 newName = sprintf('New custom file %d', nameVal);
                 
-                newRow = {newName, "", supportedLanguages.Matlab.value, "pwd"};
+                newRow = {newName, '', supportedLanguages.Matlab.value, 'pwd'};
                 appendNewRow(obj, newRow);
 
             else
@@ -77,30 +77,30 @@ classdef customFileClass < handle
 
                         % One input supplied - assume just name provided
                         newName = inputs{1};
-                        if ~ischar(newName)
+                        if ~isText(newName)
                             throw(invalidType('Single input is expected to be a custom object name'));
                         end
                         
-                        newRow = {newName, "", supportedLanguages.Matlab.value, "pwd"};
+                        newRow = {newName, '', supportedLanguages.Matlab.value, 'pwd'};
                         appendNewRow(obj, newRow);
                         
                     case 2
 
                         % Two inputs suppled - assume both name and
                         % filename supplied;
-                        newName = string(inputs{1});
-                        newFile = string(inputs{2});
+                        newName = char(inputs{1});
+                        newFile = char(inputs{2});
 
-                        newRow = {newName, newFile, supportedLanguages.Matlab.value, "pwd"};
+                        newRow = {newName, newFile, supportedLanguages.Matlab.value, 'pwd'};
                         appendNewRow(obj, newRow);
                         
                     case 4
 
                         % Four inputs = assume all inputs supplied
-                        newName = string(inputs{1});
-                        newFile = string(inputs{2});
-                        newLang = string(inputs{3});
-                        newPath = string(inputs{4});
+                        newName = char(inputs{1});
+                        newFile = char(inputs{2});
+                        newLang = char(inputs{3});
+                        newPath = char(inputs{4});
                         
                         newRow = {newName, newFile, newLang, newPath};
                         appendNewRow(obj, newRow);
@@ -123,8 +123,8 @@ classdef customFileClass < handle
             % "Name", "Filename", "Language", and "Path".
             % NOTE changing the path using this routine is not implemented
             %
-            % customFiles.setcustomFile(1, "Name", "New Name",...
-            %                           "Language", "Octave")
+            % customFiles.setcustomFile(1, 'Name', 'New Name',...
+            %                           'Language', 'Octave')
             customNames = obj.getCustomNames;
             
             % Always need three or more inputs to set data value
@@ -137,7 +137,7 @@ classdef customFileClass < handle
                 if (row > obj.fileCount) || (row < 1)
                     throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.fileCount)));
                 end
-            elseif ischar(row)
+            elseif isText(row)
                 if ~strcmpi(row, customNames)
                     throw(nameNotRecognised(sprintf('Custom file object name %s not recognised', row)));
                 else
@@ -151,10 +151,10 @@ classdef customFileClass < handle
             % Make an 'inputParser' object...
             p = inputParser;
 
-            addParameter(p,'name','', @(x) isstring(x) || ischar(x))
-            addParameter(p,'filename','', @(x) isstring(x) || ischar(x))
-            addParameter(p,'language','', @(x) isstring(x) || ischar(x) || isenum(x))
-            addParameter(p,'path','', @(x) isstring(x) || ischar(x)) 
+            addParameter(p,'name','', @(x) isText(x))
+            addParameter(p,'filename','', @(x) isText(x))
+            addParameter(p,'language','', @(x) isText(x) || isenum(x))
+            addParameter(p,'path','', @(x) isText(x)) 
             parse(p, varargin{:});
                 
             results = p.Results;
@@ -227,30 +227,28 @@ classdef customFileClass < handle
                     
                     thisCustomFile = thisRow{1,2}{:};
                     if isempty(thisCustomFile)
-                        fileNameString = "No File";
+                        fileNameString = 'No File';
                     else
-                        fileNameString = string(thisCustomFile);
+                        fileNameString = char(thisCustomFile);
                     end
                     
                     thisFileLanguage = thisRow{1,3}{:};
                     if isempty(thisFileLanguage)
-                        fileLanguageString = "-";
+                        fileLanguageString = '-';
                     else
                         fileLanguageString = thisFileLanguage;
                     end
                     
                     thisFilePath = thisRow{1,4}{:};
                     if isempty(thisFilePath)
-                        filePathString = "pwd";
+                        thisFilePath = 'pwd';
                     else
                         thisFilePath = char(thisFilePath);
                         if length(thisFilePath) > 10
                             thisFilePath = ['...' thisFilePath(end-10:end)];
                         end
-                        filePathString = string(thisFilePath);
                     end
-                    
-                    newDisplayRow = {nameString, fileNameString, fileLanguageString, filePathString};
+                    newDisplayRow = {nameString, fileNameString, fileLanguageString, thisFilePath};
                     displayTable(i,:) = newDisplayRow;
                     
                 end

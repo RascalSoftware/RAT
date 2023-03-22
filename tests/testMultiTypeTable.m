@@ -83,17 +83,17 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
 %% Test Multi-Type Table Class Routines
 
-    methods (Test, ParameterCombination="sequential")
+    methods (Test, ParameterCombination='sequential')
 
         function testInitialiseMultiTypeTable(testCase)
             % Tests Multi-Type Table object can be created
             testTable = multiTypeTable();
 
-            testCase.verifySize(testTable.typesTable, [0 7], "multiTypeTable does not initialise correctly");
+            testCase.verifySize(testTable.typesTable, [0 7], 'multiTypeTable does not initialise correctly');
 
-            testCase.verifyEqual(testTable.typesTable, testCase.initialTypesTable, "multiTypeTable does not initialise correctly");
-            testCase.verifyEqual(testTable.allowedActions, testCase.initialAllowedActions, "multiTypeTable does not initialise correctly");
-            testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString, "multiTypeTable does not initialise correctly");
+            testCase.verifyEqual(testTable.typesTable, testCase.initialTypesTable, 'multiTypeTable does not initialise correctly');
+            testCase.verifyEqual(testTable.allowedActions, testCase.initialAllowedActions, 'multiTypeTable does not initialise correctly');
+            testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString, 'multiTypeTable does not initialise correctly');
         end
 
         function testAddRow(testCase, rowInput, addedRow)
@@ -105,7 +105,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             testCase.exampleTable.addRow(rowInput);
 
-            testCase.verifyEqual(testCase.exampleTable.typesTable, expectedTable, "addRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesTable, expectedTable, 'addRow does not work correctly');
         end
 
         function testAddRowInvalidType(testCase)
@@ -123,27 +123,27 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Row and column indices
             testCase.exampleTable.setValue(1, 7, 'Added');
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Added"];
-            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, "setValue does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Row name and column index
             testCase.exampleTable.setValue('Background SMW', 7, 'Added');
             expectedRow = ["Background SMW" "constant" "Backs par SMW" "" "" "" "Added"];
-            testCase.verifyEqual(testCase.exampleTable.typesTable{2, :}, expectedRow, "setValue does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Row index and column name
             testCase.exampleTable.setValue(3, 'Value 1', 'Changed');
             expectedRow = ["Background H2O" "constant" "Changed" "" "" "" ""];
-            testCase.verifyEqual(testCase.exampleTable.typesTable{3, :}, expectedRow, "setValue does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesTable{3, :}, expectedRow, 'setValue does not work correctly');
 
             % Row and column names
             testCase.exampleTable.setValue('Background D2O', 'Value 5', 'Changed');
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Changed"];
-            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, "setValue does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Use name to change name
             testCase.exampleTable.setValue('Background D2O', 'Name', 'New Name');
             expectedRow = ["New Name" "constant" "Backs par 1" "" "" "" "Changed"];
-            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, "setValue does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesTable{1, :}, expectedRow, 'setValue does not work correctly');
         end
 
         function testSetValueInvalid(testCase)
@@ -180,7 +180,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             expectedTable = [testCase.exampleTable.typesTable; newRow];
 
             testCase.exampleTable.appendNewRow(newRow);
-            testCase.verifyEqual(testCase.exampleTable.typesTable, expectedTable, "appendNewRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesTable, expectedTable, 'appendNewRow does not work correctly');
         end
 
         function testAppendNewRowDuplicateName(testCase)
@@ -189,7 +189,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             newRow = {'Background D2O',allowedTypes.Constant.value,'','','','',''};
 
             testCase.verifyError(@() testCase.exampleTable.appendNewRow(newRow), duplicateName.errorID);
-            testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite duplicate names");
+            testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite duplicate names');
         end
 
         function testRemoveRow(testCase)
@@ -197,7 +197,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             remainingRows = testCase.exampleTable.typesTable(2:end,:);
             testCase.exampleTable.removeRow(1);
 
-            testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, "removeRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, 'removeRow does not work correctly');
         end
 
         function testRemoveRowMultiple(testCase)
@@ -206,7 +206,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             remainingRows = testCase.exampleTable.typesTable(2,:);
             testCase.exampleTable.removeRow([1 3]);
 
-            testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, "removeRow does not work correctly");
+            testCase.verifyEqual(testCase.exampleTable.typesTable, remainingRows, 'removeRow does not work correctly');
         end
 
         function testRemoveRowInvalid(testCase)
@@ -217,7 +217,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.removeRow(1.5), 'MATLAB:badsubscript');
             testCase.verifyError(@() testCase.exampleTable.removeRow(testCase.numRows+1), 'MATLAB:table:RowIndexOutOfRange');
 
-            testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols], "Table parameters have changed despite no rows being removed");
+            testCase.verifySize(testCase.exampleTable.typesTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');
         end
 
         function testDisplayTypesTable(testCase)
@@ -257,7 +257,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
                 % Get data from this row, join into a single string, and
                 % then prepend the row index
                 rowString = string(i) + " " + strip(strjoin(testCase.exampleTable.typesTable{i,:}));
-                testCase.verifyEqual(outRow, rowString, "Row does not contain the correct data");
+                testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
 
             end
 
@@ -269,16 +269,16 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             tableRows = testCase.exampleTable.typesTable{:,1};
             tableCols = testCase.exampleTable.typesTable.Properties.VariableNames;
 
-            testCase.verifyEqual(multiTypeTable.findRowIndex("Background SMW", tableRows), 2);
-            testCase.verifyEqual(multiTypeTable.findRowIndex("Value 3", tableCols), 5);
+            testCase.verifyEqual(multiTypeTable.findRowIndex('Background SMW', tableRows), 2);
+            testCase.verifyEqual(multiTypeTable.findRowIndex('Value 3', tableCols), 5);
 
             % Check whitespace still matches
-            testCase.verifyEqual(multiTypeTable.findRowIndex(" Background D2O", tableRows), 1);
-            testCase.verifyEqual(multiTypeTable.findRowIndex(" Type ", tableCols), 2);
+            testCase.verifyEqual(multiTypeTable.findRowIndex(' Background D2O', tableRows), 1);
+            testCase.verifyEqual(multiTypeTable.findRowIndex(' Type ', tableCols), 2);
 
-            testCase.verifyError(@() multiTypeTable.findRowIndex("Invalid Row", tableRows), nameNotRecognised.errorID);
-            testCase.verifyError(@() multiTypeTable.findRowIndex("Value 3", tableRows), nameNotRecognised.errorID);
-            testCase.verifyError(@() multiTypeTable.findRowIndex("Value 6", tableCols), nameNotRecognised.errorID);
+            testCase.verifyError(@() multiTypeTable.findRowIndex('Invalid Row', tableRows), nameNotRecognised.errorID);
+            testCase.verifyError(@() multiTypeTable.findRowIndex('Value 3', tableRows), nameNotRecognised.errorID);
+            testCase.verifyError(@() multiTypeTable.findRowIndex('Value 6', tableCols), nameNotRecognised.errorID);
         end
 
     end

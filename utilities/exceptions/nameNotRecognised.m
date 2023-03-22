@@ -5,7 +5,7 @@ classdef nameNotRecognised < MException
     methods
         function obj = nameNotRecognised(message)
             arguments
-                message {mustBeTextScalar} = "The given name is not recognised"
+                message {mustBeTextScalar} = 'The given name is not recognised'
             end
             obj = obj@MException(nameNotRecognised.errorID, message);
         end

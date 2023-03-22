@@ -77,7 +77,7 @@ classdef contrastsClass < handle
 
             % If the input is a string, find the index of the relevant
             % contrast...
-            if ischar(row)
+            if isText(row)
                 contrastNames = getAllContrastNames(obj);
                 row = find(strcmp(contrastNames,row));
                 
@@ -114,7 +114,7 @@ classdef contrastsClass < handle
                     throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', row, obj.numberOfContrasts)));
                 end
                 contrastIndex = row; 
-            elseif ischar(row)
+            elseif isText(row)
                 [present,idx] = ismember(row, obj.getAllContrastNames());
                 if ~present
                     throw(nameNotRecognised(sprintf('Contrast %s is not recognised', row)));
@@ -163,7 +163,7 @@ classdef contrastsClass < handle
                 end
                 contrastIndex = row;
                 
-            elseif ischar(row)
+            elseif isText(row)
                 [present,idx] = ismember(row, obj.getAllContrastNames());
                 if ~present
                     throw(nameNotRecognised(sprintf('Contrast %s is not recognised',row)));
@@ -254,7 +254,7 @@ classdef contrastsClass < handle
             % The expected input is the allowed names for each parameter,
             % the model type and the data table from the data class.
             %
-            % contrasts.toStruct(allowedNames, "standard layers", dataTable)
+            % contrasts.toStruct(allowedNames, 'standard layers', dataTable)
             nContrasts = obj.numberOfContrasts;
             contrastBacks = cell(1,nContrasts);
             contrastLayers = cell(1,nContrasts);
@@ -450,7 +450,7 @@ classdef contrastsClass < handle
             expectedScalefac = cellstr(allowedNames.scalefacNames);
         
             p = inputParser;
-            addParameter(p,'name',          defaultName,        @ischar);
+            addParameter(p,'name',          defaultName,        @isText);
             addParameter(p,'background',    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
             addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
             addParameter(p,'nba',           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));

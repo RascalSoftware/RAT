@@ -32,12 +32,12 @@ end
 
 function mustBeCustomEnum(value)
     % Check for name of class with enumeration
-    if ~(ischar(value) || isstring(value))
+    if ~isText(value)
         throwAsCaller(invalidType('Enum class argument must be passed as string or char array.'));
     end
     
     metaClass = meta.class.fromName(value);
-    if isempty(metaClass) || metaClass.Enumeration ~= 1 || metaClass.SuperclassList.Name ~= "customEnum" 
-        throwAsCaller(invalidValue(sprintf('The enum class ("%s") must inherit customEnum and have an enumeration block.', value)));
+    if isempty(metaClass) || metaClass.Enumeration ~= 1 || metaClass.SuperclassList.Name ~= "customEnum"
+        throwAsCaller(invalidValue(sprintf('The enum class (''%s'') must inherit customEnum and have an enumeration block.', value)));
     end
 end

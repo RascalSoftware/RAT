@@ -208,7 +208,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % problem.removeParam(2);
             if isa(row, 'double')
                 row = num2cell(sort(row, 'descend'));
-            elseif ischar(row) || isstring(row)
+            elseif isText(row)
                 row = cellstr(row);
             elseif iscell(row)
             else
@@ -239,8 +239,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 for m = 1:dims(1)
                     for n = 1:dims(2)
                         tablePar = laysTable{m,n};   % Should be a string
-                        if isequal(findParam,tablePar)
-                            obj.layers.layersTable(m,n) = {""};
+                        if isequal(findParam, tablePar)
+                            obj.layers.layersTable(m,n) = {''};
                         end
                     end
                 end
@@ -777,7 +777,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % parse the layers details
             layersValues = layersCell(:,2:end);
-            paramNames = string(paramStruct.paramNames);
             
             switch generalStruct.modelType
                 case modelTypes.StandardLayers.value

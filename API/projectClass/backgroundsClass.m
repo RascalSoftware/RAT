@@ -137,7 +137,7 @@ classdef backgroundsClass < handle
             % index or name of background and keyword/value pairs to set. 
             %
             % background.setBackground(1, 'name', 'back 1', 'type', 'constant', 'value1', 'param_name');
-            if ischar(row)
+            if isText(row)
                 row = obj.backgrounds.findRowIndex(row, obj.getBackgroundNames());
             elseif isnumeric(row)
                 count = obj.backgrounds.typesCount;
@@ -149,12 +149,12 @@ classdef backgroundsClass < handle
             end
             
             p = inputParser;
-            addParameter(p, 'name', obj.backgrounds.typesTable{row, 1}, @(x) isstring(x) || ischar(x));
-            addParameter(p, 'type', obj.backgrounds.typesTable{row, 2}, @(x) isstring(x) || ischar(x) || isenum(x));
-            addParameter(p, 'value1', obj.backgrounds.typesTable{row, 3}, @(x) isstring(x) || ischar(x));
-            addParameter(p, 'value2', obj.backgrounds.typesTable{row, 4}, @(x) isstring(x) || ischar(x));
-            addParameter(p, 'value3', obj.backgrounds.typesTable{row, 5}, @(x) isstring(x) || ischar(x));
-            addParameter(p, 'value4', obj.backgrounds.typesTable{row, 6}, @(x) isstring(x) || ischar(x));
+            addParameter(p, 'name', obj.backgrounds.typesTable{row, 1}, @(x) isText(x));
+            addParameter(p, 'type', obj.backgrounds.typesTable{row, 2}, @(x) isText(x) || isenum(x));
+            addParameter(p, 'value1', obj.backgrounds.typesTable{row, 3}, @(x) isText(x));
+            addParameter(p, 'value2', obj.backgrounds.typesTable{row, 4}, @(x) isText(x));
+            addParameter(p, 'value3', obj.backgrounds.typesTable{row, 5}, @(x) isText(x));
+            addParameter(p, 'value4', obj.backgrounds.typesTable{row, 6}, @(x) isText(x));
 
             parse(p, varargin{:});
             inputBlock = p.Results;
@@ -181,8 +181,8 @@ classdef backgroundsClass < handle
             % an index and the new name. 
             %
             % background.setBackgroundName(1, 'new_name');
-            if ~ischar(name)
-                throw(invalidType(sprintf('%s must be a character array', name)));
+            if ~isText(name)
+                throw(invalidType(sprintf('%s must be a character array or string', name)));
             end
             obj.backgrounds.setValue(row, 'name', name);
         end
@@ -235,8 +235,8 @@ classdef backgroundsClass < handle
                 else
                     thisPar = parList(param);
                 end
-            elseif ischar(param)
-                if ~strcmpi(param,parList)
+            elseif isText(param)
+                if ~strcmpi(param, parList)
                     throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', param)));
                 else
                     thisPar = param;

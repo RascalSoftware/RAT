@@ -76,19 +76,19 @@ switch lower(oldType)
             thisName = thisLayer{5};
             
             thisThickNum = thisLayer{1};
-            if ischar(thisThickNum)
+            if isText(thisThickNum)
                 thisThickNum = str2double(thisThickNum);
             end
             thisThick = problem.paramnames{thisThickNum};
             
             thisSldNum = thisLayer{2};%str2double(thisLayer{2});
-            if ischar(thisSldNum)
+            if isText(thisSldNum)
                 thisSldNum = str2double(thisSldNum);
             end
             thisSld = problem.paramnames{thisSldNum};
             
             thisRoughNum = thisLayer{3};%str2double(thisLayer{3});
-            if ischar(thisRoughNum)
+            if isText(thisRoughNum)
                 thisRoughNum = str2double(thisRoughNum);
             end
             thisRough = problem.paramnames{thisRoughNum};
@@ -98,7 +98,7 @@ switch lower(oldType)
                 thisHydr = '';
             else
                 thisHydrNum = thisHydrPar;%str2double(thisLayer{4});
-                if ischar(thisHydrNum)
+                if isText(thisHydrNum)
                     thisHydrNum = str2double(thisHydrNum);
                 end
                 thisHydr = problem.paramnames{thisHydrNum};

@@ -102,10 +102,10 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'backsNames', ["Background D2O" "Background SMW" "Background H2O"], ...
                 'bulkInNames', 'Silicon', ...
                 'bulkOutNames', ["SLD D2O" "SLD SMW" "SLD H2O"], ...
-                'resolsNames', ["Resolution 1", "Test Resolution"], ...
+                'resolsNames', ["Resolution 1" "Test Resolution"], ...
                 'layersNames',  testCase.layerNames, ...
                 'dataNames',  ["Simulation" "Bilayer / D2O" "Bilayer / SMW" "Bilayer / H2O"], ...
-                'scalefacNames', ["Scalefactor 1", "Test Scalefactor"], ...
+                'scalefacNames', ["Scalefactor 1" "Test Scalefactor"], ...
                 'customNames',  testCase.customNames ...
                 );
         end
@@ -117,10 +117,10 @@ classdef testContrastsClass < matlab.unittest.TestCase
             varNames = {'Name','Data','Data Range','Simulation Range'};
             testCase.dataTable = table('Size',[4 4],'VariableTypes',varTypes,'VariableNames',varNames); 
 
-            testCase.dataTable(1,:) = {"Simulation", [], [], {[0.0050 0.7000]}};
-            testCase.dataTable(2,:) = {"Bilayer / D2O", testCase.D2OData(:,1:3), {[0.0130 0.3500]}, {[0.0057 0.3961]}};
-            testCase.dataTable(3,:) = {"Bilayer / SMW", testCase.SMWData(:,1:3), {[0.0130 0.3500]}, {[0.0076 0.3300]}};
-            testCase.dataTable(4,:) = {"Bilayer / H2O", testCase.H2OData(:,1:3), {[0.0130 0.3500]}, {[0.0063 0.3305]}};
+            testCase.dataTable(1,:) = {'Simulation', [], [], {[0.0050 0.7000]}};
+            testCase.dataTable(2,:) = {'Bilayer / D2O', testCase.D2OData(:,1:3), {[0.0130 0.3500]}, {[0.0057 0.3961]}};
+            testCase.dataTable(3,:) = {'Bilayer / SMW', testCase.SMWData(:,1:3), {[0.0130 0.3500]}, {[0.0076 0.3300]}};
+            testCase.dataTable(4,:) = {'Bilayer / H2O', testCase.H2OData(:,1:3), {[0.0130 0.3500]}, {[0.0063 0.3305]}};
         end
 
         function initialiseDefaultContrastParams(testCase)
@@ -231,11 +231,11 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
 %% Test Contrasts Class Routines
 
-    methods (Test, ParameterCombination="sequential")
+    methods (Test, ParameterCombination='sequential')
 
         function testInitialiseContrastsClass(testCase)
             testClass = contrastsClass();
-            testCase.verifyEqual(testClass.contrasts, {}, "contrastsClass does not initialise correctly");
+            testCase.verifyEqual(testClass.contrasts, {}, 'contrastsClass does not initialise correctly');
         end
 
         function testAddContrast(testCase, contrastInput, changedFields)
@@ -253,7 +253,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             expectedContrasts = [testCase.exampleClass.contrasts, addedContrast];
 
             testCase.exampleClass.addContrast(testCase.allowedNames, contrastInput{:});
-            testCase.verifyEqual(testCase.exampleClass.contrasts, expectedContrasts, "addContrast does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.contrasts, expectedContrasts, 'addContrast does not work correctly');
         end
 
 
@@ -264,7 +264,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             remainingContrasts = testCase.exampleClass.contrasts(2:end);
             testCase.exampleClass.removeContrast(removeInput);
 
-            testCase.verifyEqual(testCase.exampleClass.contrasts, remainingContrasts, "removeContrast does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.contrasts, remainingContrasts, 'removeContrast does not work correctly');
         end
 
         function testRemoveContrastInvalid(testCase)
@@ -284,7 +284,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testModel = {'Oxide Layer', 'Water Layer'};
 
             testCase.exampleClass.setContrastModel(contrastIndex, modelTypes.StandardLayers, testCase.layerNames, testModel);
-            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, "setContrastModel does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, 'setContrastModel does not work correctly');
         end
 
         function testSetContrastModelCustomLayers(testCase)
@@ -294,7 +294,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testModel = {'DPPC Model'};
 
             testCase.exampleClass.setContrastModel(contrastIndex, modelTypes.CustomXY, testCase.customNames, testModel);
-            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, "setContrastModel does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}.model, testModel, 'setContrastModel does not work correctly');
         end
 
         function testSetContrastModelInvalid(testCase)
@@ -335,7 +335,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 );
 
             testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, testCase.newValues{:});
-            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, expectedContrast, "setContrast does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, expectedContrast, 'setContrast does not work correctly');
         end
 
         function testSetContrastInvalid(testCase)
@@ -347,7 +347,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
         end
 
         function testGetAllContrastNames(testCase)
-            testCase.verifyEqual(testCase.exampleClass.getAllContrastNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Bilayer / H2O'}, "getAllContrastNames does not work correctly");
+            testCase.verifyEqual(testCase.exampleClass.getAllContrastNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Bilayer / H2O'}, 'getAllContrastNames does not work correctly');
         end
 
         function testUpdateDataName(testCase)
@@ -362,7 +362,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 dataNames{i} = testCase.exampleClass.contrasts{i}.data;
             end
 
-            testCase.verifyEqual(dataNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Test Data Name'}, "updateDataNames does not work correctly");
+            testCase.verifyEqual(dataNames, {'Bilayer / D2O', 'Bilayer / SMW', 'Test Data Name'}, 'updateDataNames does not work correctly');
         end
 
         function testUpdateDataNameNotFound(testCase)
@@ -385,7 +385,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 dataNames{i} = testCase.exampleClass.contrasts{i}.data;
             end
 
-            testCase.verifyEqual(dataNames, oldDataNames, "updateDataNames does not work correctly");
+            testCase.verifyEqual(dataNames, oldDataNames, 'updateDataNames does not work correctly');
         end
 
         function testToStructStandardLayers(testCase)
@@ -419,7 +419,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
             % Modify exampleClass and exampleStruct to remove a data entry
             % and insert the expected dummy values in the struct
-            testCase.exampleClass.contrasts{contrastIndex}.data = "Disallowed data name";
+            testCase.exampleClass.contrasts{contrastIndex}.data = 'Disallowed data name';
 
             testCase.exampleStruct.dataPresent(contrastIndex) = 0;
             testCase.exampleStruct.dataLimits{contrastIndex} = [0 0];
@@ -529,7 +529,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 % characters
                 outRow = strip(replace(regexprep(displayedTable(i), '\s+', ' '), '"', ''));
 
-                testCase.verifyEqual(outRow, rowString(i-3), "Row does not contain the correct data");
+                testCase.verifyEqual(outRow, rowString(i-3), 'Row does not contain the correct data');
 
             end
         end
@@ -578,7 +578,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 % characters
                 outRow = strip(replace(regexprep(displayedTable(i), '\s+', ' '), '"', ''));
 
-                testCase.verifyEqual(outRow, rowString(i-3), "Row does not contain the correct data");
+                testCase.verifyEqual(outRow, rowString(i-3), 'Row does not contain the correct data');
 
             end
         end
@@ -596,7 +596,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 );
 
             contrastStruct = contrastsClass.parseContrastInput(testCase.allowedNames, testCase.newValues);
-            testCase.verifyEqual(contrastStruct, expectedContrast, "parseContrastInput does not work correctly");
+            testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
         end
 
         function testParseContrastInputEmpty(testCase)

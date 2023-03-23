@@ -16,6 +16,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     properties
         experimentName
         geometry
+        calculationType = calculationTypes.NonPolarised.value
         parameters          % parametersClass object
         layers              % layersClassRealSLD object
         bulkIn              % parametersClass object
@@ -733,7 +734,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Set which type of experiment this is
             generalStruct.experimentName = obj.experimentName;
-            generalStruct.TF = 'standardTF';
+            generalStruct.TF = obj.calculationType;
             
             % Add the 'general' fields
             generalStruct.modelType = lower(obj.modelType);  

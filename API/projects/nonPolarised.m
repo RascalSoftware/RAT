@@ -16,6 +16,7 @@ classdef nonPolarised < projectClass
             obj@projectClass(experimentName);
 
             % Set values for non polarised neutrons
+            obj.calculationType = calculationTypes.NonPolarised.value;
 
         end
         

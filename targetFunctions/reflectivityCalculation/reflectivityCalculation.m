@@ -79,15 +79,15 @@ coder.varsize('allLayers{:}',[10000 3],[1 0]);
 %Decide which target function we are calling ans call the relevant routines
 whichTF = problemDef.TF;
 switch whichTF
-    case 'standardTF'
+    case calculationTypes.NonPolarised.value
         [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-    %case 'standardTFAbs'
+    %case calculationTypes.NonPolarisedAbs.value
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-    %case 'oilWaterTF'
+    %case calculationTypes.OilWater.value
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);    
-    %case 'polarisedTF'
+    %case calculationTypes.Magnetic.value
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDef_cells,controls);
-    %case 'domainsTF'
+    %case calculationTypes.Domains.value
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 end

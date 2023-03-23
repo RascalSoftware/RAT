@@ -486,7 +486,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % projectStruct = testCase.project.toStruct();
             % testCase.verifyEqual(projectStruct.experimentName, testCase.project.experimentName, 'toStruct method not working');
             % testCase.verifyEqual(projectStruct.geometry, testCase.project.geometry, 'toStruct method not working');
-            % testCase.verifyEqual(projectStruct.TF, 'standardTF', 'toStruct method not working');
+            % testCase.verifyEqual(projectStruct.TF, 'nonPolarised', 'toStruct method not working');
             % testCase.verifyEqual(projectStruct.paramNames, {'Substrate Roughness'}, 'toStruct method not working');
             % testCase.verifyEqual(projectStruct.backgroundNames, testCase.project.background.backgrounds.typesTable{:, 1}, 'toStruct method not working');
             % testCase.verifyEqual(projectStruct.backgroundTypes, testCase.project.background.backgrounds.typesTable{:, 2}, 'toStruct method not working');
@@ -514,7 +514,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             projectStruct = testCase.project.toStruct();
             testCase.verifyEqual(projectStruct.experimentName, testCase.project.experimentName, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.geometry, testCase.project.geometry, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.TF, 'standardTF', 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.TF, 'nonPolarised', 'toStruct method not working');
             testCase.verifyEqual(projectStruct.paramNames, reshape(convertStringsToChars(testCase.project.parameters.paramsTable{:, 1}), 1, []), 'toStruct method not working');
             testCase.verifyEqual(projectStruct.backgroundNames, testCase.project.background.backgrounds.typesTable{:, 1}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.backgroundTypes, testCase.project.background.backgrounds.typesTable{:, 2}, 'toStruct method not working');

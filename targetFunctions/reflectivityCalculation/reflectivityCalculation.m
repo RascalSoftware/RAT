@@ -7,7 +7,7 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,
 % is required, and call the relevant routines. The types of available 
 % target functions are:*
 %
-% * standardTF     - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
+% * nonPolarised   - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
 %
 % * standardTFAbs  - Identical to standardTF, but includes imaginary refractive index terms.
 %
@@ -79,7 +79,7 @@ coder.varsize('allLayers{:}',[10000 3],[1 0]);
 %Decide which target function we are calling ans call the relevant routines
 whichTF = problemDef.TF;
 switch whichTF
-    case calculationTypes.NonPolarised.value
+    case 'nonPolarised'
         [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
     %case calculationTypes.NonPolarisedAbs.value
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);

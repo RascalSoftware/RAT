@@ -4,9 +4,10 @@ paths = {
 
     fullfile(root,'API');
     fullfile(root,'API','controlsClass');
-    
+    fullfile(root,'API','enums');
     fullfile(root,'API','outputFunction');
     fullfile(root,'API','projectClass');
+    fullfile(root,'API','projects');
 
     fullfile(root,'compile','DE');
     fullfile(root,'compile','reflectivityCalculation');
@@ -53,6 +54,12 @@ paths = {
     fullfile(root,'utilities','exceptions');
     fullfile(root,'utilities','misc');
     fullfile(root,'utilities','plotting');
+    
+    fullfile(root,'examples', 'standardLayers');
+    fullfile(root,'examples', 'customLayers');
+    fullfile(root,'examples', 'customXY');
+    fullfile(root,'examples', 'manual', 'DSPCCustomLayers');
+    fullfile(root,'examples', 'manual', 'DSPCStandardLayers');
 
     fullfile(root,'3rdParty','paramonte');
     

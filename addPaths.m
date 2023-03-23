@@ -21,6 +21,7 @@ paths = {
     fullfile(root,'API','enums');
     fullfile(root,'API','outputFunction');
     fullfile(root,'API','projectClass');
+    fullfile(root,'API','projects');
 
     fullfile(root,'compile','DE');
     fullfile(root,'compile','reflectivityCalculation');

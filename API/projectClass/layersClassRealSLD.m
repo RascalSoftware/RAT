@@ -4,6 +4,8 @@ classdef layersClassRealSLD < handle
 
     properties
         layersTable = table
+        numValues
+        varNames
     end
     
     properties (Access = private)
@@ -24,13 +26,14 @@ classdef layersClassRealSLD < handle
         function obj = layersClassRealSLD()
             % Construct a layers class including an empty layers table
             %
-            % layers = layersClassRealSLD();          
-            sz = [0 6];
-            varTypes = {'string','string','string','string','string','string'};
-            varNames = {'Name','Thickness','SLD','Roughness','Hydration','Hydrate with'};
-            obj.layersTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
+            % layers = layersClassRealSLD();
+            obj.varNames = {'Name','Thickness','SLD','Roughness','Hydration','Hydrate with'};
+            obj.numValues = length(obj.varNames);
+
+            sz = [0 obj.numValues];
+            varTypes = repmat({'string'}, 1, obj.numValues);
+            obj.layersTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
             obj.layersAutoNameCounter = 1;
-            
         end
 
         function count = get.layersCount(obj)
@@ -57,19 +60,19 @@ classdef layersClassRealSLD < handle
                 % Add an empty layer
                 layerNum = obj.layersAutoNameCounter;
                 layerName = sprintf('Layer %d',layerNum);
-                newRow = {layerName,'','','','',hydrationTypes.BulkOut.value};
+                newRow = [{layerName}, repmat({''}, 1, obj.numValues - 2), {hydrationTypes.BulkOut.value}];
                 
             elseif length(layerDetails) == 1 && isText(layerDetails{1})
                 % Add an empty named layer
-                newRow = {layerDetails{1},'','','','',hydrationTypes.BulkOut.value};
+                newRow = [layerDetails(1), repmat({''}, 1, obj.numValues - 2), {hydrationTypes.BulkOut.value}];
             
             else
                 % Add a layer that is fully defined
-                if length(layerDetails) == 4
+                if length(layerDetails) == (obj.numValues - 2)
                     % No hydration
-                    layerDetails = {layerDetails{1},layerDetails{2},layerDetails{3},layerDetails{4},NaN,hydrationTypes.BulkIn.value};
-                elseif length(layerDetails) ~= 6
-                    throw(invalidNumberOfInputs('Incorrect number of parameters for layer definition. Either 0, 1, 4, or 6 inputs are required.'));
+                    layerDetails = [layerDetails(:)',{NaN, hydrationTypes.BulkIn.value}];
+                elseif length(layerDetails) ~= obj.numValues
+                    throw(invalidNumberOfInputs(sprintf('Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.', obj.numValues - 2, obj.numValues)));
                 end
                 
                 name = layerDetails{1};
@@ -80,15 +83,15 @@ classdef layersClassRealSLD < handle
                 newRow = {name};
                 
                 % Must be a parameter name or number . . .
-                for i = 2:4                       
+                for i = 2:(obj.numValues - 2)
                     newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
                 end
 
                 %  . . . (unless p=5 which can also be Nan)
-                if isnan(layerDetails{5})
-                    newRow{5} = NaN;
+                if isnan(layerDetails{obj.numValues - 1})
+                    newRow{obj.numValues - 1} = NaN;
                 else
-                    newRow{5} = obj.findParameter(layerDetails{5}, paramNames);
+                    newRow{obj.numValues - 1} = obj.findParameter(layerDetails{obj.numValues - 1}, paramNames);
                 end
                 
                 newRow = [newRow hydration];
@@ -114,7 +117,7 @@ classdef layersClassRealSLD < handle
             
             % Find the row index if we have a layer name
             if isText(row)
-                row = obj.findRowIndex(row,layerNames);
+                row = obj.findRowIndex(row, layerNames);
             elseif isnumeric(row)
                 if (row < 1) || (row > obj.layersCount)
                     throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.layersCount)));
@@ -125,7 +128,7 @@ classdef layersClassRealSLD < handle
             
             % Find the column index if we have a column name
             if isText(col)
-                col = obj.findRowIndex(col,colNames);
+                col = obj.findRowIndex(col, colNames);
             elseif isnumeric(col)
                 if (col < 1) || (col > length(colNames))
                     throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
@@ -134,11 +137,11 @@ classdef layersClassRealSLD < handle
                 throw(invalidType('Layer table column type not recognised'));
             end
 
-            if ~isnumeric(col) || col < 2  || col > 6
-                throw(indexOutOfRange('Column index should be a number between 2 and 6'));
+            if ~isnumeric(col) || col < 2  || col > length(colNames)
+                throw(indexOutOfRange(sprintf('Column index should be a number between 2 and %d', length(colNames))));
             end
 
-            if col == 6
+            if col == length(colNames)
                 val = validateOption(inputValue, 'hydrationTypes', obj.invalidTypeMessage).value;
             else
                 val = obj.findParameter(inputValue, paramNames);
@@ -184,11 +187,9 @@ classdef layersClassRealSLD < handle
             len = size(array,1);
             if len == 0
                 % Make an empty table for display
-                sz = [1 6];
-                varTypes = {'double','double','double','double','double','double'};
-                varNames = {'Name','Thickness','SLD','Roughness','Hydration','Hydrate with'};
-                dummyTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-                %dummyTable(:,1) = {[],[],[],[],[],[]};
+                sz = [1 obj.numValues];
+                varTypes = repmat({'double'}, 1, obj.numValues);
+                dummyTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
                 disp(dummyTable);
                 fprintf('\n');
             end

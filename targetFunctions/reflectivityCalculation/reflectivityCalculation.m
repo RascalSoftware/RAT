@@ -9,13 +9,13 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,
 %
 % * nonPolarised   - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
 %
-% * standardTFAbs  - Identical to standardTF, but includes imaginary refractive index terms.
+% * absorption     - Identical to standardTF, but includes imaginary refractive index terms.
 %
-% * oilWaterTF     - Target function for oil-water samples
+% * oilWater       - Target function for oil-water samples
 %
-% * domainsTF      - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
+% * domains        - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
 %
-% * polarisedTF    - Target function for cases for polarised neutrons with polarisation analysis.
+% * magnetic       - Target function for cases for polarised neutrons with polarisation analysis.
 %                       
     
 % for compilation, we have to preallocate memory for the output arrays

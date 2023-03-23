@@ -11,7 +11,7 @@ classdef nonPolarised < projectClass
             arguments
                 experimentName {mustBeTextScalar} = ''
             end
-        
+
             % Call projectClass constructor
             obj@projectClass(experimentName);
 

@@ -13,7 +13,7 @@ extern "C" {
 
     //LIB_EXPORT double outArray[18];
 
-    LIB_EXPORT void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* rough)
+    LIB_EXPORT void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* rough, double* nLayers)
 
     {
         double subRough = params[0];
@@ -59,7 +59,7 @@ extern "C" {
 
         // we use the volumes to calculate the SLD's
         double SLDhead = Head / vHead;
-        double SLDtail = Tails;
+        double SLDtail = Tails / vTail;
 
         // We calculate the layer thickness' from
         // the volumes and the APM...
@@ -73,47 +73,50 @@ extern "C" {
         double tailSLD = (bilayerHydration * bulkOut[contrast]) + ((1 - bilayerHydration) * SLDtail);
 
         // Make the layers
-        output = new double[18];
+        //output = new double[18];
 
-        const auto nLayers = 6;
-        static auto array = new double[18];
+        
+        // static auto array = new double[18];
 
         // oxide...
-        array[0] = oxideThick;
-        array[1] = oxSLD;
-        array[2] = subRough;
+        output[0] = oxideThick;
+        output[1] = oxSLD;
+        output[2] = subRough;
 
         // Water...
-        array[3] = waterThick;
-        array[4] = bulkOut[contrast];
-        array[5] = bilayerRough;
+        output[3] = waterThick;
+        output[4] = bulkOut[contrast];
+        output[5] = bilayerRough;
 
         // Heads...
-        array[6] = headThick;
-        array[7] = headSLD;
-        array[8] = bilayerRough;
+        output[6] = headThick;
+        output[7] = headSLD;
+        output[8] = bilayerRough;
 
         // Tails...
-        array[9] = tailThick;
-        array[10] = tailSLD;
-        array[11] = bilayerRough;
+        output[9] = tailThick;
+        output[10] = tailSLD;
+        output[11] = bilayerRough;
 
         // Tails...
-        array[12] = tailThick;
-        array[13] = tailSLD;
-        array[14] = bilayerRough;
+        output[12] = tailThick;
+        output[13] = tailSLD;
+        output[14] = bilayerRough;
 
         // Heads...
-        array[15] = headThick;
-        array[16] = headSLD;
-        array[17] = bilayerRough;
+        output[15] = headThick;
+        output[16] = headSLD;
+        output[17] = bilayerRough;
 
         *rough = subRough;
-        std::cout << "roughness in func : " << subRough << "\n";
-        std::cout << "Head SLD in func : " << headSLD << "\n";
-        std::cout << "Array[1] in func : " << array[1] << "\n";
+        *nLayers = 6;       // Necessary to ouptut how many layers in stack
 
-        output = array;
+
+        //std::cout << "roughness in func : " << subRough << "\n";
+        //std::cout << "Head SLD in func : " << headSLD << "\n";
+        //std::cout << "Array[1] in func : " << output[1] << "\n";
+
+        //output = array;
 
         //outRough = subRough;
         //std::cout << "Value of outRough in customBilayer : " << outRough << "\n";

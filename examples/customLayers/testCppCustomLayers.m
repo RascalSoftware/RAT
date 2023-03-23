@@ -18,7 +18,7 @@ problem.setUsePriors(true);
 % % custom model file, so it's useful to look at this to check which parameters 
 % % we are going to need:
 % 
-type customBilayer.m
+type customBilayer_libExp.cpp
 %% 
 % 
 % 
@@ -79,7 +79,7 @@ problem.setData(4,'dataRange',[0.013 0.37]);
 % Add the custom file to the project....
 
 % problem.addCustomFile({'DSPC Model','customBilayer.m','matlab','pwd'});
-problem.addCustomFile('DSPC Model','customBilayer','cpp','C:\Users\oba7931403\Documents\GitHub\RAT\targetFunctions\common\loopCppCustlayWrapper');
+problem.addCustomFile('DSPC Model','customBilayer','cpp',pwd);
 %% 
 % 
 % 
@@ -147,11 +147,6 @@ problem.setContrastModel(2,'DSPC Model');
 problem.setContrastModel(3,'DSPC Model');
 
 
-controls = controlsClass();
-controls.calcSldDuringFit = false;
-% controls.nsimu = 7000;
-% controls.repeats = 3;
-controls.parallel = 'contrasts';
 
 
 

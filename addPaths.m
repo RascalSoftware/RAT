@@ -43,7 +43,8 @@ paths = {
     fullfile(root,'targetFunctions','common','backSort');
     fullfile(root,'targetFunctions','common','callCustomFunction');
     fullfile(root,'targetFunctions','common','callCustomFunction','callMatlabFunction');
-    fullfile(root,'targetFunctions','common','callCustomFunction','callCppFunction');
+    %fullfile(root,'targetFunctions','common','callCustomFunction','callCppFunction');
+    fullfile(root,'cCustomModelsTests');
     fullfile(root,'targetFunctions','common','callReflectivity');
     fullfile(root,'targetFunctions','common','costFunctions','chiSquared');
     fullfile(root,'targetFunctions','common','groupLayers');
@@ -55,6 +56,7 @@ paths = {
     fullfile(root,'targetFunctions','common','resampleLayers');
     fullfile(root,'targetFunctions','common','resolutionFunctions','simpleGaussian');   
     fullfile(root,'targetFunctions','common','shiftData');
+    fullfile(root,'targetFunctions','common','lib');
     fullfile(root,'targetFunctions','common','customModelsClass');
     
     fullfile(root,'targetFunctions','reflectivityCalculation');
@@ -84,3 +86,11 @@ end
 
 addpath(root);
 setappdata(0,'root',root);
+
+% Set Cpp Include directory
+includeDir = fullfile(root,'targetFunctions','lib');
+setappdata(0,'includeDir',includeDir);
+
+
+
+

@@ -8,7 +8,14 @@ numberOfContrasts = int32(3);
 libraryName = 'customBilayer';
 functionName = 'customBilayer';
 
+% Initial load...
 [output,rough] = testDLL_mex(params,nba,nbs,numberOfContrasts,libraryName,functionName);
+
+profile on
+for i = 1:100
+    [output,rough] = testDLL_mex(params,nba,nbs,numberOfContrasts,libraryName,functionName);
+end
+profile off
 
 fprintf('Final outputted value of rough %g \n',rough);
 

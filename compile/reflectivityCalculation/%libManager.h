@@ -25,7 +25,7 @@ class Library
         };
 
         // coder.ref(params),coder.ref(nba),coder.ref(nbs),numberOfContrasts,coder.ref(output),coder.ref(subrough));
-        void loadRunner(double* params,double *bulk_in, double *bulk_out, int contrast, double *tempOutput,double *roughness, char* libName, char* functionName)
+        void loadRunner(double* params,double *bulk_in,double *bulk_out,int contrast,double *tempOutput,double *roughness,double *nLayers,char* libName,char* functionName)
 
             // std::cout << "loading library" << std::endl;
         {       
@@ -40,10 +40,10 @@ class Library
             library = dylib (libName,dylib::extension);
             
             // store the function pointer in a variable called func
-            auto func = library.get_function<void(double*, double*, double*, int, double*, double*)>(functionName);
+            auto func = library.get_function<void(double*, double*, double*, int, double*, double*, double*)>(functionName);
             
             // pass the arguments to the function
-            func(params, bulk_in, bulk_out, contrast, tempOutput, roughness);   
+            func(params, bulk_in, bulk_out, contrast, tempOutput, roughness, nLayers);   
 
             std::cout << "rough in libManager : " << roughness << "\n";
             std::cout << "tempArray in libManager : " << tempOutput << "\n";

@@ -123,6 +123,13 @@ ARGS = makeCompileArgs();
 % ARGS{1}{4} = coder.typeof(ARGS_1_4);
 
 
-%% Invoke MATLAB Coder.
-codegen -config cfg reflectivityCalculation -args ARGS{1}
+%% Add include path and files....
+% includeDir = getappdata(0,'includeDir');
+% cfg.CustomInclude = includeDir;
+% cfg.CustomSource = fullfile(includeDir,'libManager.hpp');
 
+%% Invoke MATLAB Coder.
+% **CAN'T GET THE COMPILER TO PICK UP THE INCLUDE PATH!!!**
+%codegen -I includePath -config cfg reflectivityCalculation -args ARGS{1} 
+
+codegen -config cfg reflectivityCalculation -args ARGS{1} 

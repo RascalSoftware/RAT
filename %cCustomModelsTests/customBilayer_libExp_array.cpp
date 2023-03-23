@@ -109,12 +109,13 @@ extern "C" {
         array[5][1] = headSLD;
         array[5][2] = bilayerRough;
 
+        output = *array;
         *rough = subRough;
         std::cout << "roughness in func : " << subRough << "\n";
 
         
 
-        output = *array;
+        //output = array;
 
         //outRough = subRough;
         //std::cout << "Value of outRough in customBilayer : " << outRough << "\n";

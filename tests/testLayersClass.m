@@ -10,7 +10,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 % We use an example layers class from example calculation
 % "DPPCStandardLayers.m"
 %
-% Paul Sharp 08/02/23
+% Paul Sharp 23/03/23
 %
 %% Declare properties and parameters
 
@@ -61,6 +61,7 @@ classdef testLayersClass < matlab.unittest.TestCase
     properties
         exampleClass            % Example layers class for testing
         initialLayersTable      % Empty table to compare to initialisation
+        initialAbsorptionTable  % Empty table for an absorption problem to compare to initialisation
         parameters              % Example parameters class used in "addLayer"
         parameterNames          % Names of parameters in the example class
         numParams               % Number of parameters in the example class
@@ -72,13 +73,19 @@ classdef testLayersClass < matlab.unittest.TestCase
 
     methods (TestClassSetup)
 
-        function initialiselayersTable(testCase)
+        function initialiselayersTables(testCase)
             % Set up an empty layers table 
             sz = [0 6];
             tableTypes = {'string','string','string','string','string','string'};
             tableNames = {'Name','Thickness','SLD','Roughness','Hydration','Hydrate with'};
 
             testCase.initialLayersTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
+
+            sz = [0 7];
+            tableTypes = {'string','string','string','string','string','string','string'};
+            tableNames = {'Name','Thickness','SLDReal', 'SLDImag','Roughness','Hydration','Hydrate with'};
+
+            testCase.initialAbsorptionTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
         end
 
         function initialiseParameters(testCase)
@@ -139,8 +146,21 @@ classdef testLayersClass < matlab.unittest.TestCase
             % layers table
             testClass = layersClass();
 
-            testCase.verifySize(testClass.layersTable, [0 6], 'layerClassRealSLD does not initialise correctly');
-            testCase.verifyEqual(testClass.layersTable, testCase.initialLayersTable, 'layerClassRealSLD does not initialise correctly');
+            testCase.verifySize(testClass.layersTable, [0 6], 'layersClass does not initialise correctly');
+            testCase.verifyEqual(testClass.layersTable, testCase.initialLayersTable, 'layersClass does not initialise correctly');
+
+            % Adding the optional argument should give the same table
+            testClass = layersClass('SLD');
+
+            testCase.verifySize(testClass.layersTable, [0 6], 'layersClass does not initialise correctly');
+            testCase.verifyEqual(testClass.layersTable, testCase.initialLayersTable, 'layersClass does not initialise correctly');
+
+            % For a cell array with more than one element, more columns
+            % should be added
+            testClass = layersClass({'SLDReal', 'SLDImag'});
+
+            testCase.verifySize(testClass.layersTable, [0 7], 'layersClass does not initialise correctly');
+            testCase.verifyEqual(testClass.layersTable, testCase.initialAbsorptionTable, 'layersClass does not initialise correctly');
         end
 
         function testAddLayer(testCase, layerInput, addedLayer)

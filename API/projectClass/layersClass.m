@@ -1,6 +1,6 @@
 classdef layersClassRealSLD < handle
     
-    % This is the class definition for the layers block with no absorption.
+    % This is the class definition for the layers block.
 
     properties
         layersTable = table
@@ -23,11 +23,17 @@ classdef layersClassRealSLD < handle
     
     methods
         
-        function obj = layersClassRealSLD()
+        function obj = layersClassRealSLD(SLDValues)
             % Construct a layers class including an empty layers table
+            % The optional input is a cell array of the required SLD
+            % parameters.
             %
             % layers = layersClassRealSLD();
-            obj.varNames = {'Name','Thickness','SLD','Roughness','Hydration','Hydrate with'};
+            arguments
+                SLDValues {mustBeText} = 'SLD'
+            end
+
+            obj.varNames = [{'Name', 'Thickness'}, SLDValues, {'Roughness','Hydration','Hydrate with'}];
             obj.numValues = length(obj.varNames);
 
             sz = [0 obj.numValues];
@@ -46,9 +52,9 @@ classdef layersClassRealSLD < handle
             % defined in the project's parameter class and a variable
             % number of layer parameters. The layer can be specified with
             % no parameters, just a layer name (char), or a fully defined
-            % layer, which consists of either four (no hydration) or six
-            % parameters. Parameters can be specified either by name or
-            % by index.
+            % layer, which consists of either all except two parameters
+            % (no hydration) or all parameters.
+            % Parameters can be specified either by name or by index.
             %
             % layers.addLayer(parameters.paramsTable{:, 1});
             % layers.addLayer(parameters.paramsTable{:, 1}, 'New layer');
@@ -70,7 +76,7 @@ classdef layersClassRealSLD < handle
                 % Add a layer that is fully defined
                 if length(layerDetails) == (obj.numValues - 2)
                     % No hydration
-                    layerDetails = [layerDetails(:)',{NaN, hydrationTypes.BulkIn.value}];
+                    layerDetails = [layerDetails, {NaN, hydrationTypes.BulkIn.value}];
                 elseif length(layerDetails) ~= obj.numValues
                     throw(invalidNumberOfInputs(sprintf('Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.', obj.numValues - 2, obj.numValues)));
                 end
@@ -207,7 +213,7 @@ classdef layersClassRealSLD < handle
         
         function appendNewRow(obj, row)
             % Appends a row to the layers table. The expected input is
-            % a length six cell array.
+            % cell array of length equal to the number of table values.
             %
             % layers.appendNewRow({'New Row','','','','','bulk out'});
             tab = obj.layersTable;

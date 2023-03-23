@@ -1,4 +1,4 @@
-classdef layersClassRealSLD < handle
+classdef layersClass < handle
     
     % This is the class definition for the layers block.
 
@@ -23,12 +23,12 @@ classdef layersClassRealSLD < handle
     
     methods
         
-        function obj = layersClassRealSLD(SLDValues)
+        function obj = layersClass(SLDValues)
             % Construct a layers class including an empty layers table
             % The optional input is a cell array of the required SLD
             % parameters.
             %
-            % layers = layersClassRealSLD();
+            % layers = layersClass();
             arguments
                 SLDValues {mustBeText} = 'SLD'
             end

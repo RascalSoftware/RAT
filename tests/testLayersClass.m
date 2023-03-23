@@ -1,10 +1,10 @@
 classdef testLayersClass < matlab.unittest.TestCase
 %%
-% testLayersClass Class based unit tests for the layersClassRealSLD
+% testLayersClass Class based unit tests for the layersClass
 % used within the Project Class in RAT.
 %
 % In this class, we test:
-% layersClassRealSLD, addLayer, setLayerValue, removeLayer,
+% layersClass, addLayer, setLayerValue, removeLayer,
 % getLayersNames, toStruct, displayLayersTable, findRowIndex, findParameter
 %
 % We use an example layers class from example calculation
@@ -118,7 +118,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Set up an example layers class for testing
             % This example is used in the example calculation
             % "DPPCStandardLayers.m"
-            testCase.exampleClass = layersClassRealSLD();
+            testCase.exampleClass = layersClass();
 
             testCase.exampleClass.layersTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
             testCase.exampleClass.layersTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer heads rough', 'Bilayer tails hydr', hydrationTypes.BulkOut.value};
@@ -137,7 +137,7 @@ classdef testLayersClass < matlab.unittest.TestCase
         function testInitialiseLayersClass(testCase)
             % On initialisation we set up a layers class with an empty
             % layers table
-            testClass = layersClassRealSLD();
+            testClass = layersClass();
 
             testCase.verifySize(testClass.layersTable, [0 6], 'layerClassRealSLD does not initialise correctly');
             testCase.verifyEqual(testClass.layersTable, testCase.initialLayersTable, 'layerClassRealSLD does not initialise correctly');
@@ -337,7 +337,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Test the routine to display the layers table of an empty
             % layers class by capturing the output and comparing with the
             % table headers and data
-            emptyClass = layersClassRealSLD();
+            emptyClass = layersClass();
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
@@ -371,28 +371,28 @@ classdef testLayersClass < matlab.unittest.TestCase
             % and an error is raised for invalid options
             tableRows = testCase.exampleClass.layersTable{:, 1};
 
-            testCase.verifyEqual(layersClassRealSLD.findRowIndex('Bil Tail', tableRows), 2);
+            testCase.verifyEqual(layersClass.findRowIndex('Bil Tail', tableRows), 2);
 
             % Check whitespace still matches
-            testCase.verifyEqual(layersClassRealSLD.findRowIndex(' Bil Inner Head', tableRows), 1);
+            testCase.verifyEqual(layersClass.findRowIndex(' Bil Inner Head', tableRows), 1);
 
-            testCase.verifyError(@() layersClassRealSLD.findRowIndex('Invalid Row', tableRows), nameNotRecognised.errorID);
-            testCase.verifyError(@() layersClassRealSLD.findRowIndex('Thickness', tableRows), nameNotRecognised.errorID);
+            testCase.verifyError(@() layersClass.findRowIndex('Invalid Row', tableRows), nameNotRecognised.errorID);
+            testCase.verifyError(@() layersClass.findRowIndex('Thickness', tableRows), nameNotRecognised.errorID);
         end
 
         function testFindParameter(testCase)
             % Test that the correct parameter is returned for a valid
             % input name or index, and an error is raised for invalid options
-            outParam = layersClassRealSLD.findParameter('Oxide Hydration', testCase.parameterNames);
+            outParam = layersClass.findParameter('Oxide Hydration', testCase.parameterNames);
             testCase.verifyEqual(outParam, 'Oxide Hydration');
 
-            outParam = layersClassRealSLD.findParameter(10, testCase.parameterNames);
+            outParam = layersClass.findParameter(10, testCase.parameterNames);
             testCase.verifyEqual(outParam, 'Bilayer tails SLD');
 
-            testCase.verifyError(@() layersClassRealSLD.findParameter('Invalid Param', testCase.parameterNames), nameNotRecognised.errorID);
-            testCase.verifyError(@() layersClassRealSLD.findParameter(0, testCase.parameterNames), indexOutOfRange.errorID);
-            testCase.verifyError(@() layersClassRealSLD.findParameter(testCase.numParams+1, testCase.parameterNames), indexOutOfRange.errorID);
-            testCase.verifyError(@() layersClassRealSLD.findParameter(datetime('today'), testCase.parameterNames), invalidType.errorID);
+            testCase.verifyError(@() layersClass.findParameter('Invalid Param', testCase.parameterNames), nameNotRecognised.errorID);
+            testCase.verifyError(@() layersClass.findParameter(0, testCase.parameterNames), indexOutOfRange.errorID);
+            testCase.verifyError(@() layersClass.findParameter(testCase.numParams+1, testCase.parameterNames), indexOutOfRange.errorID);
+            testCase.verifyError(@() layersClass.findParameter(datetime('today'), testCase.parameterNames), invalidType.errorID);
         end
 
     end

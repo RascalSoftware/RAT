@@ -1,4 +1,4 @@
-function logPrior = gaussLogPrior(m,extras)
+function prior = gaussLogPrior(m,extras)
 
 
 % problemDef = extras{1};
@@ -11,13 +11,23 @@ priorList = extras.priors;
 % We pick out any priors that are Gaussians and calculate the mvnpdf
 gaussPriors = find(strcmpi(priorList(:,1),'gaussian'));
 
+% if ~isempty(gaussPriors)    % There may be no Gaussian priors defined!
+%     mus = [priorList{gaussPriors,2}];
+%     sigs = [priorList{gaussPriors,3}];
+%     pdf = mvnorpf(m(gaussPriors),mus,sigs);
+%     %pdf = mvnpdf(m(gaussPriors),mus,sigs);
+%     logPrior = pdf;%log(pdf);
+% else
+%     logPrior = 0;
+% end
 if ~isempty(gaussPriors)    % There may be no Gaussian priors defined!
     mus = [priorList{gaussPriors,2}];
     sigs = [priorList{gaussPriors,3}];
-    pdf = mvnpdf(m(gaussPriors),mus,sigs);
-    logPrior = pdf;%log(pdf);
+    x = m(gaussPriors);
+    for i = 1:length(x)
+        p(i) = normpdf(x(i),mus(i),sigs(i));
+    end
+    prior = sum(p);
 else
-    logPrior = 0;
-end
-
+    prior = 0;
 end

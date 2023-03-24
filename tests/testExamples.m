@@ -75,9 +75,7 @@ classdef testExamples < matlab.unittest.TestCase
                 addpath(fullfile(root, 'examples', testCase.exampleFolder{1,i}));
             end
         end
-    end
 
-    methods (TestClassSetup)
         function setWorkingFolder(testCase)
             % Makes a temporary folder the current working directory so
             % file written by the example are deleted

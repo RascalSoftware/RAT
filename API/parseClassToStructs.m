@@ -384,11 +384,13 @@ controls.Nlive = inputControls.Nlive;
 controls.nmcmc = inputControls.Nmcmc;
 controls.propScale = inputControls.propScale;
 controls.nsTolerance = inputControls.nsTolerance;
-switch inputControls.calcSldDuringFit
-    case 'no'
-        controls.calcSld = 0;
-    otherwise
-        controls.calcSld = 1;
+%controls.calcSld = inputControls.calcSldDuringFit;
+
+% **** calcSld is now logical ****
+if inputControls.calcSldDuringFit
+    controls.calcSld = 1;
+else
+    controls.calcSld = 0;
 end
 
 controls.resamPars = inputControls.resamPars;% [0.95 10];

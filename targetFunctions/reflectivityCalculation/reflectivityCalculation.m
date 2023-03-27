@@ -3,9 +3,9 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
 %
-% *The main job of this function is to decide which type of calculation (i.e. 'Target function'
-% is required, and call the relevant routines. The types of available 
-% target functions are:*
+% *The main job of this function is to decide which type of calculation
+% (i.e. 'Target function' is required, and call the relevant routines.
+% The types of available target functions are:*
 %
 % * nonPolarised   - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
 %
@@ -81,7 +81,7 @@ whichTF = problemDef.TF;
 switch whichTF
     case 'nonPolarised'
         [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-    %case calculationTypes.NonPolarisedAbs.value
+    %case calculationTypes.Absorption.value
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
     %case calculationTypes.OilWater.value
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);    

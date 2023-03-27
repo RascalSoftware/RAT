@@ -76,7 +76,7 @@ classdef layersClass < handle
                 % Add a layer that is fully defined
                 if length(layerDetails) == (obj.numValues - 2)
                     % No hydration
-                    layerDetails = [layerDetails, {NaN, hydrationTypes.BulkIn.value}];
+                    layerDetails = [layerDetails, {NaN, hydrationTypes.BulkOut.value}];
                 elseif length(layerDetails) ~= obj.numValues
                     throw(invalidNumberOfInputs(sprintf('Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.', obj.numValues - 2, obj.numValues)));
                 end
@@ -93,7 +93,7 @@ classdef layersClass < handle
                     newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
                 end
 
-                %  . . . (unless p=5 which can also be Nan)
+                %  . . . (apart from the penultimate column which can also be NaN)
                 if isnan(layerDetails{obj.numValues - 1})
                     newRow{obj.numValues - 1} = NaN;
                 else

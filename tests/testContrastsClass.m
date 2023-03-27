@@ -595,7 +595,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'resample', true ...
                 );
 
-            contrastStruct = contrastsClass.parseContrastInput(testCase.allowedNames, testCase.newValues);
+            contrastStruct = contrastsClass.parseContrastInput(testCase.allowedNames, false, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
         end
 
@@ -603,7 +603,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Test parsing input data for a contrast within the contrasts
             % class.
             % If the input is empty, we should return the default values
-            testCase.verifyEqual(contrastsClass.parseContrastInput(testCase.allowedNames, {}), rmfield(testCase.defaultContrastParams, 'model'));
+            testCase.verifyEqual(contrastsClass.parseContrastInput(testCase.allowedNames, false, {}), rmfield(testCase.defaultContrastParams, 'model'));
         end
 
         function testParseContrastInputInvalidOption(testCase, invalidInput)
@@ -611,7 +611,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % class.
             % If values for each parameter are not valid options, we
             % should raise an error
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, invalidInput), 'MATLAB:unrecognizedStringChoice');
+            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, false, invalidInput), 'MATLAB:unrecognizedStringChoice');
         end
 
         function testParseContrastInputInvalidType(testCase)
@@ -619,8 +619,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % class.
             % If values for the name and resample parameters are an
             % invalid type, we should raise an error
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, false, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, false, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
         end
 
     end

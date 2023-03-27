@@ -11,6 +11,10 @@ classdef contrastsClass < handle
         contrastAutoNameCounter
     end
 
+    properties (SetAccess = immutable)
+        domainsCalc
+    end
+
     properties (Dependent, SetAccess = private)
         numberOfContrasts
     end
@@ -22,10 +26,17 @@ classdef contrastsClass < handle
             
     methods
         
-        function  obj = contrastsClass()
+        function obj = contrastsClass(domainsCalc)
             % Class Constructor
+            % The only (optional) input is a logical flag to state whether
+            % or not this is a domains calculation.
             %
             % contrasts = contrastsClass()
+            arguments
+                domainsCalc {mustBeA(domainsCalc,'logical')} = false
+            end
+
+            obj.domainsCalc = domainsCalc;
             obj.contrastAutoNameCounter = 1;
         end
 
@@ -57,7 +68,7 @@ classdef contrastsClass < handle
                 inputVals = varargin;
             end
             
-            thisContrast = obj.parseContrastInput(allowedNames,inputVals);
+            thisContrast = obj.parseContrastInput(allowedNames, obj.domainsCalc, inputVals);
             thisContrast.model = '';
             obj.contrasts{end+1} = thisContrast;
             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
@@ -177,7 +188,7 @@ classdef contrastsClass < handle
             % Check to see if the inputs are valid
             % Raise a warning if we try to set the model as this should be
             % done elsewhere
-            inputBlock = obj.parseContrastInput(allowedNames, varargin);
+            inputBlock = obj.parseContrastInput(allowedNames, obj.domainsCalc, varargin);
             
             if ~isempty(inputBlock.background)
                 thisContrast.background = inputBlock.background;
@@ -210,7 +221,11 @@ classdef contrastsClass < handle
             if ~isempty(inputBlock.scalefactor)
                 thisContrast.scalefactor = inputBlock.scalefactor;
             end
-            
+
+            if obj.domainsCalc && ~isempty(inputBlock.domainRatio)
+                thisContrast.domainRatio = inputBlock.domainRatio;
+            end
+
             obj.contrasts{contrastIndex} = thisContrast;
             
         end
@@ -360,8 +375,13 @@ classdef contrastsClass < handle
                     maxModelSize = length(thisModel);
                 end
             end
-                        
-            val = ["name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Model"];
+
+            if obj.domainsCalc
+                val = ["name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Domain Ratio";"Model"];
+            else
+                val = ["name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Model"];
+            end
+            numNamedCols = length(val);
             modelRows = cell((maxModelSize-1),1);
             if ~isempty(modelRows)
                 for n = 1:length(modelRows)
@@ -383,13 +403,16 @@ classdef contrastsClass < handle
                 contrastsCell(6,i) = {thisContrast.scalefactor};
                 contrastsCell(7,i) = {thisContrast.resolution};
                 contrastsCell(8,i) = {thisContrast.resample};
+                if obj.domainsCalc
+                    contrastsCell(9,i) = {thisContrast.domainRatio};
+                end
                 
                 thisModel = thisContrast.model;
                 if isempty(thisModel)
-                    contrastsCell(9,i) = {' '};
+                    contrastsCell(numNamedCols,i) = {' '};
                 else
                     for n = 1:length(thisModel)
-                        contrastsCell(9+(n-1),i) = {thisModel(n)};
+                        contrastsCell(numNamedCols+(n-1),i) = {thisModel(n)};
                     end
                 end
             end
@@ -424,13 +447,14 @@ classdef contrastsClass < handle
     
     methods(Static)
 
-        function inputBlock = parseContrastInput(allowedNames, inputValues)
+        function inputBlock = parseContrastInput(allowedNames, domainsCalc, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
             % allowed names where necessary.
             %
             % contrastsClass.parseContrastInput(allowedNames, ...
+            %                                   domainsCalc, ...
             %                                   'name', 'Contrast Name', ...
             %                                   'background', 'Background H2O')        
             defaultName = '';
@@ -458,6 +482,12 @@ classdef contrastsClass < handle
             addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
             addParameter(p,'scalefactor',   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
             addParameter(p,'resample',      defaultResample,    @islogical);
+
+            if domainsCalc
+                defaultDomainRatio = '';
+                expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
+                addParameter(p,'domainRatio',   defaultDomainRatio, @(x) any(validatestring(x,expectedDomainRatio)));
+            end
                 
             parse(p, inputValues{:});
             inputBlock = p.Results;

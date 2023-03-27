@@ -24,7 +24,7 @@ if ( DREAMPar.CPU == 1 )         % Sequential evaluation
         fx(:,ii) = DREAMWrapper(x(ii,:),ratInputs);
     end
 
-elseif ( DREAMPar.CPU > 1 )      % Parallel evaluation
+else     % Parallel evaluation
 
     % If IO writing with model --> worker needs to go to own directory
     %     if strcmp(lower(DREAMPar.IO),'yes')

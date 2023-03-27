@@ -187,7 +187,7 @@ for i = 1:nScales
     thisMax = problem.scale_constr(i,2);
     thisNbs = problem.scalefac(i);
     thisFit = logical(problem.scalefac_fityesno(i));
-    thisProjectClass.addScalefactor({thisName, thisMin, thisNbs, thisMax, thisFit});
+    thisProjectClass.addScalefactor(thisName, thisMin, thisNbs, thisMax, thisFit);
 end
 
 % Data block

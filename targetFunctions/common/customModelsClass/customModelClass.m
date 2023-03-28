@@ -42,7 +42,7 @@ classdef customModelClass < handle
         coder.varsize('tempAllLayers{:}',[10000 5],[1 1]);
 
         if parallelFlag
-            for i = 1:numberOfContrasts     % TODO - will be 'parfor' subject to further upstream checks..
+            parfor i = 1:numberOfContrasts     % TODO - will be 'parfor' subject to further upstream checks..
 
                 % Choose which custom file is associated with this contrast
                 thisCustomModel = customFiles{cCustFiles(i)};

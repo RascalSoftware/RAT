@@ -43,13 +43,14 @@ paths = {
     fullfile(root,'targetFunctions','common','backSort');
     fullfile(root,'targetFunctions','common','callCustomFunction');
     fullfile(root,'targetFunctions','common','callCustomFunction','callMatlabFunction');
-    %fullfile(root,'targetFunctions','common','callCustomFunction','callCppFunction');
-    fullfile(root,'cCustomModelsTests');
+    fullfile(root,'targetFunctions','common','callCustomFunction','callCppFunction');
+    fullfile(root,'targetFunctions','common','lib');
+    %fullfile(root,'cCustomModelsTests');
+
     fullfile(root,'targetFunctions','common','callReflectivity');
     fullfile(root,'targetFunctions','common','costFunctions','chiSquared');
     fullfile(root,'targetFunctions','common','groupLayers');
-    %fullfile(root,'targetFunctions','common','loopCppCustomLayersWrapper');
-    %fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');  
+
     fullfile(root,'targetFunctions','common','makeSLDProfiles');
     fullfile(root,'targetFunctions','common','reflectivityCalculations');
     fullfile(root,'targetFunctions','common','reflectivityCalculations','abeles');

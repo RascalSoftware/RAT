@@ -45,8 +45,8 @@ class Library
             // pass the arguments to the function
             func(params, bulk_in, bulk_out, contrast, tempOutput, roughness, nLayers);   
 
-            std::cout << "rough in libManager : " << roughness << "\n";
-            std::cout << "tempArray in libManager : " << tempOutput << "\n";
+            //std::cout << "rough in libManager : " << roughness << "\n";
+            //std::cout << "tempArray in libManager : " << tempOutput << "\n";
             //roughness = rough;
         };
 };

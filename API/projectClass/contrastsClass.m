@@ -7,7 +7,7 @@ classdef contrastsClass < handle
         contrasts = {}
     end
 
-    properties (Access = private)
+    properties (Access = protected)
         contrastAutoNameCounter
     end
 
@@ -19,7 +19,7 @@ classdef contrastsClass < handle
         numberOfContrasts
     end
 
-    properties(Access = private, Constant, Hidden)
+    properties(Access = protected, Constant, Hidden)
         invalidTypeMessage = sprintf('Model type must be a modelTypes enum or one of the following strings (%s)', ...
                                      strjoin(modelTypes.values(), ', '))
     end
@@ -264,7 +264,7 @@ classdef contrastsClass < handle
             
         end
         
-        function contrastStruct = toStruct(obj,allowedNames,modelType,dataTable)
+        function contrastStruct = toStruct(obj, allowedNames, modelType, dataTable)
             % Convert the contrasts class to a struct.
             % The expected input is the allowed names for each parameter,
             % the model type and the data table from the data class.
@@ -355,7 +355,6 @@ classdef contrastsClass < handle
             contrastStruct.dataLimits = dataLimits;
             contrastStruct.simLimits = simLimits;
             contrastStruct.allData = allData;
-            contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.numberOfContrasts = nContrasts;
             

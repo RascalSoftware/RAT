@@ -1,4 +1,4 @@
-classdef simContrastsClass < contrastsClass
+classdef simContrastsClass < baseContrasts
 
     % A simplified version of the contrast class that allows specification
     % of the model only (i.e. with no data). This is used for domains
@@ -54,14 +54,6 @@ classdef simContrastsClass < contrastsClass
             
             obj.contrasts{contrastIndex} = thisContrast;
             
-        end
-
-        function obj = updateDataName(obj, ~)
-            % This subclass does not have a "data" parameter, so this
-            % method is not supported.
-            %
-            % simContrasts.updateDataName(nameChange)            
-            throw(routineNotSupported("This routine is not supported for a simContrast"));
         end
 
         function contrastStruct = toStruct(obj, allowedNames, modelType, ~)

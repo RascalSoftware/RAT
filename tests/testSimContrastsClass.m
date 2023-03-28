@@ -159,10 +159,6 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, testCase.newValues), nameNotRecognised.errorID);
         end
 
-        function testUpdateDataName(testCase)
-            testCase.verifyError(@() testCase.exampleClass.updateDataName(struct('oldName', 'Bilayer / H2O', 'newName', 'Test Data Name')), 'RAT:RoutineNotSupported');
-        end
-
         function testToStructStandardLayers(testCase)
             % Test converting the contrasts class to a struct
             % Here we use a "standard layers" model type

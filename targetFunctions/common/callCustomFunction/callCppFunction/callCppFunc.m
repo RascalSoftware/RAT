@@ -1,7 +1,7 @@
 % This file is used to generate the mex function that deals with CPP custom layer functionality.
 
 
-function [output,subRough] = testDLL(params,nba,nbs,numberOfContrasts,libraryName,functionName)
+function [output,subRough] = callCppFunc(params,nba,nbs,numberOfContrasts,libraryName,functionName)
 
 
     coder.cinclude('<functional>');
@@ -17,7 +17,6 @@ function [output,subRough] = testDLL(params,nba,nbs,numberOfContrasts,libraryNam
     includeDir = getappdata(0,'includeDir');
     coder.updateBuildInfo('addIncludePaths',includeDir);
 
-    % Need to find a way to make this work with 100000,3
     tempOutput = zeros(3,1000);
     subRough = 0.0;
     nLayers = 0;

@@ -14,9 +14,14 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
 %
 %% Declare properties and parameters
 
+    properties (TestParameter)
+        setContrastInput = {1, 'Bilayer / D2O'}
+    end
+
     properties
         allowedNames            % Full set of ALL parameter names in the project
         dataTable               % Example data table needed when converting to a struct
+        defaultContrastParams   % Default values for contrasts
         exampleClass            % Example contrasts class for testing
         exampleStruct           % The example class converted to a struct
         newValues               % New set of values for contrasts
@@ -48,6 +53,17 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
             varTypes = {'string','cell','cell','cell'};
             varNames = {'Name','Data','Data Range','Simulation Range'};
             testCase.dataTable = table('Size',[0 4],'VariableTypes',varTypes,'VariableNames',varNames); 
+        end
+
+        function initialiseDefaultContrastParams(testCase)
+            % Create a struct used in the contrasts class with the default
+            % values for each parameter
+            testCase.defaultContrastParams = struct( ...
+                'name', '', ...
+                'nba', '', ...
+                'nbs', '', ...
+                'model', '' ...
+                );
         end
 
         function initialiseNewValues(testCase)
@@ -121,7 +137,7 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
             testCase.verifyFalse(testClass.domainsCalc);
         end
 
-        function testSetContrast(testCase)
+        function testSetContrast(testCase, setContrastInput)
             contrastIndex = 1;
 
             expectedContrast = struct( ...
@@ -131,8 +147,16 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
                 'model', {{'Oxide Layer', 'Water Layer', 'Bil inner head', 'Bil tail', 'Bil tail', 'Bil outer head'}} ...
                 );
 
-            testCase.exampleClass.setContrast(contrastIndex, testCase.allowedNames, testCase.newValues{:});
+            testCase.exampleClass.setContrast(setContrastInput, testCase.allowedNames, testCase.newValues{:});
             testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, expectedContrast, 'setContrast does not work correctly');
+        end
+
+        function testSetContrastInvalid(testCase)
+            % Test setting parameter values within a contrast
+            % Contrast must be recognisable by name or index
+            testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, testCase.newValues), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, testCase.newValues), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, testCase.newValues), nameNotRecognised.errorID);
         end
 
         function testUpdateDataName(testCase)
@@ -227,6 +251,54 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
             rowString(9) = strjoin({testCase.exampleClass.contrasts{1}.model{6}, ...
                                     testCase.exampleClass.contrasts{2}.model{6}, ...
                                     testCase.exampleClass.contrasts{3}.model{6}});
+
+            % Check table contents - when displayed, row 3 is a set of
+            % lines, so row 4 is the first line of data
+            for i = 4:expectedRows
+                
+                % Replace multiple spaces in output table with a single
+                % space using regular expressions, and remove '"'
+                % characters
+                outRow = strip(replace(regexprep(displayedTable(i), '\s+', ' '), '"', ''));
+
+                testCase.verifyEqual(outRow, rowString(i-3), 'Row does not contain the correct data');
+
+            end
+        end
+
+        function testDisplayContrastsObjectEmpty(testCase)
+            % Test the routine to display the a table of an empty
+            % contrasts object by capturing the output and comparing with
+            % the expected table headers and contrasts data
+
+            % Make an empty contrast object
+            emptyContrasts = simContrastsClass();
+
+            emptyContrasts.contrasts = {testCase.defaultContrastParams};
+            emptyContrasts.contrasts{1}.resample = '';
+
+            % Capture the standard output and format into string array -
+            % one element for each row of the output
+            display = textscan(evalc('emptyContrasts.displayContrastsObject()'),'%s','Delimiter','\r','TextType','string');
+            displayedTable = display{:};
+
+            % Check headers
+            % Replace multiple spaces in output table with a single
+            % space using regular expressions, and remove "<strong>" tags
+            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+            headerString = "p 1";
+            testCase.verifyEqual(outVars, headerString, 'Table headers do not match variable names');
+
+            % Make sure the output has the right number of rows before
+            % continuing - output consists of "Contrasts" string,
+            % table header, divider row, a row for each of the nine
+            % parameters and an extra row for additional model parameters
+            expectedRows = 7;
+            testCase.assertSize(displayedTable, [expectedRows, 1], 'Table does not have the right number of rows');
+
+            % Construct string array of contrast parameters to compare
+            % with the rows of the displayed table
+            rowString = ["name" "Bulk in" "Bulk out" "Model"];
 
             % Check table contents - when displayed, row 3 is a set of
             % lines, so row 4 is the first line of data

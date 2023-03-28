@@ -61,7 +61,7 @@ classdef simContrastsClass < contrastsClass
             % method is not supported.
             %
             % simContrasts.updateDataName(nameChange)            
-            disp("This method is not supported for a simContrast");
+            throw(routineNotSupported("This routine is not supported for a simContrast"));
         end
 
         function contrastStruct = toStruct(obj, allowedNames, modelType, ~)

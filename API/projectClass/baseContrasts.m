@@ -1,7 +1,7 @@
 classdef (Abstract) baseContrasts < handle
 
-    % This class holds the parameters for each contrast used in the
-    % simulation
+    % This class holds the common routines for the subclasses
+    % "contrastsClass.m" and "simContrastsClass.m"
     
     properties
         contrasts = {}

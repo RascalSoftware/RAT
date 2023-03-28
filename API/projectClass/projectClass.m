@@ -16,7 +16,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     properties
         experimentName
         geometry
-        calculationType = calculationTypes.NonPolarised.value
+        calculationType
+        domainsCalc
+        domainRatio
         parameters          % parametersClass object
         layers              % layersClass object
         bulkIn              % parametersClass object
@@ -26,6 +28,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         qzshifts            % parametersClass object
         resolution          % resolutionClass object
         contrasts           % contrastsClass object
+        simContrasts        % simContrastsClass object
         data                % dataClass object
         customFile          % Custom file object
         
@@ -36,24 +39,45 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
        
     methods
 
-        function obj = projectClass(experimentName)
-            % Creates a Project object. The only argument is the 
-            % experiment name which is a char array, which is optional
+        function obj = projectClass(calculationType, experimentName)
+            % Creates a Project object.
+            % The expected input arguments are the calculation type and
+            % experiment name which are char arrays, and are optional
             %
-            % problem = projectClass('New experiment');
+            % problem = projectClass('standard', 'New experiment');
             arguments
+                calculationType = 'standard'
                 experimentName {mustBeTextScalar} = ''
+            end
+
+            % Set up project
+            message = sprintf('calculationType must be a calculationTypes enum or one of the following strings (%s)', ...
+                              strjoin(calculationTypes.values(), ', '));
+            obj.calculationType = validateOption(calculationType, 'calculationTypes', message).value;
+
+            % Determine whether or not this is a domains calculation
+            if any(strcmpi(obj.calculationType, {calculationTypes.Domains, calculationTypes.MagneticDomains}))
+                obj.domainsCalc = true;
+            else
+                obj.domainsCalc = false;
             end
 
             obj.experimentName = experimentName;
             obj.geometry = 'air/substrate';
-            
+
             % Initialise the Parameters Table
             obj.parameters = parametersClass('Substrate Roughness',1, 3, 5,true,priorTypes.Uniform,0,Inf);
             
-            % Initialise the layers table
-            obj.layers = layersClass();
-            
+            % Initialise the layers table, with the appropriate number of
+            % parameters given the calculation type
+            if any(strcmpi(obj.calculationType, {calculationTypes.Magnetic, calculationTypes.MagneticDomains}))
+                obj.layers = layersClass({'SLD Real', 'SLD Imaginary', 'SLD Magnetic Real', 'SLD Magnetic Imaginary'});
+            elseif strcmpi(obj.calculationType, calculationTypes.Absorption)
+                obj.layers = layersClass({'SLD Real', 'SLD Imaginary'});
+            else
+                obj.layers = layersClass();
+            end
+
             % Initialise bulkIn table
             obj.bulkIn = parametersClass('SLD Air',0,0,0,false,priorTypes.Uniform,0,Inf);
             
@@ -78,13 +102,20 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Initialise data object
             obj.data = dataClass('Simulation', [], [], []);
-            
-            % Initialise Contrasts object.
-            obj.contrasts = contrastsClass();
-            
+
             % Initialise custom file object
             obj.customFile = customFileClass();
-            
+
+            % Initialise contrasts object
+            obj.contrasts = contrastsClass(obj.domainsCalc);
+
+            % For a domains calculation, initialise secondary contrasts
+            % object and domain ratio parameter class
+            if obj.domainsCalc
+                obj.simContrasts = simContrastsClass();
+                obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
+            end
+               
         end
         
         

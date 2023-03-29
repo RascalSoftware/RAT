@@ -39,15 +39,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
        
     methods
 
-        function obj = projectClass(calculationType, experimentName)
+        function obj = projectClass(experimentName, calculationType)
             % Creates a Project object.
             % The expected input arguments are the calculation type and
             % experiment name which are char arrays, and are optional
             %
             % problem = projectClass('standard', 'New experiment');
             arguments
-                calculationType = 'standard'
                 experimentName {mustBeTextScalar} = ''
+                calculationType = calculationTypes.Standard
             end
 
             % Set up project

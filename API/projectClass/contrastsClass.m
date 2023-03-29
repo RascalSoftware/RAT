@@ -49,7 +49,7 @@ classdef contrastsClass < baseContrasts
             % contrasts.toStruct(allowedNames, 'standard layers', dataTable)
 
             % Call superclass version for common properties
-            contrastStruct = toStruct@baseContrasts(obj, allowedNames, modelType, dataTable);
+            contrastStruct = toStruct@baseContrasts(obj, allowedNames, modelType);
 
             % Now deal with additional properties in this class
             nContrasts = obj.numberOfContrasts;

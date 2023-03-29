@@ -247,7 +247,7 @@ classdef (Abstract) baseContrasts < handle
             end
         end
 
-        function contrastStruct = toStruct(obj, allowedNames, modelType, ~)
+        function contrastStruct = toStruct(obj, allowedNames, modelType)
             % Convert the contrasts class to a struct.
             % This routine deals with properties common to all contrast
             % classes. The expected input is the allowed names for each

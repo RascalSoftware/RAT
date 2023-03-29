@@ -15,7 +15,6 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
 
     properties
         allowedNames            % Full set of ALL parameter names in the project
-        dataTable               % Example data table needed when converting to a struct
         defaultContrastParams   % Default values for contrasts
         exampleClass            % Example contrasts class for testing
         exampleStruct           % The example class converted to a struct
@@ -40,14 +39,6 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
                 'layersNames',  ["Oxide Layer" "Water Layer" "Bil inner head" "Bil tail" "Bil outer head"], ...
                 'customNames',  ["DSPC Model" "DPPC Model"] ...
                 );
-        end
-
-        function initialiseDataTable(testCase)
-            % A dummy data table which is required when converting a
-            % simContrast class to a struct
-            varTypes = {'string','cell','cell','cell'};
-            varNames = {'Name','Data','Data Range','Simulation Range'};
-            testCase.dataTable = table('Size',[0 4],'VariableTypes',varTypes,'VariableNames',varNames); 
         end
 
         function initialiseDefaultContrastParams(testCase)
@@ -135,7 +126,7 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
         function testToStructStandardLayers(testCase)
             % Test converting the contrasts class to a struct
             % Here we use a "standard layers" model type
-            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.dataTable), testCase.exampleStruct);
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers'), testCase.exampleStruct);
         end
 
         function testToStructCustomLayers(testCase)
@@ -152,7 +143,7 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
             testCase.exampleStruct.contrastLayers = {{} {} {}};
             testCase.exampleStruct.contrastCustomFile = [1 1 1];
 
-            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'custom layers', testCase.dataTable), testCase.exampleStruct);
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'custom layers'), testCase.exampleStruct);
         end
 
         function testDisplayContrastsObject(testCase)

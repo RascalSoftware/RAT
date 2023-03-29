@@ -10,11 +10,9 @@ classdef simContrastsClass < baseContrasts
             % Display the contrasts object as a table.
             %
             % contrasts.displayContrastsObject()           
-            rowNames = ["name";"Bulk in";"Bulk out";"Model"];
-             
-            % Call superclass routine with appropriate rows
-            displayContrastsObject@baseContrasts(obj, rowNames);
+            displayContrastsObject@baseContrasts(obj, ["name";"Bulk in";"Bulk out";"Model"]);
         end
+        
     end
     
     methods(Static)

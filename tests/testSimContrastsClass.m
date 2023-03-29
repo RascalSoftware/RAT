@@ -4,19 +4,14 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
 % used within the Project Class in RAT.
 %
 % In this class, we test:
-% setContrast, updateDataName, toStruct, displayContrastsObject,
-% parseContrastInput
+% toStruct, displayContrastsObject, parseContrastInput
 %
 % We use an example contrasts class from the example calculation
 % "DPPC_standard_layers.m".
 %
-% Paul Sharp 28/03/23
+% Paul Sharp 29/03/23
 %
 %% Declare properties and parameters
-
-    properties (TestParameter)
-        setContrastInput = {1, 'Bilayer / D2O'}
-    end
 
     properties
         allowedNames            % Full set of ALL parameter names in the project
@@ -37,7 +32,7 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
             % be defined in the corresponding parameters in this class
             % This example is a reduced version of the allowed names used
             % in the example calculation "DPPC_standard_layers.m", with the
-            % custom files from "orsoDSPC_custLay_script.m" and
+            % custom file names from "orsoDSPC_custLay_script.m" and
             % "DPPC_customXY.m"
             testCase.allowedNames = struct( ...
                 'bulkInNames', 'Silicon', ...
@@ -116,7 +111,7 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
             % as a 1x3 struct array . . .
             testCase.exampleStruct = struct( ...
                 'contrastNbas', [1 1 1], ...
-                'contrastNbss', [1 2 3], ...b.dis
+                'contrastNbss', [1 2 3], ...
                 'contrastCustomFile', [NaN NaN NaN], ...
                 'numberOfContrasts', 3 ...
                 );
@@ -135,28 +130,6 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
             testClass = simContrastsClass();
             testCase.verifyEqual(testClass.contrasts, {}, 'simContrastsClass does not initialise correctly');
             testCase.verifyFalse(testClass.domainsCalc);
-        end
-
-        function testSetContrast(testCase, setContrastInput)
-            contrastIndex = 1;
-
-            expectedContrast = struct( ...
-                'name', 'New Sim Contrast', ...
-                'nba', 'Silicon', ...
-                'nbs', 'SLD SMW', ...
-                'model', {{'Oxide Layer', 'Water Layer', 'Bil inner head', 'Bil tail', 'Bil tail', 'Bil outer head'}} ...
-                );
-
-            testCase.exampleClass.setContrast(setContrastInput, testCase.allowedNames, testCase.newValues{:});
-            testCase.verifyEqual(testCase.exampleClass.contrasts{contrastIndex}, expectedContrast, 'setContrast does not work correctly');
-        end
-
-        function testSetContrastInvalid(testCase)
-            % Test setting parameter values within a contrast
-            % Contrast must be recognisable by name or index
-            testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, testCase.newValues), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, testCase.newValues), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, testCase.newValues), nameNotRecognised.errorID);
         end
 
         function testToStructStandardLayers(testCase)

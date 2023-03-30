@@ -154,7 +154,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
             pClass.contrasts.contrasts{1}.data = 'Simulation';
 
             % Create R1 struct result
-            result = projectClassToR1(pClass, "saveProject", true);
+            result = projectClassToR1(pClass, "saveProject", false);
 
             % Verify changes
             testCase.verifyEqual(result.layersDetails{1}{6}, char(pClass.layers.layersTable.("Hydrate with")(1)));

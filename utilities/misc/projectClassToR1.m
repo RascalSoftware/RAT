@@ -435,7 +435,7 @@ if saveTheProject
         thisFileName = sprintf([fileName,'_dataFile_%s'],num2str(i));
         contrastFiles{i} = thisFileName;
         fullDataFileName = fullfile(fullName,'datafiles',thisFileName);
-        writematrix(fullDataFileName,thisData);
+        dlmwrite(fullDataFileName,thisData);
     end
     problem = r1Problem;
     problem.contrastFiles = contrastFiles;

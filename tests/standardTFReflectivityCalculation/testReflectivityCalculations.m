@@ -152,8 +152,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testRATMain(testCase)
-            % Test the routine that determines the calculation RAT will
-            % perform
+            % Test the routine that determines the calculation RAT will perform
             % Note that we test only a single reflectivity calculation at
             % present
 
@@ -173,14 +172,21 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testReflectivityCalculationWrapper(testCase)
-            % Test the routine that chooses how to perform the
-            % reflectivity calculation
-            % Note that the routine is always set to choose the 'mex'
-            % version of the reflectivity calculation
+            % Test the routine that chooses how to perform the reflectivity calculation
             [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+
+            mockFn = mockFunction(testCase, 'reflectivityCalculation_mex', 'exceptionID', 'MATLAB:UndefinedFunction');         
+            [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+            
+            testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            
+            mockFn.exceptionID = 'MATLAB:AnotherError';
+            testCase.verifyError(@() reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,...
+                                                        testCase.problemDefLimits,testCase.controls), 'MATLAB:AnotherError');
         end
 
 %% Test Reflectivity Calculation Routines

@@ -21,19 +21,19 @@ thisProjectClass = projectClass(thisName);
 oldGeometry = problem.module.experiment_type;
 oldType = problem.module.type;
 
-if strcmpi(oldType,'Standard Layers')
-    thisProjectClass.setModelType('standard layers');
+if strcmpi(oldType, 'Standard Layers')
+    thisProjectClass.setModelType(modelTypes.StandardLayers.value);
 elseif strcmpi(oldType,'Custom Layers')
-    thisProjectClass.setModelType('custom layers');
+    thisProjectClass.setModelType(modelTypes.CustomLayers.value);
 else
-    thisProjectClass.setModelType('custom xy');
+    thisProjectClass.setModelType(modelTypes.CustomXY.value);
 end
-    
+
 
 if strcmpi(oldGeometry,'Air / Liquid (or solid)')
-    thisProjectClass.setGeometry('air/substrate');
+    thisProjectClass.setGeometry(geometryOptions.AirSubstrate.value);
 else
-    thisProjectClass.setGeometry('substrate/liquid');
+    thisProjectClass.setGeometry(geometryOptions.SubstrateLiquid.value);
 end
 
 % Now set the parameters block
@@ -45,13 +45,13 @@ for i = 2:numberOfParams
     thisValue = problem.params(i);
     thisMax = problem.constr(i,2);
     thisFit = problem.fityesno(i);
-    
+
     if thisFit == 1
         thisFit = true;
     else
         thisFit = false;
     end
-    
+
     thisParam = {thisName thisMin thisValue thisMax thisFit};
     thisProjectClass.addParam(thisParam);
 end
@@ -66,33 +66,32 @@ thisProjectClass.setParameter(1,'min',thisMin','max',thisMax','value',thisVal,'f
 
 % If we have a standard layers problem, set the layers block
 switch lower(oldType)
-    case 'standard layers'
-      
-        disp('debug');
+    case modelTypes.StandardLayers.value
+
         nLayers = problem.numberOfLayers;
-        
+
         for i = 1:nLayers
             thisLayer = problem.layersDetails{i};
             thisName = thisLayer{5};
-            
+
             thisThickNum = thisLayer{1};
             if isText(thisThickNum)
                 thisThickNum = str2double(thisThickNum);
             end
             thisThick = problem.paramnames{thisThickNum};
-            
+
             thisSldNum = thisLayer{2};%str2double(thisLayer{2});
             if isText(thisSldNum)
                 thisSldNum = str2double(thisSldNum);
             end
             thisSld = problem.paramnames{thisSldNum};
-            
+
             thisRoughNum = thisLayer{3};%str2double(thisLayer{3});
             if isText(thisRoughNum)
                 thisRoughNum = str2double(thisRoughNum);
             end
             thisRough = problem.paramnames{thisRoughNum};
-            
+
             thisHydrPar = thisLayer{4};
             if isempty(thisHydrPar)
                 thisHydr = '';
@@ -103,22 +102,22 @@ switch lower(oldType)
                 end
                 thisHydr = problem.paramnames{thisHydrNum};
             end
-            
+
             thisHydrWhat = thisLayer{6};
             if isempty(thisHydrPar)
                 thisLayer = {thisName, thisThick, thisSld, thisRough};%, thisHydr, thisHydrWhat};
-            else    
+            else
                 thisLayer = {thisName, thisThick, thisSld, thisRough, thisHydr, thisHydrWhat};
             end
-            thisProjectClass.addLayer(thisLayer); 
-        end 
+            thisProjectClass.addLayer(thisLayer);
+        end
     otherwise
         % Need the name of the custom file...
         customFile = problem.module.name;
         [~,modelName,~] = fileparts(customFile);
-        
+
         thisProjectClass.addCustomFile(modelName,customFile,'matlab','pwd');
-        
+
 end
 
 
@@ -140,7 +139,7 @@ for i = 1:nBackgrounds
     thisVal = problem.backs(i);
     thisFit = logical(problem.backgrounds_fityesno(i));
     thisProjectClass.addBacksPar(thisName, thisMin, thisVal, thisMax, thisFit);
-    
+
     % Now add the backgrounds themselves
     thisBackgroundName = problem.backsNames{i};
     thisProjectClass.addBackground(thisBackgroundName,'constant',thisName);
@@ -211,24 +210,24 @@ numberOfContrasts = problem.numberOfContrasts;
 
 for i = 1:numberOfContrasts
     thisName = char(problem.contrastNames{1});
-    
+
     thisBackgroundNumber = problem.contrastBacks(i);
     thisBackground = char(thisProjectClass.background.backgrounds.typesTable{thisBackgroundNumber,1});
 
     thisResolNum = problem.contrastResolutions(i);
     thisResol = problem.resolNames{thisResolNum};
-    
+
     thisScaleNum = problem.contrastScales(i);
     thisScale = problem.scalesNames{thisScaleNum};
-    
+
     thisNbsNum = problem.contrastNbss(i);
     thisNbs = problem.nbsNames{thisNbsNum};
-    
+
     thisNbaNum = problem.contrastNbas(i);
     thisNba = problem.nbaNames{thisNbaNum};
-    
+
     thisData = thisProjectClass.data.dataTable{i+1,1};
-    
+
     thisProjectClass.addContrast('name', thisName,...
         'backGround', thisBackground,...
         'resolution', thisResol,...
@@ -240,23 +239,19 @@ end
 
 % Now set the model for each of the contrasts:
 switch lower(oldType)
-    case 'standard layers'
+    case modelTypes.StandardLayers.value
         for i = 1:numberOfContrasts
-           thisContrastLayers = str2num(problem.contrastLayers{i});
-           thisLayersList = {};
-           for n = 1:length(thisContrastLayers)
-               thisLayersList{n} = problem.layersDetails{thisContrastLayers(n)}{5};
-           end
-           thisProjectClass.setContrastModel(i,thisLayersList); 
+            thisContrastLayers = str2num(problem.contrastLayers{i});
+            thisLayersList = {};
+            for n = 1:length(thisContrastLayers)
+                thisLayersList{n} = problem.layersDetails{thisContrastLayers(n)}{5};
+            end
+            thisProjectClass.setContrastModel(i,thisLayersList);
         end
-        
+
     otherwise
         for i = 1:numberOfContrasts
             thisProjectClass.setContrastModel(i,modelName);
         end
 end
-
-
-disp('debug');
-
 end

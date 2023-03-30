@@ -435,7 +435,7 @@ if saveTheProject
         thisFileName = sprintf([fileName,'_dataFile_%s'],num2str(i));
         contrastFiles{i} = thisFileName;
         fullDataFileName = fullfile(fullName,'datafiles',thisFileName);
-        dlmwrite(fullDataFileName,thisData);
+        writematrix(fullDataFileName,thisData);
     end
     problem = r1Problem;
     problem.contrastFiles = contrastFiles;
@@ -457,7 +457,8 @@ function inputBlock = parseR1Problem(varargin)
     default_dirName = 'newDirectory';   
     default_saveProject = true;
     default_dirPath = pwd;
-    default_fileName = sprintf('newFile_%s',datestr(now));
+    dateNow = datestr(now,'mm-dd-yyyy HH.MM.SS.FFF');
+    default_fileName = sprintf('newFile_%s', dateNow);
 
     p = inputParser;
     addParameter(p,'r1Problem',     default_r1Problem,      @isstruct);

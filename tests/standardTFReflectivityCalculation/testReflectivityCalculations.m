@@ -180,6 +180,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
             mockFn = mockFunction(testCase, 'reflectivityCalculation_mex', 'exceptionID', 'MATLAB:UndefinedFunction');         
             [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+            testCase.verifyEqual(mockFn.callCount, 1);
             
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -187,6 +188,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             mockFn.exceptionID = 'MATLAB:AnotherError';
             testCase.verifyError(@() reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,...
                                                         testCase.problemDefLimits,testCase.controls), 'MATLAB:AnotherError');
+            testCase.verifyEqual(mockFn.callCount, 2);
         end
 
 %% Test Reflectivity Calculation Routines
@@ -195,15 +197,19 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % Test the reflectivity calculation.
             % We will test the serial and parallel (over both points and
             % contrasts) versions of the calculation, using both the MATLAB
-            % and comiled (MEX) versions of each.
+            % and compiled (MEX) versions of each.
             
             if useCompiled
                 % Skip the mex tests if coder is not installed. These tests will be marked as incomplete
                 testCase.assumeEqual(license('test', 'MATLAB_Coder'), 1, 'MATLAB Coder is not installed')
             end
-
-            [problem, result] = reflectivityCalculationTestingWrapper(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls, useCompiled, whichParallel);
-
+            
+            testCase.controls.para = whichParallel;
+            if useCompiled
+                [problem, result] = reflectivityCalculation_mex(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+            else        
+                [problem, result] = reflectivityCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+            end
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end

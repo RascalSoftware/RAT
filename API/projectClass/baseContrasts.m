@@ -374,7 +374,6 @@ classdef (Abstract) baseContrasts < handle
             thisTable(:,:) = contrastsCell;
             valTable = table(p);
             totalTable = [valTable thisTable];
-            fprintf('    Constrasts: ---------------------------------------------------------------------------------------------- \n\n');
             disp(totalTable);
         end
 

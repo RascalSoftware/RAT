@@ -16,9 +16,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     properties
         experimentName
         geometry
-        calculationType
-        domainsCalc
-        domainRatio
         parameters          % parametersClass object
         layers              % layersClass object
         bulkIn              % parametersClass object
@@ -28,38 +25,26 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         qzshifts            % parametersClass object
         resolution          % resolutionClass object
         contrasts           % contrastsClass object
-        simContrasts        % simContrastsClass object
         data                % dataClass object
         customFile          % Custom file object
-        
-        usePriors = false
 
         modelType = modelTypes.StandardLayers.value
+        usePriors = false
+    end
+
+    properties (SetAccess = protected)
+        calculationType = calculationTypes.Standard.value
     end
        
     methods
 
-        function obj = projectClass(experimentName, calculationType)
-            % Creates a Project object.
-            % The expected input arguments are the calculation type and
-            % experiment name which are char arrays, and are optional
+        function obj = projectClass(experimentName)
+            % Creates a Project object. The only argument is the 
+            % experiment name which is a char array, which is optional
             %
-            % problem = projectClass('standard', 'New experiment');
+            % problem = projectClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
-                calculationType = calculationTypes.Standard
-            end
-
-            % Set up project
-            message = sprintf('calculationType must be a calculationTypes enum or one of the following strings (%s)', ...
-                              strjoin(calculationTypes.values(), ', '));
-            obj.calculationType = validateOption(calculationType, 'calculationTypes', message).value;
-
-            % Determine whether or not this is a domains calculation
-            if any(strcmpi(obj.calculationType, {calculationTypes.Domains, calculationTypes.MagneticDomains}))
-                obj.domainsCalc = true;
-            else
-                obj.domainsCalc = false;
             end
 
             obj.experimentName = experimentName;
@@ -68,15 +53,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Initialise the Parameters Table
             obj.parameters = parametersClass('Substrate Roughness',1, 3, 5,true,priorTypes.Uniform,0,Inf);
             
-            % Initialise the layers table, with the appropriate number of
-            % parameters given the calculation type
-            if any(strcmpi(obj.calculationType, {calculationTypes.Magnetic, calculationTypes.MagneticDomains}))
-                obj.layers = layersClass({'SLD Real', 'SLD Imaginary', 'SLD Magnetic Real', 'SLD Magnetic Imaginary'});
-            elseif strcmpi(obj.calculationType, calculationTypes.Absorption)
-                obj.layers = layersClass({'SLD Real', 'SLD Imaginary'});
-            else
-                obj.layers = layersClass();
-            end
+            % Initialise the layers table
+            obj.layers = layersClass();
 
             % Initialise bulkIn table
             obj.bulkIn = parametersClass('SLD Air',0,0,0,false,priorTypes.Uniform,0,Inf);
@@ -107,14 +85,16 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.customFile = customFileClass();
 
             % Initialise contrasts object
-            obj.contrasts = contrastsClass(obj.domainsCalc);
+            obj.contrasts = contrastsClass();
 
             % For a domains calculation, initialise secondary contrasts
             % object and domain ratio parameter class
-            if obj.domainsCalc
-                obj.simContrasts = simContrastsClass();
-                obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
-            end
+            % obj.simContrasts = simContrastsClass();
+            % if obj.domainsCalc
+            %     obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
+            % else
+            %     obj.domainRatio = parametersClass();
+            % end
                
         end
         
@@ -702,13 +682,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         function obj = addContrast(obj, varargin)
             % Adds a new contrast parameter. Expects a parameter name, and with 
-            % key-value pairs with one or more of the following "data", "background", 
-            % "bulk in", "bulk out", "scalefactor", "resolution", "resample", "model
+            % key-value pairs with one or more of the following "data",
+            % "background", "bulk in", "bulk out", "scalefactor",
+            % "resolution", "resample", "model"
             % 
             % problem.addContrast('contrast 1', 'nba', 'Silicon');
             allowedNames = obj.getAllAllowedNames();
-            obj.contrasts.addContrast(allowedNames, varargin{:});
-            
+            obj.contrasts.addContrast(allowedNames, varargin{:});   
         end
 
         function obj = removeContrast(obj, row)
@@ -719,7 +699,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.contrasts.removeContrast(row);
         end
 
-        
         function obj = setContrast(obj, row, varargin)   
             % Allow setting of all parameters in terms of name value pairs.
             % First input must be contrast number or name, subsequent
@@ -733,7 +712,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Call the setContrast method
             obj.contrasts.setContrast(row, allowedValues, varargin{:});
-            
         end
         
         function obj = setContrastModel(obj, row, model)
@@ -754,7 +732,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Call the setContrastModel method
             obj.contrasts.setContrastModel(row, obj.modelType, allowedValues, model);
-
         end
 
         % ----------------------------------------------------------------
@@ -892,10 +869,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Display the data object
             obj.data.displayDataObject;
             
-            % Display custome files object
+            % Display custom files object
             obj.customFile.displayCustomFileObject;
             
             % Display the contrasts object
+            fprintf('   Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
             obj.contrasts.displayContrastsObject;
             
         end

@@ -10,7 +10,7 @@ classdef simContrastsClass < baseContrasts
             % Display the contrasts object as a table.
             %
             % contrasts.displayContrastsObject()           
-            displayContrastsObject@baseContrasts(obj, ["name";"Bulk in";"Bulk out";"Model"]);
+            displayContrastsObject@baseContrasts(obj, ["Name";"Bulk in";"Bulk out";"Model"]);
         end
         
     end

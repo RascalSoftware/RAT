@@ -803,49 +803,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 'nQzshifts','qzshiftConstr','qzshifts','qzshiftFitYesNo','qzshiftPriors'});
             
             % Layers
-            layersCell = obj.layers.toStruct();
-            layersStruct.numberOfLayers = size(layersCell,1);
-            layersStruct.layersnames = layersCell(:,1);
-            
-            % parse the layers details
-            layersValues = layersCell(:,2:end);
-            paramNames = paramStruct.paramNames;
-            
-            switch generalStruct.modelType
-                case modelTypes.StandardLayers.value
-                    numberOfLayers = layersStruct.numberOfLayers;
-                    
-                    if numberOfLayers > 0
-                        % Standard layers with layers present
-                        layersDetails = cell([1, layersStruct.numberOfLayers]);
-                        for i = 1:layersStruct.numberOfLayers
-                            thisLayer = layersValues(i,:);
-                            min = find(strcmpi(thisLayer{1},paramNames));
-                            val = find(strcmpi(thisLayer{2},paramNames));
-                            max = find(strcmpi(thisLayer{3},paramNames));
-                            if ismissing(thisLayer(4))
-                                hydr = NaN;
-                            else
-                                hydr = find(strcmpi(thisLayer{4},paramNames));
-                            end
-                            if strcmpi(thisLayer{5}, hydrationTypes.BulkIn.value)
-                                hydrWhat = 1;
-                            else
-                                hydrWhat = 2;
-                            end
-                            layersDetails{i} = [min val max hydr hydrWhat];
-                        end
-                        layersStruct.layersDetails = layersDetails(:);
-                    else
-                        % No layers present - still need to set
-                        % layersDetails
-                        layersStruct.layersDetails = {};
-                    end
-                otherwise
-                    % Not standard layers experiment type
-                    layersStruct.layersDetails = {};
-            end
-            
+            layersStruct = obj.layers.toStruct(paramStruct.paramNames, generalStruct.modelType);
+
             % Custom files
             customFileStruct = obj.customFile.toStruct();
             
@@ -853,7 +812,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             allNames = obj.getAllAllowedNames;
             dataTable = obj.data.dataTable;
             
-            contrastStruct = obj.contrasts.toStruct(allNames,generalStruct.modelType,dataTable);
+            contrastStruct = obj.contrasts.toStruct(allNames, generalStruct.modelType, dataTable);
             
             % Merge all the outputs into one large structure
             outStruct = mergeStructs(generalStruct,...

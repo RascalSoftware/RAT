@@ -482,7 +482,7 @@ classdef testProjectClass < matlab.unittest.TestCase
         end
 
         function testToStruct(testCase)
-            % FIXME: toStruct carshes with the default
+            % FIXME: toStruct crashes with the default
             % projectStruct = testCase.project.toStruct();
             % testCase.verifyEqual(projectStruct.experimentName, testCase.project.experimentName, 'toStruct method not working');
             % testCase.verifyEqual(projectStruct.geometry, testCase.project.geometry, 'toStruct method not working');
@@ -530,7 +530,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(projectStruct.nbairNames, reshape(convertStringsToChars(testCase.project.bulkIn.paramsTable{:, 1}), 1, []), 'toStruct method not working');
             testCase.verifyEqual(projectStruct.nbsubNames, reshape(convertStringsToChars(testCase.project.bulkOut.paramsTable{:, 1}), 1, []), 'toStruct method not working');
             testCase.verifyEqual(projectStruct.nbsubNames, reshape(convertStringsToChars(testCase.project.bulkOut.paramsTable{:, 1}), 1, []), 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.layersnames, testCase.project.layers.layersTable{:, 1}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.layersNames, testCase.project.layers.layersTable{:, 1}, 'toStruct method not working');
         end
 
         function testObjectDisplay(testCase)

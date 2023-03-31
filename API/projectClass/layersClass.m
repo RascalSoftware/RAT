@@ -176,12 +176,60 @@ classdef layersClass < handle
             layersNames = obj.layersTable{:,1};  
         end
         
-        function outStruct = toStruct(obj)
+        function outStruct = toStruct(obj, paramNames, modelType)
             % Convert the layers class to a struct.
             %
             % layers.toStruct()            
             %outStruct = table2cell(obj.layersTable);
-            outStruct = obj.layersTable{:,:};
+            layersCell = obj.layersTable{:,:};
+
+            outStruct.numberOfLayers = size(layersCell, 1);
+            outStruct.layersNames = layersCell(:,1);
+            
+            % parse the layers details
+            layersValues = layersCell(:,2:end);
+            
+            switch modelType
+
+                case modelTypes.StandardLayers.value
+                    numberOfLayers = outStruct.numberOfLayers;
+                    
+                    if numberOfLayers > 0
+                        % Standard layers with layers present
+                        layersDetails = cell([1, outStruct.numberOfLayers]);
+
+                        for i = 1:outStruct.numberOfLayers
+
+                            thisLayer = layersValues(i,:);
+                            min = find(strcmpi(thisLayer{1},paramNames));
+                            val = find(strcmpi(thisLayer{2},paramNames));
+                            max = find(strcmpi(thisLayer{3},paramNames));
+
+                            if ismissing(thisLayer(4))
+                                hydr = NaN;
+                            else
+                                hydr = find(strcmpi(thisLayer{4},paramNames));
+                            end
+
+                            if strcmpi(thisLayer{5}, hydrationTypes.BulkIn.value)
+                                hydrWhat = 1;
+                            else
+                                hydrWhat = 2;
+                            end
+                            layersDetails{i} = [min val max hydr hydrWhat];
+                            
+                        end
+                        outStruct.layersDetails = layersDetails(:);
+                    else
+                        % No layers present - still need to set
+                        % layersDetails
+                        outStruct.layersDetails = {};
+                    end
+                otherwise
+                    % Not standard layers experiment type
+                    outStruct.layersDetails = {};
+            end
+
         end
         
 

@@ -112,9 +112,9 @@ classdef contrastsClass < baseContrasts
             %
             % contrasts.displayContrastsObject()           
             if obj.domainsCalc
-                rowNames = ["name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Domain Ratio";"Model"];
+                rowNames = ["Name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Domain Ratio";"Model"];
             else
-                rowNames = ["name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Model"];
+                rowNames = ["Name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Model"];
             end
 
              % Call superclass routine with appropriate rows

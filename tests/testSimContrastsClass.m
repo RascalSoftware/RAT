@@ -172,7 +172,7 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
 
             % Construct string array of contrast parameters to compare
             % with the rows of the displayed table
-            rowString(1) = strjoin(["name", ...
+            rowString(1) = strjoin(["Name", ...
                                     testCase.exampleClass.contrasts{1}.name, ...
                                     testCase.exampleClass.contrasts{2}.name, ...
                                     testCase.exampleClass.contrasts{3}.name]);
@@ -258,7 +258,7 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
 
             % Construct string array of contrast parameters to compare
             % with the rows of the displayed table
-            rowString = ["name" "Bulk in" "Bulk out" "Model"];
+            rowString = ["Name" "Bulk in" "Bulk out" "Model"];
 
             % Check table contents - when displayed, row 3 is a set of
             % lines, so row 4 is the first line of data

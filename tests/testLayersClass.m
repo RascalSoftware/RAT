@@ -128,7 +128,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.exampleClass = layersClass();
 
             testCase.exampleClass.layersTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
-            testCase.exampleClass.layersTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer heads rough', 'Bilayer tails hydr', hydrationTypes.BulkOut.value};
+            testCase.exampleClass.layersTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer tails rough', 'Bilayer tails hydr', hydrationTypes.BulkOut.value};
             testCase.exampleClass.layersTable(3,:) = {'Bil outer head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
 
             testCase.numRows = height(testCase.exampleClass.layersTable);
@@ -228,7 +228,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             % Row name and column index
             testCase.exampleClass.setLayerValue('Bil Tail', 3, 'Water SLD', testCase.parameterNames);
-            expectedRow = ["Bil tail", "Bilayer tails thick", "Water SLD", "Bilayer heads rough", "Bilayer tails hydr", "bulk out"];
+            expectedRow = ["Bil tail", "Bilayer tails thick", "Water SLD", "Bilayer tails rough", "Bilayer tails hydr", "bulk out"];
             testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Row index and column name
@@ -238,7 +238,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             % Row and column names
             testCase.exampleClass.setLayerValue('Bil Tail', 'Thickness', 'Water thick', testCase.parameterNames);
-            expectedRow = ["Bil tail", "Water thick", "Water SLD", "Bilayer heads rough", "Bilayer tails hydr", "bulk out"];
+            expectedRow = ["Bil tail", "Water thick", "Water SLD", "Bilayer tails rough", "Bilayer tails hydr", "bulk out"];
             testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Change hydration type
@@ -307,8 +307,25 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.getLayersNames(), testCase.exampleClass.layersTable{:,1});
         end
 
-        function testToStruct(testCase)
-            testCase.verifyEqual(testCase.exampleClass.toStruct(), string(testCase.exampleClass.layersTable{:,:}));
+        function testToStructStandardLayers(testCase)
+            % Test converting the layers class to a struct
+            % Here we use a "standard layers" model type
+            expectedStruct.numberOfLayers = 3;
+            expectedStruct.layersNames = ["Bil inner head"; "Bil tail"; "Bil outer head"];
+            expectedStruct.layersDetails = {[5 6 8 7 2]; [9 10 12 11 2]; [5 6 8 7 2]};
+
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.parameterNames, modelTypes.StandardLayers.value), expectedStruct);
+        end
+
+        function testToStructCustomLayers(testCase)
+            % Test converting the layers class to a struct
+            % Here we use a "custom layers" model type - so the
+            % "layersDetails" are not recorded
+            expectedStruct.numberOfLayers = 3;
+            expectedStruct.layersNames = ["Bil inner head"; "Bil tail"; "Bil outer head"];
+            expectedStruct.layersDetails = {};
+
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.parameterNames, modelTypes.CustomLayers.value), expectedStruct);
         end
 
         function testDisplayLayersTable(testCase)

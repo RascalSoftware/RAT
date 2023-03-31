@@ -1,0 +1,29 @@
+name: Run Unit Tests
+
+on:  
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout RAT
+      uses: actions/checkout@v3
+    - name: Set up MATLAB
+      uses: matlab-actions/setup-matlab@v1
+    - name: Run tests
+      uses: matlab-actions/run-command@v1
+      with:
+        command: "run testScript"
+    - name: Upload coverage results
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage
+        path: htmlcov

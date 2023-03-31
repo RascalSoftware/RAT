@@ -42,5 +42,39 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.verifyEqual(enum.fromValue('hydrationTypes', 'bulk in'), hydrationTypes.BulkIn, 'customEnum.forValues is not working');
             testCase.verifyEmpty(enum.fromValue('priorTypes', 'jeff'), 'customEnum.forValues is not working');
         end
+
+        function testMockFunction(testCase)
+            mock = mockFunction(testCase, 'randomName');
+            testCase.verifyEqual(mock.functionName, 'randomName');
+            testCase.assertEqual(which(mock.functionName), mock.filename);
+            testCase.assertEqual(mock.callCount, 0);
+            testCase.assertEqual(mock.arguments, {});
+            testCase.assertEqual(mock.exceptionID, '');
+            testCase.assertEqual(mock.returnValues, {[]});
+            testCase.verifyEmpty(randomName());
+            testCase.assertEqual(mock.callCount, 1);
+            mock.returnValues = {2};
+            testCase.verifyEqual(randomName(), 2);
+            testCase.assertEqual(mock.callCount, 2);
+            mock.exceptionID = invalidType.errorID;
+            testCase.verifyError(@() randomName(), invalidType.errorID);
+            testCase.assertEqual(mock.callCount, 3);
+            mock.reset()
+            testCase.assertEqual(mock.callCount, 0);
+            testCase.assertEqual(mock.arguments, {});
+            testCase.assertEqual(mock.returnValues, {2});
+            testCase.assertEqual(mock.exceptionID, invalidType.errorID);
+
+            mock = mockFunction(testCase, 'newFunction', 'returnValues', {1, 2});
+            [a, b] = newFunction(1, 2, 3);
+            testCase.assertEqual({a, b}, {1, 2});
+            testCase.assertEqual(mock.arguments, {{1, 2, 3}});
+            newFunction('a', 'b');
+            testCase.assertEqual(mock.arguments, {{1, 2, 3}, {'a', 'b'}});
+
+            mock = mockFunction(testCase, 'lastFunction', 'exceptionID', invalidOption.errorID);
+            testCase.assertEqual(mock.exceptionID, invalidOption.errorID);
+            testCase.verifyError(@() lastFunction(), invalidOption.errorID);
+        end
     end
 end

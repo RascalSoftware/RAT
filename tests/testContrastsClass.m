@@ -500,15 +500,15 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Check headers
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove "<strong>" tags
-            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+            outVars = eraseBetween(strip(regexprep(displayedTable(1), '\s+', ' ')), '<', '>','Boundaries','inclusive');
             headerString = "p 1 2 3";
             testCase.verifyEqual(outVars, headerString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
-            % continuing - output consists of "Contrasts" string,
-            % table header, divider row, a row for each of the nine
-            % parameters and an extra row for additional model parameters
-            expectedRows = 13 + length(testCase.exampleClass.contrasts{1}.model) - 1;
+            % continuing - output consists of table header, divider row,
+            % a row for each of the nine parameters and an extra row for
+            % additional model parameters
+            expectedRows = 12 + length(testCase.exampleClass.contrasts{1}.model) - 1;
             testCase.assertSize(displayedTable, [expectedRows, 1], 'Table does not have the right number of rows');
 
             % Construct string array of contrast parameters to compare
@@ -583,16 +583,16 @@ classdef testContrastsClass < matlab.unittest.TestCase
                                      testCase.exampleClass.contrasts{2}.model{6}, ...
                                      testCase.exampleClass.contrasts{3}.model{6}});
 
-            % Check table contents - when displayed, row 3 is a set of
-            % lines, so row 4 is the first line of data
-            for i = 4:expectedRows
+            % Check table contents - when displayed, row 2 is a set of
+            % lines, so row 3 is the first line of data
+            for i = 3:expectedRows
                 
                 % Replace multiple spaces in output table with a single
                 % space using regular expressions, and remove '"'
                 % characters
                 outRow = strip(replace(regexprep(displayedTable(i), '\s+', ' '), '"', ''));
 
-                testCase.verifyEqual(outRow, rowString(i-3), 'Row does not contain the correct data');
+                testCase.verifyEqual(outRow, rowString(i-2), 'Row does not contain the correct data');
 
             end
         end
@@ -616,15 +616,15 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Check headers
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove "<strong>" tags
-            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+            outVars = eraseBetween(strip(regexprep(displayedTable(1), '\s+', ' ')), '<', '>','Boundaries','inclusive');
             headerString = "p 1";
             testCase.verifyEqual(outVars, headerString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
-            % continuing - output consists of "Contrasts" string,
-            % table header, divider row, a row for each of the nine
-            % parameters and an extra row for additional model parameters
-            expectedRows = 12;
+            % continuing - output consists of table header, divider row,
+            % a row for each of the nine parameters and an extra row for
+            % additional model parameters
+            expectedRows = 11;
             testCase.assertSize(displayedTable, [expectedRows, 1], 'Table does not have the right number of rows');
 
             % Construct string array of contrast parameters to compare
@@ -632,16 +632,16 @@ classdef testContrastsClass < matlab.unittest.TestCase
             rowString = ["Name" "Data" "Background" "Bulk in" "Bulk out" ...
                 "Scalefactor" "Resolution" "Resample" "Model"];
 
-            % Check table contents - when displayed, row 3 is a set of
-            % lines, so row 4 is the first line of data
-            for i = 4:expectedRows
+            % Check table contents - when displayed, row 2 is a set of
+            % lines, so row 3 is the first line of data
+            for i = 3:expectedRows
                 
                 % Replace multiple spaces in output table with a single
                 % space using regular expressions, and remove '"'
                 % characters
                 outRow = strip(replace(regexprep(displayedTable(i), '\s+', ' '), '"', ''));
 
-                testCase.verifyEqual(outRow, rowString(i-3), 'Row does not contain the correct data');
+                testCase.verifyEqual(outRow, rowString(i-2), 'Row does not contain the correct data');
 
             end
         end

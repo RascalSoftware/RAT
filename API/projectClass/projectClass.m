@@ -85,17 +85,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.customFile = customFileClass();
 
             % Initialise contrasts object
-            obj.contrasts = contrastsClass();
-
-            % For a domains calculation, initialise secondary contrasts
-            % object and domain ratio parameter class
-            % obj.domainsContrasts = domainsContrastsClass();
-            % if obj.domainsCalc
-            %     obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
-            % else
-            %     obj.domainRatio = parametersClass();
-            % end
-               
+            obj.contrasts = contrastsClass();               
         end
         
         
@@ -722,7 +712,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                         
             % Make a different allowed list depending on whether 
             % it is custom or layers
-            if ~strcmpi(obj.modelType, {'custom layers','custom xy'})
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
                 % Standard Layers
                 allowedValues = obj.layers.getLayersNames();
             else
@@ -791,7 +781,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             contrastStruct = obj.contrasts.toStruct(allNames, generalStruct.modelType, dataTable);
             
-            [domainsContrastStruct, domainRatioStruct] = obj.makeDomainsStructs();
+            [domainsContrastStruct, domainRatioStruct] = obj.makeDomainsStructs(allNames, generalStruct.modelType);
 
             domainsContrastStruct = cell2struct(struct2cell(domainsContrastStruct), ...
                                                 {'domainsContrastNbas', ...
@@ -832,12 +822,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     
     methods (Static)
 
-        function [domainsContrastsStruct, domainRatioStruct] = makeDomainsStructs()
+        function [domainsContrastsStruct, domainRatioStruct] = makeDomainsStructs(allNames, modelType)
             % Converts the domains class parameters into a struct array
-            % for input into the RAT toolbox
+            % for input into the RAT toolbox.
+            % The expected inputs are the list of allowed names and the
+            % model type which are required to make a domainsContrasts
+            % struct.
             % In this case, where there are no domains, we define dummy
             % classes.
-            domainsContrastsStruct = domainsContrastsClass().toStruct();
+            domainsContrastsStruct = domainsContrastsClass().toStruct(allNames, modelType);
             domainRatioStruct = parametersClass().removeParam(1).toStruct();
         end
 

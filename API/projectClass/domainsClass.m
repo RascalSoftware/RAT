@@ -35,7 +35,7 @@ classdef domainsClass < projectClass
             % For a domains calculation, initialise secondary contrasts
             % object and domain ratio parameter class
             obj.domainsContrasts = domainsContrastsClass();
-            obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);               
+            obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
         end
 
         function names = getAllAllowedNames(obj)           
@@ -90,7 +90,7 @@ classdef domainsClass < projectClass
                         
             % Make a different allowed list depending on whether 
             % it is custom or layers
-            if ~strcmpi(obj.modelType, {'custom layers','custom xy'})
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
                 % Standard Layers
                 allowedValues = obj.layers.getLayersNames();
             else
@@ -102,12 +102,13 @@ classdef domainsClass < projectClass
             obj.domainsContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
         end
 
-        function [domainsContrastsStruct, domainRatioStruct] = makeDomainsStruct(obj)    
+        function [domainsContrastsStruct, domainRatioStruct] = makeDomainsStructs(obj, allNames, modelType)    
             % Converts the domains class parameters into a struct array
             % for input into the RAT toolbox
-            % In this case, where there are no domains, we define dummy
-            % classes.
-            domainsContrastsStruct = obj.domainsContrasts.toStruct();
+            % The expected inputs are the list of allowed names and the
+            % model type which are required to make a domainsContrasts
+            % struct.
+            domainsContrastsStruct = obj.domainsContrasts.toStruct(allNames, modelType);
             domainRatioStruct = obj.domainRatio.toStruct();
         end
 

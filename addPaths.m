@@ -44,8 +44,8 @@ paths = {
     fullfile(root,'targetFunctions','common','callCustomFunction');
     fullfile(root,'targetFunctions','common','callCustomFunction','callMatlabFunction');
     fullfile(root,'targetFunctions','common','callCustomFunction','callCppFunction');
+    fullfile(root,'targetFunctions','common','callCustomFunction','callPythonFunction');
     fullfile(root,'targetFunctions','common','lib');
-    %fullfile(root,'cCustomModelsTests');
 
     fullfile(root,'targetFunctions','common','callReflectivity');
     fullfile(root,'targetFunctions','common','costFunctions','chiSquared');
@@ -88,9 +88,6 @@ end
 addpath(root);
 setappdata(0,'root',root);
 
-% Set Cpp Include directory
-includeDir = fullfile(root,'targetFunctions','lib');
-setappdata(0,'includeDir',includeDir);
 
 
 

@@ -26,13 +26,13 @@ function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef
 % result{5} = sldProfiles{}
 % result{6} = currently empty - will be allLayers (i.e. resampled)
 
-type = 'mex';
-
- switch type
-     case 'mex'
-        [problem,result] = reflectivityCalculation_mex(problemDef,problemDef_cells,problemDef_limits,controls);
-     otherwise
-        [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-end
-
+    try
+       [problem,result] = reflectivityCalculation_mex(problemDef,problemDef_cells,problemDef_limits,controls);
+    catch exception
+        if (strcmp(exception.identifier, 'MATLAB:UndefinedFunction'))
+            [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+        else
+            rethrow(exception)
+        end
+    end
 end

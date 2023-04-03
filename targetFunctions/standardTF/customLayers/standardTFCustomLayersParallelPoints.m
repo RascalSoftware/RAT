@@ -60,7 +60,7 @@ end
 
 resamPars = controls.resamPars;
 
-parallelFlag = false;
+parallelFlag = true;
 
 % Process the custom models....
 [allLayers,allRoughs] = customModelClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...

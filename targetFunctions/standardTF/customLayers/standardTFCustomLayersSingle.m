@@ -60,11 +60,9 @@ end
 % Resampling parameters
 resamPars = controls.resamPars;
 
-parallelFlag = false;
-
 % Process the custom models....
 [allLayers,allRoughs] = customModelClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,parallelFlag);
+                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 % Single cored over all contrasts
 for i = 1:numberOfContrasts
@@ -77,6 +75,30 @@ for i = 1:numberOfContrasts
     
     % Get the custom layers output for this contrast
     thisContrastLayers = allLayers{i};
+
+    % If we have 5 columns in the custom layers file, we need to deal with
+    % the hydration..
+    outSize = size(thisContrastLayers);
+    if outSize(2) == 5                           % we need to calculate the hydrated SLD
+        newOutLayers = zeros(outSize(1),3);
+        newOutLayers(:,1) = output(:,1);         % Thickness'
+        newOutLayers(:,3) = output(:,3);
+        
+        for n = 1:outSize(1)
+            thisSLD = output(n,2);
+            thisHydration = output(n,4) / 100;   % Assume percent for backwards compatability
+            thisHydrWhat = output(n,5);
+            if thisHydrWhat == 0                 % Bulk out
+                thisBulkHydr = bulkIn;
+            else
+                thisBulkHydr = bulkOuts(i);
+            end
+            newSld = (thisHydration * thisBulkHydr) + ((1-thisHydration) * thisSLD);
+            thisSldVal = newSld(1,1);   % Reassignment to keep codegen happy
+            newOutLayers(n,2) = thisSldVal;
+        end
+        thisContrastLayers = newOutLayers;
+    end
 
     % For the other parameters, we extract the correct ones from the input
     % arrays

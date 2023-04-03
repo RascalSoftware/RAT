@@ -132,5 +132,4 @@ ARGS = makeCompileArgs();
 % **CAN'T GET THE COMPILER TO PICK UP THE INCLUDE PATH!!!**
 %codegen -I includePath -config cfg reflectivityCalculation -args ARGS{1} 
 
-cfg.PostCodeGenCommand = 'setbuildargs(buildInfo)';
 codegen -config cfg reflectivityCalculation -args ARGS{1} 

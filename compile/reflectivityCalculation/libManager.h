@@ -15,6 +15,7 @@ class Library
     public:
         std::string functionName;
         std::string libName;
+    
         Library(void){};
         ~Library(void){};
 
@@ -30,7 +31,7 @@ class Library
             // std::cout << "loading library" << std::endl;
         {       
 
-            std::cout << "Library name in libManager : " << libName  << "\n";
+            //std::cout << "Library name in libManager : " << libName  << "\n";
             //std::string libName = "mainFromGCC";
             
             // creating an instance of dylib

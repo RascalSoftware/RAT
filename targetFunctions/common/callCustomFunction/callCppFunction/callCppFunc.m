@@ -14,8 +14,8 @@ function [output,subRough] = callCppFunc(params,nba,nbs,numberOfContrasts,librar
     coder.updateBuildInfo('addLinkFlags','-ldl');
 
     % Add the include dir....
-    includeDir = getappdata(0,'includeDir');
-    coder.updateBuildInfo('addIncludePaths',includeDir);
+    %includeDir = getappdata(0,'includeDir');
+    %coder.updateBuildInfo('addIncludePaths',includeDir);
 
     tempOutput = zeros(3,1000);
     subRough = 0.0;

@@ -79,14 +79,14 @@ for i = 1:numberOfContrasts
     outSize = size(thisContrastLayers);
     if outSize(2) == 5                           % we need to calculate the hydrated SLD
         newOutLayers = zeros(outSize(1),3);
-        newOutLayers(:,1) = output(:,1);         % Thickness'
-        newOutLayers(:,3) = output(:,3);
+        newOutLayers(:,1) = thisContrastLayers(:,1);         % Thickness'
+        newOutLayers(:,3) = thisContrastLayers(:,3);
         
         for n = 1:outSize(1)
-            thisSLD = output(n,2);
-            thisHydration = output(n,4) / 100;   % Assume percent for backwards compatability
-            thisHydrWhat = output(n,5);
-            if thisHydrWhat == 1                 % Bulk out
+            thisSLD = thisContrastLayers(n,2);
+            thisHydration = thisContrastLayers(n,4) / 100;   % Assume percent for backwards compatability
+            thisHydrWhat = thisContrastLayers(n,5);
+            if thisHydrWhat == 0                 % Bulk out
                 thisBulkHydr = bulkIn;
             else
                 thisBulkHydr = bulkOuts(i);

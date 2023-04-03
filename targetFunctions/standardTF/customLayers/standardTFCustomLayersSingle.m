@@ -73,21 +73,18 @@ for i = 1:numberOfContrasts
     % data shifts and bulk contrasts are associated with this contrast
     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
     
-    % Get the custom layers output for this contrast
-    thisContrastLayers = allLayers{i};
-
     % If we have 5 columns in the custom layers file, we need to deal with
     % the hydration..
     outSize = size(thisContrastLayers);
     if outSize(2) == 5                           % we need to calculate the hydrated SLD
         newOutLayers = zeros(outSize(1),3);
-        newOutLayers(:,1) = output(:,1);         % Thickness'
-        newOutLayers(:,3) = output(:,3);
+        newOutLayers(:,1) = thisContrastLayers(:,1);         % Thickness'
+        newOutLayers(:,3) = thisContrastLayers(:,3);
         
         for n = 1:outSize(1)
-            thisSLD = output(n,2);
-            thisHydration = output(n,4) / 100;   % Assume percent for backwards compatability
-            thisHydrWhat = output(n,5);
+            thisSLD = thisContrastLayers(n,2);
+            thisHydration = thisContrastLayers(n,4) / 100;   % Assume percent for backwards compatability
+            thisHydrWhat = thisContrastLayers(n,5);
             if thisHydrWhat == 0                 % Bulk out
                 thisBulkHydr = bulkIn;
             else

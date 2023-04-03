@@ -102,6 +102,15 @@ classdef domainsClass < projectClass
             obj.domainsContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
         end
 
+        function [domainsContrastsStruct, domainRatioStruct] = makeDomainsStruct(obj)    
+            % Converts the domains class parameters into a struct array
+            % for input into the RAT toolbox
+            % In this case, where there are no domains, we define dummy
+            % classes.
+            domainsContrastsStruct = obj.domainsContrasts.toStruct();
+            domainRatioStruct = obj.domainRatio.toStruct();
+        end
+
     end
     
     % ------------------------------------------------------------------

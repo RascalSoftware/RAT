@@ -54,6 +54,7 @@ classdef contrastsClass < baseContrasts
             % Now deal with additional properties in this class
             nContrasts = obj.numberOfContrasts;
             contrastBacks = cell(1,nContrasts);
+            contrastDomainRatios = zeros(1,nContrasts);
             contrastShifts = ones(1,nContrasts);
             contrastScales = ones(1,nContrasts);
             contrastRes = ones(1,nContrasts);
@@ -67,6 +68,11 @@ classdef contrastsClass < baseContrasts
             for i = 1:nContrasts
 
                 thisContrast = obj.contrasts{i};
+
+                if isfield(thisContrast, 'domainRatio')
+                    contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
+                end
+
                 contrastBacks{i} =  [find(strcmpi(thisContrast.background,allowedNames.backsNames)), 1];
                 contrastShifts(i) = 1;  %Todo
                 contrastScales(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefacNames));
@@ -95,6 +101,7 @@ classdef contrastsClass < baseContrasts
 
             end
 
+            contrastStruct.contrastDomainRatios = contrastDomainRatios;
             contrastStruct.contrastBacks = contrastBacks;
             contrastStruct.contrastShifts = contrastShifts;
             contrastStruct.contrastScales = contrastScales;

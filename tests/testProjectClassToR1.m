@@ -4,6 +4,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
         inputProjectClass
         inputStruct
         output
+        defaultProject
     end
 
     methods(TestClassSetup)
@@ -11,6 +12,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
             testCase.inputProjectClass = "originalDSPCBilayerProjectClass.mat";
             testCase.inputStruct = "originalDSPCBilayerStructInput.mat";
             testCase.output = "originalDSPCBilayerStructOutput.mat";
+            testCase.defaultProject = "defaultProject.mat";
         end
 
         function setWorkingFolder(testCase)
@@ -22,27 +24,23 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
     methods (Test)
 
-        function testFileExists(testCase)
-            % verify output file exists with .m extension
+        function testFilesExists(testCase)
             testCase.verifyEqual(exist(testCase.output,'file'), 2);
-
-            % verify inputProjectClass exists with .m extension
             testCase.verifyEqual(exist(testCase.inputProjectClass,'file'), 2);
-
-            % verify inputStruct exists with .m extension
             testCase.verifyEqual(exist(testCase.inputStruct,'file'), 2);
+            testCase.verifyEqual(exist(testCase.defaultProject,'file'), 2);
         end
 
         function testCompareProjectClassToR1(testCase)
 
-            % Load expected R1 struct
+            % load expected R1 struct
             expected = load(testCase.output).problem;
 
-            % Create the R1 struct result
+            % create the R1 struct result
             pClass = load(testCase.inputProjectClass).thisProjectClass; %loads project class
             result = projectClassToR1(pClass, "saveProject", false);
 
-            % verify ALL the field of result and expected match
+            % verify the field of result and expected match
             testCase.verifyEqual(result.name, expected.name);
             testCase.verifyEqual(result.numberOfContrasts, expected.numberOfContrasts);
             testCase.verifyEqual(result.module.type, expected.module.type);
@@ -146,17 +144,17 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
         function testProjectClassConversionWithModification(testCase)
 
-            % Load Project Class
+            % load projectClass
             pClass = load(testCase.inputProjectClass).thisProjectClass;
 
-            % Modify Project Class
+            % modify projectClass
             pClass.layers.layersTable.("Hydrate with")(1) = "bulk in";
             pClass.contrasts.contrasts{1}.data = 'Simulation';
 
-            % Create R1 struct result
+            % create R1 struct result
             result = projectClassToR1(pClass, "saveProject", false);
 
-            % Verify changes
+            % verify changes
             testCase.verifyEqual(result.layersDetails{1}{6}, char(pClass.layers.layersTable.("Hydrate with")(1)));
             testCase.verifyEqual(result.contrastTypes{1}, pClass.contrasts.contrasts{1}.data);
 
@@ -164,16 +162,16 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
         function testR1ProblemInput(testCase)
 
-            % Load R1 struct
+            % load r1 struct
             expected = load(testCase.inputStruct).problem;
 
-            % Load Project Class
+            % load projectClass
             pClass = load(testCase.inputProjectClass).thisProjectClass;
 
-            % Create R1 struct result
+            % Create r1 struct result
             result = projectClassToR1(pClass, "r1Problem", expected);
 
-            % verify MOST of the field of result and expected match
+            % verify the field of result and expected match
             testCase.verifyEqual(result.numberOfContrasts, expected.numberOfContrasts);
             testCase.verifyEqual(result.module.calculation_type, expected.module.calculation_type);
             testCase.verifyEqual(result.paramnames, expected.paramnames);
@@ -249,14 +247,25 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
         function testR1ProblemException(testCase)
 
-            % Load wrong R1 struct
+            % Load wrong R1 struct and project class
             expected = load(testCase.output).problem;
-
-            % Load Project Class
             pClass = load(testCase.inputProjectClass).thisProjectClass;
 
             % Verify exception raised
             testCase.verifyError(@() projectClassToR1(pClass, "r1Problem", expected), 'RAT:unrecognizedR1Problem');
+
+        end
+
+        function testR1ProblemExtension(testCase)
+
+            % Load R1 struct and project class
+            expected = load(testCase.inputStruct).problem;
+            pClass = load(testCase.inputProjectClass).thisProjectClass;
+
+            % Create R1 struct result
+            result = projectClassToR1(pClass, "fileName", 'demo');
+
+            testCase.verifyEqual(exist("demo.mat",'file'), 2);
 
         end
     end

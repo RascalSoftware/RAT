@@ -1,6 +1,6 @@
-classdef testSimContrastsClass < matlab.unittest.TestCase
+classdef testDomainsContrastsClass < matlab.unittest.TestCase
 %%
-% testContrastsClass Class based unit tests for the simContrastsClass
+% testContrastsClass Class based unit tests for the domainsContrastsClass
 % used within the Project Class in RAT.
 %
 % In this class, we test:
@@ -69,7 +69,7 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
             % Set up an example contrasts class for testing
             % This example is used in the example calculation
             % "DPPC_standard_layers.m"
-            testCase.exampleClass = simContrastsClass(true);
+            testCase.exampleClass = domainsContrastsClass(true);
 
             testCase.exampleClass.contrasts(1) = {struct( ...
                 'name', 'Bilayer / D2O', ...
@@ -117,9 +117,9 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
 
     methods (Test, ParameterCombination='sequential')
 
-        function testInitialiseSimContrastsClass(testCase)
-            testClass = simContrastsClass();
-            testCase.verifyEqual(testClass.contrasts, {}, 'simContrastsClass does not initialise correctly');
+        function testInitialiseDomainsContrastsClass(testCase)
+            testClass = domainsContrastsClass();
+            testCase.verifyEqual(testClass.contrasts, {}, 'domainsContrastsClass does not initialise correctly');
             testCase.verifyFalse(testClass.domainsCalc);
         end
 
@@ -232,7 +232,7 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
             % the expected table headers and contrasts data
 
             % Make an empty contrast object
-            emptyContrasts = simContrastsClass();
+            emptyContrasts = domainsContrastsClass();
 
             emptyContrasts.contrasts = {testCase.defaultContrastParams};
             emptyContrasts.contrasts{1}.resample = '';
@@ -281,7 +281,7 @@ classdef testSimContrastsClass < matlab.unittest.TestCase
                 'nbs', 'SLD SMW' ...
                 );
 
-            contrastStruct = simContrastsClass.parseContrastInput(testCase.allowedNames, false, testCase.newValues);
+            contrastStruct = domainsContrastsClass.parseContrastInput(testCase.allowedNames, false, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
         end
 

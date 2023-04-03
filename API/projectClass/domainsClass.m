@@ -6,11 +6,11 @@ classdef domainsClass < projectClass
     %
     % Sub objects used are:
     % parametersClass      - parameter definition with priors
-    % simContrastsClass    -
+    % domainsContrastsClass    -
     
     properties
         domainRatio           % Class for specifying the ratio between domains
-        simContrasts          % Modified contrast class with no data for domains
+        domainsContrasts          % Modified contrast class with no data for domains
     end
        
     methods
@@ -34,7 +34,7 @@ classdef domainsClass < projectClass
 
             % For a domains calculation, initialise secondary contrasts
             % object and domain ratio parameter class
-            obj.simContrasts = simContrastsClass();
+            obj.domainsContrasts = domainsContrastsClass();
             obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);               
         end
 
@@ -49,44 +49,44 @@ classdef domainsClass < projectClass
         %
         %   Editing of Sim Contrasts Block
         
-        function obj = addSimContrast(obj, varargin)
-            % Adds a new simContrast parameter. Expects a parameter name,
+        function obj = addDomainsContrast(obj, varargin)
+            % Adds a new domainsContrast parameter. Expects a parameter name,
             % and with key-value pairs with one or more of the following
             % "bulk in", "bulk out", "model"
             % 
-            % problem.addSimContrast('simContrast 1', 'nba', 'Silicon');
+            % problem.addDomainsContrast('domainsContrast 1', 'nba', 'Silicon');
             allowedNames = obj.getAllAllowedNames();
-            obj.simContrasts.addContrast(allowedNames, varargin{:});  
+            obj.domainsContrasts.addContrast(allowedNames, varargin{:});  
         end
 
-        function obj = removeSimContrast(obj, row)
-            % Removes a specified simContrast parameter. Expects
+        function obj = removeDomainsContrast(obj, row)
+            % Removes a specified domainsContrast parameter. Expects
             % index or name of resolution to remove
             %
-            % problem.removeSimContrast(1);
-            obj.simContrasts.removeContrast(row);
+            % problem.removeDomainsContrast(1);
+            obj.domainsContrasts.removeContrast(row);
         end
  
-        function obj = setSimContrast(obj, row, varargin)   
+        function obj = setDomainsContrast(obj, row, varargin)   
             % Allow setting of all parameters in terms of name value pairs.
-            % First input must be simContrast number or name, subsequent
+            % First input must be domainsContrast number or name, subsequent
             % inputs are name / value pairs for the parts involved
             %
-            % problem.setContrast(1, 'name', 'simContrast')
+            % problem.setContrast(1, 'name', 'domainsContrast')
                         
             % Get the list of allowed values depending on what is
             % set for the other contrasts.
             allowedValues = obj.getAllAllowedNames;
             
             % Call the setContrast method
-            obj.simContrasts.setContrast(row, allowedValues, varargin{:});
+            obj.domainsContrasts.setContrast(row, allowedValues, varargin{:});
         end
         
-        function obj = setSimContrastModel(obj, row, model)
+        function obj = setDomainsContrastModel(obj, row, model)
             % Edits the model of an existing contrast parameter. Expects
             % the index of contrast parameter and cell array of layer names
             %
-            % problem.setSimContrastModel(1, {'layer 1'})
+            % problem.setDomainsContrastModel(1, {'layer 1'})
                         
             % Make a different allowed list depending on whether 
             % it is custom or layers
@@ -99,7 +99,7 @@ classdef domainsClass < projectClass
             end
             
             % Call the setContrastModel method
-            obj.simContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+            obj.domainsContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
         end
 
     end
@@ -123,9 +123,9 @@ classdef domainsClass < projectClass
             fprintf('   Domain Ratios: ----------------------------------------------------------------------------------------------- \n\n');
             obj.domainRatio.displayParametersTable;
 
-            % Display the simContrasts object
+            % Display the domainsContrasts object
             fprintf('   Sim Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
-            obj.simContrasts.displayContrastsObject; 
+            obj.domainsContrasts.displayContrastsObject; 
         end
         
     end

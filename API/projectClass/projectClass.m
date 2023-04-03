@@ -89,7 +89,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % For a domains calculation, initialise secondary contrasts
             % object and domain ratio parameter class
-            % obj.simContrasts = simContrastsClass();
+            % obj.domainsContrasts = domainsContrastsClass();
             % if obj.domainsCalc
             %     obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
             % else

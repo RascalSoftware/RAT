@@ -13,6 +13,7 @@ if ~isempty(varargin)
     dirName = pars.dirName;
     dirPath = pars.dirPath;
     fullName = fullfile(dirPath,dirName);
+    originalDir = pwd;
 
     r1Problem = pars.r1Problem;
     if isfield(r1Problem,'empty')
@@ -122,7 +123,6 @@ else
     customFiles = r2Problem.customFile.toStruct().files{:};
     customFiles = customFiles(1, :); % Only ever 1 custom file in R1
     customFileName = customFiles{1};
-    originalDir = pwd;
     
     cd(originalDir);
     copyfile(customFileName, dirName);

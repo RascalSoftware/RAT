@@ -45,7 +45,7 @@ r1Problem.constr = vertcat(r2ParamStruct.paramConstr{:});
 r1Problem.fityesno = r2ParamStruct.fitYesNo;
 
 % Set qz shifts
-[r1Problem.numberOfShifts, r1Problem.numberOfShifts] = deal(1);
+r1Problem.numberOfShifts = 1;
 r1Problem.shiftsNames = {'Shift 1'};
 [r1Problem.shifts_horisontal, r1Problem.shifts_fityesno] = deal(0);
 r1Problem.shifts_constr = [-1e-4 1e-4];

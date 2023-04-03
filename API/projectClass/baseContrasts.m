@@ -259,6 +259,7 @@ classdef (Abstract) baseContrasts < handle
             contrastNbas = ones(1,nContrasts);
             contrastNbss = ones(1,nContrasts);
             contrastCustomFile = ones(1,nContrasts);
+            contrastDomainRatios = zeros(1,nContrasts);
             contrastNames = cell(1,nContrasts);
             contrastRepeatSLDs = cell(1,nContrasts);
             
@@ -268,6 +269,9 @@ classdef (Abstract) baseContrasts < handle
                 
                 contrastNbas(i) = find(strcmpi(thisContrast.nba,allowedNames.bulkInNames));
                 contrastNbss(i) = find(strcmpi(thisContrast.nbs,allowedNames.bulkOutNames));
+                if isfield(thisContrast, 'domainRatio')
+                    contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
+                end
                 contrastRepeatSLDs{i} = [0 1]; % todo
                 contrastNames{i} = thisContrast.name;
 
@@ -294,6 +298,7 @@ classdef (Abstract) baseContrasts < handle
             
             contrastStruct.contrastNbas = contrastNbas;
             contrastStruct.contrastNbss = contrastNbss;
+            contrastStruct.contrastDomainRatios = contrastDomainRatios;
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastRepeatSLDs = contrastRepeatSLDs;
             contrastStruct.contrastCustomFile = contrastCustomFile;

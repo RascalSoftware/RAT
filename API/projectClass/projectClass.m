@@ -785,7 +785,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Custom files
             customFileStruct = obj.customFile.toStruct();
             
-            % Contrasts.
+            % Contrasts
             allNames = obj.getAllAllowedNames;
             dataTable = obj.data.dataTable;
             

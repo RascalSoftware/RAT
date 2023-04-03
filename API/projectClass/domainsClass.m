@@ -5,12 +5,12 @@ classdef domainsClass < projectClass
     % hydration.
     %
     % Sub objects used are:
-    % parametersClass      - parameter definition with priors
-    % domainsContrastsClass    -
+    % parametersClass          - parameter definition with priors
+    % domainsContrastsClass    - additional contrasts object for domains
     
     properties
         domainRatio           % Class for specifying the ratio between domains
-        domainsContrasts          % Modified contrast class with no data for domains
+        domainsContrasts      % Modified contrast class with no data for domains
     end
        
     methods
@@ -47,7 +47,7 @@ classdef domainsClass < projectClass
   
         % ----------------------------------------------------------------
         %
-        %   Editing of Sim Contrasts Block
+        %   Editing of Domains Contrasts Block
         
         function obj = addDomainsContrast(obj, varargin)
             % Adds a new domainsContrast parameter. Expects a parameter name,
@@ -112,10 +112,6 @@ classdef domainsClass < projectClass
             % Display the whole class. Call the display methods for
             % the sub-classes where appropriate
             
-            % There are two versions, depending on whether the model
-            % is standard layers or custom, the difference being
-            % the display of the layers table..
-            
             % Display initial properties from superclass
             displayScalarObject@projectClass(obj);
 
@@ -124,7 +120,7 @@ classdef domainsClass < projectClass
             obj.domainRatio.displayParametersTable;
 
             % Display the domainsContrasts object
-            fprintf('   Sim Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
+            fprintf('   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
             obj.domainsContrasts.displayContrastsObject; 
         end
         

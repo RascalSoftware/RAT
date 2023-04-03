@@ -6,7 +6,7 @@ y = chain;
 nPars = size(chain,2);
 for i = 1:nPars
     
-    [N,edges] = histcounts(chain(:,i),50, 'Normalization','pdf');
+    [N,edges] = histcounts(chain(:,i),25, 'Normalization','pdf');
     edges2 = edges(2:end) - (edges(2)-edges(1))/2;
     N2 = smoothdata(N, 'movmean');
     newDists{i} = [N2(:) edges2(:)];
@@ -324,10 +324,10 @@ end
 % ---------------------------------------------------------------------
 function plotContours(x,y,ax)
 
-nbins = [100 100];
+nbins = [50 50];
 
 [N,C] = hist3([x(:) y(:)],nbins);
-K=(1/25)*ones(5);
+K=(1/10)*ones(5);
 N=conv2(N,K,'same');
 
 NN = N/sum(N(:));

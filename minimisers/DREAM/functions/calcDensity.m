@@ -45,14 +45,14 @@ if strcmp(DREAMPar.ABC,'no')
         % RAT specific prior funtion (mvnpdf)
         PR = zeros(1,DREAMPar.N);
         for i = 1:DREAMPar.N                                  % Loop over all the chains..
-            PR(i) = gaussLogPrior(x(i,:),ratInputs);          % mvnpdf automatically goes over all pars
+            PR(i) = scaledGaussPrior(x(i,:),ratInputs);          % mvnpdf automatically goes over all pars
         end
         
         % Take log of any non-zero values..
         log_PR = zeros(DREAMPar.N,1);
         for i = 1:length(PR)
             if PR(i) ~= 0
-                log_PR(i) = log(PR(i));     % Does it even need to be log?
+                log_PR(i) = PR(i);%log(PR(i));     % Does it even need to be log?
             else
                 % Otherwise keep the zero values
                 log_PR(i) = 0;
@@ -100,7 +100,7 @@ end
 
 % Loop over each model realization and calculate log-likelihood of each fx
 for ii = 1 : DREAMPar.N
-    log_L(ii,1) = log ( fx(1,ii) );
+    log_L(ii,1) =  fx(1,ii) ;
 end
 
 % ------------------ End Calculate log-likelihood -------------------------

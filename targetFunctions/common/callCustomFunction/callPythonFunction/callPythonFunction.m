@@ -1,6 +1,6 @@
 function [output,sub_rough] = callPythonFunction(fname,params,bulk_in,bulk_out,contrast)
 
-% Calls a Python custom function from the Matlab interpreter.
+% Calls a Python custom function from the base Matlab workspace.
 
 % List of the currently loaded python modules
 persistent functionList
@@ -17,6 +17,10 @@ if isempty(thisFunc)
     % First time encountering the module. Import it..
     mod = py.importlib.import_module(fname);    %'mod' becomes a handle to the module
 
+    % We reload it just in case the puthon session has already 'seen' a
+    % version of this module and the user has since modified it...   
+    py.importlib.reload(mod);
+
     % Store this at the end of the 'functionList' array...
     nModules = size(functionList,1);
     functionList(nModules+1,:) = {fname,mod};
@@ -25,20 +29,14 @@ if isempty(thisFunc)
 
 else    % Module has already been loaded..
 
-    thisMod = functionList(thisFunc,2);
+    thisMod = functionList{thisFunc,2};
 
 end
 
-% We can pass matlab parameters directly to the python function. Since 'contrast'
-% is an array index in the function, this needs to be an integer..
-contrast = int32(contrast);
-
 % Call the python function....
-% (could do with a better way than a messy eval tbh..)
-% callString = ['thisMod.',fname,'(params,bulk_in,bulk_out,contrast)'];
-% out = eval(callString);
-
-out = thisMod.(fname)(params,bulk_in,bulk_out,contrast);
+% We can pass matlab parameters directly to the python function (since r2008
+% Matlab takes care of type conversions under the hood). 
+out = thisMod.(fname)(params,bulk_in,bulk_out,int32(contrast));
 
 % 'out' comes back as a tuple. An easy way of accessing everything is via
 % a cell array....

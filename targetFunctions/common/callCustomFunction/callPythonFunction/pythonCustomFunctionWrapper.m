@@ -1,4 +1,4 @@
-function [output,sRough] = pythonCustomFunctionWrapper(funcName,params,bulkIn,bulkOut,contrast)
+function [output,sRough] = pythonCustomFunctionWrapper(funcName,params,bulkIn,bulkOut,contrast,nContrasts)
 
 % Excecute a python custom model function in the base Matlab workspace.
 
@@ -8,10 +8,7 @@ function [output,sRough] = pythonCustomFunctionWrapper(funcName,params,bulkIn,bu
 
 if coder.target('MATLAB')
     
-    % For backwards compatability with Rascal1...
-    bulkOuts = zeros(nContrasts,1);
-    bulkOuts(contrast) = bulkOut;
-    [output,sRough] = callPythonFunction(funcName,params,bulkIn,bulkOuts,contrast);
+    [output,sRough] = callPythonFunction(funcName,params,bulkIn,bulkOut,contrast);
     
 else
     
@@ -31,11 +28,7 @@ else
     % the base Matlab workspace. The outputs of feval are mxArrays, 
     % so we need to do some work afterwards casting these to doubles (below)
     
-    % For backwards compatability with Rascal1...
-    bulkOuts = zeros(nContrasts,1);
-    bulkOuts(contrast) = bulkOut;
-    
-    [tempOut,tempRough] = feval('callPythonFunction',funcName,params,bulkIn,bulkOuts,contrast);
+    [tempOut,tempRough] = feval('callPythonFunction',funcName,params,bulkIn,bulkOut,contrast);
     
     % Tell coder n is doubles by defining it (otherwise 'size(n)' seems to return
     % [mxArray mxArray] not [double double]!), fill n with the size of the mxArray

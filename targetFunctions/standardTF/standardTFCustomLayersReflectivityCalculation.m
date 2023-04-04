@@ -10,8 +10,6 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,all
 % points    - parallelise over points in the reflectivity calculation
 % contrasts - parallelise over contrasts.
 
-
-
 % Pre-allocation - It's necessary to
 % pre-allocate the memory for all the arrays
 % for compilation, so do this in this block.
@@ -81,12 +79,6 @@ switch para
              allRoughs] = standardTFCustomLayersParallelContrasts(problemDef,problemDef_cells,...
              problemDef_limits,controls);
 
-%           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
-%              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-%              allRoughs] = dev_custlay_paraContrasts(problemDef,problemDef_cells,...
-%              problemDef_limits,controls);
-            
-        
 end
 
 problem.ssubs = outSsubs;

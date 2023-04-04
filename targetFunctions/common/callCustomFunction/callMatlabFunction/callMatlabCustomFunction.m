@@ -11,6 +11,7 @@ if coder.target('MATLAB')
     % For backwards compatability with Rascal1...
     bulkOuts = zeros(nContrasts,1);
     bulkOuts(contrast) = bulkOut;
+
     fileHandle = str2func(funcName);
     [output,sRough] = fileHandle(params,bulkIn,bulkOuts,contrast);
     
@@ -21,11 +22,6 @@ else
     % session. There is no need to explicitly declare the extrinsic
     % as Coder automatically does this when it encounters 'feval'
     % https://uk.mathworks.com/help/simulink/ug/use-matlab-engine-to-execute-a-function-call-in-generated-code.html
-    
-    % Ultimately, we will replace this with a C++ class calling a 
-    % separate Matlab engine so that Matlab custom model functions are 
-    % still usable when the generated code is used from Python.
-    % https://www.mathworks.com/help/matlab/calling-matlab-engine-from-cpp-programs.html
     
     % Pre-define the outputs to keep the compiler happy
     % Need to define the size of the outputs with coder preprocessor
@@ -41,6 +37,7 @@ else
     bulkOuts = zeros(nContrasts,1);
     bulkOuts(contrast) = bulkOut;
     
+    % Feval is automatic call to base Matlab workspace....
     [tempOut,tempRough] = feval(funcName,params,bulkIn,bulkOuts,contrast);
     
     % Tell coder n is doubles by defining it (otherwise 'size(n)' seems to return

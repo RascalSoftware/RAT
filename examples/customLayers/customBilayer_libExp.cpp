@@ -1,3 +1,5 @@
+//customBilayer_libExp.cpp
+
 #include <iostream>
 #include <iterator>
 
@@ -9,9 +11,6 @@
 
 // We user extern "C" decorator to avoid name mangling....
 extern "C" {
-    //LIB_EXPORT double outRough = 15.1;
-
-    //LIB_EXPORT double outArray[18];
 
     LIB_EXPORT void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* rough, double* nLayers)
 
@@ -24,6 +23,9 @@ extern "C" {
         double bilayerHydration = params[5];
         double bilayerRough = params[6];
         double waterThick = params[7];
+
+        double bulk_out = *bulkOut;
+        std::cout << "Bulk out value: " << bulk_out;
 
         // We have a constant SLD for the oxide
         double oxideSLD = 3.41e-6;
@@ -68,9 +70,9 @@ extern "C" {
 
         // Manually deal with hydration for layers in
         // this example.
-        double oxSLD = (oxideHydration * bulkOut[contrast]) + ((1 - oxideHydration) * oxideSLD);
-        double headSLD = (headHydration * bulkOut[contrast]) + ((1 - headHydration) * SLDhead);
-        double tailSLD = (bilayerHydration * bulkOut[contrast]) + ((1 - bilayerHydration) * SLDtail);
+        double oxSLD = (oxideHydration * *bulkOut) + ((1 - oxideHydration) * oxideSLD);
+        double headSLD = (headHydration * *bulkOut) + ((1 - headHydration) * SLDhead);
+        double tailSLD = (bilayerHydration * *bulkOut) + ((1 - bilayerHydration) * SLDtail);
 
         // Make the layers
         //output = new double[18];
@@ -85,7 +87,7 @@ extern "C" {
 
         // Water...
         output[3] = waterThick;
-        output[4] = bulkOut[contrast];
+        output[4] = *bulkOut;
         output[5] = bilayerRough;
 
         // Heads...

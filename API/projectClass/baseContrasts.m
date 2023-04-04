@@ -292,13 +292,14 @@ classdef (Abstract) baseContrasts < handle
                 end
                 
             end
-            
+
+            contrastStruct.contrastNames = contrastNames;
+            contrastStruct.numberOfContrasts = nContrasts;
             contrastStruct.contrastNbas = contrastNbas;
             contrastStruct.contrastNbss = contrastNbss;
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastRepeatSLDs = contrastRepeatSLDs;
             contrastStruct.contrastCustomFile = contrastCustomFile;
-            contrastStruct.numberOfContrasts = nContrasts;
             
         end
 

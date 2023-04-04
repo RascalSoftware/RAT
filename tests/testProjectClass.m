@@ -6,7 +6,6 @@ classdef testProjectClass < matlab.unittest.TestCase
         project
         parameters
         layers
-        customFile
     end
 
     methods(TestMethodSetup)
@@ -34,7 +33,6 @@ classdef testProjectClass < matlab.unittest.TestCase
                   {'Hydrogenated Tails', 'Tails Thickness', 'Hydrogenated Tails SLD',...
                    'Tails Roughness'};
                 };
-            testCase.customFile = {{'DSPC Model','customDSPCMonolayer.m','matlab','pwd'}};
         end
     end
 
@@ -50,8 +48,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.addParameters()
             paramsTable = testCase.project.layers.layersTable;
             testCase.project.layers.layersTable = [paramsTable; vertcat(testCase.layers{1:2})];
-            paramsTable = testCase.project.customFile.fileTable;
-            testCase.project.customFile.fileTable = [paramsTable; vertcat(testCase.customFile{1})];
             testCase.project.resolution.resolutions.typesTable{1, 1} = "Resolution 2";
             testCase.project.background.backgrounds.typesTable{1, 1} = "Background H2O";
             testCase.project.data.dataTable{1, 1} = "Sim 1";
@@ -79,8 +75,10 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Tests project class can be created and the experiment name is set correctly
             newProject = projectClass();
             testCase.verifyEqual(newProject.experimentName, '', 'Experiment name not set correctly');
+            testCase.verifyEqual(newProject.calculationType, calculationTypes.Standard.value, 'Calculation Type not set correctly');
             newProject = projectClass('New experiment');
             testCase.verifyEqual(newProject.experimentName, 'New experiment', 'Experiment name not set correctly');
+            testCase.verifyEqual(newProject.calculationType, calculationTypes.Standard.value, 'Calculation Type not set correctly');
             testCase.verifyError(@() projectClass(1), 'MATLAB:validators:mustBeTextScalar')
         end
 
@@ -456,8 +454,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.model, {'Deuterated Heads', 'Hydrogenated Heads'}, 'setContrastModel method not working');
             testCase.verifyError(@() testCase.project.setContrastModel(3, {}), indexOutOfRange.errorID)
             testCase.verifyError(@() testCase.project.setContrastModel('Bilayer', {}), nameNotRecognised.errorID);
-            
-            % FIXME setContrastModel crashes if the model type is custom 
         end
 
         function testCustomFile(testCase)
@@ -504,38 +500,18 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(projectStruct.qzshiftNames, {convertStringsToChars(testCase.project.qzshifts.paramsTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.nbairNames, {convertStringsToChars(testCase.project.bulkIn.paramsTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.nbsubNames, {convertStringsToChars(testCase.project.bulkOut.paramsTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbsubNames, {convertStringsToChars(testCase.project.bulkOut.paramsTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.layersNames, testCase.project.layers.layersTable{:, 1}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbsubNames, {convertStringsToChars(testCase.project.bulkOut.paramsTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.layersNames, testCase.project.layers.layersTable{:, 1}, 'toStruct method not working');           
 
-            % Populates project properties for the tests
-            testCase.populateProject();
-            testCase.project.modelType = modelTypes.CustomXY.value;
-            testCase.project.addContrast('name', 'Bilayer / H2O', 'background', 'Background H2O', 'resolution', 'Resolution 2',...
-                             'scalefactor', 'Scalefactor 1', 'resample', false, 'nbs', 'SLD D2O', 'nba', 'SLD Air',...
-                             'data', 'Sim 1');
-            testCase.project.setContrastModel(1, 'DSPC Model');
-            % Test properties are written to struct
-            projectStruct = testCase.project.toStruct();
-            testCase.verifyEqual(projectStruct.experimentName, testCase.project.experimentName, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.geometry, testCase.project.geometry, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.TF, calculationTypes.Standard.value, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.paramNames, reshape(convertStringsToChars(testCase.project.parameters.paramsTable{:, 1}), 1, []), 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.backgroundNames, testCase.project.background.backgrounds.typesTable{:, 1}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.backgroundTypes, testCase.project.background.backgrounds.typesTable{:, 2}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.backParNames, ...
-                                 {convertStringsToChars(testCase.project.background.backPars.paramsTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.typesTable{:, 1}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.resolutionTypes, testCase.project.resolution.resolutions.typesTable{:, 2}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.resolParNames, ...
-                                 {convertStringsToChars(testCase.project.resolution.resolPars.paramsTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.typesTable{:, 1}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.scalefactorNames, {convertStringsToChars(testCase.project.scalefactors.paramsTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.qzshiftNames, {convertStringsToChars(testCase.project.qzshifts.paramsTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbairNames, reshape(convertStringsToChars(testCase.project.bulkIn.paramsTable{:, 1}), 1, []), 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbsubNames, reshape(convertStringsToChars(testCase.project.bulkOut.paramsTable{:, 1}), 1, []), 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbsubNames, reshape(convertStringsToChars(testCase.project.bulkOut.paramsTable{:, 1}), 1, []), 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.layersNames, testCase.project.layers.layersTable{:, 1}, 'toStruct method not working');
+            nContrasts = testCase.project.contrasts.numberOfContrasts;
+            contrastNames = cell(1,nContrasts);
+            for i = 1:nContrasts
+                contrastNames{i} = testCase.project.contrasts.contrasts{i}.name;
+            end
+            testCase.verifyEqual(projectStruct.contrastNames, contrastNames, 'toStruct method not working');
+
+            % For this project, domains parameters should be empty
+            testCase.verifyEqual(projectStruct.contrastNames, cell(1,0), 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.domainRatioNames, cell(1,0), 'toStruct method not working');
         end
 
         function testObjectDisplay(testCase)

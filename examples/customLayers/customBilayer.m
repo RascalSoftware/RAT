@@ -1,3 +1,4 @@
+%customBilayer.m 
 function [output,sub_rough] = customBilayer(params,bulk_in,bulk_out,contrast)
 
 sub_rough = params(1);

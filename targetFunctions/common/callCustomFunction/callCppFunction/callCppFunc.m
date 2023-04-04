@@ -1,8 +1,8 @@
-% This file is used to generate the mex function that deals with CPP custom layer functionality.
-
 
 function [output,subRough] = callCppFunc(params,nba,nbs,numberOfContrasts,libraryName,functionName)
 
+    % Use 3rd party 'dylib.hpp' to implement a cross-platform Cpp runtime
+    % class loader.... https://github.com/martin-olivier/dylib
 
     coder.cinclude('<functional>');
     coder.cinclude('<string>');
@@ -28,17 +28,11 @@ function [output,subRough] = callCppFunc(params,nba,nbs,numberOfContrasts,librar
     libraryName = [libraryName,0];
     functionName = [functionName,0];
 
-    % bulk in - 1xn
-    % bulk out - 1xn
-    % params - 1xn
     % call the class method in libManager.h
     coder.ceval('std::mem_fn(&Library::loadRunner)',p,coder.ref(params),coder.ref(nba),coder.ref(nbs)...
         ,numberOfContrasts,coder.wref(tempOutput),coder.wref(subRough),coder.wref(nLayers),libraryName,functionName);
 
     output = tempOutput(:,1:nLayers)';
-    %fprintf('subRough in testDLL is %g \n', subRough);
-    %fprintf('output 1  is %g \n',output(1)); 
-    %fprintf('nLayers is %g \n',nLayers);
 end
 
 

@@ -44,46 +44,25 @@ for i = 1:numberOfContrasts
     Simulation{i} = [1 1 ; 1 1];
 end
 coder.varsize('Simulation{:}',[10000 2],[1 0]);
-sldProf = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    sldProf{i} = [1 ; 1];
-end
+
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
+
 sldProfiles = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     sldProfiles{i} = [1 ; 1];
 end
-% coder.varsize('allLayers{:}',[10000 3],[1 1]);
-% % Depending on custom layer language we change the functions used
-% lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
-% switch lang 
-% case 'matlab'
-%     % Call the Matlab parallel loop to process the custom models.....
-%     [sldProf, allRoughs] = loopMatlabWrapperCustomXYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-% % 
-% case 'cpp'
-%     [sldProf,allRoughs] = loopCppWrapperCustomXYContrasts(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-%     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-%     
-%     
-% end
-
 
 % Process the custom models....
-parallelFlag = false;
 
-[sldProf,allRoughs] = customModelClass.processCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,parallelFlag);
+[sldProfiles,allRoughs] = customModelClass.processCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 
 for i = 1:numberOfContrasts
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
-    
-    sldProfiles{i} = sldProf{i};
 
     resamPars = controls.resamPars;
     layerSld = resampleLayers(sldProfiles{i},resamPars);

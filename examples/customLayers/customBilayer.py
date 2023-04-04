@@ -4,10 +4,11 @@ import numpy as np
 def customBilayer(params, bulk_in, bulk_out, contrast):
 
     # Do some housekeeping on the variable types...
-    params = numpy.asarray(params);
-    bulk_in = np.array([2.073e-6]);
-    bulk_out = np.array([6.35e-6 6.35e-6 6.35e-6]);
-    contrast = 1;
+    params = np.asarray(params);
+    #bulk_in = np.array([2.073e-6]);
+    #bulk_out = np.array([6.35e-6,6.35e-6,6.35e-6]);
+    #contrast = 1;
+
 
     sub_rough = params[0]
     oxide_thick = params[1]
@@ -61,16 +62,20 @@ def customBilayer(params, bulk_in, bulk_out, contrast):
 
     # Manually deal with hydration for layers in
     # this example.
-    oxSLD = (oxide_hydration * bulk_out[contrast]) + ((1 - oxide_hydration) * oxide_SLD)
-    headSLD = (headHydration * bulk_out[contrast]) + ((1 - headHydration) * SLDhead)
-    tailSLD = (bilayerHydration * bulk_out[contrast]) + ((1 - bilayerHydration) * SLDtail)
+    oxSLD = (oxide_hydration * bulk_out) + ((1 - oxide_hydration) * oxide_SLD)
+    headSLD = (headHydration * bulk_out) + ((1 - headHydration) * SLDhead)
+    tailSLD = (bilayerHydration * bulk_out) + ((1 - bilayerHydration) * SLDtail)
 
     # Make the layers
     oxide = np.array([oxide_thick, oxSLD, sub_rough])
-    water = np.array([waterThick, bulk_out[contrast], bilayerRough])
+    water = np.array([waterThick, bulk_out, bilayerRough])
     head = np.array([headThick, headSLD, bilayerRough])
     tail = np.array([tailThick, tailSLD, bilayerRough])
 
     output = np.array([oxide, water, head, tail, tail, head])
 
+    """output = np.array([1,2,3,4])
+    sub_rough = np.array([1])"""
+
     return output, sub_rough
+

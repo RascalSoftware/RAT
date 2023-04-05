@@ -10,7 +10,7 @@ classdef calculationTypes < customEnum
     end
 
     enumeration
-        Standard ('standard')
+        NonPolarised ('nonPolarised')
         Absorption ('absorption')
         Domains ('domains')
         OilWater ('oilWater')

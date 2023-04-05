@@ -7,7 +7,7 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,
 % (i.e. 'Target function' is required, and call the relevant routines.
 % The types of available target functions are:*
 %
-% * standard       - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
+% * nonPolarised   - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
 %
 % * absorption     - Identical to standardTF, but includes imaginary refractive index terms.
 %
@@ -76,10 +76,11 @@ end
 coder.varsize('allLayers{:}',[10000 3],[1 0]);
 
 
-%Decide which target function we are calling ans call the relevant routines
+% Decide which target function we are calling and call the relevant routines
+% PS - How can we include our enums here?
 whichTF = problemDef.TF;
 switch whichTF
-    case 'standard'
+    case 'nonPolarised'
         [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
     %case calculationTypes.Absorption.value
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);

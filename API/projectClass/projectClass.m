@@ -33,7 +33,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     end
 
     properties (SetAccess = protected)
-        calculationType = calculationTypes.Standard.value
+        calculationType = calculationTypes.NonPolarised.value
     end
        
     methods

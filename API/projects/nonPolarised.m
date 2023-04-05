@@ -14,7 +14,7 @@ classdef nonPolarised < projectClass
 
             % Call projectClass constructor
             obj@projectClass(experimentName);
-            obj.calculationType = calculationTypes.Standard.value;
+            obj.calculationType = calculationTypes.NonPolarised.value;
         end
         
     end

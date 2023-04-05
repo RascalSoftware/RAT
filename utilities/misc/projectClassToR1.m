@@ -35,7 +35,7 @@ if ~isempty(varargin)
     fileName = pars.fileName;
     dirName = pars.dirName;
     dirPath = pars.dirPath;
-    fullName = fullfile(dirPath,dirName);
+    fullName = fullfile(dirPath, dirName);
     originalDir = pwd;
 
     r1Problem = pars.r1Problem;
@@ -47,7 +47,7 @@ if ~isempty(varargin)
     if ~exist(fullName,'dir') && saveTheProject
         % Create directory if it does not exist
         mkdir(fullName);
-        mkdir([fullName filesep 'datafiles']);
+        mkdir(fullfile(fullName, 'datafiles'));
     end
 end
 
@@ -143,7 +143,7 @@ else
     customFiles = customFiles(1, :); % Only ever 1 custom file in R1
     customFileName = customFiles{1};
     
-    copyfile([originalDir filesep customFileName], dirName);
+    copyfile(fullfile(originalDir, customFileName), dirName);
 end
 
 % Set contrasts           

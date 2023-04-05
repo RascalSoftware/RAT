@@ -28,7 +28,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
     methods(TestMethodSetup)
         function setWorkingFolder(testCase)
             root = getappdata(0,'root');
-            testCase.fullPath = [root filesep 'tests' filesep 'testProjectConversion'];
+            testCase.fullPath = fullfile(root, 'tests', 'testProjectConversion');
             import matlab.unittest.fixtures.CurrentFolderFixture
             testCase.applyFixture(CurrentFolderFixture(testCase.fullPath))
         end

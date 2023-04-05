@@ -45,7 +45,6 @@ paths = {
     fullfile(root,'targetFunctions','common','callCustomFunction','callMatlabFunction');
     fullfile(root,'targetFunctions','common','callCustomFunction','callCppFunction');
     fullfile(root,'targetFunctions','common','callCustomFunction','callPythonFunction');
-    fullfile(root,'targetFunctions','common','lib');
 
     fullfile(root,'targetFunctions','common','callReflectivity');
     fullfile(root,'targetFunctions','common','costFunctions','chiSquared');
@@ -57,7 +56,6 @@ paths = {
     fullfile(root,'targetFunctions','common','resampleLayers');
     fullfile(root,'targetFunctions','common','resolutionFunctions','simpleGaussian');   
     fullfile(root,'targetFunctions','common','shiftData');
-    fullfile(root,'targetFunctions','common','lib');
     fullfile(root,'targetFunctions','common','customModelsClass');
     
     fullfile(root,'targetFunctions','reflectivityCalculation');

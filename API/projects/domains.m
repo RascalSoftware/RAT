@@ -14,9 +14,8 @@ classdef domains < domainsClass
                 experimentName {mustBeTextScalar} = ''
             end
 
-            % Call projectClass constructor
+            % Call domainsClass constructor
             obj@domainsClass(experimentName);
-
             obj.calculationType = calculationTypes.Domains.value;
         end
         

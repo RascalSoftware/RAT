@@ -65,7 +65,7 @@ classdef testExceptions < matlab.unittest.TestCase
             testCase.verifyEqual(ME.message, customMessage);
 
             % A non-text message should raise an error
-            testCase.verifyError(@() duplicateName(42), 'MATLAB:validators:mustBeTextScalar');
+            testCase.verifyError(@() customException(42), 'MATLAB:validators:mustBeTextScalar');
 
         end
 

@@ -15,13 +15,12 @@ classdef oilWater < projectClass
             % Call projectClass constructor
             obj@projectClass(experimentName);
 
-            % Set values for non polarised neutrons
+            % Set values for oil water calculations
             obj.calculationType = calculationTypes.OilWater.value;
 
             % What values should we have for these?
             obj.addParam('Oil Thickness');
             obj.addParam('Oil Roughness');
-
         end
         
     end

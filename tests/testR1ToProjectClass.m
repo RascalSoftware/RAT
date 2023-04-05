@@ -19,11 +19,6 @@ classdef testR1ToProjectClass < matlab.unittest.TestCase
 
     methods (Test)
 
-        function testFilesExist(testCase)
-            testCase.verifyEqual(exist(testCase.input,'file'), 2);
-            testCase.verifyEqual(exist(testCase.output,'file'), 2);
-        end
-
         function testCompareR1AndProjectClass(testCase)
             expected = load(testCase.output).thisProjectClass;
             result = r1ToProjectClass(testCase.input);

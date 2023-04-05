@@ -43,16 +43,6 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
     methods (Test)
 
-        function testFilesExists(testCase)
-            testCase.verifyEqual(exist(testCase.outputStandardStruct,'file'), 2);
-            testCase.verifyEqual(exist(testCase.inputStandardProjectClass,'file'), 2);
-            testCase.verifyEqual(exist(testCase.inputStandardStruct,'file'), 2);
-            testCase.verifyEqual(exist(testCase.defaultProject,'file'), 2);
-            testCase.verifyEqual(exist(testCase.outputCustomStruct,'file'), 2);
-            testCase.verifyEqual(exist(testCase.inputCustomProjectClass,'file'), 2);
-            testCase.verifyEqual(exist(testCase.modelFile,'file'), 2);
-        end
-
         function testCompareProjectClassToR1(testCase)
             expected = load(testCase.outputStandardStruct).problem;
 

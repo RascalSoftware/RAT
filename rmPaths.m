@@ -47,11 +47,11 @@ paths = {
     
     fullfile(root,'tests','standardTFReflectivityCalculation');
     fullfile(root,'tests','testCommonFunctions');
+    fullfile(root,'tests','testProjectConversion');
 
     fullfile(root,'utilities');
     fullfile(root,'utilities','exceptions');
     fullfile(root,'utilities','misc');
-    fullfile(root,'utilities','misc','projectClassToR1');
     fullfile(root,'utilities','plotting');
 
     fullfile(root,'3rdParty','paramonte');

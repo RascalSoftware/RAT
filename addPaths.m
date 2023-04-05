@@ -62,7 +62,7 @@ paths = {
     
     fullfile(root,'tests','standardTFReflectivityCalculation');
     fullfile(root,'tests','testCommonFunctions');
-    fullfile(root,'tests','testProjectClassToR1Conversion');
+    fullfile(root,'tests','testProjectConversion');
 
     fullfile(root,'utilities');
     fullfile(root,'utilities','exceptions');

@@ -23,12 +23,8 @@ if ~isempty(varargin)
 
     if ~exist(fullName,'dir') && saveTheProject
         % Create directory if it does not exist
-        cd(dirPath);
-        mkdir(dirName);
-        cd(dirName);
-        if ~exist('datafiles','dir')
-            mkdir('datafiles');
-        end
+        mkdir(fullName);
+        mkdir([fullName filesep 'datafiles']);
     end
 end
 
@@ -124,9 +120,7 @@ else
     customFiles = customFiles(1, :); % Only ever 1 custom file in R1
     customFileName = customFiles{1};
     
-    cd(originalDir);
-    copyfile(customFileName, dirName);
-    cd(dirName);
+    copyfile([originalDir filesep customFileName], dirName);
 end
 
 % Set contrasts           
@@ -266,7 +260,7 @@ if saveTheProject
     data = r1Problem.data;
     for i = 1:length(data)
         thisData = data{i};
-        thisFileName = sprintf([fileName,'_dataFile_%s'],num2str(i));
+        thisFileName = sprintf([fileName,'Datafile%s'],num2str(i));
         contrastFiles{i} = thisFileName;
         fullDataFileName = fullfile(fullName,'datafiles',thisFileName);
         dlmwrite(fullDataFileName,thisData);
@@ -292,7 +286,7 @@ function inputBlock = parseR1Problem(varargin)
     default_saveProject = true;
     default_dirPath = pwd;
     dateNow = datestr(now,'mm-dd-yyyy HH.MM.SS.FFF');
-    default_fileName = sprintf('newFile_%s', dateNow);
+    default_fileName = sprintf('newFile%s', dateNow);
 
     p = inputParser;
     addParameter(p,'r1Problem',     default_r1Problem,      @isstruct);

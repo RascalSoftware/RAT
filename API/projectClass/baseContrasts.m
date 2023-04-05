@@ -1,7 +1,7 @@
 classdef (Abstract) baseContrasts < handle
 
     % This class holds the common routines for the subclasses
-    % "contrastsClass.m" and "domainsContrastsClass.m"
+    % "contrastsClass.m" and "domainContrastsClass.m"
     
     properties
         contrasts = {}

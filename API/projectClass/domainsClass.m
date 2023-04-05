@@ -5,12 +5,12 @@ classdef domainsClass < projectClass
     % hydration.
     %
     % Sub objects used are:
-    % parametersClass          - parameter definition with priors
-    % domainsContrastsClass    - additional contrasts object for domains
+    % parametersClass         - parameter definition with priors
+    % domainContrastsClass    - additional contrasts object for domains
     
     properties
-        domainRatio           % Class for specifying the ratio between domains
-        domainsContrasts      % Modified contrast class with no data for domains
+        domainRatio          % Class for specifying the ratio between domains
+        domainContrasts      % Modified contrast class with no data for domains
     end
        
     methods
@@ -34,7 +34,7 @@ classdef domainsClass < projectClass
 
             % For a domains calculation, initialise secondary contrasts
             % object and domain ratio parameter class
-            obj.domainsContrasts = domainsContrastsClass();
+            obj.domainContrasts = domainContrastsClass();
             obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
         end
 
@@ -49,44 +49,44 @@ classdef domainsClass < projectClass
         %
         %   Editing of Domains Contrasts Block
         
-        function obj = addDomainsContrast(obj, varargin)
-            % Adds a new domainsContrast parameter. Expects a parameter name,
+        function obj = addDomainContrast(obj, varargin)
+            % Adds a new domainContrast parameter. Expects a parameter name,
             % and with key-value pairs with one or more of the following
             % "bulk in", "bulk out", "model"
             % 
-            % problem.addDomainsContrast('domainsContrast 1', 'nba', 'Silicon');
+            % problem.addDomainContrast('domainContrast 1', 'nba', 'Silicon');
             allowedNames = obj.getAllAllowedNames();
-            obj.domainsContrasts.addContrast(allowedNames, varargin{:});  
+            obj.domainContrasts.addContrast(allowedNames, varargin{:});  
         end
 
-        function obj = removeDomainsContrast(obj, row)
-            % Removes a specified domainsContrast parameter. Expects
+        function obj = removeDomainContrast(obj, row)
+            % Removes a specified domainContrast parameter. Expects
             % index or name of resolution to remove
             %
-            % problem.removeDomainsContrast(1);
-            obj.domainsContrasts.removeContrast(row);
+            % problem.removeDomainContrast(1);
+            obj.domainContrasts.removeContrast(row);
         end
  
-        function obj = setDomainsContrast(obj, row, varargin)   
+        function obj = setDomainContrast(obj, row, varargin)   
             % Allow setting of all parameters in terms of name value pairs.
-            % First input must be domainsContrast number or name, subsequent
+            % First input must be domainContrast number or name, subsequent
             % inputs are name / value pairs for the parts involved
             %
-            % problem.setContrast(1, 'name', 'domainsContrast')
+            % problem.setContrast(1, 'name', 'domainContrast')
                         
             % Get the list of allowed values depending on what is
             % set for the other contrasts.
             allowedValues = obj.getAllAllowedNames;
             
             % Call the setContrast method
-            obj.domainsContrasts.setContrast(row, allowedValues, varargin{:});
+            obj.domainContrasts.setContrast(row, allowedValues, varargin{:});
         end
         
-        function obj = setDomainsContrastModel(obj, row, model)
+        function obj = setDomainContrastModel(obj, row, model)
             % Edits the model of an existing contrast parameter. Expects
             % the index of contrast parameter and cell array of layer names
             %
-            % problem.setDomainsContrastModel(1, {'layer 1'})
+            % problem.setDomainContrastModel(1, {'layer 1'})
                         
             % Make a different allowed list depending on whether 
             % it is custom or layers
@@ -99,16 +99,16 @@ classdef domainsClass < projectClass
             end
             
             % Call the setContrastModel method
-            obj.domainsContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+            obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
         end
 
-        function [domainsContrastsStruct, domainRatioStruct] = makeDomainsStructs(obj, allNames, modelType)    
+        function [domainContrastsStruct, domainRatioStruct] = makeDomainsStructs(obj, allNames, modelType)    
             % Converts the domains class parameters into a struct array
             % for input into the RAT toolbox
             % The expected inputs are the list of allowed names and the
-            % model type which are required to make a domainsContrasts
+            % model type which are required to make a domainContrasts
             % struct.
-            domainsContrastsStruct = obj.domainsContrasts.toStruct(allNames, modelType);
+            domainContrastsStruct = obj.domainContrasts.toStruct(allNames, modelType);
             domainRatioStruct = obj.domainRatio.toStruct();
         end
 
@@ -129,9 +129,9 @@ classdef domainsClass < projectClass
             fprintf('   Domain Ratios: ----------------------------------------------------------------------------------------------- \n\n');
             obj.domainRatio.displayParametersTable;
 
-            % Display the domainsContrasts object
+            % Display the domainContrasts object
             fprintf('   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
-            obj.domainsContrasts.displayContrastsObject; 
+            obj.domainContrasts.displayContrastsObject; 
         end
         
     end

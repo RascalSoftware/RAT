@@ -29,9 +29,9 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 %% Declare properties and parameters
 
     properties (ClassSetupParameter)
-        inputsFile = {'standardLayersInputs.mat', 'customLayersInputs.mat', 'customXYInputs.mat'};     % Input test data
-        outputsFile = {'standardLayersOutputs.mat', 'customLayersOutputs.mat', 'customXYOutputs.mat'}; % Output test data
-        TFFile = {'standardLayersTFParams.mat', 'customLayersTFParams.mat',  'customXYTFParams.mat'};  % TF Params test data
+        inputsFile = {'standardLayersInputs.mat', 'customLayersInputs.mat', 'customXYInputs.mat'}      % Input test data
+        outputsFile = {'standardLayersOutputs.mat', 'customLayersOutputs.mat', 'customXYOutputs.mat'}  % Output test data
+        TFFile = {'standardLayersTFParams.mat', 'customLayersTFParams.mat',  'customXYTFParams.mat'}   % TF Params test data
     end
 
     properties (TestParameter)    
@@ -40,40 +40,40 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
     end
 
     properties
-        inputs;                  % Test input parameters read from file
-        outputs;                 % Test Output parameters read from file
-        TFParams;                % Test TF Parameters read from file
-        problemDefInput;         % Full set of input parameters
-        problemDef;              % Input Parameters for the test problem
-        problemDefCells;         % Input cell arays for the test problem
-        problemDefLimits;        % Input limits for the test problem
-        priors;                  % Input priors for the test problem
-        controlsInput;           % Instument controls class for the input problem
-        controls;                % Instument controls struct for the input problem
-        expectedProblem;         % Expected output value of the problem object
-        expectedProblemOut;      % Expected output value of the output problem object
+        inputs                   % Test input parameters read from file
+        outputs                  % Test Output parameters read from file
+        TFParams                 % Test TF Parameters read from file
+        problemDefInput          % Full set of input parameters
+        problemDef               % Input Parameters for the test problem
+        problemDefCells          % Input cell arays for the test problem
+        problemDefLimits         % Input limits for the test problem
+        priors                   % Input priors for the test problem
+        controlsInput            % Instrument controls class for the input problem
+        controls                 % Instrument controls struct for the input problem
+        expectedProblem          % Expected output value of the problem object
+        expectedProblemOut       % Expected output value of the output problem object
         expectedProblemOutStruct % Expected output value of the output problem struct
-        expectedResult;          % Expected output value of the results object
-        expectedResultOut;       % Expected output value of the output results object
-        expectedResultOutStruct; % Expected output value of the output results struct
-        expectedBayesResults;    % Expected output value of the results object
-        TFReflectivity;
-        TFSimulation;
-        TFShiftedData;
-        TFLayerSLDs;
-        TFSLDProfiles;
-        TFAllLayers;
-        TFOutSsubs;
-        TFBackgs;
-        TFQshifts;
-        TFSfs;
-        TFNbas;
-        TFNbss;
-        TFResols;
-        TFChis;
-        TFAllRoughs;
-        tolerance = 1.0e-12;     % Relative tolerance for equality of floats
-        absTolerance = 1.0e-5;  % Absolute tolerance for equality of floats
+        expectedResult           % Expected output value of the results object
+        expectedResultOut        % Expected output value of the output results object
+        expectedResultOutStruct  % Expected output value of the output results struct
+        expectedBayesResults     % Expected output value of the results object
+        TFReflectivity
+        TFSimulation
+        TFShiftedData
+        TFLayerSLDs
+        TFSLDProfiles
+        TFAllLayers
+        TFOutSsubs
+        TFBackgs
+        TFQshifts
+        TFSfs
+        TFNbas
+        TFNbss
+        TFResols
+        TFChis
+        TFAllRoughs
+        tolerance = 1.0e-12     % Relative tolerance for equality of floats
+        absTolerance = 1.0e-5   % Absolute tolerance for equality of floats
     end
 
 %% Read in test data
@@ -201,7 +201,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             
             if useCompiled
                 % Skip the mex tests if coder is not installed. These tests will be marked as incomplete
-                testCase.assumeEqual(license('test', 'MATLAB_Coder'), 1, 'MATLAB Coder is not installed')
+                testCase.assumeEqual(license('test', 'MATLAB_Coder'), 1, 'MATLAB Coder is not installed');
             end
             
             testCase.controls.para = whichParallel;

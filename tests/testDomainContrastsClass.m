@@ -1,6 +1,6 @@
-classdef testDomainsContrastsClass < matlab.unittest.TestCase
+classdef testDomainContrastsClass < matlab.unittest.TestCase
 %%
-% testContrastsClass Class based unit tests for the domainsContrastsClass
+% testContrastsClass Class based unit tests for the domainContrastsClass
 % used within the Project Class in RAT.
 %
 % In this class, we test:
@@ -69,7 +69,7 @@ classdef testDomainsContrastsClass < matlab.unittest.TestCase
             % Set up an example contrasts class for testing
             % This example is used in the example calculation
             % "DPPC_standard_layers.m"
-            testCase.exampleClass = domainsContrastsClass(true);
+            testCase.exampleClass = domainContrastsClass(true);
 
             testCase.exampleClass.contrasts(1) = {struct( ...
                 'name', 'Bilayer / D2O', ...
@@ -118,9 +118,9 @@ classdef testDomainsContrastsClass < matlab.unittest.TestCase
 
     methods (Test, ParameterCombination='sequential')
 
-        function testInitialiseDomainsContrastsClass(testCase)
-            testClass = domainsContrastsClass();
-            testCase.verifyEqual(testClass.contrasts, {}, 'domainsContrastsClass does not initialise correctly');
+        function testInitialiseDomainContrastsClass(testCase)
+            testClass = domainContrastsClass();
+            testCase.verifyEqual(testClass.contrasts, {}, 'domainContrastsClass does not initialise correctly');
             testCase.verifyFalse(testClass.domainsCalc);
         end
 
@@ -233,7 +233,7 @@ classdef testDomainsContrastsClass < matlab.unittest.TestCase
             % the expected table headers and contrasts data
 
             % Make an empty contrast object
-            emptyContrasts = domainsContrastsClass();
+            emptyContrasts = domainContrastsClass();
 
             emptyContrasts.contrasts = {testCase.defaultContrastParams};
             emptyContrasts.contrasts{1}.resample = '';
@@ -282,7 +282,7 @@ classdef testDomainsContrastsClass < matlab.unittest.TestCase
                 'nbs', 'SLD SMW' ...
                 );
 
-            contrastStruct = domainsContrastsClass.parseContrastInput(testCase.allowedNames, false, testCase.newValues);
+            contrastStruct = domainContrastsClass.parseContrastInput(testCase.allowedNames, false, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
         end
 

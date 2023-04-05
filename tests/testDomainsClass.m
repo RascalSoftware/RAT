@@ -84,43 +84,43 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyError(@() domainsClass(1), 'MATLAB:validators:mustBeTextScalar')
         end
 
-        function testDomainsContrast(testCase)
+        function testDomainContrast(testCase)
             % Populates project properties for the tests
             testCase.populateProject()
             % Checks the default contrast
-            testCase.verifyEmpty(testCase.project.domainsContrasts.contrasts, 'contrast has wrong dimension');
+            testCase.verifyEmpty(testCase.project.domainContrasts.contrasts, 'contrast has wrong dimension');
             % Checks that contrast can be added
-            testCase.project.addDomainsContrast('name', 'Bilayer / H2O', 'nbs', 'SLD D2O', 'nba', 'SLD Air');
-            testCase.verifyLength(testCase.project.domainsContrasts.contrasts, 1, 'contrast has wrong dimension');
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{1}.name, 'Bilayer / H2O', 'addContrast method not working');
+            testCase.project.addDomainContrast('name', 'Bilayer / H2O', 'nbs', 'SLD D2O', 'nba', 'SLD Air');
+            testCase.verifyLength(testCase.project.domainContrasts.contrasts, 1, 'contrast has wrong dimension');
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.name, 'Bilayer / H2O', 'addContrast method not working');
 
-            testCase.project.addDomainsContrast('name', 'Another Bilayer', 'nbs', 'SLD H2O', 'nba', 'Silicon');
-            testCase.verifyLength(testCase.project.domainsContrasts.contrasts, 2, 'contrast has wrong dimension');
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{2}.name, 'Another Bilayer', 'addContrast method not working');
+            testCase.project.addDomainContrast('name', 'Another Bilayer', 'nbs', 'SLD H2O', 'nba', 'Silicon');
+            testCase.verifyLength(testCase.project.domainContrasts.contrasts, 2, 'contrast has wrong dimension');
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{2}.name, 'Another Bilayer', 'addContrast method not working');
             % Checks that contrast can be modified
-            testCase.verifyError(@() testCase.project.setDomainsContrast(3, 'name', 'First Bilayer'), indexOutOfRange.errorID)
-            testCase.verifyError(@() testCase.project.setDomainsContrast('Bilayer', 'name', 'First Bilayer'), nameNotRecognised.errorID)
-            testCase.project.setDomainsContrast(1, 'name', 'First Bilayer', 'nbs', 'SLD H2O');
-            testCase.verifyLength(testCase.project.domainsContrasts.contrasts, 2, 'contrast has wrong dimension');
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{1}.name, 'First Bilayer', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{1}.nbs, 'SLD H2O', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{1}.nba, 'SLD Air', 'setContrast method not working');
-            testCase.project.setDomainsContrast('First Bilayer', 'nba', 'Silicon');
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{1}.name, 'First Bilayer', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{1}.nbs, 'SLD H2O', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{1}.nba, 'Silicon', 'setContrast method not working');
+            testCase.verifyError(@() testCase.project.setDomainContrast(3, 'name', 'First Bilayer'), indexOutOfRange.errorID)
+            testCase.verifyError(@() testCase.project.setDomainContrast('Bilayer', 'name', 'First Bilayer'), nameNotRecognised.errorID)
+            testCase.project.setDomainContrast(1, 'name', 'First Bilayer', 'nbs', 'SLD H2O');
+            testCase.verifyLength(testCase.project.domainContrasts.contrasts, 2, 'contrast has wrong dimension');
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.name, 'First Bilayer', 'setContrast method not working');
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.nbs, 'SLD H2O', 'setContrast method not working');
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.nba, 'SLD Air', 'setContrast method not working');
+            testCase.project.setDomainContrast('First Bilayer', 'nba', 'Silicon');
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.name, 'First Bilayer', 'setContrast method not working');
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.nbs, 'SLD H2O', 'setContrast method not working');
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.nba, 'Silicon', 'setContrast method not working');
             % Checks that contrast can be removed
-            testCase.project.removeDomainsContrast(1);
-            testCase.verifyLength(testCase.project.domainsContrasts.contrasts, 1, 'contrast has wrong dimension');
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{1}.name, 'Another Bilayer', 'addContrast method not working');
+            testCase.project.removeDomainContrast(1);
+            testCase.verifyLength(testCase.project.domainContrasts.contrasts, 1, 'contrast has wrong dimension');
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.name, 'Another Bilayer', 'addContrast method not working');
             % Checks the contrast model can be modified
-            testCase.verifyLength(testCase.project.domainsContrasts.contrasts{1}.model, 0, 'contrast model has wrong dimension');       
-            testCase.project.setDomainsContrastModel(1, {'Hydrogenated Heads', 'Deuterated Heads'});
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{1}.model, {'Hydrogenated Heads', 'Deuterated Heads'}, 'setContrastModel method not working');
-            testCase.project.setDomainsContrastModel('Another Bilayer', {'Deuterated Heads', 'Hydrogenated Heads'});
-            testCase.verifyEqual(testCase.project.domainsContrasts.contrasts{1}.model, {'Deuterated Heads', 'Hydrogenated Heads'}, 'setContrastModel method not working');
-            testCase.verifyError(@() testCase.project.setDomainsContrastModel(3, {}), indexOutOfRange.errorID)
-            testCase.verifyError(@() testCase.project.setDomainsContrastModel('Bilayer', {}), nameNotRecognised.errorID);
+            testCase.verifyLength(testCase.project.domainContrasts.contrasts{1}.model, 0, 'contrast model has wrong dimension');       
+            testCase.project.setDomainContrastModel(1, {'Hydrogenated Heads', 'Deuterated Heads'});
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.model, {'Hydrogenated Heads', 'Deuterated Heads'}, 'setContrastModel method not working');
+            testCase.project.setDomainContrastModel('Another Bilayer', {'Deuterated Heads', 'Hydrogenated Heads'});
+            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.model, {'Deuterated Heads', 'Hydrogenated Heads'}, 'setContrastModel method not working');
+            testCase.verifyError(@() testCase.project.setDomainContrastModel(3, {}), indexOutOfRange.errorID)
+            testCase.verifyError(@() testCase.project.setDomainContrastModel('Bilayer', {}), nameNotRecognised.errorID);
         end
 
         function testToStruct(testCase)
@@ -153,12 +153,12 @@ classdef testDomainsClass < matlab.unittest.TestCase
             end
             testCase.verifyEqual(projectStruct.contrastNames, contrastNames, 'toStruct method not working');
 
-            nDomainContrasts = testCase.project.domainsContrasts.numberOfContrasts;
-            domainContrastNames = cell(1,nContrasts);
+            nDomainContrasts = testCase.project.domainContrasts.numberOfContrasts;
+            domainContrastNames = cell(1,nDomainContrasts);
             for i = 1:nDomainContrasts
                 domainContrastNames{i} = testCase.project.domainContrasts.contrasts{i}.name;
             end
-            testCase.verifyEqual(projectStruct.domainsContrastNames, domainContrastNames, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.domainContrastNames, domainContrastNames, 'toStruct method not working');
 
             testCase.verifyEqual(projectStruct.domainRatioNames, {convertStringsToChars(testCase.project.domainRatio.paramsTable{:, 1})}, 'toStruct method not working');
         end

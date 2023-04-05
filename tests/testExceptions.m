@@ -53,16 +53,17 @@ classdef testExceptions < matlab.unittest.TestCase
 
             % Check default
             ME = customException();
-            testCase.verifyEqual(ME.identifier, identifier);
-            testCase.verifyEqual(ME.message, defaultMessage);
+            exceptionString = func2str(customException);
+            testCase.verifyEqual(ME.identifier, identifier, sprintf('Custom exception %s is not defined correctly', exceptionString));
+            testCase.verifyEqual(ME.message, defaultMessage, sprintf('Custom exception %s is not defined correctly', exceptionString));
 
             testCase.verifyError(@() throw(ME), identifier);
 
             % Check custom message
             customMessage = 'Message from the test suite';
             ME = customException(customMessage);
-            testCase.verifyEqual(ME.identifier, identifier);
-            testCase.verifyEqual(ME.message, customMessage);
+            testCase.verifyEqual(ME.identifier, identifier, sprintf('Custom exception %s is not defined correctly', exceptionString));
+            testCase.verifyEqual(ME.message, customMessage, sprintf('Custom exception %s is not defined correctly', exceptionString));
 
             % A non-text message should raise an error
             testCase.verifyError(@() customException(42), 'MATLAB:validators:mustBeTextScalar');

@@ -1,10 +1,33 @@
 function newR1Problem = projectClassToR1(r2Problem, varargin)
+%% Converts projectClass to r1 struct.
+% 
+% Takes an instance of project class and turn it into an r1 type struct.
+% 
+% Also creates the datafiles directory and saves the data if asked.
+% 
+% The functions takes in a projectClass and other optional arguments.
+%
+% The optional arguments are:
+%
+% r1Problem (class struct):    The r1 struct which is updated with equivalent 
+%                              projectClass values. 
+%                              [default] defaultProject.mat.
+%
+% dirName (class char):        The directory where the files are saved. 
+%                              [default] newDirectory.
+%
+% dirPath (class char):        The path where the new directory is created. 
+%                              [default] current directory (pwd).
+%
+% saveproject (class logical): A boolean that determines if files are saved. 
+%                              [default] true.
+%
+% fileName (class char):       The filename of the resulting r1 struct. 
+%                              [default] newFile appended with current 
+%                              timestamp.
+%
+% Outputs r1 struct
 
-% Takes an instance of project class and makes this into an r1 type struct.
-% Also creates the datafiles directory and saves the data if asked...
-
-% Now work through updating the values in the r1 struct with equivalent
-% values in the r2 projectClass
 
 if ~isempty(varargin)
     pars = parseR1Problem(varargin{:});

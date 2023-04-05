@@ -1,7 +1,10 @@
 function thisProjectClass = r1ToProjectClass(r1Problem)
-
-% Converts an r1problem struct into a projectClass.
-% Takes the name of the r1problem as an input parameter.
+%% Converts r1 struct to projectClass.
+% 
+% The function converts r1 structs into projectClass.
+% 
+% The functions takes the name of the r1 struct .mat file.
+%
 % Outputs a projectClass
 
 % Load r1problem

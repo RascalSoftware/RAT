@@ -3,8 +3,6 @@
 % The following example shows how to convert r1 structs into projectClass.
 % 
 % r1 struct is converted into a projectClass using the r1ToProjectClass function.
-% 
-% The functions takes the name of the r1 struct .mat file.
 %
 % The function usage:
 
@@ -17,27 +15,6 @@ problem = r1ToProjectClass("originalDSPCBilayerStructInput.mat");
 % 
 % projectClass is converted into r1 struct using the projectClassToR1 function.
 % 
-% The functions takes in a projectClass and other optional arguments.
-%
-% The optional arguments are:
-%
-% r1Problem (class struct):    The r1 struct which is updated with equivalent 
-%                              projectClass values. 
-%                              [default] defaultProject.mat.
-%
-% dirName (class char):        The directory where the files are saved. 
-%                              [default] newDirectory.
-%
-% dirPath (class char):        The path where the new directory is created. 
-%                              [default] current directory (pwd).
-%
-% saveproject (class logical): A boolean that determines if files are saved. 
-%                              [default] true.
-%
-% fileName (class char):       The filename of the resulting r1 struct. 
-%                              [default] newFile appended with current 
-%                              timestamp.
-%
 % The function usage:
 %
 % First load the projectClass using the following syntax

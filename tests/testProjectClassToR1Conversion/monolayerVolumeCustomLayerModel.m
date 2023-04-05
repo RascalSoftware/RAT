@@ -1,5 +1,5 @@
-function [output,sub_rough] = Model_IIb(params,bulk_in,bulk_out,contrast)
-%MODEL_1  RASCAL Custom Layer Model File.
+function [output,sub_rough] = monolayerVolumeCustomLayerModel(params,bulk_in,bulk_out,contrast)
+% RASCAL Custom Layer Model File.
 %
 %
 % This file accepts 3 vectors containing the values for

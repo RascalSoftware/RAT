@@ -38,7 +38,7 @@ if nargin<2|isempty(nbin)
   nbin=ceil(range(y)/(2*iqrange(y)*n^(-1/3))); % Freedman & Diaconis
 
   % bar(...,'w') does not work with nbin>150
-  nbin=min(150,nbin);
+  nbin=min(50,nbin);
 end
 
 % scaled histogram

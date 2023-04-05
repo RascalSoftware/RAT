@@ -19,7 +19,7 @@ problem = unpackparams(problem,control);
 % Function value is chi-squared....
 chiSquared = outProblem.calculations.sum_chi;
 
-Lik = exp(-chiSquared/2);
+Lik = -chiSquared/2;
 
 end
 

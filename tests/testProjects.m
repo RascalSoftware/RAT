@@ -40,16 +40,19 @@ classdef testProjects < matlab.unittest.TestCase
     methods (Test, ParameterCombination='sequential')
 
         function testProjectTypes(testCase, project, calculationType, SLDValues, domainsCalc)
+            % Test setup
             problem = project();
             projectString = func2str(project);
 
             testCase.verifyEqual(problem.experimentName, '', sprintf('%s project does not initialise correctly', projectString));
             testCase.verifyEqual(problem.calculationType, calculationType, sprintf('%s project does not initialise correctly', projectString));
 
+            % Test for correct layers and contrasts
             layerColumns = [{'Name', 'Thickness'}, SLDValues, {'Roughness', 'Hydration', 'Hydrate with'}];
             testCase.verifyEqual(problem.layers.layersTable.Properties.VariableNames, layerColumns, sprintf('%s project contrasts class does not initialise correctly', projectString));
             testCase.verifyEqual(problem.contrasts.domainsCalc, domainsCalc, sprintf('%s project contrasts class does not initialise correctly', projectString));
 
+            % Test setting experiment name
             newName = 'New Project Name';
             problem = project(newName);
             testCase.verifyEqual(problem.experimentName, newName, sprintf('%s project does not initialise correctly', projectString));

@@ -8,7 +8,7 @@
 %
 % The function usage:
 
-projClass = r1ToProjectClass("originalDSPCBilayerStructInput.mat");
+problem = r1ToProjectClass("originalDSPCBilayerStructInput.mat");
 
 
 %% Convert projectClass to r1 struct.

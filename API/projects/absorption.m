@@ -19,7 +19,6 @@ classdef absorption < projectClass
             % Set values for non polarised neutrons including absorption
             obj.calculationType = calculationTypes.Absorption.value;
             obj.layers = layersClass({'SLD Real', 'SLD Imaginary'});
-
         end
         
     end

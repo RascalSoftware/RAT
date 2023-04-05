@@ -19,7 +19,6 @@ classdef magnetic < projectClass
             % Set values for polarised neutrons including absorption
             obj.calculationType = calculationTypes.Magnetic.value;
             obj.layers = layersClass({'SLD Real', 'SLD Imaginary', 'SLD Magnetic Real', 'SLD Magnetic Imaginary'});
-
         end
         
     end

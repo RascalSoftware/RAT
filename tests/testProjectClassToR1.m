@@ -156,7 +156,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
             pClass.layers.layersTable.("Hydrate with")(1) = hydrationTypes.BulkIn.value;
             pClass.contrasts.contrasts{1}.data = 'Simulation';
 
-            result = projectClassToR1(pClass, "saveProject", true);
+            result = projectClassToR1(pClass, "saveProject", false);
 
             testCase.verifyEqual(result.layersDetails{1}{6}, char(pClass.layers.layersTable.("Hydrate with")(1)));
             testCase.verifyEqual(result.contrastTypes{1}, pClass.contrasts.contrasts{1}.data);
@@ -167,7 +167,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass;
 
-            result = projectClassToR1(pClass, "r1Problem", expected, "saveProject", true);
+            result = projectClassToR1(pClass, "r1Problem", expected, "saveProject", false);
 
             testCase.verifyEqual(result.numberOfContrasts, expected.numberOfContrasts);
             testCase.verifyEqual(result.module.calculation_type, expected.module.calculation_type);
@@ -248,24 +248,25 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
         end
 
         function testR1ProblemExtension(testCase)
-            expected = load(testCase.inputStandardStruct).problem;
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass;
-            result = projectClassToR1(pClass, "fileName", 'testProject');
+            projectClassToR1(pClass, "fileName", 'testProject');
 
-            testCase.verifyEqual(exist(['newDirectory' filesep 'testProject.mat'],'file'), 2);
-            testCase.verifyEqual(exist(['newDirectory' filesep 'datafiles' filesep 'testProjectDatafile1'],'file'), 2);
-            testCase.verifyEqual(exist(['newDirectory' filesep 'datafiles' filesep 'testProjectDatafile2'],'file'), 2);
+            import matlab.unittest.constraints.IsFile
+            testCase.verifyThat(fullfile('newDirectory', 'testProject.mat'), IsFile);
+            testCase.verifyThat(fullfile('newDirectory', 'datafiles', 'testProjectDatafile1'), IsFile);
+            testCase.verifyThat(fullfile('newDirectory', 'datafiles', 'testProjectDatafile2'), IsFile);
         end
 
         function testR1ProblemWithCustomLayers(testCase)
-            expected = load(testCase.outputCustomStruct).problem;
             pClass = load(testCase.inputCustomProjectClass).thisProjectClass;
             filename = 'testCustomProject';
-            result = projectClassToR1(pClass, "saveProject", true, "fileName", 'testCustomProject');
+            projectClassToR1(pClass, "saveProject", true, "fileName", filename);
 
-            testCase.verifyEqual(exist(['newDirectory' filesep filename '.mat'],'file'), 2);
+            import matlab.unittest.constraints.IsFile
+            testCase.verifyThat(fullfile('newDirectory', [filename '.mat']), IsFile);
+
             for i = 1:7
-                testCase.verifyEqual(exist(['newDirectory' filesep 'datafiles' filesep filename 'Datafile' num2str(i)],'file'), 2);
+                testCase.verifyThat(fullfile('newDirectory', 'datafiles', [filename 'Datafile' num2str(i)]), IsFile);
             end
         end
     end

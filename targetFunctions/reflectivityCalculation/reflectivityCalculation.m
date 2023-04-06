@@ -82,14 +82,16 @@ whichTF = problemDef.TF;
 switch whichTF
     case 'nonPolarised'
         [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-    %case calculationTypes.Absorption.value
+    %case 'absorption'
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-    %case calculationTypes.OilWater.value
+    %case 'oilWater'
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);    
-    %case calculationTypes.Magnetic.value
+    %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDef_cells,controls);
-    %case calculationTypes.Domains.value
+    %case 'domains'
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+    %otherwise
+        %error('The calculation type "%s" is not supported', whichTF);
 
 end
 

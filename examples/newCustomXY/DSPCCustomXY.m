@@ -1,10 +1,11 @@
 function [outSLD,sub_rough] = DSPCCustomXY(params,bulkIn,bulkOut,contrast)
 
+debug = 0;
 % Gaussian model of DPPC....
 
 sub_rough = params(1);
 oxideThickness = params(2);
-oxideCoverage = params(3);
+oxideHydration = params(3);
 waterThick = params(4);
 headThick = params(5);
 headSLD = params(6);
@@ -23,7 +24,7 @@ z = 1:200;              % Range of model in angstroms
 % roughness.
 bulk_si_VF = 1;         % Volume fraction of bulk Silicon        
 siCentre = 0;           % Centre of Silicon box
-siWidth = 50;           % Total Width of Silicon box
+siWidth = 100;           % Total Width of Silicon box
 
 % Make the Silicon volume fraction box
 siVF = asymconvstep(z,siWidth,siCentre,sub_rough,sub_rough,bulk_si_VF);
@@ -39,7 +40,7 @@ oxCentre = siSurf + (oxideThickness / 2);
 oxVF = asymconvstep(z,oxideThickness,oxCentre,sub_rough,sub_rough,1);
 
 %Adjust the oxide VF according to its coverage
-oxVF = oxVF * oxideCoverage;
+oxVF = oxVF * (1 - oxideHydration);
 oxSurf = siSurf + oxideThickness;
 
 % Make volume fractions of the bilayer components.....
@@ -47,7 +48,7 @@ oxSurf = siSurf + oxideThickness;
 % Water Layer.....
 % waterCentre = oxSurf + (waterThick /2);
 % watVF  = asymconvstep(z,waterThick,waterCentre,oxRough,bilayerRough,1);
-watSurf = oxSurf + waterThick;
+watSurf = oxSurf;% + waterThick;
 
 % Lower head
 lowHeadCen = watSurf + (headThick / 2);
@@ -63,12 +64,12 @@ lowTailsSurf = lowHeadSurf + tailsThick;
 meSLD = tailsSLD - 0.5e-6;
 meCen = lowTailsSurf + (meThick / 2);
 meVF = asymconvstep(z,meThick,meCen,bilayerRough,bilayerRough,1);
-meSurf = lowTailsSurf + lowTailsSurf;
+meSurf = lowTailsSurf + meThick;
 
 % Upper Tails....
 upTailsCen = meSurf + (tailsThick/2);
 upTailsVF = asymconvstep(z,tailsThick,upTailsCen,bilayerRough,bilayerRough,1);
-upTailsSurf = lowHeadSurf + tailsThick;
+upTailsSurf = meSurf + tailsThick;
 
 % Upper head
 upHeadCen = upTailsSurf + (headThick / 2);
@@ -106,6 +107,19 @@ uTailsSLD = upTailsVF .* tailsSLD;
 
 totalSLD = siSLD + oxSLD + lHeadSLD + lTailsSLD + meSLD + uTailsSLD + uHeadSLD +  waterSLD;
 outSLD = [z(:) totalSLD(:)];
+
+if debug
+    figure(2); clf; hold on
+    %allVF = [siVF(:) oxVF(:) lowHeadVF(:) lowTailsVF(:) meVF(:) upTailsVF(:) upHeadVF(:)];
+    plot(z,siVF);
+    plot(z,oxVF);
+    plot(z,lowHeadVF);
+    plot(z,lowTailsVF);
+    plot(z,meVF);
+    plot(z,upTailsVF);
+    plot(z,upHeadVF);
+    plot(z,waterVF,'b--');
+end
 
 end
 

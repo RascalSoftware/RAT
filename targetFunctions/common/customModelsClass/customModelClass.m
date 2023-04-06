@@ -103,10 +103,10 @@ classdef customModelClass < handle
             allRoughs = zeros(numberOfContrasts,1);
 
             for i = 1:numberOfContrasts
-                allSLDs{i} = [1,1,1];    % Type def as double (size not important)
-                tempAllSLDs{i} = [0 0 0];
+                allSLDs{i} = [1,1];    % Type def as double (size not important)
+                tempAllSLDs{i} = [0 0];
             end
-            coder.varsize('tempAllSLDs{:}',[10000 3],[1 0]);
+            coder.varsize('tempAllSLDs{:}',[10000 3],[1 1]);
 
             for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
 

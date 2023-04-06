@@ -20,7 +20,7 @@ classdef domainsClass < projectClass
             % The only argument is the experiment name which is a char
             % array, which is optional
             %
-            % problem = domainsClass(''New experiment');
+            % problem = domainsClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
             end

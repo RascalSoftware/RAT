@@ -4,10 +4,8 @@ classdef layersClass < handle
 
     properties
         layersTable = table
-        numValues
-        varNames
     end
-    
+        
     properties (Access = private)
         layersAutoNameCounter
     end
@@ -16,9 +14,14 @@ classdef layersClass < handle
         invalidTypeMessage = sprintf('Hydration type must be a HydrationTypes enum or one of the following strings (%s)', ...
                                      strjoin(hydrationTypes.values(), ', '))
     end
+
+    properties (SetAccess = immutable)
+        varNames
+    end
     
     properties (Dependent, SetAccess = private)
         layersCount
+        numValues
     end
     
     methods
@@ -34,7 +37,6 @@ classdef layersClass < handle
             end
 
             obj.varNames = [{'Name', 'Thickness'}, SLDValues, {'Roughness','Hydration','Hydrate with'}];
-            obj.numValues = length(obj.varNames);
 
             sz = [0 obj.numValues];
             varTypes = repmat({'string'}, 1, obj.numValues);
@@ -44,6 +46,10 @@ classdef layersClass < handle
 
         function count = get.layersCount(obj)
             count = height(obj.layersTable);
+        end
+
+        function count = get.numValues(obj)
+            count = length(obj.varNames);
         end
 
         function obj = addLayer(obj, paramNames, varargin)

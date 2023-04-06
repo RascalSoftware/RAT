@@ -32,20 +32,26 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         usePriors = false
     end
 
-    properties (SetAccess = protected)
+    properties (SetAccess = immutable)
         calculationType = calculationTypes.NonPolarised.value
     end
        
     methods
 
-        function obj = projectClass(experimentName)
+        function obj = projectClass(experimentName, calculationType)
             % Creates a Project object. The only argument is the 
             % experiment name which is a char array, which is optional
             %
             % problem = projectClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
+                calculationType = calculationTypes.nonPolarised
             end
+
+            invalidTypeMessage = sprintf('calculationType must be a calculationTypes enum or one of the following strings (%s)', ...
+                                 strjoin(calculationTypes.values(), ', '));
+
+            obj.calculationType = validateOption(calculationType, 'calculationTypes', invalidTypeMessage).value;
 
             obj.experimentName = experimentName;
             obj.geometry = 'air/substrate';

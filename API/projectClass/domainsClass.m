@@ -15,7 +15,7 @@ classdef domainsClass < projectClass
        
     methods
 
-        function obj = domainsClass(experimentName)
+        function obj = domainsClass(experimentName, calculationType)
             % Creates a Project object for a domains calculation.
             % The only argument is the experiment name which is a char
             % array, which is optional
@@ -23,11 +23,11 @@ classdef domainsClass < projectClass
             % problem = domainsClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
+                calculationType = calculationTypes.Domains
             end
             
             % Call projectClass constructor
-            obj@projectClass(experimentName);
-            obj.calculationType = calculationTypes.Domains.value;
+            obj@projectClass(experimentName, calculationType);
 
             % Create a contrasts class for a domains calculation
             obj.contrasts = contrastsClass(true);

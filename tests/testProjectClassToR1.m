@@ -9,7 +9,6 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
         inputCustomProjectClass
         outputStandardStructWithR1Input
         modelFile
-        fullPath
     end
 
     methods(TestClassSetup)
@@ -27,19 +26,8 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
     methods(TestMethodSetup)
         function setWorkingFolder(testCase)
-            root = getappdata(0,'root');
-            testCase.fullPath = fullfile(root, 'tests', 'testProjectConversion');
-            import matlab.unittest.fixtures.CurrentFolderFixture
-            testCase.applyFixture(CurrentFolderFixture(testCase.fullPath))
-        end
-    end 
-
-     methods(TestMethodTeardown)
-        function testCleanUp(testCase)
-            cd (testCase.fullPath)
-            if exist('newDirectory','dir')
-                rmdir('newDirectory', 's')
-            end
+            import matlab.unittest.fixtures.WorkingFolderFixture;
+            testCase.applyFixture(WorkingFolderFixture);
         end
     end 
 
@@ -87,6 +75,15 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
         function testR1ProblemWithCustomLayers(testCase)
             pClass = load(testCase.inputCustomProjectClass).thisProjectClass;
+            
+            testModel = fopen("monolayerVolumeCustomLayerModel.m",'w'); 
+            fprintf(testModel, ['function [output,sub_rough] = monolayerVolumeCustomLayerModel(params,bulk_in,bulk_out,contrast)\n' ...
+                'output = [18.8615    0.0000    2.6509;\n'...
+                          '12.8479    0.0000    2.6509;];\n'...
+                 'sub_rough = 2.6509;\n'...
+                'end\n']);
+            fclose(testModel);
+            
             filename = 'testCustomProject';
             projectClassToR1(pClass, "saveProject", true, "fileName", filename);
 

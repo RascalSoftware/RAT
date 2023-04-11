@@ -77,7 +77,6 @@ coder.varsize('allLayers{:}',[10000 3],[1 0]);
 
 
 % Decide which target function we are calling and call the relevant routines
-% PS - How can we include our enums here?
 whichTF = problemDef.TF;
 switch whichTF
     case 'nonPolarised'

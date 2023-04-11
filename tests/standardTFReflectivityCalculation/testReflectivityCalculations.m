@@ -4,9 +4,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 % reflectivity calculation and pre- and post-processing routines.
 %
 % In this class, we test:
-% RAT, RATMain, singleCalculation,
-% reflectivityCalculationWrapper,
-% reflectivityCalculation, standardTFReflectivityCalculation,
+% RAT, RATMain, reflectivityCalculationWrapper, reflectivityCalculation,
+% standardTFReflectivityCalculation,
 % standardTFStandardLayersReflectivityCalculation,
 % standardTFCustomLayersReflectivityCalculation,
 % standardTFCustomXYReflectivityCalculation, 
@@ -162,13 +161,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(bayesResults, testCase.expectedBayesResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-        end
-
-        function testSingleCalculation(testCase)
-            [problem, result] = singleCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
-
-            testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testReflectivityCalculationWrapper(testCase)

@@ -3,7 +3,7 @@ function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,prob
 
 result = cell(6,1);
 for i = 1:6
-    result{i} = {[0]};
+    result{i} = {0};
 end
 results = result;
 

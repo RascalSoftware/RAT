@@ -59,7 +59,15 @@ function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = parse
 %
 % {14} - inputProblemDef.customFiles
 %          array of cells
-%       Each cell is {fName, lang, path}
+%        Each cell is {fName, lang, path}
+%
+% {15} - inputProblemDef.domainContrastRepeatSLDs
+%        {1 x nDomainContrasts} array of cells
+%        Each cell is {1 x 2 double}.
+%
+% {16} - inputProblemDef.domainContrastLayers
+%        {1 x nDomainContrasts} array of cells
+%        Each cell is {1 x Inf double}
 
  
 % First parse the class to a structure variable.
@@ -68,10 +76,12 @@ inputStruct = inputProblemDef.toStruct();
 
 %Start by removing the cell arrays
 repeatLayers = inputStruct.contrastRepeatSLDs; %*****
+domainRepeatLayers = inputStruct.domainContrastRepeatSLDs; %*****
 allData = inputStruct.allData;
 dataLimits = inputStruct.dataLimits;
 simLimits = inputStruct.simLimits;
 contrastLayers = inputStruct.contrastLayers;
+domainContrastLayers = inputStruct.domainContrastLayers;
 layersDetails = inputStruct.layersDetails;
 paramNames = inputStruct.paramNames;
 paramPriors = inputStruct.paramPriors;
@@ -94,8 +104,13 @@ customFiles = inputStruct.files;
 for i = 1:length(contrastLayers)
     thisLayers = contrastLayers{i};
     if isempty(thisLayers)
-        thisLayers = 0;
-        contrastLayers{i} = thisLayers;
+        contrastLayers{i} = 0;
+    end
+end
+for i = 1:length(domainContrastLayers)
+    thisLayers = domainContrastLayers{i};
+    if isempty(thisLayers)
+        domainContrastLayers{i} = 0;
     end
 end
 
@@ -128,11 +143,16 @@ problemDef_cells{11} = nbaNames;
 problemDef_cells{12} = nbsNames;
 problemDef_cells{13} = resolNames;
 problemDef_cells{14} = customFiles';
+problemDef_cells{15} = domainRepeatLayers;
+problemDef_cells{16} = domainContrastLayers;
 
 % Fix for cell array bug with custom layers - is this needed still??
 if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelType,'custom xy')
     for i = 1:length(problemDef_cells{5})
         problemDef_cells{5}{i} = 0;
+    end
+    for i = 1:length(problemDef_cells{16})
+        problemDef_cells{16}{i} = 0;
     end
     
     problemDef_cells{6} = {0};
@@ -285,10 +305,12 @@ end
 
 %Now remove all these fields from inputProblemDef
 removedFields = {'contrastRepeatSLDs',...
+    'domainContrastRepeatSLDs',...
     'allData',...
     'dataLimits',...
     'simLimits',...
     'contrastLayers',...
+    'domainContrastLayers',...
     'layersDetails',...
     'paramNames',...
     'backgroundNames',...
@@ -318,12 +340,15 @@ problemDef.TF = inputStruct.TF;%'standardTF';
 problemDef.resample = inputStruct.resample;
 problemDef.dataPresent = inputStruct.dataPresent;
 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
+problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
 problemDef.geometry = inputStruct.geometry;
 %problemDef.contrastBacks = contrastBacks;
 problemDef.contrastShifts = inputStruct.contrastShifts;
 problemDef.contrastScales = inputStruct.contrastScales;
 problemDef.contrastNbas = inputStruct.contrastNbas;
 problemDef.contrastNbss = inputStruct.contrastNbss;
+problemDef.domainContrastNbas = inputStruct.domainContrastNbas;
+problemDef.domainContrastNbss = inputStruct.domainContrastNbss;
 problemDef.contrastRes = contrastRes;
 problemDef.backs = inputStruct.backParVals; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
 problemDef.shifts = inputStruct.qzshifts;
@@ -335,6 +360,7 @@ problemDef.params = inputStruct.params;
 problemDef.numberOfLayers = inputStruct.numberOfLayers;
 problemDef.modelType = inputStruct.modelType;
 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
+problemDef.domainContrastCustomFiles = inputStruct.domainContrastCustomFile;
 
 % if isfield(inputStruct,'modelFilename')
 %     if ~isempty(inputStruct.modelFilename)

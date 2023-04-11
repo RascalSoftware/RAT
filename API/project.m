@@ -1,25 +1,32 @@
-function obj = project(experimentName, calculationType)
+function obj = project(options)
     % Creates a project object.
     % The input arguments are the experiment name which is a char
-    % array and the calculation type, which is a calculationTypes enum.
-    % Both arguments are optional.
+    % array; the calculation type, which is a calculationTypes enum; and
+    % the geometry, which is a geometryOptions enum. All of the arguments
+    % are optional.
     %
-    % problem = project('New experiment');
+    % problem = project(name='New experiment', calc='nonPolarised');
     arguments
-        experimentName {mustBeTextScalar} = ''
-        calculationType = calculationTypes.nonPolarised
+        options.name {mustBeTextScalar} = ''
+        options.calc = calculationTypes.NonPolarised
+        options.geometry = geometryOptions.AirSubstrate
     end
     
-    invalidTypeMessage = sprintf('calculationType must be a calculationTypes enum or one of the following strings (%s)', ...
+    invalidCalcMessage = sprintf('calculation type must be a calculationTypes enum or one of the following strings (%s)', ...
                                  strjoin(calculationTypes.values(), ', '));
 
-    calculationType = validateOption(calculationType, 'calculationTypes', invalidTypeMessage).value;
+    options.calc = validateOption(options.calc, 'calculationTypes', invalidCalcMessage).value;
+
+    invalidGeometryMessage = sprintf('geometry must be a geometryOptions enum or one of the following strings (%s)', ...
+                                 strjoin(geometryOptions.values(), ', '));
+
+    options.geometry = validateOption(options.geometry, 'geometryOptions', invalidGeometryMessage).value;
 
     % Initialise object, including domains if necessary
-    if any(strcmp(calculationType, {calculationTypes.Domains.value, calculationTypes.MagneticDomains.value}))
-        obj = domainsClass(experimentName, calculationType);
+    if any(strcmp(options.calc, {calculationTypes.Domains.value, calculationTypes.MagneticDomains.value}))
+        obj = domainsClass(options.name, options.calc, options.geometry);
     else
-        obj = projectClass(experimentName, calculationType);
+        obj = projectClass(options.name, options.calc, options.geometry);
     end
 
     % Set specific options depending on the calculation type

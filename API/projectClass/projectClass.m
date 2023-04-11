@@ -33,12 +33,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     end
 
     properties (SetAccess = immutable)
-        calculationType = calculationTypes.NonPolarised.value
+        calculationType
     end
        
     methods
 
-        function obj = projectClass(experimentName, calculationType)
+        function obj = projectClass(experimentName, calculationType, geometry)
             % Creates a Project object. The only argument is the 
             % experiment name which is a char array, which is optional
             %
@@ -46,6 +46,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             arguments
                 experimentName {mustBeTextScalar} = ''
                 calculationType = calculationTypes.nonPolarised
+                geometry = geometryOptions.AirSubstrate
             end
 
             invalidTypeMessage = sprintf('calculationType must be a calculationTypes enum or one of the following strings (%s)', ...
@@ -53,8 +54,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             obj.calculationType = validateOption(calculationType, 'calculationTypes', invalidTypeMessage).value;
 
+            invalidGeometryMessage = sprintf('geometry must be a geometryOptions enum or one of the following strings (%s)', ...
+                                     strjoin(geometryOptions.values(), ', '));
+
+            obj.geometry = validateOption(geometry, 'geometryOptions', invalidGeometryMessage).value;
+
             obj.experimentName = experimentName;
-            obj.geometry = 'air/substrate';
 
             % Initialise the Parameters Table
             obj.parameters = parametersClass('Substrate Roughness',1, 3, 5,true,priorTypes.Uniform,0,Inf);

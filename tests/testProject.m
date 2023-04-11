@@ -31,7 +31,7 @@ classdef testProject < matlab.unittest.TestCase
 
         function testProjectTypes(testCase, calculationType, SLDValues, domainsCalc)
             % Test setup
-            problem = project(calc=calculationType);
+            problem = project(type=calculationType);
 
             testCase.verifyEqual(problem.experimentName, '', 'project does not initialise correctly');
             testCase.verifyEqual(problem.calculationType, calculationType.value, 'project does not initialise correctly');
@@ -43,7 +43,7 @@ classdef testProject < matlab.unittest.TestCase
 
             % Test setting experiment name
             newName = 'New Project Name';
-            problem = project(name=newName, calc=calculationType);
+            problem = project(name=newName, type=calculationType);
             testCase.verifyEqual(problem.experimentName, newName, 'project does not initialise correctly');
             testCase.verifyError(@() project(name=1), 'MATLAB:validators:mustBeTextScalar');
         end

@@ -45,7 +45,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % problem = projectClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
-                calculationType = calculationTypes.nonPolarised
+                calculationType = calculationTypes.NonPolarised
                 geometry = geometryOptions.AirSubstrate
             end
 

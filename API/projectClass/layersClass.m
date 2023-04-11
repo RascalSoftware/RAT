@@ -21,7 +21,7 @@ classdef layersClass < handle
     
     properties (Dependent, SetAccess = private)
         layersCount
-        numValues
+        varCount
     end
     
     methods
@@ -38,8 +38,8 @@ classdef layersClass < handle
 
             obj.varNames = [{'Name', 'Thickness'}, SLDValues, {'Roughness','Hydration','Hydrate with'}];
 
-            sz = [0 obj.numValues];
-            varTypes = repmat({'string'}, 1, obj.numValues);
+            sz = [0 obj.varCount];
+            varTypes = repmat({'string'}, 1, obj.varCount);
             obj.layersTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
             obj.layersAutoNameCounter = 1;
         end
@@ -48,7 +48,7 @@ classdef layersClass < handle
             count = height(obj.layersTable);
         end
 
-        function count = get.numValues(obj)
+        function count = get.varCount(obj)
             count = length(obj.varNames);
         end
 
@@ -72,19 +72,19 @@ classdef layersClass < handle
                 % Add an empty layer
                 layerNum = obj.layersAutoNameCounter;
                 layerName = sprintf('Layer %d',layerNum);
-                newRow = [{layerName}, repmat({''}, 1, obj.numValues - 2), {hydrationTypes.BulkOut.value}];
+                newRow = [{layerName}, repmat({''}, 1, obj.varCount - 2), {hydrationTypes.BulkOut.value}];
                 
             elseif length(layerDetails) == 1 && isText(layerDetails{1})
                 % Add an empty named layer
-                newRow = [layerDetails(1), repmat({''}, 1, obj.numValues - 2), {hydrationTypes.BulkOut.value}];
+                newRow = [layerDetails(1), repmat({''}, 1, obj.varCount - 2), {hydrationTypes.BulkOut.value}];
             
             else
                 % Add a layer that is fully defined
-                if length(layerDetails) == (obj.numValues - 2)
+                if length(layerDetails) == (obj.varCount - 2)
                     % No hydration
                     layerDetails = [layerDetails, {NaN, hydrationTypes.BulkOut.value}];
-                elseif length(layerDetails) ~= obj.numValues
-                    throw(invalidNumberOfInputs(sprintf('Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.', obj.numValues - 2, obj.numValues)));
+                elseif length(layerDetails) ~= obj.varCount
+                    throw(invalidNumberOfInputs(sprintf('Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.', obj.varCount - 2, obj.varCount)));
                 end
                 
                 name = layerDetails{1};
@@ -95,15 +95,15 @@ classdef layersClass < handle
                 newRow = {name};
                 
                 % Must be a parameter name or number . . .
-                for i = 2:(obj.numValues - 2)
+                for i = 2:(obj.varCount - 2)
                     newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
                 end
 
                 %  . . . (apart from the penultimate column which can also be NaN)
-                if isnan(layerDetails{obj.numValues - 1})
-                    newRow{obj.numValues - 1} = NaN;
+                if isnan(layerDetails{obj.varCount - 1})
+                    newRow{obj.varCount - 1} = NaN;
                 else
-                    newRow{obj.numValues - 1} = obj.findParameter(layerDetails{obj.numValues - 1}, paramNames);
+                    newRow{obj.varCount - 1} = obj.findParameter(layerDetails{obj.varCount - 1}, paramNames);
                 end
                 
                 newRow = [newRow hydration];
@@ -249,8 +249,8 @@ classdef layersClass < handle
             len = size(array,1);
             if len == 0
                 % Make an empty table for display
-                sz = [1 obj.numValues];
-                varTypes = repmat({'double'}, 1, obj.numValues);
+                sz = [1 obj.varCount];
+                varTypes = repmat({'double'}, 1, obj.varCount);
                 dummyTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
                 disp(dummyTable);
                 fprintf('\n');

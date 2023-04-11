@@ -1,12 +1,9 @@
 classdef testProjects < matlab.unittest.TestCase
 %%
-% testProjects Class based unit tests for the project routines used to set
+% testProjects Class based unit tests for the project routine used to set
 % up calculations in RAT.
 %
-% In this class, we test:
-% absorption, domains, magnetic, magneticDomains, nonPolarised, oilWater 
-%
-% Paul Sharp 06/04/23
+% Paul Sharp 11/04/23
 %
 %% Declare properties and parameters
 
@@ -41,7 +38,7 @@ classdef testProjects < matlab.unittest.TestCase
 
             % Test for correct layers and contrasts
             layerColumns = [{'Name', 'Thickness'}, SLDValues, {'Roughness', 'Hydration', 'Hydrate with'}];
-            testCase.verifyEqual(problem.layers.layersTable.Properties.VariableNames, layerColumns, 'project contrasts class does not initialise correctly');
+            testCase.verifyEqual(problem.layers.layersTable.Properties.VariableNames, layerColumns, 'project layers class does not initialise correctly');
             testCase.verifyEqual(problem.contrasts.domainsCalc, domainsCalc, 'project contrasts class does not initialise correctly');
 
             % Test setting experiment name

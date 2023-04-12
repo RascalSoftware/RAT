@@ -1,9 +1,9 @@
-function [problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)
+function [problemDef,problemDefCells,problemDefLimits,domains,domainsCells,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)
 
 % Breaks up the classes into the relevant structures for inputting into C
 
 % Put the extracted fields into a cell array...
-% Structure of problemDef_cells array.
+% Structure of problemDefCells array.
 %
 % {1} - inputProblemDef.contrastRepeatSLDs
 %       {1 x nContrasts} array of cells
@@ -123,20 +123,20 @@ for i = 1:length(customFiles)
 end
 
 % Pull out all the cell arrays (except priors) into one array
-problemDef_cells{1} = repeatLayers;
-problemDef_cells{2} = allData;
-problemDef_cells{3} = dataLimits;
-problemDef_cells{4} = simLimits;
-problemDef_cells{5} = contrastLayers;
-problemDef_cells{6} = layersDetails;
-problemDef_cells{7} = paramNames;
-problemDef_cells{8} = backsNames;             
-problemDef_cells{9} = sfNames;
-problemDef_cells{10} = shiftsNames;
-problemDef_cells{11} = nbaNames;
-problemDef_cells{12} = nbsNames;
-problemDef_cells{13} = resolNames;
-problemDef_cells{14} = customFiles';
+problemDefCells{1} = repeatLayers;
+problemDefCells{2} = allData;
+problemDefCells{3} = dataLimits;
+problemDefCells{4} = simLimits;
+problemDefCells{5} = contrastLayers;
+problemDefCells{6} = layersDetails;
+problemDefCells{7} = paramNames;
+problemDefCells{8} = backsNames;             
+problemDefCells{9} = sfNames;
+problemDefCells{10} = shiftsNames;
+problemDefCells{11} = nbaNames;
+problemDefCells{12} = nbsNames;
+problemDefCells{13} = resolNames;
+problemDefCells{14} = customFiles';
 
 % Now deal with domains cell arrays
 if isa(inputProblemDef, 'domainsClass')
@@ -164,20 +164,20 @@ end
 
 % Fix for cell array bug with custom layers - is this needed still??
 if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelType,'custom xy')
-    for i = 1:length(problemDef_cells{5})
-        problemDef_cells{5}{i} = 0;
+    for i = 1:length(problemDefCells{5})
+        problemDefCells{5}{i} = 0;
     end
     for i = 1:length(domainsCells{2})
         domainsCells{2}{i} = 0;
     end
     
-    problemDef_cells{6} = {0};
+    problemDefCells{6} = {0};
     
 end
 
 % Also the custom files array..
-if isempty(problemDef_cells{14})
-    problemDef_cells{14} = {{'','',''}};
+if isempty(problemDefCells{14})
+    problemDefCells{14} = {{'','',''}};
 end
 
 % Put the priors into their own array
@@ -292,31 +292,31 @@ end
 
 %Now make the limits array
 for i = 1:length(inputStruct.paramConstr)
-    problemDef_limits.params(i,:) = inputStruct.paramConstr{i};
+    problemDefLimits.params(i,:) = inputStruct.paramConstr{i};
 end
 
 for i = 1:length(inputStruct.backParConstr)
-    problemDef_limits.backs(i,:) = inputStruct.backParConstr{i};
+    problemDefLimits.backs(i,:) = inputStruct.backParConstr{i};
 end
 
 for i = 1:length(inputStruct.scalefactorConstr)
-    problemDef_limits.scales(i,:) = inputStruct.scalefactorConstr{i};
+    problemDefLimits.scales(i,:) = inputStruct.scalefactorConstr{i};
 end
 
 for i = 1:length(inputStruct.qzshiftConstr)
-    problemDef_limits.shifts(i,:) = inputStruct.qzshiftConstr{i};
+    problemDefLimits.shifts(i,:) = inputStruct.qzshiftConstr{i};
 end
 
 for i = 1:length(inputStruct.nbairConstr)
-    problemDef_limits.nba(i,:) = inputStruct.nbairConstr{i};
+    problemDefLimits.nba(i,:) = inputStruct.nbairConstr{i};
 end
 
 for i = 1:length(inputStruct.nbsubConstr)
-    problemDef_limits.nbs(i,:) = inputStruct.nbsubConstr{i};
+    problemDefLimits.nbs(i,:) = inputStruct.nbsubConstr{i};
 end
 
 for i = 1:length(inputStruct.resolParConstr)
-    problemDef_limits.res(i,:) = inputStruct.resolParConstr{i};
+    problemDefLimits.res(i,:) = inputStruct.resolParConstr{i};
 end
 
 %Now remove all these fields from inputProblemDef

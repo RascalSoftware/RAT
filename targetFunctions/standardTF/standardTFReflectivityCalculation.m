@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
+function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
 
 % Main function for the standardTF reflectivity calculation
 % This function decides what type of model is being analysed and barnches
@@ -67,17 +67,17 @@ switch lower(type)
         % Standard layers calculation
         [problem,reflectivity,Simulation,...
          shifted_data,layerSlds,sldProfiles,...
-         allLayers]= standardTFStandardLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+         allLayers]= standardTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
     case 'custom layers'
         % Custom layers with user supplied custom model file
         [problem,reflectivity,Simulation,...
             shifted_data,layerSlds,sldProfiles,...
-            allLayers] = standardTFCustomLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+            allLayers] = standardTFCustomLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
     case 'custom xy'
         % Custom SLD profile with user defined model file
         [problem,reflectivity,Simulation,...
            shifted_data,layerSlds,sldProfiles,...
-           allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+           allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 end
 
 end

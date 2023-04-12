@@ -86,8 +86,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
             testCase.problemDefInput = testCase.inputs.inputs.problemDefInput;
             testCase.problemDef = testCase.inputs.inputs.problemDef;
-            testCase.problemDefCells = testCase.inputs.inputs.problemDef_cells;
-            testCase.problemDefLimits = testCase.inputs.inputs.problemDef_limits;
+            testCase.problemDefCells = testCase.inputs.inputs.problemDefCells;
+            testCase.problemDefLimits = testCase.inputs.inputs.problemDefLimits;
             testCase.domains = testCase.inputs.inputs.domains;
             testCase.domainsCells = testCase.inputs.inputs.domainsCells;
             testCase.priors = testCase.inputs.inputs.priors;

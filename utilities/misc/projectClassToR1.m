@@ -1,33 +1,20 @@
 function newR1Problem = projectClassToR1(r2Problem, varargin)
-%% Converts projectClass to r1 struct.
-% 
-% Takes an instance of project class and turn it into an r1 type struct.
-% 
-% Also creates the datafiles directory and saves the data if asked.
-% 
-% The functions takes in a projectClass and other optional arguments.
+% Converts projectClass to r1 struct. Also creates the datafiles directory and saves the 
+% data if asked. The functions takes in a projectClass and other optional arguments then 
+% outputs r1 struct. The optional arguments are:
 %
-% The optional arguments are:
+% r1Problem (struct):    The r1 struct which is updated with equivalent projectClass values. 
+%                        [default] defaultProject.mat.
+% dirName (char):        The directory where the files are saved. 
+%                        [default] newDirectory.
+% dirPath (char):        The path where the new directory is created. 
+%                        [default] current directory (pwd).
+% saveproject (logical): A boolean that determines if files are saved. 
+%                        [default] true.
+% fileName (char): The filename of the resulting r1 struct. 
+%                  [default] newFile appended with current timestamp.
 %
-% r1Problem (class struct):    The r1 struct which is updated with equivalent 
-%                              projectClass values. 
-%                              [default] defaultProject.mat.
-%
-% dirName (class char):        The directory where the files are saved. 
-%                              [default] newDirectory.
-%
-% dirPath (class char):        The path where the new directory is created. 
-%                              [default] current directory (pwd).
-%
-% saveproject (class logical): A boolean that determines if files are saved. 
-%                              [default] true.
-%
-% fileName (class char):       The filename of the resulting r1 struct. 
-%                              [default] newFile appended with current 
-%                              timestamp.
-%
-% Outputs r1 struct
-
+% r1Struct = projectClassToR1(pClass, 'saveProject', false);
 
 if ~isempty(varargin)
     pars = parseR1Problem(varargin{:});
@@ -46,8 +33,7 @@ if ~isempty(varargin)
 
     if ~exist(fullName,'dir') && saveTheProject
         % Create directory if it does not exist
-        mkdir(fullName);
-        mkdir(fullfile(fullName, 'datafiles'));
+        mkdir(fullName, 'datafiles');
     end
 end
 

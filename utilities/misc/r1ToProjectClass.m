@@ -1,11 +1,8 @@
 function thisProjectClass = r1ToProjectClass(r1Problem)
-%% Converts r1 struct to projectClass.
-% 
-% The function converts r1 structs into projectClass.
-% 
-% The functions takes the name of the r1 struct .mat file.
+% Converts r1 struct to projectClass. The function converts r1 structs into projectClass.
+% The functions takes the path of the r1 struct .mat file and outputs a projectClass
 %
-% Outputs a projectClass
+% problem = r1ToProjectClass('originalDSPCBilayerStructInput.mat');
 
 % Load r1problem
 problem = load(r1Problem).problem;

@@ -13,14 +13,14 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
     methods(TestClassSetup)
         function defineVariables(testCase)
-            testCase.inputStandardProjectClass = "originalDSPCBilayerProjectClass.mat";
-            testCase.inputStandardStruct = "originalDSPCBilayerStructInput.mat";
-            testCase.outputStandardStruct = "originalDSPCBilayerStructOutput.mat";
-            testCase.defaultProject = "defaultProject.mat";
-            testCase.outputCustomStruct = "monolayerVolumeModel.mat";
-            testCase.inputCustomProjectClass = "monolayerVolumeModelProjectClass.mat";
-            testCase.modelFile = "monolayerVolumeCustomLayerModel.m";
-            testCase.outputStandardStructWithR1Input = "originalDSPCBilayerStructOutputWithR1Input.mat";
+            testCase.inputStandardProjectClass = 'originalDSPCBilayerProjectClass.mat';
+            testCase.inputStandardStruct = 'originalDSPCBilayerStructInput.mat';
+            testCase.outputStandardStruct = 'originalDSPCBilayerStructOutput.mat';
+            testCase.defaultProject = 'defaultProject.mat';
+            testCase.outputCustomStruct = 'monolayerVolumeModel.mat';
+            testCase.inputCustomProjectClass = 'monolayerVolumeModelProjectClass.mat';
+            testCase.modelFile = 'monolayerVolumeCustomLayerModel.m';
+            testCase.outputStandardStructWithR1Input = 'originalDSPCBilayerStructOutputWithR1Input.mat';
         end
     end
 
@@ -36,23 +36,23 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
         function testCompareProjectClassToR1(testCase)
             expected = load(testCase.outputStandardStruct).problem;
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass; 
-            result = projectClassToR1(pClass, "saveProject", false);
+            result = projectClassToR1(pClass, 'saveProject', false);
             testCase.verifyEqual(result, expected);
         end
 
         function testProjectClassConversionWithModification(testCase)
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass;
-            pClass.layers.layersTable.("Hydrate with")(1) = hydrationTypes.BulkIn.value;
+            pClass.layers.layersTable.('Hydrate with')(1) = hydrationTypes.BulkIn.value;
             pClass.contrasts.contrasts{1}.data = 'Simulation';
-            result = projectClassToR1(pClass, "saveProject", false);
-            testCase.verifyEqual(result.layersDetails{1}{6}, char(pClass.layers.layersTable.("Hydrate with")(1)));
+            result = projectClassToR1(pClass, 'saveProject', false);
+            testCase.verifyEqual(result.layersDetails{1}{6}, char(pClass.layers.layersTable.('Hydrate with')(1)));
             testCase.verifyEqual(result.contrastTypes{1}, pClass.contrasts.contrasts{1}.data);
         end
 
         function testR1ProblemInput(testCase)
             input = load(testCase.inputStandardStruct).problem;
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass;
-            result = projectClassToR1(pClass, "r1Problem", input, "saveProject", false);
+            result = projectClassToR1(pClass, 'r1Problem', input, 'saveProject', false);
             expected = load(testCase.outputStandardStructWithR1Input).problem;
             testCase.verifyEqual(result, expected);
         end
@@ -60,12 +60,12 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
         function testR1ProblemException(testCase)
             expected = load(testCase.outputStandardStruct).problem; % wrong r1 format
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass;
-            testCase.verifyError(@() projectClassToR1(pClass, "r1Problem", expected, "saveProject", false), unrecognizedR1Problem.errorID);
+            testCase.verifyError(@() projectClassToR1(pClass, 'r1Problem', expected, 'saveProject', false), unrecognizedR1Problem.errorID);
         end
 
         function testR1ProblemExtension(testCase)
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass;
-            projectClassToR1 (pClass, "fileName", 'testProject');
+            projectClassToR1 (pClass, 'fileName', 'testProject');
 
             import matlab.unittest.constraints.IsFile
             testCase.verifyThat(fullfile('newDirectory', 'testProject.mat'), IsFile);
@@ -76,7 +76,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
         function testR1ProblemWithCustomLayers(testCase)
             pClass = load(testCase.inputCustomProjectClass).thisProjectClass;
             
-            testModel = fopen("monolayerVolumeCustomLayerModel.m",'w'); 
+            testModel = fopen('monolayerVolumeCustomLayerModel.m','w'); 
             fprintf(testModel, ['function [output,sub_rough] = monolayerVolumeCustomLayerModel(params,bulk_in,bulk_out,contrast)\n' ...
                 'output = [18.8615    0.0000    2.6509;\n'...
                           '12.8479    0.0000    2.6509;];\n'...
@@ -85,7 +85,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
             fclose(testModel);
             
             filename = 'testCustomProject';
-            projectClassToR1(pClass, "saveProject", true, "fileName", filename);
+            projectClassToR1(pClass, 'saveProject', true, 'fileName', filename);
 
             import matlab.unittest.constraints.IsFile
             testCase.verifyThat(fullfile('newDirectory', [filename '.mat']), IsFile);

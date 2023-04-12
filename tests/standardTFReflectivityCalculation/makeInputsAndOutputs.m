@@ -6,9 +6,10 @@
 % Paul Sharp 18/01/23 -- Fixed bugs in making test data and added new
 % objects to the files. Changed class names to enable parameterised
 % testing.
+% Paul Sharp 12/04/23 -- Added code to update the test data for converting
+% between RAT and RASCAL
 
-%%
-% 1. Custom Layers.
+%% 1. Custom Layers.
 root = getappdata(0,'root');
 customLayersProblem = orsoDSPCCustomLayers();
 controlsInput = controlsClass();
@@ -80,8 +81,7 @@ TFParams.allRoughs = allRoughs;
 
 save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customLayersTFParams'],'TFParams');
 
-%%
-% 2. Custom XY.
+%% 2. Custom XY.
 % (a) Inputs
 customXYProblem = DPPCCustomXYScript();
 controlsInput = controlsClass();
@@ -153,8 +153,7 @@ TFParams.allRoughs = allRoughs;
 
 save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customXYTFParams'],'TFParams');
 
-%%
-% 3. Standard Layers
+%% 3. Standard Layers
 % (a) Inputs
 standardProblem = DPPCStandardLayers();
 controlsInput = controlsClass();
@@ -225,3 +224,11 @@ TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
 
 save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'standardLayersTFParams'],'TFParams');
+
+%% 4. Converting betwwen RAT and RASCAL
+
+thisProjectClass = r1ToProjectClass('originalDSPCBilayerStructInput.mat');
+save('tests/testProjectConversion/originalDSPCBilayerProjectClass.mat', 'thisProjectClass')
+
+thisProjectClass = r1ToProjectClass('monolayerVolumeModel.mat');
+save('tests/testProjectConversion/monolayerVolumeModelProjectClass.mat', 'thisProjectClass')

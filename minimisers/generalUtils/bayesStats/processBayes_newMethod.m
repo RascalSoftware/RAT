@@ -1,10 +1,10 @@
 function [problemDef,outProblem,result,bayesResults] = processBayes_newMethod(bayesOutputs,allProblem)
 
-%problem = {problemDef ; controls ; problemDefLimits ; problemDefCells};
+%problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 problemDef = allProblem{1};
 controlsStruct = allProblem{2};
-problemDefLimits = allProblem{3};
-problemDefCells = allProblem{4};
+problemDef_limits = allProblem{3};
+problemDef_cells = allProblem{4};
 
 % Need to impose that we calculate the SLD..
 controlsStruct.calcSld = 1;
@@ -23,7 +23,7 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 % controls.calcSld = 1;
 % problemDef.fitpars = bestPars_max;
 % problemDef = unpackparams(problemDef,controls);
-% [outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+% [outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 % bestFitMax_Ref = result(1);
 % bestFitMax_Sld = result(5);
 % bestFitMax_chi = outProblem.calculations.sum_chi;
@@ -31,7 +31,7 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 % Calculate 'mean' best fit curves
 % problemDef.fitpars = parConfInts.mean;
 % problemDef = unpackparams(problemDef,controlsStruct);
-[outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controlsStruct);
+[outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controlsStruct);
 p = parseResultToStruct(outProblem,result);
 bestFitMean.Ref = p.reflectivity;
 bestFitMean.Sld = p.sldProfiles;
@@ -47,7 +47,7 @@ bestFitMean.data = p.shifted_data;
 % predIntSld = predIntSld_calcs.predlims;
 % predIntSld_xdata = predIntSld_calcs.data;
 
-allPredInts = refPrctileConfInts(bayesOutputs,problemDef,problemDefCells,problemDefLimits,controlsStruct,result,parConfInts);
+allPredInts = refPrctileConfInts(bayesOutputs,problemDef,problemDef_cells,problemDef_limits,controlsStruct,result,parConfInts);
 
 
 % ---------------------------------

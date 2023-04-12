@@ -1,4 +1,4 @@
-function allPredInts = refPrctileConfInts(bayesOutputs,problemDef,problemDefCells,problemDefLimits,controlsStruct,result,parConfInts)
+function allPredInts = refPrctileConfInts(bayesOutputs,problemDef,problemDef_cells,problemDef_limits,controlsStruct,result,parConfInts)
 
 CIFn = @(x,p)prctile(x,abs([0,100]-(100-p)/2));
 chain = bayesOutputs.chain;
@@ -11,7 +11,7 @@ problemDef.fitpars = firstRow;
 problemDef = unpackparams(problemDef,controlsStruct);
 
 % Calc the reflectivities....
-[calcProblem,calcResult] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controlsStruct);
+[calcProblem,calcResult] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controlsStruct);
 
 % 'result' is currently a cell array. Convert this to a struct because it's
 % easier to work with fieldnames...
@@ -51,7 +51,7 @@ for i = 2:nsample
     problemDef = unpackparams(problemDef,controlsStruct);
 
     % Calc the reflectivities....
-    [calcProblem,calcResult] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controlsStruct);
+    [calcProblem,calcResult] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controlsStruct);
 
     % 'result' is currently a cell array. Convert this to a struct because it's
     % easier to work with fieldnames...

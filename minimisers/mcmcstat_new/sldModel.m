@@ -26,13 +26,13 @@ pars = theta;
 
 problemDef = problem{1};
 controls = problem{2};
-problemDefLimits = problem{3};
-problemDefCells = problem{4};
+problemDef_limits = problem{3};
+problemDef_cells = problem{4};
 controls.calcSld = 1;
 
 problemDef.fitpars = pars;
 problemDef = unpackparams(problemDef,controls);
-[~,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[~,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 sld = result{5}{contrast};
 

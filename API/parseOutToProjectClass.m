@@ -46,10 +46,10 @@ for i = 1:length(resol)
 end
 
 
-% resolNames = problemDefCells{13};
+% resolNames = problemDef_cells{13};
 % outProblemDef.resolutionNames = resolNames;
 % 
-% resolLimits = problemDefLimits.res;
+% resolLimits = problemDef_limits.res;
 % for i = 1:numberOfResols
 %     outProblemDef.resolutionConstr{i} = resolLimits(i,:)
 

@@ -1,10 +1,10 @@
 function [refShadedIntervals, sldShadedIntervals, outMessage, boxEndValue] = refPredInterval(chain,bestFit,bestSld,intervals,...
-    valRange,problemDef, problemDefCells,problemDefLimits,controls,result)
+    valRange,problemDef, problemDef_cells,problemDef_limits,controls,result)
 
 
 % problemDef = problem.problemDef;
-% problemDefLimits = problem.problemDefLimits;
-% problemDefCells = problem.problemDefCells;
+% problemDef_limits = problem.problemDef_limits;
+% problemDef_cells = problem.problemDef_cells;
 % controls = problem.controls;
 
 debugPlot = true;
@@ -71,7 +71,7 @@ for n = 1:numberOfContrasts
         % problem = getappdata(0,'problem');
         problemDef.fitpars = thisRow;
         problemDef = unpackparams(problemDef,controls);
-        [problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+        [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
         result = parseResultToStruct(problem,result);
 
 %         ref.bestSlds = result.sldProfiles;

@@ -1,7 +1,7 @@
-function [problemDef,problem,result] = runDE(problemDef,problemDefCells,problemDefLimits,controls)
+function [problemDef,problem,result] = runDE(problemDef,problemDef_cells,problemDef_limits,controls)
 
 
-[problemDef,fitNames] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls);
+[problemDef,fitNames] = fitsetup(problemDef,problemDef_cells,problemDef_limits,controls);
 F_VTR = controls.VTR; %Value to reach
 I_D = length(problemDef.fitpars);
 
@@ -101,10 +101,10 @@ S_struct.FVr_bestmem = [0 0];
 
 %res = RAT_deopt(@intrafun,problemDef,@PlotIt,controls,S_struct);
 
-[res,problemDef] = RAT_deopt(@intrafun,problemDef,problemDefLimits,problemDefCells,@plotIt,controls,S_struct);
+[res,problemDef] = RAT_deopt(@intrafun,problemDef,problemDef_limits,problemDef_cells,@plotIt,controls,S_struct);
 problemDef.fitpars = res;
 problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 if ~strcmpi(controls.display,'off')
     fprintf('Final chi squared is %g\n',problem.calculations.sum_chi);
@@ -113,7 +113,7 @@ end
 end
 
 
-function S_MSE = intrafun(p,problemDef,controls,problemDefCells,problemDefLimits);
+function S_MSE = intrafun(p,problemDef,controls,problemDef_cells,problemDef_limits);
 
 % S_MSE.I_nc      = [];
 % S_MSE.FVr_ca    = [];
@@ -136,7 +136,7 @@ coder.varsize('S_MSE.FVr_oa',[1 1],[0 0]);
 
 problemDef.fitpars = p;
 problemDef = unpackparams(problemDef,controls);
-[problemDef,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[problemDef,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 fval = problemDef.calculations.sum_chi;
 
 S_MSE.I_nc      = 0;%no constraints                 THESE FIRST FEW VALS MAY BE WRONG

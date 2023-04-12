@@ -1,10 +1,10 @@
 function [outProblem,result,bayesResults] = processBayes(output,fitNames,problem)
 
-%problem = {problemDef ; controls ; problemDefLimits ; problemDefCells};
+%problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 problemDef = problem{1};
 controls = problem{2};
-problemDefLimits = problem{3};
-problemDefCells = problem{4};
+problemDef_limits = problem{3};
+problemDef_cells = problem{4};
 
 parConfInts = iterShortest(output.chain,length(fitNames),[],0.95);
 
@@ -17,7 +17,7 @@ bestPars_mean = output.results.mean;
 controls.calcSld = 1;
 problemDef.fitpars = bestPars_max;
 problemDef = unpackparams(problemDef,controls);
-[outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 bestFitMax_Ref = result(1);
 bestFitMax_Sld = result(5);
 bestFitMax_chi = outProblem.calculations.sum_chi;
@@ -25,7 +25,7 @@ bestFitMax_chi = outProblem.calculations.sum_chi;
 % Calculate 'mean' best fit curves
 problemDef.fitpars = bestPars_mean;
 problemDef = unpackparams(problemDef,controls);
-[outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 bestFitMean_Ref = result(1);
 bestFitMean_Sld = result(5);
 bestFitMean_chi = outProblem.calculations.sum_chi;

@@ -1,4 +1,4 @@
-function [x,fval,exitflag,output] = simplex(funfcn,x,problem,problemDefCells,problemDefLimits,controls,options,varargin)
+function [x,fval,exitflag,output] = simplex(funfcn,x,problem,problemDef_cells,problemDef_limits,controls,options,varargin)
 %FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
 %   X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer 
 %   X of the function FUN.  FUN is a function handle.  FUN accepts input X and 
@@ -184,7 +184,7 @@ v(:,1) = xin;    % Place input guess in the simplex! (credit L.Pfeffer at Stanfo
 x(:) = xin;    % Change x to the form expected by funfcn
 itercount = 0;
 func_evals = 0;
-fv(:,1) = funfcn(x,problem,problemDefCells,problemDefLimits,controls,func_evals,varargin{1});
+fv(:,1) = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
 func_evals = 1;
 how = '';
 
@@ -241,7 +241,7 @@ for j = 1:n
         y(j) = zero_term_delta;
     end
     v(:,j+1) = y;
-    x(:) = y; f = funfcn(x,problem,problemDefCells,problemDefLimits,controls,func_evals,varargin{1});
+    x(:) = y; f = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
     func_evals = func_evals + 1;
     fv(1,j+1) = f;
 end
@@ -303,13 +303,13 @@ while func_evals < maxfun && itercount < maxiter && stopflag == 0
     % xbar = average of the n (NOT n+1) best points
     xbar = sum(v(:,one2n), 2)/n;
     xr = (1 + rho)*xbar - rho*v(:,end);
-    x(:) = xr; fxr = funfcn(x,problem,problemDefCells,problemDefLimits,controls,func_evals,varargin{1});
+    x(:) = xr; fxr = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
     func_evals = func_evals+1;
     
     if fxr < fv(:,1)
         % Calculate the expansion point
         xe = (1 + rho*chi)*xbar - rho*chi*v(:,end);
-        x(:) = xe; fxe = funfcn(x,problem,problemDefCells,problemDefLimits,controls,func_evals,varargin{1});
+        x(:) = xe; fxe = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
         func_evals = func_evals+1;
         if fxe < fxr
             v(:,end) = xe;
@@ -330,7 +330,7 @@ while func_evals < maxfun && itercount < maxiter && stopflag == 0
             if fxr < fv(:,end)
                 % Perform an outside contraction
                 xc = (1 + psi*rho)*xbar - psi*rho*v(:,end);
-                x(:) = xc; fxc = funfcn(x,problem,problemDefCells,problemDefLimits,controls,func_evals,varargin{1});
+                x(:) = xc; fxc = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
                 func_evals = func_evals+1;
                 
                 if fxc <= fxr
@@ -344,7 +344,7 @@ while func_evals < maxfun && itercount < maxiter && stopflag == 0
             else
                 % Perform an inside contraction
                 xcc = (1-psi)*xbar + psi*v(:,end);
-                x(:) = xcc; fxcc = funfcn(x,problem,problemDefCells,problemDefLimits,controls,func_evals,varargin{1});
+                x(:) = xcc; fxcc = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
                 func_evals = func_evals+1;
                 
                 if fxcc < fv(:,end)
@@ -360,7 +360,7 @@ while func_evals < maxfun && itercount < maxiter && stopflag == 0
                 for j=two2np1
                     v(:,j)=v(:,1)+sigma*(v(:,j) - v(:,1));
                     x(:) = v(:,j); 
-                    fv(:,j) = funfcn(x,problem,problemDefCells,problemDefLimits,controls,func_evals,varargin{1});
+                    fv(:,j) = funfcn(x,problem,problemDef_cells,problemDef_limits,controls,func_evals,varargin{1});
                 end
                 func_evals = func_evals + n;
             end

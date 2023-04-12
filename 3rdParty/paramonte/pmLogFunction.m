@@ -3,8 +3,8 @@ classdef pmLogFunction
     properties 
         
         problemDef;
-        problemDefCells;
-        problemDefLimits;
+        problemDef_cells;
+        problemDef_limits;
         priors;
         controls;
         scaled;
@@ -18,8 +18,8 @@ classdef pmLogFunction
             
             problem = obj.problemDef;
             control = obj.controls;
-            cells = obj.problemDefCells;
-            limits = obj.problemDefLimits;
+            cells = obj.problemDef_cells;
+            limits = obj.problemDef_limits;
             priors = obj.priors;
             
             problem.fitpars = pars;

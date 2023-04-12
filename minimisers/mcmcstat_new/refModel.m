@@ -32,12 +32,12 @@ pars = theta;
 
 problemDef = problem{1};
 controls = problem{2};
-problemDefLimits = problem{3};
-problemDefCells = problem{4};
+problemDef_limits = problem{3};
+problemDef_cells = problem{4};
 
 problemDef.fitpars = pars;
 problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 ySim = result{1}{contrast};
 

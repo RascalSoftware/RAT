@@ -1,4 +1,4 @@
-function [problemDef,problem,result] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls)
+function [problemDef,problem,result] = runSimplex(problemDef,problemDef_cells,problemDef_limits,controls)
 
 numberOfContrasts = problemDef.numberOfContrasts;
 preAlloc = zeros(numberOfContrasts,1);
@@ -16,7 +16,7 @@ problem = struct('ssubs',preAlloc,...
                  'allSubRough',preAlloc);
 
 
-[problemDef,fitNames] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls);
+[problemDef,fitNames] = fitsetup(problemDef,problemDef_cells,problemDef_limits,controls);
 
 maxIter = controls.maxIter;
 tolFun = controls.tolFun;
@@ -119,9 +119,9 @@ end
 % now we can call fminsearch, but with our own
 % intra-objective function.
 
-[xu,fval,exitflag,output] = RATFminSearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDefCells,problemDefLimits,controls,params,300);
+[xu,fval,exitflag,output] = RATFminSearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDef_cells,problemDef_limits,controls,params,300);
 
-%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemDef,problemDefCells,problemDefLimits,controls,options,params,300);
+%[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemDef,problemDef_cells,problemDef_limits,controls,options,params,300);
 
 % undo the variable transformations into the original space
 x = simplexXTransform(xu,params);
@@ -131,6 +131,6 @@ x = simplexXTransform(xu,params);
 
 problemDef.fitpars = x;
 problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 end

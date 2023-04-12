@@ -77,7 +77,7 @@
 % General Public License can be obtained from the 
 % Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [FVr_bestmem,problem] = RAT_deopt(fname,problem,problemDefLimits,problemDefCells,plotIt,controls,S_struct)
+function [FVr_bestmem,problem] = RAT_deopt(fname,problem,problemDef_limits,problemDef_cells,plotIt,controls,S_struct)
 
 
 %function FVr_bestmem = rascal_deopt(fname,problem,PlotIt,controls,S_struct)
@@ -155,15 +155,15 @@ str = struct('I_nc',0,'FVr_ca',0,'I_no',0,'FVr_oa',0);
 S_val = repmat(str,I_NP,1);
 
 
-%intrafun(p,problemDef,controls,problemDefCells,problemDefLimits);
+%intrafun(p,problemDef,controls,problemDef_cells,problemDef_limits);
 
 coder.varsize('I_best_index',[1 1],[0 0]);
 I_best_index   = 1;                   % start with first population member
-S_val(1)       = fname(FM_pop(I_best_index,:),problem,controls,problemDefCells,problemDefLimits);
+S_val(1)       = fname(FM_pop(I_best_index,:),problem,controls,problemDef_cells,problemDef_limits);
 S_bestval = S_val(1);                 % best objective function value so far
 I_nfeval  = I_nfeval + 1;
 for k=2:I_NP                          % check the remaining members
-  S_val(k)  = fname(FM_pop(k,:),problem,controls,problemDefCells,problemDefLimits);
+  S_val(k)  = fname(FM_pop(k,:),problem,controls,problemDef_cells,problemDef_limits);
   I_nfeval  = I_nfeval + 1;
   if (left_win(S_val(k),S_bestval) == 1)
      I_best_index   = k;              % save its location
@@ -308,7 +308,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
       end
       %=====End boundary constraints==========================================
   
-      S_tempval = fname(FM_ui(k,:),problem, controls,problemDefCells,problemDefLimits);  % check cost of competitor
+      S_tempval = fname(FM_ui(k,:),problem, controls,problemDef_cells,problemDef_limits);  % check cost of competitor
       I_nfeval  = I_nfeval + 1;
       if (left_win(S_tempval,S_val(k)) == 1)   
          FM_pop(k,:) = FM_ui(k,:);                    % replace old vector with new one (for new iteration)
@@ -356,6 +356,6 @@ end %---end while ((I_iter < I_itermax) ...
 
 % problemDef.fitpars = x;
 % problemDef = unpackparams(problemDef,controls);
-% [problem,res] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+% [problem,res] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 
 

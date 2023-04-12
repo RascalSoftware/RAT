@@ -1,4 +1,4 @@
-function [problemDef,fitNames] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls)
+function [problemDef,fitNames] = fitsetup(problemDef,problemDef_cells,problemDef_limits,controls)
 
 if isfield(controls,'checks')
     checks = controls.checks;
@@ -14,7 +14,7 @@ end
 
 
 
-[problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,checks);
+[problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,checks);
 
 
 %Check the bounds on all the selected

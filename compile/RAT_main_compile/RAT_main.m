@@ -1,4 +1,4 @@
-function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDefCells,problemDefLimits,domains,domainsCells,controls,priors)
+function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls,priors)
 
 
 result = cell(6,1);
@@ -33,28 +33,28 @@ outProblemDef = problemDef;
 action = controls.proc;
 switch lower(action)
     case 'calculate' %Just a single reflectivity calculation
-        [problem,results] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,domains,domainsCells,controls);
+        [problem,results] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls);
         outProblemDef = problemDef;
     case 'simplex'
         if ~strcmpi(controls.display,'off')
             sendTextOutput(sprintf('\nRunning simplex\n\n'));
         end
-        [outProblemDef,problem,results] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls);
+        [outProblemDef,problem,results] = runSimplex(problemDef,problemDef_cells,problemDef_limits,controls);
     case 'de'
         if ~strcmpi(controls.display,'off')
             sendTextOutput(sprintf('\nRunning Differential Evolution\n\n'));
         end
-        [outProblemDef,problem,results] = runDE(problemDef,problemDefCells,problemDefLimits,controls);
+        [outProblemDef,problem,results] = runDE(problemDef,problemDef_cells,problemDef_limits,controls);
         %     case 'bayes'
         %         if ~strcmpi(controls.display,'off')
         %             sendTextOutput(sprintf('\nRunning DRAM\n\n'));
         %         end
-        %         [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDefCells,problemDefLimits,controls,priors);
+        %         [outProblemDef,problem,results,bayesResults] = runDram(problemDef,problemDef_cells,problemDef_limits,controls,priors);
         %     case 'ns'
         %         if ~strcmpi(controls.display,'off')
         %             sendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));
         %         end
-        %         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls);
+        %         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);
         %     case 'paramonte'
         %         % TODO
 end

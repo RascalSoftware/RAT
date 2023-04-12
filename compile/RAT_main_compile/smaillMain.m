@@ -2,11 +2,11 @@ inputArgs = load('inputArgs');
 i = inputArgs.inputArgs;
 
 problemDef = i.problemDef;
-problemDefCells = i.problemDefCells;
-problemDefLimits = i.problemDefLimits;
+problemDef_cells = i.problemDef_cells;
+problemDef_limits = i.problemDef_limits;
 priors = i.priors;
 controls = i.controls;
 
-[outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDefCells,problemDefLimits,controls,priors);
+[outProblemStruct,problem,result,bayesResults] = RAT_main(problemDef,problemDef_cells,problemDef_limits,controls,priors);
 
 

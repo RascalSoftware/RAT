@@ -1,4 +1,4 @@
-function [problemDef,problemDefCells,problemDefLimits] = removeCells(problemDef,controls)
+function [problemDef,problemDef_cells,problemDef_limits] = removeCells(problemDef,controls)
 
 repeatLayers = problemDef.repeatLayers;
 allData = problemDef.allData;
@@ -17,22 +17,22 @@ fitNames = problemDef.fitNames;
 
 
 %Put the extracted fields into a cell array...
-problemDefCells{1} = repeatLayers;
-problemDefCells{2} = allData;
-problemDefCells{3} = dataLimits;
-problemDefCells{4} = simLimits;
-problemDefCells{5} = contrastLayers;
-problemDefCells{6} = layersDetails;
-problemDefCells{7} = paramNames;
-problemDefCells{8} = backsNames;
-problemDefCells{9} = sfNames;
-problemDefCells{10} = shiftsNames;
-problemDefCells{11} = nbaNames;
-problemDefCells{12} = nbsNames;
-problemDefCells{13} = resolNames;
-problemDefCells{14} = fitNames;
+problemDef_cells{1} = repeatLayers;
+problemDef_cells{2} = allData;
+problemDef_cells{3} = dataLimits;
+problemDef_cells{4} = simLimits;
+problemDef_cells{5} = contrastLayers;
+problemDef_cells{6} = layersDetails;
+problemDef_cells{7} = paramNames;
+problemDef_cells{8} = backsNames;
+problemDef_cells{9} = sfNames;
+problemDef_cells{10} = shiftsNames;
+problemDef_cells{11} = nbaNames;
+problemDef_cells{12} = nbsNames;
+problemDef_cells{13} = resolNames;
+problemDef_cells{14} = fitNames;
 
-problemDefLimits = problemDef.limits;
+problemDef_limits = problemDef.limits;
 
 
 fields = {'allData','dataLimits','simLimits','contrastLayers','layersDetails','repeatLayers','paramNames','backsNames','sfNames','shiftsNames','nbaNames','nbsNames','resolNames','limits','fitNames'};

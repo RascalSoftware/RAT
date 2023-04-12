@@ -6,10 +6,10 @@ function [outProblemDef,result,pmpd] = processFits(problem,controls,chainName,ch
 % 
 % controls = controlsClass();
 
-[problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problem,controls);
+[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(problem,controls);
 problemDefInput = problemDef;
 
-[problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 nDims = length(problemDef.fitpars);
 
 pm = paramonte();
@@ -37,14 +37,14 @@ for i = 1:rows
 end
 
 
-allProblem = {problemDef, controls, problemDefLimits, problemDefCells};
+allProblem = {problemDef, controls, problemDef_limits, problemDef_cells};
 
 bayesOutputs.bestPars = mean(unscaledChain);
 bayesOutputs.chain = unscaledChain;
 bayesOutputs.fitNames = fitNames;
 bayesOutputs.s2chain = [];
 bayesOutputs.sschain = [];
-bayesOutputs.data = problemDefCells{2};
+bayesOutputs.data = problemDef_cells{2};
 bayesOutputs.results.mean = mean(unscaledChain);
 
 [problemDef,outProblemStruct,result,bayesResults] = processBayes_newMethod(bayesOutputs,allProblem);
@@ -58,7 +58,7 @@ end
 
 result = mergeStructs(result,bayesResults);
 
-[~,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 result.fitNames = fitNames;
 
 outProblemDef = parseOutToProjectClass(problem,problemDef,[],[]);

@@ -1,4 +1,4 @@
-function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls)
+function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls)
 
 % Dummy reflectivityCalculationWrapper for compiles
 
@@ -31,7 +31,7 @@ function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef
 % 
 %  switch type
 %      case 'mex'
-%         [problem,result] = reflectivityCalculation_mex(problemDef,problemDefCells,problemDefLimits,controls);
+%         [problem,result] = reflectivityCalculation_mex(problemDef,problemDef_cells,problemDef_limits,controls);
 %      otherwise
-        [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+        [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
 %end

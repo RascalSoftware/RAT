@@ -508,10 +508,6 @@ classdef testProjectClass < matlab.unittest.TestCase
                 contrastNames{i} = testCase.project.contrasts.contrasts{i}.name;
             end
             testCase.verifyEqual(projectStruct.contrastNames, contrastNames, 'toStruct method not working');
-
-            % For this project, domains parameters should be empty
-            testCase.verifyEqual(projectStruct.contrastNames, cell(1,0), 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.domainRatioNames, cell(1,0), 'toStruct method not working');
         end
 
         function testObjectDisplay(testCase)

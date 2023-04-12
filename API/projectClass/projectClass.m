@@ -792,6 +792,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             contrastStruct = obj.contrasts.toStruct(allNames, generalStruct.modelType, dataTable);
             
+            % Domains classes
+            % If this is not a domains calculation, make some dummy structs
             if isa(obj, 'domainsClass')
                 [domainContrastStruct, domainRatioStruct] = obj.makeDomainsStructs(allNames, generalStruct.modelType);
             else

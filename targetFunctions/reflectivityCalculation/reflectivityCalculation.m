@@ -1,4 +1,4 @@
-function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
+function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls)
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
@@ -88,7 +88,7 @@ switch whichTF
     %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDef_cells,controls);
     %case 'domains'
-        %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+        %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls);
     %otherwise
         %error('The calculation type "%s" is not supported', whichTF);
 

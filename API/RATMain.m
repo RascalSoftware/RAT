@@ -1,4 +1,4 @@
-function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors)
+function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls,priors)
 
 
 result = cell(6,1);
@@ -28,7 +28,7 @@ outProblemDef = problemDef;
 action = controls.proc;
 switch lower(action)
     case 'calculate' %Just a single reflectivity calculation
-        [problem,results] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+        [problem,results] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls);
         outProblemDef = problemDef;
     case 'simplex'
         if ~strcmpi(controls.display,'off')

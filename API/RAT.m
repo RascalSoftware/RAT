@@ -7,7 +7,7 @@ if isempty(isInitialised)
 end
 
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(problemDefInput,controls);
+[problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,priors,controls] = parseClassToStructs(problemDefInput,controls);
 [problemDef,~] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 
 % %Define variable size for code generation
@@ -79,7 +79,7 @@ if ~strcmpi(controls.display,'off')
 end
 
 tic
-[outProblemStruct,problem,result,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[outProblemStruct,problem,result,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls,priors);
 sendTextOutput(sprintf('\n'));
 
 if ~strcmpi(controls.display,'off')
@@ -92,7 +92,7 @@ if controls.calcSld == 0
     originalProc = controls.proc;
     controls.calcSld = 1;
     controls.proc = 'calculate';
-    [outProblemStruct,problem,result,~] = RATMain(outProblemStruct,problemDef_cells,problemDef_limits,controls,priors);
+    [outProblemStruct,problem,result,~] = RATMain(outProblemStruct,problemDef_cells,problemDef_limits,domains,domainsCells,controls,priors);
     controls.proc = originalProc;
 end
 

@@ -46,6 +46,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         problemDef               % Input Parameters for the test problem
         problemDefCells          % Input cell arays for the test problem
         problemDefLimits         % Input limits for the test problem
+        domains                  % Domains parameters for the test problem
+        domainsCells             % Domains cell arrays for the test problem
         priors                   % Input priors for the test problem
         controlsInput            % Instrument controls class for the input problem
         controls                 % Instrument controls struct for the input problem
@@ -86,6 +88,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.problemDef = testCase.inputs.inputs.problemDef;
             testCase.problemDefCells = testCase.inputs.inputs.problemDef_cells;
             testCase.problemDefLimits = testCase.inputs.inputs.problemDef_limits;
+            testCase.domains = testCase.inputs.inputs.domains;
+            testCase.domainsCells = testCase.inputs.inputs.domainsCells;
             testCase.priors = testCase.inputs.inputs.priors;
             testCase.controlsInput = testCase.inputs.inputs.controlsInput;
             testCase.controls = testCase.inputs.inputs.controls;
@@ -155,7 +159,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % Note that we test only a single reflectivity calculation at
             % present
 
-            [outProblemDef, problem, result, bayesResults] = RATMain(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls,testCase.priors);
+            [outProblemDef, problem, result, bayesResults] = RATMain(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.domains,testCase.domainsCells,testCase.controls,testCase.priors);
 
             testCase.verifyEqual(outProblemDef, testCase.expectedProblemOutStruct, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -165,13 +169,13 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
         function testReflectivityCalculationWrapper(testCase)
             % Test the routine that chooses how to perform the reflectivity calculation
-            [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+            [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.domains,testCase.domainsCells,testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
 
             mockFn = mockFunction(testCase, 'reflectivityCalculation_mex', 'exceptionID', 'MATLAB:UndefinedFunction');         
-            [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+            [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.domains,testCase.domainsCells,testCase.controls);
             testCase.verifyEqual(mockFn.callCount, 1);
             
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -179,7 +183,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             
             mockFn.exceptionID = 'MATLAB:AnotherError';
             testCase.verifyError(@() reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,...
-                                                        testCase.problemDefLimits,testCase.controls), 'MATLAB:AnotherError');
+                                                        testCase.problemDefLimits,testCase.domains,testCase.domainsCells, ...
+                                                        testCase.controls), 'MATLAB:AnotherError');
             testCase.verifyEqual(mockFn.callCount, 2);
         end
 
@@ -198,9 +203,9 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             
             testCase.controls.para = whichParallel;
             if useCompiled
-                [problem, result] = reflectivityCalculation_mex(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                [problem, result] = reflectivityCalculation_mex(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.domains, testCase.domainsCells, testCase.controls);
             else        
-                [problem, result] = reflectivityCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+                [problem, result] = reflectivityCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.domains,testCase.domainsCells,testCase.controls);
             end
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -351,12 +356,14 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
 %% Test Pre- and Post-Processing Routines
 
-        function testRatParseClasstoStructs_new(testCase)
-            [problem, problem_cells, problem_limits, problem_priors, controls_struct] = parseClassToStructs(testCase.problemDefInput, testCase.controlsInput);
+        function testRatParseClasstoStructs(testCase)
+            [problem, problem_cells, problem_limits, domains_params, domains_cells, problem_priors, controls_struct] = parseClassToStructs(testCase.problemDefInput, testCase.controlsInput);
 
             testCase.verifyEqual(problem, testCase.problemDef, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(problem_cells, testCase.problemDefCells, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(problem_limits, testCase.problemDefLimits, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(domains_params, testCase.domains, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);      
+            testCase.verifyEqual(domains_cells, testCase.domainsCells, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(problem_priors, testCase.priors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(controls_struct, testCase.controls, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end

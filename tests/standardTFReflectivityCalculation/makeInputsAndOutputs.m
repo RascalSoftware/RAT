@@ -16,12 +16,14 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(customLayersProblem,controlsInput);
+[problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,priors,controls] = parseClassToStructs(customLayersProblem,controlsInput);
 
 inputs.problemDefInput = customLayersProblem;
 inputs.problemDef = problemDef;
 inputs.problemDef_cells = problemDef_cells;
 inputs.problemDef_limits = problemDef_limits;
+inputs.domains = domains;
+inputs.domainsCells = domainsCells;
 inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
@@ -29,12 +31,12 @@ inputs.controls = controls;
 save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customLayersInputs'],'inputs');
 
 % (b) Outputs
-[problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls);
 
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;
@@ -87,12 +89,14 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(customXYProblem,controlsInput);
+[problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,priors,controls] = parseClassToStructs(customXYProblem,controlsInput);
 
 inputs.problemDefInput = customXYProblem;
 inputs.problemDef = problemDef;
 inputs.problemDef_cells = problemDef_cells;
 inputs.problemDef_limits = problemDef_limits;
+inputs.domains = domains;
+inputs.domainsCells = domainsCells;
 inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
@@ -100,12 +104,12 @@ inputs.controls = controls;
 save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customXYInputs'],'inputs');
 
 % (b) Outputs
-[problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls);
 
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;
@@ -158,12 +162,14 @@ controlsInput = controlsClass();
 % Supress printing of RAT output for testing
 controlsInput.display = 'off';
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(standardProblem,controlsInput);
+[problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,priors,controls] = parseClassToStructs(standardProblem,controlsInput);
 
 inputs.problemDefInput = standardProblem;
 inputs.problemDef = problemDef;
 inputs.problemDef_cells = problemDef_cells;
 inputs.problemDef_limits = problemDef_limits;
+inputs.domains = domains;
+inputs.domainsCells = domainsCells;
 inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
@@ -171,12 +177,12 @@ inputs.controls = controls;
 save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'standardLayersInputs'],'inputs');
 
 % (b) Outputs
-[problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls);
 
 outputs.problem = problem;
 outputs.result = result;
 
-[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[problemOutStruct,~,~,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls,priors);
 
 outputs.problemOutStruct = problemOutStruct;
 outputs.bayesResults = bayesResults;

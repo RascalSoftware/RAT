@@ -1,4 +1,4 @@
-function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls)
+function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls)
 
 
 % This is just a wrapper function for choosing between
@@ -27,10 +27,10 @@ function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef
 % result{6} = currently empty - will be allLayers (i.e. resampled)
 
     try
-       [problem,result] = reflectivityCalculation_mex(problemDef,problemDef_cells,problemDef_limits,controls);
+       [problem,result] = reflectivityCalculation_mex(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls);
     catch exception
         if (strcmp(exception.identifier, 'MATLAB:UndefinedFunction'))
-            [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+            [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,controls);
         else
             rethrow(exception)
         end

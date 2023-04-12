@@ -1,234 +1,166 @@
 function thisProjectClass = r1ToProjectClass(r1Problem)
+% Converts r1 struct to projectClass. The function converts r1 structs into projectClass.
+% The functions takes the path of the r1 struct .mat file and outputs a projectClass
+%
+% problem = r1ToProjectClass('originalDSPCBilayerStructInput.mat');
 
-%Load in the R1 problem....
-r1Problem = load(r1Problem);
-problem = r1Problem.problem;
+% Load r1problem
+problem = load(r1Problem).problem;
 
-% Set the project name from
-% the name of the r1Problem
+% Select name
 if iscell(problem.name)
-    thisName = problem.name{:};
+    projectName = problem.name{:};
 else
-    thisName = problem.name;
+    projectName = problem.name;
 end
 
-% make an empty instance of projectClass
-% with this name
-thisProjectClass = projectClass(thisName);
+% Make empty instance of projectClass
+thisProjectClass = projectClass(projectName);
 
-% Start by setting the geometry
-% and project type.
-oldGeometry = problem.module.experiment_type;
-oldType = problem.module.type;
-
-if strcmpi(oldType,'Standard Layers')
-    thisProjectClass.setModelType('standard layers');
-elseif strcmpi(oldType,'Custom Layers')
-    thisProjectClass.setModelType('custom layers');
+% Set model type
+if strcmpi(problem.module.type, 'Standard Layers')
+    thisProjectClass.setModelType(modelTypes.StandardLayers.value);
+elseif strcmpi(problem.module.type,'Custom Layers')
+    thisProjectClass.setModelType(modelTypes.CustomLayers.value);
 else
-    thisProjectClass.setModelType('custom xy');
+    thisProjectClass.setModelType(modelTypes.CustomXY.value);
 end
-    
 
-if strcmpi(oldGeometry,'Air / Liquid (or solid)')
-    thisProjectClass.setGeometry('air/substrate');
+% Set geometry
+if strcmpi(problem.module.experiment_type, 'Air / Liquid (or solid)')
+    thisProjectClass.setGeometry(geometryOptions.AirSubstrate.value);
 else
-    thisProjectClass.setGeometry('substrate/liquid');
+    thisProjectClass.setGeometry(geometryOptions.SubstrateLiquid.value);
 end
 
-% Now set the parameters block
-numberOfParams = length(problem.params);
-
-for i = 2:numberOfParams
-    thisName = problem.paramnames{i};
-    thisMin = problem.constr(i,1);
-    thisValue = problem.params(i);
-    thisMax = problem.constr(i,2);
-    thisFit = problem.fityesno(i);
-    
-    if thisFit == 1
-        thisFit = true;
-    else
-        thisFit = false;
-    end
-    
-    thisParam = {thisName thisMin thisValue thisMax thisFit};
-    thisProjectClass.addParam(thisParam);
+% Set parameters block
+for i = 2:length(problem.params)
+    % addParam <- (name, min, value, max, fit)
+    thisProjectClass.addParam(problem.paramnames{i},...
+        problem.constr(i,1),...
+        problem.params(i),...
+        problem.constr(i,2),...
+        logical(problem.fityesno(i)));
 end
 
-% Also set the substrate roughness parameters
-thisMin = problem.constr(1,1);
-thisMax = problem.constr(1,2);
-thisVal = problem.params(1);
-thisName = problem.paramnames{1};
-thisFit = logical(problem.fityesno(1));
-thisProjectClass.setParameter(1,'min',thisMin','max',thisMax','value',thisVal,'fit',thisFit,'name',thisName);
+% Set substrate roughness parameters
+thisProjectClass.setParameter(1, ...
+    'min', problem.constr(1,1)', ...
+    'max', problem.constr(1,2)', ...
+    'value', problem.params(1), ...
+    'fit', logical(problem.fityesno(1)), ...
+    'name', problem.paramnames{1});
 
-% If we have a standard layers problem, set the layers block
-switch lower(oldType)
-    case 'standard layers'
-      
-        disp('debug');
-        nLayers = problem.numberOfLayers;
-        
-        for i = 1:nLayers
+switch lower(problem.module.type)
+    case modelTypes.StandardLayers.value
+        % Set layers (if standard layers)
+        for i = 1:problem.numberOfLayers
+            % Select Layer
             thisLayer = problem.layersDetails{i};
+            % Get name, thickness, sld, roughness, hydration & hydrate with
             thisName = thisLayer{5};
-            
-            thisThickNum = thisLayer{1};
-            if isText(thisThickNum)
-                thisThickNum = str2double(thisThickNum);
-            end
-            thisThick = problem.paramnames{thisThickNum};
-            
-            thisSldNum = thisLayer{2};%str2double(thisLayer{2});
-            if isText(thisSldNum)
-                thisSldNum = str2double(thisSldNum);
-            end
-            thisSld = problem.paramnames{thisSldNum};
-            
-            thisRoughNum = thisLayer{3};%str2double(thisLayer{3});
-            if isText(thisRoughNum)
-                thisRoughNum = str2double(thisRoughNum);
-            end
-            thisRough = problem.paramnames{thisRoughNum};
-            
-            thisHydrPar = thisLayer{4};
-            if isempty(thisHydrPar)
-                thisHydr = '';
-            else
-                thisHydrNum = thisHydrPar;%str2double(thisLayer{4});
-                if isText(thisHydrNum)
-                    thisHydrNum = str2double(thisHydrNum);
-                end
-                thisHydr = problem.paramnames{thisHydrNum};
-            end
-            
+            thisThick = problem.paramnames{convertToDouble(thisLayer{1})};
+            thisSld = problem.paramnames{convertToDouble(thisLayer{2})};
+            thisRough = problem.paramnames{convertToDouble(thisLayer{3})};
             thisHydrWhat = thisLayer{6};
+            thisHydrPar = thisLayer{4};
+            % Create layer
             if isempty(thisHydrPar)
-                thisLayer = {thisName, thisThick, thisSld, thisRough};%, thisHydr, thisHydrWhat};
-            else    
+                thisLayer = {thisName, thisThick, thisSld, thisRough};
+            else
+                thisHydr = problem.paramnames{convertToDouble(thisLayer{4})};
                 thisLayer = {thisName, thisThick, thisSld, thisRough, thisHydr, thisHydrWhat};
             end
-            thisProjectClass.addLayer(thisLayer); 
-        end 
+            % Add layer
+            thisProjectClass.addLayer(thisLayer);
+        end
     otherwise
-        % Need the name of the custom file...
+        % Set custom file name
         customFile = problem.module.name;
         [~,modelName,~] = fileparts(customFile);
-        
-        thisProjectClass.addCustomFile(modelName,customFile,'matlab','pwd');
-        
+        thisProjectClass.addCustomFile(modelName, ...
+            customFile, ...
+            supportedLanguages.Matlab.value, ...
+            'pwd');
 end
 
-
-% Backgrounds
-nBackgrounds = problem.numberOfBacks;
-
-% First make the backsPars:
-% Remove the default backs par first
+% Remove defaults
 thisProjectClass.removeBacksPar(1);
-
-% Also remove the default background
 thisProjectClass.removeBackground(1);
-
-for i = 1:nBackgrounds
-    % Add backgrounds parameter
-    thisName = sprintf('Backs parameter %d',i);
-    thisMin = problem.backs_constr(i,1);
-    thisMax = problem.backs_constr(i,2);
-    thisVal = problem.backs(i);
-    thisFit = logical(problem.backgrounds_fityesno(i));
-    thisProjectClass.addBacksPar(thisName, thisMin, thisVal, thisMax, thisFit);
-    
-    % Now add the backgrounds themselves
-    thisBackgroundName = problem.backsNames{i};
-    thisProjectClass.addBackground(thisBackgroundName,'constant',thisName);
-end
-
-
-% Bulk in
-% Remove the default
 thisProjectClass.removeBulkIn(1);
-nNba = problem.numberOfNbas;
-
-% Add the new bulk in params
-for i = 1:nNba
-    thisName = problem.nbaNames{i};
-    thisMin = problem.nbairs_constr(i,1);
-    thisMax = problem.nbairs_constr(i,2);
-    thisNba = problem.nba(i);
-    thisFit = logical(problem.nbairs_fityesno(i));
-    thisProjectClass.addBulkIn(thisName, thisMin, thisNba, thisMax, thisFit);
-end
-
-% Bulk out
-% Remove the default
 thisProjectClass.removeBulkOut(1);
-nNbs = problem.numberOfNbss;
-
-% Add the new bulk in params
-for i = 1:nNbs
-    thisName = problem.nbsNames{i};
-    thisMin = problem.nbsubs_constr(i,1);
-    thisMax = problem.nbsubs_constr(i,2);
-    thisNbs = problem.nbs(i);
-    thisFit = logical(problem.nbsubs_fityesno(i));
-    thisProjectClass.addBulkOut(thisName, thisMin, thisNbs, thisMax, thisFit);
-end
-
-% Scalefactors
 thisProjectClass.removeScalefactor(1);
-nScales = problem.numberOfScales;
 
-for i = 1:nScales
-    thisName = problem.scalesNames{i};
-    thisMin = problem.scale_constr(i,1);
-    thisMax = problem.scale_constr(i,2);
-    thisNbs = problem.scalefac(i);
-    thisFit = logical(problem.scalefac_fityesno(i));
-    thisProjectClass.addScalefactor(thisName, thisMin, thisNbs, thisMax, thisFit);
+% Set backgrounds
+for i = 1:problem.numberOfBacks
+    backName = sprintf('Backs parameter %d',i);
+    % Add backgrounds parameter
+    % addBacksPar <- (name, min, value, max, fit)
+    thisProjectClass.addBacksPar(backName, ...
+        problem.backs_constr(i,1), ...
+        problem.backs(i), ...
+        problem.backs_constr(i,2), ...
+        logical(problem.backgrounds_fityesno(i)));
+    % Add background
+    thisProjectClass.addBackground(problem.backsNames{i}, ...
+        allowedTypes.Constant.value, ...
+        backName);
 end
 
-% Data block
-dataFiles = problem.data;
+% Set bulk in params
+for i = 1:problem.numberOfNbas
+    % addBulkIn <- (name, min, value, max, fit)
+    thisProjectClass.addBulkIn(problem.nbaNames{i}, ...
+        problem.nbairs_constr(i,1), ...
+        problem.nba(i), ...
+        problem.nbairs_constr(i,2), ...
+        logical(problem.nbairs_fityesno(i)));
+end
 
+% Set bulk out params
+for i = 1:problem.numberOfNbss
+    % addBulkOut <- (name, min, value, max, fit)
+    thisProjectClass.addBulkOut(problem.nbsNames{i}, ...
+        problem.nbsubs_constr(i,1), ...
+        problem.nbs(i), ...
+        problem.nbsubs_constr(i,2), ...
+        logical(problem.nbsubs_fityesno(i)));
+end
+
+% Set scalefactors
+for i = 1:problem.numberOfScales
+    % addScalefactor <- (name, min, value, max, fit)
+    thisProjectClass.addScalefactor(problem.scalesNames{i}, ...
+        problem.scale_constr(i,1), ...
+        problem.scalefac(i), ...
+        problem.scale_constr(i,2), ...
+        logical(problem.scalefac_fityesno(i)));
+end
+
+% Set data
+dataFiles = problem.data;
 for i = 1:length(dataFiles)
     thisData = dataFiles{i};
     [~,thisDataFile,~] = fileparts(problem.contrastFiles{i});
-    thisDataName = thisDataFile; %problem.contrastFiles{i}; %sprintf('Datafile %d',i);
+    thisDataName = thisDataFile;
     thisProjectClass.addData(thisDataName,thisData);
-    thisDataRange = problem.dataLimits{i};
-    thisSimRange = problem.simLimits{i};
-    thisProjectClass.setData(i,'dataRange',thisDataRange,'simRange',thisSimRange);
+    thisProjectClass.setData(i, ...
+        'dataRange', problem.dataLimits{i} , ...
+        'simRange', problem.simLimits{i});
 end
 
-% Resolutions
-%thisProjectClass.remove
-
-% Make the contrasts
-numberOfContrasts = problem.numberOfContrasts;
-
-for i = 1:numberOfContrasts
+% Create contrasts
+for i = 1:problem.numberOfContrasts
     thisName = char(problem.contrastNames{1});
-    
     thisBackgroundNumber = problem.contrastBacks(i);
     thisBackground = char(thisProjectClass.background.backgrounds.typesTable{thisBackgroundNumber,1});
 
-    thisResolNum = problem.contrastResolutions(i);
-    thisResol = problem.resolNames{thisResolNum};
-    
-    thisScaleNum = problem.contrastScales(i);
-    thisScale = problem.scalesNames{thisScaleNum};
-    
-    thisNbsNum = problem.contrastNbss(i);
-    thisNbs = problem.nbsNames{thisNbsNum};
-    
-    thisNbaNum = problem.contrastNbas(i);
-    thisNba = problem.nbaNames{thisNbaNum};
-    
+    thisResol = problem.resolNames{problem.contrastResolutions(i)};
+    thisScale = problem.scalesNames{problem.contrastScales(i)};
+    thisNbs = problem.nbsNames{problem.contrastNbss(i)};
+    thisNba = problem.nbaNames{problem.contrastNbas(i)};
     thisData = thisProjectClass.data.dataTable{i+1,1};
-    
+
     thisProjectClass.addContrast('name', thisName,...
         'backGround', thisBackground,...
         'resolution', thisResol,...
@@ -238,25 +170,27 @@ for i = 1:numberOfContrasts
         'data', char(thisData));
 end
 
-% Now set the model for each of the contrasts:
-switch lower(oldType)
-    case 'standard layers'
-        for i = 1:numberOfContrasts
-           thisContrastLayers = str2num(problem.contrastLayers{i});
-           thisLayersList = {};
-           for n = 1:length(thisContrastLayers)
-               thisLayersList{n} = problem.layersDetails{thisContrastLayers(n)}{5};
-           end
-           thisProjectClass.setContrastModel(i,thisLayersList); 
+% Set model for each contrast
+switch lower(problem.module.type)
+    case modelTypes.StandardLayers.value
+        for i = 1:problem.numberOfContrasts
+            thisContrastLayers = str2num(problem.contrastLayers{i});
+            thisLayersList = {};
+            for n = 1:length(thisContrastLayers)
+                thisLayersList{n} = problem.layersDetails{thisContrastLayers(n)}{5};
+            end
+            thisProjectClass.setContrastModel(i, thisLayersList);
         end
-        
     otherwise
-        for i = 1:numberOfContrasts
-            thisProjectClass.setContrastModel(i,modelName);
+        for i = 1:problem.numberOfContrasts
+            thisProjectClass.setContrastModel(i, modelName);
         end
 end
 
-
-disp('debug');
-
+    function output = convertToDouble(input)
+        if isText(input)
+            input = str2double(input);
+        end
+        output = input;
+    end
 end

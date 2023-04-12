@@ -792,7 +792,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             contrastStruct = obj.contrasts.toStruct(allNames, generalStruct.modelType, dataTable);
             
-            [domainContrastStruct, domainRatioStruct] = obj.makeDomainsStructs(allNames, generalStruct.modelType);
+            if isa(obj, 'domainsClass')
+                [domainContrastStruct, domainRatioStruct] = obj.makeDomainsStructs(allNames, generalStruct.modelType);
+            else
+                domainContrastStruct = domainContrastsClass().toStruct(allNames, generalStruct.modelType);
+                domainRatioStruct = parametersClass().removeParam(1).toStruct();
+            end
 
             domainContrastStruct = cell2struct(struct2cell(domainContrastStruct), ...
                                                 {'domainContrastNames', ...
@@ -830,24 +835,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         end
         
     end     % end public methods
-
-    % ------------------------------------------------------------------
-    
-    methods (Static)
-
-        function [domainContrastsStruct, domainRatioStruct] = makeDomainsStructs(allNames, modelType)
-            % Converts the domains class parameters into a struct array
-            % for input into the RAT toolbox.
-            % The expected inputs are the list of allowed names and the
-            % model type which are required to make a domainContrasts
-            % struct.
-            % In this case, where there are no domains, we use dummy
-            % classes.
-            domainContrastsStruct = domainContrastsClass().toStruct(allNames, modelType);
-            domainRatioStruct = parametersClass().removeParam(1).toStruct();
-        end
-
-    end
     
     % ------------------------------------------------------------------
     

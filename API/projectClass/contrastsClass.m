@@ -157,7 +157,7 @@ classdef contrastsClass < baseContrasts
             expectedBulkout = cellstr(allowedNames.bulkOutNames);
             expectedResols = cellstr(allowedNames.resolsNames);
             expectedScalefac = cellstr(allowedNames.scalefacNames);
-        
+
             p = inputParser;
             addParameter(p,'name',          defaultName,        @isText);
             addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
@@ -173,7 +173,7 @@ classdef contrastsClass < baseContrasts
                 expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
                 addParameter(p,'domainRatio',   defaultDomainRatio, @(x) any(validatestring(x,expectedDomainRatio)));
             end
-                
+
             parse(p, inputValues{:});
             inputBlock = p.Results;
         

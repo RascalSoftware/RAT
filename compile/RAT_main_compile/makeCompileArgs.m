@@ -76,6 +76,7 @@ ARGS_1_3.nbs = coder.typeof(0,[Inf  2],[1 0]);
 ARGS_1_3.res = coder.typeof(0,[Inf  2],[1 0]);
 ARGS{1}{3} = coder.typeof(ARGS_1_3);
 ARGS_1_4 = struct;
+ARGS_1_4.contrastDomainRatios = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_4.numberOfDomainContrasts = coder.typeof(0);
 ARGS_1_4.domainContrastNbas = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_4.domainContrastNbss = coder.typeof(0,[1 maxArraySize],[0 1]);

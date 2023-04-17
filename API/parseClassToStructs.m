@@ -376,6 +376,8 @@ problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
 
 % Make the domains structure, using dummy values if this is not a domains
 % calculation
+domains.contrastDomainRatios = inputStruct.contrastDomainRatios;
+
 if isa(inputProblemDef, 'domainsClass')
     domains.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
     domains.domainContrastNbas = inputStruct.domainContrastNbas;

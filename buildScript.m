@@ -21,10 +21,10 @@ reflectivityCalculationCompileScript
 % the moment, RAT uses a 'feval' call to the base workspace to excecute
 % Matlab custom model files. This will fail for standalone codegen. So, we
 % need to change RAT paths to exclude these files from the source generation
-setCompilePaths('lib');
-
-% Now generate the source....
-reflectivityCalculationCodeOnlyScript;
+% setCompilePaths('lib');
+% 
+% % Now generate the source....
+% reflectivityCalculationCodeOnlyScript;
 
 % Finally, change the paths back or the tests might fail...
 setCompilePaths('mex');

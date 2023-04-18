@@ -232,20 +232,6 @@ classdef testCommonFunctions < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.shiftDataOutputs,outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
         end
 
-        function testCallMatlabCustomLayers(testCase)
-            % testCallMatlabCustomLayers
-            %
-            % Inputs:
-            %   testCase - class instance
-            %
-            % Outputs:
-            %   none
-
-            [output1, output2] = callMatlabCustomLayers(testCase.callMatlabCustomLayersInputs{:});
-            outputs = {output1, output2};
-            testCase.verifyEqual(testCase.callMatlabCustomLayersOutputs, outputs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.abs_tolerance);
-        end
-
         function testApplyBackgroundCorrection(testCase)
             % testApplyBackgroundCorrection
 

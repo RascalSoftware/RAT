@@ -1,6 +1,5 @@
 function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls)
 
-
 % This is just a wrapper function for choosing between
 % the Matlab and Mex version of reflectivityCalculation.
 % This is for development and will be removed for the 

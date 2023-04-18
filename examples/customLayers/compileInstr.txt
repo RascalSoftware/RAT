@@ -1,4 +1,0 @@
-
-% Compile Instructions for M1 OSX
-clang -c customBilayer_libExp.cpp -o customBilayer.o -std=c++11 -arch x86_64
-clang -shared customBilayer.o -o customBilayer.dylib -arch x86_64 -lc++ 

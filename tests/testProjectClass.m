@@ -315,7 +315,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Checks that scale factors can be modified
             testCase.project.setScalefactor(1, 'name','Scalefactor 1','min',0.1,'value',0.23251,'max',0.4,'fit',true);
             testCase.verifyEqual(string(testCase.project.scalefactors.paramsTable{1, :}),...
-                                    string({'Scalefactor 1', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'setBulkIn method not working');
+                                    string({'Scalefactor 1', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'setScalefactor method not working');
         end
             
         function testQzShift(testCase)

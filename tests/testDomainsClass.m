@@ -83,6 +83,26 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyEqual(newProject.calculationType, calculationTypes.Domains.value, 'Calculation Type not set correctly');
             testCase.verifyError(@() domainsClass(1), 'MATLAB:validators:mustBeTextScalar')
         end
+        
+        function testDomainRatio(testCase)
+            % Checks the default domain ratios
+            testCase.verifySize(testCase.project.domainRatio.paramsTable, [1, 8], 'domain ratio has wrong dimension');
+            testCase.verifyEqual(string(testCase.project.domainRatio.paramsTable{1, :}),...
+                                    string({'Domain Ratio 1', 0.4, 0.5, 0.6, false, 'uniform', 0, Inf}), 'default domain ratio is not correct');
+            % Checks that domain ratios can be added
+            testCase.project.addDomainRatio('Domain Ratio 2', 0.4, 0.69, 1.0, true);
+            testCase.project.addDomainRatio('Domain Ratio 3', 0.2, 0.17, 1.1, false);
+            testCase.verifySize(testCase.project.domainRatio.paramsTable, [3, 8], 'domain ratio has wrong dimension');
+            testCase.verifyEqual(testCase.project.domainRatio.paramsTable{end,1}, "Domain Ratio 3", 'addDomainRatio method not working');
+            % Checks that domain ratios can be removed
+            testCase.project.removeDomainRatio(2);
+            testCase.verifySize(testCase.project.domainRatio.paramsTable, [2, 8], 'domain ratio has wrong dimension');
+            testCase.verifyEqual(testCase.project.domainRatio.paramsTable{:, 1}, ["Domain Ratio 1"; "Domain Ratio 3"], 'removeDomainRatio method not working');
+            % Checks that domain ratios can be modified
+            testCase.project.setDomainRatio(1, 'name','Domain Ratio 1','min',0.1,'value',0.23251,'max',0.4,'fit',true);
+            testCase.verifyEqual(string(testCase.project.domainRatio.paramsTable{1, :}),...
+                                    string({'Domain Ratio 1', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'domainRatio method not working');
+        end
 
         function testDomainContrast(testCase)
             % Populates project properties for the tests

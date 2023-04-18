@@ -45,7 +45,34 @@ classdef domainsClass < projectClass
             names = getAllAllowedNames@projectClass(obj);
             names.domainRatioNames = obj.domainRatio.getParamNames();
         end
-  
+        
+        % -------------------------------------------------------------------
+        % Editing of Domain Ratio block
+        
+        function obj = addDomainRatio(obj, varargin)
+            % Adds a new domain ratio parameter. Expects the name
+            % of domain ratio, min, value, max, and if fit is off or on
+            % 
+            % problem.addDomainRatio('Domain Ratio 2', 0.4, 0.5, 0.6, true);
+            obj.domainRatio.addParam(varargin{:});
+        end
+        
+        function obj = removeDomainRatio(obj, varargin)
+            % Removes specified domain ratio parameter. Expects the
+            % name/index of domain ratio to remove
+            % 
+            % problem.removeDomainRatio(2);
+           obj.domainRatio.removeParam(varargin{:}); 
+        end
+        
+        function obj = setDomainRatio(obj, varargin)
+            % Edits an existing domain ratio parameter. Expects the
+            % index of domain ratio to edit and key-value pairs
+            %
+            % problem.setDomainRatio(1, 'name','Domain Ratio 1', 'value', 0.55);
+            obj.domainRatio.setParameter(varargin{:});
+        end
+    
         % ----------------------------------------------------------------
         %
         %   Editing of Domains Contrasts Block

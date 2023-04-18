@@ -1,4 +1,4 @@
-function [problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)
+function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)
 
 % Breaks up the classes into the relevant structures for inputting into C
 
@@ -61,15 +61,13 @@ function [problemDef,problemDef_cells,problemDef_limits,domains,domainsCells,pri
 %          array of cells
 %        Each cell is {fName, lang, path}
 %
-% Structure of domainsCells array.
+% {15} - inputProblemDef.domainContrastRepeatSLDs
+%        {1 x nDomainContrasts} array of cells
+%        Each cell is {1 x 2 double}.
 %
-% {1} - inputProblemDef.domainContrastRepeatSLDs
-%       {1 x nDomainContrasts} array of cells
-%       Each cell is {1 x 2 double}.
-%
-% {2} - inputProblemDef.domainContrastLayers
-%       {1 x nDomainContrasts} array of cells
-%       Each cell is {1 x Inf double}
+% {16} - inputProblemDef.domainContrastLayers
+%        {1 x nDomainContrasts} array of cells
+%        Each cell is {1 x Inf double}
 
  
 % First parse the class to a structure variable.
@@ -152,13 +150,13 @@ if isa(inputProblemDef, 'domainsClass')
         end
     end
     
-    domainsCells{1} = inputStruct.domainContrastRepeatSLDs;
-    domainsCells{2} = domainContrastLayers;
+    problemDef_cells{15} = inputStruct.domainContrastRepeatSLDs;
+    problemDef_cells{16} = domainContrastLayers;
     
 else
 
-    domainsCells{1} = cell(1,0);
-    domainsCells{2} = cell(1,0);
+    problemDef_cells{15} = cell(1,0);
+    problemDef_cells{16} = cell(1,0);
 
 end
 
@@ -167,8 +165,8 @@ if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelTy
     for i = 1:length(problemDef_cells{5})
         problemDef_cells{5}{i} = 0;
     end
-    for i = 1:length(domainsCells{2})
-        domainsCells{2}{i} = 0;
+    for i = 1:length(problemDef_cells{16})
+        problemDef_cells{16}{i} = 0;
     end
     
     problemDef_cells{6} = {0};
@@ -376,18 +374,18 @@ problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
 
 % Make the domains structure, using dummy values if this is not a domains
 % calculation
-domains.contrastDomainRatios = inputStruct.contrastDomainRatios;
+problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
 
 if isa(inputProblemDef, 'domainsClass')
-    domains.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
-    domains.domainContrastNbas = inputStruct.domainContrastNbas;
-    domains.domainContrastNbss = inputStruct.domainContrastNbss;
-    domains.domainContrastCustomFiles = inputStruct.domainContrastCustomFile;
+    problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
+    problemDef.domainContrastNbas = inputStruct.domainContrastNbas;
+    problemDef.domainContrastNbss = inputStruct.domainContrastNbss;
+    problemDef.domainContrastCustomFiles = inputStruct.domainContrastCustomFile;
 else
-    domains.numberOfDomainContrasts = 0;
-    domains.domainContrastNbas = ones(1,0);
-    domains.domainContrastNbss = ones(1,0);
-    domains.domainContrastCustomFiles = ones(1,0);
+    problemDef.numberOfDomainContrasts = 0;
+    problemDef.domainContrastNbas = ones(1,0);
+    problemDef.domainContrastNbss = ones(1,0);
+    problemDef.domainContrastCustomFiles = ones(1,0);
 end    
 
 

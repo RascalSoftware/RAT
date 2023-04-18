@@ -24,31 +24,31 @@ function setCompilePaths(which)
 % <RATroot>/targetFunctions/common/loopMatlabCustomLayers/sourceCompile
 
 % First get the RAT root directory
-root = getappdata(0,'root');
+% root = getappdata(0,'root');
 
 % Get a list of all the paths currently on paths list...
-pathCell = regexp(path, pathsep, 'split');
+% pathCell = regexp(path, pathsep, 'split');
 
 % Choose the relevant directory based on the input... 
-switch which
-    case 'mex'
-        addDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');
-        rmDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','sourceCompile');
-    otherwise
-        addDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','sourceCompile');
-        rmDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');
-end
+% switch which
+%     case 'mex'
+%         addDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');
+%         rmDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','sourceCompile');
+%     otherwise
+%         addDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','sourceCompile');
+%         rmDir = fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');
+% end
 
 % Add the 'add dir' if it is not currently on the Matlab path list..
-if ~any(strcmpi(addDir,pathCell))
-    addpath(addDir);
-    fprintf('Added directory %s to path \n',addDir);
-end
+% if ~any(strcmpi(addDir,pathCell))
+%     addpath(addDir);
+%     fprintf('Added directory %s to path \n',addDir);
+% end
 
 % Remove the 'revove dir' if it is currently on the Matlab path list..
-if any(strcmpi(rmDir,pathCell))
-    rmpath(rmDir);
-    fprintf('Removed directory %s from path \n',rmDir);
-end
+% if any(strcmpi(rmDir,pathCell))
+%     rmpath(rmDir);
+%     fprintf('Removed directory %s from path \n',rmDir);
+% end
         
 end

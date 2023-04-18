@@ -84,9 +84,5 @@ for i = 1:length(paths)
 end
 
 addpath(root);
-setappdata(0,'root',root);
-
-
-
-
-
+setappdata(0, 'root', root);
+setappdata(0, 'includeDir', fullfile(root, 'targetFunctions', 'common', 'customModelsIncludes'));

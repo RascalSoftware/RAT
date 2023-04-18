@@ -370,7 +370,7 @@ removedFields = {'contrastRepeatSLDs',...
     'domainRatioConstr',...
     'files'};
 
-% Make the problemDef and domains structures from the bits left.....
+% Make the problemDef structure from the bits left.....
 
 % *************************************************************************
 % NOTE - not using the more complicated background and resolution
@@ -401,7 +401,7 @@ problemDef.numberOfLayers = inputStruct.numberOfLayers;
 problemDef.modelType = inputStruct.modelType;
 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
 
-% Make the domains structure, using dummy values if this is not a domains
+% Add the domains parameters, using dummy values if this is not a domains
 % calculation
 problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
 

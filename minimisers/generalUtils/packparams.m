@@ -32,7 +32,8 @@ numberOfFitted = sum(checks.params_fitYesNo) + ...
                  sum(checks.shifts_fitYesNo) + ...
                  sum(checks.nbairs_fitYesNo) + ...
                  sum(checks.nbsubs_fitYesNo) + ...
-                 sum(checks.resol_fitYesNo);
+                 sum(checks.resol_fitYesNo) + ...
+                 sum(checks.domainRatio_fitYesNo);
              
 numberOfTotal = length(problemDef.params) + ...
                 length(problemDef.backs) + ...
@@ -40,7 +41,8 @@ numberOfTotal = length(problemDef.params) + ...
                 length(problemDef.shifts) + ...
                 length(problemDef.nba) + ...
                 length(problemDef.nbs) + ...
-                length(problemDef.res);
+                length(problemDef.res) + ...
+                length(problemDef.domainRatio);
    
 fitpars = problemDef.fitpars;%zeros(numberOfFitted,1);
 otherpars = zeros((numberOfTotal-numberOfFitted),1);
@@ -158,6 +160,22 @@ for n = 1:length(checks.resol_fitYesNo)
         otherpars(otherCounter) = problemDef.res(n);
         otherconstr(otherCounter,1) = limits.res(n,1);
         otherconstr(otherCounter,2) = limits.res(n,2);
+        otherCounter = otherCounter + 1;
+    end
+end 
+
+% Domain Ratio
+for n = 1:length(checks.domainRatio_fitYesNo)
+    if checks.domainRatio_fitYesNo(n) == 1
+        fitpars(fitCounter) = problemDef.domainRatio(n);
+        fitconstr(fitCounter,1) = limits.domainRatio(n,1);
+        fitconstr(fitCounter,2) = limits.domainRatio(n,2);
+        fitNames{fitCounter} = problemDef_cells{17}{n};
+        fitCounter = fitCounter + 1;
+    else
+        otherpars(otherCounter) = problemDef.domainRatio(n);
+        otherconstr(otherCounter,1) = limits.domainRatio(n,1);
+        otherconstr(otherCounter,2) = limits.domainRatio(n,2);
         otherCounter = otherCounter + 1;
     end
 end 

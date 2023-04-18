@@ -127,4 +127,20 @@ end
 problemDef.res = uppars;
 
 
+%Finally domainRatio
+uppars = zeros(1,length(problemDef.domainRatio));
+uppars_counter = 1;
+for i = 1:length(controls.checks.domainRatio_fitYesNo)
+    if controls.checks.domainRatio_fitYesNo(i) == 1
+        uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
+        unpacked_counter = unpacked_counter + 1;
+        uppars_counter = uppars_counter + 1;
+    else
+        uppars(uppars_counter) = problemDef.otherpars(packed_counter);
+        packed_counter = packed_counter + 1;
+        uppars_counter = uppars_counter + 1;
+    end
+end
+problemDef.res = uppars;
+
 %setappdata(0,'problem',problem);

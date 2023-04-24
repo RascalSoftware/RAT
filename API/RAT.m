@@ -7,8 +7,8 @@ if isempty(isInitialised)
 end
 
 
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(problemDefInput,controls);
-[problemDef,~] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
+[problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problemDefInput,controls);
+[problemDef,~] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 
 % %Define variable size for code generation
 % coder.varsize('problemDef.resample',[Inf,1],[1 0]);
@@ -79,7 +79,7 @@ if ~strcmpi(controls.display,'off')
 end
 
 tic
-[outProblemStruct,problem,result,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+[outProblemStruct,problem,result,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors);
 sendTextOutput(sprintf('\n'));
 
 if ~strcmpi(controls.display,'off')
@@ -92,7 +92,7 @@ if controls.calcSld == 0
     originalProc = controls.proc;
     controls.calcSld = 1;
     controls.proc = 'calculate';
-    [outProblemStruct,problem,result,~] = RATMain(outProblemStruct,problemDef_cells,problemDef_limits,controls,priors);
+    [outProblemStruct,problem,result,~] = RATMain(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
     controls.proc = originalProc;
 end
 
@@ -106,7 +106,7 @@ if any((strcmpi(controls.proc,{'bayes','NS','dream'})))
     result = mergeStructs(result,bayesResults);
 end
 
-[~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
+[~,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 result.fitNames = fitNames;
 
 outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct,problem,result);

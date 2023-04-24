@@ -36,7 +36,7 @@ for n = 1:length(checks.params_fitYesNo)
 %         fitpars(fitCounter) = problemDef.params(n);
 %         fitconstr(fitCounter,1) = limits.params(n,1);
 %         fitconstr(fitCounter,2) = limits.params(n,2);        
-%         fitNames{fitCounter} = problemDef_cells{7}{n};
+%         fitNames{fitCounter} = problemDefCells{7}{n};
 %         fitCounter = fitCounter + 1;
 % 
 %     else

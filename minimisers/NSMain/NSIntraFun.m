@@ -1,18 +1,18 @@
-function fval = NSIntraFun(data,problrmDef_cells,parNames,p)
+function fval = NSIntraFun(data,problemDefCells,parNames,p)
 
 
-%data = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
+%data = {problemDef ; controls ; problemDefLimits ; problemDefCells};
 %
 
 problemDef = data{1};
 controls = data{2};
-problemDef_limits = data{3};
-problemDef_cells = data{4};
+problemDefLimits = data{3};
+problemDefCells = data{4};
 
 problemDef.fitpars = cell2mat(p);
 
 problemDef = unpackparams(problemDef,controls);
-[problemDef,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+[problemDef,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
 
 fval = (-problemDef.calculations.sum_chi/2); %old way....
 %fval = -log(exp(-problemDef.calculations.sum_chi/2));

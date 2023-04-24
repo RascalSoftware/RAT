@@ -1,4 +1,4 @@
-function [problemDef,fitNames] = packparams(problemDef,problemDef_cells,limits,checks)
+function [problemDef,fitNames] = packparams(problemDef,problemDefCells,limits,checks)
 
 %Separate out the params array into fitting
 %and unfitting arrays.
@@ -57,7 +57,7 @@ for n = 1:length(checks.params_fitYesNo)
         fitpars(fitCounter) = problemDef.params(n);
         fitconstr(fitCounter,1) = limits.params(n,1);
         fitconstr(fitCounter,2) = limits.params(n,2);        
-        fitNames{fitCounter} = problemDef_cells{7}{n};
+        fitNames{fitCounter} = problemDefCells{7}{n};
         fitCounter = fitCounter + 1;
 
     else
@@ -74,7 +74,7 @@ for n = 1:length(checks.backs_fitYesNo)
         fitpars(fitCounter) = problemDef.backs(n);
         fitconstr(fitCounter,1) = limits.backs(n,1);
         fitconstr(fitCounter,2) = limits.backs(n,2);
-        fitNames{fitCounter} = problemDef_cells{8}{n};
+        fitNames{fitCounter} = problemDefCells{8}{n};
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.backs(n);
@@ -90,7 +90,7 @@ for n = 1:length(checks.scales_fitYesNo)
         fitpars(fitCounter) = problemDef.sf(n);
         fitconstr(fitCounter,1) = limits.scales(n,1);
         fitconstr(fitCounter,2) = limits.scales(n,2);
-        fitNames{fitCounter} = problemDef_cells{9}{n};
+        fitNames{fitCounter} = problemDefCells{9}{n};
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.sf(n);
@@ -106,7 +106,7 @@ for n = 1:length(checks.shifts_fitYesNo)
         fitpars(fitCounter) = problemDef.shifts(n);
         fitconstr(fitCounter,1) = limits.shifts(n,1);
         fitconstr(fitCounter,2) = limits.shifts(n,2);
-        fitNames{fitCounter} = problemDef_cells{10}{n};
+        fitNames{fitCounter} = problemDefCells{10}{n};
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.shifts(n);
@@ -122,7 +122,7 @@ for n = 1:length(checks.nbairs_fitYesNo)
         fitpars(fitCounter) = problemDef.nba(n);
         fitconstr(fitCounter,1) = limits.nba(n,1);
         fitconstr(fitCounter,2) = limits.nba(n,2);
-        fitNames{fitCounter} = problemDef_cells{11}{n};
+        fitNames{fitCounter} = problemDefCells{11}{n};
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.nba(n);
@@ -138,7 +138,7 @@ for n = 1:length(checks.nbsubs_fitYesNo)
         fitpars(fitCounter) = problemDef.nbs(n);
         fitconstr(fitCounter,1) = limits.nbs(n,1);
         fitconstr(fitCounter,2) = limits.nbs(n,2);
-        fitNames{fitCounter} = problemDef_cells{12}{n};
+        fitNames{fitCounter} = problemDefCells{12}{n};
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.nbs(n);
@@ -154,7 +154,7 @@ for n = 1:length(checks.resol_fitYesNo)
         fitpars(fitCounter) = problemDef.res(n);
         fitconstr(fitCounter,1) = limits.res(n,1);
         fitconstr(fitCounter,2) = limits.res(n,2);
-        fitNames{fitCounter} = problemDef_cells{13}{n};
+        fitNames{fitCounter} = problemDefCells{13}{n};
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.res(n);
@@ -170,7 +170,7 @@ for n = 1:length(checks.domainRatio_fitYesNo)
         fitpars(fitCounter) = problemDef.domainRatio(n);
         fitconstr(fitCounter,1) = limits.domainRatio(n,1);
         fitconstr(fitCounter,2) = limits.domainRatio(n,2);
-        fitNames{fitCounter} = problemDef_cells{17}{n};
+        fitNames{fitCounter} = problemDefCells{17}{n};
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.domainRatio(n);

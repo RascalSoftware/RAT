@@ -4,8 +4,8 @@ function Lik = DREAMWrapper(pars,ratInputs)
 
 problem = ratInputs.problemDef;
 control = ratInputs.controls;
-cells = ratInputs.problemDef_cells;
-limits = ratInputs.problemDef_limits;
+cells = ratInputs.problemDefCells;
+limits = ratInputs.problemDefLimits;
 
 % Put the current parameters into problem
 problem.fitpars = pars;

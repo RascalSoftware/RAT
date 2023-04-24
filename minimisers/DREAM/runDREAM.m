@@ -1,13 +1,13 @@
-function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDef,problemDef_cells,problemDef_limits,controls,priors)
+function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors)
 
 % Get the priors for the fitted parameters...
-[problemDef,fitParamNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
+[problemDef,fitParamNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 priorList = getFittedPriors(fitParamNames,priors,problemDef.fitconstr);
 
 % Put all the RAT parameters together into one array...
 ratInputs.problemDef = problemDef;
-ratInputs.problemDef_cells = problemDef_cells;% 
-ratInputs.problemDef_limits = problemDef_limits;
+ratInputs.problemDefCells = problemDefCells;% 
+ratInputs.problemDefLimits = problemDefLimits;
 ratInputs.controls = controls;
 ratInputs.priors = priorList;
 
@@ -66,8 +66,8 @@ output.results.mean = output.bestPars;
 allProblem = cell(4,1);
 allProblem{1} = problemDef;
 allProblem{2} = controls;
-allProblem{3} = problemDef_limits;
-allProblem{4} = problemDef_cells;
+allProblem{3} = problemDefLimits;
+allProblem{4} = problemDefCells;
 
 [outProblemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,allProblem);
 

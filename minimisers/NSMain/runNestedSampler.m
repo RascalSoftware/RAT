@@ -1,8 +1,8 @@
-function  [problemDef,outProblem,result,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls)
+function  [problemDef,outProblem,result,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls)
 debug = 0;
 
 checks = controls.checks;
-[problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,checks);
+[problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,checks);
 
 switch debug
     case 0
@@ -11,8 +11,8 @@ switch debug
         %Make uniform priors from the
         %min/max limits for now.
         prior = {};
-        %fitnames = problemDef_cells{14};
-        %names = problemDef_cells{14};
+        %fitnames = problemDefCells{14};
+        %names = problemDefCells{14};
         lims = problemDef.fitconstr;
         for i = 1:length(fitNames)
             prior{i,1} = fitNames{i};
@@ -30,9 +30,9 @@ switch debug
         Nlive = controls.Nlive;
         tolerance = controls.nsTolerance;
         likelihood = @NSIntraFun;
-        %model = problemDef_cells;
+        %model = problemDefCells;
         Nmcmc = controls.nmcmc;
-        data = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
+        data = {problemDef ; controls ; problemDefLimits ; problemDefCells};
         
         [logZ, nest_samples, post_samples, H] = nested_sampler(data, Nlive, Nmcmc, ...
             tolerance, likelihood, model, prior, []);
@@ -43,8 +43,8 @@ switch debug
         testRes = testRes.testRes;
         nest_samples = testRes.nest_samples;
         problemDef = testRes.problemDef;
-        problemDef_cells = testRes.problemDef_cells;
-        problemDef_limits = testRes.problemDef_limits;
+        problemDefCells = testRes.problemDefCells;
+        problemDefLimits = testRes.problemDefLimits;
         controls = testRes.controls;
         logZ = 1;
 end
@@ -63,7 +63,7 @@ bayesOutputs.chain = chain;
 bayesOutputs.fitNames = fitNames;
 bayesOutputs.s2chain = [];
 bayesOutputs.sschain = [];
-bayesOutputs.data = problemDef_cells{2};
+bayesOutputs.data = problemDefCells{2};
 bayesOutputs.results.logZ = logZ;
 bayesOutputs.results.mean = mean(chain);
 
@@ -75,7 +75,7 @@ allProblem = data;
 % result.nest_samples = nest_samples;
 % result.post_samples = post_samples;
 % result.fitNames = fitNames;
-%xy_result = parseBayesResults(nest_samples,problemDef,problemDef_cells,problemDef_limits,controls);
+%xy_result = parseBayesResults(nest_samples,problemDef,problemDefCells,problemDefLimits,controls);
 %result.xyResults = xy_result;
 
 end

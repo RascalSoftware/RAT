@@ -3,7 +3,7 @@ function [outProblemDef,problem,results,bayesResults] = RAT_main(problemDef,prob
 
 result = cell(6,1);
 for i = 1:6
-    result{i} = {[0]};
+    result{i} = {0};
 end
 results = result;
 
@@ -33,7 +33,7 @@ outProblemDef = problemDef;
 action = controls.proc;
 switch lower(action)
     case 'calculate' %Just a single reflectivity calculation
-        [problem,results] = singleCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+        [problem,results] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
         outProblemDef = problemDef;
     case 'simplex'
         if ~strcmpi(controls.display,'off')

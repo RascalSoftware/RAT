@@ -3,20 +3,21 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
 %
-% *The main job of this function is to decide which type of calculation (i.e. 'Target function'
-% is required, and call the relevant routines. The types of available 
-% target functions are:*
+% *The main job of this function is to decide which type of calculation
+% (i.e. 'Target function' is required, and call the relevant routines.
+% The types of available target functions are:*
 %
-% * standardTF     - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
+% * non polarised  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
 %
-% * standardTFAbs  - Identical to standardTF, but includes imaginary refractive index terms.
+% * absorption     - Identical to standardTF, but includes imaginary refractive index terms.
 %
-% * oilWaterTF     - Target function for oil-water samples
+% * oil water      - Target function for oil-water samples
 %
-% * domainsTF      - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
+% * domains        - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
 %
-% * polarisedTF    - Target function for cases for polarised neutrons with polarisation analysis.
-%   
+% * magnetic       - Target function for cases for polarised neutrons with polarisation analysis.
+%                       
+
     
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles
@@ -75,19 +76,22 @@ for i = 1:numberOfContrasts
 end
 coder.varsize('allLayers{:}',[10000 3],[1 0]);
 
-%Decide which target function we are calling ans call the relevant routines
+
+% Decide which target function we are calling and call the relevant routines
 whichTF = problemDef.TF;
 switch whichTF
-    case 'standardTF'
+    case 'non polarised'
         [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-    %case 'standardTFAbs'
+    %case 'absorption'
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-    %case 'oilWaterTF'
+    %case 'oil water'
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);    
-    %case 'polarisedTF'
+    %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDef_cells,controls);
-    %case 'domainsTF'
+    %case 'domains'
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+    %otherwise
+        %error('The calculation type "%s" is not supported', whichTF);
 
 end
 

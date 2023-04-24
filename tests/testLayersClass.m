@@ -1,16 +1,16 @@
 classdef testLayersClass < matlab.unittest.TestCase
 %%
-% testLayersClass Class based unit tests for the layersClassRealSLD
+% testLayersClass Class based unit tests for the layersClass
 % used within the Project Class in RAT.
 %
 % In this class, we test:
-% layersClassRealSLD, addLayer, setLayerValue, removeLayer,
+% layersClass, addLayer, setLayerValue, removeLayer,
 % getLayersNames, toStruct, displayLayersTable, findRowIndex, findParameter
 %
 % We use an example layers class from example calculation
 % "DPPCStandardLayers.m"
 %
-% Paul Sharp 08/02/23
+% Paul Sharp 23/03/23
 %
 %% Declare properties and parameters
 
@@ -36,7 +36,7 @@ classdef testLayersClass < matlab.unittest.TestCase
                        'Oxide SLD',...
                        'Substrate Roughness',...
                        NaN,...
-                       hydrationTypes.BulkIn.value},...
+                       hydrationTypes.BulkOut.value},...
                       {'Water Names Layer',...
                        'Water thick',...
                        'Water SLD',...
@@ -48,7 +48,7 @@ classdef testLayersClass < matlab.unittest.TestCase
                        'Oxide SLD',...
                        'Substrate Roughness',...
                        NaN,...
-                       hydrationTypes.BulkIn.value},...
+                       hydrationTypes.BulkOut.value},...
                       {'Water Indices Layer',...
                        'Water thick',...
                        'Water SLD',...
@@ -61,6 +61,7 @@ classdef testLayersClass < matlab.unittest.TestCase
     properties
         exampleClass            % Example layers class for testing
         initialLayersTable      % Empty table to compare to initialisation
+        initialAbsorptionTable  % Empty table for an absorption problem to compare to initialisation
         parameters              % Example parameters class used in "addLayer"
         parameterNames          % Names of parameters in the example class
         numParams               % Number of parameters in the example class
@@ -72,13 +73,19 @@ classdef testLayersClass < matlab.unittest.TestCase
 
     methods (TestClassSetup)
 
-        function initialiselayersTable(testCase)
+        function initialiselayersTables(testCase)
             % Set up an empty layers table 
             sz = [0 6];
             tableTypes = {'string','string','string','string','string','string'};
             tableNames = {'Name','Thickness','SLD','Roughness','Hydration','Hydrate with'};
 
             testCase.initialLayersTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
+
+            sz = [0 7];
+            tableTypes = {'string','string','string','string','string','string','string'};
+            tableNames = {'Name','Thickness','SLDReal', 'SLDImag','Roughness','Hydration','Hydrate with'};
+
+            testCase.initialAbsorptionTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
         end
 
         function initialiseParameters(testCase)
@@ -118,10 +125,10 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Set up an example layers class for testing
             % This example is used in the example calculation
             % "DPPCStandardLayers.m"
-            testCase.exampleClass = layersClassRealSLD();
+            testCase.exampleClass = layersClass();
 
             testCase.exampleClass.layersTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
-            testCase.exampleClass.layersTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer heads rough', 'Bilayer tails hydr', hydrationTypes.BulkOut.value};
+            testCase.exampleClass.layersTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer tails rough', 'Bilayer tails hydr', hydrationTypes.BulkOut.value};
             testCase.exampleClass.layersTable(3,:) = {'Bil outer head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
 
             testCase.numRows = height(testCase.exampleClass.layersTable);
@@ -137,10 +144,23 @@ classdef testLayersClass < matlab.unittest.TestCase
         function testInitialiseLayersClass(testCase)
             % On initialisation we set up a layers class with an empty
             % layers table
-            testClass = layersClassRealSLD();
+            testClass = layersClass();
 
-            testCase.verifySize(testClass.layersTable, [0 6], 'layerClassRealSLD does not initialise correctly');
-            testCase.verifyEqual(testClass.layersTable, testCase.initialLayersTable, 'layerClassRealSLD does not initialise correctly');
+            testCase.verifySize(testClass.layersTable, [0 6], 'layersClass does not initialise correctly');
+            testCase.verifyEqual(testClass.layersTable, testCase.initialLayersTable, 'layersClass does not initialise correctly');
+
+            % Adding the optional argument should give the same table
+            testClass = layersClass('SLD');
+
+            testCase.verifySize(testClass.layersTable, [0 6], 'layersClass does not initialise correctly');
+            testCase.verifyEqual(testClass.layersTable, testCase.initialLayersTable, 'layersClass does not initialise correctly');
+
+            % For a cell array with more than one element, more columns
+            % should be added
+            testClass = layersClass({'SLDReal', 'SLDImag'});
+
+            testCase.verifySize(testClass.layersTable, [0 7], 'layersClass does not initialise correctly');
+            testCase.verifyEqual(testClass.layersTable, testCase.initialAbsorptionTable, 'layersClass does not initialise correctly');
         end
 
         function testAddLayer(testCase, layerInput, addedLayer)
@@ -208,7 +228,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             % Row name and column index
             testCase.exampleClass.setLayerValue('Bil Tail', 3, 'Water SLD', testCase.parameterNames);
-            expectedRow = ["Bil tail", "Bilayer tails thick", "Water SLD", "Bilayer heads rough", "Bilayer tails hydr", "bulk out"];
+            expectedRow = ["Bil tail", "Bilayer tails thick", "Water SLD", "Bilayer tails rough", "Bilayer tails hydr", "bulk out"];
             testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Row index and column name
@@ -218,7 +238,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             % Row and column names
             testCase.exampleClass.setLayerValue('Bil Tail', 'Thickness', 'Water thick', testCase.parameterNames);
-            expectedRow = ["Bil tail", "Water thick", "Water SLD", "Bilayer heads rough", "Bilayer tails hydr", "bulk out"];
+            expectedRow = ["Bil tail", "Water thick", "Water SLD", "Bilayer tails rough", "Bilayer tails hydr", "bulk out"];
             testCase.verifyEqual(testCase.exampleClass.layersTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Change hydration type
@@ -287,8 +307,25 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.getLayersNames(), testCase.exampleClass.layersTable{:,1});
         end
 
-        function testToStruct(testCase)
-            testCase.verifyEqual(testCase.exampleClass.toStruct(), string(testCase.exampleClass.layersTable{:,:}));
+        function testToStructStandardLayers(testCase)
+            % Test converting the layers class to a struct
+            % Here we use a "standard layers" model type
+            expectedStruct.numberOfLayers = 3;
+            expectedStruct.layersNames = ["Bil inner head"; "Bil tail"; "Bil outer head"];
+            expectedStruct.layersDetails = {[5 6 8 7 2]; [9 10 12 11 2]; [5 6 8 7 2]};
+
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.parameterNames, modelTypes.StandardLayers.value), expectedStruct);
+        end
+
+        function testToStructCustomLayers(testCase)
+            % Test converting the layers class to a struct
+            % Here we use a "custom layers" model type - so the
+            % "layersDetails" are not recorded
+            expectedStruct.numberOfLayers = 3;
+            expectedStruct.layersNames = ["Bil inner head"; "Bil tail"; "Bil outer head"];
+            expectedStruct.layersDetails = {};
+
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.parameterNames, modelTypes.CustomLayers.value), expectedStruct);
         end
 
         function testDisplayLayersTable(testCase)
@@ -337,7 +374,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Test the routine to display the layers table of an empty
             % layers class by capturing the output and comparing with the
             % table headers and data
-            emptyClass = layersClassRealSLD();
+            emptyClass = layersClass();
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
@@ -371,28 +408,28 @@ classdef testLayersClass < matlab.unittest.TestCase
             % and an error is raised for invalid options
             tableRows = testCase.exampleClass.layersTable{:, 1};
 
-            testCase.verifyEqual(layersClassRealSLD.findRowIndex('Bil Tail', tableRows), 2);
+            testCase.verifyEqual(layersClass.findRowIndex('Bil Tail', tableRows), 2);
 
             % Check whitespace still matches
-            testCase.verifyEqual(layersClassRealSLD.findRowIndex(' Bil Inner Head', tableRows), 1);
+            testCase.verifyEqual(layersClass.findRowIndex(' Bil Inner Head', tableRows), 1);
 
-            testCase.verifyError(@() layersClassRealSLD.findRowIndex('Invalid Row', tableRows), nameNotRecognised.errorID);
-            testCase.verifyError(@() layersClassRealSLD.findRowIndex('Thickness', tableRows), nameNotRecognised.errorID);
+            testCase.verifyError(@() layersClass.findRowIndex('Invalid Row', tableRows), nameNotRecognised.errorID);
+            testCase.verifyError(@() layersClass.findRowIndex('Thickness', tableRows), nameNotRecognised.errorID);
         end
 
         function testFindParameter(testCase)
             % Test that the correct parameter is returned for a valid
             % input name or index, and an error is raised for invalid options
-            outParam = layersClassRealSLD.findParameter('Oxide Hydration', testCase.parameterNames);
+            outParam = layersClass.findParameter('Oxide Hydration', testCase.parameterNames);
             testCase.verifyEqual(outParam, 'Oxide Hydration');
 
-            outParam = layersClassRealSLD.findParameter(10, testCase.parameterNames);
+            outParam = layersClass.findParameter(10, testCase.parameterNames);
             testCase.verifyEqual(outParam, 'Bilayer tails SLD');
 
-            testCase.verifyError(@() layersClassRealSLD.findParameter('Invalid Param', testCase.parameterNames), nameNotRecognised.errorID);
-            testCase.verifyError(@() layersClassRealSLD.findParameter(0, testCase.parameterNames), indexOutOfRange.errorID);
-            testCase.verifyError(@() layersClassRealSLD.findParameter(testCase.numParams+1, testCase.parameterNames), indexOutOfRange.errorID);
-            testCase.verifyError(@() layersClassRealSLD.findParameter(datetime('today'), testCase.parameterNames), invalidType.errorID);
+            testCase.verifyError(@() layersClass.findParameter('Invalid Param', testCase.parameterNames), nameNotRecognised.errorID);
+            testCase.verifyError(@() layersClass.findParameter(0, testCase.parameterNames), indexOutOfRange.errorID);
+            testCase.verifyError(@() layersClass.findParameter(testCase.numParams+1, testCase.parameterNames), indexOutOfRange.errorID);
+            testCase.verifyError(@() layersClass.findParameter(datetime('today'), testCase.parameterNames), invalidType.errorID);
         end
 
     end

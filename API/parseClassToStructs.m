@@ -59,7 +59,19 @@ function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = parse
 %
 % {14} - inputProblemDef.customFiles
 %          array of cells
-%       Each cell is {fName, lang, path}
+%        Each cell is {fName, lang, path}
+%
+% {15} - inputProblemDef.domainContrastRepeatSLDs
+%        {1 x nDomainContrasts} array of cells
+%        Each cell is {1 x 2 double}.
+%
+% {16} - inputProblemDef.domainContrastLayers
+%        {1 x nDomainContrasts} array of cells
+%        Each cell is {1 x Inf double}
+% 
+% {17}- inputProblemDef.domainRatioNames
+%       {1 x nDomainRatios} array of cells
+%       Each cell is {1 x Inf char}
 
  
 % First parse the class to a structure variable.
@@ -94,8 +106,7 @@ customFiles = inputStruct.files;
 for i = 1:length(contrastLayers)
     thisLayers = contrastLayers{i};
     if isempty(thisLayers)
-        thisLayers = 0;
-        contrastLayers{i} = thisLayers;
+        contrastLayers{i} = 0;
     end
 end
 
@@ -129,10 +140,39 @@ problemDef_cells{12} = nbsNames;
 problemDef_cells{13} = resolNames;
 problemDef_cells{14} = customFiles';
 
+% Now deal with domains cell arrays
+if isa(inputProblemDef, 'domainsClass')
+
+    domainContrastLayers = inputStruct.domainContrastLayers;
+
+    % If any of the domainContrastLayers are empty, replace the empty
+    % cells by zero thickness layers
+    for i = 1:length(domainContrastLayers)
+        thisLayers = domainContrastLayers{i};
+        if isempty(thisLayers)
+            domainContrastLayers{i} = 0;
+        end
+    end
+    
+    problemDef_cells{15} = inputStruct.domainContrastRepeatSLDs;
+    problemDef_cells{16} = domainContrastLayers;
+    problemDef_cells{17} = inputStruct.domainRatioNames;
+    
+else
+
+    problemDef_cells{15} = cell(1,0);
+    problemDef_cells{16} = cell(1,0);
+    problemDef_cells{17} = cell(1,0);
+
+end
+
 % Fix for cell array bug with custom layers - is this needed still??
 if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelType,'custom xy')
     for i = 1:length(problemDef_cells{5})
         problemDef_cells{5}{i} = 0;
+    end
+    for i = 1:length(problemDef_cells{16})
+        problemDef_cells{16}{i} = 0;
     end
     
     problemDef_cells{6} = {0};
@@ -152,10 +192,15 @@ priors.nbaPriors = nbaPriors;
 priors.nbsPriors = nbsPriors;
 priors.shiftPriors = shiftPriors;
 priors.scalesPriors = scalesPriors;
+if isa(inputProblemDef, 'domainsClass')
+    priors.domainRatioPriors = inputStruct.domainRatioPriors;
+else
+    priors.domainRatioPriors = cell(0,1);
+end
 
 totalNumber = size(priors.paramPriors,1) + size(priors.backsPriors,1) + ...
     size(priors.resolPriors,1) + size(priors.nbaPriors,1) + size(priors.nbsPriors,1) + ...
-    size(priors.shiftPriors,1) + size(priors.scalesPriors,1);
+    size(priors.shiftPriors,1) + size(priors.scalesPriors,1) + size(priors.domainRatioPriors,1);
 
 allPriors = cell(totalNumber,4);
 cellCount = 1;
@@ -212,6 +257,14 @@ for i = 1:size(priors.scalesPriors,1)
     allPriors{cellCount,2} = priors.scalesPriors{i}{2};
     allPriors{cellCount,3} = num2str(priors.scalesPriors{i}{3});
     allPriors{cellCount,4} = num2str(priors.scalesPriors{i}{4});
+    cellCount = cellCount + 1;
+end
+
+for i = 1:size(priors.domainRatioPriors,1)
+    allPriors{cellCount,1} = priors.domainRatioPriors{i}{1};
+    allPriors{cellCount,2} = priors.domainRatioPriors{i}{2};
+    allPriors{cellCount,3} = num2str(priors.domainRatioPriors{i}{3});
+    allPriors{cellCount,4} = num2str(priors.domainRatioPriors{i}{4});
     cellCount = cellCount + 1;
 end
 
@@ -283,12 +336,22 @@ for i = 1:length(inputStruct.resolParConstr)
     problemDef_limits.res(i,:) = inputStruct.resolParConstr{i};
 end
 
+if isa(inputProblemDef, 'domainsClass')
+    for i = 1:length(inputStruct.domainRatioConstr)
+        problemDef_limits.domainRatio(i,:) = inputStruct.domainRatioConstr{i};
+    end
+else
+    problemDef_limits.domainRatio = ones(0,2);
+end
+
 %Now remove all these fields from inputProblemDef
 removedFields = {'contrastRepeatSLDs',...
+    'domainContrastRepeatSLDs',...
     'allData',...
     'dataLimits',...
     'simLimits',...
     'contrastLayers',...
+    'domainContrastLayers',...
     'layersDetails',...
     'paramNames',...
     'backgroundNames',...
@@ -297,15 +360,17 @@ removedFields = {'contrastRepeatSLDs',...
     'nbairNames',...
     'nbsubsNames',...
     'resolutionNames',...
+    'domainRatioNames',...
     'paramConstr',...
     'backgroundConstr',...
     'scalefactorConstr',...
     'nbairConstr',...
     'nbsubConstr',...
     'resolutionConstr',...
+    'domainRatioConstr',...
     'files'};
 
-%Make the problemDef structure from the bits left.....
+% Make the problemDef structure from the bits left.....
 
 % *************************************************************************
 % NOTE - not using the more complicated background and resolution
@@ -335,6 +400,25 @@ problemDef.params = inputStruct.params;
 problemDef.numberOfLayers = inputStruct.numberOfLayers;
 problemDef.modelType = inputStruct.modelType;
 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
+
+% Add the domains parameters, using dummy values if this is not a domains
+% calculation
+problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
+
+if isa(inputProblemDef, 'domainsClass')
+    problemDef.domainRatio = inputStruct.domainRatios;
+    problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
+    problemDef.domainContrastNbas = inputStruct.domainContrastNbas;
+    problemDef.domainContrastNbss = inputStruct.domainContrastNbss;
+    problemDef.domainContrastCustomFiles = inputStruct.domainContrastCustomFile;
+else
+    problemDef.domainRatio = ones(1,0);
+    problemDef.numberOfDomainContrasts = 0;
+    problemDef.domainContrastNbas = ones(1,0);
+    problemDef.domainContrastNbss = ones(1,0);
+    problemDef.domainContrastCustomFiles = ones(1,0);
+end    
+
 
 % if isfield(inputStruct,'modelFilename')
 %     if ~isempty(inputStruct.modelFilename)
@@ -411,6 +495,11 @@ checks.scales_fitYesNo = inputStruct.scalefactorFitYesNo;
 checks.nbairs_fitYesNo = inputStruct.nbaFitYesNo;
 checks.nbsubs_fitYesNo = inputStruct.nbsFitYesNo;
 checks.resol_fitYesNo = inputStruct.resolFitYesNo;
+if isa(inputProblemDef, 'domainsClass')
+    checks.domainRatio_fitYesNo = inputStruct.domainRatioFitYesNo;
+else
+    checks.domainRatio_fitYesNo = ones(1,0);
+end
 
 controls.checks = checks;
 

@@ -1,4 +1,4 @@
-function outProblemDef = parseOutToProblemDef(inProblem,problemDef_cells,problemDef_limits,result,controls)
+function outProblemDef = parseOutToProblem(inProblem,problemDef_cells,problemDef_limits,result,controls)
 
 %Reconstruct the problemDef class as an output
 %Using the outputs from the calculation(s)

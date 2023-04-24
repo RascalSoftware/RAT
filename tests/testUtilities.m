@@ -36,11 +36,12 @@ classdef testUtilities < matlab.unittest.TestCase
             enum = customEnum('any');
             testCase.verifyEqual(enum.value, 'any');
             testCase.verifyEqual(enum.values('allowedTypes'), allowedTypes.values(), 'customEnum.values is not working');
+            testCase.verifyEqual(enum.values('calculationTypes'), calculationTypes.values(), 'customEnum.values is not working');
             testCase.verifyEqual(enum.values('hydrationTypes'), hydrationTypes.values(), 'customEnum.values is not working');
             testCase.verifyEqual(enum.values('priorTypes'), priorTypes.values(), 'customEnum.values is not working');
             testCase.verifyEqual(enum.values('supportedLanguages'), supportedLanguages.values(), 'customEnum.values is not working');
-            testCase.verifyEqual(enum.fromValue('hydrationTypes', 'bulk in'), hydrationTypes.BulkIn, 'customEnum.forValues is not working');
-            testCase.verifyEmpty(enum.fromValue('priorTypes', 'jeff'), 'customEnum.forValues is not working');
+            testCase.verifyEqual(enum.fromValue('hydrationTypes', 'bulk in'), hydrationTypes.BulkIn, 'customEnum.fromValue is not working');
+            testCase.verifyEmpty(enum.fromValue('priorTypes', 'jeff'), 'customEnum.fromValue is not working');
         end
 
         function testMockFunction(testCase)

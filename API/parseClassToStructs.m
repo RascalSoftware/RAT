@@ -79,26 +79,9 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 inputStruct = inputProblemDef.toStruct();
 
 %Start by removing the cell arrays
-repeatLayers = inputStruct.contrastRepeatSLDs; %*****
-allData = inputStruct.allData;
-dataLimits = inputStruct.dataLimits;
-simLimits = inputStruct.simLimits;
 contrastLayers = inputStruct.contrastLayers;
 layersDetails = inputStruct.layersDetails;
-paramNames = inputStruct.paramNames;
-paramPriors = inputStruct.paramPriors;
-backsNames = inputStruct.backParNames;
-backsPriors = inputStruct.backsPriors; % 
-sfNames = inputStruct.scalefactorNames;
-scalesPriors = inputStruct.scalefactorPriors;
-shiftsNames = inputStruct.qzshiftNames; % TODO
-shiftPriors = inputStruct.qzshiftPriors;
-nbaNames = inputStruct.nbairNames;
-nbaPriors = inputStruct.nbaPriors;
-nbsNames = inputStruct.nbsubNames;
-nbsPriors = inputStruct.nbsPriors;
 resolNames = inputStruct.resolParNames;         % ******* ToDo
-resolParPriors = inputStruct.resolParPriors;
 customFiles = inputStruct.files;
 
 % If any of the contrastLayers are empty, replace the empty cells by zero
@@ -125,18 +108,18 @@ for i = 1:length(customFiles)
 end
 
 % Pull out all the cell arrays (except priors) into one array
-problemDefCells{1} = repeatLayers;
-problemDefCells{2} = allData;
-problemDefCells{3} = dataLimits;
-problemDefCells{4} = simLimits;
+problemDefCells{1} = inputStruct.contrastRepeatSLDs;
+problemDefCells{2} = inputStruct.allData;
+problemDefCells{3} = inputStruct.dataLimits;
+problemDefCells{4} = inputStruct.simLimits;
 problemDefCells{5} = contrastLayers;
 problemDefCells{6} = layersDetails;
-problemDefCells{7} = paramNames;
-problemDefCells{8} = backsNames;             
-problemDefCells{9} = sfNames;
-problemDefCells{10} = shiftsNames;
-problemDefCells{11} = nbaNames;
-problemDefCells{12} = nbsNames;
+problemDefCells{7} = inputStruct.paramNames;
+problemDefCells{8} = inputStruct.backParNames;
+problemDefCells{9} = inputStruct.scalefactorNames;
+problemDefCells{10} = inputStruct.qzshiftNames; % TODO
+problemDefCells{11} = inputStruct.nbairNames;
+problemDefCells{12} = inputStruct.nbsubNames;
 problemDefCells{13} = resolNames;
 problemDefCells{14} = customFiles';
 
@@ -185,13 +168,13 @@ if isempty(problemDefCells{14})
 end
 
 % Put the priors into their own array
-priors.paramPriors = paramPriors;
-priors.backsPriors = backsPriors;
-priors.resolPriors = resolParPriors;
-priors.nbaPriors = nbaPriors;
-priors.nbsPriors = nbsPriors;
-priors.shiftPriors = shiftPriors;
-priors.scalesPriors = scalesPriors;
+priors.paramPriors = inputStruct.paramPriors;
+priors.backsPriors = inputStruct.backsPriors;
+priors.resolPriors = inputStruct.resolParPriors;
+priors.nbaPriors = inputStruct.nbaPriors;
+priors.nbsPriors = inputStruct.nbsPriors;
+priors.shiftPriors = inputStruct.qzshiftPriors;
+priors.scalesPriors = inputStruct.scalefactorPriors;
 if isa(inputProblemDef, 'domainsClass')
     priors.domainRatioPriors = inputStruct.domainRatioPriors;
 else

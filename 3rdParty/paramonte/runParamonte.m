@@ -15,14 +15,14 @@ end
 rng('default');
 
 % Split problem using the routines from RAT..
-[problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(problem,inputControls);
+[problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problem,inputControls);
 
 %controls.para = 'points';
 
 % Make an instance of the paramonte objective function class
 logFunc = pmLogFunction();
 
-[problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemDef_cells,problemDef_limits,priors,controls.checks);
+[problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemDefCells,problemDefLimits,priors,controls.checks);
 nDims = length(problemDef.fitpars);
 testPars = problemDef.fitpars;
 
@@ -33,8 +33,8 @@ problemDef = scalePars(problemDef);
 %scaledPriors = scalePriors(problemDef,fitPriors);
 
 logFunc.problemDef = problemDef;
-logFunc.problemDef_cells = problemDef_cells;
-logFunc.problemDef_limits = problemDef_limits;
+logFunc.problemDefCells = problemDefCells;
+logFunc.problemDefLimits = problemDefLimits;
 logFunc.priors = fitPriors; %scaledPriors;
 logFunc.controls = controls;
 logFunc.NDIM = nDims;
@@ -111,13 +111,13 @@ pmpd.runSampler ( logFunc.NDIM  ... number of dimensions of the objective functi
 % end
 % 
 % 
-% % problemDef,problemDef_cells,problemDef_limits,priors,controls
-% outProblem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
+% % problemDef,problemDefCells,problemDefLimits,priors,controls
+% outProblem = {problemDef ; controls ; problemDefLimits ; problemDefCells};
 % 
 % numberOfContrasts = problemDef.numberOfContrasts;
 % data = cell(1,numberOfContrasts);
 % for i = 1:numberOfContrasts
-%     thisData = problemDef_cells{2}{i};
+%     thisData = problemDefCells{2}{i};
 %     if ~isempty(thisData)
 %         data{i} = thisData(:,:);
 %     end

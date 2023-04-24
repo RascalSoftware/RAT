@@ -2,8 +2,8 @@ function output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls)
 
 problemDef = problem{1};
 controls = problem{2};
-problemDef_limits = problem{3};
-problemDef_cells = problem{4};
+problemDefLimits = problem{3};
+problemDefCells = problem{4};
 
 display = controls.display;
 
@@ -23,7 +23,7 @@ numberOfContrasts = problemDef.numberOfContrasts;
 data.data = cell(1,numberOfContrasts);
 data.problem = problem;
 for i = 1:numberOfContrasts
-    thisData = problemDef_cells{2}{i};
+    thisData = problemDefCells{2}{i};
     if ~isempty(thisData)
         data.data{i} = [thisData(:,:)];
     end
@@ -91,10 +91,10 @@ output.data = data;
 % 
 % problemDef.fitpars = output.bestPars;
 % problemDef = unpackparams(problemDef,controls);
-% [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+% [problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
 % 
 % output.bestFits = result{1};
-% output.shiftedData = problemDef_cells{2};
+% output.shiftedData = problemDefCells{2};
 % output.predlims = out;
 
 end

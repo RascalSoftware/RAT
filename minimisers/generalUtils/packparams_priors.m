@@ -1,4 +1,4 @@
-function [problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemDef_cells,limits,priors,checks)
+function [problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemDefCells,limits,priors,checks)
 
 %Separate out the params array into fitting
 %and unfitting arrays.
@@ -58,7 +58,7 @@ for n = 1:length(checks.params_fitYesNo)
         fitpars(fitCounter) = problemDef.params(n);
         fitconstr(fitCounter,1) = limits.params(n,1);
         fitconstr(fitCounter,2) = limits.params(n,2);        
-        fitNames{fitCounter} = problemDef_cells{7}{n};
+        fitNames{fitCounter} = problemDefCells{7}{n};
         thisPrior = priors.paramPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{3} thisPrior{4}];
@@ -81,7 +81,7 @@ for n = 1:length(checks.backs_fitYesNo)
         fitpars(fitCounter) = problemDef.backs(n);
         fitconstr(fitCounter,1) = limits.backs(n,1);
         fitconstr(fitCounter,2) = limits.backs(n,2);
-        fitNames{fitCounter} = problemDef_cells{8}{n};
+        fitNames{fitCounter} = problemDefCells{8}{n};
         thisPrior = priors.backsPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
@@ -104,7 +104,7 @@ for n = 1:length(checks.scales_fitYesNo)
         fitpars(fitCounter) = problemDef.sf(n);
         fitconstr(fitCounter,1) = limits.scales(n,1);
         fitconstr(fitCounter,2) = limits.scales(n,2);
-        fitNames{fitCounter} = problemDef_cells{9}{n};
+        fitNames{fitCounter} = problemDefCells{9}{n};
         thisPrior = priors.scalesPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
@@ -127,7 +127,7 @@ for n = 1:length(checks.shifts_fitYesNo)
         fitpars(fitCounter) = problemDef.shifts(n);
         fitconstr(fitCounter,1) = limits.shifts(n,1);
         fitconstr(fitCounter,2) = limits.shifts(n,2);
-        fitNames{fitCounter} = problemDef_cells{10}{n};
+        fitNames{fitCounter} = problemDefCells{10}{n};
         thisPrior = priors.shiftPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
@@ -150,7 +150,7 @@ for n = 1:length(checks.nbairs_fitYesNo)
         fitpars(fitCounter) = problemDef.nba(n);
         fitconstr(fitCounter,1) = limits.nba(n,1);
         fitconstr(fitCounter,2) = limits.nba(n,2);
-        fitNames{fitCounter} = problemDef_cells{11}{n};
+        fitNames{fitCounter} = problemDefCells{11}{n};
         thisPrior = priors.nbaPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
@@ -173,7 +173,7 @@ for n = 1:length(checks.nbsubs_fitYesNo)
         fitpars(fitCounter) = problemDef.nbs(n);
         fitconstr(fitCounter,1) = limits.nbs(n,1);
         fitconstr(fitCounter,2) = limits.nbs(n,2);
-        fitNames{fitCounter} = problemDef_cells{12}{n};
+        fitNames{fitCounter} = problemDefCells{12}{n};
         thisPrior = priors.nbsPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{3} thisPrior{4}];
@@ -196,7 +196,7 @@ for n = 1:length(checks.resol_fitYesNo)
         fitpars(fitCounter) = problemDef.res(n);
         fitconstr(fitCounter,1) = limits.res(n,1);
         fitconstr(fitCounter,2) = limits.res(n,2);
-        fitNames{fitCounter} = problemDef_cells{13}{n};
+        fitNames{fitCounter} = problemDefCells{13}{n};
         thisPrior = priors.resolPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
@@ -219,7 +219,7 @@ for n = 1:length(checks.domainRatio_fitYesNo)
         fitpars(fitCounter) = problemDef.domainRatio(n);
         fitconstr(fitCounter,1) = limits.domainRatio(n,1);
         fitconstr(fitCounter,2) = limits.domainRatio(n,2);
-        fitNames{fitCounter} = problemDef_cells{17}{n};
+        fitNames{fitCounter} = problemDefCells{17}{n};
         thisPrior = priors.domainRatioPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];

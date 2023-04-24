@@ -1,4 +1,4 @@
-function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)
+function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
@@ -81,15 +81,15 @@ coder.varsize('allLayers{:}',[10000 3],[1 0]);
 whichTF = problemDef.TF;
 switch whichTF
     case 'non polarised'
-        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
     %case 'absorption'
-        %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+        %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
     %case 'oil water'
-        %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);    
+        %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDefCells,controls);    
     %case 'magnetic'
-        %problem = polarisedTF_reflectivityCalculation(problemDef,problemDef_cells,controls);
+        %problem = polarisedTF_reflectivityCalculation(problemDef,problemDefCells,controls);
     %case 'domains'
-        %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
+        %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
     %otherwise
         %error('The calculation type "%s" is not supported', whichTF);
 

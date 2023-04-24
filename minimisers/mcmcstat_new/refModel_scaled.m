@@ -35,8 +35,8 @@ end
 
 problemDef = problem{1};
 controls = problem{2};
-problemDef_limits = problem{3};
-problemDef_cells = problem{4};
+problemDefLimits = problem{3};
+problemDefCells = problem{4};
 
 pars = theta;
 constr = problemDef.fitconstr;
@@ -44,7 +44,7 @@ pars = unscalePars(pars,constr);
 
 problemDef.fitpars = pars;
 problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+[problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
 
 ySim = result{1}{contrast};
 

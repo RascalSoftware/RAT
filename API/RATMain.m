@@ -1,4 +1,4 @@
-function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors)
+function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)
 
 
 result = cell(6,1);
@@ -28,28 +28,28 @@ outProblemDef = problemDef;
 action = controls.proc;
 switch lower(action)
     case 'calculate' %Just a single reflectivity calculation
-        [problem,results] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls);
+        [problem,results] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
         outProblemDef = problemDef;
     case 'simplex'
         if ~strcmpi(controls.display,'off')
             sendTextOutput(sprintf('\nRunning simplex\n\n'));
         end
-        [outProblemDef,problem,results] = runSimplex(problemDef,problemDef_cells,problemDef_limits,controls);
+        [outProblemDef,problem,results] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls);
     case 'de'
         if ~strcmpi(controls.display,'off')
             sendTextOutput(sprintf('\nRunning Differential Evolution\n\n'));
         end
-        [outProblemDef,problem,results] = runDE(problemDef,problemDef_cells,problemDef_limits,controls);
+        [outProblemDef,problem,results] = runDE(problemDef,problemDefCells,problemDefLimits,controls);
     case 'ns'
         if ~strcmpi(controls.display,'off')
             sendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));
         end            
-        [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDef_cells,problemDef_limits,controls);   
+        [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls);   
     case 'dream'
         if ~strcmpi(controls.display,'off')
             sendTextOutput(sprintf('\nRunning DREAM\n\n'));
         end
-        [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+        [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors);
 end
 
 end

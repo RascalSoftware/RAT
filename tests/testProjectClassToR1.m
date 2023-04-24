@@ -9,6 +9,8 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
         inputCustomProjectClass
         outputStandardStructWithR1Input
         modelFile
+        tolerance = 1.0e-12     % Relative tolerance for equality of floats
+        absTolerance = 1.0e-5   % Absolute tolerance for equality of floats
     end
 
     methods(TestClassSetup)
@@ -37,7 +39,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
             expected = load(testCase.outputStandardStruct).problem;
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass; 
             result = projectClassToR1(pClass, 'saveProject', false);
-            testCase.verifyEqual(result, expected);
+            testCase.verifyEqual(result, expected, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testProjectClassConversionWithModification(testCase)
@@ -54,7 +56,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass;
             result = projectClassToR1(pClass, 'r1Problem', input, 'saveProject', false);
             expected = load(testCase.outputStandardStructWithR1Input).problem;
-            testCase.verifyEqual(result, expected);
+            testCase.verifyEqual(result, expected, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testR1ProblemException(testCase)

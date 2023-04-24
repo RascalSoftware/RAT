@@ -10,11 +10,11 @@ classdef calculationTypes < customEnum
     end
 
     enumeration
-        NonPolarised ('nonPolarised')
+        NonPolarised ('non polarised')
         Absorption ('absorption')
         Domains ('domains')
-        OilWater ('oilWater')
+        OilWater ('oil water')
         Magnetic ('magnetic')
-        MagneticDomains ('magneticDomains')
+        MagneticDomains ('magnetic domains')
     end
 end

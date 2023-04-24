@@ -7,11 +7,11 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,
 % (i.e. 'Target function' is required, and call the relevant routines.
 % The types of available target functions are:*
 %
-% * nonPolarised   - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
+% * non polarised  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here.
 %
 % * absorption     - Identical to standardTF, but includes imaginary refractive index terms.
 %
-% * oilWater       - Target function for oil-water samples
+% * oil water      - Target function for oil-water samples
 %
 % * domains        - Target function for samples consisting of domains which are larger than the beam lateral coherence length.
 %
@@ -79,11 +79,11 @@ coder.varsize('allLayers{:}',[10000 3],[1 0]);
 % Decide which target function we are calling and call the relevant routines
 whichTF = problemDef.TF;
 switch whichTF
-    case 'nonPolarised'
+    case 'non polarised'
         [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
     %case 'absorption'
         %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFAbs_reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls);
-    %case 'oilWater'
+    %case 'oil water'
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDef_cells,controls);    
     %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDef_cells,controls);

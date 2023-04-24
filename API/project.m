@@ -5,7 +5,7 @@ function obj = project(options)
     % the geometry, which is a geometryOptions enum. All of the arguments
     % are optional.
     %
-    % problem = project(name='New experiment', calc='nonPolarised');
+    % problem = project(name='New experiment', calc='non polarised');
     arguments
         options.name {mustBeTextScalar} = ''
         options.type = calculationTypes.NonPolarised

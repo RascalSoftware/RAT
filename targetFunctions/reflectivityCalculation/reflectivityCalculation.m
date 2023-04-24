@@ -17,6 +17,7 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,
 %
 % * magnetic       - Target function for cases for polarised neutrons with polarisation analysis.
 %                       
+
     
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles

@@ -41,18 +41,22 @@ paths = {
 
     fullfile(root,'targetFunctions','common');
     fullfile(root,'targetFunctions','common','backSort');
-    fullfile(root,'targetFunctions','common','callMatlabFunction');
+    fullfile(root,'targetFunctions','common','callCustomFunction');
+    fullfile(root,'targetFunctions','common','callCustomFunction','callMatlabFunction');
+    fullfile(root,'targetFunctions','common','callCustomFunction','callCppFunction');
+    fullfile(root,'targetFunctions','common','callCustomFunction','callPythonFunction');
+
     fullfile(root,'targetFunctions','common','callReflectivity');
     fullfile(root,'targetFunctions','common','costFunctions','chiSquared');
     fullfile(root,'targetFunctions','common','groupLayers');
-    fullfile(root,'targetFunctions','common','loopCppCustomLayersWrapper');
-    fullfile(root,'targetFunctions','common','loopMatlabCustomLayers','mexCompile');  
+
     fullfile(root,'targetFunctions','common','makeSLDProfiles');
     fullfile(root,'targetFunctions','common','reflectivityCalculations');
     fullfile(root,'targetFunctions','common','reflectivityCalculations','abeles');
     fullfile(root,'targetFunctions','common','resampleLayers');
     fullfile(root,'targetFunctions','common','resolutionFunctions','simpleGaussian');   
     fullfile(root,'targetFunctions','common','shiftData');
+    fullfile(root,'targetFunctions','common','customModelsClass');
     
     fullfile(root,'targetFunctions','reflectivityCalculation');
     fullfile(root,'targetFunctions','standardTF');
@@ -70,6 +74,8 @@ paths = {
     fullfile(root,'utilities','plotting');
 
     fullfile(root,'3rdParty','paramonte');
+
+    fullfile(root,'compile')
     
 };
 
@@ -78,4 +84,5 @@ for i = 1:length(paths)
 end
 
 addpath(root);
-setappdata(0,'root',root);
+setappdata(0, 'root', root);
+setappdata(0, 'includeDir', fullfile(root, 'targetFunctions', 'common', 'customModelsIncludes'));

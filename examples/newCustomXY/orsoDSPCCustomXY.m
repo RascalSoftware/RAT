@@ -10,17 +10,10 @@
 % Start by making the class and setting it to a custom layers type:
 
 problem = projectClass('Orso lipid example - custom layers');
-problem.setModelType('custom layers');
+problem.setModelType('custom XY');
 problem.setGeometry('Substrate/liquid');
 problem.setUsePriors(true);
-%% 
-% 
-% 
-% % First we need to set up a parameters group. We will be using a pre-prepared 
-% % custom model file, so it's useful to look at this to check which parameters 
-% % we are going to need:
-% 
-type customBilayer.m
+
 %% 
 % 
 % 
@@ -28,14 +21,18 @@ type customBilayer.m
 % model (note that Substrate Roughness' always exists as parameter 1..
 
 Parameters = {
-    %       Name                min         val         max     fit? 
-        {'Oxide thick',         5,          20,         60,     true   };
-        {'Oxide Hydration'      0,          0.2,        0.5,    true   };
-        {'Lipid APM'            45          55          65      true   };
-        {'Head Hydration'       0           0.2         0.5     true   };
-        {'Bilayer Hydration'    0           0.1         0.2     true   };
-        {'Bilayer Roughness'    2           4           8       true   };
-        {'Water Thickness'      0           2           10      true   };
+    %       Name                min          val         max     fit? 
+        {'Oxide thick',          1,          10,         30,     true   };
+        {'Oxide Hydration'       0,          0,       0.5,     true   };
+        {'Water Thick'          1,           0,         20,     true   };
+        {'Head Thick'            8           7,         15,     true   };
+        {'Head SLD'            1.4e-6,      1.7e-6,     1.9e-6,  true   };
+        {'Tails Thick'          15,          15,         20,     true   };
+        {'Tails SLD'           -0.5e-6,    -0.4e-6,    -0.1e-6,  true   };
+        {'Methyl Thick'          3,           3,          7,     true   };
+        {'Bilayer Rough'         3,           3,          7,     true   };
+        {'Head Hydration'       0.1,         0.1,        0.4,    true   };
+        {'Bilayer Coverage'     0.8,         1,        1.0,    true   };
         };
     
  problem.addParamGroup(Parameters);
@@ -54,7 +51,7 @@ problem.setBulkIn(1,'name','Silicon','min',2.07e-6,'value',2.073e-6,'max',2.08e-
 problem.addBulkOut('SLD SMW',1e-6,2.073e-6,3e-6,true);
 problem.addBulkOut('SLD H2O',-0.6e-6,-0.56e-6,-0.3e-6,true);
 
-problem.setBulkOut(1,'fit',true,'min',5e-6);
+problem.setBulkOut(1,'fit',true,'min',5e-6,'value',6.1e-6);
 
 %% 
 % Now add the datafiles.  We have three datasets we need to consider - the bilayer 
@@ -80,7 +77,7 @@ problem.setData(4,'dataRange',[0.013 0.37]);
 % 
 % Add the custom file to the project....
 
-problem.addCustomFile('DSPC Model','customBilayer.m','matlab',pwd);
+problem.addCustomFile('DSPC Model','DSPCCustomXY.m','matlab',pwd);
 %% 
 % 
 % 
@@ -145,6 +142,10 @@ problem.addContrast('name','Bilayer / H2O',...
 problem.setContrastModel(1,'DSPC Model');
 problem.setContrastModel(2,'DSPC Model');
 problem.setContrastModel(3,'DSPC Model');
+
+
+
+problem
 
 
 %end

@@ -29,3 +29,10 @@ docs/build/
 docs/.buildinfo
 docs/*.inv
 DREAM_diagnostics.txt
+__pycache__/
+*.o
+*.obj
+*.exp
+*.dll
+*.lib
+*.dylib

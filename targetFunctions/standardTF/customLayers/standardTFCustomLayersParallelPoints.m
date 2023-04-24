@@ -59,21 +59,10 @@ end
 %   --- End Memory Allocation ---
 
 resamPars = controls.resamPars;
-% Depending on custom layer language we change the functions used
-lang = customFiles{1}{2}; % so if there are multiple language models we should have a variable that seeks what language model is being used
-switch lang 
-case 'matlab'
-    % Call the Matlab parallel loop to process the custom models.....
-    [allLayers, allRoughs] = loopMatlabWrapperCustomLayersPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-% 
-case 'cpp'
-    [allLayers,allRoughs] = loopCppWrapperCustomLayersPoints(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
-    
-    
-end
 
+% Process the custom models....
+[allLayers,allRoughs] = customModelClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 % Single cored over all contrasts
 for i = 1:numberOfContrasts
     % Extract the relevant parameter values for this contrast
@@ -82,9 +71,7 @@ for i = 1:numberOfContrasts
     % data shifts and bulk contrasts are associated with this contrast
     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
     
-    % Call the custom layers function to get the layers array...
-
-    
+    % Get the custom layers output for this contrast
     thisContrastLayers = allLayers{i};
     
     % For the other parameters, we extract the correct ones from the input
@@ -132,7 +119,6 @@ for i = 1:numberOfContrasts
     nbss(i) = thisNbs;
     resols(i) = thisResol;
     allRoughs(i) = thisRough;
-
 
 end
 

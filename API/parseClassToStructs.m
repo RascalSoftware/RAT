@@ -215,6 +215,7 @@ end
 contrastResols = inputStruct.contrastRes;
 resolNames = inputStruct.resolParNames;
 resolTypes = inputStruct.resolutionTypes;
+contrastRes = zeros(1, length(contrastResols));
 for i = 1:length(contrastResols)
     % Check the type of the resolution that each contrast is pointing to.
     % If it is a constant, point to the number of the corresponding

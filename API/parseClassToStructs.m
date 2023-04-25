@@ -75,30 +75,11 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 
  
 % First parse the class to a structure variable.
-
 inputStruct = inputProblemDef.toStruct();
 
-%Start by removing the cell arrays
-repeatLayers = inputStruct.contrastRepeatSLDs; %*****
-allData = inputStruct.allData;
-dataLimits = inputStruct.dataLimits;
-simLimits = inputStruct.simLimits;
+%% Start by removing the cell arrays
 contrastLayers = inputStruct.contrastLayers;
 layersDetails = inputStruct.layersDetails;
-paramNames = inputStruct.paramNames;
-paramPriors = inputStruct.paramPriors;
-backsNames = inputStruct.backParNames;
-backsPriors = inputStruct.backsPriors; % 
-sfNames = inputStruct.scalefactorNames;
-scalesPriors = inputStruct.scalefactorPriors;
-shiftsNames = inputStruct.qzshiftNames; % TODO
-shiftPriors = inputStruct.qzshiftPriors;
-nbaNames = inputStruct.nbairNames;
-nbaPriors = inputStruct.nbaPriors;
-nbsNames = inputStruct.nbsubNames;
-nbsPriors = inputStruct.nbsPriors;
-resolNames = inputStruct.resolParNames;         % ******* ToDo
-resolParPriors = inputStruct.resolParPriors;
 customFiles = inputStruct.files;
 
 % If any of the contrastLayers are empty, replace the empty cells by zero
@@ -125,20 +106,22 @@ for i = 1:length(customFiles)
 end
 
 % Pull out all the cell arrays (except priors) into one array
-problemDefCells{1} = repeatLayers;
-problemDefCells{2} = allData;
-problemDefCells{3} = dataLimits;
-problemDefCells{4} = simLimits;
+problemDefCells{1} = inputStruct.contrastRepeatSLDs;
+problemDefCells{2} = inputStruct.allData;
+problemDefCells{3} = inputStruct.dataLimits;
+problemDefCells{4} = inputStruct.simLimits;
 problemDefCells{5} = contrastLayers;
 problemDefCells{6} = layersDetails;
-problemDefCells{7} = paramNames;
-problemDefCells{8} = backsNames;             
-problemDefCells{9} = sfNames;
-problemDefCells{10} = shiftsNames;
-problemDefCells{11} = nbaNames;
-problemDefCells{12} = nbsNames;
-problemDefCells{13} = resolNames;
+problemDefCells{7} = inputStruct.paramNames;
+problemDefCells{8} = inputStruct.backParNames;
+problemDefCells{9} = inputStruct.scalefactorNames;
+problemDefCells{10} = inputStruct.qzshiftNames;
+problemDefCells{11} = inputStruct.nbairNames;
+problemDefCells{12} = inputStruct.nbsubNames;
+problemDefCells{13} = inputStruct.resolParNames;
 problemDefCells{14} = customFiles';
+problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
+problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
 
 % Now deal with domains cell arrays
 if isa(inputProblemDef, 'domainsClass')
@@ -154,15 +137,15 @@ if isa(inputProblemDef, 'domainsClass')
         end
     end
     
-    problemDefCells{15} = inputStruct.domainContrastRepeatSLDs;
-    problemDefCells{16} = domainContrastLayers;
-    problemDefCells{17} = inputStruct.domainRatioNames;
+    problemDefCells{17} = inputStruct.domainContrastRepeatSLDs;
+    problemDefCells{18} = domainContrastLayers;
+    problemDefCells{19} = inputStruct.domainRatioNames;
     
 else
 
-    problemDefCells{15} = cell(1,0);
-    problemDefCells{16} = cell(1,0);
     problemDefCells{17} = cell(1,0);
+    problemDefCells{18} = cell(1,0);
+    problemDefCells{19} = cell(1,0);
 
 end
 
@@ -171,8 +154,8 @@ if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelTy
     for i = 1:length(problemDefCells{5})
         problemDefCells{5}{i} = 0;
     end
-    for i = 1:length(problemDefCells{16})
-        problemDefCells{16}{i} = 0;
+    for i = 1:length(problemDefCells{18})
+        problemDefCells{18}{i} = 0;
     end
     
     problemDefCells{6} = {0};
@@ -184,98 +167,46 @@ if isempty(problemDefCells{14})
     problemDefCells{14} = {{'','',''}};
 end
 
-% Put the priors into their own array
-priors.paramPriors = paramPriors;
-priors.backsPriors = backsPriors;
-priors.resolPriors = resolParPriors;
-priors.nbaPriors = nbaPriors;
-priors.nbsPriors = nbsPriors;
-priors.shiftPriors = shiftPriors;
-priors.scalesPriors = scalesPriors;
+
+%% Put the priors into their own array
+priors.paramPriors = inputStruct.paramPriors;
+priors.backsPriors = inputStruct.backsPriors;
+priors.resolPriors = inputStruct.resolParPriors;
+priors.nbaPriors = inputStruct.nbaPriors;
+priors.nbsPriors = inputStruct.nbsPriors;
+priors.shiftPriors = inputStruct.qzshiftPriors;
+priors.scalesPriors = inputStruct.scalefactorPriors;
 if isa(inputProblemDef, 'domainsClass')
     priors.domainRatioPriors = inputStruct.domainRatioPriors;
 else
     priors.domainRatioPriors = cell(0,1);
 end
 
-totalNumber = size(priors.paramPriors,1) + size(priors.backsPriors,1) + ...
-    size(priors.resolPriors,1) + size(priors.nbaPriors,1) + size(priors.nbsPriors,1) + ...
-    size(priors.shiftPriors,1) + size(priors.scalesPriors,1) + size(priors.domainRatioPriors,1);
+priorFields = fieldnames(priors);
+totalNumber = 0;
+for i=1:length(priorFields)
+    totalNumber = totalNumber + size(priors.(priorFields{i}), 1);
+end
 
 allPriors = cell(totalNumber,4);
 cellCount = 1;
-for i = 1:size(priors.paramPriors,1)
-    allPriors{cellCount,1} = priors.paramPriors{i}{1};
-    allPriors{cellCount,2} = priors.paramPriors{i}{2};
-    allPriors{cellCount,3} = num2str(priors.paramPriors{i}{3});
-    allPriors{cellCount,4} = num2str(priors.paramPriors{i}{4});
-    cellCount = cellCount + 1;
+
+for i=1:length(priorFields)
+    currentPrior = priorFields{i};
+    for j = 1:size(priors.(currentPrior), 1)
+        allPriors{cellCount,1} = priors.(currentPrior){j}{1};
+        allPriors{cellCount,2} = priors.(currentPrior){j}{2};
+        allPriors{cellCount,3} = num2str(priors.(currentPrior){j}{3});
+        allPriors{cellCount,4} = num2str(priors.(currentPrior){j}{4});
+        cellCount = cellCount + 1;
+    end
 end
 
-for i = 1:size(priors.backsPriors,1)
-    allPriors{cellCount,1} = priors.backsPriors{i}{1};
-    allPriors{cellCount,2} = priors.backsPriors{i}{2};
-    allPriors{cellCount,3} = num2str(priors.backsPriors{i}{3});
-    allPriors{cellCount,4} = num2str(priors.backsPriors{i}{4});
-    cellCount = cellCount + 1;
-end
-
-for i = 1:size(priors.resolPriors,1)
-    allPriors{cellCount,1} = priors.resolPriors{i}{1};
-    allPriors{cellCount,2} = priors.resolPriors{i}{2};
-    allPriors{cellCount,3} = num2str(priors.resolPriors{i}{3});
-    allPriors{cellCount,4} = num2str(priors.resolPriors{i}{4});
-    cellCount = cellCount + 1;
-end
-
-for i = 1:size(priors.nbaPriors,1)
-    allPriors{cellCount,1} = priors.nbaPriors{i}{1};
-    allPriors{cellCount,2} = priors.nbaPriors{i}{2};
-    allPriors{cellCount,3} = num2str(priors.nbaPriors{i}{3});
-    allPriors{cellCount,4} = num2str(priors.nbaPriors{i}{4}); 
-    cellCount = cellCount + 1;
-end
-
-for i = 1:size(priors.nbsPriors,1)
-    allPriors{cellCount,1} = priors.nbsPriors{i}{1};
-    allPriors{cellCount,2} = priors.nbsPriors{i}{2};
-    allPriors{cellCount,3} = num2str(priors.nbsPriors{i}{3});
-    allPriors{cellCount,4} = num2str(priors.nbsPriors{i}{4});
-    cellCount = cellCount + 1;
-end
-
-for i = 1:size(priors.shiftPriors,1)
-    allPriors{cellCount,1} = priors.shiftPriors{i}{1};
-    allPriors{cellCount,2} = priors.shiftPriors{i}{2};
-    allPriors{cellCount,3} = num2str(priors.shiftPriors{i}{3});
-    allPriors{cellCount,4} = num2str(priors.shiftPriors{i}{4});
-    cellCount = cellCount + 1;
-end
-
-for i = 1:size(priors.scalesPriors,1)
-    allPriors{cellCount,1} = priors.scalesPriors{i}{1};
-    allPriors{cellCount,2} = priors.scalesPriors{i}{2};
-    allPriors{cellCount,3} = num2str(priors.scalesPriors{i}{3});
-    allPriors{cellCount,4} = num2str(priors.scalesPriors{i}{4});
-    cellCount = cellCount + 1;
-end
-
-for i = 1:size(priors.domainRatioPriors,1)
-    allPriors{cellCount,1} = priors.domainRatioPriors{i}{1};
-    allPriors{cellCount,2} = priors.domainRatioPriors{i}{2};
-    allPriors{cellCount,3} = num2str(priors.domainRatioPriors{i}{3});
-    allPriors{cellCount,4} = num2str(priors.domainRatioPriors{i}{4});
-    cellCount = cellCount + 1;
-end
-
-priorNames = allPriors(:,1);
-priorVals = allPriors(:,2:end);
-
-priors.priorNames = priorNames;
-priors.priorVals = priorVals;
+priors.priorNames = allPriors(:, 1);
+priors.priorVals = allPriors(:, 2:end);
 
 
-%Split up the contrastBacks array
+%% Split up the contrastBacks array
 contrastBacks = inputStruct.contrastBacks;
 for i = 1:length(contrastBacks)
     problemDef.contrastBacks(i) = contrastBacks{i}(1);
@@ -284,7 +215,9 @@ end
     
 % Here we need to do the same with the contrastResolutions array
 contrastResols = inputStruct.contrastRes;
+resolNames = inputStruct.resolParNames;
 resolTypes = inputStruct.resolutionTypes;
+contrastRes = zeros(1, length(contrastResols));
 for i = 1:length(contrastResols)
     % Check the type of the resolution that each contrast is pointing to.
     % If it is a constant, point to the number of the corresponding
@@ -307,7 +240,7 @@ for i = 1:length(contrastResols)
 end
         
 
-%Now make the limits array
+%% Now make the limits array
 for i = 1:length(inputStruct.paramConstr)
     problemDefLimits.params(i,:) = inputStruct.paramConstr{i};
 end
@@ -344,7 +277,8 @@ else
     problemDefLimits.domainRatio = ones(0,2);
 end
 
-%Now remove all these fields from inputProblemDef
+
+%% Now remove all these fields from inputProblemDef
 removedFields = {'contrastRepeatSLDs',...
     'domainContrastRepeatSLDs',...
     'allData',...
@@ -379,7 +313,7 @@ removedFields = {'contrastRepeatSLDs',...
 % **********************************************************************8
 
 
-problemDef.TF = inputStruct.TF;%'standardTF';
+problemDef.TF = inputStruct.TF;
 problemDef.resample = inputStruct.resample;
 problemDef.dataPresent = inputStruct.dataPresent;
 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
@@ -419,38 +353,14 @@ else
     problemDef.domainContrastCustomFiles = ones(1,0);
 end    
 
-
-% if isfield(inputStruct,'modelFilename')
-%     if ~isempty(inputStruct.modelFilename)
-%         [path,fname,extension] = fileparts(inputStruct.modelFilename);
-%     else
-%         fname = '';
-%         path = pwd;
-%     end
-% else
-%     fname = '';
-%     path = pwd;
-% end
-%     
-% problemDef.modelFilename = fname;
-% problemDef.path = path;
-% 
-% if isfield(inputStruct,'modelLanguage')
-%     if ~isempty(inputStruct.modelLanguage)
-%         problemDef.modelLanguage = inputStruct.modelLanguage;
-%     else
-%         problemDef.modelLanguage = 'matlab';
-%     end
-% else
-%     problemDef.modelLanguage = '';
-% end
-    
+% Initialise the lists of fitting parameters    
 problemDef.fitpars = [];
 problemDef.otherpars = [];
 problemDef.fitconstr = [];
 problemDef.otherconstr = [];
 
-%Now deal with the controls class
+
+%% Now deal with the controls class
 controls.para = inputControls.parallel;
 controls.proc = inputControls.procedure;
 controls.display = inputControls.display;
@@ -477,7 +387,7 @@ else
     controls.calcSld = 0;
 end
 
-controls.resamPars = inputControls.resamPars;% [0.95 10];
+controls.resamPars = inputControls.resamPars;
 controls.updateFreq = inputControls.updateFreq;
 controls.updatePlotFreq = inputControls.updatePlotFreq;
 
@@ -487,7 +397,7 @@ controls.lambda = inputControls.lambda;
 controls.pUnitGamma = inputControls.pUnitGamma;
 controls.boundHandling = inputControls.boundHandling;
 
-%Also need to deal with the checks...
+% Also need to deal with the checks...
 checks.params_fitYesNo = inputStruct.paramFitYesNo;
 checks.backs_fitYesNo = inputStruct.backParFitYesNo;
 checks.shifts_fitYesNo = inputStruct.qzshiftFitYesNo;

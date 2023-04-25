@@ -219,7 +219,7 @@ for n = 1:length(checks.domainRatio_fitYesNo)
         fitpars(fitCounter) = problemDef.domainRatio(n);
         fitconstr(fitCounter,1) = limits.domainRatio(n,1);
         fitconstr(fitCounter,2) = limits.domainRatio(n,2);
-        fitNames{fitCounter} = problemDefCells{17}{n};
+        fitNames{fitCounter} = problemDefCells{19}{n};
         thisPrior = priors.domainRatioPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];

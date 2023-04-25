@@ -120,6 +120,8 @@ problemDefCells{11} = inputStruct.nbairNames;
 problemDefCells{12} = inputStruct.nbsubNames;
 problemDefCells{13} = inputStruct.resolParNames;         % ******* ToDo
 problemDefCells{14} = customFiles';
+problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
+problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
 
 % Now deal with domains cell arrays
 if isa(inputProblemDef, 'domainsClass')
@@ -135,15 +137,15 @@ if isa(inputProblemDef, 'domainsClass')
         end
     end
     
-    problemDefCells{15} = inputStruct.domainContrastRepeatSLDs;
-    problemDefCells{16} = domainContrastLayers;
-    problemDefCells{17} = inputStruct.domainRatioNames;
+    problemDefCells{17} = inputStruct.domainContrastRepeatSLDs;
+    problemDefCells{18} = domainContrastLayers;
+    problemDefCells{19} = inputStruct.domainRatioNames;
     
 else
 
-    problemDefCells{15} = cell(1,0);
-    problemDefCells{16} = cell(1,0);
     problemDefCells{17} = cell(1,0);
+    problemDefCells{18} = cell(1,0);
+    problemDefCells{19} = cell(1,0);
 
 end
 
@@ -152,8 +154,8 @@ if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelTy
     for i = 1:length(problemDefCells{5})
         problemDefCells{5}{i} = 0;
     end
-    for i = 1:length(problemDefCells{16})
-        problemDefCells{16}{i} = 0;
+    for i = 1:length(problemDefCells{18})
+        problemDefCells{18}{i} = 0;
     end
     
     problemDefCells{6} = {0};

@@ -141,6 +141,6 @@ for i = 1:length(controls.checks.domainRatio_fitYesNo)
         uppars_counter = uppars_counter + 1;
     end
 end
-problemDef.res = uppars;
+problemDef.domainRatio = uppars;
 
 %setappdata(0,'problem',problem);

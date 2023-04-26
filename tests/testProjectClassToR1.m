@@ -15,14 +15,14 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
     methods(TestClassSetup)
         function defineVariables(testCase)
-            testCase.inputStandardProjectClass = 'originalDSPCBilayerProjectClass.mat';
-            testCase.inputStandardStruct = 'originalDSPCBilayerStructInput.mat';
-            testCase.outputStandardStruct = 'originalDSPCBilayerStructOutput.mat';
+            testCase.inputStandardProjectClass = 'DSPCBilayerProjectClass.mat';
+            testCase.inputStandardStruct = 'DSPCBilayerStructInput.mat';
+            testCase.outputStandardStruct = 'DSPCBilayerStructOutput.mat';
             testCase.defaultProject = 'defaultProject.mat';
             testCase.outputCustomStruct = 'monolayerVolumeModel.mat';
             testCase.inputCustomProjectClass = 'monolayerVolumeModelProjectClass.mat';
             testCase.modelFile = 'monolayerVolumeCustomLayerModel.m';
-            testCase.outputStandardStructWithR1Input = 'originalDSPCBilayerStructOutputWithR1Input.mat';
+            testCase.outputStandardStructWithR1Input = 'DSPCBilayerStructOutputWithR1Input.mat';
         end
     end
 

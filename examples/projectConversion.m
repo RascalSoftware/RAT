@@ -2,7 +2,7 @@
 % 
 % The following example shows how to convert r1 structs into projectClass.
 
-problem = r1ToProjectClass('originalDSPCBilayerStructInput.mat');
+problem = r1ToProjectClass('DSPCBilayerStructInput.mat');
 
 
 %% Convert projectClass to r1 struct.
@@ -10,7 +10,7 @@ problem = r1ToProjectClass('originalDSPCBilayerStructInput.mat');
 % The following example shows how to convert projectClass into r1 struct.
 
 % First load the projectClass using the following syntax
-pClass = load('originalDSPCBilayerProjectClass.mat').thisProjectClass;
+pClass = load('DSPCBilayerProjectClass.mat').thisProjectClass;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Conversion Example 1

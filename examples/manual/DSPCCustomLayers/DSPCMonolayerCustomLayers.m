@@ -89,13 +89,10 @@ problem.setBulkOut(2,'fit',false);
 % Make the controls class...
 controls = controlsClass();
 controls.parallel = 'points';
-controls.procedure = 'dream';
-controls.nSamples = 10000;
 controls.calcSldDuringFit = true;
 
 [problem,results] = RAT(problem,controls);
 
 %%
 figure(10); clf
-plotRefSLD(problem,results)
-plotBayes(problem, results);
+plotRefSLD(problem, results);

@@ -193,7 +193,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             
             if useCompiled
                 % Skip the mex tests if coder is not installed. These tests will be marked as incomplete
-                testCase.assumeEqual(license('test', 'MATLAB_Coder'), 1, 'MATLAB Coder is not installed');
+                testCase.assumeEqual(any(contains(struct2cell(ver), 'MATLAB Coder')), 1, 'MATLAB Coder is not installed');
             end
             
             testCase.controls.para = whichParallel;

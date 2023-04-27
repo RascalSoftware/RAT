@@ -89,7 +89,7 @@ problem.setBulkOut(2,'fit',false);
 % Make the controls class...
 controls = controlsClass();
 controls.parallel = 'points';
-controls.procedure = 'simplex';
+controls.procedure = 'dream';
 controls.nSamples = 10000;
 controls.calcSldDuringFit = true;
 
@@ -98,4 +98,4 @@ controls.calcSldDuringFit = true;
 %%
 figure(10); clf
 plotRefSLD(problem,results)
-% plotBayes(problem, results);
+plotBayes(problem, results);

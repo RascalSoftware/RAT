@@ -21,9 +21,9 @@ controls.populationSize = 10;
 [problem4, result4] = RAT(problem, controls);
 
 %% Use dream
-% controls.procedure = procedures.Dream;
-% controls.nSamples = 5000;
-% [problem5, result5] = RAT(problem, controls);
+controls.procedure = procedures.Dream;
+controls.nSamples = 5000;
+[problem5, result5] = RAT(problem, controls);
 
 %% Plot the results....
 figure(1); clf
@@ -38,5 +38,5 @@ plotRefSLD(problem3, result3);
 figure(4); clf
 plotRefSLD(problem4, result4);
 
-% figure(5); clf
-% plotRefSLD(problem5, result5);
+figure(5); clf
+plotRefSLD(problem5, result5);

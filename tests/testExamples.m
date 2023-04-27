@@ -141,6 +141,10 @@ classdef testExamples < matlab.unittest.TestCase
             % verifies example exists with .m extension
             testCase.verifyEqual(exist(exampleFile,'file'), 2);
 
+            if any(strcmp(exampleFile, {'DSPCMonolayerCustomLayers', 'controlAlgorithms'}))
+                testCase.assumeEqual(any(contains(struct2cell(ver), 'Statistics and Machine Learning Toolbox')), ...
+                                     1, 'Statistics toolbox is not installed')
+            end
             % runs the example file
             evalc(exampleFile);
 

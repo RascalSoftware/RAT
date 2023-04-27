@@ -34,8 +34,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
     properties (SetAccess = immutable)
         calculationType
+        protectedParameters
     end
-       
+
     methods
 
         function obj = projectClass(experimentName, calculationType, geometry)
@@ -63,6 +64,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Initialise the Parameters Table
             obj.parameters = parametersClass('Substrate Roughness',1, 3, 5,true,priorTypes.Uniform,0,Inf);
+
+            if isequal(calculationType, calculationTypes.OilWater.value)
+                obj.addParam('Oil Thickness');
+                obj.addParam('Oil Roughness');
+            end
+            
+            obj.protectedParameters = cellstr(obj.parameters.getParamNames');
             
             % Initialise the layers table
             obj.layers = layersClass();
@@ -231,9 +239,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             for i = 1:length(row)
                 thisParam = row{i};
                 
-                % Make sure we don't remove substrate roughness
-                if (isequal(thisParam, 1)) || (strcmpi(thisParam, 'Substrate Roughness'))
-                    throw(invalidOption('Can''t remove protected parameter Substrate Roughness'));
+                % Make sure we don't remove any protected parameters
+                if (isnumeric(thisParam) && thisParam <= length(obj.protectedParameters)) || any((strcmpi(thisParam, obj.protectedParameters)))
+                    throw(invalidOption(sprintf('Can''t remove protected parameters')));
                 end
                 
                 % No need to check validity of the parameter
@@ -293,8 +301,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % new name
             %
             % problem.setParamName(2, 'new name');
-            if (isequal(row, 1)) || (strcmpi(row, 'Substrate Roughness'))
-                throw(invalidOption('Can''t rename protected parameter Substrate Roughness'));
+            if (isnumeric(row) && row <= length(obj.protectedParameters)) || any((strcmpi(row, obj.protectedParameters)))
+                throw(invalidOption('Can''t rename protected parameters'));
             end
             obj.parameters.setName(row, name);
         end

@@ -35,9 +35,6 @@ function obj = project(options)
             obj.layers = layersClass({'SLD Real', 'SLD Imaginary'});
         case {calculationTypes.Magnetic.value, calculationTypes.MagneticDomains.value}
             obj.layers = layersClass({'SLD Real', 'SLD Imaginary', 'SLD Magnetic Real', 'SLD Magnetic Imaginary'});
-        case calculationTypes.OilWater.value
-            obj.addParam('Oil Thickness');
-            obj.addParam('Oil Roughness');
     end
 
 end

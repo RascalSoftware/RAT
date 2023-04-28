@@ -89,25 +89,10 @@ problem.setBulkOut(2,'fit',false);
 % Make the controls class...
 controls = controlsClass();
 controls.parallel = 'points';
-controls.procedure = 'dream';
-% controls.nsimu = 30000;
-% controls.repeats = 3;
+controls.calcSldDuringFit = true;
 
 [problem,results] = RAT(problem,controls);
 
 %%
 figure(10); clf
-plotRefSLD(problem,results)
-
-%h2 = figure(2); clf
-%sf = results.contrastParams.scalefactors;
-%bayesShadedPlot(h2,results.predlims,results.shifted_data,sf);
-
-%h3 = figure(3); clf
-%mcmcplot(results.chain,[],results.fitNames,'chainpanel');
-
-%h4 = figure(4); clf;
-%plotBayesCorrFig(results.chain,results.fitNames,h4)
-
-%h5 = figure(5);clf
-%mcmcplot(results.chain,[],results.fitNames,'hist',15,'kernel');
+plotRefSLD(problem, results);

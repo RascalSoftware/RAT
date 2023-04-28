@@ -37,7 +37,7 @@ paths = {
     fullfile(root,'minimisers','DE');
     %fullfile(root,'minimisers','mcmcstat_new');
     %fullfile(root,'minimisers','mcmcstat_new','src');
-    %fullfile(root,'minimisers','NSMain');
+    fullfile(root,'minimisers','NSMain');
 
     fullfile(root,'targetFunctions','common');
     fullfile(root,'targetFunctions','common','backSort');

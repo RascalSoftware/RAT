@@ -221,8 +221,8 @@ save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'standardLayer
 
 %% 4. Converting betwwen RAT and RASCAL
 
-thisProjectClass = r1ToProjectClass('originalDSPCBilayerStructInput.mat');
-save('tests/testProjectConversion/originalDSPCBilayerProjectClass.mat', 'thisProjectClass')
+thisProjectClass = r1ToProjectClass('DSPCBilayerStructInput.mat');
+save('tests/testProjectConversion/DSPCBilayerProjectClass.mat', 'thisProjectClass')
 
 thisProjectClass = r1ToProjectClass('monolayerVolumeModel.mat');
 save('tests/testProjectConversion/monolayerVolumeModelProjectClass.mat', 'thisProjectClass')

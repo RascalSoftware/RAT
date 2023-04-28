@@ -7,8 +7,8 @@ classdef testR1ToProjectClass < matlab.unittest.TestCase
 
     methods(TestClassSetup)
         function defineIO(testCase)
-            testCase.input = 'originalDSPCBilayerStructInput.mat';
-            testCase.output = 'originalDSPCBilayerProjectClass.mat';
+            testCase.input = 'DSPCBilayerStructInput.mat';
+            testCase.output = 'DSPCBilayerProjectClass.mat';
         end
 
         function setWorkingFolder(testCase)

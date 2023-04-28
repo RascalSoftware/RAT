@@ -48,5 +48,13 @@ classdef testProject < matlab.unittest.TestCase
             testCase.verifyError(@() project(name=1), 'MATLAB:validators:mustBeTextScalar');
         end
 
+        function testProtectedParameters(testCase)
+            % Ensure errors are raised when attempting to remove protected
+            % parameters
+            problem = project(type=calculationTypes.OilWater);
+            testCase.verifyError(@() problem.removeParam(2), invalidOption.errorID);
+            testCase.verifyError(@() problem.removeParam("Oil Roughness"), invalidOption.errorID);
+        end
+
     end
 end

@@ -19,6 +19,7 @@ classdef (Abstract) baseContrasts < handle
 
     properties (Dependent, SetAccess = private)
         numberOfContrasts
+        displayNames
     end
 
     properties(Access = protected, Constant, Hidden)
@@ -28,6 +29,7 @@ classdef (Abstract) baseContrasts < handle
 
     methods (Abstract)
         parseContrastInput
+        getDisplayNames
     end
             
     methods
@@ -48,6 +50,10 @@ classdef (Abstract) baseContrasts < handle
 
         function count = get.numberOfContrasts(obj)
             count = length(obj.contrasts);
+        end
+        
+        function names = get.displayNames(obj)
+            names = obj.getDisplayNames();
         end
 
         function obj = addContrast(obj, allowedNames, varargin)
@@ -305,12 +311,13 @@ classdef (Abstract) baseContrasts < handle
             
         end
 
-        function displayContrastsObject(obj, rowNames)
+        function displayContrastsObject(obj)
             % Display the contrasts object as a table.
             % The subclass routine needs to pass in the rowNames for it's
             % particular properties.
             %
-            % contrasts.displayContrastsObject(["Name"; "Data"; "Background"])         
+            % contrasts.displayContrastsObject()         
+            rowNames = obj.displayNames;
             nContrasts = obj.numberOfContrasts;
             maxModelSize = 1;
             

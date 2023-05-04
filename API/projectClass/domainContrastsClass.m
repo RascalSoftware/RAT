@@ -5,14 +5,9 @@ classdef domainContrastsClass < baseContrasts
     % calculations.
                 
     methods
-
-        function displayContrastsObject(obj)
-            % Display the contrasts object as a table.
-            %
-            % contrasts.displayContrastsObject()           
-            displayContrastsObject@baseContrasts(obj, ["Name";"Bulk in";"Bulk out";"Model"]);
-        end
-        
+        function names = getDisplayNames(obj)
+            names = ["Name"; "Bulk in"; "Bulk out"; "Model"];
+        end     
     end
     
     methods(Static)

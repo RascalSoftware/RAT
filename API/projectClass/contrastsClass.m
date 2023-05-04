@@ -2,9 +2,9 @@ classdef contrastsClass < baseContrasts
 
     % This class holds the parameters for each contrast used in the
     % simulation
-                
-    methods
-        
+
+
+    methods   
         function obj = contrastsClass(domainsCalc)
             % Class Constructor
             % The only (optional) input is a logical flag to state whether
@@ -18,6 +18,14 @@ classdef contrastsClass < baseContrasts
             obj@baseContrasts(domainsCalc)
         end
         
+        function names = getDisplayNames(obj)
+            if obj.domainsCalc
+                 names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
+            else
+                 names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
+            end
+        end
+
         function obj = updateDataName(obj, nameChange)
             % Update the "data" parameter in a contrast if the name is
             % changed in the data class.           
@@ -113,21 +121,6 @@ classdef contrastsClass < baseContrasts
             contrastStruct.allData = allData;
 
         end
-
-        function displayContrastsObject(obj)
-            % Display the contrasts object as a table.
-            %
-            % contrasts.displayContrastsObject()           
-            if obj.domainsCalc
-                rowNames = ["Name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Domain Ratio";"Model"];
-            else
-                rowNames = ["Name";"Data";"Background";"Bulk in";"Bulk out";"Scalefactor";"Resolution";"Resample";"Model"];
-            end
-
-             % Call superclass routine with appropriate rows
-            displayContrastsObject@baseContrasts(obj, rowNames);
-        end
-
     end
     
     methods(Static)

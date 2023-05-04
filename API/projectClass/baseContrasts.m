@@ -13,6 +13,8 @@ classdef (Abstract) baseContrasts < handle
 
     properties (SetAccess = immutable)
         domainsCalc
+        rowHeaders = struct('key', ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
+                            'field', ["name"; "data"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
     end
 
     properties (Dependent, SetAccess = private)
@@ -308,7 +310,7 @@ classdef (Abstract) baseContrasts < handle
             % The subclass routine needs to pass in the rowNames for it's
             % particular properties.
             %
-            % contrasts.displayContrastsObject(['name';'nba';'nbs';'model'])
+            % contrasts.displayContrastsObject(["Name"; "Data"; "Background"])         
             nContrasts = obj.numberOfContrasts;
             maxModelSize = 1;
             
@@ -337,8 +339,9 @@ classdef (Abstract) baseContrasts < handle
                 n = 1;
 
                 % Loop over all fields excluding the model
-                for field = fieldnames(rmfield(thisContrast, 'model'))'
-                    contrastsCell(n,i) = {thisContrast.(field{1})};
+                for j = 1:length(rowNames)-1
+                    field = obj.rowHeaders.field(obj.rowHeaders.key == rowNames{j});
+                    contrastsCell(n,i) = {thisContrast.(field)};
                     n = n + 1;
                 end
                 

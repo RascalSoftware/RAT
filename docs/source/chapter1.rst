@@ -1,16 +1,12 @@
 .. _chapter1:
 
-.. section-numbering::
 
-Introduction.
-.............
-
-What is RAT.
-============
+Introduction
+............
 For any calculation problem, the process of interacting with our data …… xxxx
 
-RAT basic modelling principle
-=============================
+Basic modelling principle
+=========================
 Even when we are at the calculations point our data analysis - that the data has been properly reduced and we have some idea of a modelling strategy, we can still then split the problem specification into two parts.
 
 * The **Model Definition** describes our data, our model, the various parameters we may have along with their limits or priors, and other quantities such as bulk SLD's or backgrounds.

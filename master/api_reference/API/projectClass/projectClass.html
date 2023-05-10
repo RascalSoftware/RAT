@@ -38,7 +38,7 @@ This function calls:
 <li><a href="contrastsClass.html" class="code" title="">contrastsClass</a>	</li>
 <li><a href="customFileClass.html" class="code" title="">customFileClass</a>	</li>
 <li><a href="dataClass.html" class="code" title="">dataClass</a>	</li>
-<li><a href="layersClassRealSLD.html" class="code" title="">layersClassRealSLD</a>	</li>
+<li><a href="layersClass.html" class="code" title="">layersClass</a>	</li>
 <li><a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>	</li>
 <li><a href="parametersClass.html" class="code" title="">parametersClass</a>	</li>
 <li><a href="projectClass.html" class="code" title="">projectClass</a>	</li>
@@ -46,66 +46,68 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../API/project.html" class="code" title="function obj = project(options)">project</a>	Creates a project object.</li>
+<li><a href="domainsClass.html" class="code" title="">domainsClass</a>	</li>
 <li><a href="projectClass.html" class="code" title="">projectClass</a>	</li>
 </ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function obj = projectClass(varargin)</a></li>
+<li><a href="#_sub1" class="code">function obj = projectClass(experimentName, calculationType, geometry)</a></li>
 <li><a href="#_sub2" class="code">function obj = setUsePriors(obj, showFlag)</a></li>
-<li><a href="#_sub3" class="code">function obj = setGeometry(obj,val)</a></li>
-<li><a href="#_sub4" class="code">function obj = setModelType(obj,val)</a></li>
+<li><a href="#_sub3" class="code">function obj = setGeometry(obj, geometry)</a></li>
+<li><a href="#_sub4" class="code">function obj = setModelType(obj, modelType)</a></li>
 <li><a href="#_sub5" class="code">function names = getAllAllowedNames(obj)</a></li>
-<li><a href="#_sub6" class="code">function obj = addParamGroup(obj,varargin)</a></li>
-<li><a href="#_sub7" class="code">function obj = addParam(obj,varargin)</a></li>
-<li><a href="#_sub8" class="code">function obj = removeParam(obj,varargin)</a></li>
-<li><a href="#_sub9" class="code">function obj = setParameter(obj,varargin)</a></li>
-<li><a href="#_sub10" class="code">function obj = setParamValue(obj,varargin)</a></li>
-<li><a href="#_sub11" class="code">function obj = setParamConstr(obj,varargin)</a></li>
-<li><a href="#_sub12" class="code">function obj = setParamName(obj,varargin)</a></li>
-<li><a href="#_sub13" class="code">function obj = setParamFit(obj,varargin)</a></li>
-<li><a href="#_sub14" class="code">function obj = setParamPrior(obj,varargin)</a></li>
-<li><a href="#_sub15" class="code">function obj = addLayerGroup(obj,varargin)</a></li>
-<li><a href="#_sub16" class="code">function obj = addLayer(obj,varargin)</a></li>
-<li><a href="#_sub17" class="code">function obj = removeLayer(obj,layer)</a></li>
-<li><a href="#_sub18" class="code">function obj = setLayerValue(obj,varargin)</a></li>
+<li><a href="#_sub6" class="code">function obj = addParamGroup(obj, paramGroup)</a></li>
+<li><a href="#_sub7" class="code">function obj = addParam(obj, varargin)</a></li>
+<li><a href="#_sub8" class="code">function obj = removeParam(obj, row)</a></li>
+<li><a href="#_sub9" class="code">function obj = setParameter(obj, row, varargin)</a></li>
+<li><a href="#_sub10" class="code">function obj = setParamValue(obj, row, value)</a></li>
+<li><a href="#_sub11" class="code">function obj = setParamConstr(obj, row, min, max)</a></li>
+<li><a href="#_sub12" class="code">function obj = setParamName(obj, row, name)</a></li>
+<li><a href="#_sub13" class="code">function obj = setParamFit(obj, row, fitFlag)</a></li>
+<li><a href="#_sub14" class="code">function obj = setParamPrior(obj, row, varargin)</a></li>
+<li><a href="#_sub15" class="code">function obj = addLayerGroup(obj, layerGroup)</a></li>
+<li><a href="#_sub16" class="code">function obj = addLayer(obj, varargin)</a></li>
+<li><a href="#_sub17" class="code">function obj = removeLayer(obj, layer)</a></li>
+<li><a href="#_sub18" class="code">function obj = setLayerValue(obj, row, col, value)</a></li>
 <li><a href="#_sub19" class="code">function obj = addBacksPar(obj, varargin)</a></li>
 <li><a href="#_sub20" class="code">function obj = removeBacksPar(obj, varargin)</a></li>
-<li><a href="#_sub21" class="code">function obj = setBacksParValue(obj,varargin)</a></li>
-<li><a href="#_sub22" class="code">function obj = setBacksParConstr(obj,varargin)</a></li>
-<li><a href="#_sub23" class="code">function obj = setBacksParName(obj,varargin)</a></li>
-<li><a href="#_sub24" class="code">function obj = addBackground(obj,varargin)</a></li>
-<li><a href="#_sub25" class="code">function obj = removeBackground(obj,varargin)</a></li>
-<li><a href="#_sub26" class="code">function obj = setBackground(obj,varargin)</a></li>
-<li><a href="#_sub27" class="code">function obj = setBackgroundName(obj,varargin)</a></li>
-<li><a href="#_sub28" class="code">function obj = setBacksPar(obj,varargin)</a></li>
-<li><a href="#_sub29" class="code">function obj = setResolParValue(obj,varargin)</a></li>
+<li><a href="#_sub21" class="code">function obj = setBacksParValue(obj, row, value)</a></li>
+<li><a href="#_sub22" class="code">function obj = setBacksParConstr(obj, row, min, max)</a></li>
+<li><a href="#_sub23" class="code">function obj = setBacksParName(obj, row, name)</a></li>
+<li><a href="#_sub24" class="code">function obj = addBackground(obj, varargin)</a></li>
+<li><a href="#_sub25" class="code">function obj = removeBackground(obj, row)</a></li>
+<li><a href="#_sub26" class="code">function obj = setBackground(obj, row, varargin)</a></li>
+<li><a href="#_sub27" class="code">function obj = setBackgroundName(obj, row, name)</a></li>
+<li><a href="#_sub28" class="code">function obj = setBacksPar(obj, varargin)</a></li>
+<li><a href="#_sub29" class="code">function obj = setResolParValue(obj, row, value)</a></li>
 <li><a href="#_sub30" class="code">function obj = addResolPar(obj, varargin)</a></li>
-<li><a href="#_sub31" class="code">function obj = setResolPar(obj,varargin)</a></li>
-<li><a href="#_sub32" class="code">function obj = removeResolPar(obj,varargin)</a></li>
-<li><a href="#_sub33" class="code">function obj = addResolution(obj,varargin)</a></li>
-<li><a href="#_sub34" class="code">function obj = removeResolution(obj,varargin)</a></li>
+<li><a href="#_sub31" class="code">function obj = setResolPar(obj, varargin)</a></li>
+<li><a href="#_sub32" class="code">function obj = removeResolPar(obj, varargin)</a></li>
+<li><a href="#_sub33" class="code">function obj = addResolution(obj, varargin)</a></li>
+<li><a href="#_sub34" class="code">function obj = removeResolution(obj, row)</a></li>
 <li><a href="#_sub35" class="code">function obj = addData(obj, varargin)</a></li>
 <li><a href="#_sub36" class="code">function obj = removeData(obj, row)</a></li>
 <li><a href="#_sub37" class="code">function obj = setData(obj, varargin)</a></li>
-<li><a href="#_sub38" class="code">function obj = addBulkOut(obj,varargin)</a></li>
-<li><a href="#_sub39" class="code">function obj = removeBulkOut(obj,varargin)</a></li>
-<li><a href="#_sub40" class="code">function obj = setBulkOut(obj,varargin)</a></li>
-<li><a href="#_sub41" class="code">function obj = addBulkIn(obj,varargin)</a></li>
-<li><a href="#_sub42" class="code">function obj = removeBulkIn(obj,varargin)</a></li>
-<li><a href="#_sub43" class="code">function obj = setBulkIn(obj,varargin)</a></li>
-<li><a href="#_sub44" class="code">function obj = addScalefactor(obj,varargin)</a></li>
-<li><a href="#_sub45" class="code">function obj = removeScalefactor(obj,varargin)</a></li>
-<li><a href="#_sub46" class="code">function obj = setScalefactor(obj,varargin)</a></li>
-<li><a href="#_sub47" class="code">function obj = addQzshift(obj,varargin)</a></li>
+<li><a href="#_sub38" class="code">function obj = addBulkOut(obj, varargin)</a></li>
+<li><a href="#_sub39" class="code">function obj = removeBulkOut(obj, varargin)</a></li>
+<li><a href="#_sub40" class="code">function obj = setBulkOut(obj, varargin)</a></li>
+<li><a href="#_sub41" class="code">function obj = addBulkIn(obj, varargin)</a></li>
+<li><a href="#_sub42" class="code">function obj = removeBulkIn(obj, varargin)</a></li>
+<li><a href="#_sub43" class="code">function obj = setBulkIn(obj, varargin)</a></li>
+<li><a href="#_sub44" class="code">function obj = addScalefactor(obj, varargin)</a></li>
+<li><a href="#_sub45" class="code">function obj = removeScalefactor(obj, varargin)</a></li>
+<li><a href="#_sub46" class="code">function obj = setScalefactor(obj, varargin)</a></li>
+<li><a href="#_sub47" class="code">function obj = addQzshift(obj, varargin)</a></li>
 <li><a href="#_sub48" class="code">function obj = addCustomFile(obj, varargin)</a></li>
-<li><a href="#_sub49" class="code">function obj = removeCustomFile(obj, index)</a></li>
-<li><a href="#_sub50" class="code">function obj = setCustomFile(obj,varargin)</a></li>
-<li><a href="#_sub51" class="code">function obj = addContrast(obj,varargin)</a></li>
-<li><a href="#_sub52" class="code">function obj = removeContrast(obj,varargin)</a></li>
-<li><a href="#_sub53" class="code">function obj = setContrast(obj,varargin)</a></li>
-<li><a href="#_sub54" class="code">function obj = setContrastModel(obj,varargin)</a></li>
+<li><a href="#_sub49" class="code">function obj = removeCustomFile(obj, row)</a></li>
+<li><a href="#_sub50" class="code">function obj = setCustomFile(obj, row, varargin)</a></li>
+<li><a href="#_sub51" class="code">function obj = addContrast(obj, varargin)</a></li>
+<li><a href="#_sub52" class="code">function obj = removeContrast(obj, row)</a></li>
+<li><a href="#_sub53" class="code">function obj = setContrast(obj, row, varargin)</a></li>
+<li><a href="#_sub54" class="code">function obj = setContrastModel(obj, row, model)</a></li>
 <li><a href="#_sub55" class="code">function outStruct = toStruct(obj)</a></li>
 <li><a href="#_sub56" class="code">function group = getPropertyGroup1(obj)</a></li>
 <li><a href="#_sub57" class="code">function displayScalarObject(obj)</a></li>
@@ -121,7 +123,7 @@ This function is called by:
 0006     <span class="comment">%</span>
 0007     <span class="comment">% Sub objects used are:</span>
 0008     <span class="comment">% parametersClass      - parameter definition with priors</span>
-0009     <span class="comment">% layersClassRealSLD   - layers defined as (d,rho_real,rough,hydration)</span>
+0009     <span class="comment">% layersClass          - layers defined as (d,rho_real,rough,hydration)</span>
 0010     <span class="comment">% backgroundsClass     -</span>
 0011     <span class="comment">% resolutionsClass     -</span>
 0012     <span class="comment">% dataClass            -</span>
@@ -132,7 +134,7 @@ This function is called by:
 0017         experimentName
 0018         geometry
 0019         parameters          <span class="comment">% parametersClass object</span>
-0020         layers              <span class="comment">% layersClassRealSLD object</span>
+0020         layers              <span class="comment">% layersClass object</span>
 0021         bulkIn              <span class="comment">% parametersClass object</span>
 0022         bulkOut             <span class="comment">% parametersClass object</span>
 0023         background          <span class="comment">% backgroundsClass object</span>
@@ -142,463 +144,463 @@ This function is called by:
 0027         contrasts           <span class="comment">% contrastsClass object</span>
 0028         data                <span class="comment">% dataClass object</span>
 0029         customFile          <span class="comment">% Custom file object</span>
-0030         
-0031         usePriors = false
-0032 
-0033         modelType = <span class="string">'standard layers'</span>
-0034     <span class="keyword">end</span>
-0035        
-0036     methods
-0037 
-0038         <a name="_sub0" href="#_subfunctions" class="code">function obj = projectClass(varargin)</a>
-0039             <span class="comment">% Creates a Project object. The only argument is the</span>
-0040             <span class="comment">% experiment name which is a char array</span>
-0041             <span class="comment">%</span>
-0042             <span class="comment">% problem = projectClass('New experiment');</span>
-0043             <span class="keyword">if</span> isempty(varargin)
-0044                 name = <span class="string">''</span>;
-0045             <span class="keyword">elseif</span> ~ischar(varargin{1})
-0046                 throw(invalidType(<span class="string">'Input must be char'</span>));
-0047             <span class="keyword">else</span>
-0048                 name = varargin{1};
-0049             <span class="keyword">end</span>
-0050 
-0051             obj.experimentName = name;
-0052             obj.geometry = <span class="string">'air/substrate'</span>;
-0053             
-0054             <span class="comment">% Initialise the Parameters Table</span>
-0055             obj.parameters = <a href="parametersClass.html" class="code" title="">parametersClass</a>({<span class="string">'Substrate Roughness'</span>,1, 3, 5,true,<span class="string">'uniform'</span>,0,Inf});
-0056             
-0057             <span class="comment">% Initialise the layers table</span>
-0058             obj.layers = <a href="layersClassRealSLD.html" class="code" title="">layersClassRealSLD</a>();
-0059             
-0060             <span class="comment">% Initialise bulkIn table</span>
-0061             obj.bulkIn = <a href="parametersClass.html" class="code" title="">parametersClass</a>({<span class="string">'SLD Air'</span>,0,0,0,false,<span class="string">'uniform'</span>,0,Inf});
-0062             
-0063             <span class="comment">% Initialise bulkOut table</span>
-0064             obj.bulkOut = <a href="parametersClass.html" class="code" title="">parametersClass</a>({<span class="string">'SLD D2O'</span>,6.2e-6,6.35e-6,6.35e-6,false,<span class="string">'uniform'</span>,0,Inf});
-0065             
-0066             <span class="comment">% Initialise scalefactors table</span>
-0067             obj.scalefactors = <a href="parametersClass.html" class="code" title="">parametersClass</a>({<span class="string">'Scalefactor 1'</span>,0.02,0.23,0.25,false,<span class="string">'uniform'</span>,0,Inf});
-0068             
-0069             <span class="comment">% Initialise qzshifts table</span>
-0070             obj.qzshifts = <a href="parametersClass.html" class="code" title="">parametersClass</a>({<span class="string">'Qz shift 1'</span>,-1e-4,0,1e-4,false,<span class="string">'uniform'</span>,0,Inf});
-0071             
-0072             <span class="comment">% Initialise backs object</span>
-0073             backPars = <a href="parametersClass.html" class="code" title="">parametersClass</a>({<span class="string">'Backs par 1'</span>,1e-7,1e-6,1e-5,false,<span class="string">'uniform'</span>,0,Inf});
-0074             backgrounds = {<span class="string">'Background 1'</span>,<span class="string">'constant'</span>,<span class="string">'Backs Par 1'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
-0075             obj.background = <a href="backgroundsClass.html" class="code" title="">backgroundsClass</a>(backPars, backgrounds);
-0076             
-0077             <span class="comment">% Initialise resolution object</span>
-0078             resolPars = <a href="parametersClass.html" class="code" title="">parametersClass</a>({<span class="string">'Resolution par 1'</span>,0.01,0.03,0.05,false,<span class="string">'uniform'</span>,0,Inf});
-0079             resolutions = {<span class="string">'Resolution 1'</span>,<span class="string">'constant'</span>,<span class="string">'Resolution par 1'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
-0080             obj.resolution = <a href="resolutionsClass.html" class="code" title="">resolutionsClass</a>(resolPars, resolutions);
-0081             
-0082             <span class="comment">% Initialise data object</span>
-0083             obj.data = <a href="dataClass.html" class="code" title="">dataClass</a>(<span class="string">'Simulation'</span>, [], [], []);
-0084             
-0085             <span class="comment">% Initialise Contrasts object.</span>
-0086             obj.contrasts = <a href="contrastsClass.html" class="code" title="">contrastsClass</a>();
-0087             
-0088             <span class="comment">% Initialise custom file object</span>
-0089             obj.customFile = <a href="customFileClass.html" class="code" title="">customFileClass</a>();
-0090             
-0091         <span class="keyword">end</span>
-0092         
-0093         
-0094         <a name="_sub1" href="#_subfunctions" class="code">function obj = setUsePriors(obj, showFlag)</a>
-0095             <span class="comment">% Sets the use priors flag. The showFlag should be a boolean/logical.</span>
-0096             <span class="comment">%</span>
-0097             <span class="comment">% problem.setUsePriors(true);</span>
-0098             <span class="keyword">if</span> ~islogical(showFlag)
-0099                 throw(invalidType(<span class="string">'usePriors must be logical ''true'' or ''false'''</span>));
-0100             <span class="keyword">end</span>
-0101             obj.usePriors = showFlag;
-0102             
-0103             <span class="comment">% Also need to set the flag in sub-objects</span>
-0104             <span class="comment">% where relevant..</span>
-0105             <span class="comment">% (1) Parameters</span>
-0106             <span class="comment">% replace with showFlag</span>
-0107             obj.parameters.showPriors = showFlag;
-0108             
-0109             <span class="comment">% (2) Bulk In</span>
-0110             obj.bulkIn.showPriors = showFlag;
-0111             
-0112             <span class="comment">% (3) Bulk out</span>
-0113             obj.bulkOut.showPriors = showFlag;
-0114             
-0115             <span class="comment">% (4) Scalefactors</span>
-0116             obj.scalefactors.showPriors = showFlag;
-0117             
-0118             <span class="comment">% (5) Qz shifts</span>
-0119             obj.qzshifts.showPriors = showFlag;
-0120             
-0121             <span class="comment">% (6) Backgrounds (parameters table)</span>
-0122             obj.background.backPars.showPriors = showFlag;
-0123             
-0124             <span class="comment">% (7) Resolutions (parameters table)</span>
-0125             obj.resolution.resolPars.showPriors = showFlag;
-0126             
-0127         <span class="keyword">end</span>
-0128         
-0129         <a name="_sub2" href="#_subfunctions" class="code">function obj = setGeometry(obj,val)</a>
-0130             <span class="comment">% Sets the experiment geometry. The geometry should be a string,</span>
-0131             <span class="comment">% either &quot;Air/Substrate&quot; or &quot;Substrate/Liquid&quot; is permitted.</span>
-0132             <span class="comment">%</span>
-0133             <span class="comment">% problem.setGeometry('Substrate/liquid');</span>
-0134             <span class="keyword">if</span> ~ischar(val)
-0135                 throw(invalidType(<span class="string">'Geometry must be a char array'</span>))
-0136             <span class="keyword">end</span>
-0137 
-0138             <span class="keyword">if</span> strcmpi(val,<span class="string">'air/substrate'</span>)
-0139                 obj.geometry = <span class="string">'air/substrate'</span>;
-0140             <span class="keyword">elseif</span> strcmpi(val,<span class="string">'substrate/liquid'</span>)
-0141                 obj.geometry = <span class="string">'substrate/liquid'</span>;
-0142             <span class="keyword">else</span>
-0143                 throw(invalidOption(<span class="string">'Expecting ''Air/Substrate'' or ''Substrate/Liquid'''</span>))
-0144             <span class="keyword">end</span>
-0145         <span class="keyword">end</span>
-0146         
-0147         <a name="_sub3" href="#_subfunctions" class="code">function obj = setModelType(obj,val)</a>
-0148             <span class="comment">% Sets the experiment type. The type should be a string,</span>
-0149             <span class="comment">% either &quot;standard layers&quot;, &quot;custom layers&quot;, or &quot;custom xy&quot; is permitted.</span>
-0150             <span class="comment">%</span>
-0151             <span class="comment">% problem.setModelType('Custom Layers');</span>
-0152             
-0153             <span class="keyword">if</span> ~ischar(val)
-0154                 throw(invalidType(<span class="string">'Expecting a char array'</span>));
-0155             <span class="keyword">end</span>
-0156             
-0157             <span class="keyword">if</span> ~any(strcmpi(val,{<span class="string">'standard layers'</span>,<span class="string">'custom layers'</span>,<span class="string">'custom xy'</span>}))
-0158                 throw(invalidOption(<span class="string">'experiment type has to be Standard Layers, Custom Layers or Custom XY'</span>));
-0159             <span class="keyword">end</span>
-0160             
-0161             obj.modelType = lower(val);
-0162             
-0163         <span class="keyword">end</span>
-0164         
-0165 
-0166         <a name="_sub4" href="#_subfunctions" class="code">function names = getAllAllowedNames(obj)           </a>
-0167             <span class="comment">% Returns a cell array of all currently</span>
-0168             <span class="comment">% set parameter names for the project.</span>
-0169             names.paramNames = obj.parameters.getParamNames();
-0170             names.backsNames = obj.background.getBackgroundNames();
-0171             names.backParNames = obj.background.backPars.getParamNames();
-0172             names.bulkInNames = obj.bulkIn.getParamNames();
-0173             names.bulkOutNames = obj.bulkOut.getParamNames();
-0174             names.resolsNames = obj.resolution.getResolNames();
-0175             names.resolParNames = obj.resolution.resolPars.getParamNames();
-0176             names.layersNames = obj.layers.getLayersNames();
-0177             names.dataNames = obj.data.getDataNames();
-0178             names.scalefacNames = obj.scalefactors.getParamNames();
-0179             names.qzShiftNames = obj.qzshifts.getParamNames();
-0180             names.customNames = obj.customFile.getCustomNames(); 
-0181         <span class="keyword">end</span>
-0182         
-0183         <span class="comment">% ---------------------------------</span>
-0184         <span class="comment">% Editing Parameters Block</span>
-0185         
-0186         <a name="_sub5" href="#_subfunctions" class="code">function obj = addParamGroup(obj,varargin)</a>
-0187             <span class="comment">% Adds a group of parameters to the parameters object. Expects a cell</span>
-0188             <span class="comment">% array of parameter cell arrays.</span>
-0189             <span class="comment">%</span>
-0190             <span class="comment">% problem.addParamGroup({{'Tails Thickness'}; {'Heads Thickness'}});</span>
-0191             
-0192             input = varargin{:};
-0193             <span class="keyword">if</span> ~iscell(input)
-0194                 throw(invalidType(<span class="string">'Expecting a cell array of parameters'</span>));
-0195             <span class="keyword">end</span>
-0196             
-0197             <span class="keyword">for</span> i = 1:length(input)
-0198                 obj = <a href="#_sub7" class="code" title="subfunction obj = addParam(obj,varargin)">addParam</a>(obj,input{i});
-0199             <span class="keyword">end</span>
-0200         <span class="keyword">end</span>
+0030 
+0031         modelType = modelTypes.StandardLayers.value
+0032         usePriors = false
+0033     <span class="keyword">end</span>
+0034 
+0035     properties (SetAccess = immutable)
+0036         calculationType
+0037         protectedParameters
+0038     <span class="keyword">end</span>
+0039 
+0040     methods
+0041 
+0042         <a name="_sub0" href="#_subfunctions" class="code">function obj = projectClass(experimentName, calculationType, geometry)</a>
+0043             <span class="comment">% Creates a Project object. The only argument is the</span>
+0044             <span class="comment">% experiment name which is a char array, which is optional</span>
+0045             <span class="comment">%</span>
+0046             <span class="comment">% problem = projectClass('New experiment');</span>
+0047             arguments
+0048                 experimentName {mustBeTextScalar} = <span class="string">''</span>
+0049                 calculationType = calculationTypes.NonPolarised
+0050                 geometry = geometryOptions.AirSubstrate
+0051             <span class="keyword">end</span>
+0052 
+0053             invalidTypeMessage = sprintf(<span class="string">'calculationType must be a calculationTypes enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0054                                  strjoin(calculationTypes.values(), <span class="string">', '</span>));
+0055 
+0056             obj.calculationType = validateOption(calculationType, <span class="string">'calculationTypes'</span>, invalidTypeMessage).value;
+0057 
+0058             invalidGeometryMessage = sprintf(<span class="string">'geometry must be a geometryOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0059                                      strjoin(geometryOptions.values(), <span class="string">', '</span>));
+0060 
+0061             obj.geometry = validateOption(geometry, <span class="string">'geometryOptions'</span>, invalidGeometryMessage).value;
+0062 
+0063             obj.experimentName = experimentName;
+0064 
+0065             <span class="comment">% Initialise the Parameters Table</span>
+0066             obj.parameters = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Substrate Roughness'</span>,1, 3, 5,true,priorTypes.Uniform,0,Inf);
+0067 
+0068             <span class="keyword">if</span> isequal(calculationType, calculationTypes.OilWater.value)
+0069                 obj.addParam(<span class="string">'Oil Thickness'</span>);
+0070                 obj.addParam(<span class="string">'Oil Roughness'</span>);
+0071             <span class="keyword">end</span>
+0072             
+0073             obj.protectedParameters = cellstr(obj.parameters.getParamNames');
+0074             
+0075             <span class="comment">% Initialise the layers table</span>
+0076             obj.layers = <a href="layersClass.html" class="code" title="">layersClass</a>();
+0077 
+0078             <span class="comment">% Initialise bulkIn table</span>
+0079             obj.bulkIn = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'SLD Air'</span>,0,0,0,false,priorTypes.Uniform,0,Inf);
+0080             
+0081             <span class="comment">% Initialise bulkOut table</span>
+0082             obj.bulkOut = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'SLD D2O'</span>,6.2e-6,6.35e-6,6.35e-6,false,priorTypes.Uniform,0,Inf);
+0083             
+0084             <span class="comment">% Initialise scalefactors table</span>
+0085             obj.scalefactors = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Scalefactor 1'</span>,0.02,0.23,0.25,false,priorTypes.Uniform,0,Inf);
+0086             
+0087             <span class="comment">% Initialise qzshifts table</span>
+0088             obj.qzshifts = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Qz shift 1'</span>,-1e-4,0,1e-4,false,priorTypes.Uniform,0,Inf);
+0089             
+0090             <span class="comment">% Initialise backs object</span>
+0091             backPars = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Backs par 1'</span>,1e-7,1e-6,1e-5,false,priorTypes.Uniform,0,Inf);
+0092             backgrounds = {<span class="string">'Background 1'</span>,allowedTypes.Constant.value,<span class="string">'Backs Par 1'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+0093             obj.background = <a href="backgroundsClass.html" class="code" title="">backgroundsClass</a>(backPars, backgrounds);
+0094             
+0095             <span class="comment">% Initialise resolution object</span>
+0096             resolPars = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Resolution par 1'</span>,0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
+0097             resolutions = {<span class="string">'Resolution 1'</span>,allowedTypes.Constant.value,<span class="string">'Resolution par 1'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+0098             obj.resolution = <a href="resolutionsClass.html" class="code" title="">resolutionsClass</a>(resolPars, resolutions);
+0099             
+0100             <span class="comment">% Initialise data object</span>
+0101             obj.data = <a href="dataClass.html" class="code" title="">dataClass</a>(<span class="string">'Simulation'</span>, [], [], []);
+0102 
+0103             <span class="comment">% Initialise custom file object</span>
+0104             obj.customFile = <a href="customFileClass.html" class="code" title="">customFileClass</a>();
+0105 
+0106             <span class="comment">% Initialise contrasts object</span>
+0107             obj.contrasts = <a href="contrastsClass.html" class="code" title="">contrastsClass</a>();               
+0108         <span class="keyword">end</span>
+0109         
+0110         
+0111         <a name="_sub1" href="#_subfunctions" class="code">function obj = setUsePriors(obj, showFlag)</a>
+0112             <span class="comment">% Sets the use priors flag. The showFlag should be a boolean/logical.</span>
+0113             <span class="comment">%</span>
+0114             <span class="comment">% problem.setUsePriors(true);</span>
+0115             <span class="keyword">if</span> ~islogical(showFlag)
+0116                 throw(invalidType(<span class="string">'usePriors must be logical ''true'' or ''false'''</span>));
+0117             <span class="keyword">end</span>
+0118             obj.usePriors = showFlag;
+0119             
+0120             <span class="comment">% Also need to set the flag in sub-objects</span>
+0121             <span class="comment">% where relevant..</span>
+0122             <span class="comment">% (1) Parameters</span>
+0123             <span class="comment">% replace with showFlag</span>
+0124             obj.parameters.showPriors = showFlag;
+0125             
+0126             <span class="comment">% (2) Bulk In</span>
+0127             obj.bulkIn.showPriors = showFlag;
+0128             
+0129             <span class="comment">% (3) Bulk out</span>
+0130             obj.bulkOut.showPriors = showFlag;
+0131             
+0132             <span class="comment">% (4) Scalefactors</span>
+0133             obj.scalefactors.showPriors = showFlag;
+0134             
+0135             <span class="comment">% (5) Qz shifts</span>
+0136             obj.qzshifts.showPriors = showFlag;
+0137             
+0138             <span class="comment">% (6) Backgrounds (parameters table)</span>
+0139             obj.background.backPars.showPriors = showFlag;
+0140             
+0141             <span class="comment">% (7) Resolutions (parameters table)</span>
+0142             obj.resolution.resolPars.showPriors = showFlag;
+0143             
+0144         <span class="keyword">end</span>
+0145         
+0146         <a name="_sub2" href="#_subfunctions" class="code">function obj = setGeometry(obj, geometry)</a>
+0147             <span class="comment">% Sets the experiment geometry. The geometry should be a string,</span>
+0148             <span class="comment">% either &quot;Air/Substrate&quot; or &quot;Substrate/Liquid&quot; is permitted.</span>
+0149             <span class="comment">%</span>
+0150             <span class="comment">% problem.setGeometry('Substrate/liquid');</span>
+0151             invalidTypeMessage = sprintf(<span class="string">'Geometry must be a geometryOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0152                                          strjoin(geometryOptions.values(), <span class="string">', '</span>));
+0153             obj.geometry = validateOption(geometry, <span class="string">'geometryOptions'</span>, invalidTypeMessage).value;
+0154         <span class="keyword">end</span>
+0155         
+0156         <a name="_sub3" href="#_subfunctions" class="code">function obj = setModelType(obj, modelType)</a>
+0157             <span class="comment">% Sets the experiment type. The type should be a string,</span>
+0158             <span class="comment">% either &quot;standard layers&quot;, &quot;custom layers&quot;, or &quot;custom xy&quot; is permitted.</span>
+0159             <span class="comment">%</span>
+0160             <span class="comment">% problem.setModelType('Custom Layers');</span>
+0161             invalidTypeMessage = sprintf(<span class="string">'Experiment type must be a modelTypes enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0162                                          strjoin(modelTypes.values(), <span class="string">', '</span>));
+0163             obj.modelType = validateOption(modelType, <span class="string">'modelTypes'</span>, invalidTypeMessage).value;
+0164         <span class="keyword">end</span>
+0165         
+0166 
+0167         <a name="_sub4" href="#_subfunctions" class="code">function names = getAllAllowedNames(obj)           </a>
+0168             <span class="comment">% Returns a cell array of all currently</span>
+0169             <span class="comment">% set parameter names for the project.</span>
+0170             names.paramNames = obj.parameters.getParamNames();
+0171             names.backsNames = obj.background.getBackgroundNames();
+0172             names.backParNames = obj.background.backPars.getParamNames();
+0173             names.bulkInNames = obj.bulkIn.getParamNames();
+0174             names.bulkOutNames = obj.bulkOut.getParamNames();
+0175             names.resolsNames = obj.resolution.getResolNames();
+0176             names.resolParNames = obj.resolution.resolPars.getParamNames();
+0177             names.layersNames = obj.layers.getLayersNames();
+0178             names.dataNames = obj.data.getDataNames();
+0179             names.scalefacNames = obj.scalefactors.getParamNames();
+0180             names.qzShiftNames = obj.qzshifts.getParamNames();
+0181             names.customNames = obj.customFile.getCustomNames(); 
+0182         <span class="keyword">end</span>
+0183         
+0184         <span class="comment">% ---------------------------------</span>
+0185         <span class="comment">% Editing Parameters Block</span>
+0186         
+0187         <a name="_sub5" href="#_subfunctions" class="code">function obj = addParamGroup(obj, paramGroup)</a>
+0188             <span class="comment">% Adds a group of parameters to the parameters object.</span>
+0189             <span class="comment">% Expects a cell array of parameter cell arrays.</span>
+0190             <span class="comment">%</span>
+0191             <span class="comment">% problem.addParamGroup({{'Tails Thickness'}, {'Heads Thickness'}});</span>
+0192             <span class="keyword">for</span> i = 1:length(paramGroup)
+0193                 <span class="keyword">if</span> iscell(paramGroup{i})
+0194                     obj = <a href="#_sub7" class="code" title="subfunction obj = addParam(obj, varargin)">addParam</a>(obj, paramGroup{i});
+0195                 <span class="keyword">else</span>
+0196                     throw(invalidType(<span class="string">'Expecting a cell array of parameters in ''addParamGroup'''</span>));
+0197                 <span class="keyword">end</span>
+0198             <span class="keyword">end</span>
+0199         <span class="keyword">end</span>
+0200         
 0201         
-0202         
-0203         <a name="_sub6" href="#_subfunctions" class="code">function obj = addParam(obj,varargin)</a>
-0204             <span class="comment">% Adds an individual parameter to the parameters object.</span>
-0205             <span class="comment">% Check how many parameters we are adding and make sure all</span>
-0206             <span class="comment">% the inputs are cells. A parameter consists of a name, min,</span>
-0207             <span class="comment">% value, max, fit flag, prior type', mu, and sigma. The input</span>
-0208             <span class="comment">% is optional but if provided should contain 1, 2, 4, 5, or 8</span>
-0209             <span class="comment">% values of the parameter to added.</span>
-0210             <span class="comment">%</span>
-0211             <span class="comment">% problem.addParam('Tails Roughness');</span>
-0212             <span class="keyword">if</span> isempty(varargin)
-0213                 obj.parameters.addParam();
-0214             <span class="keyword">else</span>
-0215                 <span class="comment">% If the input is wrapped in a cell (so varargin is a cell of a cell)</span>
-0216                 <span class="comment">% need to unwrap one layer of it, otherwise keep varargin as it is</span>
-0217                 <span class="keyword">if</span> iscell(varargin{:})
-0218                     thisParam = varargin{:};
-0219                 <span class="keyword">else</span>
-0220                     thisParam = varargin;
-0221                 <span class="keyword">end</span>
-0222                 obj.parameters.addParam(thisParam);
-0223             <span class="keyword">end</span>
-0224             
-0225         <span class="keyword">end</span>
-0226                 
-0227         <a name="_sub7" href="#_subfunctions" class="code">function obj = removeParam(obj,varargin)</a>
-0228             <span class="comment">% Removes a parameter from the parameters object. The</span>
-0229             <span class="comment">% parameter will also be removed from the layers array</span>
-0230             <span class="comment">% if it is in use. Expects index or name of parameter to</span>
-0231             <span class="comment">% remove</span>
-0232             <span class="comment">%</span>
-0233             <span class="comment">% problem.removeParam(2);</span>
-0234             removing = varargin;
-0235             numberOfParams = length(removing);
-0236             
-0237             <span class="comment">% Remove the param</span>
-0238             <span class="keyword">for</span> i = 1:numberOfParams
-0239                 thisParam = varargin;<span class="comment">%{i};</span>
-0240                 
-0241                 <span class="comment">% Make sure we don't remove substrate roughness</span>
-0242                 <span class="keyword">if</span> (isequal(thisParam{1},1)) || (strcmpi(thisParam{1},<span class="string">'Substrate Roughness'</span>))
-0243                     throw(invalidOption(<span class="string">'Can''t remove protected parameter Substrate Roughness'</span>));
-0244                 <span class="keyword">end</span>
-0245                 
-0246                 <span class="keyword">if</span> iscell(thisParam)
-0247                     thisParam = thisParam{:};
-0248                 <span class="keyword">end</span>
-0249                 
-0250                 <span class="comment">% No need to check validity of the parameter</span>
-0251                 <span class="comment">% as this is done in the parameters class</span>
-0252                 obj.parameters.removeParam(thisParam);
-0253                 
-0254                 <span class="comment">% Need to check if it is used in the layers</span>
-0255                 <span class="comment">% array and remove it if so. Should be able</span>
-0256                 <span class="comment">% to do this with array indexing, but can't quite figure</span>
-0257                 <span class="comment">% that out atm, so just use a (dirty) loop over all</span>
-0258                 <span class="comment">% the elements for now..</span>
-0259                 
-0260                 findParam = string(thisParam);
-0261                 laysTable = obj.layers.layersTable;
-0262                 dims = size(laysTable);
-0263                 <span class="keyword">for</span> m = 1:dims(1)
-0264                     <span class="keyword">for</span> n = 1:dims(2)
-0265                         tablePar = laysTable{m,n};   <span class="comment">% Should be a string</span>
-0266                         <span class="keyword">if</span> isequal(findParam,tablePar)
-0267                             obj.layers.layersTable(m,n) = {&quot;&quot;};
-0268                         <span class="keyword">end</span>
-0269                     <span class="keyword">end</span>
-0270                 <span class="keyword">end</span>
-0271             <span class="keyword">end</span>
-0272             
-0273         <span class="keyword">end</span>
-0274         
-0275         <a name="_sub8" href="#_subfunctions" class="code">function obj = setParameter(obj,varargin)</a>
-0276             <span class="comment">% General purpose set parameter method. Expects</span>
-0277             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
-0278             <span class="comment">%</span>
-0279             <span class="comment">% problem.setParameter(2, 'value', 50);</span>
-0280             obj.parameters.setParameter(varargin);
-0281         <span class="keyword">end</span>
-0282         
-0283         
-0284         <a name="_sub9" href="#_subfunctions" class="code">function obj = setParamValue(obj,varargin)</a>
-0285             <span class="comment">% Sets the value of a given parameter. Expects</span>
-0286             <span class="comment">% index or name of parameter and new value to set</span>
-0287             <span class="comment">%</span>
-0288             <span class="comment">% problem.setParamValue(2, 50);</span>
-0289             obj.parameters.setValue(varargin);
-0290         <span class="keyword">end</span>
-0291         
-0292         <a name="_sub10" href="#_subfunctions" class="code">function obj = setParamConstr(obj,varargin)</a>
-0293             <span class="comment">% Sets the constraints of an existing parameter.</span>
-0294             <span class="comment">% Expects index or name of parameter and new min</span>
-0295             <span class="comment">% and max of the parameter's value</span>
-0296             <span class="comment">%</span>
-0297             <span class="comment">% problem.setParamConstr(2, 0, 100);</span>
-0298             obj.parameters.setConstr(varargin);
-0299         <span class="keyword">end</span>
-0300         
-0301         <a name="_sub11" href="#_subfunctions" class="code">function obj = setParamName(obj,varargin)</a>
-0302             <span class="comment">% Sets the name of an existing parameter</span>
-0303             <span class="comment">% Expects index or name of parameter and the</span>
-0304             <span class="comment">% new name</span>
-0305             <span class="comment">%</span>
-0306             <span class="comment">% problem.setParamName(2, 'new name');</span>
-0307             inputValue = varargin;
-0308             <span class="keyword">if</span> (isequal(inputValue{1},1)) || (strcmpi(inputValue{1},<span class="string">'Substrate Roughness'</span>))
-0309                 throw(invalidOption(<span class="string">'Can''t rename protected parameter Substrate Roughness'</span>));
-0310             <span class="keyword">end</span>
-0311             obj.parameters.setName(varargin); <span class="comment">%= updatedParams;</span>
-0312         <span class="keyword">end</span>
-0313         
-0314         <a name="_sub12" href="#_subfunctions" class="code">function obj = setParamFit(obj,varargin)</a>
-0315             <span class="comment">% Sets the 'fit' to off or on for parameter.</span>
-0316             <span class="comment">% Expects index or name of parameter and</span>
-0317             <span class="comment">% new fit flag</span>
-0318             <span class="comment">%</span>
-0319             <span class="comment">% problem.setParamFit(2, true);</span>
-0320             obj.parameters.setFit(varargin);
-0321         <span class="keyword">end</span>
-0322         
-0323         <a name="_sub13" href="#_subfunctions" class="code">function obj = setParamPrior(obj,varargin)</a>
-0324             <span class="comment">% Sets the prior type of the parameter.</span>
-0325             <span class="comment">% Expects index or name of parameter and</span>
-0326             <span class="comment">% new prior type('uniform','gaussian','jeffreys')</span>
-0327             <span class="comment">%</span>
-0328             <span class="comment">% problem.setParamPrior(2, 'uniform');</span>
-0329             obj.parameters.setPrior(varargin);  
-0330         <span class="keyword">end</span>
-0331         
-0332         <span class="comment">% -----------------------------------------------------</span>
-0333         
-0334         <span class="comment">% Editing of layers block</span>
-0335         <a name="_sub14" href="#_subfunctions" class="code">function obj = addLayerGroup(obj,varargin)</a>
-0336             <span class="comment">% Adds a group of layers to the layers object. Expects</span>
-0337             <span class="comment">% a cell array of layer cell arrays</span>
-0338             <span class="comment">%</span>
-0339             <span class="comment">% problem.addLayerGroup({'Layer 1'; 'Layer 2'});</span>
-0340             input = varargin{:};
-0341             <span class="keyword">if</span> ~iscell(input)
-0342                 throw(invalidType(<span class="string">'Expecting a cell array of layers'</span>));
-0343             <span class="keyword">end</span>
-0344             
-0345             <span class="keyword">for</span> i = 1:length(input)
-0346                 obj = <a href="#_sub16" class="code" title="subfunction obj = addLayer(obj,varargin)">addLayer</a>(obj,input{i});
-0347             <span class="keyword">end</span>
-0348             
-0349         <span class="keyword">end</span>
-0350         
-0351         
-0352         <a name="_sub15" href="#_subfunctions" class="code">function obj = addLayer(obj,varargin)</a>
-0353             <span class="comment">% Adds a single layer to the layers object. Expects a cell</span>
-0354             <span class="comment">% array containing layer details which are name, thickness,</span>
-0355             <span class="comment">% SLD, roughness, hydration, and hydrate with, or provided</span>
-0356             <span class="comment">% a name to create an empty layer.</span>
-0357             <span class="comment">%</span>
-0358             <span class="comment">% problem.addLayer('New Layer');</span>
-0359             obj.layers.addLayer(obj.parameters.paramsTable{:,1}, varargin{:});        
-0360         <span class="keyword">end</span>
-0361 
-0362         <a name="_sub16" href="#_subfunctions" class="code">function obj = removeLayer(obj,layer)</a>
-0363             <span class="comment">% Removes layer(s) from the layers object. Expects</span>
-0364             <span class="comment">% index of layer(s) to remove.</span>
-0365             <span class="comment">%</span>
-0366             <span class="comment">% problem.removeLayer(1);</span>
-0367             obj.layers.removeLayer(layer);
-0368         <span class="keyword">end</span>
-0369 
-0370         <a name="_sub17" href="#_subfunctions" class="code">function obj = setLayerValue(obj,varargin)</a>
-0371             <span class="comment">% Sets a value of a given layer. Expects the row/name and</span>
-0372             <span class="comment">% column of layer value to set, then the name/index of the</span>
-0373             <span class="comment">% parameter to set the value to.</span>
-0374             <span class="comment">%</span>
-0375             <span class="comment">% problem.setLayerValue(1, 2, 'Tails Thickness');</span>
-0376             <span class="keyword">if</span> length(varargin) ~= 3
-0377                 throw(invalidNumberOfInputs(<span class="string">'Three parameters expected into setLayerValue'</span>));
-0378             <span class="keyword">end</span>
-0379 
-0380             <span class="comment">% call the layers class to set the value</span>
-0381             obj.layers.setLayerValue(varargin{1}, varargin{2}, varargin{3}, obj.parameters.paramsTable{:,1});           
-0382         <span class="keyword">end</span>
-0383         
-0384         <span class="comment">% ---------------------------------------------------------------</span>
-0385         
-0386         <span class="comment">% Editing of Backgrounds block</span>
+0202         <a name="_sub6" href="#_subfunctions" class="code">function obj = addParam(obj, varargin)</a>
+0203             <span class="comment">% Adds an individual parameter to the parameters object.</span>
+0204             <span class="comment">% Check how many parameters we are adding and make sure all</span>
+0205             <span class="comment">% the inputs are cells. A parameter consists of a name, min,</span>
+0206             <span class="comment">% value, max, fit flag, prior type', mu, and sigma. The input</span>
+0207             <span class="comment">% is optional but if provided should contain 1, 2, 4, 5, or 8</span>
+0208             <span class="comment">% values of the parameter to added.</span>
+0209             <span class="comment">%</span>
+0210             <span class="comment">% problem.addParam('Tails Roughness');</span>
+0211             <span class="keyword">if</span> isempty(varargin)
+0212                 obj.parameters.addParam();
+0213             <span class="keyword">else</span>
+0214                 <span class="keyword">if</span> length(varargin) == 1 &amp;&amp; iscell(varargin{:})
+0215                     params = varargin{:};
+0216                 <span class="keyword">else</span>
+0217                     params = varargin;
+0218                 <span class="keyword">end</span>
+0219                 obj.parameters.addParam(params{:});
+0220             <span class="keyword">end</span> 
+0221         <span class="keyword">end</span>
+0222                 
+0223         <a name="_sub7" href="#_subfunctions" class="code">function obj = removeParam(obj, row)</a>
+0224             <span class="comment">% Removes a parameter from the parameters object. The</span>
+0225             <span class="comment">% parameter will also be removed from the layers array</span>
+0226             <span class="comment">% if it is in use. Expects series of indices or names of</span>
+0227             <span class="comment">% parameters to remove</span>
+0228             <span class="comment">%</span>
+0229             <span class="comment">% problem.removeParam(2);</span>
+0230             <span class="keyword">if</span> isa(row, <span class="string">'double'</span>)
+0231                 row = num2cell(sort(row, <span class="string">'descend'</span>));
+0232             <span class="keyword">elseif</span> isText(row)
+0233                 row = cellstr(row);
+0234             <span class="keyword">elseif</span> iscell(row)
+0235             <span class="keyword">else</span>
+0236                 throw(invalidType(<span class="string">'Unrecognised Row'</span>))
+0237             <span class="keyword">end</span>
+0238 
+0239             <span class="keyword">for</span> i = 1:length(row)
+0240                 thisParam = row{i};
+0241                 
+0242                 <span class="comment">% Make sure we don't remove any protected parameters</span>
+0243                 <span class="keyword">if</span> (isnumeric(thisParam) &amp;&amp; thisParam &lt;= length(obj.protectedParameters)) || any((strcmpi(thisParam, obj.protectedParameters)))
+0244                     throw(invalidOption(sprintf(<span class="string">'Can''t remove protected parameters'</span>)));
+0245                 <span class="keyword">end</span>
+0246                 
+0247                 <span class="comment">% No need to check validity of the parameter</span>
+0248                 <span class="comment">% as this is done in the parameters class</span>
+0249                 obj.parameters.removeParam(thisParam);
+0250                 
+0251                 <span class="comment">% Need to check if it is used in the layers</span>
+0252                 <span class="comment">% array and remove it if so. Should be able</span>
+0253                 <span class="comment">% to do this with array indexing, but can't quite figure</span>
+0254                 <span class="comment">% that out atm, so just use a (dirty) loop over all</span>
+0255                 <span class="comment">% the elements for now..</span>
+0256                 
+0257                 findParam = string(thisParam);
+0258                 laysTable = obj.layers.layersTable;
+0259                 dims = size(laysTable);
+0260                 <span class="keyword">for</span> m = 1:dims(1)
+0261                     <span class="keyword">for</span> n = 1:dims(2)
+0262                         tablePar = laysTable{m,n};   <span class="comment">% Should be a string</span>
+0263                         <span class="keyword">if</span> isequal(findParam, tablePar)
+0264                             obj.layers.layersTable(m,n) = {<span class="string">''</span>};
+0265                         <span class="keyword">end</span>
+0266                     <span class="keyword">end</span>
+0267                 <span class="keyword">end</span>
+0268             <span class="keyword">end</span>
+0269             
+0270         <span class="keyword">end</span>
+0271         
+0272         <a name="_sub8" href="#_subfunctions" class="code">function obj = setParameter(obj, row, varargin)</a>
+0273             <span class="comment">% General purpose set parameter method. Expects</span>
+0274             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
+0275             <span class="comment">%</span>
+0276             <span class="comment">% problem.setParameter(2, 'value', 50);</span>
+0277             obj.parameters.setParameter(row, varargin{:});
+0278         <span class="keyword">end</span>
+0279         
+0280         
+0281         <a name="_sub9" href="#_subfunctions" class="code">function obj = setParamValue(obj, row, value)</a>
+0282             <span class="comment">% Sets the value of a given parameter. Expects</span>
+0283             <span class="comment">% index or name of parameter and new value to set</span>
+0284             <span class="comment">%</span>
+0285             <span class="comment">% problem.setParamValue(2, 50);</span>
+0286             obj.parameters.setValue(row, value);
+0287         <span class="keyword">end</span>
+0288         
+0289         <a name="_sub10" href="#_subfunctions" class="code">function obj = setParamConstr(obj, row, min, max)</a>
+0290             <span class="comment">% Sets the constraints of an existing parameter.</span>
+0291             <span class="comment">% Expects index or name of parameter and new min</span>
+0292             <span class="comment">% and max of the parameter's value</span>
+0293             <span class="comment">%</span>
+0294             <span class="comment">% problem.setParamConstr(2, 0, 100);</span>
+0295             obj.parameters.setConstr(row, min, max);
+0296         <span class="keyword">end</span>
+0297         
+0298         <a name="_sub11" href="#_subfunctions" class="code">function obj = setParamName(obj, row, name)</a>
+0299             <span class="comment">% Sets the name of an existing parameter</span>
+0300             <span class="comment">% Expects index or name of parameter and the</span>
+0301             <span class="comment">% new name</span>
+0302             <span class="comment">%</span>
+0303             <span class="comment">% problem.setParamName(2, 'new name');</span>
+0304             <span class="keyword">if</span> (isnumeric(row) &amp;&amp; row &lt;= length(obj.protectedParameters)) || any((strcmpi(row, obj.protectedParameters)))
+0305                 throw(invalidOption(<span class="string">'Can''t rename protected parameters'</span>));
+0306             <span class="keyword">end</span>
+0307             obj.parameters.setName(row, name);
+0308         <span class="keyword">end</span>
+0309         
+0310         <a name="_sub12" href="#_subfunctions" class="code">function obj = setParamFit(obj, row, fitFlag)</a>
+0311             <span class="comment">% Sets the 'fit' to off or on for parameter.</span>
+0312             <span class="comment">% Expects index or name of parameter and</span>
+0313             <span class="comment">% new fit flag</span>
+0314             <span class="comment">%</span>
+0315             <span class="comment">% problem.setParamFit(2, true);</span>
+0316             obj.parameters.setFit(row, fitFlag);
+0317         <span class="keyword">end</span>
+0318         
+0319         <a name="_sub13" href="#_subfunctions" class="code">function obj = setParamPrior(obj, row, varargin)</a>
+0320             <span class="comment">% Sets the prior type of the parameter.</span>
+0321             <span class="comment">% Expects index or name of parameter and</span>
+0322             <span class="comment">% new prior type('uniform','gaussian','jeffreys')</span>
+0323             <span class="comment">%</span>
+0324             <span class="comment">% problem.setParamPrior(2, 'uniform');</span>
+0325             obj.parameters.setPrior(row, varargin{:});  
+0326         <span class="keyword">end</span>
+0327         
+0328         <span class="comment">% -----------------------------------------------------</span>
+0329         
+0330         <span class="comment">% Editing of layers block</span>
+0331         <a name="_sub14" href="#_subfunctions" class="code">function obj = addLayerGroup(obj, layerGroup)</a>
+0332             <span class="comment">% Adds a group of layers to the layers object. Expects</span>
+0333             <span class="comment">% a cell array of layer cell arrays</span>
+0334             <span class="comment">%</span>
+0335             <span class="comment">% problem.addLayerGroup({{'Layer 1'}, {'Layer 2'}});</span>
+0336             <span class="keyword">for</span> i = 1:length(layerGroup)
+0337                 <span class="keyword">if</span> iscell(layerGroup{i})
+0338                     obj = <a href="#_sub16" class="code" title="subfunction obj = addLayer(obj, varargin)">addLayer</a>(obj, layerGroup{i});
+0339                 <span class="keyword">else</span>
+0340                     throw(invalidType(<span class="string">'Expecting a cell array of parameters in ''addLayerGroup'''</span>));
+0341                 <span class="keyword">end</span>
+0342             <span class="keyword">end</span>  
+0343         <span class="keyword">end</span>
+0344         
+0345         <a name="_sub15" href="#_subfunctions" class="code">function obj = addLayer(obj, varargin)</a>
+0346             <span class="comment">% Adds a single layer to the layers object. Expects layer</span>
+0347             <span class="comment">% details which are name, thickness, SLD, roughness,</span>
+0348             <span class="comment">% hydration, and hydrate with, or provide with no details,</span>
+0349             <span class="comment">% or just a name, to create an empty layer.</span>
+0350             <span class="comment">%</span>
+0351             <span class="comment">% problem.addLayer('New Layer');</span>
+0352             <span class="keyword">if</span> isempty(varargin)
+0353                 obj.layers.addLayer(obj.parameters.paramsTable{:,1});
+0354             <span class="keyword">else</span>
+0355                 <span class="comment">% If the input is wrapped in a cell (so varargin is a cell of a cell)</span>
+0356                 <span class="comment">% need to unwrap one layer of it, otherwise keep varargin as it is</span>
+0357                 <span class="keyword">if</span> length(varargin) == 1 &amp;&amp; iscell(varargin{:})
+0358                     thisLayer = varargin{:};
+0359                 <span class="keyword">else</span>
+0360                     thisLayer = varargin;
+0361                 <span class="keyword">end</span>
+0362                 obj.layers.addLayer(obj.parameters.paramsTable{:,1}, thisLayer{:});
+0363             <span class="keyword">end</span>
+0364         <span class="keyword">end</span>
+0365 
+0366         <a name="_sub16" href="#_subfunctions" class="code">function obj = removeLayer(obj, layer)</a>
+0367             <span class="comment">% Removes layer(s) from the layers object. Expects</span>
+0368             <span class="comment">% index of layer(s) to remove.</span>
+0369             <span class="comment">%</span>
+0370             <span class="comment">% problem.removeLayer(1);</span>
+0371             obj.layers.removeLayer(layer);
+0372         <span class="keyword">end</span>
+0373 
+0374         <a name="_sub17" href="#_subfunctions" class="code">function obj = setLayerValue(obj, row, col, value)</a>
+0375             <span class="comment">% Sets a value of a given layer. Expects the row/name and</span>
+0376             <span class="comment">% column of layer value to set, then the name/index of the</span>
+0377             <span class="comment">% parameter to set the value to.</span>
+0378             <span class="comment">%</span>
+0379             <span class="comment">% problem.setLayerValue(1, 2, 'Tails Thickness');</span>
+0380             obj.layers.setLayerValue(row, col, value, obj.parameters.paramsTable{:,1});           
+0381         <span class="keyword">end</span>
+0382         
+0383         <span class="comment">% ---------------------------------------------------------------</span>
+0384         
+0385         <span class="comment">% Editing of Backgrounds block</span>
+0386         
 0387         
-0388         
-0389         <span class="comment">%(1) Background Parameters</span>
-0390         <a name="_sub18" href="#_subfunctions" class="code">function obj = addBacksPar(obj, varargin)</a>
-0391             <span class="comment">% Adds a new background parameter. A parameter consists</span>
-0392             <span class="comment">% of a name, min, value, max, fit flag, prior type', mu,</span>
-0393             <span class="comment">% and sigma</span>
-0394             <span class="comment">%</span>
-0395             <span class="comment">% problem.addBacksPar('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);</span>
-0396             obj.background.backPars.addParam(varargin);
-0397         <span class="keyword">end</span>
-0398         
-0399         <a name="_sub19" href="#_subfunctions" class="code">function obj = removeBacksPar(obj, varargin)</a>
-0400             <span class="comment">% Removes a given background parameter.</span>
-0401             <span class="comment">% Expects index or name of parameter to remove</span>
-0402             <span class="comment">%</span>
-0403             <span class="comment">% problem.removeBacksPar(2);</span>
-0404             obj.background.backPars.removeParam(varargin{:});
-0405         <span class="keyword">end</span>
-0406         
-0407         <a name="_sub20" href="#_subfunctions" class="code">function obj = setBacksParValue(obj,varargin)</a>
-0408             <span class="comment">% Sets the value of existing background</span>
-0409             <span class="comment">% parameter. Expects index or name of parameter</span>
-0410             <span class="comment">% and new value to set</span>
-0411             <span class="comment">%</span>
-0412             <span class="comment">% problem.setBacksParValue(1, 5.5e-6);</span>
-0413             obj.background.backPars.setValue(varargin);
-0414         <span class="keyword">end</span>
-0415         
-0416         <a name="_sub21" href="#_subfunctions" class="code">function obj = setBacksParConstr(obj,varargin)</a>
-0417             <span class="comment">% Sets the constraints of existing background</span>
-0418             <span class="comment">% parameter. Expects index or name of parameter</span>
-0419             <span class="comment">% and new min and max of the parameter's value</span>
-0420             <span class="comment">%</span>
-0421             <span class="comment">% problem.setBacksParConstr(1, 0, 1);</span>
-0422             obj.background.backPars.setConstr(varargin);
-0423         <span class="keyword">end</span>
-0424         
-0425         <a name="_sub22" href="#_subfunctions" class="code">function obj = setBacksParName(obj,varargin)</a>
-0426             <span class="comment">% Sets the name of an existing background</span>
-0427             <span class="comment">% parameter. Expects index or name of parameter</span>
-0428             <span class="comment">% and the new name</span>
-0429             <span class="comment">%</span>
-0430             <span class="comment">% problem.setBacksParName(2, 'new name');</span>
-0431             obj.background.backPars.setName(varargin);
-0432         <span class="keyword">end</span>
-0433         
-0434         <span class="comment">% (2) Backgrounds</span>
-0435         <a name="_sub23" href="#_subfunctions" class="code">function obj = addBackground(obj,varargin)</a>
-0436             <span class="comment">% Adds a background to the project. Expects a</span>
-0437             <span class="comment">% cell array with background name and type and</span>
-0438             <span class="comment">% up to 4 parameters</span>
-0439             <span class="comment">%</span>
-0440             <span class="comment">% problem.addBackground('name','constant','par');</span>
-0441             obj.background.addBackground(varargin{:});
-0442         <span class="keyword">end</span>
-0443         
-0444         <a name="_sub24" href="#_subfunctions" class="code">function obj = removeBackground(obj,varargin)</a>
-0445             <span class="comment">% Removes background from the project. Expects</span>
-0446             <span class="comment">% index of background to remove</span>
+0388         <span class="comment">%(1) Background Parameters</span>
+0389         <a name="_sub18" href="#_subfunctions" class="code">function obj = addBacksPar(obj, varargin)</a>
+0390             <span class="comment">% Adds a new background parameter. A parameter consists</span>
+0391             <span class="comment">% of a name, min, value, max, fit flag, prior type', mu,</span>
+0392             <span class="comment">% and sigma</span>
+0393             <span class="comment">%</span>
+0394             <span class="comment">% problem.addBacksPar('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);</span>
+0395             obj.background.backPars.addParam(varargin{:});
+0396         <span class="keyword">end</span>
+0397         
+0398         <a name="_sub19" href="#_subfunctions" class="code">function obj = removeBacksPar(obj, varargin)</a>
+0399             <span class="comment">% Removes a given background parameter.</span>
+0400             <span class="comment">% Expects index or name of parameter to remove</span>
+0401             <span class="comment">%</span>
+0402             <span class="comment">% problem.removeBacksPar(2);</span>
+0403             obj.background.backPars.removeParam(varargin{:});
+0404         <span class="keyword">end</span>
+0405         
+0406         <a name="_sub20" href="#_subfunctions" class="code">function obj = setBacksParValue(obj, row, value)</a>
+0407             <span class="comment">% Sets the value of existing background</span>
+0408             <span class="comment">% parameter. Expects index or name of parameter</span>
+0409             <span class="comment">% and new value to set</span>
+0410             <span class="comment">%</span>
+0411             <span class="comment">% problem.setBacksParValue(1, 5.5e-6);</span>
+0412             obj.background.backPars.setValue(row, value);
+0413         <span class="keyword">end</span>
+0414         
+0415         <a name="_sub21" href="#_subfunctions" class="code">function obj = setBacksParConstr(obj, row, min, max)</a>
+0416             <span class="comment">% Sets the constraints of existing background</span>
+0417             <span class="comment">% parameter. Expects index or name of parameter</span>
+0418             <span class="comment">% and new min and max of the parameter's value</span>
+0419             <span class="comment">%</span>
+0420             <span class="comment">% problem.setBacksParConstr(1, 0, 1);</span>
+0421             obj.background.backPars.setConstr(row, min, max);
+0422         <span class="keyword">end</span>
+0423         
+0424         <a name="_sub22" href="#_subfunctions" class="code">function obj = setBacksParName(obj, row, name)</a>
+0425             <span class="comment">% Sets the name of an existing background</span>
+0426             <span class="comment">% parameter. Expects index or name of parameter</span>
+0427             <span class="comment">% and the new name</span>
+0428             <span class="comment">%</span>
+0429             <span class="comment">% problem.setBacksParName(2, 'new name');</span>
+0430             obj.background.backPars.setName(row, name);
+0431         <span class="keyword">end</span>
+0432         
+0433         <span class="comment">% (2) Backgrounds</span>
+0434         <a name="_sub23" href="#_subfunctions" class="code">function obj = addBackground(obj, varargin)</a>
+0435             <span class="comment">% Adds a background to the project. Expects a</span>
+0436             <span class="comment">% cell array with background name and type and</span>
+0437             <span class="comment">% up to 4 parameters</span>
+0438             <span class="comment">%</span>
+0439             <span class="comment">% problem.addBackground('name', 'constant', 'par');</span>
+0440             obj.background.addBackground(varargin{:});
+0441         <span class="keyword">end</span>
+0442         
+0443         <a name="_sub24" href="#_subfunctions" class="code">function obj = removeBackground(obj, row)</a>
+0444             <span class="comment">% Removes background from the project. Expects</span>
+0445             <span class="comment">% index or array of indices of background(s) of background(s)</span>
+0446             <span class="comment">% to remove</span>
 0447             <span class="comment">%</span>
 0448             <span class="comment">% problem.removeBackground(1);</span>
-0449             obj.background.removeBackground(varargin{:});
+0449             obj.background.removeBackground(row);
 0450         <span class="keyword">end</span>
 0451         
-0452         <a name="_sub25" href="#_subfunctions" class="code">function obj = setBackground(obj,varargin)</a>
+0452         <a name="_sub25" href="#_subfunctions" class="code">function obj = setBackground(obj, row, varargin)</a>
 0453             <span class="comment">% Sets the value of an existing background. Expects</span>
 0454             <span class="comment">% index or name of background and keyword/value pairs to set</span>
 0455             <span class="comment">%</span>
 0456             <span class="comment">% problem.setBackground(1, 'name', 'Background ACMW');</span>
-0457             obj.background.setBackground(varargin{:});
+0457             obj.background.setBackground(row, varargin{:});
 0458         <span class="keyword">end</span>
 0459         
-0460         <a name="_sub26" href="#_subfunctions" class="code">function obj = setBackgroundName(obj,varargin)</a>
+0460         <a name="_sub26" href="#_subfunctions" class="code">function obj = setBackgroundName(obj, row, name)</a>
 0461             <span class="comment">% Sets the name of an existing Background.</span>
 0462             <span class="comment">% Expects index or name of background and the new name</span>
 0463             <span class="comment">%</span>
 0464             <span class="comment">% problem.setBackgroundName(2, 'new name');</span>
-0465             obj.background.setBackgroundName(varargin{:});
+0465             obj.background.setBackgroundName(row, name);
 0466         <span class="keyword">end</span>
 0467         
-0468         <a name="_sub27" href="#_subfunctions" class="code">function obj = setBacksPar(obj,varargin)</a>
+0468         <a name="_sub27" href="#_subfunctions" class="code">function obj = setBacksPar(obj, varargin)</a>
 0469             <span class="comment">% Sets the value of an existing background parameter. Expects</span>
 0470             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
 0471             <span class="comment">%</span>
 0472             <span class="comment">% problem.setBacksPar(1, 'name', 'Backs Value H2O');</span>
-0473             obj.background.backPars.setParameter(varargin);
+0473             obj.background.backPars.setParameter(varargin{:});
 0474         <span class="keyword">end</span>
 0475         
 0476         <span class="comment">% -------------------------------------------------------------</span>
 0477         <span class="comment">%   Editing of Resolutions block</span>
 0478         
 0479         <span class="comment">% Resol Pars</span>
-0480         <a name="_sub28" href="#_subfunctions" class="code">function obj = setResolParValue(obj,varargin)</a>
+0480         <a name="_sub28" href="#_subfunctions" class="code">function obj = setResolParValue(obj, row, value)</a>
 0481             <span class="comment">% Sets the value of existing resolution</span>
 0482             <span class="comment">% parameter. Expects index or name of parameter</span>
 0483             <span class="comment">% and new value to set</span>
 0484             <span class="comment">%</span>
 0485             <span class="comment">% problem.setResolParValue(1, 5.5e-6);</span>
-0486             obj.resolution.resolPars.setValue(varargin);
+0486             obj.resolution.resolPars.setValue(row, value);
 0487         <span class="keyword">end</span>
 0488         
 0489         <a name="_sub29" href="#_subfunctions" class="code">function obj = addResolPar(obj, varargin)</a>
@@ -607,18 +609,18 @@ This function is called by:
 0492             <span class="comment">% and sigma</span>
 0493             <span class="comment">%</span>
 0494             <span class="comment">% problem.addResolPar('ResolPar 1', 1e-8, 2.8e-6, 1e-5);</span>
-0495             obj.resolution.resolPars.addParam(varargin);
+0495             obj.resolution.resolPars.addParam(varargin{:});
 0496         <span class="keyword">end</span>
 0497         
-0498         <a name="_sub30" href="#_subfunctions" class="code">function obj = setResolPar(obj,varargin)</a>
+0498         <a name="_sub30" href="#_subfunctions" class="code">function obj = setResolPar(obj, varargin)</a>
 0499             <span class="comment">% Sets the value of an existing resolution parameter. Expects</span>
 0500             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
 0501             <span class="comment">%</span>
 0502             <span class="comment">% problem.setResolPar(1, 'name', 'ResolPar');</span>
-0503             obj.resolution.resolPars.setParameter(varargin);
+0503             obj.resolution.resolPars.setParameter(varargin{:});
 0504         <span class="keyword">end</span>
 0505         
-0506         <a name="_sub31" href="#_subfunctions" class="code">function obj = removeResolPar(obj,varargin)</a>
+0506         <a name="_sub31" href="#_subfunctions" class="code">function obj = removeResolPar(obj, varargin)</a>
 0507             <span class="comment">% Removes a given resolution parameter.</span>
 0508             <span class="comment">% Expects index or name of parameter to remove</span>
 0509             <span class="comment">%</span>
@@ -627,7 +629,7 @@ This function is called by:
 0512         <span class="keyword">end</span>
 0513         
 0514         <span class="comment">% Resolutions</span>
-0515         <a name="_sub32" href="#_subfunctions" class="code">function obj = addResolution(obj,varargin)</a>
+0515         <a name="_sub32" href="#_subfunctions" class="code">function obj = addResolution(obj, varargin)</a>
 0516             <span class="comment">% Adds a resolution to the project. Expects a</span>
 0517             <span class="comment">% cell array with resolution name and type and</span>
 0518             <span class="comment">% up to 4 parameters</span>
@@ -636,12 +638,12 @@ This function is called by:
 0521             obj.resolution.addResolution(varargin{:});
 0522         <span class="keyword">end</span>
 0523         
-0524         <a name="_sub33" href="#_subfunctions" class="code">function obj = removeResolution(obj,varargin)</a>
+0524         <a name="_sub33" href="#_subfunctions" class="code">function obj = removeResolution(obj, row)</a>
 0525             <span class="comment">% Removes resolution from the project. Expects</span>
 0526             <span class="comment">% index of resolution to remove</span>
 0527             <span class="comment">%</span>
 0528             <span class="comment">% problem.removeResolution(1);</span>
-0529             obj.resolution.removeResolution(varargin{:});
+0529             obj.resolution.removeResolution(row);
 0530         <span class="keyword">end</span>
 0531         
 0532         
@@ -680,15 +682,15 @@ This function is called by:
 0565         <span class="comment">% ---------------------------------------------------------------</span>
 0566         <span class="comment">%   Editing of Bulk out block</span>
 0567         
-0568         <a name="_sub37" href="#_subfunctions" class="code">function obj = addBulkOut(obj,varargin)</a>
+0568         <a name="_sub37" href="#_subfunctions" class="code">function obj = addBulkOut(obj, varargin)</a>
 0569             <span class="comment">% Adds a new bulk-out parameter. Expects the name</span>
 0570             <span class="comment">% of bulk-out, min, value, max, and if fit is off or on</span>
 0571             <span class="comment">%</span>
 0572             <span class="comment">% problem.addBulkOut('SLD ACMW', -1e-6, 0.0, 1e-6, true);</span>
-0573             obj.bulkOut.addParam(varargin);
+0573             obj.bulkOut.addParam(varargin{:});
 0574         <span class="keyword">end</span>
 0575         
-0576         <a name="_sub38" href="#_subfunctions" class="code">function obj = removeBulkOut(obj,varargin)</a>
+0576         <a name="_sub38" href="#_subfunctions" class="code">function obj = removeBulkOut(obj, varargin)</a>
 0577             <span class="comment">% Removes specified bulk-out parameter. Expects the name/index</span>
 0578             <span class="comment">% of bulk-out to remove</span>
 0579             <span class="comment">%</span>
@@ -696,27 +698,27 @@ This function is called by:
 0581             obj.bulkOut.removeParam(varargin{:});
 0582         <span class="keyword">end</span>
 0583         
-0584         <a name="_sub39" href="#_subfunctions" class="code">function obj = setBulkOut(obj,varargin)</a>
+0584         <a name="_sub39" href="#_subfunctions" class="code">function obj = setBulkOut(obj, varargin)</a>
 0585             <span class="comment">% Edits an existing bulk-out parameter. Expects the</span>
 0586             <span class="comment">% index of bulk-out to edit and key-value pairs</span>
 0587             <span class="comment">%</span>
 0588             <span class="comment">% problem.setBulkOut(1, 'name', 'SLD H2O', 'min', 2.07e-6);</span>
-0589             obj.bulkOut.setParameter(varargin);
+0589             obj.bulkOut.setParameter(varargin{:});
 0590         <span class="keyword">end</span>
 0591         
 0592         
 0593         <span class="comment">% ------------------------------------------------------------------</span>
 0594         <span class="comment">% Editing of bulk in block</span>
 0595         
-0596         <a name="_sub40" href="#_subfunctions" class="code">function obj = addBulkIn(obj,varargin)</a>
+0596         <a name="_sub40" href="#_subfunctions" class="code">function obj = addBulkIn(obj, varargin)</a>
 0597             <span class="comment">% Adds a new bulk-in parameter. Expects the name</span>
 0598             <span class="comment">% of bulk-in, min, value, max, and if fit is off or on</span>
 0599             <span class="comment">%</span>
 0600             <span class="comment">% problem.addBulkIn('Silicon', -1e-6, 0.0, 1e-6, true);</span>
-0601             obj.bulkIn.addParam(varargin);
+0601             obj.bulkIn.addParam(varargin{:});
 0602         <span class="keyword">end</span>
 0603         
-0604         <a name="_sub41" href="#_subfunctions" class="code">function obj = removeBulkIn(obj,varargin)</a>
+0604         <a name="_sub41" href="#_subfunctions" class="code">function obj = removeBulkIn(obj, varargin)</a>
 0605             <span class="comment">% Removes specified bulk-in parameter. Expects the name/index</span>
 0606             <span class="comment">% of bulk-in to remove</span>
 0607             <span class="comment">%</span>
@@ -724,26 +726,26 @@ This function is called by:
 0609             obj.bulkIn.removeParam(varargin{:});
 0610         <span class="keyword">end</span>
 0611         
-0612         <a name="_sub42" href="#_subfunctions" class="code">function obj = setBulkIn(obj,varargin)</a>
+0612         <a name="_sub42" href="#_subfunctions" class="code">function obj = setBulkIn(obj, varargin)</a>
 0613             <span class="comment">% Edits an existing bulk-in parameter. Expects the</span>
 0614             <span class="comment">% index of bulk-in to edit and key-value pairs</span>
 0615             <span class="comment">%</span>
 0616             <span class="comment">% problem.setBulkIn(1, 'name', 'Silicon', 'max', 2.07e-6);</span>
-0617             obj.bulkIn.setParameter(varargin);
+0617             obj.bulkIn.setParameter(varargin{:});
 0618         <span class="keyword">end</span>
 0619         
 0620         <span class="comment">% -------------------------------------------------------------------</span>
 0621         <span class="comment">% Editing of scalefactors block</span>
 0622         
-0623         <a name="_sub43" href="#_subfunctions" class="code">function obj = addScalefactor(obj,varargin)</a>
+0623         <a name="_sub43" href="#_subfunctions" class="code">function obj = addScalefactor(obj, varargin)</a>
 0624             <span class="comment">% Adds a new scale factor parameter. Expects the name</span>
 0625             <span class="comment">% of scale factor, min, value, max, and if fit is off or on</span>
 0626             <span class="comment">%</span>
-0627             <span class="comment">% problem.addScalefactor({'Scalefactor 2', 0.1, 0.19, 1.0, true});</span>
+0627             <span class="comment">% problem.addScalefactor('Scalefactor 2', 0.1, 0.19, 1.0, true);</span>
 0628             obj.scalefactors.addParam(varargin{:});
 0629         <span class="keyword">end</span>
 0630         
-0631         <a name="_sub44" href="#_subfunctions" class="code">function obj = removeScalefactor(obj,varargin)</a>
+0631         <a name="_sub44" href="#_subfunctions" class="code">function obj = removeScalefactor(obj, varargin)</a>
 0632             <span class="comment">% Removes specified scale factor parameter. Expects the name/index</span>
 0633             <span class="comment">% of scale factor to remove</span>
 0634             <span class="comment">%</span>
@@ -751,23 +753,23 @@ This function is called by:
 0636            obj.scalefactors.removeParam(varargin{:}); 
 0637         <span class="keyword">end</span>
 0638         
-0639         <a name="_sub45" href="#_subfunctions" class="code">function obj = setScalefactor(obj,varargin)</a>
+0639         <a name="_sub45" href="#_subfunctions" class="code">function obj = setScalefactor(obj, varargin)</a>
 0640             <span class="comment">% Edits an existing scale factor parameter. Expects the</span>
 0641             <span class="comment">% index of scale factor to edit and key-value pairs</span>
 0642             <span class="comment">%</span>
 0643             <span class="comment">% problem.setScalefactor(1, 'name','Scalefactor 1', 'value', 0.23251);</span>
-0644             obj.scalefactors.setParameter(varargin);
+0644             obj.scalefactors.setParameter(varargin{:});
 0645         <span class="keyword">end</span>
 0646         
 0647 
 0648         <span class="comment">% -----------------------------------------------------------------</span>
 0649         <span class="comment">% Editing of qzshifts block</span>
 0650         
-0651         <a name="_sub46" href="#_subfunctions" class="code">function obj = addQzshift(obj,varargin)</a>
+0651         <a name="_sub46" href="#_subfunctions" class="code">function obj = addQzshift(obj, varargin)</a>
 0652             <span class="comment">% Adds a new qz shift parameter. Expects the name</span>
 0653             <span class="comment">% of qz shift, min, value, max, and if fit is off or on</span>
 0654             <span class="comment">%</span>
-0655             <span class="comment">% problem..addQzshift({'Qz shift 2', -0.2e-4, 0, 2e-4, false});</span>
+0655             <span class="comment">% problem..addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);</span>
 0656             obj.qzshifts.addParam(varargin{:}); 
 0657         <span class="keyword">end</span>
 0658         
@@ -780,23 +782,23 @@ This function is called by:
 0665             <span class="comment">% language (matlab, octave, or cpp), and working directory</span>
 0666             <span class="comment">%</span>
 0667             <span class="comment">% problem.addCustomFile('model 1', 'custom.m', 'matlab', 'pwd');</span>
-0668             obj.customFile.addCustomFile(varargin);
+0668             obj.customFile.addCustomFile(varargin{:});
 0669         <span class="keyword">end</span>
 0670 
-0671         <a name="_sub48" href="#_subfunctions" class="code">function obj = removeCustomFile(obj, index)</a>
+0671         <a name="_sub48" href="#_subfunctions" class="code">function obj = removeCustomFile(obj, row)</a>
 0672             <span class="comment">% Removes custom file entry(ies) from the custom files object.</span>
 0673             <span class="comment">% Expects index of entry(ies) to remove.</span>
 0674             <span class="comment">%</span>
 0675             <span class="comment">% problem.removeCustomFile(1);</span>
-0676             obj.customFile.removeCustomFile(index);
+0676             obj.customFile.removeCustomFile(row);
 0677         <span class="keyword">end</span>
 0678 
-0679         <a name="_sub49" href="#_subfunctions" class="code">function obj = setCustomFile(obj,varargin)</a>
+0679         <a name="_sub49" href="#_subfunctions" class="code">function obj = setCustomFile(obj, row, varargin)</a>
 0680             <span class="comment">% Edits an existing custom file parameter. Expects the</span>
 0681             <span class="comment">% index of custom file to edit and key-value pairs</span>
 0682             <span class="comment">%</span>
 0683             <span class="comment">% problem.setCustomFile(2, 'filename', 'custom.cpp');</span>
-0684             obj.customFile.setCustomFile(varargin);
+0684             obj.customFile.setCustomFile(row, varargin{:});
 0685         <span class="keyword">end</span>
 0686         
 0687         
@@ -804,256 +806,210 @@ This function is called by:
 0689         <span class="comment">%</span>
 0690         <span class="comment">%   Editing of Contrasts Block</span>
 0691         
-0692         <a name="_sub50" href="#_subfunctions" class="code">function obj = addContrast(obj,varargin)</a>
+0692         <a name="_sub50" href="#_subfunctions" class="code">function obj = addContrast(obj, varargin)</a>
 0693             <span class="comment">% Adds a new contrast parameter. Expects a parameter name, and with</span>
-0694             <span class="comment">% key-value pairs with one or more of the following &quot;data&quot;, &quot;background&quot;,</span>
-0695             <span class="comment">% &quot;bulk in&quot;, &quot;bulk out&quot;, &quot;scalefactor&quot;, &quot;resolution&quot;, &quot;resample&quot;, &quot;model</span>
-0696             <span class="comment">%</span>
-0697             <span class="comment">% problem.addContrast('contrast 1', 'nba', 'Silicon');</span>
-0698             allowedNames = obj.getAllAllowedNames();
-0699             obj.contrasts.addContrast(allowedNames,varargin);
-0700             
+0694             <span class="comment">% key-value pairs with one or more of the following &quot;data&quot;,</span>
+0695             <span class="comment">% &quot;background&quot;, &quot;bulk in&quot;, &quot;bulk out&quot;, &quot;scalefactor&quot;,</span>
+0696             <span class="comment">% &quot;resolution&quot;, &quot;resample&quot;, &quot;model&quot;</span>
+0697             <span class="comment">%</span>
+0698             <span class="comment">% problem.addContrast('contrast 1', 'nba', 'Silicon');</span>
+0699             allowedNames = obj.getAllAllowedNames();
+0700             obj.contrasts.addContrast(allowedNames, varargin{:});   
 0701         <span class="keyword">end</span>
 0702 
-0703         <a name="_sub51" href="#_subfunctions" class="code">function obj = removeContrast(obj,varargin)</a>
+0703         <a name="_sub51" href="#_subfunctions" class="code">function obj = removeContrast(obj, row)</a>
 0704             <span class="comment">% Removes a specified contrast parameter. Expects</span>
 0705             <span class="comment">% index or name of resolution to remove</span>
 0706             <span class="comment">%</span>
 0707             <span class="comment">% problem.removeContrast(1);</span>
-0708             obj.contrasts.removeContrast(varargin{:});
+0708             obj.contrasts.removeContrast(row);
 0709         <span class="keyword">end</span>
 0710 
-0711         
-0712         <a name="_sub52" href="#_subfunctions" class="code">function obj = setContrast(obj,varargin)   </a>
-0713             <span class="comment">% Allow setting of all parameters in terms of name value pairs.</span>
-0714             <span class="comment">% First input must be contrast number or name, subsequent</span>
-0715             <span class="comment">% inputs are name / value pairs for the parts involved</span>
-0716             <span class="comment">%</span>
-0717             <span class="comment">% problem.setContrast(1, 'name', 'contrast')</span>
-0718             contrastInput = varargin{1};
-0719             inputVals = varargin(2:end);
-0720                         
-0721             <span class="comment">% Get the list of allowed values depending on what is</span>
-0722             <span class="comment">% set for the other contrasts.</span>
-0723             allowedValues = obj.getAllAllowedNames;
-0724             
-0725             <span class="comment">% Call the setContrast method</span>
-0726             obj.contrasts.setContrast(contrastInput,allowedValues,inputVals);
-0727             
-0728         <span class="keyword">end</span>
-0729         
-0730         <a name="_sub53" href="#_subfunctions" class="code">function obj = setContrastModel(obj,varargin)</a>
-0731             <span class="comment">% Edits the model of an existing contrast parameter. Expects the</span>
-0732             <span class="comment">% index of contrast parameter and cell array of layer names</span>
-0733             <span class="comment">%</span>
-0734             <span class="comment">% problem.setContrastModel(1, {'layer 1'})</span>
-0735             contrastInput = varargin{1};
-0736             inputVals = varargin(2:end);
-0737                         
-0738             <span class="comment">% Make a different allowed list depending on whether</span>
-0739             <span class="comment">% it is custom or layers</span>
-0740             <span class="keyword">if</span> ~strcmpi(obj.modelType, {<span class="string">'custom layers'</span>,<span class="string">'custom xy'</span>})
-0741                 <span class="comment">% Standard Layers</span>
-0742                 allowedValues = obj.layers.getLayersNames();
-0743                 inputVals = inputVals{:};
-0744             <span class="keyword">else</span>
-0745                 <span class="comment">% Custom models</span>
-0746                 allowedValues = obj.customFile.getCustomNames();
-0747             <span class="keyword">end</span>
-0748             
-0749             <span class="comment">% Call the setContrastModel method</span>
-0750             obj.contrasts.setContrastModel(contrastInput, obj.modelType, allowedValues, inputVals);
-0751 
-0752         <span class="keyword">end</span>
-0753         
-0754         <a name="_sub54" href="#_subfunctions" class="code">function outStruct = toStruct(obj)    </a>
-0755             <span class="comment">% Converts the class parameters into a struct array for input into</span>
-0756             <span class="comment">% the RAT toolbox</span>
-0757             
-0758             <span class="comment">% Set which type of experiment this is</span>
-0759             generalStruct.experimentName = obj.experimentName;
-0760             generalStruct.TF = <span class="string">'standardTF'</span>;
-0761             
-0762             <span class="comment">% Add the 'general' fields</span>
-0763             generalStruct.modelType = lower(obj.modelType);  
-0764             generalStruct.geometry = obj.geometry;
-0765             
-0766             <span class="comment">% Parameters</span>
-0767             params = obj.parameters.toStruct();
-0768             paramStruct = cell2struct(struct2cell(params),{<span class="string">'paramNames'</span>,<span class="keyword">...</span>
-0769                 <span class="string">'nParams'</span>,<span class="string">'paramConstr'</span>,<span class="string">'params'</span>,<span class="string">'paramFitYesNo'</span>,<span class="string">'paramPriors'</span>});
+0711         <a name="_sub52" href="#_subfunctions" class="code">function obj = setContrast(obj, row, varargin)   </a>
+0712             <span class="comment">% Allow setting of all parameters in terms of name value pairs.</span>
+0713             <span class="comment">% First input must be contrast number or name, subsequent</span>
+0714             <span class="comment">% inputs are name / value pairs for the parts involved</span>
+0715             <span class="comment">%</span>
+0716             <span class="comment">% problem.setContrast(1, 'name', 'contrast')</span>
+0717                         
+0718             <span class="comment">% Get the list of allowed values depending on what is</span>
+0719             <span class="comment">% set for the other contrasts.</span>
+0720             allowedValues = obj.getAllAllowedNames;
+0721             
+0722             <span class="comment">% Call the setContrast method</span>
+0723             obj.contrasts.setContrast(row, allowedValues, varargin{:});
+0724         <span class="keyword">end</span>
+0725         
+0726         <a name="_sub53" href="#_subfunctions" class="code">function obj = setContrastModel(obj, row, model)</a>
+0727             <span class="comment">% Edits the model of an existing contrast parameter. Expects</span>
+0728             <span class="comment">% the index of contrast parameter and cell array of layer names</span>
+0729             <span class="comment">%</span>
+0730             <span class="comment">% problem.setContrastModel(1, {'layer 1'})</span>
+0731                         
+0732             <span class="comment">% Make a different allowed list depending on whether</span>
+0733             <span class="comment">% it is custom or layers</span>
+0734             <span class="keyword">if</span> strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+0735                 <span class="comment">% Standard Layers</span>
+0736                 allowedValues = obj.layers.getLayersNames();
+0737             <span class="keyword">else</span>
+0738                 <span class="comment">% Custom models</span>
+0739                 allowedValues = obj.customFile.getCustomNames();
+0740             <span class="keyword">end</span>
+0741             
+0742             <span class="comment">% Call the setContrastModel method</span>
+0743             obj.contrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+0744         <span class="keyword">end</span>
+0745 
+0746         <span class="comment">% ----------------------------------------------------------------</span>
+0747 
+0748         <a name="_sub54" href="#_subfunctions" class="code">function outStruct = toStruct(obj)    </a>
+0749             <span class="comment">% Converts the class parameters into a struct array for input</span>
+0750             <span class="comment">% into the RAT toolbox</span>
+0751             
+0752             <span class="comment">% Set which type of experiment this is</span>
+0753             generalStruct.experimentName = obj.experimentName;
+0754             generalStruct.TF = obj.calculationType;
+0755             
+0756             <span class="comment">% Add the 'general' fields</span>
+0757             generalStruct.modelType = lower(obj.modelType);  
+0758             generalStruct.geometry = obj.geometry;
+0759             
+0760             <span class="comment">% Parameters</span>
+0761             params = obj.parameters.toStruct();
+0762             paramStruct = cell2struct(struct2cell(params),{<span class="string">'paramNames'</span>,<span class="keyword">...</span>
+0763                 <span class="string">'nParams'</span>,<span class="string">'paramConstr'</span>,<span class="string">'params'</span>,<span class="string">'paramFitYesNo'</span>,<span class="string">'paramPriors'</span>});
+0764             
+0765             <span class="comment">% Backgrounds</span>
+0766             backgroundStruct = obj.background.toStruct();
+0767             
+0768             <span class="comment">% Resolutions</span>
+0769             resolutionStruct = obj.resolution.toStruct();
 0770             
-0771             <span class="comment">% Backgrounds</span>
-0772             backgroundStruct = obj.background.toStruct();
-0773             
-0774             <span class="comment">% Resolutions</span>
-0775             resolutionStruct = obj.resolution.toStruct();
-0776             
-0777             <span class="comment">% Bulk in</span>
-0778             bulkInStruct = obj.bulkIn.toStruct();
-0779             bulkInStruct = cell2struct(struct2cell(bulkInStruct),{<span class="string">'nbairNames'</span>,<span class="keyword">...</span>
-0780                 <span class="string">'nNba'</span>,<span class="string">'nbairConstr'</span>,<span class="string">'nbairs'</span>,<span class="string">'nbaFitYesNo'</span>,<span class="string">'nbaPriors'</span>});
-0781             
-0782             <span class="comment">% Bulk out</span>
-0783             bulkOutStruct = obj.bulkOut.toStruct();
-0784             bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{<span class="string">'nbsubNames'</span>,<span class="keyword">...</span>
-0785                 <span class="string">'nNbs'</span>,<span class="string">'nbsubConstr'</span>,<span class="string">'nbsubs'</span>,<span class="string">'nbsFitYesNo'</span>,<span class="string">'nbsPriors'</span>});
-0786             
-0787             <span class="comment">% Scalefactors</span>
-0788             scalefactorStruct = obj.scalefactors.toStruct();
-0789             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{<span class="string">'scalefactorNames'</span>,<span class="keyword">...</span>
-0790                 <span class="string">'nScalefcators'</span>,<span class="string">'scalefactorConstr'</span>,<span class="string">'scalefactors'</span>,<span class="string">'scalefactorFitYesNo'</span>,<span class="string">'scalefactorPriors'</span>});
-0791             
-0792             <span class="comment">% Qzshifts</span>
-0793             qzshiftStruct = obj.qzshifts.toStruct();
-0794             qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{<span class="string">'qzshiftNames'</span>,<span class="keyword">...</span>
-0795                 <span class="string">'nQzshifts'</span>,<span class="string">'qzshiftConstr'</span>,<span class="string">'qzshifts'</span>,<span class="string">'qzshiftFitYesNo'</span>,<span class="string">'qzshiftPriors'</span>});
+0771             <span class="comment">% Bulk in</span>
+0772             bulkInStruct = obj.bulkIn.toStruct();
+0773             bulkInStruct = cell2struct(struct2cell(bulkInStruct),{<span class="string">'nbairNames'</span>,<span class="keyword">...</span>
+0774                 <span class="string">'nNba'</span>,<span class="string">'nbairConstr'</span>,<span class="string">'nbairs'</span>,<span class="string">'nbaFitYesNo'</span>,<span class="string">'nbaPriors'</span>});
+0775             
+0776             <span class="comment">% Bulk out</span>
+0777             bulkOutStruct = obj.bulkOut.toStruct();
+0778             bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{<span class="string">'nbsubNames'</span>,<span class="keyword">...</span>
+0779                 <span class="string">'nNbs'</span>,<span class="string">'nbsubConstr'</span>,<span class="string">'nbsubs'</span>,<span class="string">'nbsFitYesNo'</span>,<span class="string">'nbsPriors'</span>});
+0780             
+0781             <span class="comment">% Scalefactors</span>
+0782             scalefactorStruct = obj.scalefactors.toStruct();
+0783             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{<span class="string">'scalefactorNames'</span>,<span class="keyword">...</span>
+0784                 <span class="string">'nScalefactors'</span>,<span class="string">'scalefactorConstr'</span>,<span class="string">'scalefactors'</span>,<span class="string">'scalefactorFitYesNo'</span>,<span class="string">'scalefactorPriors'</span>});
+0785             
+0786             <span class="comment">% Qzshifts</span>
+0787             qzshiftStruct = obj.qzshifts.toStruct();
+0788             qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{<span class="string">'qzshiftNames'</span>,<span class="keyword">...</span>
+0789                 <span class="string">'nQzshifts'</span>,<span class="string">'qzshiftConstr'</span>,<span class="string">'qzshifts'</span>,<span class="string">'qzshiftFitYesNo'</span>,<span class="string">'qzshiftPriors'</span>});
+0790             
+0791             <span class="comment">% Layers</span>
+0792             layersStruct = obj.layers.toStruct(paramStruct.paramNames, generalStruct.modelType);
+0793 
+0794             <span class="comment">% Custom files</span>
+0795             customFileStruct = obj.customFile.toStruct();
 0796             
-0797             <span class="comment">% Layers</span>
-0798             layersCell = obj.layers.toStruct();
-0799             layersStruct.numberOfLayers = size(layersCell,1);
-0800             layersStruct.layersnames = layersCell(:,1);
-0801             
-0802             <span class="comment">% parse the layers details</span>
-0803             layersValues = layersCell(:,2:end);
-0804             paramNames = string(paramStruct.paramNames);
-0805             
-0806             <span class="keyword">switch</span> generalStruct.modelType
-0807                 <span class="keyword">case</span> <span class="string">'standard layers'</span>
-0808                     numberOfLayers = layersStruct.numberOfLayers;
-0809                     
-0810                     <span class="keyword">if</span> numberOfLayers &gt; 0
-0811                         <span class="comment">% Standard layers with layers present</span>
-0812                         <span class="keyword">for</span> i = 1:layersStruct.numberOfLayers
-0813                             thisLayer = layersValues(i,:);
-0814                             min = find(strcmpi(thisLayer{1},paramNames));
-0815                             val = find(strcmpi(thisLayer{2},paramNames));
-0816                             max = find(strcmpi(thisLayer{3},paramNames));
-0817                             <span class="keyword">if</span> ismissing(thisLayer(4))
-0818                                 hydr = NaN;
-0819                             <span class="keyword">else</span>
-0820                                 hydr = find(strcmpi(thisLayer{4},paramNames));
-0821                             <span class="keyword">end</span>
-0822                             <span class="keyword">if</span> strcmpi(thisLayer{5},<span class="string">'bulk in'</span>)
-0823                                 hydrWhat = 1;
-0824                             <span class="keyword">else</span>
-0825                                 hydrWhat = 2;
-0826                             <span class="keyword">end</span>
-0827                             layersDetails{i} = [min val max hydr hydrWhat];
-0828                         <span class="keyword">end</span>
-0829                         layersStruct.layersDetails = layersDetails(:);
-0830                     <span class="keyword">else</span>
-0831                         <span class="comment">% No layers present - still need to set</span>
-0832                         <span class="comment">% layersDetails</span>
-0833                         layersStruct.layersDetails = {};
-0834                     <span class="keyword">end</span>
-0835                 <span class="keyword">otherwise</span>
-0836                     <span class="comment">% Not standard layers experiment type</span>
-0837                     layersStruct.layersDetails = {};
-0838             <span class="keyword">end</span>
-0839             
-0840             <span class="comment">% Custom files</span>
-0841             customFileStruct = obj.customFile.toStruct();
-0842             
-0843             <span class="comment">% Contrasts.</span>
-0844             allNames = obj.getAllAllowedNames;
-0845             dataTable = obj.data.dataTable;
-0846             
-0847             contrastStruct = obj.contrasts.toStruct(allNames,generalStruct.modelType,dataTable);
+0797             <span class="comment">% Contrasts</span>
+0798             allNames = obj.getAllAllowedNames;
+0799             dataTable = obj.data.dataTable;
+0800             
+0801             contrastStruct = obj.contrasts.toStruct(allNames, generalStruct.modelType, dataTable);
+0802 
+0803             <span class="comment">% Merge all the outputs into one large structure</span>
+0804             outStruct = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(generalStruct, <span class="keyword">...</span>
+0805                                      paramStruct, <span class="keyword">...</span>
+0806                                      backgroundStruct, <span class="keyword">...</span>
+0807                                      resolutionStruct, <span class="keyword">...</span>
+0808                                      bulkInStruct, <span class="keyword">...</span>
+0809                                      bulkOutStruct, <span class="keyword">...</span>
+0810                                      scalefactorStruct, <span class="keyword">...</span>
+0811                                      qzshiftStruct, <span class="keyword">...</span>
+0812                                      layersStruct, <span class="keyword">...</span>
+0813                                      customFileStruct, <span class="keyword">...</span>
+0814                                      contrastStruct);
+0815             
+0816         <span class="keyword">end</span>
+0817         
+0818     <span class="keyword">end</span>     <span class="comment">% end public methods</span>
+0819     
+0820     <span class="comment">% ------------------------------------------------------------------</span>
+0821     
+0822     methods (Access = protected)
+0823         <span class="comment">% Display methods</span>
+0824         <a name="_sub55" href="#_subfunctions" class="code">function group = getPropertyGroup1(obj)</a>
+0825             <span class="comment">% Initial Parameters at the start of the class</span>
+0826             masterPropList = struct(<span class="string">'modelType'</span>,{obj.modelType},<span class="keyword">...</span>
+0827                 <span class="string">'experimentName'</span>,{obj.experimentName},<span class="keyword">...</span>
+0828                 <span class="string">'geometry'</span>, obj.geometry);
+0829             
+0830             <span class="keyword">if</span> isscalar(obj)
+0831                 group = matlab.mixin.util.PropertyGroup(masterPropList);
+0832             <span class="keyword">else</span>
+0833                 group = <a href="#_sub56" class="code" title="subfunction group = getPropertyGroup1(obj)">getPropertyGroup1</a>@matlab.mixin.CustomDisplay(obj);
+0834             <span class="keyword">end</span>
+0835         <span class="keyword">end</span>
+0836         
+0837         <a name="_sub56" href="#_subfunctions" class="code">function displayScalarObject(obj)</a>
+0838             <span class="comment">% Display the whole class. Call the display methods for</span>
+0839             <span class="comment">% the sub-classes where appropriate</span>
+0840             
+0841             <span class="comment">% There are two versions, depending on whether the model</span>
+0842             <span class="comment">% is standard layers or custom, the difference being</span>
+0843             <span class="comment">% the display of the layers table..</span>
+0844             
+0845             <span class="comment">% Display initial properties</span>
+0846             startProps = <a href="#_sub56" class="code" title="subfunction group = getPropertyGroup1(obj)">getPropertyGroup1</a>(obj);
+0847             matlab.mixin.CustomDisplay.displayPropertyGroups(obj,startProps);
 0848             
-0849             <span class="comment">% Merge all the outputs into one large structure</span>
-0850             outStruct = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(generalStruct,<span class="keyword">...</span>
-0851                 paramStruct,<span class="keyword">...</span>
-0852                 backgroundStruct,<span class="keyword">...</span>
-0853                 resolutionStruct,<span class="keyword">...</span>
-0854                 bulkInStruct,<span class="keyword">...</span>
-0855                 bulkOutStruct,<span class="keyword">...</span>
-0856                 scalefactorStruct,<span class="keyword">...</span>
-0857                 qzshiftStruct,<span class="keyword">...</span>
-0858                 layersStruct,<span class="keyword">...</span>
-0859                 customFileStruct,<span class="keyword">...</span>
-0860                 contrastStruct);
-0861             
-0862         <span class="keyword">end</span>
-0863         
-0864     <span class="keyword">end</span>     <span class="comment">% end public methods</span>
-0865     
-0866     <span class="comment">% ------------------------------------------------------------------</span>
-0867     
-0868     methods (Access = protected)
-0869         <span class="comment">% Display methods</span>
-0870         <a name="_sub55" href="#_subfunctions" class="code">function group = getPropertyGroup1(obj)</a>
-0871             <span class="comment">% Initial Parameters at the start of the class</span>
-0872             masterPropList = struct(<span class="string">'modelType'</span>,{obj.modelType},<span class="keyword">...</span>
-0873                 <span class="string">'experimentName'</span>,{obj.experimentName},<span class="keyword">...</span>
-0874                 <span class="string">'geometry'</span>, obj.geometry);
-0875             
-0876             <span class="keyword">if</span> isscalar(obj)
-0877                 group = matlab.mixin.util.PropertyGroup(masterPropList);
-0878             <span class="keyword">else</span>
-0879                 group = <a href="#_sub56" class="code" title="subfunction group = getPropertyGroup1(obj)">getPropertyGroup1</a>@matlab.mixin.CustomDisplay(obj);
-0880             <span class="keyword">end</span>
-0881         <span class="keyword">end</span>
-0882         
-0883         <a name="_sub56" href="#_subfunctions" class="code">function displayScalarObject(obj)</a>
-0884             <span class="comment">% Display the whole class. Call the display methods for</span>
-0885             <span class="comment">% the sub-classes where appropriate</span>
-0886             
-0887             <span class="comment">% There are two versions, depending on whether the model</span>
-0888             <span class="comment">% is standard layers or custom, the difference being</span>
-0889             <span class="comment">% the display of the layers table..</span>
-0890             
-0891             <span class="comment">% Display initial properties</span>
-0892             startProps = <a href="#_sub56" class="code" title="subfunction group = getPropertyGroup1(obj)">getPropertyGroup1</a>(obj);
-0893             matlab.mixin.CustomDisplay.displayPropertyGroups(obj,startProps);
-0894             
-0895             <span class="comment">% Display the parameters table</span>
-0896             fprintf(<span class="string">'\n    Parameters: ---------------------------------------------------------------------------------------------- \n\n'</span>);
-0897             obj.parameters.displayParametersTable;
-0898             
-0899             <span class="comment">% Display the layers table if not a custom model</span>
-0900             val = obj.modelType;
-0901             <span class="keyword">if</span> ~any(strcmpi(val,{<span class="string">'custom layers'</span>,<span class="string">'custom xy'</span>}))
-0902                 fprintf(<span class="string">'\n    Layers: -------------------------------------------------------------------------------------------------- \n\n'</span>);
-0903                 obj.layers.displayLayersTable;
-0904             <span class="keyword">end</span>
-0905             
-0906             <span class="comment">% Display the Bulk In table</span>
-0907             fprintf(<span class="string">'\n    Bulk In: -------------------------------------------------------------------------------------------------- \n\n'</span>);
-0908             obj.bulkIn.displayParametersTable;
-0909             
-0910             <span class="comment">% Display the Bulk Out table</span>
-0911             fprintf(<span class="string">'\n    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n'</span>);
-0912             obj.bulkOut.displayParametersTable;
-0913             
-0914             <span class="comment">% Display the Scalefactors table</span>
-0915             fprintf(<span class="string">'\n    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n'</span>);
-0916             obj.scalefactors.displayParametersTable;
-0917 
-0918             <span class="comment">% Display the backgrounds object</span>
-0919             obj.background.displayBackgroundsObject;
-0920             
-0921             <span class="comment">% Display the resolutions object</span>
-0922             obj.resolution.displayResolutionsObject;
-0923             
-0924             <span class="comment">% Display the data object</span>
-0925             obj.data.displayDataObject;
-0926             
-0927             <span class="comment">% Display custome files object</span>
-0928             obj.customFile.displayCustomFileObject;
-0929             
-0930             <span class="comment">% Display the contrasts object</span>
-0931             obj.contrasts.displayContrastsObject;
-0932             
-0933         <span class="keyword">end</span>
-0934         
-0935         
-0936     <span class="keyword">end</span>
-0937     
-0938 <span class="keyword">end</span>
-0939 
+0849             <span class="comment">% Display the parameters table</span>
+0850             fprintf(<span class="string">'\n    Parameters: ---------------------------------------------------------------------------------------------- \n\n'</span>);
+0851             obj.parameters.displayParametersTable;
+0852             
+0853             <span class="comment">% Display the layers table if not a custom model</span>
+0854             val = obj.modelType;
+0855             <span class="keyword">if</span> ~any(strcmpi(val,{<span class="string">'custom layers'</span>,<span class="string">'custom xy'</span>}))
+0856                 fprintf(<span class="string">'\n    Layers: -------------------------------------------------------------------------------------------------- \n\n'</span>);
+0857                 obj.layers.displayLayersTable;
+0858             <span class="keyword">end</span>
+0859             
+0860             <span class="comment">% Display the Bulk In table</span>
+0861             fprintf(<span class="string">'\n    Bulk In: -------------------------------------------------------------------------------------------------- \n\n'</span>);
+0862             obj.bulkIn.displayParametersTable;
+0863             
+0864             <span class="comment">% Display the Bulk Out table</span>
+0865             fprintf(<span class="string">'\n    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n'</span>);
+0866             obj.bulkOut.displayParametersTable;
+0867             
+0868             <span class="comment">% Display the Scalefactors table</span>
+0869             fprintf(<span class="string">'\n    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n'</span>);
+0870             obj.scalefactors.displayParametersTable;
+0871 
+0872             <span class="comment">% Display the backgrounds object</span>
+0873             obj.background.displayBackgroundsObject;
+0874             
+0875             <span class="comment">% Display the resolutions object</span>
+0876             obj.resolution.displayResolutionsObject;
+0877             
+0878             <span class="comment">% Display the data object</span>
+0879             obj.data.displayDataObject;
+0880             
+0881             <span class="comment">% Display custom files object</span>
+0882             obj.customFile.displayCustomFileObject;
+0883             
+0884             <span class="comment">% Display the contrasts object</span>
+0885             fprintf(<span class="string">'   Contrasts: ----------------------------------------------------------------------------------------------- \n\n'</span>);
+0886             obj.contrasts.displayContrastsObject;
+0887             
+0888         <span class="keyword">end</span>
+0889         
+0890     <span class="keyword">end</span>
+0891     
+0892 <span class="keyword">end</span>
+0893 
 </pre></div>
 
-<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

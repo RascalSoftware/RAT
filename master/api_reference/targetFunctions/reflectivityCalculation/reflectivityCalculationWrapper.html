@@ -25,7 +25,7 @@
 <div class="box"><strong>This is just a wrapper function for choosing between</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
+<div class="box"><strong>function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> This is just a wrapper function for choosing between
@@ -38,57 +38,56 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivityCalculation</a>	Main entry point into the reflectivity calculation for the toolbox.</li>
+<li><a href="reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>	Main entry point into the reflectivity calculation for the toolbox.</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../API/singleCalculation.html" class="code" title="function [problem,result] = singleCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">singleCalculation</a>	Just call the reflectivity calculation.</li>
+<li><a href="../../API/RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)">RATMain</a>	</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef_cells,problemDef_limits,controls)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls)</a>
 0002 
-0003 
-0004 <span class="comment">% This is just a wrapper function for choosing between</span>
-0005 <span class="comment">% the Matlab and Mex version of reflectivityCalculation.</span>
-0006 <span class="comment">% This is for development and will be removed for the</span>
-0007 <span class="comment">% eventual fully compiled toolbox</span>
-0008 
-0009 <span class="comment">% The outputs are as follows..</span>
-0010 <span class="comment">% problem.ssubs         = [nContrasts x 1 double]</span>
-0011 <span class="comment">% problem.backgrounds   = [nContrasts x 1 double]</span>
-0012 <span class="comment">% problem.qshifts       = [nContrasts x 1 double]</span>
-0013 <span class="comment">% problem.scalefactots  = [nContrasts x 1 double]</span>
-0014 <span class="comment">% problem.nbairs        = [nContrasts x 1 double]</span>
-0015 <span class="comment">% problem.nbsubs        = [nContrasts x 1 double]</span>
-0016 <span class="comment">% problem.resolutions   = [nContrasts x 1 double]</span>
-0017 <span class="comment">% problem.allSubRough   = [nContrasts x 1 double] - Appears to be the same</span>
-0018 <span class="comment">%                                                   as ssubs and needs to be removed</span>
-0019 <span class="comment">% problem.calculations.all_chis = [nContrasts x 1 double]</span>
-0020 <span class="comment">% problem.calculations.sum_chi  = [1 x 1 double];</span>
-0021 
-0022 <span class="comment">% result{1} = reflectivity{}</span>
-0023 <span class="comment">% result{2} = simulations{}</span>
-0024 <span class="comment">% result{3} = shifted_data{}</span>
-0025 <span class="comment">% result{4} = layerSlds{}</span>
-0026 <span class="comment">% result{5} = sldProfiles{}</span>
-0027 <span class="comment">% result{6} = currently empty - will be allLayers (i.e. resampled)</span>
-0028 
-0029 type = <span class="string">'mex'</span>;
-0030 
-0031  <span class="keyword">switch</span> type
-0032      <span class="keyword">case</span> <span class="string">'mex'</span>
-0033         [problem,result] = reflectivityCalculation_mex(problemDef,problemDef_cells,problemDef_limits,controls);
-0034      <span class="keyword">otherwise</span>
-0035         [problem,result] = <a href="reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivityCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
-0036 <span class="keyword">end</span>
-0037 
-0038 <span class="keyword">end</span>
+0003 <span class="comment">% This is just a wrapper function for choosing between</span>
+0004 <span class="comment">% the Matlab and Mex version of reflectivityCalculation.</span>
+0005 <span class="comment">% This is for development and will be removed for the</span>
+0006 <span class="comment">% eventual fully compiled toolbox</span>
+0007 
+0008 <span class="comment">% The outputs are as follows..</span>
+0009 <span class="comment">% problem.ssubs         = [nContrasts x 1 double]</span>
+0010 <span class="comment">% problem.backgrounds   = [nContrasts x 1 double]</span>
+0011 <span class="comment">% problem.qshifts       = [nContrasts x 1 double]</span>
+0012 <span class="comment">% problem.scalefactots  = [nContrasts x 1 double]</span>
+0013 <span class="comment">% problem.nbairs        = [nContrasts x 1 double]</span>
+0014 <span class="comment">% problem.nbsubs        = [nContrasts x 1 double]</span>
+0015 <span class="comment">% problem.resolutions   = [nContrasts x 1 double]</span>
+0016 <span class="comment">% problem.allSubRough   = [nContrasts x 1 double] - Appears to be the same</span>
+0017 <span class="comment">%                                                   as ssubs and needs to be removed</span>
+0018 <span class="comment">% problem.calculations.all_chis = [nContrasts x 1 double]</span>
+0019 <span class="comment">% problem.calculations.sum_chi  = [1 x 1 double];</span>
+0020 
+0021 <span class="comment">% result{1} = reflectivity{}</span>
+0022 <span class="comment">% result{2} = simulations{}</span>
+0023 <span class="comment">% result{3} = shifted_data{}</span>
+0024 <span class="comment">% result{4} = layerSlds{}</span>
+0025 <span class="comment">% result{5} = sldProfiles{}</span>
+0026 <span class="comment">% result{6} = currently empty - will be allLayers (i.e. resampled)</span>
+0027 
+0028     <span class="keyword">try</span>
+0029        [problem,result] = reflectivityCalculation_mex(problemDef,problemDefCells,problemDefLimits,controls);
+0030     <span class="keyword">catch</span> exception
+0031         <span class="keyword">if</span> (strcmp(exception.identifier, <span class="string">'MATLAB:UndefinedFunction'</span>))
+0032             [problem,result] = <a href="reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>(problemDef,problemDefCells,problemDefLimits,controls);
+0033         <span class="keyword">else</span>
+0034             rethrow(exception)
+0035         <span class="keyword">end</span>
+0036     <span class="keyword">end</span>
+0037 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

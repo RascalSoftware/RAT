@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of callPythonFunction</title>
+  <meta name="keywords" content="callPythonFunction">
+  <meta name="description" content="Calls a Python custom function from the base Matlab workspace.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions -->
+<!-- # common -->
+<!-- # callCustomFunction -->
+<!-- menu.html callPythonFunction -->
+
+<h1>callPythonFunction
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>Calls a Python custom function from the base Matlab workspace.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [output,sub_rough] = callPythonFunction(fname,params,bulk_in,bulk_out,contrast) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Calls a Python custom function from the base Matlab workspace.
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="pythonCustomFunctionWrapper.html" class="code" title="function [output,sRough] = pythonCustomFunctionWrapper(funcName,params,bulkIn,bulkOut,contrast,nContrasts)">pythonCustomFunctionWrapper</a>	Excecute a python custom model function in the base Matlab workspace.</li>
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">functionList = {</a></li>
+<li><a href="#_sub2" class="code">functionList(nModules+1,:) = {fname,mod};</a></li>
+</ul>
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [output,sub_rough] = callPythonFunction(fname,params,bulk_in,bulk_out,contrast)</a>
+0002 
+0003 <span class="comment">% Calls a Python custom function from the base Matlab workspace.</span>
+0004 
+0005 <span class="comment">% List of the currently loaded python modules</span>
+0006 <span class="keyword">persistent</span> functionList
+0007 
+0008 <span class="comment">% If first run through the function, intitialise 'functionList'</span>
+0009 <span class="keyword">if</span> isempty(functionList)
+0010     <a name="_sub1" href="#_subfunctions" class="code">functionList = {</a><span class="string">''</span>,<span class="string">''</span>};
+0011 <span class="keyword">end</span>
+0012 
+0013 <span class="comment">% Check whether the module described in fname has already been loaded..</span>
+0014 thisFunc = find(strcmp(fname,functionList));
+0015 <span class="keyword">if</span> isempty(thisFunc)
+0016 
+0017     <span class="comment">% First time encountering the module. Import it..</span>
+0018     mod = py.importlib.import_module(fname);    <span class="comment">%'mod' becomes a handle to the module</span>
+0019 
+0020     <span class="comment">% We reload it just in case the puthon session has already 'seen' a</span>
+0021     <span class="comment">% version of this module and the user has since modified it...</span>
+0022     py.importlib.reload(mod);
+0023 
+0024     <span class="comment">% Store this at the end of the 'functionList' array...</span>
+0025     nModules = size(functionList,1);
+0026     <a name="_sub2" href="#_subfunctions" class="code">functionList(nModules+1,:) = {fname,mod};</a>
+0027 
+0028     thisMod = mod;
+0029 
+0030 <span class="keyword">else</span>    <span class="comment">% Module has already been loaded..</span>
+0031 
+0032     thisMod = functionList{thisFunc,2};
+0033 
+0034 <span class="keyword">end</span>
+0035 
+0036 <span class="comment">% Call the python function....</span>
+0037 <span class="comment">% We can pass matlab parameters directly to the python function (since r2008</span>
+0038 <span class="comment">% Matlab takes care of type conversions under the hood).</span>
+0039 out = thisMod.(fname)(params,bulk_in,bulk_out,int32(contrast));
+0040 
+0041 <span class="comment">% 'out' comes back as a tuple. An easy way of accessing everything is via</span>
+0042 <span class="comment">% a cell array....</span>
+0043 outCell = cell(out);
+0044 
+0045 <span class="comment">% Convert them back to matlab types (from numpy arrays....)</span>
+0046 output = double(outCell{1});
+0047 sub_rough = double(outCell{2});
+0048 
+0049 
+0050 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

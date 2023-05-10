@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of domainContrastsClass</title>
+  <meta name="keywords" content="domainContrastsClass">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html API -->
+<!-- menu.html projectClass -->
+
+<h1>domainContrastsClass
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="baseContrasts.html" class="code" title="">baseContrasts</a>	</li>
+<li><a href="domainContrastsClass.html" class="code" title="">domainContrastsClass</a>	</li>
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="domainContrastsClass.html" class="code" title="">domainContrastsClass</a>	</li>
+<li><a href="domainsClass.html" class="code" title="">domainsClass</a>	</li>
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function names = getDisplayNames(obj)</a></li>
+<li><a href="#_sub2" class="code">function inputBlock = parseContrastInput(allowedNames, ~, inputValues)</a></li>
+</ul>
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 classdef <a href="domainContrastsClass.html" class="code" title="">domainContrastsClass</a> &lt; <a href="baseContrasts.html" class="code" title="">baseContrasts</a>
+0002 
+0003     <span class="comment">% A simplified version of the contrast class that allows specification</span>
+0004     <span class="comment">% of the model only (i.e. with no data). This is used for domains</span>
+0005     <span class="comment">% calculations.</span>
+0006                 
+0007     methods
+0008         <a name="_sub0" href="#_subfunctions" class="code">function names = getDisplayNames(obj)</a>
+0009             names = [&quot;Name&quot;; &quot;Bulk in&quot;; &quot;Bulk out&quot;; &quot;Model&quot;];
+0010         <span class="keyword">end</span>     
+0011     <span class="keyword">end</span>
+0012     
+0013     methods(Static)
+0014 
+0015         <a name="_sub1" href="#_subfunctions" class="code">function inputBlock = parseContrastInput(allowedNames, ~, inputValues)</a>
+0016             <span class="comment">% Parse the parameters given for the contrast, assigning</span>
+0017             <span class="comment">% default values to those unspecified and ensuring specified</span>
+0018             <span class="comment">% values are of the correct type, and included in the list of</span>
+0019             <span class="comment">% allowed names where necessary.</span>
+0020             <span class="comment">%</span>
+0021             <span class="comment">% contrastsClass.parseContrastInput(allowedNames, ...</span>
+0022             <span class="comment">%                                   domainsCalc, ...</span>
+0023             <span class="comment">%                                   'name', 'Contrast Name', ...</span>
+0024             <span class="comment">%                                   'nba', 'Silicon')</span>
+0025             defaultName = <span class="string">''</span>;
+0026             defaultNba = <span class="string">''</span>;
+0027             defaultNbs = <span class="string">''</span>;
+0028         
+0029             expectedBulkin = cellstr(allowedNames.bulkInNames);
+0030             expectedBulkout = cellstr(allowedNames.bulkOutNames);
+0031         
+0032             p = inputParser;
+0033             addParameter(p,<span class="string">'name'</span>,          defaultName,        @isText);
+0034             addParameter(p,<span class="string">'nba'</span>,           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
+0035             addParameter(p,<span class="string">'nbs'</span>,           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
+0036                 
+0037             parse(p, inputValues{:});
+0038             inputBlock = p.Results;
+0039 
+0040         <span class="keyword">end</span>
+0041 
+0042     <span class="keyword">end</span>
+0043 <span class="keyword">end</span>
+0044 
+0045 
+</pre></div>
+
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

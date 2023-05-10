@@ -1,14 +1,8 @@
 .. _chapter2:
 
-.. section-numbering::
-    :start: 2
 
-The Problem Definition Input Class.
-...................................
-
-Basics
-======
-
+The Problem Definition Input Class
+..................................
 In the previous chapter, we saw an example of how we set up and run an analysis using the RAT toolbox. Every call to the toolbox has two parts: the **problem definition** class, where we define the model, add the data and define our contrasts, and the **controls class** where we tell the toolbox what type of analysis we would like to do. The reason for splitting things up in this way is that once our model is defined, we can interact with it in various ways without needing to modify the model. So, we can experiment with our data, trying out different types of analysis (more of that in chapter 4), and explore the landscape of solutions by simply modifying the *controls* class, leaving the *problem* class alone. 
 
 As well as having two inputs, RAT always provides two outputs, so the call to the toolbox is always of this form:-
@@ -92,8 +86,8 @@ The model type is set using the **setModelType** method:
 
 Custom modelling is described in more depth in Chapter 3.
 
-**The ‘Parameters’ Block.**
-+++++++++++++++++++++++++++
+**The ‘Parameters’ Block**
+++++++++++++++++++++++++++
 
 Any model, where it be layers or anything else is always defined by parameters. These appear in the parameters block and are specified by a name, a value, minimum and maximum ranges and a flag defining whether the parameter is fitted or fixed:
 
@@ -108,7 +102,7 @@ To add a parameter, you can use the **addParam** method, either by just specifyi
 .. code:: MATLAB
 
     >> problem.addParam('My new param');
-    >> problem.addParam({'My other new param',10,20,30,false});
+    >> problem.addParam('My other new param',10,20,30,false);
 
 To avoid having to make a whole load of **addParam** statements for large projects with many parameters, you can define them at once in a cell array, and add them using the **addParamGroup** method (again notice the curly brackets syntax - this is a {cell array of {cell arrays}} : 
 
@@ -230,15 +224,15 @@ changes parameter 2 (Thickness) of Layer 1 (H Layer) to the 3rd Parameter of the
 
 The layers are then used to set up the contrasts as usual with a standard layers model.
 
-**Bulk Phases.**
-++++++++++++++++
+**Bulk Phases**
++++++++++++++++
 
 These are treated in the same way as parameters e.g.
 
 .. code:: MATLAB
 
-    problem.addBulkIn({'Silicon',2.0e-6,2.07e-6,2.1e-6,false});
-    problem.addBulkOut({'H2O',-0.6e-6,-0.56e-6,-0.5e-6,false});
+    problem.addBulkIn('Silicon',2.0e-6,2.07e-6,2.1e-6,false);
+    problem.addBulkOut('H2O',-0.6e-6,-0.56e-6,-0.5e-6,false);
 
 .. image:: images/userManual/chapter2/bulkPhases.png
     :width: 600
@@ -256,7 +250,7 @@ The *scalefactors* are another parameters block like the bulk phases. You can ad
 
 .. code:: MATLAB
 
-    problem.addScalefactor({'New Scalefactor',0.9,1.0,1.1,true});
+    problem.addScalefactor('New Scalefactor',0.9,1.0,1.1,true);
     problem.setScalefactor(1,'value',1.01);
 
 **Backgrounds**
@@ -293,8 +287,8 @@ Once we have added the contrasts, then we need to set the model, either by addin
 
 The data can be either a datafile or the simulation object in the data block. Once we have defined our contrasts they appear in the *contrasts* block at the end of the project when it is displayed.
 
-**A complete example**
-++++++++++++++++++++++
+A complete example
+..................
 In Chapter 1, we showed an example of a pre-loaded problem definition class, which we used to analyse data from two contrasts of a lipid monolayer. Now, rather than loading in a pre-defined version of this problem we can use our class methods to build this from scratch, and do the same analysis as we did there, but this time from a script.
 
 To start, we first make an instance of the project class:
@@ -379,7 +373,7 @@ We need two subphases for our project. D2O is already in the project as a defaul
 
 .. code:: MATLAB
 
-    problem.addBulkOut({'SLD ACMW', -1e-6, 0.0, 1e-6, true});
+    problem.addBulkOut('SLD ACMW', -1e-6, 0.0, 1e-6, true);
 
 Now we need to add the data. We read in the two files into MATLAB, and put the data into the data block with appropriate names:
 
@@ -441,8 +435,8 @@ Now we'll calculate this to check the agreement with the data. We need an instan
 
 .. code:: MATLAB
 
-    controls = controlsDef();
-    controls.parallel = 'points';
+    controls = controlsClass();
+    controls.parallel = parallelOptions.Points;
 
     disp(controls)
 
@@ -472,7 +466,7 @@ This looks sensible, but clearly our guess values for the parameters are slightl
 
 .. code:: MATLAB
 
-    controls.procedure = 'simplex'
+    controls.procedure = procedures.Simplex;
 
 .. image:: images/userManual/chapter2/controlsProcedure.png
     :width: 300

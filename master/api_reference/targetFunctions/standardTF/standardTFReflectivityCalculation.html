@@ -25,7 +25,7 @@
 <div class="box"><strong>Main function for the standardTF reflectivity calculation</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
+<div class="box"><strong>function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> Main function for the standardTF reflectivity calculation
@@ -45,20 +45,20 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="standardTFCustomLayersReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomLayersReflectivityCalculation</a>	Custom layers reflectivity calculation for standardTF</li>
-<li><a href="standardTFCustomXYReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYReflectivityCalculation</a>	Custom XP profile reflectivity calculation for standardTF</li>
-<li><a href="standardTFStandardLayersReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersReflectivityCalculation</a>	Standard layers reflectivity calculation for standardTF</li>
+<li><a href="standardTFCustomLayersReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomLayersReflectivityCalculation</a>	Custom layers reflectivity calculation for standardTF</li>
+<li><a href="standardTFCustomXYReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)">standardTFCustomXYReflectivityCalculation</a>	Custom XP profile reflectivity calculation for standardTF</li>
+<li><a href="standardTFStandardLayersReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersReflectivityCalculation</a>	Standard layers reflectivity calculation for standardTF</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../targetFunctions/reflectivityCalculation/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">reflectivityCalculation</a>	Main entry point into the reflectivity calculation for the toolbox.</li>
+<li><a href="../../targetFunctions/reflectivityCalculation/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>	Main entry point into the reflectivity calculation for the toolbox.</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)</a>
 0002 
 0003 <span class="comment">% Main function for the standardTF reflectivity calculation</span>
 0004 <span class="comment">% This function decides what type of model is being analysed and barnches</span>
@@ -127,22 +127,22 @@ This function is called by:
 0067         <span class="comment">% Standard layers calculation</span>
 0068         [problem,reflectivity,Simulation,<span class="keyword">...</span>
 0069          shifted_data,layerSlds,sldProfiles,<span class="keyword">...</span>
-0070          allLayers]= <a href="standardTFStandardLayersReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersReflectivityCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
+0070          allLayers]= <a href="standardTFStandardLayersReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersReflectivityCalculation</a>(problemDef,problemDefCells,problemDefLimits,controls);
 0071     <span class="keyword">case</span> <span class="string">'custom layers'</span>
 0072         <span class="comment">% Custom layers with user supplied custom model file</span>
 0073         [problem,reflectivity,Simulation,<span class="keyword">...</span>
 0074             shifted_data,layerSlds,sldProfiles,<span class="keyword">...</span>
-0075             allLayers] = <a href="standardTFCustomLayersReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomLayersReflectivityCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
+0075             allLayers] = <a href="standardTFCustomLayersReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomLayersReflectivityCalculation</a>(problemDef,problemDefCells,problemDefLimits,controls);
 0076     <span class="keyword">case</span> <span class="string">'custom xy'</span>
 0077         <span class="comment">% Custom SLD profile with user defined model file</span>
 0078         [problem,reflectivity,Simulation,<span class="keyword">...</span>
 0079            shifted_data,layerSlds,sldProfiles,<span class="keyword">...</span>
-0080            allLayers] = <a href="standardTFCustomXYReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYReflectivityCalculation</a>(problemDef,problemDef_cells,problemDef_limits,controls);
+0080            allLayers] = <a href="standardTFCustomXYReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)">standardTFCustomXYReflectivityCalculation</a>(problemDef,problemDefCells,problemDefLimits,controls);
 0081 <span class="keyword">end</span>
 0082 
 0083 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

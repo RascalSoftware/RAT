@@ -1,0 +1,462 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of baseContrasts</title>
+  <meta name="keywords" content="baseContrasts">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html API -->
+<!-- menu.html projectClass -->
+
+<h1>baseContrasts
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="baseContrasts.html" class="code" title="">baseContrasts</a>	</li>
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="baseContrasts.html" class="code" title="">baseContrasts</a>	</li>
+<li><a href="contrastsClass.html" class="code" title="">contrastsClass</a>	</li>
+<li><a href="domainContrastsClass.html" class="code" title="">domainContrastsClass</a>	</li>
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function obj = baseContrasts(domainsCalc)</a></li>
+<li><a href="#_sub2" class="code">function count = get.numberOfContrasts(obj)</a></li>
+<li><a href="#_sub3" class="code">function names = get.displayNames(obj)</a></li>
+<li><a href="#_sub4" class="code">function obj = addContrast(obj, allowedNames, varargin)</a></li>
+<li><a href="#_sub5" class="code">function obj = removeContrast(obj, row)</a></li>
+<li><a href="#_sub6" class="code">function obj = setContrastModel(obj, row, modelType, allowedNames, model)</a></li>
+<li><a href="#_sub7" class="code">function obj = setContrast(obj, row, allowedNames, varargin)</a></li>
+<li><a href="#_sub8" class="code">function contrastNames = getAllContrastNames(obj)</a></li>
+<li><a href="#_sub9" class="code">function contrastStruct = toStruct(obj, allowedNames, modelType)</a></li>
+<li><a href="#_sub10" class="code">function displayContrastsObject(obj)</a></li>
+</ul>
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 classdef (Abstract) <a href="baseContrasts.html" class="code" title="">baseContrasts</a> &lt; handle
+0002 
+0003     <span class="comment">% This class holds the common routines for the subclasses</span>
+0004     <span class="comment">% &quot;contrastsClass.m&quot; and &quot;domainContrastsClass.m&quot;</span>
+0005     
+0006     properties
+0007         contrasts = {}
+0008     <span class="keyword">end</span>
+0009 
+0010     properties (Access = protected)
+0011         contrastAutoNameCounter
+0012     <span class="keyword">end</span>
+0013 
+0014     properties (SetAccess = immutable)
+0015         domainsCalc
+0016         rowHeaders = struct(<span class="string">'key'</span>, [&quot;Name&quot;; &quot;Data&quot;; &quot;Background&quot;; &quot;Bulk in&quot;; &quot;Bulk out&quot;; &quot;Scalefactor&quot;; &quot;Resolution&quot;; &quot;Resample&quot;; &quot;Domain Ratio&quot;; &quot;Model&quot;], <span class="keyword">...</span>
+0017                             <span class="string">'field'</span>, [&quot;name&quot;; &quot;data&quot;; &quot;background&quot;; &quot;nba&quot;; &quot;nbs&quot;; &quot;scalefactor&quot;; &quot;resolution&quot;; &quot;resample&quot;; &quot;domainRatio&quot;; &quot;model&quot;])
+0018     <span class="keyword">end</span>
+0019 
+0020     properties (Dependent, SetAccess = private)
+0021         numberOfContrasts
+0022         displayNames
+0023     <span class="keyword">end</span>
+0024 
+0025     properties(Access = protected, Constant, Hidden)
+0026         invalidTypeMessage = sprintf(<span class="string">'Model type must be a modelTypes enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0027                                      strjoin(modelTypes.values(), <span class="string">', '</span>))
+0028     <span class="keyword">end</span>
+0029 
+0030     methods (Abstract)
+0031         parseContrastInput
+0032         getDisplayNames
+0033     <span class="keyword">end</span>
+0034             
+0035     methods
+0036         
+0037         <a name="_sub0" href="#_subfunctions" class="code">function obj = baseContrasts(domainsCalc)</a>
+0038             <span class="comment">% Class Constructor</span>
+0039             <span class="comment">% The only (optional) input is a logical flag to state whether</span>
+0040             <span class="comment">% or not this is a domains calculation.</span>
+0041             <span class="comment">%</span>
+0042             <span class="comment">% contrasts = contrastsClass()</span>
+0043             arguments
+0044                 domainsCalc {mustBeA(domainsCalc,<span class="string">'logical'</span>)} = false
+0045             <span class="keyword">end</span>
+0046 
+0047             obj.domainsCalc = domainsCalc;
+0048             obj.contrastAutoNameCounter = 1;
+0049         <span class="keyword">end</span>
+0050 
+0051         <a name="_sub1" href="#_subfunctions" class="code">function count = get.numberOfContrasts(obj)</a>
+0052             count = length(obj.contrasts);
+0053         <span class="keyword">end</span>
+0054         
+0055         <a name="_sub2" href="#_subfunctions" class="code">function names = get.displayNames(obj)</a>
+0056             names = obj.getDisplayNames();
+0057         <span class="keyword">end</span>
+0058 
+0059         <a name="_sub3" href="#_subfunctions" class="code">function obj = addContrast(obj, allowedNames, varargin)</a>
+0060             <span class="comment">% Add a contrast to the class</span>
+0061             <span class="comment">% A class can be added with no input parameters, just a class</span>
+0062             <span class="comment">% name, or a set of key-value pairs.</span>
+0063             <span class="comment">%</span>
+0064             <span class="comment">% contrasts.addContrast()</span>
+0065             <span class="comment">% contrasts.addContrast('New Contrast')</span>
+0066             <span class="comment">% contrasts.addContrast('name', 'new contrast', ...</span>
+0067             <span class="comment">%                       'background', 'Background H2O')</span>
+0068             <span class="keyword">if</span> isempty(varargin)
+0069                 <span class="comment">% No input at all</span>
+0070                 contrastName = sprintf(<span class="string">'New contrast %d'</span>, obj.contrastAutoNameCounter);
+0071                 inputVals = {<span class="string">'name'</span>, contrastName};
+0072                 
+0073             <span class="keyword">elseif</span> length(varargin) == 1
+0074                 <span class="comment">% Just name of contrast</span>
+0075                 thisName = varargin{1};
+0076                 inputVals = {<span class="string">'name'</span>, thisName};
+0077                 
+0078             <span class="keyword">else</span>
+0079                 <span class="comment">% Everything else</span>
+0080                 inputVals = varargin;
+0081             <span class="keyword">end</span>
+0082             
+0083             thisContrast = obj.parseContrastInput(allowedNames, obj.domainsCalc, inputVals);
+0084             thisContrast.model = <span class="string">''</span>;
+0085             obj.contrasts{end+1} = thisContrast;
+0086             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
+0087         
+0088         <span class="keyword">end</span>
+0089 
+0090         <a name="_sub4" href="#_subfunctions" class="code">function obj = removeContrast(obj, row)</a>
+0091             <span class="comment">% Removes a contrast from the list.</span>
+0092             <span class="comment">% The contrast can be specified either by name or by index, but</span>
+0093             <span class="comment">% only one contrast can be removed at a time.</span>
+0094             <span class="comment">%</span>
+0095             <span class="comment">% contrasts.removeContrast('Named Contrast')</span>
+0096             <span class="comment">% contrasts.removeContrast(1)</span>
+0097 
+0098             <span class="comment">% First determine if contrast is being referenced by name or</span>
+0099             <span class="comment">% number...</span>
+0100 
+0101             <span class="comment">% If the input is a string, find the index of the relevant</span>
+0102             <span class="comment">% contrast...</span>
+0103             <span class="keyword">if</span> isText(row)
+0104                 contrastNames = <a href="#_sub8" class="code" title="subfunction contrastNames = getAllContrastNames(obj)">getAllContrastNames</a>(obj);
+0105                 row = find(strcmp(contrastNames,row));
+0106                 
+0107                 <span class="comment">% Throw an error if the name is not matched</span>
+0108                 <span class="keyword">if</span> isempty(row)
+0109                     throw(nameNotRecognised(<span class="string">'Contrast name not found'</span>));
+0110                 <span class="keyword">end</span>
+0111             <span class="keyword">end</span>
+0112            
+0113             <span class="comment">% Check to make sure the number is in range</span>
+0114             <span class="keyword">if</span> row &lt; 1 || row &gt; obj.numberOfContrasts
+0115                 throw(indexOutOfRange(sprintf(<span class="string">'Specified contrast %d is not in range 1 - %d'</span>, row, obj.numberOfContrasts)));
+0116             <span class="keyword">end</span>
+0117 
+0118             <span class="comment">% Remove the contrast from the contrasts cell array</span>
+0119             obj.contrasts(row) = [];
+0120 
+0121         <span class="keyword">end</span>
+0122 
+0123         <a name="_sub5" href="#_subfunctions" class="code">function obj = setContrastModel(obj, row, modelType, allowedNames, model)</a>
+0124             <span class="comment">% Set the value of the model parameter in a contrast.</span>
+0125             <span class="comment">% The expected input is the contrast (specified either by name</span>
+0126             <span class="comment">% or index), the model type, the allowed values (either layers</span>
+0127             <span class="comment">% for standard layers or custom files for custom models) and</span>
+0128             <span class="comment">% either a string or cell array for the model itself.</span>
+0129             <span class="comment">% Note that the model can only be set here, and not in</span>
+0130             <span class="comment">% &quot;addContrast&quot; or &quot;setContrast&quot;.</span>
+0131             <span class="comment">%</span>
+0132             <span class="comment">% contrasts.setContrastModel(1, 'standard layers', allowedNames, 'Oxide Model')</span>
+0133             
+0134             <span class="comment">% Find if we are referencing an existing contrast</span>
+0135             <span class="keyword">if</span> isnumeric(row)
+0136                 <span class="keyword">if</span> (row &lt; 1 || row &gt; obj.numberOfContrasts)
+0137                     throw(indexOutOfRange(sprintf(<span class="string">'Contrast number %d is out of range 1 - %d'</span>, row, obj.numberOfContrasts)));
+0138                 <span class="keyword">end</span>
+0139                 contrastIndex = row; 
+0140             <span class="keyword">elseif</span> isText(row)
+0141                 [present,idx] = ismember(row, obj.getAllContrastNames());
+0142                 <span class="keyword">if</span> ~present
+0143                     throw(nameNotRecognised(sprintf(<span class="string">'Contrast %s is not recognised'</span>, row)));
+0144                 <span class="keyword">end</span>
+0145                 contrastIndex = idx;
+0146             <span class="keyword">end</span>
+0147 
+0148             <span class="comment">% Determine which contrast is being set</span>
+0149             thisContrast = obj.contrasts{contrastIndex};
+0150             modelArray = cellstr(model);
+0151 
+0152             <span class="comment">% Check the input is as expected</span>
+0153             modelType = validateOption(modelType, <span class="string">'modelTypes'</span>, obj.invalidTypeMessage).value;
+0154             <span class="keyword">if</span> any(strcmpi(modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
+0155                 <span class="keyword">if</span> length(modelArray) &gt; 1
+0156                     throw(invalidValue(<span class="string">'Only 1 model value allowed for ''custom'''</span>));
+0157                 <span class="keyword">end</span>
+0158             <span class="keyword">end</span>
+0159 
+0160             <span class="keyword">for</span> i = 1:length(modelArray)
+0161                 <span class="keyword">if</span> ~strcmpi(modelArray{i}, allowedNames)
+0162                     throw(nameNotRecognised(sprintf(<span class="string">'Layer/Custom Name %s is not recognised'</span>, modelArray{i})));
+0163                 <span class="keyword">end</span>
+0164             <span class="keyword">end</span>
+0165 
+0166             thisContrast.model = modelArray;
+0167             obj.contrasts{contrastIndex} = thisContrast;
+0168 
+0169         <span class="keyword">end</span>
+0170 
+0171         <a name="_sub6" href="#_subfunctions" class="code">function obj = setContrast(obj, row, allowedNames, varargin)</a>
+0172             <span class="comment">% Set a value within a contrast.</span>
+0173             <span class="comment">% The expected input is the contrast (specified either by name</span>
+0174             <span class="comment">% or index), the allowed values for all parameters and a</span>
+0175             <span class="comment">% set of key-value pairs for the parameter values to be</span>
+0176             <span class="comment">% changed.</span>
+0177             <span class="comment">%</span>
+0178             <span class="comment">% contrasts.setContrast(1, allowedNames, ...</span>
+0179             <span class="comment">%                       'name', 'New contrast name', ...</span>
+0180             <span class="comment">%                       'background', 'New Background')</span>
+0181 
+0182             <span class="comment">% Find if we are referencing an existing contrast</span>
+0183             <span class="keyword">if</span> isnumeric(row)
+0184                 <span class="keyword">if</span> (row &lt; 1 || row &gt; obj.numberOfContrasts)
+0185                     throw(indexOutOfRange(sprintf(<span class="string">'Contrast number %d is out of range 1 - %d'</span>, row, obj.numberOfContrasts)));
+0186                 <span class="keyword">end</span>
+0187                 contrastIndex = row;
+0188                 
+0189             <span class="keyword">elseif</span> isText(row)
+0190                 [present,idx] = ismember(row, obj.getAllContrastNames());
+0191                 <span class="keyword">if</span> ~present
+0192                     throw(nameNotRecognised(sprintf(<span class="string">'Contrast %s is not recognised'</span>,row)));
+0193                 <span class="keyword">end</span>
+0194                 contrastIndex = idx;
+0195                 
+0196             <span class="keyword">end</span>
+0197 
+0198             thisContrast = obj.contrasts{contrastIndex};
+0199 
+0200             <span class="comment">% Check to see if the inputs are valid</span>
+0201             <span class="comment">% Raise a warning if we try to set the model as this should be</span>
+0202             <span class="comment">% done elsewhere</span>
+0203             inputBlock = obj.parseContrastInput(allowedNames, obj.domainsCalc, varargin);
+0204             
+0205             <span class="keyword">if</span> isfield(inputBlock, <span class="string">'name'</span>) &amp;&amp; ~isempty(inputBlock.name)
+0206                 thisContrast.name = inputBlock.name;
+0207             <span class="keyword">end</span>
+0208 
+0209             <span class="keyword">if</span> isfield(inputBlock, <span class="string">'data'</span>) &amp;&amp; ~isempty(inputBlock.data)
+0210                 thisContrast.data = inputBlock.data;
+0211             <span class="keyword">end</span>
+0212             
+0213             <span class="keyword">if</span> isfield(inputBlock, <span class="string">'background'</span>) &amp;&amp; ~isempty(inputBlock.background)
+0214                 thisContrast.background = inputBlock.background;
+0215             <span class="keyword">end</span>
+0216             
+0217             <span class="keyword">if</span> isfield(inputBlock, <span class="string">'nba'</span>) &amp;&amp; ~isempty(inputBlock.nba)
+0218                 thisContrast.nba = inputBlock.nba;
+0219             <span class="keyword">end</span>
+0220             
+0221             <span class="keyword">if</span> isfield(inputBlock, <span class="string">'nbs'</span>) &amp;&amp; ~isempty(inputBlock.nbs)
+0222                 thisContrast.nbs = inputBlock.nbs;
+0223             <span class="keyword">end</span>
+0224 
+0225             <span class="keyword">if</span> isfield(inputBlock, <span class="string">'scalefactor'</span>) &amp;&amp; ~isempty(inputBlock.scalefactor)
+0226                 thisContrast.scalefactor = inputBlock.scalefactor;
+0227             <span class="keyword">end</span>
+0228             
+0229             <span class="keyword">if</span> isfield(inputBlock, <span class="string">'resolution'</span>) &amp;&amp; ~isempty(inputBlock.resolution)
+0230                 thisContrast.resolution = inputBlock.resolution;
+0231             <span class="keyword">end</span>
+0232             
+0233             <span class="keyword">if</span> isfield(inputBlock, <span class="string">'resample'</span>) &amp;&amp; ~isempty(inputBlock.resample)
+0234                 thisContrast.resample = inputBlock.resample;
+0235             <span class="keyword">end</span>
+0236             
+0237             <span class="keyword">if</span> isfield(inputBlock, <span class="string">'domainRatio'</span>) &amp;&amp; ~isempty(inputBlock.domainRatio)
+0238                 thisContrast.domainRatio = inputBlock.domainRatio;
+0239             <span class="keyword">end</span>
+0240 
+0241             obj.contrasts{contrastIndex} = thisContrast;
+0242             
+0243         <span class="keyword">end</span>
+0244 
+0245         <a name="_sub7" href="#_subfunctions" class="code">function contrastNames = getAllContrastNames(obj)</a>
+0246             <span class="comment">% Get the names of all contrasts defined in the class.</span>
+0247             <span class="comment">%</span>
+0248             <span class="comment">% contrasts.getAllContrastNames()</span>
+0249             nContrasts = obj.numberOfContrasts;
+0250             contrastNames = cell(1,nContrasts);
+0251                         
+0252             <span class="keyword">for</span> i = 1:nContrasts
+0253                 thisContrast = obj.contrasts{i};
+0254                 contrastNames{i} = thisContrast.name;
+0255             <span class="keyword">end</span>
+0256         <span class="keyword">end</span>
+0257 
+0258         <a name="_sub8" href="#_subfunctions" class="code">function contrastStruct = toStruct(obj, allowedNames, modelType)</a>
+0259             <span class="comment">% Convert the contrasts class to a struct.</span>
+0260             <span class="comment">% This routine deals with properties common to all contrast</span>
+0261             <span class="comment">% classes. The expected input is the allowed names for each</span>
+0262             <span class="comment">% parameter, the model type and the data table from the data class.</span>
+0263             <span class="comment">%</span>
+0264             <span class="comment">% contrasts.toStruct(allowedNames, 'standard layers', dataTable)</span>
+0265             nContrasts = obj.numberOfContrasts;
+0266             contrastLayers = cell(1,nContrasts);
+0267             contrastNbas = ones(1,nContrasts);
+0268             contrastNbss = ones(1,nContrasts);
+0269             contrastCustomFile = ones(1,nContrasts);
+0270             
+0271             contrastNames = cell(1,nContrasts);
+0272             contrastRepeatSLDs = cell(1,nContrasts);
+0273             
+0274             <span class="keyword">for</span> i = 1:nContrasts
+0275 
+0276                 thisContrast = obj.contrasts{i};
+0277                 
+0278                 contrastNbas(i) = find(strcmpi(thisContrast.nba,allowedNames.bulkInNames));
+0279                 contrastNbss(i) = find(strcmpi(thisContrast.nbs,allowedNames.bulkOutNames));
+0280                 contrastRepeatSLDs{i} = [0 1]; <span class="comment">% todo</span>
+0281                 contrastNames{i} = thisContrast.name;
+0282 
+0283                 modelType = validateOption(modelType, <span class="string">'modelTypes'</span>, obj.invalidTypeMessage).value;
+0284                 <span class="keyword">switch</span> modelType
+0285                     <span class="keyword">case</span> modelTypes.StandardLayers.value
+0286                         thisModel = thisContrast.model;
+0287                         thisLayerArray = ones(1, length(thisModel));
+0288                         <span class="keyword">for</span> n = 1:length(thisModel)
+0289                             thisLayer = thisModel{n};
+0290                             thisLayerNum = find(strcmpi(thisLayer, allowedNames.layersNames));
+0291                             thisLayerArray(n) = thisLayerNum;
+0292                         <span class="keyword">end</span>
+0293                         contrastLayers{i} = thisLayerArray;
+0294                         contrastCustomFile(i) = NaN;
+0295                     <span class="keyword">otherwise</span>
+0296                         contrastLayers{i} = {};
+0297                         whichFile = thisContrast.model;
+0298                         thisContrastFileNum = find(strcmpi(whichFile, allowedNames.customNames));
+0299                         contrastCustomFile(i) = thisContrastFileNum;
+0300                 <span class="keyword">end</span>
+0301                 
+0302             <span class="keyword">end</span>
+0303 
+0304             contrastStruct.contrastNames = contrastNames;
+0305             contrastStruct.numberOfContrasts = nContrasts;
+0306             contrastStruct.contrastNbas = contrastNbas;
+0307             contrastStruct.contrastNbss = contrastNbss;
+0308             contrastStruct.contrastLayers = contrastLayers;
+0309             contrastStruct.contrastRepeatSLDs = contrastRepeatSLDs;
+0310             contrastStruct.contrastCustomFile = contrastCustomFile;
+0311             
+0312         <span class="keyword">end</span>
+0313 
+0314         <a name="_sub9" href="#_subfunctions" class="code">function displayContrastsObject(obj)</a>
+0315             <span class="comment">% Display the contrasts object as a table.</span>
+0316             <span class="comment">% The subclass routine needs to pass in the rowNames for it's</span>
+0317             <span class="comment">% particular properties.</span>
+0318             <span class="comment">%</span>
+0319             <span class="comment">% contrasts.displayContrastsObject()</span>
+0320             rowNames = obj.displayNames;
+0321             nContrasts = obj.numberOfContrasts;
+0322             maxModelSize = 1;
+0323             
+0324             <span class="keyword">for</span> i = 1:nContrasts
+0325                 thisContrast = obj.contrasts{i};
+0326                 thisModel = thisContrast.model;
+0327                 <span class="keyword">if</span> length(thisModel) &gt; maxModelSize
+0328                     maxModelSize = length(thisModel);
+0329                 <span class="keyword">end</span>
+0330             <span class="keyword">end</span>
+0331 
+0332             numNamedRows = length(rowNames);
+0333             modelRows = cell((maxModelSize-1),1);
+0334             <span class="keyword">if</span> ~isempty(modelRows)
+0335                 <span class="keyword">for</span> n = 1:length(modelRows)
+0336                     modelRows{n} = <span class="string">''</span>;
+0337                 <span class="keyword">end</span>
+0338             <span class="keyword">end</span>
+0339 
+0340             p = [rowNames ; modelRows];
+0341             totalRows = length(p);
+0342             contrastsCell = cell(totalRows,nContrasts);
+0343             
+0344             <span class="keyword">for</span> i = 1:nContrasts
+0345                 thisContrast = obj.contrasts{i};
+0346                 n = 1;
+0347 
+0348                 <span class="comment">% Loop over all fields excluding the model</span>
+0349                 <span class="keyword">for</span> j = 1:length(rowNames)-1
+0350                     field = obj.rowHeaders.field(obj.rowHeaders.key == rowNames{j});
+0351                     contrastsCell(n,i) = {thisContrast.(field)};
+0352                     n = n + 1;
+0353                 <span class="keyword">end</span>
+0354                 
+0355                 <span class="comment">% Deal with the model explicitly</span>
+0356                 thisModel = thisContrast.model;
+0357                 <span class="keyword">if</span> isempty(thisModel)
+0358                     contrastsCell(numNamedRows,i) = {<span class="string">' '</span>};
+0359                 <span class="keyword">else</span>
+0360                     <span class="keyword">for</span> n = 1:length(thisModel)
+0361                         contrastsCell(numNamedRows+(n-1),i) = {thisModel(n)};
+0362                     <span class="keyword">end</span>
+0363                 <span class="keyword">end</span>
+0364 
+0365             <span class="keyword">end</span>
+0366             
+0367             sz = size(contrastsCell);
+0368             varTypes = cell(1,nContrasts);
+0369             varNames = cell(1,nContrasts);
+0370             <span class="keyword">for</span> i = 1:nContrasts
+0371                 varNames{i} = num2str(i);
+0372                 varTypes{i} = <span class="string">'string'</span>;
+0373             <span class="keyword">end</span>
+0374 
+0375             thisTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,varTypes,<span class="string">'VariableNames'</span>,varNames);
+0376             
+0377             <span class="comment">% Make sure that there are no empty cells - make them empty</span>
+0378             <span class="comment">% char arrays or they will not be valid table elements</span>
+0379             <span class="keyword">for</span> n = 1:sz(1)
+0380                 <span class="keyword">for</span> m = 1:sz(2)
+0381                     <span class="keyword">if</span> (isempty(contrastsCell{n,m}))
+0382                         contrastsCell{n,m} = <span class="string">''</span>;
+0383                     <span class="keyword">end</span>
+0384                 <span class="keyword">end</span>
+0385             <span class="keyword">end</span>
+0386             thisTable(:,:) = contrastsCell;
+0387             valTable = table(p);
+0388             totalTable = [valTable thisTable];
+0389             disp(totalTable);
+0390         <span class="keyword">end</span>
+0391 
+0392     <span class="keyword">end</span>
+0393 <span class="keyword">end</span>
+0394 
+0395 
+</pre></div>
+
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

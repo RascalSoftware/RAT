@@ -4,18 +4,14 @@ digraph m2html {
   RAT -> parseClassToStructs;
   RAT -> parseOutToProjectClass;
   RAT -> parseResultToStruct;
-  RATMain -> singleCalculation;
 
   RAT [URL="RAT.html"];
   RATMain [URL="RATMain.html"];
   extractProblemParams [URL="extractProblemParams.html"];
   parseCells [URL="parseCells.html"];
   parseClassToStructs [URL="parseClassToStructs.html"];
-  parseOutToProblem [URL="parseOutToProblem.html"];
-  parseOutToProblem2 [URL="parseOutToProblem2.html"];
   parseOutToProjectClass [URL="parseOutToProjectClass.html"];
   parseResultToStruct [URL="parseResultToStruct.html"];
-  removeCells [URL="removeCells.html"];
-  singleCalculation [URL="singleCalculation.html"];
+  project [URL="project.html"];
   textProgressBar [URL="textProgressBar.html"];
 }

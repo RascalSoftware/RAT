@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3 Custom Models. &mdash; RAT 0.1.0 documentation</title>
+  <title>Custom Models &mdash; RAT 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
@@ -24,7 +24,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="2 The Problem Definition Input Class." href="chapter2.html" /> 
+    <link rel="next" title="Source Code Layout" href="sourceCodeLayout.html" />
+    <link rel="prev" title="The Problem Definition Input Class" href="chapter2.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,21 +46,21 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">RAT Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter1.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter2.html">The Problem Definition Input Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter2.html#a-complete-example">A complete example</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Custom Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#custom-layers-models-dspc-bilayer-example">Custom Layers Models - DSPC bilayer example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-xy-profile-models">Custom XY Profile Models</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="sourceCodeLayout.html">Source Code Layout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userDocumentation.html">User Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About RAT</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="userManual.html">User Manual</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="chapter1.html"><span class="sectnum">1</span> Introduction.</a></li>
-<li class="toctree-l2"><a class="reference internal" href="chapter2.html"><span class="sectnum">2</span> The Problem Definition Input Class.</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><span class="sectnum">3</span> Custom Models.</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#custom-layers-models-dspc-bilayer-example"><span class="sectnum">3.1</span> Custom Layers Models - DSPC bilayer example.</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#custom-xy-profile-models"><span class="sectnum">3.2</span> Custom XY Profile Models</a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -76,8 +77,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="userManual.html">User Manual</a></li>
-      <li class="breadcrumb-item active"><span class="sectnum">3</span> Custom Models.</li>
+          <li class="breadcrumb-item"><a href="tutorial.html">Tutorial</a></li>
+      <li class="breadcrumb-item active">Custom Models</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/chapter3.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -87,8 +88,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <span class="target" id="chapter3"></span><section id="custom-models">
-<h1><span class="sectnum">3</span> Custom Models.<a class="headerlink" href="#custom-models" title="Permalink to this heading"></a></h1>
+  <section id="custom-models">
+<span id="chapter3"></span><h1>Custom Models<a class="headerlink" href="#custom-models" title="Permalink to this heading"></a></h1>
 <p>The Standard Layers approach is useful for quickly setting up simple models, but parameterising models in this way is not always the best way of analysing data. For example, in the case of lipids, it is often natural and intuitive to analyse the data in terms of area per lipid rather than in terms of d, <span class="math notranslate nohighlight">\(\rho\)</span> and roughness. Similarly, for solid state samples thinking in terms of density and composition is often more appropriate than SLD. In common with RasCAL, you can parameterise your model in any way you like, and then rather than building the model in the input class, the model is constructed using a custom model script. This is by far the most powerful method for using RAT for data analysis, as virtually any type of model can be implemented in this way.</p>
 <p>Again in common with RasCAL, there are two main options for custom modelling:</p>
 <ul class="simple">
@@ -110,7 +111,7 @@ Custom models are identical between RasCAL and RAT, except for a slight differen
 <p>It’s important to remove the second output parameter, as this is interpreted as a penalty to be applied to chi-squared, in order to implement model-based constraints, and if this is not what it is, there may be unpredictable results. This is discussed in more detail in Chapter 5.</p>
 </div>
 <section id="custom-layers-models-dspc-bilayer-example">
-<h2><span class="sectnum">3.1</span> Custom Layers Models - DSPC bilayer example.<a class="headerlink" href="#custom-layers-models-dspc-bilayer-example" title="Permalink to this heading"></a></h2>
+<h2>Custom Layers Models - DSPC bilayer example<a class="headerlink" href="#custom-layers-models-dspc-bilayer-example" title="Permalink to this heading"></a></h2>
 <p>In biophysical studies, one of the most common parameters of interest is the area occupied per lipid, be it in a bilayer or a monolayer. Often for lipids, the volume occupied per component is known, which leads to a simple way of calculating the thickness of the head and tail groups. Let the volume of the heads and tails be V<sub>Head</sub> and V<sub>Tail</sub> respectively. Then, for a given Area per Lipid, the thickness of the two layers will be given by <span class="math notranslate nohighlight">\(D_\mathrm{Head} = \frac{V_\mathrm{Head}}{APM}\)</span> for the headgroup thickness, and <span class="math notranslate nohighlight">\(D_\mathrm{Tail} = \frac{V_\mathrm{Tail}}{APM}\)</span> for the tail layers.</p>
 <p>In terms of the SLD’s, because the volume and composition of each layer is known, then for each, the SLD can be calculated as <span class="math notranslate nohighlight">\(\rho = \frac {\sum_{i} n_\mathrm{i} b_\mathrm{i}}{V}\)</span> in the usual way. Using literature values for the volumes therefore, rather than parameterising a lipid in terms of thickness, roughness, SLD and coverage of the lipid layers (i.e. head and tail) separately, we can just use a single APM parameter for the whole lipid. In terms of the calculation, we still specify d, <span class="math notranslate nohighlight">\(\rho\)</span>, rough and coverage on a per layer basis for RAT, but we calculate these in a script for the bilayer from the APM and known composition and volume. This not only gives us the ability to fit our data using more realistic biophysical parameters (in our case APM), but also reduces the number of parameters (dimensions) of our model.</p>
 <p>The figure shows the system we are measuring. We have a single, hydrogenated DSPC bilayer supported on a silicon surface. The silicon is, as always, coated with an oxide layer. The bilayer may or may not be complete (i.e. partially hydrated) so we will need hydration parameters, and there is the possibility of a thin water layer between the bilayer and the substrate. We also need some roughness parameters, both for the substrate and the bilayer itself. We will build a custom model for this and use it to analyse the bilayer data at three contrasts.</p>
@@ -176,7 +177,7 @@ Custom models are identical between RasCAL and RAT, except for a slight differen
 </div>
 <p>The custom file that we are going to use is called <em>customBilayer.m</em>. This is a MATLAB (or Octave - both are identical) function, which takes our input parameters and translates them into a list of layers. To add the file, we use the <strong>addCustomFile</strong> method:</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="c">% name filename language path</span>
-<span class="n">problem</span><span class="p">.</span><span class="n">addCustomFile</span><span class="p">({</span><span class="s">&#39;DSPC Model&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;customBilayer.m&#39;</span><span class="w"> </span><span class="p">,</span><span class="s">&#39;matlab&#39;</span><span class="p">,</span><span class="w">  </span><span class="s">&#39;pwd&#39;</span><span class="p">});</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">addCustomFile</span><span class="p">(</span><span class="s">&#39;DSPC Model&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;customBilayer.m&#39;</span><span class="w"> </span><span class="p">,</span><span class="s">&#39;matlab&#39;</span><span class="p">,</span><span class="w">  </span><span class="nb">pwd</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>The custom files are in exactly the same format at those in RasCAL. To add it to our project in RAT we always need to specify four things:</p>
@@ -360,8 +361,8 @@ Custom models are identical between RasCAL and RAT, except for a slight differen
 <span class="n">problem</span><span class="p">.</span><span class="n">setBulkIn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;Silicon&#39;</span><span class="p">,</span><span class="s">&#39;min&#39;</span><span class="p">,</span><span class="mf">2.07e-6</span><span class="p">,</span><span class="s">&#39;value&#39;</span><span class="p">,</span><span class="mf">2.073e-6</span><span class="p">,</span><span class="s">&#39;max&#39;</span><span class="p">,</span><span class="mf">2.08e-6</span><span class="p">,</span><span class="s">&#39;fit&#39;</span><span class="p">,</span><span class="nb">false</span><span class="p">);</span>
 
 <span class="c">% Add two more values for bulk out....</span>
-<span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">({</span><span class="s">&#39;SLD SMW&#39;</span><span class="p">,</span><span class="mf">1e-6</span><span class="p">,</span><span class="mf">2.073e-6</span><span class="p">,</span><span class="mf">3e-6</span><span class="p">,</span><span class="nb">true</span><span class="p">});</span>
-<span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">({</span><span class="s">&#39;SLD H2O&#39;</span><span class="p">,</span><span class="o">-</span><span class="mf">0.6e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.56e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.3e-6</span><span class="p">,</span><span class="nb">true</span><span class="p">});</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">(</span><span class="s">&#39;SLD SMW&#39;</span><span class="p">,</span><span class="mf">1e-6</span><span class="p">,</span><span class="mf">2.073e-6</span><span class="p">,</span><span class="mf">3e-6</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">(</span><span class="s">&#39;SLD H2O&#39;</span><span class="p">,</span><span class="o">-</span><span class="mf">0.6e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.56e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.3e-6</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
 
 <span class="n">problem</span><span class="p">.</span><span class="n">setBulkOut</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;fit&#39;</span><span class="p">,</span><span class="nb">true</span><span class="p">,</span><span class="s">&#39;min&#39;</span><span class="p">,</span><span class="mf">5e-6</span><span class="p">);</span>
 
@@ -437,12 +438,9 @@ Custom models are identical between RasCAL and RAT, except for a slight differen
 <img alt="Displays project class (first half)" src="_images/dispProblem11.png" />
 <img alt="Displays project class (second half)" src="_images/dispProblem21.png" />
 <p>To run this, we make a controls block as before, and pass this to RAT. This time we will do a Bayesian analysis (we will discuss the controls block and available algorithms in more detail in Chapter 4).</p>
-<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">controlsDef</span><span class="p">();</span>
-<span class="n">controls</span><span class="p">.</span><span class="n">calcSldDuringFit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;no&#39;</span><span class="p">;</span>
-<span class="n">controls</span><span class="p">.</span><span class="n">procedure</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;bayes&#39;</span><span class="p">;</span>
-<span class="n">controls</span><span class="p">.</span><span class="n">nsimu</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">7000</span><span class="p">;</span>
-<span class="n">controls</span><span class="p">.</span><span class="n">repeats</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
-<span class="n">controls</span><span class="p">.</span><span class="n">parallel</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;points&#39;</span><span class="p">;</span>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">controlsClass</span><span class="p">();</span>
+<span class="n">controls</span><span class="p">.</span><span class="n">calcSldDuringFit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="n">controls</span><span class="p">.</span><span class="n">parallel</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">parallelOptions</span><span class="p">.</span><span class="n">Points</span><span class="p">;</span>
 
 <span class="nb">disp</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
 </pre></div>
@@ -454,7 +452,7 @@ Custom models are identical between RasCAL and RAT, except for a slight differen
 <img alt="Displays RAT executing calculations" src="_images/ratRun3.png" />
 </section>
 <section id="custom-xy-profile-models">
-<h2><span class="sectnum">3.2</span> Custom XY Profile Models<a class="headerlink" href="#custom-xy-profile-models" title="Permalink to this heading"></a></h2>
+<h2>Custom XY Profile Models<a class="headerlink" href="#custom-xy-profile-models" title="Permalink to this heading"></a></h2>
 <p>Although many systems can be well described by layers, sometimes these are not the most appropriate. So for example, we may want to incorporate SLD profiles from molecular simulations, or use interfaces that are not error functions. In these cases, a second type of custom model can be used, where instead of the custom model function outputting a list of layers, it builds a continuous SLD profile, which is then microsliced by RAT to calculate the reflectivity. This gives a high degree of flexibility for the type of model that can be generated.</p>
 <p>(tbc)</p>
 </section>
@@ -464,7 +462,8 @@ Custom models are identical between RasCAL and RAT, except for a slight differen
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="chapter2.html" class="btn btn-neutral float-left" title="2 The Problem Definition Input Class." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="chapter2.html" class="btn btn-neutral float-left" title="The Problem Definition Input Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sourceCodeLayout.html" class="btn btn-neutral float-right" title="Source Code Layout" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

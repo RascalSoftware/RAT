@@ -33,11 +33,11 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors)">RATMain</a>	</li>
+<li><a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)">RATMain</a>	</li>
 <li><a href="../API/outputFunction/defaultOutputFunction.html" class="code" title="function defaultOutputFunction(eventrc,eventdata)">defaultOutputFunction</a>	The default RAT output function.</li>
 <li><a href="../API/outputFunction/outputClass.html" class="code" title="">outputClass</a>	</li>
 <li><a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>	</li>
-<li><a href="parseClassToStructs.html" class="code" title="function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)">parseClassToStructs</a>	Breaks up the classes into the relevant structures for inputting into C</li>
+<li><a href="parseClassToStructs.html" class="code" title="function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)">parseClassToStructs</a>	Breaks up the classes into the relevant structures for inputting into C</li>
 <li><a href="parseOutToProjectClass.html" class="code" title="function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct,problem,result)">parseOutToProjectClass</a>	Reconstruct the problemDef class as an output</li>
 <li><a href="parseResultToStruct.html" class="code" title="function result = parseResultToStruct(problem,results)">parseResultToStruct</a>	</li>
 <li><a href="../API/projectClass/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>	</li>
@@ -59,8 +59,8 @@ This function is called by:
 0007 <span class="keyword">end</span>
 0008 
 0009 
-0010 [problemDef,problemDef_cells,problemDef_limits,priors,controls] = <a href="parseClassToStructs.html" class="code" title="function [problemDef,problemDef_cells,problemDef_limits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)">parseClassToStructs</a>(problemDefInput,controls);
-0011 [problemDef,~] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
+0010 [problemDef,problemDefCells,problemDefLimits,priors,controls] = <a href="parseClassToStructs.html" class="code" title="function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(inputProblemDef,inputControls)">parseClassToStructs</a>(problemDefInput,controls);
+0011 [problemDef,~] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 0012 
 0013 <span class="comment">% %Define variable size for code generation</span>
 0014 <span class="comment">% coder.varsize('problemDef.resample',[Inf,1],[1 0]);</span>
@@ -131,7 +131,7 @@ This function is called by:
 0079 <span class="keyword">end</span>
 0080 
 0081 tic
-0082 [outProblemStruct,problem,result,bayesResults] = <a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors)">RATMain</a>(problemDef,problemDef_cells,problemDef_limits,controls,priors);
+0082 [outProblemStruct,problem,result,bayesResults] = <a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)">RATMain</a>(problemDef,problemDefCells,problemDefLimits,controls,priors);
 0083 <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\n'</span>));
 0084 
 0085 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
@@ -144,7 +144,7 @@ This function is called by:
 0092     originalProc = controls.proc;
 0093     controls.calcSld = 1;
 0094     controls.proc = <span class="string">'calculate'</span>;
-0095     [outProblemStruct,problem,result,~] = <a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDef_cells,problemDef_limits,controls,priors)">RATMain</a>(outProblemStruct,problemDef_cells,problemDef_limits,controls,priors);
+0095     [outProblemStruct,problem,result,~] = <a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)">RATMain</a>(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
 0096     controls.proc = originalProc;
 0097 <span class="keyword">end</span>
 0098 
@@ -158,7 +158,7 @@ This function is called by:
 0106     result = <a href="../API/projectClass/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(result,bayesResults);
 0107 <span class="keyword">end</span>
 0108 
-0109 [~,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
+0109 [~,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 0110 result.fitNames = fitNames;
 0111 
 0112 outProblemDef = <a href="parseOutToProjectClass.html" class="code" title="function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct,problem,result)">parseOutToProjectClass</a>(problemDefInput,outProblemStruct,problem,result);
@@ -172,6 +172,6 @@ This function is called by:
 0120 
 </pre></div>
 
-<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

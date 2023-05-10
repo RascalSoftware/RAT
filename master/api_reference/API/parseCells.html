@@ -24,11 +24,11 @@
 <div class="box"><strong>Splits up the master input list of all arrays into separate arrays</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDef_cells) </strong></div>
+<div class="box"><strong>function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> Splits up the master input list of all arrays into separate arrays
- The min input array 'problemDef_cells' is a master array where
+ The min input array 'problemDefCells' is a master array where
  all the cell arrays are grouped together. There are
  repeatLayers      - controls repeating of the layers stack
  allData           - Array of all the data arrays
@@ -47,25 +47,25 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="../targetFunctions/standardTF/customLayers/standardTFCustomLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomLayersParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomLayersParallelContrasts</a>	Multi threaded version of the custom layers over reflectivity contrasts for standardTF reflectivity calculation.</li>
-<li><a href="../targetFunctions/standardTF/customLayers/standardTFCustomLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomLayersParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomLayersParallelPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li>
-<li><a href="../targetFunctions/standardTF/customLayers/standardTFCustomLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomLayersSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomLayersSingle</a>	Single threaded version of the custom layers, standardTF reflectivity</li>
-<li><a href="../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelContrasts</a>	Extract individual cell arrays</li>
-<li><a href="../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
-<li><a href="../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYSingle</a>	Extract individual cell arrays</li>
-<li><a href="../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersParallelContrasts</a>	Standard Layers calculation paralelised over the outer loop</li>
-<li><a href="../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersParallelPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
-<li><a href="../targetFunctions/standardTF/standardLayers/standardTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersSingle</a>	Single theraded version of the Standard Layers calculation</li>
+<li><a href="../targetFunctions/standardTF/customLayers/standardTFCustomLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomLayersParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomLayersParallelContrasts</a>	Multi threaded version of the custom layers, standardTF reflectivity</li>
+<li><a href="../targetFunctions/standardTF/customLayers/standardTFCustomLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomLayersParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomLayersParallelPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li>
+<li><a href="../targetFunctions/standardTF/customLayers/standardTFCustomLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomLayersSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomLayersSingle</a>	Single threaded version of the custom layers, standardTF reflectivity</li>
+<li><a href="../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYParallelContrasts</a>	Extract individual cell arrays</li>
+<li><a href="../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYParallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
+<li><a href="../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYSingle</a>	Extract individual cell arrays</li>
+<li><a href="../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelContrasts</a>	Standard Layers calculation paralelised over the outer loop</li>
+<li><a href="../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
+<li><a href="../targetFunctions/standardTF/standardLayers/standardTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersSingle</a>	Single theraded version of the Standard Layers calculation</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDef_cells)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)</a>
 0002 
 0003 <span class="comment">% Splits up the master input list of all arrays into separate arrays</span>
-0004 <span class="comment">% The min input array 'problemDef_cells' is a master array where</span>
+0004 <span class="comment">% The min input array 'problemDefCells' is a master array where</span>
 0005 <span class="comment">% all the cell arrays are grouped together. There are</span>
 0006 <span class="comment">% repeatLayers      - controls repeating of the layers stack</span>
 0007 <span class="comment">% allData           - Array of all the data arrays</span>
@@ -77,17 +77,17 @@ This function is called by:
 0013 <span class="comment">% Custom files      - Filenames and path for any custom files used</span>
 0014 
 0015 
-0016 repeatLayers = problemDef_cells{1};
-0017 allData = problemDef_cells{2};
-0018 dataLimits = problemDef_cells{3};
-0019 simLimits = problemDef_cells{4};
-0020 contrastLayers = problemDef_cells{5};
-0021 layersDetails = problemDef_cells{6};
-0022 customFiles = problemDef_cells{14};
+0016 repeatLayers = problemDefCells{1};
+0017 allData = problemDefCells{2};
+0018 dataLimits = problemDefCells{3};
+0019 simLimits = problemDefCells{4};
+0020 contrastLayers = problemDefCells{5};
+0021 layersDetails = problemDefCells{6};
+0022 customFiles = problemDefCells{14};
 0023 
 0024 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

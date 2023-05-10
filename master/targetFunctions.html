@@ -45,35 +45,30 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">RAT Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="sourceCodeLayout.html">Source Code Layout</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Target Functions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#reflectivity-calculation">Reflectivity Calculation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">reflectivity_calculation</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#common-functions">Common Functions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-targetFunctions.common.groupLayers">Allocate Layers For Contrast</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-targetFunctions.common.groupLayers">Allocate Params To Layers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#back-sort">Back Sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-targetFunctions.reflectivityCalculation">Reflectivity Calculation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-targetFunctions.common.groupLayers">Common Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#allocate-layers-for-contrast">Allocate Layers For Contrast</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#allocate-params-to-layers">Allocate Params To Layers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-targetFunctions.common.backSort">Back Sort</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-targetFunctions.common.costFunctions.chiSquared">Chi-Squared</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-targetFunctions.common.groupLayers">Group Layers Mod</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#loop-cpp-custlay-wrapper-single-points-contrasts">Loop Cpp Custlay Wrapper (Single,Points,Contrasts)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-targetFunctions.common.loopMatlabCustomLayers.mexCompile">Loop Matlab Custom Wrapper (Single,Points,Contrasts)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#group-layers-mod">Group Layers Mod</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-targetFunctions.common.shiftData">Shift Data</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#standard-target-functions-standardtf">Standard Target Functions (StandardTF)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#standardtf-standard-layers-single">standardTF Standard Layers - Single</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#standardtf-standard-layers-parapoints">standardTF Standard Layers - ParaPoints</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#standardtf-standard-layers-paracontrasts">standardTF Standard Layers - ParaContrasts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#standardtf-custlay-single">standardTF_custlay_single</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#standardtf-custlay-parapoints">standardTF_custlay_parapoints</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#standardtf-custlay-paracontrasts">standardTF_custlay_paraContrasts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#standard-tf-custxy-single">standard_TF_custXY_single</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#standard-tf-custxy-parapoints">standard_TF_custXY_parapoints</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#standard-tf-custxy-paracontrasts">standard_TF_custXY_paraContrasts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#standard-layers-single">Standard Layers - Single</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#standard-layers-parallel-points">Standard Layers - Parallel Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#standard-layers-parallel-contrasts">Standard Layers - Parallel Contrasts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-layers-single">Custom Layers - Single</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-layers-parallel-points">Custom Layers - Parallel Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-layers-parallel-contrasts">Custom Layers - Parallel Contrasts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-xy-single">Custom XY - single</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-xy-parallel-points">Custom XY - Parallel Points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#custom-xy-parallel-contrasts">Custom XY - Parallel Contrasts</a></li>
 </ul>
 </li>
 </ul>
@@ -85,7 +80,6 @@
 <li class="toctree-l1"><a class="reference internal" href="userDocumentation.html">User Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About RAT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="userManual.html">User Manual</a></li>
 </ul>
 
         </div>
@@ -115,16 +109,19 @@
              
   <section id="target-functions">
 <span id="targetfunctions"></span><h1>Target Functions<a class="headerlink" href="#target-functions" title="Permalink to this heading"></a></h1>
-<section id="reflectivity-calculation">
-<h2>Reflectivity Calculation<a class="headerlink" href="#reflectivity-calculation" title="Permalink to this heading"></a></h2>
-<section id="id1">
-<h3>reflectivity_calculation<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<section id="module-targetFunctions.reflectivityCalculation">
+<span id="reflectivity-calculation"></span><h2>Reflectivity Calculation<a class="headerlink" href="#module-targetFunctions.reflectivityCalculation" title="Permalink to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="targetFunctions.reflectivityCalculation.reflectivityCalculation">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.reflectivityCalculation.</span></span><span class="sig-name descname"><span class="pre">reflectivityCalculation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.reflectivityCalculation.reflectivityCalculation" title="Permalink to this definition"></a></dt>
+<dd><p>Main entry point into the reflectivity calculation for the toolbox. This is the main function that is called by any of the minimisers or analysis tools from the rest of the toolbox.  <em>The main job of this function is to decide which type of calculation (i.e. ‘Target function’ is required, and call the relevant routines. The types of available target functions are:</em> * non polarised  - The main basic target function type, for non polarised neutrons (or x-rays) with non-absorbing samples. Different model types are specified in sub functions from here. * absorption     - Identical to standardTF, but includes imaginary refractive index terms. * oil water      - Target function for oil-water samples * domains        - Target function for samples consisting of domains which are larger than the beam lateral coherence length. * magnetic       - Target function for cases for polarised neutrons with polarisation analysis.</p>
+</dd></dl>
+
 </section>
-</section>
-<section id="common-functions">
-<span id="commonfunctions"></span><h2>Common Functions<a class="headerlink" href="#common-functions" title="Permalink to this heading"></a></h2>
 <section id="module-targetFunctions.common.groupLayers">
-<span id="allocate-layers-for-contrast"></span><h3>Allocate Layers For Contrast<a class="headerlink" href="#module-targetFunctions.common.groupLayers" title="Permalink to this heading"></a></h3>
+<span id="common-functions"></span><span id="commonfunctions"></span><h2>Common Functions<a class="headerlink" href="#module-targetFunctions.common.groupLayers" title="Permalink to this heading"></a></h2>
+<section id="allocate-layers-for-contrast">
+<h3>Allocate Layers For Contrast<a class="headerlink" href="#allocate-layers-for-contrast" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="targetFunctions.common.groupLayers.allocateLayersForContrast">
 <span class="sig-prename descclassname"><span class="pre">targetFunctions.common.groupLayers.</span></span><span class="sig-name descname"><span class="pre">allocateLayersForContrast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">contrastLayers</span></em>, <em class="sig-param"><span class="pre">outParameterisedLayers</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.groupLayers.allocateLayersForContrast" title="Permalink to this definition"></a></dt>
@@ -132,8 +129,8 @@
 </dd></dl>
 
 </section>
-<section id="module-targetFunctions.common.groupLayers">
-<span id="allocate-params-to-layers"></span><h3>Allocate Params To Layers<a class="headerlink" href="#module-targetFunctions.common.groupLayers" title="Permalink to this heading"></a></h3>
+<section id="allocate-params-to-layers">
+<h3>Allocate Params To Layers<a class="headerlink" href="#allocate-params-to-layers" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="targetFunctions.common.groupLayers.allocateParamsToLayers">
 <span class="sig-prename descclassname"><span class="pre">targetFunctions.common.groupLayers.</span></span><span class="sig-name descname"><span class="pre">allocateParamsToLayers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">params</span></em>, <em class="sig-param"><span class="pre">layersDetails</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.groupLayers.allocateParamsToLayers" title="Permalink to this definition"></a></dt>
@@ -141,12 +138,13 @@
 </dd></dl>
 
 </section>
-<section id="back-sort">
-<h3>Back Sort<a class="headerlink" href="#back-sort" title="Permalink to this heading"></a></h3>
+<section id="module-targetFunctions.common.backSort">
+<span id="back-sort"></span><h3>Back Sort<a class="headerlink" href="#module-targetFunctions.common.backSort" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.groupLayers.backSort">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.groupLayers.</span></span><span class="sig-name descname"><span class="pre">backSort</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.groupLayers.backSort" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object mat" id="targetFunctions.common.backSort.backSort">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.backSort.</span></span><span class="sig-name descname"><span class="pre">backSort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">cBacks</span></em>, <em class="sig-param"><span class="pre">cShifts</span></em>, <em class="sig-param"><span class="pre">cScales</span></em>, <em class="sig-param"><span class="pre">cNbas</span></em>, <em class="sig-param"><span class="pre">cNbss</span></em>, <em class="sig-param"><span class="pre">cRes</span></em>, <em class="sig-param"><span class="pre">backs</span></em>, <em class="sig-param"><span class="pre">shifts</span></em>, <em class="sig-param"><span class="pre">sf</span></em>, <em class="sig-param"><span class="pre">nba</span></em>, <em class="sig-param"><span class="pre">nbs</span></em>, <em class="sig-param"><span class="pre">res</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.backSort.backSort" title="Permalink to this definition"></a></dt>
+<dd><p>Distributes the background and shift values among the different contrasts     USAGE::         [backg,qshift,sf,nba,nbs,resol] = backsort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)     INPUTS:        * cBacks  :         Which backround value is associated with each contrast        * cShifts  :        Which qz_shift value is associated with each contrast        * cScales  :        Which scalefactor value is associated with each contrast        * cNbas  :          Which NBa value is associated with each contrast        * cNbss  :          Which Nbs value is associated with each contrast        * cRes  :           Which resolution value is associated with each contrast        * backs  :          List of all background values.        * shifts  :         List of all qz-shift values        * sf :              List of all scalefactor values        * nba :             List of all nba values        * nbs :             List of all nbs values        * res :             List of all resolution values      OUTPUTS:        * backgs : list of actual background values for each contrast        * qshifts : list of actual shift values for each contrast              * sfs : list of actual shift values for each contrast             * nbas : list of actual shift values for each contrast             * nbss : list of actual shift values for each contrast        * nbss : list of actual shift values for each contrast</p>
+</dd></dl>
 
 </section>
 <section id="module-targetFunctions.common.costFunctions.chiSquared">
@@ -158,121 +156,107 @@
 </dd></dl>
 
 </section>
-<section id="module-targetFunctions.common.groupLayers">
-<span id="group-layers-mod"></span><h3>Group Layers Mod<a class="headerlink" href="#module-targetFunctions.common.groupLayers" title="Permalink to this heading"></a></h3>
+<section id="group-layers-mod">
+<h3>Group Layers Mod<a class="headerlink" href="#group-layers-mod" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.groupLayers.groupLayers_Mod">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.groupLayers.</span></span><span class="sig-name descname"><span class="pre">groupLayers_Mod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.groupLayers.groupLayers_Mod" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</section>
-<section id="loop-cpp-custlay-wrapper-single-points-contrasts">
-<h3>Loop Cpp Custlay Wrapper (Single,Points,Contrasts)<a class="headerlink" href="#loop-cpp-custlay-wrapper-single-points-contrasts" title="Permalink to this heading"></a></h3>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.groupLayers.loopCppCustlayWrapper_CustLaycontrast">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.groupLayers.</span></span><span class="sig-name descname"><span class="pre">loopCppCustlayWrapper_CustLaycontrast</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.groupLayers.loopCppCustlayWrapper_CustLaycontrast" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</section>
-<section id="module-targetFunctions.common.loopMatlabCustomLayers.mexCompile">
-<span id="loop-matlab-custom-wrapper-single-points-contrasts"></span><h3>Loop Matlab Custom Wrapper (Single,Points,Contrasts)<a class="headerlink" href="#module-targetFunctions.common.loopMatlabCustomLayers.mexCompile" title="Permalink to this heading"></a></h3>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.loopMatlabCustomLayers.mexCompile.loopMatalbCustlayWrapper_CustLaycontrast">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.loopMatlabCustomLayers.mexCompile.</span></span><span class="sig-name descname"><span class="pre">loopMatalbCustlayWrapper_CustLaycontrast</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.loopMatlabCustomLayers.mexCompile.loopMatalbCustlayWrapper_CustLaycontrast" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object mat" id="targetFunctions.common.groupLayers.groupLayersMod">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.groupLayers.</span></span><span class="sig-name descname"><span class="pre">groupLayersMod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">allLayers</span></em>, <em class="sig-param"><span class="pre">allRoughs</span></em>, <em class="sig-param"><span class="pre">geometry</span></em>, <em class="sig-param"><span class="pre">nbair</span></em>, <em class="sig-param"><span class="pre">nbsubs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.groupLayers.groupLayersMod" title="Permalink to this definition"></a></dt>
+<dd><p>Arrange layers according to geometry and apply any coverage correction. USAGE::     [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,numberOfContrasts,geometry,nbairs,nbsubs) INPUTS:     * allLayers =         cell array, one for each contrast. Each cell is the list of layer values for each contrast.     * allRoughs =         Double of substrate roughness for each contrast.     * numberOfContrasts = double.     * geometry =          ‘Air / Liquid (or solid)’ or ‘Solid / Liquid’     * nbairs =            vector of nbair values.     * nbsubs =            vector of nbsub values.     The paratt calculation procedds through the      z,rho,rough stack, and the parameter ‘ssub’ in     callParatt is the final roughness encountered.      * For air liquid ‘ssub’ is therefore the substrate roughness.     * For solid liquid, the substrate roughness is the first roughness encountered, and ‘ssub’ is then the roughness of the outermost layer Outputs:     * outLayers = cell array of layers param values for each contrast.     * outSsubs =  vector of substrate roughness values.</p>
+</dd></dl>
 
 </section>
 <section id="module-targetFunctions.common.shiftData">
 <span id="shift-data"></span><h3>Shift Data<a class="headerlink" href="#module-targetFunctions.common.shiftData" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.shiftdata">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">shiftdata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.shiftdata" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.shiftData">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">shiftData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">scalefac</span></em>, <em class="sig-param"><span class="pre">horshift</span></em>, <em class="sig-param"><span class="pre">dataPresent</span></em>, <em class="sig-param"><span class="pre">data</span></em>, <em class="sig-param"><span class="pre">dataLimits</span></em>, <em class="sig-param"><span class="pre">simLimits</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.shiftData" title="Permalink to this definition"></a></dt>
+<dd><p>Shifts the data according to scale factor. If there is no data, makes  x-data over the simulation range. INPUTS:     * scalefac = problem.scalefactors;     * horshift = problem.qshifts;     * numberOfContrasts = problem.numberOfContrasts;     * dataPresent = problem.dataPresent;     * allData = problem.data;     * dataLimits = problem.dataLimits;</p>
+</dd></dl>
 
 </section>
 </section>
 <section id="standard-target-functions-standardtf">
 <span id="standardtf-reflectivitycalculation"></span><h2>Standard Target Functions (StandardTF)<a class="headerlink" href="#standard-target-functions-standardtf" title="Permalink to this heading"></a></h2>
 <img alt="images/standTF.png" src="images/standTF.png" />
-<ol class="arabic simple">
-<li><p><strong>Standard Layers (StanLay)</strong></p></li>
-</ol>
-<section id="standardtf-standard-layers-single">
-<h3>standardTF Standard Layers - Single<a class="headerlink" href="#standardtf-standard-layers-single" title="Permalink to this heading"></a></h3>
+<span class="target" id="module-targetFunctions.standardTF.standardLayers"></span><section id="standard-layers-single">
+<h3>Standard Layers - Single<a class="headerlink" href="#standard-layers-single" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.standardTF_stanlay_single">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">standardTF_stanlay_single</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.standardTF_stanlay_single" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object mat" id="targetFunctions.standardTF.standardLayers.standardTFStandardLayersSingle">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.standardTF.standardLayers.</span></span><span class="sig-name descname"><span class="pre">standardTFStandardLayersSingle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.standardTF.standardLayers.standardTFStandardLayersSingle" title="Permalink to this definition"></a></dt>
+<dd><p>Single theraded version of the Standard Layers calculation  This is the main reflectivity calculation of the standard layers calculation type. It extracts the required paramters for the contrasts from the input arrays, then passes the main calculation to ‘standardLayersCore’, which carries out the calculation iteslf.  The core calculation is common for both standard and custom layers.</p>
+</dd></dl>
 
 </section>
-<section id="standardtf-standard-layers-parapoints">
-<h3>standardTF Standard Layers - ParaPoints<a class="headerlink" href="#standardtf-standard-layers-parapoints" title="Permalink to this heading"></a></h3>
+<section id="standard-layers-parallel-points">
+<h3>Standard Layers - Parallel Points<a class="headerlink" href="#standard-layers-parallel-points" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.standardTF_stanlay_paraPoints">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">standardTF_stanlay_paraPoints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.standardTF_stanlay_paraPoints" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object mat" id="targetFunctions.standardTF.standardLayers.standardTFStandardLayersParallelPoints">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.standardTF.standardLayers.</span></span><span class="sig-name descname"><span class="pre">standardTFStandardLayersParallelPoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.standardTF.standardLayers.standardTFStandardLayersParallelPoints" title="Permalink to this definition"></a></dt>
+<dd><p>Standard Layers calculation paralelised over the inner loop This is the main reflectivity calculation of the standard layers calculation type. It extracts the required paramters for the contrasts from the input arrays, then passes the main calculation to ‘standardLayersCore’, which carries out the calculation iteslf.  The core calculation is common for both standard and custom layers.</p>
+</dd></dl>
 
 </section>
-<section id="standardtf-standard-layers-paracontrasts">
-<h3>standardTF Standard Layers - ParaContrasts<a class="headerlink" href="#standardtf-standard-layers-paracontrasts" title="Permalink to this heading"></a></h3>
+<section id="standard-layers-parallel-contrasts">
+<h3>Standard Layers - Parallel Contrasts<a class="headerlink" href="#standard-layers-parallel-contrasts" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.standardTF_stanlay_paraContrasts">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">standardTF_stanlay_paraContrasts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.standardTF_stanlay_paraContrasts" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object mat" id="targetFunctions.standardTF.standardLayers.standardTFStandardLayersParallelContrasts">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.standardTF.standardLayers.</span></span><span class="sig-name descname"><span class="pre">standardTFStandardLayersParallelContrasts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.standardTF.standardLayers.standardTFStandardLayersParallelContrasts" title="Permalink to this definition"></a></dt>
+<dd><p>Standard Layers calculation paralelised over the outer loop This is the main reflectivity calculation of the standard layers calculation type. It extracts the required paramters for the contrasts from the input arrays, then passes the main calculation to ‘standardLayersCore’, which carries out the calculation iteslf.  The core calculation is common for both standard and custom layers.</p>
+</dd></dl>
 
-<ol class="arabic simple" start="2">
-<li><p><strong>Custom Layers (CustLay)</strong></p></li>
-</ol>
-</section>
-<section id="standardtf-custlay-single">
-<h3>standardTF_custlay_single<a class="headerlink" href="#standardtf-custlay-single" title="Permalink to this heading"></a></h3>
+<span class="target" id="module-targetFunctions.standardTF.customLayers"></span></section>
+<section id="custom-layers-single">
+<h3>Custom Layers - Single<a class="headerlink" href="#custom-layers-single" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.standardTF_custlay_single">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">standardTF_custlay_single</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.standardTF_custlay_single" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</section>
-<section id="standardtf-custlay-parapoints">
-<h3>standardTF_custlay_parapoints<a class="headerlink" href="#standardtf-custlay-parapoints" title="Permalink to this heading"></a></h3>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.standardTF_custlay_paraPoints">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">standardTF_custlay_paraPoints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.standardTF_custlay_paraPoints" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object mat" id="targetFunctions.standardTF.customLayers.standardTFCustomLayersSingle">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.standardTF.customLayers.</span></span><span class="sig-name descname"><span class="pre">standardTFCustomLayersSingle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.standardTF.customLayers.standardTFCustomLayersSingle" title="Permalink to this definition"></a></dt>
+<dd><p>Single threaded version of the custom layers, standardTF reflectivity calculation. The function extracts the relevant parameters from the input arrays, allocates these on a pre-contrast basis, then calls the ‘core’  calculation (the core layers standardTf calc is shared between multiple calculation types).</p>
+</dd></dl>
 
 </section>
-<section id="standardtf-custlay-paracontrasts">
-<h3>standardTF_custlay_paraContrasts<a class="headerlink" href="#standardtf-custlay-paracontrasts" title="Permalink to this heading"></a></h3>
+<section id="custom-layers-parallel-points">
+<h3>Custom Layers - Parallel Points<a class="headerlink" href="#custom-layers-parallel-points" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.standardTF_custlay_paraContrasts">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">standardTF_custlay_paraContrasts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.standardTF_custlay_paraContrasts" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<ol class="arabic simple" start="3">
-<li><p><strong>Custom XY (CustXY)</strong></p></li>
-</ol>
-</section>
-<section id="standard-tf-custxy-single">
-<h3>standard_TF_custXY_single<a class="headerlink" href="#standard-tf-custxy-single" title="Permalink to this heading"></a></h3>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.standardTF_custXY_single">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">standardTF_custXY_single</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.standardTF_custXY_single" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object mat" id="targetFunctions.standardTF.customLayers.standardTFCustomLayersParallelPoints">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.standardTF.customLayers.</span></span><span class="sig-name descname"><span class="pre">standardTFCustomLayersParallelPoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.standardTF.customLayers.standardTFCustomLayersParallelPoints" title="Permalink to this definition"></a></dt>
+<dd><p>Multi threaded version of the custom layers over reflectivity poimnts for standardTF reflectivity calculation.  The function extracts the relevant parameters from the input arrays, allocates these on a pre-contrast basis, then calls the ‘core’  calculation (the core layers standardTf calc is shared between multiple calculation types).</p>
+</dd></dl>
 
 </section>
-<section id="standard-tf-custxy-parapoints">
-<h3>standard_TF_custXY_parapoints<a class="headerlink" href="#standard-tf-custxy-parapoints" title="Permalink to this heading"></a></h3>
+<section id="custom-layers-parallel-contrasts">
+<h3>Custom Layers - Parallel Contrasts<a class="headerlink" href="#custom-layers-parallel-contrasts" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.standardTF_custXY_paraPoints">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">standardTF_custXY_paraPoints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.standardTF_custXY_paraPoints" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object mat" id="targetFunctions.standardTF.customLayers.standardTFCustomLayersParallelContrasts">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.standardTF.customLayers.</span></span><span class="sig-name descname"><span class="pre">standardTFCustomLayersParallelContrasts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.standardTF.customLayers.standardTFCustomLayersParallelContrasts" title="Permalink to this definition"></a></dt>
+<dd><p>Multi threaded version of the custom layers, standardTF reflectivity calculation. The function extracts the relevant parameters from the input arrays, allocates these on a pre-contrast basis, then calls the ‘core’  calculation (the core layers standardTf calc is shared between multiple calculation types).</p>
+</dd></dl>
+
+<span class="target" id="module-targetFunctions.standardTF.customXY"></span></section>
+<section id="custom-xy-single">
+<h3>Custom XY - single<a class="headerlink" href="#custom-xy-single" title="Permalink to this heading"></a></h3>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="targetFunctions.standardTF.customXY.standardTFCustomXYSingle">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.standardTF.customXY.</span></span><span class="sig-name descname"><span class="pre">standardTFCustomXYSingle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.standardTF.customXY.standardTFCustomXYSingle" title="Permalink to this definition"></a></dt>
+<dd><p>Extract individual cell arrays</p>
+</dd></dl>
 
 </section>
-<section id="standard-tf-custxy-paracontrasts">
-<h3>standard_TF_custXY_paraContrasts<a class="headerlink" href="#standard-tf-custxy-paracontrasts" title="Permalink to this heading"></a></h3>
+<section id="custom-xy-parallel-points">
+<h3>Custom XY - Parallel Points<a class="headerlink" href="#custom-xy-parallel-points" title="Permalink to this heading"></a></h3>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="targetFunctions.common.shiftData.standardTF_custXY_paraContrasts">
-<span class="sig-prename descclassname"><span class="pre">targetFunctions.common.shiftData.</span></span><span class="sig-name descname"><span class="pre">standardTF_custXY_paraContrasts</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.common.shiftData.standardTF_custXY_paraContrasts" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object mat" id="targetFunctions.standardTF.customXY.standardTFCustomXYParallelPoints">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.standardTF.customXY.</span></span><span class="sig-name descname"><span class="pre">standardTFCustomXYParallelPoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.standardTF.customXY.standardTFCustomXYParallelPoints" title="Permalink to this definition"></a></dt>
+<dd><p>Multi threaded version of the custom XY profile over reflectivity points for standardTF reflectivity calculation.</p>
+</dd></dl>
+
+</section>
+<section id="custom-xy-parallel-contrasts">
+<h3>Custom XY - Parallel Contrasts<a class="headerlink" href="#custom-xy-parallel-contrasts" title="Permalink to this heading"></a></h3>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="targetFunctions.standardTF.customXY.standardTFCustomXYParallelContrasts">
+<span class="sig-prename descclassname"><span class="pre">targetFunctions.standardTF.customXY.</span></span><span class="sig-name descname"><span class="pre">standardTFCustomXYParallelContrasts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">problemDef</span></em>, <em class="sig-param"><span class="pre">problemDefCells</span></em>, <em class="sig-param"><span class="pre">problemDefLimits</span></em>, <em class="sig-param"><span class="pre">controls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#targetFunctions.standardTF.customXY.standardTFCustomXYParallelContrasts" title="Permalink to this definition"></a></dt>
+<dd><p>Extract individual cell arrays</p>
+</dd></dl>
 
 </section>
 </section>

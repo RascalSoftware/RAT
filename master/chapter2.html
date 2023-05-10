@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2 The Problem Definition Input Class. &mdash; RAT 0.1.0 documentation</title>
+  <title>The Problem Definition Input Class &mdash; RAT 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
@@ -24,8 +24,8 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="3 Custom Models." href="chapter3.html" />
-    <link rel="prev" title="1 Introduction." href="chapter1.html" /> 
+    <link rel="next" title="Custom Models" href="chapter3.html" />
+    <link rel="prev" title="Introduction" href="chapter1.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,33 +46,31 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">RAT Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter1.html">Introduction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Problem Definition Input Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#class-methods-for-the-projectclass">Class Methods for the projectClass</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#project-defining-methods"><strong>Project Defining Methods</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-parameters-block"><strong>The ‘Parameters’ Block</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-layers-block-standard-layers-models-only"><strong>The Layers Block (Standard Layers models only)</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bulk-phases"><strong>Bulk Phases</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#scalefactors"><strong>Scalefactors</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#backgrounds"><strong>Backgrounds</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resolutions"><strong>Resolutions</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data"><strong>Data</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#putting-it-all-together-defining-contrasts"><strong>Putting it all together – defining contrasts</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#a-complete-example">A complete example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter3.html">Custom Models</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="sourceCodeLayout.html">Source Code Layout</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userDocumentation.html">User Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">About RAT</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="userManual.html">User Manual</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="chapter1.html"><span class="sectnum">1</span> Introduction.</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><span class="sectnum">2</span> The Problem Definition Input Class.</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#basics"><span class="sectnum">2.1</span> Basics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#class-methods-for-the-projectclass"><span class="sectnum">2.2</span> Class Methods for the projectClass</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#project-defining-methods"><span class="sectnum">2.2.1</span> <strong>Project Defining Methods</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#the-parameters-block"><span class="sectnum">2.2.2</span> <strong>The ‘Parameters’ Block.</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#the-layers-block-standard-layers-models-only"><span class="sectnum">2.2.3</span> <strong>The Layers Block (Standard Layers models only)</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#bulk-phases"><span class="sectnum">2.2.4</span> <strong>Bulk Phases.</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#scalefactors"><span class="sectnum">2.2.5</span> <strong>Scalefactors</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#backgrounds"><span class="sectnum">2.2.6</span> <strong>Backgrounds</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resolutions"><span class="sectnum">2.2.7</span> <strong>Resolutions</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#data"><span class="sectnum">2.2.8</span> <strong>Data</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#putting-it-all-together-defining-contrasts"><span class="sectnum">2.2.9</span> <strong>Putting it all together – defining contrasts</strong></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#a-complete-example"><span class="sectnum">2.2.10</span> <strong>A complete example</strong></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="chapter3.html"><span class="sectnum">3</span> Custom Models.</a></li>
-</ul>
-</li>
 </ul>
 
         </div>
@@ -89,8 +87,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="userManual.html">User Manual</a></li>
-      <li class="breadcrumb-item active"><span class="sectnum">2</span> The Problem Definition Input Class.</li>
+          <li class="breadcrumb-item"><a href="tutorial.html">Tutorial</a></li>
+      <li class="breadcrumb-item active">The Problem Definition Input Class</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/chapter2.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -100,10 +98,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <span class="target" id="chapter2"></span><section id="the-problem-definition-input-class">
-<h1><span class="sectnum">2</span> The Problem Definition Input Class.<a class="headerlink" href="#the-problem-definition-input-class" title="Permalink to this heading"></a></h1>
-<section id="basics">
-<h2><span class="sectnum">2.1</span> Basics<a class="headerlink" href="#basics" title="Permalink to this heading"></a></h2>
+  <section id="the-problem-definition-input-class">
+<span id="chapter2"></span><h1>The Problem Definition Input Class<a class="headerlink" href="#the-problem-definition-input-class" title="Permalink to this heading"></a></h1>
 <p>In the previous chapter, we saw an example of how we set up and run an analysis using the RAT toolbox. Every call to the toolbox has two parts: the <strong>problem definition</strong> class, where we define the model, add the data and define our contrasts, and the <strong>controls class</strong> where we tell the toolbox what type of analysis we would like to do. The reason for splitting things up in this way is that once our model is defined, we can interact with it in various ways without needing to modify the model. So, we can experiment with our data, trying out different types of analysis (more of that in chapter 4), and explore the landscape of solutions by simply modifying the <em>controls</em> class, leaving the <em>problem</em> class alone.</p>
 <p>As well as having two inputs, RAT always provides two outputs, so the call to the toolbox is always of this form:-</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">problem</span><span class="p">,</span><span class="w"> </span><span class="n">results</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RAT</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="w"> </span><span class="n">controls</span><span class="p">)</span>
@@ -127,11 +123,10 @@
 <p>In terms of the outputs, note that we have called the first output <em>problem</em>, but we don’t need to do that. The first of the two outputs is another <strong>projectClass</strong>, but updated with the results of the calculation. So, if we run a fit, the fitted parameters will be updated with the best fit values of our procedure. In giving the output the same name as the input, we’re overwriting our input with best fit values, but if you don’t want to do this, you can give the inputs and outputs different names (e.g. ‘[outProblem,results] = RAT(problem,controls)’’ or whatever you like). The second output can also be called whatever you like, and this is a struct containing the simulated reflectivities, SLD’s and so on from whatever procedure you have asked RAT to do:</p>
 <a class="reference internal image-reference" href="_images/reflectivitiesStruct.png"><img alt="Reflectivities Struct" src="_images/reflectivitiesStruct.png" style="width: 300px;" /></a>
 <p>We will look at this struct in more detail in a later chapter. In the next sections, we’ll discuss the methods of the <strong>projectClass</strong>, and see how they allow us to build up a model by populating the various sections.</p>
-</section>
 <section id="class-methods-for-the-projectclass">
-<h2><span class="sectnum">2.2</span> Class Methods for the projectClass<a class="headerlink" href="#class-methods-for-the-projectclass" title="Permalink to this heading"></a></h2>
+<h2>Class Methods for the projectClass<a class="headerlink" href="#class-methods-for-the-projectclass" title="Permalink to this heading"></a></h2>
 <section id="project-defining-methods">
-<h3><span class="sectnum">2.2.1</span> <strong>Project Defining Methods</strong><a class="headerlink" href="#project-defining-methods" title="Permalink to this heading"></a></h3>
+<h3><strong>Project Defining Methods</strong><a class="headerlink" href="#project-defining-methods" title="Permalink to this heading"></a></h3>
 <p>The first step is always to create an instance of the <strong>projectClass</strong> to hold our model. This is always done by assigning <strong>projectClass</strong> to our variable name (we will mostly use <em>problem</em> in this manual, but it can be anything), which always requires a name for our project as an input:</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">(</span><span class="s">&#39;My Problem&#39;</span><span class="p">);</span>
 </pre></div>
@@ -159,13 +154,13 @@
 <p>Custom modelling is described in more depth in Chapter 3.</p>
 </section>
 <section id="the-parameters-block">
-<h3><span class="sectnum">2.2.2</span> <strong>The ‘Parameters’ Block.</strong><a class="headerlink" href="#the-parameters-block" title="Permalink to this heading"></a></h3>
+<h3><strong>The ‘Parameters’ Block</strong><a class="headerlink" href="#the-parameters-block" title="Permalink to this heading"></a></h3>
 <p>Any model, where it be layers or anything else is always defined by parameters. These appear in the parameters block and are specified by a name, a value, minimum and maximum ranges and a flag defining whether the parameter is fitted or fixed:</p>
 <a class="reference internal image-reference" href="_images/parameterBlock.png"><img alt="Parameter Block" src="_images/parameterBlock.png" style="width: 500px;" /></a>
 <p>The substrate roughness is a protected parameter in all cases (it defines the Fresnel roughness) and cannot be renamed or deleted. Its values can be set to any numerical values however.</p>
 <p>To add a parameter, you can use the <strong>addParam</strong> method, either by just specifying a name, in which case the parameter takes on default values, or by specifying the whole parameter at once (note the Matlab cell array curly brackets syntax for the latter):</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">addParam</span><span class="p">(</span><span class="s">&#39;My new param&#39;</span><span class="p">);</span>
-<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">addParam</span><span class="p">({</span><span class="s">&#39;My other new param&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="nb">false</span><span class="p">});</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">problem</span><span class="p">.</span><span class="n">addParam</span><span class="p">(</span><span class="s">&#39;My other new param&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="nb">false</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>To avoid having to make a whole load of <strong>addParam</strong> statements for large projects with many parameters, you can define them at once in a cell array, and add them using the <strong>addParamGroup</strong> method (again notice the curly brackets syntax - this is a {cell array of {cell arrays}} :</p>
@@ -203,7 +198,7 @@
 <a class="reference internal image-reference" href="_images/parameterRemoveError.png"><img alt="Error when trying to remove Substrate Roughness" src="_images/parameterRemoveError.png" style="width: 600px;" /></a>
 </section>
 <section id="the-layers-block-standard-layers-models-only">
-<h3><span class="sectnum">2.2.3</span> <strong>The Layers Block (Standard Layers models only)</strong><a class="headerlink" href="#the-layers-block-standard-layers-models-only" title="Permalink to this heading"></a></h3>
+<h3><strong>The Layers Block (Standard Layers models only)</strong><a class="headerlink" href="#the-layers-block-standard-layers-models-only" title="Permalink to this heading"></a></h3>
 <p>For each of the custom models cases, the model building is done using a script (discussed in detail in chapter 3). For standard layers models however, model building is done by grouping the parameters into layers, and then into contrasts (as is the case for RasCAL). The layers block is not visible when either of the two custom modes is selected. Again, layers are built using methods of the project class. As an example here, we make a new project class, add some parameters, and create some layers.</p>
 <p>For this example, we will make two layers representing a deuterated and hydrogenated version of the same layer. So, the layers will share all their parameters except for the SLD.</p>
 <p>Start by making a new project, and adding the parameters we will need:</p>
@@ -249,10 +244,10 @@
 <p>The layers are then used to set up the contrasts as usual with a standard layers model.</p>
 </section>
 <section id="bulk-phases">
-<h3><span class="sectnum">2.2.4</span> <strong>Bulk Phases.</strong><a class="headerlink" href="#bulk-phases" title="Permalink to this heading"></a></h3>
+<h3><strong>Bulk Phases</strong><a class="headerlink" href="#bulk-phases" title="Permalink to this heading"></a></h3>
 <p>These are treated in the same way as parameters e.g.</p>
-<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addBulkIn</span><span class="p">({</span><span class="s">&#39;Silicon&#39;</span><span class="p">,</span><span class="mf">2.0e-6</span><span class="p">,</span><span class="mf">2.07e-6</span><span class="p">,</span><span class="mf">2.1e-6</span><span class="p">,</span><span class="nb">false</span><span class="p">});</span>
-<span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">({</span><span class="s">&#39;H2O&#39;</span><span class="p">,</span><span class="o">-</span><span class="mf">0.6e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.56e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5e-6</span><span class="p">,</span><span class="nb">false</span><span class="p">});</span>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addBulkIn</span><span class="p">(</span><span class="s">&#39;Silicon&#39;</span><span class="p">,</span><span class="mf">2.0e-6</span><span class="p">,</span><span class="mf">2.07e-6</span><span class="p">,</span><span class="mf">2.1e-6</span><span class="p">,</span><span class="nb">false</span><span class="p">);</span>
+<span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">(</span><span class="s">&#39;H2O&#39;</span><span class="p">,</span><span class="o">-</span><span class="mf">0.6e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.56e-6</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5e-6</span><span class="p">,</span><span class="nb">false</span><span class="p">);</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/bulkPhases.png"><img alt="Bulk In and Bulk Out" src="_images/bulkPhases.png" style="width: 600px;" /></a>
@@ -262,24 +257,24 @@
 </div>
 </section>
 <section id="scalefactors">
-<h3><span class="sectnum">2.2.5</span> <strong>Scalefactors</strong><a class="headerlink" href="#scalefactors" title="Permalink to this heading"></a></h3>
+<h3><strong>Scalefactors</strong><a class="headerlink" href="#scalefactors" title="Permalink to this heading"></a></h3>
 <p>The <em>scalefactors</em> are another parameters block like the bulk phases. You can add <em>scalefactors</em> with the <strong>addScalefactor</strong> method. Similarly, you can set the values with the <strong>setScalefactor</strong> method as with the previous blocks.</p>
-<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addScalefactor</span><span class="p">({</span><span class="s">&#39;New Scalefactor&#39;</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">,</span><span class="nb">true</span><span class="p">});</span>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addScalefactor</span><span class="p">(</span><span class="s">&#39;New Scalefactor&#39;</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">,</span><span class="nb">true</span><span class="p">);</span>
 <span class="n">problem</span><span class="p">.</span><span class="n">setScalefactor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;value&#39;</span><span class="p">,</span><span class="mf">1.01</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="backgrounds">
-<h3><span class="sectnum">2.2.6</span> <strong>Backgrounds</strong><a class="headerlink" href="#backgrounds" title="Permalink to this heading"></a></h3>
+<h3><strong>Backgrounds</strong><a class="headerlink" href="#backgrounds" title="Permalink to this heading"></a></h3>
 </section>
 <section id="resolutions">
-<h3><span class="sectnum">2.2.7</span> <strong>Resolutions</strong><a class="headerlink" href="#resolutions" title="Permalink to this heading"></a></h3>
+<h3><strong>Resolutions</strong><a class="headerlink" href="#resolutions" title="Permalink to this heading"></a></h3>
 </section>
 <section id="data">
-<h3><span class="sectnum">2.2.8</span> <strong>Data</strong><a class="headerlink" href="#data" title="Permalink to this heading"></a></h3>
+<h3><strong>Data</strong><a class="headerlink" href="#data" title="Permalink to this heading"></a></h3>
 </section>
 <section id="putting-it-all-together-defining-contrasts">
-<h3><span class="sectnum">2.2.9</span> <strong>Putting it all together – defining contrasts</strong><a class="headerlink" href="#putting-it-all-together-defining-contrasts" title="Permalink to this heading"></a></h3>
+<h3><strong>Putting it all together – defining contrasts</strong><a class="headerlink" href="#putting-it-all-together-defining-contrasts" title="Permalink to this heading"></a></h3>
 <p>As is the case for RasCAL, once we have defined the various aspects of our project i.e. backgrounds, data and so on, we group these together into contrasts to make out fitting project. We can add a contrast using just it’s name, and edit it later, or we can specify which parts of our project we want to add to the contrast using name value pairs:</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addContrast</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;D-tail/H-Head/D2O&#39;</span><span class="p">,</span><span class="k">...</span>
 <span class="w">                    </span><span class="s">&#39;background&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;Background D2O&#39;</span><span class="p">,</span><span class="k">...</span>
@@ -297,8 +292,10 @@
 </div>
 <p>The data can be either a datafile or the simulation object in the data block. Once we have defined our contrasts they appear in the <em>contrasts</em> block at the end of the project when it is displayed.</p>
 </section>
+</section>
+</section>
 <section id="a-complete-example">
-<h3><span class="sectnum">2.2.10</span> <strong>A complete example</strong><a class="headerlink" href="#a-complete-example" title="Permalink to this heading"></a></h3>
+<h1>A complete example<a class="headerlink" href="#a-complete-example" title="Permalink to this heading"></a></h1>
 <p>In Chapter 1, we showed an example of a pre-loaded problem definition class, which we used to analyse data from two contrasts of a lipid monolayer. Now, rather than loading in a pre-defined version of this problem we can use our class methods to build this from scratch, and do the same analysis as we did there, but this time from a script.</p>
 <p>To start, we first make an instance of the project class:</p>
 <div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">projectClass</span><span class="p">(</span><span class="s">&#39;DSPC monolayers&#39;</span><span class="p">);</span>
@@ -368,7 +365,7 @@
 </pre></div>
 </div>
 <p>We need two subphases for our project. D2O is already in the project as a default, so we only need to add the bulk out for ACMW</p>
-<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">({</span><span class="s">&#39;SLD ACMW&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">1e-6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">});</span>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">problem</span><span class="p">.</span><span class="n">addBulkOut</span><span class="p">(</span><span class="s">&#39;SLD ACMW&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">1e-6</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Now we need to add the data. We read in the two files into MATLAB, and put the data into the data block with appropriate names:</p>
@@ -415,8 +412,8 @@
 <img alt="Display the details of problem (first half)" src="_images/dispProblem1.png" />
 <img alt="Display the details of problem (second half)" src="_images/dispProblem2.png" />
 <p>Now we’ll calculate this to check the agreement with the data. We need an instance of the controls class, with the procedure attribute set to <em>calculate</em> (the default):</p>
-<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">controlsDef</span><span class="p">();</span>
-<span class="n">controls</span><span class="p">.</span><span class="n">parallel</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;points&#39;</span><span class="p">;</span>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">controlsClass</span><span class="p">();</span>
+<span class="n">controls</span><span class="p">.</span><span class="n">parallel</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">parallelOptions</span><span class="p">.</span><span class="n">Points</span><span class="p">;</span>
 
 <span class="nb">disp</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
 </pre></div>
@@ -433,7 +430,7 @@
 </div>
 <img alt="Displays reflectivity and SLD plot" src="_images/plot1.png" />
 <p>This looks sensible, but clearly our guess values for the parameters are slightly wide of the mark. To do a fit, we change the <em>procedure</em> attribute of the controls class to <strong>simplex</strong> (we will look at the controls class in more detail in chapter 4):</p>
-<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span><span class="p">.</span><span class="n">procedure</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;simplex&#39;</span>
+<div class="highlight-MATLAB notranslate"><div class="highlight"><pre><span></span><span class="n">controls</span><span class="p">.</span><span class="n">procedure</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">procedures</span><span class="p">.</span><span class="n">Simplex</span><span class="p">;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/controlsProcedure.png"><img alt="Displays control def with properties" src="_images/controlsProcedure.png" style="width: 300px;" /></a>
@@ -459,15 +456,13 @@
 </div>
 <img alt="Displays reflectivity and SLD plot" src="_images/plot2.png" />
 </section>
-</section>
-</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="chapter1.html" class="btn btn-neutral float-left" title="1 Introduction." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="chapter3.html" class="btn btn-neutral float-right" title="3 Custom Models." accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="chapter1.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="chapter3.html" class="btn btn-neutral float-right" title="Custom Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

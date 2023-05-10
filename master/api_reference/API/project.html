@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of project</title>
+  <meta name="keywords" content="project">
+  <meta name="description" content="Creates a project object.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html API -->
+
+<h1>project
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>Creates a project object.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function obj = project(options) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Creates a project object.
+ The input arguments are the experiment name which is a char
+ array; the calculation type, which is a calculationTypes enum; and
+ the geometry, which is a geometryOptions enum. All of the arguments
+ are optional.
+
+ problem = project(name='New experiment', calc='non polarised');
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="../API/projectClass/domainsClass.html" class="code" title="">domainsClass</a>	</li>
+<li><a href="../API/projectClass/layersClass.html" class="code" title="">layersClass</a>	</li>
+<li><a href="../API/projectClass/projectClass.html" class="code" title="">projectClass</a>	</li>
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function obj = project(options)</a>
+0002     <span class="comment">% Creates a project object.</span>
+0003     <span class="comment">% The input arguments are the experiment name which is a char</span>
+0004     <span class="comment">% array; the calculation type, which is a calculationTypes enum; and</span>
+0005     <span class="comment">% the geometry, which is a geometryOptions enum. All of the arguments</span>
+0006     <span class="comment">% are optional.</span>
+0007     <span class="comment">%</span>
+0008     <span class="comment">% problem = project(name='New experiment', calc='non polarised');</span>
+0009     arguments
+0010         options.name {mustBeTextScalar} = <span class="string">''</span>
+0011         options.type = calculationTypes.NonPolarised
+0012         options.geometry = geometryOptions.AirSubstrate
+0013     <span class="keyword">end</span>
+0014     
+0015     invalidTypeMessage = sprintf(<span class="string">'calculation type must be a calculationTypes enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0016                                  strjoin(calculationTypes.values(), <span class="string">', '</span>));
+0017 
+0018     options.type = validateOption(options.type, <span class="string">'calculationTypes'</span>, invalidTypeMessage).value;
+0019 
+0020     invalidGeometryMessage = sprintf(<span class="string">'geometry must be a geometryOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0021                                  strjoin(geometryOptions.values(), <span class="string">', '</span>));
+0022 
+0023     options.geometry = validateOption(options.geometry, <span class="string">'geometryOptions'</span>, invalidGeometryMessage).value;
+0024 
+0025     <span class="comment">% Initialise object, including domains if necessary</span>
+0026     <span class="keyword">if</span> any(strcmp(options.type, {calculationTypes.Domains.value, calculationTypes.MagneticDomains.value}))
+0027         obj = <a href="../API/projectClass/domainsClass.html" class="code" title="">domainsClass</a>(options.name, options.type, options.geometry);
+0028     <span class="keyword">else</span>
+0029         obj = <a href="../API/projectClass/projectClass.html" class="code" title="">projectClass</a>(options.name, options.type, options.geometry);
+0030     <span class="keyword">end</span>
+0031 
+0032     <span class="comment">% Set specific options depending on the calculation type</span>
+0033     <span class="keyword">switch</span> obj.calculationType
+0034         <span class="keyword">case</span> calculationTypes.Absorption.value
+0035             obj.layers = <a href="../API/projectClass/layersClass.html" class="code" title="">layersClass</a>({<span class="string">'SLD Real'</span>, <span class="string">'SLD Imaginary'</span>});
+0036         <span class="keyword">case</span> {calculationTypes.Magnetic.value, calculationTypes.MagneticDomains.value}
+0037             obj.layers = <a href="../API/projectClass/layersClass.html" class="code" title="">layersClass</a>({<span class="string">'SLD Real'</span>, <span class="string">'SLD Imaginary'</span>, <span class="string">'SLD Magnetic Real'</span>, <span class="string">'SLD Magnetic Imaginary'</span>});
+0038     <span class="keyword">end</span>
+0039 
+0040 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

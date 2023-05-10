@@ -76,11 +76,11 @@ This function is called by:
 <div class="fragment"><pre>0001 classdef <a href="controlsClass.html" class="code" title="">controlsClass</a> &lt; matlab.mixin.CustomDisplay
 0002      
 0003     properties
-0004         parallel = <span class="string">'single'</span>
-0005         procedure = <span class="string">'calculate'</span>
+0004         parallel = parallelOptions.Single.value
+0005         procedure = procedures.Calculate.value
 0006         calcSldDuringFit = false
 0007         resamPars = [0.9 50]
-0008         display = <span class="string">'iter'</span>
+0008         display = displayOptions.Iter.value
 0009         
 0010         <span class="comment">%Procedure arguments</span>
 0011         <span class="comment">%(1) Simplex</span>
@@ -111,279 +111,260 @@ This function is called by:
 0036         nChains = 10               <span class="comment">% Number of MCMC chains..</span>
 0037         lambda = 0.5               <span class="comment">% Jump probabilities</span>
 0038         pUnitGamma = 0.2
-0039         boundHandling = <span class="string">'fold'</span>     <span class="comment">% Boundary handling</span>
+0039         boundHandling = boundHandlingOptions.Fold.value     <span class="comment">% Boundary handling</span>
 0040     <span class="keyword">end</span>
 0041     
 0042     <span class="comment">%------------------------- Set and Get ------------------------------</span>
 0043     methods
 0044         <a name="_sub0" href="#_subfunctions" class="code">function obj = set.parallel(obj,val)</a>
-0045             <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'single'</span>, <span class="string">'points'</span>, <span class="string">'contrasts'</span>, <span class="string">'all'</span>})
-0046                 throw(invalidOption(<span class="string">'Type must be ''single'', ''points'', ''contrasts'', ''all'''</span>));
-0047             <span class="keyword">end</span>
-0048             obj.parallel = val;
+0045             message = sprintf(<span class="string">'parallel must be a parallelOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0046                              strjoin(parallelOptions.values(), <span class="string">', '</span>));
+0047             obj.parallel = validateOption(val, <span class="string">'parallelOptions'</span>, message).value;
+0048                                           
 0049         <span class="keyword">end</span>
 0050         
 0051         <a name="_sub1" href="#_subfunctions" class="code">function obj = set.procedure(obj,val)</a>
-0052             <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'calculate'</span>,<span class="string">'simplex'</span>,<span class="string">'DE'</span>, <span class="string">'NS'</span>,<span class="string">'dream'</span>})
-0053                 throw(invalidOption(<span class="string">'Type must be ''calculate'', ''simplex'', ''DE'', ''dream'' or ''NS'''</span>));
-0054             <span class="keyword">end</span>
-0055             obj.procedure = val;
-0056         <span class="keyword">end</span>
-0057         
-0058         <a name="_sub2" href="#_subfunctions" class="code">function obj = set.calcSldDuringFit(obj,val)</a>
-0059             <span class="keyword">if</span> ~islogical(val)
-0060                 throw(invalidType(<span class="string">'Type must be logical ''true'' or ''false'''</span>));
-0061             <span class="keyword">end</span>
-0062             obj.calcSldDuringFit = val;
-0063         <span class="keyword">end</span>
-0064 
-0065         <a name="_sub3" href="#_subfunctions" class="code">function obj = set.display(obj,val)</a>
-0066             <span class="keyword">if</span> ~strcmpi(val,{<span class="string">'off'</span>,<span class="string">'iter'</span>,<span class="string">'notify'</span>,<span class="string">'final'</span>})
-0067                 throw(invalidOption(<span class="string">'Display must be set to ''off'', ''iter'', ''notify'' or ''final'' '</span>));
-0068             <span class="keyword">end</span>
-0069             obj.display = val;
-0070         <span class="keyword">end</span> 
-0071 
-0072         <a name="_sub4" href="#_subfunctions" class="code">function obj = set.resamPars(obj,val)</a>
-0073             <span class="keyword">if</span> length(val) ~= 2
-0074                 throw(invalidValue(<span class="string">'resamPars must have length of 2'</span>));
-0075             <span class="keyword">end</span>
+0052             message = sprintf(<span class="string">'procedure must be a procedures enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0053                              strjoin(procedures.values(), <span class="string">', '</span>));
+0054             obj.procedure = validateOption(val, <span class="string">'procedures'</span>, message).value;
+0055         <span class="keyword">end</span>
+0056         
+0057         <a name="_sub2" href="#_subfunctions" class="code">function obj = set.calcSldDuringFit(obj,val)</a>
+0058             <span class="keyword">if</span> ~islogical(val)
+0059                 throw(invalidType(<span class="string">'Type must be logical ''true'' or ''false'''</span>));
+0060             <span class="keyword">end</span>
+0061             obj.calcSldDuringFit = val;
+0062         <span class="keyword">end</span>
+0063 
+0064         <a name="_sub3" href="#_subfunctions" class="code">function obj = set.display(obj,val)</a>
+0065             message = sprintf(<span class="string">'display must be a displayOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0066                              strjoin(displayOptions.values(), <span class="string">', '</span>));
+0067             obj.display = validateOption(val, <span class="string">'displayOptions'</span>, message).value;
+0068         <span class="keyword">end</span> 
+0069 
+0070         <a name="_sub4" href="#_subfunctions" class="code">function obj = set.resamPars(obj,val)</a>
+0071             <span class="keyword">if</span> length(val) ~= 2
+0072                 throw(invalidValue(<span class="string">'resamPars must have length of 2'</span>));
+0073             <span class="keyword">end</span>
+0074             
+0075             validateNumber(val, <span class="string">'resamPars must be a number array'</span>);
 0076             
-0077             validateNumber(val, <span class="string">'resamPars must be a number array'</span>);
-0078             
-0079             <span class="keyword">if</span> (val(1) &lt; 0 || val(1) &gt; 1)
-0080                 throw(invalidValue(<span class="string">'resamPars(0) must be between 0 and 1'</span>));
-0081             <span class="keyword">end</span>
-0082             <span class="keyword">if</span> val(2) &lt;= 0
-0083                 throw(invalidValue(<span class="string">'resamPars(1) must be greater than 0'</span>));
-0084             <span class="keyword">end</span>
-0085             obj.resamPars = val;
-0086         <span class="keyword">end</span>  
-0087 
-0088         <span class="comment">% Simplex control methods</span>
-0089         <a name="_sub5" href="#_subfunctions" class="code">function obj = set.tolX(obj, val)</a>
-0090             obj.tolX = validateNumber(val, <span class="string">'tolX must be a number'</span>);
-0091         <span class="keyword">end</span>
-0092          
-0093         <a name="_sub6" href="#_subfunctions" class="code">function obj = set.tolFun(obj, val)</a>
-0094             obj.tolFun = validateNumber(val, <span class="string">'tolFun must be a number'</span>);
-0095         <span class="keyword">end</span>
-0096         
-0097         <a name="_sub7" href="#_subfunctions" class="code">function obj = set.maxFunEvals(obj, val)</a>
-0098             obj.maxFunEvals = validateNumber(val, <span class="string">'maxFunEvals must be a number'</span>);
-0099         <span class="keyword">end</span>
-0100         
-0101         <a name="_sub8" href="#_subfunctions" class="code">function obj = set.maxIter(obj, val)</a>
-0102             obj.maxIter = validateNumber(val, <span class="string">'maxIter must be a number'</span>);
-0103         <span class="keyword">end</span>
-0104         
-0105         <span class="comment">% DE controls methods</span>
-0106         <a name="_sub9" href="#_subfunctions" class="code">function obj = set.populationSize(obj, val)</a>
-0107             validateNumber(val, <span class="string">'populationSize must be a number'</span>);
-0108             <span class="keyword">if</span> val &lt; 1
-0109                 throw(invalidValue(<span class="string">'populationSize must be greater or equal to 1'</span>));
-0110             <span class="keyword">end</span>
-0111             obj.populationSize = val;
-0112         <span class="keyword">end</span>
-0113         
-0114         <a name="_sub10" href="#_subfunctions" class="code">function obj = set.fWeight(obj,val)</a>
-0115             obj.fWeight = validateNumber(val,<span class="string">'fWeight must be a number'</span>);
-0116         <span class="keyword">end</span>
-0117         
-0118         <a name="_sub11" href="#_subfunctions" class="code">function obj = set.crossoverProbability(obj,val)</a>
-0119             validateNumber(val, <span class="string">'crossoverProbability must be a number'</span>);
-0120             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
-0121                 throw(invalidValue(<span class="string">'crossoverProbability must be between 0 and 1'</span>));
-0122             <span class="keyword">end</span>
-0123             obj.crossoverProbability = val;
-0124         <span class="keyword">end</span>
-0125         
-0126         <a name="_sub12" href="#_subfunctions" class="code">function obj = set.strategy(obj,val)</a>
-0127             validateNumber(val, <span class="string">'strategy must be a number'</span>);
-0128             <span class="keyword">if</span> (~(round(val) == val) || val &lt; 1 || val &gt; 6)
-0129                 throw(invalidValue(<span class="string">'strategy must be an integer between 1 and 6'</span>));
-0130             <span class="keyword">end</span>
-0131             <span class="keyword">switch</span> val
-0132                 <span class="keyword">case</span> 1
-0133                     message = <span class="string">'Selecting DE/rand/1'</span>;
-0134                 <span class="keyword">case</span> 2
-0135                     message = <span class="string">'Selecting DE/local-to-best/1'</span>;
-0136                 <span class="keyword">case</span> 3
-0137                     message = <span class="string">'Selecting DE/best/1 with jitter'</span>;
-0138                 <span class="keyword">case</span> 4
-0139                     message = <span class="string">'Selecting DE/rand/1 with per-vector-dither'</span>;
-0140                 <span class="keyword">case</span> 5
-0141                     message = <span class="string">'Selecting DE/rand/1 with per-generation-dither'</span>;
-0142                 <span class="keyword">case</span> 6
-0143                     message = <span class="string">'Selecting DE/rand/1 either-or-algorithm'</span>;
-0144             <span class="keyword">end</span>
-0145             disp(message);   
-0146             obj.strategy = val;
-0147         <span class="keyword">end</span>
-0148         
-0149         <a name="_sub13" href="#_subfunctions" class="code">function obj = set.targetValue(obj,val)</a>
-0150             validateNumber(val, <span class="string">'targetValue must be a number'</span>);
-0151             <span class="keyword">if</span> val &lt; 1
-0152                 throw(invalidValue(<span class="string">'targetValue must be greater or equal to 1'</span>));
-0153             <span class="keyword">end</span> 
-0154             obj.targetValue = val;
-0155         <span class="keyword">end</span>
-0156         
-0157         <a name="_sub14" href="#_subfunctions" class="code">function obj = set.numGenerations(obj, val)</a>
-0158             validateNumber(val, <span class="string">'numGenerations value must be a number'</span>);
-0159             <span class="keyword">if</span> val &lt; 1
-0160                 throw(invalidValue(<span class="string">'numGenerations must be greater or equal to 1'</span>));
-0161             <span class="keyword">end</span> 
-0162             obj.numGenerations = val;
-0163         <span class="keyword">end</span>
-0164          
-0165         <span class="comment">% NS control methods</span>
-0166         <a name="_sub15" href="#_subfunctions" class="code">function obj = set.Nlive(obj, val)</a>
-0167             validateNumber(val, <span class="string">'Nlive must be a number'</span>);
-0168             <span class="keyword">if</span> val &lt; 1
-0169                 throw(invalidValue(<span class="string">'Nlive must be greater or equal to 1'</span>));
-0170             <span class="keyword">end</span>
-0171             obj.Nlive = val;
-0172         <span class="keyword">end</span>
-0173         
-0174         <a name="_sub16" href="#_subfunctions" class="code">function obj = set.Nmcmc(obj, val)</a>
-0175             validateNumber(val, <span class="string">'Nmcmc must be a number'</span>);
-0176             <span class="keyword">if</span> val &lt; 0
-0177                 throw(invalidValue(<span class="string">'Nmcmc must be greater or equal than 0'</span>));
-0178             <span class="keyword">end</span>
-0179             obj.Nmcmc = val;
-0180         <span class="keyword">end</span>
-0181         
-0182         <a name="_sub17" href="#_subfunctions" class="code">function obj = set.propScale(obj, val)</a>
-0183             validateNumber(val, <span class="string">'propScale must be a number'</span>);
-0184             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
-0185                 throw(invalidValue(<span class="string">'propScale must be between 0 and 1'</span>));
-0186             <span class="keyword">end</span>
-0187             obj.propScale = val;
-0188         <span class="keyword">end</span>
-0189         
-0190         <a name="_sub18" href="#_subfunctions" class="code">function obj = set.nsTolerance(obj,val)</a>
-0191             validateNumber(val, <span class="string">'nsTolerance must be a number '</span>);
-0192             <span class="keyword">if</span> val &lt; 0
-0193                 throw(invalidValue(<span class="string">'nsTolerance must be greater or equal to 0'</span>));
-0194             <span class="keyword">end</span>
-0195             obj.nsTolerance = val;
-0196         <span class="keyword">end</span>
-0197 
-0198         <span class="comment">% DREAM methods</span>
-0199         <a name="_sub19" href="#_subfunctions" class="code">function obj = set.nSamples(obj,val)</a>
-0200             validateNumber(val, <span class="string">'nSample must be a number '</span>);
-0201             <span class="keyword">if</span> val &lt; 0
-0202                 throw(invalidValue(<span class="string">'nSample must be greater or equal to 0'</span>));
-0203             <span class="keyword">end</span>
-0204             obj.nSamples = val;
-0205         <span class="keyword">end</span> 
-0206 
-0207         <a name="_sub20" href="#_subfunctions" class="code">function obj = set.nChains(obj,val)</a>
-0208             validateNumber(val, <span class="string">'nChains must be a number '</span>);
-0209             <span class="keyword">if</span> (~(round(val) == val) || val &lt;= 0 || isnan(val) || isinf(val))
-0210                 throw(invalidValue(<span class="string">'nChains must be a finite integer greater than 0'</span>));
-0211             <span class="keyword">end</span>
-0212             obj.nChains = val;
-0213         <span class="keyword">end</span> 
-0214 
-0215         <a name="_sub21" href="#_subfunctions" class="code">function obj = set.lambda(obj,val)</a>
-0216             validateNumber(val, <span class="string">'lambda must be a number'</span>);
-0217             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
-0218                 throw(invalidValue(<span class="string">'Jump probability lambda must be a fraction between 0 and 1'</span>));
-0219             <span class="keyword">end</span>
-0220             obj.lambda = val;
-0221         <span class="keyword">end</span> 
-0222 
-0223         <a name="_sub22" href="#_subfunctions" class="code">function obj = set.pUnitGamma(obj,val)</a>
-0224             validateNumber(val, <span class="string">'pUnitGamma must be a number'</span>);
-0225             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
-0226                 throw(invalidValue(<span class="string">'pUnitGamma must be a fraction between 0 and 1'</span>));
-0227             <span class="keyword">end</span>
-0228             obj.pUnitGamma = val;
-0229         <span class="keyword">end</span> 
-0230 
-0231         <a name="_sub23" href="#_subfunctions" class="code">function obj = set.boundHandling(obj,val)</a>
-0232             <span class="keyword">if</span> ~strcmpi(val, {<span class="string">'none'</span>,<span class="string">'reflect'</span>,<span class="string">'bound'</span>,<span class="string">'fold'</span>})
-0233                 throw(invalidOption(<span class="string">'Boundary handling must be ''none'', ''reflect'', ''bound'' or ''none'''</span>));
-0234             <span class="keyword">end</span>
-0235             obj.boundHandling = val;
-0236         <span class="keyword">end</span> 
-0237     <span class="keyword">end</span>
-0238 
-0239     <span class="comment">%------------------------- Display Methods --------------------------</span>
-0240     methods (Access = protected)
-0241         <a name="_sub24" href="#_subfunctions" class="code">function groups = getPropertyGroups(obj)</a>
-0242             masterPropList = struct(<span class="string">'parallel'</span>, {obj.parallel},<span class="keyword">...</span>
-0243                 <span class="string">'procedure'</span>, {obj.procedure},<span class="keyword">...</span>
-0244                 <span class="string">'calcSldDuringFit'</span>, {obj.calcSldDuringFit},<span class="keyword">...</span>
-0245                 <span class="string">'display'</span>, {obj.display},<span class="keyword">...</span>
-0246                 <span class="string">'tolX'</span>, {obj.tolX},<span class="keyword">...</span>
-0247                 <span class="string">'tolFun'</span>, {obj.tolFun},<span class="keyword">...</span>
-0248                 <span class="string">'maxFunEvals'</span>, {obj.maxFunEvals},<span class="keyword">...</span>
-0249                 <span class="string">'maxIter'</span>, {obj.maxIter},<span class="keyword">...</span>
-0250                 <span class="string">'populationSize'</span>, {obj.populationSize},<span class="keyword">...</span>
-0251                 <span class="string">'fWeight'</span>, {obj.fWeight},<span class="keyword">...</span>
-0252                 <span class="string">'crossoverProbability'</span>, {obj.crossoverProbability},<span class="keyword">...</span>
-0253                 <span class="string">'strategy'</span>, {obj.strategy},<span class="keyword">...</span>
-0254                 <span class="string">'targetValue'</span>, {obj.targetValue},<span class="keyword">...</span>
-0255                 <span class="string">'numGenerations'</span>, {obj.numGenerations},<span class="keyword">...</span>
-0256                 <span class="string">'Nlive'</span>, {obj.Nlive},<span class="keyword">...</span>
-0257                 <span class="string">'Nmcmc'</span>, {obj.Nmcmc},<span class="keyword">...</span>
-0258                 <span class="string">'propScale'</span>, {obj.propScale},<span class="keyword">...</span>
-0259                 <span class="string">'nsTolerance'</span>, {obj.nsTolerance},<span class="keyword">...</span>
-0260                 <span class="string">'resamPars'</span>, {obj.resamPars},<span class="keyword">...</span>
-0261                 <span class="string">'nSamples'</span>, {obj.nSamples},<span class="keyword">...</span><span class="comment">          </span>
-0262                 <span class="string">'nChains'</span>, {obj.nChains},<span class="keyword">...</span>
-0263                 <span class="string">'lambda'</span>, {obj.lambda},<span class="keyword">...</span>
-0264                 <span class="string">'pUnitGamma'</span>, {obj.pUnitGamma},<span class="keyword">...</span>
-0265                 <span class="string">'boundHandling'</span>, {obj.boundHandling});
-0266  
-0267             simplexCell = {<span class="string">'tolX'</span>,<span class="keyword">...</span>
-0268                 <span class="string">'tolFun'</span>,<span class="keyword">...</span>
-0269                 <span class="string">'maxFunEvals'</span>,<span class="keyword">...</span>
-0270                 <span class="string">'maxIter'</span>};
-0271             
-0272             deCell = {<span class="string">'populationSize'</span>,<span class="keyword">...</span>
-0273                 <span class="string">'fWeight'</span>,<span class="keyword">...</span>
-0274                 <span class="string">'crossoverProbability'</span>,<span class="keyword">...</span>
-0275                 <span class="string">'strategy'</span>,<span class="keyword">...</span>
-0276                 <span class="string">'targetValue'</span>,<span class="keyword">...</span>
-0277                 <span class="string">'numGenerations'</span>};
-0278 
-0279             nsCell = {<span class="string">'Nlive'</span>,<span class="keyword">...</span>
-0280                 <span class="string">'Nmcmc'</span>,<span class="keyword">...</span>
-0281                 <span class="string">'propScale'</span>,<span class="keyword">...</span>
-0282                 <span class="string">'nsTolerance'</span>}; 
-0283 
-0284             dreamCell = {<span class="string">'nSamples'</span>,<span class="keyword">...</span><span class="comment">          </span>
-0285                 <span class="string">'nChains'</span>,<span class="keyword">...</span>
-0286                 <span class="string">'lambda'</span>,<span class="keyword">...</span>
-0287                 <span class="string">'pUnitGamma'</span>,<span class="keyword">...</span>
-0288                 <span class="string">'boundHandling'</span>};
-0289             
-0290             <span class="keyword">if</span> isscalar(obj)
-0291                 dispPropList = masterPropList;
-0292                 <span class="keyword">if</span> strcmpi(obj.procedure, <span class="string">'calculate'</span>)
-0293                     dispPropList = rmfield(masterPropList, [deCell, simplexCell, nsCell, dreamCell]);
-0294                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'simplex'</span>)
-0295                     dispPropList = rmfield(masterPropList, [deCell, nsCell, dreamCell]);
-0296                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'de'</span>)
-0297                     dispPropList = rmfield(masterPropList, [simplexCell, nsCell, dreamCell]);
-0298                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'ns'</span>)
-0299                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, dreamCell]);
-0300                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'dream'</span>)
-0301                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, nsCell]);
-0302                 <span class="keyword">end</span>
-0303                 groups = matlab.mixin.util.PropertyGroup(dispPropList);               
-0304             <span class="keyword">else</span>
-0305                 groups = <a href="#_sub25" class="code" title="subfunction groups = getPropertyGroups(obj)">getPropertyGroups</a>@matlab.mixin.CustomDisplay(obj);
-0306             <span class="keyword">end</span>           
-0307         <span class="keyword">end</span>
-0308     <span class="keyword">end</span>
-0309 <span class="keyword">end</span>
+0077             <span class="keyword">if</span> (val(1) &lt; 0 || val(1) &gt; 1)
+0078                 throw(invalidValue(<span class="string">'resamPars(0) must be between 0 and 1'</span>));
+0079             <span class="keyword">end</span>
+0080             <span class="keyword">if</span> val(2) &lt;= 0
+0081                 throw(invalidValue(<span class="string">'resamPars(1) must be greater than 0'</span>));
+0082             <span class="keyword">end</span>
+0083             obj.resamPars = val;
+0084         <span class="keyword">end</span>  
+0085 
+0086         <span class="comment">% Simplex control methods</span>
+0087         <a name="_sub5" href="#_subfunctions" class="code">function obj = set.tolX(obj, val)</a>
+0088             obj.tolX = validateNumber(val, <span class="string">'tolX must be a number'</span>);
+0089         <span class="keyword">end</span>
+0090          
+0091         <a name="_sub6" href="#_subfunctions" class="code">function obj = set.tolFun(obj, val)</a>
+0092             obj.tolFun = validateNumber(val, <span class="string">'tolFun must be a number'</span>);
+0093         <span class="keyword">end</span>
+0094         
+0095         <a name="_sub7" href="#_subfunctions" class="code">function obj = set.maxFunEvals(obj, val)</a>
+0096             obj.maxFunEvals = validateNumber(val, <span class="string">'maxFunEvals must be a number'</span>);
+0097         <span class="keyword">end</span>
+0098         
+0099         <a name="_sub8" href="#_subfunctions" class="code">function obj = set.maxIter(obj, val)</a>
+0100             obj.maxIter = validateNumber(val, <span class="string">'maxIter must be a number'</span>);
+0101         <span class="keyword">end</span>
+0102         
+0103         <span class="comment">% DE controls methods</span>
+0104         <a name="_sub9" href="#_subfunctions" class="code">function obj = set.populationSize(obj, val)</a>
+0105             validateNumber(val, <span class="string">'populationSize must be a number'</span>);
+0106             <span class="keyword">if</span> val &lt; 1
+0107                 throw(invalidValue(<span class="string">'populationSize must be greater or equal to 1'</span>));
+0108             <span class="keyword">end</span>
+0109             obj.populationSize = val;
+0110         <span class="keyword">end</span>
+0111         
+0112         <a name="_sub10" href="#_subfunctions" class="code">function obj = set.fWeight(obj,val)</a>
+0113             obj.fWeight = validateNumber(val,<span class="string">'fWeight must be a number'</span>);
+0114         <span class="keyword">end</span>
+0115         
+0116         <a name="_sub11" href="#_subfunctions" class="code">function obj = set.crossoverProbability(obj,val)</a>
+0117             validateNumber(val, <span class="string">'crossoverProbability must be a number'</span>);
+0118             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
+0119                 throw(invalidValue(<span class="string">'crossoverProbability must be between 0 and 1'</span>));
+0120             <span class="keyword">end</span>
+0121             obj.crossoverProbability = val;
+0122         <span class="keyword">end</span>
+0123         
+0124         <a name="_sub12" href="#_subfunctions" class="code">function obj = set.strategy(obj,val)</a>
+0125             message = sprintf(<span class="string">'strategy must be a strategyOptions enum or one of the following integers (%s)'</span>, <span class="keyword">...</span>
+0126                              strjoin(string(strategyOptions.values()), <span class="string">', '</span>));
+0127   
+0128             obj.strategy = validateOption(val, <span class="string">'strategyOptions'</span>, message).value;
+0129         <span class="keyword">end</span>
+0130         
+0131         <a name="_sub13" href="#_subfunctions" class="code">function obj = set.targetValue(obj,val)</a>
+0132             validateNumber(val, <span class="string">'targetValue must be a number'</span>);
+0133             <span class="keyword">if</span> val &lt; 1
+0134                 throw(invalidValue(<span class="string">'targetValue must be greater or equal to 1'</span>));
+0135             <span class="keyword">end</span> 
+0136             obj.targetValue = val;
+0137         <span class="keyword">end</span>
+0138         
+0139         <a name="_sub14" href="#_subfunctions" class="code">function obj = set.numGenerations(obj, val)</a>
+0140             validateNumber(val, <span class="string">'numGenerations value must be a number'</span>);
+0141             <span class="keyword">if</span> val &lt; 1
+0142                 throw(invalidValue(<span class="string">'numGenerations must be greater or equal to 1'</span>));
+0143             <span class="keyword">end</span> 
+0144             obj.numGenerations = val;
+0145         <span class="keyword">end</span>
+0146          
+0147         <span class="comment">% NS control methods</span>
+0148         <a name="_sub15" href="#_subfunctions" class="code">function obj = set.Nlive(obj, val)</a>
+0149             validateNumber(val, <span class="string">'Nlive must be a number'</span>);
+0150             <span class="keyword">if</span> val &lt; 1
+0151                 throw(invalidValue(<span class="string">'Nlive must be greater or equal to 1'</span>));
+0152             <span class="keyword">end</span>
+0153             obj.Nlive = val;
+0154         <span class="keyword">end</span>
+0155         
+0156         <a name="_sub16" href="#_subfunctions" class="code">function obj = set.Nmcmc(obj, val)</a>
+0157             validateNumber(val, <span class="string">'Nmcmc must be a number'</span>);
+0158             <span class="keyword">if</span> val &lt; 0
+0159                 throw(invalidValue(<span class="string">'Nmcmc must be greater or equal than 0'</span>));
+0160             <span class="keyword">end</span>
+0161             obj.Nmcmc = val;
+0162         <span class="keyword">end</span>
+0163         
+0164         <a name="_sub17" href="#_subfunctions" class="code">function obj = set.propScale(obj, val)</a>
+0165             validateNumber(val, <span class="string">'propScale must be a number'</span>);
+0166             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
+0167                 throw(invalidValue(<span class="string">'propScale must be between 0 and 1'</span>));
+0168             <span class="keyword">end</span>
+0169             obj.propScale = val;
+0170         <span class="keyword">end</span>
+0171         
+0172         <a name="_sub18" href="#_subfunctions" class="code">function obj = set.nsTolerance(obj,val)</a>
+0173             validateNumber(val, <span class="string">'nsTolerance must be a number '</span>);
+0174             <span class="keyword">if</span> val &lt; 0
+0175                 throw(invalidValue(<span class="string">'nsTolerance must be greater or equal to 0'</span>));
+0176             <span class="keyword">end</span>
+0177             obj.nsTolerance = val;
+0178         <span class="keyword">end</span>
+0179 
+0180         <span class="comment">% DREAM methods</span>
+0181         <a name="_sub19" href="#_subfunctions" class="code">function obj = set.nSamples(obj,val)</a>
+0182             validateNumber(val, <span class="string">'nSample must be a number '</span>);
+0183             <span class="keyword">if</span> val &lt; 0
+0184                 throw(invalidValue(<span class="string">'nSample must be greater or equal to 0'</span>));
+0185             <span class="keyword">end</span>
+0186             obj.nSamples = val;
+0187         <span class="keyword">end</span> 
+0188 
+0189         <a name="_sub20" href="#_subfunctions" class="code">function obj = set.nChains(obj,val)</a>
+0190             validateNumber(val, <span class="string">'nChains must be a number '</span>);
+0191             <span class="keyword">if</span> (~(round(val) == val) || val &lt;= 0 || isnan(val) || isinf(val))
+0192                 throw(invalidValue(<span class="string">'nChains must be a finite integer greater than 0'</span>));
+0193             <span class="keyword">end</span>
+0194             obj.nChains = val;
+0195         <span class="keyword">end</span> 
+0196 
+0197         <a name="_sub21" href="#_subfunctions" class="code">function obj = set.lambda(obj,val)</a>
+0198             validateNumber(val, <span class="string">'lambda must be a number'</span>);
+0199             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
+0200                 throw(invalidValue(<span class="string">'Jump probability lambda must be a fraction between 0 and 1'</span>));
+0201             <span class="keyword">end</span>
+0202             obj.lambda = val;
+0203         <span class="keyword">end</span> 
+0204 
+0205         <a name="_sub22" href="#_subfunctions" class="code">function obj = set.pUnitGamma(obj,val)</a>
+0206             validateNumber(val, <span class="string">'pUnitGamma must be a number'</span>);
+0207             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
+0208                 throw(invalidValue(<span class="string">'pUnitGamma must be a fraction between 0 and 1'</span>));
+0209             <span class="keyword">end</span>
+0210             obj.pUnitGamma = val;
+0211         <span class="keyword">end</span> 
+0212 
+0213         <a name="_sub23" href="#_subfunctions" class="code">function obj = set.boundHandling(obj,val)</a>
+0214             message = sprintf(<span class="string">'boundHandling must be a boundHandlingOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0215                              strjoin(boundHandlingOptions.values(), <span class="string">', '</span>));
+0216             obj.boundHandling = validateOption(val, <span class="string">'boundHandlingOptions'</span>, message).value;
+0217         <span class="keyword">end</span> 
+0218     <span class="keyword">end</span>
+0219 
+0220     <span class="comment">%------------------------- Display Methods --------------------------</span>
+0221     methods (Access = protected)
+0222         <a name="_sub24" href="#_subfunctions" class="code">function groups = getPropertyGroups(obj)</a>
+0223             masterPropList = struct(<span class="string">'parallel'</span>, {obj.parallel},<span class="keyword">...</span>
+0224                 <span class="string">'procedure'</span>, {obj.procedure},<span class="keyword">...</span>
+0225                 <span class="string">'calcSldDuringFit'</span>, {obj.calcSldDuringFit},<span class="keyword">...</span>
+0226                 <span class="string">'display'</span>, {obj.display},<span class="keyword">...</span>
+0227                 <span class="string">'tolX'</span>, {obj.tolX},<span class="keyword">...</span>
+0228                 <span class="string">'tolFun'</span>, {obj.tolFun},<span class="keyword">...</span>
+0229                 <span class="string">'maxFunEvals'</span>, {obj.maxFunEvals},<span class="keyword">...</span>
+0230                 <span class="string">'maxIter'</span>, {obj.maxIter},<span class="keyword">...</span>
+0231                 <span class="string">'populationSize'</span>, {obj.populationSize},<span class="keyword">...</span>
+0232                 <span class="string">'fWeight'</span>, {obj.fWeight},<span class="keyword">...</span>
+0233                 <span class="string">'crossoverProbability'</span>, {obj.crossoverProbability},<span class="keyword">...</span>
+0234                 <span class="string">'strategy'</span>, {obj.strategy},<span class="keyword">...</span>
+0235                 <span class="string">'targetValue'</span>, {obj.targetValue},<span class="keyword">...</span>
+0236                 <span class="string">'numGenerations'</span>, {obj.numGenerations},<span class="keyword">...</span>
+0237                 <span class="string">'Nlive'</span>, {obj.Nlive},<span class="keyword">...</span>
+0238                 <span class="string">'Nmcmc'</span>, {obj.Nmcmc},<span class="keyword">...</span>
+0239                 <span class="string">'propScale'</span>, {obj.propScale},<span class="keyword">...</span>
+0240                 <span class="string">'nsTolerance'</span>, {obj.nsTolerance},<span class="keyword">...</span>
+0241                 <span class="string">'resamPars'</span>, {obj.resamPars},<span class="keyword">...</span>
+0242                 <span class="string">'nSamples'</span>, {obj.nSamples},<span class="keyword">...</span><span class="comment">          </span>
+0243                 <span class="string">'nChains'</span>, {obj.nChains},<span class="keyword">...</span>
+0244                 <span class="string">'lambda'</span>, {obj.lambda},<span class="keyword">...</span>
+0245                 <span class="string">'pUnitGamma'</span>, {obj.pUnitGamma},<span class="keyword">...</span>
+0246                 <span class="string">'boundHandling'</span>, {obj.boundHandling});
+0247  
+0248             simplexCell = {<span class="string">'tolX'</span>,<span class="keyword">...</span>
+0249                 <span class="string">'tolFun'</span>,<span class="keyword">...</span>
+0250                 <span class="string">'maxFunEvals'</span>,<span class="keyword">...</span>
+0251                 <span class="string">'maxIter'</span>};
+0252             
+0253             deCell = {<span class="string">'populationSize'</span>,<span class="keyword">...</span>
+0254                 <span class="string">'fWeight'</span>,<span class="keyword">...</span>
+0255                 <span class="string">'crossoverProbability'</span>,<span class="keyword">...</span>
+0256                 <span class="string">'strategy'</span>,<span class="keyword">...</span>
+0257                 <span class="string">'targetValue'</span>,<span class="keyword">...</span>
+0258                 <span class="string">'numGenerations'</span>};
+0259 
+0260             nsCell = {<span class="string">'Nlive'</span>,<span class="keyword">...</span>
+0261                 <span class="string">'Nmcmc'</span>,<span class="keyword">...</span>
+0262                 <span class="string">'propScale'</span>,<span class="keyword">...</span>
+0263                 <span class="string">'nsTolerance'</span>}; 
+0264 
+0265             dreamCell = {<span class="string">'nSamples'</span>,<span class="keyword">...</span><span class="comment">          </span>
+0266                 <span class="string">'nChains'</span>,<span class="keyword">...</span>
+0267                 <span class="string">'lambda'</span>,<span class="keyword">...</span>
+0268                 <span class="string">'pUnitGamma'</span>,<span class="keyword">...</span>
+0269                 <span class="string">'boundHandling'</span>};
+0270             
+0271             <span class="keyword">if</span> isscalar(obj)
+0272                 dispPropList = masterPropList;
+0273                 <span class="keyword">if</span> strcmpi(obj.procedure, <span class="string">'calculate'</span>)
+0274                     dispPropList = rmfield(masterPropList, [deCell, simplexCell, nsCell, dreamCell]);
+0275                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'simplex'</span>)
+0276                     dispPropList = rmfield(masterPropList, [deCell, nsCell, dreamCell]);
+0277                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'de'</span>)
+0278                     dispPropList = rmfield(masterPropList, [simplexCell, nsCell, dreamCell]);
+0279                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'ns'</span>)
+0280                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, dreamCell]);
+0281                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'dream'</span>)
+0282                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, nsCell]);
+0283                 <span class="keyword">end</span>
+0284                 groups = matlab.mixin.util.PropertyGroup(dispPropList);               
+0285             <span class="keyword">else</span>
+0286                 groups = <a href="#_sub25" class="code" title="subfunction groups = getPropertyGroups(obj)">getPropertyGroups</a>@matlab.mixin.CustomDisplay(obj);
+0287             <span class="keyword">end</span>           
+0288         <span class="keyword">end</span>
+0289     <span class="keyword">end</span>
+0290 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

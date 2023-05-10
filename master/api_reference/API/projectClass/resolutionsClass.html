@@ -50,12 +50,12 @@ This function is called by:
 <li><a href="#_sub2" class="code">function flag = get.showPriors(obj)</a></li>
 <li><a href="#_sub3" class="code">function set.showPriors(obj, value)</a></li>
 <li><a href="#_sub4" class="code">function names = getResolNames(obj)</a></li>
-<li><a href="#_sub5" class="code">function addResolution(obj,varargin)</a></li>
+<li><a href="#_sub5" class="code">function addResolution(obj, varargin)</a></li>
 <li><a href="#_sub6" class="code">function removeResolution(obj, row)</a></li>
 <li><a href="#_sub7" class="code">function setResolution(obj, row, varargin)</a></li>
 <li><a href="#_sub8" class="code">function resolStruct = toStruct(obj)</a></li>
 <li><a href="#_sub9" class="code">function displayResolutionsObject(obj)</a></li>
-<li><a href="#_sub10" class="code">function thisPar = validateParam(obj, par)</a></li>
+<li><a href="#_sub10" class="code">function thisPar = validateParam(obj, param)</a></li>
 </ul>
 
 
@@ -85,218 +85,214 @@ This function is called by:
 0023     <span class="keyword">end</span>
 0024     
 0025     properties(Access = private, Constant, Hidden)
-0026        invalidTypeMessage = &quot;Unrecognised type <span class="string">'%s'</span>. Must be one of the types defined in <span class="string">'obj.allowedTypes'</span>&quot;
-0027     <span class="keyword">end</span>
-0028     
-0029     properties (Access = private)
-0030        allowedTypes = {<span class="string">'constant'</span>, <span class="string">'data'</span>, <span class="string">'function'</span>}
-0031     <span class="keyword">end</span>
-0032     
-0033     methods
-0034         <a name="_sub0" href="#_subfunctions" class="code">function  obj = resolutionsClass(parameters, startResolution) </a>
-0035             <span class="comment">% Creates a Resolutions object. The arguments should be</span>
-0036             <span class="comment">% an instance of the parameter class with the resolution parameters and a</span>
-0037             <span class="comment">% cell array with the first resolution entry</span>
-0038             <span class="comment">%</span>
-0039             <span class="comment">% params = parametersClass({'Resolution par 1', 0.01, 0.03, 0.05, false});</span>
-0040             <span class="comment">% resolution = resolutionsClass(params , {'Resolution 1', 'constant', 'Tails'});</span>
-0041             obj.resolPars = parameters;
-0042             
-0043             <span class="comment">% Make a multiType table to define the actual resolutions</span>
-0044             obj.resolutions = <a href="multiTypeTable.html" class="code" title="">multiTypeTable</a>();
-0045             obj.resolutions.allowedTypes = obj.allowedTypes;
-0046             obj.resolutions.typesAutoNameString = <span class="string">'New Resolution'</span>;
-0047             obj.addResolution(startResolution{:});
+0026         invalidTypeMessage = sprintf(<span class="string">'Allowed type must be a allowedTypes enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0027                                      strjoin(allowedTypes.values(), <span class="string">', '</span>))
+0028     <span class="keyword">end</span>
+0029     
+0030     methods
+0031         <a name="_sub0" href="#_subfunctions" class="code">function  obj = resolutionsClass(parameters, startResolution) </a>
+0032             <span class="comment">% Creates a Resolutions object. The arguments should be</span>
+0033             <span class="comment">% an instance of the parameter class with the resolution parameters and a</span>
+0034             <span class="comment">% cell array with the first resolution entry</span>
+0035             <span class="comment">%</span>
+0036             <span class="comment">% params = parametersClass({'Resolution par 1', 0.01, 0.03, 0.05, false});</span>
+0037             <span class="comment">% resolution = resolutionsClass(params , {'Resolution 1', 'constant', 'Tails'});</span>
+0038             obj.resolPars = parameters;
+0039             
+0040             <span class="comment">% Make a multiType table to define the actual resolutions</span>
+0041             obj.resolutions = <a href="multiTypeTable.html" class="code" title="">multiTypeTable</a>();
+0042             obj.resolutions.typesAutoNameString = <span class="string">'New Resolution'</span>;
+0043             obj.addResolution(startResolution{:});
+0044         <span class="keyword">end</span>
+0045         
+0046         <a name="_sub1" href="#_subfunctions" class="code">function flag = get.showPriors(obj)</a>
+0047             flag = obj.resolPars.showPriors;
 0048         <span class="keyword">end</span>
 0049         
-0050         <a name="_sub1" href="#_subfunctions" class="code">function flag = get.showPriors(obj)</a>
-0051             flag = obj.resolPars.showPriors;
+0050         <a name="_sub2" href="#_subfunctions" class="code">function set.showPriors(obj, value)</a>
+0051             obj.resolPars.showPriors = value;
 0052         <span class="keyword">end</span>
 0053         
-0054         <a name="_sub2" href="#_subfunctions" class="code">function set.showPriors(obj, value)</a>
-0055             obj.resolPars.showPriors = value;
-0056         <span class="keyword">end</span>
-0057         
-0058         <a name="_sub3" href="#_subfunctions" class="code">function names = getResolNames(obj)</a>
-0059             <span class="comment">% Returns a N x 1 cell array of names of the resolutions</span>
-0060             <span class="comment">% in the object.</span>
-0061             <span class="comment">%</span>
-0062             <span class="comment">% names = resolution.getResolNames();</span>
-0063             resolTable = obj.resolutions.typesTable;
-0064             names = resolTable{:,1};   
-0065         <span class="keyword">end</span>
-0066          
-0067         <a name="_sub4" href="#_subfunctions" class="code">function addResolution(obj,varargin)</a>
-0068             <span class="comment">% Adds a new entry to the resolution table.</span>
-0069             <span class="comment">%</span>
-0070             <span class="comment">% resolution.addResolution('New Row');</span>
-0071             <span class="comment">% resolution.addResolution('New Row', 'constant', 'param_name');</span>
-0072             <span class="comment">% resolution.addResolution('New Row', 'function', 'function_name', 'param_name');</span>
-0073             <span class="comment">% resolution.addResolution('New Row', 'data');</span>
-0074             in = varargin;
-0075             
-0076             <span class="keyword">if</span> isempty(in)
-0077                 thisRow = {};
-0078             <span class="keyword">else</span>
-0079                 thisRow = {<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>}; 
-0080                 <span class="keyword">if</span> length(in) == 1
-0081                     <span class="comment">% Assume the input is just a name</span>
-0082                     thisRow = {in};
-0083                 <span class="keyword">else</span>
-0084                     thisRow{1} = in;
-0085                 <span class="keyword">end</span>
-0086             <span class="keyword">end</span>
-0087             
-0088             <span class="keyword">if</span> length(in) &gt; 1 
-0089                <span class="comment">% Check that second param is legal</span>
-0090                typeVal = in{2};
-0091                <span class="keyword">if</span> ~strcmpi(typeVal, obj.allowedTypes)
-0092                    throw(invalidOption(sprintf(obj.invalidTypeMessage, typeVal)));
-0093                <span class="keyword">end</span>
+0054         <a name="_sub3" href="#_subfunctions" class="code">function names = getResolNames(obj)</a>
+0055             <span class="comment">% Returns a N x 1 cell array of names of the resolutions</span>
+0056             <span class="comment">% in the object.</span>
+0057             <span class="comment">%</span>
+0058             <span class="comment">% names = resolution.getResolNames();</span>
+0059             resolTable = obj.resolutions.typesTable;
+0060             names = resolTable{:,1};   
+0061         <span class="keyword">end</span>
+0062          
+0063         <a name="_sub4" href="#_subfunctions" class="code">function addResolution(obj, varargin)</a>
+0064             <span class="comment">% Adds a new entry to the resolution table.</span>
+0065             <span class="comment">%</span>
+0066             <span class="comment">% resolution.addResolution('New Row');</span>
+0067             <span class="comment">% resolution.addResolution('New Row', 'constant', 'param_name');</span>
+0068             <span class="comment">% resolution.addResolution('New Row', 'function', 'function_name', 'param_name');</span>
+0069             <span class="comment">% resolution.addResolution('New Row', 'data');</span>
+0070             in = varargin;
+0071             
+0072             <span class="keyword">if</span> isempty(in)
+0073                 thisRow = {};
+0074             <span class="keyword">else</span>
+0075                 thisRow = {<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>}; 
+0076                 <span class="keyword">if</span> length(in) == 1
+0077                     <span class="comment">% Assume the input is just a name</span>
+0078                     thisRow = {in};
+0079                 <span class="keyword">else</span>
+0080                     thisRow{1} = in;
+0081                 <span class="keyword">end</span>
+0082             <span class="keyword">end</span>
+0083             
+0084             <span class="keyword">if</span> length(in) &gt; 1 
+0085                <span class="comment">% Check that second param is legal</span>
+0086                typeVal = validateOption(in{2}, <span class="string">'allowedTypes'</span>, obj.invalidTypeMessage).value;
+0087 
+0088                <span class="keyword">if</span> any(strcmpi(typeVal, {allowedTypes.Constant.value, allowedTypes.Function.value})) &amp;&amp; length(in) &lt; 3
+0089                    throw(invalidNumberOfInputs(sprintf(<span class="string">'For type ''%s'', at least three inputs are required, but only %d are supplied'</span>, typeVal, length(in))));
+0090                <span class="keyword">end</span>
+0091 
+0092                thisRow{1} = in{1};
+0093                thisRow{2} = in{2};
 0094 
-0095                thisRow{1} = in{1};
-0096                thisRow{2} = in{2};
-0097 
-0098                <span class="comment">% Check that the other params inputted are either valid</span>
-0099                <span class="comment">% resolution names, or numbers in range..</span>
-0100                <span class="keyword">switch</span> typeVal
-0101                    <span class="keyword">case</span> <span class="string">'constant'</span>
-0102                        <span class="comment">% Param 3 must be a valid parameter</span>
-0103                        thisParam = obj.validateParam(in(3));
-0104                        thisRow{3} = thisParam;
-0105 
-0106                    <span class="keyword">case</span> <span class="string">'function'</span>
-0107                        <span class="comment">% Param 3 is assumed to be function name</span>
-0108                        <span class="comment">% any other given parameters must be in paramNames</span>
-0109                        <span class="comment">% list or numbers in range</span>
-0110                        thisRow{3} = in{3};
-0111                        <span class="keyword">for</span> i = 4:length(in)
-0112                           thisParam = obj.validateParam(in(i));
-0113                           thisRow{i} = thisParam;
-0114                        <span class="keyword">end</span>
-0115                        
-0116                    <span class="keyword">case</span> <span class="string">'data'</span>
-0117                        <span class="comment">% Resolution is assumed to be given by a 4th column</span>
-0118                        <span class="comment">% of a data file. We don't have access to the</span>
-0119                        <span class="comment">% data files at this point so this (i.e. that data is</span>
-0120                        <span class="comment">% [n x 4] ) will be checked downstream</span>
-0121                        thisRow = {in(1), in(2), <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>};
-0122                 <span class="keyword">end</span>
-0123             <span class="keyword">end</span>
-0124             obj.resolutions.addRow(thisRow);      
-0125         <span class="keyword">end</span>
-0126         
-0127         <a name="_sub5" href="#_subfunctions" class="code">function removeResolution(obj, row)</a>
-0128             <span class="comment">% Removes a resolution entry from the table. Expects the</span>
-0129             <span class="comment">% index or array of indices of resolution(s) to remove.</span>
-0130             <span class="comment">%</span>
-0131             <span class="comment">% resolution.removeResolution(2);</span>
-0132             <span class="comment">%  resolution.removeResolution([1, 3]);</span>
-0133             obj.resolutions.removeRow({row});
-0134         <span class="keyword">end</span>
-0135         
-0136         <a name="_sub6" href="#_subfunctions" class="code">function setResolution(obj, row, varargin)</a>
-0137             <span class="comment">% Changes the value of a given resolution in the table. Expects the</span>
-0138             <span class="comment">% index or name of resolution and keyword/value pairs to set.</span>
-0139             <span class="comment">%</span>
-0140             <span class="comment">% resolution.setResolution(1, 'name', 'res 1', 'type', 'constant', 'value1', 'param_name');</span>
-0141             <span class="keyword">if</span> ischar(row)
-0142                 row = obj.resolutions.findRowIndex(row, obj.getResolNames());
-0143             <span class="keyword">elseif</span> isnumeric(row)
-0144                 count = obj.resolutions.typesCount;
-0145                 <span class="keyword">if</span> (row &lt; 1) || (row &gt; count)
-0146                     throw(indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, row, count)));
-0147                 <span class="keyword">end</span>
-0148             <span class="keyword">else</span>
-0149                 throw(invalidType(<span class="string">'Unrecognised row'</span>));
-0150             <span class="keyword">end</span>
-0151             
-0152             p = inputParser;
-0153             addParameter(p, <span class="string">'name'</span>, obj.resolutions.typesTable{row, 1}, @(x) isstring(x) || ischar(x));
-0154             addParameter(p, <span class="string">'type'</span>, obj.resolutions.typesTable{row, 2}, @(x) isstring(x) || ischar(x));
-0155             addParameter(p, <span class="string">'value1'</span>, obj.resolutions.typesTable{row, 3}, @(x) isstring(x) || ischar(x));
-0156             addParameter(p, <span class="string">'value2'</span>, obj.resolutions.typesTable{row, 4}, @(x) isstring(x) || ischar(x));
-0157             addParameter(p, <span class="string">'value3'</span>, obj.resolutions.typesTable{row, 5}, @(x) isstring(x) || ischar(x));
-0158             addParameter(p, <span class="string">'value4'</span>, obj.resolutions.typesTable{row, 6}, @(x) isstring(x) || ischar(x));
+0095                <span class="comment">% Check that the other params inputted are either valid</span>
+0096                <span class="comment">% resolution names, or numbers in range..</span>
+0097                <span class="keyword">switch</span> typeVal
+0098                    <span class="keyword">case</span> allowedTypes.Constant.value
+0099                        <span class="comment">% Param 3 must be a valid parameter</span>
+0100                        thisParam = obj.validateParam(in(3));
+0101                        thisRow{3} = thisParam;
+0102 
+0103                    <span class="keyword">case</span> allowedTypes.Function.value
+0104                        <span class="comment">% Param 3 is assumed to be function name</span>
+0105                        <span class="comment">% any other given parameters must be in paramNames</span>
+0106                        <span class="comment">% list or numbers in range</span>
+0107                        thisRow{3} = in{3};
+0108                        <span class="keyword">for</span> i = 4:length(in)
+0109                           thisParam = obj.validateParam(in(i));
+0110                           thisRow{i} = thisParam;
+0111                        <span class="keyword">end</span>
+0112                        
+0113                    <span class="keyword">case</span> allowedTypes.Data.value
+0114                        <span class="comment">% Resolution is assumed to be given by a 4th column</span>
+0115                        <span class="comment">% of a data file. We don't have access to the</span>
+0116                        <span class="comment">% data files at this point so this (i.e. that data is</span>
+0117                        <span class="comment">% [n x 4] ) will be checked downstream</span>
+0118                        thisRow = {in{1}, in{2}, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>};
+0119                 <span class="keyword">end</span>
+0120             <span class="keyword">end</span>
+0121             obj.resolutions.addRow(thisRow);      
+0122         <span class="keyword">end</span>
+0123         
+0124         <a name="_sub5" href="#_subfunctions" class="code">function removeResolution(obj, row)</a>
+0125             <span class="comment">% Removes a resolution entry from the table. Expects the</span>
+0126             <span class="comment">% index or array of indices of resolution(s) to remove.</span>
+0127             <span class="comment">%</span>
+0128             <span class="comment">% resolution.removeResolution(2);</span>
+0129             <span class="comment">% resolution.removeResolution([1, 3]);</span>
+0130             obj.resolutions.removeRow(row);
+0131         <span class="keyword">end</span>
+0132         
+0133         <a name="_sub6" href="#_subfunctions" class="code">function setResolution(obj, row, varargin)</a>
+0134             <span class="comment">% Changes the value of a given resolution in the table. Expects the</span>
+0135             <span class="comment">% index or name of resolution and keyword/value pairs to set.</span>
+0136             <span class="comment">%</span>
+0137             <span class="comment">% resolution.setResolution(1, 'name', 'res 1', 'type', 'constant', 'value1', 'param_name');</span>
+0138             <span class="keyword">if</span> isText(row)
+0139                 row = obj.resolutions.findRowIndex(row, obj.getResolNames());
+0140             <span class="keyword">elseif</span> isnumeric(row)
+0141                 count = obj.resolutions.typesCount;
+0142                 <span class="keyword">if</span> (row &lt; 1) || (row &gt; count)
+0143                     throw(indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, row, count)));
+0144                 <span class="keyword">end</span>
+0145             <span class="keyword">else</span>
+0146                 throw(invalidType(<span class="string">'Unrecognised row'</span>));
+0147             <span class="keyword">end</span>
+0148             
+0149             p = inputParser;
+0150             addParameter(p, <span class="string">'name'</span>, obj.resolutions.typesTable{row, 1}, @(x) isText(x));
+0151             addParameter(p, <span class="string">'type'</span>, obj.resolutions.typesTable{row, 2}, @(x) isText(x) || isenum(x));
+0152             addParameter(p, <span class="string">'value1'</span>, obj.resolutions.typesTable{row, 3}, @(x) isText(x));
+0153             addParameter(p, <span class="string">'value2'</span>, obj.resolutions.typesTable{row, 4}, @(x) isText(x));
+0154             addParameter(p, <span class="string">'value3'</span>, obj.resolutions.typesTable{row, 5}, @(x) isText(x));
+0155             addParameter(p, <span class="string">'value4'</span>, obj.resolutions.typesTable{row, 6}, @(x) isText(x));
+0156 
+0157             parse(p, varargin{:});
+0158             inputBlock = p.Results;
 0159 
-0160             parse(p, varargin{:});
-0161             inputBlock = p.Results;
-0162 
-0163             obj.resolutions.setValue({row, 1, inputBlock.name});
-0164             
-0165             <span class="keyword">if</span> ~strcmpi(inputBlock.type, obj.allowedTypes)
-0166                throw(invalidOption(sprintf(obj.invalidTypeMessage, inputBlock.type)));
-0167             <span class="keyword">end</span>
-0168             obj.resolutions.setValue({row, 2, inputBlock.type});      
-0169             
-0170             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
-0171             <span class="keyword">for</span> i = 1:4
-0172                 value = convertStringsToChars(values{i});
-0173                 <span class="comment">% for function type, value 1 is the function name so no validation is done</span>
-0174                 <span class="keyword">if</span> ~isempty(value) &amp;&amp; ~(i==1 &amp;&amp; strcmpi(inputBlock.type,<span class="string">'function'</span>))
-0175                     value = obj.validateParam(value);
-0176                 <span class="keyword">end</span>
-0177                 obj.resolutions.setValue({row, i + 2, value});
-0178             <span class="keyword">end</span>
-0179         <span class="keyword">end</span>
-0180         
-0181         <a name="_sub7" href="#_subfunctions" class="code">function resolStruct = toStruct(obj)</a>
-0182             <span class="comment">% Converts the class parameters into a structure array.</span>
-0183             resolParamsStruct = obj.resolPars.toStruct();
-0184             
-0185             resolStruct.resolParNames = resolParamsStruct.paramNames;
-0186             resolStruct.resolParConstr = resolParamsStruct.paramConstr;
-0187             resolStruct.resolPars = resolParamsStruct.params;
-0188             resolStruct.resolFitYesNo = resolParamsStruct.fitYesNo;
-0189             resolStruct.nResolPars = resolParamsStruct.nParams;
-0190             resolStruct.resolParPriors = resolParamsStruct.priors;
+0160             obj.resolutions.setValue(row, 1, inputBlock.name);
+0161             
+0162             <span class="keyword">if</span> ~isempty(inputBlock.type)
+0163                 inputBlock.type = validateOption(inputBlock.type, <span class="string">'allowedTypes'</span>, obj.invalidTypeMessage).value;
+0164                 obj.resolutions.setValue(row, 2, inputBlock.type);
+0165             <span class="keyword">end</span>    
+0166             values = {inputBlock.value1, inputBlock.value2, inputBlock.value3, inputBlock.value4};
+0167             <span class="keyword">for</span> i = 1:4
+0168                 value = convertStringsToChars(values{i});
+0169                 <span class="comment">% for function type, value 1 is the function name so no validation is done</span>
+0170                 <span class="keyword">if</span> ~isempty(value) &amp;&amp; ~(i==1 &amp;&amp; strcmpi(inputBlock.type,allowedTypes.Function.value))
+0171                     value = obj.validateParam(value);
+0172                 <span class="keyword">end</span>
+0173                 obj.resolutions.setValue(row, i + 2, value);
+0174             <span class="keyword">end</span>
+0175         <span class="keyword">end</span>
+0176         
+0177         <a name="_sub7" href="#_subfunctions" class="code">function resolStruct = toStruct(obj)</a>
+0178             <span class="comment">% Converts the class parameters into a structure array.</span>
+0179             resolParamsStruct = obj.resolPars.toStruct();
+0180             
+0181             resolStruct.resolParNames = resolParamsStruct.paramNames;
+0182             resolStruct.resolParConstr = resolParamsStruct.paramConstr;
+0183             resolStruct.resolPars = resolParamsStruct.params;
+0184             resolStruct.resolFitYesNo = resolParamsStruct.fitYesNo;
+0185             resolStruct.nResolPars = resolParamsStruct.nParams;
+0186             resolStruct.resolParPriors = resolParamsStruct.priors;
+0187             
+0188             resolutionNames = obj.resolutions.typesTable{:,1};
+0189             resolutionTypes = obj.resolutions.typesTable{:,2};
+0190             resolutionValues = table2cell(obj.resolutions.typesTable(:,3:7));
 0191             
-0192             resolutionNames = obj.resolutions.typesTable{:,1};
-0193             resolutionTypes = obj.resolutions.typesTable{:,2};
-0194             resolutionValues = table2cell(obj.resolutions.typesTable(:,3:7));
-0195             
-0196             resolStruct.resolutionNames = resolutionNames;
-0197             resolStruct.resolutionTypes = resolutionTypes;
-0198             resolStruct.resolutionValues = resolutionValues;  
-0199          <span class="keyword">end</span>
-0200         
-0201         <a name="_sub8" href="#_subfunctions" class="code">function displayResolutionsObject(obj)</a>
-0202             <span class="comment">% Displays the resolution parameters and resolution table.</span>
-0203             fprintf(<span class="string">'    Resolutions: --------------------------------------------------------------------------------------------- \n\n'</span>);
-0204             fprintf(<span class="string">'    (a) Resolutions Parameters: \n'</span>);
-0205             obj.resolPars.displayParametersTable;
-0206             
-0207             fprintf(<span class="string">'    (b) Resolutions:  \n'</span>)
-0208             obj.resolutions.displayTypesTable;
-0209         <span class="keyword">end</span> 
-0210     <span class="keyword">end</span>
-0211 
-0212     methods (Access = protected)
-0213         <a name="_sub9" href="#_subfunctions" class="code">function thisPar = validateParam(obj, par)</a>
-0214             <span class="comment">% Checks that given parameter index or name is valid, then returns the</span>
-0215             <span class="comment">% parameter name.</span>
-0216             <span class="comment">%</span>
-0217             <span class="comment">% param = obj.validateParam('param_name');</span>
-0218             <span class="keyword">if</span> iscell(par)
-0219                 par = par{:};
-0220             <span class="keyword">end</span>
-0221             parList = obj.resolPars.getParamNames(); 
-0222             <span class="keyword">if</span> isnumeric(par)
-0223                 <span class="keyword">if</span> (par &lt; 1) || (par &gt; length(parList))
-0224                     throw(indexOutOfRange(sprintf(<span class="string">'Resolution Parameter %d is out of range'</span>, par)));
-0225                 <span class="keyword">end</span>
-0226                 thisPar = parList(par);
-0227             <span class="keyword">else</span>
-0228                 <span class="keyword">if</span> ~strcmpi(par, parList)
-0229                     throw(nameNotRecognised(sprintf(<span class="string">'Unrecognised parameter name %s'</span>, par)));
-0230                 <span class="keyword">end</span>
-0231                 thisPar = par;
-0232             <span class="keyword">end</span>   
-0233         <span class="keyword">end</span>
-0234     <span class="keyword">end</span>
-0235 <span class="keyword">end</span> 
+0192             resolStruct.resolutionNames = resolutionNames;
+0193             resolStruct.resolutionTypes = resolutionTypes;
+0194             resolStruct.resolutionValues = resolutionValues;  
+0195          <span class="keyword">end</span>
+0196         
+0197         <a name="_sub8" href="#_subfunctions" class="code">function displayResolutionsObject(obj)</a>
+0198             <span class="comment">% Displays the resolution parameters and resolution table.</span>
+0199             fprintf(<span class="string">'    Resolutions: --------------------------------------------------------------------------------------------- \n\n'</span>);
+0200             fprintf(<span class="string">'    (a) Resolutions Parameters: \n'</span>);
+0201             obj.resolPars.displayParametersTable;
+0202             
+0203             fprintf(<span class="string">'    (b) Resolutions:  \n'</span>)
+0204             obj.resolutions.displayTypesTable;
+0205         <span class="keyword">end</span> 
+0206     <span class="keyword">end</span>
+0207 
+0208     methods (Access = protected)
+0209         <a name="_sub9" href="#_subfunctions" class="code">function thisPar = validateParam(obj, param)</a>
+0210             <span class="comment">% Checks that given parameter index or name is valid, then returns the</span>
+0211             <span class="comment">% parameter name.</span>
+0212             <span class="comment">%</span>
+0213             <span class="comment">% param = obj.validateParam('param_name');</span>
+0214             <span class="keyword">if</span> iscell(param)
+0215                 param = param{:};
+0216             <span class="keyword">end</span>
+0217             parList = obj.resolPars.getParamNames(); 
+0218             <span class="keyword">if</span> isnumeric(param)
+0219                 <span class="keyword">if</span> (param &lt; 1) || (param &gt; length(parList))
+0220                     throw(indexOutOfRange(sprintf(<span class="string">'Resolution Parameter %d is out of range'</span>, param)));
+0221                 <span class="keyword">end</span>
+0222                 thisPar = parList(param);
+0223             <span class="keyword">else</span>
+0224                 <span class="keyword">if</span> ~strcmpi(param, parList)
+0225                     throw(nameNotRecognised(sprintf(<span class="string">'Unrecognised parameter name %s'</span>, param)));
+0226                 <span class="keyword">end</span>
+0227                 thisPar = param;
+0228             <span class="keyword">end</span>   
+0229         <span class="keyword">end</span>
+0230     <span class="keyword">end</span>
+0231 <span class="keyword">end</span> 
 </pre></div>
 
-<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

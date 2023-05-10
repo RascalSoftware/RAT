@@ -25,7 +25,7 @@
 <div class="box"><strong>Custom XP profile reflectivity calculation for standardTF</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
+<div class="box"><strong>function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> Custom XP profile reflectivity calculation for standardTF
@@ -35,20 +35,20 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelContrasts</a>	Extract individual cell arrays</li>
-<li><a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
-<li><a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYSingle</a>	Extract individual cell arrays</li>
+<li><a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYParallelContrasts</a>	Extract individual cell arrays</li>
+<li><a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYParallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
+<li><a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYSingle</a>	Extract individual cell arrays</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="standardTFReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFReflectivityCalculation</a>	Main function for the standardTF reflectivity calculation</li>
+<li><a href="standardTFReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)">standardTFReflectivityCalculation</a>	Main function for the standardTF reflectivity calculation</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)</a>
 0002 
 0003 <span class="comment">% Custom XP profile reflectivity calculation for standardTF</span>
 0004 
@@ -113,22 +113,22 @@ This function is called by:
 0063             
 0064           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
 0065              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0066              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYSingle</a>(problemDef,problemDef_cells,<span class="keyword">...</span>
-0067              problemDef_limits,controls);
+0066              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYSingle</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0067              problemDefLimits,controls);
 0068         
 0069     <span class="keyword">case</span> <span class="string">'points'</span>
 0070         
 0071           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
 0072              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0073              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelPoints</a>(problemDef,problemDef_cells,<span class="keyword">...</span>
-0074              problemDef_limits,controls);
+0073              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYParallelPoints</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0074              problemDefLimits,controls);
 0075         
 0076     <span class="keyword">case</span> <span class="string">'contrasts'</span>
 0077         
 0078           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
 0079              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0080              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFCustomXYParallelContrasts</a>(problemDef,problemDef_cells,<span class="keyword">...</span>
-0081              problemDef_limits,controls);
+0080              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYParallelContrasts</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0081              problemDefLimits,controls);
 0082         
 0083 <span class="keyword">end</span>
 0084 
@@ -148,6 +148,6 @@ This function is called by:
 0098 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

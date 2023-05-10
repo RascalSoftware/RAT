@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of callCppFunc</title>
+  <meta name="keywords" content="callCppFunc">
+  <meta name="description" content="Use 3rd party 'dylib.hpp' to implement a cross-platform Cpp runtime">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions -->
+<!-- # common -->
+<!-- # callCustomFunction -->
+<!-- menu.html callCppFunction -->
+
+<h1>callCppFunc
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>Use 3rd party 'dylib.hpp' to implement a cross-platform Cpp runtime</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [output,subRough] = callCppFunc(params,nba,nbs,numberOfContrasts,libraryName,functionName) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Use 3rd party 'dylib.hpp' to implement a cross-platform Cpp runtime
+ class loader.... https://github.com/martin-olivier/dylib
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../targetFunctions/common/customModelsClass/customModelClass.html" class="code" title="">customModelClass</a>	</li>
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">functionName = [functionName,0];</a></li>
+</ul>
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 
+0002 <a name="_sub0" href="#_subfunctions" class="code">function [output,subRough] = callCppFunc(params,nba,nbs,numberOfContrasts,libraryName,functionName)</a>
+0003 
+0004     <span class="comment">% Use 3rd party 'dylib.hpp' to implement a cross-platform Cpp runtime</span>
+0005     <span class="comment">% class loader.... https://github.com/martin-olivier/dylib</span>
+0006 
+0007     coder.cinclude(<span class="string">'&lt;functional&gt;'</span>);
+0008     coder.cinclude(<span class="string">'&lt;string&gt;'</span>);
+0009     coder.cinclude(<span class="string">'&lt;iostream&gt;'</span>);
+0010     coder.cinclude(<span class="string">'&lt;map&gt;'</span>);
+0011     coder.cinclude(<span class="string">'&lt;vector&gt;'</span>);
+0012     coder.cinclude(<span class="string">'libManager.h'</span>);
+0013     coder.cinclude(<span class="string">'&lt;tuple&gt;'</span>);
+0014     coder.updateBuildInfo(<span class="string">'addLinkFlags'</span>,<span class="string">'-ldl'</span>);
+0015 
+0016     tempOutput = zeros(3,1000);
+0017     subRough = 0.0;
+0018     nLayers = 0;
+0019     <span class="comment">% coder.varsize('output',[1000 1],[1 0]);</span>
+0020 
+0021     p = coder.opaque(<span class="string">'Library'</span>,<span class="string">'NULL'</span>,<span class="string">'HeaderFile'</span>,<span class="string">'libManager.h'</span>);
+0022     <span class="comment">% Make an instance</span>
+0023     p = coder.ceval(<span class="string">'Library'</span>);
+0024 
+0025     <span class="comment">% We need to add a null terminator to the library names in order for</span>
+0026     <span class="comment">% them to match C/C++ format. See....</span>
+0027     <span class="comment">% https://uk.mathworks.com/help/coder/ug/c-strings-for-null-terminated-matlab-strings.html</span>
+0028     libraryName = [libraryName,0];
+0029     <a name="_sub1" href="#_subfunctions" class="code">functionName = [functionName,0];</a>
+0030 
+0031     <span class="comment">% call the class method in libManager.h</span>
+0032     coder.ceval(<span class="string">'std::mem_fn(&amp;Library::loadRunner)'</span>,p,coder.ref(params),coder.ref(nba),coder.ref(nbs)<span class="keyword">...</span>
+0033         ,numberOfContrasts,coder.wref(tempOutput),coder.wref(subRough),coder.wref(nLayers),libraryName,functionName);
+0034 
+0035     output = tempOutput(:,1:nLayers)';
+0036 <span class="keyword">end</span>
+0037 
+0038 
+0039 
+0040 
+</pre></div>
+
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

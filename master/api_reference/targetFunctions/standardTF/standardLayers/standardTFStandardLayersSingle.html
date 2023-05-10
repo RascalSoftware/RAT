@@ -26,7 +26,7 @@
 <div class="box"><strong>Single theraded version of the Standard Layers calculation</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
+<div class="box"><strong>function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDefCells,problemDefLimits,controls) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> Single theraded version of the Standard Layers calculation 
@@ -42,7 +42,7 @@
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="../../../API/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>	Extract individual parameters from problemDef</li>
-<li><a href="../../../API/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDef_cells)">parseCells</a>	Splits up the master input list of all arrays into separate arrays</li>
+<li><a href="../../../API/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)">parseCells</a>	Splits up the master input list of all arrays into separate arrays</li>
 <li><a href="../../../targetFunctions/common/backSort/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
 <li><a href="../../../targetFunctions/common/groupLayers/allocateLayersForContrast.html" class="code" title="function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers)">allocateLayersForContrast</a>	Decide which layers are needed for a particular contrast.</li>
 <li><a href="../../../targetFunctions/common/groupLayers/allocateParamsToLayers.html" class="code" title="function outLayers = allocateParamsToLayers(params, layersDetails)">allocateParamsToLayers</a>	Allocates parameters from the parameter array to the correct layers</li>
@@ -50,7 +50,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../targetFunctions/standardTF/standardTFStandardLayersReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersReflectivityCalculation</a>	Standard layers reflectivity calculation for standardTF</li>
+<li><a href="../../../targetFunctions/standardTF/standardTFStandardLayersReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersReflectivityCalculation</a>	Standard layers reflectivity calculation for standardTF</li>
 </ul>
 <!-- crossreference -->
 
@@ -60,8 +60,8 @@ This function is called by:
 <div class="fragment"><pre>0001 
 0002 <a name="_sub0" href="#_subfunctions" class="code">function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,</a><span class="keyword">...</span>
 0003     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0004     allRoughs] = standardTFStandardLayersSingle(problemDef,problemDef_cells,<span class="keyword">...</span>
-0005     problemDef_limits,controls)
+0004     allRoughs] = standardTFStandardLayersSingle(problemDef,problemDefCells,<span class="keyword">...</span>
+0005     problemDefLimits,controls)
 0006 <span class="comment">% Single theraded version of the Standard Layers calculation</span>
 0007 <span class="comment">% This is the main reflectivity calculation of the standard layers</span>
 0008 <span class="comment">% calculation type. It extracts the required paramters for the contrasts</span>
@@ -77,7 +77,7 @@ This function is called by:
 0018  simLimits,<span class="keyword">...</span>
 0019  contrastLayers,<span class="keyword">...</span>
 0020  layersDetails<span class="keyword">...</span>
-0021  customFiles] = <a href="../../../API/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDef_cells)">parseCells</a>(problemDef_cells);
+0021  customFiles] = <a href="../../../API/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)">parseCells</a>(problemDefCells);
 0022 
 0023 <span class="comment">% Extract individual parameters from problemDef struct</span>
 0024 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,<span class="keyword">...</span>
@@ -194,6 +194,6 @@ This function is called by:
 0135 
 </pre></div>
 
-<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

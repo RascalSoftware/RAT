@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of pythonCustomFunctionWrapper</title>
+  <meta name="keywords" content="pythonCustomFunctionWrapper">
+  <meta name="description" content="Excecute a python custom model function in the base Matlab workspace.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions -->
+<!-- # common -->
+<!-- # callCustomFunction -->
+<!-- menu.html callPythonFunction -->
+
+<h1>pythonCustomFunctionWrapper
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>Excecute a python custom model function in the base Matlab workspace.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [output,sRough] = pythonCustomFunctionWrapper(funcName,params,bulkIn,bulkOut,contrast,nContrasts) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Excecute a python custom model function in the base Matlab workspace.
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="callPythonFunction.html" class="code" title="function [output,sub_rough] = callPythonFunction(fname,params,bulk_in,bulk_out,contrast)">callPythonFunction</a>	Calls a Python custom function from the base Matlab workspace.</li>
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="../../../../targetFunctions/common/customModelsClass/customModelClass.html" class="code" title="">customModelClass</a>	</li>
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [output,sRough] = pythonCustomFunctionWrapper(funcName,params,bulkIn,bulkOut,contrast,nContrasts)</a>
+0002 
+0003 <span class="comment">% Excecute a python custom model function in the base Matlab workspace.</span>
+0004 
+0005 <span class="comment">% This function uses feval to cause Matlab coder to execute</span>
+0006 <span class="comment">% 'callPythonFunction' in the base Matlab workspace.</span>
+0007 <span class="comment">% 'feval' generates an automatic coder.extrinsic call...</span>
+0008 
+0009 <span class="keyword">if</span> coder.target(<span class="string">'MATLAB'</span>)
+0010     
+0011     [output,sRough] = <a href="callPythonFunction.html" class="code" title="function [output,sub_rough] = callPythonFunction(fname,params,bulk_in,bulk_out,contrast)">callPythonFunction</a>(funcName,params,bulkIn,bulkOut,contrast);
+0012     
+0013 <span class="keyword">else</span>
+0014     
+0015     <span class="comment">% Use a coder.extrinsic call here, so Coder will</span>
+0016     <span class="comment">% pass the excecution of the function back to the calling Matlab</span>
+0017     <span class="comment">% session. There is no need to explicitly declare the extrinsic</span>
+0018     <span class="comment">% as Coder automatically does this when it encounters 'feval'</span>
+0019     <span class="comment">% https://uk.mathworks.com/help/simulink/ug/use-matlab-engine-to-execute-a-function-call-in-generated-code.html</span>
+0020     
+0021     <span class="comment">% Pre-define the outputs to keep the compiler happy</span>
+0022     <span class="comment">% Need to define the size of the outputs with coder preprocessor</span>
+0023     <span class="comment">% directives</span>
+0024     sRough = 3;
+0025     coder.varsize(<span class="string">'output'</span>);        <span class="comment">% This maybe should be a 'coder.typeof' instead?</span>
+0026 
+0027     <span class="comment">% Because it is feval, coder sends this call to</span>
+0028     <span class="comment">% the base Matlab workspace. The outputs of feval are mxArrays,</span>
+0029     <span class="comment">% so we need to do some work afterwards casting these to doubles (below)</span>
+0030     
+0031     [tempOut,tempRough] = feval(<span class="string">'callPythonFunction'</span>,funcName,params,bulkIn,bulkOut,contrast);
+0032     
+0033     <span class="comment">% Tell coder n is doubles by defining it (otherwise 'size(n)' seems to return</span>
+0034     <span class="comment">% [mxArray mxArray] not [double double]!), fill n with the size of the mxArray</span>
+0035     <span class="comment">% 'tempOut', and use n to allocate the correct number of elements to 'output'</span>
+0036     <span class="comment">% by filling output with zeros (i.e. output is an array of doubles)</span>
+0037     n = [0 0];
+0038     n = size(tempOut);
+0039     output = zeros(n);
+0040 
+0041     <span class="comment">% Copy the mxArrays to our doubles arrays, which then makes coder cast</span>
+0042     <span class="comment">% the mxArrays to double.</span>
+0043     sRough = tempRough;
+0044     output = tempOut;
+0045 
+0046 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

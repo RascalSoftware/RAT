@@ -2,17 +2,27 @@
 digraph m2html {
   backgroundsClass -> backgroundsClass;
   backgroundsClass -> multiTypeTable;
+  baseContrasts -> baseContrasts;
+  contrastsClass -> baseContrasts;
   contrastsClass -> contrastsClass;
   customFileClass -> customFileClass;
   dataClass -> dataClass;
-  layersClassRealSLD -> layersClassRealSLD;
+  domainContrastsClass -> baseContrasts;
+  domainContrastsClass -> domainContrastsClass;
+  domainsClass -> contrastsClass;
+  domainsClass -> domainContrastsClass;
+  domainsClass -> domainsClass;
+  domainsClass -> mergeStructs;
+  domainsClass -> parametersClass;
+  domainsClass -> projectClass;
+  layersClass -> layersClass;
   multiTypeTable -> multiTypeTable;
   parametersClass -> parametersClass;
   projectClass -> backgroundsClass;
   projectClass -> contrastsClass;
   projectClass -> customFileClass;
   projectClass -> dataClass;
-  projectClass -> layersClassRealSLD;
+  projectClass -> layersClass;
   projectClass -> mergeStructs;
   projectClass -> parametersClass;
   projectClass -> projectClass;
@@ -21,10 +31,13 @@ digraph m2html {
   resolutionsClass -> resolutionsClass;
 
   backgroundsClass [URL="backgroundsClass.html"];
+  baseContrasts [URL="baseContrasts.html"];
   contrastsClass [URL="contrastsClass.html"];
   customFileClass [URL="customFileClass.html"];
   dataClass [URL="dataClass.html"];
-  layersClassRealSLD [URL="layersClassRealSLD.html"];
+  domainContrastsClass [URL="domainContrastsClass.html"];
+  domainsClass [URL="domainsClass.html"];
+  layersClass [URL="layersClass.html"];
   mergeStructs [URL="mergeStructs.html"];
   multiTypeTable [URL="multiTypeTable.html"];
   parametersClass [URL="parametersClass.html"];

@@ -25,7 +25,7 @@
 <div class="box"><strong>Standard layers reflectivity calculation for standardTF</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls) </strong></div>
+<div class="box"><strong>function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> Standard layers reflectivity calculation for standardTF
@@ -43,20 +43,20 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersParallelContrasts</a>	Standard Layers calculation paralelised over the outer loop</li>
-<li><a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersParallelPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
-<li><a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersSingle</a>	Single theraded version of the Standard Layers calculation</li>
+<li><a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelContrasts</a>	Standard Layers calculation paralelised over the outer loop</li>
+<li><a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
+<li><a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersSingle</a>	Single theraded version of the Standard Layers calculation</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="standardTFReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFReflectivityCalculation</a>	Main function for the standardTF reflectivity calculation</li>
+<li><a href="standardTFReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)">standardTFReflectivityCalculation</a>	Main function for the standardTF reflectivity calculation</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDef_cells,problemDef_limits,controls)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)</a>
 0002 
 0003 <span class="comment">% Standard layers reflectivity calculation for standardTF</span>
 0004 <span class="comment">% This function decides on parallelisation options before calling the</span>
@@ -121,20 +121,20 @@ This function is called by:
 0063     <span class="keyword">case</span> <span class="string">'single'</span>
 0064           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
 0065              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0066              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersSingle</a>(problemDef,problemDef_cells,<span class="keyword">...</span>
-0067              problemDef_limits,controls);
+0066              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersSingle</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0067              problemDefLimits,controls);
 0068          
 0069      <span class="keyword">case</span> <span class="string">'points'</span>
 0070           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
 0071              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0072              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersParallelPoints</a>(problemDef,problemDef_cells,<span class="keyword">...</span>
-0073              problemDef_limits,controls);
+0072              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelPoints</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0073              problemDefLimits,controls);
 0074 
 0075     <span class="keyword">case</span> <span class="string">'contrasts'</span>
 0076           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
 0077              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0078              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDef_cells,problemDef_limits,controls)">standardTFStandardLayersParallelContrasts</a>(problemDef,problemDef_cells,<span class="keyword">...</span>
-0079              problemDef_limits,controls);        
+0078              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelContrasts</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0079              problemDefLimits,controls);        
 0080 <span class="keyword">end</span>
 0081 
 0082 <span class="comment">% Package everything into one array for tidy output</span>
@@ -154,6 +154,6 @@ This function is called by:
 0096 
 </pre></div>
 
-<hr><address>Generated on Fri 10-Mar-2023 11:17:15 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -1,0 +1,28 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  allowedTypes -> allowedTypes;
+  boundHandlingOptions -> boundHandlingOptions;
+  calculationTypes -> calculationTypes;
+  displayOptions -> displayOptions;
+  geometryOptions -> geometryOptions;
+  hydrationTypes -> hydrationTypes;
+  modelTypes -> modelTypes;
+  parallelOptions -> parallelOptions;
+  priorTypes -> priorTypes;
+  procedures -> procedures;
+  strategyOptions -> strategyOptions;
+  supportedLanguages -> supportedLanguages;
+
+  allowedTypes [URL="allowedTypes.html"];
+  boundHandlingOptions [URL="boundHandlingOptions.html"];
+  calculationTypes [URL="calculationTypes.html"];
+  displayOptions [URL="displayOptions.html"];
+  geometryOptions [URL="geometryOptions.html"];
+  hydrationTypes [URL="hydrationTypes.html"];
+  modelTypes [URL="modelTypes.html"];
+  parallelOptions [URL="parallelOptions.html"];
+  priorTypes [URL="priorTypes.html"];
+  procedures [URL="procedures.html"];
+  strategyOptions [URL="strategyOptions.html"];
+  supportedLanguages [URL="supportedLanguages.html"];
+}

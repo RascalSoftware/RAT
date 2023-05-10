@@ -1,10 +1,8 @@
 .. _chapter3:
 
-.. section-numbering::
-    :start: 3
 
-Custom Models.
-..............
+Custom Models
+.............
 
 The Standard Layers approach is useful for quickly setting up simple models, but parameterising models in this way is not always the best way of analysing data. For example, in the case of lipids, it is often natural and intuitive to analyse the data in terms of area per lipid rather than in terms of d, :math:`\rho` and roughness. Similarly, for solid state samples thinking in terms of density and composition is often more appropriate than SLD. In common with RasCAL, you can parameterise your model in any way you like, and then rather than building the model in the input class, the model is constructed using a custom model script. This is by far the most powerful method for using RAT for data analysis, as virtually any type of model can be implemented in this way.
 
@@ -33,8 +31,8 @@ Again in common with RasCAL, there are two main options for custom modelling:
     It's important to remove the second output parameter, as this is interpreted as a penalty to be applied to chi-squared, in order to implement model-based constraints, and if this is not what it is, there may be unpredictable results. This is discussed in more detail in Chapter 5.
 
 
-Custom Layers Models - DSPC bilayer example.
-============================================
+Custom Layers Models - DSPC bilayer example
+===========================================
 
 In biophysical studies, one of the most common parameters of interest is the area occupied per lipid, be it in a bilayer or a monolayer. Often for lipids, the volume occupied per component is known, which leads to a simple way of calculating the thickness of the head and tail groups. Let the volume of the heads and tails be V\ :sub:`Head` and V\ :sub:`Tail` respectively. Then, for a given Area per Lipid, the thickness of the two layers will be given by :math:`D_\mathrm{Head} = \frac{V_\mathrm{Head}}{APM}` for the headgroup thickness, and :math:`D_\mathrm{Tail} = \frac{V_\mathrm{Tail}}{APM}` for the tail layers. 
 
@@ -102,7 +100,7 @@ The custom file that we are going to use is called *customBilayer.m*. This is a 
 .. code:: MATLAB
 
     % name filename language path
-    problem.addCustomFile({'DSPC Model', 'customBilayer.m' ,'matlab',  'pwd'});
+    problem.addCustomFile('DSPC Model', 'customBilayer.m' ,'matlab',  pwd);
 
 
 The custom files are in exactly the same format at those in RasCAL. To add it to our project in RAT we always need to specify four things:
@@ -317,8 +315,8 @@ The rest of the custom model is defined in the same way as the standard layers m
     problem.setBulkIn(1,'name','Silicon','min',2.07e-6,'value',2.073e-6,'max',2.08e-6,'fit',false);
 
     % Add two more values for bulk out....
-    problem.addBulkOut({'SLD SMW',1e-6,2.073e-6,3e-6,true});
-    problem.addBulkOut({'SLD H2O',-0.6e-6,-0.56e-6,-0.3e-6,true});
+    problem.addBulkOut('SLD SMW',1e-6,2.073e-6,3e-6,true);
+    problem.addBulkOut('SLD H2O',-0.6e-6,-0.56e-6,-0.3e-6,true);
 
     problem.setBulkOut(1,'fit',true,'min',5e-6);
 
@@ -403,12 +401,9 @@ To run this, we make a controls block as before, and pass this to RAT. This time
 
 .. code:: MATLAB
 
-    controls = controlsDef();
-    controls.calcSldDuringFit = 'no';
-    controls.procedure = 'bayes';
-    controls.nsimu = 7000;
-    controls.repeats = 3;
-    controls.parallel = 'points';
+    controls = controlsClass();
+    controls.calcSldDuringFit = true;
+    controls.parallel = parallelOptions.Points;
 
     disp(controls)
 

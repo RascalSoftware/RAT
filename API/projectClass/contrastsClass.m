@@ -22,11 +22,11 @@ classdef contrastsClass < baseContrasts
         
         function names = getDisplayNames(obj)
             if obj.domainsCalc && obj.oilWaterCalc
-                 names = ["Name"; "Data"; "Oil Data", "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
+                 names = ["Name"; "Data"; "Oil Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
             elseif obj.domainsCalc
                  names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
             elseif obj.oilWaterCalc
-                 names = ["Name"; "Data"; "Oil Data", "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
+                 names = ["Name"; "Data"; "Oil Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
             else
                  names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
             end

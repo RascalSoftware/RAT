@@ -14,8 +14,8 @@ classdef (Abstract) baseContrasts < handle
     properties (SetAccess = immutable)
         domainsCalc
         oilWaterCalc
-        rowHeaders = struct('key', ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
-                            'field', ["name"; "data"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
+        rowHeaders = struct('key', ["Name"; "Data"; "Oil Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
+                            'field', ["name"; "data"; "oilData"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
     end
 
     properties (Dependent, SetAccess = private)

@@ -13,6 +13,7 @@ classdef (Abstract) baseContrasts < handle
 
     properties (SetAccess = immutable)
         domainsCalc
+        oilWaterCalc
         rowHeaders = struct('key', ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
                             'field', ["name"; "data"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
     end
@@ -31,10 +32,10 @@ classdef (Abstract) baseContrasts < handle
         parseContrastInput
         getDisplayNames
     end
-            
+
     methods
         
-        function obj = baseContrasts(domainsCalc)
+        function obj = baseContrasts(domainsCalc, oilWaterCalc)
             % Class Constructor
             % The only (optional) input is a logical flag to state whether
             % or not this is a domains calculation.
@@ -42,9 +43,11 @@ classdef (Abstract) baseContrasts < handle
             % contrasts = contrastsClass()
             arguments
                 domainsCalc {mustBeA(domainsCalc,'logical')} = false
+                oilWaterCalc {mustBeA(oilWaterCalc,'logical')} = false
             end
 
             obj.domainsCalc = domainsCalc;
+            obj.oilWaterCalc = oilWaterCalc;
             obj.contrastAutoNameCounter = 1;
         end
 
@@ -80,7 +83,7 @@ classdef (Abstract) baseContrasts < handle
                 inputVals = varargin;
             end
             
-            thisContrast = obj.parseContrastInput(allowedNames, obj.domainsCalc, inputVals);
+            thisContrast = obj.parseContrastInput(allowedNames, obj.domainsCalc, obj.oilWaterCalc, inputVals);
             thisContrast.model = '';
             obj.contrasts{end+1} = thisContrast;
             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
@@ -200,7 +203,7 @@ classdef (Abstract) baseContrasts < handle
             % Check to see if the inputs are valid
             % Raise a warning if we try to set the model as this should be
             % done elsewhere
-            inputBlock = obj.parseContrastInput(allowedNames, obj.domainsCalc, varargin);
+            inputBlock = obj.parseContrastInput(allowedNames, obj.domainsCalc, obj.oilWaterCalc, varargin);
             
             if isfield(inputBlock, 'name') && ~isempty(inputBlock.name)
                 thisContrast.name = inputBlock.name;
@@ -208,6 +211,10 @@ classdef (Abstract) baseContrasts < handle
 
             if isfield(inputBlock, 'data') && ~isempty(inputBlock.data)
                 thisContrast.data = inputBlock.data;
+            end
+
+            if isfield(inputBlock, 'oilData') && ~isempty(inputBlock.oilData)
+                thisContrast.oilData = inputBlock.oilData;
             end
             
             if isfield(inputBlock, 'background') && ~isempty(inputBlock.background)

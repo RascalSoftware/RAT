@@ -12,7 +12,7 @@ classdef domainContrastsClass < baseContrasts
     
     methods(Static)
 
-        function inputBlock = parseContrastInput(allowedNames, ~, inputValues)
+        function inputBlock = parseContrastInput(allowedNames, ~, ~, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of

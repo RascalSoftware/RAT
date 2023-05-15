@@ -164,7 +164,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Set up an example contrasts class for testing
             % This example is used in the example calculation
             % "DPPC_standard_layers.m"
-            testCase.exampleClass = contrastsClass(true);
+            testCase.exampleClass = contrastsClass(domains=true);
 
             testCase.exampleClass.contrasts(1) = {struct( ...
                 'name', 'Bilayer / D2O', ...
@@ -248,7 +248,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.verifyFalse(testClass.domainsCalc);
 
             % Domains Calculation
-            testDomainsClass = contrastsClass(true);
+            testDomainsClass = contrastsClass(domains=true);
             testCase.verifyEqual(testDomainsClass.contrasts, {}, 'contrastsClass does not initialise correctly');
             testCase.verifyTrue(testDomainsClass.domainsCalc);
         end
@@ -256,8 +256,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
         function testInitialiseContrastsClassIllogical(testCase)
             % If we initialise a contrasts class with a non-logical
             % variable we should fail validation
-            testCase.verifyError(@() contrastsClass(0), 'MATLAB:validators:mustBeA');
-            testCase.verifyError(@() contrastsClass('true'), 'MATLAB:validators:mustBeA');
+            testCase.verifyError(@() contrastsClass(domains=0), 'MATLAB:validators:mustBeA');
+            testCase.verifyError(@() contrastsClass(oilWater='true'), 'MATLAB:validators:mustBeA');
         end
         
         function testAddContrast(testCase, contrastInput, changedFields)
@@ -387,7 +387,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 'model', '' ...
                 );
 
-            noDomainsClass = contrastsClass(false);
+            noDomainsClass = contrastsClass();
             noDomainsClass.addContrast(testCase.allowedNames);
 
             % If we include "domainRatio" here, we should encounter an
@@ -662,9 +662,9 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 );
 
             % If we are not running a domains calculation, raise an error
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, false, testCase.newValues), 'MATLAB:InputParser:UnmatchedParameter');
+            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, false, false, testCase.newValues), 'MATLAB:InputParser:UnmatchedParameter');
 
-            contrastStruct = contrastsClass.parseContrastInput(testCase.allowedNames, true, testCase.newValues);
+            contrastStruct = contrastsClass.parseContrastInput(testCase.allowedNames, true, false, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
         end
 
@@ -672,7 +672,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Test parsing input data for a contrast within the contrasts
             % class.
             % If the input is empty, we should return the default values
-            testCase.verifyEqual(contrastsClass.parseContrastInput(testCase.allowedNames, true, {}), rmfield(testCase.defaultContrastParams, 'model'));
+            testCase.verifyEqual(contrastsClass.parseContrastInput(testCase.allowedNames, true, false, {}), rmfield(testCase.defaultContrastParams, 'model'));
         end
 
         function testParseContrastInputInvalidOption(testCase, invalidInput)
@@ -680,7 +680,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % class.
             % If values for each parameter are not valid options, we
             % should raise an error
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, true, invalidInput), 'MATLAB:unrecognizedStringChoice');
+            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, true, false, invalidInput), 'MATLAB:unrecognizedStringChoice');
         end
 
         function testParseContrastInputInvalidType(testCase)
@@ -688,8 +688,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % class.
             % If values for the name and resample parameters are an
             % invalid type, we should raise an error
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, true, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, true, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, true, false, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, true, false, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
         end
 
     end

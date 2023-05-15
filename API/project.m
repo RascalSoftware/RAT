@@ -35,6 +35,12 @@ function obj = project(options)
             obj.layers = layersClass({'SLD Real', 'SLD Imaginary'});
         case {calculationTypes.Magnetic.value, calculationTypes.MagneticDomains.value}
             obj.layers = layersClass({'SLD Real', 'SLD Imaginary', 'SLD Magnetic Real', 'SLD Magnetic Imaginary'});
+        case calculationTypes.OilWater.value
+            if isa(obj, 'domainsClass')
+                obj.contrasts = contrastsClass(domains=true, oilWater=true);
+            else
+                obj.contrasts = contrastsClass(domains=false, oilWater=true);
+            end
     end
 
 end

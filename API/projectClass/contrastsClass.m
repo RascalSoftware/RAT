@@ -5,7 +5,7 @@ classdef contrastsClass < baseContrasts
 
 
     methods   
-        function obj = contrastsClass(domainsCalc, oilCalc)
+        function obj = contrastsClass(calcType)
             % Class Constructor
             % The (optional) inputs are logical flags to state whether
             % or not this is a domains calculation and wheter or not this
@@ -13,19 +13,19 @@ classdef contrastsClass < baseContrasts
             %
             % contrasts = contrastsClass()
             arguments
-                domainsCalc {mustBeA(domainsCalc,'logical')} = false
-                oilCalc {mustBeA(oilCalc,'logical')} = false
+                calcType.domains {mustBeA(calcType.domains,'logical')} = false
+                calcType.oilWater {mustBeA(calcType.oilWater,'logical')} = false
             end
 
-            obj@baseContrasts(domainsCalc, oilCalc)
+            obj@baseContrasts(calcType.domains, calcType.oilWater)
         end
         
         function names = getDisplayNames(obj)
-            if obj.domainsCalc && obj.oilCalc
+            if obj.domainsCalc && obj.oilWaterCalc
                  names = ["Name"; "Data"; "Oil Data", "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
             elseif obj.domainsCalc
                  names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
-            elseif obj.oilCalc
+            elseif obj.oilWaterCalc
                  names = ["Name"; "Data"; "Oil Data", "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
             else
                  names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
@@ -131,7 +131,7 @@ classdef contrastsClass < baseContrasts
     
     methods(Static)
 
-        function inputBlock = parseContrastInput(allowedNames, domainsCalc, inputValues)
+        function inputBlock = parseContrastInput(allowedNames, domainsCalc, oilWaterCalc, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
@@ -161,7 +161,7 @@ classdef contrastsClass < baseContrasts
             addParameter(p,'name',          defaultName,        @isText);
             addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
 
-            if oilCalc
+            if oilWaterCalc
                 defaultOilData = '';
                 addParameter(p,'oilData',       defaultOilData,     @(x) any(validatestring(x,expectedData)));
             end

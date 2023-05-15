@@ -5,22 +5,28 @@ classdef contrastsClass < baseContrasts
 
 
     methods   
-        function obj = contrastsClass(domainsCalc)
+        function obj = contrastsClass(domainsCalc, oilCalc)
             % Class Constructor
-            % The only (optional) input is a logical flag to state whether
-            % or not this is a domains calculation.
+            % The (optional) inputs are logical flags to state whether
+            % or not this is a domains calculation and wheter or not this
+            % is an oil-water calculation.
             %
             % contrasts = contrastsClass()
             arguments
                 domainsCalc {mustBeA(domainsCalc,'logical')} = false
+                oilCalc {mustBeA(oilCalc,'logical')} = false
             end
 
-            obj@baseContrasts(domainsCalc)
+            obj@baseContrasts(domainsCalc, oilCalc)
         end
         
         function names = getDisplayNames(obj)
-            if obj.domainsCalc
+            if obj.domainsCalc && obj.oilCalc
+                 names = ["Name"; "Data"; "Oil Data", "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
+            elseif obj.domainsCalc
                  names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
+            elseif obj.oilCalc
+                 names = ["Name"; "Data"; "Oil Data", "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
             else
                  names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
             end
@@ -154,6 +160,12 @@ classdef contrastsClass < baseContrasts
             p = inputParser;
             addParameter(p,'name',          defaultName,        @isText);
             addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
+
+            if oilCalc
+                defaultOilData = '';
+                addParameter(p,'oilData',       defaultOilData,     @(x) any(validatestring(x,expectedData)));
+            end
+
             addParameter(p,'background',    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
             addParameter(p,'nba',           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
             addParameter(p,'nbs',           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));

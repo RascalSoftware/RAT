@@ -54,7 +54,7 @@ classdef domainsClass < projectClass
             % of domain ratio, min, value, max, and if fit is off or on
             % 
             % problem.addDomainRatio('Domain Ratio 2', 0.4, 0.5, 0.6, true);
-            obj.domainRatio.addParam(varargin{:});
+            obj.domainRatio.addParameter(varargin{:});
         end
         
         function obj = removeDomainRatio(obj, varargin)
@@ -62,7 +62,7 @@ classdef domainsClass < projectClass
             % name/index of domain ratio to remove
             % 
             % problem.removeDomainRatio(2);
-           obj.domainRatio.removeParam(varargin{:}); 
+           obj.domainRatio.removeParameter(varargin{:}); 
         end
         
         function obj = setDomainRatio(obj, varargin)

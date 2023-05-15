@@ -32,7 +32,7 @@ Parameters = {
 % Add these parameters to the project class, and group them into a layer to
 % demonstrate how this is done:
 
-problem.addParamGroup(Parameters);
+problem.addParameterGroup(Parameters);
 % Now make the oxide layer
 Oxide =     {'Oxide Layer',...          % Name of the layer
     'Oxide thick',...           % Layer thickness
@@ -77,8 +77,8 @@ watParams = {
 
 
 % Add these parameters to the project as before.
-problem.addParamGroup(watParams);
-problem.addParamGroup(bilParams);
+problem.addParameterGroup(watParams);
+problem.addParameterGroup(bilParams);
 
 % Now make the layers
 waterLayer = {
@@ -252,8 +252,8 @@ problem.setContrastModel(3,{'Oxide Layer',...
 % Now set somne priors....
 
 problem.setUsePriors(true);
-problem.setParamPrior('Bilayer heads thick','gaussian',10,0.2);
-problem.setParamPrior('Bilayer heads sld','gaussian',1.4e-6,2e-7);
+problem.setParameterPrior('Bilayer heads thick','gaussian',10,0.2);
+problem.setParameterPrior('Bilayer heads sld','gaussian',1.4e-6,2e-7);
 
 % controls = controlsClass;
 % controls.procedure = 'bayes';

@@ -143,45 +143,45 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(string(testCase.project.parameters.paramsTable{1, :}), ...
                                     string({'Substrate Roughness', 1, 3, 5, true, priorTypes.Uniform.value, 0, Inf}), 'Parameters default');
 
-            testCase.project.addParamGroup(testCase.parameters);
+            testCase.project.addParameterGroup(testCase.parameters);
             testCase.verifySize(testCase.project.parameters.paramsTable, [10, 8], 'Parameters has wrong dimension');
             for i = 1:length(testCase.parameters)
                 testCase.verifyEqual(string(testCase.project.parameters.paramsTable{i+1, :}),...
                                         string(testCase.parameters{i}) , 'Parameters not set correctly');
             end
-            testCase.verifyError(@() testCase.project.addParamGroup(testCase.parameters{1}), invalidType.errorID);
+            testCase.verifyError(@() testCase.project.addParameterGroup(testCase.parameters{1}), invalidType.errorID);
             
             % Test adding parameters
-            testCase.project.addParam();
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "new parameter 11", 'addParam method not working');
+            testCase.project.addParameter();
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "new parameter 11", 'addParameter method not working');
             testCase.verifySize(testCase.project.parameters.paramsTable, [11, 8], 'Parameters has wrong dimension');
-            testCase.project.addParam('NewParam2');
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "NewParam2", 'addParam method not working');
+            testCase.project.addParameter('NewParam2');
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "NewParam2", 'addParameter method not working');
             testCase.verifySize(testCase.project.parameters.paramsTable, [12, 8], 'Parameters has wrong dimension');
             % Test removing parameters
-            testCase.project.removeParam('NewParam2');
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "new parameter 11", 'removeParam method not working');
+            testCase.project.removeParameter('NewParam2');
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "new parameter 11", 'removeParameter method not working');
             testCase.verifySize(testCase.project.parameters.paramsTable, [11, 8], 'Parameters has wrong dimension');
-            testCase.verifyError(@() testCase.project.removeParam('Substrate Roughness'), invalidOption.errorID) % can't remove substrate roughness
-            testCase.project.removeParam(11);
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "Heads Hydration", 'removeParam method not working');
+            testCase.verifyError(@() testCase.project.removeParameter('Substrate Roughness'), invalidOption.errorID) % can't remove substrate roughness
+            testCase.project.removeParameter(11);
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{end, 1}, "Heads Hydration", 'removeParameter method not working');
             testCase.verifySize(testCase.project.parameters.paramsTable, [10, 8], 'Parameters has wrong dimension');
              % Test setting the different parameter properties
             testCase.project.setParameter(2, 'value', 50);
             testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 3}, 50, 'setParameter method not working');
-            testCase.project.setParamValue(2, 13);
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 3}, 13, 'setParamValue method not working');
-            testCase.project.setParamConstr('Tails Thickness', 0, 100);
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 2}, 0, 'setParamConstr method not working');
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 4}, 100, 'setParamConstr method not working');
-            testCase.project.setParamName(2, 'NewParam');
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 1}, "NewParam", 'setParamName method not working');
-            testCase.project.setParamName(2, 'Tails Thickness');
-            testCase.verifyError(@() testCase.project.setParamName(1, 'name'), invalidOption.errorID) % can't rename substrate roughness
-            testCase.project.setParamFit('Tails Thickness', false);
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 5}, false, 'setParamFit method not working');
-            testCase.project.setParamPrior(2, priorTypes.Uniform);
-            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 6}, "uniform", 'setParamPrior method not working');
+            testCase.project.setParameterValue(2, 13);
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 3}, 13, 'setParameterValue method not working');
+            testCase.project.setParameterConstraint('Tails Thickness', 0, 100);
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 2}, 0, 'setParameterConstraint method not working');
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 4}, 100, 'setParameterConstraint method not working');
+            testCase.project.setParameterName(2, 'NewParam');
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 1}, "NewParam", 'setParameterName method not working');
+            testCase.project.setParameterName(2, 'Tails Thickness');
+            testCase.verifyError(@() testCase.project.setParameterName(1, 'name'), invalidOption.errorID) % can't rename substrate roughness
+            testCase.project.setParameterFit('Tails Thickness', false);
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 5}, false, 'setParameterFit method not working');
+            testCase.project.setParameterPrior(2, priorTypes.Uniform);
+            testCase.verifyEqual(testCase.project.parameters.paramsTable{2, 6}, "uniform", 'setParameterPrior method not working');
         end
 
         function testLayers(testCase)
@@ -224,7 +224,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Check removing a parameter removes it from layer
             testCase.verifyEqual(testCase.project.layers.layersTable{2, 2}, "Heads Thickness", 'param not removed from layers');
             testCase.verifyEqual(testCase.project.layers.layersTable{7, 2}, "Heads Thickness", 'param not removed from layers');
-            testCase.project.removeParam('Heads Thickness');
+            testCase.project.removeParameter('Heads Thickness');
             testCase.verifyEqual(testCase.project.layers.layersTable{2, 2}, "", 'param not removed from layers');
             testCase.verifyEqual(testCase.project.layers.layersTable{7, 2}, "", 'param not removed from layers');
             % Test removing a layer

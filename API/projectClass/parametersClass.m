@@ -44,9 +44,9 @@ classdef parametersClass < handle
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
             obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             if isempty(varargin)
-                obj.addParam();
+                obj.addParameter();
             else
-                obj.addParam(varargin{:});
+                obj.addParameter(varargin{:});
             end
         end
         
@@ -62,7 +62,7 @@ classdef parametersClass < handle
             names = obj.paramsTable{:,1}; 
         end
         
-        function obj = addParam(obj, varargin)
+        function obj = addParameter(obj, varargin)
             % Adds an new parameter to the parameters table. Default 
             % values are used when adding the parameter if no arguments are 
             % provided, otherwise a subset of the arguments can be provided.
@@ -73,7 +73,7 @@ classdef parametersClass < handle
             % for 5 inputs, the name, min, value, max, and fit? are provided
             % for 8 inputs, all parameter properties are provided
             %
-            % params.addParam('Tails Roughness');  
+            % params.addParameter('Tails Roughness');  
             if isempty(varargin)
                 % No input parameter
                 % Add an empty parameter row
@@ -122,7 +122,7 @@ classdef parametersClass < handle
                        
                     % If not one of these options, throw an error
                     otherwise
-                        throw(invalidNumberOfInputs('Unrecognised inputs to ''addParam'''));
+                        throw(invalidNumberOfInputs('Unrecognised inputs to ''addParameter'''));
                 end
                 
                 % Type validation
@@ -145,12 +145,12 @@ classdef parametersClass < handle
             end
         end
         
-        function obj = removeParam(obj, row)
+        function obj = removeParameter(obj, row)
             % Removes a parameter from the parameters table. 
             % Expects a single parameter name or index/array of parameter
             % names or indices to remove
             %
-            % params.removeParam(2);
+            % params.removeParameter(2);
             if isa(row, 'double')
                 row = num2cell(sort(row, 'descend'));
             elseif isText(row)
@@ -185,12 +185,12 @@ classdef parametersClass < handle
             
             if ~isempty(inputBlock.min)
                 max = obj.paramsTable{row, 4};
-                obj.setConstr(row, inputBlock.min, max);
+                obj.setConstraint(row, inputBlock.min, max);
             end
             
             if ~isempty(inputBlock.max)
                 min = obj.paramsTable{row, 2};
-                obj.setConstr(row, min, inputBlock.max);
+                obj.setConstraint(row, min, inputBlock.max);
             end
             
             if ~isempty(inputBlock.value)
@@ -262,12 +262,12 @@ classdef parametersClass < handle
             obj.paramsTable = tab;
         end
         
-        function obj = setConstr(obj, row, min, max)
+        function obj = setConstraint(obj, row, min, max)
             % Sets the constraints of an existing parameter. Expects index
             % or name of parameter and new min and max of the parameter's
             % value
             %
-            % params.setConstr({2, 0, 100});
+            % params.setConstraint({2, 0, 100});
             tab = obj.paramsTable;
             row = obj.getValidRow(row);
 

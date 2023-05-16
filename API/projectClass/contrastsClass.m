@@ -22,11 +22,11 @@ classdef contrastsClass < baseContrasts
         
         function names = getDisplayNames(obj)
             if obj.domainsCalc && obj.oilWaterCalc
-                 names = ["Name"; "Data"; "Oil Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
+                 names = ["Name"; "Data"; "Oil Chi Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
             elseif obj.domainsCalc
                  names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
             elseif obj.oilWaterCalc
-                 names = ["Name"; "Data"; "Oil Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
+                 names = ["Name"; "Data"; "Oil Chi Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
             else
                  names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
             end
@@ -162,8 +162,8 @@ classdef contrastsClass < baseContrasts
             addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
 
             if oilWaterCalc
-                defaultOilData = '';
-                addParameter(p,'oilData',       defaultOilData,     @(x) any(validatestring(x,expectedData)));
+                defaultOilChiData = '';
+                addParameter(p,'oilChiData',    defaultOilChiData,  @(x) any(validatestring(x,expectedData)));
             end
 
             addParameter(p,'background',    defaultBack,        @(x) any(validatestring(x,expectedBacks)));

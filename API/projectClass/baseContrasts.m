@@ -14,8 +14,8 @@ classdef (Abstract) baseContrasts < handle
     properties (SetAccess = immutable)
         domainsCalc
         oilWaterCalc
-        rowHeaders = struct('key', ["Name"; "Data"; "Oil Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
-                            'field', ["name"; "data"; "oilData"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
+        rowHeaders = struct('key', ["Name"; "Data"; "Oil Chi Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
+                            'field', ["name"; "data"; "oilChiData"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
     end
 
     properties (Dependent, SetAccess = private)
@@ -213,8 +213,8 @@ classdef (Abstract) baseContrasts < handle
                 thisContrast.data = inputBlock.data;
             end
 
-            if isfield(inputBlock, 'oilData') && ~isempty(inputBlock.oilData)
-                thisContrast.oilData = inputBlock.oilData;
+            if isfield(inputBlock, 'oilChiData') && ~isempty(inputBlock.oilChiData)
+                thisContrast.oilChiData = inputBlock.oilChiData;
             end
             
             if isfield(inputBlock, 'background') && ~isempty(inputBlock.background)

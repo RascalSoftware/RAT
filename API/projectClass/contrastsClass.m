@@ -74,10 +74,13 @@ classdef contrastsClass < baseContrasts
             contrastRes = ones(1,nContrasts);
             resample = ones(1,nContrasts);
 
-            dataPresent = ones(1,nContrasts);
+            dataPresent = zeros(1,nContrasts);
             dataLimits = cell(1,nContrasts);
             simLimits = cell(1,nContrasts);
             allData = cell(1,nContrasts);
+
+            oilChiDataPresent = zeros(1,nContrasts);
+            allOilChiData = cell(1,nContrasts);
 
             for i = 1:nContrasts
 
@@ -96,8 +99,8 @@ classdef contrastsClass < baseContrasts
                 thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
                 if ~isempty(thisDataVal)
                     actualData = dataTable{thisDataVal,2}{:};
-                    if isempty(actualData)
-                        dataPresent(i) = 0;
+                    if ~isempty(actualData)
+                        dataPresent(i) = 1;
                     end
                     thisDataLimit = dataTable{thisDataVal,3}{:};
                     if isempty(thisDataLimit)
@@ -107,12 +110,26 @@ classdef contrastsClass < baseContrasts
                     simLimits{i} = dataTable{thisDataVal,4}{:};
                     allData{i} = dataTable{thisDataVal,2}{:};
                 else
-                    dataPresent(i) = 0;
                     dataLimits{i} = [0 0];
                     simLimits{i} = [0 0];
                     allData{i} = [0 0 0];
                 end
+            end
 
+            if obj.oilWaterCalc
+                for i = 1:nContrasts    
+                    thisContrast = obj.contrasts{i};
+                    thisOilChiDataVal = find(strcmpi(thisContrast.oilChiData,allowedNames.dataNames));
+                    if ~isempty(thisOilChiDataVal)
+                        actualOilChiData = dataTable{thisOilChiDataVal,2}{:};
+                        if ~isempty(actualOilChiData)
+                            oilChiDataPresent(i) = 1;
+                        end
+                        allOilChiData{i} = dataTable{thisOilChiDataVal,2}{:};
+                    else
+                        allOilChiData{i} = [0 0 0];
+                    end
+                end
             end
 
             contrastStruct.contrastDomainRatios = contrastDomainRatios;
@@ -125,6 +142,8 @@ classdef contrastsClass < baseContrasts
             contrastStruct.dataLimits = dataLimits;
             contrastStruct.simLimits = simLimits;
             contrastStruct.allData = allData;
+            contrastStruct.oilChiDataPresent = oilChiDataPresent;
+            contrastStruct.allOilChiData = allOilChiData;
 
         end
     end

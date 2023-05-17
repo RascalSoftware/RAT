@@ -144,18 +144,14 @@ classdef contrastsClass < baseContrasts
             contrastStruct.allOilChiData = allOilChiData;
 
         end
-    end
-    
-    methods%(Static)
 
-        function inputBlock = parseContrastInput(obj, allowedNames, domainsCalc, oilWaterCalc, inputValues)
+        function inputBlock = parseContrastInput(obj, allowedNames, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
             % allowed names where necessary.
             %
             % contrastsClass.parseContrastInput(allowedNames, ...
-            %                                   domainsCalc, ...
             %                                   'name', 'Contrast Name', ...
             %                                   'background', 'Background H2O')        
             defaultName = '';
@@ -178,7 +174,7 @@ classdef contrastsClass < baseContrasts
             addParameter(p,'name',          defaultName,        @isText);
             addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
 
-            if oilWaterCalc
+            if obj.oilWaterCalc
                 defaultOilChiData = '';
                 addParameter(p,'oilChiData',    defaultOilChiData,  @(x) any(validatestring(x,expectedData)));
             end
@@ -190,7 +186,7 @@ classdef contrastsClass < baseContrasts
             addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
             addParameter(p,'resample',      defaultResample,    @islogical);
 
-            if domainsCalc
+            if obj.domainsCalc
                 defaultDomainRatio = '';
                 expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
                 addParameter(p,'domainRatio',   defaultDomainRatio, @(x) any(validatestring(x,expectedDomainRatio)));
@@ -200,7 +196,6 @@ classdef contrastsClass < baseContrasts
             inputBlock = p.Results;
         
         end
-
     end
 end
 

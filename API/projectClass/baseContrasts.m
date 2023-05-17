@@ -84,7 +84,7 @@ classdef (Abstract) baseContrasts < handle
                 inputVals = varargin;
             end
             
-            thisContrast = obj.parseContrastInput(allowedNames, obj.domainsCalc, obj.oilWaterCalc, inputVals);
+            thisContrast = parseContrastInput(obj, allowedNames, inputVals);
             thisContrast.model = '';
             obj.contrasts{end+1} = thisContrast;
             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
@@ -204,7 +204,7 @@ classdef (Abstract) baseContrasts < handle
             % Check to see if the inputs are valid
             % Raise a warning if we try to set the model as this should be
             % done elsewhere
-            inputBlock = obj.parseContrastInput(allowedNames, obj.domainsCalc, obj.oilWaterCalc, varargin);
+            inputBlock = parseContrastInput(obj, allowedNames, varargin);
             
             if isfield(inputBlock, 'name') && ~isempty(inputBlock.name)
                 thisContrast.name = inputBlock.name;

@@ -122,6 +122,7 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
             testClass = domainContrastsClass();
             testCase.verifyEqual(testClass.contrasts, {}, 'domainContrastsClass does not initialise correctly');
             testCase.verifyFalse(testClass.domainsCalc);
+            testCase.verifyFalse(testClass.oilWaterCalc);
         end
 
         function testToStructStandardLayers(testCase)
@@ -282,7 +283,7 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
                 'nbs', 'SLD SMW' ...
                 );
 
-            contrastStruct = domainContrastsClass.parseContrastInput(testCase.allowedNames, false, false, testCase.newValues);
+            contrastStruct = testCase.exampleClass.parseContrastInput(testCase.allowedNames, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
         end
 

@@ -253,11 +253,13 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testClass = contrastsClass();
             testCase.verifyEqual(testClass.contrasts, {}, 'contrastsClass does not initialise correctly');
             testCase.verifyFalse(testClass.domainsCalc);
+            testCase.verifyFalse(testClass.oilWaterCalc);
 
             % Domains Calculation
             testDomainsClass = contrastsClass(domains=true);
             testCase.verifyEqual(testDomainsClass.contrasts, {}, 'contrastsClass does not initialise correctly');
             testCase.verifyTrue(testDomainsClass.domainsCalc);
+            testCase.verifyFalse(testClass.oilWaterCalc);
         end
 
         function testInitialiseContrastsClassIllogical(testCase)
@@ -676,9 +678,9 @@ classdef testContrastsClass < matlab.unittest.TestCase
                 );
 
             % If we are not running a domains calculation, raise an error
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, false, false, testCase.newValues), 'MATLAB:InputParser:UnmatchedParameter');
+            testCase.verifyError(@() contrastsClass().parseContrastInput(testCase.allowedNames, testCase.newValues), 'MATLAB:InputParser:UnmatchedParameter');
 
-            contrastStruct = contrastsClass.parseContrastInput(testCase.allowedNames, true, true, testCase.newValues);
+            contrastStruct = testCase.exampleClass.parseContrastInput(testCase.allowedNames, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
         end
 
@@ -686,7 +688,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Test parsing input data for a contrast within the contrasts
             % class.
             % If the input is empty, we should return the default values
-            testCase.verifyEqual(contrastsClass.parseContrastInput(testCase.allowedNames, true, true, {}), rmfield(testCase.defaultContrastParams, 'model'));
+            emptyContrasts = contrastsClass(domains=true, oilWater=true);
+            testCase.verifyEqual(emptyContrasts.parseContrastInput(testCase.allowedNames, {}), rmfield(testCase.defaultContrastParams, 'model'));
         end
 
         function testParseContrastInputInvalidOption(testCase, invalidInput)
@@ -694,7 +697,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % class.
             % If values for each parameter are not valid options, we
             % should raise an error
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, true, true, invalidInput), 'MATLAB:unrecognizedStringChoice');
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, invalidInput), 'MATLAB:unrecognizedStringChoice');
         end
 
         function testParseContrastInputInvalidType(testCase)
@@ -702,8 +705,8 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % class.
             % If values for the name and resample parameters are an
             % invalid type, we should raise an error
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, true, true, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
-            testCase.verifyError(@() contrastsClass.parseContrastInput(testCase.allowedNames, true, true, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, {'name', 42}), 'MATLAB:InputParser:ArgumentFailedValidation');
+            testCase.verifyError(@() testCase.exampleClass.parseContrastInput(testCase.allowedNames, {'resample', datetime('today')}), 'MATLAB:InputParser:ArgumentFailedValidation');
         end
 
     end

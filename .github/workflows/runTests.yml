@@ -28,8 +28,12 @@ jobs:
       uses: matlab-actions/run-command@v1
       with:
         command: testScript
-    - name: Create build archive
+    - name: Create build archive (Windows)
+      if: runner.os == 'Windows'
       run:  tar --exclude="**/-lang:c++.zip" -acvf ${{ runner.os }}.zip compile
+    - name: Create build archive (Linux)
+      if: runner.os == 'Linux'
+      run:  zip -r ${{ runner.os }}.zip compile -x "**/-lang:c++.zip"
     - name: Get release
       id: get_release
       uses: cardinalby/git-get-release-action@v1

@@ -37,8 +37,9 @@ classdef (Abstract) baseContrasts < handle
         
         function obj = baseContrasts(domainsCalc, oilWaterCalc)
             % Class Constructor
-            % The only (optional) input is a logical flag to state whether
-            % or not this is a domains calculation.
+            % The (optional) inputs are logical flags to state whether
+            % or not this is a domains calculation and wheter or not this
+            % is an oil-water calculation.
             %
             % contrasts = contrastsClass()
             arguments

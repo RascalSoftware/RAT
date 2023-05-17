@@ -170,7 +170,7 @@ for n = 1:length(checks.domainRatio_fitYesNo)
         fitpars(fitCounter) = problemDef.domainRatio(n);
         fitconstr(fitCounter,1) = limits.domainRatio(n,1);
         fitconstr(fitCounter,2) = limits.domainRatio(n,2);
-        fitNames{fitCounter} = problemDefCells{19}{n};
+        fitNames{fitCounter} = problemDefCells{20}{n};
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.domainRatio(n);

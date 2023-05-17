@@ -5,24 +5,28 @@ classdef contrastsClass < baseContrasts
 
 
     methods   
-        function obj = contrastsClass(domainsCalc)
+        function obj = contrastsClass(calcType)
             % Class Constructor
-            % The only (optional) input is a logical flag to state whether
-            % or not this is a domains calculation.
+            % The (optional) inputs are logical flags to state whether
+            % or not this is a domains calculation and wheter or not this
+            % is an oil-water calculation.
             %
             % contrasts = contrastsClass()
             arguments
-                domainsCalc {mustBeA(domainsCalc,'logical')} = false
+                calcType.domains {mustBeA(calcType.domains,'logical')} = false
+                calcType.oilWater {mustBeA(calcType.oilWater,'logical')} = false
             end
 
-            obj@baseContrasts(domainsCalc)
+            obj@baseContrasts(calcType.domains, calcType.oilWater)
         end
         
         function names = getDisplayNames(obj)
+            names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
             if obj.domainsCalc
-                 names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"];
-            else
-                 names = ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Model"];
+                names = [names(1:end-1); "Domain Ratio"; names(end)];
+            end
+            if obj.oilWaterCalc
+                names = [names(1:2); "Oil Chi Data"; names(3:end)];
             end
         end
 
@@ -68,10 +72,13 @@ classdef contrastsClass < baseContrasts
             contrastRes = ones(1,nContrasts);
             resample = ones(1,nContrasts);
 
-            dataPresent = ones(1,nContrasts);
+            dataPresent = zeros(1,nContrasts);
             dataLimits = cell(1,nContrasts);
             simLimits = cell(1,nContrasts);
             allData = cell(1,nContrasts);
+
+            oilChiDataPresent = zeros(1,nContrasts);
+            allOilChiData = cell(1,nContrasts);
 
             for i = 1:nContrasts
 
@@ -90,8 +97,8 @@ classdef contrastsClass < baseContrasts
                 thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
                 if ~isempty(thisDataVal)
                     actualData = dataTable{thisDataVal,2}{:};
-                    if isempty(actualData)
-                        dataPresent(i) = 0;
+                    if ~isempty(actualData)
+                        dataPresent(i) = 1;
                     end
                     thisDataLimit = dataTable{thisDataVal,3}{:};
                     if isempty(thisDataLimit)
@@ -101,12 +108,26 @@ classdef contrastsClass < baseContrasts
                     simLimits{i} = dataTable{thisDataVal,4}{:};
                     allData{i} = dataTable{thisDataVal,2}{:};
                 else
-                    dataPresent(i) = 0;
                     dataLimits{i} = [0 0];
                     simLimits{i} = [0 0];
                     allData{i} = [0 0 0];
                 end
+            end
 
+            if obj.oilWaterCalc
+                for i = 1:nContrasts    
+                    thisContrast = obj.contrasts{i};
+                    thisOilChiDataVal = find(strcmpi(thisContrast.oilChiData,allowedNames.dataNames));
+                    if ~isempty(thisOilChiDataVal)
+                        actualOilChiData = dataTable{thisOilChiDataVal,2}{:};
+                        if ~isempty(actualOilChiData)
+                            oilChiDataPresent(i) = 1;
+                        end
+                        allOilChiData{i} = dataTable{thisOilChiDataVal,2}{:};
+                    else
+                        allOilChiData{i} = [0 0 0];
+                    end
+                end
             end
 
             contrastStruct.contrastDomainRatios = contrastDomainRatios;
@@ -119,20 +140,18 @@ classdef contrastsClass < baseContrasts
             contrastStruct.dataLimits = dataLimits;
             contrastStruct.simLimits = simLimits;
             contrastStruct.allData = allData;
+            contrastStruct.oilChiDataPresent = oilChiDataPresent;
+            contrastStruct.allOilChiData = allOilChiData;
 
         end
-    end
-    
-    methods(Static)
 
-        function inputBlock = parseContrastInput(allowedNames, domainsCalc, inputValues)
+        function inputBlock = parseContrastInput(obj, allowedNames, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
             % allowed names where necessary.
             %
             % contrastsClass.parseContrastInput(allowedNames, ...
-            %                                   domainsCalc, ...
             %                                   'name', 'Contrast Name', ...
             %                                   'background', 'Background H2O')        
             defaultName = '';
@@ -154,6 +173,12 @@ classdef contrastsClass < baseContrasts
             p = inputParser;
             addParameter(p,'name',          defaultName,        @isText);
             addParameter(p,'data',          defaultData,        @(x) any(validatestring(x,expectedData)));
+
+            if obj.oilWaterCalc
+                defaultOilChiData = '';
+                addParameter(p,'oilChiData',    defaultOilChiData,  @(x) any(validatestring(x,expectedData)));
+            end
+
             addParameter(p,'background',    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
             addParameter(p,'nba',           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
             addParameter(p,'nbs',           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
@@ -161,7 +186,7 @@ classdef contrastsClass < baseContrasts
             addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
             addParameter(p,'resample',      defaultResample,    @islogical);
 
-            if domainsCalc
+            if obj.domainsCalc
                 defaultDomainRatio = '';
                 expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
                 addParameter(p,'domainRatio',   defaultDomainRatio, @(x) any(validatestring(x,expectedDomainRatio)));
@@ -171,7 +196,6 @@ classdef contrastsClass < baseContrasts
             inputBlock = p.Results;
         
         end
-
     end
 end
 

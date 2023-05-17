@@ -12,6 +12,43 @@ concurrency:
 
 jobs:
   test:
+    strategy:
+      matrix:
+        platform: [Windows, Linux]
+    runs-on: ${{ matrix.platform }}
+ 
+    steps:
+    - name: Checkout RAT
+      uses: actions/checkout@v3
+    - name: Build Mex
+      uses: matlab-actions/run-command@v1
+      with:
+        command: buildScript  
+    - name: Run tests
+      uses: matlab-actions/run-command@v1
+      with:
+        command: testScript
+    - name: Create build archive
+      run:  tar --exclude="**/-lang:c++.zip" -acvf ${{ runner.os }}.zip compile
+    - name: Get release
+      id: get_release
+      uses: cardinalby/git-get-release-action@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        tag: 'nightly' 
+    - name: Upload release
+      if: github.ref == 'refs/heads/master'
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.get_release.outputs.upload_url }}
+        asset_path: '${{ runner.os }}.zip'
+        asset_name: '${{ runner.os }}.zip'
+        asset_content_type: application/octet-stream
+  
+  test-mac-os:
     runs-on: macos-latest
     steps:
     - name: Checkout RAT
@@ -21,9 +58,4 @@ jobs:
     - name: Run tests
       uses: matlab-actions/run-command@v1
       with:
-        command: "run testScript"
-    - name: Upload coverage results
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage
-        path: htmlcov
+        command: testScript

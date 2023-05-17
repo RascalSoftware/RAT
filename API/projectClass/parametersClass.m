@@ -177,7 +177,7 @@ classdef parametersClass < handle
             end
 
             row = obj.getValidRow(row);
-            inputBlock = obj.parseParameterInput(varargin{:});
+            inputBlock = parseParameterInput(obj, varargin{:});
             
             if ~isempty(inputBlock.name)
                 obj.setName(row, inputBlock.name);
@@ -434,6 +434,28 @@ classdef parametersClass < handle
                 end     
             end
         end
+
+        function inputBlock = parseParameterInput(~, varargin)
+            % Parses parameter keyword/value pairs into a structure.
+            %
+            % obj.parseParameterInput('name', 'param')
+            defaultName = '';
+            defaultMin = [];
+            defaultMax = [];   
+            defaultValue = [];
+            defaultFit = [];
+        
+            p = inputParser;
+            addParameter(p,'name',  defaultName,   @isText);
+            addParameter(p,'min',   defaultMin,    @isnumeric);
+            addParameter(p,'value', defaultValue,  @isnumeric);
+            addParameter(p,'max',   defaultMax,    @isnumeric);
+            addParameter(p,'fit',   defaultFit,    @islogical);
+                       
+            parse(p, varargin{:});
+            inputBlock = p.Results;
+        end
+
     end
 
     methods (Static)
@@ -458,26 +480,6 @@ classdef parametersClass < handle
         end
         
         
-        function inputBlock = parseParameterInput(varargin)
-            % Parses parameter keyword/value pairs into a structure.
-            %
-            % obj.parseParameterInput('name', 'param')
-            defaultName = '';
-            defaultMin = [];
-            defaultMax = [];   
-            defaultValue = [];
-            defaultFit = [];
-        
-            p = inputParser;
-            addParameter(p,'name',  defaultName,   @isText);
-            addParameter(p,'min',   defaultMin,    @isnumeric);
-            addParameter(p,'value', defaultValue,  @isnumeric);
-            addParameter(p,'max',   defaultMax,    @isnumeric);
-            addParameter(p,'fit',   defaultFit,    @islogical);
-                       
-            parse(p, varargin{:});
-            inputBlock = p.Results;
-        end
         
     end
 

@@ -5,21 +5,18 @@ classdef domainContrastsClass < baseContrasts
     % calculations.
                 
     methods
+
         function names = getDisplayNames(obj)
             names = ["Name"; "Bulk in"; "Bulk out"; "Model"];
-        end     
-    end
-    
-    methods(Static)
+        end
 
-        function inputBlock = parseContrastInput(allowedNames, ~, inputValues)
+        function inputBlock = parseContrastInput(~, allowedNames, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
             % allowed names where necessary.
             %
             % contrastsClass.parseContrastInput(allowedNames, ...
-            %                                   domainsCalc, ...
             %                                   'name', 'Contrast Name', ...
             %                                   'nba', 'Silicon')        
             defaultName = '';
@@ -38,8 +35,5 @@ classdef domainContrastsClass < baseContrasts
             inputBlock = p.Results;
 
         end
-
     end
 end
-
-

@@ -13,8 +13,9 @@ classdef (Abstract) baseContrasts < handle
 
     properties (SetAccess = immutable)
         domainsCalc
-        rowHeaders = struct('key', ["Name"; "Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
-                            'field', ["name"; "data"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
+        oilWaterCalc
+        rowHeaders = struct('key', ["Name"; "Data"; "Oil Chi Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
+                            'field', ["name"; "data"; "oilChiData"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
     end
 
     properties (Dependent, SetAccess = private)
@@ -31,20 +32,23 @@ classdef (Abstract) baseContrasts < handle
         parseContrastInput
         getDisplayNames
     end
-            
+
     methods
         
-        function obj = baseContrasts(domainsCalc)
+        function obj = baseContrasts(domainsCalc, oilWaterCalc)
             % Class Constructor
-            % The only (optional) input is a logical flag to state whether
-            % or not this is a domains calculation.
+            % The (optional) inputs are logical flags to state whether
+            % or not this is a domains calculation and wheter or not this
+            % is an oil-water calculation.
             %
             % contrasts = contrastsClass()
             arguments
                 domainsCalc {mustBeA(domainsCalc,'logical')} = false
+                oilWaterCalc {mustBeA(oilWaterCalc,'logical')} = false
             end
 
             obj.domainsCalc = domainsCalc;
+            obj.oilWaterCalc = oilWaterCalc;
             obj.contrastAutoNameCounter = 1;
         end
 
@@ -80,7 +84,7 @@ classdef (Abstract) baseContrasts < handle
                 inputVals = varargin;
             end
             
-            thisContrast = obj.parseContrastInput(allowedNames, obj.domainsCalc, inputVals);
+            thisContrast = parseContrastInput(obj, allowedNames, inputVals);
             thisContrast.model = '';
             obj.contrasts{end+1} = thisContrast;
             obj.contrastAutoNameCounter = obj.contrastAutoNameCounter + 1;
@@ -200,7 +204,7 @@ classdef (Abstract) baseContrasts < handle
             % Check to see if the inputs are valid
             % Raise a warning if we try to set the model as this should be
             % done elsewhere
-            inputBlock = obj.parseContrastInput(allowedNames, obj.domainsCalc, varargin);
+            inputBlock = parseContrastInput(obj, allowedNames, varargin);
             
             if isfield(inputBlock, 'name') && ~isempty(inputBlock.name)
                 thisContrast.name = inputBlock.name;
@@ -208,6 +212,10 @@ classdef (Abstract) baseContrasts < handle
 
             if isfield(inputBlock, 'data') && ~isempty(inputBlock.data)
                 thisContrast.data = inputBlock.data;
+            end
+
+            if isfield(inputBlock, 'oilChiData') && ~isempty(inputBlock.oilChiData)
+                thisContrast.oilChiData = inputBlock.oilChiData;
             end
             
             if isfield(inputBlock, 'background') && ~isempty(inputBlock.background)

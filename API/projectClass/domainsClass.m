@@ -31,7 +31,7 @@ classdef domainsClass < projectClass
             obj@projectClass(experimentName, calculationType, geometry);
 
             % Create a contrasts class for a domains calculation
-            obj.contrasts = contrastsClass(true);
+            obj.contrasts = contrastsClass(domains=true);
 
             % For a domains calculation, initialise secondary contrasts
             % object and domain ratio parameter class

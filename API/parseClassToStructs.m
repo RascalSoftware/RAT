@@ -61,17 +61,29 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 %          array of cells
 %        Each cell is {fName, lang, path}
 %
-% {15} - inputProblemDef.domainContrastRepeatSLDs
+% {15} - inputProblemDef.backgroundTypes
+%        {1 x nBackgrounds} array of cells
+%        Each cell is {1 x Inf char}
+%
+% {16} - inputProblemDef.resolutionTypes
+%        {1 x nResolutions} array of cells
+%        Each cell is {1 x Inf char}
+%
+% {17} - inputProblemDef.allOilChiData
+%        {1 x nContrasts} array of cells
+%        Each cell is {Inf x 3 double}
+%
+% {18} - inputProblemDef.domainContrastRepeatSLDs
 %        {1 x nDomainContrasts} array of cells
 %        Each cell is {1 x 2 double}.
 %
-% {16} - inputProblemDef.domainContrastLayers
+% {19} - inputProblemDef.domainContrastLayers
 %        {1 x nDomainContrasts} array of cells
 %        Each cell is {1 x Inf double}
 % 
-% {17}- inputProblemDef.domainRatioNames
-%       {1 x nDomainRatios} array of cells
-%       Each cell is {1 x Inf char}
+% {20} - inputProblemDef.domainRatioNames
+%        {1 x nDomainRatios} array of cells
+%        Each cell is {1 x Inf char}
 
  
 % First parse the class to a structure variable.
@@ -122,6 +134,7 @@ problemDefCells{13} = inputStruct.resolParNames;
 problemDefCells{14} = customFiles';
 problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
 problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
+problemDefCells{17} = inputStruct.allOilChiData;
 
 % Now deal with domains cell arrays
 if isa(inputProblemDef, 'domainsClass')
@@ -137,15 +150,15 @@ if isa(inputProblemDef, 'domainsClass')
         end
     end
     
-    problemDefCells{17} = inputStruct.domainContrastRepeatSLDs;
-    problemDefCells{18} = domainContrastLayers;
-    problemDefCells{19} = inputStruct.domainRatioNames;
+    problemDefCells{18} = inputStruct.domainContrastRepeatSLDs;
+    problemDefCells{19} = domainContrastLayers;
+    problemDefCells{20} = inputStruct.domainRatioNames;
     
 else
 
-    problemDefCells{17} = cell(1,0);
     problemDefCells{18} = cell(1,0);
     problemDefCells{19} = cell(1,0);
+    problemDefCells{20} = cell(1,0);
 
 end
 
@@ -154,8 +167,8 @@ if strcmpi(inputStruct.modelType,'custom layers') || strcmpi(inputStruct.modelTy
     for i = 1:length(problemDefCells{5})
         problemDefCells{5}{i} = 0;
     end
-    for i = 1:length(problemDefCells{18})
-        problemDefCells{18}{i} = 0;
+    for i = 1:length(problemDefCells{19})
+        problemDefCells{19}{i} = 0;
     end
     
     problemDefCells{6} = {0};
@@ -316,6 +329,7 @@ removedFields = {'contrastRepeatSLDs',...
 problemDef.TF = inputStruct.TF;
 problemDef.resample = inputStruct.resample;
 problemDef.dataPresent = inputStruct.dataPresent;
+problemDef.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
 problemDef.geometry = inputStruct.geometry;
 %problemDef.contrastBacks = contrastBacks;

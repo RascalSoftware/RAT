@@ -69,7 +69,7 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
             % Set up an example contrasts class for testing
             % This example is used in the example calculation
             % "DPPC_standard_layers.m"
-            testCase.exampleClass = domainContrastsClass(true);
+            testCase.exampleClass = domainContrastsClass();
 
             testCase.exampleClass.contrasts(1) = {struct( ...
                 'name', 'Bilayer / D2O', ...
@@ -122,6 +122,7 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
             testClass = domainContrastsClass();
             testCase.verifyEqual(testClass.contrasts, {}, 'domainContrastsClass does not initialise correctly');
             testCase.verifyFalse(testClass.domainsCalc);
+            testCase.verifyFalse(testClass.oilWaterCalc);
         end
 
         function testToStructStandardLayers(testCase)
@@ -282,7 +283,7 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
                 'nbs', 'SLD SMW' ...
                 );
 
-            contrastStruct = domainContrastsClass.parseContrastInput(testCase.allowedNames, false, testCase.newValues);
+            contrastStruct = testCase.exampleClass.parseContrastInput(testCase.allowedNames, testCase.newValues);
             testCase.verifyEqual(contrastStruct, expectedContrast, 'parseContrastInput does not work correctly');
         end
 

@@ -25,7 +25,7 @@ classdef testParametersClass < matlab.unittest.TestCase
         function testCreation(testCase)
             % Tests parameters class can be created and the start parameters is set correctly
             params = parametersClass();
-            testCase.verifyEqual(params.paramsTable{end, 1}, "new parameter 1", 'addParam method not working');
+            testCase.verifyEqual(params.paramsTable{end, 1}, "new parameter 1", 'addParameter method not working');
             params = parametersClass(testCase.parameters{1, :});
             testCase.verifyEqual(string(params.paramsTable{1, :}), ...
                                  string(testCase.parameters(1, :)), 'Start parameter not set correctly');
@@ -51,44 +51,44 @@ classdef testParametersClass < matlab.unittest.TestCase
         function testAddParams(testCase)
             params = parametersClass(testCase.parameters{1, :});
             % Checks that parameter can be added
-            params.addParam();
-            testCase.verifyEqual(params.paramsTable{end, 1}, "new parameter 2", 'addParam method not working');
+            params.addParameter();
+            testCase.verifyEqual(params.paramsTable{end, 1}, "new parameter 2", 'addParameter method not working');
             testCase.verifySize(params.paramsTable, [2, 8], 'Parameters has wrong dimension');
-            params.addParam('NewParam2');
-            testCase.verifyEqual(params.paramsTable{end, 1}, "NewParam2", 'addParam method not working');
+            params.addParameter('NewParam2');
+            testCase.verifyEqual(params.paramsTable{end, 1}, "NewParam2", 'addParameter method not working');
             testCase.verifySize(params.paramsTable, [3, 8], 'Parameters has wrong dimension');
-            testCase.verifyError(@() params.addParam(6.7), invalidType.errorID)  % first value must be a char
-            testCase.verifyError(@() params.addParam('c', '1'), invalidType.errorID)  % 2 value should be number
-            params.addParam('Another Param', 6.7);
-            testCase.verifyEqual(params.paramsTable{end, 1}, "Another Param", 'addParam method not working');
-            testCase.verifyEqual(params.paramsTable{end, 2:4}, [6.7, 6.7, 6.7], 'addParam method not working');
+            testCase.verifyError(@() params.addParameter(6.7), invalidType.errorID)  % first value must be a char
+            testCase.verifyError(@() params.addParameter('c', '1'), invalidType.errorID)  % 2 value should be number
+            params.addParameter('Another Param', 6.7);
+            testCase.verifyEqual(params.paramsTable{end, 1}, "Another Param", 'addParameter method not working');
+            testCase.verifyEqual(params.paramsTable{end, 2:4}, [6.7, 6.7, 6.7], 'addParameter method not working');
             testCase.verifySize(params.paramsTable, [4, 8], 'Parameters has wrong dimension');
-            testCase.verifyError(@() params.addParam('c', 1, 6.7), invalidNumberOfInputs.errorID);  % 3 values not accepted
-            testCase.verifyError(@() params.addParam('Another Param'), duplicateName.errorID);  % duplicate names not accepted
-            testCase.verifyError(@() params.addParam('c', '1', '2', 3), invalidType.errorID);  % value 2-4 should be number
-            params.addParam('Param 5', 0, 6.7, 10);
-            testCase.verifyEqual(params.paramsTable{end, 1}, "Param 5", 'addParam method not working');
-            testCase.verifyEqual(params.paramsTable{end, 2:4}, [0, 6.7, 10], 'addParam method not working');
+            testCase.verifyError(@() params.addParameter('c', 1, 6.7), invalidNumberOfInputs.errorID);  % 3 values not accepted
+            testCase.verifyError(@() params.addParameter('Another Param'), duplicateName.errorID);  % duplicate names not accepted
+            testCase.verifyError(@() params.addParameter('c', '1', '2', 3), invalidType.errorID);  % value 2-4 should be number
+            params.addParameter('Param 5', 0, 6.7, 10);
+            testCase.verifyEqual(params.paramsTable{end, 1}, "Param 5", 'addParameter method not working');
+            testCase.verifyEqual(params.paramsTable{end, 2:4}, [0, 6.7, 10], 'addParameter method not working');
             testCase.verifySize(params.paramsTable, [5, 8], 'Parameters has wrong dimension'); 
-            testCase.verifyError(@() params.addParam('Param 6', 0, 1, 2, 'false'), invalidType.errorID) % bad fit type
-            params.addParam('Param 6', 0, 1, 2, true);
-            testCase.verifyEqual(params.paramsTable{end, 1}, "Param 6", 'addParam method not working');
-            testCase.verifyEqual(params.paramsTable{end, 2:4}, [0, 1, 2], 'addParam method not working');
-            testCase.verifyTrue(params.paramsTable{end, 5}, 'addParam method not working');
+            testCase.verifyError(@() params.addParameter('Param 6', 0, 1, 2, 'false'), invalidType.errorID) % bad fit type
+            params.addParameter('Param 6', 0, 1, 2, true);
+            testCase.verifyEqual(params.paramsTable{end, 1}, "Param 6", 'addParameter method not working');
+            testCase.verifyEqual(params.paramsTable{end, 2:4}, [0, 1, 2], 'addParameter method not working');
+            testCase.verifyTrue(params.paramsTable{end, 5}, 'addParameter method not working');
             testCase.verifySize(params.paramsTable, [6, 8], 'Parameters has wrong dimension');          
-            testCase.verifyError(@() params.addParam('c', 1, 1, 1, true, 'u'), invalidNumberOfInputs.errorID);  % 6 values not accepted
-            testCase.verifyError(@() params.addParam('c', 1, 1, 1, true, 'u', 1), invalidNumberOfInputs.errorID);  % 7 values not accepted
-            testCase.verifyError(@() params.addParam('Param 7', 0, 1, 2, false, 'jeff', -1, 1), invalidOption.errorID); % bad prior type
-            testCase.verifyError(@() params.addParam('Param 7', 0, 1, 2, false, priorTypes.Uniform, '-1', 1), invalidType.errorID); % bad prior value
-            params.addParam('Param 7', 0, 1, 2, false, priorTypes.Jeffreys, -1, 1);
-            testCase.verifyEqual(params.paramsTable{end, 1}, "Param 7", 'addParam method not working');
-            testCase.verifyEqual(params.paramsTable{end, 2:4}, [0, 1, 2], 'addParam method not working');
-            testCase.verifyFalse(params.paramsTable{end, 5}, 'addParam method not working');
-            testCase.verifyEqual(params.paramsTable{end, 6}, string(priorTypes.Jeffreys.value), 'addParam method not working');
-            testCase.verifyEqual(params.paramsTable{end, 7:8}, [-1, 1], 'addParam method not working');
+            testCase.verifyError(@() params.addParameter('c', 1, 1, 1, true, 'u'), invalidNumberOfInputs.errorID);  % 6 values not accepted
+            testCase.verifyError(@() params.addParameter('c', 1, 1, 1, true, 'u', 1), invalidNumberOfInputs.errorID);  % 7 values not accepted
+            testCase.verifyError(@() params.addParameter('Param 7', 0, 1, 2, false, 'jeff', -1, 1), invalidOption.errorID); % bad prior type
+            testCase.verifyError(@() params.addParameter('Param 7', 0, 1, 2, false, priorTypes.Uniform, '-1', 1), invalidType.errorID); % bad prior value
+            params.addParameter('Param 7', 0, 1, 2, false, priorTypes.Jeffreys, -1, 1);
+            testCase.verifyEqual(params.paramsTable{end, 1}, "Param 7", 'addParameter method not working');
+            testCase.verifyEqual(params.paramsTable{end, 2:4}, [0, 1, 2], 'addParameter method not working');
+            testCase.verifyFalse(params.paramsTable{end, 5}, 'addParameter method not working');
+            testCase.verifyEqual(params.paramsTable{end, 6}, string(priorTypes.Jeffreys.value), 'addParameter method not working');
+            testCase.verifyEqual(params.paramsTable{end, 7:8}, [-1, 1], 'addParameter method not working');
             testCase.verifySize(params.paramsTable, [7, 8], 'Parameters has wrong dimension');
-            params.addParam('Param 8', 0, 1, 2, false, priorTypes.Gaussian, -1, 1);
-            testCase.verifyEqual(params.paramsTable{end, 6}, string(priorTypes.Gaussian.value), 'addParam method not working');
+            params.addParameter('Param 8', 0, 1, 2, false, priorTypes.Gaussian, -1, 1);
+            testCase.verifyEqual(params.paramsTable{end, 6}, string(priorTypes.Gaussian.value), 'addParameter method not working');
         end
 
         function testRemoveParams(testCase) 
@@ -96,18 +96,18 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
             paramNames = convertCharsToStrings(testCase.parameters(:, 1));
             % Checks that parameter can be removed
-            testCase.verifyError(@() params.removeParam('bad name'), nameNotRecognised.errorID);
-            params.removeParam(1);
+            testCase.verifyError(@() params.removeParameter('bad name'), nameNotRecognised.errorID);
+            params.removeParameter(1);
             testCase.verifySize(params.paramsTable, [8, 8], 'Parameters has wrong dimension');
-            testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:end, 1), 'removeParam method not working');
-            params.removeParam([6, 7, 8]);
+            testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:end, 1), 'removeParameter method not working');
+            params.removeParameter([6, 7, 8]);
             testCase.verifySize(params.paramsTable, [5, 8], 'Parameters has wrong dimension');
-            testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:6, 1), 'removeParam method not working');
-            params.removeParam('Tails Roughness');
+            testCase.verifyEqual(params.paramsTable{:, 1}, paramNames(2:6, 1), 'removeParameter method not working');
+            params.removeParameter('Tails Roughness');
             testCase.verifySize(params.paramsTable, [4, 8], 'Parameters has wrong dimension');
-            testCase.verifyEqual(params.paramsTable{:, 1}, paramNames([2, 4, 5, 6], 1), 'removeParam method not working');
-            testCase.verifyError(@() params.removeParam(11), indexOutOfRange.errorID);
-            testCase.verifyError(@() params.removeParam(true), invalidType.errorID);
+            testCase.verifyEqual(params.paramsTable{:, 1}, paramNames([2, 4, 5, 6], 1), 'removeParameter method not working');
+            testCase.verifyError(@() params.removeParameter(11), indexOutOfRange.errorID);
+            testCase.verifyError(@() params.removeParameter(true), invalidType.errorID);
         end
 
         function testSetParams(testCase)
@@ -133,10 +133,10 @@ classdef testParametersClass < matlab.unittest.TestCase
             params.setValue('Heads', 20);
             testCase.verifyEqual(params.paramsTable{1, 3}, 20, 'setParameter method not working');
             % Checks that parameter constraints can be modified
-            testCase.verifyError(@() params.setConstr(1, '3', '4'), invalidType.errorID);
-            params.setConstr(1, 1, 45);
+            testCase.verifyError(@() params.setConstraint(1, '3', '4'), invalidType.errorID);
+            params.setConstraint(1, 1, 45);
             testCase.verifyEqual(params.paramsTable{1, [2, 4]}, [1, 45], 'setParameter method not working');
-            params.setConstr('Heads', 10, 30);
+            params.setConstraint('Heads', 10, 30);
             testCase.verifyEqual(params.paramsTable{1, [2, 4]}, [10, 30], 'setParameter method not working');  
             % Checks that parameter fit can be modified
             testCase.verifyError(@() params.setFit(1, '2'), invalidType.errorID);

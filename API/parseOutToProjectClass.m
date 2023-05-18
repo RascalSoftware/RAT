@@ -8,7 +8,7 @@ outProblemDef = problemDefInput;
 %(1) Parameters
 pars = outProblemStruct.params;
 for i = 1:length(pars)
-    outProblemDef.setParamValue(i,pars(i));
+    outProblemDef.setParameterValue(i,pars(i));
 end
 
 %(2) Backgrounds

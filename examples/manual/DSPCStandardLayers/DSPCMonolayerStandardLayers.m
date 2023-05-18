@@ -48,11 +48,11 @@ H_Tails = {'Hydrogenated Tails',...
 %'bulk in'};
 
 % Add the parameters and Layers to the project:
-problem.addParamGroup(Parameters);
+problem.addParameterGroup(Parameters);
 problem.addLayerGroup({H_Heads; D_Heads; H_Tails; D_Tails});
 
 % Increase the constr range for Substrate Roughness (param 1)
-problem.setParamConstr(1,2,13);
+problem.setParameterConstraint(1,2,13);
 
 % Use priors in the project
 problem.setUsePriors(true);

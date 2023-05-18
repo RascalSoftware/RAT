@@ -20,10 +20,10 @@ Parameters = {
 
 
 % Add the parameters and Layers to the project:
-problem.addParamGroup(Parameters);
+problem.addParameterGroup(Parameters);
 
 % Increase the constr range for Substrate Roughness (param 1)
-problem.setParamConstr(1,2,13);
+problem.setParameterConstraint(1,2,13);
 
 % Add the custom layers file
 problem.addCustomFile('DSPC Model','customDSPCMonolayer.m','matlab','pwd');

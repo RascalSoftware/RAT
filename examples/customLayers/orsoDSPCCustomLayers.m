@@ -38,7 +38,7 @@ Parameters = {
         {'Water Thickness'      0           2           10      true   };
         };
     
- problem.addParamGroup(Parameters);
+ problem.addParameterGroup(Parameters);
  problem.setParameter(1,'min',1,'max',10);
  
 %% 

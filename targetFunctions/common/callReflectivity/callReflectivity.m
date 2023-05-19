@@ -1,15 +1,45 @@
 function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)
 
 xdata = this_data(:,1);
-output = layers;
+nLayers = size(layers,1);
 
-if isempty(output)
-    slds = [0 nbairs 0];
-    lays = 0;
+repeatFlag = repeatLayers(1);
+if repeatFlag
+    nRepeats = repeatLayers(2);
 else
-    slds = output(:,1:3);
-    lays = size(slds,1);
+    nRepeats = 1;
 end
+
+% Number of layers (including repeats)
+nLayersTot = (layers * nRepeats) + 2;
+
+% Build the input arrays for thick, sld and rough.....
+if isempty(layers)
+    % No layers defined. Make a zeros dummy zero layer 
+    layers = [0 nbairs 0];
+end
+
+% Make arrays for thick, sld, rough
+thicks = zeros(nLayersTot,1);
+slds = zeros(nLayersTot,1) * complex(0,0);
+roughs = zeros(nLayersTot,1);
+
+% Populate the d,rho,sig arrays...
+layerCount = 2;
+for m = 1:nRepeats
+    for n = 1:nLayers
+        thisLayer = layers(n,:);
+        thicks(layerCount) = thisLayer(1);
+        slds(layerCount) = thisLayer(2);
+        roughs(layerCount) = thisLayer(3);
+        layerCount = layerCount + 1;
+    end
+end
+
+% Add the air and substrate parameters
+slds(1) = nbairs;
+slds(end) = nbsubs;
+roughs(end) = ssubs;
 
 simXLo = simLimits(1);
 simXHi = simLimits(2);
@@ -49,7 +79,6 @@ if res == -1
     simResolData = [startResol(:) ; thisDataResol(:) ; endResol(:)];
 end
 
-repeats = repeatLayers(2);
 
 switch refType
     case 'standardAbeles_realOnly'
@@ -58,8 +87,8 @@ switch refType
                 % Parallelise over points
                 
                 % Calculate reflectivity....
-                simRef = abelesParallelPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
-                
+                % simRef = abelesParallelPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
+                simRef = abelesReflectParallelPoints(q,nLayersTot,thicks,slds,roughs);
                 % Apply resolution
                 
                 % Note: paraPoints gives an error during valifation, so use
@@ -76,7 +105,8 @@ switch refType
                 % Single cored over points
                 
                 % Calculate reflectivity.....
-                simRef = abelesSingle(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
+                %simRef = abelesSingle(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
+                simRef = abelesReflectSingle(q,nLayersTot,thicks,slds,roughs);
                 
                 % Apply resolution correction...
                 if res == -1

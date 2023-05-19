@@ -3,35 +3,36 @@ classdef testProject < matlab.unittest.TestCase
 % testProjects Class based unit tests for the project routine used to set
 % up calculations in RAT.
 %
-% Paul Sharp 11/04/23
+% Paul Sharp 19/05/23
 %
 %% Declare properties and parameters
 
     properties (TestParameter)
-        calculationType = {calculationTypes.Absorption, ...
-                           calculationTypes.Domains, ...
+        calculationType = {calculationTypes.Domains, ...
                            calculationTypes.Magnetic, ...
                            calculationTypes.MagneticDomains, ...
                            calculationTypes.NonPolarised, ...
+                           calculationTypes.NonPolarised, ...
                            calculationTypes.OilWater ...
                            }
-        SLDValues = {{'SLD Real', 'SLD Imaginary'}, ...
-                     {'SLD'}, ...
+        SLDValues = {{'SLD'}, ...
                      {'SLD Real', 'SLD Imaginary', 'SLD Magnetic Real', 'SLD Magnetic Imaginary'}, ...
                      {'SLD Real', 'SLD Imaginary', 'SLD Magnetic Real', 'SLD Magnetic Imaginary'}, ...
+                     {'SLD Real', 'SLD Imaginary'}, ...
                      {'SLD'}, ...
                      {'SLD'} ...
                      }
-        domainsCalc = {false, true, false, true, false, false}
+        domainsCalc = {true, false, true, false, false, false}
+        absorption = {false, false, false, true, false, false}
     end
 
 %% Test Project Classes
 
     methods (Test, ParameterCombination='sequential')
 
-        function testProjectTypes(testCase, calculationType, SLDValues, domainsCalc)
+        function testProjectTypes(testCase, calculationType, SLDValues, domainsCalc, absorption)
             % Test setup
-            problem = project(type=calculationType);
+            problem = project(type=calculationType, absorption=absorption);
 
             testCase.verifyEqual(problem.experimentName, '', 'project does not initialise correctly');
             testCase.verifyEqual(problem.calculationType, calculationType.value, 'project does not initialise correctly');
@@ -43,7 +44,7 @@ classdef testProject < matlab.unittest.TestCase
 
             % Test setting experiment name
             newName = 'New Project Name';
-            problem = project(name=newName, type=calculationType);
+            problem = project(name=newName, type=calculationType, absorption=absorption);
             testCase.verifyEqual(problem.experimentName, newName, 'project does not initialise correctly');
             testCase.verifyError(@() project(name=1), 'MATLAB:validators:mustBeTextScalar');
         end

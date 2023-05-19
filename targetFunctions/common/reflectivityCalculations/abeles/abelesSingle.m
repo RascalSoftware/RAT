@@ -16,7 +16,13 @@ ref = zeros(length(q),1);
 for points = 1:length(q)
 
     Q = q(points);
-    bulk_in_SLD = complex(layers_rho(1),tiny);
+
+    if isreal(layers_rho(1))
+        bulk_in_SLD = complex(layers_rho(1),tiny);
+    else
+        bulk_in_SLD = layers_rho(1);
+        bulk_in_SLD = bulk_in_SLD + complex(0,tiny);
+    end
     k0 = Q/2;
 
     for n = 1:N-1

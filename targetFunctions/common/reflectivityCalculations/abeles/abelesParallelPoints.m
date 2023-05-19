@@ -1,24 +1,26 @@
 function ref = abelesReflectParallelPoints(q,N,layers_thick,layers_rho,layers_sig)
 
-% New Matlab version of reflectivity
-% with complex rho...
-
-% Pre-allocation
 tiny = 1e-30;
 ci = complex(0,1);
 c0 = complex(0,0);
+M_tot = [c0 c0 ; c0 c0];
+M_n = [c0 c0 ; c0 c0];
+M_res = [c0 c0 ; c0 c0];
 
-kn_ptr = c0;
 ref = zeros(length(q),1);
 
-parfor points = 1:length(q)
-    
-    M_tot = [c0 c0 ; c0 c0];
-    M_n = [c0 c0 ; c0 c0];
-    M_res = [c0 c0 ; c0 c0];
+for points = 1:length(q)
+
+    kn_ptr = c0;
 
     Q = q(points);
-    bulk_in_SLD = complex(layers_rho(1),tiny);
+
+    if isreal(layers_rho(1))
+        bulk_in_SLD = complex(layers_rho(1),tiny);
+    else
+        bulk_in_SLD = layers_rho(1);
+        bulk_in_SLD = bulk_in_SLD + complex(0,tiny);
+    end
     k0 = Q/2;
 
     for n = 1:N-1
@@ -97,5 +99,6 @@ subtr = k0^2 - 4 * pi * sld;
 kn = sqrt(subtr);
 
 end
+
 
 

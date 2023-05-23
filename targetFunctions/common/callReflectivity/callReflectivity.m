@@ -1,4 +1,4 @@
-function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)
+function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType,useImaginary)
 
 xdata = this_data(:,1);
 
@@ -33,9 +33,15 @@ layerCount = 2;
 for m = 1:nRepeats
     for n = 1:nLayers
         thisLayer = layers(n,:);
-        thicks(layerCount) = thisLayer(1);
-        slds(layerCount) = thisLayer(2);
-        roughs(layerCount) = thisLayer(3);
+        if ~useImaginary
+            thicks(layerCount) = thisLayer(1);
+            slds(layerCount) = thisLayer(2);
+            roughs(layerCount) = thisLayer(3);
+        else
+            thicks(layerCount) = thisLayer(1);
+            slds(layerCount) = complex(thisLayer(2),thisLayer(3));
+            roughs(layerCount) = thisLayer(4);
+        end
         layerCount = layerCount + 1;
     end
 end
@@ -83,18 +89,16 @@ if res == -1
     simResolData = [startResol(:) ; thisDataResol(:) ; endResol(:)];
 end
 
-
 switch refType
-    case 'standardAbeles_realOnly'
+    case 'standardAbeles'
         switch para
             case 'points'
                 % Parallelise over points
                 
                 % Calculate reflectivity....
-                % simRef = abelesParallelPoints(simXdata, slds, nbairs, nbsubs, repeats, ssubs, lays, length(simXdata)); %(x,sld,nbair,nbsub,nrepeats,ssub,layers,points)
                 simRef = abelesParallelPoints(simXdata,nLayersTot,thicks,slds,roughs);
-                % Apply resolution
-                
+
+                % Apply resolution              
                 % Note: paraPoints gives an error during valifation, so use
                 % single cored resolution as a workaround for now.
                 if res == -1
@@ -109,7 +113,6 @@ switch refType
                 % Single cored over points
                 
                 % Calculate reflectivity.....
-                %simRef = abelesSingle(simXdata, slds, nbairs,nbsubs,repeats,ssubs,lays,length(simXdata));
                 simRef = abelesSingle(simXdata,nLayersTot,thicks,slds,roughs);
                 
                 % Apply resolution correction...

@@ -1,4 +1,4 @@
-function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,nbair,nbsubs)
+function [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,nbair,nbsubs)
 %Arrange layers according to geometry and apply any coverage correction.
 %
 % USAGE::
@@ -45,8 +45,8 @@ coder.varsize('layers',[Inf,6],[1 1]);
                 layers = output;
                 %s_sub = rsub;
         else
-                roughs = output(:,3);
-                sldss = output(:,2);
+                roughs = output(:,4);
+                sldss = output(:,2:3);
                 thicks = output(:,1);
                 rsub = roughs(end);
                 if length(roughs) > 1
@@ -56,7 +56,7 @@ coder.varsize('layers',[Inf,6],[1 1]);
                 end
                 n = size(output,2);
                 if n == 5
-                    cov = output(:,4);
+                    cov = output(:,5);
                     layers = [thicks(:) sldss(:) roughs(:) cov(:)];
                 else
                     layers = [thicks(:) sldss(:) roughs(:)];
@@ -67,9 +67,9 @@ coder.varsize('layers',[Inf,6],[1 1]);
         %Deal with the %coverage if present
         n = size(output,2);
         l = size(output,1);
-        if n == 5
+        if n == 6
             for j = 1:l
-                this_pcw = output(j,4);
+                this_pcw = output(j,5);
                 if output(j,5) == 1
                     pc_add = nbair;
                 else
@@ -77,6 +77,7 @@ coder.varsize('layers',[Inf,6],[1 1]);
                 end
                 if ~isnan(this_pcw)
                     layers(j,2) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,2);
+                    layers(j,3) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,3);
                 end
             end
         end 
@@ -84,9 +85,9 @@ coder.varsize('layers',[Inf,6],[1 1]);
 %     problem.layers{i} = layers;
 %     problem.ssubs(i) = s_sub;
 if ~isempty(layers)
-    outLayers = layers(:,1:3);
+    outLayers = layers(:,1:4);
 else
-    outLayers = zeros(1,3);
+    outLayers = zeros(1,4);
 end
 outSsubs = s_sub;
 

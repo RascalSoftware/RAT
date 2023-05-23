@@ -28,7 +28,18 @@ function obj = project(options)
     if any(strcmp(options.type, {calculationTypes.Domains.value, calculationTypes.MagneticDomains.value}))
         obj = domainsClass(options.name, options.type, options.geometry, options.absorption);
     else
+<<<<<<< HEAD
         obj = projectClass(options.name, options.type, options.geometry, options.absorption);
+=======
+        obj = projectClass(options.name, options.type, options.geometry);
+    end
+
+    % Set the imaginary term in the refractive index if absorption is
+    % selected
+    if options.absorption
+        obj.layers = layersClass({'SLD Real', 'SLD Imaginary'});
+        obj.useImaginary = true;
+>>>>>>> d87cc1d0 (Absorbance option added for standard layers single)
     end
 
     % Set specific options depending on the calculation type

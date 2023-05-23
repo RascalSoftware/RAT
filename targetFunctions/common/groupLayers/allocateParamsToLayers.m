@@ -7,11 +7,11 @@ function outLayers = allocateParamsToLayers(params, layersDetails)
 % the 'outLayers' cell array
 
     numberOfLayers = length(layersDetails);
-    thisOutLayer = zeros(1,5);
     outLayers = cell(1,numberOfLayers);
 
     for i = 1:numberOfLayers
         thisLayer = layersDetails{i};
+        thisOutLayer = zeros(1,length(thisLayer));
         for n = 1:(length(thisLayer)-1)
             thisVal = thisLayer(n);
             if ~isnan(thisVal)

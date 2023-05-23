@@ -2,7 +2,7 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
     standardTFLayersCore(contrastLayers, rough, ...
     geometry, nba, nbs, resample, calcSld, sf, qshift,...
     dataPresent, data, dataLimits, simLimits, repeatLayers,...
-    background,resol,backsType,params,parallelPoints,resamPars)
+    background,resol,backsType,params,parallelPoints,resamPars,useImaginary)
 
 %   This is the main reflectivity calculation for all Layers models in the 
 %   standard target function. 
@@ -55,7 +55,11 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
 % ------------------------------------------------------------------------
 
 % Bulid up the layers matrix for this contrast
-[theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,nba,nbs);
+if ~useImaginary
+    [theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,nba,nbs);
+else
+    [theseLayers, ssubs] = groupLayersModImaginary(contrastLayers,rough,geometry,nba,nbs);
+end
 
 % Make the SLD profiles.
 % If resampling is needed, then enforce the calcSLD flag, so as to catch
@@ -66,7 +70,15 @@ end
 
 % If calc SLD flag is set, then calculate the SLD profile
 if calcSld == 1
-    sldProfile = makeSLDProfiles(nba,nbs,theseLayers,ssubs,repeatLayers);
+
+    % We only need the real part of SLD even if Imag is present
+    if useImaginary
+        thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
+    else
+        thisSldLays = theseLayers;
+    end
+    
+    sldProfile = makeSLDProfiles(nba,nbs,thisSldLays,ssubs,repeatLayers);
 else
     sldProfile = [0 0];
 end
@@ -84,8 +96,8 @@ end
 shifted_dat = shiftData(sf,qshift,dataPresent,data,dataLimits,simLimits);
 
 % Calculate the reflectivity
-reflectivityType = 'standardAbeles_realOnly';
-[reflect,Simul] = callReflectivity(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,parallelPoints,reflectivityType);
+reflectivityType = 'standardAbeles';
+[reflect,Simul] = callReflectivity(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,parallelPoints,reflectivityType,useImaginary);
 
 % Apply background correction, either to the simulation or the data
 [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,background,backsType);

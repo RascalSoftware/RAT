@@ -150,6 +150,8 @@ classdef parametersClass < tableUtilities
             % names or indices to remove
             %
             % params.removeParameter(2);
+
+            % Arrange parameters into a cell array
             if isa(row, 'double')
                 row = num2cell(sort(row, 'descend'));
             elseif isText(row)
@@ -159,9 +161,18 @@ classdef parametersClass < tableUtilities
                 throw(invalidType('Unrecognised Row'))
             end
 
+            % Find index for each parameter and remove from table
+            rowNames = obj.paramTable{:,1};
             for i = 1:length(row)
-                obj.removeTableRow(row{i});
+                currentRow = row{i};
+
+                if isText(currentRow)
+                    currentRow = obj.findRowIndex(currentRow, rowNames, 'Unrecognised parameter name');
+                end
+
+                obj.removeRow(currentRow);
             end
+
         end
         
         function obj = setParameter(obj, row, varargin)
@@ -395,31 +406,7 @@ classdef parametersClass < tableUtilities
             obj.paramTable = tab;
             obj.paramAutoNameCounter = obj.paramAutoNameCounter + 1;
         end
-        
-        function removeTableRow(obj, row)
-            % Removes a specified row of the table. Expects
-            % index or name of row to remove
-            %
-            % obj.removeTableRow(1)
-            tab = obj.paramTable;
-            
-            if isText(row)
-                % Assume a row name
-                index = strcmp(row, tab{:,1});
-                if ~any(index)
-                    throw(nameNotRecognised('Unrecognised parameter name'));
-                end
-                row = find(index);
-            end
-            
-            if row > height(obj.paramTable)
-                throw(indexOutOfRange(sprintf('Row index %d out of range 1 - %d', row, height(obj.paramTable))));
-            end
-                        
-            tab(row, :) = [];
-            obj.paramTable = tab;   
-        end
-        
+
         function index = getValidRow(obj, row)
             % Gets valid row with given name or index  
             %

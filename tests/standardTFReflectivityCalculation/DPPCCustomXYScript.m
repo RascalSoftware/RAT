@@ -17,7 +17,7 @@ Parameters = {
         {'Bilayer Coverage'     0.8         0.99        1.0     true   };
         {'Bilayer Roughness'    3           6           9       true   };
         };
-problem.addParamGroup(Parameters);
+problem.addParameterGroup(Parameters);
 problem.setParameter(1,'value',5);
 
 %%

@@ -34,16 +34,16 @@ classdef testResolutionsClass < matlab.unittest.TestCase
         function testCreation(testCase)
             % Tests resolution class can be created and the start parameters is set correctly
             params = parametersClass(testCase.parameters{1, :});
-            params.paramsTable = [params.paramsTable; vertcat(testCase.parameters(2:end, :))];
+            params.paramTable = [params.paramTable; vertcat(testCase.parameters(2:end, :))];
             
             resolution = resolutionsClass(params, testCase.resolutions(1, :));
-            testCase.verifyEqual(string(resolution.resolPars.paramsTable{1, :}), ...
+            testCase.verifyEqual(string(resolution.resolPars.paramTable{1, :}), ...
                                  string(testCase.parameters(1, :)), 'Start resolution parameter not set correctly');
-            testCase.verifySize(resolution.resolPars.paramsTable, [3, 8], 'Resolution Parameters has wrong dimension');
+            testCase.verifySize(resolution.resolPars.paramTable, [3, 8], 'Resolution Parameters has wrong dimension');
             
-            testCase.verifyEqual(string(resolution.resolutions.typesTable{1, :}), ...
+            testCase.verifyEqual(string(resolution.resolutions.paramTable{1, :}), ...
                                  string(testCase.resolutions(1, :)), 'Start resolution parameter not set correctly');
-            testCase.verifySize(resolution.resolutions.typesTable, [1, 7], 'Resolutions has wrong dimension');
+            testCase.verifySize(resolution.resolutions.paramTable, [1, 7], 'Resolutions has wrong dimension');
         end
         
         function testShowPrior(testCase)
@@ -65,7 +65,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.verifyEqual(names, string(testCase.resolutions(1, 1)), 'getResolNames method not working');
             testCase.verifySize(names, [1, 1], 'Resolution names has wrong dimension');
 
-            testCase.resolution.resolutions.typesTable = [testCase.resolution.resolutions.typesTable; vertcat(testCase.resolutions(2:end, :))];
+            testCase.resolution.resolutions.paramTable = [testCase.resolution.resolutions.paramTable; vertcat(testCase.resolutions(2:end, :))];
             names = testCase.resolution.getResolNames();
             testCase.verifyEqual(names, convertCharsToStrings(testCase.resolutions(:, 1)), 'getResolNames method not working');
             testCase.verifySize(names, [size(testCase.resolutions, 1), 1], 'Resolution names has wrong dimension');
@@ -73,22 +73,22 @@ classdef testResolutionsClass < matlab.unittest.TestCase
 
         function testAddResolution(testCase)
             % Checks that resolution can be added
-            testCase.resolution.resolPars.paramsTable = [testCase.resolution.resolPars.paramsTable; vertcat(testCase.parameters(2:end, :))];
+            testCase.resolution.resolPars.paramTable = [testCase.resolution.resolPars.paramTable; vertcat(testCase.parameters(2:end, :))];
             
             testCase.resolution.addResolution();
-            testCase.verifyEqual(string(testCase.resolution.resolutions.typesTable{end, :}),...
+            testCase.verifyEqual(string(testCase.resolution.resolutions.paramTable{end, :}),...
                                     string({'New Resolution 1', allowedTypes.Constant.value, '', '', '', '', ''}), 'addResolution method not working');
             testCase.resolution.addResolution('New Res');
-            testCase.verifyEqual(string(testCase.resolution.resolutions.typesTable{end, :}),...
+            testCase.verifyEqual(string(testCase.resolution.resolutions.paramTable{end, :}),...
                                     string({'New Res', allowedTypes.Constant.value, '', '', '', '', ''}), 'addResolution method not working');
             testCase.resolution.addResolution(testCase.resolutions{3, 1:5});
-            testCase.verifyEqual(string(testCase.resolution.resolutions.typesTable{end, :}),...
+            testCase.verifyEqual(string(testCase.resolution.resolutions.paramTable{end, :}),...
                                     string(testCase.resolutions(3, :)), 'addResolution method not working');
             testCase.resolution.addResolution(testCase.resolutions{4, :});
-            testCase.verifyEqual(string(testCase.resolution.resolutions.typesTable{end, :}),...
+            testCase.verifyEqual(string(testCase.resolution.resolutions.paramTable{end, :}),...
                                     string(testCase.resolutions(4, :)), 'addResolution method not working');
             testCase.resolution.addResolution('Resolution 5', allowedTypes.Function, 'function_name', 1, 3);
-            testCase.verifyEqual(string(testCase.resolution.resolutions.typesTable{end, :}),...
+            testCase.verifyEqual(string(testCase.resolution.resolutions.paramTable{end, :}),...
                                     ["Resolution 5", string(allowedTypes.Function.value), "function_name", "Resolution par 1", "Resolution par 3", "", ""], ...
                                     'addResolution method not working');
             testCase.verifyError(@() testCase.resolution.addResolution('New', 'fixed'), invalidOption.errorID);
@@ -98,47 +98,47 @@ classdef testResolutionsClass < matlab.unittest.TestCase
 
         function testRemoveResolution(testCase)
             % Checks that resolution can be removed
-            testCase.resolution.resolutions.typesTable = [testCase.resolution.resolutions.typesTable; vertcat(testCase.resolutions(2:end, :))];
+            testCase.resolution.resolutions.paramTable = [testCase.resolution.resolutions.paramTable; vertcat(testCase.resolutions(2:end, :))];
 
             testCase.resolution.removeResolution(3);
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{:, 1}, ...
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{:, 1}, ...
                                     ["Resolution 1"; "Resolution 2"; "Resolution 4"], 'removeResolPar method not working');
             testCase.resolution.removeResolution([1, 3]);
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{:, 1}, "Resolution 2", 'removeResolPar method not working');  
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{:, 1}, "Resolution 2", 'removeResolPar method not working');  
         end
             
         function testSetResolution(testCase)
             % Checks that resolution can be modified
-            testCase.resolution.resolutions.typesTable = [testCase.resolution.resolutions.typesTable; vertcat(testCase.resolutions(2:end, :))];
-            testCase.resolution.resolPars.paramsTable = [testCase.resolution.resolPars.paramsTable; vertcat(testCase.parameters(2:end, :))];
+            testCase.resolution.resolutions.paramTable = [testCase.resolution.resolutions.paramTable; vertcat(testCase.resolutions(2:end, :))];
+            testCase.resolution.resolPars.paramTable = [testCase.resolution.resolPars.paramTable; vertcat(testCase.parameters(2:end, :))];
             
             testCase.resolution.setResolution('Resolution 1', 'name', 'Resol 1');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 1}, "Resol 1", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{1, 1}, "Resol 1", 'setResolutionValue method not working');
             testCase.resolution.setResolution(1, 'name', 'Resolution 1');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 1}, "Resolution 1", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{1, 1}, "Resolution 1", 'setResolutionValue method not working');
  
             testCase.resolution.setResolution(1, 'type', allowedTypes.Constant.value);
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 2}, string(allowedTypes.Constant.value), 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{1, 2}, string(allowedTypes.Constant.value), 'setResolutionValue method not working');
             testCase.resolution.setResolution('Resolution 1', 'type', allowedTypes.Function); 
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{1, 2}, string(allowedTypes.Function.value), 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{1, 2}, string(allowedTypes.Function.value), 'setResolutionValue method not working');
             testCase.verifyError(@() testCase.resolution.setResolution(2, 'type', 'random'), invalidOption.errorID);
             
             testCase.resolution.setResolution(3, 'Value1', 'random');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 3}, "random", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{3, 3}, "random", 'setResolutionValue method not working');
             testCase.resolution.setResolution('Resolution 3', 'Value1', 'Resolution par 1');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 3}, "Resolution par 1", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{3, 3}, "Resolution par 1", 'setResolutionValue method not working');
             
             testCase.resolution.setResolution(2, 'Value2', 'Resolution par 1');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{2, 4}, "Resolution par 1", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{2, 4}, "Resolution par 1", 'setResolutionValue method not working');
             testCase.verifyError(@() testCase.resolution.setResolution(2, 'Value2', 'random'), nameNotRecognised.errorID);
             testCase.verifyError(@() testCase.resolution.setResolution(5, 'Value2', 'random'), indexOutOfRange.errorID);
             testCase.verifyError(@() testCase.resolution.setResolution(true, 'Value2', 'random'), invalidType.errorID);
             
             testCase.resolution.setResolution(3, 'name', 'New Name', 'type', allowedTypes.Constant, 'value1', 'Resolution par 3', 'value2', '');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 1}, "New Name", 'setResolutionValue method not working');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 2}, string(allowedTypes.Constant.value), 'setResolutionValue method not working');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 3}, "Resolution par 3", 'setResolutionValue method not working');
-            testCase.verifyEqual(testCase.resolution.resolutions.typesTable{3, 4}, "", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{3, 1}, "New Name", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{3, 2}, string(allowedTypes.Constant.value), 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{3, 3}, "Resolution par 3", 'setResolutionValue method not working');
+            testCase.verifyEqual(testCase.resolution.resolutions.paramTable{3, 4}, "", 'setResolutionValue method not working');
         end
 
         function testDisplayResolutionsObject(testCase)
@@ -152,7 +152,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             displayArray = textscan(display{2},'%s','Delimiter','\r','TextType','string');
             displayArray = strip(displayArray{1});
             % display table should be height of resolPars table plus header and divider row
-            testCase.verifyLength(displayArray, height(testCase.resolution.resolPars.paramsTable) + 3);
+            testCase.verifyLength(displayArray, height(testCase.resolution.resolPars.paramTable) + 3);
             % Remove html tags used to format header then split table when
             % 2 or more spaces are found to avoid splitting names with single space
             displayHeader = eraseBetween(displayArray{2}, '<', '>', 'Boundaries','inclusive');
@@ -167,7 +167,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             displayArray = textscan(display{3},'%s','Delimiter','\r','TextType','string');
             displayArray = strip(displayArray{1});
             % display table should be height of resolution table plus header and divider row
-            testCase.verifyLength(displayArray, height(testCase.resolution.resolutions.typesTable) + 3);
+            testCase.verifyLength(displayArray, height(testCase.resolution.resolutions.paramTable) + 3);
             displayHeader = eraseBetween(displayArray{2}, '<', '>', 'Boundaries','inclusive');
             displayHeader = regexp(displayHeader, '\s{2,}', 'split');
             testCase.verifyEqual(displayHeader, paramHeader);
@@ -204,8 +204,8 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             expected.resolutionValues = {"Resolution par 1", "", "", "", ""};
             testCase.verifyEqual(testCase.resolution.toStruct(), expected, 'toStruct method not working');
 
-            testCase.resolution.resolutions.typesTable = [testCase.resolution.resolutions.typesTable; vertcat(testCase.resolutions(2:3, :))];
-            testCase.resolution.resolPars.paramsTable = [testCase.resolution.resolPars.paramsTable; vertcat(testCase.parameters(2:3, :))];
+            testCase.resolution.resolutions.paramTable = [testCase.resolution.resolutions.paramTable; vertcat(testCase.resolutions(2:3, :))];
+            testCase.resolution.resolPars.paramTable = [testCase.resolution.resolPars.paramTable; vertcat(testCase.parameters(2:3, :))];
 
             expected.resolParNames =  {'Resolution par 1', 'Resolution par 2', 'Resolution par 3'};
             expected.resolParConstr = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};

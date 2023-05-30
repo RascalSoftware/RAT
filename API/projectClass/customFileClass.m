@@ -1,11 +1,7 @@
-classdef customFileClass < handle
+classdef customFileClass < tableUtilities
     
     % A container class for holding custom files for either
     % models, backgrounds or resolutions.
-
-    properties
-        fileTable = table
-    end
 
     properties(Access = private, Constant, Hidden)
         duplicateNameMessage = 'Duplicate custom file names are not allowed'
@@ -33,7 +29,7 @@ classdef customFileClass < handle
             sz = [0 4];
             varTypes = {'string','string','string','string'};
             varNames = {'Name','Filename','Language','Path'};
-            obj.fileTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
+            obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             obj.autoFileNameCounter = 1;
 
             if ~isempty(varargin)
@@ -42,7 +38,7 @@ classdef customFileClass < handle
         end
 
         function count = get.fileCount(obj)
-            count = height(obj.fileTable);
+            count = height(obj.paramTable);
         end
 
         function obj = addCustomFile(obj, varargin)
@@ -182,23 +178,12 @@ classdef customFileClass < handle
 
         end
 
-        function removeCustomFile(obj, row)
-            % Removes a file entry from the file table. The expected input
-            % is an integer or array of integers, i.e., an input such as
-            % [1 3] leads to multiple rows being removed from the table
-            %
-            % customFiles.removeCustomFile(2)
-            tab = obj.fileTable;
-            tab(row,:) = [];
-            obj.fileTable = tab;
-        end
-
         function names = getCustomNames(obj)
             % Get a string array of the names of each of the custom file
             % objects defined in the class.
             %
             % customFiles.getLayersNames()
-            names = obj.fileTable{:,1};  
+            names = obj.paramTable{:,1};  
         end
 
         function displayCustomFileObject(obj)
@@ -207,7 +192,7 @@ classdef customFileClass < handle
             % customFiles.displayCustomFileObject()            
             fprintf('    Custom Files: ------------------------------------------------------------------------------------------------------ \n\n');
             
-            tab = obj.fileTable;
+            tab = obj.paramTable;
             
             sz = [1,4];
             displayVarTypes = {'string','string','string','string'}; 
@@ -268,7 +253,7 @@ classdef customFileClass < handle
             if numberOfFiles > 0
                 filesList = cell(numberOfFiles, 1);
                 for i = 1:numberOfFiles
-                    thisRow = obj.fileTable{i,:};
+                    thisRow = obj.paramTable{i,:};
                     thisFile = thisRow{2};
                     thisType = thisRow{3};
                     thisPath = thisRow{4};
@@ -293,7 +278,7 @@ classdef customFileClass < handle
             % a length four cell array.
             %
             % customFiles.appendNewRow({'New Row','file.m','matlab','pwd'});
-            tab = obj.fileTable;
+            tab = obj.paramTable;
             newName = row{1};
             if any(strcmpi(newName,tab{:,1}))
                 throw(duplicateName(obj.duplicateNameMessage));
@@ -308,7 +293,7 @@ classdef customFileClass < handle
 
             row = {newName, fileName, language, path};
             tab = [tab ; row];
-            obj.fileTable = tab;
+            obj.paramTable = tab;
             obj.autoFileNameCounter = obj.autoFileNameCounter + 1;
             
         end
@@ -316,7 +301,7 @@ classdef customFileClass < handle
         function obj = setCustomLanguage(obj, row, language)
            % Check whether a specified language is supported, and set the
            % file entry if so.
-           obj.fileTable{row, 3} = {validateOption(language, 'supportedLanguages', obj.invalidLanguageMessage).value};
+           obj.paramTable{row, 3} = {validateOption(language, 'supportedLanguages', obj.invalidLanguageMessage).value};
         end
         
         
@@ -325,19 +310,19 @@ classdef customFileClass < handle
             % specified, and set it if not
 
             % Name must not be an existing name
-            existingNames = obj.fileTable{:,1};
+            existingNames = obj.paramTable{:,1};
             if any(strcmpi(name,existingNames))
                 throw(duplicateName(obj.duplicateNameMessage));
             end
             
             % Set the relevant name
-            obj.fileTable{whichCustom,1} = {name};
+            obj.paramTable{whichCustom,1} = {name};
         end
         
         
         function obj = setFileName(obj,whichCustom,name)
             % Set a new filename
-            obj.fileTable{whichCustom,2} = {name};  
+            obj.paramTable{whichCustom,2} = {name};  
         end
 
     end

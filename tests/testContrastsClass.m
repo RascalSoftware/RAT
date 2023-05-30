@@ -59,7 +59,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
 
     properties
         allowedNames            % Full set of ALL parameter names in the project
-        dataTable               % Example data table needed when converting to a struct
+        paramTable               % Example data table needed when converting to a struct
         defaultContrastParams   % Default values for contrasts
         exampleClass            % Example contrasts class for testing
         exampleStruct           % The example class converted to a struct
@@ -116,12 +116,12 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % required when converting a contrast class to a struct
             varTypes = {'string','cell','cell','cell'};
             varNames = {'Name','Data','Data Range','Simulation Range'};
-            testCase.dataTable = table('Size',[4 4],'VariableTypes',varTypes,'VariableNames',varNames); 
+            testCase.paramTable = table('Size',[4 4],'VariableTypes',varTypes,'VariableNames',varNames); 
 
-            testCase.dataTable(1,:) = {'Simulation', [], [], {[0.0050 0.7000]}};
-            testCase.dataTable(2,:) = {'Bilayer / D2O', testCase.D2OData(:,1:3), {[0.0130 0.3500]}, {[0.0057 0.3961]}};
-            testCase.dataTable(3,:) = {'Bilayer / SMW', testCase.SMWData(:,1:3), {[0.0130 0.3500]}, {[0.0076 0.3300]}};
-            testCase.dataTable(4,:) = {'Bilayer / H2O', testCase.H2OData(:,1:3), {[0.0130 0.3500]}, {[0.0063 0.3305]}};
+            testCase.paramTable(1,:) = {'Simulation', [], [], {[0.0050 0.7000]}};
+            testCase.paramTable(2,:) = {'Bilayer / D2O', testCase.D2OData(:,1:3), {[0.0130 0.3500]}, {[0.0057 0.3961]}};
+            testCase.paramTable(3,:) = {'Bilayer / SMW', testCase.SMWData(:,1:3), {[0.0130 0.3500]}, {[0.0076 0.3300]}};
+            testCase.paramTable(4,:) = {'Bilayer / H2O', testCase.H2OData(:,1:3), {[0.0130 0.3500]}, {[0.0063 0.3305]}};
         end
 
         function initialiseDefaultContrastParams(testCase)
@@ -461,7 +461,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
         function testToStructStandardLayers(testCase)
             % Test converting the contrasts class to a struct
             % Here we use a "standard layers" model type
-            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.dataTable), testCase.exampleStruct);
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.paramTable), testCase.exampleStruct);
         end
 
         function testToStructCustomLayers(testCase)
@@ -478,7 +478,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.exampleStruct.contrastLayers = {{} {} {}};
             testCase.exampleStruct.contrastCustomFile = [1 1 1];
 
-            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'custom layers', testCase.dataTable), testCase.exampleStruct);
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'custom layers', testCase.paramTable), testCase.exampleStruct);
         end
 
         function testToStructDisallowedData(testCase)
@@ -496,7 +496,7 @@ classdef testContrastsClass < matlab.unittest.TestCase
             testCase.exampleStruct.simLimits{contrastIndex} = [0 0];
             testCase.exampleStruct.allData{contrastIndex} = [0 0 0];
 
-            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.dataTable), testCase.exampleStruct);
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers', testCase.paramTable), testCase.exampleStruct);
         end
 
         function testDisplayContrastsObject(testCase)

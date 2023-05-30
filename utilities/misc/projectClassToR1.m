@@ -98,7 +98,7 @@ r1Problem.backgrounds_fityesno = r2BackStruct.backParFitYesNo;
 
 if strcmpi(r2Problem.modelType, modelTypes.StandardLayers.value)
     % Set layers (if modelType is standard layers)
-    layersTable = table2cell(r2Problem.layers.layersTable);
+    layersTable = table2cell(r2Problem.layers.paramTable);
     numberOfLayers = size(layersTable,1);
     
     for i = 1:numberOfLayers
@@ -175,7 +175,7 @@ for i = 1:numberOfContrasts
     contrastBacks(i) = find(strcmp(r2BackStruct.backParNames, thisBacksParName));
 
     % data
-    dataTable = table2cell(r2Problem.data.dataTable);
+    dataTable = table2cell(r2Problem.data.paramTable);
     r2DataNames = dataTable(:,1);
     r2DataNames = cellfun(@(x)char(x), r2DataNames, 'UniformOutput', false);
     thisContrastData = thisContrast.data;
@@ -214,11 +214,11 @@ for i = 1:numberOfContrasts
     else
         % % If modelType is NOT StandardLayers (custom model)
         whichCustom = thisContrast.model{:};
-        fileTable = table2cell(r2Problem.customFile.fileTable);
-        customNames = fileTable(:,1);
+        paramTable = table2cell(r2Problem.customFile.paramTable);
+        customNames = paramTable(:,1);
         customNames = cellfun(@(x)char(x), customNames, 'UniformOutput', false);
         thisCustomLocation = find(strcmp(customNames,whichCustom));
-        customFileName = char(fileTable{thisCustomLocation, 2});
+        customFileName = char(paramTable{thisCustomLocation, 2});
         contrastLayers{i} = '';
         contrastsNumberOfLayers(i) = 0;
     end

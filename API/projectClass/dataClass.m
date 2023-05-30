@@ -1,8 +1,5 @@
-classdef dataClass < handle
+classdef dataClass < tableUtilities
     % A container class for holding data
-    properties
-        dataTable
-    end
 
     properties (Access = private)   
         autoDataNameCounter = 1
@@ -25,12 +22,12 @@ classdef dataClass < handle
             sz = [0 4];
             varTypes = {'string','cell','cell','cell'};
             varNames = {'Name','Data','Data Range','Simulation Range'};
-            obj.dataTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames); 
+            obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames); 
             obj.addData(varargin{:}); 
         end
         
         function count = get.dataCount(obj)
-            count = height(obj.dataTable);
+            count = height(obj.paramTable);
         end
 
         function obj = addData(obj, varargin)
@@ -102,7 +99,7 @@ classdef dataClass < handle
             % index or name of dataset and keyword/value pairs to set
             %
             % data.setData(2, 'name', 'new_name');
-            dataNames = obj.dataTable{:,1};
+            dataNames = obj.paramTable{:,1};
             
             % Always need three or more inputs to set data value
             if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
@@ -153,15 +150,15 @@ classdef dataClass < handle
             end
             
             if ~isempty(results.data)
-                obj.dataTable{row, 2} = {results.data};
+                obj.paramTable{row, 2} = {results.data};
             end
             
             if ~isempty(results.dataRange)
-                obj.dataTable{row, 3} = {results.dataRange};
+                obj.paramTable{row, 3} = {results.dataRange};
             end
             
             if ~isempty(results.simRange)
-                obj.dataTable{row, 4} = {results.simRange};
+                obj.paramTable{row, 4} = {results.simRange};
             end
 
         end
@@ -182,9 +179,9 @@ classdef dataClass < handle
             end
             
             % Set the relevant name
-            nameChanged.oldName = obj.dataTable{whichData,1};
+            nameChanged.oldName = obj.paramTable{whichData,1};
             nameChanged.newName = name;
-            obj.dataTable{whichData,1} = {name};   
+            obj.paramTable{whichData,1} = {name};   
         end
         
         function names = getDataNames(obj)
@@ -192,27 +189,17 @@ classdef dataClass < handle
             % in the table. 
             % 
             % names = data.getDataNames();   
-           names = obj.dataTable{:,1};     
+           names = obj.paramTable{:,1};     
         end  
 
-        function removeData(obj, row)
-            % Removes a data entry from the data table. Expects the 
-            % index or array of indices of dataset(s) to remove.
-            %
-            % data.removeData(2)
-            tab = obj.dataTable;
-            tab(row,:) = [];
-            obj.dataTable = tab;
-        end
-
         function displayDataObject(obj)
-            % Displays the table object. The actual obj.dataTable has the 
+            % Displays the table object. The actual obj.paramTable has the 
             % format {string, cell, double, double}, but for display we 
             % make a table that is all strings.
             
             fprintf('    Data: ------------------------------------------------------------------------------------------------------ \n\n');
             
-            tab = obj.dataTable;
+            tab = obj.paramTable;
             
             sz = [1,4];
             displayVarTypes = {'string','string','string','string'}; 
@@ -263,7 +250,7 @@ classdef dataClass < handle
             % with row values to append
             % 
             % obj.appendNewRow({'name', [], [], []})
-            tab = obj.dataTable;
+            tab = obj.paramTable;
             newName = row{1};
             if any(strcmpi(newName,tab{:,1}))
                 throw(duplicateName('Duplicate data names not allowed'));
@@ -319,7 +306,7 @@ classdef dataClass < handle
             
             row = {{newName}, {data}, {dataRange}, {simRange}};
             tab = [tab ; row];
-            obj.dataTable = tab;
+            obj.paramTable = tab;
             obj.autoDataNameCounter = obj.autoDataNameCounter + 1;    
         end  
     end

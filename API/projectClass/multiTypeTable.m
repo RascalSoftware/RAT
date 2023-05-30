@@ -4,7 +4,6 @@ classdef multiTypeTable < tableUtilities
     % tables.
     
     properties
-        typesTable = table
         allowedActions = {'add', 'subtract'}
         typesAutoNameString = 'Row'
     end
@@ -26,12 +25,12 @@ classdef multiTypeTable < tableUtilities
             sz = [0 7];
             varTypes = {'string','string','string','string','string','string','string'};
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
-            obj.typesTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
+            obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             obj.typesAutoNameCounter = 0;
         end
 
         function count = get.typesCount(obj)
-           count = height(obj.typesTable);
+           count = height(obj.paramTable);
         end
 
         function obj = addRow(obj, addParams)
@@ -78,10 +77,10 @@ classdef multiTypeTable < tableUtilities
             % column, value
             %
             % multiTable.setValue(1, 1, 'origin');
-            tab = obj.typesTable;
+            tab = obj.paramTable;
             
             % First parameter needs to be either a row name or number
-            rowNames = obj.typesTable{:,1};
+            rowNames = obj.paramTable{:,1};
             
             if isText(row)
                 row = obj.findRowIndex(row, rowNames, 'Unrecognised parameter name');
@@ -95,7 +94,7 @@ classdef multiTypeTable < tableUtilities
             
             % Second parameter needs to be either a column name or
             % number.
-            colNames = obj.typesTable.Properties.VariableNames;
+            colNames = obj.paramTable.Properties.VariableNames;
 
             if isText(col)
                 col = obj.findRowIndex(col,colNames, 'Unrecognised column name');
@@ -109,27 +108,15 @@ classdef multiTypeTable < tableUtilities
             
             % Set the value
             tab(row, col) = {value};
-            obj.typesTable = tab;
+            obj.paramTable = tab;
 
-        end
-
-        function removeRow(obj, row)
-            % Removes a row from the multi-type table. The expected
-            % input is an integer or integer array.
-            % NOTE that an input such as [1 3] leads to multiple rows
-            % being removed from the table
-            %
-            % multiTable.removeRow(2);
-            tab = obj.typesTable;
-            tab(row, :) = [];
-            obj.typesTable = tab;
         end
         
         function displayTypesTable(obj)
             % Display the multi-type Table in the terminal.
             %
             % multiTable.displayTypesTable();
-            array = obj.typesTable;
+            array = obj.paramTable;
             p = 1:size(array,1);
             p = p(:);
             p = table(p);
@@ -142,13 +129,13 @@ classdef multiTypeTable < tableUtilities
             % a length seven cell array.
             %
             % multiTable.appendNewRow({'New Row','','','','','',''});
-            tab = obj.typesTable;
+            tab = obj.paramTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))
                 throw(duplicateName('Duplicate parameter names not allowed'));
             end
             tab = [tab ; row];
-            obj.typesTable = tab;
+            obj.paramTable = tab;
             obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
 
         end

@@ -34,7 +34,7 @@ Parameters = {
 % Add these parameters to the project class, and group them into a layer to 
 % demonstrate how this is done:
 
-    problem.addParamGroup(Parameters)
+    problem.addParameterGroup(Parameters)
     % Now make the oxide layer
     Oxide =     {'Oxide Layer',...          % Name of the layer
                 'Oxide thick',...           % Layer thickness
@@ -79,8 +79,8 @@ watParams = {
 
 
 % Add these parameters to the project as before.
-problem.addParamGroup(watParams);
-problem.addParamGroup(bilParams);
+problem.addParameterGroup(watParams);
+problem.addParameterGroup(bilParams);
 
 % Now make the layers
 waterLayer = {

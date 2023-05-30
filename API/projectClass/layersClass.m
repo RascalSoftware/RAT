@@ -1,11 +1,7 @@
 classdef layersClass < tableUtilities
     
     % This is the class definition for the layers block.
-
-    properties
-        layersTable = table
-    end
-        
+    
     properties (Access = private)
         layersAutoNameCounter
     end
@@ -40,12 +36,12 @@ classdef layersClass < tableUtilities
 
             sz = [0 obj.varCount];
             varTypes = repmat({'string'}, 1, obj.varCount);
-            obj.layersTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
+            obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
             obj.layersAutoNameCounter = 1;
         end
 
         function count = get.layersCount(obj)
-            count = height(obj.layersTable);
+            count = height(obj.paramTable);
         end
 
         function count = get.varCount(obj)
@@ -62,9 +58,9 @@ classdef layersClass < tableUtilities
             % (no hydration) or all parameters.
             % Parameters can be specified either by name or by index.
             %
-            % layers.addLayer(parameters.paramsTable{:, 1});
-            % layers.addLayer(parameters.paramsTable{:, 1}, 'New layer');
-            % layers.addLayer(parameters.paramsTable{:, 1},...
+            % layers.addLayer(parameters.paramTable{:, 1});
+            % layers.addLayer(parameters.paramTable{:, 1}, 'New layer');
+            % layers.addLayer(parameters.paramTable{:, 1},...
             %                 'Another layer', 1, 2, 3);
             layerDetails = varargin;
 
@@ -123,9 +119,9 @@ classdef layersClass < tableUtilities
             % that row and column, and a string array of parameter names
             % defined in the project's parameter class.
             %
-            % layers.setLayerValue(1, 1, 'origin', parameters.paramsTable{:, 1});
-            layerNames = obj.layersTable{:,1};
-            colNames = obj.layersTable.Properties.VariableNames;
+            % layers.setLayerValue(1, 1, 'origin', parameters.paramTable{:, 1});
+            layerNames = obj.paramTable{:,1};
+            colNames = obj.paramTable.Properties.VariableNames;
             
             % Find the row index if we have a layer name
             if isText(row)
@@ -159,19 +155,8 @@ classdef layersClass < tableUtilities
                 val = obj.findParameter(inputValue, paramNames);
             end
                 
-            obj.layersTable(row,col) = {val};
+            obj.paramTable(row,col) = {val};
             
-        end
-
-        function removeLayer(obj, layer)
-            % Removes a layer from the layers table. The expected input is
-            % an integer or array of integers, i.e., an input such as
-            % [1 3] leads to multiple rows being removed from the table
-            %
-            % layers.removeLayer(2)
-            tab = obj.layersTable;
-            tab(layer,:) = [];
-            obj.layersTable = tab;
         end
  
         function layersNames = getLayersNames(obj)
@@ -179,15 +164,15 @@ classdef layersClass < tableUtilities
             % in the class.
             %
             % layers.getLayersNames()
-            layersNames = obj.layersTable{:,1};  
+            layersNames = obj.paramTable{:,1};  
         end
         
         function outStruct = toStruct(obj, paramNames, modelType)
             % Convert the layers class to a struct.
             %
             % layers.toStruct()            
-            %outStruct = table2cell(obj.layersTable);
-            layersCell = obj.layersTable{:,:};
+            %outStruct = table2cell(obj.paramTable);
+            layersCell = obj.paramTable{:,:};
 
             outStruct.numberOfLayers = size(layersCell, 1);
             outStruct.layersNames = layersCell(:,1);
@@ -245,7 +230,7 @@ classdef layersClass < tableUtilities
             % Displays the layers table with numbered rows
             %
             % layers.displayLayersTable()
-            array = obj.layersTable;
+            array = obj.paramTable;
             len = size(array,1);
             if len == 0
                 % Make an empty table for display
@@ -272,13 +257,13 @@ classdef layersClass < tableUtilities
             % cell array of length equal to the number of table values.
             %
             % layers.appendNewRow({'New Row','','','','','bulk out'});
-            tab = obj.layersTable;
+            tab = obj.paramTable;
             newName = row{1};
             if any(strcmp(newName,tab{:,1}))
                 throw(duplicateName('Duplicate layer names are not allowed'));
             end
             tab = [tab ; row];
-            obj.layersTable = tab;
+            obj.paramTable = tab;
             obj.layersAutoNameCounter = obj.layersAutoNameCounter + 1;
         end
         

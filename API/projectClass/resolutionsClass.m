@@ -136,7 +136,7 @@ classdef resolutionsClass < handle
             %
             % resolution.setResolution(1, 'name', 'res 1', 'type', 'constant', 'value1', 'param_name');
             if isText(row)
-                row = obj.resolutions.findRowIndex(row, obj.getResolNames());
+                row = obj.resolutions.findRowIndex(row, obj.getResolNames(), 'Unrecognised resolution');
             elseif isnumeric(row)
                 count = obj.resolutions.typesCount;
                 if (row < 1) || (row > count)

@@ -1,4 +1,4 @@
-classdef parametersClass < handle
+classdef parametersClass < tableUtilities
     % This is the class definition for
     % the parameters block.
     
@@ -426,7 +426,7 @@ classdef parametersClass < handle
             %
             % obj.getValidRow('param name')
             if isText(row)
-                index = obj.findRowIndex(row, obj.paramsTable);
+                index = obj.findRowIndex(row, obj.paramsTable{:,1}, 'Unrecognised row name');
             else
                 index = row;
                 if (index < 1) || (index > obj.paramCount)
@@ -456,31 +456,6 @@ classdef parametersClass < handle
             inputBlock = p.Results;
         end
 
-    end
-
-    methods (Static)
-        function row = findRowIndex(name, tab)
-            % Gets index with given row name from table.
-            %
-            % obj.findRowIndex('param')
-            namesList = tab{:,1};
-            
-            % Strip leading or trailing white spaces from names and name
-            namesList = strip(namesList);
-            name = strip(name);
-            
-            % Compare 'name' to list ignoring case
-            index = strcmpi(name, namesList);
-            if ~any(index)
-                throw(nameNotRecognised('Unrecognised parameter name'));
-            end
-            
-            % Non-zero value in array is the row index
-            row = find(index);
-        end
-        
-        
-        
     end
 
 end

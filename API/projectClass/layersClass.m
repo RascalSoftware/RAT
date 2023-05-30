@@ -1,4 +1,4 @@
-classdef layersClass < handle
+classdef layersClass < tableUtilities
     
     % This is the class definition for the layers block.
 
@@ -129,24 +129,24 @@ classdef layersClass < handle
             
             % Find the row index if we have a layer name
             if isText(row)
-                row = obj.findRowIndex(row, layerNames);
+                row = obj.findRowIndex(row, layerNames, 'Unrecognised layer name');
             elseif isnumeric(row)
                 if (row < 1) || (row > obj.layersCount)
                     throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.layersCount)));
                 end
             else
-                throw(invalidType('Layer type not recognised'));
+                throw(invalidType('Unrecognised layer type'));
             end
             
             % Find the column index if we have a column name
             if isText(col)
-                col = obj.findRowIndex(col, colNames);
+                col = obj.findRowIndex(col, colNames, 'Unrecognised column name');
             elseif isnumeric(col)
                 if (col < 1) || (col > length(colNames))
                     throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
                 end
             else
-                throw(invalidType('Layer table column type not recognised'));
+                throw(invalidType('Unrecognised layer table column type'));
             end
 
             if ~isnumeric(col) || col < 2  || col > length(colNames)
@@ -285,25 +285,6 @@ classdef layersClass < handle
     end
     
     methods(Static)
-
-        function row = findRowIndex(name, rowNames)
-            % Find the index of a row in the layers class table given its
-            % name. The expected inputs are the name of the row and the
-            % full list of row names.
-
-            % Strip leading or trailing whitespaces from names
-            rowNames = strip(rowNames);
-            name = strip(name);
-
-            % Compare 'name' to list ignoring case
-            index = strcmpi(name, rowNames);
-            if any(index)
-                % Non-zero value in array is the row index
-                row = find(index);
-            else
-                throw(nameNotRecognised('Layer name not found'));
-            end
-        end
 
         function param = findParameter(inputVal, paramNames)
             % Find whether or not a proposed layer parameter is included

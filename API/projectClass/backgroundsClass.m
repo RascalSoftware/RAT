@@ -138,7 +138,7 @@ classdef backgroundsClass < handle
             %
             % background.setBackground(1, 'name', 'back 1', 'type', 'constant', 'value1', 'param_name');
             if isText(row)
-                row = obj.backgrounds.findRowIndex(row, obj.getBackgroundNames());
+                row = obj.backgrounds.findRowIndex(row, obj.getBackgroundNames(), 'Unrecognised background');
             elseif isnumeric(row)
                 count = obj.backgrounds.typesCount;
                 if (row < 1) || (row > count)

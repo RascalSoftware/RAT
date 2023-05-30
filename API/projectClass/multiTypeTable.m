@@ -1,4 +1,4 @@
-classdef multiTypeTable < handle
+classdef multiTypeTable < tableUtilities
     
     % This is the class definition for the backgrounds and resolutions
     % tables.
@@ -84,7 +84,7 @@ classdef multiTypeTable < handle
             rowNames = obj.typesTable{:,1};
             
             if isText(row)
-                row = obj.findRowIndex(row, rowNames);
+                row = obj.findRowIndex(row, rowNames, 'Unrecognised parameter name');
             elseif isnumeric(row)
                 if (row < 1) || (row > obj.typesCount)
                     throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.typesCount)));
@@ -98,7 +98,7 @@ classdef multiTypeTable < handle
             colNames = obj.typesTable.Properties.VariableNames;
 
             if isText(col)
-                col = obj.findRowIndex(col,colNames);
+                col = obj.findRowIndex(col,colNames, 'Unrecognised column name');
             elseif isnumeric(col)
                 if (col < 1) || (col > length(colNames))
                     throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
@@ -150,30 +150,6 @@ classdef multiTypeTable < handle
             tab = [tab ; row];
             obj.typesTable = tab;
             obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
-
-        end
-
-    end
-
-    methods(Static)
-
-        function row = findRowIndex(name, namesList)
-            % Find the index of a row in the multi-type table given its
-            % name. The expected inputs are the name of the row and the
-            % full list of row names.
-        
-            % Strip leading or trailing whitespaces from names
-            namesList = strip(namesList);
-            name = strip(name);
-            
-            % Compare 'name' to list ignoring case
-            index = strcmpi(name, namesList);
-            if any(index)
-                % Non-zero value in array is the row index
-                row = find(index);
-            else
-                throw(nameNotRecognised('Unrecognised parameter name'));
-            end
 
         end
 

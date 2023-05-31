@@ -5,7 +5,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 %
 % In this class, we test:
 % layersClass, addLayer, setLayerValue, removeLayer,
-% getLayersNames, toStruct, displayLayersTable, findRowIndex, findParameter
+% getNames, toStruct, displayLayersTable, findRowIndex, findParameter
 %
 % We use an example layers class from example calculation
 % "DPPCStandardLayers.m"
@@ -304,7 +304,7 @@ classdef testLayersClass < matlab.unittest.TestCase
         end
 
         function testGetLayersNames(testCase)
-            testCase.verifyEqual(testCase.exampleClass.getLayersNames(), testCase.exampleClass.paramTable{:,1});
+            testCase.verifyEqual(testCase.exampleClass.getNames(), testCase.exampleClass.paramTable{:,1});
         end
 
         function testToStructStandardLayers(testCase)

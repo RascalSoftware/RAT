@@ -36,14 +36,14 @@ classdef testParametersClass < matlab.unittest.TestCase
         end
 
         function testGetNames(testCase)
-            % Tests getParamNames returns correctly  
+            % Tests getNames returns correctly  
             params = parametersClass(testCase.parameters{1, :});
-            names = params.getParamNames();
+            names = params.getNames();
             testCase.verifyEqual(names, string(testCase.parameters(1, 1)), 'Start parameter not set correctly');
             testCase.verifySize(names, [1, 1], 'Parameters has wrong dimension');
 
             params.paramTable = [params.paramTable; vertcat(testCase.parameters(2:end, :))];
-            names = params.getParamNames();
+            names = params.getNames();
             testCase.verifyEqual(names, convertCharsToStrings(testCase.parameters(:, 1)), 'Start parameter not set correctly');
             testCase.verifySize(names, [size(testCase.parameters, 1), 1], 'Parameters has wrong dimension');
         end

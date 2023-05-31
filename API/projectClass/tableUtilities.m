@@ -8,6 +8,14 @@ classdef (Abstract) tableUtilities < handle
 
     methods
 
+        function names = getNames(obj)
+            % Get a string array of the names of each of the objects
+            % defined in the class.
+            %
+            % customFiles.getNames()
+            names = obj.paramTable{:,1};  
+        end
+
         function removeRow(obj, row)
             % Removes a row from the table. The expected input is an
             % integer or integer array.

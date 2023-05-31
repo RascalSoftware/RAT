@@ -45,13 +45,13 @@ classdef testDataClass < matlab.unittest.TestCase
         end
 
         function testGetNames(testCase)
-            % Tests getDataNames returns correctly  
-            names = testCase.data.getDataNames();
+            % Tests getNames returns correctly  
+            names = testCase.data.getNames();
             testCase.verifyEqual(names, "New data 1", 'Start data not set correctly');
             testCase.verifySize(names, [1, 1], 'data has wrong dimension');
 
             testCase.addDataSets();
-            names = testCase.data.getDataNames();
+            names = testCase.data.getNames();
             testCase.verifyEqual(names, ["New data 1"; convertCharsToStrings(testCase.datasets(:, 1))], 'Start data not set correctly');
             testCase.verifySize(names, [size(testCase.datasets, 1)+1, 1], 'data has wrong dimension');
         end

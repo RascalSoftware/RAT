@@ -158,14 +158,6 @@ classdef layersClass < tableUtilities
             obj.paramTable(row,col) = {val};
             
         end
- 
-        function layersNames = getLayersNames(obj)
-            % Get a string array of the names of each of the layers defined
-            % in the class.
-            %
-            % layers.getLayersNames()
-            layersNames = obj.paramTable{:,1};  
-        end
         
         function outStruct = toStruct(obj, paramNames, modelType)
             % Convert the layers class to a struct.

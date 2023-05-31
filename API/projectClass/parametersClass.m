@@ -53,14 +53,6 @@ classdef parametersClass < tableUtilities
             count = height(obj.paramTable);
         end
         
-        function names = getParamNames(obj)
-            % Returns a N x 1 cell array of names of the parameter 
-            % in the object. 
-            % 
-            % names = params.getParamNames();
-            names = obj.paramTable{:,1}; 
-        end
-        
         function obj = addParameter(obj, varargin)
             % Adds an new parameter to the parameters table. Default 
             % values are used when adding the parameter if no arguments are 

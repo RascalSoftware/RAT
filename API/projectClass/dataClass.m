@@ -173,7 +173,7 @@ classdef dataClass < tableUtilities
                 throw(invalidType('Name must be a character array or string'));
             end
             
-            existingNames = obj.getDataNames;
+            existingNames = obj.getNames;
             if any(strcmpi(name,existingNames))
                 throw(duplicateName('Duplicate data names are not allowed'));
             end
@@ -183,14 +183,6 @@ classdef dataClass < tableUtilities
             nameChanged.newName = name;
             obj.paramTable{whichData,1} = {name};   
         end
-        
-        function names = getDataNames(obj)
-            % Returns a N x 1 cell array of names of the datasets 
-            % in the table. 
-            % 
-            % names = data.getDataNames();   
-           names = obj.paramTable{:,1};     
-        end  
 
         function displayDataObject(obj)
             % Displays the table object. The actual obj.paramTable has the 

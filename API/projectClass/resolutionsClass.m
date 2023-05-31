@@ -214,7 +214,7 @@ classdef resolutionsClass < handle
             if iscell(param)
                 param = param{:};
             end
-            parList = obj.resolPars.getParamNames(); 
+            parList = obj.resolPars.getNames(); 
             if isnumeric(param)
                 if (param < 1) || (param > length(parList))
                     throw(indexOutOfRange(sprintf('Resolution Parameter %d is out of range', param)));

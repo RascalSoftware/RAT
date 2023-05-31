@@ -228,7 +228,7 @@ classdef backgroundsClass < handle
             if iscell(param)
                 param = param{:};
             end
-            parList = obj.backPars.getParamNames();
+            parList = obj.backPars.getNames();
             if isnumeric(param)
                 if (param < 1) || (param > length(parList))
                     throw(indexOutOfRange(sprintf('Background Parameter %d is out of range', param)));

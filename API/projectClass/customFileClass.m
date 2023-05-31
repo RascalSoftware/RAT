@@ -121,7 +121,7 @@ classdef customFileClass < tableUtilities
             %
             % customFiles.setcustomFile(1, 'Name', 'New Name',...
             %                           'Language', 'Octave')
-            customNames = obj.getCustomNames;
+            customNames = obj.getNames;
             
             % Always need three or more inputs to set data value
             if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
@@ -176,14 +176,6 @@ classdef customFileClass < tableUtilities
                 obj.setCustomName(row,results.name);
             end            
 
-        end
-
-        function names = getCustomNames(obj)
-            % Get a string array of the names of each of the custom file
-            % objects defined in the class.
-            %
-            % customFiles.getLayersNames()
-            names = obj.paramTable{:,1};  
         end
 
         function displayCustomFileObject(obj)

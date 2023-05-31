@@ -70,7 +70,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 obj.addParameter('Oil Roughness');
             end
             
-            obj.protectedParameters = cellstr(obj.parameters.getParamNames');
+            obj.protectedParameters = cellstr(obj.parameters.getNames');
             
             % Initialise the layers table
             obj.layers = layersClass();
@@ -167,18 +167,18 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         function names = getAllAllowedNames(obj)           
             % Returns a cell array of all currently
             % set parameter names for the project.
-            names.paramNames = obj.parameters.getParamNames();
+            names.paramNames = obj.parameters.getNames();
             names.backsNames = obj.background.getBackgroundNames();
-            names.backParNames = obj.background.backPars.getParamNames();
-            names.bulkInNames = obj.bulkIn.getParamNames();
-            names.bulkOutNames = obj.bulkOut.getParamNames();
+            names.backParNames = obj.background.backPars.getNames();
+            names.bulkInNames = obj.bulkIn.getNames();
+            names.bulkOutNames = obj.bulkOut.getNames();
             names.resolsNames = obj.resolution.getResolNames();
-            names.resolParNames = obj.resolution.resolPars.getParamNames();
-            names.layersNames = obj.layers.getLayersNames();
-            names.dataNames = obj.data.getDataNames();
-            names.scalefacNames = obj.scalefactors.getParamNames();
-            names.qzShiftNames = obj.qzshifts.getParamNames();
-            names.customNames = obj.customFile.getCustomNames(); 
+            names.resolParNames = obj.resolution.resolPars.getNames();
+            names.layersNames = obj.layers.getNames();
+            names.dataNames = obj.data.getNames();
+            names.scalefacNames = obj.scalefactors.getNames();
+            names.qzShiftNames = obj.qzshifts.getNames();
+            names.customNames = obj.customFile.getNames(); 
         end
         
         % ---------------------------------  
@@ -733,10 +733,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % it is custom or layers
             if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
                 % Standard Layers
-                allowedValues = obj.layers.getLayersNames();
+                allowedValues = obj.layers.getNames();
             else
                 % Custom models
-                allowedValues = obj.customFile.getCustomNames();
+                allowedValues = obj.customFile.getNames();
             end
             
             % Call the setContrastModel method

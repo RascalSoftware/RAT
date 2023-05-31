@@ -112,11 +112,7 @@ classdef dataClass < tableUtilities
                     throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.dataCount)));
                 end
             elseif isText(row)
-                if ~strcmpi(row, dataNames)
-                    throw(nameNotRecognised(sprintf('Data object name %s not recognised', row)));
-                else
-                    row = find(strcmpi(row, dataNames));
-                end
+                row = obj.findRowIndex(row, dataNames, sprintf('Data object name %s not recognised', row));
             end
             
             % Parse the name value pairs to see what is being set and make

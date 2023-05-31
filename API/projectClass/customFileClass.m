@@ -134,11 +134,7 @@ classdef customFileClass < tableUtilities
                     throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.fileCount)));
                 end
             elseif isText(row)
-                if ~strcmpi(row, customNames)
-                    throw(nameNotRecognised(sprintf('Custom file object name %s not recognised', row)));
-                else
-                    row = find(strcmpi(row, customNames));
-                end
+                row = obj.findRowIndex(row, customNames, sprintf('Custom file object name %s not recognised', row));
             end
             
             % Parse the name value pairs to see what is being set and make

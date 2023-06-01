@@ -276,7 +276,6 @@ classdef customFileClass < tableUtilities
             tab = [tab ; row];
             obj.paramTable = tab;
             obj.autoFileNameCounter = obj.autoFileNameCounter + 1;
-            
         end
 
         function obj = setCustomLanguage(obj, row, language)

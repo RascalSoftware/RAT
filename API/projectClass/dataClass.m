@@ -48,24 +48,27 @@ classdef dataClass < tableUtilities
                 % Nothing supplied - add empty data row
                 newName = sprintf('New data %d', obj.autoDataNameCounter());
                 
-                newDataRange = [];
-                newSimRange = [obj.defaultSimMin, obj.defaultSimMax];
-                
-                newRow = {newName, [], newDataRange, newSimRange};
-                appendNewRow(obj, newRow);
-            else   
-                inputs = varargin;
-                newName = inputs{1};
-                if ~isText(newName)
-                    throw(invalidType('First input is expected to be a data name'));
-                end
                 newData = [];
                 newDataRange = [];
                 newSimRange = [obj.defaultSimMin, obj.defaultSimMax];
+
+            else
+
+                inputs = varargin;
+                newName = inputs{1};
+
+                if ~isText(newName)
+                    throw(invalidType('First input is expected to be a data name'));
+                end
+
+                newData = [];
+                newDataRange = [];
+                newSimRange = [obj.defaultSimMin, obj.defaultSimMax];
+
                 % Check length of added data
                 switch length(inputs)
-                    case 1   
-                    case 2  
+                    case 1
+                    case 2
                         % Two inputs supplied - assume both name and data
                         % supplied;
                         newData = inputs{2};
@@ -75,8 +78,9 @@ classdef dataClass < tableUtilities
                         newMax = newDataX(end);
                         
                         newDataRange = [newMin newMax];
-                        newSimRange = [newMin newMax];                       
-                    case 4   
+                        newSimRange = [newMin newMax];
+
+                    case 4
                         % Four inputs = assume data and simulation ranges also
                         % supplied
                         newData = inputs{2};                       
@@ -84,14 +88,19 @@ classdef dataClass < tableUtilities
                         if ~isempty(inputs{4})
                             newSimRange = inputs{4};
                         end
+
                     otherwise  
                         % Other length of inputs is not recognised
                         throw(invalidNumberOfInputs('Unrecognised input into addData'));
                       
                 end
+            end
 
-                appendNewRow(obj, {newName, newData, newDataRange, newSimRange}); 
-            end 
+            % Check data is valid and add the new entry
+            newRow = {newName, newData, newDataRange, newSimRange};
+            newRow = obj.validateData(newRow);
+            appendNewRow(obj, newRow);
+
         end
         
         function nameChanged = setData(obj, row, varargin)
@@ -232,25 +241,42 @@ classdef dataClass < tableUtilities
             fprintf('\n');
         end
     end
-    methods(Access = protected)  
+
+    methods(Access = protected)
+
         function obj = appendNewRow(obj, row)
             % Appends a new row to the table. Expects a cell array  
             % with row values to append
             % 
             % obj.appendNewRow({'name', [], [], []})
             tab = obj.paramTable;
-            newName = row{1};
-            if any(strcmpi(newName,tab{:,1}))
+
+            % Ensure no duplicate names
+            if any(strcmpi(row{1}, tab{:,1}))
                 throw(duplicateName('Duplicate data names not allowed'));
             end
-            
-            % Carry out checks of Data type and ranges
+
+            tab = [tab ; row];
+            obj.paramTable = tab;
+            obj.autoDataNameCounter = obj.autoDataNameCounter + 1;  
+        end
+
+    end
+
+    methods(Static, Access = protected)  
+    
+        function row = validateData(row)
+            % Carry out checks of Data type and ranges in a table row.
+            % Expects the row of the data table as input.
+            %
+            % row = obj.validateData(row);
+            name = row{1};
             data = row{2};
             dataRange = row{3};
             simRange = row{4};
-            
-            if ~isempty(data)   % Data supplied
                 
+            if ~isempty(data)
+
                 if ~isnumeric(data)
                     throw(invalidType('Data must be a numeric array'));
                 end
@@ -258,13 +284,13 @@ classdef dataClass < tableUtilities
                 if ((~isnumeric(dataRange)) || any(size(dataRange) ~= [1,2]) || any(size(simRange) ~= [1,2]))
                     throw(invalidType('Data range and sim range must be [1 x 2] numeric arrays'));
                 end
-
+    
                 dataX = data(:, 1);  % First column is always Q
                 realDataRange = [dataX(1), dataX(end)];
                 if realDataRange(1) > realDataRange(2)
                     throw(invalidValue('Data is expected to be sorted (ascending order) by the first column'));
                 end
-
+    
                 if dataRange(1) < realDataRange(1)
                     warning('dataRange(1) can''t be less than min data value - resetting');
                     dataRange(1) = realDataRange(1);
@@ -290,16 +316,11 @@ classdef dataClass < tableUtilities
                     warning('simRange(2) must be greater than data range - resetting');
                     simRange(2) = realDataRange(2);
                 end
+
             end
-            
-            row = {{newName}, {data}, {dataRange}, {simRange}};
-            tab = [tab ; row];
-            obj.paramTable = tab;
-            obj.autoDataNameCounter = obj.autoDataNameCounter + 1;    
-        end  
+
+            row = {{name}, {data}, {dataRange}, {simRange}};
+    
+        end
     end
 end
-
-
-
-    

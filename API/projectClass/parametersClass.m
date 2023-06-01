@@ -10,10 +10,6 @@ classdef parametersClass < tableUtilities
         invalidPriorsMessage = sprintf('Prior type must be a priorTypes enum or one of the following strings (%s)', ...
                                        strjoin(priorTypes.values(), ', '))
     end
-
-    properties (Access = private)   
-        paramAutoNameCounter=1
-    end
     
     properties (Dependent)
         paramCount
@@ -68,7 +64,7 @@ classdef parametersClass < tableUtilities
             if isempty(varargin)
                 % No input parameter
                 % Add an empty parameter row
-                name = sprintf('new parameter %d',obj.paramAutoNameCounter);
+                name = sprintf('new parameter %d',obj.autoNameCounter);
                 newRow = {name,0,0,0,false,priorTypes.Uniform.value,0,Inf};
                 appendNewRow(obj,newRow);
             end
@@ -381,24 +377,8 @@ classdef parametersClass < tableUtilities
         
     end
     
-    
     methods (Access = protected)
         
-        function appendNewRow(obj, row)
-            % Appends a new row to the table. Expects a cell array  
-            % with row values to append
-            % 
-            % obj.appendNewRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
-            tab = obj.paramTable;
-            newName = row{1};
-            if any(strcmp(newName,tab{:,1}))
-                throw(duplicateName('Duplicate parameter names not allowed'));
-            end
-            tab = [tab ; row];
-            obj.paramTable = tab;
-            obj.paramAutoNameCounter = obj.paramAutoNameCounter + 1;
-        end
-
         function index = getValidRow(obj, row)
             % Gets valid row with given name or index  
             %

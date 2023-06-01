@@ -8,10 +8,6 @@ classdef multiTypeTable < tableUtilities
         typesAutoNameString = 'Row'
     end
 
-    properties (Access = private)
-        typesAutoNameCounter
-    end
-
     properties (Dependent, SetAccess = private)
         typesCount
     end
@@ -26,7 +22,6 @@ classdef multiTypeTable < tableUtilities
             varTypes = {'string','string','string','string','string','string','string'};
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
             obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.typesAutoNameCounter = 0;
         end
 
         function count = get.typesCount(obj)
@@ -44,8 +39,8 @@ classdef multiTypeTable < tableUtilities
                 case 0
                     % No Parameter. Add empty row
                     thisName = char(obj.typesAutoNameString);
-                    thisNum = obj.typesAutoNameCounter;
-                    name = sprintf('%s %d',thisName,thisNum);
+                    thisNum = obj.autoNameCounter;
+                    name = sprintf('%s %d', thisName, thisNum);
                     newRow = {name,allowedTypes.Constant.value,'','','','',''};
                     
                 case 1
@@ -122,22 +117,6 @@ classdef multiTypeTable < tableUtilities
             p = table(p);
             all = [p array];
             disp(all);
-        end
-
-        function appendNewRow(obj, row)
-            % Appends a row to the multi-type table. The expected input is
-            % a length seven cell array.
-            %
-            % multiTable.appendNewRow({'New Row','','','','','',''});
-            tab = obj.paramTable;
-            newName = row{1};
-            if any(strcmp(newName,tab{:,1}))
-                throw(duplicateName('Duplicate parameter names not allowed'));
-            end
-            tab = [tab ; row];
-            obj.paramTable = tab;
-            obj.typesAutoNameCounter = obj.typesAutoNameCounter + 1;
-
         end
 
     end

@@ -6,6 +6,10 @@ classdef (Abstract) tableUtilities < handle
         paramTable = table
     end
 
+    properties %(Access = protected)   
+        autoNameCounter = 1
+    end
+
     methods
 
         function names = getNames(obj)
@@ -35,6 +39,27 @@ classdef (Abstract) tableUtilities < handle
             tab = obj.paramTable;
             tab(row, :) = [];
             obj.paramTable = tab;
+        end
+
+    end
+
+    methods%(Access = protected)
+
+        function appendNewRow(obj, row)
+            % Appends a new row to the table. Expects a cell array  
+            % with the row to append
+            % 
+            % obj.appendNewRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
+            tab = obj.paramTable;
+            
+            % Ensure no duplicate names
+            if any(strcmp(row{1}, tab{:,1}))
+                throw(duplicateName('Duplicate row names not allowed'));
+            end
+
+            tab = [tab; row];
+            obj.paramTable = tab;
+            obj.autoNameCounter = obj.autoNameCounter + 1;
         end
 
     end

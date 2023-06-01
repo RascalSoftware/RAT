@@ -9,10 +9,6 @@ classdef customFileClass < tableUtilities
                                          strjoin(supportedLanguages.values(), ', '))
     end
 
-    properties (Access = private)
-        autoFileNameCounter
-    end
-
     properties (Dependent, SetAccess = private)
         fileCount
     end
@@ -30,7 +26,6 @@ classdef customFileClass < tableUtilities
             varTypes = {'string','string','string','string'};
             varNames = {'Name','Filename','Language','Path'};
             obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-            obj.autoFileNameCounter = 1;
 
             if ~isempty(varargin)
                 obj.addCustomFile(varargin{:});
@@ -56,7 +51,7 @@ classdef customFileClass < tableUtilities
             if isempty(varargin)
                 
                 % Nothing supplied - add empty data row
-                nameVal = obj.autoFileNameCounter();
+                nameVal = obj.autoNameCounter();
                 newName = sprintf('New custom file %d', nameVal);
                 
                 newRow = {newName, '', supportedLanguages.Matlab.value, 'pwd'};
@@ -260,23 +255,6 @@ classdef customFileClass < tableUtilities
     end
 
     methods(Access = protected)
-
-        function obj = appendNewRow(obj, row)
-            % Appends a row to the layers table. The expected input is
-            % a length four cell array.
-            %
-            % customFiles.appendNewRow({'New Row','file.m','matlab','pwd'});
-            tab = obj.paramTable;
-
-            % Ensure no duplicate names
-            if any(strcmpi(row{1}, tab{:,1}))
-                throw(duplicateName(obj.duplicateNameMessage));
-            end
-            
-            tab = [tab ; row];
-            obj.paramTable = tab;
-            obj.autoFileNameCounter = obj.autoFileNameCounter + 1;
-        end
 
         function obj = setCustomLanguage(obj, row, language)
            % Check whether a specified language is supported, and set the

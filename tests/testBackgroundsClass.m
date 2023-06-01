@@ -78,7 +78,7 @@
          
          testCase.background.addBackground();
          testCase.verifyEqual(string(testCase.background.backgrounds.paramTable{end, :}),...
-                              string({'New background 1', allowedTypes.Constant.value, '', '', '', '', ''}), 'addBackground method not working');
+                              string({'New background 2', allowedTypes.Constant.value, '', '', '', '', ''}), 'addBackground method not working');
          testCase.background.addBackground('New Back');
          testCase.verifyEqual(string(testCase.background.backgrounds.paramTable{end, :}),...
                               string({'New Back', allowedTypes.Constant.value, '', '', '', '', ''}), 'addBackground method not working');

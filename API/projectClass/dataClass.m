@@ -1,8 +1,7 @@
 classdef dataClass < tableUtilities
     % A container class for holding data
 
-    properties (Access = private)   
-        autoDataNameCounter = 1
+    properties (Access = private)
         defaultSimMin = 0.005
         defaultSimMax = 0.7
     end
@@ -46,7 +45,7 @@ classdef dataClass < tableUtilities
             if isempty(varargin)
                 
                 % Nothing supplied - add empty data row
-                newName = sprintf('New data %d', obj.autoDataNameCounter());
+                newName = sprintf('New data %d', obj.autoNameCounter());
                 
                 newData = [];
                 newDataRange = [];
@@ -240,27 +239,6 @@ classdef dataClass < tableUtilities
             disp(displayTable);
             fprintf('\n');
         end
-    end
-
-    methods(Access = protected)
-
-        function obj = appendNewRow(obj, row)
-            % Appends a new row to the table. Expects a cell array  
-            % with row values to append
-            % 
-            % obj.appendNewRow({'name', [], [], []})
-            tab = obj.paramTable;
-
-            % Ensure no duplicate names
-            if any(strcmpi(row{1}, tab{:,1}))
-                throw(duplicateName('Duplicate data names not allowed'));
-            end
-
-            tab = [tab ; row];
-            obj.paramTable = tab;
-            obj.autoDataNameCounter = obj.autoDataNameCounter + 1;  
-        end
-
     end
 
     methods(Static, Access = protected)  

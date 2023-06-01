@@ -1,10 +1,6 @@
 classdef layersClass < tableUtilities
     
     % This is the class definition for the layers block.
-    
-    properties (Access = private)
-        layersAutoNameCounter
-    end
 
     properties(Access = private, Constant, Hidden)
         invalidTypeMessage = sprintf('Hydration type must be a HydrationTypes enum or one of the following strings (%s)', ...
@@ -37,7 +33,6 @@ classdef layersClass < tableUtilities
             sz = [0 obj.varCount];
             varTypes = repmat({'string'}, 1, obj.varCount);
             obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
-            obj.layersAutoNameCounter = 1;
         end
 
         function count = get.layersCount(obj)
@@ -66,7 +61,7 @@ classdef layersClass < tableUtilities
 
             if isempty(layerDetails)
                 % Add an empty layer
-                layerNum = obj.layersAutoNameCounter;
+                layerNum = obj.autoNameCounter;
                 layerName = sprintf('Layer %d',layerNum);
                 newRow = [{layerName}, repmat({''}, 1, obj.varCount - 2), {hydrationTypes.BulkOut.value}];
                 
@@ -241,26 +236,7 @@ classdef layersClass < tableUtilities
         end
         
     end
-    
-    methods (Access = protected)
         
-        function appendNewRow(obj, row)
-            % Appends a row to the layers table. The expected input is
-            % cell array of length equal to the number of table values.
-            %
-            % layers.appendNewRow({'New Row','','','','','bulk out'});
-            tab = obj.paramTable;
-            newName = row{1};
-            if any(strcmp(newName,tab{:,1}))
-                throw(duplicateName('Duplicate layer names are not allowed'));
-            end
-            tab = [tab ; row];
-            obj.paramTable = tab;
-            obj.layersAutoNameCounter = obj.layersAutoNameCounter + 1;
-        end
-        
-    end
-    
     methods(Static)
 
         function param = findParameter(inputVal, paramNames)

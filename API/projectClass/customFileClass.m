@@ -60,7 +60,6 @@ classdef customFileClass < tableUtilities
                 newName = sprintf('New custom file %d', nameVal);
                 
                 newRow = {newName, '', supportedLanguages.Matlab.value, 'pwd'};
-                appendNewRow(obj, newRow);
 
             else
                 
@@ -78,7 +77,6 @@ classdef customFileClass < tableUtilities
                         end
                         
                         newRow = {newName, '', supportedLanguages.Matlab.value, 'pwd'};
-                        appendNewRow(obj, newRow);
                         
                     case 2
 
@@ -88,7 +86,6 @@ classdef customFileClass < tableUtilities
                         newFile = char(inputs{2});
 
                         newRow = {newName, newFile, supportedLanguages.Matlab.value, 'pwd'};
-                        appendNewRow(obj, newRow);
                         
                     case 4
 
@@ -99,7 +96,6 @@ classdef customFileClass < tableUtilities
                         newPath = char(inputs{4});
                         
                         newRow = {newName, newFile, newLang, newPath};
-                        appendNewRow(obj, newRow);
                         
                     otherwise
 
@@ -108,7 +104,11 @@ classdef customFileClass < tableUtilities
                         
                 end
             end
-            
+
+            % Check language is valid, then add the new entry
+            newRow{3} = validateOption(newRow{3}, 'supportedLanguages', obj.invalidLanguageMessage).value;
+            appendNewRow(obj, newRow);
+
         end
         
         function obj = setCustomFile(obj, row, varargin)
@@ -267,19 +267,12 @@ classdef customFileClass < tableUtilities
             %
             % customFiles.appendNewRow({'New Row','file.m','matlab','pwd'});
             tab = obj.paramTable;
-            newName = row{1};
-            if any(strcmpi(newName,tab{:,1}))
+
+            % Ensure no duplicate names
+            if any(strcmpi(row{1}, tab{:,1}))
                 throw(duplicateName(obj.duplicateNameMessage));
             end
             
-            % Carry out checks of Data type and ranges
-            fileName = row{2};
-            language = row{3};
-            path = row{4};
-
-            language = validateOption(language, 'supportedLanguages', obj.invalidLanguageMessage).value;          
-
-            row = {newName, fileName, language, path};
             tab = [tab ; row];
             obj.paramTable = tab;
             obj.autoFileNameCounter = obj.autoFileNameCounter + 1;

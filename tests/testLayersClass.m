@@ -399,7 +399,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Replace multiple spaces in output table with a single
             % space using regular expressions
             outRow = strip(regexprep(displayedTable(3), '\s+', ' '));
-            rowString = "0 0 0 0 0 0";
+            rowString = """"" """" """" """" """" """"";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 

@@ -196,12 +196,11 @@ classdef resolutionsClass < handle
         
         function displayResolutionsObject(obj)
             % Displays the resolution parameters and resolution table.
-            fprintf('    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
-            fprintf('    (a) Resolutions Parameters: \n');
-            obj.resolPars.displayParametersTable;
+            fprintf('    (a) Resolutions Parameters: \n\n');
+            obj.resolPars.displayTable;
             
-            fprintf('    (b) Resolutions:  \n')
-            obj.resolutions.displayTypesTable;
+            fprintf('    (b) Resolutions:  \n\n')
+            obj.resolutions.displayTable;
         end 
     end
 

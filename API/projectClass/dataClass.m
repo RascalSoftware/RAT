@@ -188,13 +188,10 @@ classdef dataClass < tableUtilities
             obj.paramTable{whichData,1} = {name};   
         end
 
-        function displayDataObject(obj)
+        function displayTable(obj)
             % Displays the table object. The actual obj.paramTable has the 
             % format {string, cell, double, double}, but for display we 
             % make a table that is all strings.
-            
-            fprintf('    Data: ------------------------------------------------------------------------------------------------------ \n\n');
-            
             tab = obj.paramTable;
             
             sz = [1,4];
@@ -237,7 +234,6 @@ classdef dataClass < tableUtilities
             end
 
             disp(displayTable);
-            fprintf('\n');
         end
     end
 

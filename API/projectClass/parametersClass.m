@@ -302,17 +302,24 @@ classdef parametersClass < tableUtilities
             obj.showPriors = flag;
         end
         
-        function displayParametersTable(obj)
+        function displayTable(obj)
             % Displays the parameter table
             array = obj.paramTable;
-            p = 1:size(array,1);
-            p = p(:);
-            p = table(p);
+            numParams = height(obj.paramTable);
             if ~obj.showPriors
                 array = array(:,1:5);
             end
-            all = [p array];
-            disp(all);
+
+            if numParams == 0
+                array(1, :) = repmat({''}, 1, width(obj.paramTable));
+            else
+                p = 1:numParams;
+                p = p(:);
+                p = table(p);
+                array = [p array];
+            end
+
+            disp(array);
         end
         
         

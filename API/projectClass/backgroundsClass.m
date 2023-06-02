@@ -189,13 +189,11 @@ classdef backgroundsClass < handle
 
         function displayBackgroundsObject(obj)
             % Displays the background parameters and background table.
-            fprintf('    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
-            fprintf('    (a) Background Parameters: \n');
-            obj.backPars.displayParametersTable;
+            fprintf('    (a) Background Parameters: \n\n');
+            obj.backPars.displayTable;
             
-            fprintf('    (b) Backgrounds:  \n')
-            obj.backgrounds.displayTypesTable;
-            %fprintf('\n    ----------------------------------------------------------------------------------- \n\n');
+            fprintf('    (b) Backgrounds:  \n\n')
+            obj.backgrounds.displayTable;
         end
         
         function backStruct = toStruct(obj)

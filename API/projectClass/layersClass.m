@@ -211,30 +211,7 @@ classdef layersClass < tableUtilities
             end
 
         end
-        
 
-        function displayLayersTable(obj)
-            % Displays the layers table with numbered rows
-            %
-            % layers.displayLayersTable()
-            array = obj.paramTable;
-            len = size(array,1);
-            if len == 0
-                % Make an empty table for display
-                sz = [1 obj.varCount];
-                varTypes = repmat({'double'}, 1, obj.varCount);
-                dummyTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
-                disp(dummyTable);
-                fprintf('\n');
-            end
-            p = 1:len;
-            p = p(:);
-            p = table(p);
-            all = [p array];
-            disp(all);
-            
-        end
-        
     end
         
     methods(Static)

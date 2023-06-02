@@ -284,7 +284,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % Replace multiple spaces in output table with a single
             % space using regular expressions
             outRow = strip(regexprep(displayedTable(4), '\s+', ' '));
-            rowString = string('"" "" "" ""');
+            rowString = """"" """" """" """"";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 

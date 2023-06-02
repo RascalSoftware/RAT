@@ -12,6 +12,25 @@ classdef (Abstract) tableUtilities < handle
 
     methods
 
+        function displayTable(obj)
+            % Displays the param table with numbered rows
+            %
+            % layers.displayTable()
+            array = obj.paramTable;
+            numParams = height(obj.paramTable);
+
+            if numParams == 0
+                array(1, :) = repmat({''}, 1, width(obj.paramTable));
+            else
+                p = 1:numParams;
+                p = p(:);
+                p = table(p);
+                array = [p array];
+            end
+
+            disp(array);
+        end
+
         function names = getNames(obj)
             % Get a string array of the names of each of the objects
             % defined in the class.

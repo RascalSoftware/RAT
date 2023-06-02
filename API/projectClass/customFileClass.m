@@ -169,12 +169,10 @@ classdef customFileClass < tableUtilities
 
         end
 
-        function displayCustomFileObject(obj)
+        function displayTable(obj)
             % Display the file table.
             %
-            % customFiles.displayCustomFileObject()            
-            fprintf('    Custom Files: ------------------------------------------------------------------------------------------------------ \n\n');
-            
+            % customFiles.displayCustomFileObject()
             tab = obj.paramTable;
             
             sz = [1,4];
@@ -223,8 +221,6 @@ classdef customFileClass < tableUtilities
             end
 
             disp(displayTable);
-            fprintf('\n');
- 
         end
         
         function fileStruct = toStruct(obj)
@@ -260,8 +256,7 @@ classdef customFileClass < tableUtilities
            % Check whether a specified language is supported, and set the
            % file entry if so.
            obj.paramTable{row, 3} = {validateOption(language, 'supportedLanguages', obj.invalidLanguageMessage).value};
-        end
-        
+        end 
         
         function obj = setCustomName(obj, whichCustom, name) 
             % Check a potential new name is already
@@ -276,7 +271,6 @@ classdef customFileClass < tableUtilities
             % Set the relevant name
             obj.paramTable{whichCustom,1} = {name};
         end
-        
         
         function obj = setFileName(obj,whichCustom,name)
             % Set a new filename

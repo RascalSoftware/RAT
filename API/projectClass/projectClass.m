@@ -848,41 +848,45 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Display the parameters table
             fprintf('\n    Parameters: ---------------------------------------------------------------------------------------------- \n\n');
-            obj.parameters.displayParametersTable;
+            obj.parameters.displayTable;
             
             % Display the layers table if not a custom model
             val = obj.modelType;
             if ~any(strcmpi(val,{'custom layers','custom xy'}))
                 fprintf('\n    Layers: -------------------------------------------------------------------------------------------------- \n\n');
-                obj.layers.displayLayersTable;
+                obj.layers.displayTable;
             end
             
             % Display the Bulk In table
             fprintf('\n    Bulk In: -------------------------------------------------------------------------------------------------- \n\n');
-            obj.bulkIn.displayParametersTable;
+            obj.bulkIn.displayTable;
             
             % Display the Bulk Out table
             fprintf('\n    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n');
-            obj.bulkOut.displayParametersTable;
+            obj.bulkOut.displayTable;
             
             % Display the Scalefactors table
             fprintf('\n    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n');
-            obj.scalefactors.displayParametersTable;
+            obj.scalefactors.displayTable;
 
             % Display the backgrounds object
+            fprintf('\n    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
             obj.background.displayBackgroundsObject;
             
             % Display the resolutions object
+            fprintf('\n    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
             obj.resolution.displayResolutionsObject;
             
             % Display the data object
-            obj.data.displayDataObject;
+            fprintf('\n    Data: ------------------------------------------------------------------------------------------------------ \n\n');
+            obj.data.displayTable;
             
             % Display custom files object
-            obj.customFile.displayCustomFileObject;
+            fprintf('\n    Custom Files: ------------------------------------------------------------------------------------------------------ \n\n');
+            obj.customFile.displayTable;
             
             % Display the contrasts object
-            fprintf('   Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
+            fprintf('\n   Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
             obj.contrasts.displayContrastsObject;
             
         end

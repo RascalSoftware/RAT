@@ -106,18 +106,6 @@ classdef multiTypeTable < tableUtilities
             obj.paramTable = tab;
 
         end
-        
-        function displayTypesTable(obj)
-            % Display the multi-type Table in the terminal.
-            %
-            % multiTable.displayTypesTable();
-            array = obj.paramTable;
-            p = 1:size(array,1);
-            p = p(:);
-            p = table(p);
-            all = [p array];
-            disp(all);
-        end
 
     end
 

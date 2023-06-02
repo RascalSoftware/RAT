@@ -6,7 +6,7 @@ classdef (Abstract) tableUtilities < handle
         paramTable = table
     end
 
-    properties %(Access = protected)   
+    properties %(GetAccess = protected, SetAccess = private)
         autoNameCounter = 1
     end
 
@@ -25,12 +25,13 @@ classdef (Abstract) tableUtilities < handle
             %
             % layers.displayTable()
             array = obj.paramTable;
-            numParams = height(obj.paramTable);
 
-            if numParams == 0
+            if obj.paramCount == 0
+                % Creat blank line for empty table,
                 array(1, :) = repmat({''}, 1, width(obj.paramTable));
             else
-                p = 1:numParams;
+                % Add indices for table entries
+                p = 1:obj.paramCount;
                 p = p(:);
                 p = table(p);
                 array = [p array];
@@ -59,8 +60,8 @@ classdef (Abstract) tableUtilities < handle
                 row {mustBePositive, mustBeInteger}
             end
 
-            if row > height(obj.paramTable)
-                throw(indexOutOfRange(sprintf('Row index %d out of range 1 - %d', row, height(obj.paramTable))));
+            if row > obj.paramCount
+                throw(indexOutOfRange(sprintf('Row index %d out of range 1 - %d', row, obj.paramCount)));
             end
             
             tab = obj.paramTable;

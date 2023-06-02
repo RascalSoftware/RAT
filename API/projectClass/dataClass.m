@@ -91,7 +91,7 @@ classdef dataClass < tableUtilities
             % Check data is valid and add the new entry
             newRow = {newName, newData, newDataRange, newSimRange};
             newRow = obj.validateData(newRow);
-            appendNewRow(obj, newRow);
+            addRow(obj, newRow);
 
         end
         

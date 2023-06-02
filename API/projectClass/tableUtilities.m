@@ -20,32 +20,29 @@ classdef (Abstract) tableUtilities < handle
            count = height(obj.paramTable);
         end
 
-        function displayTable(obj)
-            % Displays the param table with numbered rows
-            %
-            % layers.displayTable()
-            array = obj.paramTable;
-
-            if obj.paramCount == 0
-                % Creat blank line for empty table,
-                array(1, :) = repmat({''}, 1, width(obj.paramTable));
-            else
-                % Add indices for table entries
-                p = 1:obj.paramCount;
-                p = p(:);
-                p = table(p);
-                array = [p array];
-            end
-
-            disp(array);
-        end
-
         function names = getNames(obj)
             % Get a string array of the names of each of the objects
             % defined in the class.
             %
             % customFiles.getNames()
             names = obj.paramTable{:,1};  
+        end
+        
+        function addRow(obj, row)
+            % Appends a new row to the table. Expects a cell array  
+            % with the row to append
+            % 
+            % obj.addRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
+            tab = obj.paramTable;
+            
+            % Ensure no duplicate names
+            if any(strcmp(row{1}, tab{:,1}))
+                throw(duplicateName('Duplicate row names not allowed'));
+            end
+
+            tab = [tab; row];
+            obj.paramTable = tab;
+            obj.autoNameCounter = obj.autoNameCounter + 1;
         end
 
         function removeRow(obj, row)
@@ -69,25 +66,24 @@ classdef (Abstract) tableUtilities < handle
             obj.paramTable = tab;
         end
 
-    end
+        function displayTable(obj)
+            % Displays the param table with numbered rows
+            %
+            % layers.displayTable()
+            array = obj.paramTable;
 
-    methods (Access = protected)
-
-        function appendNewRow(obj, row)
-            % Appends a new row to the table. Expects a cell array  
-            % with the row to append
-            % 
-            % obj.appendNewRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
-            tab = obj.paramTable;
-            
-            % Ensure no duplicate names
-            if any(strcmp(row{1}, tab{:,1}))
-                throw(duplicateName('Duplicate row names not allowed'));
+            if obj.paramCount == 0
+                % Creat blank line for empty table,
+                array(1, :) = repmat({''}, 1, width(obj.paramTable));
+            else
+                % Add indices for table entries
+                p = 1:obj.paramCount;
+                p = p(:);
+                p = table(p);
+                array = [p array];
             end
 
-            tab = [tab; row];
-            obj.paramTable = tab;
-            obj.autoNameCounter = obj.autoNameCounter + 1;
+            disp(array);
         end
 
     end

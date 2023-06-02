@@ -53,7 +53,7 @@ classdef multiTypeTable < tableUtilities
             end
 
             % Pass in only the first seven values to ensure input is not too long
-            appendNewRow(obj, newRow(1:7));
+            addRow@tableUtilities(obj, newRow(1:7));
 
         end
         

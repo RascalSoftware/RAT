@@ -96,7 +96,7 @@ classdef layersClass < tableUtilities
 
             end
 
-            appendNewRow(obj, newRow);
+            addRow(obj, newRow);
 
         end
         

@@ -77,7 +77,7 @@ classdef testDataClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.data.paramTable, [5, 4], 'data has wrong dimension');
             testCase.verifyEqual(testCase.data.paramTable{:, 1}, ["New data 1"; "Sim 2"; "Sim 3"; "Bilayer / SMW"; "New data 5"], 'addData method not working');
             testCase.verifyError(@() testCase.data.addData('Another Sim', repmat(1:-1:-1, 3, 1)'), invalidValue.errorID);
-            % appendNewRow changes the ranges to match the data and throws warning
+            % addRow changes the ranges to match the data and throws warning
             testCase.verifyWarning(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1], [0, 0]), '');  
             testCase.verifyEqual(testCase.data.paramTable{end, 3}, {[0, 0]}, 'addData method not working');
             testCase.verifyWarning(@() testCase.data.addData('d2', zeros(4, 3), [0, 0], [1, -1]), '');

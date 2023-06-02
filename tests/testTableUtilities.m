@@ -84,6 +84,23 @@ classdef testTableUtilities < matlab.unittest.TestCase
         function testGetNames(testCase)
             testCase.verifyEqual(testCase.exampleTable.getNames(), testCase.exampleTable.paramTable{:,1});
         end
+        
+        function testAddRow(testCase)
+            newRow = {'New Row',allowedTypes.Constant.value,'','','','',''};
+            expectedTable = [testCase.exampleTable.paramTable; newRow];
+
+            testCase.exampleTable.addRow(newRow);
+            testCase.verifyEqual(testCase.exampleTable.paramTable, expectedTable, 'addRow does not work correctly');
+        end
+
+        function testAddRowDuplicateName(testCase)
+            % Test that appending a new row with a duplicate name raises
+            % an error
+            newRow = {'Background D2O',allowedTypes.Constant.value,'','','','',''};
+
+            testCase.verifyError(@() testCase.exampleTable.addRow(newRow), duplicateName.errorID);
+            testCase.verifySize(testCase.exampleTable.paramTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite duplicate names');
+        end
 
         function testRemoveRow(testCase)
             % Note that the routine requires a single cell array as input

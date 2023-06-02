@@ -93,7 +93,7 @@ classdef customFileClass < tableUtilities
 
             % Check language is valid, then add the new entry
             newRow{3} = validateOption(newRow{3}, 'supportedLanguages', obj.invalidLanguageMessage).value;
-            appendNewRow(obj, newRow);
+            addRow(obj, newRow);
 
         end
         

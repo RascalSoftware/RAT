@@ -6,7 +6,7 @@ classdef (Abstract) tableUtilities < handle
         paramTable = table
     end
 
-    properties %(GetAccess = protected, SetAccess = private)
+    properties (GetAccess = protected, SetAccess = private)
         autoNameCounter = 1
     end
 
@@ -71,7 +71,7 @@ classdef (Abstract) tableUtilities < handle
 
     end
 
-    methods%(Access = protected)
+    methods (Access = protected)
 
         function appendNewRow(obj, row)
             % Appends a new row to the table. Expects a cell array  

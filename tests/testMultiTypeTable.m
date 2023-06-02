@@ -110,6 +110,12 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.addRow({'Invalid Row', 'Invalid Type'}), invalidOption.errorID);
         end
 
+        function testAddRowDuplicateName(testCase)
+            % Test adding a row to a multi type table.
+            % If we use a duplicate name it should raise an error
+            testCase.verifyError(@() testCase.exampleTable.addRow({'Background D2O'}), duplicateName.errorID);
+        end
+
         function testSetValue(testCase)
             % Test setting values in the multi-type table using both names
             % and indices to refer to rows and columns.

@@ -12,7 +12,6 @@ classdef layersClass < tableUtilities
     end
     
     properties (Dependent, SetAccess = private)
-        layersCount
         varCount
     end
     
@@ -33,10 +32,6 @@ classdef layersClass < tableUtilities
             sz = [0 obj.varCount];
             varTypes = repmat({'string'}, 1, obj.varCount);
             obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
-        end
-
-        function count = get.layersCount(obj)
-            count = height(obj.paramTable);
         end
 
         function count = get.varCount(obj)
@@ -122,8 +117,8 @@ classdef layersClass < tableUtilities
             if isText(row)
                 row = obj.findRowIndex(row, layerNames, 'Unrecognised layer name');
             elseif isnumeric(row)
-                if (row < 1) || (row > obj.layersCount)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.layersCount)));
+                if (row < 1) || (row > obj.paramCount)
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.paramCount)));
                 end
             else
                 throw(invalidType('Unrecognised layer type'));

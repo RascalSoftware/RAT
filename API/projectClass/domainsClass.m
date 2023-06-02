@@ -176,7 +176,7 @@ classdef domainsClass < projectClass
 
             % Display the domains ratio contrast
             fprintf('   Domain Ratios: ----------------------------------------------------------------------------------------------- \n\n');
-            obj.domainRatio.displayParametersTable;
+            obj.domainRatio.displayTable;
 
             % Display the domainContrasts object
             fprintf('   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n');

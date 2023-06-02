@@ -8,10 +8,6 @@ classdef multiTypeTable < tableUtilities
         typesAutoNameString = 'Row'
     end
 
-    properties (Dependent, SetAccess = private)
-        typesCount
-    end
-
     methods
        
         function obj = multiTypeTable()
@@ -22,10 +18,6 @@ classdef multiTypeTable < tableUtilities
             varTypes = {'string','string','string','string','string','string','string'};
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
             obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
-        end
-
-        function count = get.typesCount(obj)
-           count = height(obj.paramTable);
         end
 
         function obj = addRow(obj, addParams)
@@ -80,8 +72,8 @@ classdef multiTypeTable < tableUtilities
             if isText(row)
                 row = obj.findRowIndex(row, rowNames, 'Unrecognised parameter name');
             elseif isnumeric(row)
-                if (row < 1) || (row > obj.typesCount)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.typesCount)));
+                if (row < 1) || (row > obj.paramCount)
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.paramCount)));
                 end
             else
                 throw(invalidType('Unrecognised row'));

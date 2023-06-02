@@ -5,7 +5,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 %
 % In this class, we test:
 % layersClass, addLayer, setLayerValue, removeLayer,
-% getNames, toStruct, displayLayersTable, findRowIndex, findParameter
+% getNames, toStruct, displayTable, findRowIndex, findParameter
 %
 % We use an example layers class from example calculation
 % "DPPCStandardLayers.m"
@@ -328,13 +328,13 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.parameterNames, modelTypes.CustomLayers.value), expectedStruct);
         end
 
-        function testDisplayLayersTable(testCase)
+        function testDisplayTable(testCase)
             % Test the routine to display the layers table by capturing
             % the output and comparing with the table headers and data 
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
-            display = textscan(evalc('testCase.exampleClass.displayLayersTable()'),'%s','Delimiter','\r','TextType','string');
+            display = textscan(evalc('testCase.exampleClass.displayTable()'),'%s','Delimiter','\r','TextType','string');
             displayedTable = display{:};
 
             % Check headers
@@ -370,7 +370,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             end
         end
 
-        function testDisplayLayersTableEmpty(testCase)
+        function testDisplayTableEmpty(testCase)
             % Test the routine to display the layers table of an empty
             % layers class by capturing the output and comparing with the
             % table headers and data
@@ -378,7 +378,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
-            display = textscan(evalc('emptyClass.displayLayersTable()'),'%s','Delimiter','\r','TextType','string');
+            display = textscan(evalc('emptyClass.displayTable()'),'%s','Delimiter','\r','TextType','string');
             displayedTable = display{:};
 
             % Check headers

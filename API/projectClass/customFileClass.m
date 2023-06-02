@@ -8,10 +8,6 @@ classdef customFileClass < tableUtilities
         invalidLanguageMessage = sprintf('Language must be a supportedLanguages enum or one of the following strings (%s)', ...
                                          strjoin(supportedLanguages.values(), ', '))
     end
-
-    properties (Dependent, SetAccess = private)
-        fileCount
-    end
     
     methods
         
@@ -30,10 +26,6 @@ classdef customFileClass < tableUtilities
             if ~isempty(varargin)
                 obj.addCustomFile(varargin{:});
             end          
-        end
-
-        function count = get.fileCount(obj)
-            count = height(obj.paramTable);
         end
 
         function obj = addCustomFile(obj, varargin)
@@ -125,8 +117,8 @@ classdef customFileClass < tableUtilities
                 
             % First input needs to be a data number or name
             if isnumeric(row)
-                if (row > obj.fileCount) || (row < 1)
-                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.fileCount)));
+                if (row > obj.paramCount) || (row < 1)
+                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.paramCount)));
                 end
             elseif isText(row)
                 row = obj.findRowIndex(row, customNames, sprintf('Custom file object name %s not recognised', row));
@@ -227,7 +219,7 @@ classdef customFileClass < tableUtilities
             % Convert the custom files class to a struct
             %
             % customFiles.toStruct()
-            numberOfFiles = obj.fileCount;
+            numberOfFiles = obj.paramCount;
             
             if numberOfFiles > 0
                 filesList = cell(numberOfFiles, 1);

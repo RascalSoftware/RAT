@@ -5,7 +5,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 %
 % In this class, we test:
 % multiTypeTable, addRow, setValue, appendNewRow, removeRow,
-% displayTypesTable, findRowIndex
+% displayTable, findRowIndex
 %
 % We use an example multi-type table from the backgrounds class for the
 % example calculation "DPPCStandardLayers.m"
@@ -40,7 +40,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
     properties
         exampleTable            % Example Multi-Type Table for testing
-        initialTypesTable
+        initialTable
         initialAllowedActions = {'add'  'subtract'}
         initialTypesAutoNameString = 'Row'
         numRows                 % Number of rows in exampleTable
@@ -51,13 +51,13 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
     methods (TestClassSetup)
 
-        function initialiseTypesTable(testCase)
+        function initialiseTable(testCase)
             % Set up a types table with a single row of empty strings
             sz = [0 7];
             tableTypes = {'string','string','string','string','string','string','string'};
             tableNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
 
-            testCase.initialTypesTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
+            testCase.initialTable = table('Size',sz,'VariableTypes',tableTypes,'VariableNames',tableNames);
         end
 
     end
@@ -91,7 +91,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
             testCase.verifySize(testTable.paramTable, [0 7], 'multiTypeTable does not initialise correctly');
 
-            testCase.verifyEqual(testTable.paramTable, testCase.initialTypesTable, 'multiTypeTable does not initialise correctly');
+            testCase.verifyEqual(testTable.paramTable, testCase.initialTable, 'multiTypeTable does not initialise correctly');
             testCase.verifyEqual(testTable.allowedActions, testCase.initialAllowedActions, 'multiTypeTable does not initialise correctly');
             testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString, 'multiTypeTable does not initialise correctly');
         end
@@ -171,7 +171,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.setValue(2.5, 1, 'New Name'), 'MATLAB:badsubscript');
 
             % Invalid data types
-            testCase.verifyError(@() testCase.exampleTable.setValue(testCase.initialTypesTable, testCase.numCols, 'Added'), invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(testCase.initialTable, testCase.numCols, 'Added'), invalidType.errorID);
             testCase.verifyError(@() testCase.exampleTable.setValue(1, datetime('today'), 'Added'), invalidType.errorID);
         end
 
@@ -220,13 +220,13 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifySize(testCase.exampleTable.paramTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');
         end
 
-        function testDisplayTypesTable(testCase)
+        function testDisplayTable(testCase)
             % Test the routine to display the types table by capturing the
             % output and comparing with the table headers and data 
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
-            display = textscan(evalc('testCase.exampleTable.displayTypesTable()'),'%s','Delimiter','\r','TextType','string');
+            display = textscan(evalc('testCase.exampleTable.displayTable()'),'%s','Delimiter','\r','TextType','string');
             displayedTable = display{:};
 
             % Check headers

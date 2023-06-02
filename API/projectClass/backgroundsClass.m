@@ -140,7 +140,7 @@ classdef backgroundsClass < handle
             if isText(row)
                 row = obj.backgrounds.findRowIndex(row, obj.getBackgroundNames(), 'Unrecognised background');
             elseif isnumeric(row)
-                count = obj.backgrounds.typesCount;
+                count = obj.backgrounds.paramCount;
                 if (row < 1) || (row > count)
                     throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, count)));
                 end

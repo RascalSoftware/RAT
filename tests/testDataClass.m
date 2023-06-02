@@ -128,37 +128,37 @@ classdef testDataClass < matlab.unittest.TestCase
             % Check that the content of the data table are printed
             actualHeader = {'Name', 'Data', 'Data Range', 'Simulation Range'};
             
-            display = evalc('testCase.data.displayDataObject()');
-            testCase.verifyNotEmpty(display, 'displayDataObject method not working');
+            display = evalc('testCase.data.displayTable()');
+            testCase.verifyNotEmpty(display, 'displayTable method not working');
             
             displayArray = textscan(display,'%s','Delimiter','\r','TextType','string');
             displayArray = strip(displayArray{1});
             % display table should be height of data table plus header and divider row
-            testCase.verifyLength(displayArray, height(testCase.data.paramTable) + 3);
+            testCase.verifyLength(displayArray, height(testCase.data.paramTable) + 2);
             % Remove html tags used to format header then split table when
             % 2 or more spaces are found to avoid splitting names with single space
-            displayHeader = eraseBetween(displayArray{2}, '<', '>', 'Boundaries','inclusive');
+            displayHeader = eraseBetween(displayArray{1}, '<', '>', 'Boundaries','inclusive');
             displayHeader = regexp(displayHeader, '\s{2,}', 'split');
             testCase.verifyEqual(displayHeader, actualHeader);
             actualRow = ["New data 1", "No Data", "-", "[ 0.0050 , 0.7000 ]"];
-	        row = regexp(displayArray{4}, '\s{2,}', 'split');
+	        row = regexp(displayArray{3}, '\s{2,}', 'split');
             row = string(replace(row, '"', ''));
             testCase.verifyLength(row, length(actualHeader));
-            testCase.verifyEqual(row, string(actualRow), 'displayDataObject method not working')
+            testCase.verifyEqual(row, string(actualRow), 'displayTable method not working')
                    
             testCase.data.paramTable(2, :) = {testCase.datasets(2, 1), testCase.datasets(2, 2), testCase.datasets(2, 3), []};
-            display = evalc('testCase.data.displayDataObject()');
+            display = evalc('testCase.data.displayTable()');
             displayArray = textscan(display,'%s','Delimiter','\r','TextType','string');
             displayArray = strip(displayArray{1});
-            testCase.verifyLength(displayArray, height(testCase.data.paramTable) + 3);
-            displayHeader = eraseBetween(displayArray{2}, '<', '>', 'Boundaries','inclusive');
+            testCase.verifyLength(displayArray, height(testCase.data.paramTable) + 2);
+            displayHeader = eraseBetween(displayArray{1}, '<', '>', 'Boundaries','inclusive');
             displayHeader = regexp(displayHeader, '\s{2,}', 'split');
             testCase.verifyEqual(displayHeader, actualHeader);
             actualRow = ["Bilayer / SMW", "Data array: [3 x 3]", "[ -1.0000 , 1.0000 ]", "-"];
-	        row = regexp(displayArray{5}, '\s{2,}', 'split');
+	        row = regexp(displayArray{4}, '\s{2,}', 'split');
             row = string(replace(row, '"', ''));
             testCase.verifyLength(row, length(actualHeader));
-            testCase.verifyEqual(row, string(actualRow), 'displayDataObject method not working');
+            testCase.verifyEqual(row, string(actualRow), 'displayTable method not working');
         end
     end
 end

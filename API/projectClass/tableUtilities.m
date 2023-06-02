@@ -10,7 +10,15 @@ classdef (Abstract) tableUtilities < handle
         autoNameCounter = 1
     end
 
+    properties (Dependent, SetAccess = private)
+        paramCount
+    end
+
     methods
+
+        function count = get.paramCount(obj)
+           count = height(obj.paramTable);
+        end
 
         function displayTable(obj)
             % Displays the param table with numbered rows

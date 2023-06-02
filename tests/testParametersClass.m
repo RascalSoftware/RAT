@@ -160,8 +160,8 @@ classdef testParametersClass < matlab.unittest.TestCase
             actualHeader = {'Name', 'Min', 'Value', 'Max', 'Fit?', 'Prior Type', 'mu', 'sigma'};
             
             params = parametersClass(testCase.parameters{1, :});
-            display = evalc('params.displayParametersTable()');
-            testCase.verifyNotEmpty(display, 'displayParametersTable method not working');
+            display = evalc('params.displayTable()');
+            testCase.verifyNotEmpty(display, 'displayTable method not working');
             
             displayArray = textscan(display,'%s','Delimiter','\r','TextType','string');
             displayArray = strip(displayArray{1});
@@ -188,7 +188,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             end
             params.showPriors = true;
 
-            display = evalc('params.displayParametersTable()');
+            display = evalc('params.displayTable()');
             displayArray = textscan(display,'%s','Delimiter','\r','TextType','string');
             displayArray = strip(displayArray{1});
             testCase.verifyLength(displayArray, height(params.paramTable) + 2)

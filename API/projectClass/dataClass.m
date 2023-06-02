@@ -5,10 +5,6 @@ classdef dataClass < tableUtilities
         defaultSimMin = 0.005
         defaultSimMax = 0.7
     end
-    
-    properties (Dependent)
-        dataCount
-    end
 
     methods
         
@@ -23,10 +19,6 @@ classdef dataClass < tableUtilities
             varNames = {'Name','Data','Data Range','Simulation Range'};
             obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames); 
             obj.addData(varargin{:}); 
-        end
-        
-        function count = get.dataCount(obj)
-            count = height(obj.paramTable);
         end
 
         function obj = addData(obj, varargin)
@@ -116,8 +108,8 @@ classdef dataClass < tableUtilities
                 
             % First input needs to be a data number or name
             if isnumeric(row)
-                if (row > obj.dataCount) || (row < 1)
-                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.dataCount)));
+                if (row > obj.paramCount) || (row < 1)
+                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.paramCount)));
                 end
             elseif isText(row)
                 row = obj.findRowIndex(row, dataNames, sprintf('Data object name %s not recognised', row));

@@ -11,10 +11,6 @@ classdef parametersClass < tableUtilities
                                        strjoin(priorTypes.values(), ', '))
     end
     
-    properties (Dependent)
-        paramCount
-    end
-    
     methods
         function obj = parametersClass(varargin)
             % Class constructor.
@@ -43,10 +39,6 @@ classdef parametersClass < tableUtilities
             else
                 obj.addParameter(varargin{:});
             end
-        end
-        
-        function count = get.paramCount(obj)
-            count = height(obj.paramTable);
         end
         
         function obj = addParameter(obj, varargin)

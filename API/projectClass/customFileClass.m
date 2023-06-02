@@ -4,7 +4,6 @@ classdef customFileClass < tableUtilities
     % models, backgrounds or resolutions.
 
     properties(Access = private, Constant, Hidden)
-        duplicateNameMessage = 'Duplicate custom file names are not allowed'
         invalidLanguageMessage = sprintf('Language must be a supportedLanguages enum or one of the following strings (%s)', ...
                                          strjoin(supportedLanguages.values(), ', '))
     end
@@ -257,7 +256,7 @@ classdef customFileClass < tableUtilities
             % Name must not be an existing name
             existingNames = obj.paramTable{:,1};
             if any(strcmpi(name,existingNames))
-                throw(duplicateName(obj.duplicateNameMessage));
+                throw(duplicateName('Duplicate custom file names are not allowed'));
             end
             
             % Set the relevant name

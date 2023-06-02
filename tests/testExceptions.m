@@ -3,10 +3,6 @@ classdef testExceptions < matlab.unittest.TestCase
 % testExceptions Class based unit tests for the custom exceptions defined
 % in the RAT utilities.
 %
-% In this class, we test:
-% duplicateName, indexOutofRange, invalidInput, invalidNumberofInputs,
-% invalidOption, invalidType, invalidValue, nameNotRecognised
-%
 % Paul Sharp 14/02/23
 %
 %% Declare properties and parameters

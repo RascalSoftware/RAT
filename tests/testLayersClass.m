@@ -3,10 +3,6 @@ classdef testLayersClass < matlab.unittest.TestCase
 % testLayersClass Class based unit tests for the layersClass
 % used within the Project Class in RAT.
 %
-% In this class, we test:
-% layersClass, addLayer, setLayerValue, removeLayer,
-% getNames, toStruct, displayTable, findRowIndex, findParameter
-%
 % We use an example layers class from example calculation
 % "DPPCStandardLayers.m"
 %
@@ -73,7 +69,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
     methods (TestClassSetup)
 
-        function initialiseparamTables(testCase)
+        function initialiseParamTables(testCase)
             % Set up an empty layers table 
             sz = [0 6];
             tableTypes = {'string','string','string','string','string','string'};
@@ -278,35 +274,6 @@ classdef testLayersClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, datetime('today'), 'Substrate Roughness', testCase.parameterNames), invalidType.errorID);
         end
 
-        function testRemoveLayer(testCase)
-            remainingRows = testCase.exampleClass.paramTable(2:end,:);
-            testCase.exampleClass.removeRow(1);
-
-            testCase.verifyEqual(testCase.exampleClass.paramTable, remainingRows, 'removeRow does not work correctly');
-        end
-
-        function testRemoveLayerMultiple(testCase)
-            % Test removing multiple rows from a layers table
-            remainingRows = testCase.exampleClass.paramTable(2,:);
-            testCase.exampleClass.removeRow([1 3]);
-
-            testCase.verifyEqual(testCase.exampleClass.paramTable, remainingRows, 'removeRow does not work correctly');
-        end
-
-        function testRemoveLayerInvalid(testCase)
-            % Test using invalid row indices to remove rows from a
-            % layers table.
-            testCase.verifyError(@() testCase.exampleClass.removeRow(0), 'MATLAB:validators:mustBePositive');
-            testCase.verifyError(@() testCase.exampleClass.removeRow(1.5), 'MATLAB:validators:mustBeInteger');
-            testCase.verifyError(@() testCase.exampleClass.removeRow(testCase.numRows+1), 'RAT:IndexOutOfRange');
-
-            testCase.verifySize(testCase.exampleClass.paramTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');
-        end
-
-        function testGetLayersNames(testCase)
-            testCase.verifyEqual(testCase.exampleClass.getNames(), testCase.exampleClass.paramTable{:,1});
-        end
-
         function testToStructStandardLayers(testCase)
             % Test converting the layers class to a struct
             % Here we use a "standard layers" model type
@@ -401,20 +368,6 @@ classdef testLayersClass < matlab.unittest.TestCase
             outRow = strip(regexprep(displayedTable(3), '\s+', ' '));
             rowString = """"" """" """" """" """" """"";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
-        end
-
-        function testFindRowIndex(testCase)
-            % Test that the correct row number is returned for a valid row,
-            % and an error is raised for invalid options
-            tableRows = testCase.exampleClass.paramTable{:, 1};
-
-            testCase.verifyEqual(layersClass.findRowIndex('Bil Tail', tableRows), 2);
-
-            % Check whitespace still matches
-            testCase.verifyEqual(layersClass.findRowIndex(' Bil Inner Head', tableRows), 1);
-
-            testCase.verifyError(@() layersClass.findRowIndex('Invalid Row', tableRows), nameNotRecognised.errorID);
-            testCase.verifyError(@() layersClass.findRowIndex('Thickness', tableRows), nameNotRecognised.errorID);
         end
 
         function testFindParameter(testCase)

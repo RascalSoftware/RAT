@@ -86,16 +86,6 @@ classdef testDataClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.data.paramTable{end, 3}, {[0, 0]}, 'addData method not working');    
         end
         
-        function testRemoveData(testCase)
-            % Checks that data can be removed
-            testCase.addDataSets();
-            testCase.data.removeRow(3);
-            testCase.verifyEqual(testCase.data.paramTable{:, 1}, ["New data 1"; "Bilayer / D2O"; "Bilayer / H2O"], 'removeData does not work correctly');
-            % Test removing multiple rows
-            testCase.data.removeRow([1 3]);
-            testCase.verifyEqual(testCase.data.paramTable{:, 1}, "Bilayer / D2O", 'removeData does not work correctly');
-        end
-
         function testSetdata(testCase)
             % Checks that data can be modified
             testCase.addDataSets();

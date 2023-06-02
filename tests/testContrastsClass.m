@@ -3,11 +3,6 @@ classdef testContrastsClass < matlab.unittest.TestCase
 % testContrastsClass Class based unit tests for the contrastsClass
 % used within the Project Class in RAT.
 %
-% In this class, we test:
-% contrastsClass, addContrast, removeContrast, setContrastModel,
-% setContrast, getAllContrastNames, updateDataName, toStruct,
-% displayContrastsObject, parseContrastInput
-%
 % We use an example contrasts class from the example calculation
 % "DPPC_standard_layers.m", with some elements from the example
 % calculations "orsoDSPC_custLay_script.m" and "DPPC_customXY.m"

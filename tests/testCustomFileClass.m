@@ -3,10 +3,6 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 % testCustomFileClass Class based unit tests for the customFileClass
 % used within the Project Class in RAT.
 %
-% In this class, we test:
-% customFileClass, addCustomFile, setCustomFile, removeCustomFile,
-% displayTable, toStruct
-%
 % We use an example custom file class combining the custom file classes
 % from the example calculations "DPPCCustomXY.m" and
 % "orsoDSPCCustomLayers.m"
@@ -185,35 +181,6 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(1), invalidNumberOfInputs.errorID);
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 1), invalidNumberOfInputs.errorID);
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), invalidNumberOfInputs.errorID);
-        end
-
-        function testRemoveCustomFile(testCase)
-            remainingRows = testCase.exampleClass.paramTable(2:end,:);
-            testCase.exampleClass.removeRow(1);
-
-            testCase.verifyEqual(testCase.exampleClass.paramTable, remainingRows, 'removeRow does not work correctly');
-        end
-
-        function testRemoveCustomFileMultiple(testCase)
-            % Test removing multiple rows from a file table
-            
-            % Put dummy third row in table
-            testCase.exampleClass.paramTable(3, :) = {'Test Row', '', '', ''};
-
-            remainingRows = testCase.exampleClass.paramTable(2,:);
-            testCase.exampleClass.removeRow([1 3]);
-
-            testCase.verifyEqual(testCase.exampleClass.paramTable, remainingRows, 'removeRow does not work correctly');
-        end
-
-        function testRemoveCustomFileInvalid(testCase)
-            % Test using invalid row indices to remove rows from a
-            % file table.
-            testCase.verifyError(@() testCase.exampleClass.removeRow(0), 'MATLAB:validators:mustBePositive');
-            testCase.verifyError(@() testCase.exampleClass.removeRow(1.5), 'MATLAB:validators:mustBeInteger');
-            testCase.verifyError(@() testCase.exampleClass.removeRow(testCase.numRows+1), 'RAT:IndexOutOfRange');
-
-            testCase.verifySize(testCase.exampleClass.paramTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');
         end
 
         function testDisplayTable(testCase)

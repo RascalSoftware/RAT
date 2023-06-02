@@ -1,12 +1,12 @@
-classdef testMultiTypeTable < matlab.unittest.TestCase
+classdef testTableUtilities < matlab.unittest.TestCase
 %%
-% testMultiTypeTable Class based unit tests for the multiTypeTable Class
+% testTableUtilities Class based unit tests for the tableUtilites Class
 % used within the Project Class in RAT.
 %
 % We use an example multi-type table from the backgrounds class for the
 % example calculation "DPPCStandardLayers.m"
 %
-% Paul Sharp 01/02/23
+% Paul Sharp 02/06/23
 %
 %% Declare properties and parameters
 
@@ -81,94 +81,53 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
     methods (Test, ParameterCombination='sequential')
 
-        function testInitialiseMultiTypeTable(testCase)
-            % Tests Multi-Type Table object can be created
-            testTable = multiTypeTable();
-
-            testCase.verifySize(testTable.paramTable, [0 7], 'multiTypeTable does not initialise correctly');
-
-            testCase.verifyEqual(testTable.paramTable, testCase.initialTable, 'multiTypeTable does not initialise correctly');
-            testCase.verifyEqual(testTable.allowedActions, testCase.initialAllowedActions, 'multiTypeTable does not initialise correctly');
-            testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString, 'multiTypeTable does not initialise correctly');
+        function testGetNames(testCase)
+            testCase.verifyEqual(testCase.exampleTable.getNames(), testCase.exampleTable.paramTable{:,1});
         end
 
-        function testAddRow(testCase, rowInput, addedRow)
-            % Test adding a row to a multi-type table. We can add a row
-            % using a cell array of any length, with the specified
-            % parameters filling the first set of variables in the table,
-            % and empty strings filling and unspecified values.
-            expectedTable = [testCase.exampleTable.paramTable; addedRow];
+        function testAppendNewRow(testCase)
+            newRow = {'New Row',allowedTypes.Constant.value,'','','','',''};
+            expectedTable = [testCase.exampleTable.paramTable; newRow];
 
-            testCase.exampleTable.addRow(rowInput);
-
-            testCase.verifyEqual(testCase.exampleTable.paramTable, expectedTable, 'addRow does not work correctly');
+            testCase.exampleTable.appendNewRow(newRow);
+            testCase.verifyEqual(testCase.exampleTable.paramTable, expectedTable, 'appendNewRow does not work correctly');
         end
 
-        function testAddRowInvalidType(testCase)
-            % Test adding a row to a multi type table.
-            % If we use an invalid type it should raise an error
-            testCase.verifyError(@() testCase.exampleTable.addRow({'Invalid Row', 'Invalid Type'}), invalidOption.errorID);
+        function testAppendNewRowDuplicateName(testCase)
+            % Test that appending a new row with a duplicate name raises
+            % an error
+            newRow = {'Background D2O',allowedTypes.Constant.value,'','','','',''};
+
+            testCase.verifyError(@() testCase.exampleTable.appendNewRow(newRow), duplicateName.errorID);
+            testCase.verifySize(testCase.exampleTable.paramTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite duplicate names');
         end
 
-        function testSetValue(testCase)
-            % Test setting values in the multi-type table using both names
-            % and indices to refer to rows and columns.
-            % Note that the routine requires a single cell array rather
-            % than a variable number of arguments.
+        function testRemoveRow(testCase)
+            % Note that the routine requires a single cell array as input
+            remainingRows = testCase.exampleTable.paramTable(2:end,:);
+            testCase.exampleTable.removeRow(1);
 
-            % Row and column indices
-            testCase.exampleTable.setValue(1, 7, 'Added');
-            expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Added"];
-            testCase.verifyEqual(testCase.exampleTable.paramTable{1, :}, expectedRow, 'setValue does not work correctly');
-
-            % Row name and column index
-            testCase.exampleTable.setValue('Background SMW', 7, 'Added');
-            expectedRow = ["Background SMW" "constant" "Backs par SMW" "" "" "" "Added"];
-            testCase.verifyEqual(testCase.exampleTable.paramTable{2, :}, expectedRow, 'setValue does not work correctly');
-
-            % Row index and column name
-            testCase.exampleTable.setValue(3, 'Value 1', 'Changed');
-            expectedRow = ["Background H2O" "constant" "Changed" "" "" "" ""];
-            testCase.verifyEqual(testCase.exampleTable.paramTable{3, :}, expectedRow, 'setValue does not work correctly');
-
-            % Row and column names
-            testCase.exampleTable.setValue('Background D2O', 'Value 5', 'Changed');
-            expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Changed"];
-            testCase.verifyEqual(testCase.exampleTable.paramTable{1, :}, expectedRow, 'setValue does not work correctly');
-
-            % Use name to change name
-            testCase.exampleTable.setValue('Background D2O', 'Name', 'New Name');
-            expectedRow = ["New Name" "constant" "Backs par 1" "" "" "" "Changed"];
-            testCase.verifyEqual(testCase.exampleTable.paramTable{1, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleTable.paramTable, remainingRows, 'removeRow does not work correctly');
         end
 
-        function testSetValueInvalid(testCase)
-            % Test setting values in the multi-type table using invalid
-            % values of both names and indices to refer to rows and columns
-            % Note that the routine requires a single cell array rather
-            % than a variable number of arguments
+        function testRemoveRowMultiple(testCase)
+            % Test removing multiple rows from a multi-type table
+            % Note that the routine requires a single cell array as input
+            remainingRows = testCase.exampleTable.paramTable(2,:);
+            testCase.exampleTable.removeRow([1 3]);
 
-            % Row indices
-            testCase.verifyError(@() testCase.exampleTable.setValue(0, testCase.numCols, 'Added'), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleTable.setValue(testCase.numRows+1, testCase.numCols, 'Added'), indexOutOfRange.errorID);
+            testCase.verifyEqual(testCase.exampleTable.paramTable, remainingRows, 'removeRow does not work correctly');
+        end
 
-            % Column indices
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, 0, 'Added'), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, testCase.numCols+1, 'Added'), indexOutOfRange.errorID);
+        function testRemoveRowInvalid(testCase)
+            % Test using invalid row indices to remove rows from a
+            % multi-type table.
+            % Note that the routine requires a single cell array as input.
+            testCase.verifyError(@() testCase.exampleTable.removeRow(0), 'MATLAB:validators:mustBePositive');
+            testCase.verifyError(@() testCase.exampleTable.removeRow(1.5), 'MATLAB:validators:mustBeInteger');
+            testCase.verifyError(@() testCase.exampleTable.removeRow(testCase.numRows+1), 'RAT:IndexOutOfRange');
 
-            % Row name
-            testCase.verifyError(@() testCase.exampleTable.setValue('Invalid Name', testCase.numCols, 'Added'), nameNotRecognised.errorID);
-
-            % Column name
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, 'Invalid Name', 'Added'), nameNotRecognised.errorID);
-
-            % Float values within range
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, 2.5, 'Added'), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleTable.setValue(2.5, 1, 'New Name'), 'MATLAB:badsubscript');
-
-            % Invalid data types
-            testCase.verifyError(@() testCase.exampleTable.setValue(testCase.initialTable, testCase.numCols, 'Added'), invalidType.errorID);
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, datetime('today'), 'Added'), invalidType.errorID);
+            testCase.verifySize(testCase.exampleTable.paramTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');
         end
 
         function testDisplayTable(testCase)

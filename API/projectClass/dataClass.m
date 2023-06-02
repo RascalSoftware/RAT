@@ -1,4 +1,5 @@
 classdef dataClass < tableUtilities
+    
     % A container class for holding data
 
     properties (Access = private)

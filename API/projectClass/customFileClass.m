@@ -20,7 +20,7 @@ classdef customFileClass < tableUtilities
             sz = [0 4];
             varTypes = {'string','string','string','string'};
             varNames = {'Name','Filename','Language','Path'};
-            obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
+            obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
 
             if ~isempty(varargin)
                 obj.addCustomFile(varargin{:});
@@ -164,7 +164,7 @@ classdef customFileClass < tableUtilities
             % Display the file table.
             %
             % customFiles.displayCustomFileObject()
-            tab = obj.paramTable;
+            tab = obj.varTable;
             
             sz = [1,4];
             displayVarTypes = {'string','string','string','string'}; 
@@ -223,7 +223,7 @@ classdef customFileClass < tableUtilities
             if numberOfFiles > 0
                 filesList = cell(numberOfFiles, 1);
                 for i = 1:numberOfFiles
-                    thisRow = obj.paramTable{i,:};
+                    thisRow = obj.varTable{i,:};
                     thisFile = thisRow{2};
                     thisType = thisRow{3};
                     thisPath = thisRow{4};
@@ -246,7 +246,7 @@ classdef customFileClass < tableUtilities
         function obj = setCustomLanguage(obj, row, language)
            % Check whether a specified language is supported, and set the
            % file entry if so.
-           obj.paramTable{row, 3} = {validateOption(language, 'supportedLanguages', obj.invalidLanguageMessage).value};
+           obj.varTable{row, 3} = {validateOption(language, 'supportedLanguages', obj.invalidLanguageMessage).value};
         end 
         
         function obj = setCustomName(obj, whichCustom, name) 
@@ -254,18 +254,18 @@ classdef customFileClass < tableUtilities
             % specified, and set it if not
 
             % Name must not be an existing name
-            existingNames = obj.paramTable{:,1};
+            existingNames = obj.varTable{:,1};
             if any(strcmpi(name,existingNames))
                 throw(duplicateName('Duplicate custom file names are not allowed'));
             end
             
             % Set the relevant name
-            obj.paramTable{whichCustom,1} = {name};
+            obj.varTable{whichCustom,1} = {name};
         end
         
         function obj = setFileName(obj,whichCustom,name)
             % Set a new filename
-            obj.paramTable{whichCustom,2} = {name};  
+            obj.varTable{whichCustom,2} = {name};  
         end
 
     end

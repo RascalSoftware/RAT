@@ -61,15 +61,15 @@ classdef testLayersClass < matlab.unittest.TestCase
         parameters              % Example parameters class used in "addLayer"
         parameterNames          % Names of parameters in the example class
         numParams               % Number of parameters in the example class
-        numRows                 % Number of rows in exampleClass.paramTable
-        numCols                 % Number of columns in exampleClass.paramTable
+        numRows                 % Number of rows in exampleClass.varTable
+        numCols                 % Number of columns in exampleClass.varTable
     end
 
 %% Set up test data
 
     methods (TestClassSetup)
 
-        function initialiseParamTables(testCase)
+        function initialiseVarTables(testCase)
             % Set up an empty layers table 
             sz = [0 6];
             tableTypes = {'string','string','string','string','string','string'};
@@ -107,9 +107,9 @@ classdef testLayersClass < matlab.unittest.TestCase
                 };
 
             testCase.parameters = parametersClass(testParams{1, :});
-            testCase.parameters.paramTable = [testCase.parameters.paramTable; vertcat(testParams(2:end, :))];
+            testCase.parameters.varTable = [testCase.parameters.varTable; vertcat(testParams(2:end, :))];
 
-            testCase.parameterNames = testCase.parameters.paramTable{:, 1};
+            testCase.parameterNames = testCase.parameters.varTable{:, 1};
             testCase.numParams = length(testParams);
         end
 
@@ -123,12 +123,12 @@ classdef testLayersClass < matlab.unittest.TestCase
             % "DPPCStandardLayers.m"
             testCase.exampleClass = layersClass();
 
-            testCase.exampleClass.paramTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
-            testCase.exampleClass.paramTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer tails rough', 'Bilayer tails hydr', hydrationTypes.BulkOut.value};
-            testCase.exampleClass.paramTable(3,:) = {'Bil outer head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
+            testCase.exampleClass.varTable(1,:) = {'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
+            testCase.exampleClass.varTable(2,:) = {'Bil tail', 'Bilayer tails thick', 'Bilayer tails SLD', 'Bilayer tails rough', 'Bilayer tails hydr', hydrationTypes.BulkOut.value};
+            testCase.exampleClass.varTable(3,:) = {'Bil outer head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value};
 
-            testCase.numRows = height(testCase.exampleClass.paramTable);
-            testCase.numCols = width(testCase.exampleClass.paramTable);
+            testCase.numRows = height(testCase.exampleClass.varTable);
+            testCase.numCols = width(testCase.exampleClass.varTable);
         end
 
     end
@@ -142,21 +142,21 @@ classdef testLayersClass < matlab.unittest.TestCase
             % layers table
             testClass = layersClass();
 
-            testCase.verifySize(testClass.paramTable, [0 6], 'layersClass does not initialise correctly');
-            testCase.verifyEqual(testClass.paramTable, testCase.initialLayersTable, 'layersClass does not initialise correctly');
+            testCase.verifySize(testClass.varTable, [0 6], 'layersClass does not initialise correctly');
+            testCase.verifyEqual(testClass.varTable, testCase.initialLayersTable, 'layersClass does not initialise correctly');
 
             % Adding the optional argument should give the same table
             testClass = layersClass('SLD');
 
-            testCase.verifySize(testClass.paramTable, [0 6], 'layersClass does not initialise correctly');
-            testCase.verifyEqual(testClass.paramTable, testCase.initialLayersTable, 'layersClass does not initialise correctly');
+            testCase.verifySize(testClass.varTable, [0 6], 'layersClass does not initialise correctly');
+            testCase.verifyEqual(testClass.varTable, testCase.initialLayersTable, 'layersClass does not initialise correctly');
 
             % For a cell array with more than one element, more columns
             % should be added
             testClass = layersClass({'SLDReal', 'SLDImag'});
 
-            testCase.verifySize(testClass.paramTable, [0 7], 'layersClass does not initialise correctly');
-            testCase.verifyEqual(testClass.paramTable, testCase.initialAbsorptionTable, 'layersClass does not initialise correctly');
+            testCase.verifySize(testClass.varTable, [0 7], 'layersClass does not initialise correctly');
+            testCase.verifyEqual(testClass.varTable, testCase.initialAbsorptionTable, 'layersClass does not initialise correctly');
         end
 
         function testAddLayer(testCase, layerInput, addedLayer)
@@ -164,11 +164,11 @@ classdef testLayersClass < matlab.unittest.TestCase
             % We can add a layer with no parameters, just a layer name, or
             % a fully defined layer, which consists of either a length
             % four or length six cell array     
-            expectedTable = [testCase.exampleClass.paramTable; addedLayer];
+            expectedTable = [testCase.exampleClass.varTable; addedLayer];
 
             testCase.exampleClass.addLayer(testCase.parameterNames, layerInput{:});
 
-            testCase.verifyEqual(testCase.exampleClass.paramTable, expectedTable, 'addLayer does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.varTable, expectedTable, 'addLayer does not work correctly');
         end
 
         function testAddLayerEmpty(testCase)
@@ -178,11 +178,11 @@ classdef testLayersClass < matlab.unittest.TestCase
             % a fully defined layer, which consists of either a length
             % four or length six cell array
             newLayer = {'Layer 1','','','','',hydrationTypes.BulkOut.value};
-            expectedTable = [testCase.exampleClass.paramTable; newLayer];
+            expectedTable = [testCase.exampleClass.varTable; newLayer];
 
             testCase.exampleClass.addLayer(testCase.parameterNames);
 
-            testCase.verifyEqual(testCase.exampleClass.paramTable, expectedTable, 'addLayer does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.varTable, expectedTable, 'addLayer does not work correctly');
         end
 
         function testAddLayerInvalidFullLayer(testCase)
@@ -220,27 +220,27 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Row and column indices
             testCase.exampleClass.setLayerValue(1, 5, 'Water hydr', testCase.parameterNames);
             expectedRow = ["Bil inner head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Water hydr", "bulk out"];
-            testCase.verifyEqual(testCase.exampleClass.paramTable{1, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.varTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Row name and column index
             testCase.exampleClass.setLayerValue('Bil Tail', 3, 'Water SLD', testCase.parameterNames);
             expectedRow = ["Bil tail", "Bilayer tails thick", "Water SLD", "Bilayer tails rough", "Bilayer tails hydr", "bulk out"];
-            testCase.verifyEqual(testCase.exampleClass.paramTable{2, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.varTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Row index and column name
             testCase.exampleClass.setLayerValue(1, 'Roughness', 'Substrate Roughness', testCase.parameterNames);
             expectedRow = ["Bil inner head", "Bilayer heads thick", "Bilayer heads SLD", "Substrate Roughness", "Water hydr", "bulk out"];
-            testCase.verifyEqual(testCase.exampleClass.paramTable{1, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.varTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Row and column names
             testCase.exampleClass.setLayerValue('Bil Tail', 'Thickness', 'Water thick', testCase.parameterNames);
             expectedRow = ["Bil tail", "Water thick", "Water SLD", "Bilayer tails rough", "Bilayer tails hydr", "bulk out"];
-            testCase.verifyEqual(testCase.exampleClass.paramTable{2, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.varTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Change hydration type
             testCase.exampleClass.setLayerValue(3, 6, hydrationTypes.BulkIn.value, testCase.parameterNames);
             expectedRow = ["Bil outer head", "Bilayer heads thick", "Bilayer heads SLD", "Bilayer heads rough", "Bilayer heads hydr", "bulk in"];
-            testCase.verifyEqual(testCase.exampleClass.paramTable{3, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.varTable{3, :}, expectedRow, 'setValue does not work correctly');
         end
 
         function testSetLayerValueInvalid(testCase)
@@ -312,7 +312,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Convert table variable names to a string array, join into a
             % single string, and then prepend an extra header used for the
             % row index
-            varString = "p " + strip(strjoin(string(testCase.exampleClass.paramTable.Properties.VariableNames)));
+            varString = "p " + strip(strjoin(string(testCase.exampleClass.varTable.Properties.VariableNames)));
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
@@ -331,7 +331,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 
                 % Get data from this row, join into a single string, and
                 % then prepend the row index
-                rowString = string(i) + " " + strip(strjoin(testCase.exampleClass.paramTable{i,:}));
+                rowString = string(i) + " " + strip(strjoin(testCase.exampleClass.varTable{i,:}));
                 testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
 
             end
@@ -356,7 +356,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Convert table variable names to a string array, join into a
             % single string, and then prepend an extra header used for the
             % row index
-            varString = strip(strjoin(string(emptyClass.paramTable.Properties.VariableNames)));
+            varString = strip(strjoin(string(emptyClass.varTable.Properties.VariableNames)));
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before

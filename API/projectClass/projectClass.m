@@ -255,13 +255,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 % the elements for now..
                 
                 findParam = string(thisParam);
-                laysTable = obj.layers.paramTable;
+                laysTable = obj.layers.varTable;
                 dims = size(laysTable);
                 for m = 1:dims(1)
                     for n = 1:dims(2)
                         tablePar = laysTable{m,n};   % Should be a string
                         if isequal(findParam, tablePar)
-                            obj.layers.paramTable(m,n) = {''};
+                            obj.layers.varTable(m,n) = {''};
                         end
                     end
                 end
@@ -350,7 +350,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % problem.addLayer('New Layer');
             if isempty(varargin)
-                obj.layers.addLayer(obj.parameters.paramTable{:,1});
+                obj.layers.addLayer(obj.parameters.varTable{:,1});
             else
                 % If the input is wrapped in a cell (so varargin is a cell of a cell)
                 % need to unwrap one layer of it, otherwise keep varargin as it is
@@ -359,7 +359,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 else
                     thisLayer = varargin;
                 end
-                obj.layers.addLayer(obj.parameters.paramTable{:,1}, thisLayer{:});
+                obj.layers.addLayer(obj.parameters.varTable{:,1}, thisLayer{:});
             end
         end
 
@@ -377,7 +377,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % parameter to set the value to.
             % 
             % problem.setLayerValue(1, 2, 'Tails Thickness');
-            obj.layers.setLayerValue(row, col, value, obj.parameters.paramTable{:,1});           
+            obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});           
         end
         
         % ---------------------------------------------------------------
@@ -796,7 +796,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Contrasts
             allNames = obj.getAllAllowedNames;
-            dataTable = obj.data.paramTable;
+            dataTable = obj.data.varTable;
             
             contrastStruct = obj.contrasts.toStruct(allNames, generalStruct.modelType, dataTable);
 

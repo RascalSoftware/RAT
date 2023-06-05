@@ -59,7 +59,7 @@ classdef backgroundsClass < handle
             % in the object. 
             % 
             % names = background.getBackgroundNames();
-            backsTable = obj.backgrounds.paramTable;
+            backsTable = obj.backgrounds.varTable;
             names = backsTable{:,1};      
         end
                  
@@ -149,12 +149,12 @@ classdef backgroundsClass < handle
             end
             
             p = inputParser;
-            addParameter(p, 'name', obj.backgrounds.paramTable{row, 1}, @(x) isText(x));
-            addParameter(p, 'type', obj.backgrounds.paramTable{row, 2}, @(x) isText(x) || isenum(x));
-            addParameter(p, 'value1', obj.backgrounds.paramTable{row, 3}, @(x) isText(x));
-            addParameter(p, 'value2', obj.backgrounds.paramTable{row, 4}, @(x) isText(x));
-            addParameter(p, 'value3', obj.backgrounds.paramTable{row, 5}, @(x) isText(x));
-            addParameter(p, 'value4', obj.backgrounds.paramTable{row, 6}, @(x) isText(x));
+            addParameter(p, 'name', obj.backgrounds.varTable{row, 1}, @(x) isText(x));
+            addParameter(p, 'type', obj.backgrounds.varTable{row, 2}, @(x) isText(x) || isenum(x));
+            addParameter(p, 'value1', obj.backgrounds.varTable{row, 3}, @(x) isText(x));
+            addParameter(p, 'value2', obj.backgrounds.varTable{row, 4}, @(x) isText(x));
+            addParameter(p, 'value3', obj.backgrounds.varTable{row, 5}, @(x) isText(x));
+            addParameter(p, 'value4', obj.backgrounds.varTable{row, 6}, @(x) isText(x));
 
             parse(p, varargin{:});
             inputBlock = p.Results;
@@ -207,9 +207,9 @@ classdef backgroundsClass < handle
             backStruct.nBackPars = backParamsStruct.nParams;
             backStruct.backsPriors = backParamsStruct.priors;
             
-            backgroundNames = obj.backgrounds.paramTable{:,1};
-            backgroundTypes = obj.backgrounds.paramTable{:,2};
-            backgroundValues = table2cell(obj.backgrounds.paramTable(:,3:7));
+            backgroundNames = obj.backgrounds.varTable{:,1};
+            backgroundTypes = obj.backgrounds.varTable{:,2};
+            backgroundValues = table2cell(obj.backgrounds.varTable(:,3:7));
             
             backStruct.backgroundNames = backgroundNames;
             backStruct.backgroundTypes = backgroundTypes;

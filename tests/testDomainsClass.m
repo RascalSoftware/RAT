@@ -40,34 +40,34 @@ classdef testDomainsClass < matlab.unittest.TestCase
     methods
         function addParameters(testCase)
             % Adds parameters for the tests
-            paramTable = testCase.project.parameters.paramTable;
-            testCase.project.parameters.paramTable = [paramTable; vertcat(testCase.parameters{:})];
+            varTable = testCase.project.parameters.varTable;
+            testCase.project.parameters.varTable = [varTable; vertcat(testCase.parameters{:})];
         end
         
         function populateProject(testCase)
             % Populates project class properties for the tests
             testCase.addParameters()
-            paramTable = testCase.project.layers.paramTable;
-            testCase.project.layers.paramTable = [paramTable; vertcat(testCase.layers{1:2})];
-            testCase.project.resolution.resolutions.paramTable{1, 1} = "Resolution 2";
-            testCase.project.background.backgrounds.paramTable{1, 1} = "Background H2O";
-            testCase.project.data.paramTable{1, 1} = "Sim 1";
+            varTable = testCase.project.layers.varTable;
+            testCase.project.layers.varTable = [varTable; vertcat(testCase.layers{1:2})];
+            testCase.project.resolution.resolutions.varTable{1, 1} = "Resolution 2";
+            testCase.project.background.backgrounds.varTable{1, 1} = "Background H2O";
+            testCase.project.data.varTable{1, 1} = "Sim 1";
             
-            paramTable = testCase.project.background.backgrounds.paramTable;
-            testCase.project.background.backgrounds.paramTable = [paramTable; paramTable];
-            testCase.project.background.backgrounds.paramTable{2, 1} = "Background D2O";
+            varTable = testCase.project.background.backgrounds.varTable;
+            testCase.project.background.backgrounds.varTable = [varTable; varTable];
+            testCase.project.background.backgrounds.varTable{2, 1} = "Background D2O";
 
-            paramTable = testCase.project.bulkOut.paramTable;
-            testCase.project.bulkOut.paramTable = [paramTable; paramTable];
-            testCase.project.bulkOut.paramTable{2, 1} = "SLD H2O";
+            varTable = testCase.project.bulkOut.varTable;
+            testCase.project.bulkOut.varTable = [varTable; varTable];
+            testCase.project.bulkOut.varTable{2, 1} = "SLD H2O";
             
-            paramTable = testCase.project.bulkIn.paramTable;
-            testCase.project.bulkIn.paramTable = [paramTable; paramTable];
-            testCase.project.bulkIn.paramTable{2, 1} = "Silicon";
+            varTable = testCase.project.bulkIn.varTable;
+            testCase.project.bulkIn.varTable = [varTable; varTable];
+            testCase.project.bulkIn.varTable{2, 1} = "Silicon";
 
-            paramTable = testCase.project.data.paramTable;
-            testCase.project.data.paramTable = [paramTable; paramTable];
-            testCase.project.data.paramTable{2, 1} = "Sim 2";
+            varTable = testCase.project.data.varTable;
+            testCase.project.data.varTable = [varTable; varTable];
+            testCase.project.data.varTable{2, 1} = "Sim 2";
         end
     end
 
@@ -86,21 +86,21 @@ classdef testDomainsClass < matlab.unittest.TestCase
         
         function testDomainRatio(testCase)
             % Checks the default domain ratios
-            testCase.verifySize(testCase.project.domainRatio.paramTable, [1, 8], 'domain ratio has wrong dimension');
-            testCase.verifyEqual(string(testCase.project.domainRatio.paramTable{1, :}),...
+            testCase.verifySize(testCase.project.domainRatio.varTable, [1, 8], 'domain ratio has wrong dimension');
+            testCase.verifyEqual(string(testCase.project.domainRatio.varTable{1, :}),...
                                     string({'Domain Ratio 1', 0.4, 0.5, 0.6, false, 'uniform', 0, Inf}), 'default domain ratio is not correct');
             % Checks that domain ratios can be added
             testCase.project.addDomainRatio('Domain Ratio 2', 0.4, 0.69, 1.0, true);
             testCase.project.addDomainRatio('Domain Ratio 3', 0.2, 0.17, 1.1, false);
-            testCase.verifySize(testCase.project.domainRatio.paramTable, [3, 8], 'domain ratio has wrong dimension');
-            testCase.verifyEqual(testCase.project.domainRatio.paramTable{end,1}, "Domain Ratio 3", 'addDomainRatio method not working');
+            testCase.verifySize(testCase.project.domainRatio.varTable, [3, 8], 'domain ratio has wrong dimension');
+            testCase.verifyEqual(testCase.project.domainRatio.varTable{end,1}, "Domain Ratio 3", 'addDomainRatio method not working');
             % Checks that domain ratios can be removed
             testCase.project.removeDomainRatio(2);
-            testCase.verifySize(testCase.project.domainRatio.paramTable, [2, 8], 'domain ratio has wrong dimension');
-            testCase.verifyEqual(testCase.project.domainRatio.paramTable{:, 1}, ["Domain Ratio 1"; "Domain Ratio 3"], 'removeDomainRatio method not working');
+            testCase.verifySize(testCase.project.domainRatio.varTable, [2, 8], 'domain ratio has wrong dimension');
+            testCase.verifyEqual(testCase.project.domainRatio.varTable{:, 1}, ["Domain Ratio 1"; "Domain Ratio 3"], 'removeDomainRatio method not working');
             % Checks that domain ratios can be modified
             testCase.project.setDomainRatio(1, 'name','Domain Ratio 1','min',0.1,'value',0.23251,'max',0.4,'fit',true);
-            testCase.verifyEqual(string(testCase.project.domainRatio.paramTable{1, :}),...
+            testCase.verifyEqual(string(testCase.project.domainRatio.varTable{1, :}),...
                                     string({'Domain Ratio 1', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'domainRatio method not working');
         end
 
@@ -149,22 +149,22 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyEqual(projectStruct.geometry, testCase.project.geometry, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.TF, calculationTypes.Domains.value, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.paramNames, {'Substrate Roughness'}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.backgroundNames, testCase.project.background.backgrounds.paramTable{:, 1}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.backgroundTypes, testCase.project.background.backgrounds.paramTable{:, 2}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.backgroundNames, testCase.project.background.backgrounds.varTable{:, 1}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.backgroundTypes, testCase.project.background.backgrounds.varTable{:, 2}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.backParNames, ...
-                                 {convertStringsToChars(testCase.project.background.backPars.paramTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.paramTable{:, 1}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.resolutionTypes, testCase.project.resolution.resolutions.paramTable{:, 2}, 'toStruct method not working');
+                                 {convertStringsToChars(testCase.project.background.backPars.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.varTable{:, 1}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.resolutionTypes, testCase.project.resolution.resolutions.varTable{:, 2}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.resolParNames, ...
-                                 {convertStringsToChars(testCase.project.resolution.resolPars.paramTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.paramTable{:, 1}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.scalefactorNames, {convertStringsToChars(testCase.project.scalefactors.paramTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.qzshiftNames, {convertStringsToChars(testCase.project.qzshifts.paramTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbairNames, {convertStringsToChars(testCase.project.bulkIn.paramTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbsubNames, {convertStringsToChars(testCase.project.bulkOut.paramTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbsubNames, {convertStringsToChars(testCase.project.bulkOut.paramTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.layersNames, testCase.project.layers.paramTable{:, 1}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbsubNames, {convertStringsToChars(testCase.project.bulkOut.paramTable{:, 1})}, 'toStruct method not working');
+                                 {convertStringsToChars(testCase.project.resolution.resolPars.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.varTable{:, 1}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.scalefactorNames, {convertStringsToChars(testCase.project.scalefactors.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.qzshiftNames, {convertStringsToChars(testCase.project.qzshifts.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.nbairNames, {convertStringsToChars(testCase.project.bulkIn.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.nbsubNames, {convertStringsToChars(testCase.project.bulkOut.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.nbsubNames, {convertStringsToChars(testCase.project.bulkOut.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.layersNames, testCase.project.layers.varTable{:, 1}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.nbsubNames, {convertStringsToChars(testCase.project.bulkOut.varTable{:, 1})}, 'toStruct method not working');
 
             nContrasts = testCase.project.contrasts.numberOfContrasts;
             contrastNames = cell(1,nContrasts);
@@ -180,7 +180,7 @@ classdef testDomainsClass < matlab.unittest.TestCase
             end
             testCase.verifyEqual(projectStruct.domainContrastNames, domainContrastNames, 'toStruct method not working');
 
-            testCase.verifyEqual(projectStruct.domainRatioNames, {convertStringsToChars(testCase.project.domainRatio.paramTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.domainRatioNames, {convertStringsToChars(testCase.project.domainRatio.varTable{:, 1})}, 'toStruct method not working');
         end
 
         function testObjectDisplay(testCase)

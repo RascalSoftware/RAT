@@ -65,14 +65,14 @@ classdef testTableUtilities < matlab.unittest.TestCase
             % This example is used in the backgrounds class for the
             % example calculation "DPPCStandardLayers.m"
             testCase.exampleTable = multiTypeTable();
-            testCase.exampleTable.paramTable(1,:) = {'Background D2O', allowedTypes.Constant.value, 'Backs par 1','','','',''};
-            testCase.exampleTable.paramTable(2,:) = {'Background SMW',allowedTypes.Constant.value,'Backs par SMW','','','',''};
-            testCase.exampleTable.paramTable(3,:) = {'Background H2O',allowedTypes.Constant.value,'Backs par H2O','','','',''};
+            testCase.exampleTable.varTable(1,:) = {'Background D2O', allowedTypes.Constant.value, 'Backs par 1','','','',''};
+            testCase.exampleTable.varTable(2,:) = {'Background SMW',allowedTypes.Constant.value,'Backs par SMW','','','',''};
+            testCase.exampleTable.varTable(3,:) = {'Background H2O',allowedTypes.Constant.value,'Backs par H2O','','','',''};
             testCase.exampleTable.allowedActions = {'add','subtract'};
             testCase.exampleTable.typesAutoNameString = 'New background';
 
-            testCase.numRows = height(testCase.exampleTable.paramTable);
-            testCase.numCols = length(testCase.exampleTable.paramTable.Properties.VariableNames);
+            testCase.numRows = height(testCase.exampleTable.varTable);
+            testCase.numCols = length(testCase.exampleTable.varTable.Properties.VariableNames);
         end
         
     end
@@ -82,15 +82,15 @@ classdef testTableUtilities < matlab.unittest.TestCase
     methods (Test, ParameterCombination='sequential')
 
         function testGetNames(testCase)
-            testCase.verifyEqual(testCase.exampleTable.getNames(), testCase.exampleTable.paramTable{:,1});
+            testCase.verifyEqual(testCase.exampleTable.getNames(), testCase.exampleTable.varTable{:,1});
         end
         
         function testAddRow(testCase)
             newRow = {'New Row',allowedTypes.Constant.value,'','','','',''};
-            expectedTable = [testCase.exampleTable.paramTable; newRow];
+            expectedTable = [testCase.exampleTable.varTable; newRow];
 
             testCase.exampleTable.addRow(newRow);
-            testCase.verifyEqual(testCase.exampleTable.paramTable, expectedTable, 'addRow does not work correctly');
+            testCase.verifyEqual(testCase.exampleTable.varTable, expectedTable, 'addRow does not work correctly');
         end
 
         function testAddRowDuplicateName(testCase)
@@ -99,24 +99,24 @@ classdef testTableUtilities < matlab.unittest.TestCase
             newRow = {'Background D2O',allowedTypes.Constant.value,'','','','',''};
 
             testCase.verifyError(@() testCase.exampleTable.addRow(newRow), duplicateName.errorID);
-            testCase.verifySize(testCase.exampleTable.paramTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite duplicate names');
+            testCase.verifySize(testCase.exampleTable.varTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite duplicate names');
         end
 
         function testRemoveRow(testCase)
             % Note that the routine requires a single cell array as input
-            remainingRows = testCase.exampleTable.paramTable(2:end,:);
+            remainingRows = testCase.exampleTable.varTable(2:end,:);
             testCase.exampleTable.removeRow(1);
 
-            testCase.verifyEqual(testCase.exampleTable.paramTable, remainingRows, 'removeRow does not work correctly');
+            testCase.verifyEqual(testCase.exampleTable.varTable, remainingRows, 'removeRow does not work correctly');
         end
 
         function testRemoveRowMultiple(testCase)
             % Test removing multiple rows from a multi-type table
             % Note that the routine requires a single cell array as input
-            remainingRows = testCase.exampleTable.paramTable(2,:);
+            remainingRows = testCase.exampleTable.varTable(2,:);
             testCase.exampleTable.removeRow([1 3]);
 
-            testCase.verifyEqual(testCase.exampleTable.paramTable, remainingRows, 'removeRow does not work correctly');
+            testCase.verifyEqual(testCase.exampleTable.varTable, remainingRows, 'removeRow does not work correctly');
         end
 
         function testRemoveRowInvalid(testCase)
@@ -127,7 +127,7 @@ classdef testTableUtilities < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleTable.removeRow(1.5), 'MATLAB:validators:mustBeInteger');
             testCase.verifyError(@() testCase.exampleTable.removeRow(testCase.numRows+1), 'RAT:IndexOutOfRange');
 
-            testCase.verifySize(testCase.exampleTable.paramTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');
+            testCase.verifySize(testCase.exampleTable.varTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');
         end
 
         function testDisplayTable(testCase)
@@ -147,7 +147,7 @@ classdef testTableUtilities < matlab.unittest.TestCase
             % Convert multi-type table variable names to a string array,
             % join into a single string, and then prepend an extra header
             % used for the row index
-            varString = "p " + strip(strjoin(string(testCase.exampleTable.paramTable.Properties.VariableNames)));
+            varString = "p " + strip(strjoin(string(testCase.exampleTable.varTable.Properties.VariableNames)));
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
@@ -166,7 +166,7 @@ classdef testTableUtilities < matlab.unittest.TestCase
 
                 % Get data from this row, join into a single string, and
                 % then prepend the row index
-                rowString = string(i) + " " + strip(strjoin(testCase.exampleTable.paramTable{i,:}));
+                rowString = string(i) + " " + strip(strjoin(testCase.exampleTable.varTable{i,:}));
                 testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
 
             end
@@ -176,8 +176,8 @@ classdef testTableUtilities < matlab.unittest.TestCase
         function testFindRowIndex(testCase)
             % Test that the correct row number is returned for a valid row
             % or column, and an error is raised for invalid options
-            tableRows = testCase.exampleTable.paramTable{:,1};
-            tableCols = testCase.exampleTable.paramTable.Properties.VariableNames;
+            tableRows = testCase.exampleTable.varTable{:,1};
+            tableCols = testCase.exampleTable.varTable.Properties.VariableNames;
 
             testCase.verifyEqual(multiTypeTable.findRowIndex('Background SMW', tableRows), 2);
             testCase.verifyEqual(multiTypeTable.findRowIndex('Value 3', tableCols), 5);

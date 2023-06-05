@@ -33,7 +33,7 @@ classdef parametersClass < tableUtilities
             sz = [0, 8];
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
-            obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
+            obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             if isempty(varargin)
                 obj.addParameter();
             else
@@ -142,7 +142,7 @@ classdef parametersClass < tableUtilities
             end
 
             % Find index for each parameter and remove from table
-            rowNames = obj.paramTable{:,1};
+            rowNames = obj.varTable{:,1};
             for i = 1:length(row)
                 currentRow = row{i};
 
@@ -174,12 +174,12 @@ classdef parametersClass < tableUtilities
             end
             
             if ~isempty(inputBlock.min)
-                max = obj.paramTable{row, 4};
+                max = obj.varTable{row, 4};
                 obj.setConstraint(row, inputBlock.min, max);
             end
             
             if ~isempty(inputBlock.max)
-                min = obj.paramTable{row, 2};
+                min = obj.varTable{row, 2};
                 obj.setConstraint(row, min, inputBlock.max);
             end
             
@@ -200,7 +200,7 @@ classdef parametersClass < tableUtilities
             %
             % params.setPrior(2, priorTypes.Gaussian, 1, 2);
             inputValues = varargin;
-            tab = obj.paramTable;
+            tab = obj.varTable;
             
             row = obj.getValidRow(row);
             priorType = validateOption(inputValues{1}, 'priorTypes', obj.invalidPriorsMessage).value;
@@ -216,7 +216,7 @@ classdef parametersClass < tableUtilities
                     tab(row,8) = inputValues(3);
             end
     
-            obj.paramTable = tab;
+            obj.varTable = tab;
             
         end
         
@@ -225,7 +225,7 @@ classdef parametersClass < tableUtilities
             % name of parameter and the new value
             %
             % params.setValue(2, 3.4);
-            tab = obj.paramTable;           
+            tab = obj.varTable;           
             row = obj.getValidRow(row);
 
             if ~isnumeric(value)
@@ -233,7 +233,7 @@ classdef parametersClass < tableUtilities
             end
 
             tab(row,3) = {value};
-            obj.paramTable = tab;
+            obj.varTable = tab;
         end
         
         function obj = setName(obj, row, name)
@@ -241,7 +241,7 @@ classdef parametersClass < tableUtilities
             % Expects index or name of parameter and the new name
             %
             % params.setName(2, 'new name');
-            tab = obj.paramTable;           
+            tab = obj.varTable;           
             row = obj.getValidRow(row);
 
             if ~isText(name)
@@ -249,7 +249,7 @@ classdef parametersClass < tableUtilities
             end
 
             tab(row, 1) = {name};
-            obj.paramTable = tab;
+            obj.varTable = tab;
         end
         
         function obj = setConstraint(obj, row, min, max)
@@ -258,7 +258,7 @@ classdef parametersClass < tableUtilities
             % value
             %
             % params.setConstraint({2, 0, 100});
-            tab = obj.paramTable;
+            tab = obj.varTable;
             row = obj.getValidRow(row);
 
             if ~(isnumeric(min) && isnumeric(max))
@@ -267,7 +267,7 @@ classdef parametersClass < tableUtilities
             
             tab(row, 2) = {min};
             tab(row, 4) = {max};
-            obj.paramTable = tab;
+            obj.varTable = tab;
         end
                 
         function obj = setFit(obj, row, fitFlag)
@@ -275,7 +275,7 @@ classdef parametersClass < tableUtilities
             % Expects index or name of parameter and new fit flag
             %
             % params.setFit(2, true);           
-            tab = obj.paramTable;
+            tab = obj.varTable;
             row = obj.getValidRow(row);
 
             if ~islogical(fitFlag)
@@ -283,7 +283,7 @@ classdef parametersClass < tableUtilities
             end
            
             tab(row, 5) = {fitFlag};
-            obj.paramTable = tab;
+            obj.varTable = tab;
         end
         
         function set.showPriors(obj, flag)
@@ -296,14 +296,14 @@ classdef parametersClass < tableUtilities
         
         function displayTable(obj)
             % Displays the parameter table
-            array = obj.paramTable;
-            numParams = height(obj.paramTable);
+            array = obj.varTable;
+            numParams = height(obj.varTable);
             if ~obj.showPriors
                 array = array(:,1:5);
             end
 
             if numParams == 0
-                array(1, :) = repmat({''}, 1, width(obj.paramTable));
+                array(1, :) = repmat({''}, 1, width(obj.varTable));
             else
                 p = 1:numParams;
                 p = p(:);
@@ -317,7 +317,7 @@ classdef parametersClass < tableUtilities
         
         function outStruct = toStruct(obj)
             % Converts the class parameters into a structure array.
-            paramNames = table2cell(obj.paramTable(:,1));
+            paramNames = table2cell(obj.varTable(:,1));
             
             % Want these to be class 'char' rather than 'string'
             for n = 1:length(paramNames)
@@ -325,10 +325,10 @@ classdef parametersClass < tableUtilities
             end
             outStruct.paramNames = paramNames;
             
-            outStruct.nParams = size(obj.paramTable,1);
+            outStruct.nParams = size(obj.varTable,1);
             
-            mins = obj.paramTable{:,2};
-            maxs = obj.paramTable{:,4};
+            mins = obj.varTable{:,2};
+            maxs = obj.varTable{:,4};
             constr = cell([1, length(mins)]);
             for i = 1:length(mins)
                 constr{i} = [mins(i) maxs(i)];
@@ -337,11 +337,11 @@ classdef parametersClass < tableUtilities
             %constr = [mins maxs];
             outStruct.paramConstr = constr;
             
-            outStruct.params = obj.paramTable{:,3};
+            outStruct.params = obj.varTable{:,3};
             
-            outStruct.fitYesNo = double(obj.paramTable{:,5});
+            outStruct.fitYesNo = double(obj.varTable{:,5});
             
-            priors = table2cell(obj.paramTable(:,6:8));
+            priors = table2cell(obj.varTable(:,6:8));
             priors = [outStruct.paramNames priors];
             
             % Group each row into one cell. Should be a way of doing this
@@ -383,7 +383,7 @@ classdef parametersClass < tableUtilities
             %
             % obj.getValidRow('param name')
             if isText(row)
-                index = obj.findRowIndex(row, obj.paramTable{:,1}, 'Unrecognised row name');
+                index = obj.findRowIndex(row, obj.varTable{:,1}, 'Unrecognised row name');
             else
                 index = row;
                 if (index < 1) || (index > obj.rowCount)

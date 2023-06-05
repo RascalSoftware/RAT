@@ -153,13 +153,13 @@ end
 for i = 1:problem.numberOfContrasts
     thisName = char(problem.contrastNames{1});
     thisBackgroundNumber = problem.contrastBacks(i);
-    thisBackground = char(thisProjectClass.background.backgrounds.paramTable{thisBackgroundNumber,1});
+    thisBackground = char(thisProjectClass.background.backgrounds.varTable{thisBackgroundNumber,1});
 
     thisResol = problem.resolNames{problem.contrastResolutions(i)};
     thisScale = problem.scalesNames{problem.contrastScales(i)};
     thisNbs = problem.nbsNames{problem.contrastNbss(i)};
     thisNba = problem.nbaNames{problem.contrastNbas(i)};
-    thisData = thisProjectClass.data.paramTable{i+1,1};
+    thisData = thisProjectClass.data.varTable{i+1,1};
 
     thisProjectClass.addContrast('name', thisName,...
         'backGround', thisBackground,...

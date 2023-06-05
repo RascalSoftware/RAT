@@ -65,14 +65,14 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % This example is used in the backgrounds class for the
             % example calculation "DPPCStandardLayers.m"
             testCase.exampleTable = multiTypeTable();
-            testCase.exampleTable.paramTable(1,:) = {'Background D2O', allowedTypes.Constant.value, 'Backs par 1','','','',''};
-            testCase.exampleTable.paramTable(2,:) = {'Background SMW',allowedTypes.Constant.value,'Backs par SMW','','','',''};
-            testCase.exampleTable.paramTable(3,:) = {'Background H2O',allowedTypes.Constant.value,'Backs par H2O','','','',''};
+            testCase.exampleTable.varTable(1,:) = {'Background D2O', allowedTypes.Constant.value, 'Backs par 1','','','',''};
+            testCase.exampleTable.varTable(2,:) = {'Background SMW',allowedTypes.Constant.value,'Backs par SMW','','','',''};
+            testCase.exampleTable.varTable(3,:) = {'Background H2O',allowedTypes.Constant.value,'Backs par H2O','','','',''};
             testCase.exampleTable.allowedActions = {'add','subtract'};
             testCase.exampleTable.typesAutoNameString = 'New background';
 
-            testCase.numRows = height(testCase.exampleTable.paramTable);
-            testCase.numCols = length(testCase.exampleTable.paramTable.Properties.VariableNames);
+            testCase.numRows = height(testCase.exampleTable.varTable);
+            testCase.numCols = length(testCase.exampleTable.varTable.Properties.VariableNames);
         end
         
     end
@@ -85,9 +85,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Tests Multi-Type Table object can be created
             testTable = multiTypeTable();
 
-            testCase.verifySize(testTable.paramTable, [0 7], 'multiTypeTable does not initialise correctly');
+            testCase.verifySize(testTable.varTable, [0 7], 'multiTypeTable does not initialise correctly');
 
-            testCase.verifyEqual(testTable.paramTable, testCase.initialTable, 'multiTypeTable does not initialise correctly');
+            testCase.verifyEqual(testTable.varTable, testCase.initialTable, 'multiTypeTable does not initialise correctly');
             testCase.verifyEqual(testTable.allowedActions, testCase.initialAllowedActions, 'multiTypeTable does not initialise correctly');
             testCase.verifyEqual(testTable.typesAutoNameString, testCase.initialTypesAutoNameString, 'multiTypeTable does not initialise correctly');
         end
@@ -97,11 +97,11 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % using a cell array of any length, with the specified
             % parameters filling the first set of variables in the table,
             % and empty strings filling and unspecified values.
-            expectedTable = [testCase.exampleTable.paramTable; addedRow];
+            expectedTable = [testCase.exampleTable.varTable; addedRow];
 
             testCase.exampleTable.addRow(rowInput);
 
-            testCase.verifyEqual(testCase.exampleTable.paramTable, expectedTable, 'addRow does not work correctly');
+            testCase.verifyEqual(testCase.exampleTable.varTable, expectedTable, 'addRow does not work correctly');
         end
 
         function testAddRowInvalidType(testCase)
@@ -125,27 +125,27 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Row and column indices
             testCase.exampleTable.setValue(1, 7, 'Added');
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Added"];
-            testCase.verifyEqual(testCase.exampleTable.paramTable{1, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleTable.varTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Row name and column index
             testCase.exampleTable.setValue('Background SMW', 7, 'Added');
             expectedRow = ["Background SMW" "constant" "Backs par SMW" "" "" "" "Added"];
-            testCase.verifyEqual(testCase.exampleTable.paramTable{2, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleTable.varTable{2, :}, expectedRow, 'setValue does not work correctly');
 
             % Row index and column name
             testCase.exampleTable.setValue(3, 'Value 1', 'Changed');
             expectedRow = ["Background H2O" "constant" "Changed" "" "" "" ""];
-            testCase.verifyEqual(testCase.exampleTable.paramTable{3, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleTable.varTable{3, :}, expectedRow, 'setValue does not work correctly');
 
             % Row and column names
             testCase.exampleTable.setValue('Background D2O', 'Value 5', 'Changed');
             expectedRow = ["Background D2O" "constant" "Backs par 1" "" "" "" "Changed"];
-            testCase.verifyEqual(testCase.exampleTable.paramTable{1, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleTable.varTable{1, :}, expectedRow, 'setValue does not work correctly');
 
             % Use name to change name
             testCase.exampleTable.setValue('Background D2O', 'Name', 'New Name');
             expectedRow = ["New Name" "constant" "Backs par 1" "" "" "" "Changed"];
-            testCase.verifyEqual(testCase.exampleTable.paramTable{1, :}, expectedRow, 'setValue does not work correctly');
+            testCase.verifyEqual(testCase.exampleTable.varTable{1, :}, expectedRow, 'setValue does not work correctly');
         end
 
         function testSetValueInvalid(testCase)
@@ -194,7 +194,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % Convert multi-type table variable names to a string array,
             % join into a single string, and then prepend an extra header
             % used for the row index
-            varString = "p " + strip(strjoin(string(testCase.exampleTable.paramTable.Properties.VariableNames)));
+            varString = "p " + strip(strjoin(string(testCase.exampleTable.varTable.Properties.VariableNames)));
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
@@ -213,7 +213,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
 
                 % Get data from this row, join into a single string, and
                 % then prepend the row index
-                rowString = string(i) + " " + strip(strjoin(testCase.exampleTable.paramTable{i,:}));
+                rowString = string(i) + " " + strip(strjoin(testCase.exampleTable.varTable{i,:}));
                 testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
 
             end
@@ -223,8 +223,8 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         function testFindRowIndex(testCase)
             % Test that the correct row number is returned for a valid row
             % or column, and an error is raised for invalid options
-            tableRows = testCase.exampleTable.paramTable{:,1};
-            tableCols = testCase.exampleTable.paramTable.Properties.VariableNames;
+            tableRows = testCase.exampleTable.varTable{:,1};
+            tableCols = testCase.exampleTable.varTable.Properties.VariableNames;
 
             testCase.verifyEqual(multiTypeTable.findRowIndex('Background SMW', tableRows), 2);
             testCase.verifyEqual(multiTypeTable.findRowIndex('Value 3', tableCols), 5);

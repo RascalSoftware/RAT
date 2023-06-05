@@ -17,7 +17,7 @@ classdef multiTypeTable < tableUtilities
             sz = [0 7];
             varTypes = {'string','string','string','string','string','string','string'};
             varNames = {'Name','Type','Value 1','Value 2','Value 3','Value 4','Value 5'};
-            obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
+            obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
         end
 
         function obj = addRow(obj, addParams)
@@ -64,10 +64,10 @@ classdef multiTypeTable < tableUtilities
             % column, value
             %
             % multiTable.setValue(1, 1, 'origin');
-            tab = obj.paramTable;
+            tab = obj.varTable;
             
             % First parameter needs to be either a row name or number
-            rowNames = obj.paramTable{:,1};
+            rowNames = obj.varTable{:,1};
             
             if isText(row)
                 row = obj.findRowIndex(row, rowNames, 'Unrecognised parameter name');
@@ -81,7 +81,7 @@ classdef multiTypeTable < tableUtilities
             
             % Second parameter needs to be either a column name or
             % number.
-            colNames = obj.paramTable.Properties.VariableNames;
+            colNames = obj.varTable.Properties.VariableNames;
 
             if isText(col)
                 col = obj.findRowIndex(col,colNames, 'Unrecognised column name');
@@ -95,7 +95,7 @@ classdef multiTypeTable < tableUtilities
             
             % Set the value
             tab(row, col) = {value};
-            obj.paramTable = tab;
+            obj.varTable = tab;
 
         end
 

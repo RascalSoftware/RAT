@@ -3,7 +3,7 @@ classdef (Abstract) tableUtilities < handle
     % This class holds the common routines for handling table entries
 
     properties
-        paramTable = table
+        varTable = table
     end
 
     properties (GetAccess = protected, SetAccess = private)
@@ -17,7 +17,7 @@ classdef (Abstract) tableUtilities < handle
     methods
 
         function count = get.rowCount(obj)
-           count = height(obj.paramTable);
+           count = height(obj.varTable);
         end
 
         function names = getNames(obj)
@@ -25,7 +25,7 @@ classdef (Abstract) tableUtilities < handle
             % defined in the class.
             %
             % customFiles.getNames()
-            names = obj.paramTable{:,1};  
+            names = obj.varTable{:,1};  
         end
         
         function addRow(obj, row)
@@ -33,7 +33,7 @@ classdef (Abstract) tableUtilities < handle
             % with the row to append
             % 
             % obj.addRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
-            tab = obj.paramTable;
+            tab = obj.varTable;
             
             % Ensure no duplicate names
             if any(strcmp(row{1}, tab{:,1}))
@@ -41,7 +41,7 @@ classdef (Abstract) tableUtilities < handle
             end
 
             tab = [tab; row];
-            obj.paramTable = tab;
+            obj.varTable = tab;
             obj.autoNameCounter = obj.autoNameCounter + 1;
         end
 
@@ -51,7 +51,7 @@ classdef (Abstract) tableUtilities < handle
             % NOTE that an input such as [1 3] leads to multiple rows
             % being removed from the table
             %
-            % paramTable.removeRow(2);
+            % varTable.removeRow(2);
             arguments
                 obj
                 row {mustBePositive, mustBeInteger}
@@ -61,20 +61,20 @@ classdef (Abstract) tableUtilities < handle
                 throw(indexOutOfRange(sprintf('Row index %d out of range 1 - %d', row, obj.rowCount)));
             end
             
-            tab = obj.paramTable;
+            tab = obj.varTable;
             tab(row, :) = [];
-            obj.paramTable = tab;
+            obj.varTable = tab;
         end
 
         function displayTable(obj)
             % Displays the param table with numbered rows
             %
             % layers.displayTable()
-            array = obj.paramTable;
+            array = obj.varTable;
 
             if obj.rowCount == 0
                 % Creat blank line for empty table,
-                array(1, :) = repmat({''}, 1, width(obj.paramTable));
+                array(1, :) = repmat({''}, 1, width(obj.varTable));
             else
                 % Add indices for table entries
                 p = 1:obj.rowCount;

@@ -18,7 +18,7 @@ classdef dataClass < tableUtilities
             sz = [0 4];
             varTypes = {'string','cell','cell','cell'};
             varNames = {'Name','Data','Data Range','Simulation Range'};
-            obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames); 
+            obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames); 
             obj.addData(varargin{:}); 
         end
 
@@ -100,7 +100,7 @@ classdef dataClass < tableUtilities
             % index or name of dataset and keyword/value pairs to set
             %
             % data.setData(2, 'name', 'new_name');
-            dataNames = obj.paramTable{:,1};
+            dataNames = obj.varTable{:,1};
             
             % Always need three or more inputs to set data value
             if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
@@ -147,15 +147,15 @@ classdef dataClass < tableUtilities
             end
             
             if ~isempty(results.data)
-                obj.paramTable{row, 2} = {results.data};
+                obj.varTable{row, 2} = {results.data};
             end
             
             if ~isempty(results.dataRange)
-                obj.paramTable{row, 3} = {results.dataRange};
+                obj.varTable{row, 3} = {results.dataRange};
             end
             
             if ~isempty(results.simRange)
-                obj.paramTable{row, 4} = {results.simRange};
+                obj.varTable{row, 4} = {results.simRange};
             end
 
         end
@@ -176,16 +176,16 @@ classdef dataClass < tableUtilities
             end
             
             % Set the relevant name
-            nameChanged.oldName = obj.paramTable{whichData,1};
+            nameChanged.oldName = obj.varTable{whichData,1};
             nameChanged.newName = name;
-            obj.paramTable{whichData,1} = {name};   
+            obj.varTable{whichData,1} = {name};   
         end
 
         function displayTable(obj)
-            % Displays the table object. The actual obj.paramTable has the 
+            % Displays the table object. The actual obj.varTable has the 
             % format {string, cell, double, double}, but for display we 
             % make a table that is all strings.
-            tab = obj.paramTable;
+            tab = obj.varTable;
             
             sz = [1,4];
             displayVarTypes = {'string','string','string','string'}; 

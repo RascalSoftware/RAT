@@ -31,7 +31,7 @@ classdef layersClass < tableUtilities
 
             sz = [0 obj.varCount];
             varTypes = repmat({'string'}, 1, obj.varCount);
-            obj.paramTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
+            obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
         end
 
         function count = get.varCount(obj)
@@ -48,9 +48,9 @@ classdef layersClass < tableUtilities
             % (no hydration) or all parameters.
             % Parameters can be specified either by name or by index.
             %
-            % layers.addLayer(parameters.paramTable{:, 1});
-            % layers.addLayer(parameters.paramTable{:, 1}, 'New layer');
-            % layers.addLayer(parameters.paramTable{:, 1},...
+            % layers.addLayer(parameters.varTable{:, 1});
+            % layers.addLayer(parameters.varTable{:, 1}, 'New layer');
+            % layers.addLayer(parameters.varTable{:, 1},...
             %                 'Another layer', 1, 2, 3);
             layerDetails = varargin;
 
@@ -109,9 +109,9 @@ classdef layersClass < tableUtilities
             % that row and column, and a string array of parameter names
             % defined in the project's parameter class.
             %
-            % layers.setLayerValue(1, 1, 'origin', parameters.paramTable{:, 1});
-            layerNames = obj.paramTable{:,1};
-            colNames = obj.paramTable.Properties.VariableNames;
+            % layers.setLayerValue(1, 1, 'origin', parameters.varTable{:, 1});
+            layerNames = obj.varTable{:,1};
+            colNames = obj.varTable.Properties.VariableNames;
             
             % Find the row index if we have a layer name
             if isText(row)
@@ -145,7 +145,7 @@ classdef layersClass < tableUtilities
                 val = obj.findParameter(inputValue, paramNames);
             end
                 
-            obj.paramTable(row,col) = {val};
+            obj.varTable(row,col) = {val};
             
         end
         
@@ -153,8 +153,8 @@ classdef layersClass < tableUtilities
             % Convert the layers class to a struct.
             %
             % layers.toStruct()            
-            %outStruct = table2cell(obj.paramTable);
-            layersCell = obj.paramTable{:,:};
+            %outStruct = table2cell(obj.varTable);
+            layersCell = obj.varTable{:,:};
 
             outStruct.numberOfLayers = size(layersCell, 1);
             outStruct.layersNames = layersCell(:,1);

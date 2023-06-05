@@ -107,6 +107,25 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.contrasts = contrastsClass();               
         end
         
+        function domainsObj = domainsClass(obj)
+            % Converter routine from projectClass to domainsClass.
+            % This routine takes the currently defined project and
+            % converts it to a domains calculation, preserving all
+            % currently defined properties.
+            %
+            % domainsProblem = problem.domainsClass();
+
+            domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.geometry);
+
+            % Get all properties and copy over those that are publicly
+            % accessible and non-dependent
+            P = metaclass(obj).Properties;
+            for k = 1:length(P)
+                if ~P{k}.Dependent && strcmpi(P{k}.SetAccess, 'public')
+                    domainsObj.(P{k}.Name) = obj.(P{k}.Name);
+                end
+            end
+        end
         
         function obj = setUsePriors(obj, showFlag)
             % Sets the use priors flag. The showFlag should be a boolean/logical.

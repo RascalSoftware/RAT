@@ -46,18 +46,8 @@ classdef domainsClass < projectClass
             % currently defined properties.
             %
             % nonPolarisedProblem = problem.projectClass();
-
             projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.geometry);
-
-            % Get all properties and copy over those that are defined,
-            % non-dependent, and publicly accessible 
-            P = metaclass(obj).Properties;
-            for k = 1:length(P)
-                if isprop(projectObj, P{k}.Name) && ~P{k}.Dependent && strcmpi(findprop(projectObj, P{k}.Name).SetAccess, 'public')
-                    projectObj.(P{k}.Name) = obj.(P{k}.Name);
-                end
-            end
-
+            projectObj = copyProperties(obj, projectObj);
         end
 
         function names = getAllAllowedNames(obj)           

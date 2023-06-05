@@ -114,18 +114,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % currently defined properties.
             %
             % domainsProblem = problem.domainsClass();
-
             domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.geometry);
-
-            % Get all properties and copy over those that are defined,
-            % non-dependent, and publicly accessible 
-            P = metaclass(obj).Properties;
-            for k = 1:length(P)
-                if isprop(domainsObj, P{k}.Name) && ~P{k}.Dependent && strcmpi(findprop(domainsObj, P{k}.Name).SetAccess, 'public')
-                    domainsObj.(P{k}.Name) = obj.(P{k}.Name);
-                end
-            end
-
+            domainsObj = copyProperties(obj, domainsObj);
         end
         
         function obj = setUsePriors(obj, showFlag)

@@ -39,6 +39,27 @@ classdef domainsClass < projectClass
             obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
         end
 
+        function projectObj = projectClass(obj)
+            % Converter routine from domainsClass to projectClass.
+            % This routine takes the currently defined project and
+            % converts it to a nonPolarised calculation, preserving all
+            % currently defined properties.
+            %
+            % nonPolarisedProblem = problem.projectClass();
+
+            projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.geometry);
+
+            % Get all properties and copy over those that are defined,
+            % non-dependent, and publicly accessible 
+            P = metaclass(obj).Properties;
+            for k = 1:length(P)
+                if isprop(projectObj, P{k}.Name) && ~P{k}.Dependent && strcmpi(findprop(projectObj, P{k}.Name).SetAccess, 'public')
+                    projectObj.(P{k}.Name) = obj.(P{k}.Name);
+                end
+            end
+
+        end
+
         function names = getAllAllowedNames(obj)           
             % Returns a cell array of all currently
             % set parameter names for the project.

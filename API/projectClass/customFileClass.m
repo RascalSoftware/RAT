@@ -116,8 +116,8 @@ classdef customFileClass < tableUtilities
                 
             % First input needs to be a data number or name
             if isnumeric(row)
-                if (row > obj.paramCount) || (row < 1)
-                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.paramCount)));
+                if (row > obj.rowCount) || (row < 1)
+                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.rowCount)));
                 end
             elseif isText(row)
                 row = obj.findRowIndex(row, customNames, sprintf('Custom file object name %s not recognised', row));
@@ -218,7 +218,7 @@ classdef customFileClass < tableUtilities
             % Convert the custom files class to a struct
             %
             % customFiles.toStruct()
-            numberOfFiles = obj.paramCount;
+            numberOfFiles = obj.rowCount;
             
             if numberOfFiles > 0
                 filesList = cell(numberOfFiles, 1);

@@ -117,8 +117,8 @@ classdef layersClass < tableUtilities
             if isText(row)
                 row = obj.findRowIndex(row, layerNames, 'Unrecognised layer name');
             elseif isnumeric(row)
-                if (row < 1) || (row > obj.paramCount)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.paramCount)));
+                if (row < 1) || (row > obj.rowCount)
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.rowCount)));
                 end
             else
                 throw(invalidType('Unrecognised layer type'));

@@ -386,8 +386,8 @@ classdef parametersClass < tableUtilities
                 index = obj.findRowIndex(row, obj.paramTable{:,1}, 'Unrecognised row name');
             else
                 index = row;
-                if (index < 1) || (index > obj.paramCount)
-                    throw(indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.paramCount)));
+                if (index < 1) || (index > obj.rowCount)
+                    throw(indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.rowCount)));
                 end     
             end
         end

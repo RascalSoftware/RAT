@@ -138,7 +138,7 @@ classdef resolutionsClass < handle
             if isText(row)
                 row = obj.resolutions.findRowIndex(row, obj.getResolNames(), 'Unrecognised resolution');
             elseif isnumeric(row)
-                count = obj.resolutions.paramCount;
+                count = obj.resolutions.rowCount;
                 if (row < 1) || (row > count)
                     throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, count)));
                 end

@@ -11,12 +11,12 @@ classdef (Abstract) tableUtilities < handle
     end
 
     properties (Dependent, SetAccess = private)
-        paramCount
+        rowCount
     end
 
     methods
 
-        function count = get.paramCount(obj)
+        function count = get.rowCount(obj)
            count = height(obj.paramTable);
         end
 
@@ -57,8 +57,8 @@ classdef (Abstract) tableUtilities < handle
                 row {mustBePositive, mustBeInteger}
             end
 
-            if row > obj.paramCount
-                throw(indexOutOfRange(sprintf('Row index %d out of range 1 - %d', row, obj.paramCount)));
+            if row > obj.rowCount
+                throw(indexOutOfRange(sprintf('Row index %d out of range 1 - %d', row, obj.rowCount)));
             end
             
             tab = obj.paramTable;
@@ -72,12 +72,12 @@ classdef (Abstract) tableUtilities < handle
             % layers.displayTable()
             array = obj.paramTable;
 
-            if obj.paramCount == 0
+            if obj.rowCount == 0
                 % Creat blank line for empty table,
                 array(1, :) = repmat({''}, 1, width(obj.paramTable));
             else
                 % Add indices for table entries
-                p = 1:obj.paramCount;
+                p = 1:obj.rowCount;
                 p = p(:);
                 p = table(p);
                 array = [p array];

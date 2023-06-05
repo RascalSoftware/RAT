@@ -109,8 +109,8 @@ classdef dataClass < tableUtilities
                 
             % First input needs to be a data number or name
             if isnumeric(row)
-                if (row > obj.paramCount) || (row < 1)
-                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.paramCount)));
+                if (row > obj.rowCount) || (row < 1)
+                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.rowCount)));
                 end
             elseif isText(row)
                 row = obj.findRowIndex(row, dataNames, sprintf('Data object name %s not recognised', row));

@@ -6,10 +6,6 @@ classdef layersClass < tableUtilities
         invalidTypeMessage = sprintf('Hydration type must be a HydrationTypes enum or one of the following strings (%s)', ...
                                      strjoin(hydrationTypes.values(), ', '))
     end
-
-    properties (SetAccess = immutable)
-        varNames
-    end
     
     properties (Dependent, SetAccess = private)
         varCount
@@ -27,15 +23,15 @@ classdef layersClass < tableUtilities
                 SLDValues {mustBeText} = 'SLD'
             end
 
-            obj.varNames = [{'Name', 'Thickness'}, SLDValues, {'Roughness','Hydration','Hydrate with'}];
+            varNames = [{'Name', 'Thickness'}, SLDValues, {'Roughness','Hydration','Hydrate with'}];
 
-            sz = [0 obj.varCount];
-            varTypes = repmat({'string'}, 1, obj.varCount);
-            obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
+            sz = [0 length(varNames)];
+            varTypes = repmat({'string'}, 1, length(varNames));
+            obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
         end
 
         function count = get.varCount(obj)
-            count = length(obj.varNames);
+            count = length(obj.varTable.Properties.VariableNames);
         end
 
         function obj = addLayer(obj, paramNames, varargin)

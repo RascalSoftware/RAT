@@ -63,7 +63,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.experimentName = experimentName;
 
             % Initialise the Parameters Table
-            obj.parameters = parametersClass('Substrate Roughness',1, 3, 5,true,priorTypes.Uniform,0,Inf);
+            obj.parameters = parametersClass('Substrate Roughness',1,3,5,true,priorTypes.Uniform,0,Inf);
 
             if isequal(calculationType, calculationTypes.OilWater.value)
                 obj.addParameter('Oil Thickness');

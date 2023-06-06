@@ -14,8 +14,6 @@ classdef (Abstract) baseContrasts < handle
     properties (SetAccess = immutable)
         domainsCalc
         oilWaterCalc
-        rowHeaders = struct('key', ["Name"; "Data"; "Oil Chi Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
-                            'field', ["name"; "data"; "oilChiData"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
     end
 
     properties (Dependent, SetAccess = private)
@@ -26,6 +24,8 @@ classdef (Abstract) baseContrasts < handle
     properties(Access = protected, Constant, Hidden)
         invalidTypeMessage = sprintf('Model type must be a modelTypes enum or one of the following strings (%s)', ...
                                      strjoin(modelTypes.values(), ', '))
+        rowHeaders = struct('key', ["Name"; "Data"; "Oil Chi Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
+                            'field', ["name"; "data"; "oilChiData"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
     end
 
     methods (Abstract)

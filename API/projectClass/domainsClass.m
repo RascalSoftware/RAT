@@ -15,16 +15,21 @@ classdef domainsClass < projectClass
        
     methods
 
-        function obj = domainsClass(experimentName, calculationType, geometry)
+        function obj = domainsClass(experimentName, calculationType, geometry, absorption)
             % Creates a Project object for a domains calculation.
-            % The only argument is the experiment name which is a char
-            % array, which is optional
+            % The input arguments are the experiment name which is a char
+            % array; the calculation type, which is a calculationTypes
+            % enum; the geometry, which is a geometryOptions enum; and a
+            % logical to state whether or not absorption terms are
+            % included in the refractive index.
+            % All of the arguments are optional.
             %
             % problem = domainsClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
                 calculationType = calculationTypes.Domains
                 geometry = geometryOptions.AirSubstrate
+                absorption {mustBeA(absorption,'logical')} = false
             end
             
             % Call projectClass constructor

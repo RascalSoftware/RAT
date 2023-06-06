@@ -16,6 +16,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     properties
         experimentName
         geometry
+        absorption
         parameters          % parametersClass object
         layers              % layersClass object
         bulkIn              % parametersClass object
@@ -39,15 +40,20 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
     methods
 
-        function obj = projectClass(experimentName, calculationType, geometry)
-            % Creates a Project object. The only argument is the 
-            % experiment name which is a char array, which is optional
+        function obj = projectClass(experimentName, calculationType, geometry, absorption)
+            % Creates a Project object. The input arguments are the
+            % experiment name which is a char array; the calculation type,
+            % which is a calculationTypes enum; the geometry, which is a
+            % geometryOptions enum; and a logical to state whether or not
+            % absorption terms are included in the refractive index.
+            % All of the arguments are optional.
             %
             % problem = projectClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
                 calculationType = calculationTypes.NonPolarised
                 geometry = geometryOptions.AirSubstrate
+                absorption {mustBeA(absorption,'logical')} = false
             end
 
             invalidTypeMessage = sprintf('calculationType must be a calculationTypes enum or one of the following strings (%s)', ...
@@ -61,6 +67,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.geometry = validateOption(geometry, 'geometryOptions', invalidGeometryMessage).value;
 
             obj.experimentName = experimentName;
+            obj.absorption = absorption;
 
             % Initialise the Parameters Table
             obj.parameters = parametersClass('Substrate Roughness',1,3,5,true,priorTypes.Uniform,0,Inf);
@@ -72,8 +79,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             obj.protectedParameters = cellstr(obj.parameters.getNames');
             
-            % Initialise the layers table
-            obj.layers = layersClass();
+            % Initialise the layers table. Set the imaginary term in the
+            % refractive index if absorption is selected
+            if obj.absorption
+                obj.layers = layersClass({'SLD Real', 'SLD Imaginary'});
+            else
+                obj.layers = layersClass();
+            end
 
             % Initialise bulkIn table
             obj.bulkIn = parametersClass('SLD Air',0,0,0,false,priorTypes.Uniform,0,Inf);

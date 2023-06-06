@@ -82,6 +82,20 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyError(@() projectClass(1), 'MATLAB:validators:mustBeTextScalar')
         end
 
+        function testConversion(testCase)
+            % Tests project class can be converted to domains class and
+            % the properties are copied over
+            testCase.verifyClass(testCase.project, 'projectClass')
+            testCase.verifyEqual(testCase.project.calculationType, calculationTypes.NonPolarised.value, 'Calculation Type not set correctly');
+
+            domains = testCase.project.domainsClass();
+            testCase.verifyClass(domains, 'domainsClass')
+            testCase.verifyEqual(domains.experimentName, testCase.project.experimentName, 'Experiment name not copied correctly');
+            testCase.verifyEqual(domains.calculationType, calculationTypes.Domains.value, 'Calculation Type not set correctly');
+            testCase.verifyEqual(domains.parameters, testCase.project.parameters, 'Parameters not copied correctly');
+            testCase.verifyEqual(domains.layers, testCase.project.layers, 'Layers not copied correctly');
+        end
+
         function testGeometry(testCase)
             % Test default geometry
             testCase.verifyEqual(testCase.project.geometry, geometryOptions.AirSubstrate.value, 'Geometry not set correctly');

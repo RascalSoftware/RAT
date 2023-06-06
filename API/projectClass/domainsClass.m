@@ -48,6 +48,10 @@ classdef domainsClass < projectClass
             % nonPolarisedProblem = problem.projectClass();
             projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.geometry);
             projectObj = copyProperties(obj, projectObj);
+
+            % Need to treat contrasts separately due to changes in the
+            % class for domains calculations
+            projectObj.contrasts = copyProperties(obj.contrasts, contrastsClass(oilWater=obj.contrasts.oilWaterCalc));
         end
 
         function names = getAllAllowedNames(obj)           

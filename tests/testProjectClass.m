@@ -87,13 +87,20 @@ classdef testProjectClass < matlab.unittest.TestCase
             % the properties are copied over
             testCase.verifyClass(testCase.project, 'projectClass')
             testCase.verifyEqual(testCase.project.calculationType, calculationTypes.NonPolarised.value, 'Calculation Type not set correctly');
+            testCase.verifyFalse(testCase.project.contrasts.domainsCalc, 'Calculation Type not set correctly')
 
             domains = testCase.project.domainsClass();
             testCase.verifyClass(domains, 'domainsClass')
             testCase.verifyEqual(domains.experimentName, testCase.project.experimentName, 'Experiment name not copied correctly');
             testCase.verifyEqual(domains.calculationType, calculationTypes.Domains.value, 'Calculation Type not set correctly');
+            testCase.verifyTrue(domains.contrasts.domainsCalc, 'Calculation Type not set correctly')
             testCase.verifyEqual(domains.parameters, testCase.project.parameters, 'Parameters not copied correctly');
             testCase.verifyEqual(domains.layers, testCase.project.layers, 'Layers not copied correctly');
+
+            % Ensure that the additional domain ratio field is defined
+            for i=1:domains.contrasts.numberOfContrasts
+                testCase.verifyTrue(isfield(domains.contrasts.contrasts{i}, 'domainRatio'))
+            end
         end
 
         function testGeometry(testCase)

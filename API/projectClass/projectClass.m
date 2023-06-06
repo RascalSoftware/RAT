@@ -116,6 +116,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % domainsProblem = problem.domainsClass();
             domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.geometry);
             domainsObj = copyProperties(obj, domainsObj);
+
+            % Need to treat contrasts separately due to changes in the
+            % class for domains calculations
+            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=true, oilWater=obj.contrasts.oilWaterCalc));
+            for i=1:domainsObj.contrasts.numberOfContrasts
+                domainsObj.contrasts.contrasts{i}.domainRatio = '';
+            end
         end
         
         function obj = setUsePriors(obj, showFlag)

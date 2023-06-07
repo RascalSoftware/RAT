@@ -28,19 +28,19 @@ classdef (Abstract) tableUtilities < handle
             names = obj.varTable{:,1};  
         end
         
-        function addRow(obj, row)
+        function addRow(obj, varargin)
             % Appends a new row to the table. Expects a cell array  
             % with the row to append
             % 
-            % obj.addRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
+            % obj.addRow('Tails', 10, 20, 30, true, 'uniform', 0, Inf)
             tab = obj.varTable;
 
             % Ensure no duplicate names
-            if any(strcmp(row{1}, tab{:,1}))
+            if any(strcmp(varargin{1}, tab{:,1}))
                 throw(duplicateName('Duplicate row names not allowed'));
             end
 
-            tab = [tab; row];
+            tab = [tab; varargin];
             obj.varTable = tab;
             obj.autoNameCounter = obj.autoNameCounter + 1;
         end

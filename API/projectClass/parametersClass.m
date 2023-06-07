@@ -58,7 +58,7 @@ classdef parametersClass < tableUtilities
                 % Add an empty parameter row
                 name = sprintf('new parameter %d',obj.autoNameCounter);
                 newRow = {name,0,0,0,false,priorTypes.Uniform.value,0,Inf};
-                obj.addRow(newRow);
+                obj.addRow(newRow{:});
             end
             
             if iscell(varargin) && ~isempty(varargin)
@@ -120,7 +120,7 @@ classdef parametersClass < tableUtilities
                 end
                     
                 newRow = {name, values(1), values(2), values(3), fit, priorType, priorValues(1), priorValues(2)};
-                obj.addRow(newRow);
+                obj.addRow(newRow{:});
             end
         end
         

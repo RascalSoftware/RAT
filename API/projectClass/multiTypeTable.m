@@ -20,12 +20,14 @@ classdef multiTypeTable < tableUtilities
             obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
         end
 
-        function obj = addRow(obj, addParams)
+        function obj = addRow(obj, varargin)
             % Adds a row to the multi-type table. The row can be specified
             % with up to seven parameters, with empty strings used for
             % values that are not specified.
             %
-            % multiTable.addRow('New Row');
+            % multiTable.addRow({'New Row'});
+            addParams = varargin{:};
+
             switch length(addParams)
 
                 case 0
@@ -53,7 +55,7 @@ classdef multiTypeTable < tableUtilities
             end
 
             % Pass in only the first seven values to ensure input is not too long
-            addRow@tableUtilities(obj, newRow(1:7));
+            addRow@tableUtilities(obj, newRow{1:7});
 
         end
         

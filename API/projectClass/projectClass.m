@@ -33,7 +33,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     end
 
     properties (SetObservable, AbortSet)
-        absorption
+        absorption {mustBeA(absorption,'logical')} = false
     end
 
     properties (SetAccess = immutable)
@@ -81,10 +81,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             obj.protectedParameters = cellstr(obj.parameters.getNames');
 
-            % Set the value of absorption, thne listen for any changes,
+            % Set the value of absorption, then listen for any changes,
             % and modify the layers table accordingly
             obj.absorption = absorption;
-            addlistener(obj, 'absorption', 'PostSet', @projectClass.modifyLayersTable);
+            addlistener(obj, 'absorption', 'PostSet', @obj.modifyLayersTable);
             
             % Initialise the layers table. Set the imaginary term in the
             % refractive index if absorption is selected
@@ -929,17 +929,21 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
     end
 
-    methods (Static)
+    methods (Access = protected, Hidden)
 
-        function modifyLayersTable(src,event)
-            disp('Hi Paul!');
-            %if obj.absorption
-            %    obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD', 'SLD Real');
-            %end
-
+        function modifyLayersTable(obj,~,~)
+            % Add or remove a column from the layers table whenever the
+            % "absorption" property is modified.
+            if obj.absorption
+                newCol = repmat("", height(obj.layers.varTable), 1);
+                obj.layers.varTable = addvars(obj.layers.varTable, newCol, 'After', 'SLD', 'NewVariableNames', 'SLD Imaginary');
+                obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD', 'SLD Real');
+            else
+                obj.layers.varTable = removevars(obj.layers.varTable, 'SLD Imaginary');
+                obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD Real', 'SLD');
+            end
         end
 
     end
 
 end
-

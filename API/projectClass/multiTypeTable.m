@@ -33,11 +33,11 @@ classdef multiTypeTable < tableUtilities
                     thisName = char(obj.typesAutoNameString);
                     thisNum = obj.autoNameCounter;
                     name = sprintf('%s %d', thisName, thisNum);
-                    newRow = {name,allowedTypes.Constant.value,'','','','',''};
+                    newRow = [name, allowedTypes.Constant.value, repmat({''}, 1, 5)];
                     
                 case 1
                     % One parameter: assume this is a name
-                    newRow = {addParams,allowedTypes.Constant.value,'','','','',''};
+                    newRow = [addParams, allowedTypes.Constant.value, repmat({''}, 1, 5)];
 
                 otherwise
                     % Two or more parameters are specified. 

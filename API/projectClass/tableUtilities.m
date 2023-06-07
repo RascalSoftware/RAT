@@ -34,7 +34,7 @@ classdef (Abstract) tableUtilities < handle
             % 
             % obj.addRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
             tab = obj.varTable;
-            
+
             % Ensure no duplicate names
             if any(strcmp(row{1}, tab{:,1}))
                 throw(duplicateName('Duplicate row names not allowed'));

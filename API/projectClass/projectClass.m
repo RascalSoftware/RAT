@@ -16,7 +16,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     properties
         experimentName
         geometry
-        absorption
         parameters          % parametersClass object
         layers              % layersClass object
         bulkIn              % parametersClass object
@@ -31,6 +30,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
         modelType = modelTypes.StandardLayers.value
         usePriors = false
+    end
+
+    properties (SetObservable, AbortSet)
+        absorption
     end
 
     properties (SetAccess = immutable)
@@ -67,7 +70,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.geometry = validateOption(geometry, 'geometryOptions', invalidGeometryMessage).value;
 
             obj.experimentName = experimentName;
-            obj.absorption = absorption;
 
             % Initialise the Parameters Table
             obj.parameters = parametersClass('Substrate Roughness',1,3,5,true,priorTypes.Uniform,0,Inf);
@@ -78,6 +80,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
             
             obj.protectedParameters = cellstr(obj.parameters.getNames');
+
+            % Set the value of absorption, thne listen for any changes,
+            % and modify the layers table accordingly
+            obj.absorption = absorption;
+            addlistener(obj, 'absorption', 'PostSet', @projectClass.modifyLayersTable);
             
             % Initialise the layers table. Set the imaginary term in the
             % refractive index if absorption is selected
@@ -136,7 +143,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 domainsObj.contrasts.contrasts{i}.domainRatio = '';
             end
         end
-        
+
         function obj = setUsePriors(obj, showFlag)
             % Sets the use priors flag. The showFlag should be a boolean/logical.
             %
@@ -921,6 +928,18 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         end
         
     end
-    
+
+    methods (Static)
+
+        function modifyLayersTable(src,event)
+            disp('Hi Paul!');
+            %if obj.absorption
+            %    obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD', 'SLD Real');
+            %end
+
+        end
+
+    end
+
 end
 

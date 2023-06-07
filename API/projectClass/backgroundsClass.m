@@ -120,7 +120,7 @@ classdef backgroundsClass < handle
                        thisRow = {in{1}, in{2}, '', '', '', '', ''};
                 end
             end
-            obj.backgrounds.addRow(thisRow);   
+            obj.backgrounds.addRow(thisRow{:});   
         end
         
         function obj = removeBackground(obj, row)

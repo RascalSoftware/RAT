@@ -26,9 +26,7 @@ classdef multiTypeTable < tableUtilities
             % values that are not specified.
             %
             % multiTable.addRow({'New Row'});
-            addParams = varargin{:};
-
-            switch length(addParams)
+            switch length(varargin)
 
                 case 0
                     % No Parameter. Add empty row
@@ -39,14 +37,14 @@ classdef multiTypeTable < tableUtilities
                     
                 case 1
                     % One parameter: assume this is a name
-                    newRow = [addParams, allowedTypes.Constant.value, repmat({''}, 1, 5)];
+                    newRow = [varargin, allowedTypes.Constant.value, repmat({''}, 1, 5)];
 
                 otherwise
                     % Two or more parameters are specified. 
                     % Assume the specified parameters refer to each table
                     % entry in order, then pad the row with empty
                     % characters if necessary
-                    newRow = [addParams, repmat({''}, 1, 7-length(addParams))];
+                    newRow = [varargin, repmat({''}, 1, 7-length(varargin))];
 
                     % Check type is one of the allowed types
                     invalidTypeMessage = sprintf('Allowed type must be a allowedTypes enum or one of the following strings (%s)', ...

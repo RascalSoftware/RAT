@@ -99,7 +99,7 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % and empty strings filling and unspecified values.
             expectedTable = [testCase.exampleTable.varTable; addedRow];
 
-            testCase.exampleTable.addRow(rowInput);
+            testCase.exampleTable.addRow(rowInput{:});
 
             testCase.verifyEqual(testCase.exampleTable.varTable, expectedTable, 'addRow does not work correctly');
         end
@@ -107,13 +107,13 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         function testAddRowInvalidType(testCase)
             % Test adding a row to a multi type table.
             % If we use an invalid type it should raise an error
-            testCase.verifyError(@() testCase.exampleTable.addRow({'Invalid Row', 'Invalid Type'}), invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleTable.addRow('Invalid Row', 'Invalid Type'), invalidOption.errorID);
         end
 
         function testAddRowDuplicateName(testCase)
             % Test adding a row to a multi type table.
             % If we use a duplicate name it should raise an error
-            testCase.verifyError(@() testCase.exampleTable.addRow({'Background D2O'}), duplicateName.errorID);
+            testCase.verifyError(@() testCase.exampleTable.addRow('Background D2O'), duplicateName.errorID);
         end
 
         function testSetValue(testCase)

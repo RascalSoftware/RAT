@@ -89,7 +89,7 @@ classdef testTableUtilities < matlab.unittest.TestCase
             newRow = {'New Row',allowedTypes.Constant.value,'','','','',''};
             expectedTable = [testCase.exampleTable.varTable; newRow];
 
-            testCase.exampleTable.addRow(newRow);
+            testCase.exampleTable.addRow(newRow{:});
             testCase.verifyEqual(testCase.exampleTable.varTable, expectedTable, 'addRow does not work correctly');
         end
 
@@ -98,7 +98,7 @@ classdef testTableUtilities < matlab.unittest.TestCase
             % an error
             newRow = {'Background D2O',allowedTypes.Constant.value,'','','','',''};
 
-            testCase.verifyError(@() testCase.exampleTable.addRow(newRow), duplicateName.errorID);
+            testCase.verifyError(@() testCase.exampleTable.addRow(newRow{:}), duplicateName.errorID);
             testCase.verifySize(testCase.exampleTable.varTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite duplicate names');
         end
 

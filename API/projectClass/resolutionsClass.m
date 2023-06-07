@@ -118,7 +118,7 @@ classdef resolutionsClass < handle
                        thisRow = {in{1}, in{2}, '', '', '', '', ''};
                 end
             end
-            obj.resolutions.addRow(thisRow);      
+            obj.resolutions.addRow(thisRow{:});      
         end
         
         function removeResolution(obj, row)

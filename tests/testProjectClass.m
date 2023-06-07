@@ -102,6 +102,28 @@ classdef testProjectClass < matlab.unittest.TestCase
                 testCase.verifyTrue(isfield(domains.contrasts.contrasts{i}, 'domainRatio'))
             end
         end
+        
+        function testAbsorption(testCase)
+            % Tests absorption can be turned on and off with the layers
+            % table modified accordingly
+            varTable = testCase.project.layers.varTable;
+            testCase.project.layers.varTable = [varTable; vertcat(testCase.layers{1:2})];
+
+            testCase.verifyFalse(testCase.project.absorption, 'Absorption not set correctly')
+            testCase.verifyEqual(testCase.project.layers.varCount, 6, 'Incorrect number of columns in layers table')
+            testCase.verifyEqual(testCase.project.layers.varTable{:,4}, ["Heads Roughness"; "Heads Roughness"], '')
+
+            testCase.project.absorption = true;
+            testCase.verifyTrue(testCase.project.absorption, 'Absorption not set correctly')
+            testCase.verifyEqual(testCase.project.layers.varCount, 7, 'Incorrect number of columns in layers table')
+            testCase.verifyEqual(testCase.project.layers.varTable{:,4}, [""; ""], '')
+
+            testCase.project.absorption = false;
+            testCase.verifyFalse(testCase.project.absorption, 'Absorption not set correctly')
+            testCase.verifyEqual(testCase.project.layers.varCount, 6, 'Incorrect number of columns in layers table')
+            testCase.verifyEqual(testCase.project.layers.varTable{:,4}, ["Heads Roughness"; "Heads Roughness"], '')
+        end
+
 
         function testGeometry(testCase)
             % Test default geometry

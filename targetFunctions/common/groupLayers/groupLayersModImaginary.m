@@ -77,7 +77,7 @@ coder.varsize('layers',[Inf,6],[1 1]);
                 end
                 if ~isnan(this_pcw)
                     layers(j,2) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,2);
-                    layers(j,3) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,3);
+                    %layers(j,3) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,3);
                 end
             end
         end 

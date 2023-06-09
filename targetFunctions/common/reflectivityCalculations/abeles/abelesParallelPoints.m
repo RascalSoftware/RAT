@@ -1,4 +1,4 @@
-function ref = abelesReflectParallelPoints(q,N,layers_thick,layers_rho,layers_sig)
+function ref = abelesParallelPoints(q,N,layers_thick,layers_rho,layers_sig)
 
 tiny = 1e-30;
 ci = complex(0,1);

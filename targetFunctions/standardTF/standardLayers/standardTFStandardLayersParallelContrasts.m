@@ -24,7 +24,8 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
 numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
 
-calcSld = controls.calcSld;      
+calcSld = controls.calcSld;   
+useImaginary = problemDef.useImaginary;
 
 % Allocate the memory for the output arrays before the main loop
 backgs = zeros(numberOfContrasts,1);
@@ -52,7 +53,7 @@ end
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 1 ; 1 1];
+    allLayers{i} = [1 1 1; 1 1 1];
 end
 % end memory allocation.
 
@@ -62,10 +63,10 @@ end
 % to be done once, and so is done outside the contrasts loop
 outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 
-% Resample parameters is required
+% Resample params if requiired
 resamPars = controls.resamPars;
 
-% Parallel loop over all the contrasts
+% Loop over all the contrasts
 parfor i = 1:numberOfContrasts
     
     % Extract the relevant parameter values for this contrast
@@ -77,7 +78,7 @@ parfor i = 1:numberOfContrasts
     % Also need to determine which layers from the overall layers list
     % are required for this contrast, and put them in the correct order 
     % according to geometry
-    thisContrastLayers = allocateLayersForContrast(contrastLayers{i},outParameterisedLayers);
+    thisContrastLayers = allocateLayersForContrast(contrastLayers{i},outParameterisedLayers,useImaginary);
     
     % For the other parameters, we extract the correct ones from the input
     % arrays
@@ -101,7 +102,7 @@ parfor i = 1:numberOfContrasts
         thisChiSquared,thisSsubs] = standardTFLayersCore(thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars);
+    thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
    
     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 

@@ -44,10 +44,10 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
 
         function testProjectClassConversionWithModification(testCase)
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass;
-            pClass.layers.layersTable.('Hydrate with')(1) = hydrationTypes.BulkIn.value;
+            pClass.layers.varTable.('Hydrate with')(1) = hydrationTypes.BulkIn.value;
             pClass.contrasts.contrasts{1}.data = 'Simulation';
             result = projectClassToR1(pClass, 'saveProject', false);
-            testCase.verifyEqual(result.layersDetails{1}{6}, char(pClass.layers.layersTable.('Hydrate with')(1)));
+            testCase.verifyEqual(result.layersDetails{1}{6}, char(pClass.layers.varTable.('Hydrate with')(1)));
             testCase.verifyEqual(result.contrastTypes{1}, pClass.contrasts.contrasts{1}.data);
         end
 

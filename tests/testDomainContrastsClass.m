@@ -3,9 +3,6 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
 % testContrastsClass Class based unit tests for the domainContrastsClass
 % used within the Project Class in RAT.
 %
-% In this class, we test:
-% toStruct, displayContrastsObject, parseContrastInput
-%
 % We use an example contrasts class from the example calculation
 % "DPPC_standard_layers.m".
 %

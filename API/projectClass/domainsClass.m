@@ -43,7 +43,7 @@ classdef domainsClass < projectClass
             % Returns a cell array of all currently
             % set parameter names for the project.
             names = getAllAllowedNames@projectClass(obj);
-            names.domainRatioNames = obj.domainRatio.getParamNames();
+            names.domainRatioNames = obj.domainRatio.getNames();
         end
         
         % -------------------------------------------------------------------
@@ -120,10 +120,10 @@ classdef domainsClass < projectClass
             % it is custom or layers
             if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
                 % Standard Layers
-                allowedValues = obj.layers.getLayersNames();
+                allowedValues = obj.layers.getNames();
             else
                 % Custom models
-                allowedValues = obj.customFile.getCustomNames();
+                allowedValues = obj.customFile.getNames();
             end
             
             % Call the setContrastModel method
@@ -176,7 +176,7 @@ classdef domainsClass < projectClass
 
             % Display the domains ratio contrast
             fprintf('   Domain Ratios: ----------------------------------------------------------------------------------------------- \n\n');
-            obj.domainRatio.displayParametersTable;
+            obj.domainRatio.displayTable;
 
             % Display the domainContrasts object
             fprintf('   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n');

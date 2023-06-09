@@ -3,10 +3,6 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 % testCustomFileClass Class based unit tests for the customFileClass
 % used within the Project Class in RAT.
 %
-% In this class, we test:
-% customFileClass, addCustomFile, setCustomFile, removeCustomFile,
-% displayCustomFileObject, toStruct
-%
 % We use an example custom file class combining the custom file classes
 % from the example calculations "DPPCCustomXY.m" and
 % "orsoDSPCCustomLayers.m"
@@ -47,8 +43,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
         exampleClass            % Example custom file class for testing
         initialFileTableEmpty   % Empty table to compare to initialisation
         initialFileTableOneRow  % Table with one row to compare to initialisation
-        numRows                 % Number of rows in exampleClass.fileTable
-        numCols                 % Number of columns in exampleClass.fileTable
+        numRows                 % Number of rows in exampleClass.varTable
+        numCols                 % Number of columns in exampleClass.varTable
     end
 
 %% Set up test data
@@ -76,11 +72,11 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % "DPPCCustomXY.m" and "orsoDSPCCustomLayers.m"
             testCase.exampleClass = customFileClass();
 
-            testCase.exampleClass.fileTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../'};
-            testCase.exampleClass.fileTable(2,:) = {'DSPC Model', 'customBilayer.m', 'matlab', '../../'};
+            testCase.exampleClass.varTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../'};
+            testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'matlab', '../../'};
 
-            testCase.numRows = height(testCase.exampleClass.fileTable);
-            testCase.numCols = width(testCase.exampleClass.fileTable);
+            testCase.numRows = height(testCase.exampleClass.varTable);
+            testCase.numCols = width(testCase.exampleClass.varTable);
         end
 
     end
@@ -94,8 +90,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % either an empty file table, or a table with a single row
             testClass = customFileClass();
 
-            testCase.verifySize(testClass.fileTable, [0 4], 'customFileClass does not initialise correctly');
-            testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableEmpty, 'customFileClass does not initialise correctly');
+            testCase.verifySize(testClass.varTable, [0 4], 'customFileClass does not initialise correctly');
+            testCase.verifyEqual(testClass.varTable, testCase.initialFileTableEmpty, 'customFileClass does not initialise correctly');
         end
 
         function testInitialiseCustomFileClassOneRow(testCase)
@@ -103,8 +99,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % either an empty file table, or a table with a single row
             testClass = customFileClass('DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../');
 
-            testCase.verifySize(testClass.fileTable, [1 4], 'customFileClass does not initialise correctly');
-            testCase.verifyEqual(testClass.fileTable, testCase.initialFileTableOneRow, 'customFileClass does not initialise correctly');
+            testCase.verifySize(testClass.varTable, [1 4], 'customFileClass does not initialise correctly');
+            testCase.verifyEqual(testClass.varTable, testCase.initialFileTableOneRow, 'customFileClass does not initialise correctly');
         end
 
         function testAddCustomFile(testCase, fileInput, addedRow)
@@ -113,11 +109,11 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % custom object name, a custom object name with the filename,
             % and a fully defined custom file entry consisting of: a
             % custom object name, a filename, language and file path.  
-            expectedTable = [testCase.exampleClass.fileTable; addedRow];
+            expectedTable = [testCase.exampleClass.varTable; addedRow];
 
             testCase.exampleClass.addCustomFile(fileInput{:});
 
-            testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, 'addFile does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.varTable, expectedTable, 'addFile does not work correctly');
         end
 
         function testAddCustomFileEmpty(testCase)
@@ -127,11 +123,11 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % and a fully defined custom file entry consisting of: a
             % custom object name, a filename, language and file path.
             newRow = {'New custom file 1', '', 'matlab', 'pwd'};
-            expectedTable = [testCase.exampleClass.fileTable; newRow];
+            expectedTable = [testCase.exampleClass.varTable; newRow];
 
             testCase.exampleClass.addCustomFile();
 
-            testCase.verifyEqual(testCase.exampleClass.fileTable, expectedTable, 'addFile does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.varTable, expectedTable, 'addFile does not work correctly');
         end
 
         function testAddCustomFileInvalid(testCase)
@@ -155,7 +151,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
         function testSetCustomFile(testCase, testRow, inputData, expectedRow)
             testCase.exampleClass.setCustomFile(inputData{:});
-            testCase.verifyEqual(testCase.exampleClass.fileTable{testRow, :}, expectedRow, 'setCustomFile does not work correctly');
+            testCase.verifyEqual(testCase.exampleClass.varTable{testRow, :}, expectedRow, 'setCustomFile does not work correctly');
         end
 
         function testSetCustomFileInvalidType(testCase, invalidInputData)
@@ -187,76 +183,47 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), invalidNumberOfInputs.errorID);
         end
 
-        function testRemoveCustomFile(testCase)
-            remainingRows = testCase.exampleClass.fileTable(2:end,:);
-            testCase.exampleClass.removeCustomFile(1);
-
-            testCase.verifyEqual(testCase.exampleClass.fileTable, remainingRows, 'removeCustomFile does not work correctly');
-        end
-
-        function testRemoveCustomFileMultiple(testCase)
-            % Test removing multiple rows from a file table
-            
-            % Put dummy third row in table
-            testCase.exampleClass.fileTable(3, :) = {'Test Row', '', '', ''};
-
-            remainingRows = testCase.exampleClass.fileTable(2,:);
-            testCase.exampleClass.removeCustomFile([1 3]);
-
-            testCase.verifyEqual(testCase.exampleClass.fileTable, remainingRows, 'removeCustomFile does not work correctly');
-        end
-
-        function testRemoveCustomFileInvalid(testCase)
-            % Test using invalid row indices to remove rows from a
-            % file table.
-            testCase.verifyError(@() testCase.exampleClass.removeCustomFile(0), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleClass.removeCustomFile(1.5), 'MATLAB:badsubscript');
-            testCase.verifyError(@() testCase.exampleClass.removeCustomFile(testCase.numRows+1), 'MATLAB:table:RowIndexOutOfRange');
-
-            testCase.verifySize(testCase.exampleClass.fileTable, [testCase.numRows testCase.numCols], 'Table parameters have changed despite no rows being removed');
-        end
-
-        function testDisplayCustomFileObject(testCase)
+        function testDisplayTable(testCase)
             % Test the routine to display the file table by capturing the
             % output and comparing with the table headers and data
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
-            display = textscan(evalc('testCase.exampleClass.displayCustomFileObject()'),'%s','Delimiter','\r','TextType','string');
+            display = textscan(evalc('testCase.exampleClass.displayTable()'),'%s','Delimiter','\r','TextType','string');
             displayedTable = display{:};
 
             % Check headers
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove "<strong>" tags
-            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+            outVars = eraseBetween(strip(regexprep(displayedTable(1), '\s+', ' ')), '<', '>','Boundaries','inclusive');
 
             % Convert table variable names to a string array and join into
             % a single string
-            varString = strip(strjoin(string(testCase.exampleClass.fileTable.Properties.VariableNames)));
+            varString = strip(strjoin(string(testCase.exampleClass.varTable.Properties.VariableNames)));
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
-            % continuing - output consists of "Custom Files" string,
-            % table header, divider row and the defined table rows
-            testCase.assertSize(displayedTable, [testCase.numRows+3, 1], 'Table does not have the right number of rows');
+            % continuing - output table header, divider row and the
+            % defined table rows
+            testCase.assertSize(displayedTable, [testCase.numRows+2, 1], 'Table does not have the right number of rows');
 
-            % Check table contents - when displayed, row 3 is a set of
-            % lines, so row 4 is the first line of data
+            % Check table contents - when displayed, row 2 is a set of
+            % lines, so row 3 is the first line of data
             for i = 1:testCase.numRows
                 
                 % Replace multiple spaces in output table with a single
                 % space using regular expressions, and remove '"'
                 % characters
-                outRow = strip(replace(regexprep(displayedTable(i+3), '\s+', ' '), '"', ''));
+                outRow = strip(replace(regexprep(displayedTable(i+2), '\s+', ' '), '"', ''));
 
                 % Get data from this row and join into a single string
-                rowString = strip(strjoin(testCase.exampleClass.fileTable{i,:}));
+                rowString = strip(strjoin(testCase.exampleClass.varTable{i,:}));
                 testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
 
             end
         end
 
-        function testDisplayCustomFileObjectEmpty(testCase)
+        function testDisplayTableEmpty(testCase)
             % Test the routine to display the file table of an empty
             % custom file class by capturing the output and comparing with
             % the table headers and data
@@ -264,92 +231,92 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
-            display = textscan(evalc('emptyClass.displayCustomFileObject()'),'%s','Delimiter','\r','TextType','string');
+            display = textscan(evalc('emptyClass.displayTable()'),'%s','Delimiter','\r','TextType','string');
             displayedTable = display{:};
 
             % Check headers
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove "<strong>" tags
-            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+            outVars = eraseBetween(strip(regexprep(displayedTable(1), '\s+', ' ')), '<', '>','Boundaries','inclusive');
 
             % Convert table variable names to a string array and join into
             % a single string
-            varString = strip(strjoin(string(emptyClass.fileTable.Properties.VariableNames)));
+            varString = strip(strjoin(string(emptyClass.varTable.Properties.VariableNames)));
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
             % continuing
-            testCase.assertSize(displayedTable, [4, 1], 'Table does not have the right number of rows');
+            testCase.assertSize(displayedTable, [3, 1], 'Table does not have the right number of rows');
 
             % Replace multiple spaces in output table with a single
             % space using regular expressions
-            outRow = strip(regexprep(displayedTable(4), '\s+', ' '));
-            rowString = string('"" "" "" ""');
+            outRow = strip(regexprep(displayedTable(3), '\s+', ' '));
+            rowString = """"" """" """" """"";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
-        function testDisplayCustomFileObjectEmptyRow(testCase)
+        function testDisplayTableEmptyRow(testCase)
             % Test the routine to display the file table of a custom file
             % class with empty row entries by capturing the output and
             % comparing with the table headers and data
             emptyRowClass = customFileClass();
-            emptyRowClass.fileTable(1, :) = {'Test Row', '', '', ''};
+            emptyRowClass.varTable(1, :) = {'Test Row', '', '', ''};
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
-            display = textscan(evalc('emptyRowClass.displayCustomFileObject()'),'%s','Delimiter','\r','TextType','string');
+            display = textscan(evalc('emptyRowClass.displayTable()'),'%s','Delimiter','\r','TextType','string');
             displayedTable = display{:};
 
             % Check headers
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove "<strong>" tags
-            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+            outVars = eraseBetween(strip(regexprep(displayedTable(1), '\s+', ' ')), '<', '>','Boundaries','inclusive');
 
             % Convert table variable names to a string array and join into
             % a single string
-            varString = strip(strjoin(string(emptyRowClass.fileTable.Properties.VariableNames)));
+            varString = strip(strjoin(string(emptyRowClass.varTable.Properties.VariableNames)));
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
             % continuing
-            testCase.assertSize(displayedTable, [4, 1], 'Table does not have the right number of rows');
+            testCase.assertSize(displayedTable, [3, 1], 'Table does not have the right number of rows');
 
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove '"' characters
-            outRow = strip(replace(regexprep(displayedTable(4), '\s+', ' '), '"', ''));
+            outRow = strip(replace(regexprep(displayedTable(3), '\s+', ' '), '"', ''));
             rowString = "Test Row No File - pwd";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
 
-        function testDisplayCustomFileObjectLongPath(testCase)
+        function testDisplayTableLongPath(testCase)
             % Test the routine to display the file table of a custom file
             % class with a long file path by capturing the output and
             % comparing with the table headers and data
             longPathClass = customFileClass();
-            longPathClass.fileTable(1, :) = {'Test Row', '', '', 'really/long/file/path'};
+            longPathClass.varTable(1, :) = {'Test Row', '', '', 'really/long/file/path'};
 
             % Capture the standard output and format into string array -
             % one element for each row of the output
-            display = textscan(evalc('longPathClass.displayCustomFileObject()'),'%s','Delimiter','\r','TextType','string');
+            display = textscan(evalc('longPathClass.displayTable()'),'%s','Delimiter','\r','TextType','string');
             displayedTable = display{:};
 
             % Check headers
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove "<strong>" tags
-            outVars = eraseBetween(strip(regexprep(displayedTable(2), '\s+', ' ')), '<', '>','Boundaries','inclusive');
+            outVars = eraseBetween(strip(regexprep(displayedTable(1), '\s+', ' ')), '<', '>','Boundaries','inclusive');
 
             % Convert table variable names to a string array and join into
             % a single string
-            varString = strip(strjoin(string(longPathClass.fileTable.Properties.VariableNames)));
+            varString = strip(strjoin(string(longPathClass.varTable.Properties.VariableNames)));
             testCase.verifyEqual(outVars, varString, 'Table headers do not match variable names');
 
             % Make sure the output has the right number of rows before
             % continuing
-            testCase.assertSize(displayedTable, [4, 1], 'Table does not have the right number of rows');
+            testCase.assertSize(displayedTable, [3, 1], 'Table does not have the right number of rows');
 
             % Replace multiple spaces in output table with a single
             % space using regular expressions, and remove '"' characters
-            outRow = strip(replace(regexprep(displayedTable(4), '\s+', ' '), '"', ''));
+            outRow = strip(replace(regexprep(displayedTable(3), '\s+', ' '), '"', ''));
             rowString = "Test Row No File - ...g/file/path";
             testCase.verifyEqual(outRow, rowString, 'Row does not contain the correct data');
         end
@@ -358,7 +325,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             fileStruct = testCase.exampleClass.toStruct();
             testCase.verifyClass(fileStruct, 'struct');
             for i = 1:testCase.numRows
-                testCase.verifyEqual(string(fileStruct.files{i}), testCase.exampleClass.fileTable{i, 2:end});
+                testCase.verifyEqual(string(fileStruct.files{i}), testCase.exampleClass.varTable{i, 2:end});
             end
         end
 

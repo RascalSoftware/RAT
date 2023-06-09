@@ -1,14 +1,6 @@
-classdef layersClass < handle
+classdef layersClass < tableUtilities
     
     % This is the class definition for the layers block.
-
-    properties
-        layersTable = table
-    end
-        
-    properties (Access = private)
-        layersAutoNameCounter
-    end
 
     properties(Access = private, Constant, Hidden)
         invalidTypeMessage = sprintf('Hydration type must be a HydrationTypes enum or one of the following strings (%s)', ...
@@ -20,7 +12,6 @@ classdef layersClass < handle
     end
     
     properties (Dependent, SetAccess = private)
-        layersCount
         varCount
     end
     
@@ -40,12 +31,7 @@ classdef layersClass < handle
 
             sz = [0 obj.varCount];
             varTypes = repmat({'string'}, 1, obj.varCount);
-            obj.layersTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
-            obj.layersAutoNameCounter = 1;
-        end
-
-        function count = get.layersCount(obj)
-            count = height(obj.layersTable);
+            obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
         end
 
         function count = get.varCount(obj)
@@ -62,15 +48,15 @@ classdef layersClass < handle
             % (no hydration) or all parameters.
             % Parameters can be specified either by name or by index.
             %
-            % layers.addLayer(parameters.paramsTable{:, 1});
-            % layers.addLayer(parameters.paramsTable{:, 1}, 'New layer');
-            % layers.addLayer(parameters.paramsTable{:, 1},...
+            % layers.addLayer(parameters.varTable{:, 1});
+            % layers.addLayer(parameters.varTable{:, 1}, 'New layer');
+            % layers.addLayer(parameters.varTable{:, 1},...
             %                 'Another layer', 1, 2, 3);
             layerDetails = varargin;
 
             if isempty(layerDetails)
                 % Add an empty layer
-                layerNum = obj.layersAutoNameCounter;
+                layerNum = obj.autoNameCounter;
                 layerName = sprintf('Layer %d',layerNum);
                 newRow = [{layerName}, repmat({''}, 1, obj.varCount - 2), {hydrationTypes.BulkOut.value}];
                 
@@ -110,7 +96,7 @@ classdef layersClass < handle
 
             end
 
-            appendNewRow(obj, newRow);
+            obj.addRow(newRow{:});
 
         end
         
@@ -123,30 +109,30 @@ classdef layersClass < handle
             % that row and column, and a string array of parameter names
             % defined in the project's parameter class.
             %
-            % layers.setLayerValue(1, 1, 'origin', parameters.paramsTable{:, 1});
-            layerNames = obj.layersTable{:,1};
-            colNames = obj.layersTable.Properties.VariableNames;
+            % layers.setLayerValue(1, 1, 'origin', parameters.varTable{:, 1});
+            layerNames = obj.varTable{:,1};
+            colNames = obj.varTable.Properties.VariableNames;
             
             % Find the row index if we have a layer name
             if isText(row)
-                row = obj.findRowIndex(row, layerNames);
+                row = obj.findRowIndex(row, layerNames, 'Unrecognised layer name');
             elseif isnumeric(row)
-                if (row < 1) || (row > obj.layersCount)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.layersCount)));
+                if (row < 1) || (row > obj.rowCount)
+                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.rowCount)));
                 end
             else
-                throw(invalidType('Layer type not recognised'));
+                throw(invalidType('Unrecognised layer type'));
             end
             
             % Find the column index if we have a column name
             if isText(col)
-                col = obj.findRowIndex(col, colNames);
+                col = obj.findRowIndex(col, colNames, 'Unrecognised column name');
             elseif isnumeric(col)
                 if (col < 1) || (col > length(colNames))
                     throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
                 end
             else
-                throw(invalidType('Layer table column type not recognised'));
+                throw(invalidType('Unrecognised layer table column type'));
             end
 
             if ~isnumeric(col) || col < 2  || col > length(colNames)
@@ -159,35 +145,16 @@ classdef layersClass < handle
                 val = obj.findParameter(inputValue, paramNames);
             end
                 
-            obj.layersTable(row,col) = {val};
+            obj.varTable(row,col) = {val};
             
-        end
-
-        function removeLayer(obj, layer)
-            % Removes a layer from the layers table. The expected input is
-            % an integer or array of integers, i.e., an input such as
-            % [1 3] leads to multiple rows being removed from the table
-            %
-            % layers.removeLayer(2)
-            tab = obj.layersTable;
-            tab(layer,:) = [];
-            obj.layersTable = tab;
-        end
- 
-        function layersNames = getLayersNames(obj)
-            % Get a string array of the names of each of the layers defined
-            % in the class.
-            %
-            % layers.getLayersNames()
-            layersNames = obj.layersTable{:,1};  
         end
         
         function outStruct = toStruct(obj, paramNames, modelType)
             % Convert the layers class to a struct.
             %
             % layers.toStruct()            
-            %outStruct = table2cell(obj.layersTable);
-            layersCell = obj.layersTable{:,:};
+            %outStruct = table2cell(obj.varTable);
+            layersCell = obj.varTable{:,:};
 
             outStruct.numberOfLayers = size(layersCell, 1);
             outStruct.layersNames = layersCell(:,1);
@@ -239,71 +206,10 @@ classdef layersClass < handle
             end
 
         end
-        
 
-        function displayLayersTable(obj)
-            % Displays the layers table with numbered rows
-            %
-            % layers.displayLayersTable()
-            array = obj.layersTable;
-            len = size(array,1);
-            if len == 0
-                % Make an empty table for display
-                sz = [1 obj.varCount];
-                varTypes = repmat({'double'}, 1, obj.varCount);
-                dummyTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',obj.varNames);
-                disp(dummyTable);
-                fprintf('\n');
-            end
-            p = 1:len;
-            p = p(:);
-            p = table(p);
-            all = [p array];
-            disp(all);
-            
-        end
-        
     end
-    
-    methods (Access = protected)
         
-        function appendNewRow(obj, row)
-            % Appends a row to the layers table. The expected input is
-            % cell array of length equal to the number of table values.
-            %
-            % layers.appendNewRow({'New Row','','','','','bulk out'});
-            tab = obj.layersTable;
-            newName = row{1};
-            if any(strcmp(newName,tab{:,1}))
-                throw(duplicateName('Duplicate layer names are not allowed'));
-            end
-            tab = [tab ; row];
-            obj.layersTable = tab;
-            obj.layersAutoNameCounter = obj.layersAutoNameCounter + 1;
-        end
-        
-    end
-    
     methods(Static)
-
-        function row = findRowIndex(name, rowNames)
-            % Find the index of a row in the layers class table given its
-            % name. The expected inputs are the name of the row and the
-            % full list of row names.
-
-            % Strip leading or trailing whitespaces from names
-            rowNames = strip(rowNames);
-            name = strip(name);
-
-            % Compare 'name' to list ignoring case
-            index = strcmpi(name, rowNames);
-            if any(index)
-                % Non-zero value in array is the row index
-                row = find(index);
-            else
-                throw(nameNotRecognised('Layer name not found'));
-            end
-        end
 
         function param = findParameter(inputVal, paramNames)
             % Find whether or not a proposed layer parameter is included

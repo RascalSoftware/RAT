@@ -56,7 +56,7 @@ classdef resolutionsClass < handle
             % in the object. 
             % 
             % names = resolution.getResolNames();
-            resolTable = obj.resolutions.typesTable;
+            resolTable = obj.resolutions.varTable;
             names = resolTable{:,1};   
         end
          
@@ -118,7 +118,7 @@ classdef resolutionsClass < handle
                        thisRow = {in{1}, in{2}, '', '', '', '', ''};
                 end
             end
-            obj.resolutions.addRow(thisRow);      
+            obj.resolutions.addRow(thisRow{:});      
         end
         
         function removeResolution(obj, row)
@@ -136,9 +136,9 @@ classdef resolutionsClass < handle
             %
             % resolution.setResolution(1, 'name', 'res 1', 'type', 'constant', 'value1', 'param_name');
             if isText(row)
-                row = obj.resolutions.findRowIndex(row, obj.getResolNames());
+                row = obj.resolutions.findRowIndex(row, obj.getResolNames(), 'Unrecognised resolution');
             elseif isnumeric(row)
-                count = obj.resolutions.typesCount;
+                count = obj.resolutions.rowCount;
                 if (row < 1) || (row > count)
                     throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, count)));
                 end
@@ -147,12 +147,12 @@ classdef resolutionsClass < handle
             end
             
             p = inputParser;
-            addParameter(p, 'name', obj.resolutions.typesTable{row, 1}, @(x) isText(x));
-            addParameter(p, 'type', obj.resolutions.typesTable{row, 2}, @(x) isText(x) || isenum(x));
-            addParameter(p, 'value1', obj.resolutions.typesTable{row, 3}, @(x) isText(x));
-            addParameter(p, 'value2', obj.resolutions.typesTable{row, 4}, @(x) isText(x));
-            addParameter(p, 'value3', obj.resolutions.typesTable{row, 5}, @(x) isText(x));
-            addParameter(p, 'value4', obj.resolutions.typesTable{row, 6}, @(x) isText(x));
+            addParameter(p, 'name', obj.resolutions.varTable{row, 1}, @(x) isText(x));
+            addParameter(p, 'type', obj.resolutions.varTable{row, 2}, @(x) isText(x) || isenum(x));
+            addParameter(p, 'value1', obj.resolutions.varTable{row, 3}, @(x) isText(x));
+            addParameter(p, 'value2', obj.resolutions.varTable{row, 4}, @(x) isText(x));
+            addParameter(p, 'value3', obj.resolutions.varTable{row, 5}, @(x) isText(x));
+            addParameter(p, 'value4', obj.resolutions.varTable{row, 6}, @(x) isText(x));
 
             parse(p, varargin{:});
             inputBlock = p.Results;
@@ -185,9 +185,9 @@ classdef resolutionsClass < handle
             resolStruct.nResolPars = resolParamsStruct.nParams;
             resolStruct.resolParPriors = resolParamsStruct.priors;
             
-            resolutionNames = obj.resolutions.typesTable{:,1};
-            resolutionTypes = obj.resolutions.typesTable{:,2};
-            resolutionValues = table2cell(obj.resolutions.typesTable(:,3:7));
+            resolutionNames = obj.resolutions.varTable{:,1};
+            resolutionTypes = obj.resolutions.varTable{:,2};
+            resolutionValues = table2cell(obj.resolutions.varTable(:,3:7));
             
             resolStruct.resolutionNames = resolutionNames;
             resolStruct.resolutionTypes = resolutionTypes;
@@ -196,12 +196,11 @@ classdef resolutionsClass < handle
         
         function displayResolutionsObject(obj)
             % Displays the resolution parameters and resolution table.
-            fprintf('    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
-            fprintf('    (a) Resolutions Parameters: \n');
-            obj.resolPars.displayParametersTable;
+            fprintf('    (a) Resolutions Parameters: \n\n');
+            obj.resolPars.displayTable;
             
-            fprintf('    (b) Resolutions:  \n')
-            obj.resolutions.displayTypesTable;
+            fprintf('    (b) Resolutions:  \n\n')
+            obj.resolutions.displayTable;
         end 
     end
 
@@ -214,7 +213,7 @@ classdef resolutionsClass < handle
             if iscell(param)
                 param = param{:};
             end
-            parList = obj.resolPars.getParamNames(); 
+            parList = obj.resolPars.getNames(); 
             if isnumeric(param)
                 if (param < 1) || (param > length(parList))
                     throw(indexOutOfRange(sprintf('Resolution Parameter %d is out of range', param)));

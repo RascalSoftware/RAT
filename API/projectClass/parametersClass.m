@@ -1,23 +1,14 @@
-classdef parametersClass < handle
+classdef parametersClass < tableUtilities
     % This is the class definition for
     % the parameters block.
     
     properties
-        paramsTable = table
         showPriors = false
     end
 
     properties(Access = private, Constant, Hidden)
         invalidPriorsMessage = sprintf('Prior type must be a priorTypes enum or one of the following strings (%s)', ...
                                        strjoin(priorTypes.values(), ', '))
-    end
-
-    properties (Access = private)   
-        paramAutoNameCounter=1
-    end
-    
-    properties (Dependent)
-        paramCount
     end
     
     methods
@@ -42,24 +33,12 @@ classdef parametersClass < handle
             sz = [0, 8];
             varTypes = {'string','double','double','double','logical','string','double','double'};
             varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
-            obj.paramsTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
+            obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             if isempty(varargin)
                 obj.addParameter();
             else
                 obj.addParameter(varargin{:});
             end
-        end
-        
-        function count = get.paramCount(obj)
-            count = height(obj.paramsTable);
-        end
-        
-        function names = getParamNames(obj)
-            % Returns a N x 1 cell array of names of the parameter 
-            % in the object. 
-            % 
-            % names = params.getParamNames();
-            names = obj.paramsTable{:,1}; 
         end
         
         function obj = addParameter(obj, varargin)
@@ -77,9 +56,9 @@ classdef parametersClass < handle
             if isempty(varargin)
                 % No input parameter
                 % Add an empty parameter row
-                name = sprintf('new parameter %d',obj.paramAutoNameCounter);
+                name = sprintf('new parameter %d',obj.autoNameCounter);
                 newRow = {name,0,0,0,false,priorTypes.Uniform.value,0,Inf};
-                appendNewRow(obj,newRow);
+                obj.addRow(newRow{:});
             end
             
             if iscell(varargin) && ~isempty(varargin)
@@ -141,7 +120,7 @@ classdef parametersClass < handle
                 end
                     
                 newRow = {name, values(1), values(2), values(3), fit, priorType, priorValues(1), priorValues(2)};
-                appendNewRow(obj, newRow);
+                obj.addRow(newRow{:});
             end
         end
         
@@ -151,6 +130,8 @@ classdef parametersClass < handle
             % names or indices to remove
             %
             % params.removeParameter(2);
+
+            % Arrange parameters into a cell array
             if isa(row, 'double')
                 row = num2cell(sort(row, 'descend'));
             elseif isText(row)
@@ -160,9 +141,18 @@ classdef parametersClass < handle
                 throw(invalidType('Unrecognised Row'))
             end
 
+            % Find index for each parameter and remove from table
+            rowNames = obj.varTable{:,1};
             for i = 1:length(row)
-                obj.removeRow(row{i});
+                currentRow = row{i};
+
+                if isText(currentRow)
+                    currentRow = obj.findRowIndex(currentRow, rowNames, 'Unrecognised parameter name');
+                end
+
+                obj.removeRow(currentRow);
             end
+
         end
         
         function obj = setParameter(obj, row, varargin)
@@ -184,12 +174,12 @@ classdef parametersClass < handle
             end
             
             if ~isempty(inputBlock.min)
-                max = obj.paramsTable{row, 4};
+                max = obj.varTable{row, 4};
                 obj.setConstraint(row, inputBlock.min, max);
             end
             
             if ~isempty(inputBlock.max)
-                min = obj.paramsTable{row, 2};
+                min = obj.varTable{row, 2};
                 obj.setConstraint(row, min, inputBlock.max);
             end
             
@@ -210,7 +200,7 @@ classdef parametersClass < handle
             %
             % params.setPrior(2, priorTypes.Gaussian, 1, 2);
             inputValues = varargin;
-            tab = obj.paramsTable;
+            tab = obj.varTable;
             
             row = obj.getValidRow(row);
             priorType = validateOption(inputValues{1}, 'priorTypes', obj.invalidPriorsMessage).value;
@@ -226,7 +216,7 @@ classdef parametersClass < handle
                     tab(row,8) = inputValues(3);
             end
     
-            obj.paramsTable = tab;
+            obj.varTable = tab;
             
         end
         
@@ -235,7 +225,7 @@ classdef parametersClass < handle
             % name of parameter and the new value
             %
             % params.setValue(2, 3.4);
-            tab = obj.paramsTable;           
+            tab = obj.varTable;           
             row = obj.getValidRow(row);
 
             if ~isnumeric(value)
@@ -243,7 +233,7 @@ classdef parametersClass < handle
             end
 
             tab(row,3) = {value};
-            obj.paramsTable = tab;
+            obj.varTable = tab;
         end
         
         function obj = setName(obj, row, name)
@@ -251,7 +241,7 @@ classdef parametersClass < handle
             % Expects index or name of parameter and the new name
             %
             % params.setName(2, 'new name');
-            tab = obj.paramsTable;           
+            tab = obj.varTable;           
             row = obj.getValidRow(row);
 
             if ~isText(name)
@@ -259,7 +249,7 @@ classdef parametersClass < handle
             end
 
             tab(row, 1) = {name};
-            obj.paramsTable = tab;
+            obj.varTable = tab;
         end
         
         function obj = setConstraint(obj, row, min, max)
@@ -268,7 +258,7 @@ classdef parametersClass < handle
             % value
             %
             % params.setConstraint({2, 0, 100});
-            tab = obj.paramsTable;
+            tab = obj.varTable;
             row = obj.getValidRow(row);
 
             if ~(isnumeric(min) && isnumeric(max))
@@ -277,7 +267,7 @@ classdef parametersClass < handle
             
             tab(row, 2) = {min};
             tab(row, 4) = {max};
-            obj.paramsTable = tab;
+            obj.varTable = tab;
         end
                 
         function obj = setFit(obj, row, fitFlag)
@@ -285,7 +275,7 @@ classdef parametersClass < handle
             % Expects index or name of parameter and new fit flag
             %
             % params.setFit(2, true);           
-            tab = obj.paramsTable;
+            tab = obj.varTable;
             row = obj.getValidRow(row);
 
             if ~islogical(fitFlag)
@@ -293,7 +283,7 @@ classdef parametersClass < handle
             end
            
             tab(row, 5) = {fitFlag};
-            obj.paramsTable = tab;
+            obj.varTable = tab;
         end
         
         function set.showPriors(obj, flag)
@@ -304,23 +294,30 @@ classdef parametersClass < handle
             obj.showPriors = flag;
         end
         
-        function displayParametersTable(obj)
+        function displayTable(obj)
             % Displays the parameter table
-            array = obj.paramsTable;
-            p = 1:size(array,1);
-            p = p(:);
-            p = table(p);
+            array = obj.varTable;
+            numParams = height(obj.varTable);
             if ~obj.showPriors
                 array = array(:,1:5);
             end
-            all = [p array];
-            disp(all);
+
+            if numParams == 0
+                array(1, :) = repmat({''}, 1, width(obj.varTable));
+            else
+                p = 1:numParams;
+                p = p(:);
+                p = table(p);
+                array = [p array];
+            end
+
+            disp(array);
         end
         
         
         function outStruct = toStruct(obj)
             % Converts the class parameters into a structure array.
-            paramNames = table2cell(obj.paramsTable(:,1));
+            paramNames = table2cell(obj.varTable(:,1));
             
             % Want these to be class 'char' rather than 'string'
             for n = 1:length(paramNames)
@@ -328,10 +325,10 @@ classdef parametersClass < handle
             end
             outStruct.paramNames = paramNames;
             
-            outStruct.nParams = size(obj.paramsTable,1);
+            outStruct.nParams = size(obj.varTable,1);
             
-            mins = obj.paramsTable{:,2};
-            maxs = obj.paramsTable{:,4};
+            mins = obj.varTable{:,2};
+            maxs = obj.varTable{:,4};
             constr = cell([1, length(mins)]);
             for i = 1:length(mins)
                 constr{i} = [mins(i) maxs(i)];
@@ -340,11 +337,11 @@ classdef parametersClass < handle
             %constr = [mins maxs];
             outStruct.paramConstr = constr;
             
-            outStruct.params = obj.paramsTable{:,3};
+            outStruct.params = obj.varTable{:,3};
             
-            outStruct.fitYesNo = double(obj.paramsTable{:,5});
+            outStruct.fitYesNo = double(obj.varTable{:,5});
             
-            priors = table2cell(obj.paramsTable(:,6:8));
+            priors = table2cell(obj.varTable(:,6:8));
             priors = [outStruct.paramNames priors];
             
             % Group each row into one cell. Should be a way of doing this
@@ -379,58 +376,18 @@ classdef parametersClass < handle
         
     end
     
-    
     methods (Access = protected)
-        
-        function appendNewRow(obj, row)
-            % Appends a new row to the table. Expects a cell array  
-            % with row values to append
-            % 
-            % obj.appendNewRow({'Tails', 10, 20, 30, true, 'uniform', 0, Inf})
-            tab = obj.paramsTable;
-            newName = row{1};
-            if any(strcmp(newName,tab{:,1}))
-                throw(duplicateName('Duplicate parameter names not allowed'));
-            end
-            tab = [tab ; row];
-            obj.paramsTable = tab;
-            obj.paramAutoNameCounter = obj.paramAutoNameCounter + 1;
-        end
-        
-        function removeRow(obj, row)
-            % Removes a specified row of the table. Expects
-            % index or name of row to remove
-            %
-            % obj.removeRow(1)
-            tab = obj.paramsTable;
-            
-            if isText(row)
-                % Assume a row name
-                index = strcmp(row, tab{:,1});
-                if ~any(index)
-                    throw(nameNotRecognised('Unrecognised parameter name'));
-                end
-                row = find(index);
-            end
-            
-            if (row < 1) || (row > obj.paramCount)
-                throw(indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.paramCount)));
-            end
-            
-            tab(row, :) = [];
-            obj.paramsTable = tab;   
-        end
         
         function index = getValidRow(obj, row)
             % Gets valid row with given name or index  
             %
             % obj.getValidRow('param name')
             if isText(row)
-                index = obj.findRowIndex(row, obj.paramsTable);
+                index = obj.findRowIndex(row, obj.varTable{:,1}, 'Unrecognised row name');
             else
                 index = row;
-                if (index < 1) || (index > obj.paramCount)
-                    throw(indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.paramCount)));
+                if (index < 1) || (index > obj.rowCount)
+                    throw(indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.rowCount)));
                 end     
             end
         end
@@ -456,31 +413,6 @@ classdef parametersClass < handle
             inputBlock = p.Results;
         end
 
-    end
-
-    methods (Static)
-        function row = findRowIndex(name, tab)
-            % Gets index with given row name from table.
-            %
-            % obj.findRowIndex('param')
-            namesList = tab{:,1};
-            
-            % Strip leading or trailing white spaces from names and name
-            namesList = strip(namesList);
-            name = strip(name);
-            
-            % Compare 'name' to list ignoring case
-            index = strcmpi(name, namesList);
-            if ~any(index)
-                throw(nameNotRecognised('Unrecognised parameter name'));
-            end
-            
-            % Non-zero value in array is the row index
-            row = find(index);
-        end
-        
-        
-        
     end
 
 end

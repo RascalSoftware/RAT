@@ -59,7 +59,7 @@ classdef backgroundsClass < handle
             % in the object. 
             % 
             % names = background.getBackgroundNames();
-            backsTable = obj.backgrounds.typesTable;
+            backsTable = obj.backgrounds.varTable;
             names = backsTable{:,1};      
         end
                  
@@ -120,7 +120,7 @@ classdef backgroundsClass < handle
                        thisRow = {in{1}, in{2}, '', '', '', '', ''};
                 end
             end
-            obj.backgrounds.addRow(thisRow);   
+            obj.backgrounds.addRow(thisRow{:});   
         end
         
         function obj = removeBackground(obj, row)
@@ -138,9 +138,9 @@ classdef backgroundsClass < handle
             %
             % background.setBackground(1, 'name', 'back 1', 'type', 'constant', 'value1', 'param_name');
             if isText(row)
-                row = obj.backgrounds.findRowIndex(row, obj.getBackgroundNames());
+                row = obj.backgrounds.findRowIndex(row, obj.getBackgroundNames(), 'Unrecognised background');
             elseif isnumeric(row)
-                count = obj.backgrounds.typesCount;
+                count = obj.backgrounds.rowCount;
                 if (row < 1) || (row > count)
                     throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, count)));
                 end
@@ -149,12 +149,12 @@ classdef backgroundsClass < handle
             end
             
             p = inputParser;
-            addParameter(p, 'name', obj.backgrounds.typesTable{row, 1}, @(x) isText(x));
-            addParameter(p, 'type', obj.backgrounds.typesTable{row, 2}, @(x) isText(x) || isenum(x));
-            addParameter(p, 'value1', obj.backgrounds.typesTable{row, 3}, @(x) isText(x));
-            addParameter(p, 'value2', obj.backgrounds.typesTable{row, 4}, @(x) isText(x));
-            addParameter(p, 'value3', obj.backgrounds.typesTable{row, 5}, @(x) isText(x));
-            addParameter(p, 'value4', obj.backgrounds.typesTable{row, 6}, @(x) isText(x));
+            addParameter(p, 'name', obj.backgrounds.varTable{row, 1}, @(x) isText(x));
+            addParameter(p, 'type', obj.backgrounds.varTable{row, 2}, @(x) isText(x) || isenum(x));
+            addParameter(p, 'value1', obj.backgrounds.varTable{row, 3}, @(x) isText(x));
+            addParameter(p, 'value2', obj.backgrounds.varTable{row, 4}, @(x) isText(x));
+            addParameter(p, 'value3', obj.backgrounds.varTable{row, 5}, @(x) isText(x));
+            addParameter(p, 'value4', obj.backgrounds.varTable{row, 6}, @(x) isText(x));
 
             parse(p, varargin{:});
             inputBlock = p.Results;
@@ -189,13 +189,11 @@ classdef backgroundsClass < handle
 
         function displayBackgroundsObject(obj)
             % Displays the background parameters and background table.
-            fprintf('    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
-            fprintf('    (a) Background Parameters: \n');
-            obj.backPars.displayParametersTable;
+            fprintf('    (a) Background Parameters: \n\n');
+            obj.backPars.displayTable;
             
-            fprintf('    (b) Backgrounds:  \n')
-            obj.backgrounds.displayTypesTable;
-            %fprintf('\n    ----------------------------------------------------------------------------------- \n\n');
+            fprintf('    (b) Backgrounds:  \n\n')
+            obj.backgrounds.displayTable;
         end
         
         function backStruct = toStruct(obj)
@@ -209,9 +207,9 @@ classdef backgroundsClass < handle
             backStruct.nBackPars = backParamsStruct.nParams;
             backStruct.backsPriors = backParamsStruct.priors;
             
-            backgroundNames = obj.backgrounds.typesTable{:,1};
-            backgroundTypes = obj.backgrounds.typesTable{:,2};
-            backgroundValues = table2cell(obj.backgrounds.typesTable(:,3:7));
+            backgroundNames = obj.backgrounds.varTable{:,1};
+            backgroundTypes = obj.backgrounds.varTable{:,2};
+            backgroundValues = table2cell(obj.backgrounds.varTable(:,3:7));
             
             backStruct.backgroundNames = backgroundNames;
             backStruct.backgroundTypes = backgroundTypes;
@@ -228,7 +226,7 @@ classdef backgroundsClass < handle
             if iscell(param)
                 param = param{:};
             end
-            parList = obj.backPars.getParamNames();
+            parList = obj.backPars.getNames();
             if isnumeric(param)
                 if (param < 1) || (param > length(parList))
                     throw(indexOutOfRange(sprintf('Background Parameter %d is out of range', param)));

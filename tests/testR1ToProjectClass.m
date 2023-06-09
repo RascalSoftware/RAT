@@ -58,10 +58,10 @@ classdef testR1ToProjectClass < matlab.unittest.TestCase
 
             result = r1ToProjectClass('tempStruct.mat');
 
-            testCase.verifyEqual(result.layers.layersTable.Thickness(1), convertCharsToStrings(problem.paramnames{2}));
-            testCase.verifyEqual(result.layers.layersTable.SLD(1), convertCharsToStrings(problem.paramnames{3}));
-            testCase.verifyEqual(result.layers.layersTable.Roughness(1), convertCharsToStrings(problem.paramnames{1}));
-            testCase.verifyEqual(result.layers.layersTable.Hydration(1), convertCharsToStrings(problem.paramnames{21}));
+            testCase.verifyEqual(result.layers.varTable.Thickness(1), convertCharsToStrings(problem.paramnames{2}));
+            testCase.verifyEqual(result.layers.varTable.SLD(1), convertCharsToStrings(problem.paramnames{3}));
+            testCase.verifyEqual(result.layers.varTable.Roughness(1), convertCharsToStrings(problem.paramnames{1}));
+            testCase.verifyEqual(result.layers.varTable.Hydration(1), convertCharsToStrings(problem.paramnames{21}));
         end
 
         function testEmptyStrs(testCase)
@@ -72,7 +72,7 @@ classdef testR1ToProjectClass < matlab.unittest.TestCase
 
             result = r1ToProjectClass('tempStruct.mat');
 
-            testCase.verifyEqual(result.layers.layersTable.Hydration(1), missing);
+            testCase.verifyEqual(result.layers.varTable.Hydration(1), missing);
         end
     end
 end

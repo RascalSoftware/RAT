@@ -35,7 +35,7 @@ Parameters = {
         {'Bilayer Coverage'     0.8,         1,        1.0,    true   };
         };
     
- problem.addParamGroup(Parameters);
+ problem.addParameterGroup(Parameters);
  problem.setParameter(1,'min',1,'max',10);
  
 %% 

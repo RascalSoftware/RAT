@@ -70,7 +70,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 obj.addParameter('Oil Roughness');
             end
             
-            obj.protectedParameters = cellstr(obj.parameters.getParamNames');
+            obj.protectedParameters = cellstr(obj.parameters.getNames');
             
             % Initialise the layers table
             obj.layers = layersClass();
@@ -167,18 +167,18 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         function names = getAllAllowedNames(obj)           
             % Returns a cell array of all currently
             % set parameter names for the project.
-            names.paramNames = obj.parameters.getParamNames();
+            names.paramNames = obj.parameters.getNames();
             names.backsNames = obj.background.getBackgroundNames();
-            names.backParNames = obj.background.backPars.getParamNames();
-            names.bulkInNames = obj.bulkIn.getParamNames();
-            names.bulkOutNames = obj.bulkOut.getParamNames();
+            names.backParNames = obj.background.backPars.getNames();
+            names.bulkInNames = obj.bulkIn.getNames();
+            names.bulkOutNames = obj.bulkOut.getNames();
             names.resolsNames = obj.resolution.getResolNames();
-            names.resolParNames = obj.resolution.resolPars.getParamNames();
-            names.layersNames = obj.layers.getLayersNames();
-            names.dataNames = obj.data.getDataNames();
-            names.scalefacNames = obj.scalefactors.getParamNames();
-            names.qzShiftNames = obj.qzshifts.getParamNames();
-            names.customNames = obj.customFile.getCustomNames(); 
+            names.resolParNames = obj.resolution.resolPars.getNames();
+            names.layersNames = obj.layers.getNames();
+            names.dataNames = obj.data.getNames();
+            names.scalefacNames = obj.scalefactors.getNames();
+            names.qzShiftNames = obj.qzshifts.getNames();
+            names.customNames = obj.customFile.getNames(); 
         end
         
         % ---------------------------------  
@@ -255,13 +255,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 % the elements for now..
                 
                 findParam = string(thisParam);
-                laysTable = obj.layers.layersTable;
+                laysTable = obj.layers.varTable;
                 dims = size(laysTable);
                 for m = 1:dims(1)
                     for n = 1:dims(2)
                         tablePar = laysTable{m,n};   % Should be a string
                         if isequal(findParam, tablePar)
-                            obj.layers.layersTable(m,n) = {''};
+                            obj.layers.varTable(m,n) = {''};
                         end
                     end
                 end
@@ -350,7 +350,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % problem.addLayer('New Layer');
             if isempty(varargin)
-                obj.layers.addLayer(obj.parameters.paramsTable{:,1});
+                obj.layers.addLayer(obj.parameters.varTable{:,1});
             else
                 % If the input is wrapped in a cell (so varargin is a cell of a cell)
                 % need to unwrap one layer of it, otherwise keep varargin as it is
@@ -359,7 +359,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 else
                     thisLayer = varargin;
                 end
-                obj.layers.addLayer(obj.parameters.paramsTable{:,1}, thisLayer{:});
+                obj.layers.addLayer(obj.parameters.varTable{:,1}, thisLayer{:});
             end
         end
 
@@ -368,7 +368,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of layer(s) to remove.
             %
             % problem.removeLayer(1);
-            obj.layers.removeLayer(layer);
+            obj.layers.removeRow(layer);
         end
 
         function obj = setLayerValue(obj, row, col, value)
@@ -377,7 +377,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % parameter to set the value to.
             % 
             % problem.setLayerValue(1, 2, 'Tails Thickness');
-            obj.layers.setLayerValue(row, col, value, obj.parameters.paramsTable{:,1});           
+            obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});           
         end
         
         % ---------------------------------------------------------------
@@ -546,7 +546,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % indices of dataset(s) to remove.
             % 
             % problem.removeData(2);
-            obj.data.removeData(row);
+            obj.data.removeRow(row);
         end
         
         function obj = setData(obj, varargin)
@@ -673,7 +673,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Expects index of entry(ies) to remove.
             %
             % problem.removeCustomFile(1);
-            obj.customFile.removeCustomFile(row);
+            obj.customFile.removeRow(row);
         end
 
         function obj = setCustomFile(obj, row, varargin)
@@ -733,10 +733,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % it is custom or layers
             if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
                 % Standard Layers
-                allowedValues = obj.layers.getLayersNames();
+                allowedValues = obj.layers.getNames();
             else
                 % Custom models
-                allowedValues = obj.customFile.getCustomNames();
+                allowedValues = obj.customFile.getNames();
             end
             
             % Call the setContrastModel method
@@ -796,7 +796,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Contrasts
             allNames = obj.getAllAllowedNames;
-            dataTable = obj.data.dataTable;
+            dataTable = obj.data.varTable;
             
             contrastStruct = obj.contrasts.toStruct(allNames, generalStruct.modelType, dataTable);
 
@@ -848,41 +848,45 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Display the parameters table
             fprintf('\n    Parameters: ---------------------------------------------------------------------------------------------- \n\n');
-            obj.parameters.displayParametersTable;
+            obj.parameters.displayTable;
             
             % Display the layers table if not a custom model
             val = obj.modelType;
             if ~any(strcmpi(val,{'custom layers','custom xy'}))
                 fprintf('\n    Layers: -------------------------------------------------------------------------------------------------- \n\n');
-                obj.layers.displayLayersTable;
+                obj.layers.displayTable;
             end
             
             % Display the Bulk In table
             fprintf('\n    Bulk In: -------------------------------------------------------------------------------------------------- \n\n');
-            obj.bulkIn.displayParametersTable;
+            obj.bulkIn.displayTable;
             
             % Display the Bulk Out table
             fprintf('\n    Bulk Out: ------------------------------------------------------------------------------------------------- \n\n');
-            obj.bulkOut.displayParametersTable;
+            obj.bulkOut.displayTable;
             
             % Display the Scalefactors table
             fprintf('\n    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n');
-            obj.scalefactors.displayParametersTable;
+            obj.scalefactors.displayTable;
 
             % Display the backgrounds object
+            fprintf('\n    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
             obj.background.displayBackgroundsObject;
             
             % Display the resolutions object
+            fprintf('\n    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
             obj.resolution.displayResolutionsObject;
             
             % Display the data object
-            obj.data.displayDataObject;
+            fprintf('\n    Data: ------------------------------------------------------------------------------------------------------ \n\n');
+            obj.data.displayTable;
             
             % Display custom files object
-            obj.customFile.displayCustomFileObject;
+            fprintf('\n    Custom Files: ------------------------------------------------------------------------------------------------------ \n\n');
+            obj.customFile.displayTable;
             
             % Display the contrasts object
-            fprintf('   Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
+            fprintf('\n   Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
             obj.contrasts.displayContrastsObject;
             
         end

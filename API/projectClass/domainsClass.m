@@ -15,16 +15,21 @@ classdef domainsClass < projectClass
        
     methods
 
-        function obj = domainsClass(experimentName, calculationType, geometry)
+        function obj = domainsClass(experimentName, calculationType, geometry, absorption)
             % Creates a Project object for a domains calculation.
-            % The only argument is the experiment name which is a char
-            % array, which is optional
+            % The input arguments are the experiment name which is a char
+            % array; the calculation type, which is a calculationTypes
+            % enum; the geometry, which is a geometryOptions enum; and a
+            % logical to state whether or not absorption terms are
+            % included in the refractive index.
+            % All of the arguments are optional.
             %
             % problem = domainsClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
                 calculationType = calculationTypes.Domains
                 geometry = geometryOptions.AirSubstrate
+                absorption {mustBeA(absorption,'logical')} = false
             end
             
             % Call projectClass constructor
@@ -37,6 +42,17 @@ classdef domainsClass < projectClass
             % object and domain ratio parameter class
             obj.domainContrasts = domainContrastsClass();
             obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
+        end
+
+        function projectObj = toProjectClass(obj)
+            % Alias of the converter routine from domainsClass to
+            % projectClass.
+            % This routine takes the currently defined project and
+            % converts it to a nonPolarised calculation, preserving all
+            % currently defined properties.
+            %
+            % nonPolarisedProblem = problem.toProjectClass();
+            projectObj = obj.projectClass();
         end
 
         function names = getAllAllowedNames(obj)           
@@ -183,6 +199,25 @@ classdef domainsClass < projectClass
             obj.domainContrasts.displayContrastsObject; 
         end
         
+    end
+
+    methods (Hidden)
+
+        function projectObj = projectClass(obj)
+            % Converter routine from domainsClass to projectClass.
+            % This routine takes the currently defined project and
+            % converts it to a nonPolarised calculation, preserving all
+            % currently defined properties.
+            %
+            % nonPolarisedProblem = problem.projectClass();
+            projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.geometry, obj.absorption);
+            projectObj = copyProperties(obj, projectObj);
+
+            % Need to treat contrasts separately due to changes in the
+            % class for domains calculations
+            projectObj.contrasts = copyProperties(obj.contrasts, contrastsClass(oilWater=obj.contrasts.oilWaterCalc));
+        end
+
     end
     
 end

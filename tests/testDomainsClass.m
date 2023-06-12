@@ -83,7 +83,23 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyEqual(newProject.calculationType, calculationTypes.Domains.value, 'Calculation Type not set correctly');
             testCase.verifyError(@() domainsClass(1), 'MATLAB:validators:mustBeTextScalar')
         end
-        
+
+        function testConversion(testCase)
+            % Tests domains class can be converted to project class and
+            % the properties are copied over
+            testCase.verifyClass(testCase.project, 'domainsClass')
+            testCase.verifyEqual(testCase.project.calculationType, calculationTypes.Domains.value, 'Calculation Type not set correctly');
+            testCase.verifyTrue(testCase.project.contrasts.domainsCalc, 'Calculation Type not set correctly')
+
+            nonPolarised = testCase.project.toProjectClass();
+            testCase.verifyClass(nonPolarised, 'projectClass')
+            testCase.verifyEqual(nonPolarised.experimentName, testCase.project.experimentName, 'Experiment name not copied correctly');
+            testCase.verifyEqual(nonPolarised.calculationType, calculationTypes.NonPolarised.value, 'Calculation Type not set correctly');
+            testCase.verifyFalse(nonPolarised.contrasts.domainsCalc, 'Calculation Type not set correctly')
+            testCase.verifyEqual(nonPolarised.parameters, testCase.project.parameters, 'Parameters not copied correctly');
+            testCase.verifyEqual(nonPolarised.layers, testCase.project.layers, 'Layers not copied correctly');
+        end
+
         function testDomainRatio(testCase)
             % Checks the default domain ratios
             testCase.verifySize(testCase.project.domainRatio.varTable, [1, 8], 'domain ratio has wrong dimension');

@@ -32,6 +32,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         usePriors = false
     end
 
+    properties (SetObservable, AbortSet)
+        absorption {mustBeA(absorption,'logical')} = false
+    end
+
     properties (SetAccess = immutable)
         calculationType
         protectedParameters
@@ -39,15 +43,20 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
     methods
 
-        function obj = projectClass(experimentName, calculationType, geometry)
-            % Creates a Project object. The only argument is the 
-            % experiment name which is a char array, which is optional
+        function obj = projectClass(experimentName, calculationType, geometry, absorption)
+            % Creates a Project object. The input arguments are the
+            % experiment name which is a char array; the calculation type,
+            % which is a calculationTypes enum; the geometry, which is a
+            % geometryOptions enum; and a logical to state whether or not
+            % absorption terms are included in the refractive index.
+            % All of the arguments are optional.
             %
             % problem = projectClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
                 calculationType = calculationTypes.NonPolarised
                 geometry = geometryOptions.AirSubstrate
+                absorption {mustBeA(absorption,'logical')} = false
             end
 
             invalidTypeMessage = sprintf('calculationType must be a calculationTypes enum or one of the following strings (%s)', ...
@@ -63,7 +72,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.experimentName = experimentName;
 
             % Initialise the Parameters Table
-            obj.parameters = parametersClass('Substrate Roughness',1, 3, 5,true,priorTypes.Uniform,0,Inf);
+            obj.parameters = parametersClass('Substrate Roughness',1,3,5,true,priorTypes.Uniform,0,Inf);
 
             if isequal(calculationType, calculationTypes.OilWater.value)
                 obj.addParameter('Oil Thickness');
@@ -71,10 +80,14 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
             
             obj.protectedParameters = cellstr(obj.parameters.getNames');
-            
-            % Initialise the layers table
-            obj.layers = layersClass();
 
+            % Initialise the layers table. Then set the value of
+            % absorption, listen for any changes, and modify the layers
+            % table accordingly
+            addlistener(obj, 'absorption', 'PostSet', @obj.modifyLayersTable);
+            obj.layers = layersClass();
+            obj.absorption = absorption;
+            
             % Initialise bulkIn table
             obj.bulkIn = parametersClass('SLD Air',0,0,0,false,priorTypes.Uniform,0,Inf);
             
@@ -107,7 +120,17 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.contrasts = contrastsClass();               
         end
         
-        
+        function domainsObj = toDomainsClass(obj)
+            % Alias of the converter routine from projectClass to
+            % domainsClass.
+            % This routine takes the currently defined project and
+            % converts it to a domains calculation, preserving all
+            % currently defined properties.
+            %
+            % domainsProblem = problem.toDomainsClass();
+            domainsObj = obj.domainsClass();
+        end
+
         function obj = setUsePriors(obj, showFlag)
             % Sets the use priors flag. The showFlag should be a boolean/logical.
             %
@@ -892,6 +915,44 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         end
         
     end
-    
-end
 
+    methods (Access = protected, Hidden)
+
+        function modifyLayersTable(obj,~,~)
+            % Add or remove a column from the layers table whenever the
+            % "absorption" property is modified.
+            if obj.absorption
+                newCol = repmat("", height(obj.layers.varTable), 1);
+                obj.layers.varTable = addvars(obj.layers.varTable, newCol, 'After', 'SLD', 'NewVariableNames', 'SLD Imaginary');
+                obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD', 'SLD Real');
+            else
+                obj.layers.varTable = removevars(obj.layers.varTable, 'SLD Imaginary');
+                obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD Real', 'SLD');
+            end
+        end
+
+    end
+
+    methods (Hidden)
+
+        function domainsObj = domainsClass(obj)
+            % Converter routine from projectClass to domainsClass.
+            % This routine takes the currently defined project and
+            % converts it to a domains calculation, preserving all
+            % currently defined properties.
+            %
+            % domainsProblem = problem.domainsClass();
+            domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.geometry, obj.absorption);
+            domainsObj = copyProperties(obj, domainsObj);
+
+            % Need to treat contrasts separately due to changes in the
+            % class for domains calculations
+            domainsObj.contrasts = copyProperties(obj.contrasts, contrastsClass(domains=true, oilWater=obj.contrasts.oilWaterCalc));
+            for i=1:domainsObj.contrasts.numberOfContrasts
+                domainsObj.contrasts.contrasts{i}.domainRatio = '';
+            end
+        end
+
+    end
+
+end

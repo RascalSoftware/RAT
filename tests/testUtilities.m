@@ -44,6 +44,17 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.verifyEmpty(enum.fromValue('priorTypes', 'jeff'), 'customEnum.fromValue is not working');
         end
 
+        function testCopyProperties(testCase)
+            initialProject = project(name='copyPropertiesTest', absorption=true);
+            initialProject.addParameter('Test Param');
+
+            copiedProject = copyProperties(initialProject, project(absorption=true));
+
+            testCase.verifyEqual(copiedProject.experimentName, 'copyPropertiesTest');
+            testCase.verifyEqual(copiedProject.layers, initialProject.layers);
+            testCase.verifyEqual(copiedProject.parameters.getNames, ["Substrate Roughness"; "Test Param"]);
+        end
+
         function testMockFunction(testCase)
             mock = mockFunction(testCase, 'randomName');
             testCase.verifyEqual(mock.functionName, 'randomName');

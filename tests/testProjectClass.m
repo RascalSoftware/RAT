@@ -82,6 +82,49 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyError(@() projectClass(1), 'MATLAB:validators:mustBeTextScalar')
         end
 
+        function testConversion(testCase)
+            % Tests project class can be converted to domains class and
+            % the properties are copied over
+            testCase.verifyClass(testCase.project, 'projectClass')
+            testCase.verifyEqual(testCase.project.calculationType, calculationTypes.NonPolarised.value, 'Calculation Type not set correctly');
+            testCase.verifyFalse(testCase.project.contrasts.domainsCalc, 'Calculation Type not set correctly')
+
+            domains = testCase.project.toDomainsClass();
+            testCase.verifyClass(domains, 'domainsClass')
+            testCase.verifyEqual(domains.experimentName, testCase.project.experimentName, 'Experiment name not copied correctly');
+            testCase.verifyEqual(domains.calculationType, calculationTypes.Domains.value, 'Calculation Type not set correctly');
+            testCase.verifyTrue(domains.contrasts.domainsCalc, 'Calculation Type not set correctly')
+            testCase.verifyEqual(domains.parameters, testCase.project.parameters, 'Parameters not copied correctly');
+            testCase.verifyEqual(domains.layers, testCase.project.layers, 'Layers not copied correctly');
+
+            % Ensure that the additional domain ratio field is defined
+            for i=1:domains.contrasts.numberOfContrasts
+                testCase.verifyTrue(isfield(domains.contrasts.contrasts{i}, 'domainRatio'))
+            end
+        end
+        
+        function testAbsorption(testCase)
+            % Tests absorption can be turned on and off with the layers
+            % table modified accordingly
+            varTable = testCase.project.layers.varTable;
+            testCase.project.layers.varTable = [varTable; vertcat(testCase.layers{1:2})];
+
+            testCase.verifyFalse(testCase.project.absorption, 'Absorption not set correctly')
+            testCase.verifyEqual(testCase.project.layers.varCount, 6, 'Incorrect number of columns in layers table')
+            testCase.verifyEqual(testCase.project.layers.varTable{:,4}, ["Heads Roughness"; "Heads Roughness"], '')
+
+            testCase.project.absorption = true;
+            testCase.verifyTrue(testCase.project.absorption, 'Absorption not set correctly')
+            testCase.verifyEqual(testCase.project.layers.varCount, 7, 'Incorrect number of columns in layers table')
+            testCase.verifyEqual(testCase.project.layers.varTable{:,4}, [""; ""], '')
+
+            testCase.project.absorption = false;
+            testCase.verifyFalse(testCase.project.absorption, 'Absorption not set correctly')
+            testCase.verifyEqual(testCase.project.layers.varCount, 6, 'Incorrect number of columns in layers table')
+            testCase.verifyEqual(testCase.project.layers.varTable{:,4}, ["Heads Roughness"; "Heads Roughness"], '')
+        end
+
+
         function testGeometry(testCase)
             % Test default geometry
             testCase.verifyEqual(testCase.project.geometry, geometryOptions.AirSubstrate.value, 'Geometry not set correctly');

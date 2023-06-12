@@ -91,7 +91,7 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.calculationType, calculationTypes.Domains.value, 'Calculation Type not set correctly');
             testCase.verifyTrue(testCase.project.contrasts.domainsCalc, 'Calculation Type not set correctly')
 
-            nonPolarised = testCase.project.projectClass();
+            nonPolarised = testCase.project.toProjectClass();
             testCase.verifyClass(nonPolarised, 'projectClass')
             testCase.verifyEqual(nonPolarised.experimentName, testCase.project.experimentName, 'Experiment name not copied correctly');
             testCase.verifyEqual(nonPolarised.calculationType, calculationTypes.NonPolarised.value, 'Calculation Type not set correctly');

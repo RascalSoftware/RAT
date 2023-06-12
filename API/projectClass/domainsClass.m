@@ -44,19 +44,15 @@ classdef domainsClass < projectClass
             obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
         end
 
-        function projectObj = projectClass(obj)
-            % Converter routine from domainsClass to projectClass.
+        function projectObj = toProjectClass(obj)
+            % Alias of the converter routine from domainsClass to
+            % projectClass.
             % This routine takes the currently defined project and
             % converts it to a nonPolarised calculation, preserving all
             % currently defined properties.
             %
-            % nonPolarisedProblem = problem.projectClass();
-            projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.geometry, obj.absorption);
-            projectObj = copyProperties(obj, projectObj);
-
-            % Need to treat contrasts separately due to changes in the
-            % class for domains calculations
-            projectObj.contrasts = copyProperties(obj.contrasts, contrastsClass(oilWater=obj.contrasts.oilWaterCalc));
+            % nonPolarisedProblem = problem.toProjectClass();
+            projectObj = obj.projectClass();
         end
 
         function names = getAllAllowedNames(obj)           
@@ -203,6 +199,25 @@ classdef domainsClass < projectClass
             obj.domainContrasts.displayContrastsObject; 
         end
         
+    end
+
+    methods (Hidden)
+
+        function projectObj = projectClass(obj)
+            % Converter routine from domainsClass to projectClass.
+            % This routine takes the currently defined project and
+            % converts it to a nonPolarised calculation, preserving all
+            % currently defined properties.
+            %
+            % nonPolarisedProblem = problem.projectClass();
+            projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.geometry, obj.absorption);
+            projectObj = copyProperties(obj, projectObj);
+
+            % Need to treat contrasts separately due to changes in the
+            % class for domains calculations
+            projectObj.contrasts = copyProperties(obj.contrasts, contrastsClass(oilWater=obj.contrasts.oilWaterCalc));
+        end
+
     end
     
 end

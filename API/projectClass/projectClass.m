@@ -81,19 +81,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             obj.protectedParameters = cellstr(obj.parameters.getNames');
 
-            % Set the value of absorption, then listen for any changes,
-            % and modify the layers table accordingly
-            obj.absorption = absorption;
+            % Initialise the layers table. Then set the value of
+            % absorption, listen for any changes, and modify the layers
+            % table accordingly
             addlistener(obj, 'absorption', 'PostSet', @obj.modifyLayersTable);
+            obj.layers = layersClass();
+            obj.absorption = absorption;
             
-            % Initialise the layers table. Set the imaginary term in the
-            % refractive index if absorption is selected
-            if obj.absorption
-                obj.layers = layersClass({'SLD Real', 'SLD Imaginary'});
-            else
-                obj.layers = layersClass();
-            end
-
             % Initialise bulkIn table
             obj.bulkIn = parametersClass('SLD Air',0,0,0,false,priorTypes.Uniform,0,Inf);
             
@@ -133,7 +127,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % currently defined properties.
             %
             % domainsProblem = problem.domainsClass();
-            domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.geometry);
+            domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.geometry, obj.absorption);
             domainsObj = copyProperties(obj, domainsObj);
 
             % Need to treat contrasts separately due to changes in the

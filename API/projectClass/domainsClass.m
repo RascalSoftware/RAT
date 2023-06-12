@@ -51,7 +51,7 @@ classdef domainsClass < projectClass
             % currently defined properties.
             %
             % nonPolarisedProblem = problem.projectClass();
-            projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.geometry);
+            projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.geometry, obj.absorption);
             projectObj = copyProperties(obj, projectObj);
 
             % Need to treat contrasts separately due to changes in the

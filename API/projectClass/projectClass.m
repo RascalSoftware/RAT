@@ -779,6 +779,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Add the 'general' fields
             generalStruct.modelType = lower(obj.modelType);  
             generalStruct.geometry = obj.geometry;
+
+            % Set useImaginary flag
+            generalStruct.useImaginary = obj.absorption;
             
             % Parameters
             params = obj.parameters.toStruct();

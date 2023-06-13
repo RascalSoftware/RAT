@@ -4,7 +4,7 @@
 API
 =====
 
-API is the folder that contains the two main classes of RAT are. They are **Project Class** and **ControlsDef Class** and these are the classes user interacts with.  
+API is the folder that contains the two main classes of RAT are. They are **Project Class** and **Controls Class** and these are the classes user interacts with.  
 
 .. note::
   The "API" name comes from the generalized view how APIs work. In this case, the API sends the information back and forth from the top level classes to targetFunctions. 
@@ -373,33 +373,33 @@ the resolutions table and the allowed types are defined in the allowedTypes vari
 In each case, the Resolutions can either be added to or subtracted from the data.
 
 
-.. _controlsDef:
+.. _controlsClass:
 
-ControlsDef
-============
+Controls Class
+==============
 
-ControlsDef Class is all about control. It is necessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
+ControlsClass is all about control. It is necessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
 to whether the users wants to calculate SLD during fit and even how many iteration an algorithm should do ..etc.
 
 
-There are 4 different `controlsDef.procedures` that can be used with RAT. They are:
+There are 5 different `controlsClass.procedures` that can be used with RAT. They are:
 
 1. **Simplex** 
 2. **Differential Evolution** - Optimizes a problem by iteratively improving a candidate solution based on an evolutionary process
 3. **Nested Sampler** -  Estimates directly how the likelihood function relates to prior mass
-4. **Bayes MCMC** - used in Bayesian inference in order to generate, directly from the “not normalized part” of the posterior, samples to work with instead of dealing with intractable 
-   computations
+4. **DREAM**
+5. **Calculate** 
 
-Each of them has their own unique set of options. The fields in class object of controlsDef are 
+Each of them has their own unique set of options. The fields in class object of controlsClass are 
 automatically updated based on the procedure selected.
 
 RAT uses parallelization to speed up the calculation. This is achieved using Parallel Computing Toolbox. The user can choose to use the parallelization or not and 
 if yes, what to parallelize on. (Points or Contrasts or all)
 
 .. code-block:: MATLAB
-    :caption: Sample usage of controlsDef class.
+    :caption: Sample usage of controlsClass.
 
-        controls = controlsDef();
+        controls = controlsClass();
         controls.calcSldDuringFit = 'no';
         controls.nsimu = 7000;
         controls.repeats = 3;
@@ -409,7 +409,7 @@ if yes, what to parallelize on. (Points or Contrasts or all)
 RAT 
 ====
 
-After the user has defined the projectClass and controlsDef class, the user can run RAT like shown below
+After the user has defined the projectClass and controlsClass, the user can run RAT like shown below
 
 .. code-block:: MATLAB
     :caption: Sample usage of RAT class.
@@ -418,7 +418,7 @@ After the user has defined the projectClass and controlsDef class, the user can 
         problem = projectClass();
 
         % Initialize the controls class
-        controls = controlsDef();
+        controls = controlsClass();
 
         % call the RAT function
         [problem,results] = RAT(problem,controls);
@@ -427,7 +427,7 @@ After the user has defined the projectClass and controlsDef class, the user can 
 When the RAT function is called, the classes are passed into internal functions like `RatParseClassToStructs_new` which takes the classes and breaks them down into cells, 
 limits,prior and more importantly converts the project class to struct. 
 
-Then, the `RAT_main` function redirects the control flow based on what procedure is selected in controlsDef class. One of the redirecting functions will call the reflectivity_calculation_wrapper
+Then, the `RAT_main` function redirects the control flow based on what procedure is selected in controlsClass. One of the redirecting functions will call the reflectivity_calculation_wrapper
 which starts the reflectivity calculation.
 
 

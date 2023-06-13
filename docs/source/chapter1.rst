@@ -98,17 +98,17 @@ This may initially look quite complicated, but it is fairly self-explanatory in 
 
 As implied from figure (1), running RAT requires not only our input model specification, but also a controls block telling RAT what to do. We will discuss the controls block in more detail in Chapter 4, but for this demo we will just make an instance of the controls block and modify a few parameters to run the demo:
 
-.. image:: images/userManual/chapter1/controlDef.png
-    :alt: ControlDef
+.. image:: images/userManual/chapter1/controlsClass.png
+    :alt: Control class
 
-This makes an instance of the *controlsDef* class we have called **controls**. The various properties of the class allow the type of calculation to be specified, in terms of parallelisation, choice of algorithm to be applied and so on. Here we are specifying a single threaded calculation of our reflectivities only (the default) - in other words we are not asking RAT to do any kind of fit with our parameters. We can now send our problem definition and controls classes to the RAT toolbox:
+This makes an instance of the *controlsClass* we have called **controls**. The various properties of the class allow the type of calculation to be specified, in terms of parallelisation, choice of algorithm to be applied and so on. Here we are specifying a single threaded calculation of our reflectivities only (the default) - in other words we are not asking RAT to do any kind of fit with our parameters. We can now send our problem definition and controls classes to the RAT toolbox:
 
 .. image:: images/userManual/chapter1/ratRun.png
     :alt: RAT run
 
-It is worth noticing here that this is always the general format for calling RAT. There are two inputs - a problem definition and a controls block, and the result is two outputs - another copy of the *controlsDef* class, and a new, *results* block. 
+It is worth noticing here that this is always the general format for calling RAT. There are two inputs - a problem definition and a controls block, and the result is two outputs - another copy of the problem, and a new, *results* block. 
 
-The *controlsDef* that returns is a copy of our input, except that the parameter values will be changed by any procedure done. So, if we run a simple fit, then the output *problemDef* will have the values of the best-fit parameters. Here, we are not doing any fitting yet, and so the output is an exact copy. Also, we overwrite out original input class with the output by using the same name ('problem') as an input and an output, but you don’t have to do it this way.
+The problem that returns is a copy of our input, except that the parameter values will be changed by any procedure done. So, if we run a simple fit, then the output *problemDef* will have the values of the best-fit parameters. Here, we are not doing any fitting yet, and so the output is an exact copy. Also, we overwrite our original input class with the output by using the same name ('problem') as an input and an output, but you don’t have to do it this way.
 
 Once we've run our model through RAT, then the second output (we call *results* here) is an array which contains the output of the calculation (we will discuss this in more detail in chapter 4) :
 
@@ -127,4 +127,4 @@ This contains the results of our calculations, so for us including the SLD profi
 
 We can see that our model is looking fairly sensible, but that our guess values for the parameters are pretty wide off the mark.
 
-To do something more than just simulating the reflectivity, we change the procedure we specify in the *controlsDef* class. At the moment, controls.procedure is set to **calculate**, which does a one-time calculation of the reflectivity given the current parameters only. To do a fit, we can just change the *procedure* attribute of our *controlsDef* from **calculate** to **simplex**, which reveals a new set of parameters in the *controlsDef* block.
+To do something more than just simulating the reflectivity, we change the procedure we specify in the *controlsClass* class. At the moment, controls.procedure is set to **calculate**, which does a one-time calculation of the reflectivity given the current parameters only. To do a fit, we can just change the *procedure* attribute of our *controlsClass* from **calculate** to **simplex**, which reveals a new set of parameters in the *controlsClass* block.

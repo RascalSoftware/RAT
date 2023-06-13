@@ -862,30 +862,38 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Start by getting input arguments
             projectSpec = "p = %s('%s', '%s', '%s', %s);\n\n";
             fprintf(fileID, projectSpec, class(obj), obj.experimentName, obj.calculationType,  obj.geometry,  string(obj.absorption));
+            if obj.usePriors
+                fprintf(fileID, "p.setUsePriors(true);\n\n");
+            end
 
+            % Add all parameters, including everything based on a
+            % parametersClass
             paramClasses = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts"];
 
             for i=1:length(paramClasses)
                 if ~isempty(obj.(paramClasses(i)).varTable)
                     addRoutine = obj.classes.addRoutine(obj.classes.name == paramClasses(i));
-                    paramSpec = "p." + addRoutine + "('%s', %s, %s, %s, %s, '%s', %s, '%s');\n";
+                    paramSpec = "p." + addRoutine + "('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
                     fprintf(fileID, paramSpec, table2array(obj.(paramClasses(i)).varTable)');
                     fprintf(fileID, "\n");
                 end
             end
 
+            % Backgrounds and resolutions are done here because of the
+            % nested classes
             multiTableSpec = "p.addBackground('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
-            paramSpec = "p.addBacksPar('%s', %s, %s, %s, %s, '%s', %s, '%s');\n";
+            paramSpec = "p.addBacksPar('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
             fprintf(fileID, paramSpec, table2array(obj.background.backPars.varTable)');
             fprintf(fileID, multiTableSpec, table2array(obj.background.backgrounds.varTable)');
             fprintf(fileID, "\n");
 
             multiTableSpec = "p.addResolution('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
-            paramSpec = "p.addResolPar('%s', %s, %s, %s, %s, '%s', %s, '%s');\n";
+            paramSpec = "p.addResolPar('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
             fprintf(fileID, paramSpec, table2array(obj.resolution.resolPars.varTable)');
             fprintf(fileID, multiTableSpec, table2array(obj.resolution.resolutions.varTable)');
             fprintf(fileID, "\n");
 
+            % Now deal with classes where all of the fields are strings
             stringClasses = ["layers", "customFile"];
 
             for i=1:length(stringClasses)
@@ -897,10 +905,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 end
             end
 
-            % Need data
+            % Write all data to files for the script to read in
+            % Also need to set dataRange and simRange explicitly as they
+            % are optional
             for i=1:obj.data.rowCount
                 writematrix(obj.data.varTable{i,2}{:}, "data_"+string(i)+".dat");
-                fprintf(fileID, "data_%i = readmatrix(%s);\n", i, "data_"+string(i)+".dat");
+                fprintf(fileID, "data_%i = readmatrix('%s');\n", i, "data_"+string(i)+".dat");
                 fprintf(fileID, "p.addData('%s', data_%i);\n", obj.data.varTable{i,1}, i);
                 if ~isempty(obj.data.varTable{i,3}{:})
                     fprintf(fileID, "p.setData(%i, 'dataRange', [%d %d]);\n", i, obj.data.varTable{i,3}{:});
@@ -911,7 +921,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 fprintf(fileID, "\n");
             end
 
-
+            % Contrasts are a cell array rather than a table
             for i=1:obj.contrasts.numberOfContrasts
                 contrastParams = string(namedargs2cell(obj.contrasts.contrasts{i}));
                 contrastSpec = "p.addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";

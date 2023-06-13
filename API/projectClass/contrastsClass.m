@@ -198,5 +198,3 @@ classdef contrastsClass < baseContrasts
         end
     end
 end
-
-

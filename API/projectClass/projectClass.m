@@ -41,6 +41,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         protectedParameters
     end
 
+    properties(Access = protected, Constant, Hidden)
+        classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts", "layers", "customFile", "data", "contrast"], ...
+                         addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addLayer", "addCustomFile", "addData", "addContrast"]);
+    end
+
     methods
 
         function obj = projectClass(experimentName, calculationType, geometry, absorption)
@@ -839,6 +844,82 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                                      customFileStruct, ...
                                      contrastStruct);
             
+        end
+
+        function writeScript(obj, scriptName)
+            % Writes a MATLAB script that can be run to reproduce this
+            % projectClass object.
+            %
+            % problem.writeScript("newScript.m")
+            arguments
+                obj
+                scriptName {mustBeTextScalar} = 'projectScript.m'
+            end
+
+            % Need to ensure correct format for script name
+            fileID = fopen(scriptName, 'w');
+
+            % Start by getting input arguments
+            projectSpec = "p = %s('%s', '%s', '%s', %s);\n\n";
+            fprintf(fileID, projectSpec, class(obj), obj.experimentName, obj.calculationType,  obj.geometry,  string(obj.absorption));
+
+            paramClasses = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts"];
+
+            for i=1:length(paramClasses)
+                if ~isempty(obj.(paramClasses(i)).varTable)
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == paramClasses(i));
+                    paramSpec = "p." + addRoutine + "('%s', %s, %s, %s, %s, '%s', %s, '%s');\n";
+                    fprintf(fileID, paramSpec, table2array(obj.(paramClasses(i)).varTable)');
+                    fprintf(fileID, "\n");
+                end
+            end
+
+            multiTableSpec = "p.addBackground('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
+            paramSpec = "p.addBacksPar('%s', %s, %s, %s, %s, '%s', %s, '%s');\n";
+            fprintf(fileID, paramSpec, table2array(obj.background.backPars.varTable)');
+            fprintf(fileID, multiTableSpec, table2array(obj.background.backgrounds.varTable)');
+            fprintf(fileID, "\n");
+
+            multiTableSpec = "p.addResolution('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
+            paramSpec = "p.addResolPar('%s', %s, %s, %s, %s, '%s', %s, '%s');\n";
+            fprintf(fileID, paramSpec, table2array(obj.resolution.resolPars.varTable)');
+            fprintf(fileID, multiTableSpec, table2array(obj.resolution.resolutions.varTable)');
+            fprintf(fileID, "\n");
+
+            stringClasses = ["layers", "customFile"];
+
+            for i=1:length(stringClasses)
+                if ~isempty(obj.(stringClasses(i)).varTable)
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == stringClasses(i));
+                    stringSpec = "p." + addRoutine + "(" + join(repmat("'%s'", 1, width(obj.(stringClasses(i)).varTable)), ", ") + ")\n";
+                    fprintf(fileID, stringSpec, table2array(obj.(stringClasses(i)).varTable)');
+                    fprintf(fileID, "\n");
+                end
+            end
+
+            % Need data
+            for i=1:obj.data.rowCount
+                writematrix(obj.data.varTable{i,2}{:}, "data_"+string(i)+".dat");
+                fprintf(fileID, "data_%i = readmatrix(%s);\n", i, "data_"+string(i)+".dat");
+                fprintf(fileID, "p.addData('%s', data_%i);\n", obj.data.varTable{i,1}, i);
+                if ~isempty(obj.data.varTable{i,3}{:})
+                    fprintf(fileID, "p.setData(%i, 'dataRange', [%d %d]);\n", i, obj.data.varTable{i,3}{:});
+                end
+                if ~isempty(obj.data.varTable{i,4}{:})
+                    fprintf(fileID, "p.setData(%i, 'simRange', [%d %d]);\n", i, obj.data.varTable{i,4}{:});
+                end
+                fprintf(fileID, "\n");
+            end
+
+
+            for i=1:obj.contrasts.numberOfContrasts
+                contrastParams = string(namedargs2cell(obj.contrasts.contrasts{i}));
+                contrastSpec = "p.addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
+                fprintf(fileID, contrastSpec, contrastParams);
+            end
+
+            fclose(fileID);
+
         end
         
     end     % end public methods

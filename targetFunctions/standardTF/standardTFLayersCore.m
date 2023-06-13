@@ -71,21 +71,36 @@ end
 % If calc SLD flag is set, then calculate the SLD profile
 if calcSld == 1
 
-    % We only need the real part of SLD even if Imag is present
+    % If we need them both, we process real and imaginary parts of the SLD
+    % seperately...
     if useImaginary
         thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
+        thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
     else
         thisSldLays = theseLayers;
     end
     
     sldProfile = makeSLDProfiles(nba,nbs,thisSldLays,ssubs,repeatLayers);
+
+    % If we have imaginary, we are also
+    % going to need an SLD profile for the imaginary part
+    if useImaginary
+        % Note nba and nbs = 0 since there is never any imaginary part for
+        % the bulk phases..
+        sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
+    end
+
 else
     sldProfile = [0 0];
 end
 
 % If required, then resample the SLD
 if resample == 1
-    layerSld = resampleLayers(sldProfile,resamPars);
+    if ~useImaginary
+        layerSld = resampleLayers(sldProfile,resamPars);
+    else
+        layerSld = resampleLayersReIm(sldProfile,sldProfileIm,resamPars);
+    end
     resamLayers = layerSld;
 else
     layerSld = theseLayers;

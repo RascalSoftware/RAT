@@ -23,10 +23,10 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
 numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
 
-calcSld = controls.calcSld;      
+calcSld = controls.calcSld;
+useImaginary = problemDef.useImaginary;
                      
 % Pre-Allocation of output arrays...
-%   --- Begin Memory Allocation ---
 backgs = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
 sfs = zeros(numberOfContrasts,1);
@@ -58,13 +58,16 @@ end
 
 %   --- End Memory Allocation ---
 
+% Resampling parameters
 resamPars = controls.resamPars;
 
 % Process the custom models....
 [allLayers,allRoughs] = customModelClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
+
 % Single cored over all contrasts
 for i = 1:numberOfContrasts
+    
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
     % First need to decide which values of the backrounds, scalefactors
@@ -73,7 +76,7 @@ for i = 1:numberOfContrasts
     
     % Get the custom layers output for this contrast
     thisContrastLayers = allLayers{i};
-    
+
     % For the other parameters, we extract the correct ones from the input
     % arrays
     thisRough = allRoughs(i);      
@@ -97,7 +100,7 @@ for i = 1:numberOfContrasts
     (thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
-    thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars);
+    thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
    
     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 
@@ -121,6 +124,8 @@ for i = 1:numberOfContrasts
     allRoughs(i) = thisRough;
 
 end
+
+
 
 
 end

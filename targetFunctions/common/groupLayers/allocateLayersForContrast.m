@@ -11,7 +11,7 @@ function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outPa
 
 thisContrastLayers = zeros(length(contrastLayers),5);
 
-for i = 1:length(contrastLayers)
+ for i = 1:length(contrastLayers)
     if (contrastLayers(i) ~= 0)
         thisLayer = outParameterisedLayers{contrastLayers(i)};
         thisContrastLayers(i,:) = thisLayer;

@@ -1,4 +1,4 @@
-function ref = abelesReflectSingle(q,N,layers_thick,layers_rho,layers_sig)
+function ref = abelesSingle(q,N,layers_thick,layers_rho,layers_sig)
 
 % New Matlab version of reflectivity
 % with complex rho...

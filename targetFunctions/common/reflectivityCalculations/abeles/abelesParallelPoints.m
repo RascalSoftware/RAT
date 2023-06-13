@@ -3,13 +3,15 @@ function ref = abelesReflectParallelPoints(q,N,layers_thick,layers_rho,layers_si
 tiny = 1e-30;
 ci = complex(0,1);
 c0 = complex(0,0);
-M_tot = [c0 c0 ; c0 c0];
-M_n = [c0 c0 ; c0 c0];
-M_res = [c0 c0 ; c0 c0];
+
 
 ref = zeros(length(q),1);
 
-for points = 1:length(q)
+parfor points = 1:length(q)
+
+    M_tot = [c0 c0 ; c0 c0];
+    M_n = [c0 c0 ; c0 c0];
+    M_res = [c0 c0 ; c0 c0];
 
     kn_ptr = c0;
 

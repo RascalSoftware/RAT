@@ -49,10 +49,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
     methods
 
-        function obj = projectClass(experimentName, calculationType, geometry, absorption)
+        function obj = projectClass(experimentName, calculationType, modelType, geometry, absorption)
             % Creates a Project object. The input arguments are the
             % experiment name which is a char array; the calculation type,
-            % which is a calculationTypes enum; the geometry, which is a
+            % which is a calculationTypes enum; the model type,
+            % which is a modelTypes enum; the geometry, which is a
             % geometryOptions enum; and a logical to state whether or not
             % absorption terms are included in the refractive index.
             % All of the arguments are optional.
@@ -61,14 +62,21 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             arguments
                 experimentName {mustBeTextScalar} = ''
                 calculationType = calculationTypes.NonPolarised
+                modelType = modelTypes.StandardLayers
                 geometry = geometryOptions.AirSubstrate
                 absorption {mustBeA(absorption,'logical')} = false
             end
 
+            % Validate input options
             invalidTypeMessage = sprintf('calculationType must be a calculationTypes enum or one of the following strings (%s)', ...
                                  strjoin(calculationTypes.values(), ', '));
 
             obj.calculationType = validateOption(calculationType, 'calculationTypes', invalidTypeMessage).value;
+
+            invalidModelMessage = sprintf('modelType must be a modelTypes enum or one of the following strings (%s)', ...
+                                         strjoin(modelTypes.values(), ', '));
+
+            obj.modelType = validateOption(modelType, 'modelTypes', invalidModelMessage).value;
 
             invalidGeometryMessage = sprintf('geometry must be a geometryOptions enum or one of the following strings (%s)', ...
                                      strjoin(geometryOptions.values(), ', '));
@@ -877,8 +885,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             fileID = fopen(scriptName, 'w');
 
             % Start by getting input arguments
-            projectSpec = "p = %s('%s', '%s', '%s', %s);\n\n";
-            fprintf(fileID, projectSpec, class(obj), obj.experimentName, obj.calculationType,  obj.geometry,  string(obj.absorption));
+            projectSpec = "p = project(name='%s', calc='%s', model='%s', geometry='%s', absorption=%s);\n\n";
+            fprintf(fileID, projectSpec, obj.experimentName, obj.calculationType,  obj.modelType, obj.geometry,  string(obj.absorption));
             if obj.usePriors
                 fprintf(fileID, "p.setUsePriors(true);\n\n");
             end
@@ -1071,7 +1079,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % currently defined properties.
             %
             % domainsProblem = problem.domainsClass();
-            domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.geometry, obj.absorption);
+            domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.modelType, obj.geometry, obj.absorption);
             domainsObj = copyProperties(obj, domainsObj);
 
             % Need to treat contrasts separately due to changes in the

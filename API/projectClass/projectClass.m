@@ -43,7 +43,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
     properties(Access = protected, Constant, Hidden)
         classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts", "layers", "customFile", "data", "contrast"], ...
-                         addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addLayer", "addCustomFile", "addData", "addContrast"]);
+                         addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addLayer", "addCustomFile", "addData", "addContrast"], ...
+                         removeRoutine = ["removeParameter", "removeBulkIn", "removeBulkOut", "removeScalefactor", "removeQzshift", "removeLayer", "removeCustomFile", "removeData", "removeContrast"]);
     end
 
     methods
@@ -680,10 +681,26 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new qz shift parameter. Expects the name
             % of qz shift, min, value, max, and if fit is off or on
             % 
-            % problem..addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);
+            % problem.addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);
             obj.qzshifts.addParameter(varargin{:}); 
         end
-        
+
+        function obj = removeQzshift(obj, varargin)
+            % Removes specified qz shift parameter. Expects the name/index
+            % of qz shift parameter to remove
+            % 
+            % problem.removeQzshift(2);
+            obj.qzshifts.removeParameter(varargin{:}); 
+        end
+
+        function obj = setQzshift(obj, varargin)
+            % Edits an existing qz shift parameter. Expects the index of
+            % qz shift parameter to edit and key-value pairs
+            %
+            % problem.setScalefactor(1, 'name','Qz shift 1', 'value', 0.0001);
+            obj.scalefactors.setParameter(varargin{:});
+        end
+
         
         % -----------------------------------------------------------------
         % editing of custom models block
@@ -866,6 +883,24 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 fprintf(fileID, "p.setUsePriors(true);\n\n");
             end
 
+            % Now clear default values
+            removeClasses = ["bulkIn", "bulkOut", "scalefactors", "qzshifts", "data"];
+
+            for i=1:length(removeClasses)
+                removeRoutine = obj.classes.removeRoutine(obj.classes.name == removeClasses(i));
+                fprintf(fileID, "p." + removeRoutine + "(1);\n");
+            end
+
+            % And backgrounds and resolutions - deal with these separately
+            % due to the nested classes
+            fprintf(fileID, "p.removeBackground(1);\n");
+            fprintf(fileID, "p.removeBacksPar(1);\n");
+            fprintf(fileID, "p.removeResolution(1);\n");
+            fprintf(fileID, "p.removeResolPar(1);\n");
+
+            fprintf(fileID, "\n");
+
+
             % Add all parameters, including everything based on a
             % parametersClass
             paramClasses = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts"];
@@ -899,7 +934,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             for i=1:length(stringClasses)
                 if ~isempty(obj.(stringClasses(i)).varTable)
                     addRoutine = obj.classes.addRoutine(obj.classes.name == stringClasses(i));
-                    stringSpec = "p." + addRoutine + "(" + join(repmat("'%s'", 1, width(obj.(stringClasses(i)).varTable)), ", ") + ")\n";
+                    stringSpec = "p." + addRoutine + "(" + join(repmat("'%s'", 1, width(obj.(stringClasses(i)).varTable)), ", ") + ");\n";
                     fprintf(fileID, stringSpec, table2array(obj.(stringClasses(i)).varTable)');
                     fprintf(fileID, "\n");
                 end

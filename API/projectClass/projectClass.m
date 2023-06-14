@@ -965,12 +965,17 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
 
             % Contrasts are a cell array rather than a table
+            % Need to handle resample and model fields separately
             for i=1:obj.contrasts.numberOfContrasts
-                contrastParams = string(namedargs2cell(obj.contrasts.contrasts{i}));
+                reducedStruct = rmfield(obj.contrasts.contrasts{i}, {'resample', 'model'});
+                contrastParams = string(namedargs2cell(reducedStruct));
                 contrastSpec = "p.addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
                 fprintf(fileID, contrastSpec, contrastParams);
+                fprintf(fileID, "p.setContrast(%i, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
+                fprintf(fileID, "p.setContrastModel(%i, '%s');\n", i, obj.contrasts.contrasts{i}.model{:});
+                fprintf(fileID, "\n");
             end
-
+            
             fclose(fileID);
 
         end

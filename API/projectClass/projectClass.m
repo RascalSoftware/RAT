@@ -908,6 +908,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             fprintf(fileID, "\n");
 
+            for i=1:length(obj.protectedParameters)
+                paramIndex = find(strcmpi(obj.protectedParameters{i}, obj.parameters.varTable{:,1}));
+                fprintf(fileID, "p.setParameterValue(%i, %d);\n", paramIndex, obj.parameters.varTable{paramIndex, 3});
+                fprintf(fileID, "p.setParameterConstraint(%i, %d, %d);\n", paramIndex, obj.parameters.varTable{paramIndex, 2}, obj.parameters.varTable{paramIndex, 4});
+                fprintf(fileID, "p.setParameterFit(%i, %s);\n", paramIndex, string(obj.parameters.varTable{paramIndex, 5}));
+                fprintf(fileID, "p.setParameterPrior(%i, '%s', %d, %d);\n", paramIndex, obj.parameters.varTable{paramIndex, 6}, obj.parameters.varTable{paramIndex, 7}, obj.parameters.varTable{paramIndex, 8});
+            end
+
+            fprintf(fileID, "\n");
 
             % Add all parameters, including everything based on a
             % parametersClass
@@ -949,12 +958,19 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
 
             % Write all data to files for the script to read in
-            % Also need to set dataRange and simRange explicitly as they
-            % are optional
             for i=1:obj.data.rowCount
-                writematrix(obj.data.varTable{i,2}{:}, "data_"+string(i)+".dat");
-                fprintf(fileID, "data_%i = readmatrix('%s');\n", i, "data_"+string(i)+".dat");
-                fprintf(fileID, "p.addData('%s', data_%i);\n", obj.data.varTable{i,1}, i);
+                % Write and read data if it exists, else add an empty,
+                % named row
+                if isempty(obj.data.varTable{i,2}{:})
+                    fprintf(fileID, "p.addData('%s');\n", obj.data.varTable{i,1});
+                else
+                    writematrix(obj.data.varTable{i,2}{:}, "data_"+string(i)+".dat");
+                    fprintf(fileID, "data_%i = readmatrix('%s');\n", i, "data_"+string(i)+".dat");
+                    fprintf(fileID, "p.addData('%s', data_%i);\n", obj.data.varTable{i,1}, i);
+                end
+
+                % Also need to set dataRange and simRange explicitly as they
+                % are optional
                 if ~isempty(obj.data.varTable{i,3}{:})
                     fprintf(fileID, "p.setData(%i, 'dataRange', [%d %d]);\n", i, obj.data.varTable{i,3}{:});
                 end

@@ -105,7 +105,7 @@ meSLD = meVF .* meSLD;
 lTailsSLD = lowTailsVF .* tailsSLD;
 uTailsSLD = upTailsVF .* tailsSLD;
 
-totalSLD = siSLD + oxSLD + lHeadSLD + lTailsSLD + meSLD + uTailsSLD + uHeadSLD +  waterSLD;
+totalSLD = siSLD + oxSLD + lHeadSLD + lTailsSLD + meSLD + uTailsSLD + uHeadSLD + waterSLD;
 outSLD = [z(:) totalSLD(:)];
 
 if debug

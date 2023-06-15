@@ -54,6 +54,16 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
 %
 % ------------------------------------------------------------------------
 
+% Pre-definition for Coder..
+thsSldLays = [0 0];
+thisSldLaysIm = [0 0];
+sldProfile = [0 0];
+sldProfileIm = [0 0];
+coder.varsize('thisSldLays',[10000 3],[1 1]);
+coder.varsize('thisSldLaysIm',[10000 3],[1 1]);
+coder.varsize('sldProfile',[10000 3],[1 1]);
+coder.varsize('sldProfileIm',[10000 3],[1 1]);
+
 % Bulid up the layers matrix for this contrast
 if ~useImaginary
     [theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,nba,nbs);

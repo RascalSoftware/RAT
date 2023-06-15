@@ -25,8 +25,14 @@ nLayersTot = (nLayers * nRepeats) + 2;
 
 % Make arrays for thick, sld, rough
 thicks = zeros(nLayersTot,1);
-slds = zeros(nLayersTot,1);
+sldArray = zeros(nLayersTot,1);
 roughs = zeros(nLayersTot,1);
+
+if useImaginary
+    slds = complex(sldArray,sldArray);
+else
+    slds = sldArray;
+end
 
 % Populate the d,rho,sig arrays...
 layerCount = 2;

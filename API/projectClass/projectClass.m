@@ -882,6 +882,17 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
 
             % Need to ensure correct format for script name
+            [filePath, fileName, extension] = fileparts(scriptName);
+            
+            if isempty(extension)
+                % Add the correct extension
+                fileName = sprintf('%s.m', fileName);
+                scriptName = fullfile(filePath, fileName);
+            elseif ~strcmp(extension, ".m")
+                % Raise error if incorrect format is used
+                throw(invalidValue('The filename chosen for the script does not have a MATLAB ".m" extension'));
+            end
+
             fileID = fopen(scriptName, 'w');
 
             % Start by getting input arguments
@@ -901,7 +912,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     fprintf(fileID, "p.setParameterPrior(%i, '%s', %d, %d);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
                 else
                     paramSpec = "p.addParameter('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
-                    fprintf(fileID, paramSpec, table2array(obj.parameters.varTable(i,:))');
+                    fprintf(fileID, paramSpec, table2array(obj.parameters.varTable(i, :))');
                 end
             end
 
@@ -959,21 +970,21 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             for i=1:obj.data.rowCount
                 % Write and read data if it exists, else add an empty,
                 % named row
-                if isempty(obj.data.varTable{i,2}{:})
-                    fprintf(fileID, "p.addData('%s');\n", obj.data.varTable{i,1});
+                if isempty(obj.data.varTable{i, 2}{:})
+                    fprintf(fileID, "p.addData('%s');\n", obj.data.varTable{i, 1});
                 else
-                    writematrix(obj.data.varTable{i,2}{:}, "data_"+string(i)+".dat");
-                    fprintf(fileID, "data_%i = readmatrix('%s');\n", i, "data_"+string(i)+".dat");
-                    fprintf(fileID, "p.addData('%s', data_%i);\n", obj.data.varTable{i,1}, i);
+                    writematrix(obj.data.varTable{i, 2}{:}, "data_" + string(i) + ".dat");
+                    fprintf(fileID, "data_%i = readmatrix('%s');\n", i, "data_" + string(i) + ".dat");
+                    fprintf(fileID, "p.addData('%s', data_%i);\n", obj.data.varTable{i, 1}, i);
                 end
 
                 % Also need to set dataRange and simRange explicitly as they
                 % are optional
-                if ~isempty(obj.data.varTable{i,3}{:})
-                    fprintf(fileID, "p.setData(%i, 'dataRange', [%d %d]);\n", i, obj.data.varTable{i,3}{:});
+                if ~isempty(obj.data.varTable{i, 3}{:})
+                    fprintf(fileID, "p.setData(%i, 'dataRange', [%d %d]);\n", i, obj.data.varTable{i, 3}{:});
                 end
-                if ~isempty(obj.data.varTable{i,4}{:})
-                    fprintf(fileID, "p.setData(%i, 'simRange', [%d %d]);\n", i, obj.data.varTable{i,4}{:});
+                if ~isempty(obj.data.varTable{i, 4}{:})
+                    fprintf(fileID, "p.setData(%i, 'simRange', [%d %d]);\n", i, obj.data.varTable{i, 4}{:});
                 end
                 fprintf(fileID, "\n");
             end

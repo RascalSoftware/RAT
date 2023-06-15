@@ -891,39 +891,43 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 fprintf(fileID, "p.setUsePriors(true);\n\n");
             end
 
-            % Now clear default values
-            removeClasses = ["bulkIn", "bulkOut", "scalefactors", "qzshifts", "data"];
-
-            for i=1:length(removeClasses)
-                removeRoutine = obj.classes.removeRoutine(obj.classes.name == removeClasses(i));
-                fprintf(fileID, "p." + removeRoutine + "(1);\n");
-            end
-
+            % Now clear default data values
             % And backgrounds and resolutions - deal with these separately
             % due to the nested classes
             fprintf(fileID, "p.removeBackground(1);\n");
             fprintf(fileID, "p.removeBacksPar(1);\n");
             fprintf(fileID, "p.removeResolution(1);\n");
             fprintf(fileID, "p.removeResolPar(1);\n");
+            fprintf(fileID, "p.removeData(1);\n");
 
             fprintf(fileID, "\n");
 
-            for i=1:length(obj.protectedParameters)
-                paramIndex = find(strcmpi(obj.protectedParameters{i}, obj.parameters.varTable{:,1}));
-                fprintf(fileID, "p.setParameterValue(%i, %d);\n", paramIndex, obj.parameters.varTable{paramIndex, 3});
-                fprintf(fileID, "p.setParameterConstraint(%i, %d, %d);\n", paramIndex, obj.parameters.varTable{paramIndex, 2}, obj.parameters.varTable{paramIndex, 4});
-                fprintf(fileID, "p.setParameterFit(%i, %s);\n", paramIndex, string(obj.parameters.varTable{paramIndex, 5}));
-                fprintf(fileID, "p.setParameterPrior(%i, '%s', %d, %d);\n", paramIndex, obj.parameters.varTable{paramIndex, 6}, obj.parameters.varTable{paramIndex, 7}, obj.parameters.varTable{paramIndex, 8});
+            % Add all parameters, with different actions for protected
+            % parameters
+            for i=1:height(obj.parameters.varTable)
+                if strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters)
+                    fprintf(fileID, "p.setParameterValue(%i, %d);\n", i, obj.parameters.varTable{i, 3});
+                    fprintf(fileID, "p.setParameterConstraint(%i, %d, %d);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
+                    fprintf(fileID, "p.setParameterFit(%i, %s);\n", i, string(obj.parameters.varTable{i, 5}));
+                    fprintf(fileID, "p.setParameterPrior(%i, '%s', %d, %d);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
+                else
+                    paramSpec = "p.addParameter('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
+                    fprintf(fileID, paramSpec, table2array(obj.parameters.varTable(i,:))');
+                end
             end
 
             fprintf(fileID, "\n");
 
             % Add all parameters, including everything based on a
             % parametersClass
-            paramClasses = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts"];
+            paramClasses = ["bulkIn", "bulkOut", "scalefactors", "qzshifts"];
 
             for i=1:length(paramClasses)
                 if ~isempty(obj.(paramClasses(i)).varTable)
+                    % Remove default parameter
+                    removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramClasses(i));
+                    fprintf(fileID, "p." + removeRoutine + "(1);\n");
+                    % Add the parameters that have been defined
                     addRoutine = obj.classes.addRoutine(obj.classes.name == paramClasses(i));
                     paramSpec = "p." + addRoutine + "('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
                     fprintf(fileID, paramSpec, table2array(obj.(paramClasses(i)).varTable)');

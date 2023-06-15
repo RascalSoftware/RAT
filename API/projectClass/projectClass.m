@@ -891,17 +891,6 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 fprintf(fileID, "p.setUsePriors(true);\n\n");
             end
 
-            % Now clear default data values
-            % And backgrounds and resolutions - deal with these separately
-            % due to the nested classes
-            fprintf(fileID, "p.removeBackground(1);\n");
-            fprintf(fileID, "p.removeBacksPar(1);\n");
-            fprintf(fileID, "p.removeResolution(1);\n");
-            fprintf(fileID, "p.removeResolPar(1);\n");
-            fprintf(fileID, "p.removeData(1);\n");
-
-            fprintf(fileID, "\n");
-
             % Add all parameters, with different actions for protected
             % parameters
             for i=1:height(obj.parameters.varTable)
@@ -918,16 +907,16 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             fprintf(fileID, "\n");
 
-            % Add all parameters, including everything based on a
-            % parametersClass
+            % Add all parameters based on a parametersClass
             paramClasses = ["bulkIn", "bulkOut", "scalefactors", "qzshifts"];
 
             for i=1:length(paramClasses)
+                % Remove default parameter
+                removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramClasses(i));
+                fprintf(fileID, "p." + removeRoutine + "(1);\n");
+                
+                % Add the parameters that have been defined
                 if ~isempty(obj.(paramClasses(i)).varTable)
-                    % Remove default parameter
-                    removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramClasses(i));
-                    fprintf(fileID, "p." + removeRoutine + "(1);\n");
-                    % Add the parameters that have been defined
                     addRoutine = obj.classes.addRoutine(obj.classes.name == paramClasses(i));
                     paramSpec = "p." + addRoutine + "('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
                     fprintf(fileID, paramSpec, table2array(obj.(paramClasses(i)).varTable)');
@@ -935,16 +924,20 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 end
             end
 
-            % Backgrounds and resolutions are done here because of the
-            % nested classes
-            multiTableSpec = "p.addBackground('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
+            % Backgrounds and resolutions - deal with these separately
+            % due to the nested classes
+            fprintf(fileID, "p.removeBackground(1);\n");
+            fprintf(fileID, "p.removeBacksPar(1);\n");
             paramSpec = "p.addBacksPar('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
+            multiTableSpec = "p.addBackground('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
             fprintf(fileID, paramSpec, table2array(obj.background.backPars.varTable)');
             fprintf(fileID, multiTableSpec, table2array(obj.background.backgrounds.varTable)');
             fprintf(fileID, "\n");
 
-            multiTableSpec = "p.addResolution('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
+            fprintf(fileID, "p.removeResolution(1);\n");
+            fprintf(fileID, "p.removeResolPar(1);\n");
             paramSpec = "p.addResolPar('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
+            multiTableSpec = "p.addResolution('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
             fprintf(fileID, paramSpec, table2array(obj.resolution.resolPars.varTable)');
             fprintf(fileID, multiTableSpec, table2array(obj.resolution.resolutions.varTable)');
             fprintf(fileID, "\n");
@@ -961,7 +954,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 end
             end
 
-            % Write all data to files for the script to read in
+            % Data class requires writing and reading the data
+            fprintf(fileID, "p.removeData(1);\n");
             for i=1:obj.data.rowCount
                 % Write and read data if it exists, else add an empty,
                 % named row

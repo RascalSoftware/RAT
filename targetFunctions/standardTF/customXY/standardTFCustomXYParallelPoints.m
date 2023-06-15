@@ -6,14 +6,12 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
 % Multi threaded version of the custom XY profile over reflectivity points
 % for standardTF reflectivity calculation. 
 
-
 % Extract individual cell arrays
 [repeatLayers,...
  allData,...
  dataLimits,...
  simLimits,...
- contrastLayers,...
- layersDetails,...
+ ~,~,...        % Layers details N/A
  customFiles] = parseCells(problemDefCells);
 
 % Extract individual parameters from problemDef struct
@@ -40,13 +38,11 @@ reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
-%coder.varsize('reflectivity{:}',[10000 2],[1 0]);
 
 Simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     Simulation{i} = [1 1 ; 1 1];
 end
-%coder.varsize('Simulation{:}',[10000 2],[1 0]);
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -58,21 +54,35 @@ for i = 1:numberOfContrasts
     sldProfiles{i} = [1 ; 1];
 end
 
+
+% Resampling parameters
+resamPars = controls.resamPars;
+useImaginary = problemDef.useImaginary;
+
 [sldProfiles,allRoughs] = customModelClass.processCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+
+    % Resample the layers
+    thisSld = sldProfiles{i};
+    if ~useImaginary
+        layerSld = resampleLayers(thisSld,resamPars);
+    else
+        reSLD = thisSld(:,1:2);
+        imSLD = [thisSld(:,1),thisSld(:,3)];
+        layerSld = resampleLayersReIm(reSLD,imSLD,resamPars);
+    end
     
-    resamPars = controls.resamPars;
-    layerSld = resampleLayers(sldProfiles{i},resamPars);
     layerSlds{i} = layerSld;
     allLayers{i} = layerSld;
+
     shifted_dat =  shiftData(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
     shifted_data{i} = shifted_dat;
     
-    reflectivityType = 'standardAbeles_realOnly';
-    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'points',reflectivityType);
+    reflectivityType = 'standardAbeles';
+    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'points',reflectivityType,useImaginary);
     
     [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgs(i),backsType(i));
     
@@ -85,6 +95,7 @@ for i = 1:numberOfContrasts
         chis(i) = 0;
     end
 end
+
 
 
 end

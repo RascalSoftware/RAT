@@ -75,7 +75,7 @@ classdef customModelClass < handle
 
 
         function [allSLDs,allRoughs] = processCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
+                shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
             % Top-level function for processing custom XY profiles for all the
             % contrasts.
@@ -89,7 +89,7 @@ classdef customModelClass < handle
                 allSLDs{i} = [1,1];    % Type def as double (size not important)
                 tempAllSLDs{i} = [0 0];
             end
-            coder.varsize('tempAllSLDs{:}',[10000 3],[1 1]);
+            coder.varsize('tempAllSLDs{:}',[10000 3],[1 1]);    % 3 columns to allow for potential imaginary curve
 
             for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
 

@@ -879,22 +879,24 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             arguments
                 obj
                 options.objName {mustBeTextScalar} = 'problem'
-                options.scriptName {mustBeTextScalar} = 'projectScript.m'
+                options.script {mustBeTextScalar} = 'projectScript.m'
             end
 
             % Need to ensure correct format for script name
-            [filePath, fileName, extension] = fileparts(options.scriptName);
+            [filePath, fileName, extension] = fileparts(options.script);
             
-            if isempty(extension)
+            % The empty string fails "isempty", so need to test for it
+            % explicitly
+            if strcmp(extension, "")
                 % Add the correct extension
                 fileName = sprintf('%s.m', fileName);
-                options.scriptName = fullfile(filePath, fileName);
+                options.script = fullfile(filePath, fileName);
             elseif ~strcmp(extension, ".m")
                 % Raise error if incorrect format is used
                 throw(invalidValue('The filename chosen for the script does not have a MATLAB ".m" extension'));
             end
 
-            fileID = fopen(options.scriptName, 'w');
+            fileID = fopen(options.script, 'w');
 
             % Start by getting input arguments
             projectSpec = "%s = project(name='%s', calc='%s', model='%s', geometry='%s', absorption=%s);\n\n";
@@ -998,7 +1000,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 contrastSpec = options.objName + ".addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
                 fprintf(fileID, contrastSpec, contrastParams);
                 fprintf(fileID, options.objName + ".setContrast(%i, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
-                fprintf(fileID, options.objName + ".setContrastModel(%i, '%s');\n", i, obj.contrasts.contrasts{i}.model{:});
+                fprintf(fileID, options.objName + ".setContrastModel(%i, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
                 fprintf(fileID, "\n");
             end
             

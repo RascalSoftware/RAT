@@ -42,9 +42,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     end
 
     properties(Access = protected, Constant, Hidden)
-        classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts", "layers", "customFile", "data", "contrast"], ...
-                         addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addLayer", "addCustomFile", "addData", "addContrast"], ...
-                         removeRoutine = ["removeParameter", "removeBulkIn", "removeBulkOut", "removeScalefactor", "removeQzshift", "removeLayer", "removeCustomFile", "removeData", "removeContrast"]);
+        classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts", "domainRatio", "layers", "customFile", "data", "contrast"], ...
+                         addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addDomainRatio", "addLayer", "addCustomFile", "addData", "addContrast"], ...
+                         removeRoutine = ["removeParameter", "removeBulkIn", "removeBulkOut", "removeScalefactor", "removeQzshift", "removeDomainRatio", "removeLayer", "removeCustomFile", "removeData", "removeContrast"]);
     end
 
     methods
@@ -133,7 +133,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Initialise contrasts object
             obj.contrasts = contrastsClass();               
         end
-        
+
         function domainsObj = toDomainsClass(obj)
             % Alias of the converter routine from projectClass to
             % domainsClass.
@@ -923,6 +923,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Add all parameters based on a parametersClass
             paramClasses = ["bulkIn", "bulkOut", "scalefactors", "qzshifts"];
+            if isprop(obj, 'domainRatio')
+                paramClasses(end + 1) = "domainRatio";
+            end
 
             for i=1:length(paramClasses)
                 % Remove default parameter
@@ -1000,7 +1003,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 contrastSpec = options.objName + ".addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
                 fprintf(fileID, contrastSpec, contrastParams);
                 fprintf(fileID, options.objName + ".setContrast(%i, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
-                fprintf(fileID, options.objName + ".setContrastModel(%i, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
+                if ~isempty(obj.contrasts.contrasts{i}.model)
+                    fprintf(fileID, options.objName + ".setContrastModel(%i, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
+                end
                 fprintf(fileID, "\n");
             end
             

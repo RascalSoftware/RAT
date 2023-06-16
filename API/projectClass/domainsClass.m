@@ -179,53 +179,6 @@ classdef domainsClass < projectClass
 
         end
 
-        function writeScript(obj, options)
-            % Writes a MATLAB script that can be run to reproduce this
-            % domainsClass object.
-            %
-            % problem.writeScript("newScript.m")
-            arguments
-                obj
-                options.objName {mustBeTextScalar} = 'problem'
-                options.script {mustBeTextScalar} = 'projectScript.m'
-            end
-
-            % Need to ensure correct format for script name
-            [filePath, fileName, extension] = fileparts(options.script);
-            
-            % The empty string fails "isempty", so need to test for it
-            % explicitly
-            if strcmp(extension, "")
-                % Add the correct extension
-                fileName = sprintf('%s.m', fileName);
-                options.script = fullfile(filePath, fileName);
-            elseif ~strcmp(extension, ".m")
-                % Raise error if incorrect format is used
-                throw(invalidValue('The filename chosen for the script does not have a MATLAB ".m" extension'));
-            end
-
-            % Run projectClass version
-            writeScript@projectClass(obj, objName = options.objName, script = options.script);
-
-            % Then add the domainContrasts
-            fileID = fopen(options.script, 'a');
-
-            % Domain Contrasts are a cell array rather than a table
-            % Need to handle resample and model fields separately
-            for i=1:obj.domainContrasts.numberOfContrasts
-                reducedStruct = rmfield(obj.domainContrasts.contrasts{i}, {'model'});
-                contrastParams = string(namedargs2cell(reducedStruct));
-                contrastSpec = options.objName + ".addDomainContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
-                fprintf(fileID, contrastSpec, contrastParams);
-                if ~isempty(obj.contrasts.contrasts{i}.model)
-                    fprintf(fileID, options.objName + ".setDomainContrastModel(%i, {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
-                end
-                fprintf(fileID, "\n");
-            end
-            
-            fclose(fileID);
-
-        end
     end
     
     % ------------------------------------------------------------------

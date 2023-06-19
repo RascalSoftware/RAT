@@ -977,7 +977,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             fprintf(fileID, "\n");
 
             % Now deal with classes where all of the fields are strings
-            stringClasses = ["layers", "customFile"];
+            stringClasses = ["customFile"];
 
             for i=1:length(stringClasses)
                 if ~isempty(obj.(stringClasses(i)).varTable)
@@ -986,6 +986,20 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     fprintf(fileID, stringSpec, table2array(obj.(stringClasses(i)).varTable)');
                     fprintf(fileID, "\n");
                 end
+            end
+
+            % Need to deal with layers separately due to NaN issues
+            if ~isempty(obj.layers.varTable)
+                for i=1:height(obj.layers.varTable)
+                    if ~ismissing(obj.layers.varTable{i, end-1})
+                        stringSpec = options.objName + ".addLayer(" + join(repmat("'%s'", 1, width(obj.layers.varTable)), ", ") + ");\n";
+                        fprintf(fileID, stringSpec, table2array(obj.layers.varTable(i, :))');
+                    else
+                        stringSpec = options.objName + ".addLayer(" + join(repmat("'%s'", 1, 4), ", ") + ");\n";
+                        fprintf(fileID, stringSpec, table2array(obj.layers.varTable(i, 1:4))');                        
+                    end
+                end
+                fprintf(fileID, "\n");
             end
 
             % Data class requires writing and reading the data

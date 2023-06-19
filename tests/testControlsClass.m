@@ -342,5 +342,240 @@ classdef testControlsClass < matlab.unittest.TestCase
             display = eraseBetween(sprintf(evalc('disp(testControls)')), '<', '>','Boundaries','inclusive');
             testCase.verifySubstring(display, 'controlsClass array with properties', 'getPropertyGroups method not working');
         end
+
+        function testSetProcedureWithDream(testCase) 
+            % Test default values for dream procedure
+            testCase.controls = testCase.controls.setProcedure(procedures.Dream.value);
+            testCase.verifyEqual(testCase.controls.procedure, procedures.Dream.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nSamples, 50000, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nChains, 10, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.lambda, 0.5, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.pUnitGamma, 0.2, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Fold.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
+
+            % Test passing valid parameter values for dream procedure
+            testCase.controls = testCase.controls.setProcedure(procedures.Dream.value,...
+                {'nSamples', 70000,...
+                'nChains', 15,...
+                'lambda', 0.8,...
+                'pUnitGamma', 0.5, ...
+                'boundHandling', boundHandlingOptions.Reflect.value,...
+                'parallel', parallelOptions.Contrasts.value,...
+                'calcSldDuringFit', true,...
+                'resamPars', [0 10],...
+                'display', displayOptions.Notify.value});
+            testCase.verifyEqual(testCase.controls.procedure, procedures.Dream.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nSamples, 70000, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nChains, 15, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.lambda, 0.8, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.pUnitGamma, 0.5, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Reflect.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
+
+            % Test passing invalid parameter values for dream procedurE
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
+                {'boundHandling', 'invalid'}), invalidOption.errorID);
+            
+            % Test passing wrong parameter for dream procedure
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
+                {'tolX', 1e-6}), invalidParameter.errorID); % Simplex Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
+                {'populationSize', 100000}), invalidParameter.errorID); % DE Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
+                {'Nlive', 10}), invalidParameter.errorID); % NS Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
+                {'nChains', '0.5'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
+        end
+
+        function testSetProcedureWithNS(testCase) 
+            % Test default values for NS procedure
+            testCase.controls = testCase.controls.setProcedure(procedures.NS.value);
+            testCase.verifyEqual(testCase.controls.procedure, procedures.NS.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.Nlive, 150, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.Nmcmc, 0, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.propScale, 0.1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nsTolerance, 0.1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
+
+            % Test passing valid parameter values for NS procedure
+            testCase.controls = testCase.controls.setProcedure(procedures.NS.value,...
+                {'Nlive', 700,...
+                'Nmcmc', 5,...
+                'propScale', 0.8,...
+                'nsTolerance', 0.5,...
+                'parallel', parallelOptions.Contrasts.value,...
+                'calcSldDuringFit', true,...
+                'resamPars', [0 10],...
+                'display', displayOptions.Notify.value});
+            testCase.verifyEqual(testCase.controls.procedure, procedures.NS.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.Nlive, 700, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.Nmcmc, 5, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.propScale, 0.8, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.nsTolerance, 0.5, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
+
+            % Test passing wrong parameter for NS procedure
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
+                {'tolFun', 1e-6}), invalidParameter.errorID); % Simplex Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
+                {'fWeight', 1}), invalidParameter.errorID); % DE Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
+                {'nSamples', 10}), invalidParameter.errorID); % Dream Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
+                {'propScale', '0.5'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
+        end
+
+        function testSetProcedureWithDE(testCase) 
+            % Test default values for DE procedure
+            testCase.controls = testCase.controls.setProcedure(procedures.DE.value);
+            testCase.verifyEqual(testCase.controls.procedure, procedures.DE.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.populationSize, 20, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.fWeight, 0.5, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.crossoverProbability, 0.8, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.strategy, 4, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.targetValue, 1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.numGenerations, 500, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
+
+            % Test passing valid parameter values for DE procedure
+            testCase.controls = testCase.controls.setProcedure(procedures.DE.value,...
+                {'populationSize', 30,...
+                'fWeight', 0.8,...
+                'crossoverProbability', 0.1,...
+                'strategy', 1,...
+                'targetValue', 2,...
+                'numGenerations', 3,...
+                'parallel', parallelOptions.Contrasts.value,...
+                'calcSldDuringFit', true,...
+                'resamPars', [0 10],...
+                'display', displayOptions.Notify.value});
+            testCase.verifyEqual(testCase.controls.procedure, procedures.DE.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.populationSize, 30, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.fWeight, 0.8, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.crossoverProbability, 0.1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.strategy, 1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.targetValue, 2, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.numGenerations, 3, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
+
+            % Test passing wrong parameter for DE procedure
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
+                {'tolFun', 1e-6}), invalidParameter.errorID); % Simplex Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
+                {'Nmcmc', 1}), invalidParameter.errorID); % NS Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
+                {'nSamples', 10}), invalidParameter.errorID); % Dream Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
+                {'crossoverProbability', '0.5'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
+        end
+
+        function testSetProcedureWithSimplex(testCase) 
+            % Test default values for Simplex procedure
+            testCase.controls = testCase.controls.setProcedure(procedures.Simplex.value);
+            testCase.verifyEqual(testCase.controls.procedure, procedures.Simplex.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.tolX, 1e-6, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.tolFun, 1e-6, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.maxFunEvals, 10000, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.maxIter, 1000, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updateFreq, -1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updatePlotFreq, -1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
+
+            % Test passing valid parameter values for Simplex procedure
+            testCase.controls = testCase.controls.setProcedure(procedures.Simplex.value,...
+                {'tolX', 3e-6,...
+                'tolFun', 4e-6,...
+                'maxFunEvals', 1000,...
+                'maxIter', 100,...
+                'updateFreq', 1,...
+                'updatePlotFreq', 4, ...
+                'parallel', parallelOptions.Contrasts.value,...
+                'calcSldDuringFit', true,...
+                'resamPars', [0 10],...
+                'display', displayOptions.Notify.value});
+            testCase.verifyEqual(testCase.controls.procedure, procedures.Simplex.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.tolX, 3e-6, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.tolFun, 4e-6, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.maxFunEvals, 1000, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.maxIter, 100, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updateFreq, 1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updatePlotFreq, 4, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
+
+            % Test passing wrong parameter for Simplex procedure
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
+                {'crossoverProbability', 0.7}), invalidParameter.errorID); % DE Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
+                {'Nmcmc', 1}), invalidParameter.errorID); % NS Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
+                {'nSamples', 10}), invalidParameter.errorID); % Dream Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
+                {'maxIter', '1'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
+        end
+
+        function testSetProcedureWithCalculate(testCase) 
+            % Test default values for Calculate procedure
+            testCase.controls = testCase.controls.setProcedure(procedures.Calculate.value);
+            testCase.verifyEqual(testCase.controls.procedure, procedures.Calculate.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'setProcedure method is not working');
+            
+            % Test passing valid parameter values for Calculate procedure
+            testCase.controls = testCase.controls.setProcedure(procedures.Calculate.value,...
+                {'parallel', parallelOptions.Contrasts.value,...
+                'calcSldDuringFit', true,...
+                'resamPars', [0 10],...
+                'display', displayOptions.Notify.value});
+            testCase.verifyEqual(testCase.controls.procedure, procedures.Calculate.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
+
+            % Test passing wrong parameter for Calculate procedure
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
+                {'maxIter', 100}), invalidParameter.errorID); % Simplex Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
+                {'crossoverProbability', 0.7}), invalidParameter.errorID); % DE Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
+                {'Nmcmc', 1}), invalidParameter.errorID); % NS Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
+                {'nSamples', 10}), invalidParameter.errorID); % Dream Parameter
+            testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
+                {'calcSldDuringFit', 1}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
+
+            % Test exception
+            testCase.verifyError(@() testCase.controls.setProcedure('bayes'), invalidValue.errorID);
+
+        end
+
+
     end
 end

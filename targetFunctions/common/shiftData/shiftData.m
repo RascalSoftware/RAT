@@ -40,7 +40,7 @@ switch dataPresent
         
         shifted_data = data(lowIndex:hiIndex,:);
     otherwise
-        simPoints = 100;
+        simPoints = 500;
         simLo = simLimits(1);
         simHi = simLimits(2);
         simXData = linspace(simLo,simHi,simPoints);

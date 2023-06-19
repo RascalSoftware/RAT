@@ -34,7 +34,7 @@ function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,nba
 %outSsubs = zeros(1,numberOfContrasts);
 
 
-coder.varsize('layers',[Inf,5],[1 1]);
+coder.varsize('layers',[Inf,6],[1 1]);
 
 %for i = 1:numberOfContrasts
     output = allLayers;

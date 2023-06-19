@@ -1,76 +1,105 @@
-function out = abelesSingle(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)
+function ref = abelesSingle(q,N,layers_thick,layers_rho,layers_sig)
 
-	
-% nbair = nbairs(thisCont);
-% nbsub = nbsubs(thisCont);
-% ssub = ssubs(thisCont);
-% nrepeats = nrepeatss(thisCont);
-% resol = resols(thisCont);
-out = zeros(points,1);
+% New Matlab version of reflectivity
+% with complex rho...
 
-
-c0 = complex(0,0);
-c1 = complex(1,0);
+% Pre-allocation
+tiny = 1e-30;
 ci = complex(0,1);
-plast = complex(0);
-blast = complex(0);
-N = [c0 c0; c0 c0];
-MI = [c0 c0; c0 c0];
-M = [c0 c0; c0 c0];
-%pi = 3.141592653589;
-lam = 1.54;
-rfac = ((4*pi)*(4*pi))/2;
-twopi = 2*pi;
-snair = (1.0 - (nbair*((lam*lam) / twopi)));
-snsub = (1.0 - (nbsub*((lam*lam) / twopi)));
-for loop = 1:points
-    q = x(loop);
-    theta = asin(q*lam / (4*pi));
-    preal = ((snsub)*(snsub)) - ((snair)*(snair))*(cos(theta)^2);
-    psub = sqrt(preal*c1);
-    pair = snair*sin(theta)*c1;
-    plast = pair;
-    blast = 0.0;
-    rlast = sld(1,3);
-    MI(1,1) = c1;
-    MI(2,2) = c1;
-    MI(1,2) = c0;
-    MI(2,1) = c0;
-    for reploop = 1:nrepeats
-        for nl = 1:layers
-            thick = sld(nl,1);
-            rho = sld(nl,2);
-            rough = sld(nl,3);
-            snlay = (1 - (rho*((lam*lam) / twopi)));
-            preal = (snlay*snlay) - (snair*snair) *cos(theta)^2;
-            pimag = sqrt(preal*c1);
-            beta = (twopi / lam)*thick*pimag;
-            rij = complex(plast - pimag) / complex(plast + pimag);
-            rij = rij * exp(-rfac*plast*pimag*(rough*rough)/(lam*lam));
-            N(1 , 1) = exp(blast*ci);
-            N(2 , 1) = rij * exp( - blast*ci);
-            N(2 , 2) = exp( - blast*ci);
-            N(1 , 2) = rij * exp(blast*ci);
-            plast = pimag;
-            blast = beta;
-            rlast = rough;
-            M = MI;
-            MI = M * N;
-        end
+c0 = complex(0,0);
+M_tot = [c0 c0 ; c0 c0];
+M_n = [c0 c0 ; c0 c0];
+M_res = [c0 c0 ; c0 c0];
+kn_ptr = c0;
+ref = zeros(length(q),1);
+
+for points = 1:length(q)
+
+    Q = q(points);
+
+    if isreal(layers_rho(1))
+        bulk_in_SLD = complex(layers_rho(1),tiny);
+    else
+        bulk_in_SLD = layers_rho(1);
+        bulk_in_SLD = bulk_in_SLD + complex(0,tiny);
     end
-    rij = (complex(plast - psub)) / (complex(plast + psub));
-    rij = rij * exp(-rfac*plast*psub*(rsub*rsub)/(lam*lam));
-    N(1,1) = exp(blast*ci);
-    N(2,1) = rij*exp( - blast*ci);
-    N(2,2) = exp( - blast*ci);
-    N(1,2) = rij*exp(blast*ci);
-    M = MI;
-    MI = M * N;
-    num = MI(2 , 1)*conj(MI(2 , 1));
-    den = MI(1 , 1)*conj(MI(1 , 1));
-    quo = num/den;
-    out(loop) = abs(quo);
+    k0 = Q/2;
+
+    for n = 1:N-1
+
+        if n == 1
+
+            % Find k1..
+            sld_1 = layers_rho(n+1) - bulk_in_SLD;
+            k1 = findkn(k0, sld_1);
+
+            % Find r01
+            nom1 = k0 - k1;
+            denom1 = k0 + k1;
+            sigmasqrd = layers_sig(n + 1) ^ 2;
+            err1 = exp(-2 * k1 * k0 * sigmasqrd);
+            r01 = (nom1 / denom1) * err1;
+
+            % Generate the M1 matrix:
+            M_tot(1,1) = complex(1,0);
+            M_tot(1,2) = r01;
+            M_tot(2,1) = r01;
+            M_tot(2,2) = complex(1,0);
+
+            kn_ptr = k1;
+
+        else
+
+            % Find kn and k_n+1 (ex. k1 and k2 for n=1): */
+            sld_np1 = layers_rho(n + 1);
+            sld_np1 = sld_np1 - bulk_in_SLD;
+
+            if isreal(sld_np1)  % This check may not be necessary
+                sld_np1 = complex(sld_np1,eps);
+            end
+
+            kn = kn_ptr;
+            knp1 = findkn(k0, sld_np1);
+
+            % Find r_n,n+1:
+            nom_n = kn - knp1;
+            denom_n = kn + knp1;
+            sigmasqrd = layers_sig(n + 1)^2;
+            err_n = exp(-2 * kn * knp1 * sigmasqrd);
+            r_n_np1 = (nom_n / denom_n) * err_n;
+
+            % Find the Phase Factor = (k_n * d_n)
+            beta = kn * layers_thick(n) * ci;
+
+            % Create the M_n matrix: */
+            M_n(1,1) = exp(beta);
+            M_n(1,2) = r_n_np1 * exp(beta);
+            M_n(2,1) = r_n_np1 * exp(-beta);
+            M_n(2,2) = exp(-beta);
+
+            % Multiply the matrices
+            M_res = M_tot * M_n;
+
+            % Reassign the values back to M_tot:
+            M_tot = M_res;
+
+            % Point to k_n+1 and sld_n+1 via kn_ptr sld_n_ptr:
+            kn_ptr = knp1;
+
+        end
+
+    end
+    R = abs(M_res(2,1)/M_res(1,1));
+    ref(points) = R^2;
 end
 
-return
-end 
+end
+
+function kn = findkn(k0,sld)
+
+subtr = k0^2 - 4 * pi * sld;
+kn = sqrt(subtr);
+
+end
+
+

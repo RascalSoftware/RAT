@@ -55,6 +55,7 @@ end
 
 % Resampling parameters
 resamPars = controls.resamPars;
+useImaginary = problemDef.useImaginary;
 
 [sldProfiles,allRoughs] = customModelClass.processCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
@@ -62,15 +63,24 @@ resamPars = controls.resamPars;
 for i = 1:numberOfContrasts
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 
-    layerSld = resampleLayers(sldProfiles{i},resamPars);
+    % Resample the layers
+    thisSld = sldProfiles{i};
+    if ~useImaginary
+        layerSld = resampleLayers(thisSld,resamPars);
+    else
+        reSLD = thisSld(:,1:2);
+        imSLD = [thisSld(:,1),thisSld(:,3)];
+        layerSld = resampleLayersReIm(reSLD,imSLD,resamPars);
+    end
+    
     layerSlds{i} = layerSld;
     allLayers{i} = layerSld;
 
     shifted_dat =  shiftData(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
     shifted_data{i} = shifted_dat;
     
-    reflectivityType = 'standardAbeles_realOnly';
-    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'single',reflectivityType);
+    reflectivityType = 'standardAbeles';
+    [reflect,Simul] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'single',reflectivityType,useImaginary);
     
     [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgs(i),backsType(i));
     

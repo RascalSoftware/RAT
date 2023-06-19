@@ -63,7 +63,7 @@ end
 % to be done once, and so is done outside the contrasts loop
 outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 
-% Resample params if requiired
+% Resample parameters if required
 resamPars = controls.resamPars;
 
 % Loop over all the contrasts

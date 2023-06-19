@@ -909,13 +909,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % parameters
             for i=1:height(obj.parameters.varTable)
                 if strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters)
-                    fprintf(fileID, options.objName + ".setParameterValue(%i, %d);\n", i, obj.parameters.varTable{i, 3});
-                    fprintf(fileID, options.objName + ".setParameterConstraint(%i, %d, %d);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
-                    fprintf(fileID, options.objName + ".setParameterFit(%i, %s);\n", i, string(obj.parameters.varTable{i, 5}));
-                    fprintf(fileID, options.objName + ".setParameterPrior(%i, '%s', %d, %d);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
+                    fprintf(fileID, options.objName + ".setParameterValue(%d, %.15g);\n", i, obj.parameters.varTable{i, 3});
+                    fprintf(fileID, options.objName + ".setParameterConstraint(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
+                    fprintf(fileID, options.objName + ".setParameterFit(%d, %s);\n", i, string(obj.parameters.varTable{i, 5}));
+                    fprintf(fileID, options.objName + ".setParameterPrior(%d, '%s', %.15g, %.15g);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
                 else
-                    paramSpec = options.objName + ".addParameter('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
-                    fprintf(fileID, paramSpec, table2array(obj.parameters.varTable(i, :))');
+                    paramSpec = options.objName + ".addParameter('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
+                    paramRow = table2cell(obj.parameters.varTable(i, :))';
+                    paramRow{5} = string(paramRow{5});
+                    fprintf(fileID, paramSpec, paramRow{:});
                 end
             end
 
@@ -935,8 +937,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 % Add the parameters that have been defined
                 if ~isempty(obj.(paramClasses(i)).varTable)
                     addRoutine = obj.classes.addRoutine(obj.classes.name == paramClasses(i));
-                    paramSpec = options.objName + "." + addRoutine + "('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
-                    fprintf(fileID, paramSpec, table2array(obj.(paramClasses(i)).varTable)');
+                    paramSpec = options.objName + "." + addRoutine + "('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
+                    paramTable = table2cell(obj.(paramClasses(i)).varTable)';
+                    % Convert logical parameter
+                    for j=1:height(obj.(paramClasses(i)).varTable)
+                        paramTable{5, j} = string(paramTable{5, j});
+                    end
+                    fprintf(fileID, paramSpec, paramTable{:});
                     fprintf(fileID, "\n");
                 end
             end
@@ -945,17 +952,27 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % due to the nested classes
             fprintf(fileID, options.objName + ".removeBackground(1);\n");
             fprintf(fileID, options.objName + ".removeBacksPar(1);\n");
-            paramSpec = options.objName + ".addBacksPar('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
+            paramSpec = options.objName + ".addBacksPar('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
             multiTableSpec = options.objName + ".addBackground('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
-            fprintf(fileID, paramSpec, table2array(obj.background.backPars.varTable)');
+            paramTable = table2cell(obj.background.backPars.varTable)';
+            % Convert logical parameter
+            for i=1:height(obj.background.backPars.varTable)
+                paramTable{5, i} = string(paramTable{5, i});
+            end
+            fprintf(fileID, paramSpec, paramTable{:});
             fprintf(fileID, multiTableSpec, table2array(obj.background.backgrounds.varTable)');
             fprintf(fileID, "\n");
 
             fprintf(fileID, options.objName + ".removeResolution(1);\n");
             fprintf(fileID, options.objName + ".removeResolPar(1);\n");
-            paramSpec = options.objName + ".addResolPar('%s', %s, %s, %s, %s, '%s', %s, %s);\n";
+            paramSpec = options.objName + ".addResolPar('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
             multiTableSpec = options.objName + ".addResolution('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
-            fprintf(fileID, paramSpec, table2array(obj.resolution.resolPars.varTable)');
+            paramTable = table2cell(obj.resolution.resolPars.varTable)';
+            % Convert logical parameter
+            for i=1:height(obj.resolution.resolPars.varTable)
+                paramTable{5, i} = string(paramTable{5, i});
+            end
+            fprintf(fileID, paramSpec, paramTable{:});
             fprintf(fileID, multiTableSpec, table2array(obj.resolution.resolutions.varTable)');
             fprintf(fileID, "\n");
 
@@ -980,17 +997,17 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     fprintf(fileID, options.objName + ".addData('%s');\n", obj.data.varTable{i, 1});
                 else
                     writematrix(obj.data.varTable{i, 2}{:}, "data_" + string(i) + ".dat");
-                    fprintf(fileID, "data_%i = readmatrix('%s');\n", i, "data_" + string(i) + ".dat");
-                    fprintf(fileID, options.objName + ".addData('%s', data_%i);\n", obj.data.varTable{i, 1}, i);
+                    fprintf(fileID, "data_%d = readmatrix('%s');\n", i, "data_" + string(i) + ".dat");
+                    fprintf(fileID, options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
                 end
 
                 % Also need to set dataRange and simRange explicitly as they
                 % are optional
                 if ~isempty(obj.data.varTable{i, 3}{:})
-                    fprintf(fileID, options.objName + ".setData(%i, 'dataRange', [%d %d]);\n", i, obj.data.varTable{i, 3}{:});
+                    fprintf(fileID, options.objName + ".setData(%d, 'dataRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 3}{:});
                 end
                 if ~isempty(obj.data.varTable{i, 4}{:})
-                    fprintf(fileID, options.objName + ".setData(%i, 'simRange', [%d %d]);\n", i, obj.data.varTable{i, 4}{:});
+                    fprintf(fileID, options.objName + ".setData(%d, 'simRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 4}{:});
                 end
                 fprintf(fileID, "\n");
             end
@@ -1002,9 +1019,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 contrastParams = string(namedargs2cell(reducedStruct));
                 contrastSpec = options.objName + ".addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
                 fprintf(fileID, contrastSpec, contrastParams);
-                fprintf(fileID, options.objName + ".setContrast(%i, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
+                fprintf(fileID, options.objName + ".setContrast(%d, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
                 if ~isempty(obj.contrasts.contrasts{i}.model)
-                    fprintf(fileID, options.objName + ".setContrastModel(%i, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
+                    fprintf(fileID, options.objName + ".setContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
                 end
                 fprintf(fileID, "\n");
             end
@@ -1016,7 +1033,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     contrastSpec = options.objName + ".addDomainContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
                     fprintf(fileID, contrastSpec, contrastParams);
                     if ~isempty(obj.contrasts.contrasts{i}.model)
-                        fprintf(fileID, options.objName + ".setDomainContrastModel(%i, {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
+                        fprintf(fileID, options.objName + ".setDomainContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
                     end
                     fprintf(fileID, "\n");
                 end

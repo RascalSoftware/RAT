@@ -32,7 +32,7 @@ classdef parametersClass < tableUtilities
             % params = parametersClass('Tails', 10, 20, 30, true, priorTypes.Uniform.value, 0, Inf);
             sz = [0, 8];
             varTypes = {'string','double','double','double','logical','string','double','double'};
-            varNames = {'Name','Min','Value','Max','Fit','Prior Type','mu','sigma'};
+            varNames = {'Name','Min','Value','Max','Fit?','Prior Type','mu','sigma'};
             obj.varTable = table('Size',sz,'VariableTypes',varTypes,'VariableNames',varNames);
             if isempty(varargin)
                 obj.addParameter();

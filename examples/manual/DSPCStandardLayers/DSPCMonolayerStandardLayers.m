@@ -139,14 +139,10 @@ problem
 
 % Make the controls class...
 controls = controlsClass();
-% controls.calcSldDuringFit = 'no';
-% controls.procedure = 'bayes';
-% controls.parallel = 'contrasts';
-% controls.maxIter = 1e9;
-% controls.repeats = 3;
-% controls.nsimu = 5000;
-% controls.burnin = 1000;
-
+% controls = controls.setProcedure(procedures.Dream.value, ...
+%     {'calcSldDuringFit', false, ...
+%      'parallel', parallelOptions.Contrasts.value,...
+%      'nSamples', 5000});
 
 [problem,results] = RAT(problem,controls);
 

@@ -2,7 +2,7 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
     standardTFLayersCore(contrastLayers, rough, ...
     geometry, nba, nbs, resample, calcSld, sf, qshift,...
     dataPresent, data, dataLimits, simLimits, repeatLayers,...
-    background,resol,backsType,params,parallelPoints,resamPars)
+    background,resol,backsType,params,parallelPoints,resamPars,useImaginary)
 
 %   This is the main reflectivity calculation for all Layers models in the 
 %   standard target function. 
@@ -54,8 +54,22 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
 %
 % ------------------------------------------------------------------------
 
+% Pre-definition for Coder..
+thsSldLays = [0 0];
+thisSldLaysIm = [0 0];
+sldProfile = [0 0];
+sldProfileIm = [0 0];
+coder.varsize('thisSldLays',[10000 3],[1 1]);
+coder.varsize('thisSldLaysIm',[10000 3],[1 1]);
+coder.varsize('sldProfile',[10000 3],[1 1]);
+coder.varsize('sldProfileIm',[10000 3],[1 1]);
+
 % Bulid up the layers matrix for this contrast
-[theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,nba,nbs);
+if ~useImaginary
+    [theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,nba,nbs);
+else
+    [theseLayers, ssubs] = groupLayersModImaginary(contrastLayers,rough,geometry,nba,nbs);
+end
 
 % Make the SLD profiles.
 % If resampling is needed, then enforce the calcSLD flag, so as to catch
@@ -66,14 +80,37 @@ end
 
 % If calc SLD flag is set, then calculate the SLD profile
 if calcSld == 1
-    sldProfile = makeSLDProfiles(nba,nbs,theseLayers,ssubs,repeatLayers);
+
+    % If we need them both, we process real and imaginary parts of the SLD
+    % seperately...
+    if useImaginary
+        thisSldLays = [theseLayers(:,1:2) theseLayers(:,4:end)];
+        thisSldLaysIm = [theseLayers(:,1) theseLayers(:,3:end)];
+    else
+        thisSldLays = theseLayers;
+    end
+    
+    sldProfile = makeSLDProfiles(nba,nbs,thisSldLays,ssubs,repeatLayers);
+
+    % If we have imaginary, we are also
+    % going to need an SLD profile for the imaginary part
+    if useImaginary
+        % Note nba and nbs = 0 since there is never any imaginary part for
+        % the bulk phases..
+        sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
+    end
+
 else
     sldProfile = [0 0];
 end
 
 % If required, then resample the SLD
 if resample == 1
-    layerSld = resampleLayers(sldProfile,resamPars);
+    if ~useImaginary
+        layerSld = resampleLayers(sldProfile,resamPars);
+    else
+        layerSld = resampleLayersReIm(sldProfile,sldProfileIm,resamPars);
+    end
     resamLayers = layerSld;
 else
     layerSld = theseLayers;
@@ -84,8 +121,8 @@ end
 shifted_dat = shiftData(sf,qshift,dataPresent,data,dataLimits,simLimits);
 
 % Calculate the reflectivity
-reflectivityType = 'standardAbeles_realOnly';
-[reflect,Simul] = callReflectivity(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,parallelPoints,reflectivityType);
+reflectivityType = 'standardAbeles';
+[reflect,Simul] = callReflectivity(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,parallelPoints,reflectivityType,useImaginary);
 
 % Apply background correction, either to the simulation or the data
 [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,background,backsType);

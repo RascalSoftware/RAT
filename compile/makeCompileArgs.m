@@ -17,6 +17,7 @@ ARGS_1_1.dataPresent = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_1.oilChiDataPresent = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_1.numberOfContrasts = coder.typeof(0);
 ARGS_1_1.geometry = coder.typeof('X',[1 maxArraySize],[0 1]);
+ARGS_1_1.useImaginary = coder.typeof(true,[1 1],[0 0]);
 ARGS_1_1.contrastShifts = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_1.contrastScales = coder.typeof(0,[1 maxArraySize],[0 1]);
 ARGS_1_1.contrastNbas = coder.typeof(0,[1 maxArraySize],[0 1]);

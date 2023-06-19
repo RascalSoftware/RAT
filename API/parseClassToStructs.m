@@ -332,6 +332,7 @@ problemDef.dataPresent = inputStruct.dataPresent;
 problemDef.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
 problemDef.geometry = inputStruct.geometry;
+problemDef.useImaginary = inputStruct.useImaginary;
 %problemDef.contrastBacks = contrastBacks;
 problemDef.contrastShifts = inputStruct.contrastShifts;
 problemDef.contrastScales = inputStruct.contrastScales;

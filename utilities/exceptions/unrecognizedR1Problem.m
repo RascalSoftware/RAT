@@ -1,6 +1,6 @@
 classdef unrecognizedR1Problem < MException
     properties (Constant, Hidden)    
-        errorID = 'RAT:unrecognizedR1Problem';
+        errorID = 'RAT:UnrecognizedR1Problem';
     end
     methods
         function obj = unrecognizedR1Problem(message)

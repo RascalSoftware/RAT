@@ -405,6 +405,14 @@ if yes, what to parallelize on. (Points or Contrasts or all)
         controls.repeats = 3;
         controls.parallel = 'contrasts';
 
+.. code-block:: MATLAB
+    :caption: Alternate usage of controlsClass.
+
+        controls = controlsClass();
+        controls = controls.setProcedure('dream',...
+                                         {'nSamples', 6000,...
+                                          'nChains', 10,...
+                                          'parallel', 'contrasts'})
 
 RAT 
 ====

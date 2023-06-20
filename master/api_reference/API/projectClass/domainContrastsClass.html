@@ -47,7 +47,7 @@ This function is called by:
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="#_sub1" class="code">function names = getDisplayNames(obj)</a></li>
-<li><a href="#_sub2" class="code">function inputBlock = parseContrastInput(allowedNames, ~, inputValues)</a></li>
+<li><a href="#_sub2" class="code">function inputBlock = parseContrastInput(~, allowedNames, inputValues)</a></li>
 </ul>
 
 
@@ -59,46 +59,40 @@ This function is called by:
 0005     <span class="comment">% calculations.</span>
 0006                 
 0007     methods
-0008         <a name="_sub0" href="#_subfunctions" class="code">function names = getDisplayNames(obj)</a>
-0009             names = [&quot;Name&quot;; &quot;Bulk in&quot;; &quot;Bulk out&quot;; &quot;Model&quot;];
-0010         <span class="keyword">end</span>     
-0011     <span class="keyword">end</span>
-0012     
-0013     methods(Static)
-0014 
-0015         <a name="_sub1" href="#_subfunctions" class="code">function inputBlock = parseContrastInput(allowedNames, ~, inputValues)</a>
-0016             <span class="comment">% Parse the parameters given for the contrast, assigning</span>
-0017             <span class="comment">% default values to those unspecified and ensuring specified</span>
-0018             <span class="comment">% values are of the correct type, and included in the list of</span>
-0019             <span class="comment">% allowed names where necessary.</span>
-0020             <span class="comment">%</span>
-0021             <span class="comment">% contrastsClass.parseContrastInput(allowedNames, ...</span>
-0022             <span class="comment">%                                   domainsCalc, ...</span>
-0023             <span class="comment">%                                   'name', 'Contrast Name', ...</span>
-0024             <span class="comment">%                                   'nba', 'Silicon')</span>
-0025             defaultName = <span class="string">''</span>;
-0026             defaultNba = <span class="string">''</span>;
-0027             defaultNbs = <span class="string">''</span>;
+0008 
+0009         <a name="_sub0" href="#_subfunctions" class="code">function names = getDisplayNames(obj)</a>
+0010             names = [&quot;Name&quot;; &quot;Bulk in&quot;; &quot;Bulk out&quot;; &quot;Model&quot;];
+0011         <span class="keyword">end</span>
+0012 
+0013         <a name="_sub1" href="#_subfunctions" class="code">function inputBlock = parseContrastInput(~, allowedNames, inputValues)</a>
+0014             <span class="comment">% Parse the parameters given for the contrast, assigning</span>
+0015             <span class="comment">% default values to those unspecified and ensuring specified</span>
+0016             <span class="comment">% values are of the correct type, and included in the list of</span>
+0017             <span class="comment">% allowed names where necessary.</span>
+0018             <span class="comment">%</span>
+0019             <span class="comment">% contrastsClass.parseContrastInput(allowedNames, ...</span>
+0020             <span class="comment">%                                   'name', 'Contrast Name', ...</span>
+0021             <span class="comment">%                                   'nba', 'Silicon')</span>
+0022             defaultName = <span class="string">''</span>;
+0023             defaultNba = <span class="string">''</span>;
+0024             defaultNbs = <span class="string">''</span>;
+0025         
+0026             expectedBulkin = cellstr(allowedNames.bulkInNames);
+0027             expectedBulkout = cellstr(allowedNames.bulkOutNames);
 0028         
-0029             expectedBulkin = cellstr(allowedNames.bulkInNames);
-0030             expectedBulkout = cellstr(allowedNames.bulkOutNames);
-0031         
-0032             p = inputParser;
-0033             addParameter(p,<span class="string">'name'</span>,          defaultName,        @isText);
-0034             addParameter(p,<span class="string">'nba'</span>,           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
-0035             addParameter(p,<span class="string">'nbs'</span>,           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
-0036                 
-0037             parse(p, inputValues{:});
-0038             inputBlock = p.Results;
-0039 
-0040         <span class="keyword">end</span>
-0041 
-0042     <span class="keyword">end</span>
-0043 <span class="keyword">end</span>
-0044 
-0045 
+0029             p = inputParser;
+0030             addParameter(p,<span class="string">'name'</span>,          defaultName,        @isText);
+0031             addParameter(p,<span class="string">'nba'</span>,           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
+0032             addParameter(p,<span class="string">'nbs'</span>,           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
+0033                 
+0034             parse(p, inputValues{:});
+0035             inputBlock = p.Results;
+0036 
+0037         <span class="keyword">end</span>
+0038     <span class="keyword">end</span>
+0039 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -2,8 +2,10 @@
 digraph m2html {
   adaptive -> SLDFunction;
   resampleLayers -> adaptive;
+  resampleLayersReIm -> adaptive;
 
   SLDFunction [URL="SLDFunction.html"];
   adaptive [URL="adaptive.html"];
   resampleLayers [URL="resampleLayers.html"];
+  resampleLayersReIm [URL="resampleLayersReIm.html"];
 }

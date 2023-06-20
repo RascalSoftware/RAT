@@ -43,7 +43,7 @@ This function calls:
 <li><a href="../../../API/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>	Extract individual parameters from problemDef</li>
 <li><a href="../../../API/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)">parseCells</a>	Splits up the master input list of all arrays into separate arrays</li>
 <li><a href="../../../targetFunctions/common/backSort/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
-<li><a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars)">standardTFLayersCore</a>	This is the main reflectivity calculation for all Layers models in the</li>
+<li><a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">standardTFLayersCore</a>	This is the main reflectivity calculation for all Layers models in the</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
@@ -80,10 +80,10 @@ This function is called by:
 0024 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,<span class="keyword">...</span>
 0025 numberOfLayers, resample, backsType, cCustFiles] =  <a href="../../../API/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>(problemDef);
 0026 
-0027 calcSld = controls.calcSld;      
-0028                      
-0029 <span class="comment">% Pre-Allocation of output arrays...</span>
-0030 
+0027 calcSld = controls.calcSld;
+0028 useImaginary = problemDef.useImaginary;
+0029                      
+0030 <span class="comment">% Pre-Allocation of output arrays...</span>
 0031 backgs = zeros(numberOfContrasts,1);
 0032 qshifts = zeros(numberOfContrasts,1);
 0033 sfs = zeros(numberOfContrasts,1);
@@ -120,9 +120,9 @@ This function is called by:
 0064 
 0065 <span class="comment">% Process the custom models....</span>
 0066 [allLayers,allRoughs] = customModelClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,<span class="keyword">...</span>
-0067                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+0067                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 0068 
-0069 <span class="comment">% Multi-cored over all contrasts</span>
+0069 <span class="comment">% Multi cored over all contrasts</span>
 0070 parfor i = 1:numberOfContrasts
 0071     
 0072     <span class="comment">% Extract the relevant parameter values for this contrast</span>
@@ -153,11 +153,11 @@ This function is called by:
 0097     
 0098     <span class="comment">% Call the reflectivity calculation</span>
 0099     [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = <span class="keyword">...</span>
-0100     <a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars)">standardTFLayersCore</a><span class="keyword">...</span>
+0100     <a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">standardTFLayersCore</a><span class="keyword">...</span>
 0101     (thisContrastLayers, thisRough, <span class="keyword">...</span>
 0102     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,<span class="keyword">...</span>
 0103     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
-0104     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars);
+0104     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
 0105    
 0106     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
 0107     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
@@ -182,9 +182,10 @@ This function is called by:
 0126 
 0127 <span class="keyword">end</span>
 0128 
-0129 <span class="keyword">end</span>
+0129 
+0130 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

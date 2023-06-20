@@ -397,7 +397,7 @@ Our final projectClass looks like this:
 .. image:: images/userManual/chapter3/dispProblem2.png
     :alt: Displays project class (second half)
 
-To run this, we make a controls block as before, and pass this to RAT. This time we will do a Bayesian analysis (we will discuss the controls block and available algorithms in more detail in Chapter 4).
+To run this, we make a controls block as before, and pass this to RAT. This time we will do a DREAM analysis (we will discuss the controls block and available algorithms in more detail in Chapter 4).
 
 .. code:: MATLAB
 

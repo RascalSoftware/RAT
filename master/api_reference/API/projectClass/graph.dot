@@ -6,7 +6,9 @@ digraph m2html {
   contrastsClass -> baseContrasts;
   contrastsClass -> contrastsClass;
   customFileClass -> customFileClass;
+  customFileClass -> tableUtilities;
   dataClass -> dataClass;
+  dataClass -> tableUtilities;
   domainContrastsClass -> baseContrasts;
   domainContrastsClass -> domainContrastsClass;
   domainsClass -> contrastsClass;
@@ -16,12 +18,16 @@ digraph m2html {
   domainsClass -> parametersClass;
   domainsClass -> projectClass;
   layersClass -> layersClass;
+  layersClass -> tableUtilities;
   multiTypeTable -> multiTypeTable;
+  multiTypeTable -> tableUtilities;
   parametersClass -> parametersClass;
+  parametersClass -> tableUtilities;
   projectClass -> backgroundsClass;
   projectClass -> contrastsClass;
   projectClass -> customFileClass;
   projectClass -> dataClass;
+  projectClass -> domainsClass;
   projectClass -> layersClass;
   projectClass -> mergeStructs;
   projectClass -> parametersClass;
@@ -29,6 +35,7 @@ digraph m2html {
   projectClass -> resolutionsClass;
   resolutionsClass -> multiTypeTable;
   resolutionsClass -> resolutionsClass;
+  tableUtilities -> tableUtilities;
 
   backgroundsClass [URL="backgroundsClass.html"];
   baseContrasts [URL="baseContrasts.html"];
@@ -43,4 +50,5 @@ digraph m2html {
   parametersClass [URL="parametersClass.html"];
   projectClass [URL="projectClass.html"];
   resolutionsClass [URL="resolutionsClass.html"];
+  tableUtilities [URL="tableUtilities.html"];
 }

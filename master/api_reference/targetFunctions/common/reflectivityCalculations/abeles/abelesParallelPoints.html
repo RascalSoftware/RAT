@@ -4,7 +4,7 @@
 <head>
   <title>Description of abelesParallelPoints</title>
   <meta name="keywords" content="abelesParallelPoints">
-  <meta name="description" content="nbair = nbairs(thisCont);">
+  <meta name="description" content="">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -24,18 +24,13 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
-<div class="box"><strong>nbair = nbairs(thisCont);</strong></div>
+<div class="box"><strong></strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
-<div class="box"><strong>function out = abelesParallelPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points) </strong></div>
+<div class="box"><strong>function ref = abelesParallelPoints(q,N,layers_thick,layers_rho,layers_sig) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment"> nbair = nbairs(thisCont);
- nbsub = nbsubs(thisCont);
- ssub = ssubs(thisCont);
- nrepeats = nrepeatss(thisCont);
- resol = resols(thisCont);
-</pre></div>
+<div class="fragment"><pre class="comment"></pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
@@ -44,94 +39,125 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../../matlabicon.gif)">
-<li><a href="../../../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType)">callReflectivity</a>	</li>
+<li><a href="../../../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType,useImaginary)">callReflectivity</a>	</li>
 </ul>
 <!-- crossreference -->
 
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function kn = findkn(k0,sld)</a></li>
+</ul>
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = abelesParallelPoints(x,sld,nbair,nbsub,nrepeats,rsub,layers,points)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function ref = abelesParallelPoints(q,N,layers_thick,layers_rho,layers_sig)</a>
 0002 
-0003     
-0004 <span class="comment">% nbair = nbairs(thisCont);</span>
-0005 <span class="comment">% nbsub = nbsubs(thisCont);</span>
-0006 <span class="comment">% ssub = ssubs(thisCont);</span>
-0007 <span class="comment">% nrepeats = nrepeatss(thisCont);</span>
-0008 <span class="comment">% resol = resols(thisCont);</span>
-0009 out = zeros(points,1);
-0010 
+0003 tiny = 1e-30;
+0004 ci = complex(0,1);
+0005 c0 = complex(0,0);
+0006 
+0007 
+0008 ref = zeros(length(q),1);
+0009 
+0010 parfor points = 1:length(q)
 0011 
-0012 c0 = complex(0,0);
-0013 c1 = complex(1,0);
-0014 ci = complex(0,1);
-0015 plast = complex(0);
-0016 blast = complex(0);
+0012     M_tot = [c0 c0 ; c0 c0];
+0013     M_n = [c0 c0 ; c0 c0];
+0014     M_res = [c0 c0 ; c0 c0];
+0015 
+0016     kn_ptr = c0;
 0017 
-0018 M = [c0 c0; c0 c0];
-0019 <span class="comment">%pi = 3.141592653589;</span>
-0020 lam = 1.54;
-0021 rfac = ((4*pi)*(4*pi))/2;
-0022 twopi = 2*pi;
-0023 snair = (1.0 - (nbair*((lam*lam) / twopi)));
-0024 snsub = (1.0 - (nbsub*((lam*lam) / twopi)));
-0025 parfor loop = 1:points
-0026     
-0027     N = [c0 c0; c0 c0];
-0028     MI = [c0 c0; c0 c0];
-0029     
-0030     q = x(loop);
-0031     theta = asin(q*lam / (4*pi));
-0032     preal = ((snsub)*(snsub)) - ((snair)*(snair))*(cos(theta)^2);
-0033     psub = sqrt(preal*c1);
-0034     pair = snair*sin(theta)*c1;
-0035     plast = pair;
-0036     blast = 0.0;
-0037     rlast = sld(1,3);
-0038     MI(1,1) = c1;
-0039     MI(2,2) = c1;
-0040     MI(1,2) = c0;
-0041     MI(2,1) = c0;
-0042     <span class="keyword">for</span> reploop = 1:nrepeats
-0043         <span class="keyword">for</span> nl = 1:layers
-0044             thick = sld(nl,1);
-0045             rho = sld(nl,2);
-0046             rough = sld(nl,3);
-0047             snlay = (1 - (rho*((lam*lam) / twopi)));
-0048             preal = (snlay*snlay) - (snair*snair) *cos(theta)^2;
-0049             pimag = sqrt(preal*c1);
-0050             beta = (twopi / lam)*thick*pimag;
-0051             rij = complex(plast - pimag) / complex(plast + pimag);
-0052             rij = rij * exp(-rfac*plast*pimag*(rough*rough)/(lam*lam));
-0053             N(1 , 1) = exp(blast*ci);
-0054             N(2 , 1) = rij * exp( - blast*ci);
-0055             N(2 , 2) = exp( - blast*ci);
-0056             N(1 , 2) = rij * exp(blast*ci);
-0057             plast = pimag;
-0058             blast = beta;
-0059             rlast = rough;
-0060             M = MI;
-0061             MI = M * N;
-0062         <span class="keyword">end</span>
-0063     <span class="keyword">end</span>
-0064     rij = (complex(plast - psub)) / (complex(plast + psub));
-0065     rij = rij * exp(-rfac*plast*psub*(rsub*rsub)/(lam*lam));
-0066     N(1,1) = exp(blast*ci);
-0067     N(2,1) = rij*exp( - blast*ci);
-0068     N(2,2) = exp( - blast*ci);
-0069     N(1,2) = rij*exp(blast*ci);
-0070     M = MI;
-0071     MI = M * N;
-0072     num = MI(2 , 1)*conj(MI(2 , 1));
-0073     den = MI(1 , 1)*conj(MI(1 , 1));
-0074     quo = num/den;
-0075     out(loop) = abs(quo);
-0076 <span class="keyword">end</span>
-0077 
-0078 <span class="keyword">return</span>
-0079 <span class="keyword">end</span> 
+0018     Q = q(points);
+0019 
+0020     <span class="keyword">if</span> isreal(layers_rho(1))
+0021         bulk_in_SLD = complex(layers_rho(1),tiny);
+0022     <span class="keyword">else</span>
+0023         bulk_in_SLD = layers_rho(1);
+0024         bulk_in_SLD = bulk_in_SLD + complex(0,tiny);
+0025     <span class="keyword">end</span>
+0026     k0 = Q/2;
+0027 
+0028     <span class="keyword">for</span> n = 1:N-1
+0029 
+0030         <span class="keyword">if</span> n == 1
+0031 
+0032             <span class="comment">% Find k1..</span>
+0033             sld_1 = layers_rho(n+1) - bulk_in_SLD;
+0034             k1 = <a href="#_sub1" class="code" title="subfunction kn = findkn(k0,sld)">findkn</a>(k0, sld_1);
+0035 
+0036             <span class="comment">% Find r01</span>
+0037             nom1 = k0 - k1;
+0038             denom1 = k0 + k1;
+0039             sigmasqrd = layers_sig(n + 1) ^ 2;
+0040             err1 = exp(-2 * k1 * k0 * sigmasqrd);
+0041             r01 = (nom1 / denom1) * err1;
+0042 
+0043             <span class="comment">% Generate the M1 matrix:</span>
+0044             M_tot(1,1) = complex(1,0);
+0045             M_tot(1,2) = r01;
+0046             M_tot(2,1) = r01;
+0047             M_tot(2,2) = complex(1,0);
+0048 
+0049             kn_ptr = k1;
+0050 
+0051         <span class="keyword">else</span>
+0052 
+0053             <span class="comment">% Find kn and k_n+1 (ex. k1 and k2 for n=1): */</span>
+0054             sld_np1 = layers_rho(n + 1);
+0055             sld_np1 = sld_np1 - bulk_in_SLD;
+0056 
+0057             <span class="keyword">if</span> isreal(sld_np1)  <span class="comment">% This check may not be necessary</span>
+0058                 sld_np1 = complex(sld_np1,eps);
+0059             <span class="keyword">end</span>
+0060 
+0061             kn = kn_ptr;
+0062             knp1 = <a href="#_sub1" class="code" title="subfunction kn = findkn(k0,sld)">findkn</a>(k0, sld_np1);
+0063 
+0064             <span class="comment">% Find r_n,n+1:</span>
+0065             nom_n = kn - knp1;
+0066             denom_n = kn + knp1;
+0067             sigmasqrd = layers_sig(n + 1)^2;
+0068             err_n = exp(-2 * kn * knp1 * sigmasqrd);
+0069             r_n_np1 = (nom_n / denom_n) * err_n;
+0070 
+0071             <span class="comment">% Find the Phase Factor = (k_n * d_n)</span>
+0072             beta = kn * layers_thick(n) * ci;
+0073 
+0074             <span class="comment">% Create the M_n matrix: */</span>
+0075             M_n(1,1) = exp(beta);
+0076             M_n(1,2) = r_n_np1 * exp(beta);
+0077             M_n(2,1) = r_n_np1 * exp(-beta);
+0078             M_n(2,2) = exp(-beta);
+0079 
+0080             <span class="comment">% Multiply the matrices</span>
+0081             M_res = M_tot * M_n;
+0082 
+0083             <span class="comment">% Reassign the values back to M_tot:</span>
+0084             M_tot = M_res;
+0085 
+0086             <span class="comment">% Point to k_n+1 and sld_n+1 via kn_ptr sld_n_ptr:</span>
+0087             kn_ptr = knp1;
+0088 
+0089         <span class="keyword">end</span>
+0090 
+0091     <span class="keyword">end</span>
+0092     R = abs(M_res(2,1)/M_res(1,1));
+0093     ref(points) = R^2;
+0094 <span class="keyword">end</span>
+0095 
+0096 <span class="keyword">end</span>
+0097 
+0098 <a name="_sub1" href="#_subfunctions" class="code">function kn = findkn(k0,sld)</a>
+0099 
+0100 subtr = k0^2 - 4 * pi * sld;
+0101 kn = sqrt(subtr);
+0102 
+0103 <span class="keyword">end</span>
+0104 
+0105 
+0106 
 </pre></div>
 
-<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

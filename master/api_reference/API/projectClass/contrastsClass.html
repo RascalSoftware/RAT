@@ -39,6 +39,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../API/project.html" class="code" title="function obj = project(options)">project</a>	Creates a project object.</li>
 <li><a href="contrastsClass.html" class="code" title="">contrastsClass</a>	</li>
 <li><a href="domainsClass.html" class="code" title="">domainsClass</a>	</li>
 <li><a href="projectClass.html" class="code" title="">projectClass</a>	</li>
@@ -47,11 +48,11 @@ This function is called by:
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function obj = contrastsClass(domainsCalc)</a></li>
+<li><a href="#_sub1" class="code">function obj = contrastsClass(calcType)</a></li>
 <li><a href="#_sub2" class="code">function names = getDisplayNames(obj)</a></li>
 <li><a href="#_sub3" class="code">function obj = updateDataName(obj, nameChange)</a></li>
 <li><a href="#_sub4" class="code">function contrastStruct = toStruct(obj, allowedNames, modelType, dataTable)</a></li>
-<li><a href="#_sub5" class="code">function inputBlock = parseContrastInput(allowedNames, domainsCalc, inputValues)</a></li>
+<li><a href="#_sub5" class="code">function inputBlock = parseContrastInput(obj, allowedNames, inputValues)</a></li>
 </ul>
 
 
@@ -63,179 +64,203 @@ This function is called by:
 0005 
 0006 
 0007     methods   
-0008         <a name="_sub0" href="#_subfunctions" class="code">function obj = contrastsClass(domainsCalc)</a>
+0008         <a name="_sub0" href="#_subfunctions" class="code">function obj = contrastsClass(calcType)</a>
 0009             <span class="comment">% Class Constructor</span>
-0010             <span class="comment">% The only (optional) input is a logical flag to state whether</span>
-0011             <span class="comment">% or not this is a domains calculation.</span>
-0012             <span class="comment">%</span>
-0013             <span class="comment">% contrasts = contrastsClass()</span>
-0014             arguments
-0015                 domainsCalc {mustBeA(domainsCalc,<span class="string">'logical'</span>)} = false
-0016             <span class="keyword">end</span>
-0017 
-0018             obj@<a href="baseContrasts.html" class="code" title="">baseContrasts</a>(domainsCalc)
-0019         <span class="keyword">end</span>
-0020         
-0021         <a name="_sub1" href="#_subfunctions" class="code">function names = getDisplayNames(obj)</a>
-0022             <span class="keyword">if</span> obj.domainsCalc
-0023                  names = [&quot;Name&quot;; &quot;Data&quot;; &quot;Background&quot;; &quot;Bulk in&quot;; &quot;Bulk out&quot;; &quot;Scalefactor&quot;; &quot;Resolution&quot;; &quot;Resample&quot;; &quot;Domain Ratio&quot;; &quot;Model&quot;];
-0024             <span class="keyword">else</span>
-0025                  names = [&quot;Name&quot;; &quot;Data&quot;; &quot;Background&quot;; &quot;Bulk in&quot;; &quot;Bulk out&quot;; &quot;Scalefactor&quot;; &quot;Resolution&quot;; &quot;Resample&quot;; &quot;Model&quot;];
-0026             <span class="keyword">end</span>
-0027         <span class="keyword">end</span>
-0028 
-0029         <a name="_sub2" href="#_subfunctions" class="code">function obj = updateDataName(obj, nameChange)</a>
-0030             <span class="comment">% Update the &quot;data&quot; parameter in a contrast if the name is</span>
-0031             <span class="comment">% changed in the data class.</span>
-0032             <span class="comment">% This function is only really called from projectClass if a</span>
-0033             <span class="comment">% data name has been updated. It looks through the 'data'</span>
-0034             <span class="comment">% field of the contrasts and if it matches nameChange.oldName</span>
-0035             <span class="comment">% then this is updated to nameChange.newName</span>
-0036             <span class="comment">%</span>
-0037             <span class="comment">% contrasts.updateDataName(nameChange)</span>
-0038             oldName = nameChange.oldName;
-0039             newName = nameChange.newName;
-0040             
-0041             <span class="keyword">for</span> i = 1:obj.numberOfContrasts
-0042                 thisContrast = obj.contrasts{i};
-0043                 <span class="keyword">if</span> strcmpi(oldName,thisContrast.data)
-0044                     obj.contrasts{i}.data = newName;
-0045                 <span class="keyword">end</span>
-0046             <span class="keyword">end</span>
-0047             
-0048         <span class="keyword">end</span>
-0049         
-0050         <a name="_sub3" href="#_subfunctions" class="code">function contrastStruct = toStruct(obj, allowedNames, modelType, dataTable)</a>
-0051             <span class="comment">% Convert the contrasts class to a struct.</span>
-0052             <span class="comment">% This routine builds on that in the base class by dealing with</span>
-0053             <span class="comment">% the additional properties defined in this subclass.</span>
-0054             <span class="comment">% The expected input is the allowed names for each parameter,</span>
-0055             <span class="comment">% the model type and the data table from the data class.</span>
-0056             <span class="comment">%</span>
-0057             <span class="comment">% contrasts.toStruct(allowedNames, 'standard layers', dataTable)</span>
-0058 
-0059             <span class="comment">% Call superclass version for common properties</span>
-0060             contrastStruct = <a href="#_sub4" class="code" title="subfunction contrastStruct = toStruct(obj, allowedNames, modelType, dataTable)">toStruct</a>@<a href="baseContrasts.html" class="code" title="">baseContrasts</a>(obj, allowedNames, modelType);
-0061 
-0062             <span class="comment">% Now deal with additional properties in this class</span>
-0063             nContrasts = obj.numberOfContrasts;
-0064             contrastBacks = cell(1,nContrasts);
-0065             contrastDomainRatios = zeros(1,nContrasts);
-0066             contrastShifts = ones(1,nContrasts);
-0067             contrastScales = ones(1,nContrasts);
-0068             contrastRes = ones(1,nContrasts);
-0069             resample = ones(1,nContrasts);
-0070 
-0071             dataPresent = ones(1,nContrasts);
-0072             dataLimits = cell(1,nContrasts);
-0073             simLimits = cell(1,nContrasts);
-0074             allData = cell(1,nContrasts);
-0075 
-0076             <span class="keyword">for</span> i = 1:nContrasts
-0077 
-0078                 thisContrast = obj.contrasts{i};
+0010             <span class="comment">% The (optional) inputs are logical flags to state whether</span>
+0011             <span class="comment">% or not this is a domains calculation and wheter or not this</span>
+0012             <span class="comment">% is an oil-water calculation.</span>
+0013             <span class="comment">%</span>
+0014             <span class="comment">% contrasts = contrastsClass()</span>
+0015             arguments
+0016                 calcType.domains {mustBeA(calcType.domains,<span class="string">'logical'</span>)} = false
+0017                 calcType.oilWater {mustBeA(calcType.oilWater,<span class="string">'logical'</span>)} = false
+0018             <span class="keyword">end</span>
+0019 
+0020             obj@<a href="baseContrasts.html" class="code" title="">baseContrasts</a>(calcType.domains, calcType.oilWater)
+0021         <span class="keyword">end</span>
+0022         
+0023         <a name="_sub1" href="#_subfunctions" class="code">function names = getDisplayNames(obj)</a>
+0024             names = [&quot;Name&quot;; &quot;Data&quot;; &quot;Background&quot;; &quot;Bulk in&quot;; &quot;Bulk out&quot;; &quot;Scalefactor&quot;; &quot;Resolution&quot;; &quot;Resample&quot;; &quot;Model&quot;];
+0025             <span class="keyword">if</span> obj.domainsCalc
+0026                 names = [names(1:end-1); &quot;Domain Ratio&quot;; names(end)];
+0027             <span class="keyword">end</span>
+0028             <span class="keyword">if</span> obj.oilWaterCalc
+0029                 names = [names(1:2); &quot;Oil Chi Data&quot;; names(3:end)];
+0030             <span class="keyword">end</span>
+0031         <span class="keyword">end</span>
+0032 
+0033         <a name="_sub2" href="#_subfunctions" class="code">function obj = updateDataName(obj, nameChange)</a>
+0034             <span class="comment">% Update the &quot;data&quot; parameter in a contrast if the name is</span>
+0035             <span class="comment">% changed in the data class.</span>
+0036             <span class="comment">% This function is only really called from projectClass if a</span>
+0037             <span class="comment">% data name has been updated. It looks through the 'data'</span>
+0038             <span class="comment">% field of the contrasts and if it matches nameChange.oldName</span>
+0039             <span class="comment">% then this is updated to nameChange.newName</span>
+0040             <span class="comment">%</span>
+0041             <span class="comment">% contrasts.updateDataName(nameChange)</span>
+0042             oldName = nameChange.oldName;
+0043             newName = nameChange.newName;
+0044             
+0045             <span class="keyword">for</span> i = 1:obj.numberOfContrasts
+0046                 thisContrast = obj.contrasts{i};
+0047                 <span class="keyword">if</span> strcmpi(oldName,thisContrast.data)
+0048                     obj.contrasts{i}.data = newName;
+0049                 <span class="keyword">end</span>
+0050             <span class="keyword">end</span>
+0051             
+0052         <span class="keyword">end</span>
+0053         
+0054         <a name="_sub3" href="#_subfunctions" class="code">function contrastStruct = toStruct(obj, allowedNames, modelType, dataTable)</a>
+0055             <span class="comment">% Convert the contrasts class to a struct.</span>
+0056             <span class="comment">% This routine builds on that in the base class by dealing with</span>
+0057             <span class="comment">% the additional properties defined in this subclass.</span>
+0058             <span class="comment">% The expected input is the allowed names for each parameter,</span>
+0059             <span class="comment">% the model type and the data table from the data class.</span>
+0060             <span class="comment">%</span>
+0061             <span class="comment">% contrasts.toStruct(allowedNames, 'standard layers', dataTable)</span>
+0062 
+0063             <span class="comment">% Call superclass version for common properties</span>
+0064             contrastStruct = <a href="#_sub4" class="code" title="subfunction contrastStruct = toStruct(obj, allowedNames, modelType, dataTable)">toStruct</a>@<a href="baseContrasts.html" class="code" title="">baseContrasts</a>(obj, allowedNames, modelType);
+0065 
+0066             <span class="comment">% Now deal with additional properties in this class</span>
+0067             nContrasts = obj.numberOfContrasts;
+0068             contrastBacks = cell(1,nContrasts);
+0069             contrastDomainRatios = zeros(1,nContrasts);
+0070             contrastShifts = ones(1,nContrasts);
+0071             contrastScales = ones(1,nContrasts);
+0072             contrastRes = ones(1,nContrasts);
+0073             resample = ones(1,nContrasts);
+0074 
+0075             dataPresent = zeros(1,nContrasts);
+0076             dataLimits = cell(1,nContrasts);
+0077             simLimits = cell(1,nContrasts);
+0078             allData = cell(1,nContrasts);
 0079 
-0080                 <span class="keyword">if</span> isfield(thisContrast, <span class="string">'domainRatio'</span>)
-0081                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
-0082                 <span class="keyword">end</span>
-0083 
-0084                 contrastBacks{i} =  [find(strcmpi(thisContrast.background,allowedNames.backsNames)), 1];
-0085                 contrastShifts(i) = 1;  <span class="comment">%Todo</span>
-0086                 contrastScales(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefacNames));
-0087                 contrastRes(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolsNames));
-0088                 resample(i) = thisContrast.resample;
-0089 
-0090                 thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
-0091                 <span class="keyword">if</span> ~isempty(thisDataVal)
-0092                     actualData = dataTable{thisDataVal,2}{:};
-0093                     <span class="keyword">if</span> isempty(actualData)
-0094                         dataPresent(i) = 0;
-0095                     <span class="keyword">end</span>
-0096                     thisDataLimit = dataTable{thisDataVal,3}{:};
-0097                     <span class="keyword">if</span> isempty(thisDataLimit)
-0098                         thisDataLimit = [0 0];
-0099                     <span class="keyword">end</span>
-0100                     dataLimits{i} = thisDataLimit;
-0101                     simLimits{i} = dataTable{thisDataVal,4}{:};
-0102                     allData{i} = dataTable{thisDataVal,2}{:};
-0103                 <span class="keyword">else</span>
-0104                     dataPresent(i) = 0;
-0105                     dataLimits{i} = [0 0];
-0106                     simLimits{i} = [0 0];
-0107                     allData{i} = [0 0 0];
-0108                 <span class="keyword">end</span>
-0109 
-0110             <span class="keyword">end</span>
-0111 
-0112             contrastStruct.contrastDomainRatios = contrastDomainRatios;
-0113             contrastStruct.contrastBacks = contrastBacks;
-0114             contrastStruct.contrastShifts = contrastShifts;
-0115             contrastStruct.contrastScales = contrastScales;
-0116             contrastStruct.contrastRes = contrastRes;
-0117             contrastStruct.resample = resample;
-0118             contrastStruct.dataPresent = dataPresent;
-0119             contrastStruct.dataLimits = dataLimits;
-0120             contrastStruct.simLimits = simLimits;
-0121             contrastStruct.allData = allData;
-0122 
-0123         <span class="keyword">end</span>
-0124     <span class="keyword">end</span>
-0125     
-0126     methods(Static)
-0127 
-0128         <a name="_sub4" href="#_subfunctions" class="code">function inputBlock = parseContrastInput(allowedNames, domainsCalc, inputValues)</a>
-0129             <span class="comment">% Parse the parameters given for the contrast, assigning</span>
-0130             <span class="comment">% default values to those unspecified and ensuring specified</span>
-0131             <span class="comment">% values are of the correct type, and included in the list of</span>
-0132             <span class="comment">% allowed names where necessary.</span>
-0133             <span class="comment">%</span>
-0134             <span class="comment">% contrastsClass.parseContrastInput(allowedNames, ...</span>
-0135             <span class="comment">%                                   domainsCalc, ...</span>
-0136             <span class="comment">%                                   'name', 'Contrast Name', ...</span>
-0137             <span class="comment">%                                   'background', 'Background H2O')</span>
-0138             defaultName = <span class="string">''</span>;
-0139             defaultBack = <span class="string">''</span>;
-0140             defaultData = <span class="string">''</span>;   
-0141             defaultNba = <span class="string">''</span>;
-0142             defaultNbs = <span class="string">''</span>;
-0143             defaultScalefac = <span class="string">''</span>;
-0144             defaultResol = <span class="string">''</span>;
-0145             defaultResample = false;
-0146         
-0147             expectedBacks = cellstr(allowedNames.backsNames);
-0148             expectedData = cellstr(allowedNames.dataNames);
-0149             expectedBulkin = cellstr(allowedNames.bulkInNames);
-0150             expectedBulkout = cellstr(allowedNames.bulkOutNames);
-0151             expectedResols = cellstr(allowedNames.resolsNames);
-0152             expectedScalefac = cellstr(allowedNames.scalefacNames);
-0153 
-0154             p = inputParser;
-0155             addParameter(p,<span class="string">'name'</span>,          defaultName,        @isText);
-0156             addParameter(p,<span class="string">'data'</span>,          defaultData,        @(x) any(validatestring(x,expectedData)));
-0157             addParameter(p,<span class="string">'background'</span>,    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
-0158             addParameter(p,<span class="string">'nba'</span>,           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
-0159             addParameter(p,<span class="string">'nbs'</span>,           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
-0160             addParameter(p,<span class="string">'scalefactor'</span>,   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
-0161             addParameter(p,<span class="string">'resolution'</span>,    defaultResol,       @(x) any(validatestring(x,expectedResols)));
-0162             addParameter(p,<span class="string">'resample'</span>,      defaultResample,    @islogical);
-0163 
-0164             <span class="keyword">if</span> domainsCalc
-0165                 defaultDomainRatio = <span class="string">''</span>;
-0166                 expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
-0167                 addParameter(p,<span class="string">'domainRatio'</span>,   defaultDomainRatio, @(x) any(validatestring(x,expectedDomainRatio)));
-0168             <span class="keyword">end</span>
-0169 
-0170             parse(p, inputValues{:});
-0171             inputBlock = p.Results;
-0172         
-0173         <span class="keyword">end</span>
-0174 
-0175     <span class="keyword">end</span>
-0176 <span class="keyword">end</span>
-0177 
-0178 
+0080             oilChiDataPresent = zeros(1,nContrasts);
+0081             allOilChiData = cell(1,nContrasts);
+0082 
+0083             <span class="keyword">for</span> i = 1:nContrasts
+0084 
+0085                 thisContrast = obj.contrasts{i};
+0086 
+0087                 <span class="keyword">if</span> isfield(thisContrast, <span class="string">'domainRatio'</span>)
+0088                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
+0089                 <span class="keyword">end</span>
+0090 
+0091                 contrastBacks{i} =  [find(strcmpi(thisContrast.background,allowedNames.backsNames)), 1];
+0092                 contrastShifts(i) = 1;  <span class="comment">%Todo</span>
+0093                 contrastScales(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefacNames));
+0094                 contrastRes(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolsNames));
+0095                 resample(i) = thisContrast.resample;
+0096 
+0097                 thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
+0098                 <span class="keyword">if</span> ~isempty(thisDataVal)
+0099                     actualData = dataTable{thisDataVal,2}{:};
+0100                     <span class="keyword">if</span> ~isempty(actualData)
+0101                         dataPresent(i) = 1;
+0102                     <span class="keyword">end</span>
+0103                     thisDataLimit = dataTable{thisDataVal,3}{:};
+0104                     <span class="keyword">if</span> isempty(thisDataLimit)
+0105                         thisDataLimit = [0 0];
+0106                     <span class="keyword">end</span>
+0107                     dataLimits{i} = thisDataLimit;
+0108                     simLimits{i} = dataTable{thisDataVal,4}{:};
+0109                     allData{i} = dataTable{thisDataVal,2}{:};
+0110                 <span class="keyword">else</span>
+0111                     dataLimits{i} = [0 0];
+0112                     simLimits{i} = [0 0];
+0113                     allData{i} = [0 0 0];
+0114                 <span class="keyword">end</span>
+0115             <span class="keyword">end</span>
+0116 
+0117             <span class="keyword">if</span> obj.oilWaterCalc
+0118                 <span class="keyword">for</span> i = 1:nContrasts    
+0119                     thisContrast = obj.contrasts{i};
+0120                     thisOilChiDataVal = find(strcmpi(thisContrast.oilChiData,allowedNames.dataNames));
+0121                     <span class="keyword">if</span> ~isempty(thisOilChiDataVal)
+0122                         actualOilChiData = dataTable{thisOilChiDataVal,2}{:};
+0123                         <span class="keyword">if</span> ~isempty(actualOilChiData)
+0124                             oilChiDataPresent(i) = 1;
+0125                         <span class="keyword">end</span>
+0126                         allOilChiData{i} = dataTable{thisOilChiDataVal,2}{:};
+0127                     <span class="keyword">else</span>
+0128                         allOilChiData{i} = [0 0 0];
+0129                     <span class="keyword">end</span>
+0130                 <span class="keyword">end</span>
+0131             <span class="keyword">end</span>
+0132 
+0133             contrastStruct.contrastDomainRatios = contrastDomainRatios;
+0134             contrastStruct.contrastBacks = contrastBacks;
+0135             contrastStruct.contrastShifts = contrastShifts;
+0136             contrastStruct.contrastScales = contrastScales;
+0137             contrastStruct.contrastRes = contrastRes;
+0138             contrastStruct.resample = resample;
+0139             contrastStruct.dataPresent = dataPresent;
+0140             contrastStruct.dataLimits = dataLimits;
+0141             contrastStruct.simLimits = simLimits;
+0142             contrastStruct.allData = allData;
+0143             contrastStruct.oilChiDataPresent = oilChiDataPresent;
+0144             contrastStruct.allOilChiData = allOilChiData;
+0145 
+0146         <span class="keyword">end</span>
+0147 
+0148         <a name="_sub4" href="#_subfunctions" class="code">function inputBlock = parseContrastInput(obj, allowedNames, inputValues)</a>
+0149             <span class="comment">% Parse the parameters given for the contrast, assigning</span>
+0150             <span class="comment">% default values to those unspecified and ensuring specified</span>
+0151             <span class="comment">% values are of the correct type, and included in the list of</span>
+0152             <span class="comment">% allowed names where necessary.</span>
+0153             <span class="comment">%</span>
+0154             <span class="comment">% contrastsClass.parseContrastInput(allowedNames, ...</span>
+0155             <span class="comment">%                                   'name', 'Contrast Name', ...</span>
+0156             <span class="comment">%                                   'background', 'Background H2O')</span>
+0157             defaultName = <span class="string">''</span>;
+0158             defaultBack = <span class="string">''</span>;
+0159             defaultData = <span class="string">''</span>;   
+0160             defaultNba = <span class="string">''</span>;
+0161             defaultNbs = <span class="string">''</span>;
+0162             defaultScalefac = <span class="string">''</span>;
+0163             defaultResol = <span class="string">''</span>;
+0164             defaultResample = false;
+0165         
+0166             expectedBacks = cellstr(allowedNames.backsNames);
+0167             expectedData = cellstr(allowedNames.dataNames);
+0168             expectedBulkin = cellstr(allowedNames.bulkInNames);
+0169             expectedBulkout = cellstr(allowedNames.bulkOutNames);
+0170             expectedResols = cellstr(allowedNames.resolsNames);
+0171             expectedScalefac = cellstr(allowedNames.scalefacNames);
+0172 
+0173             p = inputParser;
+0174             addParameter(p,<span class="string">'name'</span>,          defaultName,        @isText);
+0175             addParameter(p,<span class="string">'data'</span>,          defaultData,        @(x) any(validatestring(x,expectedData)));
+0176 
+0177             <span class="keyword">if</span> obj.oilWaterCalc
+0178                 defaultOilChiData = <span class="string">''</span>;
+0179                 addParameter(p,<span class="string">'oilChiData'</span>,    defaultOilChiData,  @(x) any(validatestring(x,expectedData)));
+0180             <span class="keyword">end</span>
+0181 
+0182             addParameter(p,<span class="string">'background'</span>,    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
+0183             addParameter(p,<span class="string">'nba'</span>,           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
+0184             addParameter(p,<span class="string">'nbs'</span>,           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
+0185             addParameter(p,<span class="string">'scalefactor'</span>,   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
+0186             addParameter(p,<span class="string">'resolution'</span>,    defaultResol,       @(x) any(validatestring(x,expectedResols)));
+0187             addParameter(p,<span class="string">'resample'</span>,      defaultResample,    @islogical);
+0188 
+0189             <span class="keyword">if</span> obj.domainsCalc
+0190                 defaultDomainRatio = <span class="string">''</span>;
+0191                 expectedDomainRatio = cellstr(allowedNames.domainRatioNames);
+0192                 addParameter(p,<span class="string">'domainRatio'</span>,   defaultDomainRatio, @(x) any(validatestring(x,expectedDomainRatio)));
+0193             <span class="keyword">end</span>
+0194 
+0195             parse(p, inputValues{:});
+0196             inputBlock = p.Results;
+0197         
+0198         <span class="keyword">end</span>
+0199     <span class="keyword">end</span>
+0200 <span class="keyword">end</span>
+0201 
+0202 
 </pre></div>
 
-<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

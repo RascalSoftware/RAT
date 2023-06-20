@@ -76,18 +76,21 @@ This function is called by:
 0025 <span class="comment">% result{5} = sldProfiles{}</span>
 0026 <span class="comment">% result{6} = currently empty - will be allLayers (i.e. resampled)</span>
 0027 
-0028     <span class="keyword">try</span>
-0029        [problem,result] = reflectivityCalculation_mex(problemDef,problemDefCells,problemDefLimits,controls);
-0030     <span class="keyword">catch</span> exception
-0031         <span class="keyword">if</span> (strcmp(exception.identifier, <span class="string">'MATLAB:UndefinedFunction'</span>))
-0032             [problem,result] = <a href="reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>(problemDef,problemDefCells,problemDefLimits,controls);
-0033         <span class="keyword">else</span>
-0034             rethrow(exception)
-0035         <span class="keyword">end</span>
-0036     <span class="keyword">end</span>
-0037 <span class="keyword">end</span>
+0028 <span class="comment">%[problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);</span>
+0029 
+0030 
+0031     <span class="keyword">try</span>
+0032        [problem,result] = reflectivityCalculation_mex(problemDef,problemDefCells,problemDefLimits,controls);
+0033     <span class="keyword">catch</span> exception
+0034         <span class="keyword">if</span> (strcmp(exception.identifier, <span class="string">'MATLAB:UndefinedFunction'</span>))
+0035             [problem,result] = <a href="reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>(problemDef,problemDefCells,problemDefLimits,controls);
+0036         <span class="keyword">else</span>
+0037             rethrow(exception)
+0038         <span class="keyword">end</span>
+0039     <span class="keyword">end</span>
+0040 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

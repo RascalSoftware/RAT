@@ -118,7 +118,7 @@ This function is called by:
 0056             <span class="comment">% in the object.</span>
 0057             <span class="comment">%</span>
 0058             <span class="comment">% names = resolution.getResolNames();</span>
-0059             resolTable = obj.resolutions.typesTable;
+0059             resolTable = obj.resolutions.varTable;
 0060             names = resolTable{:,1};   
 0061         <span class="keyword">end</span>
 0062          
@@ -180,7 +180,7 @@ This function is called by:
 0118                        thisRow = {in{1}, in{2}, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>, <span class="string">''</span>};
 0119                 <span class="keyword">end</span>
 0120             <span class="keyword">end</span>
-0121             obj.resolutions.addRow(thisRow);      
+0121             obj.resolutions.addRow(thisRow{:});      
 0122         <span class="keyword">end</span>
 0123         
 0124         <a name="_sub5" href="#_subfunctions" class="code">function removeResolution(obj, row)</a>
@@ -198,9 +198,9 @@ This function is called by:
 0136             <span class="comment">%</span>
 0137             <span class="comment">% resolution.setResolution(1, 'name', 'res 1', 'type', 'constant', 'value1', 'param_name');</span>
 0138             <span class="keyword">if</span> isText(row)
-0139                 row = obj.resolutions.findRowIndex(row, obj.getResolNames());
+0139                 row = obj.resolutions.findRowIndex(row, obj.getResolNames(), <span class="string">'Unrecognised resolution'</span>);
 0140             <span class="keyword">elseif</span> isnumeric(row)
-0141                 count = obj.resolutions.typesCount;
+0141                 count = obj.resolutions.rowCount;
 0142                 <span class="keyword">if</span> (row &lt; 1) || (row &gt; count)
 0143                     throw(indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, row, count)));
 0144                 <span class="keyword">end</span>
@@ -209,12 +209,12 @@ This function is called by:
 0147             <span class="keyword">end</span>
 0148             
 0149             p = inputParser;
-0150             addParameter(p, <span class="string">'name'</span>, obj.resolutions.typesTable{row, 1}, @(x) isText(x));
-0151             addParameter(p, <span class="string">'type'</span>, obj.resolutions.typesTable{row, 2}, @(x) isText(x) || isenum(x));
-0152             addParameter(p, <span class="string">'value1'</span>, obj.resolutions.typesTable{row, 3}, @(x) isText(x));
-0153             addParameter(p, <span class="string">'value2'</span>, obj.resolutions.typesTable{row, 4}, @(x) isText(x));
-0154             addParameter(p, <span class="string">'value3'</span>, obj.resolutions.typesTable{row, 5}, @(x) isText(x));
-0155             addParameter(p, <span class="string">'value4'</span>, obj.resolutions.typesTable{row, 6}, @(x) isText(x));
+0150             addParameter(p, <span class="string">'name'</span>, obj.resolutions.varTable{row, 1}, @(x) isText(x));
+0151             addParameter(p, <span class="string">'type'</span>, obj.resolutions.varTable{row, 2}, @(x) isText(x) || isenum(x));
+0152             addParameter(p, <span class="string">'value1'</span>, obj.resolutions.varTable{row, 3}, @(x) isText(x));
+0153             addParameter(p, <span class="string">'value2'</span>, obj.resolutions.varTable{row, 4}, @(x) isText(x));
+0154             addParameter(p, <span class="string">'value3'</span>, obj.resolutions.varTable{row, 5}, @(x) isText(x));
+0155             addParameter(p, <span class="string">'value4'</span>, obj.resolutions.varTable{row, 6}, @(x) isText(x));
 0156 
 0157             parse(p, varargin{:});
 0158             inputBlock = p.Results;
@@ -247,9 +247,9 @@ This function is called by:
 0185             resolStruct.nResolPars = resolParamsStruct.nParams;
 0186             resolStruct.resolParPriors = resolParamsStruct.priors;
 0187             
-0188             resolutionNames = obj.resolutions.typesTable{:,1};
-0189             resolutionTypes = obj.resolutions.typesTable{:,2};
-0190             resolutionValues = table2cell(obj.resolutions.typesTable(:,3:7));
+0188             resolutionNames = obj.resolutions.varTable{:,1};
+0189             resolutionTypes = obj.resolutions.varTable{:,2};
+0190             resolutionValues = table2cell(obj.resolutions.varTable(:,3:7));
 0191             
 0192             resolStruct.resolutionNames = resolutionNames;
 0193             resolStruct.resolutionTypes = resolutionTypes;
@@ -258,41 +258,40 @@ This function is called by:
 0196         
 0197         <a name="_sub8" href="#_subfunctions" class="code">function displayResolutionsObject(obj)</a>
 0198             <span class="comment">% Displays the resolution parameters and resolution table.</span>
-0199             fprintf(<span class="string">'    Resolutions: --------------------------------------------------------------------------------------------- \n\n'</span>);
-0200             fprintf(<span class="string">'    (a) Resolutions Parameters: \n'</span>);
-0201             obj.resolPars.displayParametersTable;
-0202             
-0203             fprintf(<span class="string">'    (b) Resolutions:  \n'</span>)
-0204             obj.resolutions.displayTypesTable;
-0205         <span class="keyword">end</span> 
-0206     <span class="keyword">end</span>
-0207 
-0208     methods (Access = protected)
-0209         <a name="_sub9" href="#_subfunctions" class="code">function thisPar = validateParam(obj, param)</a>
-0210             <span class="comment">% Checks that given parameter index or name is valid, then returns the</span>
-0211             <span class="comment">% parameter name.</span>
-0212             <span class="comment">%</span>
-0213             <span class="comment">% param = obj.validateParam('param_name');</span>
-0214             <span class="keyword">if</span> iscell(param)
-0215                 param = param{:};
-0216             <span class="keyword">end</span>
-0217             parList = obj.resolPars.getParamNames(); 
-0218             <span class="keyword">if</span> isnumeric(param)
-0219                 <span class="keyword">if</span> (param &lt; 1) || (param &gt; length(parList))
-0220                     throw(indexOutOfRange(sprintf(<span class="string">'Resolution Parameter %d is out of range'</span>, param)));
-0221                 <span class="keyword">end</span>
-0222                 thisPar = parList(param);
-0223             <span class="keyword">else</span>
-0224                 <span class="keyword">if</span> ~strcmpi(param, parList)
-0225                     throw(nameNotRecognised(sprintf(<span class="string">'Unrecognised parameter name %s'</span>, param)));
-0226                 <span class="keyword">end</span>
-0227                 thisPar = param;
-0228             <span class="keyword">end</span>   
-0229         <span class="keyword">end</span>
-0230     <span class="keyword">end</span>
-0231 <span class="keyword">end</span> 
+0199             fprintf(<span class="string">'    (a) Resolutions Parameters: \n\n'</span>);
+0200             obj.resolPars.displayTable;
+0201             
+0202             fprintf(<span class="string">'    (b) Resolutions:  \n\n'</span>)
+0203             obj.resolutions.displayTable;
+0204         <span class="keyword">end</span> 
+0205     <span class="keyword">end</span>
+0206 
+0207     methods (Access = protected)
+0208         <a name="_sub9" href="#_subfunctions" class="code">function thisPar = validateParam(obj, param)</a>
+0209             <span class="comment">% Checks that given parameter index or name is valid, then returns the</span>
+0210             <span class="comment">% parameter name.</span>
+0211             <span class="comment">%</span>
+0212             <span class="comment">% param = obj.validateParam('param_name');</span>
+0213             <span class="keyword">if</span> iscell(param)
+0214                 param = param{:};
+0215             <span class="keyword">end</span>
+0216             parList = obj.resolPars.getNames(); 
+0217             <span class="keyword">if</span> isnumeric(param)
+0218                 <span class="keyword">if</span> (param &lt; 1) || (param &gt; length(parList))
+0219                     throw(indexOutOfRange(sprintf(<span class="string">'Resolution Parameter %d is out of range'</span>, param)));
+0220                 <span class="keyword">end</span>
+0221                 thisPar = parList(param);
+0222             <span class="keyword">else</span>
+0223                 <span class="keyword">if</span> ~strcmpi(param, parList)
+0224                     throw(nameNotRecognised(sprintf(<span class="string">'Unrecognised parameter name %s'</span>, param)));
+0225                 <span class="keyword">end</span>
+0226                 thisPar = param;
+0227             <span class="keyword">end</span>   
+0228         <span class="keyword">end</span>
+0229     <span class="keyword">end</span>
+0230 <span class="keyword">end</span> 
 </pre></div>
 
-<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -39,6 +39,8 @@ This function calls:
 <li><a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params,nba,nbs,numberOfContrasts,libraryName,functionName)">callCppFunc</a>	Use 3rd party 'dylib.hpp' to implement a cross-platform Cpp runtime</li>
 <li><a href="../../../targetFunctions/common/callCustomFunction/callMatlabFunction/callMatlabCustomFunction.html" class="code" title="function [output,sRough] = callMatlabCustomFunction(params,contrast,funcName,path,bulkIn,bulkOut,nContrasts)">callMatlabCustomFunction</a>	Excecute a custom model function in the base Matlab workspace.</li>
 <li><a href="../../../targetFunctions/common/callCustomFunction/callPythonFunction/pythonCustomFunctionWrapper.html" class="code" title="function [output,sRough] = pythonCustomFunctionWrapper(funcName,params,bulkIn,bulkOut,contrast,nContrasts)">pythonCustomFunctionWrapper</a>	Excecute a python custom model function in the base Matlab workspace.</li>
+<li><a href="applyHydrationImag.html" class="code" title="function thisContrastLayers = applyHydrationImag(thisContrastLayers,bulkIn,bulkOut)">applyHydrationImag</a>	Applies the hydration correction to real value of layers</li>
+<li><a href="applyHydrationReal.html" class="code" title="function thisContrastLayers = applyHydrationReal(thisContrastLayers,bulkIn,bulkOut)">applyHydrationReal</a>	Applies the hydration correction to real value of layers</li>
 <li><a href="customModelClass.html" class="code" title="">customModelClass</a>	</li>
 </ul>
 This function is called by:
@@ -67,7 +69,7 @@ This function is called by:
 0010     methods (Static)
 0011 
 0012         <a name="_sub0" href="#_subfunctions" class="code">function [allLayers,allRoughs] = processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,</a><span class="keyword">...</span>
-0013                 shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
+0013                 shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 0014 
 0015             <span class="comment">% Top-level function for processing custom layers for all the</span>
 0016             <span class="comment">% contrasts.</span>
@@ -81,7 +83,7 @@ This function is called by:
 0024                 allLayers{i} = [1 , 1];    <span class="comment">% Type def as double (size not important)</span>
 0025                 tempAllLayers{i} = [0 0 0 0 0];
 0026             <span class="keyword">end</span>
-0027             coder.varsize(<span class="string">'tempAllLayers{:}'</span>,[10000 5],[1 1]);
+0027             coder.varsize(<span class="string">'tempAllLayers{:}'</span>,[10000 6],[1 1]);
 0028 
 0029 
 0030             <span class="keyword">for</span> i = 1:numberOfContrasts     <span class="comment">% TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..</span>
@@ -103,7 +105,7 @@ This function is called by:
 0046                 [~,~,~,bulkIn,bulkOut,~] = <a href="../../../targetFunctions/common/backSort/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 0047 
 0048                 thisContrastLayers = [1 1 1]; <span class="comment">% typeDef</span>
-0049                 coder.varsize(<span class="string">'thisContrastLayers'</span>,[10000, 5],[1 1]);
+0049                 coder.varsize(<span class="string">'thisContrastLayers'</span>,[10000, 6],[1 1]);
 0050 
 0051                 <span class="keyword">switch</span> thisLanguage
 0052                     <span class="keyword">case</span> <span class="string">'matlab'</span>
@@ -117,88 +119,71 @@ This function is called by:
 0060                 <span class="comment">% If the output layers has 5 columns, then we need to do</span>
 0061                 <span class="comment">% the hydration correction (the user has not done it in the</span>
 0062                 <span class="comment">% custom function). Do that here....</span>
-0063 
-0064                 outSize = size(thisContrastLayers);
-0065                 <span class="keyword">if</span> outSize(2) == 5                                       <span class="comment">% we need to calculate the hydrated SLD</span>
-0066                     newOutLayers = zeros(outSize(1),3);
-0067                     newOutLayers(:,1) = thisContrastLayers(:,1);         <span class="comment">% Thickness'</span>
-0068                     newOutLayers(:,3) = thisContrastLayers(:,3);         <span class="comment">% Roughness</span>
-0069 
-0070                     <span class="keyword">for</span> n = 1:outSize(1)
-0071                         thisSLD = thisContrastLayers(n,2);
-0072                         thisHydration = thisContrastLayers(n,4) / 100;   <span class="comment">% Assume percent for backwards compatability</span>
-0073                         thisHydrWhat = thisContrastLayers(n,5);
-0074                         <span class="keyword">if</span> thisHydrWhat == 0                             <span class="comment">% Bulk out</span>
-0075                             thisBulkHydr = bulkIn;
-0076                         <span class="keyword">else</span>
-0077                             thisBulkHydr = bulkOut;
-0078                         <span class="keyword">end</span>
-0079                         newSld = (thisHydration * thisBulkHydr) + ((1-thisHydration) * thisSLD);
-0080                         thisSldVal = newSld(1,1);                        <span class="comment">% Reassignment to keep codegen happy</span>
-0081                         newOutLayers(n,2) = thisSldVal;
-0082                     <span class="keyword">end</span>
-0083                     thisContrastLayers = newOutLayers;
-0084                 <span class="keyword">end</span>
-0085 
-0086                 tempAllLayers{i} = thisContrastLayers;
-0087             <span class="keyword">end</span>
-0088 
-0089             allLayers = tempAllLayers;
-0090 
-0091         <span class="keyword">end</span>
-0092 
+0063                 <span class="keyword">if</span> ~useImaginary
+0064                    thisContrastLayers = <a href="applyHydrationReal.html" class="code" title="function thisContrastLayers = applyHydrationReal(thisContrastLayers,bulkIn,bulkOut)">applyHydrationReal</a>(thisContrastLayers,bulkIn,bulkOut);
+0065                 <span class="keyword">else</span>
+0066                    thisContrastLayers = <a href="applyHydrationImag.html" class="code" title="function thisContrastLayers = applyHydrationImag(thisContrastLayers,bulkIn,bulkOut)">applyHydrationImag</a>(thisContrastLayers,bulkIn,bulkOut);
+0067                 <span class="keyword">end</span>
+0068 
+0069                 tempAllLayers{i} = thisContrastLayers;
+0070             <span class="keyword">end</span>
+0071 
+0072             allLayers = tempAllLayers;
+0073 
+0074         <span class="keyword">end</span>
+0075 
+0076 
+0077         <a name="_sub1" href="#_subfunctions" class="code">function [allSLDs,allRoughs] = processCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,</a><span class="keyword">...</span>
+0078                 shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
+0079 
+0080             <span class="comment">% Top-level function for processing custom XY profiles for all the</span>
+0081             <span class="comment">% contrasts.</span>
+0082 
+0083             <span class="comment">% Do some pre-definitions to keep the compiler happy...</span>
+0084             tempAllSLDs = cell(numberOfContrasts,1);
+0085             allSLDs = cell(numberOfContrasts,1);
+0086             allRoughs = zeros(numberOfContrasts,1);
+0087 
+0088             <span class="keyword">for</span> i = 1:numberOfContrasts
+0089                 allSLDs{i} = [1,1];    <span class="comment">% Type def as double (size not important)</span>
+0090                 tempAllSLDs{i} = [0 0];
+0091             <span class="keyword">end</span>
+0092             coder.varsize(<span class="string">'tempAllSLDs{:}'</span>,[10000 3],[1 1]);    <span class="comment">% 3 columns to allow for potential imaginary curve</span>
 0093 
-0094         <a name="_sub1" href="#_subfunctions" class="code">function [allSLDs,allRoughs] = processCustomXY(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,</a><span class="keyword">...</span>
-0095                 shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
-0096 
-0097             <span class="comment">% Top-level function for processing custom XY profiles for all the</span>
-0098             <span class="comment">% contrasts.</span>
-0099 
-0100             <span class="comment">% Do some pre-definitions to keep the compiler happy...</span>
-0101             tempAllSLDs = cell(numberOfContrasts,1);
-0102             allSLDs = cell(numberOfContrasts,1);
-0103             allRoughs = zeros(numberOfContrasts,1);
+0094             <span class="keyword">for</span> i = 1:numberOfContrasts     <span class="comment">% TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..</span>
+0095 
+0096                 <span class="comment">% Choose which custom file is associated with this contrast</span>
+0097                 thisCustomModel = customFiles{cCustFiles(i)};
+0098 
+0099                 <span class="comment">% Check what language it is....</span>
+0100                 thisLanguage = thisCustomModel{2};
+0101 
+0102                 <span class="comment">% ... and path</span>
+0103                 thisPath = thisCustomModel{3};
 0104 
-0105             <span class="keyword">for</span> i = 1:numberOfContrasts
-0106                 allSLDs{i} = [1,1];    <span class="comment">% Type def as double (size not important)</span>
-0107                 tempAllSLDs{i} = [0 0];
-0108             <span class="keyword">end</span>
-0109             coder.varsize(<span class="string">'tempAllSLDs{:}'</span>,[10000 3],[1 1]);
-0110 
-0111             <span class="keyword">for</span> i = 1:numberOfContrasts     <span class="comment">% TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..</span>
-0112 
-0113                 <span class="comment">% Choose which custom file is associated with this contrast</span>
-0114                 thisCustomModel = customFiles{cCustFiles(i)};
-0115 
-0116                 <span class="comment">% Check what language it is....</span>
-0117                 thisLanguage = thisCustomModel{2};
-0118 
-0119                 <span class="comment">% ... and path</span>
-0120                 thisPath = thisCustomModel{3};
+0105                 <span class="comment">% ....also file.</span>
+0106                 thisFile = thisCustomModel{1};
+0107 
+0108                 <span class="comment">% Find values of 'bulkIn' and 'bulkOut' for thid</span>
+0109                 <span class="comment">% contrast...</span>
+0110                 [~,~,~,bulkIn,bulkOut,~] = <a href="../../../targetFunctions/common/backSort/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+0111 
+0112                 <span class="keyword">switch</span> thisLanguage
+0113                     <span class="keyword">case</span> <span class="string">'matlab'</span>
+0114                         [tempAllSLDs{i},allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callMatlabFunction/callMatlabCustomFunction.html" class="code" title="function [output,sRough] = callMatlabCustomFunction(params,contrast,funcName,path,bulkIn,bulkOut,nContrasts)">callMatlabCustomFunction</a>(params,i,thisFile,thisPath,bulkIn,bulkOut,numberOfContrasts);
+0115                     <span class="keyword">case</span> <span class="string">'cpp'</span>
+0116                         [tempAllSLDs{i},allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params,nba,nbs,numberOfContrasts,libraryName,functionName)">callCppFunc</a>(params,bulkIn,bulkOut,i,thisFile,thisFile);
+0117                     <span class="keyword">case</span> <span class="string">'python'</span>
+0118                         [tempAllSLDs{i},allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callPythonFunction/pythonCustomFunctionWrapper.html" class="code" title="function [output,sRough] = pythonCustomFunctionWrapper(funcName,params,bulkIn,bulkOut,contrast,nContrasts)">pythonCustomFunctionWrapper</a>(thisFile,params,bulkIn,bulkOut,i,numberOfContrasts);
+0119                 <span class="keyword">end</span>
+0120             <span class="keyword">end</span>
 0121 
-0122                 <span class="comment">% ....also file.</span>
-0123                 thisFile = thisCustomModel{1};
-0124 
-0125                 <span class="comment">% Find values of 'bulkIn' and 'bulkOut' for thid</span>
-0126                 <span class="comment">% contrast...</span>
-0127                 [~,~,~,bulkIn,bulkOut,~] = <a href="../../../targetFunctions/common/backSort/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
-0128 
-0129                 <span class="keyword">switch</span> thisLanguage
-0130                     <span class="keyword">case</span> <span class="string">'matlab'</span>
-0131                         [tempAllSLDs{i},allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callMatlabFunction/callMatlabCustomFunction.html" class="code" title="function [output,sRough] = callMatlabCustomFunction(params,contrast,funcName,path,bulkIn,bulkOut,nContrasts)">callMatlabCustomFunction</a>(params,i,thisFile,thisPath,bulkIn,bulkOut,numberOfContrasts);
-0132                     <span class="keyword">case</span> <span class="string">'cpp'</span>
-0133                         [tempAllSLDs{i},allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params,nba,nbs,numberOfContrasts,libraryName,functionName)">callCppFunc</a>(params,bulkIn,bulkOut,i,thisFile,thisFile);
-0134                     <span class="keyword">case</span> <span class="string">'python'</span>
-0135                         [tempAllSLDs{i},allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callPythonFunction/pythonCustomFunctionWrapper.html" class="code" title="function [output,sRough] = pythonCustomFunctionWrapper(funcName,params,bulkIn,bulkOut,contrast,nContrasts)">pythonCustomFunctionWrapper</a>(thisFile,params,bulkIn,bulkOut,i,numberOfContrasts);
-0136                 <span class="keyword">end</span>
-0137             <span class="keyword">end</span>
-0138 
-0139             allSLDs = tempAllSLDs;
-0140         <span class="keyword">end</span>
-0141     <span class="keyword">end</span>
-0142 <span class="keyword">end</span>
+0122             allSLDs = tempAllSLDs;
+0123         <span class="keyword">end</span>
+0124     <span class="keyword">end</span>
+0125 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

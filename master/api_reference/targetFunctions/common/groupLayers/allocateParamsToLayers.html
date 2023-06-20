@@ -62,11 +62,11 @@ This function is called by:
 0007 <span class="comment">% the 'outLayers' cell array</span>
 0008 
 0009     numberOfLayers = length(layersDetails);
-0010     thisOutLayer = zeros(1,5);
-0011     outLayers = cell(1,numberOfLayers);
-0012 
-0013     <span class="keyword">for</span> i = 1:numberOfLayers
-0014         thisLayer = layersDetails{i};
+0010     outLayers = cell(1,numberOfLayers);
+0011 
+0012     <span class="keyword">for</span> i = 1:numberOfLayers
+0013         thisLayer = layersDetails{i};
+0014         thisOutLayer = zeros(1,length(thisLayer));
 0015         <span class="keyword">for</span> n = 1:(length(thisLayer)-1)
 0016             thisVal = thisLayer(n);
 0017             <span class="keyword">if</span> ~isnan(thisVal)
@@ -82,6 +82,6 @@ This function is called by:
 0027 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

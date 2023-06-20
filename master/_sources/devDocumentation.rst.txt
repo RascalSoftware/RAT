@@ -26,7 +26,7 @@ These unit tests are written to test the following set of functions:
 
 3. :ref:`ProjectClass`
 
-4. :ref:`controlsDef`
+4. :ref:`controlsClass`
 
 .. note::
       All the common function tests compare the **stable output** against the **on-demand output** of a function. This is done to make sure that the current function is behaving 
@@ -269,7 +269,7 @@ References for Developers
 .. At a high level, RAT only contains two components. These are really important and makes up the core of RAT.
 
 .. 1. Project Class
-.. 2. ControlsDef Class
+.. 2. Controls Class
 
 
 .. .. _ProjectClass:
@@ -345,16 +345,16 @@ References for Developers
 
         
 
-.. .. _ControlsDef:
+.. .. _controlsClass:
 
-.. ControlsDef Class
-.. -----------------
-.. .. ControlsDef Class is all about control. It is necessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
+.. Controls Class
+.. --------------
+.. .. ControlsClass is all about control. It is necessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
 .. .. to whether the users wants to calculate SLD during fit and even how many iteration an algorithm should do ..etc.
 
-.. .. .. dropdown:: Show all methods of ControlsDef Class
+.. .. .. dropdown:: Show all methods of controlsClass
 
-.. ..     .. automodule:: API.controlsDef
-.. ..     .. autoclass:: controlsDef
+.. ..     .. automodule:: API.controlsClass
+.. ..     .. autoclass:: controlsClass
 .. ..         :show-inheritance:
 .. ..         :members:

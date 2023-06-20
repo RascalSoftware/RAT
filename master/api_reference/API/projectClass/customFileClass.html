@@ -35,6 +35,7 @@
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="customFileClass.html" class="code" title="">customFileClass</a>	</li>
+<li><a href="tableUtilities.html" class="code" title="">tableUtilities</a>	</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
@@ -46,369 +47,293 @@ This function is called by:
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="#_sub1" class="code">function obj = customFileClass(varargin)</a></li>
-<li><a href="#_sub2" class="code">function count = get.fileCount(obj)</a></li>
-<li><a href="#_sub3" class="code">function obj = addCustomFile(obj, varargin)</a></li>
-<li><a href="#_sub4" class="code">function obj = setCustomFile(obj, row, varargin)</a></li>
-<li><a href="#_sub5" class="code">function removeCustomFile(obj, row)</a></li>
-<li><a href="#_sub6" class="code">function names = getCustomNames(obj)</a></li>
-<li><a href="#_sub7" class="code">function displayCustomFileObject(obj)</a></li>
-<li><a href="#_sub8" class="code">function fileStruct = toStruct(obj)</a></li>
-<li><a href="#_sub9" class="code">function obj = appendNewRow(obj, row)</a></li>
-<li><a href="#_sub10" class="code">function obj = setCustomLanguage(obj, row, language)</a></li>
-<li><a href="#_sub11" class="code">function obj = setCustomName(obj, whichCustom, name)</a></li>
-<li><a href="#_sub12" class="code">function obj = setFileName(obj,whichCustom,name)</a></li>
+<li><a href="#_sub2" class="code">function obj = addCustomFile(obj, varargin)</a></li>
+<li><a href="#_sub3" class="code">function obj = setCustomFile(obj, row, varargin)</a></li>
+<li><a href="#_sub4" class="code">function displayTable(obj)</a></li>
+<li><a href="#_sub5" class="code">function fileStruct = toStruct(obj)</a></li>
+<li><a href="#_sub6" class="code">function obj = setCustomLanguage(obj, row, language)</a></li>
+<li><a href="#_sub7" class="code">function obj = setCustomName(obj, whichCustom, name)</a></li>
+<li><a href="#_sub8" class="code">function obj = setFileName(obj,whichCustom,name)</a></li>
 </ul>
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 classdef <a href="customFileClass.html" class="code" title="">customFileClass</a> &lt; handle
+<div class="fragment"><pre>0001 classdef <a href="customFileClass.html" class="code" title="">customFileClass</a> &lt; <a href="tableUtilities.html" class="code" title="">tableUtilities</a>
 0002     
 0003     <span class="comment">% A container class for holding custom files for either</span>
 0004     <span class="comment">% models, backgrounds or resolutions.</span>
 0005 
-0006     properties
-0007         fileTable = table
-0008     <span class="keyword">end</span>
-0009 
-0010     properties(Access = private, Constant, Hidden)
-0011         duplicateNameMessage = <span class="string">'Duplicate custom file names are not allowed'</span>
-0012         invalidLanguageMessage = sprintf(<span class="string">'Language must be a supportedLanguages enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
-0013                                          strjoin(supportedLanguages.values(), <span class="string">', '</span>))
-0014     <span class="keyword">end</span>
-0015 
-0016     properties (Access = private)
-0017         autoFileNameCounter
-0018     <span class="keyword">end</span>
-0019 
-0020     properties (Dependent, SetAccess = private)
-0021         fileCount
-0022     <span class="keyword">end</span>
-0023     
-0024     methods
-0025         
-0026         <a name="_sub0" href="#_subfunctions" class="code">function obj = customFileClass(varargin)</a>
-0027             <span class="comment">% Construct a custom file class containing either an empty</span>
-0028             <span class="comment">% table or one with a single row.</span>
-0029             <span class="comment">% No input is required for an empty table, otherwise the</span>
-0030             <span class="comment">% parameters for the first row should be provided.</span>
-0031             <span class="comment">%</span>
-0032             <span class="comment">% customFiles = customFileClass()</span>
-0033             sz = [0 4];
-0034             varTypes = {<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>};
-0035             varNames = {<span class="string">'Name'</span>,<span class="string">'Filename'</span>,<span class="string">'Language'</span>,<span class="string">'Path'</span>};
-0036             obj.fileTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,varTypes,<span class="string">'VariableNames'</span>,varNames);
-0037             obj.autoFileNameCounter = 1;
-0038 
-0039             <span class="keyword">if</span> ~isempty(varargin)
-0040                 obj.addCustomFile(varargin{:});
-0041             <span class="keyword">end</span>          
-0042         <span class="keyword">end</span>
-0043 
-0044         <a name="_sub1" href="#_subfunctions" class="code">function count = get.fileCount(obj)</a>
-0045             count = height(obj.fileTable);
-0046         <span class="keyword">end</span>
-0047 
-0048         <a name="_sub2" href="#_subfunctions" class="code">function obj = addCustomFile(obj, varargin)</a>
-0049             <span class="comment">% Add an entry to the file table.</span>
-0050             <span class="comment">% A custom file entry can be added with no parameters, just the</span>
-0051             <span class="comment">% name of the custom file entry, the name of the entry</span>
-0052             <span class="comment">% alongside a filename, or can be fully defined by specifying</span>
-0053             <span class="comment">% the name of the custom file entry, filename, language, and</span>
-0054             <span class="comment">% file path</span>
-0055             <span class="comment">%</span>
-0056             <span class="comment">% customFiles.addCustomFile()</span>
-0057             <span class="comment">% customFiles.addCustomFile('New Row')</span>
-0058             <span class="comment">% customFiles.addCustomFile('New Row', 'file.m')</span>
-0059             <span class="comment">% customFiles.addCustomFile('New Row', 'file.m', 'matlab', 'pwd')</span>
-0060             <span class="keyword">if</span> isempty(varargin)
-0061                 
-0062                 <span class="comment">% Nothing supplied - add empty data row</span>
-0063                 nameVal = obj.autoFileNameCounter();
-0064                 newName = sprintf(<span class="string">'New custom file %d'</span>, nameVal);
-0065                 
-0066                 newRow = {newName, <span class="string">''</span>, supportedLanguages.Matlab.value, <span class="string">'pwd'</span>};
-0067                 <a href="#_sub9" class="code" title="subfunction obj = appendNewRow(obj, row)">appendNewRow</a>(obj, newRow);
+0006     properties(Access = private, Constant, Hidden)
+0007         invalidLanguageMessage = sprintf(<span class="string">'Language must be a supportedLanguages enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0008                                          strjoin(supportedLanguages.values(), <span class="string">', '</span>))
+0009     <span class="keyword">end</span>
+0010     
+0011     methods
+0012         
+0013         <a name="_sub0" href="#_subfunctions" class="code">function obj = customFileClass(varargin)</a>
+0014             <span class="comment">% Construct a custom file class containing either an empty</span>
+0015             <span class="comment">% table or one with a single row.</span>
+0016             <span class="comment">% No input is required for an empty table, otherwise the</span>
+0017             <span class="comment">% parameters for the first row should be provided.</span>
+0018             <span class="comment">%</span>
+0019             <span class="comment">% customFiles = customFileClass()</span>
+0020             sz = [0 4];
+0021             varTypes = {<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>};
+0022             varNames = {<span class="string">'Name'</span>,<span class="string">'Filename'</span>,<span class="string">'Language'</span>,<span class="string">'Path'</span>};
+0023             obj.varTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,varTypes,<span class="string">'VariableNames'</span>,varNames);
+0024 
+0025             <span class="keyword">if</span> ~isempty(varargin)
+0026                 obj.addCustomFile(varargin{:});
+0027             <span class="keyword">end</span>          
+0028         <span class="keyword">end</span>
+0029 
+0030         <a name="_sub1" href="#_subfunctions" class="code">function obj = addCustomFile(obj, varargin)</a>
+0031             <span class="comment">% Add an entry to the file table.</span>
+0032             <span class="comment">% A custom file entry can be added with no parameters, just the</span>
+0033             <span class="comment">% name of the custom file entry, the name of the entry</span>
+0034             <span class="comment">% alongside a filename, or can be fully defined by specifying</span>
+0035             <span class="comment">% the name of the custom file entry, filename, language, and</span>
+0036             <span class="comment">% file path</span>
+0037             <span class="comment">%</span>
+0038             <span class="comment">% customFiles.addCustomFile()</span>
+0039             <span class="comment">% customFiles.addCustomFile('New Row')</span>
+0040             <span class="comment">% customFiles.addCustomFile('New Row', 'file.m')</span>
+0041             <span class="comment">% customFiles.addCustomFile('New Row', 'file.m', 'matlab', 'pwd')</span>
+0042             <span class="keyword">if</span> isempty(varargin)
+0043                 
+0044                 <span class="comment">% Nothing supplied - add empty data row</span>
+0045                 nameVal = obj.autoNameCounter();
+0046                 newName = sprintf(<span class="string">'New custom file %d'</span>, nameVal);
+0047                 
+0048                 newRow = {newName, <span class="string">''</span>, supportedLanguages.Matlab.value, <span class="string">'pwd'</span>};
+0049 
+0050             <span class="keyword">else</span>
+0051                 
+0052                 inputs = varargin;
+0053 
+0054                 <span class="comment">% Check length of added data</span>
+0055                 <span class="keyword">switch</span> length(inputs)
+0056                     
+0057                     <span class="keyword">case</span> 1
+0058 
+0059                         <span class="comment">% One input supplied - assume just name provided</span>
+0060                         newName = inputs{1};
+0061                         <span class="keyword">if</span> ~isText(newName)
+0062                             throw(invalidType(<span class="string">'Single input is expected to be a custom object name'</span>));
+0063                         <span class="keyword">end</span>
+0064                         
+0065                         newRow = {newName, <span class="string">''</span>, supportedLanguages.Matlab.value, <span class="string">'pwd'</span>};
+0066                         
+0067                     <span class="keyword">case</span> 2
 0068 
-0069             <span class="keyword">else</span>
-0070                 
-0071                 inputs = varargin;
-0072 
-0073                 <span class="comment">% Check length of added data</span>
-0074                 <span class="keyword">switch</span> length(inputs)
-0075                     
-0076                     <span class="keyword">case</span> 1
+0069                         <span class="comment">% Two inputs suppled - assume both name and</span>
+0070                         <span class="comment">% filename supplied;</span>
+0071                         newName = char(inputs{1});
+0072                         newFile = char(inputs{2});
+0073 
+0074                         newRow = {newName, newFile, supportedLanguages.Matlab.value, <span class="string">'pwd'</span>};
+0075                         
+0076                     <span class="keyword">case</span> 4
 0077 
-0078                         <span class="comment">% One input supplied - assume just name provided</span>
-0079                         newName = inputs{1};
-0080                         <span class="keyword">if</span> ~isText(newName)
-0081                             throw(invalidType(<span class="string">'Single input is expected to be a custom object name'</span>));
-0082                         <span class="keyword">end</span>
+0078                         <span class="comment">% Four inputs = assume all inputs supplied</span>
+0079                         newName = char(inputs{1});
+0080                         newFile = char(inputs{2});
+0081                         newLang = char(inputs{3});
+0082                         newPath = char(inputs{4});
 0083                         
-0084                         newRow = {newName, <span class="string">''</span>, supportedLanguages.Matlab.value, <span class="string">'pwd'</span>};
-0085                         <a href="#_sub9" class="code" title="subfunction obj = appendNewRow(obj, row)">appendNewRow</a>(obj, newRow);
-0086                         
-0087                     <span class="keyword">case</span> 2
-0088 
-0089                         <span class="comment">% Two inputs suppled - assume both name and</span>
-0090                         <span class="comment">% filename supplied;</span>
-0091                         newName = char(inputs{1});
-0092                         newFile = char(inputs{2});
+0084                         newRow = {newName, newFile, newLang, newPath};
+0085                         
+0086                     <span class="keyword">otherwise</span>
+0087 
+0088                         <span class="comment">% Other length of inputs is not recognised</span>
+0089                         throw(invalidNumberOfInputs(<span class="string">'Unrecognised input into addCustomFile'</span>));
+0090                         
+0091                 <span class="keyword">end</span>
+0092             <span class="keyword">end</span>
 0093 
-0094                         newRow = {newName, newFile, supportedLanguages.Matlab.value, <span class="string">'pwd'</span>};
-0095                         <a href="#_sub9" class="code" title="subfunction obj = appendNewRow(obj, row)">appendNewRow</a>(obj, newRow);
-0096                         
-0097                     <span class="keyword">case</span> 4
-0098 
-0099                         <span class="comment">% Four inputs = assume all inputs supplied</span>
-0100                         newName = char(inputs{1});
-0101                         newFile = char(inputs{2});
-0102                         newLang = char(inputs{3});
-0103                         newPath = char(inputs{4});
-0104                         
-0105                         newRow = {newName, newFile, newLang, newPath};
-0106                         <a href="#_sub9" class="code" title="subfunction obj = appendNewRow(obj, row)">appendNewRow</a>(obj, newRow);
-0107                         
-0108                     <span class="keyword">otherwise</span>
-0109 
-0110                         <span class="comment">% Other length of inputs is not recognised</span>
-0111                         throw(invalidNumberOfInputs(<span class="string">'Unrecognised input into addCustomFile'</span>));
-0112                         
-0113                 <span class="keyword">end</span>
-0114             <span class="keyword">end</span>
-0115             
-0116         <span class="keyword">end</span>
-0117         
-0118         <a name="_sub3" href="#_subfunctions" class="code">function obj = setCustomFile(obj, row, varargin)</a>
-0119             <span class="comment">% Change the value of a given parameter in the file table.</span>
-0120             <span class="comment">% The expected inputs are the row of the file entry of</span>
-0121             <span class="comment">% interest (given either by name of index), and key-value pairs</span>
-0122             <span class="comment">% of the parameter(s) to change. The values of the keys are:</span>
-0123             <span class="comment">% &quot;Name&quot;, &quot;Filename&quot;, &quot;Language&quot;, and &quot;Path&quot;.</span>
-0124             <span class="comment">% NOTE changing the path using this routine is not implemented</span>
-0125             <span class="comment">%</span>
-0126             <span class="comment">% customFiles.setcustomFile(1, 'Name', 'New Name',...</span>
-0127             <span class="comment">%                           'Language', 'Octave')</span>
-0128             customNames = obj.getCustomNames;
-0129             
-0130             <span class="comment">% Always need three or more inputs to set data value</span>
-0131             <span class="keyword">if</span> length(varargin) &lt; 2 || mod(length(varargin), 2) ~= 0
-0132                 throw(invalidNumberOfInputs(<span class="string">'The input to ''setCustomFile'' should be a file entry and a set of name-value pairs'</span>));
-0133             <span class="keyword">end</span>
-0134                 
-0135             <span class="comment">% First input needs to be a data number or name</span>
-0136             <span class="keyword">if</span> isnumeric(row)
-0137                 <span class="keyword">if</span> (row &gt; obj.fileCount) || (row &lt; 1)
-0138                     throw(indexOutOfRange(sprintf(<span class="string">'The index %d is not within the range 1 - %d'</span>, row, obj.fileCount)));
-0139                 <span class="keyword">end</span>
-0140             <span class="keyword">elseif</span> isText(row)
-0141                 <span class="keyword">if</span> ~strcmpi(row, customNames)
-0142                     throw(nameNotRecognised(sprintf(<span class="string">'Custom file object name %s not recognised'</span>, row)));
-0143                 <span class="keyword">else</span>
-0144                     row = find(strcmpi(row, customNames));
-0145                 <span class="keyword">end</span>
-0146             <span class="keyword">end</span>
-0147             
-0148             <span class="comment">% Parse the name value pairs to see what is being set and make</span>
-0149             <span class="comment">% sure the data is of the correct size and type.</span>
-0150 
-0151             <span class="comment">% Make an 'inputParser' object...</span>
-0152             p = inputParser;
-0153 
-0154             addParameter(p,<span class="string">'name'</span>,<span class="string">''</span>, @(x) isText(x))
-0155             addParameter(p,<span class="string">'filename'</span>,<span class="string">''</span>, @(x) isText(x))
-0156             addParameter(p,<span class="string">'language'</span>,<span class="string">''</span>, @(x) isText(x) || isenum(x))
-0157             addParameter(p,<span class="string">'path'</span>,<span class="string">''</span>, @(x) isText(x)) 
-0158             parse(p, varargin{:});
-0159                 
-0160             results = p.Results;
-0161             
-0162             <span class="comment">% Any fields in results that are not empty are being set,</span>
-0163             <span class="comment">% so call the relevant set method for these (which will carry</span>
-0164             <span class="comment">% out some additional checks)</span>
-0165             <span class="keyword">if</span> ~isempty(results.filename)
-0166                 obj.setFileName(row,results.filename);
-0167             <span class="keyword">end</span>
+0094             <span class="comment">% Check language is valid, then add the new entry</span>
+0095             newRow{3} = validateOption(newRow{3}, <span class="string">'supportedLanguages'</span>, obj.invalidLanguageMessage).value;
+0096             obj.addRow(newRow{:});
+0097 
+0098         <span class="keyword">end</span>
+0099         
+0100         <a name="_sub2" href="#_subfunctions" class="code">function obj = setCustomFile(obj, row, varargin)</a>
+0101             <span class="comment">% Change the value of a given parameter in the file table.</span>
+0102             <span class="comment">% The expected inputs are the row of the file entry of</span>
+0103             <span class="comment">% interest (given either by name of index), and key-value pairs</span>
+0104             <span class="comment">% of the parameter(s) to change. The values of the keys are:</span>
+0105             <span class="comment">% &quot;Name&quot;, &quot;Filename&quot;, &quot;Language&quot;, and &quot;Path&quot;.</span>
+0106             <span class="comment">% NOTE changing the path using this routine is not implemented</span>
+0107             <span class="comment">%</span>
+0108             <span class="comment">% customFiles.setcustomFile(1, 'Name', 'New Name',...</span>
+0109             <span class="comment">%                           'Language', 'Octave')</span>
+0110             customNames = obj.getNames;
+0111             
+0112             <span class="comment">% Always need three or more inputs to set data value</span>
+0113             <span class="keyword">if</span> length(varargin) &lt; 2 || mod(length(varargin), 2) ~= 0
+0114                 throw(invalidNumberOfInputs(<span class="string">'The input to ''setCustomFile'' should be a file entry and a set of name-value pairs'</span>));
+0115             <span class="keyword">end</span>
+0116                 
+0117             <span class="comment">% First input needs to be a data number or name</span>
+0118             <span class="keyword">if</span> isnumeric(row)
+0119                 <span class="keyword">if</span> (row &gt; obj.rowCount) || (row &lt; 1)
+0120                     throw(indexOutOfRange(sprintf(<span class="string">'The index %d is not within the range 1 - %d'</span>, row, obj.rowCount)));
+0121                 <span class="keyword">end</span>
+0122             <span class="keyword">elseif</span> isText(row)
+0123                 row = obj.findRowIndex(row, customNames, sprintf(<span class="string">'Custom file object name %s not recognised'</span>, row));
+0124             <span class="keyword">end</span>
+0125             
+0126             <span class="comment">% Parse the name value pairs to see what is being set and make</span>
+0127             <span class="comment">% sure the data is of the correct size and type.</span>
+0128 
+0129             <span class="comment">% Make an 'inputParser' object...</span>
+0130             p = inputParser;
+0131 
+0132             addParameter(p,<span class="string">'name'</span>,<span class="string">''</span>, @(x) isText(x))
+0133             addParameter(p,<span class="string">'filename'</span>,<span class="string">''</span>, @(x) isText(x))
+0134             addParameter(p,<span class="string">'language'</span>,<span class="string">''</span>, @(x) isText(x) || isenum(x))
+0135             addParameter(p,<span class="string">'path'</span>,<span class="string">''</span>, @(x) isText(x)) 
+0136             parse(p, varargin{:});
+0137                 
+0138             results = p.Results;
+0139             
+0140             <span class="comment">% Any fields in results that are not empty are being set,</span>
+0141             <span class="comment">% so call the relevant set method for these (which will carry</span>
+0142             <span class="comment">% out some additional checks)</span>
+0143             <span class="keyword">if</span> ~isempty(results.filename)
+0144                 obj.setFileName(row,results.filename);
+0145             <span class="keyword">end</span>
+0146             
+0147             <span class="keyword">if</span> ~isempty(results.language)
+0148                 results.language = validateOption(results.language, <span class="string">'supportedLanguages'</span>, obj.invalidLanguageMessage).value;
+0149                 obj.setCustomLanguage(row, results.language);
+0150             <span class="keyword">end</span>
+0151             
+0152             <span class="keyword">if</span> ~isempty(results.path)
+0153                 <span class="comment">% NOT IMPLEMENTED</span>
+0154                 obj.setCustomPath(row,results.path);
+0155             <span class="keyword">end</span>
+0156             
+0157             <span class="keyword">if</span> ~isempty(results.name)
+0158                 obj.setCustomName(row,results.name);
+0159             <span class="keyword">end</span>            
+0160 
+0161         <span class="keyword">end</span>
+0162 
+0163         <a name="_sub3" href="#_subfunctions" class="code">function displayTable(obj)</a>
+0164             <span class="comment">% Display the file table.</span>
+0165             <span class="comment">%</span>
+0166             <span class="comment">% customFiles.displayCustomFileObject()</span>
+0167             tab = obj.varTable;
 0168             
-0169             <span class="keyword">if</span> ~isempty(results.language)
-0170                 results.language = validateOption(results.language, <span class="string">'supportedLanguages'</span>, obj.invalidLanguageMessage).value;
-0171                 obj.setCustomLanguage(row, results.language);
-0172             <span class="keyword">end</span>
+0169             sz = [1,4];
+0170             displayVarTypes = {<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>}; 
+0171             displayVarNames = {<span class="string">'Name'</span>,<span class="string">'Filename'</span>,<span class="string">'Language'</span>,<span class="string">'Path'</span>};
+0172             <a href="#_sub4" class="code" title="subfunction displayTable(obj)">displayTable</a> = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,displayVarTypes,<span class="string">'VariableNames'</span>,displayVarNames);
 0173             
-0174             <span class="keyword">if</span> ~isempty(results.path)
-0175                 <span class="comment">% NOT IMPLEMENTED</span>
-0176                 obj.setCustomPath(row,results.path);
-0177             <span class="keyword">end</span>
-0178             
-0179             <span class="keyword">if</span> ~isempty(results.name)
-0180                 obj.setCustomName(row,results.name);
-0181             <span class="keyword">end</span>            
-0182 
-0183         <span class="keyword">end</span>
-0184 
-0185         <a name="_sub4" href="#_subfunctions" class="code">function removeCustomFile(obj, row)</a>
-0186             <span class="comment">% Removes a file entry from the file table. The expected input</span>
-0187             <span class="comment">% is an integer or array of integers, i.e., an input such as</span>
-0188             <span class="comment">% [1 3] leads to multiple rows being removed from the table</span>
-0189             <span class="comment">%</span>
-0190             <span class="comment">% customFiles.removeCustomFile(2)</span>
-0191             tab = obj.fileTable;
-0192             tab(row,:) = [];
-0193             obj.fileTable = tab;
-0194         <span class="keyword">end</span>
-0195 
-0196         <a name="_sub5" href="#_subfunctions" class="code">function names = getCustomNames(obj)</a>
-0197             <span class="comment">% Get a string array of the names of each of the custom file</span>
-0198             <span class="comment">% objects defined in the class.</span>
-0199             <span class="comment">%</span>
-0200             <span class="comment">% customFiles.getLayersNames()</span>
-0201             names = obj.fileTable{:,1};  
-0202         <span class="keyword">end</span>
-0203 
-0204         <a name="_sub6" href="#_subfunctions" class="code">function displayCustomFileObject(obj)</a>
-0205             <span class="comment">% Display the file table.</span>
-0206             <span class="comment">%</span>
-0207             <span class="comment">% customFiles.displayCustomFileObject()</span>
-0208             fprintf(<span class="string">'    Custom Files: ------------------------------------------------------------------------------------------------------ \n\n'</span>);
-0209             
-0210             tab = obj.fileTable;
-0211             
-0212             sz = [1,4];
-0213             displayVarTypes = {<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>,<span class="string">'string'</span>}; 
-0214             displayVarNames = {<span class="string">'Name'</span>,<span class="string">'Filename'</span>,<span class="string">'Language'</span>,<span class="string">'Path'</span>};
-0215             displayTable = table(<span class="string">'Size'</span>,sz,<span class="string">'VariableTypes'</span>,displayVarTypes,<span class="string">'VariableNames'</span>,displayVarNames);
-0216             
-0217             tableSize = size(tab);
-0218             
-0219             <span class="keyword">if</span> tableSize(1) == 0
-0220                 displayTable(1,:) = {<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
-0221             <span class="keyword">else</span>
-0222                 
-0223                 <span class="keyword">for</span> i = 1:tableSize(1)
-0224                     thisRow = tab(i,:);
-0225                     
-0226                     nameString = thisRow{1,1};
-0227                     
-0228                     thisCustomFile = thisRow{1,2}{:};
-0229                     <span class="keyword">if</span> isempty(thisCustomFile)
-0230                         fileNameString = <span class="string">'No File'</span>;
-0231                     <span class="keyword">else</span>
-0232                         fileNameString = char(thisCustomFile);
+0174             tableSize = size(tab);
+0175             
+0176             <span class="keyword">if</span> tableSize(1) == 0
+0177                 <a href="#_sub4" class="code" title="subfunction displayTable(obj)">displayTable</a>(1,:) = {<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+0178             <span class="keyword">else</span>
+0179                 
+0180                 <span class="keyword">for</span> i = 1:tableSize(1)
+0181                     thisRow = tab(i,:);
+0182                     
+0183                     nameString = thisRow{1,1};
+0184                     
+0185                     thisCustomFile = thisRow{1,2}{:};
+0186                     <span class="keyword">if</span> isempty(thisCustomFile)
+0187                         fileNameString = <span class="string">'No File'</span>;
+0188                     <span class="keyword">else</span>
+0189                         fileNameString = char(thisCustomFile);
+0190                     <span class="keyword">end</span>
+0191                     
+0192                     thisFileLanguage = thisRow{1,3}{:};
+0193                     <span class="keyword">if</span> isempty(thisFileLanguage)
+0194                         fileLanguageString = <span class="string">'-'</span>;
+0195                     <span class="keyword">else</span>
+0196                         fileLanguageString = thisFileLanguage;
+0197                     <span class="keyword">end</span>
+0198                     
+0199                     thisFilePath = thisRow{1,4}{:};
+0200                     <span class="keyword">if</span> isempty(thisFilePath)
+0201                         thisFilePath = <span class="string">'pwd'</span>;
+0202                     <span class="keyword">else</span>
+0203                         thisFilePath = char(thisFilePath);
+0204                         <span class="keyword">if</span> length(thisFilePath) &gt; 10
+0205                             thisFilePath = [<span class="string">'...'</span> thisFilePath(end-10:end)];
+0206                         <span class="keyword">end</span>
+0207                     <span class="keyword">end</span>
+0208                     newDisplayRow = {nameString, fileNameString, fileLanguageString, thisFilePath};
+0209                     <a href="#_sub4" class="code" title="subfunction displayTable(obj)">displayTable</a>(i,:) = newDisplayRow;
+0210                     
+0211                 <span class="keyword">end</span>
+0212             <span class="keyword">end</span>
+0213 
+0214             disp(<a href="#_sub4" class="code" title="subfunction displayTable(obj)">displayTable</a>);
+0215         <span class="keyword">end</span>
+0216         
+0217         <a name="_sub4" href="#_subfunctions" class="code">function fileStruct = toStruct(obj)</a>
+0218             <span class="comment">% Convert the custom files class to a struct</span>
+0219             <span class="comment">%</span>
+0220             <span class="comment">% customFiles.toStruct()</span>
+0221             numberOfFiles = obj.rowCount;
+0222             
+0223             <span class="keyword">if</span> numberOfFiles &gt; 0
+0224                 filesList = cell(numberOfFiles, 1);
+0225                 <span class="keyword">for</span> i = 1:numberOfFiles
+0226                     thisRow = obj.varTable{i,:};
+0227                     thisFile = thisRow{2};
+0228                     thisType = thisRow{3};
+0229                     thisPath = thisRow{4};
+0230                     
+0231                     <span class="keyword">if</span> strcmpi(thisPath,<span class="string">'pwd'</span>)
+0232                         thisPath = pwd;
 0233                     <span class="keyword">end</span>
-0234                     
-0235                     thisFileLanguage = thisRow{1,3}{:};
-0236                     <span class="keyword">if</span> isempty(thisFileLanguage)
-0237                         fileLanguageString = <span class="string">'-'</span>;
-0238                     <span class="keyword">else</span>
-0239                         fileLanguageString = thisFileLanguage;
-0240                     <span class="keyword">end</span>
-0241                     
-0242                     thisFilePath = thisRow{1,4}{:};
-0243                     <span class="keyword">if</span> isempty(thisFilePath)
-0244                         thisFilePath = <span class="string">'pwd'</span>;
-0245                     <span class="keyword">else</span>
-0246                         thisFilePath = char(thisFilePath);
-0247                         <span class="keyword">if</span> length(thisFilePath) &gt; 10
-0248                             thisFilePath = [<span class="string">'...'</span> thisFilePath(end-10:end)];
-0249                         <span class="keyword">end</span>
-0250                     <span class="keyword">end</span>
-0251                     newDisplayRow = {nameString, fileNameString, fileLanguageString, thisFilePath};
-0252                     displayTable(i,:) = newDisplayRow;
-0253                     
-0254                 <span class="keyword">end</span>
-0255             <span class="keyword">end</span>
-0256 
-0257             disp(displayTable);
-0258             fprintf(<span class="string">'\n'</span>);
-0259  
-0260         <span class="keyword">end</span>
-0261         
-0262         <a name="_sub7" href="#_subfunctions" class="code">function fileStruct = toStruct(obj)</a>
-0263             <span class="comment">% Convert the custom files class to a struct</span>
-0264             <span class="comment">%</span>
-0265             <span class="comment">% customFiles.toStruct()</span>
-0266             numberOfFiles = obj.fileCount;
-0267             
-0268             <span class="keyword">if</span> numberOfFiles &gt; 0
-0269                 filesList = cell(numberOfFiles, 1);
-0270                 <span class="keyword">for</span> i = 1:numberOfFiles
-0271                     thisRow = obj.fileTable{i,:};
-0272                     thisFile = thisRow{2};
-0273                     thisType = thisRow{3};
-0274                     thisPath = thisRow{4};
-0275                     
-0276                     <span class="keyword">if</span> strcmpi(thisPath,<span class="string">'pwd'</span>)
-0277                         thisPath = pwd;
-0278                     <span class="keyword">end</span>
-0279                     filesList{i} = {thisFile, thisType, thisPath};
-0280                 <span class="keyword">end</span>
-0281                 fileStruct.files = filesList;
-0282             <span class="keyword">else</span>
-0283                 fileStruct.files = {};
-0284             <span class="keyword">end</span>
-0285         <span class="keyword">end</span>
-0286 
-0287     <span class="keyword">end</span>
-0288 
-0289     methods(Access = protected)
-0290 
-0291         <a name="_sub8" href="#_subfunctions" class="code">function obj = appendNewRow(obj, row)</a>
-0292             <span class="comment">% Appends a row to the layers table. The expected input is</span>
-0293             <span class="comment">% a length four cell array.</span>
-0294             <span class="comment">%</span>
-0295             <span class="comment">% customFiles.appendNewRow({'New Row','file.m','matlab','pwd'});</span>
-0296             tab = obj.fileTable;
-0297             newName = row{1};
-0298             <span class="keyword">if</span> any(strcmpi(newName,tab{:,1}))
-0299                 throw(duplicateName(obj.duplicateNameMessage));
-0300             <span class="keyword">end</span>
-0301             
-0302             <span class="comment">% Carry out checks of Data type and ranges</span>
-0303             fileName = row{2};
-0304             language = row{3};
-0305             path = row{4};
-0306 
-0307             language = validateOption(language, <span class="string">'supportedLanguages'</span>, obj.invalidLanguageMessage).value;          
-0308 
-0309             row = {newName, fileName, language, path};
-0310             tab = [tab ; row];
-0311             obj.fileTable = tab;
-0312             obj.autoFileNameCounter = obj.autoFileNameCounter + 1;
-0313             
-0314         <span class="keyword">end</span>
-0315 
-0316         <a name="_sub9" href="#_subfunctions" class="code">function obj = setCustomLanguage(obj, row, language)</a>
-0317            <span class="comment">% Check whether a specified language is supported, and set the</span>
-0318            <span class="comment">% file entry if so.</span>
-0319            obj.fileTable{row, 3} = {validateOption(language, <span class="string">'supportedLanguages'</span>, obj.invalidLanguageMessage).value};
-0320         <span class="keyword">end</span>
-0321         
-0322         
-0323         <a name="_sub10" href="#_subfunctions" class="code">function obj = setCustomName(obj, whichCustom, name) </a>
-0324             <span class="comment">% Check a potential new name is already</span>
-0325             <span class="comment">% specified, and set it if not</span>
-0326 
-0327             <span class="comment">% Name must not be an existing name</span>
-0328             existingNames = obj.fileTable{:,1};
-0329             <span class="keyword">if</span> any(strcmpi(name,existingNames))
-0330                 throw(duplicateName(obj.duplicateNameMessage));
-0331             <span class="keyword">end</span>
-0332             
-0333             <span class="comment">% Set the relevant name</span>
-0334             obj.fileTable{whichCustom,1} = {name};
-0335         <span class="keyword">end</span>
-0336         
-0337         
-0338         <a name="_sub11" href="#_subfunctions" class="code">function obj = setFileName(obj,whichCustom,name)</a>
-0339             <span class="comment">% Set a new filename</span>
-0340             obj.fileTable{whichCustom,2} = {name};  
-0341         <span class="keyword">end</span>
-0342 
-0343     <span class="keyword">end</span>
-0344     
-0345 <span class="keyword">end</span>
-0346     
+0234                     filesList{i} = {thisFile, thisType, thisPath};
+0235                 <span class="keyword">end</span>
+0236                 fileStruct.files = filesList;
+0237             <span class="keyword">else</span>
+0238                 fileStruct.files = {};
+0239             <span class="keyword">end</span>
+0240         <span class="keyword">end</span>
+0241 
+0242     <span class="keyword">end</span>
+0243 
+0244     methods(Access = protected)
+0245 
+0246         <a name="_sub5" href="#_subfunctions" class="code">function obj = setCustomLanguage(obj, row, language)</a>
+0247            <span class="comment">% Check whether a specified language is supported, and set the</span>
+0248            <span class="comment">% file entry if so.</span>
+0249            obj.varTable{row, 3} = {validateOption(language, <span class="string">'supportedLanguages'</span>, obj.invalidLanguageMessage).value};
+0250         <span class="keyword">end</span> 
+0251         
+0252         <a name="_sub6" href="#_subfunctions" class="code">function obj = setCustomName(obj, whichCustom, name) </a>
+0253             <span class="comment">% Check a potential new name is already</span>
+0254             <span class="comment">% specified, and set it if not</span>
+0255 
+0256             <span class="comment">% Name must not be an existing name</span>
+0257             existingNames = obj.varTable{:,1};
+0258             <span class="keyword">if</span> any(strcmpi(name,existingNames))
+0259                 throw(duplicateName(<span class="string">'Duplicate custom file names are not allowed'</span>));
+0260             <span class="keyword">end</span>
+0261             
+0262             <span class="comment">% Set the relevant name</span>
+0263             obj.varTable{whichCustom,1} = {name};
+0264         <span class="keyword">end</span>
+0265         
+0266         <a name="_sub7" href="#_subfunctions" class="code">function obj = setFileName(obj,whichCustom,name)</a>
+0267             <span class="comment">% Set a new filename</span>
+0268             obj.varTable{whichCustom,2} = {name};  
+0269         <span class="keyword">end</span>
+0270 
+0271     <span class="keyword">end</span>
+0272     
+0273 <span class="keyword">end</span>
+0274     
 </pre></div>
 
-<hr><address>Generated on Wed 10-May-2023 12:43:42 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

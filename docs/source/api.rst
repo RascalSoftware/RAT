@@ -435,7 +435,7 @@ After the user has defined the projectClass and controlsClass, the user can run 
 When the RAT function is called, the classes are passed into internal functions like `RatParseClassToStructs_new` which takes the classes and breaks them down into cells, 
 limits,prior and more importantly converts the project class to struct. 
 
-Then, the `RAT_main` function redirects the control flow based on what procedure is selected in controlsClass. One of the redirecting functions will call the reflectivity_calculation_wrapper
+Then, the `RATMain` function redirects the control flow based on what procedure is selected in controlsClass. One of the redirecting functions will call the reflectivityCalculationWrapper
 which starts the reflectivity calculation.
 
 

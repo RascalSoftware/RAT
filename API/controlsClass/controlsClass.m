@@ -277,7 +277,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
 
                 otherwise
                     % invalid procedure
-                    throw(invalidValue(sprintf('%s is not a supported procedure. Try calculate, simplex, de, ns or dream.', procedure)));
+                    throw(invalidValue(sprintf('%s is not a supported procedure. The procedure must be a procedures enum or one of the following strings (%s)', procedure, strjoin(procedures.values(), ', '))));
 
             end
 
@@ -365,7 +365,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             %
             % obj.processCalculateInput('param', 'value')
             %
-            % The parameters that can be set when using Dream procedure are
+            % The parameters that can be set when using calculate procedure are
             % 1) parallel
             % 2) calcSldDuringFit
             % 3) resamPars
@@ -385,17 +385,9 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
 
-            % Parses the input or raises invalidParameter error 
-            try
-                parse(p, properties{:});
-                inputBlock = p.Results;
-            catch ME
-                if (strcmp(ME.identifier,'MATLAB:InputParser:UnmatchedParameter'))
-                    throw(invalidParameter('Only parallel, calcSldDuringFit, resamPars and display can be set while using the Calculate procedure'));
-                else
-                    rethrow(ME)
-                end
-            end
+            % Parses the input or raises invalidOption error 
+            errorMsg = 'Only parallel, calcSldDuringFit, resamPars and display can be set while using the Calculate procedure';
+            inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for Calculate parameters
             obj.parallel = inputBlock.parallel;
@@ -447,17 +439,9 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
                        
-            % Parses the input or raises invalidParameter error 
-            try
-                parse(p, properties{:});
-                inputBlock = p.Results;
-            catch ME
-                if (strcmp(ME.identifier,'MATLAB:InputParser:UnmatchedParameter'))
-                    throw(invalidParameter('Only tolX, tolFun, maxFunEvals, maxIter, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, resamPars and display can be set while using the Simplex procedure.'));
-                else
-                    rethrow(ME)
-                end
-            end
+            % Parses the input or raises invalidOption error
+            errorMsg = 'Only tolX, tolFun, maxFunEvals, maxIter, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, resamPars and display can be set while using the Simplex procedure.';
+            inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for simplex parameters
             obj.tolX = inputBlock.tolX;
@@ -515,17 +499,9 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
                        
-            % Parses the input or raises invalidParameter error 
-            try
-                parse(p, properties{:});
-                inputBlock = p.Results;
-            catch ME
-                if (strcmp(ME.identifier,'MATLAB:InputParser:UnmatchedParameter'))
-                    throw(invalidParameter('Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resamPars and display can be set while using the Differential Evolution procedure'));
-                else
-                    rethrow(ME)
-                end
-            end
+            % Parses the input or raises invalidOption error
+            errorMsg = 'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resamPars and display can be set while using the Differential Evolution procedure';
+            inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for DE parameters
             obj.populationSize = inputBlock.populationSize;
@@ -545,7 +521,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             %
             % obj.processNSInput('param', 'value')
             %
-            % The parameters that can be set when using de procedure are 
+            % The parameters that can be set when using nested sampler procedure are 
             % 1) Nlive
             % 2) Nmcmc
             % 3) propScale
@@ -577,17 +553,9 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
             
-            % Parses the input or raises invalidParameter error
-            try
-                parse(p, properties{:});
-                inputBlock = p.Results;
-            catch ME
-                if (strcmp(ME.identifier,'MATLAB:InputParser:UnmatchedParameter'))
-                    throw(invalidParameter('Only Nlive, Nmcmc, propScale, nsTolerance, parallel, calcSldDuringFit, resamPars and display can be set while using the Nested Sampler procedure'));
-                else
-                    rethrow(ME)
-                end
-            end
+            % Parses the input or raises invalidOption error
+            errorMsg = 'Only Nlive, Nmcmc, propScale, nsTolerance, parallel, calcSldDuringFit, resamPars and display can be set while using the Nested Sampler procedure';
+            inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for NS parameters
             obj.Nlive = inputBlock.Nlive;
@@ -640,18 +608,10 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             addParameter(p,'display',   defaultDisplay,    @(x) isText(x) || isenum(x));
             properties = varargin{:};
 
-            % Parses the input or raises invalidParameter error 
-            try
-                parse(p, properties{:});
-                inputBlock = p.Results;
-            catch ME
-                if (strcmp(ME.identifier,'MATLAB:InputParser:UnmatchedParameter'))
-                    throw(invalidParameter('Only nSamples, nChains, lambda, pUnitGamma, boundHandling, parallel, calcSldDuringFit, resamPars and display can be set while using the DREAM procedure'));
-                else
-                    rethrow(ME)
-                end
-            end
-
+            % Parses the input or raises invalidOption error 
+            errorMsg = 'Only nSamples, nChains, lambda, pUnitGamma, boundHandling, parallel, calcSldDuringFit, resamPars and display can be set while using the DREAM procedure';
+            inputBlock = obj.parseInputs(p, properties, errorMsg);
+  
             % Sets the values the for Dream parameters
             obj.nSamples = inputBlock.nSamples;
             obj.nChains = inputBlock.nChains;
@@ -664,6 +624,19 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.display = inputBlock.display;
         end
 
+        function inputBlock = parseInputs(obj, p, properties, errorMsg)
+            % Parses the input or raises invalidOption error 
+            try
+                parse(p, properties{:});
+                inputBlock = p.Results;
+            catch ME
+                if (strcmp(ME.identifier,'MATLAB:InputParser:UnmatchedParameter'))
+                    throw(invalidOption(errorMsg));
+                else
+                    rethrow(ME)
+                end
+            end
+        end
       
     end
 end

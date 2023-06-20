@@ -379,17 +379,17 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 
-            % Test passing invalid parameter values for dream procedurE
+            % Test passing invalid parameter values for dream procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
                 {'boundHandling', 'invalid'}), invalidOption.errorID);
             
             % Test passing wrong parameter for dream procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
-                {'tolX', 1e-6}), invalidParameter.errorID); % Simplex Parameter
+                {'tolX', 1e-6}), invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
-                {'populationSize', 100000}), invalidParameter.errorID); % DE Parameter
+                {'populationSize', 100000}), invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
-                {'Nlive', 10}), invalidParameter.errorID); % NS Parameter
+                {'Nlive', 10}), invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
                 {'nChains', '0.5'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
         end
@@ -429,11 +429,11 @@ classdef testControlsClass < matlab.unittest.TestCase
 
             % Test passing wrong parameter for NS procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
-                {'tolFun', 1e-6}), invalidParameter.errorID); % Simplex Parameter
+                {'tolFun', 1e-6}), invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
-                {'fWeight', 1}), invalidParameter.errorID); % DE Parameter
+                {'fWeight', 1}), invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
-                {'nSamples', 10}), invalidParameter.errorID); % Dream Parameter
+                {'nSamples', 10}), invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
                 {'propScale', '0.5'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
         end
@@ -479,11 +479,11 @@ classdef testControlsClass < matlab.unittest.TestCase
 
             % Test passing wrong parameter for DE procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
-                {'tolFun', 1e-6}), invalidParameter.errorID); % Simplex Parameter
+                {'tolFun', 1e-6}), invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
-                {'Nmcmc', 1}), invalidParameter.errorID); % NS Parameter
+                {'Nmcmc', 1}), invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
-                {'nSamples', 10}), invalidParameter.errorID); % Dream Parameter
+                {'nSamples', 10}), invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
                 {'crossoverProbability', '0.5'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
         end
@@ -529,11 +529,11 @@ classdef testControlsClass < matlab.unittest.TestCase
 
             % Test passing wrong parameter for Simplex procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
-                {'crossoverProbability', 0.7}), invalidParameter.errorID); % DE Parameter
+                {'crossoverProbability', 0.7}), invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
-                {'Nmcmc', 1}), invalidParameter.errorID); % NS Parameter
+                {'Nmcmc', 1}), invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
-                {'nSamples', 10}), invalidParameter.errorID); % Dream Parameter
+                {'nSamples', 10}), invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
                 {'maxIter', '1'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
         end
@@ -561,13 +561,13 @@ classdef testControlsClass < matlab.unittest.TestCase
 
             % Test passing wrong parameter for Calculate procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
-                {'maxIter', 100}), invalidParameter.errorID); % Simplex Parameter
+                {'maxIter', 100}), invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
-                {'crossoverProbability', 0.7}), invalidParameter.errorID); % DE Parameter
+                {'crossoverProbability', 0.7}), invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
-                {'Nmcmc', 1}), invalidParameter.errorID); % NS Parameter
+                {'Nmcmc', 1}), invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
-                {'nSamples', 10}), invalidParameter.errorID); % Dream Parameter
+                {'nSamples', 10}), invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
                 {'calcSldDuringFit', 1}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
 

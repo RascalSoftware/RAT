@@ -6,14 +6,24 @@ controls = controlsClass();
 controls.parallel = parallelOptions.Points;
 % [problem1, result1] = RAT(problem, controls);
 
-%% Use simplex
+%% Use simplex 
 controls.procedure = procedures.Simplex;
 controls.maxIter = 1;
 [problem2, result2] = RAT(problem, controls);
 
+% Alternate Usage
+% controls = controls.setProcedure(procedures.Simplex.value,...
+%                                {'maxIter', 1});
+% [problem2, result2] = RAT(problem, controls);
+
 %% Use nested sampler
 % controls.procedure = procedures.NS;
 % controls.Nlive = 40;
+% [problem3, result3] = RAT(problem, controls);
+
+% Alternate Usage
+% controls = controls.setProcedure(procedures.NS.value,...
+%                                {'Nlive', 40});
 % [problem3, result3] = RAT(problem, controls);
 
 %% Use differential evolution
@@ -21,9 +31,19 @@ controls.maxIter = 1;
 % controls.populationSize = 10;
 % [problem4, result4] = RAT(problem, controls);
 
+% Alternate Usage
+% controls = controls.setProcedure(procedures.DE.value,...
+%                                {'populationSize', 10});
+% [problem4, result4] = RAT(problem, controls);
+
 %% Use dream
 % controls.procedure = procedures.Dream;
 % controls.nSamples = 5000;
+% [problem5, result5] = RAT(problem, controls);
+
+% Alternate Usage
+% controls = controls.setProcedure(procedures.Dream.value,...
+%                                {'nSamples', 5000});
 % [problem5, result5] = RAT(problem, controls);
 
 %% Plot the results....

@@ -42,9 +42,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     end
 
     properties(Access = protected, Constant, Hidden)
-        classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts", "domainRatio", "layers", "customFile", "data", "contrast"], ...
-                         addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addDomainRatio", "addLayer", "addCustomFile", "addData", "addContrast"], ...
-                         removeRoutine = ["removeParameter", "removeBulkIn", "removeBulkOut", "removeScalefactor", "removeQzshift", "removeDomainRatio", "removeLayer", "removeCustomFile", "removeData", "removeContrast"]);
+        classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts", "backPars", "resolPars", "domainRatio", "layers", "customFile", "backgrounds", "resolutions", "data", "contrast"], ...
+                         addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addBacksPar", "addResolPar", "addDomainRatio", "addLayer", "addCustomFile", "addBackground", "addResolution", "addData", "addContrast"], ...
+                         removeRoutine = ["removeParameter", "removeBulkIn", "removeBulkOut", "removeScalefactor", "removeQzshift", "removeBacksPar", "removeResolPar", "removeDomainRatio", "removeLayer", "removeCustomFile", "removeBackground", "removeResolution", "removeData", "removeContrast"]);
     end
 
     methods
@@ -924,67 +924,62 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             fprintf(fileID, "\n");
 
             % Add all parameters based on a parametersClass
-            paramClasses = ["bulkIn", "bulkOut", "scalefactors", "qzshifts"];
+            paramClasses = ["bulkIn", "bulkOut", "scalefactors", "qzshifts", "background", "resolution"];
+            paramSubclasses = ["", "", "", "", "backPars", "resolPars"];
+
             if isprop(obj, 'domainRatio')
                 paramClasses(end + 1) = "domainRatio";
             end
 
             for i=1:length(paramClasses)
-                % Remove default parameter
-                removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramClasses(i));
-                fprintf(fileID, options.objName + "." + removeRoutine + "(1);\n");
-                
-                % Add the parameters that have been defined
-                if ~isempty(obj.(paramClasses(i)).varTable)
+
+                if isprop(obj.(paramClasses(i)), 'varTable')
+                    removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramClasses(i));
                     addRoutine = obj.classes.addRoutine(obj.classes.name == paramClasses(i));
-                    paramSpec = options.objName + "." + addRoutine + "('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
+                    numParams = height(obj.(paramClasses(i)).varTable);
                     paramTable = table2cell(obj.(paramClasses(i)).varTable)';
-                    % Convert logical parameter
-                    for j=1:height(obj.(paramClasses(i)).varTable)
-                        paramTable{5, j} = string(paramTable{5, j});
-                    end
-                    fprintf(fileID, paramSpec, paramTable{:});
-                    fprintf(fileID, "\n");
+                elseif isprop(obj.(paramClasses(i)).(paramSubclasses(i)), 'varTable')
+                    removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramSubclasses(i));
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == paramSubclasses(i));
+                    numParams = height(obj.(paramClasses(i)).(paramSubclasses(i)).varTable);
+                    paramTable = table2cell(obj.(paramClasses(i)).(paramSubclasses(i)).varTable)';
                 end
-            end
 
-            % Backgrounds and resolutions - deal with these separately
-            % due to the nested classes
-            fprintf(fileID, options.objName + ".removeBackground(1);\n");
-            fprintf(fileID, options.objName + ".removeBacksPar(1);\n");
-            paramSpec = options.objName + ".addBacksPar('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
-            multiTableSpec = options.objName + ".addBackground('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
-            paramTable = table2cell(obj.background.backPars.varTable)';
-            % Convert logical parameter
-            for i=1:height(obj.background.backPars.varTable)
-                paramTable{5, i} = string(paramTable{5, i});
+                % Remove default parameter
+                fprintf(fileID, options.objName + "." + removeRoutine + "(1);\n");
+                paramSpec = options.objName + "." + addRoutine + "('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
+                 % Convert logical parameter
+                for j=1:numParams
+                    paramTable{5, j} = string(paramTable{5, j});
+                end
+                % Add the parameters that have been defined
+                fprintf(fileID, paramSpec, paramTable{:});
+                fprintf(fileID, "\n");
             end
-            fprintf(fileID, paramSpec, paramTable{:});
-            fprintf(fileID, multiTableSpec, table2array(obj.background.backgrounds.varTable)');
-            fprintf(fileID, "\n");
-
-            fprintf(fileID, options.objName + ".removeResolution(1);\n");
-            fprintf(fileID, options.objName + ".removeResolPar(1);\n");
-            paramSpec = options.objName + ".addResolPar('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
-            multiTableSpec = options.objName + ".addResolution('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n";
-            paramTable = table2cell(obj.resolution.resolPars.varTable)';
-            % Convert logical parameter
-            for i=1:height(obj.resolution.resolPars.varTable)
-                paramTable{5, i} = string(paramTable{5, i});
-            end
-            fprintf(fileID, paramSpec, paramTable{:});
-            fprintf(fileID, multiTableSpec, table2array(obj.resolution.resolutions.varTable)');
-            fprintf(fileID, "\n");
 
             % Now deal with classes where all of the fields are strings
-            stringClasses = ["customFile"];
+            stringClasses = ["customFile", "background", "resolution"];
+            stringSubclasses = ["", "backgrounds", "resolutions"];
+
+            fprintf(fileID, options.objName + ".removeBackground(1);\n");
+            fprintf(fileID, options.objName + ".removeResolution(1);\n");
+            fprintf(fileID, "\n");
 
             for i=1:length(stringClasses)
-                if ~isempty(obj.(stringClasses(i)).varTable)
-                    addRoutine = obj.classes.addRoutine(obj.classes.name == stringClasses(i));
-                    stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, width(obj.(stringClasses(i)).varTable)), ", ") + ");\n";
-                    fprintf(fileID, stringSpec, table2array(obj.(stringClasses(i)).varTable)');
-                    fprintf(fileID, "\n");
+                if isprop(obj.(stringClasses(i)), 'varTable')
+                    if ~isempty(obj.(stringClasses(i)).varTable)
+                        addRoutine = obj.classes.addRoutine(obj.classes.name == stringClasses(i));
+                        stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, width(obj.(stringClasses(i)).varTable)), ", ") + ");\n";
+                        fprintf(fileID, stringSpec, table2array(obj.(stringClasses(i)).varTable)');
+                        fprintf(fileID, "\n");
+                    end
+                elseif isprop(obj.(stringClasses(i)).(stringSubclasses(i)), 'varTable')
+                    if ~isempty(obj.(stringClasses(i)).(stringSubclasses(i)).varTable)
+                        addRoutine = obj.classes.addRoutine(obj.classes.name == stringSubclasses(i));
+                        stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, width(obj.(stringClasses(i)).(stringSubclasses(i)).varTable)), ", ") + ");\n";
+                        fprintf(fileID, stringSpec, table2array(obj.(stringClasses(i)).(stringSubclasses(i)).varTable)');
+                        fprintf(fileID, "\n");
+                    end
                 end
             end
 

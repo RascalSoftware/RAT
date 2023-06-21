@@ -875,7 +875,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Writes a MATLAB script that can be run to reproduce this
             % projectClass object.
             %
-            % problem.writeScript("newScript.m")
+            % problem.writeScript(script = "newScript.m");
             arguments
                 obj
                 options.objName {mustBeTextScalar} = 'problem'
@@ -893,7 +893,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 options.script = fullfile(filePath, fileName);
             elseif ~strcmp(extension, ".m")
                 % Raise error if incorrect format is used
-                throw(invalidValue('The filename chosen for the script does not have a MATLAB ".m" extension'));
+                throw(invalidValue(sprintf('The filename chosen for the script has the "%s" extension, rather than a MATLAB ".m" extension', extension)));
             end
 
             fileID = fopen(options.script, 'w');
@@ -908,7 +908,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Add all parameters, with different actions for protected
             % parameters
             for i=1:height(obj.parameters.varTable)
-                if strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters)
+                if any(strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters))
                     fprintf(fileID, options.objName + ".setParameterValue(%d, %.15g);\n", i, obj.parameters.varTable{i, 3});
                     fprintf(fileID, options.objName + ".setParameterConstraint(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
                     fprintf(fileID, options.objName + ".setParameterFit(%d, %s);\n", i, string(obj.parameters.varTable{i, 5}));
@@ -929,32 +929,38 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             if isprop(obj, 'domainRatio')
                 paramClasses(end + 1) = "domainRatio";
+                paramSubclasses(end + 1) = "";
             end
 
             for i=1:length(paramClasses)
 
                 if isprop(obj.(paramClasses(i)), 'varTable')
+
                     removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramClasses(i));
                     addRoutine = obj.classes.addRoutine(obj.classes.name == paramClasses(i));
                     numParams = height(obj.(paramClasses(i)).varTable);
                     paramTable = table2cell(obj.(paramClasses(i)).varTable)';
+
                 elseif isprop(obj.(paramClasses(i)).(paramSubclasses(i)), 'varTable')
+
                     removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramSubclasses(i));
                     addRoutine = obj.classes.addRoutine(obj.classes.name == paramSubclasses(i));
                     numParams = height(obj.(paramClasses(i)).(paramSubclasses(i)).varTable);
                     paramTable = table2cell(obj.(paramClasses(i)).(paramSubclasses(i)).varTable)';
+
                 end
 
                 % Remove default parameter
                 fprintf(fileID, options.objName + "." + removeRoutine + "(1);\n");
-                paramSpec = options.objName + "." + addRoutine + "('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
-                 % Convert logical parameter
+                % Convert logical parameter
                 for j=1:numParams
                     paramTable{5, j} = string(paramTable{5, j});
                 end
                 % Add the parameters that have been defined
+                paramSpec = options.objName + "." + addRoutine + "('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
                 fprintf(fileID, paramSpec, paramTable{:});
                 fprintf(fileID, "\n");
+
             end
 
             % Now deal with classes where all of the fields are strings
@@ -966,21 +972,29 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             fprintf(fileID, "\n");
 
             for i=1:length(stringClasses)
+                stringTable = table();
+
                 if isprop(obj.(stringClasses(i)), 'varTable')
-                    if ~isempty(obj.(stringClasses(i)).varTable)
-                        addRoutine = obj.classes.addRoutine(obj.classes.name == stringClasses(i));
-                        stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, width(obj.(stringClasses(i)).varTable)), ", ") + ");\n";
-                        fprintf(fileID, stringSpec, table2array(obj.(stringClasses(i)).varTable)');
-                        fprintf(fileID, "\n");
-                    end
+
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == stringClasses(i));
+                    numCols = width(obj.(stringClasses(i)).varTable);
+                    stringTable = table2array(obj.(stringClasses(i)).varTable)';
+
                 elseif isprop(obj.(stringClasses(i)).(stringSubclasses(i)), 'varTable')
-                    if ~isempty(obj.(stringClasses(i)).(stringSubclasses(i)).varTable)
-                        addRoutine = obj.classes.addRoutine(obj.classes.name == stringSubclasses(i));
-                        stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, width(obj.(stringClasses(i)).(stringSubclasses(i)).varTable)), ", ") + ");\n";
-                        fprintf(fileID, stringSpec, table2array(obj.(stringClasses(i)).(stringSubclasses(i)).varTable)');
-                        fprintf(fileID, "\n");
-                    end
+
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == stringSubclasses(i));
+                    numCols = width(obj.(stringClasses(i)).(stringSubclasses(i)).varTable);
+                    stringTable = table2array(obj.(stringClasses(i)).(stringSubclasses(i)).varTable)';
+
                 end
+
+                % Add parameters if any have been defined
+                if ~isempty(stringTable)
+                    stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, numCols), ", ") + ");\n";
+                    fprintf(fileID, stringSpec, stringTable);
+                    fprintf(fileID, "\n");
+                end
+
             end
 
             % Need to deal with layers separately due to NaN issues
@@ -999,7 +1013,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Data class requires writing and reading the data
             fprintf(fileID, options.objName + ".removeData(1);\n");
+
             for i=1:obj.data.rowCount
+
                 % Write and read data if it exists, else add an empty,
                 % named row
                 if isempty(obj.data.varTable{i, 2}{:})
@@ -1018,12 +1034,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 if ~isempty(obj.data.varTable{i, 4}{:})
                     fprintf(fileID, options.objName + ".setData(%d, 'simRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 4}{:});
                 end
+
                 fprintf(fileID, "\n");
+
             end
 
             % Contrasts are a cell array rather than a table
             % Need to handle resample and model fields separately
             for i=1:obj.contrasts.numberOfContrasts
+
                 reducedStruct = rmfield(obj.contrasts.contrasts{i}, {'resample', 'model'});
                 contrastParams = string(namedargs2cell(reducedStruct));
                 contrastSpec = options.objName + ".addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
@@ -1033,10 +1052,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     fprintf(fileID, options.objName + ".setContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
                 end
                 fprintf(fileID, "\n");
+
             end
 
             if isprop(obj, 'domainContrasts')
                 for i=1:obj.domainContrasts.numberOfContrasts
+                    
                     reducedStruct = rmfield(obj.domainContrasts.contrasts{i}, {'model'});
                     contrastParams = string(namedargs2cell(reducedStruct));
                     contrastSpec = options.objName + ".addDomainContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
@@ -1045,6 +1066,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                         fprintf(fileID, options.objName + ".setDomainContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
                     end
                     fprintf(fileID, "\n");
+                    
                 end
             end
             

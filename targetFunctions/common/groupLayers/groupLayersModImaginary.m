@@ -57,9 +57,9 @@ coder.varsize('layers',[Inf,6],[1 1]);
                 n = size(output,2);
                 if n == 5
                     cov = output(:,5);
-                    layers = [thicks(:) sldss(:) roughs(:) cov(:)];
+                    layers = [thicks sldss roughs cov];
                 else
-                    layers = [thicks(:) sldss(:) roughs(:)];
+                    layers = [thicks sldss roughs];
                 end
                 s_sub = rsub;
         end

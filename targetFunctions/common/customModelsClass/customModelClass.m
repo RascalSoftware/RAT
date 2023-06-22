@@ -140,11 +140,11 @@ classdef customModelClass < handle
             end
             coder.varsize('tempAllLayers{:}',[10000 6],[1 1]);
 
-
+            counter = 1;    % Actual contrast we are looking at
             for i = 1:2:totNumCalcs     % Note step of 2.....
 
                 % Choose which custom file is associated with this contrast
-                thisCustomModel = customFiles{cCustFiles(i)};
+                thisCustomModel = customFiles{cCustFiles(counter)};
 
                 % Check what language it is....
                 thisLanguage = thisCustomModel{2};
@@ -157,7 +157,8 @@ classdef customModelClass < handle
 
                 % Find values of 'bulkIn' and 'bulkOut' for this
                 % contrast...
-                [~,~,~,bulkIn,bulkOut,~] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+                [~,~,~,bulkIn,bulkOut,~] = backSort(cBacks(counter),cShifts(counter),cScales(counter),cNbas(counter),...
+                    cNbss(counter),cRes(counter),backs,shifts,sf,nba,nbs,res);
 
                 thisContrastLayers1 = [1 1 1]; % typeDef
                 coder.varsize('thisContrastLayers1',[10000, 6],[1 1]);
@@ -167,14 +168,14 @@ classdef customModelClass < handle
 
                 switch thisLanguage
                     case 'matlab'
-                        [thisContrastLayers1,allRoughs(i)] = callMatlabCustomFunctionDomains(params,i,thisFile,thisPath,bulkIn,bulkOut,numberOfContrasts,1);
-                        [thisContrastLayers2,allRoughs(i)] = callMatlabCustomFunctionDomains(params,i,thisFile,thisPath,bulkIn,bulkOut,numberOfContrasts,2);
+                        [thisContrastLayers1,allRoughs(counter)] = callMatlabCustomFunctionDomains(params,counter,thisFile,thisPath,bulkIn,bulkOut,numberOfContrasts,1);
+                        [thisContrastLayers2,allRoughs(counter)] = callMatlabCustomFunctionDomains(params,counter,thisFile,thisPath,bulkIn,bulkOut,numberOfContrasts,2);
                     case 'cpp'
-                        [thisContrastLayers1,allRoughs(i)] = callCppFuncDomains(params,bulkIn,bulkOut,i,thisFile,thisFile,1);
-                        [thisContrastLayers2,allRoughs(i)] = callCppFuncDomains(params,bulkIn,bulkOut,i,thisFile,thisFile,2);
+                        [thisContrastLayers1,allRoughs(counter)] = callCppFuncDomains(params,bulkIn,bulkOut,counter,thisFile,thisFile,1);
+                        [thisContrastLayers2,allRoughs(counter)] = callCppFuncDomains(params,bulkIn,bulkOut,counter,thisFile,thisFile,2);
                     case 'python'
-                        [thisContrastLayers1,allRoughs(i)] = pythonCustomFunctionWrapperDomains(thisFile,params,bulkIn,bulkOut,i,numberOfContrasts,1);
-                        [thisContrastLayers2,allRoughs(i)] = pythonCustomFunctionWrapperDomains(thisFile,params,bulkIn,bulkOut,i,numberOfContrasts,2);
+                        [thisContrastLayers1,allRoughs(counter)] = pythonCustomFunctionWrapperDomains(thisFile,params,bulkIn,bulkOut,counter,numberOfContrasts,1);
+                        [thisContrastLayers2,allRoughs(counter)] = pythonCustomFunctionWrapperDomains(thisFile,params,bulkIn,bulkOut,counter,numberOfContrasts,2);
                 end
 
                 % If the output layers has 5 columns, then we need to do
@@ -190,6 +191,8 @@ classdef customModelClass < handle
 
                 tempAllLayers{i} = thisContrastLayers1;
                 tempAllLayers{i+1} = thisContrastLayers2;
+
+                counter = counter + 1;
             end
 
             allLayers = tempAllLayers;

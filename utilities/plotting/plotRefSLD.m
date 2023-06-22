@@ -1,6 +1,5 @@
 function plotRefSLD(problem, result)
 
-    
     % Convert the problem class to a struct.
     controls = controlsClass();
     data.modelType = problem.modelType;

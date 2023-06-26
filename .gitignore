@@ -36,7 +36,3 @@ __pycache__/
 *.dll
 *.lib
 *.dylib
-
-# Generated scripts
-projectScript.m
-*.dat

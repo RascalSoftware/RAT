@@ -706,7 +706,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % qz shift parameter to edit and key-value pairs
             %
             % problem.setScalefactor(1, 'name','Qz shift 1', 'value', 0.0001);
-            obj.scalefactors.setParameter(varargin{:});
+            obj.qzshifts.setParameter(varargin{:});
         end
 
         
@@ -897,9 +897,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
 
             fileID = fopen(options.script, 'w');
+            fprintf(fileID, "%s\n\n", '% THIS FILE IS GENERATED FROM RAT VIA THE "WRITESCRIPT" ROUTINE. IT IS NOT PART OF THE RAT CODE.');
 
             % Start by getting input arguments
-            projectSpec = "%s = project(name='%s', calc='%s', model='%s', geometry='%s', absorption=%s);\n\n";
+            projectSpec = "%s = project(name='%s', calcType='%s', model='%s', geometry='%s', absorption=%s);\n\n";
             fprintf(fileID, projectSpec, options.objName, obj.experimentName, obj.calculationType,  obj.modelType, obj.geometry,  string(obj.absorption));
             if obj.usePriors
                 fprintf(fileID, "%s.setUsePriors(true);\n\n", options.objName);

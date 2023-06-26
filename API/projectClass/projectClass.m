@@ -908,18 +908,35 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Add all parameters, with different actions for protected
             % parameters
+            paramGroup = cell(sum(~strcmpi(obj.parameters.varTable{:, 1}, obj.protectedParameters)), 1);
+            groupIndex = 1;
             for i=1:height(obj.parameters.varTable)
+                % Set protected parameters
                 if any(strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters))
                     fprintf(fileID, options.objName + ".setParameterValue(%d, %.15g);\n", i, obj.parameters.varTable{i, 3});
                     fprintf(fileID, options.objName + ".setParameterConstraint(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
                     fprintf(fileID, options.objName + ".setParameterFit(%d, %s);\n", i, string(obj.parameters.varTable{i, 5}));
                     fprintf(fileID, options.objName + ".setParameterPrior(%d, '%s', %.15g, %.15g);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
+                % Add non-protected parameters to a parameter group
                 else
-                    paramSpec = options.objName + ".addParameter('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
                     paramRow = table2cell(obj.parameters.varTable(i, :))';
                     paramRow{5} = string(paramRow{5});
-                    fprintf(fileID, paramSpec, paramRow{:});
+                    paramGroup{groupIndex} = paramRow;
+                    groupIndex = groupIndex + 1;
                 end
+            end
+
+            fprintf(fileID, "\n");
+
+            % Write the parameter group to the script
+            if size(paramGroup, 1) > 0
+                fprintf(fileID, "%s\n", "paramGroup = {");
+                for i = 1:size(paramGroup, 1)
+                    paramSpec = blanks(14) + "{'%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g};\n";
+                    fprintf(fileID, paramSpec, paramGroup{i}{:});
+                end
+                fprintf(fileID, blanks(14) + "%s\n\n", "};");
+                fprintf(fileID, "%s\n", "problem.addParameterGroup(paramGroup);");
             end
 
             fprintf(fileID, "\n");

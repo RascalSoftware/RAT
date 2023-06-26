@@ -930,13 +930,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Write the parameter group to the script
             if size(paramGroup, 1) > 0
-                fprintf(fileID, "%s\n", "paramGroup = {");
+                fprintf(fileID, "paramGroup = {\n");
                 for i = 1:size(paramGroup, 1)
                     paramSpec = blanks(14) + "{'%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g};\n";
                     fprintf(fileID, paramSpec, paramGroup{i}{:});
                 end
                 fprintf(fileID, blanks(14) + "%s\n\n", "};");
-                fprintf(fileID, "%s\n", "problem.addParameterGroup(paramGroup);");
+                fprintf(fileID, options.objName + ".addParameterGroup(paramGroup);\n");
             end
 
             fprintf(fileID, "\n");

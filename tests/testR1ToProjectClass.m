@@ -72,7 +72,7 @@ classdef testR1ToProjectClass < matlab.unittest.TestCase
 
             result = r1ToProjectClass('tempStruct.mat');
 
-            testCase.verifyEqual(result.layers.varTable.Hydration(1), missing);
+            testCase.verifyEqual(result.layers.varTable.Hydration(1), "");
         end
     end
 end

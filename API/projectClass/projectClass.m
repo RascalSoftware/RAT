@@ -41,12 +41,19 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         protectedParameters
     end
 
+    properties(Access = protected, Constant, Hidden)
+        classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts", "backPars", "resolPars", "domainRatio", "layers", "customFile", "backgrounds", "resolutions", "data", "contrast"], ...
+                         addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addBacksPar", "addResolPar", "addDomainRatio", "addLayer", "addCustomFile", "addBackground", "addResolution", "addData", "addContrast"], ...
+                         removeRoutine = ["removeParameter", "removeBulkIn", "removeBulkOut", "removeScalefactor", "removeQzshift", "removeBacksPar", "removeResolPar", "removeDomainRatio", "removeLayer", "removeCustomFile", "removeBackground", "removeResolution", "removeData", "removeContrast"]);
+    end
+
     methods
 
-        function obj = projectClass(experimentName, calculationType, geometry, absorption)
+        function obj = projectClass(experimentName, calculationType, modelType, geometry, absorption)
             % Creates a Project object. The input arguments are the
             % experiment name which is a char array; the calculation type,
-            % which is a calculationTypes enum; the geometry, which is a
+            % which is a calculationTypes enum; the model type,
+            % which is a modelTypes enum; the geometry, which is a
             % geometryOptions enum; and a logical to state whether or not
             % absorption terms are included in the refractive index.
             % All of the arguments are optional.
@@ -55,14 +62,21 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             arguments
                 experimentName {mustBeTextScalar} = ''
                 calculationType = calculationTypes.NonPolarised
+                modelType = modelTypes.StandardLayers
                 geometry = geometryOptions.AirSubstrate
                 absorption {mustBeA(absorption,'logical')} = false
             end
 
+            % Validate input options
             invalidTypeMessage = sprintf('calculationType must be a calculationTypes enum or one of the following strings (%s)', ...
                                  strjoin(calculationTypes.values(), ', '));
 
             obj.calculationType = validateOption(calculationType, 'calculationTypes', invalidTypeMessage).value;
+
+            invalidModelMessage = sprintf('modelType must be a modelTypes enum or one of the following strings (%s)', ...
+                                         strjoin(modelTypes.values(), ', '));
+
+            obj.modelType = validateOption(modelType, 'modelTypes', invalidModelMessage).value;
 
             invalidGeometryMessage = sprintf('geometry must be a geometryOptions enum or one of the following strings (%s)', ...
                                      strjoin(geometryOptions.values(), ', '));
@@ -119,7 +133,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Initialise contrasts object
             obj.contrasts = contrastsClass();               
         end
-        
+
         function domainsObj = toDomainsClass(obj)
             % Alias of the converter routine from projectClass to
             % domainsClass.
@@ -675,10 +689,26 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Adds a new qz shift parameter. Expects the name
             % of qz shift, min, value, max, and if fit is off or on
             % 
-            % problem..addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);
+            % problem.addQzshift('Qz shift 2', -0.2e-4, 0, 2e-4, false);
             obj.qzshifts.addParameter(varargin{:}); 
         end
-        
+
+        function obj = removeQzshift(obj, varargin)
+            % Removes specified qz shift parameter. Expects the name/index
+            % of qz shift parameter to remove
+            % 
+            % problem.removeQzshift(2);
+            obj.qzshifts.removeParameter(varargin{:}); 
+        end
+
+        function obj = setQzshift(obj, varargin)
+            % Edits an existing qz shift parameter. Expects the index of
+            % qz shift parameter to edit and key-value pairs
+            %
+            % problem.setScalefactor(1, 'name','Qz shift 1', 'value', 0.0001);
+            obj.qzshifts.setParameter(varargin{:});
+        end
+
         
         % -----------------------------------------------------------------
         % editing of custom models block
@@ -840,6 +870,227 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                                      contrastStruct);
             
         end
+
+        function writeScript(obj, options)
+            % Writes a MATLAB script that can be run to reproduce this
+            % projectClass object.
+            %
+            % problem.writeScript(script = "newScript.m");
+            arguments
+                obj
+                options.objName {mustBeTextScalar} = 'problem'
+                options.script {mustBeTextScalar} = 'projectScript.m'
+            end
+
+            % Need to ensure correct format for script name
+            [filePath, fileName, extension] = fileparts(options.script);
+            
+            % The empty string fails "isempty", so need to test for it
+            % explicitly
+            if strcmp(extension, "")
+                % Add the correct extension
+                fileName = sprintf('%s.m', fileName);
+                options.script = fullfile(filePath, fileName);
+            elseif ~strcmp(extension, ".m")
+                % Raise error if incorrect format is used
+                throw(invalidValue(sprintf('The filename chosen for the script has the "%s" extension, rather than a MATLAB ".m" extension', extension)));
+            end
+
+            fileID = fopen(options.script, 'w');
+            fprintf(fileID, "%s\n\n", '% THIS FILE IS GENERATED FROM RAT VIA THE "WRITESCRIPT" ROUTINE. IT IS NOT PART OF THE RAT CODE.');
+
+            % Start by getting input arguments
+            projectSpec = "%s = project(name='%s', calcType='%s', model='%s', geometry='%s', absorption=%s);\n\n";
+            fprintf(fileID, projectSpec, options.objName, obj.experimentName, obj.calculationType,  obj.modelType, obj.geometry,  string(obj.absorption));
+            if obj.usePriors
+                fprintf(fileID, "%s.setUsePriors(true);\n\n", options.objName);
+            end
+
+            % Add all parameters, with different actions for protected
+            % parameters
+            paramGroup = cell(sum(~strcmpi(obj.parameters.varTable{:, 1}, obj.protectedParameters)), 1);
+            groupIndex = 1;
+            for i=1:height(obj.parameters.varTable)
+                % Set protected parameters
+                if any(strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters))
+                    fprintf(fileID, options.objName + ".setParameterValue(%d, %.15g);\n", i, obj.parameters.varTable{i, 3});
+                    fprintf(fileID, options.objName + ".setParameterConstraint(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
+                    fprintf(fileID, options.objName + ".setParameterFit(%d, %s);\n", i, string(obj.parameters.varTable{i, 5}));
+                    fprintf(fileID, options.objName + ".setParameterPrior(%d, '%s', %.15g, %.15g);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
+                % Add non-protected parameters to a parameter group
+                else
+                    paramRow = table2cell(obj.parameters.varTable(i, :))';
+                    paramRow{5} = string(paramRow{5});
+                    paramGroup{groupIndex} = paramRow;
+                    groupIndex = groupIndex + 1;
+                end
+            end
+
+            fprintf(fileID, "\n");
+
+            % Write the parameter group to the script
+            if size(paramGroup, 1) > 0
+                fprintf(fileID, "paramGroup = {\n");
+                for i = 1:size(paramGroup, 1)
+                    paramSpec = blanks(14) + "{'%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g};\n";
+                    fprintf(fileID, paramSpec, paramGroup{i}{:});
+                end
+                fprintf(fileID, blanks(14) + "%s\n\n", "};");
+                fprintf(fileID, options.objName + ".addParameterGroup(paramGroup);\n");
+            end
+
+            fprintf(fileID, "\n");
+
+            % Add all parameters based on a parametersClass
+            paramClasses = ["bulkIn", "bulkOut", "scalefactors", "qzshifts", "background", "resolution"];
+            paramSubclasses = ["", "", "", "", "backPars", "resolPars"];
+
+            if isprop(obj, 'domainRatio')
+                paramClasses(end + 1) = "domainRatio";
+                paramSubclasses(end + 1) = "";
+            end
+
+            for i=1:length(paramClasses)
+
+                if isprop(obj.(paramClasses(i)), 'varTable')
+
+                    removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramClasses(i));
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == paramClasses(i));
+                    numParams = height(obj.(paramClasses(i)).varTable);
+                    paramTable = table2cell(obj.(paramClasses(i)).varTable)';
+
+                elseif isprop(obj.(paramClasses(i)).(paramSubclasses(i)), 'varTable')
+
+                    removeRoutine = obj.classes.removeRoutine(obj.classes.name == paramSubclasses(i));
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == paramSubclasses(i));
+                    numParams = height(obj.(paramClasses(i)).(paramSubclasses(i)).varTable);
+                    paramTable = table2cell(obj.(paramClasses(i)).(paramSubclasses(i)).varTable)';
+
+                end
+
+                % Remove default parameter
+                fprintf(fileID, options.objName + "." + removeRoutine + "(1);\n");
+                % Convert logical parameter
+                for j=1:numParams
+                    paramTable{5, j} = string(paramTable{5, j});
+                end
+                % Add the parameters that have been defined
+                paramSpec = options.objName + "." + addRoutine + "('%s', %.15g, %.15g, %.15g, %s, '%s', %.15g, %.15g);\n";
+                fprintf(fileID, paramSpec, paramTable{:});
+                fprintf(fileID, "\n");
+
+            end
+
+            % Now deal with classes where all of the fields are strings
+            stringClasses = ["customFile", "background", "resolution"];
+            stringSubclasses = ["", "backgrounds", "resolutions"];
+
+            fprintf(fileID, options.objName + ".removeBackground(1);\n");
+            fprintf(fileID, options.objName + ".removeResolution(1);\n");
+            fprintf(fileID, "\n");
+
+            for i=1:length(stringClasses)
+                stringTable = table();
+
+                if isprop(obj.(stringClasses(i)), 'varTable')
+
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == stringClasses(i));
+                    numCols = width(obj.(stringClasses(i)).varTable);
+                    stringTable = table2array(obj.(stringClasses(i)).varTable)';
+
+                elseif isprop(obj.(stringClasses(i)).(stringSubclasses(i)), 'varTable')
+
+                    addRoutine = obj.classes.addRoutine(obj.classes.name == stringSubclasses(i));
+                    numCols = width(obj.(stringClasses(i)).(stringSubclasses(i)).varTable);
+                    stringTable = table2array(obj.(stringClasses(i)).(stringSubclasses(i)).varTable)';
+
+                end
+
+                % Add parameters if any have been defined
+                if ~isempty(stringTable)
+                    stringSpec = options.objName + "." + addRoutine + "(" + join(repmat("'%s'", 1, numCols), ", ") + ");\n";
+                    fprintf(fileID, stringSpec, stringTable);
+                    fprintf(fileID, "\n");
+                end
+
+            end
+
+            % Need to deal with layers separately due to NaN issues
+            if ~isempty(obj.layers.varTable)
+                for i=1:height(obj.layers.varTable)
+                    if ~ismissing(obj.layers.varTable{i, end-1})
+                        stringSpec = options.objName + ".addLayer(" + join(repmat("'%s'", 1, width(obj.layers.varTable)), ", ") + ");\n";
+                        fprintf(fileID, stringSpec, table2array(obj.layers.varTable(i, :))');
+                    else
+                        stringSpec = options.objName + ".addLayer(" + join(repmat("'%s'", 1, 4), ", ") + ");\n";
+                        fprintf(fileID, stringSpec, table2array(obj.layers.varTable(i, 1:4))');                        
+                    end
+                end
+                fprintf(fileID, "\n");
+            end
+
+            % Data class requires writing and reading the data
+            fprintf(fileID, options.objName + ".removeData(1);\n");
+
+            for i=1:obj.data.rowCount
+
+                % Write and read data if it exists, else add an empty,
+                % named row
+                if isempty(obj.data.varTable{i, 2}{:})
+                    fprintf(fileID, options.objName + ".addData('%s');\n", obj.data.varTable{i, 1});
+                else
+                    writematrix(obj.data.varTable{i, 2}{:}, "data_" + string(i) + ".dat");
+                    fprintf(fileID, "data_%d = readmatrix('%s');\n", i, "data_" + string(i) + ".dat");
+                    fprintf(fileID, options.objName + ".addData('%s', data_%d);\n", obj.data.varTable{i, 1}, i);
+                end
+
+                % Also need to set dataRange and simRange explicitly as they
+                % are optional
+                if ~isempty(obj.data.varTable{i, 3}{:})
+                    fprintf(fileID, options.objName + ".setData(%d, 'dataRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 3}{:});
+                end
+                if ~isempty(obj.data.varTable{i, 4}{:})
+                    fprintf(fileID, options.objName + ".setData(%d, 'simRange', [%.15g %.15g]);\n", i, obj.data.varTable{i, 4}{:});
+                end
+
+                fprintf(fileID, "\n");
+
+            end
+
+            % Contrasts are a cell array rather than a table
+            % Need to handle resample and model fields separately
+            for i=1:obj.contrasts.numberOfContrasts
+
+                reducedStruct = rmfield(obj.contrasts.contrasts{i}, {'resample', 'model'});
+                contrastParams = string(namedargs2cell(reducedStruct));
+                contrastSpec = options.objName + ".addContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
+                fprintf(fileID, contrastSpec, contrastParams);
+                fprintf(fileID, options.objName + ".setContrast(%d, 'resample', %s);\n", i, string(obj.contrasts.contrasts{i}.resample));
+                if ~isempty(obj.contrasts.contrasts{i}.model)
+                    fprintf(fileID, options.objName + ".setContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.contrasts.contrasts{i}.model))) +"});\n", i, obj.contrasts.contrasts{i}.model{:});
+                end
+                fprintf(fileID, "\n");
+
+            end
+
+            if isprop(obj, 'domainContrasts')
+                for i=1:obj.domainContrasts.numberOfContrasts
+                    
+                    reducedStruct = rmfield(obj.domainContrasts.contrasts{i}, {'model'});
+                    contrastParams = string(namedargs2cell(reducedStruct));
+                    contrastSpec = options.objName + ".addDomainContrast(" + join(repmat("'%s'", 1, length(contrastParams)), ", ") + ");\n";
+                    fprintf(fileID, contrastSpec, contrastParams);
+                    if ~isempty(obj.contrasts.contrasts{i}.model)
+                        fprintf(fileID, options.objName + ".setDomainContrastModel(%d, {" + join(repmat("'%s'", 1, length(obj.domainContrasts.contrasts{i}.model))) +"});\n", i, obj.domainContrasts.contrasts{i}.model{:});
+                    end
+                    fprintf(fileID, "\n");
+                    
+                end
+            end
+            
+            fclose(fileID);
+
+        end
         
     end     % end public methods
     
@@ -945,7 +1196,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % currently defined properties.
             %
             % domainsProblem = problem.domainsClass();
-            domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.geometry, obj.absorption);
+            domainsObj = domainsClass(obj.experimentName, calculationTypes.Domains, obj.modelType, obj.geometry, obj.absorption);
             domainsObj = copyProperties(obj, domainsObj);
 
             % Need to treat contrasts separately due to changes in the

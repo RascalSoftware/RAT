@@ -12,28 +12,30 @@ classdef domainsClass < projectClass
         domainRatio          % Class for specifying the ratio between domains
         domainContrasts      % Modified contrast class with no data for domains
     end
-       
+
     methods
 
-        function obj = domainsClass(experimentName, calculationType, geometry, absorption)
+        function obj = domainsClass(experimentName, calculationType, modelType, geometry, absorption)
             % Creates a Project object for a domains calculation.
             % The input arguments are the experiment name which is a char
             % array; the calculation type, which is a calculationTypes
-            % enum; the geometry, which is a geometryOptions enum; and a
-            % logical to state whether or not absorption terms are
-            % included in the refractive index.
+            % enum; the model type, which is a modelTypes enum; the
+            % geometry, which is a geometryOptions enum; and a logical to
+            % state whether or not absorption terms are included in the
+            % refractive index.
             % All of the arguments are optional.
             %
             % problem = domainsClass('New experiment');
             arguments
                 experimentName {mustBeTextScalar} = ''
                 calculationType = calculationTypes.Domains
+                modelType = modelTypes.StandardLayers
                 geometry = geometryOptions.AirSubstrate
                 absorption {mustBeA(absorption,'logical')} = false
             end
             
             % Call projectClass constructor
-            obj@projectClass(experimentName, calculationType, geometry);
+            obj@projectClass(experimentName, calculationType, modelType, geometry, absorption);
 
             % Create a contrasts class for a domains calculation
             obj.contrasts = contrastsClass(domains=true);
@@ -210,7 +212,7 @@ classdef domainsClass < projectClass
             % currently defined properties.
             %
             % nonPolarisedProblem = problem.projectClass();
-            projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.geometry, obj.absorption);
+            projectObj = projectClass(obj.experimentName, calculationTypes.NonPolarised, obj.modelType, obj.geometry, obj.absorption);
             projectObj = copyProperties(obj, projectObj);
 
             % Need to treat contrasts separately due to changes in the

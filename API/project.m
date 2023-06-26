@@ -2,33 +2,41 @@ function obj = project(options)
     % Creates a project object.
     % The input arguments are the experiment name which is a char
     % array; the calculation type, which is a calculationTypes enum; the
-    % geometry, which is a geometryOptions enum; and a logical to state
-    % whether or not absorption terms are included in the refractive index.
+    % model type, which is a modelTypes enum; the geometry, which is a
+    % geometryOptions enum; and a logical to state whether or not
+    % absorption terms are included in the refractive index.
     % All of the arguments are optional.
     %
     % problem = project(name='New experiment', calc='non polarised');
     arguments
         options.name {mustBeTextScalar} = ''
-        options.type = calculationTypes.NonPolarised
+        options.calcType = calculationTypes.NonPolarised
+        options.model = modelTypes.StandardLayers
         options.geometry = geometryOptions.AirSubstrate
         options.absorption {mustBeA(options.absorption,'logical')} = false
     end
     
-    invalidTypeMessage = sprintf('calculation type must be a calculationTypes enum or one of the following strings (%s)', ...
+    % Validate input options
+    invalidCalcMessage = sprintf('calculation type must be a calculationTypes enum or one of the following strings (%s)', ...
                                  strjoin(calculationTypes.values(), ', '));
 
-    options.type = validateOption(options.type, 'calculationTypes', invalidTypeMessage).value;
+    options.calcType = validateOption(options.calcType, 'calculationTypes', invalidCalcMessage).value;
+
+    invalidModelMessage = sprintf('model type must be a modelTypes enum or one of the following strings (%s)', ...
+                                  strjoin(modelTypes.values(), ', '));
+
+    options.model = validateOption(options.model, 'modelTypes', invalidModelMessage).value;
 
     invalidGeometryMessage = sprintf('geometry must be a geometryOptions enum or one of the following strings (%s)', ...
-                                 strjoin(geometryOptions.values(), ', '));
+                                     strjoin(geometryOptions.values(), ', '));
 
     options.geometry = validateOption(options.geometry, 'geometryOptions', invalidGeometryMessage).value;
 
     % Initialise object, including domains if necessary
-    if any(strcmp(options.type, {calculationTypes.Domains.value, calculationTypes.MagneticDomains.value}))
-        obj = domainsClass(options.name, options.type, options.geometry, options.absorption);
+    if any(strcmp(options.calcType, {calculationTypes.Domains.value, calculationTypes.MagneticDomains.value}))
+        obj = domainsClass(options.name, options.calcType, options.model, options.geometry, options.absorption);
     else
-        obj = projectClass(options.name, options.type, options.geometry, options.absorption);
+        obj = projectClass(options.name, options.calcType, options.model, options.geometry, options.absorption);
     end
 
     % Set specific options depending on the calculation type

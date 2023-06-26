@@ -32,7 +32,7 @@ classdef testProject < matlab.unittest.TestCase
 
         function testProjectTypes(testCase, calculationType, SLDValues, domainsCalc, absorption)
             % Test setup
-            problem = project(type=calculationType, absorption=absorption);
+            problem = project(calc=calculationType, absorption=absorption);
 
             testCase.verifyEqual(problem.experimentName, '', 'project does not initialise correctly');
             testCase.verifyEqual(problem.calculationType, calculationType.value, 'project does not initialise correctly');
@@ -44,7 +44,7 @@ classdef testProject < matlab.unittest.TestCase
 
             % Test setting experiment name
             newName = 'New Project Name';
-            problem = project(name=newName, type=calculationType, absorption=absorption);
+            problem = project(name=newName, calc=calculationType, absorption=absorption);
             testCase.verifyEqual(problem.experimentName, newName, 'project does not initialise correctly');
             testCase.verifyError(@() project(name=1), 'MATLAB:validators:mustBeTextScalar');
         end
@@ -52,7 +52,7 @@ classdef testProject < matlab.unittest.TestCase
         function testProtectedParameters(testCase)
             % Ensure errors are raised when attempting to remove protected
             % parameters
-            problem = project(type=calculationTypes.OilWater);
+            problem = project(calc=calculationTypes.OilWater);
             testCase.verifyError(@() problem.removeParameter(2), invalidOption.errorID);
             testCase.verifyError(@() problem.removeParameter("Oil Roughness"), invalidOption.errorID);
         end

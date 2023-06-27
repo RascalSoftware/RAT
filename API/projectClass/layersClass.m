@@ -64,7 +64,7 @@ classdef layersClass < tableUtilities
                 % Add a layer that is fully defined
                 if length(layerDetails) == (obj.varCount - 2)
                     % No hydration
-                    layerDetails = [layerDetails, {NaN, hydrationTypes.BulkOut.value}];
+                    layerDetails = [layerDetails, {'', hydrationTypes.BulkOut.value}];
                 elseif length(layerDetails) ~= obj.varCount
                     throw(invalidNumberOfInputs(sprintf('Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.', obj.varCount - 2, obj.varCount)));
                 end
@@ -74,21 +74,17 @@ classdef layersClass < tableUtilities
                 
                 % Check that the parameter names given are real
                 % parameters or numbers
-                newRow = {name};
+                newRow = [name, repmat({''}, 1, obj.varCount - 2), hydration];
                 
                 % Must be a parameter name or number . . .
                 for i = 2:(obj.varCount - 2)
                     newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
                 end
 
-                %  . . . (apart from the penultimate column which can also be NaN)
-                if isnan(layerDetails{obj.varCount - 1})
-                    newRow{obj.varCount - 1} = NaN;
-                else
+                %  . . . (apart from the penultimate column which can also be empty or NaN)
+                if ~(strcmpi(layerDetails{obj.varCount - 1}, '') || any(isnan(layerDetails{obj.varCount - 1})))
                     newRow{obj.varCount - 1} = obj.findParameter(layerDetails{obj.varCount - 1}, paramNames);
                 end
-                
-                newRow = [newRow hydration];
 
             end
 
@@ -176,7 +172,7 @@ classdef layersClass < tableUtilities
                                 paramIndices(j) = find(strcmpi(thisLayer{j},paramNames));
                             end
 
-                            if ismissing(thisLayer(numCols-1))
+                            if strcmpi(thisLayer(numCols-1), "")
                                 hydr = NaN;
                             else
                                 hydr = find(strcmpi(thisLayer{numCols-1},paramNames));

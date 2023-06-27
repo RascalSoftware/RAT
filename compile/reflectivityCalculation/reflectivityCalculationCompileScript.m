@@ -17,5 +17,5 @@ cfg.TargetLang = 'C++';
 ARGS = makeCompileArgs();
 
 %% Hack to add include path and files then invoke MATLAB Coder.
-cmd = sprintf('codegen -I ''%s'' -config cfg reflectivityCalculation -args ARGS{1}', getappdata(0,'includeDir'));
+cmd = sprintf('codegen %s -config cfg reflectivityCalculation -args ARGS{1}', getappdata(0,'includeDir'));
 eval(cmd)

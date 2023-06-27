@@ -24,5 +24,10 @@ reflectivityCalculationCompileScript
 % Finally, change the paths back or the tests might fail...
 % setCompilePaths('mex');
 
+compilePath = fullfile(thisPath, 'compile', 'events');
+cd(compilePath);
+
+eventCompileScript;
+
 % Return to RAT root directory
 cd(thisPath);

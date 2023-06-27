@@ -13,16 +13,18 @@
 % details.
 
 root = pwd;  % Returns base RAT directory
-
+eventCompilePath = fullfile(root,'compile','events');
 paths = {
 
     fullfile(root,'API');
     fullfile(root,'API','controlsClass');
     fullfile(root,'API','enums');
+    fullfile(root,'API','events');
     fullfile(root,'API','outputFunction');
     fullfile(root,'API','projectClass');
 
     fullfile(root,'compile','DE');
+    eventCompilePath;
     fullfile(root,'compile','reflectivityCalculation');
     fullfile(root,'compile','simplex');
     fullfile(root,'compile');
@@ -73,10 +75,7 @@ paths = {
     fullfile(root,'utilities','misc');
     fullfile(root,'utilities','plotting');
 
-    fullfile(root,'3rdParty','paramonte');
-
-    fullfile(root,'compile')
-    
+    fullfile(root,'3rdParty','paramonte'); 
 };
 
 for i = 1:length(paths)
@@ -85,4 +84,13 @@ end
 
 addpath(root);
 setappdata(0, 'root', root);
-setappdata(0, 'includeDir', fullfile(root, 'targetFunctions', 'common', 'customModelsIncludes'));
+includedir = strcat(" -I '", fullfile(root, 'targetFunctions', 'common', 'customModelsIncludes'), "'",...
+                    " -I '", fullfile(root, 'compile', 'events'), "'");
+setappdata(0, 'includeDir', includedir);
+
+% Add the folder with the eventManager dynamic library to the system path so 
+% it can be found without copying the library file to every folder  
+systemPath = getenv("PATH");
+if startsWith(systemPath, eventCompilePath)
+    setenv("PATH", eventCompilePath + ";" + systemPath);
+end

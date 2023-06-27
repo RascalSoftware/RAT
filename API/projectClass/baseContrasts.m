@@ -272,8 +272,6 @@ classdef (Abstract) baseContrasts < handle
             % contrasts.toStruct(allowedNames, 'standard layers', dataTable)
             nContrasts = obj.numberOfContrasts;
             contrastLayers = cell(1,nContrasts);
-            contrastNbas = ones(1,nContrasts);
-            contrastNbss = ones(1,nContrasts);
             contrastCustomFile = ones(1,nContrasts);
             
             contrastNames = cell(1,nContrasts);
@@ -283,8 +281,6 @@ classdef (Abstract) baseContrasts < handle
 
                 thisContrast = obj.contrasts{i};
                 
-                contrastNbas(i) = find(strcmpi(thisContrast.nba,allowedNames.bulkInNames));
-                contrastNbss(i) = find(strcmpi(thisContrast.nbs,allowedNames.bulkOutNames));
                 contrastRepeatSLDs{i} = [0 1]; % todo
                 contrastNames{i} = thisContrast.name;
 
@@ -311,8 +307,6 @@ classdef (Abstract) baseContrasts < handle
 
             contrastStruct.contrastNames = contrastNames;
             contrastStruct.numberOfContrasts = nContrasts;
-            contrastStruct.contrastNbas = contrastNbas;
-            contrastStruct.contrastNbss = contrastNbss;
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastRepeatSLDs = contrastRepeatSLDs;
             contrastStruct.contrastCustomFile = contrastCustomFile;

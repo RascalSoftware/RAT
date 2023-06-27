@@ -3,9 +3,10 @@
 % Use incoherent summing on a permalloy layer
 % as a test
 
-problem = project(type="domains",absorption=true);
+problem = project(type="domains");
 problem.setModelType('custom layers');
 problem.setGeometry('substrate/liquid');
+problem.absorption = true;
 
 % Make some parameters...
 params = {{'Alloy thick',      100,    150,    200,   true}
@@ -38,6 +39,12 @@ problem.setScalefactor(1,'min',0.8,'Value',1,'max',1.1);
 % Add another bulk-out (and modify the first)
 problem.addBulkOut('SLD H2O', -0.6e-6, -0.56e-6, -0.4e-6, true);
 problem.setBulkOut(1,'fit',true);
+
+% Set some fitting flags.
+problem.setScalefactor(1,'fit',true);
+problem.setBacksPar(1,'fit',true);
+problem.setResolPar(1,'fit',true);
+problem.setDomainRatio(1,'fit',true)
 
 % Add the custom file...
 problem.addCustomFile('Alloy domains SAM','alloyDomains_SAM.m','matlab',pwd);

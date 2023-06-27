@@ -1,0 +1,13 @@
+DESCRIPTION OF DATA IN "Fitted_parameters_fig3"
+
+There are 3 columns:
+column 1 --> Time since start of NR experiment (min), first timepoint set to 0 in Fig. 3. 
+column 2 --> Parameter value.
+column 3 --> Parameter error.
+
+filename Key:
+....rpm_ --> Spinning speed at which the film was spin-coated.
+film_rough --> Amorphous film roughness (Angstrom).
+filmthick --> Amorphous film thickness (Angstrom).
+repeats --> Number of repeating bilayers (stacks). 
+sf_ratio --> Fraction of parallel lamellar stacks in mixed area model. 

@@ -16,6 +16,9 @@ desktop.ini
 # Unit test / coverage reports
 htmlcov/
 
+# Dev folders..
+devProjects/
+
 # Build
 -lang*
 paramonte_out/

@@ -139,6 +139,7 @@ classdef customModelClass < handle
                 tempAllLayers{i} = [0 0 0 0 0];
             end
             coder.varsize('tempAllLayers{:}',[10000 6],[1 1]);
+            coder.varsize('allLayers{:}',[10000 6],[1 1]);
 
             counter = 1;    % Actual contrast we are looking at
             for i = 1:2:totNumCalcs     % Note step of 2.....
@@ -166,17 +167,17 @@ classdef customModelClass < handle
                 thisContrastLayers2 = [1 1 1]; % typeDef
                 coder.varsize('thisContrastLayers2',[10000, 6],[1 1]);
 
-                switch thisLanguage
-                    case 'matlab'
+%                 switch thisLanguage
+%                     case 'matlab'
                         [thisContrastLayers1,allRoughs(counter)] = callMatlabCustomFunctionDomains(params,counter,thisFile,thisPath,bulkIn,bulkOut,numberOfContrasts,1);
                         [thisContrastLayers2,allRoughs(counter)] = callMatlabCustomFunctionDomains(params,counter,thisFile,thisPath,bulkIn,bulkOut,numberOfContrasts,2);
-                    case 'cpp'
-                        [thisContrastLayers1,allRoughs(counter)] = callCppFuncDomains(params,bulkIn,bulkOut,counter,thisFile,thisFile,1);
-                        [thisContrastLayers2,allRoughs(counter)] = callCppFuncDomains(params,bulkIn,bulkOut,counter,thisFile,thisFile,2);
-                    case 'python'
-                        [thisContrastLayers1,allRoughs(counter)] = pythonCustomFunctionWrapperDomains(thisFile,params,bulkIn,bulkOut,counter,numberOfContrasts,1);
-                        [thisContrastLayers2,allRoughs(counter)] = pythonCustomFunctionWrapperDomains(thisFile,params,bulkIn,bulkOut,counter,numberOfContrasts,2);
-                end
+%                     case 'cpp'
+%                         [thisContrastLayers1,allRoughs(counter)] = callCppFuncDomains(params,bulkIn,bulkOut,counter,thisFile,thisFile,1);
+%                         [thisContrastLayers2,allRoughs(counter)] = callCppFuncDomains(params,bulkIn,bulkOut,counter,thisFile,thisFile,2);
+%                     case 'python'
+%                         [thisContrastLayers1,allRoughs(counter)] = pythonCustomFunctionWrapperDomains(thisFile,params,bulkIn,bulkOut,counter,numberOfContrasts,1);
+%                         [thisContrastLayers2,allRoughs(counter)] = pythonCustomFunctionWrapperDomains(thisFile,params,bulkIn,bulkOut,counter,numberOfContrasts,2);
+%                 end
 
                 % If the output layers has 5 columns, then we need to do
                 % the hydration correction (the user has not done it in the

@@ -14,4 +14,5 @@ function plotRefSLD(problem, result)
     data.resample = problemDef.resample;
 
     plotRefSLDHelper(data, false);
+
 end

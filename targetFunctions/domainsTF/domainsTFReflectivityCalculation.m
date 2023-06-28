@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)
+function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)
 
 % Main function for the standardTF reflectivity calculation
 % This function decides what type of model is being analysed and barnches
@@ -52,9 +52,10 @@ for i = 1:numberOfContrasts
     layerSlds{i} = [1 1 1 ; 1 1 1];
 end
 
-sldProfiles = cell(numberOfContrasts,1);
+domainSldProfiles = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    sldProfiles{i} = [1 1 ; 1 1];
+    domainSldProfiles{i,1} = [1 1 ; 1 1];
+    domainSldProfiles{i,2} = [1 1 ; 1 1];
 end
 
 allLayers = cell(numberOfContrasts,1);
@@ -63,21 +64,21 @@ for i = 1:numberOfContrasts
 end
            
 switch lower(type)
-    case 'standard layers'
+    %case 'standard layers'
         % Standard layers calculation
-        [problem,reflectivity,Simulation,...
-         shifted_data,layerSlds,sldProfiles,...
-         allLayers]= domainsTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+%         [problem,reflectivity,Simulation,...
+%          shifted_data,layerSlds,sldProfiles,...
+%          allLayers]= domainsTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
     case 'custom layers'
         % Custom layers with user supplied custom model file
         [problem,reflectivity,Simulation,...
-            shifted_data,layerSlds,sldProfiles,...
+            shifted_data,layerSlds,domainSldProfiles,...
             allLayers] = domainsTFCustomLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
-    case 'custom xy'
+    %case 'custom xy'
         % Custom SLD profile with user defined model file
-        [problem,reflectivity,Simulation,...
-           shifted_data,layerSlds,sldProfiles,...
-           allLayers] = domainsTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+%         [problem,reflectivity,Simulation,...
+%            shifted_data,layerSlds,sldProfiles,...
+%            allLayers] = domainsTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 end
 
 end

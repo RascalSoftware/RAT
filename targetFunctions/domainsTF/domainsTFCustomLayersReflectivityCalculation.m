@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTFCustomLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
+function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = domainsTFCustomLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
 
 % Custom layers reflectivity calculation for standardTF
 
@@ -9,6 +9,7 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,all
 % single    - single threaded teflectivity calculation
 % points    - parallelise over points in the reflectivity calculation
 % contrasts - parallelise over contrasts.
+
 
 % Pre-allocation - It's necessary to
 % pre-allocate the memory for all the arrays
@@ -44,9 +45,10 @@ for i = 1:numberOfContrasts
     layerSlds{i} = [1 1 1; 1 1 1];
 end
 
-sldProfiles = cell(numberOfContrasts,1);
+domainSldProfiles = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    sldProfiles{i} = [1 1; 1 1];
+    domainSldProfiles{i,1} = [1 1; 1 1];
+    domainSldProfiles{i,2} = [1 1; 1 1];
 end
 
 allLayers = cell(numberOfContrasts,1);
@@ -61,23 +63,23 @@ switch para
     case 'single'
             
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+             Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTFCustomLayersSingle(problemDef,problemDefCells,...
              problemDefLimits,controls);
         
-    case 'points'
-        
-          [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = domainsTFCustomLayersParallelPoints(problemDef,problemDefCells,...
-             problemDefLimits,controls);
-         
-    case 'contrasts'
-        
-          [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = domainsTFCustomLayersParallelContrasts(problemDef,problemDefCells,...
-             problemDefLimits,controls);
+%     case 'points'
+%         
+%           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+%              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+%              allRoughs] = domainsTFCustomLayersParallelPoints(problemDef,problemDefCells,...
+%              problemDefLimits,controls);
+%          
+%     case 'contrasts'
+%         
+%           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+%              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+%              allRoughs] = domainsTFCustomLayersParallelContrasts(problemDef,problemDefCells,...
+%              problemDefLimits,controls);
 
 end
 

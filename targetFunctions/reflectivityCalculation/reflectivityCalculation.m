@@ -61,11 +61,18 @@ layerSlds = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     layerSlds{i} = [1 1 1 ; 1 1 1];
 end
-coder.varsize('layerSlds{:}',[10000 3],[1 0]);
+coder.varsize('layerSlds{:}',[10000 6],[1 1]);
 
 sldProfiles = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    sldProfiles{i} = [1 1 ; 1 1];
+    sldProfiles{i,1} = [1 1 ; 1 1];
+end
+coder.varsize('sldProfiles{:}',[10000 2],[1 0]);
+
+domainSldProfiles = cell(numberOfContrasts,2);
+for i = 1:numberOfContrasts
+    domainSldProfiles{i,1} = [1 1 ; 1 1];
+    domainSldProfiles{i,2} = [1 1 ; 1 1];
 end
 coder.varsize('sldProfiles{:}',[10000 2],[1 0]);
 
@@ -86,7 +93,7 @@ switch whichTF
     %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDefCells,controls);
     case 'domains'
-        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+        [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
     %otherwise
         %error('The calculation type "%s" is not supported', whichTF);
 
@@ -117,13 +124,28 @@ for i = 1:numberOfContrasts
     cell4{i} = layerSlds{i};
 end
 result{4} = cell4;
- 
-cell5 = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    cell5{i} = sldProfiles{i}; 
+
+% The size of this array now varies depending on TF
+switch whichTF
+    case 'domains'
+
+        cell5 = cell(numberOfContrasts,2);
+        for i = 1:numberOfContrasts
+            cell5{i,1} = domainSldProfiles{i,1};
+            cell5{i,2} = domainSldProfiles{i,2};
+        end
+        result{5} = cell5;
+
+    otherwise
+
+        cell5 = cell(numberOfContrasts,1);
+        for i = 1:numberOfContrasts
+            cell5{i} = sldProfiles{i};
+        end
+        result{5} = cell5;
+
 end
-result{5} = cell5;
- 
+
 cell6 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     cell6{i} = allLayers{i}; 
@@ -163,9 +185,9 @@ coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
 coder.varsize('result{3}{:}',[Inf 3],[1 0]);
 
 coder.varsize('result{4}',[Inf 1],[1 0]);           %Layers slds
-coder.varsize('result{4}{:}',[Inf 3],[1 0]);
+coder.varsize('result{4}{:}',[Inf 6],[1 1]);
 
-coder.varsize('result{5}',[Inf 1],[1 0]);           %Sld profiles
+coder.varsize('result{5}',[Inf 2],[1 1]);           %Sld profiles
 coder.varsize('results{5}{:}',[Inf 2],[1 0]);
 
 coder.varsize('result{6}',[Inf 1],[1 0]);           %All layers (resampled)

@@ -43,12 +43,12 @@ class eventHelper
 
         };
 
-        void updatePlot(int nContrast, double* reflect, int nReflect, double* shiftedData, int nShiftedData, 
-                        double* sldProfiles, int nSldProfiles, double* layers, int nLayers, double* ssubs, 
+        void updatePlot(int nContrast, double* reflect, double* nReflect, double* shiftedData, double* nShiftedData, 
+                        double* sldProfiles, double* nSldProfiles, double* layers, double* nLayers, double* ssubs, 
                         double* resample, double* dataPresent, const char* modelType)
         {                              
-            auto func = library->get_function<void(int, double*, int, double*, int, 
-                                                   double*, int, double*, int, double*, 
+            auto func = library->get_function<void(int, double*, double*, double*, double*, 
+                                                   double*, double*, double*, double*, double*, 
                                                    double*, double*, const char*)>("updatePlot");
             
             // pass the arguments to the function

@@ -91,6 +91,6 @@ setappdata(0, 'includeDir', includedir);
 % Add the folder with the eventManager dynamic library to the system path so 
 % it can be found without copying the library file to every folder  
 systemPath = getenv("PATH");
-if startsWith(systemPath, eventCompilePath)
+if ~startsWith(systemPath, eventCompilePath)
     setenv("PATH", eventCompilePath + ";" + systemPath);
 end

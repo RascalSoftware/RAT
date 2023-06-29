@@ -73,15 +73,15 @@ classdef eventManager < handle
             % should be an eventTypes enum and functionName should be name of the 
             % callback function.
             %
-            % eventManager.register(eventTypes.Plot, 'plotRefSLDHelper')
+            % eventManager.register(eventTypes.Plot, 'plotRefSLDHelper');
             eventType = validateOption(eventType, 'eventTypes', 'Event type must be an eventTypes enum').value;
 
             if ~isText(functionName) || isempty(char(functionName))
                 throw(invalidType('Second value must be function name (text)'));
             end
 
-            events = eventManager().getEvents();
-            handlers = eventManager().getHandlers();
+            events = eventManager.getEvents();
+            handlers = eventManager.getHandlers();
             
             if isempty(events) || ~any([events{:}] == eventType)
                 eventManagerInterface('register', eventType);
@@ -90,8 +90,8 @@ classdef eventManager < handle
             events{end + 1} = eventType;
             handlers{end + 1} = functionName;
 
-            eventManager().setEvents(events)
-            eventManager().setHandlers(handlers)           
+            eventManager.setEvents(events)
+            eventManager.setHandlers(handlers)           
         end
 
         function notify(eventType, data)
@@ -99,9 +99,9 @@ classdef eventManager < handle
             % eventType. eventType should be an eventTypes enum and 
             % data should be the appropriate data for the event 
             %
-            % eventManager.notify(eventTypes.Message, 'wow')
-            events = eventManager().getEvents();
-            handlers = eventManager().getHandlers();
+            % eventManager.notify(eventTypes.Message, 'wow');
+            events = eventManager.getEvents();
+            handlers = eventManager.getHandlers();
 
             eventType = validateOption(eventType, 'eventTypes', 'Event type must be an eventTypes enum').value;
             for i=1:length(events)
@@ -119,9 +119,9 @@ classdef eventManager < handle
         function clear()
             % Clear all register event callbacks 
             %
-            % eventManager.clear()
-            eventManager().setEvents({})
-            eventManager().setHandlers({})
+            % eventManager.clear();
+            eventManager.setEvents({})
+            eventManager.setHandlers({})
             eventManagerInterface('clear');
         end
 

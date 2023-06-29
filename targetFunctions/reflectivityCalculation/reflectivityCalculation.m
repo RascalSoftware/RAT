@@ -16,7 +16,7 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,p
 % * magnetic       - Target function for cases for polarised neutrons with polarisation analysis.
 %                       
 
-% sendEvents('message', 'Running reflectivity calculation...');
+% triggerEvent('message', 'Running reflectivity calculation...');
 
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles
@@ -135,7 +135,7 @@ plotResult = cell(1,3);
 plotResult{1} = result;
 plotResult{2} = problem.ssubs;
 plotResult{3} = problemDef;
-sendEvents('plot', plotResult);
+triggerEvent('plot', plotResult);
 
 % Pre-processor directives for Matlab Coder
 % to define the size of the output array

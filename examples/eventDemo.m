@@ -5,7 +5,7 @@ problem = load('DSPCBilayerProjectClass.mat').thisProjectClass;
 controls = controlsClass();
 controls.parallel = parallelOptions.Points;
 controls.procedure = procedures.Simplex;
-controls.maxIter = 10;
+controls.maxIter = 1;
 
 figure(2); clf
 eventManager.register(eventTypes.Plot, 'plotRefSLDHelper')

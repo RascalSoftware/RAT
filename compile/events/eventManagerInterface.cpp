@@ -15,49 +15,54 @@ void myCallback(const baseEvent& event)
 
         mxArray *reflect = mxCreateCellMatrix(pEvent->data->nContrast, 1);
 
-        mwSize dims[2] = {(mwSize)pEvent->data->nReflect, 2};
-        int offset;
+        mwSize dims[2] = {0, 0};
+        int offset = 0;
         size_t bytes_to_copy;
         
         for ( int i = 0; i < pEvent->data->nContrast; i++){
-            offset = pEvent->data->nReflect * 2 * i;
+            dims[0] = (mwSize)pEvent->data->nReflect[i]/2.0;
+            dims[1] = 2; 
             mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
-            bytes_to_copy = pEvent->data->nReflect * 2 * mxGetElementSize(temp);
+            bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
             memcpy(mxGetPr(temp), pEvent->data->reflect + offset, bytes_to_copy);
             mxSetCell(reflect, i, temp);
+            offset +=  dims[0] * dims[1];
         }
-
+        
         mxArray *shifted = mxCreateCellMatrix(pEvent->data->nContrast, 1);
-        dims[0] = (mwSize)pEvent->data->nShiftedData;
-        dims[1] = 3;       
+        offset = 0;
         for ( int i = 0; i < pEvent->data->nContrast; i++){
-            offset = pEvent->data->nShiftedData * 3 * i;
+            dims[0] = (mwSize)pEvent->data->nShiftedData[i]/3.0;
+            dims[1] = 3; 
             mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
-            bytes_to_copy = pEvent->data->nShiftedData * 3 * mxGetElementSize(temp);
+            bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
             memcpy(mxGetPr(temp), pEvent->data->shiftedData + offset, bytes_to_copy);
             mxSetCell(shifted, i, temp);
+            offset +=  dims[0] * dims[1];
         }
         
         mxArray *slds = mxCreateCellMatrix(pEvent->data->nContrast, 1);
-        dims[0] = (mwSize)pEvent->data->nSldProfiles;
-        dims[1] = 2;       
+        offset = 0;
         for ( int i = 0; i < pEvent->data->nContrast; i++){
-            offset = pEvent->data->nSldProfiles * 2 * i;
+            dims[0] = (mwSize)pEvent->data->nSldProfiles[i]/2.0;
+            dims[1] = 2; 
             mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
-            bytes_to_copy = pEvent->data->nSldProfiles * 2 * mxGetElementSize(temp);
+            bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
             memcpy(mxGetPr(temp), pEvent->data->sldProfiles + offset, bytes_to_copy);
             mxSetCell(slds, i, temp);
+            offset +=  dims[0] * dims[1];
         }
 
         mxArray *layers = mxCreateCellMatrix(pEvent->data->nContrast, 1);
-        dims[0] = 1;
-        dims[1] = (mwSize)pEvent->data->nLayers;       
+        offset = 0;
         for ( int i = 0; i < pEvent->data->nContrast; i++){
-            offset = pEvent->data->nLayers * i;
+            dims[0] = (mwSize)pEvent->data->nLayers[i];
+            dims[1] = 1; 
             mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
-            bytes_to_copy = pEvent->data->nLayers * mxGetElementSize(temp);
+            bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
             memcpy(mxGetPr(temp), pEvent->data->layers + offset, bytes_to_copy);
             mxSetCell(layers, i, temp);
+            offset +=  dims[0] * dims[1];
         }
 
         dims[0] = (mwSize)pEvent->data->nContrast;

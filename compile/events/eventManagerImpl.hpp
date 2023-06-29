@@ -4,7 +4,10 @@
 #include <mutex>
 #include <vector>
 
-
+/* 
+  Implementation of a singleton event manager with support for multiple 
+  event types.
+*/
 enum eventTypes {
   MESSAGE,
   PLOT
@@ -14,13 +17,13 @@ enum eventTypes {
 struct plotData {
     int nContrast;
     double* reflect;
-    int nReflect;
+    double* nReflect;
     double* shiftedData;
-    int nShiftedData;
+    double* nShiftedData;
     double* sldProfiles;
-    int nSldProfiles;
+    double* nSldProfiles;
     double* layers;
-    int nLayers;
+    double* nLayers;
     double* ssubs;
     double* resample;
     double* dataPresent;

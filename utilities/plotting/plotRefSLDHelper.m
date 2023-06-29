@@ -1,9 +1,13 @@
 function plotRefSLDHelper(data, noDelay)
+    % Helper function to make it eaier to plot from event. data is a struct
+    % with the plot data and no delay indicates if draw should be delayed.
+    %
+    % plotRefSLDHelper(data, false);
     arguments
         data 
         noDelay {logical} = true
     end
-
+    
     modelType = data.modelType;
     reflectivity = data.reflectivity;
     shifted_data = data.shifted_data;

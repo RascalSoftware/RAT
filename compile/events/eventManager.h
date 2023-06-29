@@ -13,8 +13,8 @@ extern "C" {
 #define LIB_EXPORT
 #endif
 
-LIB_EXPORT void updatePlot(int nContrast, double* reflect, int nReflect, double* shiftedData, int nShiftedData, 
-                           double* sldProfiles, int nSldProfiles, double* layers, int nLayers, double* ssubs, 
+LIB_EXPORT void updatePlot(int nContrast, double* reflect, double* nReflect, double* shiftedData, double* nShiftedData, 
+                           double* sldProfiles, double* nSldProfiles, double* layers, double* nLayers, double* ssubs, 
                            double* resample, double* dataPresent, const char* modelType);
 
 LIB_EXPORT void sendMessage(const char* msg);

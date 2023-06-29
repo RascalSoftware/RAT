@@ -1,4 +1,10 @@
-function sendEvents(eventType, data)
+function triggerEvent(eventType, data)
+    % Triggers the event type with the given data. The supported event types are
+    % 'message' and 'plot'. The data for message is a char array while for
+    % the plot it is a cell array containing the result cell, problem.ssubs
+    % and problemDef
+    % 
+    % triggerEvent('message', 'Hello world');
     persistent initialised;
 
     if isempty(initialised)
@@ -25,41 +31,14 @@ function sendEvents(eventType, data)
                 coder.ceval('std::mem_fn(&eventHelper::sendMessage)', p, [data,0]);
             elseif strcmpi(eventType, 'plot')
                 result = data{1};
-                temp = result{1}; % reflectivity
-    
-                nContrast = length(temp);
-                colSize = size(temp{1}, 2);
-                nReflect = length(temp{1});
-                reflect = zeros(nReflect, 2 * nContrast);
-                for i=1:nContrast 
-                    reflect(:, (colSize*i)-(colSize-1):(colSize*i)) = temp{i}; 
-                end
-    
-                temp = result{3}; % shifted data
-                colSize = size(temp{1}, 2);
-                nShiftedData = length(temp{1});
-                shiftedData = zeros(nShiftedData, colSize * nContrast);
-                for i=1:nContrast 
-                    shiftedData(:, (colSize*i)-(colSize-1):(colSize*i)) = temp{i}; 
-                end
-    
-                temp = result{5}; % Sld profiles
-                colSize = size(temp{1}, 2);
-                nSldProfiles = length(temp{1});
-                sldProfiles = zeros(nSldProfiles, colSize * nContrast);
-                for i=1:nContrast 
-                    sldProfiles(:, (colSize*i)-(colSize-1):(colSize*i)) = temp{i};
-                end
-    
-                temp = result{6}; % All Layers
-                nLayers = length(temp{1});
-                layers = zeros(nLayers, nContrast);
-                for i=1:nContrast 
-                    layers(:, i) = temp{i}';
-                end
-                
+                nContrast = length(result{1});
+                [reflect, nReflect] = packCellArray(result{1}); % reflectivity
+                [shiftedData, nShiftedData] = packCellArray(result{3});  
+                [sldProfiles, nSldProfiles] = packCellArray(result{5});
+                [layers, nLayers] = packCellArray(result{6}); % All Layers
+              
                 ssubs = data{2}; % ssubs
-    
+   
                 problemDef = data{3};
                 modelType = [problemDef.modelType, 0];
                 resample = problemDef.resample;
@@ -80,5 +59,30 @@ function sendEvents(eventType, data)
                 fprintf("%s", data);    
             end
         end
+    end
+end
+
+
+function [packedArray, counts] = packCellArray(cellArray)
+    % Packs a cell array with different sized arrays into a single row
+    % array and an array of counts for each cell. For the example below 
+    % reflect will be [1, 2, 3, 4, 5, 6, 7] and nReflect will be [3, 4]
+    % 
+    % [reflect, nReflect] = packCellArray({[1, 2, 3], [4, 5, 6, 7]});
+    rowSize = 0;
+    nCells = length(cellArray);
+    
+    counts = zeros(nCells, 1);
+    for i=1:nCells
+        counts(i) = size(cellArray{i}, 1) * size(cellArray{i}, 2);
+        rowSize = rowSize + counts(i);
+    end
+    
+    packedArray = zeros(rowSize, 1);
+    start = 1;
+    for i=1:nCells
+        stop = start + counts(i);
+        packedArray(start:stop-1, :) = reshape(cellArray{i}, [], 1);
+        start = stop;
     end
 end

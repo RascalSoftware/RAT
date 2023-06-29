@@ -11,7 +11,7 @@ function plotRefSLD(problem, result)
     data.sldProfiles = result.sldProfiles;
     data.allLayers = result.allLayers;
     data.dataPresent = problemDef.dataPresent;
-    data.ssub = result.contrastParams.ssubs;
+    data.ssubs = result.contrastParams.ssubs;
     data.resample = problemDef.resample;
 
     plotRefSLDHelper(data, false);

@@ -153,6 +153,19 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.project.setDomainContrastModel('Bilayer', {}), nameNotRecognised.errorID);
         end
 
+        function testDomainContrastExceptions(testCase)
+            % Ensure a domains contrast is not defined for a custom model,
+            % and the routines modifying the domains contrast raise an
+            % error
+            customProject = domainsClass('custom project', calculationTypes.Domains, modelTypes.CustomLayers);
+            testCase.verifyEmpty(customProject.domainContrasts);
+            testCase.verifyError(@() customProject.addDomainContrast('name', 'Bilayer / H2O'), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.removeDomainContrast(1), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.setDomainContrast(1, 'name', 'First Bilayer'), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.setDomainContrastModel(1, {'Hydrogenated Heads', 'Deuterated Heads'}), invalidProperty.errorID)
+        end
+
+
         function testToStruct(testCase)
             projectStruct = testCase.project.toStruct();
             testCase.verifyEqual(projectStruct.experimentName, testCase.project.experimentName, 'toStruct method not working');

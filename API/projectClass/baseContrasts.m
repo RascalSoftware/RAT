@@ -60,6 +60,18 @@ classdef (Abstract) baseContrasts < handle
             names = obj.getDisplayNames();
         end
 
+        function names = getNames(obj)
+            % Get a string array of the names of each of the objects
+            % defined in the class.
+            %
+            % customFiles.getNames()
+            nContrasts = obj.numberOfContrasts;
+            names = strings(nContrasts, 1);
+            for i = 1:nContrasts
+                names(i) = obj.contrasts{i}.name;
+            end
+        end
+
         function obj = addContrast(obj, allowedNames, varargin)
             % Add a contrast to the class
             % A class can be added with no input parameters, just a class
@@ -159,11 +171,15 @@ classdef (Abstract) baseContrasts < handle
                 if length(modelArray) > 1
                     throw(invalidValue('Only 1 model value allowed for ''custom'''));
                 end
+            elseif strcmpi(modelType, modelTypes.StandardLayers.value) && obj.domainsCalc && isa(obj, 'contrastsClass')
+                if length(modelArray) ~= 2
+                    throw(invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
+                end
             end
 
             for i = 1:length(modelArray)
                 if ~strcmpi(modelArray{i}, allowedNames)
-                    throw(nameNotRecognised(sprintf('Layer/Custom Name %s is not recognised', modelArray{i})));
+                    throw(nameNotRecognised(sprintf('Model comonent name %s is not recognised. The allowed names are: %s.', modelArray{i}, strjoin(allowedNames, ', '))));
                 end
             end
 

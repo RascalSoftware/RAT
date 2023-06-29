@@ -63,7 +63,31 @@ classdef domainsClass < projectClass
             names = getAllAllowedNames@projectClass(obj);
             names.domainRatioNames = obj.domainRatio.getNames();
         end
-        
+    
+        % ----------------------------------------------------------------
+        %
+        %   Editing of Domains Contrasts Block
+
+        function obj = setContrastModel(obj, row, model)
+            % Edits the model of an existing contrast parameter. Expects
+            % the index of contrast parameter and cell array of layer names
+            %
+            % problem.setContrastModel(1, {'layer 1'})
+                        
+            % Make a different allowed list depending on whether 
+            % it is custom or layers
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+                % Standard Layers
+                allowedValues = obj.domainContrasts.getNames();
+            else
+                % Custom models
+                allowedValues = obj.customFile.getNames();
+            end
+            
+            % Call the setContrastModel method
+            obj.contrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+        end
+
         % -------------------------------------------------------------------
         % Editing of Domain Ratio block
         

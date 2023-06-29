@@ -25,7 +25,7 @@ class eventHelper
         {   
             try 
             {
-                this->library = std::make_unique<dylib>("EventManager", dylib::extension);
+                this->library = std::unique_ptr<dylib>(new dylib("EventManager", dylib::extension));
                 return true;
             } 
             catch (const dylib::handle_error &) 

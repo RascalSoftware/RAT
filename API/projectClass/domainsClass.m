@@ -128,11 +128,11 @@ classdef domainsClass < projectClass
             % "bulk in", "bulk out", "model"
             % 
             % problem.addDomainContrast('domainContrast 1', 'nba', 'Silicon');
-            if any(strcmpi(obj.modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
-                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
-            else
+            if isa(obj.domainContrasts, 'domainContrastsClass')
                 allowedNames = obj.getAllAllowedNames();
                 obj.domainContrasts.addContrast(allowedNames, varargin{:});
+            else
+                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
         end
 
@@ -141,10 +141,10 @@ classdef domainsClass < projectClass
             % index or name of resolution to remove
             %
             % problem.removeDomainContrast(1);
-            if any(strcmpi(obj.modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
-                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
-            else
+            if isa(obj.domainContrasts, 'domainContrastsClass')
                 obj.domainContrasts.removeContrast(row);
+            else
+                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
         end
  
@@ -154,15 +154,15 @@ classdef domainsClass < projectClass
             % inputs are name / value pairs for the parts involved
             %
             % problem.setContrast(1, 'name', 'domainContrast')
-            if any(strcmpi(obj.modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
-                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
-            else
+            if isa(obj.domainContrasts, 'domainContrastsClass')
                 % Get the list of allowed values depending on what is
                 % set for the other contrasts.
                 allowedValues = obj.getAllAllowedNames;
                 
                 % Call the setContrast method
                 obj.domainContrasts.setContrast(row, allowedValues, varargin{:});
+            else
+                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
         end
         
@@ -171,11 +171,11 @@ classdef domainsClass < projectClass
             % the index of contrast parameter and cell array of layer names
             %
             % problem.setDomainContrastModel(1, {'layer 1'})
-            if any(strcmpi(obj.modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
-                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
-            else
+            if isa(obj.domainContrasts, 'domainContrastsClass')
                 allowedValues = obj.layers.getNames();
                 obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+            else
+                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
         end
 
@@ -187,7 +187,7 @@ classdef domainsClass < projectClass
 
             mainStruct = toStruct@projectClass(obj);
 
-            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+            if isa(obj.domainContrasts, 'domainContrastsClass')
                 domainContrastStruct = obj.domainContrasts.toStruct(obj.getAllAllowedNames, obj.modelType);
                 domainContrastStruct = cell2struct(struct2cell(domainContrastStruct), ...
                                                     {'domainContrastNames', ...
@@ -230,7 +230,7 @@ classdef domainsClass < projectClass
             obj.domainRatio.displayTable;
 
             % Display the domainContrasts object
-            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+            if isa(obj.domainContrasts, 'domainContrastsClass')
                 fprintf('   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
                 obj.domainContrasts.displayContrastsObject; 
             end

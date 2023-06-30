@@ -137,7 +137,7 @@ problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
 problemDefCells{17} = inputStruct.allOilChiData;
 
 % Now deal with domains cell arrays
-if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrast, 'domainContrastsClass')
+if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 'domainContrastsClass')
 
     domainContrastLayers = inputStruct.domainContrastLayers;
 
@@ -364,7 +364,7 @@ else
     problemDef.domainRatio = ones(1,0);
 end
 
-if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrast, 'domainContrastsClass')
+if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 'domainContrastsClass')
     problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
     problemDef.domainContrastCustomFiles = inputStruct.domainContrastCustomFile;
 else

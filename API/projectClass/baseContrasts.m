@@ -64,7 +64,7 @@ classdef (Abstract) baseContrasts < handle
             % Get a string array of the names of each of the objects
             % defined in the class.
             %
-            % customFiles.getNames()
+            % contrasts.getNames()
             nContrasts = obj.numberOfContrasts;
             names = strings(nContrasts, 1);
             for i = 1:nContrasts
@@ -179,7 +179,7 @@ classdef (Abstract) baseContrasts < handle
 
             for i = 1:length(modelArray)
                 if ~strcmpi(modelArray{i}, allowedNames)
-                    throw(nameNotRecognised(sprintf('Model comonent name %s is not recognised. The allowed names are: %s.', modelArray{i}, strjoin(allowedNames, ', '))));
+                    throw(nameNotRecognised(sprintf('Model component name %s is not recognised. The allowed names are: %s.', modelArray{i}, strjoin(allowedNames, ', '))));
                 end
             end
 

@@ -7,33 +7,23 @@ classdef domainContrastsClass < baseContrasts
     methods
 
         function names = getDisplayNames(obj)
-            names = ["Name"; "Bulk in"; "Bulk out"; "Model"];
+            names = ["Name"; "Model"];
         end
 
-        function inputBlock = parseContrastInput(~, allowedNames, inputValues)
+        function inputBlock = parseContrastInput(~, ~, inputValues)
             % Parse the parameters given for the contrast, assigning
             % default values to those unspecified and ensuring specified
             % values are of the correct type, and included in the list of
             % allowed names where necessary.
             %
-            % contrastsClass.parseContrastInput(allowedNames, ...
-            %                                   'name', 'Contrast Name', ...
-            %                                   'nba', 'Silicon')        
+            % contrastsClass.parseContrastInput('name', 'Contrast Name')        
             defaultName = '';
-            defaultNba = '';
-            defaultNbs = '';
-        
-            expectedBulkin = cellstr(allowedNames.bulkInNames);
-            expectedBulkout = cellstr(allowedNames.bulkOutNames);
         
             p = inputParser;
             addParameter(p,'name',          defaultName,        @isText);
-            addParameter(p,'nba',           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
-            addParameter(p,'nbs',           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
                 
             parse(p, inputValues{:});
             inputBlock = p.Results;
-
         end
     end
 end

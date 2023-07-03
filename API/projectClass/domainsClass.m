@@ -40,10 +40,13 @@ classdef domainsClass < projectClass
             % Create a contrasts class for a domains calculation
             obj.contrasts = contrastsClass(domains=true);
 
-            % For a domains calculation, initialise secondary contrasts
-            % object and domain ratio parameter class
-            obj.domainContrasts = domainContrastsClass();
+            % For a domains calculation, initialise domain ratio parameter
+            % class and, for a standard layers model, secondary contrasts
+            % object
             obj.domainRatio = parametersClass('Domain Ratio 1',0.4,0.5,0.6,false,'uniform',0,Inf);
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+                obj.domainContrasts = domainContrastsClass();
+            end
         end
 
         function projectObj = toProjectClass(obj)
@@ -63,7 +66,31 @@ classdef domainsClass < projectClass
             names = getAllAllowedNames@projectClass(obj);
             names.domainRatioNames = obj.domainRatio.getNames();
         end
-        
+    
+        % ----------------------------------------------------------------
+        %
+        %   Editing of Domains Contrasts Block
+
+        function obj = setContrastModel(obj, row, model)
+            % Edits the model of an existing contrast parameter. Expects
+            % the index of contrast parameter and cell array of layer names
+            %
+            % problem.setContrastModel(1, {'layer 1'})
+                        
+            % Make a different allowed list depending on whether 
+            % it is custom or layers
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+                % Standard Layers
+                allowedValues = obj.domainContrasts.getNames();
+            else
+                % Custom models
+                allowedValues = obj.customFile.getNames();
+            end
+            
+            % Call the setContrastModel method
+            obj.contrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+        end
+
         % -------------------------------------------------------------------
         % Editing of Domain Ratio block
         
@@ -101,8 +128,12 @@ classdef domainsClass < projectClass
             % "bulk in", "bulk out", "model"
             % 
             % problem.addDomainContrast('domainContrast 1', 'nba', 'Silicon');
-            allowedNames = obj.getAllAllowedNames();
-            obj.domainContrasts.addContrast(allowedNames, varargin{:});  
+            if isa(obj.domainContrasts, 'domainContrastsClass')
+                allowedNames = obj.getAllAllowedNames();
+                obj.domainContrasts.addContrast(allowedNames, varargin{:});
+            else
+                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
+            end
         end
 
         function obj = removeDomainContrast(obj, row)
@@ -110,7 +141,11 @@ classdef domainsClass < projectClass
             % index or name of resolution to remove
             %
             % problem.removeDomainContrast(1);
-            obj.domainContrasts.removeContrast(row);
+            if isa(obj.domainContrasts, 'domainContrastsClass')
+                obj.domainContrasts.removeContrast(row);
+            else
+                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
+            end
         end
  
         function obj = setDomainContrast(obj, row, varargin)   
@@ -119,13 +154,16 @@ classdef domainsClass < projectClass
             % inputs are name / value pairs for the parts involved
             %
             % problem.setContrast(1, 'name', 'domainContrast')
-                        
-            % Get the list of allowed values depending on what is
-            % set for the other contrasts.
-            allowedValues = obj.getAllAllowedNames;
-            
-            % Call the setContrast method
-            obj.domainContrasts.setContrast(row, allowedValues, varargin{:});
+            if isa(obj.domainContrasts, 'domainContrastsClass')
+                % Get the list of allowed values depending on what is
+                % set for the other contrasts.
+                allowedValues = obj.getAllAllowedNames;
+                
+                % Call the setContrast method
+                obj.domainContrasts.setContrast(row, allowedValues, varargin{:});
+            else
+                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
+            end
         end
         
         function obj = setDomainContrastModel(obj, row, model)
@@ -133,20 +171,15 @@ classdef domainsClass < projectClass
             % the index of contrast parameter and cell array of layer names
             %
             % problem.setDomainContrastModel(1, {'layer 1'})
-                        
-            % Make a different allowed list depending on whether 
-            % it is custom or layers
-            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
-                % Standard Layers
+            if isa(obj.domainContrasts, 'domainContrastsClass')
                 allowedValues = obj.layers.getNames();
+                obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
             else
-                % Custom models
-                allowedValues = obj.customFile.getNames();
+                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
-            
-            % Call the setContrastModel method
-            obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
         end
+
+        % ----------------------------------------------------------------
 
         function outStruct = toStruct(obj)    
             % Converts the domains class parameters into a struct array
@@ -154,15 +187,15 @@ classdef domainsClass < projectClass
 
             mainStruct = toStruct@projectClass(obj);
 
-            domainContrastStruct = obj.domainContrasts.toStruct(obj.getAllAllowedNames, obj.modelType);
-            domainContrastStruct = cell2struct(struct2cell(domainContrastStruct), ...
-                                                {'domainContrastNames', ...
-                                                 'numberOfDomainContrasts', ...
-                                                 'domainContrastNbas', ...
-                                                 'domainContrastNbss', ...
-                                                 'domainContrastLayers', ...
-                                                 'domainContrastRepeatSLDs', ...
-                                                 'domainContrastCustomFile'});
+            if isa(obj.domainContrasts, 'domainContrastsClass')
+                domainContrastStruct = obj.domainContrasts.toStruct(obj.getAllAllowedNames, obj.modelType);
+                domainContrastStruct = cell2struct(struct2cell(domainContrastStruct), ...
+                                                    {'domainContrastNames', ...
+                                                     'numberOfDomainContrasts', ...
+                                                     'domainContrastLayers', ...
+                                                     'domainContrastRepeatSLDs', ...
+                                                     'domainContrastCustomFile'});
+            end
 
             domainRatioStruct = obj.domainRatio.toStruct();
             domainRatioStruct = cell2struct(struct2cell(domainRatioStruct), ...
@@ -197,8 +230,10 @@ classdef domainsClass < projectClass
             obj.domainRatio.displayTable;
 
             % Display the domainContrasts object
-            fprintf('   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
-            obj.domainContrasts.displayContrastsObject; 
+            if isa(obj.domainContrasts, 'domainContrastsClass')
+                fprintf('   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
+                obj.domainContrasts.displayContrastsObject; 
+            end
         end
         
     end

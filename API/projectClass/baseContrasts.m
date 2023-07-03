@@ -60,6 +60,18 @@ classdef (Abstract) baseContrasts < handle
             names = obj.getDisplayNames();
         end
 
+        function names = getNames(obj)
+            % Get a string array of the names of each of the objects
+            % defined in the class.
+            %
+            % contrasts.getNames()
+            nContrasts = obj.numberOfContrasts;
+            names = strings(nContrasts, 1);
+            for i = 1:nContrasts
+                names(i) = obj.contrasts{i}.name;
+            end
+        end
+
         function obj = addContrast(obj, allowedNames, varargin)
             % Add a contrast to the class
             % A class can be added with no input parameters, just a class
@@ -159,11 +171,15 @@ classdef (Abstract) baseContrasts < handle
                 if length(modelArray) > 1
                     throw(invalidValue('Only 1 model value allowed for ''custom'''));
                 end
+            elseif strcmpi(modelType, modelTypes.StandardLayers.value) && obj.domainsCalc && isa(obj, 'contrastsClass')
+                if length(modelArray) ~= 2
+                    throw(invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
+                end
             end
 
             for i = 1:length(modelArray)
                 if ~strcmpi(modelArray{i}, allowedNames)
-                    throw(nameNotRecognised(sprintf('Layer/Custom Name %s is not recognised', modelArray{i})));
+                    throw(nameNotRecognised(sprintf('Model component name %s is not recognised. The allowed names are: %s.', modelArray{i}, strjoin(allowedNames, ', '))));
                 end
             end
 
@@ -272,8 +288,6 @@ classdef (Abstract) baseContrasts < handle
             % contrasts.toStruct(allowedNames, 'standard layers', dataTable)
             nContrasts = obj.numberOfContrasts;
             contrastLayers = cell(1,nContrasts);
-            contrastNbas = ones(1,nContrasts);
-            contrastNbss = ones(1,nContrasts);
             contrastCustomFile = ones(1,nContrasts);
             
             contrastNames = cell(1,nContrasts);
@@ -283,8 +297,6 @@ classdef (Abstract) baseContrasts < handle
 
                 thisContrast = obj.contrasts{i};
                 
-                contrastNbas(i) = find(strcmpi(thisContrast.nba,allowedNames.bulkInNames));
-                contrastNbss(i) = find(strcmpi(thisContrast.nbs,allowedNames.bulkOutNames));
                 contrastRepeatSLDs{i} = [0 1]; % todo
                 contrastNames{i} = thisContrast.name;
 
@@ -311,8 +323,6 @@ classdef (Abstract) baseContrasts < handle
 
             contrastStruct.contrastNames = contrastNames;
             contrastStruct.numberOfContrasts = nContrasts;
-            contrastStruct.contrastNbas = contrastNbas;
-            contrastStruct.contrastNbss = contrastNbss;
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastRepeatSLDs = contrastRepeatSLDs;
             contrastStruct.contrastCustomFile = contrastCustomFile;

@@ -126,25 +126,19 @@ classdef testDomainsClass < matlab.unittest.TestCase
             % Checks the default contrast
             testCase.verifyEmpty(testCase.project.domainContrasts.contrasts, 'contrast has wrong dimension');
             % Checks that contrast can be added
-            testCase.project.addDomainContrast('name', 'Bilayer / H2O', 'nbs', 'SLD D2O', 'nba', 'SLD Air');
+            testCase.project.addDomainContrast('name', 'Bilayer / H2O');
             testCase.verifyLength(testCase.project.domainContrasts.contrasts, 1, 'contrast has wrong dimension');
             testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.name, 'Bilayer / H2O', 'addContrast method not working');
 
-            testCase.project.addDomainContrast('name', 'Another Bilayer', 'nbs', 'SLD H2O', 'nba', 'Silicon');
+            testCase.project.addDomainContrast('name', 'Another Bilayer');
             testCase.verifyLength(testCase.project.domainContrasts.contrasts, 2, 'contrast has wrong dimension');
             testCase.verifyEqual(testCase.project.domainContrasts.contrasts{2}.name, 'Another Bilayer', 'addContrast method not working');
             % Checks that contrast can be modified
             testCase.verifyError(@() testCase.project.setDomainContrast(3, 'name', 'First Bilayer'), indexOutOfRange.errorID)
             testCase.verifyError(@() testCase.project.setDomainContrast('Bilayer', 'name', 'First Bilayer'), nameNotRecognised.errorID)
-            testCase.project.setDomainContrast(1, 'name', 'First Bilayer', 'nbs', 'SLD H2O');
+            testCase.project.setDomainContrast(1, 'name', 'First Bilayer');
             testCase.verifyLength(testCase.project.domainContrasts.contrasts, 2, 'contrast has wrong dimension');
             testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.name, 'First Bilayer', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.nbs, 'SLD H2O', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.nba, 'SLD Air', 'setContrast method not working');
-            testCase.project.setDomainContrast('First Bilayer', 'nba', 'Silicon');
-            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.name, 'First Bilayer', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.nbs, 'SLD H2O', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.nba, 'Silicon', 'setContrast method not working');
             % Checks that contrast can be removed
             testCase.project.removeDomainContrast(1);
             testCase.verifyLength(testCase.project.domainContrasts.contrasts, 1, 'contrast has wrong dimension');
@@ -158,6 +152,19 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.project.setDomainContrastModel(3, {}), indexOutOfRange.errorID)
             testCase.verifyError(@() testCase.project.setDomainContrastModel('Bilayer', {}), nameNotRecognised.errorID);
         end
+
+        function testDomainContrastExceptions(testCase)
+            % Ensure a domains contrast is not defined for a custom model,
+            % and the routines modifying the domains contrast raise an
+            % error
+            customProject = domainsClass('custom project', calculationTypes.Domains, modelTypes.CustomLayers);
+            testCase.verifyEmpty(customProject.domainContrasts);
+            testCase.verifyError(@() customProject.addDomainContrast('name', 'Bilayer / H2O'), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.removeDomainContrast(1), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.setDomainContrast(1, 'name', 'First Bilayer'), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.setDomainContrastModel(1, {'Hydrogenated Heads', 'Deuterated Heads'}), invalidProperty.errorID)
+        end
+
 
         function testToStruct(testCase)
             projectStruct = testCase.project.toStruct();

@@ -137,7 +137,7 @@ problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
 problemDefCells{17} = inputStruct.allOilChiData;
 
 % Now deal with domains cell arrays
-if isa(inputProblemDef, 'domainsClass')
+if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 'domainContrastsClass')
 
     domainContrastLayers = inputStruct.domainContrastLayers;
 
@@ -152,14 +152,18 @@ if isa(inputProblemDef, 'domainsClass')
     
     problemDefCells{18} = inputStruct.domainContrastRepeatSLDs;
     problemDefCells{19} = domainContrastLayers;
-    problemDefCells{20} = inputStruct.domainRatioNames;
     
 else
 
     problemDefCells{18} = cell(1,0);
     problemDefCells{19} = cell(1,0);
-    problemDefCells{20} = cell(1,0);
 
+end
+
+if isa(inputProblemDef, 'domainsClass')
+    problemDefCells{20} = inputStruct.domainRatioNames;
+else
+    problemDefCells{20} = cell(1,0);
 end
 
 % Fix for cell array bug with custom layers - is this needed still??
@@ -356,15 +360,15 @@ problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
 
 if isa(inputProblemDef, 'domainsClass')
     problemDef.domainRatio = inputStruct.domainRatios;
-    problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
-    problemDef.domainContrastNbas = inputStruct.domainContrastNbas;
-    problemDef.domainContrastNbss = inputStruct.domainContrastNbss;
-    problemDef.domainContrastCustomFiles = inputStruct.domainContrastCustomFile;
 else
     problemDef.domainRatio = ones(1,0);
+end
+
+if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 'domainContrastsClass')
+    problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
+    problemDef.domainContrastCustomFiles = inputStruct.domainContrastCustomFile;
+else
     problemDef.numberOfDomainContrasts = 0;
-    problemDef.domainContrastNbas = ones(1,0);
-    problemDef.domainContrastNbss = ones(1,0);
     problemDef.domainContrastCustomFiles = ones(1,0);
 end    
 

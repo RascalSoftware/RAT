@@ -9,8 +9,7 @@
 % 
 % Start by making the class and setting it to a custom layers type:
 
-problem = projectClass('Orso lipid example - custom layers');
-problem.setModelType('custom XY');
+problem = projectClass(name='Orso lipid example - custom layers', model='custom XY');
 problem.setGeometry('Substrate/liquid');
 problem.setUsePriors(true);
 

@@ -6,7 +6,7 @@ classdef testLayersClass < matlab.unittest.TestCase
 % We use an example layers class from example calculation
 % "DPPCStandardLayers.m"
 %
-% Paul Sharp 23/03/23
+% Paul Sharp 03/07/23
 %
 %% Declare properties and parameters
 
@@ -281,18 +281,7 @@ classdef testLayersClass < matlab.unittest.TestCase
             expectedStruct.layersNames = ["Bil inner head"; "Bil tail"; "Bil outer head"];
             expectedStruct.layersDetails = {[5 6 8 7 2]; [9 10 12 11 2]; [5 6 8 7 2]};
 
-            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.parameterNames, modelTypes.StandardLayers.value), expectedStruct);
-        end
-
-        function testToStructCustomLayers(testCase)
-            % Test converting the layers class to a struct
-            % Here we use a "custom layers" model type - so the
-            % "layersDetails" are not recorded
-            expectedStruct.numberOfLayers = 3;
-            expectedStruct.layersNames = ["Bil inner head"; "Bil tail"; "Bil outer head"];
-            expectedStruct.layersDetails = {};
-
-            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.parameterNames, modelTypes.CustomLayers.value), expectedStruct);
+            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.parameterNames), expectedStruct);
         end
 
         function testDisplayTable(testCase)

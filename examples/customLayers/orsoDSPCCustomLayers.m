@@ -3,14 +3,13 @@
 %% Custom Layers Example for Supported DSPC layer.
 % 
 % 
-% Example of using Custom layers to model a DSPC supportd bilayer.
+% Example of using Custom layers to model a DSPC supported bilayer.
 % 
 % 
 % 
 % Start by making the class and setting it to a custom layers type:
 
-problem = projectClass('Orso lipid example - custom layers');
-problem.setModelType('custom layers');
+problem = project(name='Orso lipid example - custom layers', model='custom layers');
 problem.setGeometry('Substrate/liquid');
 problem.setUsePriors(true);
 %% 

@@ -98,9 +98,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Initialise the layers table. Then set the value of
             % absorption, listen for any changes, and modify the layers
             % table accordingly
-            addlistener(obj, 'absorption', 'PostSet', @obj.modifyLayersTable);
-            obj.layers = layersClass();
-            obj.absorption = absorption;
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+                addlistener(obj, 'absorption', 'PostSet', @obj.modifyLayersTable);
+                obj.layers = layersClass();
+                obj.absorption = absorption;
+            end
             
             % Initialise bulkIn table
             obj.bulkIn = parametersClass('SLD Air',0,0,0,false,priorTypes.Uniform,0,Inf);
@@ -211,11 +213,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             names.bulkOutNames = obj.bulkOut.getNames();
             names.resolsNames = obj.resolution.getResolNames();
             names.resolParNames = obj.resolution.resolPars.getNames();
-            names.layersNames = obj.layers.getNames();
             names.dataNames = obj.data.getNames();
             names.scalefacNames = obj.scalefactors.getNames();
             names.qzShiftNames = obj.qzshifts.getNames();
-            names.customNames = obj.customFile.getNames(); 
+            names.customNames = obj.customFile.getNames();
+            if isa(obj.layers, 'layersClass')
+                names.layersNames = obj.layers.getNames();
+            end
         end
         
         % ---------------------------------  
@@ -290,15 +294,16 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 % to do this with array indexing, but can't quite figure
                 % that out atm, so just use a (dirty) loop over all
                 % the elements for now..
-                
-                findParam = string(thisParam);
-                laysTable = obj.layers.varTable;
-                dims = size(laysTable);
-                for m = 1:dims(1)
-                    for n = 1:dims(2)
-                        tablePar = laysTable{m,n};   % Should be a string
-                        if isequal(findParam, tablePar)
-                            obj.layers.varTable(m,n) = {''};
+                if isa(obj.layers, 'layersClass')
+                    findParam = string(thisParam);
+                    laysTable = obj.layers.varTable;
+                    dims = size(laysTable);
+                    for m = 1:dims(1)
+                        for n = 1:dims(2)
+                            tablePar = laysTable{m,n};   % Should be a string
+                            if isequal(findParam, tablePar)
+                                obj.layers.varTable(m,n) = {''};
+                            end
                         end
                     end
                 end
@@ -370,13 +375,17 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % a cell array of layer cell arrays
             %
             % problem.addLayerGroup({{'Layer 1'}, {'Layer 2'}});
-            for i = 1:length(layerGroup)
-                if iscell(layerGroup{i})
-                    obj = addLayer(obj, layerGroup{i});
-                else
-                    throw(invalidType('Expecting a cell array of parameters in ''addLayerGroup'''));
+            if isa(obj.layers, 'layersClass')
+                for i = 1:length(layerGroup)
+                    if iscell(layerGroup{i})
+                        obj = addLayer(obj, layerGroup{i});
+                    else
+                        throw(invalidType('Expecting a cell array of parameters in ''addLayerGroup'''));
+                    end
                 end
-            end  
+            else
+                throw(invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
+            end
         end
         
         function obj = addLayer(obj, varargin)
@@ -386,17 +395,21 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % or just a name, to create an empty layer.
             %
             % problem.addLayer('New Layer');
-            if isempty(varargin)
-                obj.layers.addLayer(obj.parameters.varTable{:,1});
-            else
-                % If the input is wrapped in a cell (so varargin is a cell of a cell)
-                % need to unwrap one layer of it, otherwise keep varargin as it is
-                if length(varargin) == 1 && iscell(varargin{:})
-                    thisLayer = varargin{:};
+            if isa(obj.layers, 'layersClass')
+                if isempty(varargin)
+                    obj.layers.addLayer(obj.parameters.varTable{:,1});
                 else
-                    thisLayer = varargin;
+                    % If the input is wrapped in a cell (so varargin is a cell of a cell)
+                    % need to unwrap one layer of it, otherwise keep varargin as it is
+                    if length(varargin) == 1 && iscell(varargin{:})
+                        thisLayer = varargin{:};
+                    else
+                        thisLayer = varargin;
+                    end
+                    obj.layers.addLayer(obj.parameters.varTable{:,1}, thisLayer{:});
                 end
-                obj.layers.addLayer(obj.parameters.varTable{:,1}, thisLayer{:});
+            else
+                throw(invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
             end
         end
 
@@ -405,7 +418,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % index of layer(s) to remove.
             %
             % problem.removeLayer(1);
-            obj.layers.removeRow(layer);
+            if isa(obj.layers, 'layersClass')
+                obj.layers.removeRow(layer);
+            else
+                throw(invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
+            end
         end
 
         function obj = setLayerValue(obj, row, col, value)
@@ -414,7 +431,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % parameter to set the value to.
             % 
             % problem.setLayerValue(1, 2, 'Tails Thickness');
-            obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});           
+            if isa(obj.layers, 'layersClass')
+                obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});
+            else
+                throw(invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
+            end
         end
         
         % ---------------------------------------------------------------
@@ -845,7 +866,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 'nQzshifts','qzshiftConstr','qzshifts','qzshiftFitYesNo','qzshiftPriors'});
             
             % Layers
-            layersStruct = obj.layers.toStruct(paramStruct.paramNames, generalStruct.modelType);
+            if isa(obj.layers, 'layersClass')
+                layersStruct = obj.layers.toStruct(paramStruct.paramNames);
+            else
+                layersStruct.numberOfLayers = 0;
+                layersStruct.layersNames = strings(0,1);
+                layersStruct.layersDetails = {};
+            end
 
             % Custom files
             customFileStruct = obj.customFile.toStruct();
@@ -982,8 +1009,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
 
             % Now deal with classes where all of the fields are strings
-            stringClasses = ["layers", "customFile", "background", "resolution"];
-            stringSubclasses = ["", "", "backgrounds", "resolutions"];
+            stringClasses = ["customFile", "background", "resolution"];
+            stringSubclasses = ["", "backgrounds", "resolutions"];
+
+            if isa(obj.layers, 'layersClass')
+                stringClasses = ["layers", stringClasses];
+                stringSubclasses = ["", stringSubclasses];
+            end
 
             fprintf(fileID, options.objName + ".removeBackground(1);\n");
             fprintf(fileID, options.objName + ".removeResolution(1);\n");
@@ -1114,8 +1146,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.parameters.displayTable;
             
             % Display the layers table if not a custom model
-            val = obj.modelType;
-            if ~any(strcmpi(val,{'custom layers','custom xy'}))
+            if isa(obj.layers, 'layersClass')
                 fprintf('\n    Layers: -------------------------------------------------------------------------------------------------- \n\n');
                 obj.layers.displayTable;
             end

@@ -1,7 +1,7 @@
 % Analysis of DSPC monolayers Data
 
 % First make an instance of the project class
-problem = projectClass('DSPC monolayers');
+problem = project(name='DSPC monolayers');
 
 
 % Define the parameters:

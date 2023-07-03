@@ -9,37 +9,55 @@ class eventHelper
 {
     public:
         std::unique_ptr<dylib> library;
+        bool initialised = false;
     
         eventHelper(void){};
         ~eventHelper(void){};
+
+        eventHelper& operator=(eventHelper* other) noexcept
+        {
+            if (other) {
+                this->library = std::move(other->library);
+                this->initialised = other->initialised;
+            }
+            else {
+                this->library = NULL;
+                this->initialised = false;
+            }
+            return *this;
+        };
 
         eventHelper& operator=(eventHelper &&other) noexcept
         {
             if (this != &other) {
                 this->library = std::move(other.library);
+                this->initialised = other.initialised;
             }
             return *this;
         };
 
-        bool init(void)
+        bool isInitialised(void){ return this->initialised;};
+
+        void init(const char* path)
         {   
             try 
             {
-                this->library = std::unique_ptr<dylib>(new dylib("EventManager", dylib::extension));
-                return true;
+                char filename[18]  = "eventManager";
+                this->library = std::unique_ptr<dylib>(new dylib(path, strcat(filename, dylib::extension)));
+                this->initialised = true;
             } 
             catch (const dylib::handle_error &) 
             {
-                return false;
+                this->initialised = false;
             }   
         };
 
         void sendMessage(const char* msg)
         {                              
-            auto func = library->get_function<void(const char*)>("sendMessage");
+            auto sendMessage = library->get_function<void(const char*)>("sendMessage");
             
             // pass the arguments to the function
-            return func(msg);   
+            return sendMessage(msg);   
 
         };
 
@@ -47,13 +65,13 @@ class eventHelper
                         double* sldProfiles, double* nSldProfiles, double* layers, double* nLayers, double* ssubs, 
                         double* resample, double* dataPresent, const char* modelType)
         {                              
-            auto func = library->get_function<void(int, double*, double*, double*, double*, 
-                                                   double*, double*, double*, double*, double*, 
-                                                   double*, double*, const char*)>("updatePlot");
+            auto updatePlot = library->get_function<void(int, double*, double*, double*, double*, 
+                                                         double*, double*, double*, double*, double*, 
+                                                         double*, double*, const char*)>("updatePlot");
             
             // pass the arguments to the function
-            return func(nContrast, reflect, nReflect, shiftedData, nShiftedData, sldProfiles, nSldProfiles, 
-                        layers, nLayers, ssubs, resample, dataPresent, modelType);   
+            return updatePlot(nContrast, reflect, nReflect, shiftedData, nShiftedData, sldProfiles, nSldProfiles, 
+                              layers, nLayers, ssubs, resample, dataPresent, modelType);   
 
         };
 };

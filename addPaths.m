@@ -84,13 +84,12 @@ end
 
 addpath(root);
 setappdata(0, 'root', root);
-includedir = strcat(" -I '", fullfile(root, 'targetFunctions', 'common', 'customModelsIncludes'), "'",...
-                    " -I '", fullfile(root, 'compile', 'events'), "'");
-setappdata(0, 'includeDir', includedir);
+includedir = {fullfile(root, 'targetFunctions', 'common', 'customModelsIncludes'),...
+              fullfile(root, 'compile', 'events')};
+setappdata(0, 'includeDirs', includedir);
 
 % Add the folder with the eventManager dynamic library to the system path so 
 % it can be found without copying the library file to every folder  
-systemPath = getenv("PATH");
-if ~startsWith(systemPath, eventCompilePath)
-    setenv("PATH", eventCompilePath + ";" + systemPath);
+if exist(eventCompilePath, 'dir')
+    setenv("RAT_PATH", [eventCompilePath filesep]);
 end

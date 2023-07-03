@@ -1,6 +1,21 @@
 #include "mex.h"
-#include "EventManager.h"
+#include <cstring>
+#include <memory>
+#include "eventManager.h"
+#include "dylib.hpp"
 
+std::unique_ptr<dylib> library;
+
+// Callback function
+void initDyLib(void)
+{
+   if (!library)
+   {    
+       char filename[18]  = "eventManager";
+       library = std::unique_ptr<dylib>(new dylib(getenv("RAT_PATH"), 
+                                                  strcat(filename, dylib::extension)));
+   }      
+}
 
 // Callback function
 void myCallback(const baseEvent& event)
@@ -16,7 +31,7 @@ void myCallback(const baseEvent& event)
         mxArray *reflect = mxCreateCellMatrix(pEvent->data->nContrast, 1);
 
         mwSize dims[2] = {0, 0};
-        int offset = 0;
+        int offset = 0;;
         size_t bytes_to_copy;
         
         for ( int i = 0; i < pEvent->data->nContrast; i++){
@@ -110,6 +125,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     
     // clear
     if (!strcmp("clear", cmd)) {
+        initDyLib();
+        auto clearListeners = library->get_function<void(void)>("clearListeners");
         clearListeners();
         return;
     }  
@@ -124,6 +141,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         for ( int type = MESSAGE; type <= PLOT; ++type){
             if (type == eventType){
    	            void (*cbPtr)(const baseEvent&) = myCallback;
+                initDyLib();
+                auto addListener = library->get_function<void(enum eventTypes, void (*)(const baseEvent&))>("addListener");
                 addListener((enum eventTypes)eventType, cbPtr);
                 return;
             }

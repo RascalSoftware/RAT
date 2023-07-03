@@ -5,30 +5,35 @@ function triggerEvent(eventType, data)
     % and problemDef
     % 
     % triggerEvent('message', 'Hello world');
-    persistent initialised;
+    persistent notified;
+    persistent helper;
 
-    if isempty(initialised)
-        initialised = false;
+    if isempty(notified)
+        notified = false;
     end
 
     if coder.target('MATLAB')
          if strcmpi(eventType, 'message')
              fprintf("%s", data);
          end
-    else
+    else       
         coder.cinclude('eventHelper.hpp');
         coder.updateBuildInfo('addLinkFlags','-ldl');
+        if isempty(helper)       
+            % Declaration for coder
+            helper = coder.opaque('eventHelper','NULL','HeaderFile','eventHelper.hpp');
+    
+            % Make an instance 
+            helper = coder.ceval('eventHelper');
+            path = [getenv('RAT_PATH'), 0];
+            coder.ceval('std::mem_fn(&eventHelper::init)', helper, path);
+        end
         
-        % Declaration for coder
-        p = coder.opaque('eventHelper','NULL','HeaderFile','eventHelper.hpp');
-        complete = false;        
-        
-        % Make an instance 
-        p = coder.ceval('eventHelper');
-        complete = coder.ceval('std::mem_fn(&eventHelper::init)', p);
-        if complete
+        initialised = false;
+        initialised = coder.ceval('std::mem_fn(&eventHelper::isInitialised)', helper);
+        if initialised
             if strcmpi(eventType, 'message')
-                coder.ceval('std::mem_fn(&eventHelper::sendMessage)', p, [data,0]);
+                coder.ceval('std::mem_fn(&eventHelper::sendMessage)', helper, [data,0]);
             elseif strcmpi(eventType, 'plot')
                 result = data{1};
                 nContrast = length(result{1});
@@ -44,15 +49,16 @@ function triggerEvent(eventType, data)
                 resample = problemDef.resample;
                 dataPresent = problemDef.dataPresent;
                 
-                coder.ceval('std::mem_fn(&eventHelper::updatePlot)', p, nContrast, reflect, nReflect, shiftedData, ...
+                coder.ceval('std::mem_fn(&eventHelper::updatePlot)', helper, nContrast, reflect, nReflect, shiftedData, ...
                             nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, ssubs, resample, dataPresent, ...
                             modelType);
             end
-            initialised = false;
+            notified = false;
         else
-            if ~initialised
-                fprintf(2, "\neventManager library cannot be loaded. Check that the dynamic library is present in the compile/events folder.\n");
-                initialised = true;
+            % This avoids printing the error message multiple times during the optimization.
+            if ~notified
+                fprintf(2, "\neventManager library coult be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+                notified = true;
             end
             
             if strcmpi(eventType, 'message')

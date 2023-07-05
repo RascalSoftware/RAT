@@ -64,6 +64,11 @@ for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
 
+tempSldProfiles = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    tempSldProfiles{i} = {[1 1 ; 1 1],[1 1 ; 1 1]};
+end
+
 tempAllLayers = cell(totNumCalcs,1);
 for i = 1:totNumCalcs
     tempAllLayers{i} = [1 ; 1];
@@ -73,12 +78,12 @@ end
 resamPars = controls.resamPars;
 
 % Process the custom models....
-[tempAllLayers,allRoughs] = customModelClass.processCustomLayersDomains(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+[tempAllLayers,allRoughs] = customModelClass.processCustomLayersDomains2(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 
 % Single cored over all contrasts
-layersCounter = 1;
+%layersCounter = 1;
 for i = 1:numberOfContrasts
 
     % Get the domain ratio for theis contrast
@@ -96,8 +101,8 @@ for i = 1:numberOfContrasts
     
     % Get the custom layers output for this contrast
     % We have two for each contrast - one for each domain
-    thisContrastLayers1 = tempAllLayers{layersCounter};
-    thisContrastLayers2 = tempAllLayers{layersCounter+1};
+    thisContrastLayers1 = tempAllLayers{i,1};
+    thisContrastLayers2 = tempAllLayers{i,2};
 
     % For the other parameters, we extract the correct ones from the input
     % arrays
@@ -144,8 +149,9 @@ for i = 1:numberOfContrasts
     % the other values (background, scalefactors etc) for each contrast
     % for future use.
     outSsubs(i) = thisSsubs;
-    domainSldProfiles{i,1} = sldProfile1;
-    domainSldProfiles{i,2} = sldProfile2;
+%     domainSldProfiles{i,1} = sldProfile1;
+%     domainSldProfiles{i,2} = sldProfile2;
+    tempSldProfiles{i} = {sldProfile1, sldProfile2};
     reflectivity{i} = totReflect;
     Simulation{i} = totSimul;
     shifted_data{i} = shifted_dat;
@@ -161,8 +167,13 @@ for i = 1:numberOfContrasts
     resols(i) = thisResol;
     allRoughs(i) = thisRough;
 
-    layersCounter = layersCounter + 2;
+    %layersCounter = layersCounter + 2;
 end
 
+for i = 1:numberOfContrasts
+    theseDomainSLDs = tempSldProfiles{i};
+    domainSldProfiles{i,1} = theseDomainSLDs{1};
+    domainSldProfiles{i,2} = theseDomainSLDs{2};
+end
 
 end

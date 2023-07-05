@@ -82,8 +82,8 @@ resamPars = controls.resamPars;
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 
-% Single cored over all contrasts
-layersCounter = 1;
+% Parallel over all contrasts
+%layersCounter = 1;
 parfor i = 1:numberOfContrasts
 
     % Get the domain ratio for theis contrast
@@ -167,7 +167,7 @@ parfor i = 1:numberOfContrasts
     resols(i) = thisResol;
     allRoughs(i) = thisRough;
 
-    layersCounter = layersCounter + 2;
+    %layersCounter = layersCounter + 2;
 end
 
 for i = 1:numberOfContrasts

@@ -270,6 +270,17 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.layers.varTable{:, 1}, ["Deuterated Heads"; "Deuterated Tails"; "Hydrogenated Tails"; "Layer 5"; "New Layer"; "Another Layer"], 'removeLayer method not working');
         end
 
+        function testLayersExceptions(testCase)
+            % Ensure layers are not defined for a custom model,
+            % and the routines modifying the layers raise an error
+            customProject = projectClass('custom project', calculationTypes.NonPolarised, modelTypes.CustomLayers);
+            testCase.verifyEmpty(customProject.layers);
+            testCase.verifyError(@() customProject.addLayerGroup({{'New Layer'}, {'Another Layer'}}), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.addLayer('New Layer'), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.removeLayer(1), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.setLayerValue(1, 2, 'Tails Thickness'), invalidProperty.errorID)
+        end
+
         function testData(testCase)
             % Checks the default data parameter
             testCase.verifySize(testCase.project.data.varTable, [1, 4], 'data has wrong dimension');

@@ -190,18 +190,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             invalidTypeMessage = sprintf('Geometry must be a geometryOptions enum or one of the following strings (%s)', ...
                                          strjoin(geometryOptions.values(), ', '));
             obj.geometry = validateOption(geometry, 'geometryOptions', invalidTypeMessage).value;
-        end
-        
-        function obj = setModelType(obj, modelType)
-            % Sets the experiment type. The type should be a string,  
-            % either "standard layers", "custom layers", or "custom xy" is permitted.
-            %
-            % problem.setModelType('Custom Layers');
-            invalidTypeMessage = sprintf('Experiment type must be a modelTypes enum or one of the following strings (%s)', ...
-                                         strjoin(modelTypes.values(), ', '));
-            obj.modelType = validateOption(modelType, 'modelTypes', invalidTypeMessage).value;
-        end
-        
+        end       
 
         function names = getAllAllowedNames(obj)           
             % Returns a cell array of all currently

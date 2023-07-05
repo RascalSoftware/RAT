@@ -147,21 +147,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyError(@() testCase.project.setGeometry(2), invalidType.errorID)
         end
 
-        function testModelType(testCase)
-            % Test default model type
-            testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
-            % Test possible model type with varied case
-            testCase.project.setModelType(modelTypes.CustomLayers);
-            testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomLayers.value, 'Model type not set correctly');
-            testCase.project.setModelType('Custom XY');
-            testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomXY.value, 'Model type not set correctly');
-            testCase.project.setModelType('STANDARD LAYERS');
-            testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
-            % Test bad inputs 
-            testCase.verifyError(@() testCase.project.setModelType('anything'), invalidOption.errorID)
-            testCase.verifyError(@() testCase.project.setModelType(2), invalidType.errorID)
-        end
-
         function testUsePriors(testCase)
             % Test default use prior value
             testCase.verifyFalse(testCase.project.usePriors, 'Use priors not set correctly');

@@ -117,7 +117,7 @@ classdef testExamples < matlab.unittest.TestCase
             % Makes a temporary folder the current working directory so
             % file written by the example are deleted
             import matlab.unittest.fixtures.WorkingFolderFixture;
-            testCase.applyFixture(WorkingFolderFixture('PreservingOnFailure',true));
+            testCase.applyFixture(WorkingFolderFixture);
         end
     end
 

@@ -16,7 +16,8 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,p
 % * magnetic       - Target function for cases for polarised neutrons with polarisation analysis.
 %                       
 
-    
+% triggerEvent('message', 'Running reflectivity calculation...');
+
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles
 problem.ssubs = 0;
@@ -129,6 +130,13 @@ for i = 1:numberOfContrasts
 end
 result{6} = cell6;
 
+% Send plot event
+plotResult = cell(1,3);
+plotResult{1} = result;
+plotResult{2} = problem.ssubs;
+plotResult{3} = problemDef;
+triggerEvent('plot', plotResult);
+
 % Pre-processor directives for Matlab Coder
 % to define the size of the output array
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
@@ -162,5 +170,4 @@ coder.varsize('results{5}{:}',[Inf 2],[1 0]);
 
 coder.varsize('result{6}',[Inf 1],[1 0]);           %All layers (resampled)
 coder.varsize('result{6}{:}',[Inf 3],[1 0]);
-
 end

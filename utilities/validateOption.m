@@ -2,7 +2,7 @@ function input = validateOption(input, enum,  message)
     % Checks input is a valid member of enum and throws an exception with given message.
     % Returns the enum as a char array
     %
-    % validateOption('uniform', priorTypes, 'This is not a valid PriorType');
+    % validateOption('uniform', 'priorTypes', 'This is not a valid PriorType');
     arguments
         input
         enum {mustBeCustomEnum}

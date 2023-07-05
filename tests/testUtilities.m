@@ -42,6 +42,8 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.verifyEqual(enum.values('supportedLanguages'), supportedLanguages.values(), 'customEnum.values is not working');
             testCase.verifyEqual(enum.fromValue('hydrationTypes', 'bulk in'), hydrationTypes.BulkIn, 'customEnum.fromValue is not working');
             testCase.verifyEmpty(enum.fromValue('priorTypes', 'jeff'), 'customEnum.fromValue is not working');
+            testCase.verifyEqual(enum.values('eventTypes'), eventTypes.values(), 'customEnum.values is not working');
+            testCase.verifyEmpty(enum.fromValue('eventTypes', -1), 'customEnum.fromValue is not working');
         end
 
         function testCopyProperties(testCase)

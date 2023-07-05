@@ -56,6 +56,6 @@ else
     domainLayer = domainTotal;
 end
 
-output  = [oxide ; domainLayer];
+output  = [domainLayer ; oxide];
 
 end

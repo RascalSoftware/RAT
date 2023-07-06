@@ -60,6 +60,22 @@ classdef domainsClass < projectClass
             projectObj = obj.projectClass();
         end
 
+        function obj = setModelType(obj, modelType)
+            % Sets the experiment type. The type should be a string,  
+            % either "standard layers", "custom layers", or "custom xy" is
+            % permitted.
+            %
+            % problem.setModelType('Custom Layers');
+            setModelType@projectClass(obj, modelType);
+
+            % Also need to define domain contrasts as necessary
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+                obj.domainContrasts = domainContrastsClass();
+            else
+                obj.domainContrasts = [];
+            end
+        end
+
         function names = getAllAllowedNames(obj)           
             % Returns a cell array of all currently
             % set parameter names for the project.

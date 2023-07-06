@@ -99,10 +99,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % absorption, listen for any changes, and modify the layers
             % table accordingly
             if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
-                addlistener(obj, 'absorption', 'PostSet', @obj.modifyLayersTable);
                 obj.layers = layersClass();
-                obj.absorption = absorption;
             end
+            addlistener(obj, 'absorption', 'PostSet', @obj.modifyLayersTable);
+            obj.absorption = absorption;
             
             % Initialise bulkIn table
             obj.bulkIn = parametersClass('SLD Air',0,0,0,false,priorTypes.Uniform,0,Inf);
@@ -190,9 +190,31 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             invalidTypeMessage = sprintf('Geometry must be a geometryOptions enum or one of the following strings (%s)', ...
                                          strjoin(geometryOptions.values(), ', '));
             obj.geometry = validateOption(geometry, 'geometryOptions', invalidTypeMessage).value;
-        end       
+        end
 
-        function names = getAllAllowedNames(obj)           
+        function obj = setModelType(obj, modelType)
+            % Sets the experiment type. The type should be a string,  
+            % either "standard layers", "custom layers", or "custom xy" is
+            % permitted.
+            %
+            % problem.setModelType('Custom Layers');
+            invalidTypeMessage = sprintf('Experiment type must be a modelTypes enum or one of the following strings (%s)', ...
+                                         strjoin(modelTypes.values(), ', '));
+            obj.modelType = validateOption(modelType, 'modelTypes', invalidTypeMessage).value;
+
+            % Need to adjust layers and contrasts for new model type
+            for i=1:obj.contrasts.numberOfContrasts
+                obj.contrasts.contrasts{i}.model = '';
+            end
+
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+                obj.layers = layersClass();
+            else
+                obj.layers = [];
+            end
+        end
+
+        function names = getAllAllowedNames(obj)     
             % Returns a cell array of all currently
             % set parameter names for the project.
             names.paramNames = obj.parameters.getNames();
@@ -1181,13 +1203,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         function modifyLayersTable(obj,~,~)
             % Add or remove a column from the layers table whenever the
             % "absorption" property is modified.
-            if obj.absorption
-                newCol = repmat("", height(obj.layers.varTable), 1);
-                obj.layers.varTable = addvars(obj.layers.varTable, newCol, 'After', 'SLD', 'NewVariableNames', 'SLD Imaginary');
-                obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD', 'SLD Real');
-            else
-                obj.layers.varTable = removevars(obj.layers.varTable, 'SLD Imaginary');
-                obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD Real', 'SLD');
+            if isa(obj.layers, 'layersClass')
+                if obj.absorption
+                    newCol = repmat("", height(obj.layers.varTable), 1);
+                    obj.layers.varTable = addvars(obj.layers.varTable, newCol, 'After', 'SLD', 'NewVariableNames', 'SLD Imaginary');
+                    obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD', 'SLD Real');
+                else
+                    obj.layers.varTable = removevars(obj.layers.varTable, 'SLD Imaginary');
+                    obj.layers.varTable = renamevars(obj.layers.varTable, 'SLD Real', 'SLD');
+                end
             end
         end
 

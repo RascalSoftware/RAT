@@ -156,7 +156,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setModelType('standard layers');
             testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
             testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
-            testCase.verifyEqual(height(testCase.project.layers.varTable), 2, 'Layers object wrongly reset');
+            testCase.verifyEqual(testCase.project.layers.rowCount, 2, 'Layers object wrongly reset');
             % Test possible model type with varied case
             testCase.project.setModelType(modelTypes.CustomLayers);
             testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomLayers.value, 'Model type not set correctly');

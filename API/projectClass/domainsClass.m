@@ -70,7 +70,9 @@ classdef domainsClass < projectClass
 
             % Also need to define domain contrasts as necessary
             if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
-                obj.domainContrasts = domainContrastsClass();
+                if ~isa(obj.domainContrasts, 'domainContrastsClass')
+                    obj.domainContrasts = domainContrastsClass();
+                end
             else
                 obj.domainContrasts = [];
             end

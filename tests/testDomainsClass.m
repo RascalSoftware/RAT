@@ -101,10 +101,19 @@ classdef testDomainsClass < matlab.unittest.TestCase
         end
 
         function testModelType(testCase)
+            varTable = testCase.project.layers.varTable;
+            testCase.project.layers.varTable = [varTable; vertcat(testCase.layers{1:2})];
+            testCase.project.addDomainContrast('name', 'Bilayer / H2O');
             % Test default model type
             testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
             testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
             testCase.verifyClass(testCase.project.domainContrasts, 'domainContrastsClass', 'Domain Contrasts class not initialised correctly')
+            % Test resetting retains layers and domain contrasts
+            testCase.project.setModelType('standard layers');
+            testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
+            testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
+            testCase.verifyEqual(height(testCase.project.layers.varTable), 2, 'Layers object wrongly reset');
+            testCase.verifyEqual(testCase.project.domainContrasts.numberOfContrasts, 1, 'DomainContrasts object wrongly reset');
             % Test possible model type with varied case
             testCase.project.setModelType(modelTypes.CustomLayers);
             testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomLayers.value, 'Model type not set correctly');

@@ -208,7 +208,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             end
 
             if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
-                obj.layers = layersClass();
+                if ~isa(obj.layers, 'layersClass')
+                    obj.layers = layersClass();
+                end
             else
                 obj.layers = [];
             end

@@ -100,6 +100,28 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyEqual(nonPolarised.layers, testCase.project.layers, 'Layers not copied correctly');
         end
 
+        function testModelType(testCase)
+            % Test default model type
+            testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
+            testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
+            testCase.verifyClass(testCase.project.domainContrasts, 'domainContrastsClass', 'Domain Contrasts class not initialised correctly')
+            % Test possible model type with varied case
+            testCase.project.setModelType(modelTypes.CustomLayers);
+            testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomLayers.value, 'Model type not set correctly');
+            testCase.verifyThat(testCase.project.layers, ~matlab.unittest.constraints.IsOfClass('layersClass'), 'Layers class not initialised correctly');
+            testCase.verifyThat(testCase.project.domainContrasts, ~matlab.unittest.constraints.IsOfClass('domainContrastsClass'), 'Domain Contrasts class not initialised correctly');
+            testCase.project.setModelType('Custom XY');
+            testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomXY.value, 'Model type not set correctly');
+            testCase.verifyThat(testCase.project.layers, ~matlab.unittest.constraints.IsOfClass('layersClass'), 'Layers class not initialised correctly');
+            testCase.verifyThat(testCase.project.domainContrasts, ~matlab.unittest.constraints.IsOfClass('domainContrastsClass'), 'Domain Contrasts class not initialised correctly');
+            testCase.project.setModelType('STANDARD LAYERS');
+            testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
+            testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
+            % Test bad inputs 
+            testCase.verifyError(@() testCase.project.setModelType('anything'), invalidOption.errorID)
+            testCase.verifyError(@() testCase.project.setModelType(2), invalidType.errorID)
+        end
+
         function testDomainRatio(testCase)
             % Checks the default domain ratios
             testCase.verifySize(testCase.project.domainRatio.varTable, [1, 8], 'domain ratio has wrong dimension');

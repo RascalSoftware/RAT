@@ -198,13 +198,16 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % permitted.
             %
             % problem.setModelType('Custom Layers');
+            oldModel = obj.modelType;
             invalidTypeMessage = sprintf('Experiment type must be a modelTypes enum or one of the following strings (%s)', ...
                                          strjoin(modelTypes.values(), ', '));
             obj.modelType = validateOption(modelType, 'modelTypes', invalidTypeMessage).value;
 
             % Need to adjust layers and contrasts for new model type
-            for i=1:obj.contrasts.numberOfContrasts
-                obj.contrasts.contrasts{i}.model = '';
+            if ~strcmpi(obj.modelType, oldModel)
+                for i=1:obj.contrasts.numberOfContrasts
+                    obj.contrasts.contrasts{i}.model = '';
+                end
             end
 
             if strcmpi(obj.modelType, modelTypes.StandardLayers.value)

@@ -1151,7 +1151,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % There are two versions, depending on whether the model
             % is standard layers or custom, the difference being
-            % the display of the layers table..
+            % the display of the layers table and domain contrasts.
             
             % Display initial properties
             startProps = getPropertyGroup1(obj);
@@ -1160,13 +1160,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Display the parameters table
             fprintf('\n    Parameters: ---------------------------------------------------------------------------------------------- \n\n');
             obj.parameters.displayTable;
-            
-            % Display the layers table if not a custom model
-            if isa(obj.layers, 'layersClass')
-                fprintf('\n    Layers: -------------------------------------------------------------------------------------------------- \n\n');
-                obj.layers.displayTable;
-            end
-            
+                        
             % Display the Bulk In table
             fprintf('\n    Bulk In: -------------------------------------------------------------------------------------------------- \n\n');
             obj.bulkIn.displayTable;
@@ -1179,6 +1173,12 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             fprintf('\n    Scalefactors: ------------------------------------------------------------------------------------------------- \n\n');
             obj.scalefactors.displayTable;
 
+            % Display the domain ratio if defined
+            if isprop(obj, 'domainRatio') && isa(obj.domainRatio, 'parametersClass')
+                fprintf('\n   Domain Ratios: ----------------------------------------------------------------------------------------------- \n\n');
+                obj.domainRatio.displayTable;
+            end
+
             % Display the backgrounds object
             fprintf('\n    Backgrounds: ----------------------------------------------------------------------------------------------- \n\n');
             obj.background.displayBackgroundsObject;
@@ -1186,14 +1186,26 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Display the resolutions object
             fprintf('\n    Resolutions: --------------------------------------------------------------------------------------------- \n\n');
             obj.resolution.displayResolutionsObject;
+
+            % Display the layers table if not a custom model
+            if isa(obj.layers, 'layersClass')
+                fprintf('\n    Layers: -------------------------------------------------------------------------------------------------- \n\n');
+                obj.layers.displayTable;
+            end
+
+            % Display custom files object
+            fprintf('\n    Custom Files: ------------------------------------------------------------------------------------------------------ \n\n');
+            obj.customFile.displayTable;
             
             % Display the data object
             fprintf('\n    Data: ------------------------------------------------------------------------------------------------------ \n\n');
             obj.data.displayTable;
             
-            % Display custom files object
-            fprintf('\n    Custom Files: ------------------------------------------------------------------------------------------------------ \n\n');
-            obj.customFile.displayTable;
+            % Display the domainContrasts object if defined
+            if isprop(obj, 'domainContrasts') && isa(obj.domainContrasts, 'domainContrastsClass')
+                fprintf('\n   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
+                obj.domainContrasts.displayContrastsObject; 
+            end
             
             % Display the contrasts object
             fprintf('\n   Contrasts: ----------------------------------------------------------------------------------------------- \n\n');

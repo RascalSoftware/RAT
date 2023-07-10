@@ -233,28 +233,6 @@ classdef domainsClass < projectClass
     end
     
     % ------------------------------------------------------------------
-    
-    methods (Access = protected)
-        
-        function displayScalarObject(obj)
-            % Display the whole class. Call the display methods for
-            % the sub-classes where appropriate
-            
-            % Display initial properties from superclass
-            displayScalarObject@projectClass(obj);
-
-            % Display the domains ratio contrast
-            fprintf('   Domain Ratios: ----------------------------------------------------------------------------------------------- \n\n');
-            obj.domainRatio.displayTable;
-
-            % Display the domainContrasts object
-            if isa(obj.domainContrasts, 'domainContrastsClass')
-                fprintf('   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
-                obj.domainContrasts.displayContrastsObject; 
-            end
-        end
-        
-    end
 
     methods (Hidden)
 

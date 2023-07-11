@@ -60,6 +60,24 @@ classdef domainsClass < projectClass
             projectObj = obj.projectClass();
         end
 
+        function obj = setModelType(obj, modelType)
+            % Sets the experiment type. The type should be a string,  
+            % either "standard layers", "custom layers", or "custom xy" is
+            % permitted.
+            %
+            % problem.setModelType('Custom Layers');
+            setModelType@projectClass(obj, modelType);
+
+            % Also need to define domain contrasts as necessary
+            if strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+                if ~isa(obj.domainContrasts, 'domainContrastsClass')
+                    obj.domainContrasts = domainContrastsClass();
+                end
+            else
+                obj.domainContrasts = [];
+            end
+        end
+
         function names = getAllAllowedNames(obj)           
             % Returns a cell array of all currently
             % set parameter names for the project.
@@ -215,28 +233,6 @@ classdef domainsClass < projectClass
     end
     
     % ------------------------------------------------------------------
-    
-    methods (Access = protected)
-        
-        function displayScalarObject(obj)
-            % Display the whole class. Call the display methods for
-            % the sub-classes where appropriate
-            
-            % Display initial properties from superclass
-            displayScalarObject@projectClass(obj);
-
-            % Display the domains ratio contrast
-            fprintf('   Domain Ratios: ----------------------------------------------------------------------------------------------- \n\n');
-            obj.domainRatio.displayTable;
-
-            % Display the domainContrasts object
-            if isa(obj.domainContrasts, 'domainContrastsClass')
-                fprintf('   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n');
-                obj.domainContrasts.displayContrastsObject; 
-            end
-        end
-        
-    end
 
     methods (Hidden)
 

@@ -14,17 +14,12 @@ else
     projectName = problem.name;
 end
 
-% Make empty instance of projectClass
-thisProjectClass = projectClass(projectName);
+% Check options are valid and make empty instance of projectClass
+invalidModelMessage = sprintf('modelType must be a modelTypes enum or one of the following strings (%s)', ...
+                             strjoin(modelTypes.values(), ', '));
+problem.module.type = validateOption(problem.module.type, 'modelTypes', invalidModelMessage).value;
 
-% Set model type
-if strcmpi(problem.module.type, 'Standard Layers')
-    thisProjectClass.setModelType(modelTypes.StandardLayers.value);
-elseif strcmpi(problem.module.type,'Custom Layers')
-    thisProjectClass.setModelType(modelTypes.CustomLayers.value);
-else
-    thisProjectClass.setModelType(modelTypes.CustomXY.value);
-end
+thisProjectClass = project(name=projectName, model=problem.module.type);
 
 % Set geometry
 if strcmpi(problem.module.experiment_type, 'Air / Liquid (or solid)')

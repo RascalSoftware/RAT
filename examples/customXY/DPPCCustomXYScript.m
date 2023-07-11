@@ -1,9 +1,8 @@
 %%
 % Start by making an empty project
-problem = projectClass('Custom DPPC');
+problem = project(name='Custom DPPC', model='custom XY');
 
-% Set the experiment type and geometry
-problem.setModelType('custom XY');
+% Set the geometry
 problem.setGeometry('Substrate/liquid');
 
 % Add some parameters....

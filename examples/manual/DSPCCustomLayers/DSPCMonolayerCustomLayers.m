@@ -1,9 +1,6 @@
 % First make an instance of the project class
-problem = projectClass('DSPC custom layers');
+problem = project(name='DSPC custom layers', model='custom layers');
 
-
-% Make this a custom layers model
-problem.setModelType('custom layers');
 
 %% 
 % 

@@ -133,7 +133,6 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.layers.varTable{:,4}, ["Heads Roughness"; "Heads Roughness"], '')
         end
 
-
         function testGeometry(testCase)
             % Test default geometry
             testCase.verifyEqual(testCase.project.geometry, geometryOptions.AirSubstrate.value, 'Geometry not set correctly');
@@ -148,15 +147,26 @@ classdef testProjectClass < matlab.unittest.TestCase
         end
 
         function testModelType(testCase)
+            varTable = testCase.project.layers.varTable;
+            testCase.project.layers.varTable = [varTable; vertcat(testCase.layers{1:2})];
             % Test default model type
             testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
+            testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
+            % Test resetting retains layers
+            testCase.project.setModelType('standard layers');
+            testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
+            testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
+            testCase.verifyEqual(testCase.project.layers.rowCount, 2, 'Layers object wrongly reset');
             % Test possible model type with varied case
             testCase.project.setModelType(modelTypes.CustomLayers);
             testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomLayers.value, 'Model type not set correctly');
+            testCase.verifyThat(testCase.project.layers, ~matlab.unittest.constraints.IsOfClass('layersClass'), 'Layers class not initialised correctly');
             testCase.project.setModelType('Custom XY');
             testCase.verifyEqual(testCase.project.modelType, modelTypes.CustomXY.value, 'Model type not set correctly');
+            testCase.verifyThat(testCase.project.layers, ~matlab.unittest.constraints.IsOfClass('layersClass'), 'Layers class not initialised correctly');
             testCase.project.setModelType('STANDARD LAYERS');
             testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
+            testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
             % Test bad inputs 
             testCase.verifyError(@() testCase.project.setModelType('anything'), invalidOption.errorID)
             testCase.verifyError(@() testCase.project.setModelType(2), invalidType.errorID)
@@ -283,6 +293,17 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.removeLayer(1);
             testCase.verifySize(testCase.project.layers.varTable, [6, 6], 'Layers has wrong dimension');
             testCase.verifyEqual(testCase.project.layers.varTable{:, 1}, ["Deuterated Heads"; "Deuterated Tails"; "Hydrogenated Tails"; "Layer 5"; "New Layer"; "Another Layer"], 'removeLayer method not working');
+        end
+
+        function testLayersExceptions(testCase)
+            % Ensure layers are not defined for a custom model,
+            % and the routines modifying the layers raise an error
+            customProject = projectClass('custom project', calculationTypes.NonPolarised, modelTypes.CustomLayers);
+            testCase.verifyEmpty(customProject.layers);
+            testCase.verifyError(@() customProject.addLayerGroup({{'New Layer'}, {'Another Layer'}}), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.addLayer('New Layer'), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.removeLayer(1), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.setLayerValue(1, 2, 'Tails Thickness'), invalidProperty.errorID)
         end
 
         function testData(testCase)

@@ -141,62 +141,49 @@ classdef layersClass < tableUtilities
             
         end
         
-        function outStruct = toStruct(obj, paramNames, modelType)
+        function outStruct = toStruct(obj, paramNames)
             % Convert the layers class to a struct.
             %
             % layers.toStruct()            
-            %outStruct = table2cell(obj.varTable);
             layersCell = obj.varTable{:,:};
 
             outStruct.numberOfLayers = size(layersCell, 1);
             outStruct.layersNames = layersCell(:,1);
             
             % parse the layers details
-            layersValues = layersCell(:,2:end);
-            
-            switch modelType
+            layersValues = layersCell(:,2:end);         
+            layersDetails = cell([1, outStruct.numberOfLayers]);
 
-                case modelTypes.StandardLayers.value
-                    numberOfLayers = outStruct.numberOfLayers;
-                    
-                    if numberOfLayers > 0
-                        % Standard layers with layers present
-                        layersDetails = cell([1, outStruct.numberOfLayers]);
+            for i = 1:outStruct.numberOfLayers
 
-                        for i = 1:outStruct.numberOfLayers
+                thisLayer = layersValues(i,:);
+                numCols = length(thisLayer);
+                paramIndices = zeros(1,numCols-2);
+                for j = 1:numCols-2
+                    paramIndices(j) = find(strcmpi(thisLayer{j},paramNames));
+                end
 
-                            thisLayer = layersValues(i,:);
-                            numCols = length(thisLayer);
-                            paramIndices = zeros(1,numCols-2);
-                            for j = 1:numCols-2
-                                paramIndices(j) = find(strcmpi(thisLayer{j},paramNames));
-                            end
+                if strcmpi(thisLayer(numCols-1), "")
+                    hydr = NaN;
+                else
+                    hydr = find(strcmpi(thisLayer{numCols-1},paramNames));
+                end
 
-                            if strcmpi(thisLayer(numCols-1), "")
-                                hydr = NaN;
-                            else
-                                hydr = find(strcmpi(thisLayer{numCols-1},paramNames));
-                            end
-
-                            if strcmpi(thisLayer{numCols}, hydrationTypes.BulkIn.value)
-                                hydrWhat = 1;
-                            else
-                                hydrWhat = 2;
-                            end
-                            layersDetails{i} = [paramIndices hydr hydrWhat];
-                            
-                        end
-                        outStruct.layersDetails = layersDetails(:);
-                    else
-                        % No layers present - still need to set
-                        % layersDetails
-                        outStruct.layersDetails = {};
-                    end
-                otherwise
-                    % Not standard layers experiment type
-                    outStruct.layersDetails = {};
+                if strcmpi(thisLayer{numCols}, hydrationTypes.BulkIn.value)
+                    hydrWhat = 1;
+                else
+                    hydrWhat = 2;
+                end
+                layersDetails{i} = [paramIndices hydr hydrWhat];
+                
             end
 
+            if outStruct.numberOfLayers > 0
+                outStruct.layersDetails = layersDetails(:);
+            else
+                outStruct.layersDetails = {};
+            end
+            
         end
 
     end

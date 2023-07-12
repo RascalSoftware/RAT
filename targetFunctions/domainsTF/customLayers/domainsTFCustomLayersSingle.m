@@ -69,16 +69,22 @@ for i = 1:numberOfContrasts
     tempSldProfiles{i} = {[1 1 ; 1 1],[1 1 ; 1 1]};
 end
 
-tempAllLayers = cell(totNumCalcs,1);
-for i = 1:totNumCalcs
-    tempAllLayers{i} = [1 ; 1];
+calcAllLayers = cell(numberOfContrasts,2);
+for i = 1:numberOfContrasts
+    calcAllLayers{i,1} = [1 ; 1];
+    calcAllLayers{i,2} = [1 ; 1];
+end
+
+tempAllLayers = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    tempAllLayers{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
 end
 
 % Resampling parameters
 resamPars = controls.resamPars;
 
 % Process the custom models....
-[tempAllLayers,allRoughs] = customModelClass.processCustomLayersDomains2(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+[calcAllLayers,allRoughs] = customModelClass.processCustomLayersDomains2(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 
@@ -101,8 +107,8 @@ for i = 1:numberOfContrasts
     
     % Get the custom layers output for this contrast
     % We have two for each contrast - one for each domain
-    thisContrastLayers1 = tempAllLayers{i,1};
-    thisContrastLayers2 = tempAllLayers{i,2};
+    thisContrastLayers1 = calcAllLayers{i,1};
+    thisContrastLayers2 = calcAllLayers{i,2};
 
     % For the other parameters, we extract the correct ones from the input
     % arrays
@@ -131,7 +137,7 @@ for i = 1:numberOfContrasts
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
 
     % Domain 2
-    [sldProfile2,reflect2,Simul2,~,layerSld,resamLayers,~,~] = ...
+    [sldProfile2,reflect2,Simul2,~,layerSld,resamLayers2,~,~] = ...
     standardTFLayersCore...
     (thisContrastLayers2, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
@@ -156,7 +162,7 @@ for i = 1:numberOfContrasts
     Simulation{i} = totSimul;
     shifted_data{i} = shifted_dat;
     layerSlds{i} = layerSld;
-    allLayers{i} = resamLayers;
+    tempAllLayers{i} = {resamLayers1, resamLayers2};
     
     chis(i) = thisChiSquared;
     backgs(i) = thisBackground;
@@ -174,6 +180,10 @@ for i = 1:numberOfContrasts
     theseDomainSLDs = tempSldProfiles{i};
     domainSldProfiles{i,1} = theseDomainSLDs{1};
     domainSldProfiles{i,2} = theseDomainSLDs{2};
+
+    theseAllLayers = tempAllLayers{i};
+    allLayers{i,1} = theseAllLayers{1};
+    allLayers{i,2} = theseAllLayers{2};
 end
 
 end

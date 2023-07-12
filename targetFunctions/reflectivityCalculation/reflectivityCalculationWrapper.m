@@ -25,7 +25,7 @@ function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef
 % result{5} = sldProfiles{}
 % result{6} = currently empty - will be allLayers (i.e. resampled)
 
-debug = false;
+debug = true;
 if debug
     % enforce the Matlab version
     [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);

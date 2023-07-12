@@ -58,9 +58,10 @@ for i = 1:numberOfContrasts
     domainSldProfiles{i,2} = [1 1 ; 1 1];
 end
 
-allLayers = cell(numberOfContrasts,1);
+allLayers = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 1 1 ; 1 1 1];
+    allLayers{i,1} = [1 1 1 ; 1 1 1];
+    allLayers{i,2} = [1 1 1 ; 1 1 1];
 end
            
 switch lower(type)

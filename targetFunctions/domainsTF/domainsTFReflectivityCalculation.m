@@ -47,9 +47,10 @@ for i = 1:numberOfContrasts
     shifted_data{i} = [1 1 1 ; 1 1 1];
 end
 
-layerSlds = cell(numberOfContrasts,1);
+layerSlds = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    layerSlds{i} = [1 1 1 ; 1 1 1];
+    layerSlds{i,1} = [1 1 1 ; 1 1 1];
+    layerSlds{i,2} = [1 1 1 ; 1 1 1];
 end
 
 domainSldProfiles = cell(numberOfContrasts,2);

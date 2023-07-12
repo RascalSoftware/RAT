@@ -30,9 +30,6 @@ contrastDomainRatios = problemDef.contrastDomainRatios;
 
 domainRatio = 1;    % Default for compile.
 
-% Domains end up with twice the number of SLD profiles
-% and layers..
-totNumCalcs = numberOfContrasts * 2;
                      
 % Pre-Allocation of output arrays...
 backgs = zeros(numberOfContrasts,1);
@@ -44,8 +41,8 @@ resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
 chis =  zeros(numberOfContrasts,1);
-allLayers = cell(numberOfContrasts,1); 
-layerSlds = cell(numberOfContrasts,1);
+allLayers = cell(numberOfContrasts,2); 
+layerSlds = cell(numberOfContrasts,2);
 domainSldProfiles = cell(numberOfContrasts,2);
 shifted_data = cell(numberOfContrasts,1);
 
@@ -59,9 +56,10 @@ for i = 1:numberOfContrasts
     Simulation{i} = [1 1 ; 1 1];
 end
 
-allLayers = cell(numberOfContrasts,1);
+allLayers = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 ; 1];
+    allLayers{i,1} = [1 1 1; 1 1 1];
+    allLayers{i,2} = [1 1 1; 1 1 1];
 end
 
 tempSldProfiles = cell(numberOfContrasts,1);
@@ -78,6 +76,11 @@ end
 tempAllLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     tempAllLayers{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
+end
+
+tempLayerSlds = cell(numberOfContrasts,1);
+for i = 1:numberOfContrasts
+    tempLayerSlds{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
 end
 
 % Resampling parameters
@@ -137,7 +140,7 @@ for i = 1:numberOfContrasts
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
 
     % Domain 2
-    [sldProfile2,reflect2,Simul2,~,layerSld,resamLayers2,~,~] = ...
+    [sldProfile2,reflect2,Simul2,~,layerSld2,resamLayers2,~,~] = ...
     standardTFLayersCore...
     (thisContrastLayers2, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
@@ -161,7 +164,7 @@ for i = 1:numberOfContrasts
     reflectivity{i} = totReflect;
     Simulation{i} = totSimul;
     shifted_data{i} = shifted_dat;
-    layerSlds{i} = layerSld;
+    tempLayerSlds{i} = {layerSld1, layerSld2};
     tempAllLayers{i} = {resamLayers1, resamLayers2};
     
     chis(i) = thisChiSquared;
@@ -172,8 +175,6 @@ for i = 1:numberOfContrasts
     nbss(i) = thisNbs;
     resols(i) = thisResol;
     allRoughs(i) = thisRough;
-
-    %layersCounter = layersCounter + 2;
 end
 
 for i = 1:numberOfContrasts
@@ -184,6 +185,10 @@ for i = 1:numberOfContrasts
     theseAllLayers = tempAllLayers{i};
     allLayers{i,1} = theseAllLayers{1};
     allLayers{i,2} = theseAllLayers{2};
+
+    theseLayerSlds = tempLayerSlds{i};
+    layerSlds{i,1} = theseLayerSlds{1};
+    layerSlds{i,2} = theseLayerSlds{2};
 end
 
 end

@@ -3,7 +3,8 @@
 clear eventManagerInterface;
 args = {};
 if ismac
-%     mbuild eventManager.cpp CMDLINE150='' CMDLINE200='$LD $LDFLAGS $OBJS $LINKOPTIM $LINKEXPORT $CLIBS $LINKLIBS -o $EXE' LDEXT='.dylib' LDTYPE='-dynamiclib' LDFLAGS='-arch x86_64 -mmacosx-version-min=$SDKVER -Wl,-syslibroot,$ISYSROOT $LDTYPE $LINKEXPORT -framework CoreFoundation -install_name "@loader_path/$EXENAME$LDEXT"'
+    mbuild eventManager.cpp CMDLINE150='' CMDLINE200='$LD $LDFLAGS $OBJS $LINKOPTIM $LINKEXPORT $CLIBS $LINKLIBS -o $EXE' ...
+           LDEXT='.dylib' LDTYPE='-dynamiclib' LDFLAGS='-lc++ -arch x86_64 -mmacosx-version-min=$SDKVER -Wl,-syslibroot,$ISYSROOT $LDTYPE $LINKEXPORT -framework CoreFoundation -install_name "@loader_path/$EXENAME$LDEXT"'
 elseif isunix
     mbuild eventManager.cpp CXXFLAGS="-fPIC $CXXFLAGS" LDTYPE="-shared" LDEXT=".so";
     args = {'-ldl'};

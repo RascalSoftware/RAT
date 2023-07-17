@@ -14,7 +14,7 @@ jobs:
   test:
     strategy:
       matrix:
-        platform: [Windows, Linux]
+        platform: [Windows, Linux, macOS]
     runs-on: ${{ matrix.platform }}
  
     steps:
@@ -28,8 +28,8 @@ jobs:
       uses: matlab-actions/run-command@v1
       with:
         command: testScript
-    - name: Create build archive (Windows)
-      if: runner.os == 'Windows'
+    - name: Create build archive (Windows and macOS)
+      if: runner.os != 'Linux'
       run:  tar --exclude="**/-lang:c++.zip" -acvf ${{ runner.os }}.zip compile
     - name: Create build archive (Linux)
       if: runner.os == 'Linux'
@@ -44,15 +44,3 @@ jobs:
         overwrite: true
         file: '${{ runner.os }}.zip'
         asset_name: '${{ runner.os }}.zip'
-  
-  test-mac-os:
-    runs-on: macos-latest
-    steps:
-    - name: Checkout RAT
-      uses: actions/checkout@v3
-    - name: Set up MATLAB
-      uses: matlab-actions/setup-matlab@v1
-    - name: Run tests
-      uses: matlab-actions/run-command@v1
-      with:
-        command: testScript

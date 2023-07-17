@@ -22,6 +22,7 @@ paramonte_out/
 codegen/
 *.mexa64
 *.mexw64
+*.mexmaci64
 *.mlappinstall
 *.mltbx
 _build/

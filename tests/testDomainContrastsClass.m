@@ -84,8 +84,7 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
             % We need to define it in this way to avoid setting the struct
             % as a 1x3 struct array . . .
             testCase.exampleStruct = struct( ...
-                'numberOfContrasts', 3, ...
-                'contrastCustomFile', [NaN NaN NaN] ...
+                'numberOfContrasts', 3 ...
                 );
 
             testCase.exampleStruct.contrastNames = {'Bilayer / D2O', 'Bilayer / SMW', 'Bilayer / H2O'};
@@ -106,27 +105,11 @@ classdef testDomainContrastsClass < matlab.unittest.TestCase
             testCase.verifyFalse(testClass.oilWaterCalc);
         end
 
-        function testToStructStandardLayers(testCase)
+        function testToStruct(testCase)
             % Test converting the contrasts class to a struct
-            % Here we use a "standard layers" model type
+            % Here we use a "standard layers" model type as must be the
+            % case for the domain contrasts to be defined.
             testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'standard layers'), testCase.exampleStruct);
-        end
-
-        function testToStructCustomLayers(testCase)
-            % Test converting the contrasts class to a struct
-            % Here we use a "custom layers" model type
-
-            % Modify exampleClass and exampleStruct to be valid for a
-            % custom layers model - the differences are that there can
-            % only be one entry for model and we check for custom files
-            % rather than layers
-            for i=1:testCase.numContrasts
-                testCase.exampleClass.contrasts{i}.model = {'DSPC Model'};
-            end
-            testCase.exampleStruct.contrastLayers = {{} {} {}};
-            testCase.exampleStruct.contrastCustomFile = [1 1 1];
-
-            testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.allowedNames, 'custom layers'), testCase.exampleStruct);
         end
 
         function testDisplayContrastsObject(testCase)

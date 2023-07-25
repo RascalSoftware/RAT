@@ -279,16 +279,14 @@ classdef (Abstract) baseContrasts < handle
             end
         end
 
-        function contrastStruct = toStruct(obj, allowedNames, modelType)
+        function contrastStruct = toStruct(obj)
             % Convert the contrasts class to a struct.
             % This routine deals with properties common to all contrast
             % classes. The expected input is the allowed names for each
             % parameter, the model type and the data table from the data class.
             %
-            % contrasts.toStruct(allowedNames, 'standard layers', dataTable)
+            % contrasts.toStruct()
             nContrasts = obj.numberOfContrasts;
-            contrastLayers = cell(1,nContrasts);
-            contrastCustomFile = ones(1,nContrasts);
             
             contrastNames = cell(1,nContrasts);
             contrastRepeatSLDs = cell(1,nContrasts);
@@ -300,32 +298,11 @@ classdef (Abstract) baseContrasts < handle
                 contrastRepeatSLDs{i} = [0 1]; % todo
                 contrastNames{i} = thisContrast.name;
 
-                modelType = validateOption(modelType, 'modelTypes', obj.invalidTypeMessage).value;
-                switch modelType
-                    case modelTypes.StandardLayers.value
-                        thisModel = thisContrast.model;
-                        thisLayerArray = ones(1, length(thisModel));
-                        for n = 1:length(thisModel)
-                            thisLayer = thisModel{n};
-                            thisLayerNum = find(strcmpi(thisLayer, allowedNames.layersNames));
-                            thisLayerArray(n) = thisLayerNum;
-                        end
-                        contrastLayers{i} = thisLayerArray;
-                        contrastCustomFile(i) = NaN;
-                    otherwise
-                        contrastLayers{i} = {};
-                        whichFile = thisContrast.model;
-                        thisContrastFileNum = find(strcmpi(whichFile, allowedNames.customNames));
-                        contrastCustomFile(i) = thisContrastFileNum;
-                end
-                
             end
 
             contrastStruct.contrastNames = contrastNames;
             contrastStruct.numberOfContrasts = nContrasts;
-            contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastRepeatSLDs = contrastRepeatSLDs;
-            contrastStruct.contrastCustomFile = contrastCustomFile;
             
         end
 

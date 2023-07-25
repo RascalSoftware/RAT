@@ -66,11 +66,11 @@ for i = 1:numberOfContrasts
 end
            
 switch lower(type)
-    %case 'standard layers'
-        % Standard layers calculation
-%         [problem,reflectivity,Simulation,...
-%          shifted_data,layerSlds,sldProfiles,...
-%          allLayers]= domainsTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+    case 'standard layers'
+        Standard layers calculation
+        [problem,reflectivity,Simulation,...
+         shifted_data,layerSlds,sldProfiles,...
+         allLayers]= domainsTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
     case 'custom layers'
         % Custom layers with user supplied custom model file
         [problem,reflectivity,Simulation,...

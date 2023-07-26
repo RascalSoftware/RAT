@@ -364,7 +364,7 @@ else
     problemDef.domainRatio = ones(1,0);
 end
 
-if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 'domainContrastsClass')
+if isa(inputProblemDef, 'domainsClass')
     problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
 else
     problemDef.numberOfDomainContrasts = 0;

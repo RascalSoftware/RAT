@@ -67,6 +67,7 @@ paths = {
     fullfile(root,'targetFunctions','standardTF','standardLayers');
     fullfile(root,'targetFunctions','domainsTF');
     fullfile(root,'targetFunctions','domainsTF','customLayers');
+    fullfile(root,'targetFunctions','domainsTF','standardLayers');
     
     fullfile(root,'tests','standardTFReflectivityCalculation');
     fullfile(root,'tests','testCommonFunctions');

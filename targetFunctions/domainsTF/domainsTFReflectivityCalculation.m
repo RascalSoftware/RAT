@@ -67,7 +67,7 @@ end
            
 switch lower(type)
     case 'standard layers'
-        Standard layers calculation
+        % Standard layers calculation
         [problem,reflectivity,Simulation,...
          shifted_data,layerSlds,sldProfiles,...
          allLayers]= domainsTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);

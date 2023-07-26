@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
+function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
 
 % Standard layers reflectivity calculation for standardTF
 % This function decides on parallelisation options before calling the

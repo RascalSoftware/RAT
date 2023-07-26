@@ -364,12 +364,10 @@ else
     problemDef.domainRatio = ones(1,0);
 end
 
-if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 'domainContrastsClass')
+if isa(inputProblemDef, 'domainsClass')
     problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
-    problemDef.domainContrastCustomFiles = inputStruct.domainContrastCustomFile;
 else
     problemDef.numberOfDomainContrasts = 0;
-    problemDef.domainContrastCustomFiles = ones(1,0);
 end    
 
 % Initialise the lists of fitting parameters    

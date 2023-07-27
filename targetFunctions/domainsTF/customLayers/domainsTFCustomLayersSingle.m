@@ -152,13 +152,11 @@ for i = 1:numberOfContrasts
     % Get an overall chi-squared for the new averaged curve..
     thisChiSquared = chiSquared(shifted_dat,totReflect,length(params));
    
-      % Store returned values for this contrast in the output arrays.
+     % Store returned values for this contrast in the output arrays.
     % As well as the calculated profiles, we also store a record of 
     % the other values (background, scalefactors etc) for each contrast
     % for future use.
     outSsubs(i) = thisSsubs;
-%     domainSldProfiles{i,1} = sldProfile1;
-%     domainSldProfiles{i,2} = sldProfile2;
     tempSldProfiles{i} = {sldProfile1, sldProfile2};
     reflectivity{i} = totReflect;
     Simulation{i} = totSimul;

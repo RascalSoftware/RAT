@@ -83,6 +83,9 @@ classdef domainsClass < projectClass
             % set parameter names for the project.
             names = getAllAllowedNames@projectClass(obj);
             names.domainRatioNames = obj.domainRatio.getNames();
+            if isa(obj.domainContrasts, 'domainContrastsClass')
+                names.domainContrastsNames = obj.domainContrasts.getNames();
+            end
         end
     
         % ----------------------------------------------------------------
@@ -210,9 +213,8 @@ classdef domainsClass < projectClass
                 domainContrastStruct = cell2struct(struct2cell(domainContrastStruct), ...
                                                     {'domainContrastNames', ...
                                                      'numberOfDomainContrasts', ...
-                                                     'domainContrastLayers', ...
                                                      'domainContrastRepeatSLDs', ...
-                                                     'domainContrastCustomFile'});
+                                                     'domainContrastLayers'});
             end
 
             domainRatioStruct = obj.domainRatio.toStruct();
@@ -224,9 +226,14 @@ classdef domainsClass < projectClass
                                              'domainRatioFitYesNo', ...
                                              'domainRatioPriors'});
 
-            outStruct = mergeStructs(mainStruct, ...
-                                     domainContrastStruct, ...
-                                     domainRatioStruct);
+            if isa(obj.domainContrasts, 'domainContrastsClass')
+                outStruct = mergeStructs(mainStruct, ...
+                                         domainContrastStruct, ...
+                                         domainRatioStruct);
+            else
+                outStruct = mergeStructs(mainStruct, ...
+                                         domainRatioStruct);
+            end
 
         end
 

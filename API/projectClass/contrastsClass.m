@@ -61,10 +61,12 @@ classdef contrastsClass < baseContrasts
             % contrasts.toStruct(allowedNames, 'standard layers', dataTable)
 
             % Call superclass version for common properties
-            contrastStruct = toStruct@baseContrasts(obj, allowedNames, modelType);
+            contrastStruct = toStruct@baseContrasts(obj);
 
             % Now deal with additional properties in this class
             nContrasts = obj.numberOfContrasts;
+            contrastLayers = cell(1,nContrasts);
+            contrastCustomFile = ones(1,nContrasts);
             contrastBacks = cell(1,nContrasts);
             contrastNbas = ones(1,nContrasts);
             contrastNbss = ones(1,nContrasts);
@@ -85,6 +87,31 @@ classdef contrastsClass < baseContrasts
             for i = 1:nContrasts
 
                 thisContrast = obj.contrasts{i};
+
+                modelType = validateOption(modelType, 'modelTypes', obj.invalidTypeMessage).value;
+                switch modelType
+                    case modelTypes.StandardLayers.value
+                        thisModel = thisContrast.model;
+                        thisArray = ones(1, length(thisModel));
+                        if obj.domainsCalc
+                            for n = 1:length(thisModel)
+                                thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.domainContrastsNames));
+                                thisArray(n) = thisLayerNum;
+                            end
+                        else
+                            for n = 1:length(thisModel)
+                                thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.layersNames));
+                                thisArray(n) = thisLayerNum;
+                            end
+                        end
+                        contrastLayers{i} = thisArray;
+                        contrastCustomFile(i) = NaN;
+                    otherwise
+                        contrastLayers{i} = {};
+                        whichFile = thisContrast.model;
+                        thisContrastFileNum = find(strcmpi(whichFile, allowedNames.customNames));
+                        contrastCustomFile(i) = thisContrastFileNum;
+                end
 
                 if isfield(thisContrast, 'domainRatio')
                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
@@ -134,6 +161,8 @@ classdef contrastsClass < baseContrasts
                 end
             end
 
+            contrastStruct.contrastLayers = contrastLayers;
+            contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.contrastDomainRatios = contrastDomainRatios;
             contrastStruct.contrastBacks = contrastBacks;
             contrastStruct.contrastNbas = contrastNbas;

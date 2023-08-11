@@ -82,6 +82,7 @@ for i = 1:numberOfContrasts
     domainSldProfiles{i,1} = [1 1 ; 1 1];
     domainSldProfiles{i,2} = [1 1 ; 1 1];
 end
+coder.varsize('domainSldProfiles',[10000 2],[1 1]);
 coder.varsize('domainSldProfiles{:}',[10000 Inf],[1 1]);
 
 allLayers = cell(numberOfContrasts,1);
@@ -107,10 +108,10 @@ switch whichTF
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDefCells,controls);    
     %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDefCells,controls);
-%     case 'domains'
-%         [problem,reflectivity,Simulation,shifted_data,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
-    %otherwise
-        %error('The calculation type "%s" is not supported', whichTF);
+    case 'domains'
+        [problem,reflectivity,Simulation,shifted_data,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+%     otherwise
+%         error('The calculation type "%s" is not supported', whichTF);
 
 end
 
@@ -217,12 +218,12 @@ coder.varsize('result{2}{:}',[Inf 2],[1 0]);
 coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
 coder.varsize('result{3}{:}',[Inf 3],[1 0]);
 
-coder.varsize('result{4}',[Inf 2],[1 1]);           %Layers slds
-coder.varsize('result{4}{:}',[Inf 6],[1 1]);
+% coder.varsize('result{4}',[Inf 2],[1 1]);           %Layers slds
+% coder.varsize('result{4}{:}',[Inf 6],[1 1]);
 
-coder.varsize('result{5}',[Inf 2],[1 1]);           %Sld profiles
-coder.varsize('results{5}{:}',[Inf 2],[1 2]);
+% coder.varsize('result{5}',[Inf 2],[1 1]);           %Sld profiles
+% coder.varsize('results{5}{:}',[Inf 2],[1 2]);
 
-coder.varsize('result{6}',[Inf 2],[1 1]);           %All layers (resampled)
-coder.varsize('result{6}{:}',[Inf 3],[1 0]);
+% coder.varsize('result{6}',[Inf 2],[1 1]);           %All layers (resampled)
+% coder.varsize('result{6}{:}',[Inf 3],[1 0]);
 end

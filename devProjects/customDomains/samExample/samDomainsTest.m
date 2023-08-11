@@ -3,7 +3,7 @@
 % Use incoherent summing on a permalloy layer
 % as a test
 
-problem = project(type="domains");
+problem = project(calcType="domains");
 problem.setModelType('custom layers');
 problem.setGeometry('substrate/liquid');
 problem.absorption = true;

@@ -58,7 +58,7 @@ for i = 1:numberOfContrasts
         thisLayers2 = allLayers{i,2};
         nbair = thisLayers1(1,2);
         nbsub = thisLayers1(end,2);
-        ssub = result.contrastParams.ssubs(i);
+        ssub = data.ssubs(i);
 
         % Domain1
         numberOfLayers = size(thisLayers1,1);

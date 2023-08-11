@@ -82,7 +82,7 @@ for i = 1:numberOfContrasts
     domainSldProfiles{i,1} = [1 1 ; 1 1];
     domainSldProfiles{i,2} = [1 1 ; 1 1];
 end
-coder.varsize('domainSldProfiles{:}',[10000 2],[1 0]);
+coder.varsize('domainSldProfiles{:}',[10000 Inf],[1 1]);
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -107,8 +107,8 @@ switch whichTF
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDefCells,controls);    
     %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDefCells,controls);
-    case 'domains'
-        [problem,reflectivity,Simulation,shifted_data,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+%     case 'domains'
+%         [problem,reflectivity,Simulation,shifted_data,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
     %otherwise
         %error('The calculation type "%s" is not supported', whichTF);
 
@@ -140,6 +140,7 @@ switch whichTF
     case 'domains'
 
         cell4 = cell(numberOfContrasts,2);
+        coder.varsize('cell4',[10000 2],[1 1]);
         for i = 1:numberOfContrasts
             cell4{i,1} = domainLayerSlds{i,1};
             cell4{i,2} = domainLayerSlds{i,2};
@@ -220,7 +221,7 @@ coder.varsize('result{4}',[Inf 2],[1 1]);           %Layers slds
 coder.varsize('result{4}{:}',[Inf 6],[1 1]);
 
 coder.varsize('result{5}',[Inf 2],[1 1]);           %Sld profiles
-coder.varsize('results{5}{:}',[Inf 2],[1 0]);
+coder.varsize('results{5}{:}',[Inf 2],[1 2]);
 
 coder.varsize('result{6}',[Inf 2],[1 1]);           %All layers (resampled)
 coder.varsize('result{6}{:}',[Inf 3],[1 0]);

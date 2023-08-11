@@ -48,9 +48,10 @@ for i = 1:numberOfContrasts
     allLayers{i,2} = [1 1 1; 1 1 1];
 end
 
+domainSldProfiles = cell(numberOfContrasts,2);
 for i = 1:numberOfContrasts
-    domainSldProfiles{i,1} = [1 1 ; 1 1];
-    domainSldProfiles{i,2} = [1 1 ; 1 1];
+    domainSldProfiles{i,1} = [1 ; 1];
+    domainSldProfiles{i,2} = [1 ; 1];
 end
 
 tempSldProfiles = cell(numberOfContrasts,1);
@@ -76,11 +77,6 @@ contrastDomainRatios = problemDef.contrastDomainRatios;
 
 domainRatio = 1;    % Default for compile.
 
-domainSldProfiles = cell(numberOfContrasts,2);
-for i = 1:numberOfContrasts
-    domainSldProfiles{i,1} = [1 1 ; 1 1];
-    domainSldProfiles{i,2} = [1 1 ; 1 1];
-end
 [domainSldProfiles,allRoughs] = customModelClass.processCustomXYDomains(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 
@@ -118,8 +114,8 @@ for i = 1:numberOfContrasts
     shifted_data{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles';
-    [reflect1,Simul1] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,outSsubs(i),resols(i),'single',reflectivityType,useImaginary);
-    [reflect2,Simul2] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,outSsubs(i),resols(i),'single',reflectivityType,useImaginary);
+    [reflect1,Simul1] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,outSsubs(i),resols(i),'points',reflectivityType,useImaginary);
+    [reflect2,Simul2] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,outSsubs(i),resols(i),'points',reflectivityType,useImaginary);
 
     [reflect1,Simul1,shifted_dat] = applyBackgroundCorrection(reflect1,Simul1,shifted_dat,backgs(i),backsType(i));
     [reflect2,Simul2,shifted_dat] = applyBackgroundCorrection(reflect2,Simul2,shifted_dat,backgs(i),backsType(i));
@@ -151,5 +147,4 @@ for i = 1:numberOfContrasts
     layerSlds{i,2} = theseLayerSlds{2};
 end
 
-outSsubs = allRoughs;
 end

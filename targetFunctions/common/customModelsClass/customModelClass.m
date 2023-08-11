@@ -209,8 +209,8 @@ classdef customModelClass < handle
             % contrasts.
 
             % Do some pre-definitions to keep the compiler happy...
-            tempAllSLDs = cell(numberOfContrasts,1);
-            allSLDs = cell(numberOfContrasts,1);
+            tempAllSLDs = cell(numberOfContrasts,2);
+            allSLDs = cell(numberOfContrasts,2);
             allRoughs = zeros(numberOfContrasts,1);
 
             for i = 1:numberOfContrasts

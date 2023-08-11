@@ -1,7 +1,7 @@
 % Test of custom layers domains prioject...
 % Use incoherent summing on a ozone attacked sample
 
-problem = project(type="domains");
+problem = project(calcType="domains");
 problem.setModelType('custom layers');
 problem.setGeometry('air/substrate');
 

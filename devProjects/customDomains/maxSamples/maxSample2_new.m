@@ -34,7 +34,7 @@ problem.setBulkOut(1,'name','Silicon','value',2.073e-6,'fit',false);
 problem.setScalefactor(1,'fit',true);
 problem.setBacksPar(1,'fit',true);
 problem.setResolPar(1,'fit',true);
-problem.setDomainRatio(1,'fit',true)
+problem.setDomainRatio(1,'fit',true);
 
 % Add the custom file...
 problem.addCustomFile('Ozone domains','ozoneDomains_Si_new.m','matlab',pwd);
@@ -58,6 +58,6 @@ problem.addContrast('name',       'Sample 2', ...
                     'Resample',    false,...
                     'domainRatio','Domain Ratio 1');
 
-problem.setContrastModel(1,'Ozone domains');
+problem.setContrastModel(1,'Ozone domains')
 
 

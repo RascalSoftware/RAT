@@ -109,6 +109,7 @@ for i = 1:numberOfContrasts
     
     tempLayerSlds{i} = {layerSld1, layerSld2};
     tempAllLayers{i} = {layerSld1, layerSld2};
+    tempSldProfiles{i} = {thisSld1, thisSld2};
 
     shifted_dat =  shiftData(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
     shifted_data{i} = shifted_dat;

@@ -43,7 +43,7 @@ resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
 chis =  zeros(numberOfContrasts,1);
-layerSlds = cell(numberOfContrasts,1);
+layerSlds = cell(numberOfContrasts,2);
 domainSldProfiles = cell(numberOfContrasts,2);
 shifted_data = cell(numberOfContrasts,1);
 

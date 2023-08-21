@@ -141,7 +141,6 @@ switch whichTF
     case 'domains'
 
         cell4 = cell(numberOfContrasts,2);
-        coder.varsize('cell4',[10000 2],[1 1]);
         for i = 1:numberOfContrasts
             cell4{i,1} = domainLayerSlds{i,1};
             cell4{i,2} = domainLayerSlds{i,2};

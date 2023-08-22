@@ -87,7 +87,7 @@ end
 for i = 1:numberOfContrasts
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 
-    % Get the domain ratio for theis contrast
+    % Get the domain ratio for this contrast
     thisContrastDR = contrastDomainRatios(i);
     if isempty(thisContrastDR)
         thisContrastDR = 1;

@@ -2,7 +2,7 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,all
 
 % Standard layers reflectivity calculation for standardTF
 % This function decides on parallelisation options before calling the
-% relevant version ofthe main standard layers calculation. Parallelisation 
+% relevant version of the main standard layers calculation. Parallelisation 
 % is either over the outer loop ('contrasts'), or the inner loop
 % ('points'). The easiest way to do this is to have multiple versions of 
 % the same core calculation, rather than trying to make the parallel

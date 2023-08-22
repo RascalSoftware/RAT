@@ -1,6 +1,6 @@
 function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)
 
-% Main function for the standardTF reflectivity calculation
+% Main function for the domainsTF reflectivity calculation
 % This function decides what type of model is being analysed and barnches
 % to the correct one. The main options are:
 % layers            - This is the equivalent of Standard Layers in RasCAL

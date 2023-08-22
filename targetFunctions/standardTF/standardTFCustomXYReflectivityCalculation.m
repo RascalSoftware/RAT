@@ -6,7 +6,7 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,all
 % relevant version of the main custom XY calculation. It is more
 % efficient to have multiple versions of the core calculation, each dealing
 % with a different scheme for parallelisation. These are:
-% single    - single threaded teflectivity calculation
+% single    - single threaded reflectivity calculation
 % points    - parallelise over points in the reflectivity calculation
 % contrasts - parallelise over contrasts.
 

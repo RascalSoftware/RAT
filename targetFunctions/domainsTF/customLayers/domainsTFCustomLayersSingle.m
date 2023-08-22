@@ -2,10 +2,10 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
     allRoughs] = domainsTFCustomLayersSingle(problemDef,problemDefCells,...
     problemDefLimits,controls)
-% Single threaded version of the custom layers, standardTF reflectivity
+% Single threaded version of the custom layers, domainsTF reflectivity
 % calculation. The function extracts the relevant parameters from the input
 % arrays, allocates these on a pre-contrast basis, then calls the 'core' 
-% calculation (the core layers standardTf calc is shared between multiple
+% calculation (the core layers domainsTF calc is shared between multiple
 % calculation types).
 
 
@@ -84,14 +84,14 @@ end
 resamPars = controls.resamPars;
 
 % Process the custom models....
-[calcAllLayers,allRoughs] = customModelClass.processCustomLayersDomains2(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+[calcAllLayers,allRoughs] = customModelClass.processCustomLayersDomains(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 % Parallel over all contrasts
 %layersCounter = 1;
 for i = 1:numberOfContrasts
 
-    % Get the domain ratio for theis contrast
+    % Get the domain ratio for this contrast
     thisContrastDR = contrastDomainRatios(i);
     if isempty(thisContrastDR)
         thisContrastDR = 1;
@@ -100,7 +100,7 @@ for i = 1:numberOfContrasts
 
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
-    % First need to decide which values of the backrounds, scalefactors
+    % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
     

@@ -105,7 +105,7 @@ classdef customModelClass < handle
                 % ....also file.
                 thisFile = thisCustomModel{1};
 
-                % Find values of 'bulkIn' and 'bulkOut' for thid
+                % Find values of 'bulkIn' and 'bulkOut' for this
                 % contrast...
                 [~,~,~,bulkIn,bulkOut,~] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 
@@ -122,7 +122,7 @@ classdef customModelClass < handle
             allSLDs = tempAllSLDs;
         end
 
-        function [allLayers,allRoughs] = processCustomLayersDomains2(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+        function [allLayers,allRoughs] = processCustomLayersDomains(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
                 shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
             % Top-level function for processing custom layers for all the
@@ -235,8 +235,7 @@ classdef customModelClass < handle
                 % ....also file.
                 thisFile = thisCustomModel{1};
 
-                % Find values of 'bulkIn' and 'bulkOut' for thid
-                % contrast...
+                % Find values of 'bulkIn' and 'bulkOut' for this contrast...
                 [~,~,~,bulkIn,bulkOut,~] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 
 %                 switch thisLanguage

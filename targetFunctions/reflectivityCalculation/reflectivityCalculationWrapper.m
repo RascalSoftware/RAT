@@ -25,15 +25,11 @@ function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef
 % result{5} = sldProfiles{}
 % result{6} = currently empty - will be allLayers (i.e. resampled)
 
-debug = true;
-if debug
-    % enforce the Matlab version
-    [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+%[problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 
-else
-    % Try to use the compiled version
+
     try
-        [problem,result] = reflectivityCalculation_mex(problemDef,problemDefCells,problemDefLimits,controls);
+       [problem,result] = reflectivityCalculation_mex(problemDef,problemDefCells,problemDefLimits,controls);
     catch exception
         if (strcmp(exception.identifier, 'MATLAB:UndefinedFunction'))
             [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
@@ -41,5 +37,4 @@ else
             rethrow(exception)
         end
     end
-end
 end

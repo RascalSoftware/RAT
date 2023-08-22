@@ -1,20 +1,19 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)
+function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTFStandardLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
 
-% Custom XP profile reflectivity calculation for standardTF
-
+% Standard layers reflectivity calculation for standardTF
 % This function decides on parallelisation options before calling the
-% relevant version of the main custom XY calculation. It is more
-% efficient to have multiple versions of the core calculation, each dealing
-% with a different scheme for parallelisation. These are:
-% single    - single threaded reflectivity calculation
+% relevant version of the main standard layers calculation. Parallelisation 
+% is either over the outer loop ('contrasts'), or the inner loop
+% ('points'). The easiest way to do this is to have multiple versions of 
+% the same core calculation, rather than trying to make the parallel
+% for loops conditional (although that would be much neater) There are:
 % points    - parallelise over points in the reflectivity calculation
-% contrasts - parallelise over contrasts.
+% contrasts - parallelise over contrasts (outer for loop)
 
 
 % Pre-allocation - It's necessary to
-% pre-allocate the memory for all the arrays
+% pre-define the types for all the arrays
 % for compilation, so do this in this block.
-
 numberOfContrasts = problemDef.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
 backgs = zeros(numberOfContrasts,1);
@@ -53,35 +52,34 @@ end
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 ; 1];
+    allLayers{i} = [1 1 1; 1 1 1];
 end
+% ------- End type definitions -------------
+
 
 para = controls.para;
 
 switch para
     case 'single'
-            
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = standardTFCustomXYSingle(problemDef,problemDefCells,...
+             allRoughs] = domainsTFStandardLayersSingle(problemDef,problemDefCells,...
              problemDefLimits,controls);
-        
-    case 'points'
-        
+         
+     case 'points'
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDefCells,...
+             allRoughs] = domainsTFStandardLayersParallelPoints(problemDef,problemDefCells,...
              problemDefLimits,controls);
-        
+
     case 'contrasts'
-        
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDefCells,...
-             problemDefLimits,controls);
-        
+             allRoughs] = domainsTFStandardLayersParallelContrasts(problemDef,problemDefCells,...
+             problemDefLimits,controls);        
 end
 
+% Package everything into one array for tidy output
 problem.ssubs = outSsubs;
 problem.backgrounds = backgs;
 problem.qshifts = qshifts;
@@ -92,7 +90,7 @@ problem.resolutions = resols;
 problem.calculations.all_chis = chis;
 problem.calculations.sum_chi = sum(chis);
 problem.allSubRough = allRoughs;
-problem.resample = ones(1,length(allRoughs));
-
+problem.resample = problemDef.resample;
 
 end
+

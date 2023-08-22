@@ -61,13 +61,29 @@ layerSlds = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
     layerSlds{i} = [1 1 1 ; 1 1 1];
 end
-coder.varsize('layerSlds{:}',[10000 3],[1 0]);
+coder.varsize('layerSlds{:}',[10000 6],[1 1]);
+
+domainLayerSlds = cell(numberOfContrasts,2);
+for i = 1:numberOfContrasts
+    domainLayerSlds{i,1} = [1 1 1 ; 1 1 1];
+    domainLayerSlds{i,2} = [1 1 1 ; 1 1 1];
+end
+coder.varsize('domainLayerSlds',[10000 2],[1 1]);
+coder.varsize('domainLayerSlds{:}',[10000 6],[1 1]);
 
 sldProfiles = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    sldProfiles{i} = [1 1 ; 1 1];
+    sldProfiles{i,1} = [1 1 ; 1 1];
 end
 coder.varsize('sldProfiles{:}',[10000 2],[1 0]);
+
+domainSldProfiles = cell(numberOfContrasts,2);
+for i = 1:numberOfContrasts
+    domainSldProfiles{i,1} = [1 1 ; 1 1];
+    domainSldProfiles{i,2} = [1 1 ; 1 1];
+end
+coder.varsize('domainSldProfiles',[10000 2],[1 1]);
+coder.varsize('domainSldProfiles{:}',[10000 Inf],[1 1]);
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -75,6 +91,13 @@ for i = 1:numberOfContrasts
 end
 coder.varsize('allLayers{:}',[10000 3],[1 0]);
 
+domainAllLayers = cell(numberOfContrasts,2);
+for i = 1:numberOfContrasts
+    domainAllLayers{i,1} = [1 1 1; 1 1 1];
+    domainAllLayers{i,2} = [1 1 1; 1 1 1];
+end
+coder.varsize('domainAllLayers',[10000 2],[1 1]);
+coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
 
 % Decide which target function we are calling and call the relevant routines
 whichTF = problemDef.TF;
@@ -85,10 +108,10 @@ switch whichTF
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDefCells,controls);    
     %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDefCells,controls);
-    %case 'domains'
-        %[problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF_reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
-    %otherwise
-        %error('The calculation type "%s" is not supported', whichTF);
+    case 'domains'
+        [problem,reflectivity,Simulation,shifted_data,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+%     otherwise
+%         error('The calculation type "%s" is not supported', whichTF);
 
 end
 
@@ -111,24 +134,56 @@ for i = 1:numberOfContrasts
     cell3{i} = shifted_data{i}; 
 end
 result{3} = cell3;
- 
-cell4 = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    cell4{i} = layerSlds{i};
+
+
+% The size of this array now varies depending on TF
+switch whichTF
+    case 'domains'
+
+        cell4 = cell(numberOfContrasts,2);
+        for i = 1:numberOfContrasts
+            cell4{i,1} = domainLayerSlds{i,1};
+            cell4{i,2} = domainLayerSlds{i,2};
+        end
+        result{4} = cell4;
+
+        cell5 = cell(numberOfContrasts,2);
+        for i = 1:numberOfContrasts
+            cell5{i,1} = domainSldProfiles{i,1};
+            cell5{i,2} = domainSldProfiles{i,2};
+        end
+        result{5} = cell5;
+
+        cell6 = cell(numberOfContrasts,2);
+        for i = 1:numberOfContrasts
+            cell6{i,1} = domainAllLayers{i,1}; 
+            cell6{i,2} = domainAllLayers{i,2};
+        end
+        result{6} = cell6;
+
+    otherwise
+
+        cell4 = cell(numberOfContrasts,1);
+        for i = 1:numberOfContrasts
+            cell4{i} = layerSlds{i};
+        end
+        result{4} = cell4;
+
+        cell5 = cell(numberOfContrasts,1);
+        for i = 1:numberOfContrasts
+            cell5{i} = sldProfiles{i};
+        end
+        result{5} = cell5;
+
+        cell6 = cell(numberOfContrasts,1);
+        for i = 1:numberOfContrasts
+            cell6{i} = allLayers{i}; 
+        end
+        result{6} = cell6;
+
 end
-result{4} = cell4;
- 
-cell5 = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    cell5{i} = sldProfiles{i}; 
-end
-result{5} = cell5;
- 
-cell6 = cell(numberOfContrasts,1);
-for i = 1:numberOfContrasts
-    cell6{i} = allLayers{i}; 
-end
-result{6} = cell6;
+
+
 
 % Send plot event
 plotResult = cell(1,3);
@@ -162,12 +217,12 @@ coder.varsize('result{2}{:}',[Inf 2],[1 0]);
 coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data
 coder.varsize('result{3}{:}',[Inf 3],[1 0]);
 
-coder.varsize('result{4}',[Inf 1],[1 0]);           %Layers slds
-coder.varsize('result{4}{:}',[Inf 3],[1 0]);
+% coder.varsize('result{4}',[Inf 2],[1 1]);           %Layers slds
+% coder.varsize('result{4}{:}',[Inf 6],[1 1]);
 
-coder.varsize('result{5}',[Inf 1],[1 0]);           %Sld profiles
-coder.varsize('results{5}{:}',[Inf 2],[1 0]);
+% coder.varsize('result{5}',[Inf 2],[1 1]);           %Sld profiles
+% coder.varsize('results{5}{:}',[Inf 2],[1 2]);
 
-coder.varsize('result{6}',[Inf 1],[1 0]);           %All layers (resampled)
-coder.varsize('result{6}{:}',[Inf 3],[1 0]);
+% coder.varsize('result{6}',[Inf 2],[1 1]);           %All layers (resampled)
+% coder.varsize('result{6}{:}',[Inf 3],[1 0]);
 end

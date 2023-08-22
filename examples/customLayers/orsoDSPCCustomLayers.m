@@ -117,7 +117,7 @@ problem.addContrast('name','Bilayer / D2O',...
     'scalefactor', 'Scalefactor 1',...
     'nbs', 'SLD D2O',...        % This is bulk out ('Nb Subs')
     'nba', 'Silicon',...        % This is bulk in ('Nb Air')
-    'data', 'Bilayer / D2O');
+    'data', 'Simulation');
 
 % SMW contrast..
 problem.addContrast('name','Bilayer / SMW',...
@@ -126,7 +126,7 @@ problem.addContrast('name','Bilayer / SMW',...
     'scalefactor', 'Scalefactor 1',...
     'nbs', 'SLD SMW',...        % This is bulk out
     'nba', 'Silicon',...        % This is bulk in
-    'data', 'Bilayer / SMW');
+    'data', 'Simulation');
 
 % SMW contrast..
 problem.addContrast('name','Bilayer / H2O',...
@@ -135,7 +135,7 @@ problem.addContrast('name','Bilayer / H2O',...
     'scalefactor', 'Scalefactor 1',...
     'nbs', 'SLD H2O',...        % This is bulk out
     'nba', 'Silicon',...        % This is bulk in
-    'data', 'Bilayer / H2O');
+    'data', 'Simulation');
 %% 
 % 
 % 

@@ -42,9 +42,16 @@ end
 %(5) Resolutions
 resol = outProblemStruct.res;
 for i = 1:length(resol)
-    outProblemDef.setResolPar(1,'value',resol(i));
+    outProblemDef.setResolPar(i,'value',resol(i));
 end
 
+% (6) Domain ratio
+if strcmpi(outProblemStruct.TF,'domains')
+    domainRatios = outProblemStruct.domainRatio;
+    for i = 1:length(domainRatios)
+        outProblemDef.setDomainRatio(i,'value',domainRatios(i));
+    end
+end
 
 % resolNames = problemDefCells{13};
 % outProblemDef.resolutionNames = resolNames;

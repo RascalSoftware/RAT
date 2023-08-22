@@ -70,7 +70,7 @@ for i = 1:numberOfContrasts
     
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
-    % First need to decide which values of the backrounds, scalefactors
+    % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
     

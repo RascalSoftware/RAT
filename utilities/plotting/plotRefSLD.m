@@ -1,6 +1,5 @@
 function plotRefSLD(problem, result)
 
-    
     % Convert the problem class to a struct.
     controls = controlsClass();
     data.modelType = problem.modelType;
@@ -14,5 +13,11 @@ function plotRefSLD(problem, result)
     data.ssubs = result.contrastParams.ssubs;
     data.resample = problemDef.resample;
 
-    plotRefSLDHelper(data, false);
+    switch problemDef.TF
+        case 'domains'
+            plotDomainsRefSLDHelper(data,false);
+        otherwise
+            plotRefSLDHelper(data, false);
+    end
+
 end

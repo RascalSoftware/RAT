@@ -3,11 +3,11 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
     allRoughs] = standardTFStandardLayersSingle(problemDef,problemDefCells,...
     problemDefLimits,controls)
-% Single theraded version of the Standard Layers calculation 
+% Single threaded version of the Standard Layers calculation 
 % This is the main reflectivity calculation of the standard layers
-% calculation type. It extracts the required paramters for the contrasts
+% calculation type. It extracts the required parameters for the contrasts
 % from the input arrays, then passes the main calculation to
-% 'standardLayersCore', which carries out the calculation iteslf. 
+% 'standardLayersCore', which carries out the calculation itself. 
 % The core calculation is common for both standard and custom layers.
 
 
@@ -72,7 +72,7 @@ for i = 1:numberOfContrasts
     
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
-    % First need to decide which values of the backrounds, scalefactors
+    % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
     

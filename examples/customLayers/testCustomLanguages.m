@@ -14,15 +14,17 @@ plotRefSLD(problem,results);
 
 
 %% Python
-problem.setCustomFile(1,'filename','customBilayer.py');
-problem.setCustomFile(1,'language','python');
+wrapper = pythonWrapper('customBilayer.py', 'customBilayer');
+problem.setCustomFile(1,'filename', wrapper.getHandle());
+problem.setCustomFile(1,'language','matlab');
 
 [problem,results] = RAT(problem,controls);
 figure(2); clf
 plotRefSLD(problem,results);
 
 %% Cpp
-problem.setCustomFile(1,'filename','customBilayer.cpp');
+wrapper = dyLibWrapper('customBilayer.dll', 'customBilayer');
+problem.setCustomFile(1,'filename', wrapper.getHandle());
 problem.setCustomFile(1,'language','cpp');
 
 [problem,results] = RAT(problem,controls);

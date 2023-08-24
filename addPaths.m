@@ -25,6 +25,7 @@ paths = {
 
     fullfile(root,'compile','DE');
     eventCompilePath;
+    fullfile(root,'compile','customWrapper');
     fullfile(root,'compile','reflectivityCalculation');
     fullfile(root,'compile','simplex');
     fullfile(root,'compile');
@@ -46,7 +47,6 @@ paths = {
     fullfile(root,'targetFunctions','common','callCustomFunction');
     fullfile(root,'targetFunctions','common','callCustomFunction','callMatlabFunction');
     fullfile(root,'targetFunctions','common','callCustomFunction','callCppFunction');
-    fullfile(root,'targetFunctions','common','callCustomFunction','callPythonFunction');
 
     fullfile(root,'targetFunctions','common','callReflectivity');
     fullfile(root,'targetFunctions','common','costFunctions','chiSquared');
@@ -88,8 +88,7 @@ end
 
 addpath(root);
 setappdata(0, 'root', root);
-includedir = {fullfile(root, 'targetFunctions', 'common', 'customModelsIncludes'),...
-              fullfile(root, 'compile', 'events')};
+includedir = {fullfile(root, 'compile', 'customWrapper'), eventCompilePath};
 setappdata(0, 'includeDirs', includedir);
 
 % Add the folder with the eventManager dynamic library to the system path so 

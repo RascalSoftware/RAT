@@ -339,11 +339,11 @@ for rep = 1:reps
                 D(:,empties) = NaN;
                 changed = changed(m(changed) > 0);
                 if display > 0
-                    warning(sprintf('Empty cluster created at iteration %d.',iter));
+                    fprintf('Empty cluster created at iteration %d.',iter);
                 end
             case 'singleton'
                 if display > 0
-                    warning(sprintf('Empty cluster created at iteration %d.',iter));
+                    fprintf('Empty cluster created at iteration %d.',iter);
                 end
                 
                 for i = empties

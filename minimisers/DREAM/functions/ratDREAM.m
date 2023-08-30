@@ -156,7 +156,15 @@ if ~isfield(DREAMPar,'restart') || strcmp(DREAMPar.restart,'no')
     [DREAMPar] = setDREAMParam(DREAMPar);
 
     % Now check how the measurement sigma is arranged (estimated or defined)
-    Meas_info = checkSigma(Meas_info); T_start = 2;
+    %
+    % -----------------------------------------
+    % We do not have user inputted sigma in this form for the RAT 
+    % implementation - Measurement Error is dealt with downstream in the 
+    % likelihood function. So, we can remove the check for sigma.
+    % --------------- AVH -------------------------
+    %Meas_info = checkSigma(Meas_info); 
+    
+    T_start = 2;
 
     % Create the initial states of each of the chains (initial population)
     [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs);

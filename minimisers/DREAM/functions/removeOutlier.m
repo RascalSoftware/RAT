@@ -15,7 +15,7 @@ try
     eval(evalstr);
 catch
     % Warning -- not enough chains to do sampling -- increase number of chains!
-    warning(fprintf('DREAM WARNING: Unknown outlier detection test at %d generations \n',t));
+    fprintf('DREAM WARNING: Unknown outlier detection test at %d generations \n',t);
     % Now print warning to screen and to file
     %fprintf(evalstr); % fprintf(fid,evalstr);
     % No outlier detected
@@ -194,7 +194,7 @@ if ( N < 61 ) && ( N > 2 )
 else
     if N >= 61
         N = 60; n_ind = size(peirce_r,1);
-        warning('DREAMPar.N > 60; using Peirce r-values for DREAMPar.N is 60');
+        fprintf('DREAMPar.N > 60; using Peirce r-values for DREAMPar.N is 60');
     end
     if N < 2
         error('Insufficient number of chains to apply Peirce diagnostic');

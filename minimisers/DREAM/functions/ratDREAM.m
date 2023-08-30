@@ -218,7 +218,7 @@ for t = T_start : DREAMPar.T
         % store the distance between the simualted and observed signatures
         
         % Store the model simulations (if appropriate)
-        storeDREAMResults ( DREAMPar , fx , Meas_info , 'a+' );
+        % storeDREAMResults ( DREAMPar , fx , Meas_info , 'a+' );
     end
     
     % Check whether we update the crossover values
@@ -291,7 +291,15 @@ end
 output.RunTime = toc;
 
 % Variables have been pre-allocated --> need to remove zeros at end
-[chain,output,fx] = DREAMEnd(DREAMPar,Meas_info,chain,output,iteration,iloc);
+% [chain,output,fx] = DREAMEnd(DREAMPar,Meas_info,chain,output,iteration,iloc);
+
+% Place everything in output to do diagnostics later (outside C++)
+output.DREAMPar = DREAMPar;
+output.Meas_info = Meas_info;
+output.iteration = iteration;
+output.iloc = iloc;
+output.fx = [];
+
 
 % Close the waitbar
 textProgressBar('end',1);

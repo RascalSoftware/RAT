@@ -9,7 +9,8 @@ controls = data{2};
 problemDefLimits = data{3};
 problemDefCells = data{4};
 
-problemDef.fitpars = cell2mat(p);
+%problemDef.fitpars = cell2mat(p);
+problemDef.fitpars = [p{:}];
 
 problemDef = unpackparams(problemDef,controls);
 [problemDef,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);

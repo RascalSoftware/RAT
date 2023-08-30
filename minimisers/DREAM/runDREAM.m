@@ -71,4 +71,12 @@ allProblem{4} = problemDefCells;
 
 [outProblemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,allProblem);
 
+% Add DREAM specific items to outputs for later chain diagnostics..
+% DREAMPar,Meas_info,chain,output,iteration,iloc
+bayesResults.bayesRes.output = output;
+bayesResults.bayesRes.allChains = chain;
+% bayesResults.bayesRes.DREAMPar = DREAMPar;
+% bayesResults.bayesRes.Meas_info = Meas_info;
+% bayesResults.bayesRes.dreamOutput = output;
+
 end

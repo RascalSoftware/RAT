@@ -2,11 +2,16 @@ function [outDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,ite
         gen] = setupDREAM(DREAMPar,Par_info,Meas_info)
 % Initializes the main variables used in DREAM
 % To keep coder happy, we have to define the full version of DREAMPar here
-fieldNames = {'d','N','T','parallel','CPU','lambda','pUnitGamma','nCR','delta','steps',...
-    'zeta','outlier','adapt_pCR','thinning','epsilon','ABC','IO','modout','restart','save','R'};
-values = cell(length(fieldNames),1);
-outDREAMPar = cell2struct(values,fieldNames);
+% fieldNames = {'d','N','T','parallel','CPU','lambda','pUnitGamma','nCR','delta','steps',...
+%     'zeta','outlier','adapt_pCR','thinning','epsilon','ABC','IO','modout','restart','save','R'};
+% values = cell(length(fieldNames),1);
+% outDREAMPar = cell2struct(values,fieldNames);
 
+
+outDREAMPar = struct('d',0,'N',0,'T',0,'parallel',0,'CPU',0,'lambda',0,...
+    'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier',0,...
+    'adapt_pCR',0,'thinning',0,'epsilon',0,'ABC',0,'IO',0,'modout',0,...
+    'restart',0,'save',0,'R',0);
 
 % Generate new seed
 rng('default');

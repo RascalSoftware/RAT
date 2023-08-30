@@ -7,21 +7,27 @@ t = size(log_L,1); t_half = floor(t/2);
 % Then determine the mean log density of the active chains
 mean_log_L = mean(log_L(t_half:t,1:DREAMPar.N));
 
-% Create outlier handle
-evalstr = strcat('chain_id=',DREAMPar.outlier,'(mean_log_L);');
 
-% Now evaluate outlier handle
-try
-    eval(evalstr);
-catch
-    % Warning -- not enough chains to do sampling -- increase number of chains!
-    fprintf('DREAM WARNING: Unknown outlier detection test at %d generations \n',t);
-    % Now print warning to screen and to file
-    %fprintf(evalstr); % fprintf(fid,evalstr);
-    % No outlier detected
-    outlier = [];
-    return
-end
+% ------------------------------
+% Always use the same outlier check (to remove eval)
+% ---------------------------------- AVH
+chain_id = iqr(mean_log_L);
+
+% % Create outlier handle
+% evalstr = strcat('chain_id=',DREAMPar.outlier,'(mean_log_L);');
+% 
+% % Now evaluate outlier handle
+% try
+%     eval(evalstr);
+% catch
+%     % Warning -- not enough chains to do sampling -- increase number of chains!
+%     fprintf('DREAM WARNING: Unknown outlier detection test at %d generations \n',t);
+%     % Now print warning to screen and to file
+%     %fprintf(evalstr); % fprintf(fid,evalstr);
+%     % No outlier detected
+%     outlier = [];
+%     return
+% end
 
 % How many outliers?
 Nid = numel(chain_id);
@@ -41,9 +47,10 @@ if (Nid > 0)
         % Add to chain_outlier and print to screen
         outlier = [outlier ; t chain_id(j)];
         % Warning -- not enough chains to do sampling -- increase number of chains!
-        evalstr = char(strcat('DREAM WARNING: Irreversible jump chain',{' '},num2str(chain_id(j)),{' '},'at',{' '},num2str(t),{' '},'generations \n'));
+        %evalstr = char(strcat('DREAM WARNING: Irreversible jump chain',{' '},num2str(chain_id(j)),{' '},'at',{' '},num2str(t),{' '},'generations \n'));
+        fprintf('\n DREAM WARNING: Irreversible jump chain %0.2f at %0.2f generations \n\n',chain_id(j),t)
         % Now print warning to screen and to file
-        fprintf(evalstr); % fprintf(fid,evalstr);
+        %fprintf(evalstr); % fprintf(fid,evalstr);
     end
 end
 

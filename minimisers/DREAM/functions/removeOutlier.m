@@ -48,7 +48,7 @@ if (Nid > 0)
         outlier = [outlier ; t chain_id(j)];
         % Warning -- not enough chains to do sampling -- increase number of chains!
         %evalstr = char(strcat('DREAM WARNING: Irreversible jump chain',{' '},num2str(chain_id(j)),{' '},'at',{' '},num2str(t),{' '},'generations \n'));
-        fprintf('\n DREAM WARNING: Irreversible jump chain %0.2f at %0.2f generations \n\n',chain_id(j),t)
+        fprintf(' DREAM WARNING: Irreversible jump chain %0.2f at %0.2f generations \n \n \n',chain_id(j),t)
         % Now print warning to screen and to file
         %fprintf(evalstr); % fprintf(fid,evalstr);
     end

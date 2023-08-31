@@ -5,6 +5,7 @@ function [pCR,lCR] = adaptPCR(DREAMPar,CR,delta_tot,lCRold)
 CR = CR(:);
 
 % Determine lCR
+lCR = zeros(1,DREAMPar.nCR);
 for zz = 1:DREAMPar.nCR
     % Determine how many times a particular CR value is used
     idx = find(CR==zz/DREAMPar.nCR);

@@ -97,7 +97,7 @@ P = sum(p);
 %    error('The sum of the input probabilities must be equal 1.')
 %    return,
 %end;
- 
+X = zeros(m,length(p)); 
 for i = 1:m
     o = ones(1,n);
     s = cumsum(p/P);

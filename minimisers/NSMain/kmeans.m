@@ -156,7 +156,7 @@ end
 
 if ischar(start)
     startNames = {'uniform','sample','cluster'};
-    i = strmatch(lower(start), startNames);
+    i = strcmpi(start,startNames);
     if length(i) > 1
         error(sprintf('Ambiguous ''start'' parameter value:  %s.', start));
     elseif isempty(i)
@@ -550,7 +550,7 @@ for rep = 1:reps
     end % phase two
     
     if (~converged) & (display > 0)
-        warning(sprintf('Failed to converge in %d iterations.', maxit));
+        fprintf('Warning: Failed to converge in %d iterations.', maxit);
     end
 
     % Calculate cluster-wise sums of distances

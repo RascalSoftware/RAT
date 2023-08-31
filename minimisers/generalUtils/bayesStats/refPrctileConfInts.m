@@ -57,7 +57,7 @@ numberOfSims = size(chain,1);   %will be = nsimu
 nsample = 1000;
 isample = ceil(rand(nsample,1)*numberOfSims);
 
-
+sampleChi = zeros(1,length(2:nsample));
 for i = 2:nsample
 
     thisChain= chain(isample(i),:);

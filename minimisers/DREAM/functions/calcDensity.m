@@ -104,7 +104,7 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
 % -------------------- Calculate log-likelihood ---------------------------
 
 % Loop over each model realization and calculate log-likelihood of each fx
-%log_L  = zeros(1,DREAMPar.N);
+log_L  = zeros(DREAMPar.N,1);
 for ii = 1 : DREAMPar.N
     log_L(ii,1) =  fx(1,ii) ;
 end

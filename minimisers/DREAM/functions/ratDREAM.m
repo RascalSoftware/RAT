@@ -169,16 +169,16 @@ if ~isfield(DREAMPar,'restart') || strcmp(DREAMPar.restart,'no')
     % Create the initial states of each of the chains (initial population)
     [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs);
 
-elseif strcmp(DREAMPar.restart,'yes')
-
-    % Print to screen restart run
-    disp('Restart run');
-    % If a restart run is being done: just load the output from the previous ongoing trial
-    load DREAM.mat; [CR] = drawCR(DREAMPar,pCR); DREAMPar.T = 2 * DREAMPar.T;
-    % And make sure we add zeros to "chain" array
-    chain = [chain ; nan(size(chain,1)-1,size(chain,2),size(chain,3))];
-    % Open warning file and set T_start
-    fid = fopen('warning_file.txt','a+'); T_start = t + 1;
+% elseif strcmp(DREAMPar.restart,'yes')
+% 
+%     % Print to screen restart run
+%     disp('Restart run');
+%     % If a restart run is being done: just load the output from the previous ongoing trial
+%     load DREAM.mat; [CR] = drawCR(DREAMPar,pCR); DREAMPar.T = 2 * DREAMPar.T;
+%     % And make sure we add zeros to "chain" array
+%     chain = [chain ; nan(size(chain,1)-1,size(chain,2),size(chain,3))];
+%     % Open warning file and set T_start
+%     fid = fopen('warning_file.txt','a+'); T_start = t + 1;
 
 end
 

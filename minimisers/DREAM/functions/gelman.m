@@ -11,6 +11,8 @@ function [R_stat] = gelman(chain,DREAMPar)
 
 % Compute the dimensions of chain
 [n,nrY,m] = size(chain);
+var_chain = [1,1];
+coser.varsize('var_chain',[1e5,1e5],[1,1]);
 
 if (n < 10)
     % Set the R-statistic to a large value
@@ -25,7 +27,7 @@ else
     % Step 2: Compute the variance of the various chain
     for zz = 1:DREAMPar.N
         var_chain(zz,:) = var(chain(:,:,zz));
-    end;
+    end
     
     % Step 2: Calculate the average of the within _chainuence variances
     W = mean(var_chain);

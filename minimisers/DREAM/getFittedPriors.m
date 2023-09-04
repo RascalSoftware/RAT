@@ -11,8 +11,8 @@ priorFitList = cell(numberOfParams,5);
 
 for i = 1:numberOfParams
     thisParam = paramNames{i};
-    paramLoc = strcmpi(thisParam,priorNames);
-    priorFitList(i,1) = priorVals(paramLoc,1);
+    paramLoc = find(strcmpi({thisParam},priorNames));
+    priorFitList{i,1} = priorVals{paramLoc,1};
     priorFitList{i,2} = str2double(priorVals{paramLoc,2});
     priorFitList{i,3} = str2double(priorVals{paramLoc,3});
     priorFitList{i,4} = fitconstr(i,1);

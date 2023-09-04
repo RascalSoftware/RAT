@@ -42,8 +42,8 @@ for i = 1:numberOfContrasts
         sld_yVals{i} = thisSld{i}(:,2)';
     else
         for m = 1:2
-            sld_xVals{i}{m} = thisSld{i}{m}(:,1)';
-            sld_yVals{i}{m} = thisSld{i}{m}(:,2)';
+            sld_xVals{i}{m} = thisSld{i,m}(:,1)';
+            sld_yVals{i}{m} = thisSld{i,m}(:,2)';
         end
     end
 end
@@ -57,7 +57,7 @@ numberOfSims = size(chain,1);   %will be = nsimu
 nsample = 1000;
 isample = ceil(rand(nsample,1)*numberOfSims);
 
-sampleChi = zeros(1,length(2:nsample));
+
 for i = 2:nsample
 
     thisChain= chain(isample(i),:);
@@ -89,7 +89,7 @@ for i = 2:nsample
         else
             for m = 1:2
                 this_sldXVal = sld_xVals{n}{m};
-                thisSLDYval = interp1(thisSld{n}{m}(:,1),thisSld{n}{m}(:,2),this_sldXVal);
+                thisSLDYval = interp1(thisSld{n,m}(:,1),thisSld{n,m}(:,2),this_sldXVal);
                 sld_yVals{n}{m}(i,:) = thisSLDYval';
             end
         end

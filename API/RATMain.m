@@ -40,11 +40,11 @@ switch lower(action)
             sendTextOutput(sprintf('\nRunning Differential Evolution\n\n'));
         end
         [outProblemDef,problem,results] = runDE(problemDef,problemDefCells,problemDefLimits,controls);
-    case 'ns'
-        if ~strcmpi(controls.display,'off')
-            sendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));
-        end            
-        [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls);   
+%     case 'ns'
+%         if ~strcmpi(controls.display,'off')
+%             sendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));
+%         end            
+%         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls);   
     case 'dream'
         if ~strcmpi(controls.display,'off')
             sendTextOutput(sprintf('\nRunning DREAM\n\n'));

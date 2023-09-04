@@ -56,7 +56,7 @@ numberOfSims = size(chain,1);   %will be = nsimu
 % calculating 20000 reflectivities...
 nsample = 1000;
 isample = ceil(rand(nsample,1)*numberOfSims);
-
+sampleChi = zeros(length(2:nsample),1);
 
 for i = 2:nsample
 

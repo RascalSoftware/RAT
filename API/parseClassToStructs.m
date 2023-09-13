@@ -108,15 +108,6 @@ if isempty(layersDetails)
     layersDetails = {0};
 end
 
-% When there are custom files, we need to strip the file extension
-% from the filename if it's present
-for i = 1:length(customFiles)
-    thisCustomFileCell = customFiles{i};
-    [~,name,~] = fileparts(thisCustomFileCell{1});
-    thisCustomFileCell{1} = name;
-    customFiles{i} = thisCustomFileCell;
-end
-
 % Pull out all the cell arrays (except priors) into one array
 problemDefCells{1} = inputStruct.contrastRepeatSLDs;
 problemDefCells{2} = inputStruct.allData;
@@ -131,7 +122,7 @@ problemDefCells{10} = inputStruct.qzshiftNames;
 problemDefCells{11} = inputStruct.nbairNames;
 problemDefCells{12} = inputStruct.nbsubNames;
 problemDefCells{13} = inputStruct.resolParNames;
-problemDefCells{14} = customFiles';
+problemDefCells{14} = customFiles;
 problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
 problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
 problemDefCells{17} = inputStruct.allOilChiData;
@@ -181,7 +172,7 @@ end
 
 % Also the custom files array..
 if isempty(problemDefCells{14})
-    problemDefCells{14} = {{'','',''}};
+    problemDefCells{14} = {''};
 end
 
 

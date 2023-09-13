@@ -13,6 +13,8 @@ paths = {
     fullfile(root,'compile','events');
     fullfile(root,'compile','reflectivityCalculation');
     fullfile(root,'compile','simplex');
+    fullfile(root,'compile','customWrapper');
+    fullfile(root,'compile','events');
     fullfile(root,'compile');
 
     fullfile(root,'minimisers','DREAM');

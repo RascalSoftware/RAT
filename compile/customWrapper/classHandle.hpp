@@ -39,10 +39,10 @@ public:
 };
 
 
-template<class base> inline const char *convertPtr2String(base *ptr)
+template<class base> inline std::string convertPtr2String(base *ptr)
 {  
     auto handle = reinterpret_cast<uint64_t>(new ClassHandle<base>(ptr));
-    return std::to_string(handle).c_str();
+    return std::to_string(handle);
 }
 
 template<class base> inline ClassHandle<base> *convertString2HandlePtr(const char* in)

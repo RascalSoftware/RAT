@@ -18,10 +18,12 @@ class Library: public CallbackInterface
             this->functionName = strdup(functionName);
             init(libName);
         };
+        
         ~Library(void){};
 
         Library& operator=(Library* other) noexcept
         {
+
             if (other) {
                 this->library = std::move(other->library);
                 this->functionName = other->functionName;

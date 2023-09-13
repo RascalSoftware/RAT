@@ -90,5 +90,37 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.assertEqual(mock.exceptionID, invalidOption.errorID);
             testCase.verifyError(@() lastFunction(), invalidOption.errorID);
         end
+
+        function testWrappers(testCase)
+            addPathMock = mockFunction(testCase, 'addpath');
+            wrapper = pythonWrapper('demo.py', 'python_func');
+            testCase.assertEqual(addPathMock.callCount, 1);
+            delete(addPathMock);
+            testCase.assertEqual(wrapper.functionName, 'python_func');
+            testCase.assertEqual(wrapper.libPath, 'demo.py');
+            testCase.assertEqual(wrapper.getHandle(), wrapper.tempName);
+            display = evalc('disp(wrapper)');
+            testCase.assertEqual(strtrim(display), 'Python wrapper for python_func function in demo.py');
+            tempFolder = wrapper.tempFolder;
+            testCase.assertEqual(exist(tempFolder, 'dir'), 7);
+            rmPathMock = mockFunction(testCase, 'rmpath');
+            delete(wrapper);
+            testCase.assertEqual(rmPathMock.callCount, 1);
+            testCase.assertEqual(exist(tempFolder, 'dir'), 0);
+            
+            fakeID = '123456789';
+            mock = mockFunction(testCase, 'wrapperMex', 'returnValues', {fakeID});
+            wrapper = dyLibWrapper('demo.dll', 'dylib_func');
+            testCase.assertEqual(mock.callCount, 1);
+            testCase.assertEqual(wrapper.functionName, 'dylib_func');
+            testCase.assertEqual(wrapper.libPath, 'demo.dll');
+            testCase.assertEqual(wrapper.getHandle(), fakeID);
+            display = evalc('disp(wrapper)');
+            testCase.assertEqual(strtrim(display), 'Dynamic library wrapper for dylib_func function in demo.dll');
+            testCase.assertEqual(mock.arguments{end}, {'new', wrapper.libPath, wrapper.functionName});
+            delete(wrapper);
+            testCase.assertEqual(mock.callCount, 2);
+            testCase.assertEqual(mock.arguments{end}, {'delete', fakeID});
+        end
     end
 end

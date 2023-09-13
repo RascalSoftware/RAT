@@ -1,12 +1,14 @@
 classdef dyLibWrapper < handle
     % A custom function wrapper for c++ dynamic library. The library should be a .dll
     % (Windows), .so (Linux), or .dylib (MacOS).
-
+    properties (SetAccess = private)
+        functionName
+        libPath
+    end
+    
     properties (Access = private, Hidden = true)
-        objectHandle; % Handle to the underlying C++ class instance
-        mexHandle; % Handle to the mex function
-        libPath;
-        functionName;
+        objectHandle % Handle to the underlying C++ class instance
+        mexHandle % Handle to the mex function
     end
     
     methods
@@ -22,7 +24,6 @@ classdef dyLibWrapper < handle
             obj.libPath = libPath;
             obj.functionName = functionName;
         end
-        
         
         function delete(obj)
             % Destroys the callback class instance in wrapperMex
@@ -41,6 +42,5 @@ classdef dyLibWrapper < handle
             % Displays libarary path and function name
             fprintf('Dynamic library wrapper for %s function in %s\n', obj.functionName, obj.libPath);
         end
-
     end
 end

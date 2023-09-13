@@ -136,6 +136,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.contrasts = contrastsClass();               
         end
 
+        function delete(obj)
+            % Destroys the wrappers
+            delete(obj.customFile);
+        end
+
         function domainsObj = toDomainsClass(obj)
             % Alias of the converter routine from projectClass to
             % domainsClass.

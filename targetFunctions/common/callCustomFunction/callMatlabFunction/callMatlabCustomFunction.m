@@ -23,7 +23,7 @@ elseif coder.target('MEX')
         [output,sRough] = feval(funcName, params, bulkIn, bulkOuts, contrast, domainNumber);
     end
 else
-    % Calling malab from other languages should be implemented in their wrapper
+    % Calling matlab from other languages should be implemented in their wrapper
     sRough = 0;
     output = zeros([0 0]);
     error("This is not supported!");

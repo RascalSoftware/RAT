@@ -30,16 +30,7 @@ classdef customModelClass < handle
             for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
 
                 % Choose which custom file is associated with this contrast
-                thisCustomModel = customFiles{cCustFiles(i)};
-
-                % Check what language it is....
-                thisLanguage = thisCustomModel{2};
-
-                % ... and path
-                %thisPath = thisCustomModel{3};
-
-                % ....also file.
-                thisFile = thisCustomModel{1};
+                functionHandle = customFiles{cCustFiles(i)};
 
                 % Find values of 'bulkIn' and 'bulkOut' for this
                 % contrast...
@@ -48,11 +39,10 @@ classdef customModelClass < handle
                 thisContrastLayers = [1 1 1]; % typeDef
                 coder.varsize('thisContrastLayers',[10000, 6],[1 1]);
 
-                switch thisLanguage
-                    case 'matlab'
-                        [thisContrastLayers,allRoughs(i)] = callMatlabCustomFunction(params,i,thisFile,bulkIn,bulkOut,numberOfContrasts,0);
-                    case 'cpp'
-                        [thisContrastLayers, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, -1, thisFile);
+                if isnan(str2double(functionHandle))
+                    [thisContrastLayers,allRoughs(i)] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,0);
+                else
+                    [thisContrastLayers, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, -1, functionHandle, 3);
                 end
 
                 % If the output layers has 5 columns, then we need to do
@@ -91,26 +81,16 @@ classdef customModelClass < handle
             for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
 
                 % Choose which custom file is associated with this contrast
-                thisCustomModel = customFiles{cCustFiles(i)};
-
-                % Check what language it is....
-                thisLanguage = thisCustomModel{2};
-
-                % ... and path
-                %thisPath = thisCustomModel{3};
-
-                % ....also file.
-                thisFile = thisCustomModel{1};
+                functionHandle = customFiles{cCustFiles(i)};
 
                 % Find values of 'bulkIn' and 'bulkOut' for this
                 % contrast...
                 [~,~,~,bulkIn,bulkOut,~] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 
-                switch thisLanguage
-                    case 'matlab'
-                        [tempAllSLDs{i}, allRoughs(i)] = callMatlabCustomFunction(params,i,thisFile,bulkIn,bulkOut,numberOfContrasts,0);
-                    case 'cpp'
-                        [tempAllSLDs{i}, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, -1, thisFile);
+                if isnan(str2double(functionHandle))
+                    [tempAllSLDs{i}, allRoughs(i)] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,0);
+                else
+                    [tempAllSLDs{i}, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, -1, functionHandle, 2);
                 end
             end
 
@@ -141,16 +121,7 @@ classdef customModelClass < handle
             for i = 1:numberOfContrasts
 
                 % Choose which custom file is associated with this contrast
-                thisCustomModel = customFiles{cCustFiles(i)};
-
-                % Check what language it is....
-                thisLanguage = thisCustomModel{2};
-
-                % ... and path
-                %thisPath = thisCustomModel{3};
-
-                % ....also file.
-                thisFile = thisCustomModel{1};
+                functionHandle = customFiles{cCustFiles(i)};
 
                 % Find values of 'bulkIn' and 'bulkOut' for this
                 % contrast...
@@ -163,13 +134,12 @@ classdef customModelClass < handle
                 thisContrastLayers2 = [1 1 1]; % typeDef
                 coder.varsize('thisContrastLayers2',[10000, 6],[1 1]);
 
-                switch thisLanguage
-                     case 'matlab'
-                        [thisContrastLayers1, allRoughs(i)] = callMatlabCustomFunction(params,i,thisFile,bulkIn,bulkOut,numberOfContrasts,1);
-                        [thisContrastLayers2, ~] = callMatlabCustomFunction(params,i,thisFile,bulkIn,bulkOut,numberOfContrasts,2);
-                    case 'cpp'
-                        [thisContrastLayers1, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, 0, thisFile);
-                        [thisContrastLayers2, ~] = callCppFunc(params, bulkIn, bulkOut, i, 1, thisFile);
+                if isnan(str2double(functionHandle))
+                    [thisContrastLayers1, allRoughs(i)] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,1);
+                    [thisContrastLayers2, ~] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,2);
+                else
+                    [thisContrastLayers1, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, 0, functionHandle, 3);
+                    [thisContrastLayers2, ~] = callCppFunc(params, bulkIn, bulkOut, i, 1, functionHandle, 3);
                 end
 
                 % If the output layers has 5 columns, then we need to do
@@ -213,27 +183,17 @@ classdef customModelClass < handle
             for i = 1:numberOfContrasts     % TODO - the ambition is for parfor here, but would fail for Matlab and Python CM's..
 
                 % Choose which custom file is associated with this contrast
-                thisCustomModel = customFiles{cCustFiles(i)};
-
-                % Check what language it is....
-                thisLanguage = thisCustomModel{2};
-
-                % ... and path
-                %thisPath = thisCustomModel{3};
-
-                % ....also file. 
-                thisFile = thisCustomModel{1};
+                functionHandle = customFiles{cCustFiles(i)};
 
                 % Find values of 'bulkIn' and 'bulkOut' for this contrast...
                 [~,~,~,bulkIn,bulkOut,~] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 
-                switch thisLanguage
-                    case 'matlab'
-                        [tempAllSLDs{i, 1}, allRoughs(i)] = callMatlabCustomFunction(params,i,thisFile,bulkIn,bulkOut,numberOfContrasts,1);
-                        [tempAllSLDs{i, 2}, ~] = callMatlabCustomFunction(params,i,thisFile,bulkIn,bulkOut,numberOfContrasts,2);
-                    case 'cpp'
-                        [tempAllSLDs{i, 1}, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, 0, thisFile);
-                        [tempAllSLDs{i, 2}, ~] = callCppFunc(params, bulkIn, bulkOut, i, 1, thisFile);
+                if isnan(str2double(functionHandle))
+                    [tempAllSLDs{i, 1}, allRoughs(i)] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,1);
+                    [tempAllSLDs{i, 2}, ~] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,2);
+                else
+                    [tempAllSLDs{i, 1}, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, 0, functionHandle, 2);
+                    [tempAllSLDs{i, 2}, ~] = callCppFunc(params, bulkIn, bulkOut, i, 1, functionHandle, 2);
                 end
             end
 

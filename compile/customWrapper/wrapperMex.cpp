@@ -6,7 +6,7 @@
 template<class base> inline mxArray *convertPtr2Mat(base *ptr)
 {
     mexLock();
-    return mxCreateString(convertPtr2String<base>(ptr));
+    return mxCreateString(convertPtr2String<base>(ptr).c_str());
 }
 
 template<class base> inline void destroyObject(const char* in)

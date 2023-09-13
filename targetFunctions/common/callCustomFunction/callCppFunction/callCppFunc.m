@@ -1,4 +1,4 @@
-function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer)
+function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer, colSize)
     coder.cinclude('<functional>');
     coder.cinclude('classHandle.hpp')
     
@@ -8,7 +8,7 @@ function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, poi
     callback = coder.opaque('CallbackInterface *','NULL');
     callback = coder.ceval('std::mem_fn(&ClassHandle<CallbackInterface>::ptr)', callbackHandle);
 
-    tempOutput = zeros(3, 1000); % This is not ideal, it needs to be fixed 
+    tempOutput = zeros(colSize, 1000); % This is not ideal, it needs to be fixed 
     subRough = 0.0;
     nLayers = 0;
     

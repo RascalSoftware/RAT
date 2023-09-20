@@ -6,7 +6,7 @@
 
 std::unique_ptr<dylib> library;
 
-// Callback function
+// initialise dynamic library
 void initDyLib(void)
 {
    if (!library)
@@ -17,8 +17,44 @@ void initDyLib(void)
    }      
 }
 
-// Callback function
-void myCallback(const baseEvent& event)
+// Unpack data to cell array with given row and col size
+mxArray* unpackDataToCell(int rows, int cols, double* data, double* nData, 
+                          double* data2, double* nData2, int dataCol)   
+{
+    mwSize dims[2] = {0, 0};
+    int offset = 0;
+    size_t bytes_to_copy;
+    mxArray* cellArray = mxCreateCellMatrix(rows, cols);
+    for ( int i = 0; i < rows; i++){
+        dims[0] = (mwSize)nData[i] / dataCol;
+        dims[1] = dataCol; 
+        mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
+        bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
+        memcpy(mxGetPr(temp), data + offset, bytes_to_copy);
+        mxSetCell(cellArray, i, temp);
+        offset +=  dims[0] * dims[1];
+    }
+
+    if (data2 != NULL && nData2 != NULL)
+    {
+        // This is used to unpack the domains data into the second column 
+        offset = 0;
+        for ( int i = 0; i < rows; i++){
+            dims[0] = (mwSize)nData2[i] / dataCol;
+            dims[1] = dataCol; 
+            mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
+            bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
+            memcpy(mxGetPr(temp), data2 + offset, bytes_to_copy);
+            mxSetCell(cellArray, i + rows, temp);
+            offset +=  dims[0] * dims[1];
+        }
+    }
+
+    return cellArray;
+}
+
+// Event callback function
+void eventCallback(const baseEvent& event)
 {   
     mxArray *prhs[2];
     prhs[0] = mxCreateDoubleScalar((double)event.type);
@@ -28,60 +64,21 @@ void myCallback(const baseEvent& event)
     } else if (event.type == PLOT){
         plotEvent* pEvent = (plotEvent*)&event; 
 
-        mxArray *reflect = mxCreateCellMatrix(pEvent->data->nContrast, 1);
+        mxArray *reflect = unpackDataToCell(pEvent->data->nContrast, 1, 
+                                                   pEvent->data->reflect, pEvent->data->nReflect, NULL, NULL, 2);
 
-        mwSize dims[2] = {0, 0};
-        int offset = 0;;
-        size_t bytes_to_copy;
+        mxArray *shifted = unpackDataToCell(pEvent->data->nContrast, 1, 
+                                                   pEvent->data->shiftedData, pEvent->data->nShiftedData, NULL, NULL, 3);
         
-        for ( int i = 0; i < pEvent->data->nContrast; i++){
-            dims[0] = (mwSize)pEvent->data->nReflect[i]/2.0;
-            dims[1] = 2; 
-            mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
-            bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
-            memcpy(mxGetPr(temp), pEvent->data->reflect + offset, bytes_to_copy);
-            mxSetCell(reflect, i, temp);
-            offset +=  dims[0] * dims[1];
-        }
-        
-        mxArray *shifted = mxCreateCellMatrix(pEvent->data->nContrast, 1);
-        offset = 0;
-        for ( int i = 0; i < pEvent->data->nContrast; i++){
-            dims[0] = (mwSize)pEvent->data->nShiftedData[i]/3.0;
-            dims[1] = 3; 
-            mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
-            bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
-            memcpy(mxGetPr(temp), pEvent->data->shiftedData + offset, bytes_to_copy);
-            mxSetCell(shifted, i, temp);
-            offset +=  dims[0] * dims[1];
-        }
-        
-        mxArray *slds = mxCreateCellMatrix(pEvent->data->nContrast, 1);
-        offset = 0;
-        for ( int i = 0; i < pEvent->data->nContrast; i++){
-            dims[0] = (mwSize)pEvent->data->nSldProfiles[i]/2.0;
-            dims[1] = 2; 
-            mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
-            bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
-            memcpy(mxGetPr(temp), pEvent->data->sldProfiles + offset, bytes_to_copy);
-            mxSetCell(slds, i, temp);
-            offset +=  dims[0] * dims[1];
-        }
+        mxArray *slds = unpackDataToCell(pEvent->data->nContrast, (pEvent->data->nSldProfiles2 == NULL) ? 1 : 2,
+                                                pEvent->data->sldProfiles, pEvent->data->nSldProfiles, 
+                                                pEvent->data->sldProfiles2, pEvent->data->nSldProfiles2, 2);
 
-        mxArray *layers = mxCreateCellMatrix(pEvent->data->nContrast, 1);
-        offset = 0;
-        for ( int i = 0; i < pEvent->data->nContrast; i++){
-            dims[0] = (mwSize)pEvent->data->nLayers[i];
-            dims[1] = 1; 
-            mxArray* temp = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
-            bytes_to_copy = dims[0] * dims[1] * mxGetElementSize(temp);
-            memcpy(mxGetPr(temp), pEvent->data->layers + offset, bytes_to_copy);
-            mxSetCell(layers, i, temp);
-            offset +=  dims[0] * dims[1];
-        }
+        mxArray *layers = unpackDataToCell(pEvent->data->nContrast, (pEvent->data->nLayers2 == NULL) ? 1 : 2, 
+                                                  pEvent->data->layers, pEvent->data->nLayers, 
+                                                  pEvent->data->layers2, pEvent->data->nLayers, 2);
 
-        dims[0] = (mwSize)pEvent->data->nContrast;
-        dims[1] = 1;
+        mwSize dims[2] = {(mwSize)pEvent->data->nContrast, 1};
         mxArray* ssubs = mxCreateNumericArray(2, dims, mxDOUBLE_CLASS, mxREAL);
         memcpy(mxGetPr(ssubs), pEvent->data->ssubs, dims[0] * mxGetElementSize(ssubs));
 
@@ -115,6 +112,7 @@ void myCallback(const baseEvent& event)
     mxDestroyArray(prhs[1]);
 }
 
+
 // MEX Gateway
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
@@ -140,7 +138,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     if (!strcmp("register", cmd)) {
         for ( int type = MESSAGE; type <= PLOT; ++type){
             if (type == eventType){
-   	            void (*cbPtr)(const baseEvent&) = myCallback;
+   	            void (*cbPtr)(const baseEvent&) = eventCallback;
                 initDyLib();
                 auto addListener = library->get_function<void(enum eventTypes, void (*)(const baseEvent&))>("addListener");
                 addListener((enum eventTypes)eventType, cbPtr);

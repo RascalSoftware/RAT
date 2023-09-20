@@ -36,22 +36,35 @@ function triggerEvent(eventType, data)
                 coder.ceval('std::mem_fn(&eventHelper::sendMessage)', helper, [data,0]);
             elseif strcmpi(eventType, 'plot')
                 result = data{1};
+                problemDef = data{3};
                 nContrast = length(result{1});
-                [reflect, nReflect] = packCellArray(result{1}); % reflectivity
-                [shiftedData, nShiftedData] = packCellArray(result{3});  
-                [sldProfiles, nSldProfiles] = packCellArray(result{5});
-                [layers, nLayers] = packCellArray(result{6}); % All Layers
-              
+                [reflect, nReflect] = packCellArray(result{1}, 1); % reflectivity
+                [shiftedData, nShiftedData] = packCellArray(result{3}, 1);  
+   
+                switch problemDef.TF
+                    case 'domains'
+                        [sldProfiles, nSldProfiles] = packCellArray(result{5}, 1);
+                        [sldProfiles2, nSldProfiles2] = packCellArray(result{5}, 2);
+                        [layers, nLayers] = packCellArray(result{6}, 1);
+                        [layers2, nLayers2] = packCellArray(result{6}, 2);
+                    otherwise
+                        [sldProfiles, nSldProfiles] = packCellArray(result{5}, 1);
+                        [layers, nLayers] = packCellArray(result{6}, 1);
+                        sldProfiles2 = coder.nullcopy(zeros(0));
+                        nSldProfiles2 =  coder.nullcopy(zeros(0));
+                        layers2 =  coder.nullcopy(zeros(0));
+                        nLayers2 = coder.nullcopy(zeros(0));
+                end
+
                 ssubs = data{2}; % ssubs
    
-                problemDef = data{3};
                 modelType = [problemDef.modelType, 0];
                 resample = problemDef.resample;
                 dataPresent = problemDef.dataPresent;
                 
                 coder.ceval('std::mem_fn(&eventHelper::updatePlot)', helper, nContrast, reflect, nReflect, shiftedData, ...
-                            nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, ssubs, resample, dataPresent, ...
-                            modelType);
+                            nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, sldProfiles2, nSldProfiles2, layers2, ...
+                            nLayers2, ssubs, resample, dataPresent, modelType);
             end
             notified = false;
         else
@@ -69,18 +82,18 @@ function triggerEvent(eventType, data)
 end
 
 
-function [packedArray, counts] = packCellArray(cellArray)
-    % Packs a cell array with different sized arrays into a single row
-    % array and an array of counts for each cell. For the example below 
+function [packedArray, counts] = packCellArray(cellArray, col)
+    % Packs a specified column of a cell array with different sized arrays into a 
+    % single row array and an array of counts for each cell. For the example below 
     % reflect will be [1, 2, 3, 4, 5, 6, 7] and nReflect will be [3, 4]
     % 
-    % [reflect, nReflect] = packCellArray({[1, 2, 3], [4, 5, 6, 7]});
+    % [reflect, nReflect] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);
     rowSize = 0;
-    nCells = length(cellArray);
+    nCells = size(cellArray, 1);
     
     counts = zeros(nCells, 1);
     for i=1:nCells
-        counts(i) = size(cellArray{i}, 1) * size(cellArray{i}, 2);
+        counts(i) = size(cellArray{i, col}, 1) * size(cellArray{i, col}, 2);
         rowSize = rowSize + counts(i);
     end
     
@@ -88,7 +101,7 @@ function [packedArray, counts] = packCellArray(cellArray)
     start = 1;
     for i=1:nCells
         stop = start + counts(i);
-        packedArray(start:stop-1, :) = reshape(cellArray{i}, [], 1);
+        packedArray(start:stop-1, :) = reshape(cellArray{i, col}, [], 1);
         start = stop;
     end
 end

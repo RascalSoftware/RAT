@@ -92,7 +92,6 @@ inputStruct = inputProblemDef.toStruct();
 %% Start by removing the cell arrays
 contrastLayers = inputStruct.contrastLayers;
 layersDetails = inputStruct.layersDetails;
-customFiles = inputStruct.files;
 
 % If any of the contrastLayers are empty, replace the empty cells by zero
 % thickness layers
@@ -122,7 +121,7 @@ problemDefCells{10} = inputStruct.qzshiftNames;
 problemDefCells{11} = inputStruct.nbairNames;
 problemDefCells{12} = inputStruct.nbsubNames;
 problemDefCells{13} = inputStruct.resolParNames;
-problemDefCells{14} = customFiles;
+problemDefCells{14} = inputStruct.files;
 problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
 problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
 problemDefCells{17} = inputStruct.allOilChiData;

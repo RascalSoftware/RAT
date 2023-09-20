@@ -74,7 +74,6 @@ classdef testCustomFileClass < matlab.unittest.TestCase
 
             testCase.exampleClass.varTable(1,:) = {'DPPC Model', 'DPPCCustomXY.m', 'matlab', '../../'};
             testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'matlab', '../../'};
-            testCase.exampleClass.varTable(2,:) = {'DSPC Model', 'customBilayer.m', 'matlab', '../../'};
 
             testCase.numRows = height(testCase.exampleClass.varTable);
             testCase.numCols = width(testCase.exampleClass.varTable);
@@ -339,7 +338,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyEqual(fileStruct.files, {});
         end
 
-        function testToStructWarapper(testCase)
+        function testToStructWrapper(testCase)
             % Test converting an custom file class to a struct correctly
             % interprets the present working directory
             customClass = customFileClass('Test python', 'file.py', 'python', pwd);

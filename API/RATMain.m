@@ -1,7 +1,10 @@
 function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)
 
 
-result = cell(6,1);
+result = cell(1,1);
+result{1} = {1};
+results = repmat(result,1,6);
+
 numberOfContrasts = problemDef.numberOfContrasts;
 preAlloc = zeros(numberOfContrasts,1);
 
@@ -13,7 +16,8 @@ problem = struct('ssubs',preAlloc,...
                  'nbsubs',preAlloc,...
                  'resolutions',preAlloc,...
                  'calculations',struct('all_chis',preAlloc,'sum_chi',0),...
-                 'allSubRough',preAlloc);
+                 'allSubRough',preAlloc,...
+                 'resample',preAlloc);
 
 % Make empty bayes results even though we may not fill it (for output purposes)
 bayesResults.res = [];
@@ -45,11 +49,11 @@ switch lower(action)
 %             sendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));
 %         end            
 %         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls);   
-    case 'dream'
-        if ~strcmpi(controls.display,'off')
-            sendTextOutput(sprintf('\nRunning DREAM\n\n'));
-        end
-        [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors);
+%     case 'dream'
+%         if ~strcmpi(controls.display,'off')
+%             sendTextOutput(sprintf('\nRunning DREAM\n\n'));
+%         end
+%         [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors);
 end
 
 end

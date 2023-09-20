@@ -1,6 +1,23 @@
 function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors)
 
 % Get the priors for the fitted parameters...
+
+% Pre-allocation
+checks = controls.checks;
+numberOfFitted = sum(checks.params_fitYesNo) + ...
+                 sum(checks.backs_fitYesNo) + ...
+                 sum(checks.scales_fitYesNo) + ...
+                 sum(checks.shifts_fitYesNo) + ...
+                 sum(checks.nbairs_fitYesNo) + ...
+                 sum(checks.nbsubs_fitYesNo) + ...
+                 sum(checks.resol_fitYesNo) + ...
+                 sum(checks.domainRatio_fitYesNo);
+
+fitParamNames = cell(numberOfFitted,1);
+for i = 1:numberOfFitted
+    fitParamNames{i} = 'x';
+end
+
 [problemDef,fitParamNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 priorList = getFittedPriors(fitParamNames,priors,problemDef.fitconstr);
 
@@ -44,7 +61,8 @@ Par_info.boundhandling = controls.boundHandling;
 % Run the sampler....
 %[chain,output,fx] = rat_DREAM(DREAMPar,Par_info,[],ratInputs);
 %Func_name = @DREAMWrapper;
-[chain,output,fx] = ratDREAM(DREAMPar,Par_info,[],ratInputs);
+Meas_info = struct('Y',0,'N',0);
+[chain,dreamOutput,fx] = ratDREAM(DREAMPar,Par_info,Meas_info,ratInputs);
 
 % Combine all chains....
 nChains = DREAMPar.N;
@@ -61,7 +79,7 @@ output.chain = allChains;
 output.s2chain = [];
 output.sschain = [];
 output.bestPars = mean(allChains,1);
-output.results.mean = output.bestPars;
+output.results.mean = mean(allChains,1);
 
 allProblem = cell(4,1);
 allProblem{1} = problemDef;
@@ -79,4 +97,9 @@ bayesResults.bayesRes.allChains = chain;
 % bayesResults.bayesRes.Meas_info = Meas_info;
 % bayesResults.bayesRes.dreamOutput = output;
 
+end
+
+function x = emptyVarSizeCellArray
+x = repmat({''},0,0);
+coder.varsize('x');
 end

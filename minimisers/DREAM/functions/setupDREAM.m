@@ -8,10 +8,10 @@ function [outDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,ite
 % outDREAMPar = cell2struct(values,fieldNames);
 
 
-outDREAMPar = struct('d',0,'N',0,'T',0,'parallel',0,'CPU',0,'lambda',0,...
-    'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier',0,...
-    'adapt_pCR',0,'thinning',0,'epsilon',0,'ABC',0,'IO',0,'modout',0,...
-    'restart',0,'save',0,'R',0);
+outDREAMPar = struct('d',0,'N',0,'T',0,'parallel','no','CPU',0,'lambda',0,...
+    'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier','iqr',...
+    'adapt_pCR','no','thinning',0,'epsilon',0,'ABC','no','IO','no','modout','no',...
+    'restart','no','save','no','R',0);
 
 % Generate new seed
 rng('default');
@@ -28,7 +28,7 @@ rng('default');
 % end
 
 % Do an initial copy of all set fields from DREAMPar to outDREAMPar....
-setFieldNames = fieldnames(DREAMPar);
+setFieldNames = {'d','N','T','parallel','CPU','lambda','pUnitGamma'};
 for i = 1:length(setFieldNames)
     thisFieldName = setFieldNames{i};
     outDREAMPar.(thisFieldName) = DREAMPar.(thisFieldName);
@@ -39,7 +39,7 @@ value = {3,3,max(max(floor(DREAMPar.T/50),1),50),0.05,1e-12,'iqr',0.2,'no',1,0.0
 % Name variable
 name = {'nCR','delta','steps','lambda','zeta','outlier','pUnitGamma','adapt_pCR','thinning','epsilon'};
 for j = 1 : numel(name)
-    if ~isfield(DREAMPar,name(j))
+    if ~isfield(DREAMPar,name{j})
         % Set variable of DREAMPar to "No"
         %evalstr = strcat('DREAMPar.',char(name(j)),'=',value(j),';'); eval(char(evalstr));
         outDREAMPar.(name{j}) = value{j}; 
@@ -51,7 +51,7 @@ end
 % Set default value to 'No' if not specified
 default = {'ABC','parallel','IO','modout','restart','save'};
 for j = 1 : numel(default)
-    if ~isfield(DREAMPar,default(j))
+    if ~isfield(DREAMPar,default{j})
         % Set variable of DREAMPar to "No"
         %evalstr = strcat('DREAMPar.',char(default(j)),'=''no''',';'); eval(evalstr);
         outDREAMPar.(default{j}) = 'no';
@@ -70,7 +70,19 @@ if ~isfield(Par_info,'min')
 end
 
 % Initialize output information -- Outlier chains
-output.outlier = [];
+outlier = [0 0];
+coder.varsize('outlier',[1e3 1e3],[1 1]);
+output.outlier = outlier;
+% ..also run time
+output.RunTime = 0;
+output.DREAMPar = struct('d',0,'N',0,'T',0,'parallel','no','CPU',0,'lambda',0,...
+    'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier','iqr',...
+    'adapt_pCR','no','thinning',0,'epsilon',0,'ABC','no','IO','no','modout','no',...
+    'restart','no','save','no','R',0);
+output.Meas_info = Meas_info;
+output.iteration = 1;
+output.iloc = 0;
+output.fx = 0;
 
 % Initialize matrix with log_likelihood of each chain
 log_L = NaN(outDREAMPar.T,outDREAMPar.N+1);
@@ -99,3 +111,5 @@ Meas_info.N = Meas_info.Y;
 
 % Initialize few important counters
 iloc = 1; iteration = 2; gen = 2;
+
+end

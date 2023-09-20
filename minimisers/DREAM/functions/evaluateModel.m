@@ -7,14 +7,17 @@ function [fx] = evaluateModel(x,DREAMPar,Meas_info,ratInputs)
 % Written by Jasper A. Vrugt
 
 % Check whether to store the output of each model evaluation (function call)
-if ( strcmp(lower(DREAMPar.modout),'yes') ) && ( Meas_info.N > 0 )
-    
-    % Create initial fx of size model output by DREAMPar.N
-    fx = NaN(Meas_info.N,DREAMPar.N);
-    
-end
+% if ( strcmp(lower(DREAMPar.modout),'yes') ) && ( Meas_info.N > 0 )
+%     
+%     % Create initial fx of size model output by DREAMPar.N
+%     fx = NaN(Meas_info.N,DREAMPar.N);
+%     
+% end
 
 % Now evaluate the model
+fx = 0;
+coder.varsize('fx',[1 1e4],[1 1]);
+
 if ( DREAMPar.CPU == 1 )         % Sequential evaluation
 
     % Loop over each d-vector of parameter values of x using 1 worker

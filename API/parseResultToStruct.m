@@ -10,7 +10,6 @@ result.allLayers = results{6};      % Resampled layers
 result.calculationResults = problem.calculations;
 
 % For compile, we can't remove a field, so just clear it for now...
-problem.calculations = [];
 %problem = rmfield(problem,'calculations');
 result.contrastParams = problem;
 

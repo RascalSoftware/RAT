@@ -1,4 +1,4 @@
-function [chain,output,fx,log_L] = ratDREAM(DREAMPar,Par_info,Meas_info,ratInputs)
+function [chain,output,fx,log_L] = ratDREAM(inDREAMPar,Par_info,Meas_info,ratInputs)
 
 % Modified version of Vrugt DREAm algorithm to be specific for RAT....
 
@@ -137,23 +137,23 @@ function [chain,output,fx,log_L] = ratDREAM(DREAMPar,Par_info,Meas_info,ratInput
 % if nargin < 4, Meas_info.Y = []; end;
 % if isempty(Meas_info), Meas_info.Y = []; end;
 % ------------------------------------------------------------------------
-Meas_info.Y = [];
+Meas_info.Y = 0;
 
-if ~isfield(DREAMPar,'restart') || strcmp(DREAMPar.restart,'no')
+if ~isfield(inDREAMPar,'restart') || strcmp(inDREAMPar.restart,'no')
 
     % Initialize the main variables used in DREAM
-    [DREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = setupDREAM(DREAMPar,Par_info,Meas_info);
+    [inDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
+        gen] = setupDREAM(inDREAMPar,Par_info,Meas_info);
 
     % Check for setup errors
     % [stop,fid] = checkDREAM(DREAMPar,Par_info,Meas_info);
-    stop = checkDREAM(DREAMPar,Par_info,Meas_info);
+    stop = checkDREAM(inDREAMPar,Par_info,Meas_info);
 
     % Return to main program
 %   if strcmp(stop,'yes'); return; end
 
     % Create computing environment (depending whether multi-core is used)
-    [DREAMPar] = setDREAMParam(DREAMPar);
+    [DREAMPar] = setDREAMParam(inDREAMPar);
 
     % Now check how the measurement sigma is arranged (estimated or defined)
     %
@@ -298,7 +298,6 @@ output.DREAMPar = DREAMPar;
 output.Meas_info = Meas_info;
 output.iteration = iteration;
 output.iloc = iloc;
-output.fx = [];
 
 
 % Close the waitbar

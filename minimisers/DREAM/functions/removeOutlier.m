@@ -1,4 +1,4 @@
-function [X,log_L,outlier] = removeOutlier(X,log_L,outlier,DREAMPar)
+function [X,log_L,outputOutlier] = removeOutlier(X,log_L,outlier,DREAMPar)
 % Finds outlier chains and removes them when needed
 
 % Determine the number of elements of L_density
@@ -28,6 +28,8 @@ chain_id = iqr(mean_log_L);
 %     outlier = [];
 %     return
 % end
+outputOutlier = outlier;
+coder.varsize('outputOutlier',[1e3 1e3],[1 1]);
 
 % How many outliers?
 Nid = numel(chain_id);
@@ -45,7 +47,7 @@ if (Nid > 0)
         % Jump outlier chain to r_idx -- X
         X(chain_id(j),1:DREAMPar.d+2) = X(chain_select(j),1:DREAMPar.d+2);
         % Add to chain_outlier and print to screen
-        outlier = [outlier ; t chain_id(j)];
+        outputOutlier = [outputOutlier ; t chain_id(j)];
         % Warning -- not enough chains to do sampling -- increase number of chains!
         %evalstr = char(strcat('DREAM WARNING: Irreversible jump chain',{' '},num2str(chain_id(j)),{' '},'at',{' '},num2str(t),{' '},'generations \n'));
         fprintf(' DREAM WARNING: Irreversible jump chain %0.2f at %0.2f generations \n \n \n',chain_id(j),t)

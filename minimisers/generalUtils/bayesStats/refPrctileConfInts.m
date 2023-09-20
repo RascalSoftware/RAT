@@ -7,7 +7,6 @@ else
     domains = false;
 end
 
-
 CIFn = @(x,p)prctile(x,abs([0,100]-(100-p)/2));
 chain = bayesOutputs.chain;
 
@@ -31,7 +30,30 @@ thisSld = calcResult.sldProfiles;
 % so each is a {n x 1} cell array, because of n contrasts. 
 % Prepare some arrays to hold the SLD's and Refs for all the chain, keeping only the Y vales.
 % We'll save x values in a separate array
-numberOfContrasts = size(thisRef);
+numberOfContrasts = length(thisRef);
+ref_xVals = cell(numberOfContrasts,1);
+ref_yVals = cell(numberOfContrasts,1);
+
+if ~domains
+    sld_xVals = cell(numberOfContrasts,1);
+    sld_yVals = cell(numberOfContrasts,1);
+    for i = 1:numberOfContrasts
+        sld_yVals{i} = 0;
+        sld_xVals{i} = 0;
+    end
+else
+    sld_xVals = cell(numberOfContrasts,2);
+    sld_yVals = cell(numberOfContrasts,2);
+    for i = 1:numberOfContrasts
+        sld_yVals{i,1} = 0;
+        sld_yVals{i,2} = 0;
+        sld_xVals{i,1} = 0;
+        sld_xVals{i,2} = 0;
+    end
+
+end
+
+% coder.varsize('ref_xVals{:}',[1e4 100],[1 1]);
 
 for i = 1:numberOfContrasts
     ref_xVals{i} = thisRef{i}(:,1)';        % Transpose these into rows for storage
@@ -42,8 +64,8 @@ for i = 1:numberOfContrasts
         sld_yVals{i} = thisSld{i}(:,2)';
     else
         for m = 1:2
-            sld_xVals{i}{m} = thisSld{i,m}(:,1)';
-            sld_yVals{i}{m} = thisSld{i,m}(:,2)';
+            sld_xVals{i,m} = thisSld{i,m}(:,1)';
+            sld_yVals{i,m} = thisSld{i,m}(:,2)';
         end
     end
 end
@@ -88,9 +110,9 @@ for i = 2:nsample
             sld_yVals{n}(i,:) = thisSLDYval';
         else
             for m = 1:2
-                this_sldXVal = sld_xVals{n}{m};
+                this_sldXVal = sld_xVals{n,m};
                 thisSLDYval = interp1(thisSld{n,m}(:,1),thisSld{n,m}(:,2),this_sldXVal);
-                sld_yVals{n}{m}(i,:) = thisSLDYval';
+                sld_yVals{n,m}(i,:) = thisSLDYval';
             end
         end
 

@@ -1,6 +1,6 @@
 % RATMAIN_SCRIPT_FROMAPP   Generate static library RATMain from RATMain.
 % 
-% Script generated from project 'RATMain.prj' on 31-Aug-2023.
+% Script generated from project 'RATMain.prj' on 19-Sep-2023.
 % 
 % See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.
 
@@ -219,9 +219,7 @@ ARG_27 = coder.typeof(0);
 ARGS_1_5.domainRatioPriors = coder.typeof({ARG_27}, [Inf  1],[1 0]);
 ARG_28 = coder.typeof('X',[1 Inf],[0 1]);
 ARGS_1_5.priorNames = coder.typeof({ARG_28}, [Inf  1],[1 0]);
-ARG_30 = coder.typeof('X',[1 Inf],[0 1]);
-ARG_29 = coder.typeof({ARG_30}, [1 3]);
-ARGS_1_5.priorVals = coder.typeof({ARG_29}, [Inf  3],[1 0]);
+ARGS_1_5.priorVals = coder.typeof(0,[Inf  3],[1 0]);
 ARGS{1}{5} = coder.typeof(ARGS_1_5);
 
 %% Invoke MATLAB Coder.

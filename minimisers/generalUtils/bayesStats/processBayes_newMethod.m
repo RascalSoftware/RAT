@@ -54,9 +54,6 @@ allPredInts = refPrctileConfInts(bayesOutputs,problemDef,problemDefCells,problem
 
 bayesResults.bayesRes = bayesOutputs.results;
 bayesResults.chain = bayesOutputs.chain;
-bayesResults.s2chain = bayesOutputs.s2chain;
-bayesResults.sschain = bayesOutputs.sschain;
-bayesResults.bestPars_Mean = bayesOutputs.results.mean;
 %bayesResults.bestPars_Max = bestPars_max;
 %bayesResults.bayesData = bayesOutputs.data;
 % bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};

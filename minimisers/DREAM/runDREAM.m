@@ -69,17 +69,11 @@ nChains = DREAMPar.N;
 lChains = DREAMPar.T;
 nPars = DREAMPar.d;
 
-allChains = [];
+collectChains = [];
 for i = 1:nChains
     thisChain = chain(:,1:nPars,i);
-    allChains = [allChains ; thisChain];
+    collectChains = [collectChains ; thisChain];
 end
-
-output.chain = allChains;
-output.s2chain = [];
-output.sschain = [];
-output.bestPars = mean(allChains,1);
-output.results.mean = mean(allChains,1);
 
 allProblem = cell(4,1);
 allProblem{1} = problemDef;
@@ -87,11 +81,15 @@ allProblem{2} = controls;
 allProblem{3} = problemDefLimits;
 allProblem{4} = problemDefCells;
 
+output.bestPars = mean(collectChains);
+output.chain = collectChains;
+output.results = dreamOutput;
+
 [outProblemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,allProblem);
 
 % Add DREAM specific items to outputs for later chain diagnostics..
 % DREAMPar,Meas_info,chain,output,iteration,iloc
-bayesResults.bayesRes.output = output;
+bayesResults.bayesRes.output = dreamOutput;
 bayesResults.bayesRes.allChains = chain;
 % bayesResults.bayesRes.DREAMPar = DREAMPar;
 % bayesResults.bayesRes.Meas_info = Meas_info;

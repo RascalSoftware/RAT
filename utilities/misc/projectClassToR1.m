@@ -125,9 +125,7 @@ else
     numberOfLayers = 0;
     
     % Get the custom file name..
-    customFiles = r2Problem.customFile.toStruct().files{:};
-    customFiles = customFiles(1, :); % Only ever 1 custom file in R1
-    customFileName = customFiles{1};
+    customFileName = r2Problem.customFile.varTable{1, 2}; % Only ever 1 custom file in R1
     
     copyfile(fullfile(originalDir, customFileName), dirName);
 end

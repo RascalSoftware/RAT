@@ -18,3 +18,4 @@ disp("eventManager dynamic library built successfully" + newline);
 includeDirs = getappdata(0,'includeDirs');
 includes = strcat(repmat({'-I'}, 1,length(includeDirs)), includeDirs);
 mex(includes{:}, "eventManagerInterface.cpp", args{:});
+disp("eventManagerInterface compiled successfully" + newline);

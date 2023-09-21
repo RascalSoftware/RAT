@@ -18,16 +18,18 @@ reflectivityCalculationCompileScript
 % need to change RAT paths to exclude these files from the source generation
 % setCompilePaths('lib');
 % 
-% % Now generate the source....
-% reflectivityCalculationCodeOnlyScript;
+% Now generate the source....
+reflectivityCalculationCodeOnlyScript;
 
 % Finally, change the paths back or the tests might fail...
 % setCompilePaths('mex');
-
 compilePath = fullfile(thisPath, 'compile', 'events');
 cd(compilePath);
-
 eventCompileScript;
+
+compilePath = fullfile(thisPath, 'compile', 'customWrapper');
+cd(compilePath);
+wrapperCompileScript;
 
 % Return to RAT root directory
 cd(thisPath);

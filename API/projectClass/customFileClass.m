@@ -2,10 +2,13 @@ classdef customFileClass < tableUtilities
     
     % A container class for holding custom files for either
     % models, backgrounds or resolutions.
+   properties (SetAccess = private, Hidden = true)
+        wrappers = {}
+   end
 
     properties(Access = private, Constant, Hidden)
         invalidLanguageMessage = sprintf('Language must be a supportedLanguages enum or one of the following strings (%s)', ...
-                                         strjoin(supportedLanguages.values(), ', '))
+                                         strjoin(supportedLanguages.values(), ', '))    
     end
     
     methods
@@ -27,25 +30,34 @@ classdef customFileClass < tableUtilities
             end          
         end
 
+        function delete(obj)
+            % Destroys the wrappers
+            for i=1:length(obj.wrappers) 
+                delete(obj.wrappers{i});
+            end
+            obj.wrappers = {};
+        end
+
         function obj = addCustomFile(obj, varargin)
             % Add an entry to the file table.
             % A custom file entry can be added with no parameters, just the
             % name of the custom file entry, the name of the entry
             % alongside a filename, or can be fully defined by specifying
             % the name of the custom file entry, filename, language, and
-            % file path
+            % file path. For MATLAB, the provided path must be in the
+            % matlab path
             %
             % customFiles.addCustomFile()
             % customFiles.addCustomFile('New Row')
             % customFiles.addCustomFile('New Row', 'file.m')
-            % customFiles.addCustomFile('New Row', 'file.m', 'matlab', 'pwd')
+            % customFiles.addCustomFile('New Row', 'file.py', 'python', 'C:/stuff')
             if isempty(varargin)
                 
                 % Nothing supplied - add empty data row
                 nameVal = obj.autoNameCounter();
                 newName = sprintf('New custom file %d', nameVal);
                 
-                newRow = {newName, '', supportedLanguages.Matlab.value, 'pwd'};
+                newRow = {newName, '', supportedLanguages.Matlab.value, ''};
 
             else
                 
@@ -62,7 +74,7 @@ classdef customFileClass < tableUtilities
                             throw(invalidType('Single input is expected to be a custom object name'));
                         end
                         
-                        newRow = {newName, '', supportedLanguages.Matlab.value, 'pwd'};
+                        newRow = {newName, '', supportedLanguages.Matlab.value, ''};
                         
                     case 2
 
@@ -71,7 +83,7 @@ classdef customFileClass < tableUtilities
                         newName = char(inputs{1});
                         newFile = char(inputs{2});
 
-                        newRow = {newName, newFile, supportedLanguages.Matlab.value, 'pwd'};
+                        newRow = {newName, newFile, supportedLanguages.Matlab.value, ''};
                         
                     case 4
 
@@ -93,8 +105,7 @@ classdef customFileClass < tableUtilities
 
             % Check language is valid, then add the new entry
             newRow{3} = validateOption(newRow{3}, 'supportedLanguages', obj.invalidLanguageMessage).value;
-            obj.addRow(newRow{:});
-
+            obj.addRow(newRow{:});            
         end
         
         function obj = setCustomFile(obj, row, varargin)
@@ -218,31 +229,43 @@ classdef customFileClass < tableUtilities
             % Convert the custom files class to a struct
             %
             % customFiles.toStruct()
-            numberOfFiles = obj.rowCount;
-            
+            fileStruct.files = {};
+            numberOfFiles = obj.rowCount;      
             if numberOfFiles > 0
                 filesList = cell(numberOfFiles, 1);
                 for i = 1:numberOfFiles
                     thisRow = obj.varTable{i,:};
                     thisFile = thisRow{2};
                     thisType = thisRow{3};
-                    thisPath = thisRow{4};
-                    
-                    if strcmpi(thisPath,'pwd')
-                        thisPath = pwd;
+                    thisPath = thisRow{4};                    
+                    [~, functionName, ~] = fileparts(thisFile);
+                    libpath = fullfile(thisPath, thisFile);
+                    wrapper = [];
+                    if i <= length(obj.wrappers)
+                        wrapper = obj.wrappers{i};                        
                     end
-                    filesList{i} = {thisFile, thisType, thisPath};
+                    if isempty(wrapper) || ~strcmp(wrapper.libPath, libpath) || ~strcmp(wrapper.functionName, functionName)
+                        if strcmpi(thisType, supportedLanguages.Python.value)
+                            wrapper = pythonWrapper(libpath, functionName);
+                            thisFile = wrapper.getHandle();
+                        elseif strcmpi(thisType, supportedLanguages.Cpp.value)
+                            wrapper = dyLibWrapper(libpath, functionName);
+                            thisFile = wrapper.getHandle();
+                        end
+                        obj.wrappers{i} = wrapper;
+                    else
+                        thisFile = wrapper.getHandle();
+                    end
+                    [~, handle, ~] = fileparts(thisFile);
+                    filesList{i} = handle;
                 end
                 fileStruct.files = filesList;
-            else
-                fileStruct.files = {};
             end
         end
 
     end
 
     methods(Access = protected)
-
         function obj = setCustomLanguage(obj, row, language)
            % Check whether a specified language is supported, and set the
            % file entry if so.

@@ -123,19 +123,6 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.TFChis = testCase.TFParams.TFParams.chis;
             testCase.TFAllRoughs = testCase.TFParams.TFParams.allRoughs;
         end
-
-        function setCurrentFolder(testCase)
-            % Set the current folder to be the directory recorded in the
-            % test data
-            import matlab.unittest.fixtures.CurrentFolderFixture
-
-            testDirectory = testCase.problemDefCells{14}{1}{3};
-
-            % Check if a directory has been recorded, and apply if so
-            if strlength(testDirectory) > 0
-                testCase.applyFixture(CurrentFolderFixture(testDirectory));
-            end
-        end
         
     end
 

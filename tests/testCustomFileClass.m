@@ -14,11 +14,11 @@ classdef testCustomFileClass < matlab.unittest.TestCase
     properties (TestParameter)
         fileInput = {{'New Entry'},...
                      {'Row and file name', 'file.m'},...
-                     {'Full entry', 'otherFile.m', 'python', 'pwd'}
+                     {'Full entry', 'otherFile.m', 'python', pwd}
                     }
-        addedRow = {{'New Entry', '', supportedLanguages.Matlab.value, 'pwd'},...
-                    {'Row and file name', 'file.m', supportedLanguages.Matlab.value, 'pwd'},...
-                    {'Full entry', 'otherFile.m', supportedLanguages.Python.value, 'pwd'}
+        addedRow = {{'New Entry', '', supportedLanguages.Matlab.value, ''},...
+                    {'Row and file name', 'file.m', supportedLanguages.Matlab.value, ''},...
+                    {'Full entry', 'otherFile.m', supportedLanguages.Python.value, pwd}
                    }
         testRow = {1, 1, 2, 2}
         inputData = {{'DPPC Model', 'name', 'New Model'},...
@@ -122,7 +122,7 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % custom object name, a custom object name with the filename,
             % and a fully defined custom file entry consisting of: a
             % custom object name, a filename, language and file path.
-            newRow = {'New custom file 1', '', 'matlab', 'pwd'};
+            newRow = {'New custom file 1', '', 'matlab', ''};
             expectedTable = [testCase.exampleClass.varTable; newRow];
 
             testCase.exampleClass.addCustomFile();
@@ -136,14 +136,14 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'matlab', 'pwd'), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', 'pwd', 'other'), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'matlab', ''), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', '', 'other'), invalidNumberOfInputs.errorID);
 
             % Invalid types
             testCase.verifyError(@() testCase.exampleClass.addCustomFile(42), invalidType.errorID);
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Unrecognised language', 'file.m', 'fortran', 'pwd'), invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Unrecognised language', 'file.m', 'fortran', ''), invalidOption.errorID);
 
             % Duplicate custom object names
             testCase.verifyError(@() testCase.exampleClass.addCustomFile('DPPC Model'), duplicateName.errorID);
@@ -325,7 +325,8 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             fileStruct = testCase.exampleClass.toStruct();
             testCase.verifyClass(fileStruct, 'struct');
             for i = 1:testCase.numRows
-                testCase.verifyEqual(string(fileStruct.files{i}), testCase.exampleClass.varTable{i, 2:end});
+                [~, handle, ~] = fileparts(testCase.exampleClass.varTable{i, 2});
+                testCase.verifyEqual(string(fileStruct.files{i}), handle);
             end
         end
 
@@ -337,13 +338,29 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             testCase.verifyEqual(fileStruct.files, {});
         end
 
-        function testToStructPwd(testCase)
+        function testToStructWrapper(testCase)
             % Test converting an custom file class to a struct correctly
             % interprets the present working directory
-            pwdClass = customFileClass('Test pwd', 'file.m', 'matlab', 'pwd');
-            fileStruct = pwdClass.toStruct();
+            customClass = customFileClass('Test python', 'file.py', 'python', pwd);
+            addPathMock = mockFunction(testCase, 'addpath');
+                        
+            fileStruct = customClass.toStruct();
+            wrapper = customClass.wrappers{1};
             testCase.verifyClass(fileStruct, 'struct');
-            testCase.verifyEqual(string(fileStruct.files{:}), ["file.m" "matlab" pwd]);
+            testCase.verifyEqual(wrapper.libPath, fullfile(pwd, 'file.py'));
+            testCase.verifyEqual(fileStruct.files{:}, wrapper.getHandle());
+            delete(addPathMock)
+
+            fakeID = '123456789';
+            wrapperMexMock = mockFunction(testCase, 'wrapperMex', 'returnValues', {fakeID});
+            rmPathMock = mockFunction(testCase, 'rmpath');
+            customClass.varTable(2,:) = {'DSPC Model', 'customBilayer.dll', 'cpp', ''};
+            fileStruct = customClass.toStruct();
+            wrapper2 = customClass.wrappers{2};
+            testCase.verifyEqual(wrapper2.libPath, 'customBilayer.dll');
+            testCase.verifyEqual(fileStruct.files, {wrapper.getHandle(); fakeID});
+            delete(customClass);
+            testCase.assertEqual(wrapperMexMock.callCount, 2);   
         end
 
     end

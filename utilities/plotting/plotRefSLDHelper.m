@@ -4,7 +4,7 @@ function plotRefSLDHelper(data, noDelay)
     %
     % plotRefSLDHelper(data, false);
     arguments
-        data 
+        data
         noDelay {logical} = true
     end
     
@@ -28,39 +28,48 @@ function plotRefSLDHelper(data, noDelay)
         else
             mult = 2^(4*i);
         end
-        
+    
         % If there is data present
         % plot it - size of shifted_data
         % will be [n x 3] if so
         if dataPresent(i)
             errorbar(thisData(:,1),thisData(:,2)./mult,thisData(:,3)./mult,'.','MarkerSize',2.5);
         end
-        
+    
         % Plot the fit
         plot(thisRef(:,1),thisRef(:,2)./mult,'-','LineWidth',2);
     end
-
+    
     % Plot the SLDs
     subplot(1,2,2);
     hold on
+    
     for i = 1:numberOfContrasts
-        thisSLD = slds{i};
-        plot(thisSLD(:,1),thisSLD(:,2),'-');
-        % If there is resampling, plot the resampled layers also
-        if (data.resample(i) == 1) || (strcmpi(modelType, 'custom xy'))
-                thisLayers = allLayers{i};
-                nbair = thisLayers(1,2);
-                nbsub = thisLayers(end,2);
-                ssub = data.ssubs(i);
-                numberOfLayers = size(thisLayers,1);
-                nrepeats = 1;
-                newProf = makeSLDProfileXY(nbair,nbsub,ssub,thisLayers,numberOfLayers,nrepeats);
-                plot(newProf(:,1)-49,newProf(:,2));
+        for j=1:size(slds, 2)
+           sld = slds{i, j};
+           plot(sld(:, 1), sld(:, 2), '-'); 
         end
-    end
+    
+        % If there is resampling, plot the resampled layers also
+        % TODO for domains...
+        if (data.resample(i) == 1) || (strcmpi(modelType, 'custom xy'))
+            ssub = data.ssubs(i); 
+            layers = allLayers{i, 1};
+            nbair = layers(1, 2);
+            nbsub = layers(end, 2);
 
-    if noDelay       
+            for j=1:size(allLayers, 2)
+                layer = allLayers{i, j};                          
+                numberOfLayers = size(layer, 1);
+                nrepeats = 1;
+                newProf = makeSLDProfileXY(nbair,nbsub,ssub,layer,numberOfLayers,nrepeats);
+                plot(newProf(:,1)-49,newProf(:,2));
+            end
+        end
+    
+    end
+    
+    if noDelay
         drawnow;
     end
-  
 end

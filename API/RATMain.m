@@ -19,62 +19,18 @@ problem = struct('ssubs',preAlloc,...
                  'allSubRough',preAlloc,...
                  'resample',preAlloc);
 
-% Make empty bayes results even though we may not fill it (for output purposes)
-% bayesResults.bayesRes = [];
-% bayesResults.chain = [];
-% bayesResults.s2chain = [];
-% bayesResults.ssChain = [];
-% bayesResults.bestPars = [];
-% 
-%          bayesRes: [1×1 struct]
-%             chain: [50000×17 double]
-%           s2chain: []
-%           sschain: []
-%     bestPars_Mean: [1.8344 12.4215 9.1384 3.0801 9.9080 1.4640e-06 38.0618 … ]
-%      bestFitsMean: [1×1 struct]
-%          predlims: [1×1 struct]
-%       parConfInts: [1×1 struct]
 
-% bestRes:
-%          mean: [1.9510 12.6286 9.1443 3.4083 9.9214 1.5109e-06 37.6638 … ]
-%        output: [1×1 struct]
-%     allChains: [2000×19×10 double]
-%
-% bestFitsMean
-%      Ref: {3×1 cell}
-%      Sld: {3×1 cell}
-%      chi: 49.7163
-%     data: {3×1 cell}
-%
-% predlims:
-%     refPredInts: {3×1 cell}
-%     sldPredInts: 0
-%        refXdata: {3×1 cell}
-%        sldXdata: {3×1 cell}
-%       sampleChi: [1000×1 double]
-%
-% parConfInts:
-%     par95: [2×17 double]
-%     par65: [2×17 double]
-%      mean: [1.9510 12.6286 9.1443 3.4083 9.9214 1.5109e-06 37.6638 5.4084 … ]
+% bayesResults = struct('bayesRes',[],...
+%     'chain',[],...
+%     's2chain',[],...
+%     'ssChain',[],...
+%     'bestPars_Mean',[],...
+%     'bestFitsMean',[],...
+%     'predLims',[],...
+%     'parConfInts',[]);
 
 
-
-
-
-% bestFitsMean:
-
-
-
-
-bayesResults = struct('bayesRes',[],...
-    'chain',[],...
-    's2chain',[],...
-    'ssChain',[],...
-    'bestPars_Mean',[],...
-    'bestFitsMean',[],...
-    'predLims',[],...
-    'parConfInts',[]);
+bayesResults = makeEmptyBayesResultsStruct();
 
 outProblemDef = problemDef;
 

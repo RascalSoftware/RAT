@@ -1,6 +1,6 @@
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
-    allRoughs] = domainsTFCustomXYSingle(problemDef,problemDefCells,...
+    allRoughs] = domainsTFCustomXYParallelPoints(problemDef,problemDefCells,...
     problemDefLimits,controls)
 
 
@@ -81,6 +81,7 @@ domainRatio = 1;    % Default for compile.
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts
+    outSsubs(i) = allRoughs(i);
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 
     % Get the domain ratio for this contrast
@@ -115,8 +116,8 @@ for i = 1:numberOfContrasts
     shifted_data{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles';
-    [reflect1,Simul1] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,outSsubs(i),resols(i),'points',reflectivityType,useImaginary);
-    [reflect2,Simul2] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,outSsubs(i),resols(i),'points',reflectivityType,useImaginary);
+    [reflect1,Simul1] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,allRoughs(i),resols(i),'points',reflectivityType,useImaginary);
+    [reflect2,Simul2] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,allRoughs(i),resols(i),'points',reflectivityType,useImaginary);
 
     [reflect1,Simul1,shifted_dat] = applyBackgroundCorrection(reflect1,Simul1,shifted_dat,backgs(i),backsType(i));
     [reflect2,Simul2,shifted_dat] = applyBackgroundCorrection(reflect2,Simul2,shifted_dat,backgs(i),backsType(i));

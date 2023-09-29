@@ -183,8 +183,6 @@ switch whichTF
 
 end
 
-
-
 % Send plot event
 plotResult = cell(1,3);
 plotResult{1} = result;

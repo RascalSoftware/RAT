@@ -141,23 +141,22 @@ for i = 1:numberOfContrasts
 end
 
 % TODO: need to fix this for domains....
-sld_Errors = 0;
-% sld_Errors = cell(numberOfContrasts(1),1);
-% for i = 1:numberOfContrasts
-%     thisSldXval = sld_xVals{i};
-%     thisSldYvals = sld_yVals{i};
-%     
-%     cols = size(thisSldYvals,2);
-%     sldArray = zeros(5,cols);
-%     for points = 1:cols
-%         thisCol = thisSldYvals(:,points);
-%         CI_95 = CIFn(thisCol,95);
-%         CI_65 = CIFn(thisCol,65);
-%         meanSld = mean(thisCol);
-%         sldArray(:,points) = [CI_95(1) CI_65(1) meanSld CI_65(2) CI_95(2)]';
-%     end
-%     sld_Errors{i} = sldArray;
-% end
+sld_Errors = cell(numberOfContrasts(1),1);
+for i = 1:numberOfContrasts
+    thisSldXval = sld_xVals{i};
+    thisSldYvals = sld_yVals{i};
+    
+    cols = size(thisSldYvals,2);
+    sldArray = zeros(5,cols);
+    for points = 1:cols
+        thisCol = thisSldYvals(:,points);
+        CI_95 = CIFn(thisCol,95);
+        CI_65 = CIFn(thisCol,65);
+        meanSld = mean(thisCol);
+        sldArray(:,points) = [CI_95(1) CI_65(1) meanSld CI_65(2) CI_95(2)]';
+    end
+    sld_Errors{i} = sldArray;
+end
 
 allPredInts.refPredInts = ref_Errors;
 allPredInts.sldPredInts = sld_Errors;

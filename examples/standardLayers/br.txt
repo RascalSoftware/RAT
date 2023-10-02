@@ -1,0 +1,74 @@
+
+bayesResults = 
+
+  struct with fields:
+
+    bestFitsMean: [1×1 struct]
+        predlims: [1×1 struct]
+     parConfInts: [1×1 struct]
+        bestPars: [2.1073 13.2330 10.8497 3.6010 9.9000 1.5536e-06 36.8692 5.6837 12.7974 1.8877 9.9680 1.0832e-06 1.7553e-06 1.7360e-06 6.2043e-06 2.3187e-06 -4.5679e-07]
+        bayesRes: [1×1 struct]
+           chain: [10000×17 double]
+
+
+K>> bayesResults.bestFitsMean
+
+ans = 
+
+  struct with fields:
+
+     Ref: {3×1 cell}
+     Sld: {3×1 cell}
+     chi: 64.4432
+    data: {3×1 cell}
+
+K>> bayesResults.predlims
+
+ans = 
+
+  struct with fields:
+
+    refPredInts: {3×1 cell}
+    sldPredInts: 0
+       refXdata: {3×1 cell}
+       sldXdata: {3×1 cell}
+      sampleChi: [1000×1 double]
+
+K>> bayesResults.parConfInts
+
+ans = 
+
+  struct with fields:
+
+    par95: [2×17 double]
+    par65: [2×17 double]
+     mean: [2.1073 13.2330 10.8497 3.6010 9.9000 1.5536e-06 36.8692 5.6837 12.7974 1.8877 9.9680 1.0832e-06 1.7553e-06 1.7360e-06 6.2043e-06 2.3187e-06 -4.5679e-07]
+
+
+K>> bayesResults.bayesRes
+
+ans = 
+
+  struct with fields:
+
+      allChains: [1000×19×10 double]
+    dreamOutput: [1×1 struct]
+
+
+
+K>> bayesResults.bayesRes.dreamOutput
+
+ans = 
+
+  struct with fields:
+
+      outlier: [3×2 double]
+      RunTime: 9.1300
+     DREAMPar: [1×1 struct]
+    Meas_info: [1×1 struct]
+    iteration: 22
+         iloc: 1000
+           fx: 0
+           AR: [21×2 double]
+       R_stat: [21×18 double]
+           CR: [21×4 double]

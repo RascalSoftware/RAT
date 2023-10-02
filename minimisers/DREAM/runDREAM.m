@@ -1,6 +1,13 @@
 function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors)
 
-% Get the priors for the fitted parameters...
+
+% Make an empty struct for bayesResults to hold the outputs of the
+% calculation
+nPars = 1e3;
+nChains = controls.nChains;
+numberOfContrasts = problemDef.numberOfContrasts;
+
+bayesResults = makeEmptyBayesResultsStruct(nPars,nChains,numberOfContrasts);
 
 % Pre-allocation
 checks = controls.checks;
@@ -19,6 +26,8 @@ for i = 1:numberOfFitted
 end
 
 [problemDef,fitParamNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+
+% Get the priors for the fitted parameters...
 priorList = getFittedPriors(fitParamNames,priors,problemDef.fitconstr);
 
 % Put all the RAT parameters together into one array...
@@ -81,23 +90,25 @@ allProblem{2} = controls;
 allProblem{3} = problemDefLimits;
 allProblem{4} = problemDefCells;
 
-output.bestPars = mean(collectChains);
+bestPars = mean(collectChains);
+output.results.outputDream = dreamOutput;
+output.bestPars = bestPars;
 output.chain = collectChains;
-output.results = dreamOutput;
 
-[outProblemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,allProblem);
+[outProblemDef,outProblem,result,dreamResults] = processBayes_newMethod(output,allProblem);
 
-% Add DREAM specific items to outputs for later chain diagnostics..
-% DREAMPar,Meas_info,chain,output,iteration,iloc
-bayesResults.bayesRes.output = dreamOutput;
+% Populate the output struct
+bayesResults.bayesRes.allChains = collectChains;
+bayesResults.bayesRes.dreamOutput = dreamOutput;
+bayesResults.chain = collectChains;
+bayesResults.bestPars = bestPars;
+bayesResults.chain = collectChains;
 bayesResults.bayesRes.allChains = chain;
+bayesResults.predlims = dreamResults.predlims;
+bayesResults.parConfInts = dreamResults.parConfInts;
+bayesResults.bestFitsMean = dreamResults.bestFitsMean;
 % bayesResults.bayesRes.DREAMPar = DREAMPar;
 % bayesResults.bayesRes.Meas_info = Meas_info;
 % bayesResults.bayesRes.dreamOutput = output;
 
-end
-
-function x = emptyVarSizeCellArray
-x = repmat({''},0,0);
-coder.varsize('x');
 end

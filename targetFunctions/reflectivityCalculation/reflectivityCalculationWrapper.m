@@ -32,7 +32,7 @@ function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDef
 %        [problem,result] = reflectivityCalculation_mex(problemDef,problemDefCells,problemDefLimits,controls);
 %     catch exception
 %         if (strcmp(exception.identifier, 'MATLAB:UndefinedFunction'))
-            [problem,result] = reflectivityCalculation_mex(problemDef,problemDefCells,problemDefLimits,controls);
+            [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 %        else
 %            rethrow(exception)
 %         end

@@ -52,14 +52,17 @@ allPredInts = refPrctileConfInts(bayesOutputs,problemDef,problemDefCells,problem
 
 % ---------------------------------
 
-bayesResults.bayesRes = bayesOutputs.results;
-bayesResults.chain = bayesOutputs.chain;
+
+% bayesResults.chain = bayesOutputs.chain;
 %bayesResults.bestPars_Max = bestPars_max;
 %bayesResults.bayesData = bayesOutputs.data;
 % bayesResults.bestFitsMax = {bestFitMax_Ref, bestFitMax_Sld, bestFitMax_chi};
-bayesResults.bestFitsMean = bestFitMean;
-bayesResults.predlims = allPredInts;
-bayesResults.parConfInts = parConfInts;
+bayesResults = struct('bestFitsMean',bestFitMean,'predlims',allPredInts,...
+                      'parConfInts',parConfInts);
 
+% bayesResults.bestFitsMean = bestFitMean;
+% bayesResults.predlims = allPredInts;
+% bayesResults.parConfInts = parConfInts;
+% bayesResults.bestPars = bayesOutputs.bestPars;
 
 end

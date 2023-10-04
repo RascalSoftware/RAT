@@ -33,8 +33,8 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 % problemDef = unpackparams(problemDef,controlsStruct);
 [outProblem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controlsStruct);
 p = parseResultToStruct(outProblem,result);
-bestFitMean.Ref = p.reflectivity;
-bestFitMean.Sld = p.sldProfiles;
+bestFitMean.ref = p.reflectivity;
+bestFitMean.sld = p.sldProfiles;
 bestFitMean.chi = p.calculationResults.sum_chi;
 bestFitMean.data = p.shifted_data;
 

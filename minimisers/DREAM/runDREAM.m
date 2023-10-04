@@ -4,10 +4,15 @@ function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDef,pr
 % Make an empty struct for bayesResults to hold the outputs of the
 % calculation
 nPars = 1e3;
-nChains = controls.nChains;
 numberOfContrasts = problemDef.numberOfContrasts;
 
-bayesResults = makeEmptyBayesResultsStruct(nPars,nChains,numberOfContrasts);
+if strcmpi(problemDef.TF,'domains')
+    domains = true;
+else
+    domains = false;
+end
+
+bayesResults = makeEmptyBayesResultsStruct(nPars, numberOfContrasts, domains);
 
 % Pre-allocation
 checks = controls.checks;
@@ -103,10 +108,13 @@ bayesResults.bayesRes.dreamOutput = dreamOutput;
 bayesResults.chain = collectChains;
 bayesResults.bestPars = bestPars;
 bayesResults.chain = collectChains;
-bayesResults.bayesRes.allChains = chain;
+% bayesResults.bayesRes.allChains = chain;
 bayesResults.predlims = dreamResults.predlims;
 bayesResults.parConfInts = dreamResults.parConfInts;
 bayesResults.bestFitsMean = dreamResults.bestFitsMean;
+
+% These are not defined in makeEmptyBayesResultsStruct
+
 % bayesResults.bayesRes.DREAMPar = DREAMPar;
 % bayesResults.bayesRes.Meas_info = Meas_info;
 % bayesResults.bayesRes.dreamOutput = output;

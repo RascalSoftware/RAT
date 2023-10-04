@@ -1,4 +1,4 @@
-function bayesResults = makeEmptyBayesResultsStruct(nPars,nChains,nContrasts)
+function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts, isDomains)
 
 % A function to make an empty container to hold the results of bayes
 % calculations. The struct has the following format:
@@ -31,30 +31,43 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nChains,nContrasts)
 %      chi: 64.4432
 %     data: {3×1 cell}
 
-Ref = cell(1,nContrasts);
+ref = cell(nContrasts, 1);
+refCell = [1 1 1];
+coder.varsize('refCell',[1e7 4],[1 1]);
 for i = 1:nContrasts
-    Ref{i} = [1 1 1];
+    ref{i} = refCell;
 end
 %coder.varsize('Ref',[1 maxNContrasts],[1 1]);
-coder.varsize('Ref{:}',[1e7 4],[1 1]);
 
-Sld = cell(1,nContrasts);
-for i = 1:nContrasts
-    Sld{i} = [1 1];
+if isDomains
+    sld = cell(nContrasts,2);
+    sldCell2 = [1 1; 1 1];
+    coder.varsize('sldCell2',[1e7 3],[1 1]); 
+    for i = 1:nContrasts
+        sld{i,1} = sldCell2;
+        sld{i,2} = sldCell2;
+    end
+else
+    sld = cell(nContrasts, 1);
+    sldCell = [1 1];
+    coder.varsize('sldCell',[1e7 3],[1 1]);
+    for i = 1:nContrasts
+        sld{i} = sldCell;
+    end
 end
 %coder.varsize('Sld',[1 maxNContrasts],[1 1]);
-coder.varsize('Sld{:}',[1e7 3],[1 1]);
 
 chi = 0;
 
-data = cell(1,nContrasts);
+data = cell(nContrasts, 1);
+dataCell = [1 1 1];
+coder.varsize('dataCell',[1e7 5],[1 1]);
 for i = 1:nContrasts
-    data{i} = [1 1 1];
+    data{i} = dataCell;
 end
 %coder.varsize('data',[1 maxNContrasts],[1 1]);
-coder.varsize('data{:}',[1e7 5],[1 1]);
 
-bestFitsMean = struct('Ref',Ref,'Sld',Sld,'chi',chi,'data',data);
+bestFitsMean = struct('ref',{ref},'sld',{sld},'chi',chi,'data',{data});
 
 % --------------------------------------------------------------------
 
@@ -71,22 +84,22 @@ bestFitsMean = struct('Ref',Ref,'Sld',Sld,'chi',chi,'data',data);
 
 
 refPredInts = cell(nContrasts,1);
-refCell = [1 1 1];
+refPredIntsCell = [1 1 1];
 %coder.varsize('refPredInts',[1e4 1],[1 0]);
-coder.varsize('refCell',[5 1e4],[1 1]);
+coder.varsize('refPredIntsCell',[5 1e4],[1 1]);
 for i = 1:nContrasts
-    refPredInts{i} = refCell;
+    refPredInts{i} = refPredIntsCell;
 end
 
 %coder.varsize('refPredInts',[maxNContrasts 1],[1 0]);
 %coder.varsize('refPredInts{:}',[5 1e4],[0 1]);
 
 sldPredInts = cell(nContrasts,1);
-sldCell = [1 1 1];
+sldPredIntsCell = [1 1 1];
 %coder.varsize('refPredInts',[1e4 1],[1 0]);
-coder.varsize('sldCell',[5 1e4],[1 1]);
+coder.varsize('sldPredIntsCell',[5 1e4],[1 1]);
 for i = 1:nContrasts
-    sldPredInts{i} = sldCell;
+    sldPredInts{i} = sldPredIntsCell;
 end
 
 refXdata = cell(nContrasts,1);
@@ -98,11 +111,21 @@ end
 %coder.varsize('refXdata',[maxNContrasts 1],[1 0]);
 %coder.varsize('refXData{:}',[1 1e4],[0 1]);
 
-sldXdata = cell(nContrasts,1);
-sldDataCell = [1 1 1];
-coder.varsize('sldDataCell',[1 1e4],[1 1]);
-for i = 1:nContrasts
-    sldXdata{i} = sldDataCell;
+if isDomains
+    sldXdata = cell(nContrasts,2);
+    sldDataCell2 = [1 1 1 ; 1 1 1];
+    coder.varsize('sldDataCell',[1 1e4],[1 1]); 
+    for i = 1:nContrasts
+        sldXdata{i,1} = sldDataCell2;
+        sldXdata{i,2} = sldDataCell2;
+    end
+else
+    sldXdata = cell(nContrasts,1);
+    sldDataCell = [1 1 1];
+    coder.varsize('sldDataCell',[1 1e4],[1 1]);
+    for i = 1:nContrasts
+        sldXdata{i} = sldDataCell;
+    end
 end
 
 sampleChi = zeros(1,1);

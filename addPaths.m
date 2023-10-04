@@ -27,6 +27,7 @@ paths = {
     eventCompilePath;
     fullfile(root,'compile','customWrapper');
     fullfile(root,'compile','reflectivityCalculation');
+    fullfile(root,'compile','fullCompile');
     fullfile(root,'compile','simplex');
     fullfile(root,'compile');
 

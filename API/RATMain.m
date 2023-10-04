@@ -19,7 +19,12 @@ problem = struct('ssubs',preAlloc,...
                  'allSubRough',preAlloc,...
                  'resample',preAlloc);
 
-
+if strcmpi(problemDef.TF,'domains')
+    domains = true;
+else
+    domains = false;
+end
+bayesResults = makeEmptyBayesResultsStruct(1e3, problemDef.numberOfContrasts, domains);
 % bayesResults = struct('bayesRes',[],...
 %     'chain',[],...
 %     's2chain',[],...
@@ -37,19 +42,16 @@ switch lower(action)
     case 'calculate' %Just a single reflectivity calculation
         [problem,results] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
         outProblemDef = problemDef;
-        bayesResults = [];
     case 'simplex'
         if ~strcmpi(controls.display,'off')
             sendTextOutput(sprintf('\nRunning simplex\n\n'));
         end
         [outProblemDef,problem,results] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls);
-        bayesResults = [];
     case 'de'
         if ~strcmpi(controls.display,'off')
             sendTextOutput(sprintf('\nRunning Differential Evolution\n\n'));
         end
         [outProblemDef,problem,results] = runDE(problemDef,problemDefCells,problemDefLimits,controls);
-        bayesResults = [];
 %     case 'ns'
 %         if ~strcmpi(controls.display,'off')
 %             sendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));

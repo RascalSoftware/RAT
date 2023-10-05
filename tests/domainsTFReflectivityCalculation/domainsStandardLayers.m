@@ -1,9 +1,7 @@
 function problem = domainsStandardLayers()
 
-    % Domains test...
     problem = project(calcType="domains");
     
-    % Add some parameters....
     Parameters = {
         %       Name                min         val         max     fit?
         {'D1 thick',         5,         20,         60,     true   };
@@ -18,7 +16,6 @@ function problem = domainsStandardLayers()
     
     problem.addParameterGroup(Parameters);
     
-    % Make some layers.....
     Layer1 = {'Domain1 Layer',...   % Name of the layer
         'D1 thick',...              % Layer thickness
         'D1 SLD',...                % Layer SLD

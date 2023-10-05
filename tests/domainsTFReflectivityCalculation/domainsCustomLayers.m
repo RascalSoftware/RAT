@@ -7,7 +7,6 @@ function problem = domainsCustomLayers()
     problem.setModelType('custom layers');
     problem.setGeometry('substrate/liquid');
     
-    % Make some parameters...
     params = {{'Alloy thick',   100,    150,    200,   true}
               {'Alloy SLD up',  9e-6,   11e-6,  13e-6, true}
               {'Alloy SLD dn',  5e-6,   7e-6,   10e-6, true}
@@ -19,13 +18,10 @@ function problem = domainsCustomLayers()
     
     problem.addParameterGroup(params);
     
-    % Set the bulk SLD
     problem.setBulkIn(1,'name','Silicon','Value',2.073e-6);
     
-    % Add the custom file...
     problem.addCustomFile('Alloy domains','domainsAlloyModel.m','matlab',pwd);
     
-    % Make a contrast...
     problem.addContrast('name',       'D2O Conrast', ...
                         'Data',       'Simulation',...
                         'Background', 'Background 1',...

@@ -30,15 +30,11 @@ problem.setBackground(1,'name','Background D2O', 'value1','Backs par D2O');
 % Finally modify some of the other parameters to be more suitable values
 % for a solid / liquid experiment.
 
-% Set the scalefactor...
-problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',true);
-
-
 % Set the bulk SLD
 problem.setBulkIn(1,'name','Air','Value',0,'fit',false);
 
 % and scalefactor...
-problem.setScalefactor(1,'min',0.8,'Value',1,'max',1.1);
+problem.setScalefactor(1,'min',0.8,'Value',1,'max',1.1,'fit',true);
 
 % Add another bulk-out (and modify the first)
 problem.setBulkOut(1,'name','Silicon','value',2.073e-6,'fit',false);

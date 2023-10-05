@@ -71,6 +71,7 @@ paths = {
     fullfile(root,'targetFunctions','domainsTF','customXY');
     
     fullfile(root,'tests','standardTFReflectivityCalculation');
+    fullfile(root,'tests','domainsTFReflectivityCalculation');
     fullfile(root,'tests','testCommonFunctions');
     fullfile(root,'tests','testProjectConversion');
 

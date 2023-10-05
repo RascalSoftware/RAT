@@ -85,6 +85,7 @@ end
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts
+    outSsubs(i) = allRoughs(i);
     [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 
     % Get the domain ratio for this contrast
@@ -119,8 +120,8 @@ for i = 1:numberOfContrasts
     shifted_data{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles';
-    [reflect1,Simul1] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,outSsubs(i),resols(i),'single',reflectivityType,useImaginary);
-    [reflect2,Simul2] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,outSsubs(i),resols(i),'single',reflectivityType,useImaginary);
+    [reflect1,Simul1] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,allRoughs(i),resols(i),'single',reflectivityType,useImaginary);
+    [reflect2,Simul2] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,allRoughs(i),resols(i),'single',reflectivityType,useImaginary);
 
     [reflect1,Simul1,shifted_dat] = applyBackgroundCorrection(reflect1,Simul1,shifted_dat,backgs(i),backsType(i));
     [reflect2,Simul2,shifted_dat] = applyBackgroundCorrection(reflect2,Simul2,shifted_dat,backgs(i),backsType(i));
@@ -151,6 +152,4 @@ for i = 1:numberOfContrasts
     layerSlds{i,1} = theseLayerSlds{1};
     layerSlds{i,2} = theseLayerSlds{2};
 end
-
-outSsubs = allRoughs;
 end

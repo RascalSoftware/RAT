@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = domainsTFCustomLayersReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
+function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = domainsTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
 
 % Custom layers reflectivity calculation for domainsTF
 

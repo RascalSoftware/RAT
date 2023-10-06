@@ -15,9 +15,7 @@ function [fx] = evaluateModel(x,DREAMPar,Meas_info,ratInputs)
 % end
 
 % Now evaluate the model
-fx = 0;
-coder.varsize('fx',[1 1e4],[1 1]);
-
+fx = zeros(1,DREAMPar.N);
 if ( DREAMPar.CPU == 1 )         % Sequential evaluation
 
     % Loop over each d-vector of parameter values of x using 1 worker

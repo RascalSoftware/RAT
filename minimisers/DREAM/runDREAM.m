@@ -5,6 +5,7 @@ function [outProblemDef,outProblem,result,bayesResults] = runDREAM(problemDef,pr
 % calculation
 nPars = 1e3;
 numberOfContrasts = problemDef.numberOfContrasts;
+numberOfChains = controls.nChains;
 
 if strcmpi(problemDef.TF,'domains')
     domains = true;
@@ -12,7 +13,7 @@ else
     domains = false;
 end
 
-bayesResults = makeEmptyBayesResultsStruct(nPars, numberOfContrasts, domains);
+bayesResults = makeEmptyBayesResultsStruct(nPars, numberOfContrasts, domains, numberOfChains);
 
 % Pre-allocation
 checks = controls.checks;

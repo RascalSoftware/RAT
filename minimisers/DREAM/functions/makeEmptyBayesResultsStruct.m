@@ -1,4 +1,4 @@
-function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts, isDomains)
+function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,nChains)
 
 % A function to make an empty container to hold the results of bayes
 % calculations. The struct has the following format:
@@ -192,9 +192,8 @@ coder.varsize('bestPars',[1 nPars],[0 1]);
 outlier = [1 1];
 coder.varsize('outlier',[nPars nPars],[1 1]);
 
-R = [1 1];
-coder.varsize('R',[nPars nPars],[1 1]);
-
+R = zeros(nChains,nChains);
+coder.varsize('R',[1e4 1e4],[1 1]);
 
 runTime = 0;
 

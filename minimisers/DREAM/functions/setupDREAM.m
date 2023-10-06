@@ -7,11 +7,14 @@ function [outDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,ite
 % values = cell(length(fieldNames),1);
 % outDREAMPar = cell2struct(values,fieldNames);
 
+Rr = zeros(DREAMPar.N,DREAMPar.N);
+coder.varsize('Rr',[1e4 1e4],[1 1]);
 
 outDREAMPar = struct('d',0,'N',0,'T',0,'parallel','no','CPU',0,'lambda',0,...
     'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier','iqr',...
     'adapt_pCR','no','thinning',0,'epsilon',0,'ABC','no','IO','no','modout','no',...
-    'restart','no','save','no','R',0);
+    'restart','no','save','no','R',Rr);
+
 
 % Generate new seed
 rng('default');
@@ -61,7 +64,9 @@ for j = 1 : numel(default)
 end
 
 % Matrix DREAMPar.R: Store for each chain (as row) the index of all other chains available for DE
-for i = 1:outDREAMPar.N, outDREAMPar.R(i,1:outDREAMPar.N-1) = setdiff(1:outDREAMPar.N,i); end
+for i = 1:outDREAMPar.N
+    outDREAMPar.R(i,1:outDREAMPar.N-1) = setdiff(1:outDREAMPar.N,i); 
+end
 
 % Check whether parameter ranges have been defined or not
 if ~isfield(Par_info,'min')
@@ -78,7 +83,7 @@ output.RunTime = 0;
 output.DREAMPar = struct('d',0,'N',0,'T',0,'parallel','no','CPU',0,'lambda',0,...
     'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier','iqr',...
     'adapt_pCR','no','thinning',0,'epsilon',0,'ABC','no','IO','no','modout','no',...
-    'restart','no','save','no','R',0);
+    'restart','no','save','no','R',Rr);
 output.Meas_info = Meas_info;
 output.iteration = 1;
 output.iloc = 0;
@@ -88,13 +93,16 @@ output.fx = 0;
 log_L = NaN(outDREAMPar.T,outDREAMPar.N+1);
 
 % Initialize vector with acceptance rates
-output.AR = NaN(floor(outDREAMPar.T/outDREAMPar.steps),2); output.AR(1,1) = outDREAMPar.N;
+AR = NaN(floor(outDREAMPar.T/outDREAMPar.steps)+1,2);
+coder.varsize('AR',[1e3 2],[1 1]);
+output.AR = AR; %NaN(floor(outDREAMPar.T/outDREAMPar.steps)+1,2); 
+output.AR(1,1) = outDREAMPar.N;
 
 % Initialize matrix with potential scale reduction convergence diagnostic
-output.R_stat = NaN(floor(outDREAMPar.T/outDREAMPar.steps),outDREAMPar.d+1);
+output.R_stat = NaN(floor(outDREAMPar.T/outDREAMPar.steps)+1,outDREAMPar.d+1);
 
 % Initialize matix with crossover values
-output.CR = NaN(floor(outDREAMPar.T/outDREAMPar.steps),outDREAMPar.nCR+1);
+output.CR = NaN(floor(outDREAMPar.T/outDREAMPar.steps)+1,outDREAMPar.nCR+1);
 
 % Initialize array (3D-matrix) of chain trajectories
 chain = NaN(outDREAMPar.T/outDREAMPar.thinning,outDREAMPar.d+2,outDREAMPar.N);

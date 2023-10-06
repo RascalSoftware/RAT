@@ -1,4 +1,4 @@
-function [chain,output,fx,log_L] = ratDREAM(inDREAMPar,Par_info,Meas_info,ratInputs)
+function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ratInputs)
 
 % Modified version of Vrugt DREAm algorithm to be specific for RAT....
 
@@ -139,11 +139,11 @@ function [chain,output,fx,log_L] = ratDREAM(inDREAMPar,Par_info,Meas_info,ratInp
 % ------------------------------------------------------------------------
 Meas_info.Y = 0;
 
-if ~isfield(inDREAMPar,'restart') || strcmp(inDREAMPar.restart,'no')
+if ~isfield(dreamVariables,'restart') || strcmp(dreamVariables.restart,'no')
 
     % Initialize the main variables used in DREAM
     [inDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = setupDREAM(inDREAMPar,Par_info,Meas_info);
+        gen] = setupDREAM(dreamVariables,Par_info,Meas_info);
 
     % Check for setup errors
     % [stop,fid] = checkDREAM(DREAMPar,Par_info,Meas_info);

@@ -41,7 +41,7 @@ if isfield(Par_info,'boundhandling')
 end
 
 % Now evaluate the model ( = pdf ) and return fx
-[fx] = evaluateModel(x,DREAMPar,Meas_info,ratInputs);
+fx = evaluateModel(x,DREAMPar,Meas_info,ratInputs);
 
 % Calculate the log-likelihood and log-prior of x (fx)
 [log_L_x,log_PR_x] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs);

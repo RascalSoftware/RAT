@@ -33,22 +33,29 @@ thisSld = calcResult.sldProfiles;
 numberOfContrasts = length(thisRef);
 ref_xVals = cell(numberOfContrasts,1);
 ref_yVals = cell(numberOfContrasts,1);
+vals = zeros(1,3);
+coder.varsize('vals',[1e4 1e4],[1 1]);
+
+rowVals = zeros(1,3);
+coder.varsize('rowVals',[1 1e4],[0 1]);
 
 if ~domains
     sld_xVals = cell(numberOfContrasts,1);
     sld_yVals = cell(numberOfContrasts,1);
     for i = 1:numberOfContrasts
-        sld_yVals{i} = 0;
-        sld_xVals{i} = 0;
+        sld_yVals{i} = vals;
+        sld_xVals{i} = rowVals;
+        ref_xVals{i} = rowVals;
+        ref_yVals{i} = vals;
     end
 else
     sld_xVals = cell(numberOfContrasts,2);
     sld_yVals = cell(numberOfContrasts,2);
     for i = 1:numberOfContrasts
-        sld_yVals{i,1} = 0;
-        sld_yVals{i,2} = 0;
-        sld_xVals{i,1} = 0;
-        sld_xVals{i,2} = 0;
+        sld_yVals{i,1} = vals;
+        sld_yVals{i,2} = vals;
+        sld_xVals{i,1} = rowVals;
+        sld_xVals{i,2} = rowVals;
     end
 
 end
@@ -57,8 +64,9 @@ end
 
 for i = 1:numberOfContrasts
     ref_xVals{i} = thisRef{i}(:,1)';        % Transpose these into rows for storage
+    %coder.varsize('ref_xVals{:}',[1e4 1e4],[1 1]);
     ref_yVals{i} = thisRef{i}(:,2)';
-    
+    coder.varsize('ref_yVals{:}');
     if ~domains
         sld_xVals{i} = thisSld{i}(:,1)';
         sld_yVals{i} = thisSld{i}(:,2)';

@@ -104,7 +104,7 @@ end
 
 refXdata = cell(nContrasts,1);
 xDataCell = [1 1 1];
-coder.varsize('xDataCell',[1 1e4],[0 1]);
+coder.varsize('xDataCell',[1e4 1e4],[1 1]);
 for i = 1:nContrasts
     refXdata{i} = xDataCell;
 end

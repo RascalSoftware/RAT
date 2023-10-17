@@ -30,50 +30,35 @@ thisSld = calcResult.sldProfiles;
 % so each is a {n x 1} cell array, because of n contrasts. 
 % Prepare some arrays to hold the SLD's and Refs for all the chain, keeping only the Y vales.
 % We'll save x values in a separate array
-numberOfContrasts = length(thisRef);
-ref_xVals = cell(numberOfContrasts,1);
-ref_yVals = cell(numberOfContrasts,1);
+numberOfContrasts = problemDef.numberOfContrasts;
+
 vals = zeros(1,3);
 coder.varsize('vals',[1e4 1e4],[1 1]);
 
 rowVals = zeros(1,3);
 coder.varsize('rowVals',[1 1e4],[0 1]);
 
-if ~domains
-    sld_xVals = cell(numberOfContrasts,1);
-    sld_yVals = cell(numberOfContrasts,1);
-    for i = 1:numberOfContrasts
-        sld_yVals{i} = vals;
-        sld_xVals{i} = rowVals;
-        ref_xVals{i} = rowVals;
-        ref_yVals{i} = vals;
-    end
-else
-    sld_xVals = cell(numberOfContrasts,2);
-    sld_yVals = cell(numberOfContrasts,2);
-    for i = 1:numberOfContrasts
-        sld_yVals{i,1} = vals;
-        sld_yVals{i,2} = vals;
-        sld_xVals{i,1} = rowVals;
-        sld_xVals{i,2} = rowVals;
-    end
+ref_xVals = makeCell(numberOfContrasts,rowVals); %cell(numberOfContrasts,1);
+ref_yVals = makeCell(numberOfContrasts,vals); %cell(numberOfContrasts,1);
 
+sld_xVals = makeCell(numberOfContrasts,rowVals);
+if ~domains
+    sld_yVals = makeCell(numberOfContrasts,vals);
+else
+    sld_yVals = makeCell2D(numberOfContrasts,vals);
 end
 
-% coder.varsize('ref_xVals{:}',[1e4 100],[1 1]);
-
+% We need to have the yvals interpolated onto the same xvals when we
+% calculate the sample. So, take the current reflectivity value from above
+% to get the 'base' x for ref and SLD, then all following
+% interpelations are onto these x values....
 for i = 1:numberOfContrasts
     ref_xVals{i} = thisRef{i}(:,1)';        % Transpose these into rows for storage
-    %coder.varsize('ref_xVals{:}',[1e4 1e4],[1 1]);
-    ref_yVals{i} = thisRef{i}(:,2)';
-    coder.varsize('ref_yVals{:}');
     if ~domains
         sld_xVals{i} = thisSld{i}(:,1)';
-        sld_yVals{i} = thisSld{i}(:,2)';
     else
         for m = 1:2
             sld_xVals{i,m} = thisSld{i,m}(:,1)';
-            sld_yVals{i,m} = thisSld{i,m}(:,2)';
         end
     end
 end
@@ -83,12 +68,26 @@ end
 numberOfSims = size(chain,1);   %will be = nsimu
 
 % To speed things up, we'll take a random sample of the chain, rather than
-% calculating 20000 reflectivities...
+% calculating >20000 reflectivities...
 nsample = 1000;
 isample = ceil(rand(nsample,1)*numberOfSims);
-sampleChi = zeros(length(2:nsample),1);
+sampleChi = zeros(nsample,1);
 
-for i = 2:nsample
+% First, we populate the yVals arrays with zero arrays of the correct size...
+for i = 1:numberOfContrasts
+    ref = thisRef{i};
+    nRefPoints = size(ref,1);
+    emptyRefArray = zeros(nsample,nRefPoints);
+    ref_yVals{i} = emptyRefArray;
+
+    sld = thisSld{i};
+    nSldPoints = size(sld,1);
+    emptySldArray = zeros(nsample,nSldPoints);
+    sld_yVals{i} = emptySldArray;
+end
+
+% Calculate all the samples....
+for i = 1:nsample
 
     thisChain= chain(isample(i),:);
 
@@ -109,25 +108,26 @@ for i = 2:nsample
     for n = 1:numberOfContrasts
 
         thisXval = ref_xVals{n};
-        thisYval = interp1(thisRef{n}(:,1),thisRef{n}(:,2),thisXval);
-        ref_yVals{n}(i,:) = thisYval';
+        thisYval = interp1(thisRef{n}(:,1),thisRef{n}(:,2),thisXval,'linear','extrap');
+        ref_yVals{n}(i,:) = thisYval;   % Automatically comes back as a row from inpterp1
         
         if ~domains
             this_sldXVal = sld_xVals{n};
             thisSLDYval = interp1(thisSld{n}(:,1),thisSld{n}(:,2),this_sldXVal);
-            sld_yVals{n}(i,:) = thisSLDYval';
+            sld_yVals{n}(i,:) = thisSLDYval;
         else
             for m = 1:2
                 this_sldXVal = sld_xVals{n,m};
                 thisSLDYval = interp1(thisSld{n,m}(:,1),thisSld{n,m}(:,2),this_sldXVal);
-                sld_yVals{n,m}(i,:) = thisSLDYval';
+                sld_yVals{n,m}(i,:) = thisSLDYval;
             end
         end
 
     end
-end
-    
+end 
 
+% Calculate the percentiles across all the calculated samples for each
+% point in x... We calculate 95% and 65% CI's for each set of curves
 ref_Errors = cell(numberOfContrasts(1),1);
 for i = 1:numberOfContrasts
     thisXval = ref_xVals{i};
@@ -148,10 +148,9 @@ for i = 1:numberOfContrasts
     ref_Errors{i} = refArray;
 end
 
-% TODO: need to fix this for domains....
+% TODO: need to add domains here....
 sld_Errors = cell(numberOfContrasts(1),1);
 for i = 1:numberOfContrasts
-    thisSldXval = sld_xVals{i};
     thisSldYvals = sld_yVals{i};
     
     cols = size(thisSldYvals,2);
@@ -172,4 +171,25 @@ allPredInts.refXdata = ref_xVals;
 allPredInts.sldXdata = sld_xVals;
 allPredInts.sampleChi = sampleChi;
 
+end
+
+function z = makeCell(n,vals)
+%#codegen
+% assert(n < 100);
+x = cell(n,1);   
+for i = 1:n
+    x{i} = vals;
+end
+z = x;
+end
+
+function z = makeCell2D(n,vals)
+%#codegen
+% assert(n < 100);
+x = cell(n,2);   
+for i = 1:n
+    x{i,1} = vals;
+    x{i,2} = vals;
+end
+z = x;
 end

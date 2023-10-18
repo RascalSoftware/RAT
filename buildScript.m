@@ -21,6 +21,10 @@ reflectivityCalculationCompileScript
 % Now generate the source....
 reflectivityCalculationCodeOnlyScript;
 
+compilePath = fullfile(thisPath,'compile','fullCompile');
+cd(compilePath);
+ratMainCompileScript;
+
 % Finally, change the paths back or the tests might fail...
 % setCompilePaths('mex');
 compilePath = fullfile(thisPath, 'compile', 'events');

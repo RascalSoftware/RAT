@@ -4,7 +4,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 % reflectivity calculation and pre- and post-processing routines.
 %
 % In this class, we test:
-% RAT, RATMain, reflectivityCalculationWrapper, reflectivityCalculation,
+% RAT, RATMain, reflectivityCalculation, reflectivityCalculation,
 % standardTFReflectivityCalculation,
 % standardTFStandardLayersReflectivityCalculation,
 % standardTFCustomLayersReflectivityCalculation,
@@ -148,27 +148,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(bayesResults, testCase.expectedBayesResults, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-        end
-
-        function testReflectivityCalculationWrapper(testCase)
-            % Test the routine that chooses how to perform the reflectivity calculation
-            [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
-
-            testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-
-            mockFn = mockFunction(testCase, 'reflectivityCalculation_mex', 'exceptionID', 'MATLAB:UndefinedFunction');         
-            [problem, result] = reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
-            testCase.verifyEqual(mockFn.callCount, 1);
-            
-            testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            
-            mockFn.exceptionID = 'MATLAB:AnotherError';
-            testCase.verifyError(@() reflectivityCalculationWrapper(testCase.problemDef,testCase.problemDefCells,...
-                                                        testCase.problemDefLimits,testCase.controls), 'MATLAB:AnotherError');
-            testCase.verifyEqual(mockFn.callCount, 2);
-        end
+        end 
 
 %% Test Reflectivity Calculation Routines
 

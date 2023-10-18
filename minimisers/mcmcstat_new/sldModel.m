@@ -32,7 +32,7 @@ controls.calcSld = 1;
 
 problemDef.fitpars = pars;
 problemDef = unpackparams(problemDef,controls);
-[~,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[~,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 
 sld = result{5}{contrast};
 

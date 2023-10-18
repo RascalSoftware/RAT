@@ -67,7 +67,7 @@ bayesResults.predlims = output.predlims;
 
 problemDef.fitpars = output.bestPars;
 problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 
 % Pre-processor directives for Matlab Coder.
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);

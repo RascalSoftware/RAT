@@ -23,32 +23,25 @@ priorFitList = zeros(numberOfParams,5);
 % 'uniform' = 1
 % 'gaussian' = 2
 % 'jeffreys' = 3
-thisType = 1;
-thisMu = 0;
-thisSig = 0;
+
 for i = 1:numberOfParams
     thisParam = paramNames{i};
-    paramLoc = find(strcmpi({thisParam},priorNames));
-    % thisType = priorVals{paramLoc,1};
+    indices = find(strcmpi({thisParam},priorNames));
     
-%     if strcmpi(thisType,'uniform')
-%         priorType = 1;
-%     elseif strcmpi(thisType,'gaussian')
-%         priorType = 2;
-%     elseif strcmpi(thisType,'jeffreys')
-%         priorType = 3;
-%     else
-%         priorType = 1;
-%     end
-    priorType =  priorVals(paramLoc,1);
-    priorFitList(i,1) = priorType;
+    if ~isempty(indices)
+        index = indices(1);
+        priorType =  priorVals(index,1);
+        priorFitList(i,1) = priorType;
 
-    thisMu = priorVals(paramLoc,2);
-    thisSig = priorVals(paramLoc,3);
-    priorFitList(i,2) = thisMu;
-    priorFitList(i,3) = thisSig;
+        thisMu = priorVals(index,2);
+        thisSig = priorVals(index,3);
+        priorFitList(i,2) = thisMu;
+        priorFitList(i,3) = thisSig;
 
-    priorFitList(i,4) = fitconstr(i,1);
-    priorFitList(i,5) = fitconstr(i,2);
+        priorFitList(i,4) = fitconstr(i,1);
+        priorFitList(i,5) = fitconstr(i,2);
+    else
+        priorFitList(i,1) = 1;
+    end
 end
 end

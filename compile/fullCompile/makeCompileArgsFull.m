@@ -192,11 +192,17 @@ ARG_26{4} = coder.typeof(0);
 ARG_26 = coder.typeof(ARG_26,[1 4]);
 ARG_26 = ARG_26.makeHeterogeneous();
 ARGS_1_5.scalesPriors = coder.typeof({ARG_26}, [Inf 1],[1 0]);
-ARG_27 = coder.typeof(0);
+% ARG_27 = coder.typeof(0);
+ARG_27{1} = coder.typeof('X',[1 Inf],[0 1]);
+ARG_27{2} = coder.typeof('X',[1 Inf],[0 1]);
+ARG_27{3} = coder.typeof(0);
+ARG_27{4} = coder.typeof(0);
+ARG_27 = coder.typeof(ARG_27,[1 4]);
+ARG_27 = ARG_27.makeHeterogeneous();
 ARGS_1_5.domainRatioPriors = coder.typeof({ARG_27}, [Inf  1],[1 0]);
 ARG_28 = coder.typeof('X',[1 Inf],[0 1]);
 ARGS_1_5.priorNames = coder.typeof({ARG_28}, [Inf  1],[1 0]);
-ARGS_1_5.priorVals = coder.typeof(0,[Inf  3],[1 0]);
+ARGS_1_5.priorVals = coder.typeof(0, [Inf  3], [1 0]);
 ARGS{1}{5} = coder.typeof(ARGS_1_5);
 
 end

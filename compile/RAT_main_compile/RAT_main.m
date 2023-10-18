@@ -33,7 +33,7 @@ outProblemDef = problemDef;
 action = controls.proc;
 switch lower(action)
     case 'calculate' %Just a single reflectivity calculation
-        [problem,results] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+        [problem,results] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
         outProblemDef = problemDef;
     case 'simplex'
         if ~strcmpi(controls.display,'off')

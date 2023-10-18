@@ -33,7 +33,7 @@ controls.proc = 'calculate';
 controls.calcSld = 1;
 problemDef.fitpars = bestFitPars;
 problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 result = parseResultToStruct(problem,result);
 
 ref.bestSlds = result.sldProfiles;

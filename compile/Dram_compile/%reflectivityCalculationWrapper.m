@@ -1,4 +1,4 @@
-function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls)
+function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
 
 
 % Overloaded wrapper function for compile (i.e. we can't have the 'mex' 

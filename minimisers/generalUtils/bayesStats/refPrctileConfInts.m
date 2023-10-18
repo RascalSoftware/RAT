@@ -148,9 +148,10 @@ for i = 1:numberOfContrasts
     ref_Errors{i} = refArray;
 end
 
-% TODO: need to add domains here....
+% TODO: need to fix this for domains....
 sld_Errors = cell(numberOfContrasts(1),1);
 for i = 1:numberOfContrasts
+    thisSldXval = sld_xVals{i};
     thisSldYvals = sld_yVals{i};
     
     cols = size(thisSldYvals,2);

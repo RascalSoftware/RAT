@@ -32,12 +32,8 @@ for i = 1:numberOfParams
         index = indices(1);
         priorType =  priorVals(index,1);
         priorFitList(i,1) = priorType;
-
-        thisMu = priorVals(index,2);
-        thisSig = priorVals(index,3);
-        priorFitList(i,2) = thisMu;
-        priorFitList(i,3) = thisSig;
-
+        priorFitList(i,2) = priorVals(index,2);
+        priorFitList(i,3) = priorVals(index,3);
         priorFitList(i,4) = fitconstr(i,1);
         priorFitList(i,5) = fitconstr(i,2);
     else

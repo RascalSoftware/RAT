@@ -101,7 +101,7 @@ output.results.outputDream = dreamOutput;
 output.bestPars = bestPars;
 output.chain = collectChains;
 
-[outProblemDef,outProblem,result,dreamResults] = processBayes_newMethod(output,allProblem);
+[outProblemDef,outProblem,result,dreamResults] = processBayes(output,allProblem);
 
 % Populate the output struct
 bayesResults.bayesRes.allChains = collectChains;

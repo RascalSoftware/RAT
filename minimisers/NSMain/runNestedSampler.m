@@ -67,7 +67,7 @@ bayesOutputs.results.mean = mean(chain);
 
 allProblem = data;
 
-[problemDef,outProblem,result,bayesResults] = processBayes_newMethod(bayesOutputs,allProblem);
+[problemDef,outProblem,result,bayesResults] = processBayes(bayesOutputs,allProblem);
 
 % result.logX = logZ;
 % result.nest_samples = nest_samples;

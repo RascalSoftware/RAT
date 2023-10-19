@@ -210,10 +210,8 @@ for i=1:length(priorFields)
             priorType = 1;
         elseif strcmpi(thisType,'gaussian')
             priorType = 2;
-        elseif strcmpi(thisType,'jeffreys')
-            priorType = 3;
         else
-            priorType = 1;
+            priorType = 3;
         end
         allPriors{cellCount,2} = priorType;
 

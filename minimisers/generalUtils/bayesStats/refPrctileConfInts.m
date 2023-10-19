@@ -173,23 +173,17 @@ allPredInts.sampleChi = sampleChi;
 
 end
 
-function z = makeCell(n,vals)
-%#codegen
-% assert(n < 100);
-x = cell(n,1);   
-for i = 1:n
-    x{i} = vals;
-end
-z = x;
+function x = makeCell(n,vals)
+    x = cell(n,1);   
+    for i = 1:n
+        x{i} = vals;
+    end
 end
 
-function z = makeCell2D(n,vals)
-%#codegen
-% assert(n < 100);
-x = cell(n,2);   
-for i = 1:n
-    x{i,1} = vals;
-    x{i,2} = vals;
-end
-z = x;
+function x = makeCell2D(n,vals)
+    x = cell(n,2);   
+    for i = 1:n
+        x{i,1} = vals;
+        x{i,2} = vals;
+    end
 end

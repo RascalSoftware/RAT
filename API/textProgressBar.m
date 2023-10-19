@@ -33,8 +33,3 @@ drawnow
 lastNchar=length(progressmsg);
 
 end
-
-%     c = 50;
-%     strDotsMax = 20;
-%     nDots = floor(c/*strDotsMax);
-%     dotOut = ['[' repmat('*',1,nDots) repmat('.',1,strDotsMax-nDots) ']']

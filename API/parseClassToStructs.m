@@ -202,15 +202,27 @@ for i=1:length(priorFields)
     currentPrior = priorFields{i};
     for j = 1:size(priors.(currentPrior), 1)
         allPriors{cellCount,1} = priors.(currentPrior){j}{1};
-        allPriors{cellCount,2} = priors.(currentPrior){j}{2};
-        allPriors{cellCount,3} = num2str(priors.(currentPrior){j}{3});
-        allPriors{cellCount,4} = num2str(priors.(currentPrior){j}{4});
+       
+        % Check prior type.....
+        thisType = priors.(currentPrior){j}{2};
+
+        if strcmpi(thisType,'uniform')
+            priorType = 1;
+        elseif strcmpi(thisType,'gaussian')
+            priorType = 2;
+        else
+            priorType = 3;
+        end
+        allPriors{cellCount,2} = priorType;
+
+        allPriors{cellCount,3} = priors.(currentPrior){j}{3};
+        allPriors{cellCount,4} = priors.(currentPrior){j}{4};
         cellCount = cellCount + 1;
     end
 end
 
 priors.priorNames = allPriors(:, 1);
-priors.priorVals = allPriors(:, 2:end);
+priors.priorVals = cell2mat(allPriors(:, 2:end));   % Note move to double now for this...
 
 
 %% Split up the contrastBacks array

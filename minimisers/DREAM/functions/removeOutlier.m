@@ -1,4 +1,4 @@
-function [X,log_L,outlier] = removeOutlier(X,log_L,outlier,DREAMPar)
+function [X,log_L,outputOutlier] = removeOutlier(X,log_L,outlier,DREAMPar)
 % Finds outlier chains and removes them when needed
 
 % Determine the number of elements of L_density
@@ -7,21 +7,29 @@ t = size(log_L,1); t_half = floor(t/2);
 % Then determine the mean log density of the active chains
 mean_log_L = mean(log_L(t_half:t,1:DREAMPar.N));
 
-% Create outlier handle
-evalstr = strcat('chain_id=',DREAMPar.outlier,'(mean_log_L);');
 
-% Now evaluate outlier handle
-try
-    eval(evalstr);
-catch
-    % Warning -- not enough chains to do sampling -- increase number of chains!
-    warning(fprintf('DREAM WARNING: Unknown outlier detection test at %d generations \n',t));
-    % Now print warning to screen and to file
-    %fprintf(evalstr); % fprintf(fid,evalstr);
-    % No outlier detected
-    outlier = [];
-    return
-end
+% ------------------------------
+% Always use the same outlier check (to remove eval)
+% ---------------------------------- AVH
+chain_id = iqr(mean_log_L);
+
+% % Create outlier handle
+% evalstr = strcat('chain_id=',DREAMPar.outlier,'(mean_log_L);');
+% 
+% % Now evaluate outlier handle
+% try
+%     eval(evalstr);
+% catch
+%     % Warning -- not enough chains to do sampling -- increase number of chains!
+%     fprintf('DREAM WARNING: Unknown outlier detection test at %d generations \n',t);
+%     % Now print warning to screen and to file
+%     %fprintf(evalstr); % fprintf(fid,evalstr);
+%     % No outlier detected
+%     outlier = [];
+%     return
+% end
+outputOutlier = outlier;
+coder.varsize('outputOutlier',[1e3 1e3],[1 1]);
 
 % How many outliers?
 Nid = numel(chain_id);
@@ -39,11 +47,12 @@ if (Nid > 0)
         % Jump outlier chain to r_idx -- X
         X(chain_id(j),1:DREAMPar.d+2) = X(chain_select(j),1:DREAMPar.d+2);
         % Add to chain_outlier and print to screen
-        outlier = [outlier ; t chain_id(j)];
+        outputOutlier = [outputOutlier ; t chain_id(j)];
         % Warning -- not enough chains to do sampling -- increase number of chains!
-        evalstr = char(strcat('DREAM WARNING: Irreversible jump chain',{' '},num2str(chain_id(j)),{' '},'at',{' '},num2str(t),{' '},'generations \n'));
+        %evalstr = char(strcat('DREAM WARNING: Irreversible jump chain',{' '},num2str(chain_id(j)),{' '},'at',{' '},num2str(t),{' '},'generations \n'));
+        %fprintf(' DREAM WARNING: Irreversible jump chain %0.2f at %0.2f generations \n \n \n',chain_id(j),t)
         % Now print warning to screen and to file
-        fprintf(evalstr); % fprintf(fid,evalstr);
+        %fprintf(evalstr); % fprintf(fid,evalstr);
     end
 end
 
@@ -194,7 +203,7 @@ if ( N < 61 ) && ( N > 2 )
 else
     if N >= 61
         N = 60; n_ind = size(peirce_r,1);
-        warning('DREAMPar.N > 60; using Peirce r-values for DREAMPar.N is 60');
+        fprintf('DREAMPar.N > 60; using Peirce r-values for DREAMPar.N is 60');
     end
     if N < 2
         error('Insufficient number of chains to apply Peirce diagnostic');

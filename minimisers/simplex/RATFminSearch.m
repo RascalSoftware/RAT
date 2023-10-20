@@ -76,36 +76,41 @@ end
 if nargin < 3, options = []; end
 
 buildOutputStruct = nargout > 3;
+
+% -------- Inputs are standardised for RAT, so no need to check ---------
 % Detect problem structure input
-if nargin == 1
-    if isa(funfcn,'struct') 
-        [funfcn,x,options] = separateOptimStruct(funfcn);
-    else % Single input and non-structure
-        error('MATLAB:fminsearch:InputArg',...
-            sprintf('MATLAB:optimfun:fminsearch:InputArg'));
-    end
-end
-
-if nargin == 0
-    error('MATLAB:fminsearch:NotEnoughInputs',...
-        sprintf('MATLAB:optimfun:fminsearch:NotEnoughInputs'));
-end
-
-
-% Check for non-double inputs
-if ~isa(x,'double')
-  error('MATLAB:fminsearch:NonDoubleInput',...
-    sprintf('MATLAB:optimfun:fminsearch:NonDoubleInput'));
-end
+% if nargin == 1
+%     if isa(funfcn,'struct') 
+%         [funfcn,x,options] = separateOptimStruct(funfcn);
+%     else % Single input and non-structure
+%         error('MATLAB:fminsearch:InputArg',...
+%             sprintf('MATLAB:optimfun:fminsearch:InputArg'));
+%     end
+% end
+% 
+% if nargin == 0
+%     error('MATLAB:fminsearch:NotEnoughInputs',...
+%         sprintf('MATLAB:optimfun:fminsearch:NotEnoughInputs'));
+% end
+% 
+% 
+% % Check for non-double inputs
+% if ~isa(x,'double')
+%   error('MATLAB:fminsearch:NonDoubleInput',...
+%     sprintf('MATLAB:optimfun:fminsearch:NonDoubleInput'));
+% end
+% -------------------------------------------------------------------
 
 n = numel(x);
 numberOfVariables = n;
 
+% ------------- Check is done upstream ----------------
 % Check that options is a struct
-if ~isempty(options) && ~isa(options,'struct')
-    error('MATLAB:fminsearch:ArgNotStruct',...
-        getString(message('MATLAB:optimfun:commonMessages:ArgNotStruct', 3)));
-end
+% if ~isempty(options) && ~isa(options,'struct')
+%     error('MATLAB:fminsearch:ArgNotStruct',...
+%         getString(message('MATLAB:optimfun:commonMessages:ArgNotStruct', 3)));
+% end
+% ------------------- AVH -----------------------------
 
 printtype = optimget(options,'Display',defaultopt,'fast');
 tolx = optimget(options,'TolX',defaultopt,'fast');
@@ -146,27 +151,30 @@ switch dis      % Changed from TMW fminsearch
     otherwise
         prnt = 1;
 end
-% Handle the output
-outputfcn = optimget(options,'OutputFcn',defaultopt,'fast');
-if isempty(outputfcn)
-    haveoutputfcn = false;
-else
-    haveoutputfcn = true;
-    xOutputfcn = x; % Last x passed to outputfcn; has the input x's shape
-    % Parse OutputFcn which is needed to support cell array syntax for OutputFcn.
-    outputfcn = createCellArrayOfFunctions(outputfcn,'OutputFcn');
-end
 
-% Handle the plot
-plotfcns = optimget(options,'PlotFcns',defaultopt,'fast');
-if isempty(plotfcns)
-    haveplotfcn = false;
-else
-    haveplotfcn = true;
-    xOutputfcn = x; % Last x passed to plotfcns; has the input x's shape
-    % Parse PlotFcns which is needed to support cell array syntax for PlotFcns.
-    plotfcns = createCellArrayOfFunctions(plotfcns,'PlotFcns');
-end
+% ----------------- Not using output functions for RAT ---------
+% % Handle the output
+% outputfcn = optimget(options,'OutputFcn',defaultopt,'fast');
+% if isempty(outputfcn)
+%     haveoutputfcn = false;
+% else
+%     haveoutputfcn = true;
+%     xOutputfcn = x; % Last x passed to outputfcn; has the input x's shape
+%     % Parse OutputFcn which is needed to support cell array syntax for OutputFcn.
+%     outputfcn = createCellArrayOfFunctions(outputfcn,'OutputFcn');
+% end
+% 
+% % Handle the plot
+% plotfcns = optimget(options,'PlotFcns',defaultopt,'fast');
+% if isempty(plotfcns)
+%     haveplotfcn = false;
+% else
+%     haveplotfcn = true;
+%     xOutputfcn = x; % Last x passed to plotfcns; has the input x's shape
+%     % Parse PlotFcns which is needed to support cell array syntax for PlotFcns.
+%     plotfcns = createCellArrayOfFunctions(plotfcns,'PlotFcns');
+% end
+% ---------------------- AVH ------------------------------
 
 header = ' Iteration   Func-count     min f(x)         Procedure';
 
@@ -206,17 +214,24 @@ how = '';
 % Initial simplex setup continues later
 
 % Initialize the output and plot functions.
-if haveoutputfcn || haveplotfcn
-    [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'init',itercount, ...
-        func_evals, how, fv(:,1),varargin{:});
-    if stop
-        [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
-        if  prnt > 0
-            sendTextOutput(output.message)
-        end
-        return;
-    end
-end
+%
+% ----------------------------------------
+% RAT doesn't use output or plot functions...
+%
+% --------------------- AVH -----------
+
+
+% if haveoutputfcn || haveplotfcn
+%     [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'init',itercount, ...
+%         func_evals, how, fv(:,1),varargin{:});
+%     if stop
+%         [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
+%         if  prnt > 0
+%             sendTextOutput(output.message)
+%         end
+%         return;
+%     end
+% end
 
 % Print out initial f(x) as 0th iteration
 if prnt == 3
@@ -245,17 +260,17 @@ elseif prnt == 4
 %     sendTextOutput(sprintf('%g',func_evals))
 end
 % OutputFcn and PlotFcns call
-if haveoutputfcn || haveplotfcn
-    [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
-        func_evals, how, fv(:,1),varargin{:});
-    if stop  % Stop per user request.
-        [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
-        if  prnt > 0
-            sendTextOutput(output.message)
-        end
-        return;
-    end
-end
+% if haveoutputfcn || haveplotfcn
+%     [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
+%         func_evals, how, fv(:,1),varargin{:});
+%     if stop  % Stop per user request.
+%         [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
+%         if  prnt > 0
+%             sendTextOutput(output.message)
+%         end
+%         return;
+%     end
+% end
 
 % Continue setting up the initial simplex.
 % Following improvement suggested by L.Pfeffer at Stanford
@@ -293,17 +308,17 @@ elseif prnt == 4
 %     sendTextOutput(sprintf('%g',func_evals))
 end
 % OutputFcn and PlotFcns call
-if haveoutputfcn || haveplotfcn
-    [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
-        func_evals, how, fv(:,1),varargin{:});
-    if stop  % Stop per user request.
-        [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
-        if  prnt > 0
-            sendTextOutput(output.message)
-        end
-        return;
-    end
-end
+% if haveoutputfcn || haveplotfcn
+%     [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
+%         func_evals, how, fv(:,1),varargin{:});
+%     if stop  % Stop per user request.
+%         [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
+%         if  prnt > 0
+%             sendTextOutput(output.message)
+%         end
+%         return;
+%     end
+% end
 exitflag = 1;
 
 % Main algorithm: iterate until 
@@ -405,17 +420,17 @@ while func_evals < maxfun && itercount < maxiter
 %         sendTextOutput(num2str(func_evals))
     end
     % OutputFcn and PlotFcns call
-    if haveoutputfcn || haveplotfcn
-        [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
-            func_evals, how, fv(:,1),varargin{:});
-        if stop  % Stop per user request.
-            [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
-            if  prnt > 0
-                sendTextOutput(output.message)
-            end
-            return;
-        end
-    end
+%     if haveoutputfcn || haveplotfcn
+%         [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
+%             func_evals, how, fv(:,1),varargin{:});
+%         if stop  % Stop per user request.
+%             [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
+%             if  prnt > 0
+%                 sendTextOutput(output.message)
+%             end
+%             return;
+%         end
+%     end
 end   % while
 
 x(:) = v(:,1);
@@ -423,9 +438,9 @@ fval = fv(:,1);
 
 
 % OutputFcn and PlotFcns call
-if haveoutputfcn || haveplotfcn
-    callOutputAndPlotFcns(outputfcn,plotfcns,x,xOutputfcn,'done',itercount, func_evals, how, fval, varargin{:});
-end
+% if haveoutputfcn || haveplotfcn
+%     callOutputAndPlotFcns(outputfcn,plotfcns,x,xOutputfcn,'done',itercount, func_evals, how, fval, varargin{:});
+% end
 
 if func_evals >= maxfun
     printMsg = prnt > 0;
@@ -481,23 +496,26 @@ xOutputfcn(:) = x;  % Set x to have user expected size
 stop = false;
 state = char(state);
 % Call output functions
-if ~isempty(outputfcn)
-    switch state
-        case {'iter','init'}
-            stop = callAllOptimOutputFcns(outputfcn,xOutputfcn,optimValues,state,varargin{:}) || stop;
-        case 'done'
-            callAllOptimOutputFcns(outputfcn,xOutputfcn,optimValues,state,varargin{:});
-    end
-end
-% Call plot functions
-if ~isempty(plotfcns)
-    switch state
-        case {'iter','init'}
-            stop = callAllOptimPlotFcns(plotfcns,xOutputfcn,optimValues,state,varargin{:}) || stop;
-        case 'done'
-            callAllOptimPlotFcns(plotfcns,xOutputfcn,optimValues,state,varargin{:});
-    end
-end
+
+% ---- Remove these from function for compile - AVH
+% if ~isempty(outputfcn)
+%     switch state
+%         case {'iter','init'}
+%             stop = callAllOptimOutputFcns(outputfcn,xOutputfcn,optimValues,state,varargin{:}) || stop;
+%         case 'done'
+%             callAllOptimOutputFcns(outputfcn,xOutputfcn,optimValues,state,varargin{:});
+%     end
+% end
+% % Call plot functions
+% if ~isempty(plotfcns)
+%     switch state
+%         case {'iter','init'}
+%             stop = callAllOptimPlotFcns(plotfcns,xOutputfcn,optimValues,state,varargin{:}) || stop;
+%         case 'done'
+%             callAllOptimPlotFcns(plotfcns,xOutputfcn,optimValues,state,varargin{:});
+%     end
+% end
+% -----------------------------------
 
 %--------------------------------------------------------------------------
 function [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)
@@ -507,7 +525,7 @@ function [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)
 % Call plot function driver to finalize the plot function figure window. If
 % no plot functions have been specified or the plot function figure no
 % longer exists, this call just returns.
-callAllOptimPlotFcns('cleanuponstopsignal');
+% callAllOptimPlotFcns('cleanuponstopsignal');
 
 x = xOutputfcn;
 FVAL = optimValues.fval;

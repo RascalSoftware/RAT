@@ -1,6 +1,9 @@
 function CR = drawCR(DREAMPar,pCR)
 % Generates CR values based on current crossover probabilities
 
+CR = [1,1];
+coder.varsize('CR',[1e3,1e3],[1,1]);
+
 switch DREAMPar.adapt_pCR
     
     % If crossover probabilities are updated

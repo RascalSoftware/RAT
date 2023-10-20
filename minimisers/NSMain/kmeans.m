@@ -156,7 +156,7 @@ end
 
 if ischar(start)
     startNames = {'uniform','sample','cluster'};
-    i = strmatch(lower(start), startNames);
+    i = find(strcmpi(start,startNames));
     if length(i) > 1
         error(sprintf('Ambiguous ''start'' parameter value:  %s.', start));
     elseif isempty(i)
@@ -339,11 +339,11 @@ for rep = 1:reps
                 D(:,empties) = NaN;
                 changed = changed(m(changed) > 0);
                 if display > 0
-                    warning(sprintf('Empty cluster created at iteration %d.',iter));
+                    fprintf('Empty cluster created at iteration %d.',iter);
                 end
             case 'singleton'
                 if display > 0
-                    warning(sprintf('Empty cluster created at iteration %d.',iter));
+                    fprintf('Empty cluster created at iteration %d.',iter);
                 end
                 
                 for i = empties
@@ -550,7 +550,7 @@ for rep = 1:reps
     end % phase two
     
     if (~converged) & (display > 0)
-        warning(sprintf('Failed to converge in %d iterations.', maxit));
+        fprintf('Warning: Failed to converge in %d iterations.', maxit);
     end
 
     % Calculate cluster-wise sums of distances

@@ -44,7 +44,7 @@ pars = unscalePars(pars,constr);
 
 problemDef.fitpars = pars;
 problemDef = unpackparams(problemDef,controls);
-[problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 
 ySim = result{1}{contrast};
 

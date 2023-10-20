@@ -139,7 +139,7 @@ problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
 
-[problemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,problem);
+[problemDef,outProblem,result,bayesResults] = processBayes(output,problem);
 
 <span class="comment">% problemDef.fitpars = bayesResults.bestPars_Mean;</span>
 
@@ -275,7 +275,7 @@ problem = {problemDef ; controls ; problemDef_limits ; problemDef_cells};
 
 output = runBayes(loop,nsimu,burnin,adaptint,params,problem);
 
-[problemDef,outProblem,result,bayesResults] = processBayes_newMethod(output,problem);
+[problemDef,outProblem,result,bayesResults] = processBayes(output,problem);
 
 % problemDef.fitpars = bayesResults.bestPars_Mean;
 

@@ -58,8 +58,8 @@ sldXdata = pLims.sldXdata;
 bayesRes = result.bayesRes;
 
 % Get the reflectivities for mean...
-bestRef_mean = result.bestFitsMean.Ref;
-bestSld_mean = result.bestFitsMean.Sld;
+bestRef_mean = result.bestFitsMean.ref;
+bestSld_mean = result.bestFitsMean.sld;
 
 shifted_data = result.shifted_data;
 numberOfContrasts = length(shifted_data);
@@ -67,7 +67,7 @@ numberOfContrasts = length(shifted_data);
 % Calculate the best fits depending on the selected options
 subplot(1,2,1)
 set(gca,'YScale','log','XScale','log');
-hold on
+hold on; box on
 
 for i = 1:numberOfContrasts
     

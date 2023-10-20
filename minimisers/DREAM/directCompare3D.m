@@ -107,7 +107,7 @@ else
                 problemDef.fitpars(2) = thisBack;
                 problemDef.fitpars(3) = thisScale;
                 problemDef = unpackparams(problemDef,controls);
-                [problem,results] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+                [problem,results] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 
 %                 d2oproblem.setParameter(1,'value',thisRough);
 %                 d2oproblem.setBacksPar(1,'value',thisBack);

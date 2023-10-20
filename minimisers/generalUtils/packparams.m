@@ -50,6 +50,10 @@ fitconstr = zeros(numberOfFitted,2);
 otherconstr = zeros((numberOfTotal-numberOfFitted),2);
 %limits = problemDef.limits;
 fitNames = cell(numberOfFitted,1);
+for i = 1:numberOfFitted
+    fitNames{i} = '';
+end
+
 fitCounter = 1;
 otherCounter = 1;
 for n = 1:length(checks.params_fitYesNo)

@@ -7,16 +7,37 @@ priorVals = priors.priorVals;
 
 % Find the values for fitpars
 numberOfParams = length(paramNames);
-priorFitList = cell(numberOfParams,5);
+%priorFitList = cell(numberOfParams,5);
+
+% for i = 1:numberOfParams
+%     priorFitList{i,1} = 0;
+%     priorFitList{i,2} = 0;
+%     priorFitList{i,3} = 0;
+%     priorFitList{i,4} = 0;
+%     priorFitList{i,5} = 0;
+% end
+priorFitList = zeros(numberOfParams,5);
+
+% In order to keep 'priorFitList' homogenous (otherwise we would need to
+% use a struct), we change the prior type to a numeric flag. So....
+% 'uniform' = 1
+% 'gaussian' = 2
+% 'jeffreys' = 3
 
 for i = 1:numberOfParams
     thisParam = paramNames{i};
-    paramLoc = strcmpi(thisParam,priorNames);
-    priorFitList(i,1) = priorVals(paramLoc,1);
-    priorFitList{i,2} = str2double(priorVals{paramLoc,2});
-    priorFitList{i,3} = str2double(priorVals{paramLoc,3});
-    priorFitList{i,4} = fitconstr(i,1);
-    priorFitList{i,5} = fitconstr(i,2);
+    indices = find(strcmpi({thisParam},priorNames));
+    
+    if ~isempty(indices)
+        index = indices(1);
+        priorType =  priorVals(index,1);
+        priorFitList(i,1) = priorType;
+        priorFitList(i,2) = priorVals(index,2);
+        priorFitList(i,3) = priorVals(index,3);
+        priorFitList(i,4) = fitconstr(i,1);
+        priorFitList(i,5) = fitconstr(i,2);
+    else
+        priorFitList(i,1) = 1;
+    end
 end
-
 end

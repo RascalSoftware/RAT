@@ -1,4 +1,4 @@
-function [chain,output,fx,log_L] = ratDREAM(DREAMPar,Par_info,Meas_info,ratInputs)
+function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ratInputs)
 
 % Modified version of Vrugt DREAm algorithm to be specific for RAT....
 
@@ -137,40 +137,48 @@ function [chain,output,fx,log_L] = ratDREAM(DREAMPar,Par_info,Meas_info,ratInput
 % if nargin < 4, Meas_info.Y = []; end;
 % if isempty(Meas_info), Meas_info.Y = []; end;
 % ------------------------------------------------------------------------
-Meas_info.Y = [];
+Meas_info.Y = 0;
 
-if ~isfield(DREAMPar,'restart') || strcmp(DREAMPar.restart,'no')
+if ~isfield(dreamVariables,'restart') || strcmp(dreamVariables.restart,'no')
 
     % Initialize the main variables used in DREAM
-    [DREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
-        gen] = setupDREAM(DREAMPar,Par_info,Meas_info);
+    [inDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
+        gen] = setupDREAM(dreamVariables,Par_info,Meas_info);
 
     % Check for setup errors
     % [stop,fid] = checkDREAM(DREAMPar,Par_info,Meas_info);
-    stop = checkDREAM(DREAMPar,Par_info,Meas_info);
+    stop = checkDREAM(inDREAMPar,Par_info,Meas_info);
 
     % Return to main program
 %   if strcmp(stop,'yes'); return; end
 
     % Create computing environment (depending whether multi-core is used)
-    [DREAMPar] = setDREAMParam(DREAMPar);
+    [DREAMPar] = setDREAMParam(inDREAMPar);
 
     % Now check how the measurement sigma is arranged (estimated or defined)
-    Meas_info = checkSigma(Meas_info); T_start = 2;
+    %
+    % -----------------------------------------
+    % We do not have user inputted sigma in this form for the RAT 
+    % implementation - Measurement Error is dealt with downstream in the 
+    % likelihood function. So, we can remove the check for sigma.
+    % --------------- AVH -------------------------
+    %Meas_info = checkSigma(Meas_info); 
+    
+    T_start = 2;
 
     % Create the initial states of each of the chains (initial population)
     [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs);
 
-elseif strcmp(DREAMPar.restart,'yes')
-
-    % Print to screen restart run
-    disp('Restart run');
-    % If a restart run is being done: just load the output from the previous ongoing trial
-    load DREAM.mat; [CR] = drawCR(DREAMPar,pCR); DREAMPar.T = 2 * DREAMPar.T;
-    % And make sure we add zeros to "chain" array
-    chain = [chain ; nan(size(chain,1)-1,size(chain,2),size(chain,3))];
-    % Open warning file and set T_start
-    fid = fopen('warning_file.txt','a+'); T_start = t + 1;
+% elseif strcmp(DREAMPar.restart,'yes')
+% 
+%     % Print to screen restart run
+%     disp('Restart run');
+%     % If a restart run is being done: just load the output from the previous ongoing trial
+%     load DREAM.mat; [CR] = drawCR(DREAMPar,pCR); DREAMPar.T = 2 * DREAMPar.T;
+%     % And make sure we add zeros to "chain" array
+%     chain = [chain ; nan(size(chain,1)-1,size(chain,2),size(chain,3))];
+%     % Open warning file and set T_start
+%     fid = fopen('warning_file.txt','a+'); T_start = t + 1;
 
 end
 
@@ -210,7 +218,7 @@ for t = T_start : DREAMPar.T
         % store the distance between the simualted and observed signatures
         
         % Store the model simulations (if appropriate)
-        storeDREAMResults ( DREAMPar , fx , Meas_info , 'a+' );
+        % storeDREAMResults ( DREAMPar , fx , Meas_info , 'a+' );
     end
     
     % Check whether we update the crossover values
@@ -283,7 +291,14 @@ end
 output.RunTime = toc;
 
 % Variables have been pre-allocated --> need to remove zeros at end
-[chain,output,fx] = DREAMEnd(DREAMPar,Meas_info,chain,output,iteration,iloc);
+% [chain,output,fx] = DREAMEnd(DREAMPar,Meas_info,chain,output,iteration,iloc);
+
+% Place everything in output to do diagnostics later (outside C++)
+output.DREAMPar = DREAMPar;
+output.Meas_info = Meas_info;
+output.iteration = iteration;
+output.iloc = iloc;
+
 
 % Close the waitbar
 textProgressBar('end',1);

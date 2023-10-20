@@ -91,7 +91,7 @@ output.data = data;
 % 
 % problemDef.fitpars = output.bestPars;
 % problemDef = unpackparams(problemDef,controls);
-% [problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+% [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 % 
 % output.bestFits = result{1};
 % output.shiftedData = problemDefCells{2};

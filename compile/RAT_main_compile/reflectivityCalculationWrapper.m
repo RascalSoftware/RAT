@@ -1,6 +1,6 @@
-function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls)
+function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
 
-% Dummy reflectivityCalculationWrapper for compiles
+% Dummy reflectivityCalculation for compiles
 
 % This is just a wrapper function for choosing between
 % the Matlab and Mex version of reflectivityCalculation.

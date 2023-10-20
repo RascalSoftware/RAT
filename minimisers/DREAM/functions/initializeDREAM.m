@@ -2,38 +2,38 @@ function [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMP
 % Initializes the starting positions of the Markov chains 
 
 % Create the initial positions of the chains
-switch Par_info.prior
-    
-    case {'uniform'}
+% switch Par_info.prior
+%     
+%     case {'uniform'}
         
         % Random sampling
         [x] = repmat(Par_info.min,DREAMPar.N,1) + rand(DREAMPar.N,DREAMPar.d) .* ( repmat(Par_info.max - Par_info.min,DREAMPar.N,1) );
         
-    case {'latin'}
-        % Initialize chains with latinHypercubeSampling hypercube sampling
-        if isfield(Par_info,'min_initial') && isfield(Par_info,'max_initial')
-            [x] = latinHypercubeSampling(Par_info.min_initial,Par_info.max_initial,DREAMPar.N);
-        else            
-            [x] = latinHypercubeSampling(Par_info.min,Par_info.max,DREAMPar.N);
-        end
-    case {'normal'}
-        
-        % Initialize chains with (multi)-normal distribution
-        [x] = repmat(Par_info.mu,DREAMPar.N,1) + randn(DREAMPar.N,DREAMPar.d) * chol(Par_info.cov);
-        
-    case {'prior'}
-        
-        % Create the initial position of each chain by drawing each parameter individually from the prior
-        for qq = 1:DREAMPar.d
-            for zz = 1:DREAMPar.N
-                x(zz,qq) = eval(char(Par_info.prior_marginal(qq)));
-            end
-        end
-        
-    otherwise
-        
-        error('unknown initial sampling method');
-end
+%     case {'latin'}
+%         % Initialize chains with latinHypercubeSampling hypercube sampling
+%         if isfield(Par_info,'min_initial') && isfield(Par_info,'max_initial')
+%             [x] = latinHypercubeSampling(Par_info.min_initial,Par_info.max_initial,DREAMPar.N);
+%         else            
+%             [x] = latinHypercubeSampling(Par_info.min,Par_info.max,DREAMPar.N);
+%         end
+%     case {'normal'}
+%         
+%         % Initialize chains with (multi)-normal distribution
+%         [x] = repmat(Par_info.mu,DREAMPar.N,1) + randn(DREAMPar.N,DREAMPar.d) * chol(Par_info.cov);
+%         
+%     case {'prior'}
+%         
+%         % Create the initial position of each chain by drawing each parameter individually from the prior
+%         for qq = 1:DREAMPar.d
+%             for zz = 1:DREAMPar.N
+%                 x(zz,qq) = eval(char(Par_info.prior_marginal(qq)));
+%             end
+%         end
+%         
+%     otherwise
+%         
+%         error('unknown initial sampling method');
+% end
 
 % If specified do boundary handling ( "Bound","Reflect","Fold")
 if isfield(Par_info,'boundhandling')
@@ -41,7 +41,7 @@ if isfield(Par_info,'boundhandling')
 end
 
 % Now evaluate the model ( = pdf ) and return fx
-[fx] = evaluateModel(x,DREAMPar,Meas_info,ratInputs);
+fx = evaluateModel(x,DREAMPar,Meas_info,ratInputs);
 
 % Calculate the log-likelihood and log-prior of x (fx)
 [log_L_x,log_PR_x] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs);
@@ -50,7 +50,7 @@ end
 X = [x log_PR_x(:) log_L_x];
 
 % Store the model simulations (if appropriate)
-storeDREAMResults ( DREAMPar , fx , Meas_info , 'w+' );
+% storeDREAMResults ( DREAMPar , fx , Meas_info , 'w+' );
 
 % Set the first point of each of the DREAMPar.N chain equal to the initial X values
 chain(1,1:DREAMPar.d+2,1:DREAMPar.N) = reshape(X',1,DREAMPar.d+2,DREAMPar.N);

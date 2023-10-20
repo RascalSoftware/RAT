@@ -14,6 +14,6 @@ xtrans = simplexXTransform(x,params);
 problemDef.fitpars = xtrans;
 problemDef = unpackparams(problemDef,controls);
 
-[problemDef,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls);
+[problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 
 fval = problemDef.calculations.sum_chi;

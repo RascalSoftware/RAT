@@ -9,7 +9,7 @@
 % 
 % Start by making the class and setting it to a custom layers type:
 
-problem = projectClass(name='Orso lipid example - custom layers', model='custom XY');
+problem = project(name='Orso lipid example - custom layers', model='custom XY');
 problem.setGeometry('Substrate/liquid');
 problem.setUsePriors(true);
 
@@ -76,7 +76,7 @@ problem.setData(4,'dataRange',[0.013 0.37]);
 % 
 % Add the custom file to the project....
 
-problem.addCustomFile('DSPC Model','DSPCCustomXY.m','matlab',pwd);
+problem.addCustomFile('DPPC Model','bilOnSamFitFunc.m','matlab',pwd);
 %% 
 % 
 % 

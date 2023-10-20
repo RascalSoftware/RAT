@@ -30,7 +30,7 @@ classdef pmLogFunction
 
             problem = unpackparams(problem,control);
             
-            [outProblem,results] = reflectivityCalculationWrapper(problem,cells,limits,control);
+            [outProblem,results] = reflectivityCalculation(problem,cells,limits,control);
             chi = outProblem.calculations.sum_chi;
             logFuncVal = -chi/2;
             

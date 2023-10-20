@@ -11,7 +11,7 @@ function [R_stat] = gelman(chain,DREAMPar)
 
 % Compute the dimensions of chain
 [n,nrY,m] = size(chain);
-
+var_chain = zeros(DREAMPar.N,DREAMPar.d);
 if (n < 10)
     % Set the R-statistic to a large value
     R_stat = NaN(1,DREAMPar.d);

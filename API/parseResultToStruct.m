@@ -8,7 +8,9 @@ result.sldProfiles = results{5};    % Calculated SLD profiles
 result.allLayers = results{6};      % Resampled layers
 
 result.calculationResults = problem.calculations;
-problem = rmfield(problem,'calculations');
+
+% For compile, we can't remove a field, so just clear it for now...
+%problem = rmfield(problem,'calculations');
 result.contrastParams = problem;
 
 end

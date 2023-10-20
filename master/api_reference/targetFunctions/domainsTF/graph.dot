@@ -1,0 +1,12 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  domainsTFReflectivityCalculation -> domainsTFCustomLayersReflectivityCalculation;
+  domainsTFReflectivityCalculation -> domainsTFCustomXYReflectivityCalculation;
+  domainsTFReflectivityCalculation -> domainsTFStandardLayersReflectivityCalculation;
+
+  averageReflectivity [URL="averageReflectivity.html"];
+  domainsTFCustomLayersReflectivityCalculation [URL="domainsTFCustomLayersReflectivityCalculation.html"];
+  domainsTFCustomXYReflectivityCalculation [URL="domainsTFCustomXYReflectivityCalculation.html"];
+  domainsTFReflectivityCalculation [URL="domainsTFReflectivityCalculation.html"];
+  domainsTFStandardLayersReflectivityCalculation [URL="domainsTFStandardLayersReflectivityCalculation.html"];
+}

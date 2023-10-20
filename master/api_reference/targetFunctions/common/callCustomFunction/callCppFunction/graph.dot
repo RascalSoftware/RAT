@@ -2,5 +2,4 @@
 digraph m2html {
 
   callCppFunc [URL="callCppFunc.html"];
-  callCppFuncXY [URL="callCppFuncXY.html"];
 }

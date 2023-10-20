@@ -1,7 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-  pythonCustomFunctionWrapper -> callPythonFunction;
-
-  callPythonFunction [URL="callPythonFunction.html"];
-  pythonCustomFunctionWrapper [URL="pythonCustomFunctionWrapper.html"];
-}

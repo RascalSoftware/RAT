@@ -33,7 +33,6 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)">RATMain</a>	</li>
 <li><a href="../API/outputFunction/defaultOutputFunction.html" class="code" title="function defaultOutputFunction(eventrc,eventdata)">defaultOutputFunction</a>	The default RAT output function.</li>
 <li><a href="../API/outputFunction/outputClass.html" class="code" title="">outputClass</a>	</li>
 <li><a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>	</li>
@@ -131,7 +130,7 @@ This function is called by:
 0079 <span class="keyword">end</span>
 0080 
 0081 tic
-0082 [outProblemStruct,problem,result,bayesResults] = <a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)">RATMain</a>(problemDef,problemDefCells,problemDefLimits,controls,priors);
+0082 [outProblemStruct,problem,result,bayesResults] = RATMain_mex(problemDef,problemDefCells,problemDefLimits,controls,priors);
 0083 <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\n'</span>));
 0084 
 0085 <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
@@ -144,7 +143,7 @@ This function is called by:
 0092     originalProc = controls.proc;
 0093     controls.calcSld = 1;
 0094     controls.proc = <span class="string">'calculate'</span>;
-0095     [outProblemStruct,problem,result,~] = <a href="RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)">RATMain</a>(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
+0095     [outProblemStruct,problem,result,~] = RATMain_mex(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
 0096     controls.proc = originalProc;
 0097 <span class="keyword">end</span>
 0098 
@@ -172,6 +171,6 @@ This function is called by:
 0120 
 </pre></div>
 
-<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

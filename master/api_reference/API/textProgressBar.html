@@ -46,33 +46,39 @@ This function is called by:
 0002 
 0003 <span class="keyword">persistent</span> lastNchar
 0004 
-0005 <span class="keyword">if</span> strcmpi(curm,<span class="string">'init'</span>)
-0006     <span class="comment">%fprintf('\n');</span>
-0007     lastNchar = 0;
-0008     <span class="keyword">return</span>;
-0009 <span class="keyword">end</span>
-0010 
-0011 <span class="keyword">if</span> strcmpi(curm,<span class="string">'end'</span>)
-0012     fprintf(<span class="string">'\n'</span>);
-0013     <span class="keyword">return</span>;
-0014 <span class="keyword">end</span>
-0015 
-0016 <span class="keyword">if</span> isempty(lastNchar)
-0017     lastNchar = 0;
-0018 <span class="keyword">end</span>
-0019 
-0020 <span class="comment">%curm = 'progress';</span>
-0021 progressmsg=[183-uint8((1:40)&lt;=(pct*40)).*(183-<span class="string">'*'</span>) <span class="string">''</span>];
-0022 <span class="comment">%curmtxt=sprintf('% 9.3g\n',curm(1:min(end,20),1));</span>
-0023 progressmsg=sprintf(<span class="string">'\n %s %5.1f%% [%s]'</span>,curm,(pct*100),progressmsg);
-0024 fprintf(<span class="string">'%s%s'</span>,repmat(char(8),1,lastNchar),progressmsg);
-0025 drawnow
-0026 lastNchar=length(progressmsg);
-0027 
-0028 <span class="keyword">end</span>
-0029 
+0005 strDotsMax = 40;
+0006 
+0007 <span class="keyword">if</span> strcmpi(curm,<span class="string">'init'</span>)
+0008     <span class="comment">%fprintf('\n');</span>
+0009     lastNchar = 0;
+0010     <span class="keyword">return</span>;
+0011 <span class="keyword">end</span>
+0012 
+0013 <span class="keyword">if</span> strcmpi(curm,<span class="string">'end'</span>)
+0014     fprintf(<span class="string">'\n'</span>);
+0015     <span class="keyword">return</span>;
+0016 <span class="keyword">end</span>
+0017 
+0018 <span class="keyword">if</span> isempty(lastNchar)
+0019     lastNchar = 0;
+0020 <span class="keyword">end</span>
+0021 
+0022 <span class="comment">%curm = 'progress';</span>
+0023 
+0024 nDots = floor(pct * strDotsMax);
+0025 progressmsg = [<span class="string">'['</span> repmat(<span class="string">'*'</span>,1,nDots) repmat(<span class="string">'.'</span>,1,strDotsMax-nDots) <span class="string">']'</span>];
+0026 
+0027 <span class="comment">% progressmsg=[183-uint16((1:40)&lt;=(pct*40)).*(183-'*') ''];</span>
+0028 <span class="comment">% %curmtxt=sprintf('% 9.3g\n',curm(1:min(end,20),1));</span>
+0029 progressmsg=sprintf(<span class="string">'\n %s %5.1f%% %s'</span>,curm,(pct*100),progressmsg);
+0030 
+0031 fprintf(<span class="string">'%s%s'</span>,repmat(sprintf(<span class="string">'\b'</span>),1,lastNchar),progressmsg);
+0032 drawnow
+0033 lastNchar=length(progressmsg);
+0034 
+0035 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

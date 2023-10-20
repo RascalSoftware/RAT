@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of domainsTFCustomXYReflectivityCalculation</title>
+  <meta name="keywords" content="domainsTFCustomXYReflectivityCalculation">
+  <meta name="description" content="Custom layers reflectivity calculation for domainsTF">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions -->
+<!-- menu.html domainsTF -->
+
+<h1>domainsTFCustomXYReflectivityCalculation
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Custom layers reflectivity calculation for domainsTF</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = domainsTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Custom layers reflectivity calculation for domainsTF
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYParallelContrasts</a>	Extract individual cell arrays</li>
+<li><a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYParallelPoints</a>	Extract individual cell arrays</li>
+<li><a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYSingle(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYSingle</a>	Extract individual cell arrays</li>
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="domainsTFReflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = domainsTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls,customClass)">domainsTFReflectivityCalculation</a>	Main function for the domainsTF reflectivity calculation</li>
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = domainsTFCustomXYReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)</a>
+0002 
+0003 <span class="comment">% Custom layers reflectivity calculation for domainsTF</span>
+0004 
+0005 <span class="comment">% This function decides on parallelisation options before calling the</span>
+0006 <span class="comment">% relevant version of the main custom layers calculation. It is more</span>
+0007 <span class="comment">% efficient to have multiple versions of the core calculation, each dealing</span>
+0008 <span class="comment">% with a different scheme for parallelisation. These are:</span>
+0009 <span class="comment">% single    - single threaded reflectivity calculation</span>
+0010 <span class="comment">% points    - parallelise over points in the reflectivity calculation</span>
+0011 <span class="comment">% contrasts - parallelise over contrasts.</span>
+0012 
+0013 
+0014 <span class="comment">% Pre-allocation - It's necessary to</span>
+0015 <span class="comment">% pre-allocate the memory for all the arrays</span>
+0016 <span class="comment">% for compilation, so do this in this block.</span>
+0017 numberOfContrasts = problemDef.numberOfContrasts;
+0018 outSsubs = zeros(numberOfContrasts,1);
+0019 backgs = zeros(numberOfContrasts,1);
+0020 qshifts = zeros(numberOfContrasts,1);
+0021 sfs = zeros(numberOfContrasts,1);
+0022 nbas = zeros(numberOfContrasts,1);
+0023 nbss = zeros(numberOfContrasts,1);
+0024 chis = zeros(numberOfContrasts,1);
+0025 resols = zeros(numberOfContrasts,1);
+0026 allRoughs = zeros(numberOfContrasts,1);
+0027 
+0028 reflectivity = cell(numberOfContrasts,1);
+0029 <span class="keyword">for</span> i = 1:numberOfContrasts
+0030     reflectivity{i} = [1 1 ; 1 1];
+0031 <span class="keyword">end</span>
+0032 
+0033 Simulation = cell(numberOfContrasts,1);
+0034 <span class="keyword">for</span> i = 1:numberOfContrasts
+0035     Simulation{i} = [1 1 ; 1 1];
+0036 <span class="keyword">end</span>
+0037 
+0038 shifted_data = cell(numberOfContrasts,1);
+0039 <span class="keyword">for</span> i = 1:numberOfContrasts
+0040     shifted_data{i} = [1 1 1; 1 1 1];
+0041 <span class="keyword">end</span>
+0042 
+0043 layerSlds = cell(numberOfContrasts,2);
+0044 <span class="keyword">for</span> i = 1:numberOfContrasts
+0045     layerSlds{i,1} = [1 1 1; 1 1 1];
+0046     layerSlds{i,2} = [1 1 1; 1 1 1];
+0047 <span class="keyword">end</span>
+0048 
+0049 domainSldProfiles = cell(numberOfContrasts,2);
+0050 <span class="keyword">for</span> i = 1:numberOfContrasts
+0051     domainSldProfiles{i,1} = [1 1; 1 1];
+0052     domainSldProfiles{i,2} = [1 1; 1 1];
+0053 <span class="keyword">end</span>
+0054 
+0055 allLayers = cell(numberOfContrasts,2);
+0056 <span class="keyword">for</span> i = 1:numberOfContrasts
+0057     allLayers{i,1} = [1 1 1; 1 1 1];
+0058     allLayers{i,2} = [1 1 1; 1 1 1];
+0059 <span class="keyword">end</span>
+0060 coder.varsize(<span class="string">'allLayers'</span>,[10000 2],[1 1]);
+0061 
+0062 <span class="comment">% End pre-allocation</span>
+0063 
+0064 para = controls.para;
+0065 
+0066 <span class="keyword">switch</span> para
+0067     <span class="keyword">case</span> <span class="string">'single'</span>
+0068             
+0069           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0070              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,<span class="keyword">...</span>
+0071              allRoughs] = <a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYSingle(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYSingle</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0072              problemDefLimits,controls);
+0073         
+0074     <span class="keyword">case</span> <span class="string">'points'</span>
+0075         
+0076           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0077              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,<span class="keyword">...</span>
+0078              allRoughs] = <a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYParallelPoints</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0079              problemDefLimits,controls);
+0080          
+0081     <span class="keyword">case</span> <span class="string">'contrasts'</span>
+0082         
+0083           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0084              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,<span class="keyword">...</span>
+0085              allRoughs] = <a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYParallelContrasts</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0086              problemDefLimits,controls);
+0087 
+0088 <span class="keyword">end</span>
+0089 
+0090 problem.ssubs = outSsubs;
+0091 problem.backgrounds = backgs;
+0092 problem.qshifts = qshifts;
+0093 problem.scalefactors = sfs;
+0094 problem.nbairs = nbas;
+0095 problem.nbsubs = nbss;
+0096 problem.resolutions = resols;
+0097 problem.calculations.all_chis = chis;
+0098 problem.calculations.sum_chi = sum(chis);
+0099 problem.allSubRough = allRoughs;
+0100 problem.resample = problemDef.resample;
+0101 
+0102 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

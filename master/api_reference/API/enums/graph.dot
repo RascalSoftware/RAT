@@ -4,6 +4,7 @@ digraph m2html {
   boundHandlingOptions -> boundHandlingOptions;
   calculationTypes -> calculationTypes;
   displayOptions -> displayOptions;
+  eventTypes -> eventTypes;
   geometryOptions -> geometryOptions;
   hydrationTypes -> hydrationTypes;
   modelTypes -> modelTypes;
@@ -17,6 +18,7 @@ digraph m2html {
   boundHandlingOptions [URL="boundHandlingOptions.html"];
   calculationTypes [URL="calculationTypes.html"];
   displayOptions [URL="displayOptions.html"];
+  eventTypes [URL="eventTypes.html"];
   geometryOptions [URL="geometryOptions.html"];
   hydrationTypes [URL="hydrationTypes.html"];
   modelTypes [URL="modelTypes.html"];

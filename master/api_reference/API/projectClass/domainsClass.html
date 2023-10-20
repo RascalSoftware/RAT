@@ -51,19 +51,20 @@ This function is called by:
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function obj = domainsClass(experimentName, calculationType, geometry, absorption)</a></li>
+<li><a href="#_sub1" class="code">function obj = domainsClass(experimentName, calculationType, modelType, geometry, absorption)</a></li>
 <li><a href="#_sub2" class="code">function projectObj = toProjectClass(obj)</a></li>
-<li><a href="#_sub3" class="code">function names = getAllAllowedNames(obj)</a></li>
-<li><a href="#_sub4" class="code">function obj = addDomainRatio(obj, varargin)</a></li>
-<li><a href="#_sub5" class="code">function obj = removeDomainRatio(obj, varargin)</a></li>
-<li><a href="#_sub6" class="code">function obj = setDomainRatio(obj, varargin)</a></li>
-<li><a href="#_sub7" class="code">function obj = addDomainContrast(obj, varargin)</a></li>
-<li><a href="#_sub8" class="code">function obj = removeDomainContrast(obj, row)</a></li>
-<li><a href="#_sub9" class="code">function obj = setDomainContrast(obj, row, varargin)</a></li>
-<li><a href="#_sub10" class="code">function obj = setDomainContrastModel(obj, row, model)</a></li>
-<li><a href="#_sub11" class="code">function outStruct = toStruct(obj)</a></li>
-<li><a href="#_sub12" class="code">function displayScalarObject(obj)</a></li>
-<li><a href="#_sub13" class="code">function projectObj = projectClass(obj)</a></li>
+<li><a href="#_sub3" class="code">function obj = setModelType(obj, modelType)</a></li>
+<li><a href="#_sub4" class="code">function names = getAllAllowedNames(obj)</a></li>
+<li><a href="#_sub5" class="code">function obj = setContrastModel(obj, row, model)</a></li>
+<li><a href="#_sub6" class="code">function obj = addDomainRatio(obj, varargin)</a></li>
+<li><a href="#_sub7" class="code">function obj = removeDomainRatio(obj, varargin)</a></li>
+<li><a href="#_sub8" class="code">function obj = setDomainRatio(obj, varargin)</a></li>
+<li><a href="#_sub9" class="code">function obj = addDomainContrast(obj, varargin)</a></li>
+<li><a href="#_sub10" class="code">function obj = removeDomainContrast(obj, row)</a></li>
+<li><a href="#_sub11" class="code">function obj = setDomainContrast(obj, row, varargin)</a></li>
+<li><a href="#_sub12" class="code">function obj = setDomainContrastModel(obj, row, model)</a></li>
+<li><a href="#_sub13" class="code">function outStruct = toStruct(obj)</a></li>
+<li><a href="#_sub14" class="code">function projectObj = projectClass(obj)</a></li>
 </ul>
 
 
@@ -82,218 +83,258 @@ This function is called by:
 0012         domainRatio          <span class="comment">% Class for specifying the ratio between domains</span>
 0013         domainContrasts      <span class="comment">% Modified contrast class with no data for domains</span>
 0014     <span class="keyword">end</span>
-0015        
+0015 
 0016     methods
 0017 
-0018         <a name="_sub0" href="#_subfunctions" class="code">function obj = domainsClass(experimentName, calculationType, geometry, absorption)</a>
+0018         <a name="_sub0" href="#_subfunctions" class="code">function obj = domainsClass(experimentName, calculationType, modelType, geometry, absorption)</a>
 0019             <span class="comment">% Creates a Project object for a domains calculation.</span>
 0020             <span class="comment">% The input arguments are the experiment name which is a char</span>
 0021             <span class="comment">% array; the calculation type, which is a calculationTypes</span>
-0022             <span class="comment">% enum; the geometry, which is a geometryOptions enum; and a</span>
-0023             <span class="comment">% logical to state whether or not absorption terms are</span>
-0024             <span class="comment">% included in the refractive index.</span>
-0025             <span class="comment">% All of the arguments are optional.</span>
-0026             <span class="comment">%</span>
-0027             <span class="comment">% problem = domainsClass('New experiment');</span>
-0028             arguments
-0029                 experimentName {mustBeTextScalar} = <span class="string">''</span>
-0030                 calculationType = calculationTypes.Domains
-0031                 geometry = geometryOptions.AirSubstrate
-0032                 absorption {mustBeA(absorption,<span class="string">'logical'</span>)} = false
-0033             <span class="keyword">end</span>
-0034             
-0035             <span class="comment">% Call projectClass constructor</span>
-0036             obj@<a href="projectClass.html" class="code" title="">projectClass</a>(experimentName, calculationType, geometry);
-0037 
-0038             <span class="comment">% Create a contrasts class for a domains calculation</span>
-0039             obj.contrasts = <a href="contrastsClass.html" class="code" title="">contrastsClass</a>(domains=true);
-0040 
-0041             <span class="comment">% For a domains calculation, initialise secondary contrasts</span>
-0042             <span class="comment">% object and domain ratio parameter class</span>
-0043             obj.domainContrasts = <a href="domainContrastsClass.html" class="code" title="">domainContrastsClass</a>();
-0044             obj.domainRatio = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Domain Ratio 1'</span>,0.4,0.5,0.6,false,<span class="string">'uniform'</span>,0,Inf);
-0045         <span class="keyword">end</span>
-0046 
-0047         <a name="_sub1" href="#_subfunctions" class="code">function projectObj = toProjectClass(obj)</a>
-0048             <span class="comment">% Alias of the converter routine from domainsClass to</span>
-0049             <span class="comment">% projectClass.</span>
-0050             <span class="comment">% This routine takes the currently defined project and</span>
-0051             <span class="comment">% converts it to a nonPolarised calculation, preserving all</span>
-0052             <span class="comment">% currently defined properties.</span>
-0053             <span class="comment">%</span>
-0054             <span class="comment">% nonPolarisedProblem = problem.toProjectClass();</span>
-0055             projectObj = obj.projectClass();
-0056         <span class="keyword">end</span>
-0057 
-0058         <a name="_sub2" href="#_subfunctions" class="code">function names = getAllAllowedNames(obj)           </a>
-0059             <span class="comment">% Returns a cell array of all currently</span>
-0060             <span class="comment">% set parameter names for the project.</span>
-0061             names = <a href="#_sub3" class="code" title="subfunction names = getAllAllowedNames(obj)">getAllAllowedNames</a>@<a href="projectClass.html" class="code" title="">projectClass</a>(obj);
-0062             names.domainRatioNames = obj.domainRatio.getNames();
-0063         <span class="keyword">end</span>
-0064         
-0065         <span class="comment">% -------------------------------------------------------------------</span>
-0066         <span class="comment">% Editing of Domain Ratio block</span>
-0067         
-0068         <a name="_sub3" href="#_subfunctions" class="code">function obj = addDomainRatio(obj, varargin)</a>
-0069             <span class="comment">% Adds a new domain ratio parameter. Expects the name</span>
-0070             <span class="comment">% of domain ratio, min, value, max, and if fit is off or on</span>
-0071             <span class="comment">%</span>
-0072             <span class="comment">% problem.addDomainRatio('Domain Ratio 2', 0.4, 0.5, 0.6, true);</span>
-0073             obj.domainRatio.addParameter(varargin{:});
-0074         <span class="keyword">end</span>
-0075         
-0076         <a name="_sub4" href="#_subfunctions" class="code">function obj = removeDomainRatio(obj, varargin)</a>
-0077             <span class="comment">% Removes specified domain ratio parameter. Expects the</span>
-0078             <span class="comment">% name/index of domain ratio to remove</span>
-0079             <span class="comment">%</span>
-0080             <span class="comment">% problem.removeDomainRatio(2);</span>
-0081            obj.domainRatio.removeParameter(varargin{:}); 
-0082         <span class="keyword">end</span>
-0083         
-0084         <a name="_sub5" href="#_subfunctions" class="code">function obj = setDomainRatio(obj, varargin)</a>
-0085             <span class="comment">% Edits an existing domain ratio parameter. Expects the</span>
-0086             <span class="comment">% index of domain ratio to edit and key-value pairs</span>
-0087             <span class="comment">%</span>
-0088             <span class="comment">% problem.setDomainRatio(1, 'name','Domain Ratio 1', 'value', 0.55);</span>
-0089             obj.domainRatio.setParameter(varargin{:});
-0090         <span class="keyword">end</span>
-0091     
-0092         <span class="comment">% ----------------------------------------------------------------</span>
-0093         <span class="comment">%</span>
-0094         <span class="comment">%   Editing of Domains Contrasts Block</span>
-0095         
-0096         <a name="_sub6" href="#_subfunctions" class="code">function obj = addDomainContrast(obj, varargin)</a>
-0097             <span class="comment">% Adds a new domainContrast parameter. Expects a parameter name,</span>
-0098             <span class="comment">% and with key-value pairs with one or more of the following</span>
-0099             <span class="comment">% &quot;bulk in&quot;, &quot;bulk out&quot;, &quot;model&quot;</span>
-0100             <span class="comment">%</span>
-0101             <span class="comment">% problem.addDomainContrast('domainContrast 1', 'nba', 'Silicon');</span>
-0102             allowedNames = obj.getAllAllowedNames();
-0103             obj.domainContrasts.addContrast(allowedNames, varargin{:});  
-0104         <span class="keyword">end</span>
-0105 
-0106         <a name="_sub7" href="#_subfunctions" class="code">function obj = removeDomainContrast(obj, row)</a>
-0107             <span class="comment">% Removes a specified domainContrast parameter. Expects</span>
-0108             <span class="comment">% index or name of resolution to remove</span>
-0109             <span class="comment">%</span>
-0110             <span class="comment">% problem.removeDomainContrast(1);</span>
-0111             obj.domainContrasts.removeContrast(row);
-0112         <span class="keyword">end</span>
-0113  
-0114         <a name="_sub8" href="#_subfunctions" class="code">function obj = setDomainContrast(obj, row, varargin)   </a>
-0115             <span class="comment">% Allow setting of all parameters in terms of name value pairs.</span>
-0116             <span class="comment">% First input must be domainContrast number or name, subsequent</span>
-0117             <span class="comment">% inputs are name / value pairs for the parts involved</span>
-0118             <span class="comment">%</span>
-0119             <span class="comment">% problem.setContrast(1, 'name', 'domainContrast')</span>
-0120                         
-0121             <span class="comment">% Get the list of allowed values depending on what is</span>
-0122             <span class="comment">% set for the other contrasts.</span>
-0123             allowedValues = obj.getAllAllowedNames;
-0124             
-0125             <span class="comment">% Call the setContrast method</span>
-0126             obj.domainContrasts.setContrast(row, allowedValues, varargin{:});
-0127         <span class="keyword">end</span>
-0128         
-0129         <a name="_sub9" href="#_subfunctions" class="code">function obj = setDomainContrastModel(obj, row, model)</a>
-0130             <span class="comment">% Edits the model of an existing contrast parameter. Expects</span>
-0131             <span class="comment">% the index of contrast parameter and cell array of layer names</span>
-0132             <span class="comment">%</span>
-0133             <span class="comment">% problem.setDomainContrastModel(1, {'layer 1'})</span>
-0134                         
-0135             <span class="comment">% Make a different allowed list depending on whether</span>
-0136             <span class="comment">% it is custom or layers</span>
-0137             <span class="keyword">if</span> strcmpi(obj.modelType, modelTypes.StandardLayers.value)
-0138                 <span class="comment">% Standard Layers</span>
-0139                 allowedValues = obj.layers.getNames();
-0140             <span class="keyword">else</span>
-0141                 <span class="comment">% Custom models</span>
-0142                 allowedValues = obj.customFile.getNames();
-0143             <span class="keyword">end</span>
-0144             
-0145             <span class="comment">% Call the setContrastModel method</span>
-0146             obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
-0147         <span class="keyword">end</span>
-0148 
-0149         <a name="_sub10" href="#_subfunctions" class="code">function outStruct = toStruct(obj)    </a>
-0150             <span class="comment">% Converts the domains class parameters into a struct array</span>
-0151             <span class="comment">% for input into the RAT toolbox</span>
-0152 
-0153             mainStruct = <a href="#_sub11" class="code" title="subfunction outStruct = toStruct(obj)">toStruct</a>@<a href="projectClass.html" class="code" title="">projectClass</a>(obj);
-0154 
-0155             domainContrastStruct = obj.domainContrasts.toStruct(obj.getAllAllowedNames, obj.modelType);
-0156             domainContrastStruct = cell2struct(struct2cell(domainContrastStruct), <span class="keyword">...</span>
-0157                                                 {<span class="string">'domainContrastNames'</span>, <span class="keyword">...</span>
-0158                                                  <span class="string">'numberOfDomainContrasts'</span>, <span class="keyword">...</span>
-0159                                                  <span class="string">'domainContrastNbas'</span>, <span class="keyword">...</span>
-0160                                                  <span class="string">'domainContrastNbss'</span>, <span class="keyword">...</span>
-0161                                                  <span class="string">'domainContrastLayers'</span>, <span class="keyword">...</span>
-0162                                                  <span class="string">'domainContrastRepeatSLDs'</span>, <span class="keyword">...</span>
-0163                                                  <span class="string">'domainContrastCustomFile'</span>});
-0164 
-0165             domainRatioStruct = obj.domainRatio.toStruct();
-0166             domainRatioStruct = cell2struct(struct2cell(domainRatioStruct), <span class="keyword">...</span>
-0167                                             {<span class="string">'domainRatioNames'</span>, <span class="keyword">...</span>
-0168                                              <span class="string">'ndomainRatios'</span>, <span class="keyword">...</span>
-0169                                              <span class="string">'domainRatioConstr'</span>, <span class="keyword">...</span>
-0170                                              <span class="string">'domainRatios'</span>, <span class="keyword">...</span>
-0171                                              <span class="string">'domainRatioFitYesNo'</span>, <span class="keyword">...</span>
-0172                                              <span class="string">'domainRatioPriors'</span>});
-0173 
-0174             outStruct = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(mainStruct, <span class="keyword">...</span>
-0175                                      domainContrastStruct, <span class="keyword">...</span>
-0176                                      domainRatioStruct);
-0177 
-0178         <span class="keyword">end</span>
-0179 
-0180     <span class="keyword">end</span>
-0181     
-0182     <span class="comment">% ------------------------------------------------------------------</span>
-0183     
-0184     methods (Access = protected)
-0185         
-0186         <a name="_sub11" href="#_subfunctions" class="code">function displayScalarObject(obj)</a>
-0187             <span class="comment">% Display the whole class. Call the display methods for</span>
-0188             <span class="comment">% the sub-classes where appropriate</span>
-0189             
-0190             <span class="comment">% Display initial properties from superclass</span>
-0191             <a href="#_sub12" class="code" title="subfunction displayScalarObject(obj)">displayScalarObject</a>@<a href="projectClass.html" class="code" title="">projectClass</a>(obj);
-0192 
-0193             <span class="comment">% Display the domains ratio contrast</span>
-0194             fprintf(<span class="string">'   Domain Ratios: ----------------------------------------------------------------------------------------------- \n\n'</span>);
-0195             obj.domainRatio.displayTable;
-0196 
-0197             <span class="comment">% Display the domainContrasts object</span>
-0198             fprintf(<span class="string">'   Domains Contrasts: ----------------------------------------------------------------------------------------------- \n\n'</span>);
-0199             obj.domainContrasts.displayContrastsObject; 
-0200         <span class="keyword">end</span>
-0201         
-0202     <span class="keyword">end</span>
-0203 
-0204     methods (Hidden)
-0205 
-0206         <a name="_sub12" href="#_subfunctions" class="code">function projectObj = projectClass(obj)</a>
-0207             <span class="comment">% Converter routine from domainsClass to projectClass.</span>
-0208             <span class="comment">% This routine takes the currently defined project and</span>
-0209             <span class="comment">% converts it to a nonPolarised calculation, preserving all</span>
-0210             <span class="comment">% currently defined properties.</span>
-0211             <span class="comment">%</span>
-0212             <span class="comment">% nonPolarisedProblem = problem.projectClass();</span>
-0213             projectObj = <a href="projectClass.html" class="code" title="">projectClass</a>(obj.experimentName, calculationTypes.NonPolarised, obj.geometry, obj.absorption);
-0214             projectObj = copyProperties(obj, projectObj);
-0215 
-0216             <span class="comment">% Need to treat contrasts separately due to changes in the</span>
-0217             <span class="comment">% class for domains calculations</span>
-0218             projectObj.contrasts = copyProperties(obj.contrasts, <a href="contrastsClass.html" class="code" title="">contrastsClass</a>(oilWater=obj.contrasts.oilWaterCalc));
-0219         <span class="keyword">end</span>
-0220 
-0221     <span class="keyword">end</span>
-0222     
-0223 <span class="keyword">end</span>
-0224 
+0022             <span class="comment">% enum; the model type, which is a modelTypes enum; the</span>
+0023             <span class="comment">% geometry, which is a geometryOptions enum; and a logical to</span>
+0024             <span class="comment">% state whether or not absorption terms are included in the</span>
+0025             <span class="comment">% refractive index.</span>
+0026             <span class="comment">% All of the arguments are optional.</span>
+0027             <span class="comment">%</span>
+0028             <span class="comment">% problem = domainsClass('New experiment');</span>
+0029             arguments
+0030                 experimentName {mustBeTextScalar} = <span class="string">''</span>
+0031                 calculationType = calculationTypes.Domains
+0032                 modelType = modelTypes.StandardLayers
+0033                 geometry = geometryOptions.AirSubstrate
+0034                 absorption {mustBeA(absorption,<span class="string">'logical'</span>)} = false
+0035             <span class="keyword">end</span>
+0036             
+0037             <span class="comment">% Call projectClass constructor</span>
+0038             obj@<a href="projectClass.html" class="code" title="">projectClass</a>(experimentName, calculationType, modelType, geometry, absorption);
+0039 
+0040             <span class="comment">% Create a contrasts class for a domains calculation</span>
+0041             obj.contrasts = <a href="contrastsClass.html" class="code" title="">contrastsClass</a>(domains=true);
+0042 
+0043             <span class="comment">% For a domains calculation, initialise domain ratio parameter</span>
+0044             <span class="comment">% class and, for a standard layers model, secondary contrasts</span>
+0045             <span class="comment">% object</span>
+0046             obj.domainRatio = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Domain Ratio 1'</span>,0.4,0.5,0.6,false,<span class="string">'uniform'</span>,0,Inf);
+0047             <span class="keyword">if</span> strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+0048                 obj.domainContrasts = <a href="domainContrastsClass.html" class="code" title="">domainContrastsClass</a>();
+0049             <span class="keyword">end</span>
+0050         <span class="keyword">end</span>
+0051 
+0052         <a name="_sub1" href="#_subfunctions" class="code">function projectObj = toProjectClass(obj)</a>
+0053             <span class="comment">% Alias of the converter routine from domainsClass to</span>
+0054             <span class="comment">% projectClass.</span>
+0055             <span class="comment">% This routine takes the currently defined project and</span>
+0056             <span class="comment">% converts it to a nonPolarised calculation, preserving all</span>
+0057             <span class="comment">% currently defined properties.</span>
+0058             <span class="comment">%</span>
+0059             <span class="comment">% nonPolarisedProblem = problem.toProjectClass();</span>
+0060             projectObj = obj.projectClass();
+0061         <span class="keyword">end</span>
+0062 
+0063         <a name="_sub2" href="#_subfunctions" class="code">function obj = setModelType(obj, modelType)</a>
+0064             <span class="comment">% Sets the experiment type. The type should be a string,</span>
+0065             <span class="comment">% either &quot;standard layers&quot;, &quot;custom layers&quot;, or &quot;custom xy&quot; is</span>
+0066             <span class="comment">% permitted.</span>
+0067             <span class="comment">%</span>
+0068             <span class="comment">% problem.setModelType('Custom Layers');</span>
+0069             <a href="#_sub3" class="code" title="subfunction obj = setModelType(obj, modelType)">setModelType</a>@<a href="projectClass.html" class="code" title="">projectClass</a>(obj, modelType);
+0070 
+0071             <span class="comment">% Also need to define domain contrasts as necessary</span>
+0072             <span class="keyword">if</span> strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+0073                 <span class="keyword">if</span> ~isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0074                     obj.domainContrasts = <a href="domainContrastsClass.html" class="code" title="">domainContrastsClass</a>();
+0075                 <span class="keyword">end</span>
+0076             <span class="keyword">else</span>
+0077                 obj.domainContrasts = [];
+0078             <span class="keyword">end</span>
+0079         <span class="keyword">end</span>
+0080 
+0081         <a name="_sub3" href="#_subfunctions" class="code">function names = getAllAllowedNames(obj)           </a>
+0082             <span class="comment">% Returns a cell array of all currently</span>
+0083             <span class="comment">% set parameter names for the project.</span>
+0084             names = <a href="#_sub4" class="code" title="subfunction names = getAllAllowedNames(obj)">getAllAllowedNames</a>@<a href="projectClass.html" class="code" title="">projectClass</a>(obj);
+0085             names.domainRatioNames = obj.domainRatio.getNames();
+0086             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0087                 names.domainContrastsNames = obj.domainContrasts.getNames();
+0088             <span class="keyword">end</span>
+0089         <span class="keyword">end</span>
+0090     
+0091         <span class="comment">% ----------------------------------------------------------------</span>
+0092         <span class="comment">%</span>
+0093         <span class="comment">%   Editing of Domains Contrasts Block</span>
+0094 
+0095         <a name="_sub4" href="#_subfunctions" class="code">function obj = setContrastModel(obj, row, model)</a>
+0096             <span class="comment">% Edits the model of an existing contrast parameter. Expects</span>
+0097             <span class="comment">% the index of contrast parameter and cell array of layer names</span>
+0098             <span class="comment">%</span>
+0099             <span class="comment">% problem.setContrastModel(1, {'layer 1'})</span>
+0100                         
+0101             <span class="comment">% Make a different allowed list depending on whether</span>
+0102             <span class="comment">% it is custom or layers</span>
+0103             <span class="keyword">if</span> strcmpi(obj.modelType, modelTypes.StandardLayers.value)
+0104                 <span class="comment">% Standard Layers</span>
+0105                 allowedValues = obj.domainContrasts.getNames();
+0106             <span class="keyword">else</span>
+0107                 <span class="comment">% Custom models</span>
+0108                 allowedValues = obj.customFile.getNames();
+0109             <span class="keyword">end</span>
+0110             
+0111             <span class="comment">% Call the setContrastModel method</span>
+0112             obj.contrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+0113         <span class="keyword">end</span>
+0114 
+0115         <span class="comment">% -------------------------------------------------------------------</span>
+0116         <span class="comment">% Editing of Domain Ratio block</span>
+0117         
+0118         <a name="_sub5" href="#_subfunctions" class="code">function obj = addDomainRatio(obj, varargin)</a>
+0119             <span class="comment">% Adds a new domain ratio parameter. Expects the name</span>
+0120             <span class="comment">% of domain ratio, min, value, max, and if fit is off or on</span>
+0121             <span class="comment">%</span>
+0122             <span class="comment">% problem.addDomainRatio('Domain Ratio 2', 0.4, 0.5, 0.6, true);</span>
+0123             obj.domainRatio.addParameter(varargin{:});
+0124         <span class="keyword">end</span>
+0125         
+0126         <a name="_sub6" href="#_subfunctions" class="code">function obj = removeDomainRatio(obj, varargin)</a>
+0127             <span class="comment">% Removes specified domain ratio parameter. Expects the</span>
+0128             <span class="comment">% name/index of domain ratio to remove</span>
+0129             <span class="comment">%</span>
+0130             <span class="comment">% problem.removeDomainRatio(2);</span>
+0131            obj.domainRatio.removeParameter(varargin{:}); 
+0132         <span class="keyword">end</span>
+0133         
+0134         <a name="_sub7" href="#_subfunctions" class="code">function obj = setDomainRatio(obj, varargin)</a>
+0135             <span class="comment">% Edits an existing domain ratio parameter. Expects the</span>
+0136             <span class="comment">% index of domain ratio to edit and key-value pairs</span>
+0137             <span class="comment">%</span>
+0138             <span class="comment">% problem.setDomainRatio(1, 'name','Domain Ratio 1', 'value', 0.55);</span>
+0139             obj.domainRatio.setParameter(varargin{:});
+0140         <span class="keyword">end</span>
+0141     
+0142         <span class="comment">% ----------------------------------------------------------------</span>
+0143         <span class="comment">%</span>
+0144         <span class="comment">%   Editing of Domains Contrasts Block</span>
+0145         
+0146         <a name="_sub8" href="#_subfunctions" class="code">function obj = addDomainContrast(obj, varargin)</a>
+0147             <span class="comment">% Adds a new domainContrast parameter. Expects a parameter name,</span>
+0148             <span class="comment">% and with key-value pairs with one or more of the following</span>
+0149             <span class="comment">% &quot;bulk in&quot;, &quot;bulk out&quot;, &quot;model&quot;</span>
+0150             <span class="comment">%</span>
+0151             <span class="comment">% problem.addDomainContrast('domainContrast 1', 'nba', 'Silicon');</span>
+0152             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0153                 allowedNames = obj.getAllAllowedNames();
+0154                 obj.domainContrasts.addContrast(allowedNames, varargin{:});
+0155             <span class="keyword">else</span>
+0156                 throw(invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
+0157             <span class="keyword">end</span>
+0158         <span class="keyword">end</span>
+0159 
+0160         <a name="_sub9" href="#_subfunctions" class="code">function obj = removeDomainContrast(obj, row)</a>
+0161             <span class="comment">% Removes a specified domainContrast parameter. Expects</span>
+0162             <span class="comment">% index or name of resolution to remove</span>
+0163             <span class="comment">%</span>
+0164             <span class="comment">% problem.removeDomainContrast(1);</span>
+0165             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0166                 obj.domainContrasts.removeContrast(row);
+0167             <span class="keyword">else</span>
+0168                 throw(invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
+0169             <span class="keyword">end</span>
+0170         <span class="keyword">end</span>
+0171  
+0172         <a name="_sub10" href="#_subfunctions" class="code">function obj = setDomainContrast(obj, row, varargin)   </a>
+0173             <span class="comment">% Allow setting of all parameters in terms of name value pairs.</span>
+0174             <span class="comment">% First input must be domainContrast number or name, subsequent</span>
+0175             <span class="comment">% inputs are name / value pairs for the parts involved</span>
+0176             <span class="comment">%</span>
+0177             <span class="comment">% problem.setContrast(1, 'name', 'domainContrast')</span>
+0178             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0179                 <span class="comment">% Get the list of allowed values depending on what is</span>
+0180                 <span class="comment">% set for the other contrasts.</span>
+0181                 allowedValues = obj.getAllAllowedNames;
+0182                 
+0183                 <span class="comment">% Call the setContrast method</span>
+0184                 obj.domainContrasts.setContrast(row, allowedValues, varargin{:});
+0185             <span class="keyword">else</span>
+0186                 throw(invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
+0187             <span class="keyword">end</span>
+0188         <span class="keyword">end</span>
+0189         
+0190         <a name="_sub11" href="#_subfunctions" class="code">function obj = setDomainContrastModel(obj, row, model)</a>
+0191             <span class="comment">% Edits the model of an existing contrast parameter. Expects</span>
+0192             <span class="comment">% the index of contrast parameter and cell array of layer names</span>
+0193             <span class="comment">%</span>
+0194             <span class="comment">% problem.setDomainContrastModel(1, {'layer 1'})</span>
+0195             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0196                 allowedValues = obj.layers.getNames();
+0197                 obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
+0198             <span class="keyword">else</span>
+0199                 throw(invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
+0200             <span class="keyword">end</span>
+0201         <span class="keyword">end</span>
+0202 
+0203         <span class="comment">% ----------------------------------------------------------------</span>
+0204 
+0205         <a name="_sub12" href="#_subfunctions" class="code">function outStruct = toStruct(obj)    </a>
+0206             <span class="comment">% Converts the domains class parameters into a struct array</span>
+0207             <span class="comment">% for input into the RAT toolbox</span>
+0208 
+0209             mainStruct = <a href="#_sub13" class="code" title="subfunction outStruct = toStruct(obj)">toStruct</a>@<a href="projectClass.html" class="code" title="">projectClass</a>(obj);
+0210 
+0211             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0212                 domainContrastStruct = obj.domainContrasts.toStruct(obj.getAllAllowedNames, obj.modelType);
+0213                 domainContrastStruct = cell2struct(struct2cell(domainContrastStruct), <span class="keyword">...</span>
+0214                                                     {<span class="string">'domainContrastNames'</span>, <span class="keyword">...</span>
+0215                                                      <span class="string">'numberOfDomainContrasts'</span>, <span class="keyword">...</span>
+0216                                                      <span class="string">'domainContrastRepeatSLDs'</span>, <span class="keyword">...</span>
+0217                                                      <span class="string">'domainContrastLayers'</span>});
+0218             <span class="keyword">end</span>
+0219 
+0220             domainRatioStruct = obj.domainRatio.toStruct();
+0221             domainRatioStruct = cell2struct(struct2cell(domainRatioStruct), <span class="keyword">...</span>
+0222                                             {<span class="string">'domainRatioNames'</span>, <span class="keyword">...</span>
+0223                                              <span class="string">'ndomainRatios'</span>, <span class="keyword">...</span>
+0224                                              <span class="string">'domainRatioConstr'</span>, <span class="keyword">...</span>
+0225                                              <span class="string">'domainRatios'</span>, <span class="keyword">...</span>
+0226                                              <span class="string">'domainRatioFitYesNo'</span>, <span class="keyword">...</span>
+0227                                              <span class="string">'domainRatioPriors'</span>});
+0228 
+0229             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0230                 outStruct = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(mainStruct, <span class="keyword">...</span>
+0231                                          domainContrastStruct, <span class="keyword">...</span>
+0232                                          domainRatioStruct);
+0233             <span class="keyword">else</span>
+0234                 outStruct = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(mainStruct, <span class="keyword">...</span>
+0235                                          domainRatioStruct);
+0236             <span class="keyword">end</span>
+0237 
+0238         <span class="keyword">end</span>
+0239 
+0240     <span class="keyword">end</span>
+0241     
+0242     <span class="comment">% ------------------------------------------------------------------</span>
+0243 
+0244     methods (Hidden)
+0245 
+0246         <a name="_sub13" href="#_subfunctions" class="code">function projectObj = projectClass(obj)</a>
+0247             <span class="comment">% Converter routine from domainsClass to projectClass.</span>
+0248             <span class="comment">% This routine takes the currently defined project and</span>
+0249             <span class="comment">% converts it to a nonPolarised calculation, preserving all</span>
+0250             <span class="comment">% currently defined properties.</span>
+0251             <span class="comment">%</span>
+0252             <span class="comment">% nonPolarisedProblem = problem.projectClass();</span>
+0253             projectObj = <a href="projectClass.html" class="code" title="">projectClass</a>(obj.experimentName, calculationTypes.NonPolarised, obj.modelType, obj.geometry, obj.absorption);
+0254             projectObj = copyProperties(obj, projectObj);
+0255 
+0256             <span class="comment">% Need to treat contrasts separately due to changes in the</span>
+0257             <span class="comment">% class for domains calculations</span>
+0258             projectObj.contrasts = copyProperties(obj.contrasts, <a href="contrastsClass.html" class="code" title="">contrastsClass</a>(oilWater=obj.contrasts.oilWaterCalc));
+0259         <span class="keyword">end</span>
+0260 
+0261     <span class="keyword">end</span>
+0262     
+0263 <span class="keyword">end</span>
+0264 
 </pre></div>
 
-<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

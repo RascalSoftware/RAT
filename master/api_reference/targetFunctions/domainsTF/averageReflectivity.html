@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of averageReflectivity</title>
+  <meta name="keywords" content="averageReflectivity">
+  <meta name="description" content="Calculates the avereaged reflectivity for domains samples (incoherent">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- # targetFunctions -->
+<!-- menu.html domainsTF -->
+
+<h1>averageReflectivity
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>Calculates the avereaged reflectivity for domains samples (incoherent</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [totReflect,totSimul] = averageReflectivity(reflect1,reflect2,Simul1,Simul2,domainRatio) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Calculates the avereaged reflectivity for domains samples (incoherent
+ sum)
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../targetFunctions/domainsTF/customLayers/domainsTFCustomLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomLayersParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomLayersParallelContrasts</a>	Single threaded version of the custom layers, domainsTF reflectivity</li>
+<li><a href="../../targetFunctions/domainsTF/customLayers/domainsTFCustomLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomLayersParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomLayersParallelPoints</a>	Single threaded version of the custom layers, domainsTF reflectivity</li>
+<li><a href="../../targetFunctions/domainsTF/customLayers/domainsTFCustomLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomLayersSingle(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomLayersSingle</a>	Single threaded version of the custom layers, domainsTF reflectivity</li>
+<li><a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYParallelContrasts</a>	Extract individual cell arrays</li>
+<li><a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYParallelPoints</a>	Extract individual cell arrays</li>
+<li><a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYSingle(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYSingle</a>	Extract individual cell arrays</li>
+<li><a href="../../targetFunctions/domainsTF/standardLayers/domainsTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFStandardLayersParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFStandardLayersParallelContrasts</a>	Single threaded version of the Standard Layers calculation</li>
+<li><a href="../../targetFunctions/domainsTF/standardLayers/domainsTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFStandardLayersParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFStandardLayersParallelPoints</a>	Single threaded version of the Standard Layers calculation</li>
+<li><a href="../../targetFunctions/domainsTF/standardLayers/domainsTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFStandardLayersSingle(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFStandardLayersSingle</a>	Single threaded version of the Standard Layers calculation</li>
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 
+0002 <a name="_sub0" href="#_subfunctions" class="code">function [totReflect,totSimul] = averageReflectivity(reflect1,reflect2,Simul1,Simul2,domainRatio)</a>
+0003 
+0004 <span class="comment">% Calculates the avereaged reflectivity for domains samples (incoherent</span>
+0005 <span class="comment">% sum)</span>
+0006 
+0007 refY1 = reflect1(:,2);
+0008 refY2 = reflect2(:,2);
+0009 
+0010 simY1 = Simul1(:,2);
+0011 simY2 = Simul2(:,2);
+0012 
+0013 averageRefY = (domainRatio * refY1) + ((1 - domainRatio) * refY2);
+0014 averageSimY = (domainRatio * simY1) + ((1 - domainRatio) * simY2);
+0015 
+0016 totReflect = [reflect1(:,1) averageRefY(:)];
+0017 totSimul = [Simul1(:,1) averageSimY(:)];
+0018 
+0019 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

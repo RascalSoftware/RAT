@@ -53,12 +53,14 @@ This function is called by:
 0008 result.allLayers = results{6};      <span class="comment">% Resampled layers</span>
 0009 
 0010 result.calculationResults = problem.calculations;
-0011 problem = rmfield(problem,<span class="string">'calculations'</span>);
-0012 result.contrastParams = problem;
-0013 
-0014 <span class="keyword">end</span>
+0011 
+0012 <span class="comment">% For compile, we can't remove a field, so just clear it for now...</span>
+0013 <span class="comment">%problem = rmfield(problem,'calculations');</span>
+0014 result.contrastParams = problem;
+0015 
+0016 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

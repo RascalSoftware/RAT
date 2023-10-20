@@ -138,345 +138,349 @@ This function is called by:
 0092 <span class="comment">%% Start by removing the cell arrays</span>
 0093 contrastLayers = inputStruct.contrastLayers;
 0094 layersDetails = inputStruct.layersDetails;
-0095 customFiles = inputStruct.files;
-0096 
-0097 <span class="comment">% If any of the contrastLayers are empty, replace the empty cells by zero</span>
-0098 <span class="comment">% thickness layers</span>
-0099 <span class="keyword">for</span> i = 1:length(contrastLayers)
-0100     thisLayers = contrastLayers{i};
-0101     <span class="keyword">if</span> isempty(thisLayers)
-0102         contrastLayers{i} = 0;
-0103     <span class="keyword">end</span>
-0104 <span class="keyword">end</span>
-0105 
-0106 <span class="comment">% Do the same for layersDetails</span>
-0107 <span class="keyword">if</span> isempty(layersDetails)
-0108     layersDetails = {0};
-0109 <span class="keyword">end</span>
-0110 
-0111 <span class="comment">% When there are custom files, we need to strip the file extension</span>
-0112 <span class="comment">% from the filename if it's present</span>
-0113 <span class="keyword">for</span> i = 1:length(customFiles)
-0114     thisCustomFileCell = customFiles{i};
-0115     [~,name,~] = fileparts(thisCustomFileCell{1});
-0116     thisCustomFileCell{1} = name;
-0117     customFiles{i} = thisCustomFileCell;
-0118 <span class="keyword">end</span>
-0119 
-0120 <span class="comment">% Pull out all the cell arrays (except priors) into one array</span>
-0121 problemDefCells{1} = inputStruct.contrastRepeatSLDs;
-0122 problemDefCells{2} = inputStruct.allData;
-0123 problemDefCells{3} = inputStruct.dataLimits;
-0124 problemDefCells{4} = inputStruct.simLimits;
-0125 problemDefCells{5} = contrastLayers;
-0126 problemDefCells{6} = layersDetails;
-0127 problemDefCells{7} = inputStruct.paramNames;
-0128 problemDefCells{8} = inputStruct.backParNames;
-0129 problemDefCells{9} = inputStruct.scalefactorNames;
-0130 problemDefCells{10} = inputStruct.qzshiftNames;
-0131 problemDefCells{11} = inputStruct.nbairNames;
-0132 problemDefCells{12} = inputStruct.nbsubNames;
-0133 problemDefCells{13} = inputStruct.resolParNames;
-0134 problemDefCells{14} = customFiles';
-0135 problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
-0136 problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
-0137 problemDefCells{17} = inputStruct.allOilChiData;
-0138 
-0139 <span class="comment">% Now deal with domains cell arrays</span>
-0140 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0141 
-0142     domainContrastLayers = inputStruct.domainContrastLayers;
-0143 
-0144     <span class="comment">% If any of the domainContrastLayers are empty, replace the empty</span>
-0145     <span class="comment">% cells by zero thickness layers</span>
-0146     <span class="keyword">for</span> i = 1:length(domainContrastLayers)
-0147         thisLayers = domainContrastLayers{i};
-0148         <span class="keyword">if</span> isempty(thisLayers)
-0149             domainContrastLayers{i} = 0;
-0150         <span class="keyword">end</span>
-0151     <span class="keyword">end</span>
-0152     
-0153     problemDefCells{18} = inputStruct.domainContrastRepeatSLDs;
-0154     problemDefCells{19} = domainContrastLayers;
-0155     problemDefCells{20} = inputStruct.domainRatioNames;
-0156     
-0157 <span class="keyword">else</span>
+0095 
+0096 <span class="comment">% If any of the contrastLayers are empty, replace the empty cells by zero</span>
+0097 <span class="comment">% thickness layers</span>
+0098 <span class="keyword">for</span> i = 1:length(contrastLayers)
+0099     thisLayers = contrastLayers{i};
+0100     <span class="keyword">if</span> isempty(thisLayers)
+0101         contrastLayers{i} = 0;
+0102     <span class="keyword">end</span>
+0103 <span class="keyword">end</span>
+0104 
+0105 <span class="comment">% Do the same for layersDetails</span>
+0106 <span class="keyword">if</span> isempty(layersDetails)
+0107     layersDetails = {0};
+0108 <span class="keyword">end</span>
+0109 
+0110 <span class="comment">% Pull out all the cell arrays (except priors) into one array</span>
+0111 problemDefCells{1} = inputStruct.contrastRepeatSLDs;
+0112 problemDefCells{2} = inputStruct.allData;
+0113 problemDefCells{3} = inputStruct.dataLimits;
+0114 problemDefCells{4} = inputStruct.simLimits;
+0115 problemDefCells{5} = contrastLayers;
+0116 problemDefCells{6} = layersDetails;
+0117 problemDefCells{7} = inputStruct.paramNames;
+0118 problemDefCells{8} = inputStruct.backParNames;
+0119 problemDefCells{9} = inputStruct.scalefactorNames;
+0120 problemDefCells{10} = inputStruct.qzshiftNames;
+0121 problemDefCells{11} = inputStruct.nbairNames;
+0122 problemDefCells{12} = inputStruct.nbsubNames;
+0123 problemDefCells{13} = inputStruct.resolParNames;
+0124 problemDefCells{14} = inputStruct.files;
+0125 problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
+0126 problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
+0127 problemDefCells{17} = inputStruct.allOilChiData;
+0128 
+0129 <span class="comment">% Now deal with domains cell arrays</span>
+0130 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>) &amp;&amp; isa(inputProblemDef.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0131 
+0132     domainContrastLayers = inputStruct.domainContrastLayers;
+0133 
+0134     <span class="comment">% If any of the domainContrastLayers are empty, replace the empty</span>
+0135     <span class="comment">% cells by zero thickness layers</span>
+0136     <span class="keyword">for</span> i = 1:length(domainContrastLayers)
+0137         thisLayers = domainContrastLayers{i};
+0138         <span class="keyword">if</span> isempty(thisLayers)
+0139             domainContrastLayers{i} = 0;
+0140         <span class="keyword">end</span>
+0141     <span class="keyword">end</span>
+0142     
+0143     problemDefCells{18} = inputStruct.domainContrastRepeatSLDs;
+0144     problemDefCells{19} = domainContrastLayers;
+0145     
+0146 <span class="keyword">else</span>
+0147 
+0148     problemDefCells{18} = cell(1,0);
+0149     problemDefCells{19} = cell(1,0);
+0150 
+0151 <span class="keyword">end</span>
+0152 
+0153 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
+0154     problemDefCells{20} = inputStruct.domainRatioNames;
+0155 <span class="keyword">else</span>
+0156     problemDefCells{20} = cell(1,0);
+0157 <span class="keyword">end</span>
 0158 
-0159     problemDefCells{18} = cell(1,0);
-0160     problemDefCells{19} = cell(1,0);
-0161     problemDefCells{20} = cell(1,0);
-0162 
-0163 <span class="keyword">end</span>
-0164 
-0165 <span class="comment">% Fix for cell array bug with custom layers - is this needed still??</span>
-0166 <span class="keyword">if</span> strcmpi(inputStruct.modelType,<span class="string">'custom layers'</span>) || strcmpi(inputStruct.modelType,<span class="string">'custom xy'</span>)
-0167     <span class="keyword">for</span> i = 1:length(problemDefCells{5})
-0168         problemDefCells{5}{i} = 0;
-0169     <span class="keyword">end</span>
-0170     <span class="keyword">for</span> i = 1:length(problemDefCells{19})
-0171         problemDefCells{19}{i} = 0;
-0172     <span class="keyword">end</span>
-0173     
-0174     problemDefCells{6} = {0};
-0175     
-0176 <span class="keyword">end</span>
+0159 <span class="comment">% Fix for cell array bug with custom layers - is this needed still??</span>
+0160 <span class="keyword">if</span> strcmpi(inputStruct.modelType,<span class="string">'custom layers'</span>) || strcmpi(inputStruct.modelType,<span class="string">'custom xy'</span>)
+0161     <span class="keyword">for</span> i = 1:length(problemDefCells{5})
+0162         problemDefCells{5}{i} = 0;
+0163     <span class="keyword">end</span>
+0164     <span class="keyword">for</span> i = 1:length(problemDefCells{19})
+0165         problemDefCells{19}{i} = 0;
+0166     <span class="keyword">end</span>
+0167     
+0168     problemDefCells{6} = {0};
+0169     
+0170 <span class="keyword">end</span>
+0171 
+0172 <span class="comment">% Also the custom files array..</span>
+0173 <span class="keyword">if</span> isempty(problemDefCells{14})
+0174     problemDefCells{14} = {<span class="string">''</span>};
+0175 <span class="keyword">end</span>
+0176 
 0177 
-0178 <span class="comment">% Also the custom files array..</span>
-0179 <span class="keyword">if</span> isempty(problemDefCells{14})
-0180     problemDefCells{14} = {{<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>}};
-0181 <span class="keyword">end</span>
-0182 
-0183 
-0184 <span class="comment">%% Put the priors into their own array</span>
-0185 priors.paramPriors = inputStruct.paramPriors;
-0186 priors.backsPriors = inputStruct.backsPriors;
-0187 priors.resolPriors = inputStruct.resolParPriors;
-0188 priors.nbaPriors = inputStruct.nbaPriors;
-0189 priors.nbsPriors = inputStruct.nbsPriors;
-0190 priors.shiftPriors = inputStruct.qzshiftPriors;
-0191 priors.scalesPriors = inputStruct.scalefactorPriors;
-0192 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0193     priors.domainRatioPriors = inputStruct.domainRatioPriors;
-0194 <span class="keyword">else</span>
-0195     priors.domainRatioPriors = cell(0,1);
+0178 <span class="comment">%% Put the priors into their own array</span>
+0179 priors.paramPriors = inputStruct.paramPriors;
+0180 priors.backsPriors = inputStruct.backsPriors;
+0181 priors.resolPriors = inputStruct.resolParPriors;
+0182 priors.nbaPriors = inputStruct.nbaPriors;
+0183 priors.nbsPriors = inputStruct.nbsPriors;
+0184 priors.shiftPriors = inputStruct.qzshiftPriors;
+0185 priors.scalesPriors = inputStruct.scalefactorPriors;
+0186 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
+0187     priors.domainRatioPriors = inputStruct.domainRatioPriors;
+0188 <span class="keyword">else</span>
+0189     priors.domainRatioPriors = cell(0,1);
+0190 <span class="keyword">end</span>
+0191 
+0192 priorFields = fieldnames(priors);
+0193 totalNumber = 0;
+0194 <span class="keyword">for</span> i=1:length(priorFields)
+0195     totalNumber = totalNumber + size(priors.(priorFields{i}), 1);
 0196 <span class="keyword">end</span>
 0197 
-0198 priorFields = fieldnames(priors);
-0199 totalNumber = 0;
-0200 <span class="keyword">for</span> i=1:length(priorFields)
-0201     totalNumber = totalNumber + size(priors.(priorFields{i}), 1);
-0202 <span class="keyword">end</span>
-0203 
-0204 allPriors = cell(totalNumber,4);
-0205 cellCount = 1;
-0206 
-0207 <span class="keyword">for</span> i=1:length(priorFields)
-0208     currentPrior = priorFields{i};
-0209     <span class="keyword">for</span> j = 1:size(priors.(currentPrior), 1)
-0210         allPriors{cellCount,1} = priors.(currentPrior){j}{1};
-0211         allPriors{cellCount,2} = priors.(currentPrior){j}{2};
-0212         allPriors{cellCount,3} = num2str(priors.(currentPrior){j}{3});
-0213         allPriors{cellCount,4} = num2str(priors.(currentPrior){j}{4});
-0214         cellCount = cellCount + 1;
-0215     <span class="keyword">end</span>
-0216 <span class="keyword">end</span>
+0198 allPriors = cell(totalNumber,4);
+0199 cellCount = 1;
+0200 
+0201 <span class="keyword">for</span> i=1:length(priorFields)
+0202     currentPrior = priorFields{i};
+0203     <span class="keyword">for</span> j = 1:size(priors.(currentPrior), 1)
+0204         allPriors{cellCount,1} = priors.(currentPrior){j}{1};
+0205        
+0206         <span class="comment">% Check prior type.....</span>
+0207         thisType = priors.(currentPrior){j}{2};
+0208 
+0209         <span class="keyword">if</span> strcmpi(thisType,<span class="string">'uniform'</span>)
+0210             priorType = 1;
+0211         <span class="keyword">elseif</span> strcmpi(thisType,<span class="string">'gaussian'</span>)
+0212             priorType = 2;
+0213         <span class="keyword">else</span>
+0214             priorType = 3;
+0215         <span class="keyword">end</span>
+0216         allPriors{cellCount,2} = priorType;
 0217 
-0218 priors.priorNames = allPriors(:, 1);
-0219 priors.priorVals = allPriors(:, 2:end);
-0220 
-0221 
-0222 <span class="comment">%% Split up the contrastBacks array</span>
-0223 contrastBacks = inputStruct.contrastBacks;
-0224 <span class="keyword">for</span> i = 1:length(contrastBacks)
-0225     problemDef.contrastBacks(i) = contrastBacks{i}(1);
-0226     problemDef.contrastBacksType(i) = contrastBacks{i}(2);
-0227 <span class="keyword">end</span>
-0228     
-0229 <span class="comment">% Here we need to do the same with the contrastResolutions array</span>
-0230 contrastResols = inputStruct.contrastRes;
-0231 resolNames = inputStruct.resolParNames;
-0232 resolTypes = inputStruct.resolutionTypes;
-0233 contrastRes = zeros(1, length(contrastResols));
-0234 <span class="keyword">for</span> i = 1:length(contrastResols)
-0235     <span class="comment">% Check the type of the resolution that each contrast is pointing to.</span>
-0236     <span class="comment">% If it is a constant, point to the number of the corresponding</span>
-0237     <span class="comment">% resolution par. If it's data, then set it to zero</span>
-0238     thisResol = contrastResols(i);      <span class="comment">% Which reolution</span>
-0239     thisType = resolTypes{thisResol};   <span class="comment">% What type is it?</span>
-0240     
-0241     <span class="keyword">if</span> strcmpi(thisType,<span class="string">'data'</span>)
-0242         <span class="comment">% Resolution is in the datafile. Set contrastRes to zero</span>
-0243         contrastRes(i) = -1;
-0244     <span class="keyword">else</span>
-0245         <span class="comment">% Resolution is a resolParam, the nname of which should</span>
-0246         <span class="comment">% be in the first column of resolutionValues</span>
-0247         whichResolParName = inputStruct.resolutionValues{thisResol,1};
-0248         
-0249         <span class="comment">% Find which resolPar this is, and set contrastRes to this number</span>
-0250         resolParNumber = find(strcmpi(whichResolParName,resolNames));
-0251         contrastRes(i) = resolParNumber;
-0252     <span class="keyword">end</span>
-0253 <span class="keyword">end</span>
+0218         allPriors{cellCount,3} = priors.(currentPrior){j}{3};
+0219         allPriors{cellCount,4} = priors.(currentPrior){j}{4};
+0220         cellCount = cellCount + 1;
+0221     <span class="keyword">end</span>
+0222 <span class="keyword">end</span>
+0223 
+0224 priors.priorNames = allPriors(:, 1);
+0225 priors.priorVals = cell2mat(allPriors(:, 2:end));   <span class="comment">% Note move to double now for this...</span>
+0226 
+0227 
+0228 <span class="comment">%% Split up the contrastBacks array</span>
+0229 contrastBacks = inputStruct.contrastBacks;
+0230 <span class="keyword">for</span> i = 1:length(contrastBacks)
+0231     problemDef.contrastBacks(i) = contrastBacks{i}(1);
+0232     problemDef.contrastBacksType(i) = contrastBacks{i}(2);
+0233 <span class="keyword">end</span>
+0234     
+0235 <span class="comment">% Here we need to do the same with the contrastResolutions array</span>
+0236 contrastResols = inputStruct.contrastRes;
+0237 resolNames = inputStruct.resolParNames;
+0238 resolTypes = inputStruct.resolutionTypes;
+0239 contrastRes = zeros(1, length(contrastResols));
+0240 <span class="keyword">for</span> i = 1:length(contrastResols)
+0241     <span class="comment">% Check the type of the resolution that each contrast is pointing to.</span>
+0242     <span class="comment">% If it is a constant, point to the number of the corresponding</span>
+0243     <span class="comment">% resolution par. If it's data, then set it to zero</span>
+0244     thisResol = contrastResols(i);      <span class="comment">% Which reolution</span>
+0245     thisType = resolTypes{thisResol};   <span class="comment">% What type is it?</span>
+0246     
+0247     <span class="keyword">if</span> strcmpi(thisType,<span class="string">'data'</span>)
+0248         <span class="comment">% Resolution is in the datafile. Set contrastRes to zero</span>
+0249         contrastRes(i) = -1;
+0250     <span class="keyword">else</span>
+0251         <span class="comment">% Resolution is a resolParam, the nname of which should</span>
+0252         <span class="comment">% be in the first column of resolutionValues</span>
+0253         whichResolParName = inputStruct.resolutionValues{thisResol,1};
 0254         
-0255 
-0256 <span class="comment">%% Now make the limits array</span>
-0257 <span class="keyword">for</span> i = 1:length(inputStruct.paramConstr)
-0258     problemDefLimits.params(i,:) = inputStruct.paramConstr{i};
+0255         <span class="comment">% Find which resolPar this is, and set contrastRes to this number</span>
+0256         resolParNumber = find(strcmpi(whichResolParName,resolNames));
+0257         contrastRes(i) = resolParNumber;
+0258     <span class="keyword">end</span>
 0259 <span class="keyword">end</span>
-0260 
-0261 <span class="keyword">for</span> i = 1:length(inputStruct.backParConstr)
-0262     problemDefLimits.backs(i,:) = inputStruct.backParConstr{i};
-0263 <span class="keyword">end</span>
-0264 
-0265 <span class="keyword">for</span> i = 1:length(inputStruct.scalefactorConstr)
-0266     problemDefLimits.scales(i,:) = inputStruct.scalefactorConstr{i};
-0267 <span class="keyword">end</span>
-0268 
-0269 <span class="keyword">for</span> i = 1:length(inputStruct.qzshiftConstr)
-0270     problemDefLimits.shifts(i,:) = inputStruct.qzshiftConstr{i};
-0271 <span class="keyword">end</span>
-0272 
-0273 <span class="keyword">for</span> i = 1:length(inputStruct.nbairConstr)
-0274     problemDefLimits.nba(i,:) = inputStruct.nbairConstr{i};
-0275 <span class="keyword">end</span>
-0276 
-0277 <span class="keyword">for</span> i = 1:length(inputStruct.nbsubConstr)
-0278     problemDefLimits.nbs(i,:) = inputStruct.nbsubConstr{i};
-0279 <span class="keyword">end</span>
-0280 
-0281 <span class="keyword">for</span> i = 1:length(inputStruct.resolParConstr)
-0282     problemDefLimits.res(i,:) = inputStruct.resolParConstr{i};
-0283 <span class="keyword">end</span>
-0284 
-0285 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0286     <span class="keyword">for</span> i = 1:length(inputStruct.domainRatioConstr)
-0287         problemDefLimits.domainRatio(i,:) = inputStruct.domainRatioConstr{i};
-0288     <span class="keyword">end</span>
-0289 <span class="keyword">else</span>
-0290     problemDefLimits.domainRatio = ones(0,2);
-0291 <span class="keyword">end</span>
-0292 
-0293 
-0294 <span class="comment">%% Now remove all these fields from inputProblemDef</span>
-0295 removedFields = {<span class="string">'contrastRepeatSLDs'</span>,<span class="keyword">...</span>
-0296     <span class="string">'domainContrastRepeatSLDs'</span>,<span class="keyword">...</span>
-0297     <span class="string">'allData'</span>,<span class="keyword">...</span>
-0298     <span class="string">'dataLimits'</span>,<span class="keyword">...</span>
-0299     <span class="string">'simLimits'</span>,<span class="keyword">...</span>
-0300     <span class="string">'contrastLayers'</span>,<span class="keyword">...</span>
-0301     <span class="string">'domainContrastLayers'</span>,<span class="keyword">...</span>
-0302     <span class="string">'layersDetails'</span>,<span class="keyword">...</span>
-0303     <span class="string">'paramNames'</span>,<span class="keyword">...</span>
-0304     <span class="string">'backgroundNames'</span>,<span class="keyword">...</span>
-0305     <span class="string">'scalefactorNames'</span>,<span class="keyword">...</span>
-0306     <span class="string">'qzshiftNames'</span>,<span class="keyword">...</span>
-0307     <span class="string">'nbairNames'</span>,<span class="keyword">...</span>
-0308     <span class="string">'nbsubsNames'</span>,<span class="keyword">...</span>
-0309     <span class="string">'resolutionNames'</span>,<span class="keyword">...</span>
-0310     <span class="string">'domainRatioNames'</span>,<span class="keyword">...</span>
-0311     <span class="string">'paramConstr'</span>,<span class="keyword">...</span>
-0312     <span class="string">'backgroundConstr'</span>,<span class="keyword">...</span>
-0313     <span class="string">'scalefactorConstr'</span>,<span class="keyword">...</span>
-0314     <span class="string">'nbairConstr'</span>,<span class="keyword">...</span>
-0315     <span class="string">'nbsubConstr'</span>,<span class="keyword">...</span>
-0316     <span class="string">'resolutionConstr'</span>,<span class="keyword">...</span>
-0317     <span class="string">'domainRatioConstr'</span>,<span class="keyword">...</span>
-0318     <span class="string">'files'</span>};
-0319 
-0320 <span class="comment">% Make the problemDef structure from the bits left.....</span>
-0321 
-0322 <span class="comment">% *************************************************************************</span>
-0323 <span class="comment">% NOTE - not using the more complicated background and resolution</span>
-0324 <span class="comment">% definitions for now - instead use the background names and backsPar</span>
-0325 <span class="comment">% values.... fix this next</span>
-0326 <span class="comment">% **********************************************************************8</span>
+0260         
+0261 
+0262 <span class="comment">%% Now make the limits array</span>
+0263 <span class="keyword">for</span> i = 1:length(inputStruct.paramConstr)
+0264     problemDefLimits.params(i,:) = inputStruct.paramConstr{i};
+0265 <span class="keyword">end</span>
+0266 
+0267 <span class="keyword">for</span> i = 1:length(inputStruct.backParConstr)
+0268     problemDefLimits.backs(i,:) = inputStruct.backParConstr{i};
+0269 <span class="keyword">end</span>
+0270 
+0271 <span class="keyword">for</span> i = 1:length(inputStruct.scalefactorConstr)
+0272     problemDefLimits.scales(i,:) = inputStruct.scalefactorConstr{i};
+0273 <span class="keyword">end</span>
+0274 
+0275 <span class="keyword">for</span> i = 1:length(inputStruct.qzshiftConstr)
+0276     problemDefLimits.shifts(i,:) = inputStruct.qzshiftConstr{i};
+0277 <span class="keyword">end</span>
+0278 
+0279 <span class="keyword">for</span> i = 1:length(inputStruct.nbairConstr)
+0280     problemDefLimits.nba(i,:) = inputStruct.nbairConstr{i};
+0281 <span class="keyword">end</span>
+0282 
+0283 <span class="keyword">for</span> i = 1:length(inputStruct.nbsubConstr)
+0284     problemDefLimits.nbs(i,:) = inputStruct.nbsubConstr{i};
+0285 <span class="keyword">end</span>
+0286 
+0287 <span class="keyword">for</span> i = 1:length(inputStruct.resolParConstr)
+0288     problemDefLimits.res(i,:) = inputStruct.resolParConstr{i};
+0289 <span class="keyword">end</span>
+0290 
+0291 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
+0292     <span class="keyword">for</span> i = 1:length(inputStruct.domainRatioConstr)
+0293         problemDefLimits.domainRatio(i,:) = inputStruct.domainRatioConstr{i};
+0294     <span class="keyword">end</span>
+0295 <span class="keyword">else</span>
+0296     problemDefLimits.domainRatio = ones(0,2);
+0297 <span class="keyword">end</span>
+0298 
+0299 
+0300 <span class="comment">%% Now remove all these fields from inputProblemDef</span>
+0301 removedFields = {<span class="string">'contrastRepeatSLDs'</span>,<span class="keyword">...</span>
+0302     <span class="string">'domainContrastRepeatSLDs'</span>,<span class="keyword">...</span>
+0303     <span class="string">'allData'</span>,<span class="keyword">...</span>
+0304     <span class="string">'dataLimits'</span>,<span class="keyword">...</span>
+0305     <span class="string">'simLimits'</span>,<span class="keyword">...</span>
+0306     <span class="string">'contrastLayers'</span>,<span class="keyword">...</span>
+0307     <span class="string">'domainContrastLayers'</span>,<span class="keyword">...</span>
+0308     <span class="string">'layersDetails'</span>,<span class="keyword">...</span>
+0309     <span class="string">'paramNames'</span>,<span class="keyword">...</span>
+0310     <span class="string">'backgroundNames'</span>,<span class="keyword">...</span>
+0311     <span class="string">'scalefactorNames'</span>,<span class="keyword">...</span>
+0312     <span class="string">'qzshiftNames'</span>,<span class="keyword">...</span>
+0313     <span class="string">'nbairNames'</span>,<span class="keyword">...</span>
+0314     <span class="string">'nbsubsNames'</span>,<span class="keyword">...</span>
+0315     <span class="string">'resolutionNames'</span>,<span class="keyword">...</span>
+0316     <span class="string">'domainRatioNames'</span>,<span class="keyword">...</span>
+0317     <span class="string">'paramConstr'</span>,<span class="keyword">...</span>
+0318     <span class="string">'backgroundConstr'</span>,<span class="keyword">...</span>
+0319     <span class="string">'scalefactorConstr'</span>,<span class="keyword">...</span>
+0320     <span class="string">'nbairConstr'</span>,<span class="keyword">...</span>
+0321     <span class="string">'nbsubConstr'</span>,<span class="keyword">...</span>
+0322     <span class="string">'resolutionConstr'</span>,<span class="keyword">...</span>
+0323     <span class="string">'domainRatioConstr'</span>,<span class="keyword">...</span>
+0324     <span class="string">'files'</span>};
+0325 
+0326 <span class="comment">% Make the problemDef structure from the bits left.....</span>
 0327 
-0328 
-0329 problemDef.TF = inputStruct.TF;
-0330 problemDef.resample = inputStruct.resample;
-0331 problemDef.dataPresent = inputStruct.dataPresent;
-0332 problemDef.oilChiDataPresent = inputStruct.oilChiDataPresent;
-0333 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
-0334 problemDef.geometry = inputStruct.geometry;
-0335 problemDef.useImaginary = inputStruct.useImaginary;
-0336 <span class="comment">%problemDef.contrastBacks = contrastBacks;</span>
-0337 problemDef.contrastShifts = inputStruct.contrastShifts;
-0338 problemDef.contrastScales = inputStruct.contrastScales;
-0339 problemDef.contrastNbas = inputStruct.contrastNbas;
-0340 problemDef.contrastNbss = inputStruct.contrastNbss;
-0341 problemDef.contrastRes = contrastRes;
-0342 problemDef.backs = inputStruct.backParVals; <span class="comment">%inputStruct.backgrounds;       % **** note backPar workaround (todo) ****</span>
-0343 problemDef.shifts = inputStruct.qzshifts;
-0344 problemDef.sf = inputStruct.scalefactors;
-0345 problemDef.nba = inputStruct.nbairs;
-0346 problemDef.nbs = inputStruct.nbsubs;
-0347 problemDef.res = inputStruct.resolPars; <span class="comment">%inputStruct.resolutions;           % **** note resolPar workaround (todo) ****</span>
-0348 problemDef.params = inputStruct.params;
-0349 problemDef.numberOfLayers = inputStruct.numberOfLayers;
-0350 problemDef.modelType = inputStruct.modelType;
-0351 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
-0352 
-0353 <span class="comment">% Add the domains parameters, using dummy values if this is not a domains</span>
-0354 <span class="comment">% calculation</span>
-0355 problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
-0356 
-0357 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0358     problemDef.domainRatio = inputStruct.domainRatios;
-0359     problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
-0360     problemDef.domainContrastNbas = inputStruct.domainContrastNbas;
-0361     problemDef.domainContrastNbss = inputStruct.domainContrastNbss;
-0362     problemDef.domainContrastCustomFiles = inputStruct.domainContrastCustomFile;
-0363 <span class="keyword">else</span>
-0364     problemDef.domainRatio = ones(1,0);
-0365     problemDef.numberOfDomainContrasts = 0;
-0366     problemDef.domainContrastNbas = ones(1,0);
-0367     problemDef.domainContrastNbss = ones(1,0);
-0368     problemDef.domainContrastCustomFiles = ones(1,0);
-0369 <span class="keyword">end</span>    
-0370 
-0371 <span class="comment">% Initialise the lists of fitting parameters</span>
-0372 problemDef.fitpars = [];
-0373 problemDef.otherpars = [];
-0374 problemDef.fitconstr = [];
-0375 problemDef.otherconstr = [];
-0376 
-0377 
-0378 <span class="comment">%% Now deal with the controls class</span>
-0379 controls.para = inputControls.parallel;
-0380 controls.proc = inputControls.procedure;
-0381 controls.display = inputControls.display;
-0382 controls.tolX = inputControls.tolX;
-0383 controls.tolFun = inputControls.tolFun;
-0384 controls.maxFunEvals = inputControls.maxFunEvals;
-0385 controls.maxIter = inputControls.maxIter;
-0386 controls.populationSize = inputControls.populationSize;
-0387 controls.fWeight = inputControls.fWeight;
-0388 controls.F_CR = inputControls.crossoverProbability;
-0389 controls.VTR = inputControls.targetValue;
-0390 controls.numGen = inputControls.numGenerations;
-0391 controls.strategy = inputControls.strategy;
-0392 controls.Nlive = inputControls.Nlive;
-0393 controls.nmcmc = inputControls.Nmcmc;
-0394 controls.propScale = inputControls.propScale;
-0395 controls.nsTolerance = inputControls.nsTolerance;
-0396 <span class="comment">%controls.calcSld = inputControls.calcSldDuringFit;</span>
-0397 
-0398 <span class="comment">% **** calcSld is now logical ****</span>
-0399 <span class="keyword">if</span> inputControls.calcSldDuringFit
-0400     controls.calcSld = 1;
-0401 <span class="keyword">else</span>
-0402     controls.calcSld = 0;
-0403 <span class="keyword">end</span>
-0404 
-0405 controls.resamPars = inputControls.resamPars;
-0406 controls.updateFreq = inputControls.updateFreq;
-0407 controls.updatePlotFreq = inputControls.updatePlotFreq;
+0328 <span class="comment">% *************************************************************************</span>
+0329 <span class="comment">% NOTE - not using the more complicated background and resolution</span>
+0330 <span class="comment">% definitions for now - instead use the background names and backsPar</span>
+0331 <span class="comment">% values.... fix this next</span>
+0332 <span class="comment">% **********************************************************************8</span>
+0333 
+0334 
+0335 problemDef.TF = inputStruct.TF;
+0336 problemDef.resample = inputStruct.resample;
+0337 problemDef.dataPresent = inputStruct.dataPresent;
+0338 problemDef.oilChiDataPresent = inputStruct.oilChiDataPresent;
+0339 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
+0340 problemDef.geometry = inputStruct.geometry;
+0341 problemDef.useImaginary = inputStruct.useImaginary;
+0342 <span class="comment">%problemDef.contrastBacks = contrastBacks;</span>
+0343 problemDef.contrastShifts = inputStruct.contrastShifts;
+0344 problemDef.contrastScales = inputStruct.contrastScales;
+0345 problemDef.contrastNbas = inputStruct.contrastNbas;
+0346 problemDef.contrastNbss = inputStruct.contrastNbss;
+0347 problemDef.contrastRes = contrastRes;
+0348 problemDef.backs = inputStruct.backParVals; <span class="comment">%inputStruct.backgrounds;       % **** note backPar workaround (todo) ****</span>
+0349 problemDef.shifts = inputStruct.qzshifts;
+0350 problemDef.sf = inputStruct.scalefactors;
+0351 problemDef.nba = inputStruct.nbairs;
+0352 problemDef.nbs = inputStruct.nbsubs;
+0353 problemDef.res = inputStruct.resolPars; <span class="comment">%inputStruct.resolutions;           % **** note resolPar workaround (todo) ****</span>
+0354 problemDef.params = inputStruct.params;
+0355 problemDef.numberOfLayers = inputStruct.numberOfLayers;
+0356 problemDef.modelType = inputStruct.modelType;
+0357 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
+0358 
+0359 <span class="comment">% Add the domains parameters, using dummy values if this is not a domains</span>
+0360 <span class="comment">% calculation</span>
+0361 problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
+0362 
+0363 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
+0364     problemDef.domainRatio = inputStruct.domainRatios;
+0365 <span class="keyword">else</span>
+0366     problemDef.domainRatio = ones(1,0);
+0367 <span class="keyword">end</span>
+0368 
+0369 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>) &amp;&amp; isa(inputProblemDef.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0370     problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
+0371 <span class="keyword">else</span>
+0372     problemDef.numberOfDomainContrasts = 0;
+0373 <span class="keyword">end</span>    
+0374 
+0375 <span class="comment">% Initialise the lists of fitting parameters</span>
+0376 problemDef.fitpars = [];
+0377 problemDef.otherpars = [];
+0378 problemDef.fitconstr = [];
+0379 problemDef.otherconstr = [];
+0380 
+0381 
+0382 <span class="comment">%% Now deal with the controls class</span>
+0383 controls.para = inputControls.parallel;
+0384 controls.proc = inputControls.procedure;
+0385 controls.display = inputControls.display;
+0386 controls.tolX = inputControls.tolX;
+0387 controls.tolFun = inputControls.tolFun;
+0388 controls.maxFunEvals = inputControls.maxFunEvals;
+0389 controls.maxIter = inputControls.maxIter;
+0390 controls.populationSize = inputControls.populationSize;
+0391 controls.fWeight = inputControls.fWeight;
+0392 controls.F_CR = inputControls.crossoverProbability;
+0393 controls.VTR = inputControls.targetValue;
+0394 controls.numGen = inputControls.numGenerations;
+0395 controls.strategy = inputControls.strategy;
+0396 controls.Nlive = inputControls.Nlive;
+0397 controls.nmcmc = inputControls.Nmcmc;
+0398 controls.propScale = inputControls.propScale;
+0399 controls.nsTolerance = inputControls.nsTolerance;
+0400 <span class="comment">%controls.calcSld = inputControls.calcSldDuringFit;</span>
+0401 
+0402 <span class="comment">% **** calcSld is now logical ****</span>
+0403 <span class="keyword">if</span> inputControls.calcSldDuringFit
+0404     controls.calcSld = 1;
+0405 <span class="keyword">else</span>
+0406     controls.calcSld = 0;
+0407 <span class="keyword">end</span>
 0408 
-0409 controls.nSamples = inputControls.nSamples;
-0410 controls.nChains = inputControls.nChains;   
-0411 controls.lambda = inputControls.lambda;      
-0412 controls.pUnitGamma = inputControls.pUnitGamma;
-0413 controls.boundHandling = inputControls.boundHandling;
-0414 
-0415 <span class="comment">% Also need to deal with the checks...</span>
-0416 checks.params_fitYesNo = inputStruct.paramFitYesNo;
-0417 checks.backs_fitYesNo = inputStruct.backParFitYesNo;
-0418 checks.shifts_fitYesNo = inputStruct.qzshiftFitYesNo;
-0419 checks.scales_fitYesNo = inputStruct.scalefactorFitYesNo;
-0420 checks.nbairs_fitYesNo = inputStruct.nbaFitYesNo;
-0421 checks.nbsubs_fitYesNo = inputStruct.nbsFitYesNo;
-0422 checks.resol_fitYesNo = inputStruct.resolFitYesNo;
-0423 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0424     checks.domainRatio_fitYesNo = inputStruct.domainRatioFitYesNo;
-0425 <span class="keyword">else</span>
-0426     checks.domainRatio_fitYesNo = ones(1,0);
-0427 <span class="keyword">end</span>
-0428 
-0429 controls.checks = checks;
-0430 
+0409 controls.resamPars = inputControls.resamPars;
+0410 controls.updateFreq = inputControls.updateFreq;
+0411 controls.updatePlotFreq = inputControls.updatePlotFreq;
+0412 
+0413 controls.nSamples = inputControls.nSamples;
+0414 controls.nChains = inputControls.nChains;   
+0415 controls.lambda = inputControls.lambda;      
+0416 controls.pUnitGamma = inputControls.pUnitGamma;
+0417 controls.boundHandling = inputControls.boundHandling;
+0418 
+0419 <span class="comment">% Also need to deal with the checks...</span>
+0420 checks.params_fitYesNo = inputStruct.paramFitYesNo;
+0421 checks.backs_fitYesNo = inputStruct.backParFitYesNo;
+0422 checks.shifts_fitYesNo = inputStruct.qzshiftFitYesNo;
+0423 checks.scales_fitYesNo = inputStruct.scalefactorFitYesNo;
+0424 checks.nbairs_fitYesNo = inputStruct.nbaFitYesNo;
+0425 checks.nbsubs_fitYesNo = inputStruct.nbsFitYesNo;
+0426 checks.resol_fitYesNo = inputStruct.resolFitYesNo;
+0427 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
+0428     checks.domainRatio_fitYesNo = inputStruct.domainRatioFitYesNo;
+0429 <span class="keyword">else</span>
+0430     checks.domainRatio_fitYesNo = ones(1,0);
 0431 <span class="keyword">end</span>
+0432 
+0433 controls.checks = checks;
+0434 
+0435 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -31,9 +31,9 @@
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"> Standard Layers calculation paralelised over the inner loop
  This is the main reflectivity calculation of the standard layers
- calculation type. It extracts the required paramters for the contrasts
+ calculation type. It extracts the required parameters for the contrasts
  from the input arrays, then passes the main calculation to
- 'standardLayersCore', which carries out the calculation iteslf. 
+ 'standardLayersCore', which carries out the calculation iteself. 
  The core calculation is common for both standard and custom layers.
 </pre></div>
 
@@ -64,9 +64,9 @@ This function is called by:
 0005     problemDefLimits,controls)
 0006 <span class="comment">% Standard Layers calculation paralelised over the inner loop</span>
 0007 <span class="comment">% This is the main reflectivity calculation of the standard layers</span>
-0008 <span class="comment">% calculation type. It extracts the required paramters for the contrasts</span>
+0008 <span class="comment">% calculation type. It extracts the required parameters for the contrasts</span>
 0009 <span class="comment">% from the input arrays, then passes the main calculation to</span>
-0010 <span class="comment">% 'standardLayersCore', which carries out the calculation iteslf.</span>
+0010 <span class="comment">% 'standardLayersCore', which carries out the calculation iteself.</span>
 0011 <span class="comment">% The core calculation is common for both standard and custom layers.</span>
 0012 
 0013 
@@ -131,7 +131,7 @@ This function is called by:
 0072     
 0073     <span class="comment">% Extract the relevant parameter values for this contrast</span>
 0074     <span class="comment">% from the input arrays.</span>
-0075     <span class="comment">% First need to decide which values of the backrounds, scalefactors</span>
+0075     <span class="comment">% First need to decide which values of the backgrounds, scalefactors</span>
 0076     <span class="comment">% data shifts and bulk contrasts are associated with this contrast</span>
 0077     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = <a href="../../../targetFunctions/common/backSort/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
 0078     
@@ -188,6 +188,6 @@ This function is called by:
 0129 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

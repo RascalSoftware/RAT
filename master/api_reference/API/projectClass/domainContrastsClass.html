@@ -47,7 +47,8 @@ This function is called by:
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="#_sub1" class="code">function names = getDisplayNames(obj)</a></li>
-<li><a href="#_sub2" class="code">function inputBlock = parseContrastInput(~, allowedNames, inputValues)</a></li>
+<li><a href="#_sub2" class="code">function contrastStruct = toStruct(obj, allowedNames, ~, ~)</a></li>
+<li><a href="#_sub3" class="code">function inputBlock = parseContrastInput(~, ~, inputValues)</a></li>
 </ul>
 
 
@@ -61,38 +62,56 @@ This function is called by:
 0007     methods
 0008 
 0009         <a name="_sub0" href="#_subfunctions" class="code">function names = getDisplayNames(obj)</a>
-0010             names = [&quot;Name&quot;; &quot;Bulk in&quot;; &quot;Bulk out&quot;; &quot;Model&quot;];
+0010             names = [&quot;Name&quot;; &quot;Model&quot;];
 0011         <span class="keyword">end</span>
 0012 
-0013         <a name="_sub1" href="#_subfunctions" class="code">function inputBlock = parseContrastInput(~, allowedNames, inputValues)</a>
-0014             <span class="comment">% Parse the parameters given for the contrast, assigning</span>
-0015             <span class="comment">% default values to those unspecified and ensuring specified</span>
-0016             <span class="comment">% values are of the correct type, and included in the list of</span>
-0017             <span class="comment">% allowed names where necessary.</span>
+0013         <a name="_sub1" href="#_subfunctions" class="code">function contrastStruct = toStruct(obj, allowedNames, ~, ~)</a>
+0014             <span class="comment">% Convert the contrasts class to a struct.</span>
+0015             <span class="comment">% This routine builds on that in the base class by dealing with</span>
+0016             <span class="comment">% the additional properties defined in this subclass.</span>
+0017             <span class="comment">% The expected input is the allowed names for each parameter.</span>
 0018             <span class="comment">%</span>
-0019             <span class="comment">% contrastsClass.parseContrastInput(allowedNames, ...</span>
-0020             <span class="comment">%                                   'name', 'Contrast Name', ...</span>
-0021             <span class="comment">%                                   'nba', 'Silicon')</span>
-0022             defaultName = <span class="string">''</span>;
-0023             defaultNba = <span class="string">''</span>;
-0024             defaultNbs = <span class="string">''</span>;
-0025         
-0026             expectedBulkin = cellstr(allowedNames.bulkInNames);
-0027             expectedBulkout = cellstr(allowedNames.bulkOutNames);
-0028         
-0029             p = inputParser;
-0030             addParameter(p,<span class="string">'name'</span>,          defaultName,        @isText);
-0031             addParameter(p,<span class="string">'nba'</span>,           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
-0032             addParameter(p,<span class="string">'nbs'</span>,           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
-0033                 
-0034             parse(p, inputValues{:});
-0035             inputBlock = p.Results;
-0036 
-0037         <span class="keyword">end</span>
-0038     <span class="keyword">end</span>
-0039 <span class="keyword">end</span>
+0019             <span class="comment">% domainContrasts.toStruct(allowedNames, ~, ~)</span>
+0020 
+0021             <span class="comment">% Call superclass version for common properties</span>
+0022             contrastStruct = <a href="#_sub2" class="code" title="subfunction contrastStruct = toStruct(obj, allowedNames, ~, ~)">toStruct</a>@<a href="baseContrasts.html" class="code" title="">baseContrasts</a>(obj);
+0023 
+0024             nContrasts = obj.numberOfContrasts;
+0025             contrastLayers = cell(1,nContrasts);
+0026 
+0027             <span class="keyword">for</span> i = 1:nContrasts
+0028                 thisContrast = obj.contrasts{i};
+0029                 thisModel = thisContrast.model;
+0030                 thisLayerArray = ones(1, length(thisModel));
+0031                 <span class="keyword">for</span> n = 1:length(thisModel)
+0032                     thisLayer = thisModel{n};
+0033                     thisLayerNum = find(strcmpi(thisLayer, allowedNames.layersNames));
+0034                     thisLayerArray(n) = thisLayerNum;
+0035                 <span class="keyword">end</span>
+0036                 contrastLayers{i} = thisLayerArray;
+0037             <span class="keyword">end</span>
+0038             contrastStruct.contrastLayers = contrastLayers;
+0039         <span class="keyword">end</span>
+0040 
+0041         <a name="_sub2" href="#_subfunctions" class="code">function inputBlock = parseContrastInput(~, ~, inputValues)</a>
+0042             <span class="comment">% Parse the parameters given for the contrast, assigning</span>
+0043             <span class="comment">% default values to those unspecified and ensuring specified</span>
+0044             <span class="comment">% values are of the correct type, and included in the list of</span>
+0045             <span class="comment">% allowed names where necessary.</span>
+0046             <span class="comment">%</span>
+0047             <span class="comment">% contrastsClass.parseContrastInput('name', 'Contrast Name')</span>
+0048             defaultName = <span class="string">''</span>;
+0049         
+0050             p = inputParser;
+0051             addParameter(p,<span class="string">'name'</span>,          defaultName,        @isText);
+0052                 
+0053             parse(p, inputValues{:});
+0054             inputBlock = p.Results;
+0055         <span class="keyword">end</span>
+0056     <span class="keyword">end</span>
+0057 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

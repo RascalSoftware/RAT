@@ -34,11 +34,10 @@
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
 <li><a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>	</li>
-<li><a href="../targetFunctions/reflectivityCalculation/reflectivityCalculationWrapper.html" class="code" title="function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculationWrapper</a>	This is just a wrapper function for choosing between</li>
+<li><a href="../targetFunctions/reflectivityCalculation/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>	Main entry point into the reflectivity calculation for the toolbox.</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="RAT.html" class="code" title="function [outProblemDef,result] = RAT(problemDefInput,controls)">RAT</a>	</li>
 </ul>
 <!-- crossreference -->
 
@@ -48,60 +47,72 @@ This function is called by:
 <div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)</a>
 0002 
 0003 
-0004 result = cell(6,1);
-0005 numberOfContrasts = problemDef.numberOfContrasts;
-0006 preAlloc = zeros(numberOfContrasts,1);
+0004 result = cell(1,1);
+0005 result{1} = {1};
+0006 results = repmat(result,1,6);
 0007 
-0008 problem = struct(<span class="string">'ssubs'</span>,preAlloc,<span class="keyword">...</span>
-0009                  <span class="string">'backgrounds'</span>,preAlloc,<span class="keyword">...</span>
-0010                  <span class="string">'qshifts'</span>,preAlloc,<span class="keyword">...</span>
-0011                  <span class="string">'scalefactors'</span>,preAlloc,<span class="keyword">...</span>
-0012                  <span class="string">'nbairs'</span>,preAlloc,<span class="keyword">...</span>
-0013                  <span class="string">'nbsubs'</span>,preAlloc,<span class="keyword">...</span>
-0014                  <span class="string">'resolutions'</span>,preAlloc,<span class="keyword">...</span>
-0015                  <span class="string">'calculations'</span>,struct(<span class="string">'all_chis'</span>,preAlloc,<span class="string">'sum_chi'</span>,0),<span class="keyword">...</span>
-0016                  <span class="string">'allSubRough'</span>,preAlloc);
-0017 
-0018 <span class="comment">% Make empty bayes results even though we may not fill it (for output purposes)</span>
-0019 bayesResults.res = [];
-0020 bayesResults.chain = [];
-0021 bayesResults.s2chain = [];
-0022 bayesResults.ssChain = [];
-0023 bayesResults.bestPars = [];
-0024 
-0025 outProblemDef = problemDef;
-0026 
-0027 <span class="comment">%Decide what we are doing....</span>
-0028 action = controls.proc;
-0029 <span class="keyword">switch</span> lower(action)
-0030     <span class="keyword">case</span> <span class="string">'calculate'</span> <span class="comment">%Just a single reflectivity calculation</span>
-0031         [problem,results] = <a href="../targetFunctions/reflectivityCalculation/reflectivityCalculationWrapper.html" class="code" title="function [problem,result] = reflectivityCalculationWrapper(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculationWrapper</a>(problemDef,problemDefCells,problemDefLimits,controls);
-0032         outProblemDef = problemDef;
-0033     <span class="keyword">case</span> <span class="string">'simplex'</span>
-0034         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0035             <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nRunning simplex\n\n'</span>));
-0036         <span class="keyword">end</span>
-0037         [outProblemDef,problem,results] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls);
-0038     <span class="keyword">case</span> <span class="string">'de'</span>
-0039         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0040             <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nRunning Differential Evolution\n\n'</span>));
-0041         <span class="keyword">end</span>
-0042         [outProblemDef,problem,results] = runDE(problemDef,problemDefCells,problemDefLimits,controls);
-0043     <span class="keyword">case</span> <span class="string">'ns'</span>
-0044         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0045             <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nRunning Nested Sampler\n\n'</span>));
-0046         <span class="keyword">end</span>            
-0047         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls);   
-0048     <span class="keyword">case</span> <span class="string">'dream'</span>
-0049         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0050             <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nRunning DREAM\n\n'</span>));
-0051         <span class="keyword">end</span>
-0052         [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors);
-0053 <span class="keyword">end</span>
-0054 
-0055 <span class="keyword">end</span>
+0008 numberOfContrasts = problemDef.numberOfContrasts;
+0009 preAlloc = zeros(numberOfContrasts,1);
+0010 
+0011 problem = struct(<span class="string">'ssubs'</span>,preAlloc,<span class="keyword">...</span>
+0012                  <span class="string">'backgrounds'</span>,preAlloc,<span class="keyword">...</span>
+0013                  <span class="string">'qshifts'</span>,preAlloc,<span class="keyword">...</span>
+0014                  <span class="string">'scalefactors'</span>,preAlloc,<span class="keyword">...</span>
+0015                  <span class="string">'nbairs'</span>,preAlloc,<span class="keyword">...</span>
+0016                  <span class="string">'nbsubs'</span>,preAlloc,<span class="keyword">...</span>
+0017                  <span class="string">'resolutions'</span>,preAlloc,<span class="keyword">...</span>
+0018                  <span class="string">'calculations'</span>,struct(<span class="string">'all_chis'</span>,preAlloc,<span class="string">'sum_chi'</span>,0),<span class="keyword">...</span>
+0019                  <span class="string">'allSubRough'</span>,preAlloc,<span class="keyword">...</span>
+0020                  <span class="string">'resample'</span>,preAlloc);
+0021 
+0022 <span class="keyword">if</span> strcmpi(problemDef.TF,<span class="string">'domains'</span>)
+0023     domains = true;
+0024 <span class="keyword">else</span>
+0025     domains = false;
+0026 <span class="keyword">end</span>
+0027 bayesResults = makeEmptyBayesResultsStruct(1e3, problemDef.numberOfContrasts, domains, controls.nChains);
+0028 <span class="comment">% bayesResults = struct('bayesRes',[],...</span>
+0029 <span class="comment">%     'chain',[],...</span>
+0030 <span class="comment">%     's2chain',[],...</span>
+0031 <span class="comment">%     'ssChain',[],...</span>
+0032 <span class="comment">%     'bestPars_Mean',[],...</span>
+0033 <span class="comment">%     'bestFitsMean',[],...</span>
+0034 <span class="comment">%     'predLims',[],...</span>
+0035 <span class="comment">%     'parConfInts',[]);</span>
+0036 
+0037 outProblemDef = problemDef;
+0038 
+0039 <span class="comment">%Decide what we are doing....</span>
+0040 action = controls.proc;
+0041 <span class="keyword">switch</span> lower(action)
+0042     <span class="keyword">case</span> <span class="string">'calculate'</span> <span class="comment">%Just a single reflectivity calculation</span>
+0043         [problem,results] = <a href="../targetFunctions/reflectivityCalculation/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>(problemDef,problemDefCells,problemDefLimits,controls);
+0044         outProblemDef = problemDef;
+0045     <span class="keyword">case</span> <span class="string">'simplex'</span>
+0046         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0047             <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nRunning simplex\n\n'</span>));
+0048         <span class="keyword">end</span>
+0049         [outProblemDef,problem,results] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls);
+0050     <span class="keyword">case</span> <span class="string">'de'</span>
+0051         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0052             <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nRunning Differential Evolution\n\n'</span>));
+0053         <span class="keyword">end</span>
+0054         [outProblemDef,problem,results] = runDE(problemDef,problemDefCells,problemDefLimits,controls);
+0055 <span class="comment">%     case 'ns'</span>
+0056 <span class="comment">%         if ~strcmpi(controls.display,'off')</span>
+0057 <span class="comment">%             sendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));</span>
+0058 <span class="comment">%         end</span>
+0059 <span class="comment">%         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls);</span>
+0060     <span class="keyword">case</span> <span class="string">'dream'</span>
+0061         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0062             <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nRunning DREAM\n\n'</span>));
+0063         <span class="keyword">end</span>
+0064         [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors);
+0065 <span class="keyword">end</span>
+0066 
+0067 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 20-Jun-2023 16:21:19 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -6,6 +6,8 @@ digraph m2html {
   contrastsClass -> baseContrasts;
   contrastsClass -> contrastsClass;
   customFileClass -> customFileClass;
+  customFileClass -> dyLibWrapper;
+  customFileClass -> pythonWrapper;
   customFileClass -> tableUtilities;
   dataClass -> dataClass;
   dataClass -> tableUtilities;
@@ -17,6 +19,7 @@ digraph m2html {
   domainsClass -> mergeStructs;
   domainsClass -> parametersClass;
   domainsClass -> projectClass;
+  dyLibWrapper -> dyLibWrapper;
   layersClass -> layersClass;
   layersClass -> tableUtilities;
   multiTypeTable -> multiTypeTable;
@@ -33,6 +36,7 @@ digraph m2html {
   projectClass -> parametersClass;
   projectClass -> projectClass;
   projectClass -> resolutionsClass;
+  pythonWrapper -> pythonWrapper;
   resolutionsClass -> multiTypeTable;
   resolutionsClass -> resolutionsClass;
   tableUtilities -> tableUtilities;
@@ -44,11 +48,13 @@ digraph m2html {
   dataClass [URL="dataClass.html"];
   domainContrastsClass [URL="domainContrastsClass.html"];
   domainsClass [URL="domainsClass.html"];
+  dyLibWrapper [URL="dyLibWrapper.html"];
   layersClass [URL="layersClass.html"];
   mergeStructs [URL="mergeStructs.html"];
   multiTypeTable [URL="multiTypeTable.html"];
   parametersClass [URL="parametersClass.html"];
   projectClass [URL="projectClass.html"];
+  pythonWrapper [URL="pythonWrapper.html"];
   resolutionsClass [URL="resolutionsClass.html"];
   tableUtilities [URL="tableUtilities.html"];
 }

@@ -550,7 +550,7 @@ if yes, what to parallelize on. (Points or Contrasts or all)</p>
 </div>
 <p>When the RAT function is called, the classes are passed into internal functions like <cite>RatParseClassToStructs_new</cite> which takes the classes and breaks them down into cells,
 limits,prior and more importantly converts the project class to struct.</p>
-<p>Then, the <cite>RATMain</cite> function redirects the control flow based on what procedure is selected in controlsClass. One of the redirecting functions will call the reflectivityCalculationWrapper
+<p>Then, the <cite>RATMain</cite> function redirects the control flow based on what procedure is selected in controlsClass. One of the redirecting functions will call the reflectivityCalculation
 which starts the reflectivity calculation.</p>
 <p>Some interesting data type changes are needed because of how things work with coder. Coder wont accept variable sized cell arrays contains variable sized arrays (strings for eg)
 in a field of a struct. So, look at <cite>RatParseClassToStructs_new</cite> function to understand how the data is converted.</p>

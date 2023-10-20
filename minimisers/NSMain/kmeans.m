@@ -156,7 +156,7 @@ end
 
 if ischar(start)
     startNames = {'uniform','sample','cluster'};
-    i = strcmpi(start,startNames);
+    i = find(strcmpi(start,startNames));
     if length(i) > 1
         error(sprintf('Ambiguous ''start'' parameter value:  %s.', start));
     elseif isempty(i)

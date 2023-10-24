@@ -38,7 +38,7 @@ for i = 1:length(setFieldNames)
 end
 
 % Set default values algorithmic variables DREAM - if not specified
-value = {3,3,max(max(floor(DREAMPar.T/50),1),50),0.05,1e-12,'iqr',0.2,'yes',1,0.025};
+value = {3,3,max(max(floor(DREAMPar.T/50),1),50),0.05,1e-12,'iqr',0.2,'no',1,0.025};
 % Name variable
 name = {'nCR','delta','steps','lambda','zeta','outlier','pUnitGamma','adapt_pCR','thinning','epsilon'};
 for j = 1 : numel(name)

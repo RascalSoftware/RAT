@@ -1,7 +1,12 @@
 function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,nChains)
+
 % A function to make an empty container to hold the results of bayes
 % calculations. The struct has the following format:
 %
+% nPar = number of fitted parameters
+% nCon = number of contrasts
+%
+
 % bayesResults = 
 % 
 %   struct with fields:
@@ -9,12 +14,22 @@ function bayesResults = makeEmptyBayesResultsStruct(nPars,nContrasts,isDomains,n
 %     bestFitsMean: [1×1 struct]
 %         predlims: [1×1 struct]
 %      parConfInts: [1×1 struct]
-%         bestPars: [1xnPars double]
+%         bestPars: [2.1073 13.2330 10.8497 3.6010 9.9000 1.5536e-06 36.8692 5.6837 12.7974 1.8877 9.9680 1.0832e-06 1.7553e-06 1.7360e-06 6.2043e-06 2.3187e-06 -4.5679e-07]
 %         bayesRes: [1×1 struct]
-%            chain: [1000000xnPars double]
+%            chain: [10000×17 double]
 
 % -----------------------------------------------------------
+
 % Make the individual structs....
+% 
+% (1) bayesResults.bestFitsMean
+% 
+%   struct with fields:
+% 
+%      Ref: {3×1 cell}
+%      Sld: {3×1 cell}
+%      chi: 64.4432
+%     data: {3×1 cell}
 
 ref = cell(nContrasts, 1);
 refCell = [1 1 1];
@@ -22,6 +37,7 @@ coder.varsize('refCell',[1e7 4],[1 1]);
 for i = 1:nContrasts
     ref{i} = refCell;
 end
+%coder.varsize('Ref',[1 maxNContrasts],[1 1]);
 
 if isDomains
     sld = cell(nContrasts,2);
@@ -39,6 +55,7 @@ else
         sld{i} = sldCell;
     end
 end
+%coder.varsize('Sld',[1 maxNContrasts],[1 1]);
 
 chi = 0;
 
@@ -48,22 +65,38 @@ coder.varsize('dataCell',[1e7 5],[1 1]);
 for i = 1:nContrasts
     data{i} = dataCell;
 end
+%coder.varsize('data',[1 maxNContrasts],[1 1]);
 
 bestFitsMean = struct('ref',{ref},'sld',{sld},'chi',chi,'data',{data});
 
 % --------------------------------------------------------------------
+
 % (2) bayesResults.predlims
+%
+%   struct with fields:
+% 
+%     refPredInts: {3×1 cell}
+%     sldPredInts: 0
+%        refXdata: {3×1 cell}
+%        sldXdata: {3×1 cell}
+%       sampleChi: [1000×1 double]
+
+
 
 refPredInts = cell(nContrasts,1);
 refPredIntsCell = [1 1 1];
+%coder.varsize('refPredInts',[1e4 1],[1 0]);
 coder.varsize('refPredIntsCell',[5 1e4],[1 1]);
 for i = 1:nContrasts
     refPredInts{i} = refPredIntsCell;
 end
 
+%coder.varsize('refPredInts',[maxNContrasts 1],[1 0]);
+%coder.varsize('refPredInts{:}',[5 1e4],[0 1]);
 
 sldPredInts = cell(nContrasts,1);
 sldPredIntsCell = [1 1 1];
+%coder.varsize('refPredInts',[1e4 1],[1 0]);
 coder.varsize('sldPredIntsCell',[5 1e4],[1 1]);
 for i = 1:nContrasts
     sldPredInts{i} = sldPredIntsCell;
@@ -75,6 +108,9 @@ coder.varsize('xDataCell',[1e4 1e4],[1 1]);
 for i = 1:nContrasts
     refXdata{i} = xDataCell;
 end
+%coder.varsize('refXdata',[maxNContrasts 1],[1 0]);
+%coder.varsize('refXData{:}',[1 1e4],[0 1]);
+
 if isDomains
     sldXdata = cell(nContrasts,2);
     sldDataCell2 = [1 1 1 ; 1 1 1];
@@ -99,7 +135,14 @@ predlims = struct('refPredInts',{refPredInts},'sldPredInts',{sldPredInts},...
     'refXdata',{refXdata},'sldXdata',{sldXdata},'sampleChi',sampleChi);
 
 % ------------------------------------------------------------------
+
 % (3) bayesResults.parConfInts
+% 
+%   struct with fields:
+% 
+%     par95: [2×17 double]
+%     par65: [2×17 double]
+%      mean: [1 x n double]
 
 par95 = zeros(2,1);
 coder.varsize('par95',[2 nPars],[0 1]);
@@ -113,13 +156,38 @@ coder.varsize('mean',[1 nPars],[0 1]);
 parConfInts = struct('par95',par95,'par65',par65,'mean',mean);
 
 % -------------------------------------------------------------------
+
 % (4) bayesResults.bestPars
 
 bestPars = [1];
 coder.varsize('bestPars',[1 nPars],[0 1]);
 
 % -------------------------------------------------------------------
+
 % (5) bayesResults.bayesRes
+% 
+% ans = 
+% 
+%   struct with fields:
+% 
+%       allChains: [1000×19×10 double]
+%     dreamOutput: [1×1 struct]
+% 
+% bayesResults.bayesRes.dreamOutput
+% 
+%   struct with fields:
+% 
+%       outlier: [3×2 double]
+%       RunTime: 9.1300
+%      DREAMPar: [1×1 struct]
+%     Meas_info: [1×1 struct]
+%     iteration: 22
+%          iloc: 1000
+%            fx: 0
+%            AR: [21×2 double]
+%        R_stat: [21×18 double]
+%            CR: [21×4 double]
+
 
 outlier = [1 1];
 coder.varsize('outlier',[nPars nPars],[1 1]);
@@ -157,6 +225,8 @@ Meas_info = struct('Y',0,'N',0);
 iteration = 0;
 iloc = 0;
 
+fx = 0;
+
 AR = [0 0];
 coder.varsize('AR',[nPars nPars],[1 1]);
 
@@ -185,12 +255,14 @@ bayesRes = struct('allChains', allChains,...
                   'dreamOutput', dreamOutput);
 
 % ------------------------------------------------------------------
+
 % (6) chain
 
 chain = [0 0];
 coder.varsize('chain',[1e6 nPars],[1 1]);
 
 % -------------------------------------------------------------------
+
 % Make the final structure...
 bayesResults = struct('bestFitsMean',bestFitsMean,...
                       'predlims', predlims,...
@@ -198,4 +270,5 @@ bayesResults = struct('bestFitsMean',bestFitsMean,...
                       'bestPars', bestPars,...
                       'bayesRes', bayesRes,...
                       'chain',chain);
+
 end

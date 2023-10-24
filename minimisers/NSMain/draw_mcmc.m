@@ -19,6 +19,7 @@ function [sample, logL] = draw_mcmc(livepoints, cholmat, logLmin, ...
 
 global verbose;
 
+logL = logLmin;
 mcmcfrac = 0.9; 
 l2p = 0.5*log(2*pi); % useful constant
 
@@ -132,7 +133,7 @@ while 1
             elseif priortype == 3 % 'jeffreys'
                 p3 = prior(j,2);
                 p4 = prior(j,3);
-                behaviour = char(prior(j,5));
+                % behaviour = char(prior(j,5));
                 
                 dp = 1;
                 

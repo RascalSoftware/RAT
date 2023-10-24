@@ -111,14 +111,14 @@ changed = zeros(k,1);
 normC = zeros(k,1);
 
 pnames = {   'distance'  'start' 'replicates' 'maxiter' 'emptyaction' 'display'};
-dflts =  {'sqeuclidean' 'sample'          []       100        'error'  'notify'};
+dflts =  {'sqeuclidean' 'sample'          0       100        'error'  'notify'};
 [errmsg,distance,start,reps,maxit,emptyact,display] ...
                        = statgetargs(pnames, dflts, varargin{:});
 error(errmsg);
 
 if ischar(distance)
     distNames = {'sqeuclidean','cityblock','cosine','correlation','hamming'};
-    i = find(strncmp(lower(distance), distNames,length(lower(distance))));
+    i = find(strcmpi(distance,distNames));
     if length(i) > 1
         error(sprintf('Ambiguous ''distance'' parameter value:  %s.', distance));
     elseif isempty(i)
@@ -182,7 +182,7 @@ elseif isnumeric(start)
     elseif size(CC,2) ~= p
         error('The ''start'' matrix must have the same number of columns as X.');
     end
-    if isempty(reps)
+    if reps == 0
         reps = size(CC,3);
     elseif reps ~= size(CC,3);
         error('The third dimension of the ''start'' array must match the ''replicates'' parameter value.');
@@ -199,7 +199,7 @@ end
 
 if ischar(emptyact)
     emptyactNames = {'error','drop','singleton'};
-    i = find(strncmp(lower(emptyact),emptyactNames,length(emptyactNames)));
+    i = find(strcmpi(emptyact,emptyactNames));
     if length(i) > 1
         error(sprintf('Ambiguous ''emptyaction'' parameter value:  %s.', emptyact));
     elseif isempty(i)
@@ -211,13 +211,13 @@ else
 end
 
 if ischar(display)
-    i = strncmp(lower(display), char({'off','notify','final','iter'}),4);
+    i = find(strcmpi(display, {'off','notify','final','iter'}));
     if length(i) > 1
         error(sprintf('Ambiguous ''display'' parameter value:  %s.', display));
     elseif isempty(i)
         error(sprintf('Unknown ''display'' parameter value:  %s.', display));
     end
-    display = i-1;
+    disp = i-1;
 else
     error('The ''display'' parameter value must be a string.');
 end
@@ -229,7 +229,7 @@ elseif n < k
 end
 
 % Assume one replicate
-if isempty(reps)
+if reps == 0
     reps = 1;
 end
 
@@ -266,8 +266,8 @@ for rep = 1:reps
     idx = zeros(n,1);
     totsumD = Inf;
     
-    if display > 2 % 'iter'
-        disp(sprintf('  iter\t phase\t     num\t         sum'));
+    if disp > 2 % 'iter'
+        fprintf('  iter\t phase\t     num\t         sum');
     end
     
     %
@@ -292,8 +292,8 @@ for rep = 1:reps
                 iter = iter - 1;
                 break;
             end
-            if display > 2 % 'iter'
-                disp(sprintf(dispfmt,iter,1,length(moved),totsumD));
+            if disp > 2 % 'iter'
+                fprintf(dispfmt,iter,1,length(moved),totsumD);
             end
             if iter >= maxit, break; end
         end
@@ -338,11 +338,11 @@ for rep = 1:reps
                 % Remove the empty cluster from any further processing
                 D(:,empties) = NaN;
                 changed = changed(m(changed) > 0);
-                if display > 0
+                if disp > 0
                     fprintf('Empty cluster created at iteration %d.',iter);
                 end
             case 'singleton'
-                if display > 0
+                if disp > 0
                     fprintf('Empty cluster created at iteration %d.',iter);
                 end
                 
@@ -480,7 +480,7 @@ for rep = 1:reps
             % in the middle of a pass through all the points
             if (iter - iter1) == 0 | nummoved > 0
                 iter = iter + 1;
-                if display > 2 % 'iter'
+                if disp > 2 % 'iter'
                     disp(sprintf(dispfmt,iter,2,nummoved,totsumD));
                 end
             end
@@ -494,7 +494,7 @@ for rep = 1:reps
         % If we've gone once through all the points, that's an iteration
         if moved <= lastmoved
             iter = iter + 1;
-            if display > 2 % 'iter'
+            if disp > 2 % 'iter'
                 disp(sprintf(dispfmt,iter,2,nummoved,totsumD));
             end
             if iter >= maxit, break; end
@@ -549,7 +549,7 @@ for rep = 1:reps
         changed = sort([oidx nidx]);
     end % phase two
     
-    if (~converged) & (display > 0)
+    if (~converged) & (disp > 0)
         fprintf('Warning: Failed to converge in %d iterations.', maxit);
     end
 
@@ -561,8 +561,8 @@ for rep = 1:reps
     for i = 1:k
         sumD(i) = sum(d(idx == i));
     end
-    if display > 1 % 'final' or 'iter'
-        disp(sprintf('%d iterations, total sum of distances = %g',iter,totsumD));
+    if disp > 1 % 'final' or 'iter'
+        fprintf('%d iterations, total sum of distances = %g',int32(iter),totsumD);
     end
 
     % Save the best solution so far
@@ -592,15 +592,15 @@ function D = distfun(X, C, dist, iter)
 %DISTFUN Calculate point to cluster centroid distances.
 [n,p] = size(X);
 D = zeros(n,size(C,1));
-clusts = 1:size(C,1);
+clusts = size(C,1);
 
 switch dist
 case 'sqeuclidean'
-    for i = clusts
+    for i = 1:clusts
         D(:,i) = sum((X - C(repmat(i,n,1),:)).^2, 2);
     end
 case 'cityblock'
-    for i = clusts
+    for i = 1:clusts
         D(:,i) = sum(abs(X - C(repmat(i,n,1),:)), 2);
     end
 case {'cosine','correlation'}
@@ -610,11 +610,11 @@ case {'cosine','correlation'}
         error(sprintf('Zero cluster centroid created at iteration %d.',iter));
     end
     % This can be done without a loop, but the loop saves memory allocations
-    for i = clusts
+    for i = 1:clusts
         D(:,i) = 1 - (X * C(i,:)') ./ normC(i);
     end
 case 'hamming'
-    for i = clusts
+    for i = 1:clusts
         D(:,i) = sum(abs(X - C(repmat(i,n,1),:)), 2) / p;
     end
 end

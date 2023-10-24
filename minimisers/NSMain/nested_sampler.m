@@ -59,10 +59,10 @@ DEBUG = 0;
 D = size(prior,1);
 
 ns = 1;
-coder.varsize('ns');
+% coder.varsize('ns');
 
 mus = 1;
-coder.varsize('mus');
+% coder.varsize('mus');
 
 cholmat = 1;
 coder.varsize('cholmat');

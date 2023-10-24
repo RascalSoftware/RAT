@@ -30,7 +30,7 @@ D = size(u,2);
 
 % check total number of samples
 if N < 2*(D+1)
-    if DEBUG; fprintf('CANT SPLIT: total number of samples is too small!  N = %d\n', N); end;
+    if DEBUG; fprintf('CANT SPLIT: total number of samples is too small!  N = %d\n', int32(N)); end;
     nosplit = 1;
     return;
 end

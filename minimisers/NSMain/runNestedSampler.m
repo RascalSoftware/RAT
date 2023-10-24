@@ -31,7 +31,9 @@ data = {problemDef ; controls ; problemDefLimits ; problemDefCells};
     tolerance, likelihood, model, priorList, fitNames);
 
 % Process the results...
-chain = nest_samples(:,1:end-1);
+nPars = length(fitNames);
+% chain = nest_samples(:,1:end-1);
+chain = post_samples(:,1:nPars);
 bestPars = mean(chain,1);
 
 bayesOutputs.bestPars = mean(chain);

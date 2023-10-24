@@ -51,6 +51,7 @@ end
 
 % find scale factor for bounding ellipsoid E
 fB = 0;
+coder.varsize('fB');
 for i=1:N
     f = ( (u(i,:)-mu) / C ) * (u(i,:)-mu)';
     if f > fB

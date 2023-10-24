@@ -131,6 +131,7 @@ propscale = 0.1;
 % some initial values if MultiNest sampling is used
 h = 1.1; % h values from bottom of p. 1605 of Feroz and Hobson
 FS = h; % start FS at h, so ellipsoidal partitioning is done first time
+coder.varsize('FS');
 K = 1; % start with one cluster of live points
 
 % get maximum likelihood

@@ -23,6 +23,12 @@ N = size(u,1); % number of samples in multi-dimensional space
 ndims = size(u,2); % number of dimensions
 K = 1;
 
+mus = [1 1];
+coder.varsize('mus',[1e4 1e4],[1 1]);
+
+ns = [1 ; 1];
+coder.varsize('ns',[1e4 1e4],[1 1]);
+
 % calculate bounding matrix, etc. for bounding ellipsoid associated
 % with the original set of points u
 [B, mu, VE, flag] = calc_ellipsoid(u, VS);
@@ -40,9 +46,12 @@ if nosplit || n1<ndims+1 || n2<ndims+1
     ns = N;
 else
     % check if we should keep the partitioning of S
-    if (VE1 + VE2 < VE || VE > 2*VS) 
+    %if (all(VE1 + VE2 < VE) || all(VE > 2*VS)) 
+    test1 = all(VE1 + VE2 < VE); 
+    test2 = all(VE > 2*VS);
+    if  all(test1) || all(test2) 
         if DEBUG
-            fprintf('PARTITION ACCEPTED: N=%d splits to n1=%d, n2=%d\n', N, n1, n2);
+            fprintf('PARTITION ACCEPTED: N=%d splits to n1=%d, n2=%d\n', int32(N), int32(n1), int32(n2));
         end
         K = K + 1;
         VS1 = n1 * VS / N;
@@ -57,7 +66,7 @@ else
         ns =  [n1 ; n2];
     else
         if DEBUG
-            fprintf('PARTITION REJECTED: N=%d doesnt split into n1=%d and n2=%d\n', N, n1, n2);
+            fprintf('PARTITION REJECTED: N=%d doesnt split into n1=%d and n2=%d\n', int32(N), int32(n1), int32(n2));
         end
         Bs = B;
         mus = mu;

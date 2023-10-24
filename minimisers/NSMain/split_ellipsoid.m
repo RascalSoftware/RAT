@@ -45,14 +45,14 @@ n2 = size(u2,1); % number of samples in S2
 
 % check number of points in subclusters
 if n1 < D+1 || n2 < D+1
-    if DEBUG; fprintf('CANT SPLIT: number of samples in subclusters is too small! n1 = %d, n2 = %d\n', n1, n2); end;
+    if DEBUG; fprintf('CANT SPLIT: number of samples in subclusters is too small! n1 = %d, n2 = %d\n', int32(n1), int32(n2)); end;
     nosplit = 1;
     return;
 end
 
 % preallocate temp arrays
-temp_u1 = cell(max_attempt,1);
-temp_u2 = cell(max_attempt,1);
+temp_u1 = makeCell(max_attempt,1);
+temp_u2 = makeCell(max_attempt,1);
 temp_VE1 = zeros(max_attempt,1);
 temp_VE2 = zeros(max_attempt,1);
 FS = zeros(max_attempt,1);
@@ -86,10 +86,10 @@ while 1
     FS(counter)=(VE1+VE2)/VS;
 
     % DEBUG print statement
-    if DEBUG
-        fprintf('SPLIT ELLIPSOID: counter = %d, FS = %f, numreassigned = %d\n', ...
-                counter, (VE1+VE2)/VS, numreassigned);
-    end
+%     if DEBUG
+%         fprintf('SPLIT ELLIPSOID: counter = %d, numreassigned = %d\n', ...
+%                 int32(counter), int32(numreassigned));
+%     end
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % check if points need to be reassigned to the other subcluster
@@ -153,12 +153,12 @@ while 1
         continue
     else
         % DEBUG print statement
-        if DEBUG 
-            fprintf('SPLIT ELLIPSOID: counter = %d, FS = %f, numreassigned = %d\n', counter, (VE1+VE2)/VS, numreassigned);
-            if counter > max_attempt
-                fprintf('SPLIT ELLIPSOID: exceeded maximum attempts; take min F(S).\n');
-            end
-        end
+%         if DEBUG 
+%             %fprintf('SPLIT ELLIPSOID: counter = %d, FS = %f, numreassigned = %d\n', counter, (VE1+VE2)/VS, numreassigned);
+%             if counter > max_attempt
+%                 fprintf('SPLIT ELLIPSOID: exceeded maximum attempts; take min F(S).\n');
+%             end
+%         end
 
         break
     end
@@ -174,5 +174,12 @@ VE2 = temp_VE2(idx);
 
 if DEBUG; fprintf('SPLIT ELLIPSOID: min F(S) = %f\n', minFS); end;
 
-return
+end
+
+function x = makeCell(n,vals)
+    x = cell(n,1);   
+    for i = 1:n
+        x{i} = vals;
+    end
+end
 

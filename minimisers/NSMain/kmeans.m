@@ -103,11 +103,22 @@ if nargin < 2
     error('At least two input arguments required.');
 end
 
+idxBest = [1 ; 1];
+coder.varsize('idxBest',[1e5 1],[1 0]);
+
+Cbest = zeros(2,2);
+coder.varsize('Cbest',[1e3 1e3],[1 1]);
+
+sumDBest = [1 ; 1];
+coder.varsize('sumDBest',[1e5 1],[1 0]);
+
 % n points in p dimensional space
 [n, p] = size(X);
 Xsort = []; 
 Xord = []; 
-changed = zeros(k,1); 
+changed = zeros(k,1);
+coder.varsize('changed',[1e5 1],[1 0]);
+
 normC = zeros(k,1);
 
 pnames = {   'distance'  'start' 'replicates' 'maxiter' 'emptyaction' 'display'};
@@ -243,6 +254,7 @@ Del = repmat(NaN,n,k); % reassignment criterion
 m = zeros(k,1);
 
 totsumDBest = Inf;
+coder.varsize('totsumDBest');
 for rep = 1:reps
     switch start
     case 'uniform'
@@ -262,9 +274,10 @@ for rep = 1:reps
     case 'numeric'
         C = CC(:,:,rep);
     end    
-    changed = 1:k; % everything is newly assigned
+    changed = [1:k]'; % everything is newly assigned
     idx = zeros(n,1);
     totsumD = Inf;
+    coder.varsize('totsumD');
     
     if disp > 2 % 'iter'
         fprintf('  iter\t phase\t     num\t         sum');
@@ -276,6 +289,10 @@ for rep = 1:reps
     
     converged = false;
     iter = 0;
+    prevtotsumD = Inf;
+    coder.varsize('prevtotsumD');
+    previdx = 0;
+    coder.varsize('previdx',[1e4 1],[1 0]);
     while true
         % Compute the distance from every point to each cluster centroid
         D(:,changed) = distfun(X, C(changed,:), distance, iter);
@@ -307,7 +324,7 @@ for rep = 1:reps
             % Every point moved, every cluster will need an update
             moved = 1:n;
             idx = nidx;
-            changed = 1:k;
+            changed = [1:k]';
         else
             % Determine which points moved
             moved = find(nidx ~= previdx);
@@ -321,7 +338,11 @@ for rep = 1:reps
             idx(moved) = nidx(moved);
 
             % Find clusters that gained or lost members
-            changed = unique([idx(moved); previdx(moved)])';
+            chIdx = idx(moved);
+            chPrevidx = previdx(moved);
+            totCh = [chIdx ; chPrevidx];
+            changed = unique(totCh(:));
+            %changed = unique([idx(moved); previdx(moved)])';
         end
 
         % Calculate the new cluster centroids and counts.
@@ -333,7 +354,7 @@ for rep = 1:reps
         if ~isempty(empties)
             switch emptyact
             case 'error'
-                error(sprintf('Empty cluster created at iteration %d.',iter));
+                error(sprintf('Empty cluster created at iteration %d.',int32(iter)));
             case 'drop'
                 % Remove the empty cluster from any further processing
                 D(:,empties) = NaN;
@@ -399,6 +420,7 @@ for rep = 1:reps
     %
     changed = find(m' > 0);
     lastmoved = 0;
+    coder.varsize('lastmoved');
     nummoved = 0;
     iter1 = iter;
     while iter < maxit
@@ -414,7 +436,8 @@ for rep = 1:reps
         % Del(i,idx(i)) == 0 automatically for them.
 		switch distance
 		case 'sqeuclidean'
-            for i = changed
+            for ch = 1:length(changed)
+                i = changed(ch);
                 mbrs = (idx == i);
                 sgn = 1 - 2*mbrs; % -1 for members, 1 for nonmembers
                 if m(i) == 1
@@ -423,7 +446,8 @@ for rep = 1:reps
                 Del(:,i) = (m(i) ./ (m(i) + sgn)) .* sum((X - C(repmat(i,n,1),:)).^2, 2);
             end
         case 'cityblock'
-            for i = changed
+            for ch = 1:length(changed)
+                i = changed(ch);
                 if mod(m(i),2) == 0 % this will never catch singleton clusters
                     ldist = Xmid(repmat(i,n,1),:,1) - X;
                     rdist = X - Xmid(repmat(i,n,1),:,2);
@@ -441,7 +465,8 @@ for rep = 1:reps
                 error(sprintf('Zero cluster centroid created at iteration %d.',iter));
             end
             % This can be done without a loop, but the loop saves memory allocations
-            for i = changed
+            for ch = 1:length(changed)
+                i = changed(ch);
                 XCi = X * C(i,:)';
                 mbrs = (idx == i);
                 sgn = 1 - 2*mbrs; % -1 for members, 1 for nonmembers
@@ -449,7 +474,8 @@ for rep = 1:reps
                       (m(i).*normC(i) - sqrt((m(i).*normC(i)).^2 + 2.*sgn.*m(i).*XCi + 1));
             end
         case 'hamming'
-            for i = changed
+            for ch = 1:length(changed)
+                i = changed(ch);
                 if mod(m(i),2) == 0 % this will never catch singleton clusters
                     % coords with an unequal number of 0s and 1s have a
                     % different contribution than coords with an equal
@@ -550,7 +576,7 @@ for rep = 1:reps
     end % phase two
     
     if (~converged) & (disp > 0)
-        fprintf('Warning: Failed to converge in %d iterations.', maxit);
+        fprintf('Warning: Failed to converge in %d iterations.', int32(maxit));
     end
 
     % Calculate cluster-wise sums of distances

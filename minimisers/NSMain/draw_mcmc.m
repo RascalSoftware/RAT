@@ -43,10 +43,12 @@ while 1
     
     for j=1:Npars
         priortype = prior(j,1);
-
-        if priortype == 1      %uniform
-            p3 = prior(j,4);
-            p4 = prior(j,5);
+%         p3 = prior{j,3};
+%         p4 = prior{j,4};
+                
+        if priortype == 1
+            p3 = prior(j,3);
+            p4 = prior(j,4);
             pv = -log(p4-p3);
             currentPrior = logplus(currentPrior, pv);
         elseif priortype == 2
@@ -61,26 +63,6 @@ while 1
             currentPrior = logplus(currentPrior, pv);
         end
     end
-
-
-
-
-
-%         priortype = char(prior(j,2));
-%         p3 = prior{j,3};
-%         p4 = prior{j,4};
-%                 
-%         if strcmp(priortype, 'uniform')
-%             pv = -log(p4-p3);
-%             currentPrior = logplus(currentPrior, pv);
-%         elseif strcmp(priortype, 'gaussian')
-%             pv = -l2p - log(p4) - (sample(j)-p3)^2/(2*p4^2);
-%             currentPrior = logplus(currentPrior, pv);
-%         elseif strcmp(priortype, 'jeffreys')
-%             pv = -log(10^(sample(j)*(log10(p4) - log10(p3)) + log10(p3)));
-%             currentPrior = logplus(currentPrior, pv);
-%         end
-%     end
         
     for i=1:Nmcmc        
         if rand < mcmcfrac % use Students-t proposal
@@ -110,18 +92,16 @@ while 1
         
         % check sample is within the (scaled) prior
         newPrior = -inf;
+        behaviour = 'cyclic';
         for j=1:Npars
-            % priortype = char(prior(j,2));
-            priortype = prior(j,2);
-%             p3 = prior{j,3};
-%             p4 = prior{j,4};
+            priortype = prior(j,1);
+            % p3 = prior{j,3};
+            % p4 = prior{j,4};
             
-            if strcmp(priortype, 'uniform')
-                p3 = prior(i,4);
-                p4 = prior(i,5);
-                behaviour = 'cyclic'; %%char(prior(j,5));
-                
+            if priortype ==1 % uniform
                 dp = 1;
+                p3 = prior(j,4);
+                p4 = prior(j,5);
                 
                 if sampletmp(j) < 0 || sampletmp(j) > 1
                     if strcmp(behaviour, 'reflect')
@@ -146,14 +126,13 @@ while 1
                 pv = -log(p4-p3);
                 newPrior = logplus(newPrior, pv);
                 
-            elseif strcmp(priortype, 'gaussian')
+            elseif priortype == 2       % gaussian
                 pv = -l2p - sampletmp(j)^2/2;
                 newPrior = logplus(newPrior, pv);
-
-            elseif strcmp(priortype, 'jeffreys')
-%                 behaviour = char(prior(j,5));
-                p3 = prior(i,2);
-                p4 = prior(i,3);
+            elseif priortype == 3 % 'jeffreys'
+                p3 = prior(j,2);
+                p4 = prior(j,3);
+                behaviour = char(prior(j,5));
                 
                 dp = 1;
                 
@@ -181,7 +160,8 @@ while 1
         
         % get the likelihood of the new sample
         %likestart = tic;
-        logLnew = likelihood(data, model, parnames,loopcell(sc));
+        logLnew = likelihood(data, model, parnames, ...
+                        loopcell(sc));
         %likedur = toc(likestart);
         %fprintf(1, 'liketime = %.6f\n', likedur);
         

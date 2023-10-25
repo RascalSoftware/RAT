@@ -41,7 +41,8 @@ for i=1:N
     pnts(i,:) = fac(i)*pt(i,:);
 
     % scale and rotate to ellipsoid
-    pnts(i,:) = (pnts(i,:) .* D' * V') + mu;
+    % ('real' needed for compile....)
+    pnts(i,:) = real((pnts(i,:) .* D' * V') + mu);
 end
 
 return

@@ -172,6 +172,7 @@ coder.varsize('bestPars',[1 nPars],[0 1]);
 % 
 %       allChains: [1000×19×10 double]
 %     dreamOutput: [1×1 struct]
+%     nsOutput = [1x1 struct]
 % 
 % bayesResults.bayesRes.dreamOutput
 % 
@@ -251,8 +252,24 @@ dreamOutput = struct('outlier', outlier,...
 allChains = [1 1 1];
 coder.varsize('allChains',[1e4 50 50],[1 1 1]);
 
+% Nested Sampler
+% result.logX = logZ;
+% result.nest_samples = nest_samples;
+% result.post_samples = post_samples;
+LogZ = 0;
+
+nestSamples = [0 0];
+coder.varsize('nestSamples');
+
+postSamples = [0 0];
+coder.varsize('postSamples');
+
+nestOutput = struct('LogZ',LogZ,'nestSamples',...
+    nestSamples,'postSamples',postSamples);
+
 bayesRes = struct('allChains', allChains,...
-                  'dreamOutput', dreamOutput);
+                  'dreamOutput', dreamOutput,...
+                  'nestOutput', nestOutput);
 
 % ------------------------------------------------------------------
 

@@ -19,6 +19,12 @@ global DEBUG
 K = size(mus, 1);
 ndims = size(mus,2);
 
+pnt = [1 1];
+coder.varsize('pnt',[1 1e5],[0 1]);
+
+sample = zeros(1,0);
+coder.varsize('sample',[1 1e5],[1 1]);
+
 while 1
     % find the ellipsoid from which to draw a new point
     rval = rand;

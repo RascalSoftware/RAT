@@ -69,6 +69,10 @@ coder.varsize('cholmat');
 
 % get the number of parameters from the prior array
 D = size(prior,1);
+
+% initialize array of samples for posterior
+nest_samples = zeros(1,D+1);
+coder.varsize('nest_samples',[1e5 50],[1 1]);
     
 % draw the set of initial live points from the prior
 livepoints = zeros(Nlive, D);
@@ -119,9 +123,6 @@ logZ = -inf;
 
 % initial information
 H = 0; 
-
-% initialize array of samples for posterior
-nest_samples = zeros(1,D+1);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % some initial values if MCMC nested sampling is used

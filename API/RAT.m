@@ -92,7 +92,7 @@ if controls.calcSld == 0
     originalProc = controls.proc;
     controls.calcSld = 1;
     controls.proc = 'calculate';
-    [outProblemStruct,problem,result,~] = RATMain(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
+    [outProblemStruct,problem,result,~] = RATMain_mex(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
     controls.proc = originalProc;
 end
 

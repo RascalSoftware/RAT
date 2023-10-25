@@ -104,7 +104,7 @@ if nargin < 2
 end
 
 idxBest = [1 ; 1];
-coder.varsize('idxBest',[1e3 1],[1 0]);
+coder.varsize('idxBest',[1e3 1e3],[1 1]);
 
 Cbest = zeros(2,2);
 coder.varsize('Cbest',[1e3 1e3],[1 1]);
@@ -117,7 +117,7 @@ coder.varsize('sumDBest',[1e3 1e3],[1 1]);
 Xsort = []; 
 Xord = []; 
 changed = zeros(k,1);
-coder.varsize('changed',[1e5 1],[1 0]);
+coder.varsize('changed',[1e3 1e3],[1 1]);
 
 normC = zeros(k,1);
 

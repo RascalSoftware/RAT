@@ -3,6 +3,15 @@ function  [problemDef,outProblem,result,bayesResults] = runNestedSampler(problem
 checks = controls.checks;
 [problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,checks);
 
+nest_samples = [0 0 ; 0 0];
+coder.varsize('nest_samples');
+
+post_samples = [0 0 ; 0 0];
+coder.varsize('post_samples');
+
+logZ = 0;
+H = 0;
+
 % Make an empty struct for bayesResults to hold the outputs of the
 % calculation
 nPars = 1e3;

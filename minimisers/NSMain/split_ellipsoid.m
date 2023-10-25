@@ -36,7 +36,8 @@ if N < 2*(D+1)
 end
 
 % use kmeans to separate the data points into two sub-clusters
-[idx, mu] = kmeans(u,2);
+%[idx, mu] = kmeans(u,2);
+[idx,mu] = simple_kmeans(u,2,0);
 u1 = u(idx==1,:);
 u2 = u(idx==2,:);
 

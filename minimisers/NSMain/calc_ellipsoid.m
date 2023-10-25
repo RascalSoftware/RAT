@@ -51,11 +51,11 @@ end
 
 % find scale factor for bounding ellipsoid E
 fB = 0;
-coder.varsize('fB');
+%coder.varsize('fB');
 for i=1:N
     f = ( (u(i,:)-mu) / C ) * (u(i,:)-mu)';
     if f > fB
-        fB = f;
+        fB = f(1);
     end
 end
 
@@ -70,6 +70,21 @@ if VE < VS
 end
 
 % scale C to get bounding matrix B
-B = fV * fB * C;
+
+% Again emphasise the scalar for the inner mutiplication
+% matlab error in compiled code.....
+% 
+% Error using eml_mtimes_helper>dynamic_size_checks
+% Inner dimensions must agree. Generated code for a general matrix multiplication at this call site. If this should have been a scalar times a variable-size matrix, the
+% scalar input must be fixed-size.
+% 
+% Error in eml_mtimes_helper (line 69)
+%     dynamic_size_checks(a, b, innerDimA, innerDimB);
+% 
+% Error in calc_ellipsoid (line 73)
+% B = fV * fB * C;
+
+% B = fV * fB * C;
+B = fV(1) * fB(1) * C;
 
 return

@@ -17,10 +17,10 @@ cfg.EnableOpenMP = true;
 cfg.TargetLang = 'C++';
 % cfg.TargetLangStandard = 'C++11 (ISO)';
 
-
-% Define the input argument types..
+%% Define the input argument types..
 ARGS = makeCompileArgsFull();
 
+%% Run the compile
 includeDirs = getappdata(0,'includeDirs');
 includes = cell(length(includeDirs)*2, 1);
 includes(1:2:end) = {'-I'};

@@ -97,8 +97,9 @@ end
 logL = zeros(Nlive,1);
 extraparvals = [];
 for i=1:Nlive
-    parvals = loopcell(livepoints(i,:));
-    logL(i) = flike(data, model, parnames, parvals);
+    %parvals = loopcell(livepoints(i,:));
+    parvals = livepoints(i,:);
+    logL(i) = flike(data,parvals);
 end
 
 % now scale the parameters, so that uniform parameters range from 0->1, 

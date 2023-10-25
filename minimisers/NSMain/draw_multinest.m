@@ -66,7 +66,8 @@ while 1
             rescaledpnt = rescale_parameters(prior, pnt); 
                 
             % get new likelihood
-            logL = likelihood(data, model, parnames, loopcell(rescaledpnt));
+            % logL = likelihood(data, model, parnames, loopcell(rescaledpnt));
+            logL = likelihood(data,rescaledpnt);
         end
         
     end

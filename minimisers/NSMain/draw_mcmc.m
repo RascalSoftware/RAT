@@ -48,8 +48,8 @@ while 1
 %         p4 = prior{j,4};
                 
         if priortype == 1
-            p3 = prior(j,3);
-            p4 = prior(j,4);
+            p3 = prior(j,4);
+            p4 = prior(j,5);
             pv = -log(p4-p3);
             currentPrior = logplus(currentPrior, pv);
         elseif priortype == 2
@@ -161,8 +161,9 @@ while 1
         
         % get the likelihood of the new sample
         %likestart = tic;
-        logLnew = likelihood(data, model, parnames, ...
-                        loopcell(sc));
+        % logLnew = likelihood(data, model, parnames, ...
+        %               loopcell(sc));
+        logLnew = likelihood(data,sc);
         %likedur = toc(likestart);
         %fprintf(1, 'liketime = %.6f\n', likedur);
         

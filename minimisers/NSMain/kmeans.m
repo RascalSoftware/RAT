@@ -104,13 +104,13 @@ if nargin < 2
 end
 
 idxBest = [1 ; 1];
-coder.varsize('idxBest',[1e5 1],[1 0]);
+coder.varsize('idxBest',[1e3 1],[1 0]);
 
 Cbest = zeros(2,2);
 coder.varsize('Cbest',[1e3 1e3],[1 1]);
 
 sumDBest = [1 ; 1];
-coder.varsize('sumDBest',[1e5 1],[1 0]);
+coder.varsize('sumDBest',[1e3 1e3],[1 1]);
 
 % n points in p dimensional space
 [n, p] = size(X);

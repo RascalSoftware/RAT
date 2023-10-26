@@ -79,7 +79,7 @@ if ~strcmpi(controls.display,'off')
 end
 
 tic
-[outProblemStruct,problem,result,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors);
+[outProblemStruct,problem,result,bayesResults] = RATMain_mex(problemDef,problemDefCells,problemDefLimits,controls,priors);
 sendTextOutput(sprintf('\n'));
 
 if ~strcmpi(controls.display,'off')

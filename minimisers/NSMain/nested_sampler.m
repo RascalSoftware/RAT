@@ -156,8 +156,14 @@ while tol > tolerance || j <= Nlive
     [logLmin, idx] = min(logL);
     
     % set the sample to the minimum value
-    nest_samples(j,:) = [livepoints(idx, :) logLmin];
-
+    % (Need to do some work brcause we are growing nest_samples in a loop)
+    if j == 1
+        nest_samples(j,:) = [livepoints(idx, :) logLmin];
+    else
+        toAdd = [livepoints(idx, :) logLmin];
+        nest_samples = [nest_samples ; toAdd];
+    end
+    
     % get the log weight (Wt = L*w)
     logWt = logLmin + logw;
     

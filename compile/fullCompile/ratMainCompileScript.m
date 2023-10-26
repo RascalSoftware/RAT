@@ -15,6 +15,7 @@ cfg.GenerateReport = true;
 cfg.EnableJIT = false;
 cfg.EnableOpenMP = true;
 cfg.TargetLang = 'C++';
+vfg.EnableVariableSizing = true;
 % cfg.TargetLangStandard = 'C++11 (ISO)';
 
 %% Define the input argument types..

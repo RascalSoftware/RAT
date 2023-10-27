@@ -1,6 +1,6 @@
-function scaled = scale_parameters(prior, params)
+function scaled = scaleParameters(prior, params)
 
-% scaled = scale_parameters(prior, params)
+% scaled = scaleParameters(prior, params)
 %
 % This function will scale parameters based on their priors. If a prior is
 % uniform over a range then the parameter will be scaled, such that the

@@ -1,5 +1,4 @@
-function [means,Nmeans,membership] = simple_kmeans(X,K,maxerr)
-% function [medias,Nmedias] = simple_kmedias(X,K,maxerr)
+function [means,Nmeans,membership] = kmeans(X,K,maxerr)
 %   Finds K prototypes representing the samples in data matrix X,
 %   where each row of X represents a sample. 
 %   Iterates until maximum norm difference between
@@ -16,7 +15,7 @@ function [means,Nmeans,membership] = simple_kmeans(X,K,maxerr)
 % Example:
 %   X = [randn(100,1) ;  2+randn(100,1)];
 %   K = 2;
-%   [means Nmeans] = simple_kmeans(X,K,0)
+%   [means Nmeans] = kmeans(X,K,0)
 %
 %   Mauricio Martinez-Garcia, 2003, 2007, 2016
 

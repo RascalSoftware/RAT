@@ -1,6 +1,6 @@
-function [Bs, mus, VEs, ns] = optimal_ellipsoids(u, VS)
+function [Bs, mus, VEs, ns] = optimalEllipsoids(u, VS)
 
-% function [Bs, mus, VEs, ns] = optimal_ellipsoids(u, VS)
+% function [Bs, mus, VEs, ns] = optimalEllipsoids(u, VS)
 %
 % This function attempts to optimally partition the multi-dimensional
 % samples u (uniformly distributed within the sample volume VS), into
@@ -31,10 +31,10 @@ coder.varsize('ns',[1e4 1e4],[1 1]);
 
 % calculate bounding matrix, etc. for bounding ellipsoid associated
 % with the original set of points u
-[B, mu, VE, flag] = calc_ellipsoid(u, VS);
+[B, mu, VE, flag] = calcEllipsoid(u, VS);
 
 % attempt to split u into two subclusters
-[u1, u2, VE1, VE2, nosplit] = split_ellipsoid(u, VS);
+[u1, u2, VE1, VE2, nosplit] = splitEllipsoid(u, VS);
 n1 = size(u1,1);
 n2 = size(u2,1);
 
@@ -57,8 +57,8 @@ else
         VS1 = n1 * VS / N;
         VS2 = n2 * VS / N;
 
-        [B1, mu1, VE1, n1] = optimal_ellipsoids(u1, VS1);
-        [B2, mu2, VE2, n2] = optimal_ellipsoids(u2, VS2);
+        [B1, mu1, VE1, n1] = optimalEllipsoids(u1, VS1);
+        [B2, mu2, VE2, n2] = optimalEllipsoids(u2, VS2);
 
         Bs =  [B1 ; B2];
         mus = [mu1 ; mu2];

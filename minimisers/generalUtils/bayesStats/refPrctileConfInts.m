@@ -38,14 +38,14 @@ coder.varsize('vals',[1e4 1e4],[1 1]);
 rowVals = zeros(1,3);
 coder.varsize('rowVals',[1 1e4],[0 1]);
 
-ref_xVals = makeCell(numberOfContrasts,rowVals); %cell(numberOfContrasts,1);
-ref_yVals = makeCell(numberOfContrasts,vals); %cell(numberOfContrasts,1);
+ref_xVals = makeCell(numberOfContrasts, 1, rowVals); %cell(numberOfContrasts,1);
+ref_yVals = makeCell(numberOfContrasts, 1, vals); %cell(numberOfContrasts,1);
 
-sld_xVals = makeCell(numberOfContrasts,rowVals);
+sld_xVals = makeCell(numberOfContrasts, 1, rowVals);
 if ~domains
-    sld_yVals = makeCell(numberOfContrasts,vals);
+    sld_yVals = makeCell(numberOfContrasts, 1, vals);
 else
-    sld_yVals = makeCell2D(numberOfContrasts,vals);
+    sld_yVals = makeCell(numberOfContrasts, 2, vals);
 end
 
 % We need to have the yvals interpolated onto the same xvals when we
@@ -171,19 +171,4 @@ allPredInts.refXdata = ref_xVals;
 allPredInts.sldXdata = sld_xVals;
 allPredInts.sampleChi = sampleChi;
 
-end
-
-function x = makeCell(n,vals)
-    x = cell(n,1);   
-    for i = 1:n
-        x{i} = vals;
-    end
-end
-
-function x = makeCell2D(n,vals)
-    x = cell(n,2);   
-    for i = 1:n
-        x{i,1} = vals;
-        x{i,2} = vals;
-    end
 end

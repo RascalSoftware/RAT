@@ -1,4 +1,4 @@
-function [B, mu, VE, flag] = calc_ellipsoid(u, VS)
+function [B, mu, VE, flag] = calcEllipsoid(u, VS)
 %
 % calculate properties of ellipsoid given a set of points u
 %
@@ -81,7 +81,7 @@ end
 % Error in eml_mtimes_helper (line 69)
 %     dynamic_size_checks(a, b, innerDimA, innerDimB);
 % 
-% Error in calc_ellipsoid (line 73)
+% Error in calcEllipsoid (line 73)
 % B = fV * fB * C;
 
 % B = fV * fB * C;

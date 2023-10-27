@@ -1,7 +1,7 @@
-function [logZ, nest_samples, post_samples,H] = nested_sampler(data, ...
+function [logZ, nest_samples, post_samples,H] = nestedSampler(data, ...
           Nlive, Nmcmc, tolerance, flike, model, prior, parnames)
 
-% function [logZ, nest_samples, post_samples] = nested_sampler(data, ...
+% function [logZ, nest_samples, post_samples] = nestedSampler(data, ...
 %           Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)
 %
 % This function performs nested sampling of the likelihood function from
@@ -101,7 +101,7 @@ end
 logL = zeros(Nlive,1);
 extraparvals = [];
 for i=1:Nlive
-    %parvals = loopcell(livepoints(i,:));
+    %parvals = loopCell(livepoints(i,:));
     parvals = livepoints(i,:);
     logL(i) = flike(data,parvals);
 end
@@ -109,7 +109,7 @@ end
 % now scale the parameters, so that uniform parameters range from 0->1, 
 % and Gaussian parameters have a mean of zero and unit standard deviation
 for i=1:Nlive
-    livepoints(i,:) = scale_parameters(prior, livepoints(i,:));
+    livepoints(i,:) = scaleParameters(prior, livepoints(i,:));
 end
 
 % initial tolerance
@@ -177,7 +177,7 @@ while tol > tolerance || j <= Nlive
     end
     
     % update evidence, information, and width
-    logZ = logplus(logZ, logWt);
+    logZ = logPlus(logZ, logWt);
     H = exp(logWt - logZ)*logLmin + ...
         exp(logZold - logZ)*(Hold + logZold) - logZ;
     %logw = logw - logt(Nlive);
@@ -209,7 +209,7 @@ while tol > tolerance || j <= Nlive
         end
     
         % draw a new sample using mcmc algorithm
-        [livepoints(idx, :), logL(idx)] = draw_mcmc(livepoints, cholmat, ...
+        [livepoints(idx, :), logL(idx)] = drawMCMC(livepoints, cholmat, ...
               logLmin, prior, data, flike, model, Nmcmc, parnames, extraparvals);
 
     else 
@@ -221,7 +221,7 @@ while tol > tolerance || j <= Nlive
         if FS >= h
             % NOTE: THIS CODE IS GUARANTEED TO RUN THE 1ST TIME THROUGH
             % calculate optimal ellipsoids        
-            [Bs, mus, VEs, ns] = optimal_ellipsoids(livepoints, VS);
+            [Bs, mus, VEs, ns] = optimalEllipsoids(livepoints, VS);
             K = length(VEs); % number of ellipsoids (subclusters)
 
         else
@@ -245,7 +245,7 @@ while tol > tolerance || j <= Nlive
         fracvol = cumsum(VEs)/Vtot;
         
         % draw a new sample using multinest algorithm
-        [livepoints(idx, :), logL(idx)] = draw_multinest(fracvol, ...
+        [livepoints(idx, :), logL(idx)] = drawMultiNest(fracvol, ...
               Bs, mus, logLmin, prior, data, flike, model, ...
               parnames, extraparvals);
 
@@ -258,7 +258,7 @@ while tol > tolerance || j <= Nlive
     end
     
     % work out tolerance for stopping criterion
-    tol = logplus(logZ, logLmax - (j/Nlive)) - logZ;
+    tol = logPlus(logZ, logLmax - (j/Nlive)) - logZ;
     
     % display progress (optional)
     if verbose
@@ -277,7 +277,7 @@ end
 livepoints_sorted = livepoints(isort, :);
 
 for i=1:Nlive
-    logZ = logplus(logZ, logL_sorted(i) + logw);
+    logZ = logPlus(logZ, logL_sorted(i) + logw);
 end
 
 % append the additional livepoints to the nested samples 
@@ -286,7 +286,7 @@ nest_samples = [nest_samples; livepoints_sorted logL_sorted];
 % rescale the samples back to their true ranges
 for i=1:length(nest_samples)
     nest_samples(i,1:end-1) = ...
-     rescale_parameters(prior, nest_samples(i,1:end-1));
+     rescaleParameters(prior, nest_samples(i,1:end-1));
 end
 
 % convert nested samples into posterior samples - nest2pos assumes that the

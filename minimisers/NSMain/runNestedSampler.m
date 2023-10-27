@@ -29,14 +29,14 @@ bayesResults = makeEmptyBayesResultsStruct(nPars, numberOfContrasts, domains, nu
 priorList = getFittedPriors(fitNames,inPriors,problemDef.fitconstr);
 
 %Tuning Parameters
-model.ssfun = @NSIntraFun;
+model.ssfun = @nsIntraFun;
 Nlive = controls.Nlive;
 tolerance = controls.nsTolerance;
-likelihood = @NSIntraFun;
+likelihood = @nsIntraFun;
 Nmcmc = controls.nmcmc;
 data = {problemDef ; controls ; problemDefLimits ; problemDefCells};
 
-[logZ, nest_samples, post_samples, H] = nested_sampler(data, Nlive, Nmcmc, ...
+[logZ, nest_samples, post_samples, H] = nestedSampler(data, Nlive, Nmcmc, ...
     tolerance, likelihood, model, priorList, fitNames);
 
 % Process the results...

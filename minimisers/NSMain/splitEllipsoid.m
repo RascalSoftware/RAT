@@ -1,4 +1,4 @@
-function [u1, u2, VE1, VE2, nosplit] = split_ellipsoid(u, VS)
+function [u1, u2, VE1, VE2, nosplit] = splitEllipsoid(u, VS)
 
 % function [u1, u2, VE1, VE2, nosplit] = split_ellipsiod(u, VS)
 %
@@ -36,7 +36,7 @@ if N < 2*(D+1)
 end
 
 % use kmeans to separate the data points into two sub-clusters
-[idx,mu] = simple_kmeans(u,2,0);
+[idx,mu] = kmeans(u,2,0);
 u1 = u(idx==1,:);
 u2 = u(idx==2,:);
 
@@ -51,8 +51,8 @@ if n1 < D+1 || n2 < D+1
 end
 
 % preallocate temp arrays
-temp_u1 = makeCell(max_attempt,1);
-temp_u2 = makeCell(max_attempt,1);
+temp_u1 = makeCell(max_attempt, 1, 1);
+temp_u2 = makeCell(max_attempt, 1, 1);
 temp_VE1 = zeros(max_attempt,1);
 temp_VE2 = zeros(max_attempt,1);
 FS = zeros(max_attempt,1);
@@ -67,8 +67,8 @@ while 1
     VS2 = VS*n2/N;
 
     % calculate properties of bounding ellipsoids for the two subclusters
-    [B1, mu1, VE1, flag1] = calc_ellipsoid(u1, VS1);
-    [B2, mu2, VE2, flag2] = calc_ellipsoid(u2, VS2);
+    [B1, mu1, VE1, flag1] = calcEllipsoid(u1, VS1);
+    [B2, mu2, VE2, flag2] = calcEllipsoid(u2, VS2);
     
     % check flags
     if flag1 || flag2
@@ -175,11 +175,3 @@ VE2 = temp_VE2(idx);
 if DEBUG; fprintf('SPLIT ELLIPSOID: min F(S) = %f\n', minFS); end;
 
 end
-
-function x = makeCell(n,vals)
-    x = cell(n,1);   
-    for i = 1:n
-        x{i} = vals;
-    end
-end
-

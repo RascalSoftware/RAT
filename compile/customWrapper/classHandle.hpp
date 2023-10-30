@@ -33,9 +33,9 @@ class CallbackInterface
 {
 public:
     virtual void invoke(double* params,double *bulk_in,double *bulk_out, int contrast,  
-                                                        double *tempOutput,double *roughness,double *nLayers)=0;
+                                                        double *tempOutput,double *outputSize,double *roughness)=0;
     virtual void invoke(double* params,double *bulk_in,double *bulk_out, int contrast, int domainNumber, 
-                                                        double *tempOutput,double *roughness,double *nLayers)=0;
+                                                        double *tempOutput,double *outputSize,double *roughness)=0;
 };
 
 

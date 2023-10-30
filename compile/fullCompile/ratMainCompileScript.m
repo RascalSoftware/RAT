@@ -4,6 +4,11 @@
 % 
 % See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.
 
+%% Deal with globals
+global verbose DEBUG
+DEBUG = 0;
+verbose = 1;
+
 %% Create configuration object of class 'coder.MexCodeConfig'.
 cfg = coder.config('mex');
 cfg.GenerateReport = true;
@@ -12,10 +17,10 @@ cfg.EnableOpenMP = true;
 cfg.TargetLang = 'C++';
 % cfg.TargetLangStandard = 'C++11 (ISO)';
 
-
-% Define the input argument types..
+%% Define the input argument types..
 ARGS = makeCompileArgsFull();
 
+%% Run the compile
 includeDirs = getappdata(0,'includeDirs');
 includes = cell(length(includeDirs)*2, 1);
 includes(1:2:end) = {'-I'};

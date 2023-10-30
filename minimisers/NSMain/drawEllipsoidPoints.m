@@ -1,6 +1,6 @@
-function pnts = draw_from_ellipsoid(B, mu, N )
+function pnts = drawEllipsoidPoints(B, mu, N )
 
-% function pnts = draw_from_ellipsoid(B, mu, N )
+% function pnts = drawEllipsoidPoints(B, mu, N )
 %
 % This function draws points uniformly from an ndims-dimensional ellipsoid
 % with edges and orientation defined by the the bounding matrix B and
@@ -41,7 +41,8 @@ for i=1:N
     pnts(i,:) = fac(i)*pt(i,:);
 
     % scale and rotate to ellipsoid
-    pnts(i,:) = (pnts(i,:) .* D' * V') + mu;
+    % ('real' needed for compile....)
+    pnts(i,:) = real((pnts(i,:) .* D' * V') + mu);
 end
 
 return

@@ -1,6 +1,6 @@
-function N = in_ellipsoids(pnt, Bs, mus)
+function N = inEllipsoids(pnt, Bs, mus)
 
-% function N = in_ellipsoids(pnt, Bs, mus)
+% function N = inEllipsoids(pnt, Bs, mus)
 %
 % This function works out how many of the ellipsoids (defined by the 
 % bounding matrices Bs and centroids mus) contain the point pnt.  

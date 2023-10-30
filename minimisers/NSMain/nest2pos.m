@@ -25,11 +25,14 @@ logWt = logWt - logWtmax; % Wt -> Wt/Wtmax
 % value is > than a random number drawn from a unif distribution 
 logrand = log(rand(N,1));
 idx = find(logWt>logrand);
-post_samples = nest_samples(idx,:);
+dummy_post_samples = nest_samples(idx,:);
+nTerms = size(dummy_post_samples,1);
 
 % attach log of posterior probabilities as final column of 
 % the posterior samples
-post_samples(:,Ncol+1) = logWt(idx); 
+%post_samples(:,Ncol+1) = logWt(idx); 
+post_samples = zeros(nTerms,Ncol+1);
+post_samples = [dummy_post_samples logWt(idx)];
 
 return
 

@@ -1,6 +1,6 @@
-function logz  = logplus(logx, logy)
+function logz  = logPlus(logx, logy)
 %
-% logz = logplus(logx, logy)
+% logz = logPlus(logx, logy)
 %
 % Given logx and logy, this function returns logz=log(x+y).
 % It avoids problems of dynamic range when the

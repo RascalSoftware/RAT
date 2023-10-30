@@ -1,6 +1,6 @@
-function [Bs, mus, VEs, ns] = optimal_ellipsoids(u, VS)
+function [Bs, mus, VEs, ns] = optimalEllipsoids(u, VS)
 
-% function [Bs, mus, VEs, ns] = optimal_ellipsoids(u, VS)
+% function [Bs, mus, VEs, ns] = optimalEllipsoids(u, VS)
 %
 % This function attempts to optimally partition the multi-dimensional
 % samples u (uniformly distributed within the sample volume VS), into
@@ -23,12 +23,18 @@ N = size(u,1); % number of samples in multi-dimensional space
 ndims = size(u,2); % number of dimensions
 K = 1;
 
+mus = [1 1];
+coder.varsize('mus',[1e4 1e4],[1 1]);
+
+ns = [1 ; 1];
+coder.varsize('ns',[1e4 1e4],[1 1]);
+
 % calculate bounding matrix, etc. for bounding ellipsoid associated
 % with the original set of points u
-[B, mu, VE, flag] = calc_ellipsoid(u, VS);
+[B, mu, VE, flag] = calcEllipsoid(u, VS);
 
 % attempt to split u into two subclusters
-[u1, u2, VE1, VE2, nosplit] = split_ellipsoid(u, VS);
+[u1, u2, VE1, VE2, nosplit] = splitEllipsoid(u, VS);
 n1 = size(u1,1);
 n2 = size(u2,1);
 
@@ -40,16 +46,19 @@ if nosplit || n1<ndims+1 || n2<ndims+1
     ns = N;
 else
     % check if we should keep the partitioning of S
-    if (VE1 + VE2 < VE || VE > 2*VS) 
+    %if (all(VE1 + VE2 < VE) || all(VE > 2*VS)) 
+    test1 = all(VE1 + VE2 < VE); 
+    test2 = all(VE > 2*VS);
+    if  all(test1) || all(test2) 
         if DEBUG
-            fprintf('PARTITION ACCEPTED: N=%d splits to n1=%d, n2=%d\n', N, n1, n2);
+            fprintf('PARTITION ACCEPTED: N=%d splits to n1=%d, n2=%d\n', int32(N), int32(n1), int32(n2));
         end
         K = K + 1;
         VS1 = n1 * VS / N;
         VS2 = n2 * VS / N;
 
-        [B1, mu1, VE1, n1] = optimal_ellipsoids(u1, VS1);
-        [B2, mu2, VE2, n2] = optimal_ellipsoids(u2, VS2);
+        [B1, mu1, VE1, n1] = optimalEllipsoids(u1, VS1);
+        [B2, mu2, VE2, n2] = optimalEllipsoids(u2, VS2);
 
         Bs =  [B1 ; B2];
         mus = [mu1 ; mu2];
@@ -57,7 +66,7 @@ else
         ns =  [n1 ; n2];
     else
         if DEBUG
-            fprintf('PARTITION REJECTED: N=%d doesnt split into n1=%d and n2=%d\n', N, n1, n2);
+            fprintf('PARTITION REJECTED: N=%d doesnt split into n1=%d and n2=%d\n', int32(N), int32(n1), int32(n2));
         end
         Bs = B;
         mus = mu;

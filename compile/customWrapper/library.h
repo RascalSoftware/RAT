@@ -50,7 +50,7 @@ class Library: public CallbackInterface
         };
 
         // Domain overload
-        void invoke(double* params,double *bulk_in,double *bulk_out, int contrast, int domainNumber, double *tempOutput,double *roughness,double *nLayers)
+        void invoke(double* params,double *bulk_in,double *bulk_out, int contrast, int domainNumber, double *tempOutput, double *outputSize, double *roughness)
         {   
             if (!library)
             {
@@ -61,7 +61,7 @@ class Library: public CallbackInterface
             try{
                 auto func = library->get_function<void(double*, double*, double*, int, int, double*, double*, double*)>(functionName);
                 // pass the arguments to the function
-                func(params, bulk_in, bulk_out, contrast, domainNumber, tempOutput, roughness, nLayers);           
+                func(params, bulk_in, bulk_out, contrast, domainNumber, tempOutput, outputSize, roughness);           
             }catch (const dylib::symbol_error &) {
                 std::cerr << "failed to get dynamic libray symbol for " << functionName << std::endl;
             }
@@ -69,7 +69,7 @@ class Library: public CallbackInterface
         };
         
         // Non-Domain overload
-        void invoke(double* params,double *bulk_in,double *bulk_out, int contrast, double *tempOutput,double *roughness,double *nLayers)
+        void invoke(double* params,double *bulk_in,double *bulk_out, int contrast, double *tempOutput, double *outputSize, double *roughness)
         {   
             if (!library)
             {
@@ -80,7 +80,7 @@ class Library: public CallbackInterface
             try{
                 auto func = library->get_function<void(double*, double*, double*, int, double*, double*, double*)>(functionName);
                 // pass the arguments to the function
-                func(params, bulk_in, bulk_out, contrast, tempOutput, roughness, nLayers);           
+                func(params, bulk_in, bulk_out, contrast, tempOutput, outputSize, roughness);           
             }catch (const dylib::symbol_error &) {
                 std::cerr << "failed to get dynamic libray symbol for " << functionName << std::endl;
             }

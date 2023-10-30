@@ -1,4 +1,4 @@
-//customBilayer_libExp.cpp
+//customBilayer.cpp
 
 #include <iostream>
 #include <iterator>
@@ -12,7 +12,7 @@
 // We user extern "C" decorator to avoid name mangling....
 extern "C" {
 
-    LIB_EXPORT void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* rough, double* nLayers)
+    LIB_EXPORT void customBilayer(double* params, double* bulkIn, double* bulkOut, int contrast, double* output, double* outputSize, double* rough)
 
     {
         double subRough = params[0];
@@ -75,11 +75,6 @@ extern "C" {
         double tailSLD = (bilayerHydration * *bulkOut) + ((1 - bilayerHydration) * SLDtail);
 
         // Make the layers
-        //output = new double[18];
-
-        
-        // static auto array = new double[18];
-
         // oxide...
         output[0] = oxideThick;
         output[1] = oxSLD;
@@ -111,19 +106,13 @@ extern "C" {
         output[17] = bilayerRough;
 
         *rough = subRough;
-        *nLayers = 6;       // Necessary to ouptut how many layers in stack
-
+        
+        outputSize[0] = 6;     // row - Necessary to ouptut how many layers in stack
+        outputSize[1] = 3;     // col - Should be different depending on calculation 
 
         //std::cout << "roughness in func : " << subRough << "\n";
         //std::cout << "Head SLD in func : " << headSLD << "\n";
         //std::cout << "Array[1] in func : " << output[1] << "\n";
-
-        //output = array;
-
-        //outRough = subRough;
-        //std::cout << "Value of outRough in customBilayer : " << outRough << "\n";
-
-        //outArray = output;
     }
 
 } // extern "C"

@@ -42,7 +42,7 @@ classdef customModelClass < handle
                 if isnan(str2double(functionHandle))
                     [thisContrastLayers,allRoughs(i)] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,0);
                 else
-                    [thisContrastLayers, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, -1, functionHandle, 3);
+                    [thisContrastLayers, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, -1, functionHandle);
                 end
 
                 % If the output layers has 5 columns, then we need to do
@@ -90,7 +90,7 @@ classdef customModelClass < handle
                 if isnan(str2double(functionHandle))
                     [tempAllSLDs{i}, allRoughs(i)] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,0);
                 else
-                    [tempAllSLDs{i}, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, -1, functionHandle, 2);
+                    [tempAllSLDs{i}, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, -1, functionHandle);
                 end
             end
 
@@ -138,8 +138,8 @@ classdef customModelClass < handle
                     [thisContrastLayers1, allRoughs(i)] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,1);
                     [thisContrastLayers2, ~] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,2);
                 else
-                    [thisContrastLayers1, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, 0, functionHandle, 3);
-                    [thisContrastLayers2, ~] = callCppFunc(params, bulkIn, bulkOut, i, 1, functionHandle, 3);
+                    [thisContrastLayers1, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, 0, functionHandle);
+                    [thisContrastLayers2, ~] = callCppFunc(params, bulkIn, bulkOut, i, 1, functionHandle);
                 end
 
                 % If the output layers has 5 columns, then we need to do
@@ -192,8 +192,8 @@ classdef customModelClass < handle
                     [tempAllSLDs{i, 1}, allRoughs(i)] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,1);
                     [tempAllSLDs{i, 2}, ~] = callMatlabCustomFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,2);
                 else
-                    [tempAllSLDs{i, 1}, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, 0, functionHandle, 2);
-                    [tempAllSLDs{i, 2}, ~] = callCppFunc(params, bulkIn, bulkOut, i, 1, functionHandle, 2);
+                    [tempAllSLDs{i, 1}, allRoughs(i)] = callCppFunc(params, bulkIn, bulkOut, i, 0, functionHandle);
+                    [tempAllSLDs{i, 2}, ~] = callCppFunc(params, bulkIn, bulkOut, i, 1, functionHandle);
                 end
             end
 

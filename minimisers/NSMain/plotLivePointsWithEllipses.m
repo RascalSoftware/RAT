@@ -1,4 +1,4 @@
-function plot_2d_livepoints_with_ellipses(livepoints, Bs, mus)
+function plotLivePointsWithEllipses(livepoints, Bs, mus)
 %
 % plot 2-d livepoints in unit square and bounding ellipses
 %

@@ -1,7 +1,7 @@
-function [logZ, nest_samples, post_samples,H] = nested_sampler(data, ...
-          Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)
+function [logZ, nest_samples, post_samples,H] = nestedSampler(data, ...
+          Nlive, Nmcmc, tolerance, flike, model, prior, parnames)
 
-% function [logZ, nest_samples, post_samples] = nested_sampler(data, ...
+% function [logZ, nest_samples, post_samples] = nestedSampler(data, ...
 %           Nlive, Nmcmc, tolerance, likelihood, model, prior, extraparams)
 %
 % This function performs nested sampling of the likelihood function from
@@ -23,6 +23,7 @@ function [logZ, nest_samples, post_samples,H] = nested_sampler(data, ...
 % The model should be the function handle of the model function to be
 % passed to the likelihood function.
 %
+% ------------------- STRUCTURE OF PRIOR CHANGED FOR RAT ----------------
 % The prior should be a cell array with each cell containing five values:
 %   parameter name (string)
 %   prior type (string) e.g. 'uniform', 'gaussian' of 'jeffreys'
@@ -37,6 +38,8 @@ function [logZ, nest_samples, post_samples,H] = nested_sampler(data, ...
 %                  'r', 'gaussian', 0, 5, '';
 %                  'phi', 'uniform', 0, 2*pi, 'cyclic'};
 %
+% -----------------------------------------------------------------------
+%
 % extraparams is a cell array of fixed extra parameters (in addition
 % to those specified by prior) used by the model 
 % e.g.  extraparams = {'phi', 2;
@@ -46,64 +49,67 @@ function [logZ, nest_samples, post_samples,H] = nested_sampler(data, ...
 global verbose;
 global DEBUG;
 
+extraparvals = [];
+
+
 verbose = 1;
 DEBUG = 0;
 
 % get the number of parameters from the prior array
 D = size(prior,1);
 
-% get all parameter names
-parnames = prior(:,1);
+ns = 1;
+% coder.varsize('ns');
 
-% if ~isempty(extraparams)
-%     extraparnames = extraparams{1};
-%     extraparvals = extraparams{2};
-%     parnames = [];%cat(1, parnames, extraparnames);
-% else
-%     extraparvals = [];
-% end
+mus = 1;
+% coder.varsize('mus');
+
+cholmat = 1;
+coder.varsize('cholmat');
+
+% get the number of parameters from the prior array
+D = size(prior,1);
+
+% initialize array of samples for posterior
+nest_samples = zeros(1,D+1);
+coder.varsize('nest_samples',[1e5 50],[1 1]);
     
 % draw the set of initial live points from the prior
 livepoints = zeros(Nlive, D);
 
 for i=1:D
-    priortype = char(prior(i,2));
-    p3 = prior{i,3};
-    p4 = prior{i,4};
-    
-    % currently only handles uniform or Gaussian priors
-    if strcmp(priortype, 'uniform')
-        livepoints(:,i) = p3 + (p4-p3)*rand(Nlive,1);
-    elseif strcmp(priortype, 'gaussian')
-        livepoints(:,i) = p3 + p4*randn(Nlive,1);
-    elseif strcmp(priortype, 'jeffreys')
-        % uniform in log space
-        livepoints(:,i) = 10.^(log10(p3) + (log10(p4)-log10(p3))*rand(Nlive,1));
-    end
-end
+    priortype = prior(i,1);
 
-% check whether likelihood is a function handle, or a string that is a 
-% function name
-if ischar(likelihood)
-    flike = str2func(likelihood);
-elseif isa(likelihood, 'function_handle')
-    flike = likelihood;
-else
-    error('Error... Expecting a model function!');
+    if priortype == 1      %uniform
+        p3 = prior(i,4);
+        p4 = prior(i,5);
+        livepoints(:,i) = p3 + (p4-p3)*rand(Nlive,1);
+    elseif priortype == 2  %gaussian
+        p3 = prior(i,2);
+        p4 = prior(i,3);
+        livepoints(:,i) = p3 + p4*randn(Nlive,1);
+    elseif priortype == 3   %jeffreys
+        p3 = prior(i,2);
+        p4 = prior(i,3);
+        livepoints(:,i) = 10.^(log10(p3) + (log10(p4)-log10(p3))*rand(Nlive,1));
+    else
+        error('Unrecognised prior for param %d', int32(i));
+    end
 end
 
 % calculate the log likelihood of all the live points
 logL = zeros(Nlive,1);
 extraparvals = [];
 for i=1:Nlive
-    parvals = cat(1, loopcell(livepoints(i,:))', extraparvals);
-    logL(i) = flike(data, model, parnames, parvals);
+    %parvals = loopCell(livepoints(i,:));
+    parvals = livepoints(i,:);
+    logL(i) = flike(data,parvals);
 end
 
 % now scale the parameters, so that uniform parameters range from 0->1, 
 % and Gaussian parameters have a mean of zero and unit standard deviation
 for i=1:Nlive
-    livepoints(i,:) = scale_parameters(prior, livepoints(i,:));
+    livepoints(i,:) = scaleParameters(prior, livepoints(i,:));
 end
 
 % initial tolerance
@@ -118,9 +124,6 @@ logZ = -inf;
 % initial information
 H = 0; 
 
-% initialize array of samples for posterior
-nest_samples = zeros(1,D+1);
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % some initial values if MCMC nested sampling is used
 % value to scale down the covariance matrix - CAN CHANGE THIS IF REQUIRED
@@ -130,6 +133,7 @@ propscale = 0.1;
 % some initial values if MultiNest sampling is used
 h = 1.1; % h values from bottom of p. 1605 of Feroz and Hobson
 FS = h; % start FS at h, so ellipsoidal partitioning is done first time
+coder.varsize('FS');
 K = 1; % start with one cluster of live points
 
 % get maximum likelihood
@@ -141,7 +145,6 @@ VEs = zeros(D,1);
 % initialize iteration counter
 j = 1;
 
-%figure;
 
 % MAIN LOOP
 while tol > tolerance || j <= Nlive
@@ -153,8 +156,14 @@ while tol > tolerance || j <= Nlive
     [logLmin, idx] = min(logL);
     
     % set the sample to the minimum value
-    nest_samples(j,:) = [livepoints(idx, :) logLmin];
-
+    % (Need to do some work brcause we are growing nest_samples in a loop)
+    if j == 1
+        nest_samples(j,:) = [livepoints(idx, :) logLmin];
+    else
+        toAdd = [livepoints(idx, :) logLmin];
+        nest_samples = [nest_samples ; toAdd];
+    end
+    
     % get the log weight (Wt = L*w)
     logWt = logLmin + logw;
     
@@ -168,7 +177,7 @@ while tol > tolerance || j <= Nlive
     end
     
     % update evidence, information, and width
-    logZ = logplus(logZ, logWt);
+    logZ = logPlus(logZ, logWt);
     H = exp(logWt - logZ)*logLmin + ...
         exp(logZold - logZ)*(Hold + logZold) - logZ;
     %logw = logw - logt(Nlive);
@@ -200,7 +209,7 @@ while tol > tolerance || j <= Nlive
         end
     
         % draw a new sample using mcmc algorithm
-        [livepoints(idx, :), logL(idx)] = draw_mcmc(livepoints, cholmat, ...
+        [livepoints(idx, :), logL(idx)] = drawMCMC(livepoints, cholmat, ...
               logLmin, prior, data, flike, model, Nmcmc, parnames, extraparvals);
 
     else 
@@ -212,7 +221,7 @@ while tol > tolerance || j <= Nlive
         if FS >= h
             % NOTE: THIS CODE IS GUARANTEED TO RUN THE 1ST TIME THROUGH
             % calculate optimal ellipsoids        
-            [Bs, mus, VEs, ns] = optimal_ellipsoids(livepoints, VS);
+            [Bs, mus, VEs, ns] = optimalEllipsoids(livepoints, VS);
             K = length(VEs); % number of ellipsoids (subclusters)
 
         else
@@ -229,10 +238,6 @@ while tol > tolerance || j <= Nlive
 
         end
 
-        if DEBUG && D==2
-           % plot 2-dimensionsal live points and bounding ellipses
-           plot_2d_livepoints_with_ellipses(livepoints, Bs, mus);
-        end
 
         % calculate ratio of volumes (FS>=1) and cumulative fractional volume
         Vtot = sum(VEs);
@@ -240,7 +245,7 @@ while tol > tolerance || j <= Nlive
         fracvol = cumsum(VEs)/Vtot;
         
         % draw a new sample using multinest algorithm
-        [livepoints(idx, :), logL(idx)] = draw_multinest(fracvol, ...
+        [livepoints(idx, :), logL(idx)] = drawMultiNest(fracvol, ...
               Bs, mus, logLmin, prior, data, flike, model, ...
               parnames, extraparvals);
 
@@ -253,24 +258,17 @@ while tol > tolerance || j <= Nlive
     end
     
     % work out tolerance for stopping criterion
-    tol = logplus(logZ, logLmax - (j/Nlive)) - logZ;
+    tol = logPlus(logZ, logLmax - (j/Nlive)) - logZ;
     
     % display progress (optional)
-    %.....MODIFIED FOR RAT......AVH
-%
-if verbose
-      out = sprintf('log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %d', ...
-                 logZ, tol, K, j, H);
+    if verbose
+      out = sprintf('log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e', ...
+                 logZ, tol, int32(K), int32(j), H);
       sendTextOutput(out);
-%             drawnow;
-     end
-    
-    
-    %............Modify end......AVH...
-    
+    end
+
     % update counter    
     j = j+1;
-
 end
 
 % sort the remaining points (in order of likelihood) and add them on to 
@@ -279,7 +277,7 @@ end
 livepoints_sorted = livepoints(isort, :);
 
 for i=1:Nlive
-    logZ = logplus(logZ, logL_sorted(i) + logw);
+    logZ = logPlus(logZ, logL_sorted(i) + logw);
 end
 
 % append the additional livepoints to the nested samples 
@@ -288,7 +286,7 @@ nest_samples = [nest_samples; livepoints_sorted logL_sorted];
 % rescale the samples back to their true ranges
 for i=1:length(nest_samples)
     nest_samples(i,1:end-1) = ...
-     rescale_parameters(prior, nest_samples(i,1:end-1));
+     rescaleParameters(prior, nest_samples(i,1:end-1));
 end
 
 % convert nested samples into posterior samples - nest2pos assumes that the

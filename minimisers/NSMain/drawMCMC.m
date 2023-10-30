@@ -1,15 +1,11 @@
-function [sample, logL] = draw_mcmc(livepoints, cholmat, logLmin, ...
+function [sample, logL] = drawMcmc(livepoints, cholmat, logLmin, ...
     prior, data, likelihood, model, Nmcmc, parnames, extraparvals)
-
-% function [sample, logL] = draw_mcmc(livepoints, cholmat, logLmin, ...
-%    prior, data, likelihood, model, Nmcmc, parnames, extraparvals)
-%
 % This function will draw a multi-dimensional sample from the prior volume
 % for use in the nested sampling algorithm. The new point will have a
 % likelihood greater than the value logLmin. The new point will be found by
 % evolving a random multi-dimensional sample from within the sample array,
 % livepoints, using an MCMC with Nmcmc iterations. The MCMC will use a 
-% Students-t (with N=2 degrees of freedon) proposal distribution based on
+% Students-t (with N=2 degrees of freedom) proposal distribution based on
 % the Cholesky decomposed covariance matrix of the array, cholmat. 10% of 
 % the samples will actually be drawn using differential evolution by taking
 % two random points from the current live points. extraparvals is a vector
@@ -19,6 +15,7 @@ function [sample, logL] = draw_mcmc(livepoints, cholmat, logLmin, ...
 
 global verbose;
 
+logL = logLmin;
 mcmcfrac = 0.9; 
 l2p = 0.5*log(2*pi); % useful constant
 
@@ -42,19 +39,25 @@ while 1
     currentPrior = -inf;
     
     for j=1:Npars
-        priortype = char(prior(j,2));
-        p3 = prior{j,3};
-        p4 = prior{j,4};
+        priortype = prior(j,1);
+%         p3 = prior{j,3};
+%         p4 = prior{j,4};
                 
-        if strcmp(priortype, 'uniform')
+        if priortype == 1
+            p3 = prior(j,4);
+            p4 = prior(j,5);
             pv = -log(p4-p3);
-            currentPrior = logplus(currentPrior, pv);
-        elseif strcmp(priortype, 'gaussian')
+            currentPrior = logPlus(currentPrior, pv);
+        elseif priortype == 2
+            p3 = prior(j,2);
+            p4 = prior(j,3);
             pv = -l2p - log(p4) - (sample(j)-p3)^2/(2*p4^2);
-            currentPrior = logplus(currentPrior, pv);
-        elseif strcmp(priortype, 'jeffreys')
+            currentPrior = logPlus(currentPrior, pv);
+        elseif priortype == 3
+            p3 = prior(j,2);
+            p4 = prior(j,3);
             pv = -log(10^(sample(j)*(log10(p4) - log10(p3)) + log10(p3)));
-            currentPrior = logplus(currentPrior, pv);
+            currentPrior = logPlus(currentPrior, pv);
         end
     end
         
@@ -86,15 +89,16 @@ while 1
         
         % check sample is within the (scaled) prior
         newPrior = -inf;
+        behaviour = 'cyclic';
         for j=1:Npars
-            priortype = char(prior(j,2));
-            p3 = prior{j,3};
-            p4 = prior{j,4};
+            priortype = prior(j,1);
+            % p3 = prior{j,3};
+            % p4 = prior{j,4};
             
-            if strcmp(priortype, 'uniform')
-                behaviour = char(prior(j,5));
-                
+            if priortype ==1 % uniform
                 dp = 1;
+                p3 = prior(j,4);
+                p4 = prior(j,5);
                 
                 if sampletmp(j) < 0 || sampletmp(j) > 1
                     if strcmp(behaviour, 'reflect')
@@ -117,13 +121,15 @@ while 1
                 end
                 
                 pv = -log(p4-p3);
-                newPrior = logplus(newPrior, pv);
+                newPrior = logPlus(newPrior, pv);
                 
-            elseif strcmp(priortype, 'gaussian')
+            elseif priortype == 2       % gaussian
                 pv = -l2p - sampletmp(j)^2/2;
-                newPrior = logplus(newPrior, pv);
-            elseif strcmp(priortype, 'jeffreys')
-                behaviour = char(prior(j,5));
+                newPrior = logPlus(newPrior, pv);
+            elseif priortype == 3 % 'jeffreys'
+                p3 = prior(j,2);
+                p4 = prior(j,3);
+                % behaviour = char(prior(j,5));
                 
                 dp = 1;
                 
@@ -138,7 +144,7 @@ while 1
                 end
                 
                 pv = -log(10^(sampletmp(j)*(log10(p4) - log10(p3)) + log10(p3)));
-                newPrior = logplus(newPrior, pv);
+                newPrior = logPlus(newPrior, pv);
             end
         end
         
@@ -147,12 +153,13 @@ while 1
         end
         
         % rescale sample back to its proper range for likelihood
-        sc = rescale_parameters(prior, sampletmp);
+        sc = rescaleParameters(prior, sampletmp);
         
         % get the likelihood of the new sample
         %likestart = tic;
-        logLnew = likelihood(data, model, parnames, ...
-                        cat(1, loopcell(sc), extraparvals));
+        % logLnew = likelihood(data, model, parnames, ...
+        %               loopCell(sc));
+        logLnew = likelihood(data,sc);
         %likedur = toc(likestart);
         %fprintf(1, 'liketime = %.6f\n', likedur);
         

@@ -1,15 +1,12 @@
-function sendTextOutput(text)
+function sendTextOutput(outText)
 
-persistent ratOut
+% This is an overloaded version of 'sendTextOutput' for the compile.
+% The 'real' one is the output class. We will think of a better solution
+% later on.
+% if isnumeric(outText)
+%     outText = sprintf('%g',outText);
+% end
 
-if isempty(ratOut)
-    ratOut = getappdata(0,'ratOut');
-    outputClass = ratOut{1};
-end
+fprintf('%s \n',outText);
 
-try
-    outputClass.customEventData.textUpdate = text;
-    outputClass.triggerEvent;
-catch
-    disp(text);
 end

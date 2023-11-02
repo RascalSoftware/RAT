@@ -262,7 +262,7 @@ while tol > tolerance || j <= Nlive
     
     % display progress (optional)
     if verbose
-        fprintf('log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e', ...
+        fprintf('log(Z): %.5e, tol = %.5e, K = %d, iteration = %d, H = %.5e\n', ...
                  logZ, tol, int32(K), int32(j), H);
     end
 

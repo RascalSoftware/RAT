@@ -235,8 +235,8 @@ how = '';
 
 % Print out initial f(x) as 0th iteration
 if prnt == 3
-    fprintf('\n%s', header)
-    fprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how);
+    fprintf('\n%s\n', header);
+    fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
 elseif prnt == 4
     % Option never used in RAT
     
@@ -294,7 +294,7 @@ how = 'initial simplex';
 itercount = itercount + 1;
 func_evals = n+1;
 if prnt == 3
-    fprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how);
+    fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
 elseif prnt == 4
 %     sendTextOutput(' ')
 %     sendTextOutput(how)
@@ -406,7 +406,7 @@ while func_evals < maxfun && itercount < maxiter
     v = v(:,j);
     itercount = itercount + 1;
     if prnt == 3
-        fprintf(' %5.0f        %5.0f     %12.6g         %s', itercount, func_evals, fv(1), how);
+        fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
     elseif prnt == 4
 %         sendTextOutput(' ')
 %         sendTextOutput(num2str(how))
@@ -471,7 +471,7 @@ if buildOutputStruct
 end
 
 if printMsg
-    fprintf('\n%s', msg)
+    fprintf('\n%s\n', msg);
 end
 
 %--------------------------------------------------------------------------

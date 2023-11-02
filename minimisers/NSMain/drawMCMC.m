@@ -184,7 +184,7 @@ end
 
 % print out acceptance ratio
 if verbose
-    sendTextOutput(sprintf('Acceptance ratio: %1.4f, \n', acctot/(Ntimes*Nmcmc)));
+    fprintf('Acceptance ratio: %1.4f, \n', acctot/(Ntimes*Nmcmc));
 end
 
 return

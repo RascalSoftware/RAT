@@ -44,22 +44,22 @@ switch lower(action)
         outProblemDef = problemDef;
     case 'simplex'
         if ~strcmpi(controls.display,'off')
-            sendTextOutput(sprintf('\nRunning simplex\n\n'));
+            fprintf('\nRunning simplex\n\n');
         end
         [outProblemDef,problem,results] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls);
     case 'de'
         if ~strcmpi(controls.display,'off')
-            sendTextOutput(sprintf('\nRunning Differential Evolution\n\n'));
+            fprintf('\nRunning Differential Evolution\n\n');
         end
         [outProblemDef,problem,results] = runDE(problemDef,problemDefCells,problemDefLimits,controls);
     case 'ns'
         if ~strcmpi(controls.display,'off')
-            sendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));
+            fprintf('\nRunning Nested Sampler\n\n');
         end            
         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls,priors);   
     case 'dream'
         if ~strcmpi(controls.display,'off')
-            sendTextOutput(sprintf('\nRunning DREAM\n\n'));
+            fprintf('\nRunning DREAM\n\n');
         end
         [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors);
 end

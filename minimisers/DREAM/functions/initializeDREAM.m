@@ -59,7 +59,11 @@ chain(1,1:DREAMPar.d+2,1:DREAMPar.N) = reshape(X',1,DREAMPar.d+2,DREAMPar.N);
 pCR = (1/DREAMPar.nCR) * ones(1,DREAMPar.nCR);
 
 % Generate the actula CR value, lCR and delta_tot
-CR = drawCR(DREAMPar,pCR); lCR = zeros(1,DREAMPar.nCR); delta_tot = zeros(1,DREAMPar.nCR);
+CR = drawCR(DREAMPar,pCR); 
+%coder.varsize('CR',[100 1e4],[1 1]);
+
+lCR = zeros(1,DREAMPar.nCR); 
+delta_tot = zeros(1,DREAMPar.nCR);
 
 % Save pCR values in memory
 output.CR(1,1:DREAMPar.nCR+1) = [ DREAMPar.N pCR ]; 

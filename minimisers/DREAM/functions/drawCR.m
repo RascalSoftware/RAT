@@ -2,7 +2,7 @@ function CR = drawCR(DREAMPar,pCR)
 % Generates CR values based on current crossover probabilities
 
 CR = [1,1];
-coder.varsize('CR',[1e3,1e3],[1,1]);
+coder.varsize('CR',[1e2,1e6],[1,1]);
 
 switch DREAMPar.adapt_pCR
     
@@ -16,6 +16,9 @@ switch DREAMPar.adapt_pCR
         r = randperm(DREAMPar.N * DREAMPar.steps);
         
         % Then generate CR values for each chain
+        cCR = zeros(1e6,1);
+        coder.varsize('cCR',[1e6 1],[1 0]);
+
         for zz = 1:DREAMPar.nCR
             
             % Define start and end
@@ -25,12 +28,13 @@ switch DREAMPar.adapt_pCR
             idx = r(i_start:i_end);
             
             % Assign these indices DREAMPar.CR(zz)
-            CR(idx,1) = zz/DREAMPar.nCR;
+            cCR(idx,1) = zz/DREAMPar.nCR;
             
         end
         
         % Now reshape CR
-        CR = reshape(CR,DREAMPar.N,DREAMPar.steps);
+        % CR = reshape(cCR,DREAMPar.N,DREAMPar.steps);
+        CR = reshape(cCR,DREAMPar.N,[]);
     
     % If crossover probabilities are not updated
     case 'no'

@@ -277,11 +277,11 @@ for t = T_start : DREAMPar.T
         iteration = iteration + 1;  gen = 1; totaccept = 0;
         
         % Save the output or not?
-        if strcmp(lower(DREAMPar.save),'yes')
-            
-            % Store in memory
-            save DREAM.mat
-        end 
+%         if strcmp(lower(DREAMPar.save),'yes')
+%             
+%             % Store in memory
+%             save DREAM.mat
+%         end 
     end
 end
 

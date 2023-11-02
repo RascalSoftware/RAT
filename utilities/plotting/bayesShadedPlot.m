@@ -55,7 +55,7 @@ refPlims = pLims.refPredInts;
 sldPlims = pLims.sldPredInts;
 refXdata = pLims.refXdata;
 sldXdata = pLims.sldXdata;
-bayesRes = result.bayesRes;
+% bayesRes = result.bayesRes;
 
 % Get the reflectivities for mean...
 bestRef_mean = result.bestFitsMean.ref;

@@ -63,7 +63,7 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
                 log_PR(i) = 0;
             end
         end
-        log_PR = log_PR(:);         % Enforce column vector
+        %log_PR = sum(log_PR(:));         % Enforce column vector
     
     
 %    else

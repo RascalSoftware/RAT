@@ -9,12 +9,10 @@ paths = {
     fullfile(root,'API','outputFunction');
     fullfile(root,'API','projectClass');
 
-    fullfile(root,'compile','DE');
     fullfile(root,'compile','events');
     fullfile(root,'compile','reflectivityCalculation');
-    fullfile(root,'compile','simplex');
     fullfile(root,'compile','customWrapper');
-    fullfile(root,'compile','events');
+    fullfile(root,'compile','fullCompile');
     fullfile(root,'compile');
 
     fullfile(root,'minimisers','DREAM');
@@ -27,7 +25,7 @@ paths = {
     fullfile(root,'minimisers','DE');
     %fullfile(root,'minimisers','mcmcstat_new');
     %fullfile(root,'minimisers','mcmcstat_new','src');
-    %fullfile(root,'minimisers','NSMain');
+    fullfile(root,'minimisers','NSMain');
 
     fullfile(root,'targetFunctions','common');
     fullfile(root,'targetFunctions','common','backSort');
@@ -51,6 +49,7 @@ paths = {
     fullfile(root,'targetFunctions','standardTF','standardLayers');
     
     fullfile(root,'tests','standardTFReflectivityCalculation');
+    fullfile(root,'tests','domainsTFReflectivityCalculation');
     fullfile(root,'tests','testCommonFunctions');
     fullfile(root,'tests','testProjectConversion');
 

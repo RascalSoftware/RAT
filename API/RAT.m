@@ -1,12 +1,5 @@
 function [outProblemDef,result] = RAT(problemDefInput,controls)
 
-persistent isInitialised
-
-if isempty(isInitialised)
-    isInitialised = false;
-end
-
-
 [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problemDefInput,controls);
 [problemDef,~] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 
@@ -41,28 +34,6 @@ end
 % coder.varsize('problemDef.fitconstr',[Inf,2],[1,0]);
 % coder.varsize('problemDef.otherconstr',[Inf,2],[1,0]);
 
-% Set up the output class and events.
-% Only do this once so it can be modified
-% by other apps using RAT (i.e. Rascal)
-if ~isInitialised
-    ratOut = outputClass();
-    ratListener = listener(ratOut,'ratUpdate',@defaultOutputFunction);
-    %ratListener = listener(ratOut,'ratUpdate',@bayesAddInfoText);
-    setappdata(0,'ratOut',{ratOut ; ratListener});
-    isInitialised = true;
-end
-
-% This creates an output class from RAT from which updates are sent.
-% To use it, register an output function with ratOut using the listener
-% class. To supress the default listener (outputs to command window only)
-% being called, this must be manually deleted (delete(ratListener)).
-% To trigger output within RAT...
-%
-% ratOut = getappdata(0,'ratOut');
-% ratOutHandle = ratOut{1};
-% ratOut.customEventData.textUpdate = 'new text';
-% ratOut.triggerEvent;
-
 % Set controls.calCls always to 1
 % if we are doing customXY
 switch lower(problemDef.modelType)
@@ -75,12 +46,11 @@ end
 % If display is not silent print a
 % line confirminf RAT is starting
 if ~strcmpi(controls.display,'off')
-    sendTextOutput(sprintf('Starting RAT ________________________________________________________________________________________________ \n'));
+    fprintf('Starting RAT ________________________________________________________________________________________________\n\n');
 end
 
 tic
 [outProblemStruct,problem,result,bayesResults] = RATMain_mex(problemDef,problemDefCells,problemDefLimits,controls,priors);
-sendTextOutput(sprintf('\n'));
 
 if ~strcmpi(controls.display,'off')
     toc
@@ -112,9 +82,7 @@ result.fitNames = fitNames;
 outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct,problem,result);
 
 if ~strcmpi(controls.display,'off')
-   sendTextOutput(sprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n'));
+   fprintf('\nFinished RAT ______________________________________________________________________________________________ \n\n');
 end
 
 end
-
-

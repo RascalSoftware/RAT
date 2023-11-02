@@ -23,12 +23,10 @@ paths = {
     fullfile(root,'API','outputFunction');
     fullfile(root,'API','projectClass');
 
-    fullfile(root,'compile','DE');
     eventCompilePath;
     fullfile(root,'compile','customWrapper');
     fullfile(root,'compile','reflectivityCalculation');
     fullfile(root,'compile','fullCompile');
-    fullfile(root,'compile','simplex');
     fullfile(root,'compile');
 
     fullfile(root,'minimisers','DREAM');

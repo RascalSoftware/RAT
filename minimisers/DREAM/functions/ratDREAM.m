@@ -139,7 +139,7 @@ function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ra
 % ------------------------------------------------------------------------
 Meas_info.Y = 0;
 
-if ~isfield(dreamVariables,'restart') || strcmp(dreamVariables.restart,'no')
+%if ~isfield(dreamVariables,'restart') || strcmp(dreamVariables.restart,'no')
 
     % Initialize the main variables used in DREAM
     [inDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
@@ -180,7 +180,7 @@ if ~isfield(dreamVariables,'restart') || strcmp(dreamVariables.restart,'no')
 %     % Open warning file and set T_start
 %     fid = fopen('warning_file.txt','a+'); T_start = t + 1;
 
-end
+%end
 
 % Initialize waitbar. 
 textProgressBar('init',0);

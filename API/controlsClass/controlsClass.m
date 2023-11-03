@@ -37,6 +37,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         lambda = 0.5               % Jump probabilities
         pUnitGamma = 0.2
         boundHandling = boundHandlingOptions.Fold.value     % Boundary handling
+        adaptPCR = false;
     end
 
     %------------------------- Set and Get ------------------------------
@@ -216,6 +217,14 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.boundHandling = validateOption(val, 'boundHandlingOptions', message).value;
         end
 
+        function obj = set.adaptPCR(obj,val)
+            if ~islogical(val)
+                throw(invalidType('Type must be logical ''true'' or ''false'''));
+            end
+            obj.adaptPCR = val;
+        end
+
+
         function obj = setProcedure(obj, procedure, varargin)
             % Method sets the properties of the class based on the selected procedures.
             %
@@ -312,7 +321,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                 'nChains', {obj.nChains},...
                 'lambda', {obj.lambda},...
                 'pUnitGamma', {obj.pUnitGamma},...
-                'boundHandling', {obj.boundHandling});
+                'boundHandling', {obj.boundHandling},...
+                'adaptPCR', {obj.adaptPCR});
 
             simplexCell = {'tolX',...
                 'tolFun',...
@@ -337,7 +347,8 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                 'nChains',...
                 'lambda',...
                 'pUnitGamma',...
-                'boundHandling'};
+                'boundHandling',...
+                'adaptPCR'};
 
             if isscalar(obj)
                 dispPropList = masterPropList;
@@ -581,10 +592,11 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             % 3) lambda
             % 4) pUnitGamma
             % 5) boundHandling
-            % 6) parallel
-            % 7) calcSldDuringFit
-            % 8) resamPars
-            % 9) display
+            % 6) adaptPCR
+            % 7) parallel
+            % 8) calcSldDuringFit
+            % 9) resamPars
+            % 10) display
 
             % The default values for Dream
             defaultNSamples = 50000;
@@ -592,6 +604,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             defaultLambda = 0.5;
             defaultPUnitGamma = 0.2;
             defaultBoundHandling = boundHandlingOptions.Fold.value;
+            defaultAdaptPCR = false;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
             defaultResamPars = [0.9 50];
@@ -604,6 +617,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             addParameter(p,'lambda', defaultLambda,  @isnumeric);
             addParameter(p,'pUnitGamma',   defaultPUnitGamma,    @isnumeric);
             addParameter(p,'boundHandling',   defaultBoundHandling, @(x) isText(x) || isenum(x));
+            addParameter(p,'adaptPCR', defaultAdaptPCR, @(x) islogical);
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
             addParameter(p,'resamPars', defaultResamPars,  @isnumeric);

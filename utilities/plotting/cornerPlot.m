@@ -1,4 +1,20 @@
-function plotBayesCorrFig(chain, fitNames, hFig)
+function cornerPlot(results, varargin)
+
+chain = results.chain;
+fitNames = results.fitNames;
+
+if isempty(varargin)
+    hFig = figure();
+else
+    input = varargin{:};
+    if ~isa(input,'matlab.ui.Figure')
+        error('Second input to ''cornerPlot'' must be a figure handle')
+    else
+        hFig = input;
+    end
+end
+
+clf(hFig);
 
 x = chain;
 y = chain;

@@ -63,6 +63,11 @@ DREAMPar.CPU = 1;
 % Jump probabilities...
 DREAMPar.lambda = controls.lambda;
 DREAMPar.pUnitGamma = controls.pUnitGamma;
+if controls.adaptPCR
+    DREAMPar.adapt_pCR = 'yes';
+else
+    DREAMPar.adapt_pCR = 'no';
+end
 
 % This will change...
 % Initial sampling and parameter range

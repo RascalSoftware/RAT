@@ -44,7 +44,7 @@ classdef pmLogFunction
 
             val = priorfun(problem.fitpars,priors(:,1),priors(:,2));
 
-            %logFuncVal = logFuncVal;% * val;
+            logFuncVal = logFuncVal + val;
 
             %end
             

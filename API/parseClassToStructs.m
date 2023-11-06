@@ -415,7 +415,11 @@ controls.nChains = inputControls.nChains;
 controls.lambda = inputControls.lambda;      
 controls.pUnitGamma = inputControls.pUnitGamma;
 controls.boundHandling = inputControls.boundHandling;
-controls.adaptPCR = inputControls.adaptPCR;
+if inputControls.adaptPCR
+    controls.adaptPCR = 1; %inputControls.adaptPCR;
+else
+    controls.adaptPCR = 0;
+end
 
 % Also need to deal with the checks...
 checks.params_fitYesNo = inputStruct.paramFitYesNo;

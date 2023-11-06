@@ -7,10 +7,12 @@ function plotBayes(problem, results)
         
         h3 = figure(40); clf
         %mcmcplot(results.chain,[],results.fitNames,'hist');
-        plotHists(results.chain,results.fitNames,h3,'smooth',true)
+        plotHists(results,h3,'smooth',true)
         
 %         h4 = figure(5); clf; 
-%         plotBayesCorrFig(results.chain,results.fitNames,h4)      
+%         plotBayesCorrFig(results.chain,results.fitNames,h4)    
+        h4 = figure(5); clf
+        cornerPlot(results,h4,'smooth',false)
 
         h6 = figure(60); clf
         mcmcplot(results.chain,[],results.fitNames,'chainpanel');

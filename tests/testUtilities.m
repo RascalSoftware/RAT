@@ -9,6 +9,13 @@ classdef testUtilities < matlab.unittest.TestCase
             testCase.verifyFalse(isText({'cell', 'array'}), 'isText function is not working');
         end
 
+        function testValidateLogical(testCase)
+            testCase.verifyTrue(validateLogical(true), 'validateLogical function is not working');
+            testCase.verifyFalse(validateLogical(false), 'validateLogical function is not working');
+            testCase.verifyError(@() validateLogical('a'), invalidType.errorID);
+            testCase.verifyError(@() validateLogical(0), invalidType.errorID);
+        end
+
         function testValidateNumber(testCase)
             testCase.verifyEqual(validateNumber(3), 3, 'validateNumber function is not working');
             testCase.verifyEqual(validateNumber(-1.6), -1.6, 'validateNumber function is not working');

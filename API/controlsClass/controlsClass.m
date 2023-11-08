@@ -56,9 +56,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
 
         function obj = set.calcSldDuringFit(obj,val)
-            if ~islogical(val)
-                throw(invalidType('Type must be logical ''true'' or ''false'''));
-            end
+            validateLogical(val, 'calcSldDuringFit must be logical ''true'' or ''false''');
             obj.calcSldDuringFit = val;
         end
 
@@ -218,9 +216,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
 
         function obj = set.adaptPCR(obj,val)
-            if ~islogical(val)
-                throw(invalidType('Type must be logical ''true'' or ''false'''));
-            end
+            validateLogical(val, 'adaptPCR must be logical ''true'' or ''false''');
             obj.adaptPCR = val;
         end
 
@@ -617,7 +613,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             addParameter(p,'lambda', defaultLambda,  @isnumeric);
             addParameter(p,'pUnitGamma',   defaultPUnitGamma,    @isnumeric);
             addParameter(p,'boundHandling',   defaultBoundHandling, @(x) isText(x) || isenum(x));
-            addParameter(p,'adaptPCR', defaultAdaptPCR, @(x) islogical);
+            addParameter(p,'adaptPCR', defaultAdaptPCR, @islogical);
             addParameter(p,'parallel',  defaultParallel,   @(x) isText(x) || isenum(x));
             addParameter(p,'calcSldDuringFit',   defaultCalcSldDuringFit,    @islogical);
             addParameter(p,'resamPars', defaultResamPars,  @isnumeric);
@@ -625,7 +621,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             properties = varargin{:};
 
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only nSamples, nChains, lambda, pUnitGamma, boundHandling, parallel, calcSldDuringFit, resamPars and display can be set while using the DREAM procedure';
+            errorMsg = 'Only nSamples, nChains, lambda, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, resamPars and display can be set while using the DREAM procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for Dream parameters
@@ -634,6 +630,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.lambda = inputBlock.lambda;
             obj.pUnitGamma = inputBlock.pUnitGamma;
             obj.boundHandling = inputBlock.boundHandling;
+            obj.adaptPCR = inputBlock.adaptPCR;
             obj.parallel = inputBlock.parallel;
             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
             obj.resamPars = inputBlock.resamPars;

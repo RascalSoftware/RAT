@@ -1,6 +1,7 @@
 # List of untracked files to ignore
 old
 *.pptx
+*.pdf
 
 # IDE folders and files
 .vscode/

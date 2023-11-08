@@ -4,7 +4,7 @@ function input = validateLogical(input, message)
     % validateLogical(2, 'Input must be logical');
     arguments
         input
-        message {@matlab.settings.mustBeLogicalScalar} = 'The input must be logical (true or false)'
+        message {mustBeTextScalar} = 'The input must be logical (true or false)'
     end
     
     if ~islogical(input)

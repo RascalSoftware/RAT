@@ -64,9 +64,9 @@ DREAMPar.CPU = 1;
 DREAMPar.lambda = controls.lambda;
 DREAMPar.pUnitGamma = controls.pUnitGamma;
 if controls.adaptPCR
-    DREAMPar.adapt_pCR = 'yes';
+    DREAMPar.adaptPCR = 'yes';
 else
-    DREAMPar.adapt_pCR = 'no';
+    DREAMPar.adaptPCR = 'no';
 end
 
 % This will change...
@@ -96,8 +96,10 @@ collectChains = [];
 for i = 1:nChains
     thisChain = chain(:,1:nPars,i);
     
-    % Lose the first few points of the chain...
-    thisChain = thisChain(500:end,:);
+    % Keep only the last 75% of the chain..
+    nSamples = size(thisChain,1);
+    cutoff = floor(nSamples * 0.25);
+    thisChain = thisChain(cutoff:end,:);
 
     % Combine the parallel chains into one....
     collectChains = [collectChains ; thisChain];

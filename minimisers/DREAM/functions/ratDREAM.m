@@ -222,7 +222,7 @@ for t = T_start : DREAMPar.T
     end
     
     % Check whether we update the crossover values
-    if strcmp(DREAMPar.adapt_pCR,'yes')
+    if strcmp(DREAMPar.adaptPCR,'yes')
         % Calculate the standard deviation of each dimension of X
         r = repmat(std(X(1:DREAMPar.N,1:DREAMPar.d)),DREAMPar.N,1);
         % Compute the Euclidean distance between new X and old X
@@ -252,7 +252,7 @@ for t = T_start : DREAMPar.T
         
         % Check whether to update individual pCR values
         if ( t <= DREAMPar.T / 10 )
-            if strcmp(DREAMPar.adapt_pCR,'yes')
+            if strcmp(DREAMPar.adaptPCR,'yes')
                 % Update pCR values
                 [pCR,lCR] = adaptPCR(DREAMPar,CR,delta_tot,lCR);
             end

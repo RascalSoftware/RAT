@@ -4,7 +4,7 @@ function CR = drawCR(DREAMPar,pCR)
 CR = [1,1];
 coder.varsize('CR',[1e2,1e6],[1,1]);
 
-switch DREAMPar.adapt_pCR
+switch DREAMPar.adaptPCR
     
     % If crossover probabilities are updated
     case 'yes'

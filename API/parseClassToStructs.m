@@ -416,7 +416,7 @@ controls.lambda = inputControls.lambda;
 controls.pUnitGamma = inputControls.pUnitGamma;
 controls.boundHandling = inputControls.boundHandling;
 if inputControls.adaptPCR
-    controls.adaptPCR = 1; %inputControls.adaptPCR;
+    controls.adaptPCR = 1;
 else
     controls.adaptPCR = 0;
 end

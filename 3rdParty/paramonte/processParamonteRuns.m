@@ -48,6 +48,7 @@ bayesOutputs.data = problemDefCells{2};
 bayesOutputs.results.mean = mean(unscaledChain);
 
 [problemDef,outProblemStruct,result,bayesResults] = processBayes(bayesOutputs,allProblem);
+bayesResults.chain = unscaledChain;
 
 
 result = parseResultToStruct(outProblemStruct,result);

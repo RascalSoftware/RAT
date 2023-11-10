@@ -139,7 +139,7 @@ function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ra
 % ------------------------------------------------------------------------
 Meas_info.Y = 0;
 
-if ~isfield(dreamVariables,'restart') || strcmp(dreamVariables.restart,'no')
+%if ~isfield(dreamVariables,'restart') || strcmp(dreamVariables.restart,'no')
 
     % Initialize the main variables used in DREAM
     [inDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
@@ -180,7 +180,7 @@ if ~isfield(dreamVariables,'restart') || strcmp(dreamVariables.restart,'no')
 %     % Open warning file and set T_start
 %     fid = fopen('warning_file.txt','a+'); T_start = t + 1;
 
-end
+%end
 
 % Initialize waitbar. 
 textProgressBar('init',0);
@@ -222,7 +222,7 @@ for t = T_start : DREAMPar.T
     end
     
     % Check whether we update the crossover values
-    if strcmp(DREAMPar.adapt_pCR,'yes')
+    if strcmp(DREAMPar.adaptPCR,'yes')
         % Calculate the standard deviation of each dimension of X
         r = repmat(std(X(1:DREAMPar.N,1:DREAMPar.d)),DREAMPar.N,1);
         % Compute the Euclidean distance between new X and old X
@@ -252,7 +252,7 @@ for t = T_start : DREAMPar.T
         
         % Check whether to update individual pCR values
         if ( t <= DREAMPar.T / 10 )
-            if strcmp(DREAMPar.adapt_pCR,'yes')
+            if strcmp(DREAMPar.adaptPCR,'yes')
                 % Update pCR values
                 [pCR,lCR] = adaptPCR(DREAMPar,CR,delta_tot,lCR);
             end
@@ -277,11 +277,11 @@ for t = T_start : DREAMPar.T
         iteration = iteration + 1;  gen = 1; totaccept = 0;
         
         % Save the output or not?
-        if strcmp(lower(DREAMPar.save),'yes')
-            
-            % Store in memory
-            save DREAM.mat
-        end 
+%         if strcmp(lower(DREAMPar.save),'yes')
+%             
+%             % Store in memory
+%             save DREAM.mat
+%         end 
     end
 end
 

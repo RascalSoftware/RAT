@@ -1,29 +1,28 @@
-function directCompare3D(mcmcChains)
-
+%Comparison of MCMC, NS and direct calculation.
+clear
 useSaved = true;
 
-% Convert R1 project to R2....
+%Do the direct calculation first.
+%Start by converting the R1 project to 
+%the R2 case...
 d2oproblem = r1ToProjectClass('defaultProject.mat');
 
 d2oproblem.setScalefactor(1,'min',0.07);
 d2oproblem.setScalefactor(1,'max',0.13);
 
-controls = controlsClass();
-controls.calcSldDuringFit = true;
+controls = controlsDef();
+controls.calcSldDuringFit = 'yes';
 [outProb,results] = RAT(d2oproblem,controls);
+figure(1); clf
+plotRefSLD(outProb, results);
 thisChisq = results.calculationResults.sum_chi;
 fprintf('Chi squared in %d \n',thisChisq);
 
-% % Run MCMC
-% controls.procedure = 'bayes';
-% controls.nsimu = 50000;
-% controls.repeats = 3;
-% [bayesProb,bayesResults] = RAT(d2oproblem,controls);
-
-% Load in the MCMC results
-% mcmcChains = load('mcmcChains.mat');
-% bayesRes = mcmcChains.allChains;
-bayesRes = mcmcChains;
+% Run MCMC
+controls.procedure = 'bayes';
+controls.nsimu = 50000;
+controls.repeats = 3;
+[bayesProb,bayesResults] = RAT(d2oproblem,controls);
 
 %Use a 30 x 30 grid.
 %Make an array for the results...
@@ -32,8 +31,9 @@ probArray = zeros(gridSize, gridSize, gridSize);
 
 [fitPars,fitNames,fitConstr] = getFitValues(d2oproblem,controls);
 
+
 %Make a vector of roughness values..
-minRough = 1; %fitConstr(1,1);
+minRough = fitConstr(1,1);
 maxRough = fitConstr(1,2);
 roughVector = linspace(minRough, maxRough, gridSize);
 
@@ -47,31 +47,30 @@ minScale = fitConstr(3,1);
 maxScale = fitConstr(3,2);
 scaleVector = linspace(minScale, maxScale, gridSize);
 
-%bayesRes = bayesResults.chain;
-
+bayesRes = bayesResults.chain;
 figure(3); clf; hold on
 roughs = bayesRes(:,1);
 subplot(1,3,1); hold on
-[n,x] = histcounts(roughs,70);
+[n,x] = histcounts(roughs,30);
 x = (x(1:end-1) + x(2:end))/2;
-n = n ./ max(n); % * (x(2)-x(1)));
-bar(x,n,'w','BarWidth',1);
+n = n ./ sum(n); % * (x(2)-x(1)));
+bar(x,n);
 
 %,'Normalization','countdensity');
 
 backs = bayesRes(:,2);
 subplot(1,3,2); hold on;
-[n,x] = histcounts(backs,70);
+[n,x] = histcounts(backs,30);
 x = (x(1:end-1) + x(2:end))/2;
-n = n ./ max(n);% * (x(2)-x(1)));
-bar(x,n,'w','BarWidth',1);
+n = n ./ sum(n);% * (x(2)-x(1)));
+bar(x,n);
 
 scales = bayesRes(:,3);
 subplot(1,3,3); hold on;
-[n,x] = histcounts(scales,70);
+[n,x] = histcounts(scales,30);
 x = (x(1:end-1) + x(2:end))/2;
-n = n ./ max(n);% * (x(2)-x(1)));
-bar(x,n,'w','BarWidth',1);
+n = n ./ sum(n);% * (x(2)-x(1)));
+bar(x,n);
 
 
 %Now for the calculation.
@@ -89,8 +88,8 @@ if useSaved
     probArray = probArray.probArray;
 else
 
-    [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(d2oproblem,controls);
-    [problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+    [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(d2oproblem,controls);
+    [problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 
     for r = 1:gridSize
         for b = 1:gridSize
@@ -107,7 +106,7 @@ else
                 problemDef.fitpars(2) = thisBack;
                 problemDef.fitpars(3) = thisScale;
                 problemDef = unpackparams(problemDef,controls);
-                [problem,results] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+                [problem,results] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 %                 d2oproblem.setParameter(1,'value',thisRough);
 %                 d2oproblem.setBacksPar(1,'value',thisBack);
@@ -135,19 +134,19 @@ save('probArray','probArray');
 %%
 %Marginalise the dirtributions...
 roughDist = sum(probArray,[2 3]);
-roughDist = roughDist ./ max(roughDist);
+roughDist = roughDist ./ sum(roughDist);
 roughDist = [roughVector(:) roughDist(:)];
 figure(3); subplot(1,3,1); hold on
 plot(roughDist(:,1),roughDist(:,2),'linewidth',2);
 
 backDist = sum(probArray,[1 3]);
-backDist = backDist ./ max(backDist);
+backDist = backDist ./ sum(backDist);
 backDist = [backsVector(:) backDist(:)];
 figure(3); subplot(1,3,2); hold on
 plot(backDist(:,1),backDist(:,2),'linewidth',2);
 
 scaleDist = sum(probArray,[1 2]);
-scaleDist = scaleDist ./ max(scaleDist);
+scaleDist = scaleDist ./ sum(scaleDist);
 scaleDist = [scaleVector(:) scaleDist(:)];
 figure(3); subplot(1,3,3); hold on
 plot(scaleDist(:,1),scaleDist(:,2),'linewidth',2);
@@ -183,19 +182,5 @@ plot(scaleDist(:,1),scaleDist(:,2),'linewidth',2);
 % % scaleDist = [scaleVector(:) scaleDist(:)];
 
 
-end
-
-
-function [fitPars,fitNames,fitConstr] = getFitValues(inputProblem,controls)
-
-[problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(inputProblem,controls);
-
-[problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
-
-fitPars = problemDef.fitpars;
-fitConstr = problemDef.fitconstr;
-
-
-end
 
 

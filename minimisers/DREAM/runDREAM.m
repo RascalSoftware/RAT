@@ -48,18 +48,26 @@ totalGen = controls.nSamples;                   % Total number of generations
 nChains = controls.nChains;                     % Number of chains
 
 % Set the relevant parameters for the DREAM sampler....
+yesNo = 'no';
+coder.varsize('yesNo',[1 3],[0 1]); % Variable size to allow for 'no'!
+
 DREAMPar.d = length(fitParamNames);             % Dimension of the problem
 DREAMPar.N = nChains;                           % Number of Markov Chains
 DREAMPar.T = ceil(totalGen / nChains);          % Number of generations per chain
 %DREAMPar.lik = 1;                              % Model output is likelihood
 
 % Parallel or not...
-DREAMPar.parallel = 'no';
+DREAMPar.parallel = yesNo;
 DREAMPar.CPU = 1;
 
 % Jump probabilities...
 DREAMPar.lambda = controls.lambda;
 DREAMPar.pUnitGamma = controls.pUnitGamma;
+if controls.adaptPCR
+    DREAMPar.adaptPCR = 'yes';
+else
+    DREAMPar.adaptPCR = 'no';
+end
 
 % This will change...
 % Initial sampling and parameter range
@@ -87,6 +95,13 @@ nPars = DREAMPar.d;
 collectChains = [];
 for i = 1:nChains
     thisChain = chain(:,1:nPars,i);
+    
+    % Keep only the last 75% of the chain..
+    nSamples = size(thisChain,1);
+    cutoff = floor(nSamples * 0.25);
+    thisChain = thisChain(cutoff:end,:);
+
+    % Combine the parallel chains into one....
     collectChains = [collectChains ; thisChain];
 end
 
@@ -104,7 +119,7 @@ output.chain = collectChains;
 [outProblemDef,outProblem,result,dreamResults] = processBayes(output,allProblem);
 
 % Populate the output struct
-bayesResults.bayesRes.allChains = collectChains;
+bayesResults.bayesRes.allChains = chain;
 bayesResults.bayesRes.dreamOutput = dreamOutput;
 bayesResults.chain = collectChains;
 bayesResults.bestPars = bestPars;

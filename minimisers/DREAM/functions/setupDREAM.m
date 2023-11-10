@@ -3,17 +3,20 @@ function [outDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,ite
 % Initializes the main variables used in DREAM
 % To keep coder happy, we have to define the full version of DREAMPar here
 % fieldNames = {'d','N','T','parallel','CPU','lambda','pUnitGamma','nCR','delta','steps',...
-%     'zeta','outlier','adapt_pCR','thinning','epsilon','ABC','IO','modout','restart','save','R'};
+%     'zeta','outlier','adaptPCR','thinning','epsilon','ABC','IO','modout','restart','save','R'};
 % values = cell(length(fieldNames),1);
 % outDREAMPar = cell2struct(values,fieldNames);
 
 Rr = zeros(DREAMPar.N,DREAMPar.N);
 coder.varsize('Rr',[1e4 1e4],[1 1]);
 
+yesNo = 'no';
+coder.varsize('yesNo',[1 3],[0 1]); % Variable size to allow for 'no'!
+
 outDREAMPar = struct('d',0,'N',0,'T',0,'parallel','no','CPU',0,'lambda',0,...
     'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier','iqr',...
-    'adapt_pCR','no','thinning',0,'epsilon',0,'ABC','no','IO','no','modout','no',...
-    'restart','no','save','no','R',Rr);
+    'adaptPCR',yesNo,'thinning',0,'epsilon',0,'ABC',yesNo,'IO',yesNo,'modout',yesNo,...
+    'restart',yesNo,'save',yesNo,'R',Rr);
 
 
 % Generate new seed
@@ -38,9 +41,9 @@ for i = 1:length(setFieldNames)
 end
 
 % Set default values algorithmic variables DREAM - if not specified
-value = {3,3,max(max(floor(DREAMPar.T/50),1),50),0.05,1e-12,'iqr',0.2,'no',1,0.025};
+value = {3,3,max(max(floor(DREAMPar.T/50),1),50),0.01,1e-12,'iqr',0.04,'no',1,0.025};
 % Name variable
-name = {'nCR','delta','steps','lambda','zeta','outlier','pUnitGamma','adapt_pCR','thinning','epsilon'};
+name = {'nCR','delta','steps','lambda','zeta','outlier','pUnitGamma','adaptPCR','thinning','epsilon'};
 for j = 1 : numel(name)
     if ~isfield(DREAMPar,name{j})
         % Set variable of DREAMPar to "No"
@@ -80,10 +83,7 @@ coder.varsize('outlier',[1e3 1e3],[1 1]);
 output.outlier = outlier;
 % ..also run time
 output.RunTime = 0;
-output.DREAMPar = struct('d',0,'N',0,'T',0,'parallel','no','CPU',0,'lambda',0,...
-    'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier','iqr',...
-    'adapt_pCR','no','thinning',0,'epsilon',0,'ABC','no','IO','no','modout','no',...
-    'restart','no','save','no','R',Rr);
+output.DREAMPar = outDREAMPar; 
 output.Meas_info = Meas_info;
 output.iteration = 1;
 output.iloc = 0;

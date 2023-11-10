@@ -284,6 +284,16 @@ classdef testControlsClass < matlab.unittest.TestCase
             function setBoundHandling
                 testCase.controls.boundHandling = 'random';
             end
+
+            % Test if set.calcSldDuringFit method is working
+            testCase.controls.adaptPCR = true;
+            testCase.verifyTrue(testCase.controls.adaptPCR, 'set.adaptPCR method is not working')
+            testCase.controls.adaptPCR = false;
+            testCase.verifyFalse(testCase.controls.adaptPCR, 'set.adaptPCR method is not working')
+            testCase.verifyError(@setAdaptPCR, invalidType.errorID);  % bad adaptPCR option 
+            function setAdaptPCR
+                testCase.controls.adaptPCR = 2;
+            end
         end
 
         function testDisplayGroups(testCase)
@@ -364,6 +374,7 @@ classdef testControlsClass < matlab.unittest.TestCase
                 'lambda', 0.8,...
                 'pUnitGamma', 0.5, ...
                 'boundHandling', boundHandlingOptions.Reflect.value,...
+                'adaptPCR', true,...
                 'parallel', parallelOptions.Contrasts.value,...
                 'calcSldDuringFit', true,...
                 'resamPars', [0 10],...
@@ -374,8 +385,9 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.lambda, 0.8, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.pUnitGamma, 0.5, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Reflect.value, 'setProcedure method is not working');
+            testCase.verifyTrue(testCase.controls.adaptPCR, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Contrasts.value, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.calcSldDuringFit, true, 'setProcedure method is not working');
+            testCase.verifyTrue(testCase.controls.calcSldDuringFit, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.resamPars, [0 10], 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'setProcedure method is not working');
 

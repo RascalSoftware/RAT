@@ -412,7 +412,7 @@ controls.updatePlotFreq = inputControls.updatePlotFreq;
 
 controls.nSamples = inputControls.nSamples;
 controls.nChains = inputControls.nChains;   
-controls.lambda = inputControls.lambda;      
+controls.jumpProb = inputControls.jumpProb;      
 controls.pUnitGamma = inputControls.pUnitGamma;
 controls.boundHandling = inputControls.boundHandling;
 if inputControls.adaptPCR

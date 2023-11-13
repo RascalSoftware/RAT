@@ -190,7 +190,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % predIntRef = predIntRef.predlims;
 % 
 % % Make sure the calc SLD flag is set in controls...
-% problem{2}.calcSld = 1;
+% problem{2}.calcSldDuringFit = 1;
 % predIntSld = mcmcpred_compile_sld(output.results,output.chain,[],output.data,problem,500);
 % predIntSld = predIntSld.predlims;
 % 

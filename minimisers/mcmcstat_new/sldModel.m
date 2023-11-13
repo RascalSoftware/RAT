@@ -28,7 +28,7 @@ problemDef = problem{1};
 controls = problem{2};
 problemDefLimits = problem{3};
 problemDefCells = problem{4};
-controls.calcSld = 1;
+controls.calcSldDuringFit = 1;
 
 problemDef.fitpars = pars;
 problemDef = unpackparams(problemDef,controls);

@@ -401,9 +401,9 @@ controls.nsTolerance = inputControls.nsTolerance;
 
 % **** calcSld is now logical ****
 if inputControls.calcSldDuringFit
-    controls.calcSld = 1;
+    controls.calcSldDuringFit = 1;
 else
-    controls.calcSld = 0;
+    controls.calcSldDuringFit = 0;
 end
 
 controls.resamPars = inputControls.resamPars;

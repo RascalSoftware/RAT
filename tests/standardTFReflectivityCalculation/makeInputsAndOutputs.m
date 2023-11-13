@@ -219,10 +219,10 @@ TFParams.allRoughs = allRoughs;
 
 save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'standardLayersTFParams'],'TFParams');
 
-%% 4. Converting betwwen RAT and RASCAL
+%% 4. Converting between RAT and RASCAL
 
 thisProjectClass = r1ToProjectClass('DSPCBilayerStructInput.mat');
-save('tests/testProjectConversion/DSPCBilayerProjectClass.mat', 'thisProjectClass')
+save('tests/testProjectConversion/DSPCBilayerProjectClass.mat', 'thisProjectClass');
 
 thisProjectClass = r1ToProjectClass('monolayerVolumeModel.mat');
-save('tests/testProjectConversion/monolayerVolumeModelProjectClass.mat', 'thisProjectClass')
+save('tests/testProjectConversion/monolayerVolumeModelProjectClass.mat', 'thisProjectClass');

@@ -12,7 +12,7 @@ if debugPlot; figure(50); clf; hold on; end
 
 outMessage = 'ok';
 
-controls.proc = 'calculate';
+controls.procedure = 'calculate';
 % Load in problem
 % problem = getappdata(0,'problem');
 % originalProblem = problem;

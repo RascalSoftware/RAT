@@ -1,4 +1,4 @@
-function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType,useImaginary)
+function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)
 
 xdata = this_data(:,1);
 
@@ -97,7 +97,7 @@ end
 
 switch refType
     case 'standardAbeles'
-        switch para
+        switch parallel
             case 'points'
                 % Parallelise over points
                 

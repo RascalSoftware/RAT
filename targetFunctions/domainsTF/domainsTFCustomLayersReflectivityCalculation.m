@@ -61,9 +61,7 @@ coder.varsize('allLayers',[10000 2],[1 1]);
 
 % End pre-allocation
 
-para = controls.para;
-
-switch para
+switch controls.parallel
     case 'single'
             
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...

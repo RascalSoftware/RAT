@@ -17,7 +17,7 @@ rng('default');
 % Split problem using the routines from RAT..
 [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problem,inputControls);
 
-%controls.para = 'points';
+%controls.parallel = 'points';
 
 % Make an instance of the paramonte objective function class
 logFunc = pmLogFunction();

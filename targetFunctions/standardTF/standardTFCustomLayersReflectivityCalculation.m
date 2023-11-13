@@ -55,9 +55,7 @@ for i = 1:numberOfContrasts
 end
 % End pre-allocation
 
-para = controls.para;
-
-switch para
+switch controls.parallel
     case 'single'
             
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...

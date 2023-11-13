@@ -33,7 +33,7 @@ model.ssfun = @nsIntraFun;
 Nlive = controls.Nlive;
 tolerance = controls.nsTolerance;
 likelihood = @nsIntraFun;
-Nmcmc = controls.nmcmc;
+Nmcmc = controls.Nmcmc;
 data = {problemDef ; controls ; problemDefLimits ; problemDefCells};
 
 [logZ, nest_samples, post_samples, H] = nestedSampler(data, Nlive, Nmcmc, ...

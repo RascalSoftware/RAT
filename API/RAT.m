@@ -59,11 +59,11 @@ end
 % Then just do a final calculation to fill in SLD if necessary (i.e. if
 % calSLD is no for fit)
 if controls.calcSld == 0
-    originalProc = controls.proc;
+    originalProcedure = controls.procedure;
     controls.calcSld = 1;
-    controls.proc = 'calculate';
+    controls.procedure = 'calculate';
     [outProblemStruct,problem,result,~] = RATMain_mex(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
-    controls.proc = originalProc;
+    controls.procedure = originalProcedure;
 end
 
 result = parseResultToStruct(problem,result);
@@ -72,7 +72,7 @@ if isfield(outProblemStruct,'fitpars')
     result.bestFitPars = outProblemStruct.fitpars;
 end
 
-if any((strcmpi(controls.proc,{'bayes','NS','dream'})))
+if any((strcmpi(controls.procedure,{'bayes','NS','dream'})))
     result = mergeStructs(result,bayesResults);
 end
 

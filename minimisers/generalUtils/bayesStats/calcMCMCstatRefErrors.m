@@ -29,7 +29,7 @@ switch type
         bestFitPars = bayesResults.res.mean;
 end
 
-controls.proc = 'calculate';
+controls.procedure = 'calculate';
 controls.calcSld = 1;
 problemDef.fitpars = bestFitPars;
 problemDef = unpackparams(problemDef,controls);

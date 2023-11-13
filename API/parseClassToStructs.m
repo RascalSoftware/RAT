@@ -380,8 +380,8 @@ problemDef.otherconstr = [];
 
 
 %% Now deal with the controls class
-controls.para = inputControls.parallel;
-controls.proc = inputControls.procedure;
+controls.parallel = inputControls.parallel;
+controls.procedure = inputControls.procedure;
 controls.display = inputControls.display;
 controls.tolX = inputControls.tolX;
 controls.tolFun = inputControls.tolFun;
@@ -389,12 +389,12 @@ controls.maxFunEvals = inputControls.maxFunEvals;
 controls.maxIter = inputControls.maxIter;
 controls.populationSize = inputControls.populationSize;
 controls.fWeight = inputControls.fWeight;
-controls.F_CR = inputControls.crossoverProbability;
-controls.VTR = inputControls.targetValue;
-controls.numGen = inputControls.numGenerations;
+controls.crossoverProbability = inputControls.crossoverProbability;
+controls.targetValue = inputControls.targetValue;
+controls.numGenerations = inputControls.numGenerations;
 controls.strategy = inputControls.strategy;
 controls.Nlive = inputControls.Nlive;
-controls.nmcmc = inputControls.Nmcmc;
+controls.Nmcmc = inputControls.Nmcmc;
 controls.propScale = inputControls.propScale;
 controls.nsTolerance = inputControls.nsTolerance;
 %controls.calcSld = inputControls.calcSldDuringFit;

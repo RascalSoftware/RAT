@@ -73,10 +73,10 @@ classdef multiTypeTable < tableUtilities
                 row = obj.findRowIndex(row, rowNames, 'Unrecognised parameter name');
             elseif isnumeric(row)
                 if (row < 1) || (row > obj.rowCount)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.rowCount)));
+                    throw(exceptions.indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.rowCount)));
                 end
             else
-                throw(invalidType('Unrecognised row'));
+                throw(exceptions.invalidType('Unrecognised row'));
             end
             
             % Second parameter needs to be either a column name or
@@ -87,10 +87,10 @@ classdef multiTypeTable < tableUtilities
                 col = obj.findRowIndex(col,colNames, 'Unrecognised column name');
             elseif isnumeric(col)
                 if (col < 1) || (col > length(colNames))
-                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
+                    throw(exceptions.indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
                 end
             else
-                throw(invalidType('Unrecognised column'));
+                throw(exceptions.invalidType('Unrecognised column'));
             end
             
             % Set the value

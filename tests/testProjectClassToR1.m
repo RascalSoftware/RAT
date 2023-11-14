@@ -62,7 +62,7 @@ classdef testProjectClassToR1 < matlab.unittest.TestCase
         function testR1ProblemException(testCase)
             expected = load(testCase.outputStandardStruct).problem; % wrong r1 format
             pClass = load(testCase.inputStandardProjectClass).thisProjectClass;
-            testCase.verifyError(@() projectClassToR1(pClass, 'r1Problem', expected, 'saveProject', false), unrecognizedR1Problem.errorID);
+            testCase.verifyError(@() projectClassToR1(pClass, 'r1Problem', expected, 'saveProject', false), exceptions.unrecognizedR1Problem.errorID);
         end
 
         function testR1ProblemExtension(testCase)

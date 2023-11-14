@@ -8,6 +8,6 @@ function input = validateLogical(input, message)
     end
     
     if ~islogical(input)
-        throw(invalidType(message));
+        throw(exceptions.invalidType(message));
     end
 end

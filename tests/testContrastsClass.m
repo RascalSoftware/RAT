@@ -298,10 +298,10 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % Test removing a contrast from the contrasts class.
             % If contrast names or indices are invalid, we should raise an
             % error
-            testCase.verifyError(@() testCase.exampleClass.removeContrast(0), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.removeContrast(testCase.numContrasts+1), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.removeContrast(0), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.removeContrast(testCase.numContrasts+1), exceptions.indexOutOfRange.errorID);
 
-            testCase.verifyError(@() testCase.exampleClass.removeContrast('Unrecognised Name'), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.removeContrast('Unrecognised Name'), exceptions.nameNotRecognised.errorID);
         end
 
         function testSetContrastModelStandardLayers(testCase)
@@ -329,20 +329,20 @@ classdef testContrastsClass < matlab.unittest.TestCase
             % If the input is invalid we should raise an error
 
             % Contrast must be recognisable by name or index
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(0, modelTypes.StandardLayers.value, testCase.layerNames, {'Oxide Layer'}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(testCase.numContrasts+1, modelTypes.StandardLayers.value, testCase.layerNames, {'Oxide Layer'}), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Invalid Contrast', modelTypes.StandardLayers.value, testCase.layerNames, {'Oxide Layer'}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(0, modelTypes.StandardLayers.value, testCase.layerNames, {'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(testCase.numContrasts+1, modelTypes.StandardLayers.value, testCase.layerNames, {'Oxide Layer'}), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel('Invalid Contrast', modelTypes.StandardLayers.value, testCase.layerNames, {'Oxide Layer'}), exceptions.nameNotRecognised.errorID);
 
             % Contrast models must be defined in allowed values, and only
             % one model is allowed for "custom layers" and "custom XY"
             testModel = {'Oxide Layer', 'Carbide Layer'};
 
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.StandardLayers.value, testCase.layerNames, testModel), nameNotRecognised.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomLayers.value, testCase.layerNames, testModel), invalidValue.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomXY.value, testCase.layerNames, testModel), invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.StandardLayers.value, testCase.layerNames, testModel), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomLayers.value, testCase.layerNames, testModel), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomXY.value, testCase.layerNames, testModel), exceptions.invalidValue.errorID);
 
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomLayers.value, testCase.layerNames, {'Carbide Layer'}), nameNotRecognised.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'randomLayers', testCase.customNames, {'DPPC Model'}), invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, modelTypes.CustomLayers.value, testCase.layerNames, {'Carbide Layer'}), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrastModel(1, 'randomLayers', testCase.customNames, {'DPPC Model'}), exceptions.invalidOption.errorID);
             
         end
 
@@ -407,9 +407,9 @@ classdef testContrastsClass < matlab.unittest.TestCase
         function testSetContrastInvalid(testCase)
             % Test setting parameter values within a contrast
             % Contrast must be recognisable by name or index
-            testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, testCase.newValues), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, testCase.newValues), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, testCase.newValues), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(0, testCase.allowedNames, testCase.newValues), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast(testCase.numContrasts+1, testCase.allowedNames, testCase.newValues), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setContrast('Invalid Contrast', testCase.allowedNames, testCase.newValues), exceptions.nameNotRecognised.errorID);
         end
 
         function testGetAllContrastNames(testCase)

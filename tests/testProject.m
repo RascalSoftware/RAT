@@ -53,8 +53,8 @@ classdef testProject < matlab.unittest.TestCase
             % Ensure errors are raised when attempting to remove protected
             % parameters
             problem = project(calc=calculationTypes.OilWater);
-            testCase.verifyError(@() problem.removeParameter(2), invalidOption.errorID);
-            testCase.verifyError(@() problem.removeParameter("Oil Roughness"), invalidOption.errorID);
+            testCase.verifyError(@() problem.removeParameter(2), exceptions.invalidOption.errorID);
+            testCase.verifyError(@() problem.removeParameter("Oil Roughness"), exceptions.invalidOption.errorID);
         end
 
     end

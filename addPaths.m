@@ -40,34 +40,17 @@ paths = {
     %fullfile(root,'minimisers','mcmcstat_new');
     %fullfile(root,'minimisers','mcmcstat_new','src');
     fullfile(root,'minimisers','NSMain');
-
+    
+    fullfile(root,'targetFunctions' );
     fullfile(root,'targetFunctions','common');
-    fullfile(root,'targetFunctions','common','backSort');
-    fullfile(root,'targetFunctions','common','callCustomFunction');
-    fullfile(root,'targetFunctions','common','callCustomFunction','callMatlabFunction');
-    fullfile(root,'targetFunctions','common','callCustomFunction','callCppFunction');
-
     fullfile(root,'targetFunctions','common','callReflectivity');
-    fullfile(root,'targetFunctions','common','costFunctions','chiSquared');
+    fullfile(root,'targetFunctions','common','costFunctions');
+    fullfile(root,'targetFunctions','common','customModelFunctions');
     fullfile(root,'targetFunctions','common','groupLayers');
-
     fullfile(root,'targetFunctions','common','makeSLDProfiles');
-    fullfile(root,'targetFunctions','common','reflectivityCalculations');
     fullfile(root,'targetFunctions','common','reflectivityCalculations','abeles');
     fullfile(root,'targetFunctions','common','resampleLayers');
-    fullfile(root,'targetFunctions','common','resolutionFunctions','simpleGaussian');   
-    fullfile(root,'targetFunctions','common','shiftData');
-    fullfile(root,'targetFunctions','common','customModelsClass');
-    
-    fullfile(root,'targetFunctions','reflectivityCalculation');
-    fullfile(root,'targetFunctions','standardTF');
-    fullfile(root,'targetFunctions','standardTF','customLayers');
-    fullfile(root,'targetFunctions','standardTF','customXY');
-    fullfile(root,'targetFunctions','standardTF','standardLayers');
-    fullfile(root,'targetFunctions','domainsTF');
-    fullfile(root,'targetFunctions','domainsTF','customLayers');
-    fullfile(root,'targetFunctions','domainsTF','standardLayers');
-    fullfile(root,'targetFunctions','domainsTF','customXY');
+    fullfile(root,'targetFunctions','common','resolutionFunctions','simpleGaussian'); 
     
     fullfile(root,'tests','standardTFReflectivityCalculation');
     fullfile(root,'tests','domainsTFReflectivityCalculation');
@@ -75,7 +58,6 @@ paths = {
     fullfile(root,'tests','testProjectConversion');
 
     fullfile(root,'utilities');
-    fullfile(root,'utilities','exceptions');
     fullfile(root,'utilities','misc');
     fullfile(root,'utilities','plotting');
 

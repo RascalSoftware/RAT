@@ -142,8 +142,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setGeometry('aIr/SuBstRate');
             testCase.verifyEqual(testCase.project.geometry, geometryOptions.AirSubstrate.value, 'Geometry not set correctly');
             % Test bad inputs 
-            testCase.verifyError(@() testCase.project.setGeometry('anything'), invalidOption.errorID)
-            testCase.verifyError(@() testCase.project.setGeometry(2), invalidType.errorID)
+            testCase.verifyError(@() testCase.project.setGeometry('anything'), exceptions.invalidOption.errorID)
+            testCase.verifyError(@() testCase.project.setGeometry(2), exceptions.invalidType.errorID)
         end
 
         function testModelType(testCase)
@@ -168,8 +168,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
             testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
             % Test bad inputs 
-            testCase.verifyError(@() testCase.project.setModelType('anything'), invalidOption.errorID)
-            testCase.verifyError(@() testCase.project.setModelType(2), invalidType.errorID)
+            testCase.verifyError(@() testCase.project.setModelType('anything'), exceptions.invalidOption.errorID)
+            testCase.verifyError(@() testCase.project.setModelType(2), exceptions.invalidType.errorID)
         end
 
         function testUsePriors(testCase)
@@ -195,8 +195,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyFalse(testCase.project.background.backPars.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.resolution.resolPars.showPriors, 'Parameter show priors not set correctly');
             % Test bad inputs 
-            testCase.verifyError(@() testCase.project.setUsePriors('anything'), invalidType.errorID);
-            testCase.verifyError(@() testCase.project.setUsePriors(1), invalidType.errorID);
+            testCase.verifyError(@() testCase.project.setUsePriors('anything'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.project.setUsePriors(1), exceptions.invalidType.errorID);
         end
 
         function testParameters(testCase)
@@ -211,7 +211,7 @@ classdef testProjectClass < matlab.unittest.TestCase
                 testCase.verifyEqual(string(testCase.project.parameters.varTable{i+1, :}),...
                                         string(testCase.parameters{i}) , 'Parameters not set correctly');
             end
-            testCase.verifyError(@() testCase.project.addParameterGroup(testCase.parameters{1}), invalidType.errorID);
+            testCase.verifyError(@() testCase.project.addParameterGroup(testCase.parameters{1}), exceptions.invalidType.errorID);
             
             % Test adding parameters
             testCase.project.addParameter();
@@ -224,7 +224,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.removeParameter('NewParam2');
             testCase.verifyEqual(testCase.project.parameters.varTable{end, 1}, "new parameter 11", 'removeParameter method not working');
             testCase.verifySize(testCase.project.parameters.varTable, [11, 8], 'Parameters has wrong dimension');
-            testCase.verifyError(@() testCase.project.removeParameter('Substrate Roughness'), invalidOption.errorID) % can't remove substrate roughness
+            testCase.verifyError(@() testCase.project.removeParameter('Substrate Roughness'), exceptions.invalidOption.errorID) % can't remove substrate roughness
             testCase.project.removeParameter(11);
             testCase.verifyEqual(testCase.project.parameters.varTable{end, 1}, "Heads Hydration", 'removeParameter method not working');
             testCase.verifySize(testCase.project.parameters.varTable, [10, 8], 'Parameters has wrong dimension');
@@ -239,7 +239,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.project.setParameterName(2, 'NewParam');
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 1}, "NewParam", 'setParameterName method not working');
             testCase.project.setParameterName(2, 'Tails Thickness');
-            testCase.verifyError(@() testCase.project.setParameterName(1, 'name'), invalidOption.errorID) % can't rename substrate roughness
+            testCase.verifyError(@() testCase.project.setParameterName(1, 'name'), exceptions.invalidOption.errorID) % can't rename substrate roughness
             testCase.project.setParameterFit('Tails Thickness', false);
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 5}, false, 'setParameterFit method not working');
             testCase.project.setParameterPrior(2, priorTypes.Uniform);
@@ -260,7 +260,7 @@ classdef testProjectClass < matlab.unittest.TestCase
                                             string(testCase.layers{i}{j}), 'addLayerGroup method not working');
                 end
             end
-            testCase.verifyError(@() testCase.project.addLayerGroup(testCase.layers{1}), invalidType.errorID);
+            testCase.verifyError(@() testCase.project.addLayerGroup(testCase.layers{1}), exceptions.invalidType.errorID);
 
             % Test adding single layer
             testCase.project.addLayer();  % Adds empty layer
@@ -275,8 +275,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifySize(testCase.project.layers.varTable, [7, 6], 'Layers has wrong dimension');
             testCase.verifyEqual(testCase.project.layers.varTable{7, 1}, "Another Layer", 'addLayer method not working');
             % Test setting value in a layer
-            testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 'Tail'), nameNotRecognised.errorID)  % parameter does not exist
-            testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 11), indexOutOfRange.errorID)  % index greater than parameter table
+            testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 'Tail'), exceptions.nameNotRecognised.errorID)  % parameter does not exist
+            testCase.verifyError(@() testCase.project.setLayerValue(1, 2, 11), exceptions.indexOutOfRange.errorID)  % index greater than parameter table
             testCase.project.setLayerValue(1, 2, 'Tails Thickness');
             testCase.verifyEqual(testCase.project.layers.varTable{1, 2}, "Tails Thickness", 'setLayerValue method not working');
             testCase.project.setLayerValue('Hydrogenated Tails', 4, 'Heads Roughness');
@@ -300,10 +300,10 @@ classdef testProjectClass < matlab.unittest.TestCase
             % and the routines modifying the layers raise an error
             customProject = projectClass('custom project', calculationTypes.NonPolarised, modelTypes.CustomLayers);
             testCase.verifyEmpty(customProject.layers);
-            testCase.verifyError(@() customProject.addLayerGroup({{'New Layer'}, {'Another Layer'}}), invalidProperty.errorID)
-            testCase.verifyError(@() customProject.addLayer('New Layer'), invalidProperty.errorID)
-            testCase.verifyError(@() customProject.removeLayer(1), invalidProperty.errorID)
-            testCase.verifyError(@() customProject.setLayerValue(1, 2, 'Tails Thickness'), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.addLayerGroup({{'New Layer'}, {'Another Layer'}}), exceptions.invalidProperty.errorID)
+            testCase.verifyError(@() customProject.addLayer('New Layer'), exceptions.invalidProperty.errorID)
+            testCase.verifyError(@() customProject.removeLayer(1), exceptions.invalidProperty.errorID)
+            testCase.verifyError(@() customProject.setLayerValue(1, 2, 'Tails Thickness'), exceptions.invalidProperty.errorID)
         end
 
         function testData(testCase)
@@ -514,8 +514,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyLength(testCase.project.contrasts.contrasts, 2, 'contrast has wrong dimension');
             testCase.verifyEqual(testCase.project.contrasts.contrasts{2}.name, 'Another Bilayer', 'addContrast method not working');
             % Checks that contrast can be modified
-            testCase.verifyError(@() testCase.project.setContrast(3, 'name', 'First Bilayer'), indexOutOfRange.errorID)
-            testCase.verifyError(@() testCase.project.setContrast('Bilayer', 'name', 'First Bilayer'), nameNotRecognised.errorID)
+            testCase.verifyError(@() testCase.project.setContrast(3, 'name', 'First Bilayer'), exceptions.indexOutOfRange.errorID)
+            testCase.verifyError(@() testCase.project.setContrast('Bilayer', 'name', 'First Bilayer'), exceptions.nameNotRecognised.errorID)
             testCase.project.setContrast(1, 'name', 'First Bilayer', 'nbs', 'SLD H2O');
             testCase.verifyLength(testCase.project.contrasts.contrasts, 2, 'contrast has wrong dimension');
             testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.name, 'First Bilayer', 'setContrast method not working');
@@ -535,8 +535,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.model, {'Hydrogenated Heads', 'Deuterated Heads'}, 'setContrastModel method not working');
             testCase.project.setContrastModel('Another Bilayer', {'Deuterated Heads', 'Hydrogenated Heads'});
             testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.model, {'Deuterated Heads', 'Hydrogenated Heads'}, 'setContrastModel method not working');
-            testCase.verifyError(@() testCase.project.setContrastModel(3, {}), indexOutOfRange.errorID)
-            testCase.verifyError(@() testCase.project.setContrastModel('Bilayer', {}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.project.setContrastModel(3, {}), exceptions.indexOutOfRange.errorID)
+            testCase.verifyError(@() testCase.project.setContrastModel('Bilayer', {}), exceptions.nameNotRecognised.errorID);
         end
 
         function testCustomFile(testCase)
@@ -601,7 +601,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.populateProject();
 
             % Verify error for invalid input and write the script
-            testCase.verifyError(@() testCase.project.writeScript(script="invalid.txt"), invalidValue.errorID);
+            testCase.verifyError(@() testCase.project.writeScript(script="invalid.txt"), exceptions.invalidValue.errorID);
             testCase.project.writeScript(objName="problem", script="newScript");
             run("newScript.m");
     

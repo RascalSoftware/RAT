@@ -66,7 +66,7 @@ classdef parametersClass < tableUtilities
                 
                 % First input must be a parameter name
                 if ~isText(inputCell{1})
-                    throw(invalidType('First value must be param name (text)'));
+                    throw(exceptions.invalidType('First value must be param name (text)'));
                 end
                 
                 % If length is 1, assume name only
@@ -101,22 +101,22 @@ classdef parametersClass < tableUtilities
                        
                     % If not one of these options, throw an error
                     otherwise
-                        throw(invalidNumberOfInputs('Unrecognised inputs to ''addParameter'''));
+                        throw(exceptions.invalidNumberOfInputs('Unrecognised inputs to ''addParameter'''));
                 end
                 
                 % Type validation
                 if ~isnumeric(values)
-                    throw(invalidType('Expecting numeric values as params 2 - 4'));
+                    throw(exceptions.invalidType('Expecting numeric values as params 2 - 4'));
                 end
                 
                 if ~islogical(fit)
-                    throw(invalidType('Expecting logical value for param 5'));
+                    throw(exceptions.invalidType('Expecting logical value for param 5'));
                 end
                 
                 priorType = validateOption(priorType, 'priorTypes', obj.invalidPriorsMessage).value;
                                
                 if ~isnumeric(priorValues)
-                    throw(invalidType('Prior values must be numeric'));
+                    throw(exceptions.invalidType('Prior values must be numeric'));
                 end
                     
                 newRow = {name, values(1), values(2), values(3), fit, priorType, priorValues(1), priorValues(2)};
@@ -138,7 +138,7 @@ classdef parametersClass < tableUtilities
                 row = cellstr(row);
             elseif iscell(row)
             else
-                throw(invalidType('Unrecognised Row'))
+                throw(exceptions.invalidType('Unrecognised Row'))
             end
 
             % Find index for each parameter and remove from table
@@ -163,7 +163,7 @@ classdef parametersClass < tableUtilities
 
             % Always need three or more inputs to set parameter value
             if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
-                throw(invalidNumberOfInputs('The input to ''setParameter'' should be a index/parameter name and a set of name-value pairs'));
+                throw(exceptions.invalidNumberOfInputs('The input to ''setParameter'' should be a index/parameter name and a set of name-value pairs'));
             end
 
             row = obj.getValidRow(row);
@@ -229,7 +229,7 @@ classdef parametersClass < tableUtilities
             row = obj.getValidRow(row);
 
             if ~isnumeric(value)
-                throw(invalidType('Value must be numeric'));
+                throw(exceptions.invalidType('Value must be numeric'));
             end
 
             tab(row,3) = {value};
@@ -245,7 +245,7 @@ classdef parametersClass < tableUtilities
             row = obj.getValidRow(row);
 
             if ~isText(name)
-                throw(invalidType('New name must be char'));
+                throw(exceptions.invalidType('New name must be char'));
             end
 
             tab(row, 1) = {name};
@@ -262,7 +262,7 @@ classdef parametersClass < tableUtilities
             row = obj.getValidRow(row);
 
             if ~(isnumeric(min) && isnumeric(max))
-                throw(invalidType('min and max need to be numeric'));
+                throw(exceptions.invalidType('min and max need to be numeric'));
             end
             
             tab(row, 2) = {min};
@@ -279,7 +279,7 @@ classdef parametersClass < tableUtilities
             row = obj.getValidRow(row);
 
             if ~islogical(fitFlag)
-                throw(invalidType('Need true or false for Fit? value'));
+                throw(exceptions.invalidType('Need true or false for Fit? value'));
             end
            
             tab(row, 5) = {fitFlag};
@@ -289,7 +289,7 @@ classdef parametersClass < tableUtilities
         function set.showPriors(obj, flag)
             % Setter for the showPriors property
             if ~islogical(flag)
-                throw(invalidType('Show priors must be true or false'));
+                throw(exceptions.invalidType('Show priors must be true or false'));
             end
             obj.showPriors = flag;
         end
@@ -387,7 +387,7 @@ classdef parametersClass < tableUtilities
             else
                 index = row;
                 if (index < 1) || (index > obj.rowCount)
-                    throw(indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.rowCount)));
+                    throw(exceptions.indexOutOfRange(sprintf('Row index out out of range 1 - %d', obj.rowCount)));
                 end     
             end
         end

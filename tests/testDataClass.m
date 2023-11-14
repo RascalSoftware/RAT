@@ -67,16 +67,16 @@ classdef testDataClass < matlab.unittest.TestCase
             testCase.data.addData(testCase.datasets{2, :});
             testCase.verifySize(testCase.data.varTable, [4, 4], 'data has wrong dimension');
             testCase.verifyEqual(testCase.data.varTable{:, 1}, ["New data 1"; "Sim 2"; "Sim 3"; "Bilayer / SMW"], 'addData method not working');
-            testCase.verifyError(@() testCase.data.addData('Sim 2'), duplicateName.errorID);  % duplicates not allowed
-            testCase.verifyError(@() testCase.data.addData(1), invalidType.errorID);  % name should be string
-            testCase.verifyError(@() testCase.data.addData('Another Sim', 'data'), invalidType.errorID);  % data should not string
-            testCase.verifyError(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1]), invalidNumberOfInputs.errorID); % argument should be 1, 2 or 4
-            testCase.verifyError(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1, 6], [-0.5, 0.5]), invalidType.errorID);  % range should be length 2
-            testCase.verifyError(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1], [-0.5, 2, 0.5]), invalidType.errorID);  % range should be length 2
+            testCase.verifyError(@() testCase.data.addData('Sim 2'), exceptions.duplicateName.errorID);  % duplicates not allowed
+            testCase.verifyError(@() testCase.data.addData(1), exceptions.invalidType.errorID);  % name should be string
+            testCase.verifyError(@() testCase.data.addData('Another Sim', 'data'), exceptions.invalidType.errorID);  % data should not string
+            testCase.verifyError(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1]), exceptions.invalidNumberOfInputs.errorID); % argument should be 1, 2 or 4
+            testCase.verifyError(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1, 6], [-0.5, 0.5]), exceptions.invalidType.errorID);  % range should be length 2
+            testCase.verifyError(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1], [-0.5, 2, 0.5]), exceptions.invalidType.errorID);  % range should be length 2
             testCase.data.addData();
             testCase.verifySize(testCase.data.varTable, [5, 4], 'data has wrong dimension');
             testCase.verifyEqual(testCase.data.varTable{:, 1}, ["New data 1"; "Sim 2"; "Sim 3"; "Bilayer / SMW"; "New data 5"], 'addData method not working');
-            testCase.verifyError(@() testCase.data.addData('Another Sim', repmat(1:-1:-1, 3, 1)'), invalidValue.errorID);
+            testCase.verifyError(@() testCase.data.addData('Another Sim', repmat(1:-1:-1, 3, 1)'), exceptions.invalidValue.errorID);
             % addRow changes the ranges to match the data and throws warning
             testCase.verifyWarning(@() testCase.data.addData('Another Sim', zeros(4, 3), [-1, 1], [0, 0]), '');  
             testCase.verifyEqual(testCase.data.varTable{end, 3}, {[0, 0]}, 'addData method not working');
@@ -103,11 +103,11 @@ classdef testDataClass < matlab.unittest.TestCase
             end
             testCase.verifyEqual(names.oldName, string(testCase.datasets{2, 1}), 'setData returned incorrect data');
             testCase.verifyEqual(names.newName, 'Sim 2', 'setData returned incorrect data');
-            testCase.verifyError(@() testCase.data.setData(1, 'name'), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.data.setData('5', 'name', 'data_name'), nameNotRecognised.errorID);
-            testCase.verifyError(@() testCase.data.setData(5, 'name', 'data_name'), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.data.setDataName(1, 56), invalidType.errorID);
-            testCase.verifyError(@() testCase.data.setDataName(1, 'Sim 2'), duplicateName.errorID);
+            testCase.verifyError(@() testCase.data.setData(1, 'name'), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.data.setData('5', 'name', 'data_name'), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.data.setData(5, 'name', 'data_name'), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.data.setDataName(1, 56), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.data.setDataName(1, 'Sim 2'), exceptions.duplicateName.errorID);
             names = testCase.data.setDataName(1, 'Sim 3');
             testCase.verifyEqual(testCase.data.varTable{1, 1}, "Sim 3", 'setDataName method not working');
             testCase.verifyEqual(names.oldName, "Sim 1", 'setData returned incorrect data');

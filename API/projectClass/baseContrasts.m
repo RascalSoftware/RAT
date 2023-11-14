@@ -122,13 +122,13 @@ classdef (Abstract) baseContrasts < handle
                 
                 % Throw an error if the name is not matched
                 if isempty(row)
-                    throw(nameNotRecognised('Contrast name not found'));
+                    throw(exceptions.nameNotRecognised('Contrast name not found'));
                 end
             end
            
             % Check to make sure the number is in range
             if row < 1 || row > obj.numberOfContrasts
-                throw(indexOutOfRange(sprintf('Specified contrast %d is not in range 1 - %d', row, obj.numberOfContrasts)));
+                throw(exceptions.indexOutOfRange(sprintf('Specified contrast %d is not in range 1 - %d', row, obj.numberOfContrasts)));
             end
 
             % Remove the contrast from the contrasts cell array
@@ -150,13 +150,13 @@ classdef (Abstract) baseContrasts < handle
             % Find if we are referencing an existing contrast
             if isnumeric(row)
                 if (row < 1 || row > obj.numberOfContrasts)
-                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', row, obj.numberOfContrasts)));
+                    throw(exceptions.indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', row, obj.numberOfContrasts)));
                 end
                 contrastIndex = row; 
             elseif isText(row)
                 [present,idx] = ismember(row, obj.getAllContrastNames());
                 if ~present
-                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised', row)));
+                    throw(exceptions.nameNotRecognised(sprintf('Contrast %s is not recognised', row)));
                 end
                 contrastIndex = idx;
             end
@@ -169,17 +169,17 @@ classdef (Abstract) baseContrasts < handle
             modelType = validateOption(modelType, 'modelTypes', obj.invalidTypeMessage).value;
             if any(strcmpi(modelType, {modelTypes.CustomLayers.value, modelTypes.CustomXY.value}))
                 if length(modelArray) > 1
-                    throw(invalidValue('Only 1 model value allowed for ''custom'''));
+                    throw(exceptions.invalidValue('Only 1 model value allowed for ''custom'''));
                 end
             elseif strcmpi(modelType, modelTypes.StandardLayers.value) && obj.domainsCalc && isa(obj, 'contrastsClass')
                 if length(modelArray) ~= 2
-                    throw(invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
+                    throw(exceptions.invalidValue('Exactly two model values are required for ''standard layers'' with domains'));
                 end
             end
 
             for i = 1:length(modelArray)
                 if ~strcmpi(modelArray{i}, allowedNames)
-                    throw(nameNotRecognised(sprintf('Model component name %s is not recognised. The allowed names are: %s.', modelArray{i}, strjoin(allowedNames, ', '))));
+                    throw(exceptions.nameNotRecognised(sprintf('Model component name %s is not recognised. The allowed names are: %s.', modelArray{i}, strjoin(allowedNames, ', '))));
                 end
             end
 
@@ -202,14 +202,14 @@ classdef (Abstract) baseContrasts < handle
             % Find if we are referencing an existing contrast
             if isnumeric(row)
                 if (row < 1 || row > obj.numberOfContrasts)
-                    throw(indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', row, obj.numberOfContrasts)));
+                    throw(exceptions.indexOutOfRange(sprintf('Contrast number %d is out of range 1 - %d', row, obj.numberOfContrasts)));
                 end
                 contrastIndex = row;
                 
             elseif isText(row)
                 [present,idx] = ismember(row, obj.getAllContrastNames());
                 if ~present
-                    throw(nameNotRecognised(sprintf('Contrast %s is not recognised',row)));
+                    throw(exceptions.nameNotRecognised(sprintf('Contrast %s is not recognised',row)));
                 end
                 contrastIndex = idx;
                 

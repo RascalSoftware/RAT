@@ -77,7 +77,7 @@ classdef eventManager < handle
             eventType = validateOption(eventType, 'eventTypes', 'Event type must be an eventTypes enum').value;
 
             if ~isText(functionName) || isempty(char(functionName))
-                throw(invalidType('Second value must be function name (text)'));
+                throw(exceptions.invalidType('Second value must be function name (text)'));
             end
 
             events = eventManager.getEvents();

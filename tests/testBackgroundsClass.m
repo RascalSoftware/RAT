@@ -54,7 +54,7 @@
          testCase.background.showPriors = true;
          testCase.verifyTrue(testCase.background.showPriors);
          testCase.verifyTrue(testCase.background.backPars.showPriors);
-         testCase.verifyError(@setShowPriors, invalidType.errorID);  % showPrior should be logical 
+         testCase.verifyError(@setShowPriors, exceptions.invalidType.errorID);  % showPrior should be logical 
          function setShowPriors
                testCase.background.showPriors = 'a';
          end
@@ -92,9 +92,9 @@
          testCase.verifyEqual(string(testCase.background.backgrounds.varTable{end, :}),...
                               ["background 5", string(allowedTypes.Function.value), "function_name", "background par 1", "background par 3", "", ""], ...
                               'addBackground method not working');
-         testCase.verifyError(@() testCase.background.addBackground('New', 'fixed'), invalidOption.errorID);
-         testCase.verifyError(@() testCase.background.addBackground('New', allowedTypes.Constant), invalidNumberOfInputs.errorID);
-         testCase.verifyError(@() testCase.background.addBackground('New', allowedTypes.Constant.value, 6), indexOutOfRange.errorID);
+         testCase.verifyError(@() testCase.background.addBackground('New', 'fixed'), exceptions.invalidOption.errorID);
+         testCase.verifyError(@() testCase.background.addBackground('New', allowedTypes.Constant), exceptions.invalidNumberOfInputs.errorID);
+         testCase.verifyError(@() testCase.background.addBackground('New', allowedTypes.Constant.value, 6), exceptions.indexOutOfRange.errorID);
       end
 
       function testRemoveBackground(testCase)
@@ -117,7 +117,7 @@
          testCase.background.setBackgroundName(3, 'background three');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 1}, ...
                               "background three", 'setBackgroundName method not working');
-         testCase.verifyError(@() testCase.background.setBackgroundName(2, 2), invalidType.errorID);
+         testCase.verifyError(@() testCase.background.setBackgroundName(2, 2), exceptions.invalidType.errorID);
       end
 
       function testSetBackground(testCase)
@@ -134,7 +134,7 @@
          testCase.verifyEqual(testCase.background.backgrounds.varTable{1, 2}, string(allowedTypes.Constant.value), 'setBackground method not working');
          testCase.background.setBackground('Background 1', 'type', allowedTypes.Function); 
          testCase.verifyEqual(testCase.background.backgrounds.varTable{1, 2}, string(allowedTypes.Function.value), 'setBackground method not working');
-         testCase.verifyError(@() testCase.background.setBackground(2, 'type', 'random'), invalidOption.errorID);
+         testCase.verifyError(@() testCase.background.setBackground(2, 'type', 'random'), exceptions.invalidOption.errorID);
          
          testCase.background.setBackground(3, 'Value1', 'random');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 3}, "random", 'setBackground method not working');
@@ -143,9 +143,9 @@
          
          testCase.background.setBackground(2, 'Value2', 'Background par 1');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{2, 4}, "Background par 1", 'setBackground method not working');
-         testCase.verifyError(@() testCase.background.setBackground(2, 'Value2', 'random'), nameNotRecognised.errorID);
-         testCase.verifyError(@() testCase.background.setBackground(5, 'Value2', 'random'), indexOutOfRange.errorID);
-         testCase.verifyError(@() testCase.background.setBackground(true, 'Value2', 'random'), invalidType.errorID);
+         testCase.verifyError(@() testCase.background.setBackground(2, 'Value2', 'random'), exceptions.nameNotRecognised.errorID);
+         testCase.verifyError(@() testCase.background.setBackground(5, 'Value2', 'random'), exceptions.indexOutOfRange.errorID);
+         testCase.verifyError(@() testCase.background.setBackground(true, 'Value2', 'random'), exceptions.invalidType.errorID);
          
          testCase.background.setBackground(3, 'name', 'New Name', 'type', allowedTypes.Constant, 'value1', 'Background par 3', 'value2', '');
          testCase.verifyEqual(testCase.background.backgrounds.varTable{3, 1}, "New Name", 'setBackground method not working');

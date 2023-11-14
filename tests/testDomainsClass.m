@@ -127,8 +127,8 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.modelType, modelTypes.StandardLayers.value, 'Model type not set correctly');
             testCase.verifyClass(testCase.project.layers, 'layersClass', 'Layers class not initialised correctly')
             % Test bad inputs 
-            testCase.verifyError(@() testCase.project.setModelType('anything'), invalidOption.errorID)
-            testCase.verifyError(@() testCase.project.setModelType(2), invalidType.errorID)
+            testCase.verifyError(@() testCase.project.setModelType('anything'), exceptions.invalidOption.errorID)
+            testCase.verifyError(@() testCase.project.setModelType(2), exceptions.invalidType.errorID)
         end
 
         function testDomainRatio(testCase)
@@ -165,8 +165,8 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyLength(testCase.project.domainContrasts.contrasts, 2, 'contrast has wrong dimension');
             testCase.verifyEqual(testCase.project.domainContrasts.contrasts{2}.name, 'Another Bilayer', 'addContrast method not working');
             % Checks that contrast can be modified
-            testCase.verifyError(@() testCase.project.setDomainContrast(3, 'name', 'First Bilayer'), indexOutOfRange.errorID)
-            testCase.verifyError(@() testCase.project.setDomainContrast('Bilayer', 'name', 'First Bilayer'), nameNotRecognised.errorID)
+            testCase.verifyError(@() testCase.project.setDomainContrast(3, 'name', 'First Bilayer'), exceptions.indexOutOfRange.errorID)
+            testCase.verifyError(@() testCase.project.setDomainContrast('Bilayer', 'name', 'First Bilayer'), exceptions.nameNotRecognised.errorID)
             testCase.project.setDomainContrast(1, 'name', 'First Bilayer');
             testCase.verifyLength(testCase.project.domainContrasts.contrasts, 2, 'contrast has wrong dimension');
             testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.name, 'First Bilayer', 'setContrast method not working');
@@ -180,8 +180,8 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.model, {'Hydrogenated Heads', 'Deuterated Heads'}, 'setContrastModel method not working');
             testCase.project.setDomainContrastModel('Another Bilayer', {'Deuterated Heads', 'Hydrogenated Heads'});
             testCase.verifyEqual(testCase.project.domainContrasts.contrasts{1}.model, {'Deuterated Heads', 'Hydrogenated Heads'}, 'setContrastModel method not working');
-            testCase.verifyError(@() testCase.project.setDomainContrastModel(3, {}), indexOutOfRange.errorID)
-            testCase.verifyError(@() testCase.project.setDomainContrastModel('Bilayer', {}), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.project.setDomainContrastModel(3, {}), exceptions.indexOutOfRange.errorID)
+            testCase.verifyError(@() testCase.project.setDomainContrastModel('Bilayer', {}), exceptions.nameNotRecognised.errorID);
         end
 
         function testDomainContrastExceptions(testCase)
@@ -190,10 +190,10 @@ classdef testDomainsClass < matlab.unittest.TestCase
             % error
             customProject = domainsClass('custom project', calculationTypes.Domains, modelTypes.CustomLayers);
             testCase.verifyEmpty(customProject.domainContrasts);
-            testCase.verifyError(@() customProject.addDomainContrast('name', 'Bilayer / H2O'), invalidProperty.errorID)
-            testCase.verifyError(@() customProject.removeDomainContrast(1), invalidProperty.errorID)
-            testCase.verifyError(@() customProject.setDomainContrast(1, 'name', 'First Bilayer'), invalidProperty.errorID)
-            testCase.verifyError(@() customProject.setDomainContrastModel(1, {'Hydrogenated Heads', 'Deuterated Heads'}), invalidProperty.errorID)
+            testCase.verifyError(@() customProject.addDomainContrast('name', 'Bilayer / H2O'), exceptions.invalidProperty.errorID)
+            testCase.verifyError(@() customProject.removeDomainContrast(1), exceptions.invalidProperty.errorID)
+            testCase.verifyError(@() customProject.setDomainContrast(1, 'name', 'First Bilayer'), exceptions.invalidProperty.errorID)
+            testCase.verifyError(@() customProject.setDomainContrastModel(1, {'Hydrogenated Heads', 'Deuterated Heads'}), exceptions.invalidProperty.errorID)
         end
 
 

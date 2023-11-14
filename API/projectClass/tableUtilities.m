@@ -37,7 +37,7 @@ classdef (Abstract) tableUtilities < handle
 
             % Ensure no duplicate names
             if any(strcmp(varargin{1}, tab{:,1}))
-                throw(duplicateName('Duplicate row names not allowed'));
+                throw(exceptions.duplicateName('Duplicate row names not allowed'));
             end
 
             tab = [tab; varargin];
@@ -58,7 +58,7 @@ classdef (Abstract) tableUtilities < handle
             end
 
             if row > obj.rowCount
-                throw(indexOutOfRange(sprintf('Row index %d out of range 1 - %d', row, obj.rowCount)));
+                throw(exceptions.indexOutOfRange(sprintf('Row index %d out of range 1 - %d', row, obj.rowCount)));
             end
             
             tab = obj.varTable;
@@ -112,7 +112,7 @@ classdef (Abstract) tableUtilities < handle
                 % Non-zero value in array is the row index
                 row = find(index);
             else
-                throw(nameNotRecognised(errorMessage));
+                throw(exceptions.nameNotRecognised(errorMessage));
             end
         end
 

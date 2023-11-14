@@ -66,7 +66,7 @@ classdef layersClass < tableUtilities
                     % No hydration
                     layerDetails = [layerDetails, {'', hydrationTypes.BulkOut.value}];
                 elseif length(layerDetails) ~= obj.varCount
-                    throw(invalidNumberOfInputs(sprintf('Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.', obj.varCount - 2, obj.varCount)));
+                    throw(exceptions.invalidNumberOfInputs(sprintf('Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.', obj.varCount - 2, obj.varCount)));
                 end
                 
                 name = layerDetails{1};
@@ -110,10 +110,10 @@ classdef layersClass < tableUtilities
                 row = obj.findRowIndex(row, layerNames, 'Unrecognised layer name');
             elseif isnumeric(row)
                 if (row < 1) || (row > obj.rowCount)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.rowCount)));
+                    throw(exceptions.indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, obj.rowCount)));
                 end
             else
-                throw(invalidType('Unrecognised layer type'));
+                throw(exceptions.invalidType('Unrecognised layer type'));
             end
             
             % Find the column index if we have a column name
@@ -121,14 +121,14 @@ classdef layersClass < tableUtilities
                 col = obj.findRowIndex(col, colNames, 'Unrecognised column name');
             elseif isnumeric(col)
                 if (col < 1) || (col > length(colNames))
-                    throw(indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
+                    throw(exceptions.indexOutOfRange(sprintf('The column index %d is not within the range 1 - %d', col, length(colNames))));
                 end
             else
-                throw(invalidType('Unrecognised layer table column type'));
+                throw(exceptions.invalidType('Unrecognised layer table column type'));
             end
 
             if ~isnumeric(col) || col < 2  || col > length(colNames)
-                throw(indexOutOfRange(sprintf('Column index should be a number between 2 and %d', length(colNames))));
+                throw(exceptions.indexOutOfRange(sprintf('Column index should be a number between 2 and %d', length(colNames))));
             end
 
             if col == length(colNames)
@@ -198,19 +198,19 @@ classdef layersClass < tableUtilities
 
             if isText(inputVal)
                 if ~any(strcmpi(inputVal, paramNames))
-                    throw(nameNotRecognised(sprintf('Parameter %s not recognized', inputVal)));
+                    throw(exceptions.nameNotRecognised(sprintf('Parameter %s not recognized', inputVal)));
                 end
                 param = inputVal;
 
             elseif isnumeric(inputVal)
                 paramIndex = floor(inputVal);
                 if paramIndex < 1 || paramIndex > length(paramNames)
-                    throw(indexOutOfRange(sprintf('Parameter ''%d'' is out of range 1 - %d', paramIndex, length(paramNames))));
+                    throw(exceptions.indexOutOfRange(sprintf('Parameter ''%d'' is out of range 1 - %d', paramIndex, length(paramNames))));
                 end
                 param = paramNames{paramIndex};
 
             else
-                throw(invalidType(sprintf('Parameter %s is not in a recognizable format', inputVal)));
+                throw(exceptions.invalidType(sprintf('Parameter %s is not in a recognizable format', inputVal)));
                 
             end
         end

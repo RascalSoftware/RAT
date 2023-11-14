@@ -107,13 +107,13 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
         function testAddRowInvalidType(testCase)
             % Test adding a row to a multi type table.
             % If we use an invalid type it should raise an error
-            testCase.verifyError(@() testCase.exampleTable.addRow('Invalid Row', 'Invalid Type'), invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleTable.addRow('Invalid Row', 'Invalid Type'), exceptions.invalidOption.errorID);
         end
 
         function testAddRowDuplicateName(testCase)
             % Test adding a row to a multi type table.
             % If we use a duplicate name it should raise an error
-            testCase.verifyError(@() testCase.exampleTable.addRow('Background D2O'), duplicateName.errorID);
+            testCase.verifyError(@() testCase.exampleTable.addRow('Background D2O'), exceptions.duplicateName.errorID);
         end
 
         function testSetValue(testCase)
@@ -155,26 +155,26 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             % than a variable number of arguments
 
             % Row indices
-            testCase.verifyError(@() testCase.exampleTable.setValue(0, testCase.numCols, 'Added'), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleTable.setValue(testCase.numRows+1, testCase.numCols, 'Added'), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(0, testCase.numCols, 'Added'), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(testCase.numRows+1, testCase.numCols, 'Added'), exceptions.indexOutOfRange.errorID);
 
             % Column indices
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, 0, 'Added'), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, testCase.numCols+1, 'Added'), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, 0, 'Added'), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, testCase.numCols+1, 'Added'), exceptions.indexOutOfRange.errorID);
 
             % Row name
-            testCase.verifyError(@() testCase.exampleTable.setValue('Invalid Name', testCase.numCols, 'Added'), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue('Invalid Name', testCase.numCols, 'Added'), exceptions.nameNotRecognised.errorID);
 
             % Column name
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, 'Invalid Name', 'Added'), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, 'Invalid Name', 'Added'), exceptions.nameNotRecognised.errorID);
 
             % Float values within range
             testCase.verifyError(@() testCase.exampleTable.setValue(1, 2.5, 'Added'), 'MATLAB:badsubscript');
             testCase.verifyError(@() testCase.exampleTable.setValue(2.5, 1, 'New Name'), 'MATLAB:badsubscript');
 
             % Invalid data types
-            testCase.verifyError(@() testCase.exampleTable.setValue(testCase.initialTable, testCase.numCols, 'Added'), invalidType.errorID);
-            testCase.verifyError(@() testCase.exampleTable.setValue(1, datetime('today'), 'Added'), invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(testCase.initialTable, testCase.numCols, 'Added'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleTable.setValue(1, datetime('today'), 'Added'), exceptions.invalidType.errorID);
         end
 
         function testDisplayTable(testCase)
@@ -233,9 +233,9 @@ classdef testMultiTypeTable < matlab.unittest.TestCase
             testCase.verifyEqual(multiTypeTable.findRowIndex(' Background D2O', tableRows), 1);
             testCase.verifyEqual(multiTypeTable.findRowIndex(' Type ', tableCols), 2);
 
-            testCase.verifyError(@() multiTypeTable.findRowIndex('Invalid Row', tableRows), nameNotRecognised.errorID);
-            testCase.verifyError(@() multiTypeTable.findRowIndex('Value 3', tableRows), nameNotRecognised.errorID);
-            testCase.verifyError(@() multiTypeTable.findRowIndex('Value 6', tableCols), nameNotRecognised.errorID);
+            testCase.verifyError(@() multiTypeTable.findRowIndex('Invalid Row', tableRows), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() multiTypeTable.findRowIndex('Value 3', tableRows), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() multiTypeTable.findRowIndex('Value 6', tableCols), exceptions.nameNotRecognised.errorID);
         end
 
     end

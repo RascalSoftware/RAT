@@ -191,23 +191,23 @@ classdef testLayersClass < matlab.unittest.TestCase
             % an error
 
             % Invalid length for layer parameters
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4, hydrationTypes.None.value, 5), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Incomplete Oxide', 2, 3, 1, 4, hydrationTypes.None.value, 5), exceptions.invalidNumberOfInputs.errorID);
 
             % Invalid hydrate type
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 1, 4, 'surface'), invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 1, 4, 'surface'), exceptions.invalidOption.errorID);
 
             % Invalid parameter names
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer','Substrate thick','Substrate SLD','Substrate Roughness'), exceptions.nameNotRecognised.errorID);
 
             % Duplicate layer names
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value), duplicateName.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Bil inner head', 'Bilayer heads thick', 'Bilayer heads SLD', 'Bilayer heads rough', 'Bilayer heads hydr', hydrationTypes.BulkOut.value), exceptions.duplicateName.errorID);
 
             % Invalid parameter indices
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 0), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, testCase.numParams+1), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, 0), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, testCase.numParams+1), exceptions.indexOutOfRange.errorID);
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', NaN ,3, 0), 'MATLAB:badsubscript');
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, NaN, 0), 'MATLAB:badsubscript');
             testCase.verifyError(@() testCase.exampleClass.addLayer(testCase.parameterNames, 'Oxide Layer', 2, 3, NaN), 'MATLAB:badsubscript');         
@@ -248,30 +248,30 @@ classdef testLayersClass < matlab.unittest.TestCase
             % values of both names and indices to refer to rows and columns
 
             % Row indices
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(0, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.numRows+1, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(0, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.numRows+1, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), exceptions.indexOutOfRange.errorID);
 
             % Column indices
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 0, 'Substrate Roughness', testCase.parameterNames), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 1, 'Changed', testCase.parameterNames), indexOutOfRange.errorID); % Can't change name
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, testCase.numCols+1, 'Substrate Roughness', testCase.parameterNames), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 0, 'Substrate Roughness', testCase.parameterNames), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 1, 'Changed', testCase.parameterNames), exceptions.indexOutOfRange.errorID); % Can't change name
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, testCase.numCols+1, 'Substrate Roughness', testCase.parameterNames), exceptions.indexOutOfRange.errorID);
 
             % Row name
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue('Invalid Name', testCase.numCols, 'Substrate Roughness', testCase.parameterNames), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue('Invalid Name', testCase.numCols, 'Substrate Roughness', testCase.parameterNames), exceptions.nameNotRecognised.errorID);
 
             % Column name
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 'Invalid Name', 'Substrate Roughness', testCase.parameterNames), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 'Invalid Name', 'Substrate Roughness', testCase.parameterNames), exceptions.nameNotRecognised.errorID);
 
             % Invalid hydrate type
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 6, 'Invalid hydrate', testCase.parameterNames), invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, 6, 'Invalid hydrate', testCase.parameterNames), exceptions.invalidOption.errorID);
 
             % Float values within range
             testCase.verifyError(@() testCase.exampleClass.setLayerValue(3, 2.5, 'Substrate Roughness', testCase.parameterNames), 'MATLAB:badsubscript');
             testCase.verifyError(@() testCase.exampleClass.setLayerValue(2.5, 3, 'Substrate Roughness', testCase.parameterNames), 'MATLAB:badsubscript');
             
             % Invalid data types
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.initialLayersTable, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), invalidType.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, datetime('today'), 'Substrate Roughness', testCase.parameterNames), invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(testCase.initialLayersTable, testCase.numCols, 'Substrate Roughness', testCase.parameterNames), exceptions.invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setLayerValue(1, datetime('today'), 'Substrate Roughness', testCase.parameterNames), exceptions.invalidType.errorID);
         end
 
         function testToStructStandardLayers(testCase)
@@ -368,10 +368,10 @@ classdef testLayersClass < matlab.unittest.TestCase
             outParam = layersClass.findParameter(10, testCase.parameterNames);
             testCase.verifyEqual(outParam, 'Bilayer tails SLD');
 
-            testCase.verifyError(@() layersClass.findParameter('Invalid Param', testCase.parameterNames), nameNotRecognised.errorID);
-            testCase.verifyError(@() layersClass.findParameter(0, testCase.parameterNames), indexOutOfRange.errorID);
-            testCase.verifyError(@() layersClass.findParameter(testCase.numParams+1, testCase.parameterNames), indexOutOfRange.errorID);
-            testCase.verifyError(@() layersClass.findParameter(datetime('today'), testCase.parameterNames), invalidType.errorID);
+            testCase.verifyError(@() layersClass.findParameter('Invalid Param', testCase.parameterNames), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() layersClass.findParameter(0, testCase.parameterNames), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() layersClass.findParameter(testCase.numParams+1, testCase.parameterNames), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() layersClass.findParameter(datetime('today'), testCase.parameterNames), exceptions.invalidType.errorID);
         end
 
     end

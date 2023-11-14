@@ -22,13 +22,13 @@
       end
       
       function testRegister(testCase)
-          testCase.verifyError(@() eventManager.register('event', 'disp'), invalidType.errorID);
+          testCase.verifyError(@() eventManager.register('event', 'disp'), exceptions.invalidType.errorID);
           testCase.verifyLength(eventManager.getEvents(), 0);
           testCase.verifyLength(eventManager.getHandlers(), 0);
-          testCase.verifyError(@() eventManager.register(eventTypes.Message, ''), invalidType.errorID);
+          testCase.verifyError(@() eventManager.register(eventTypes.Message, ''), exceptions.invalidType.errorID);
           testCase.verifyLength(eventManager.getEvents(), 0);
           testCase.verifyLength(eventManager.getHandlers(), 0);
-          testCase.verifyError(@() eventManager.register(eventTypes.Message, 2), invalidType.errorID);
+          testCase.verifyError(@() eventManager.register(eventTypes.Message, 2), exceptions.invalidType.errorID);
           testCase.verifyLength(eventManager.getEvents(), 0);
           testCase.verifyLength(eventManager.getHandlers(), 0);
             

@@ -12,16 +12,16 @@ classdef testUtilities < matlab.unittest.TestCase
         function testValidateLogical(testCase)
             testCase.verifyTrue(validateLogical(true), 'validateLogical function is not working');
             testCase.verifyFalse(validateLogical(false), 'validateLogical function is not working');
-            testCase.verifyError(@() validateLogical('a'), invalidType.errorID);
-            testCase.verifyError(@() validateLogical(0), invalidType.errorID);
+            testCase.verifyError(@() validateLogical('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() validateLogical(0), exceptions.invalidType.errorID);
         end
 
         function testValidateNumber(testCase)
             testCase.verifyEqual(validateNumber(3), 3, 'validateNumber function is not working');
             testCase.verifyEqual(validateNumber(-1.6), -1.6, 'validateNumber function is not working');
             testCase.verifyEqual(validateNumber([1, 2, 3]), [1, 2, 3], 'validateNumber function is not working');
-            testCase.verifyError(@() validateNumber('a'), invalidType.errorID);
-            testCase.verifyError(@() validateNumber(false), invalidType.errorID);
+            testCase.verifyError(@() validateNumber('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() validateNumber(false), exceptions.invalidType.errorID);
         end
 
         function testValidateOption(testCase)
@@ -33,10 +33,10 @@ classdef testUtilities < matlab.unittest.TestCase
                                  strategyOptions.Random, 'validateOption function is not working');
             testCase.verifyEqual(validateOption(strategyOptions.LocalToBest, 'strategyOptions', 'new error'), ...
                                  strategyOptions.LocalToBest, 'validateOption function is not working');
-            testCase.verifyError(@() validateOption('a', 'priorTypes'), invalidOption.errorID);
-            testCase.verifyError(@() validateOption(false, 'priorTypes'), invalidType.errorID);
-            testCase.verifyError(@() validateOption('uniform', 'priors'), invalidValue.errorID);
-            testCase.verifyError(@() validateOption('uniform', 2), invalidType.errorID);
+            testCase.verifyError(@() validateOption('a', 'priorTypes'), exceptions.invalidOption.errorID);
+            testCase.verifyError(@() validateOption(false, 'priorTypes'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() validateOption('uniform', 'priors'), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() validateOption('uniform', 2), exceptions.invalidType.errorID);
         end
 
         function testCustomEnum(testCase)
@@ -77,14 +77,14 @@ classdef testUtilities < matlab.unittest.TestCase
             mock.returnValues = {2};
             testCase.verifyEqual(randomName(), 2);
             testCase.assertEqual(mock.callCount, 2);
-            mock.exceptionID = invalidType.errorID;
-            testCase.verifyError(@() randomName(), invalidType.errorID);
+            mock.exceptionID = exceptions.invalidType.errorID;
+            testCase.verifyError(@() randomName(), exceptions.invalidType.errorID);
             testCase.assertEqual(mock.callCount, 3);
             mock.reset()
             testCase.assertEqual(mock.callCount, 0);
             testCase.assertEqual(mock.arguments, {});
             testCase.assertEqual(mock.returnValues, {2});
-            testCase.assertEqual(mock.exceptionID, invalidType.errorID);
+            testCase.assertEqual(mock.exceptionID, exceptions.invalidType.errorID);
 
             mock = mockFunction(testCase, 'newFunction', 'returnValues', {1, 2});
             [a, b] = newFunction(1, 2, 3);
@@ -93,9 +93,9 @@ classdef testUtilities < matlab.unittest.TestCase
             newFunction('a', 'b');
             testCase.assertEqual(mock.arguments, {{1, 2, 3}, {'a', 'b'}});
 
-            mock = mockFunction(testCase, 'lastFunction', 'exceptionID', invalidOption.errorID);
-            testCase.assertEqual(mock.exceptionID, invalidOption.errorID);
-            testCase.verifyError(@() lastFunction(), invalidOption.errorID);
+            mock = mockFunction(testCase, 'lastFunction', 'exceptionID', exceptions.invalidOption.errorID);
+            testCase.assertEqual(mock.exceptionID, exceptions.invalidOption.errorID);
+            testCase.verifyError(@() lastFunction(), exceptions.invalidOption.errorID);
         end
 
         function testWrappers(testCase)

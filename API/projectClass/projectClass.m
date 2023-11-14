@@ -157,7 +157,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % problem.setUsePriors(true); 
             if ~islogical(showFlag)
-                throw(invalidType('usePriors must be logical ''true'' or ''false'''));
+                throw(exceptions.invalidType('usePriors must be logical ''true'' or ''false'''));
             end
             obj.usePriors = showFlag;
             
@@ -255,7 +255,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 if iscell(paramGroup{i})
                     obj = addParameter(obj, paramGroup{i});
                 else
-                    throw(invalidType('Expecting a cell array of parameters in ''addParameterGroup'''));
+                    throw(exceptions.invalidType('Expecting a cell array of parameters in ''addParameterGroup'''));
                 end
             end
         end
@@ -295,7 +295,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 row = cellstr(row);
             elseif iscell(row)
             else
-                throw(invalidType('Unrecognised Row'))
+                throw(exceptions.invalidType('Unrecognised Row'))
             end
 
             for i = 1:length(row)
@@ -303,7 +303,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 
                 % Make sure we don't remove any protected parameters
                 if (isnumeric(thisParam) && thisParam <= length(obj.protectedParameters)) || any((strcmpi(thisParam, obj.protectedParameters)))
-                    throw(invalidOption(sprintf('Can''t remove protected parameters')));
+                    throw(exceptions.invalidOption(sprintf('Can''t remove protected parameters')));
                 end
                 
                 % No need to check validity of the parameter
@@ -365,7 +365,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             %
             % problem.setParameterName(2, 'new name');
             if (isnumeric(row) && row <= length(obj.protectedParameters)) || any((strcmpi(row, obj.protectedParameters)))
-                throw(invalidOption('Can''t rename protected parameters'));
+                throw(exceptions.invalidOption('Can''t rename protected parameters'));
             end
             obj.parameters.setName(row, name);
         end
@@ -401,11 +401,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     if iscell(layerGroup{i})
                         obj = addLayer(obj, layerGroup{i});
                     else
-                        throw(invalidType('Expecting a cell array of parameters in ''addLayerGroup'''));
+                        throw(exceptions.invalidType('Expecting a cell array of parameters in ''addLayerGroup'''));
                     end
                 end
             else
-                throw(invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
+                throw(exceptions.invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
             end
         end
         
@@ -430,7 +430,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                     obj.layers.addLayer(obj.parameters.varTable{:,1}, thisLayer{:});
                 end
             else
-                throw(invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
+                throw(exceptions.invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
             end
         end
 
@@ -442,7 +442,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if isa(obj.layers, 'layersClass')
                 obj.layers.removeRow(layer);
             else
-                throw(invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
+                throw(exceptions.invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
             end
         end
 
@@ -455,7 +455,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             if isa(obj.layers, 'layersClass')
                 obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});
             else
-                throw(invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
+                throw(exceptions.invalidProperty(sprintf('Layer are not defined for the model type: %s', obj.modelType)));
             end
         end
         
@@ -941,7 +941,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 options.script = fullfile(filePath, fileName);
             elseif ~strcmp(extension, ".m")
                 % Raise error if incorrect format is used
-                throw(invalidValue(sprintf('The filename chosen for the script has the "%s" extension, rather than a MATLAB ".m" extension', extension)));
+                throw(exceptions.invalidValue(sprintf('The filename chosen for the script has the "%s" extension, rather than a MATLAB ".m" extension', extension)));
             end
 
             fileID = fopen(options.script, 'w');

@@ -50,7 +50,7 @@ classdef dataClass < tableUtilities
                 newName = inputs{1};
 
                 if ~isText(newName)
-                    throw(invalidType('First input is expected to be a data name'));
+                    throw(exceptions.invalidType('First input is expected to be a data name'));
                 end
 
                 newData = [];
@@ -83,7 +83,7 @@ classdef dataClass < tableUtilities
 
                     otherwise  
                         % Other length of inputs is not recognised
-                        throw(invalidNumberOfInputs('Unrecognised input into addData'));
+                        throw(exceptions.invalidNumberOfInputs('Unrecognised input into addData'));
                       
                 end
             end
@@ -104,13 +104,13 @@ classdef dataClass < tableUtilities
             
             % Always need three or more inputs to set data value
             if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
-                throw(invalidNumberOfInputs('The input to ''setData'' should be a data entry and a set of name-value pairs'));
+                throw(exceptions.invalidNumberOfInputs('The input to ''setData'' should be a data entry and a set of name-value pairs'));
             end
                 
             % First input needs to be a data number or name
             if isnumeric(row)
                 if (row > obj.rowCount) || (row < 1)
-                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.rowCount)));
+                    throw(exceptions.indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.rowCount)));
                 end
             elseif isText(row)
                 row = obj.findRowIndex(row, dataNames, sprintf('Data object name %s not recognised', row));
@@ -167,12 +167,12 @@ classdef dataClass < tableUtilities
             %
             % names = data.setDataName({2, 'new name'});
             if ~isText(name)
-                throw(invalidType('Name must be a character array or string'));
+                throw(exceptions.invalidType('Name must be a character array or string'));
             end
             
             existingNames = obj.getNames;
             if any(strcmpi(name,existingNames))
-                throw(duplicateName('Duplicate data names are not allowed'));
+                throw(exceptions.duplicateName('Duplicate data names are not allowed'));
             end
             
             % Set the relevant name
@@ -245,17 +245,17 @@ classdef dataClass < tableUtilities
             if ~isempty(data)
 
                 if ~isnumeric(data)
-                    throw(invalidType('Data must be a numeric array'));
+                    throw(exceptions.invalidType('Data must be a numeric array'));
                 end
                 
                 if ((~isnumeric(dataRange)) || any(size(dataRange) ~= [1,2]) || any(size(simRange) ~= [1,2]))
-                    throw(invalidType('Data range and sim range must be [1 x 2] numeric arrays'));
+                    throw(exceptions.invalidType('Data range and sim range must be [1 x 2] numeric arrays'));
                 end
     
                 dataX = data(:, 1);  % First column is always Q
                 realDataRange = [dataX(1), dataX(end)];
                 if realDataRange(1) > realDataRange(2)
-                    throw(invalidValue('Data is expected to be sorted (ascending order) by the first column'));
+                    throw(exceptions.invalidValue('Data is expected to be sorted (ascending order) by the first column'));
                 end
     
                 if dataRange(1) < realDataRange(1)

@@ -74,12 +74,12 @@ end
 % Make the SLD profiles.
 % If resampling is needed, then enforce the calcSLD flag, so as to catch
 % the error af trying to resample a non-existent profile.
-if (resample == 1 && calcSld == 0)
-    calcSld = 1;
+if (resample == 1 && ~calcSld)
+    calcSld = true;
 end
 
 % If calc SLD flag is set, then calculate the SLD profile
-if calcSld == 1
+if calcSld
 
     % If we need them both, we process real and imaginary parts of the SLD
     % seperately...

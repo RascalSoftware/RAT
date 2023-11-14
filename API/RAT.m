@@ -38,7 +38,7 @@ function [outProblemDef,result] = RAT(problemDefInput,controls)
 % if we are doing customXY
 switch lower(problemDef.modelType)
     case 'custom xy'
-        controls.calcSldDuringFit = 1;
+        controls.calcSldDuringFit = true;
 end
 
 %Call the main RAT routine...
@@ -58,9 +58,9 @@ end
 
 % Then just do a final calculation to fill in SLD if necessary (i.e. if
 % calSLD is no for fit)
-if controls.calcSldDuringFit == 0
+if ~controls.calcSldDuringFit
     originalProcedure = controls.procedure;
-    controls.calcSldDuringFit = 1;
+    controls.calcSldDuringFit = true;
     controls.procedure = 'calculate';
     [outProblemStruct,problem,result,~] = RATMain_mex(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
     controls.procedure = originalProcedure;

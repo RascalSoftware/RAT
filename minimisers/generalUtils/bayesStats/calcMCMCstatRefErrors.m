@@ -3,7 +3,7 @@ function [ref, intervals, posteriors] = calcMCMCstatRefErrors(bayesResults,probl
 %  Calculates fits and confidence intervals
 %  of the results of runing MCMC stat
 % problem = getappdata(0,'problem');
-% problem.calcSLDDuringFit = 1;
+% problem.calcSLDDuringFit = true;
 % setappdata(0,'problem',problem);
 % 
 % boxHandle = msgBoxTest('waitbar','Calculating prediction intervals....',[]);
@@ -30,7 +30,7 @@ switch type
 end
 
 controls.procedure = 'calculate';
-controls.calcSldDuringFit = 1;
+controls.calcSldDuringFit = true;
 problemDef.fitpars = bestFitPars;
 problemDef = unpackparams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);

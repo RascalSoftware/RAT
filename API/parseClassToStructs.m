@@ -397,14 +397,14 @@ controls.Nlive = inputControls.Nlive;
 controls.Nmcmc = inputControls.Nmcmc;
 controls.propScale = inputControls.propScale;
 controls.nsTolerance = inputControls.nsTolerance;
-%controls.calcSld = inputControls.calcSldDuringFit;
+controls.calcSldDuringFit = inputControls.calcSldDuringFit;
 
 % **** calcSld is now logical ****
-if inputControls.calcSldDuringFit
-    controls.calcSldDuringFit = 1;
-else
-    controls.calcSldDuringFit = 0;
-end
+% if inputControls.calcSldDuringFit
+%     controls.calcSldDuringFit = 1;
+% else
+%     controls.calcSldDuringFit = 0;
+% end
 
 controls.resamPars = inputControls.resamPars;
 controls.updateFreq = inputControls.updateFreq;
@@ -415,11 +415,12 @@ controls.nChains = inputControls.nChains;
 controls.jumpProb = inputControls.jumpProb;      
 controls.pUnitGamma = inputControls.pUnitGamma;
 controls.boundHandling = inputControls.boundHandling;
-if inputControls.adaptPCR
-    controls.adaptPCR = 1;
-else
-    controls.adaptPCR = 0;
-end
+controls.adaptPCR = inputControls.adaptPCR;
+% if inputControls.adaptPCR
+%     controls.adaptPCR = 1;
+% else
+%     controls.adaptPCR = 0;
+% end
 
 % Also need to deal with the checks...
 checks.params_fitYesNo = inputStruct.paramFitYesNo;

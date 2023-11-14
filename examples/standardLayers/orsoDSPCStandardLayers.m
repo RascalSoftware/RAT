@@ -257,7 +257,7 @@ problem.setParameterPrior('Bilayer heads sld','gaussian',1.4e-6,2e-7);
 
 % controls = controlsClass;
 % controls.procedure = 'bayes';
-% controls.calcSldDuringFit = 'no';
+% controls.calcSldDuringFit = false;
 % controls.nsimu = 5000;
 % controls.repeats = 3;
 % controls.parallel = 'points';

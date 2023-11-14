@@ -297,33 +297,7 @@ else
 end
 
 
-%% Now remove all these fields from inputProblemDef
-removedFields = {'contrastRepeatSLDs',...
-    'domainContrastRepeatSLDs',...
-    'allData',...
-    'dataLimits',...
-    'simLimits',...
-    'contrastLayers',...
-    'domainContrastLayers',...
-    'layersDetails',...
-    'paramNames',...
-    'backgroundNames',...
-    'scalefactorNames',...
-    'qzshiftNames',...
-    'nbairNames',...
-    'nbsubsNames',...
-    'resolutionNames',...
-    'domainRatioNames',...
-    'paramConstr',...
-    'backgroundConstr',...
-    'scalefactorConstr',...
-    'nbairConstr',...
-    'nbsubConstr',...
-    'resolutionConstr',...
-    'domainRatioConstr',...
-    'files'};
-
-% Make the problemDef structure from the bits left.....
+%% Make the problemDef structure from the remaining inputs
 
 % *************************************************************************
 % NOTE - not using the more complicated background and resolution
@@ -380,47 +354,33 @@ problemDef.otherconstr = [];
 
 
 %% Now deal with the controls class
-controls.parallel = inputControls.parallel;
 controls.procedure = inputControls.procedure;
+controls.parallel = inputControls.parallel;
+controls.resamPars = inputControls.resamPars;
+controls.calcSldDuringFit = inputControls.calcSldDuringFit;
 controls.display = inputControls.display;
 controls.tolX = inputControls.tolX;
 controls.tolFun = inputControls.tolFun;
 controls.maxFunEvals = inputControls.maxFunEvals;
 controls.maxIter = inputControls.maxIter;
+controls.updateFreq = inputControls.updateFreq;
+controls.updatePlotFreq = inputControls.updatePlotFreq;
 controls.populationSize = inputControls.populationSize;
 controls.fWeight = inputControls.fWeight;
 controls.crossoverProbability = inputControls.crossoverProbability;
+controls.strategy = inputControls.strategy;
 controls.targetValue = inputControls.targetValue;
 controls.numGenerations = inputControls.numGenerations;
-controls.strategy = inputControls.strategy;
 controls.Nlive = inputControls.Nlive;
 controls.Nmcmc = inputControls.Nmcmc;
 controls.propScale = inputControls.propScale;
 controls.nsTolerance = inputControls.nsTolerance;
-controls.calcSldDuringFit = inputControls.calcSldDuringFit;
-
-% **** calcSld is now logical ****
-% if inputControls.calcSldDuringFit
-%     controls.calcSldDuringFit = 1;
-% else
-%     controls.calcSldDuringFit = 0;
-% end
-
-controls.resamPars = inputControls.resamPars;
-controls.updateFreq = inputControls.updateFreq;
-controls.updatePlotFreq = inputControls.updatePlotFreq;
-
 controls.nSamples = inputControls.nSamples;
 controls.nChains = inputControls.nChains;   
 controls.jumpProb = inputControls.jumpProb;      
 controls.pUnitGamma = inputControls.pUnitGamma;
 controls.boundHandling = inputControls.boundHandling;
 controls.adaptPCR = inputControls.adaptPCR;
-% if inputControls.adaptPCR
-%     controls.adaptPCR = 1;
-% else
-%     controls.adaptPCR = 0;
-% end
 
 % Also need to deal with the checks...
 checks.params_fitYesNo = inputStruct.paramFitYesNo;

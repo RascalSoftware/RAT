@@ -34,7 +34,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         %(4) DREAM
         nSamples = 50000;          % Total number of samples
         nChains = 10               % Number of MCMC chains..
-        lambda = 0.5               % Jump probabilities
+        jumpProbability = 0.5               % Jump probabilities
         pUnitGamma = 0.2
         boundHandling = boundHandlingOptions.Fold.value     % Boundary handling
         adaptPCR = false;
@@ -193,12 +193,12 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             obj.nChains = val;
         end
 
-        function obj = set.lambda(obj,val)
-            validateNumber(val, 'lambda must be a number');
+        function obj = set.jumpProbability(obj,val)
+            validateNumber(val, 'jumpProbability must be a number');
             if (val < 0 || val > 1)
-                throw(invalidValue('Jump probability lambda must be a fraction between 0 and 1'));
+                throw(invalidValue('Jump probability jumpProbability must be a fraction between 0 and 1'));
             end
-            obj.lambda = val;
+            obj.jumpProbability = val;
         end
 
         function obj = set.pUnitGamma(obj,val)
@@ -315,7 +315,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                 'resamPars', {obj.resamPars},...
                 'nSamples', {obj.nSamples},...
                 'nChains', {obj.nChains},...
-                'lambda', {obj.lambda},...
+                'jumpProbability', {obj.jumpProbability},...
                 'pUnitGamma', {obj.pUnitGamma},...
                 'boundHandling', {obj.boundHandling},...
                 'adaptPCR', {obj.adaptPCR});
@@ -341,7 +341,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
 
             dreamCell = {'nSamples',...
                 'nChains',...
-                'lambda',...
+                'jumpProbability',...
                 'pUnitGamma',...
                 'boundHandling',...
                 'adaptPCR'};
@@ -585,7 +585,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             % The parameters that can be set when using Dream procedure are
             % 1) nSamples
             % 2) nChains
-            % 3) lambda
+            % 3) jumpProbability
             % 4) pUnitGamma
             % 5) boundHandling
             % 6) adaptPCR
@@ -597,7 +597,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             % The default values for Dream
             defaultNSamples = 50000;
             defaultNChains = 10;
-            defaultLambda = 0.5;
+            defaultJumpProbability = 0.5;
             defaultPUnitGamma = 0.2;
             defaultBoundHandling = boundHandlingOptions.Fold.value;
             defaultAdaptPCR = false;
@@ -610,7 +610,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             p = inputParser;
             addParameter(p,'nSamples',  defaultNSamples,   @isnumeric);
             addParameter(p,'nChains',   defaultNChains,    @isnumeric);
-            addParameter(p,'lambda', defaultLambda,  @isnumeric);
+            addParameter(p,'jumpProbability', defaultJumpProbability,  @isnumeric);
             addParameter(p,'pUnitGamma',   defaultPUnitGamma,    @isnumeric);
             addParameter(p,'boundHandling',   defaultBoundHandling, @(x) isText(x) || isenum(x));
             addParameter(p,'adaptPCR', defaultAdaptPCR, @islogical);
@@ -621,13 +621,13 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             properties = varargin{:};
 
             % Parses the input or raises invalidOption error
-            errorMsg = 'Only nSamples, nChains, lambda, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, resamPars and display can be set while using the DREAM procedure';
+            errorMsg = 'Only nSamples, nChains, jumpProbability, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, resamPars and display can be set while using the DREAM procedure';
             inputBlock = obj.parseInputs(p, properties, errorMsg);
 
             % Sets the values the for Dream parameters
             obj.nSamples = inputBlock.nSamples;
             obj.nChains = inputBlock.nChains;
-            obj.lambda = inputBlock.lambda;
+            obj.jumpProbability = inputBlock.jumpProbability;
             obj.pUnitGamma = inputBlock.pUnitGamma;
             obj.boundHandling = inputBlock.boundHandling;
             obj.adaptPCR = inputBlock.adaptPCR;

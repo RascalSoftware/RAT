@@ -163,7 +163,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                 testCase.assumeEqual(license('test', 'MATLAB_Coder'), 1, 'MATLAB Coder is not installed');
             end
             
-            testCase.controls.para = whichParallel;
+            testCase.controls.parallel = whichParallel;
             if useCompiled
                 [problem, result] = reflectivityCalculation_mex(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
             else        

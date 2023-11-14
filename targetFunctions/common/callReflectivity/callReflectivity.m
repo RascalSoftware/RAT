@@ -1,4 +1,4 @@
-function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType,useImaginary)
+function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)
 
 xdata = this_data(:,1);
 
@@ -64,16 +64,16 @@ split = [0 0];
 
 if simXLo < xdata(1)
     step = (xdata(2)-xdata(1));
-    firstSection = [simXLo:step:(xdata(1)-step)];
+    firstSection = simXLo:step:(xdata(1)-step);
 else
-    firstSection = [];
+    firstSection = ones(1,0);
 end
 
 if simXHi > xdata(end)
     step = (xdata(end)-xdata(end-1,1));
-    lastSection = [xdata(end,1)+step:step:simXHi];
+    lastSection = xdata(end,1)+step:step:simXHi;
 else
-    lastSection = [];
+    lastSection = ones(1,0);
 end
 
 simXdata = [firstSection(:) ; middleSection(:) ; lastSection(:)];
@@ -97,7 +97,7 @@ end
 
 switch refType
     case 'standardAbeles'
-        switch para
+        switch parallel
             case 'points'
                 % Parallelise over points
                 

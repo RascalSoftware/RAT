@@ -38,7 +38,7 @@ function [outProblemDef,result] = RAT(problemDefInput,controls)
 % if we are doing customXY
 switch lower(problemDef.modelType)
     case 'custom xy'
-        controls.calcSld = 1;
+        controls.calcSldDuringFit = true;
 end
 
 %Call the main RAT routine...
@@ -58,12 +58,12 @@ end
 
 % Then just do a final calculation to fill in SLD if necessary (i.e. if
 % calSLD is no for fit)
-if controls.calcSld == 0
-    originalProc = controls.proc;
-    controls.calcSld = 1;
-    controls.proc = 'calculate';
+if ~controls.calcSldDuringFit
+    originalProcedure = controls.procedure;
+    controls.calcSldDuringFit = true;
+    controls.procedure = 'calculate';
     [outProblemStruct,problem,result,~] = RATMain_mex(outProblemStruct,problemDefCells,problemDefLimits,controls,priors);
-    controls.proc = originalProc;
+    controls.procedure = originalProcedure;
 end
 
 result = parseResultToStruct(problem,result);
@@ -72,7 +72,7 @@ if isfield(outProblemStruct,'fitpars')
     result.bestFitPars = outProblemStruct.fitpars;
 end
 
-if any((strcmpi(controls.proc,{'bayes','NS','dream'})))
+if any((strcmpi(controls.procedure,{'bayes','NS','dream'})))
     result = mergeStructs(result,bayesResults);
 end
 

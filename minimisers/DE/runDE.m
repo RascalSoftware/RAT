@@ -2,7 +2,7 @@ function [problemDef,problem,result] = runDE(problemDef,problemDefCells,problemD
 
 
 [problemDef,fitNames] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls);
-F_VTR = controls.VTR; %Value to reach
+F_VTR = controls.targetValue; %Value to reach
 I_D = length(problemDef.fitpars);
 
 FVr_minbound = problemDef.fitconstr(:,1)'; 
@@ -13,13 +13,13 @@ I_bnd_constr = 1;  %1: use bounds as bound constraints, 0: no bound constraints
 I_NP = controls.populationSize; 
 
 % I_itermax       maximum number of iterations (generations)
-I_itermax = controls.numGen;
+I_itermax = controls.numGenerations;
 
 % fWeight        DE-stepsize fWeight ex [0, 2]
 fWeight = controls.fWeight; 
 
-% F_CR            crossover probabililty constant ex [0, 1]
-F_CR = controls.F_CR; 
+% F_CR            crossover probability constant ex [0, 1]
+F_CR = controls.crossoverProbability; 
 
 % I_strategy     1 --> DE/rand/1:
 %                      the classical version of DE.
@@ -56,7 +56,7 @@ FVr_x      = linspace(-1,1,I_lentol); %ordinate running from -1 to +1
 FVr_lim_up = ones(1,I_lentol);   %upper limit is 1
 FVr_lim_lo = -ones(1,I_lentol);  %lower limit is -1
 
-%Tell comiler abut variable sizes
+%Tell compiler abut variable sizes
 coder.varsize('S_struct.I_lentol', [Inf 1],[1 0]);
 coder.varsize('S_struct.FVr_x', [1 Inf],[0 1]);
 coder.varsize('S_struct.FVr_lim_up', [1 Inf],[0 1]);

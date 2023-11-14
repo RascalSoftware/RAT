@@ -400,7 +400,7 @@ if yes, what to parallelize on. (Points or Contrasts or all)
     :caption: Sample usage of controlsClass.
 
         controls = controlsClass();
-        controls.calcSldDuringFit = 'no';
+        controls.calcSldDuringFit = false;
         controls.nsimu = 7000;
         controls.repeats = 3;
         controls.parallel = 'contrasts';

@@ -57,9 +57,7 @@ end
 % ------- End type definitions -------------
 
 
-para = controls.para;
-
-switch para
+switch controls.parallel
     case 'single'
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...

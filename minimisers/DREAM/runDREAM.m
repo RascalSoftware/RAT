@@ -61,7 +61,7 @@ DREAMPar.parallel = yesNo;
 DREAMPar.CPU = 1;
 
 % Jump probabilities...
-DREAMPar.lambda = controls.lambda;
+DREAMPar.lambda = controls.jumpProbability;
 DREAMPar.pUnitGamma = controls.pUnitGamma;
 if controls.adaptPCR
     DREAMPar.adaptPCR = 'yes';

@@ -26,7 +26,7 @@ domainContrastLayers = problemDefCells{19};
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
 numberOfLayers, resample, backsType, ~] =  extractProblemParams(problemDef);
 
-calcSld = controls.calcSld;   
+calcSld = controls.calcSldDuringFit;   
 useImaginary = problemDef.useImaginary;
 allDomainRatios = problemDef.domainRatio;
 contrastDomainRatios = problemDef.contrastDomainRatios;
@@ -120,7 +120,6 @@ for i = 1:numberOfContrasts
     thisRough = params(1);      % Substrate roughness is always first parameter for standard layers
     thisRepeatLayers = repeatLayers{i};
     thisResample = resample(i);
-    thisCalcSld = calcSld;
     thisData = allData{i};
     thisDataPresent = dataPresent(i);
     thisDataLimits = dataLimits{i};
@@ -135,12 +134,12 @@ for i = 1:numberOfContrasts
     % Call the core layers calculation - need to do this once for each
     % domain
     [sldProfile1,reflect1,Simul1,shifted_dat,layerSld1,resamLayers1,~,thisSsubs]= standardTFLayersCore(thisContrastLayers1, thisRough, ...
-    geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
+    geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
 
     [sldProfile2,reflect2,Simul2,~,layerSld2,resamLayers2,~,~] = standardTFLayersCore(thisContrastLayers2, thisRough, ...
-    geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
+    geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
 

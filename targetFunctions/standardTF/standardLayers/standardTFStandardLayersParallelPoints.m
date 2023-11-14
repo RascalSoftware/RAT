@@ -25,7 +25,7 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
 numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
 
-calcSld = controls.calcSld;   
+calcSld = controls.calcSldDuringFit;   
 useImaginary = problemDef.useImaginary;
 
 % Allocate the memory for the output arrays before the main loop
@@ -86,7 +86,6 @@ for i = 1:numberOfContrasts
     thisRough = params(1);      % Substrate roughness is always first parameter for standard layers
     thisRepeatLayers = repeatLayers{i};
     thisResample = resample(i);
-    thisCalcSld = calcSld;
     thisData = allData{i};
     thisDataPresent = dataPresent(i);
     thisDataLimits = dataLimits{i};
@@ -101,7 +100,7 @@ for i = 1:numberOfContrasts
     % Call the core layers calculation
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,...
         thisChiSquared,thisSsubs] = standardTFLayersCore(thisContrastLayers, thisRough, ...
-    geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,...
+    geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
    

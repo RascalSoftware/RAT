@@ -56,9 +56,7 @@ for i = 1:numberOfContrasts
     allLayers{i} = [1 ; 1];
 end
 
-para = controls.para;
-
-switch para
+switch controls.parallel
     case 'single'
             
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...

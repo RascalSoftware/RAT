@@ -37,8 +37,7 @@ bayesResults = makeEmptyBayesResultsStruct(1e3, problemDef.numberOfContrasts, do
 outProblemDef = problemDef;
 
 %Decide what we are doing....
-action = controls.proc;
-switch lower(action)
+switch lower(controls.procedure)
     case 'calculate' %Just a single reflectivity calculation
         [problem,results] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
         outProblemDef = problemDef;

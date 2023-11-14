@@ -244,18 +244,18 @@ classdef testControlsClass < matlab.unittest.TestCase
                 testCase.controls.nChains = value;
             end
 
-            testCase.controls.lambda = 0;
-            testCase.verifyEqual(testCase.controls.lambda, 0, 'set.lambda method is not working')
-            testCase.controls.lambda = 1;
-            testCase.verifyEqual(testCase.controls.lambda, 1, 'set.lambda method is not working')
-            testCase.controls.lambda = 0.5;
-            testCase.verifyEqual(testCase.controls.lambda, 0.5, 'set.lambda method is not working')
-            % bad lambda type 
-            testCase.verifyError(@() setLambda(1.1), invalidValue.errorID);  
-            testCase.verifyError(@() setLambda(-0.1), invalidValue.errorID);
-            testCase.verifyError(@() setLambda('a'), invalidType.errorID);
-            function setLambda(value)
-                testCase.controls.lambda = value;
+            testCase.controls.jumpProbability = 0;
+            testCase.verifyEqual(testCase.controls.jumpProbability, 0, 'set.jumpProbability method is not working')
+            testCase.controls.jumpProbability = 1;
+            testCase.verifyEqual(testCase.controls.jumpProbability, 1, 'set.jumpProbability method is not working')
+            testCase.controls.jumpProbability = 0.5;
+            testCase.verifyEqual(testCase.controls.jumpProbability, 0.5, 'set.jumpProbability method is not working')
+            % bad jumpProbability type 
+            testCase.verifyError(@() setJumpProbability(1.1), invalidValue.errorID);  
+            testCase.verifyError(@() setJumpProbability(-0.1), invalidValue.errorID);
+            testCase.verifyError(@() setJumpProbability('a'), invalidType.errorID);
+            function setJumpProbability(value)
+                testCase.controls.jumpProbability = value;
             end
 
             testCase.controls.pUnitGamma = 0;
@@ -265,7 +265,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.pUnitGamma = 0.5;
             testCase.verifyEqual(testCase.controls.pUnitGamma, 0.5, 'set.pUnitGamma method is not working')
             % bad pUnitGamma type 
-            testCase.verifyError(@() setLambda(1.1), invalidValue.errorID);
+            testCase.verifyError(@() setJumpProbability(1.1), invalidValue.errorID);
             testCase.verifyError(@() setPUnitGamma(-0.1), invalidValue.errorID);
             testCase.verifyError(@() setPUnitGamma('a'), invalidType.errorID);
             function setPUnitGamma(value)
@@ -359,7 +359,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.procedure, procedures.Dream.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.nSamples, 50000, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.nChains, 10, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.lambda, 0.5, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.jumpProbability, 0.5, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.pUnitGamma, 0.2, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Fold.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
@@ -371,7 +371,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls = testCase.controls.setProcedure(procedures.Dream.value,...
                 {'nSamples', 70000,...
                 'nChains', 15,...
-                'lambda', 0.8,...
+                'jumpProbability', 0.8,...
                 'pUnitGamma', 0.5, ...
                 'boundHandling', boundHandlingOptions.Reflect.value,...
                 'adaptPCR', true,...
@@ -382,7 +382,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.procedure, procedures.Dream.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.nSamples, 70000, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.nChains, 15, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.lambda, 0.8, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.jumpProbability, 0.8, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.pUnitGamma, 0.5, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Reflect.value, 'setProcedure method is not working');
             testCase.verifyTrue(testCase.controls.adaptPCR, 'setProcedure method is not working');

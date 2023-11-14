@@ -7,7 +7,7 @@ problemDefLimits = allProblem{3};
 problemDefCells = allProblem{4};
 
 % Need to impose that we calculate the SLD..
-controlsStruct.calcSld = 1;
+controlsStruct.calcSldDuringFit = true;
 
 %... and use the Bayes bestpars
 problemDef.fitpars = bayesOutputs.bestPars;
@@ -19,8 +19,8 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 % [bestPars_max,posteriors] = findPosteriorsMax(output.chain);
 % bestPars_mean = output.results.mean;
 
-% % Calulate Max best fit curves
-% controls.calcSld = 1;
+% % Calculate Max best fit curves
+% controls.calcSldDuringFit = true;
 % problemDef.fitpars = bestPars_max;
 % problemDef = unpackparams(problemDef,controls);
 % [outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);

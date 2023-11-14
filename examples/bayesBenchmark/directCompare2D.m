@@ -5,7 +5,7 @@ clear
 %Start by converting the R1 project to 
 %the R2 case...
 [d2oproblem,controls] = r1ToProblemDef('defaultProject.mat');
-controls.calcSldDuringFit = 'yes';
+controls.calcSldDuringFit = true;
 controls.nsTolerance = 1;
 controls.Nlive = 500;
 d2oProblem.scalefactorFitYesNo = 0;

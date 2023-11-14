@@ -11,7 +11,7 @@ d2oproblem.setScalefactor(1,'min',0.07);
 d2oproblem.setScalefactor(1,'max',0.13);
 
 controls = controlsDef();
-controls.calcSldDuringFit = 'yes';
+controls.calcSldDuringFit = true;
 [outProb,results] = RAT(d2oproblem,controls);
 figure(1); clf
 plotRefSLD(outProb, results);

@@ -26,7 +26,7 @@
 <div class="box"><strong></strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType,useImaginary) </strong></div>
+<div class="box"><strong>function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"></pre></div>
@@ -55,7 +55,7 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType,useImaginary)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)</a>
 0002 
 0003 xdata = this_data(:,1);
 0004 
@@ -121,16 +121,16 @@ This function is called by:
 0064 
 0065 <span class="keyword">if</span> simXLo &lt; xdata(1)
 0066     step = (xdata(2)-xdata(1));
-0067     firstSection = [simXLo:step:(xdata(1)-step)];
+0067     firstSection = simXLo:step:(xdata(1)-step);
 0068 <span class="keyword">else</span>
-0069     firstSection = [];
+0069     firstSection = ones(1,0);
 0070 <span class="keyword">end</span>
 0071 
 0072 <span class="keyword">if</span> simXHi &gt; xdata(end)
 0073     step = (xdata(end)-xdata(end-1,1));
-0074     lastSection = [xdata(<span class="keyword">end</span>,1)+step:step:simXHi];
+0074     lastSection = xdata(<span class="keyword">end</span>,1)+step:step:simXHi;
 0075 <span class="keyword">else</span>
-0076     lastSection = [];
+0076     lastSection = ones(1,0);
 0077 <span class="keyword">end</span>
 0078 
 0079 simXdata = [firstSection(:) ; middleSection(:) ; lastSection(:)];
@@ -154,7 +154,7 @@ This function is called by:
 0097 
 0098 <span class="keyword">switch</span> refType
 0099     <span class="keyword">case</span> <span class="string">'standardAbeles'</span>
-0100         <span class="keyword">switch</span> para
+0100         <span class="keyword">switch</span> parallel
 0101             <span class="keyword">case</span> <span class="string">'points'</span>
 0102                 <span class="comment">% Parallelise over points</span>
 0103                 
@@ -193,6 +193,6 @@ This function is called by:
 0136 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

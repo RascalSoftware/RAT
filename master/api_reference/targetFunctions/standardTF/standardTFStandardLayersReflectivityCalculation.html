@@ -115,45 +115,43 @@ This function is called by:
 0057 <span class="comment">% ------- End type definitions -------------</span>
 0058 
 0059 
-0060 para = controls.para;
-0061 
-0062 <span class="keyword">switch</span> para
-0063     <span class="keyword">case</span> <span class="string">'single'</span>
-0064           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
-0065              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0066              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersSingle</a>(problemDef,problemDefCells,<span class="keyword">...</span>
-0067              problemDefLimits,controls);
-0068          
-0069      <span class="keyword">case</span> <span class="string">'points'</span>
-0070           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
-0071              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0072              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelPoints</a>(problemDef,problemDefCells,<span class="keyword">...</span>
-0073              problemDefLimits,controls);
-0074 
-0075     <span class="keyword">case</span> <span class="string">'contrasts'</span>
-0076           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
-0077              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0078              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelContrasts</a>(problemDef,problemDefCells,<span class="keyword">...</span>
-0079              problemDefLimits,controls);        
-0080 <span class="keyword">end</span>
-0081 
-0082 <span class="comment">% Package everything into one array for tidy output</span>
-0083 problem.ssubs = outSsubs;
-0084 problem.backgrounds = backgs;
-0085 problem.qshifts = qshifts;
-0086 problem.scalefactors = sfs;
-0087 problem.nbairs = nbas;
-0088 problem.nbsubs = nbss;
-0089 problem.resolutions = resols;
-0090 problem.calculations.all_chis = chis;
-0091 problem.calculations.sum_chi = sum(chis);
-0092 problem.allSubRough = allRoughs;
-0093 problem.resample = problemDef.resample;
+0060 <span class="keyword">switch</span> controls.parallel
+0061     <span class="keyword">case</span> <span class="string">'single'</span>
+0062           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0063              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0064              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersSingle</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0065              problemDefLimits,controls);
+0066          
+0067      <span class="keyword">case</span> <span class="string">'points'</span>
+0068           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0069              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0070              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelPoints</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0071              problemDefLimits,controls);
+0072 
+0073     <span class="keyword">case</span> <span class="string">'contrasts'</span>
+0074           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0075              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0076              allRoughs] = <a href="../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelContrasts</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0077              problemDefLimits,controls);        
+0078 <span class="keyword">end</span>
+0079 
+0080 <span class="comment">% Package everything into one array for tidy output</span>
+0081 problem.ssubs = outSsubs;
+0082 problem.backgrounds = backgs;
+0083 problem.qshifts = qshifts;
+0084 problem.scalefactors = sfs;
+0085 problem.nbairs = nbas;
+0086 problem.nbsubs = nbss;
+0087 problem.resolutions = resols;
+0088 problem.calculations.all_chis = chis;
+0089 problem.calculations.sum_chi = sum(chis);
+0090 problem.allSubRough = allRoughs;
+0091 problem.resample = problemDef.resample;
+0092 
+0093 <span class="keyword">end</span>
 0094 
-0095 <span class="keyword">end</span>
-0096 
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

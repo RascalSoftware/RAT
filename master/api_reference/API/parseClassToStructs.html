@@ -343,144 +343,110 @@ This function is called by:
 0297 <span class="keyword">end</span>
 0298 
 0299 
-0300 <span class="comment">%% Now remove all these fields from inputProblemDef</span>
-0301 removedFields = {<span class="string">'contrastRepeatSLDs'</span>,<span class="keyword">...</span>
-0302     <span class="string">'domainContrastRepeatSLDs'</span>,<span class="keyword">...</span>
-0303     <span class="string">'allData'</span>,<span class="keyword">...</span>
-0304     <span class="string">'dataLimits'</span>,<span class="keyword">...</span>
-0305     <span class="string">'simLimits'</span>,<span class="keyword">...</span>
-0306     <span class="string">'contrastLayers'</span>,<span class="keyword">...</span>
-0307     <span class="string">'domainContrastLayers'</span>,<span class="keyword">...</span>
-0308     <span class="string">'layersDetails'</span>,<span class="keyword">...</span>
-0309     <span class="string">'paramNames'</span>,<span class="keyword">...</span>
-0310     <span class="string">'backgroundNames'</span>,<span class="keyword">...</span>
-0311     <span class="string">'scalefactorNames'</span>,<span class="keyword">...</span>
-0312     <span class="string">'qzshiftNames'</span>,<span class="keyword">...</span>
-0313     <span class="string">'nbairNames'</span>,<span class="keyword">...</span>
-0314     <span class="string">'nbsubsNames'</span>,<span class="keyword">...</span>
-0315     <span class="string">'resolutionNames'</span>,<span class="keyword">...</span>
-0316     <span class="string">'domainRatioNames'</span>,<span class="keyword">...</span>
-0317     <span class="string">'paramConstr'</span>,<span class="keyword">...</span>
-0318     <span class="string">'backgroundConstr'</span>,<span class="keyword">...</span>
-0319     <span class="string">'scalefactorConstr'</span>,<span class="keyword">...</span>
-0320     <span class="string">'nbairConstr'</span>,<span class="keyword">...</span>
-0321     <span class="string">'nbsubConstr'</span>,<span class="keyword">...</span>
-0322     <span class="string">'resolutionConstr'</span>,<span class="keyword">...</span>
-0323     <span class="string">'domainRatioConstr'</span>,<span class="keyword">...</span>
-0324     <span class="string">'files'</span>};
-0325 
-0326 <span class="comment">% Make the problemDef structure from the bits left.....</span>
-0327 
-0328 <span class="comment">% *************************************************************************</span>
-0329 <span class="comment">% NOTE - not using the more complicated background and resolution</span>
-0330 <span class="comment">% definitions for now - instead use the background names and backsPar</span>
-0331 <span class="comment">% values.... fix this next</span>
-0332 <span class="comment">% **********************************************************************8</span>
-0333 
-0334 
-0335 problemDef.TF = inputStruct.TF;
-0336 problemDef.resample = inputStruct.resample;
-0337 problemDef.dataPresent = inputStruct.dataPresent;
-0338 problemDef.oilChiDataPresent = inputStruct.oilChiDataPresent;
-0339 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
-0340 problemDef.geometry = inputStruct.geometry;
-0341 problemDef.useImaginary = inputStruct.useImaginary;
-0342 <span class="comment">%problemDef.contrastBacks = contrastBacks;</span>
-0343 problemDef.contrastShifts = inputStruct.contrastShifts;
-0344 problemDef.contrastScales = inputStruct.contrastScales;
-0345 problemDef.contrastNbas = inputStruct.contrastNbas;
-0346 problemDef.contrastNbss = inputStruct.contrastNbss;
-0347 problemDef.contrastRes = contrastRes;
-0348 problemDef.backs = inputStruct.backParVals; <span class="comment">%inputStruct.backgrounds;       % **** note backPar workaround (todo) ****</span>
-0349 problemDef.shifts = inputStruct.qzshifts;
-0350 problemDef.sf = inputStruct.scalefactors;
-0351 problemDef.nba = inputStruct.nbairs;
-0352 problemDef.nbs = inputStruct.nbsubs;
-0353 problemDef.res = inputStruct.resolPars; <span class="comment">%inputStruct.resolutions;           % **** note resolPar workaround (todo) ****</span>
-0354 problemDef.params = inputStruct.params;
-0355 problemDef.numberOfLayers = inputStruct.numberOfLayers;
-0356 problemDef.modelType = inputStruct.modelType;
-0357 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
-0358 
-0359 <span class="comment">% Add the domains parameters, using dummy values if this is not a domains</span>
-0360 <span class="comment">% calculation</span>
-0361 problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
-0362 
-0363 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0364     problemDef.domainRatio = inputStruct.domainRatios;
-0365 <span class="keyword">else</span>
-0366     problemDef.domainRatio = ones(1,0);
-0367 <span class="keyword">end</span>
-0368 
-0369 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>) &amp;&amp; isa(inputProblemDef.domainContrasts, <span class="string">'domainContrastsClass'</span>)
-0370     problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
-0371 <span class="keyword">else</span>
-0372     problemDef.numberOfDomainContrasts = 0;
-0373 <span class="keyword">end</span>    
-0374 
-0375 <span class="comment">% Initialise the lists of fitting parameters</span>
-0376 problemDef.fitpars = [];
-0377 problemDef.otherpars = [];
-0378 problemDef.fitconstr = [];
-0379 problemDef.otherconstr = [];
-0380 
-0381 
-0382 <span class="comment">%% Now deal with the controls class</span>
-0383 controls.para = inputControls.parallel;
-0384 controls.proc = inputControls.procedure;
-0385 controls.display = inputControls.display;
-0386 controls.tolX = inputControls.tolX;
-0387 controls.tolFun = inputControls.tolFun;
-0388 controls.maxFunEvals = inputControls.maxFunEvals;
-0389 controls.maxIter = inputControls.maxIter;
-0390 controls.populationSize = inputControls.populationSize;
-0391 controls.fWeight = inputControls.fWeight;
-0392 controls.F_CR = inputControls.crossoverProbability;
-0393 controls.VTR = inputControls.targetValue;
-0394 controls.numGen = inputControls.numGenerations;
-0395 controls.strategy = inputControls.strategy;
-0396 controls.Nlive = inputControls.Nlive;
-0397 controls.nmcmc = inputControls.Nmcmc;
-0398 controls.propScale = inputControls.propScale;
-0399 controls.nsTolerance = inputControls.nsTolerance;
-0400 <span class="comment">%controls.calcSld = inputControls.calcSldDuringFit;</span>
-0401 
-0402 <span class="comment">% **** calcSld is now logical ****</span>
-0403 <span class="keyword">if</span> inputControls.calcSldDuringFit
-0404     controls.calcSld = 1;
-0405 <span class="keyword">else</span>
-0406     controls.calcSld = 0;
-0407 <span class="keyword">end</span>
-0408 
-0409 controls.resamPars = inputControls.resamPars;
-0410 controls.updateFreq = inputControls.updateFreq;
-0411 controls.updatePlotFreq = inputControls.updatePlotFreq;
-0412 
-0413 controls.nSamples = inputControls.nSamples;
-0414 controls.nChains = inputControls.nChains;   
-0415 controls.lambda = inputControls.lambda;      
-0416 controls.pUnitGamma = inputControls.pUnitGamma;
-0417 controls.boundHandling = inputControls.boundHandling;
-0418 
-0419 <span class="comment">% Also need to deal with the checks...</span>
-0420 checks.params_fitYesNo = inputStruct.paramFitYesNo;
-0421 checks.backs_fitYesNo = inputStruct.backParFitYesNo;
-0422 checks.shifts_fitYesNo = inputStruct.qzshiftFitYesNo;
-0423 checks.scales_fitYesNo = inputStruct.scalefactorFitYesNo;
-0424 checks.nbairs_fitYesNo = inputStruct.nbaFitYesNo;
-0425 checks.nbsubs_fitYesNo = inputStruct.nbsFitYesNo;
-0426 checks.resol_fitYesNo = inputStruct.resolFitYesNo;
-0427 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0428     checks.domainRatio_fitYesNo = inputStruct.domainRatioFitYesNo;
-0429 <span class="keyword">else</span>
-0430     checks.domainRatio_fitYesNo = ones(1,0);
-0431 <span class="keyword">end</span>
-0432 
-0433 controls.checks = checks;
-0434 
-0435 <span class="keyword">end</span>
+0300 <span class="comment">%% Make the problemDef structure from the remaining inputs</span>
+0301 
+0302 <span class="comment">% *************************************************************************</span>
+0303 <span class="comment">% NOTE - not using the more complicated background and resolution</span>
+0304 <span class="comment">% definitions for now - instead use the background names and backsPar</span>
+0305 <span class="comment">% values.... fix this next</span>
+0306 <span class="comment">% **********************************************************************8</span>
+0307 
+0308 
+0309 problemDef.TF = inputStruct.TF;
+0310 problemDef.resample = inputStruct.resample;
+0311 problemDef.dataPresent = inputStruct.dataPresent;
+0312 problemDef.oilChiDataPresent = inputStruct.oilChiDataPresent;
+0313 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
+0314 problemDef.geometry = inputStruct.geometry;
+0315 problemDef.useImaginary = inputStruct.useImaginary;
+0316 <span class="comment">%problemDef.contrastBacks = contrastBacks;</span>
+0317 problemDef.contrastShifts = inputStruct.contrastShifts;
+0318 problemDef.contrastScales = inputStruct.contrastScales;
+0319 problemDef.contrastNbas = inputStruct.contrastNbas;
+0320 problemDef.contrastNbss = inputStruct.contrastNbss;
+0321 problemDef.contrastRes = contrastRes;
+0322 problemDef.backs = inputStruct.backParVals; <span class="comment">%inputStruct.backgrounds;       % **** note backPar workaround (todo) ****</span>
+0323 problemDef.shifts = inputStruct.qzshifts;
+0324 problemDef.sf = inputStruct.scalefactors;
+0325 problemDef.nba = inputStruct.nbairs;
+0326 problemDef.nbs = inputStruct.nbsubs;
+0327 problemDef.res = inputStruct.resolPars; <span class="comment">%inputStruct.resolutions;           % **** note resolPar workaround (todo) ****</span>
+0328 problemDef.params = inputStruct.params;
+0329 problemDef.numberOfLayers = inputStruct.numberOfLayers;
+0330 problemDef.modelType = inputStruct.modelType;
+0331 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
+0332 
+0333 <span class="comment">% Add the domains parameters, using dummy values if this is not a domains</span>
+0334 <span class="comment">% calculation</span>
+0335 problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
+0336 
+0337 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
+0338     problemDef.domainRatio = inputStruct.domainRatios;
+0339 <span class="keyword">else</span>
+0340     problemDef.domainRatio = ones(1,0);
+0341 <span class="keyword">end</span>
+0342 
+0343 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>) &amp;&amp; isa(inputProblemDef.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0344     problemDef.numberOfDomainContrasts = inputStruct.numberOfDomainContrasts;
+0345 <span class="keyword">else</span>
+0346     problemDef.numberOfDomainContrasts = 0;
+0347 <span class="keyword">end</span>    
+0348 
+0349 <span class="comment">% Initialise the lists of fitting parameters</span>
+0350 problemDef.fitpars = [];
+0351 problemDef.otherpars = [];
+0352 problemDef.fitconstr = [];
+0353 problemDef.otherconstr = [];
+0354 
+0355 
+0356 <span class="comment">%% Now deal with the controls class</span>
+0357 controls.procedure = inputControls.procedure;
+0358 controls.parallel = inputControls.parallel;
+0359 controls.resamPars = inputControls.resamPars;
+0360 controls.calcSldDuringFit = inputControls.calcSldDuringFit;
+0361 controls.display = inputControls.display;
+0362 controls.tolX = inputControls.tolX;
+0363 controls.tolFun = inputControls.tolFun;
+0364 controls.maxFunEvals = inputControls.maxFunEvals;
+0365 controls.maxIter = inputControls.maxIter;
+0366 controls.updateFreq = inputControls.updateFreq;
+0367 controls.updatePlotFreq = inputControls.updatePlotFreq;
+0368 controls.populationSize = inputControls.populationSize;
+0369 controls.fWeight = inputControls.fWeight;
+0370 controls.crossoverProbability = inputControls.crossoverProbability;
+0371 controls.strategy = inputControls.strategy;
+0372 controls.targetValue = inputControls.targetValue;
+0373 controls.numGenerations = inputControls.numGenerations;
+0374 controls.Nlive = inputControls.Nlive;
+0375 controls.Nmcmc = inputControls.Nmcmc;
+0376 controls.propScale = inputControls.propScale;
+0377 controls.nsTolerance = inputControls.nsTolerance;
+0378 controls.nSamples = inputControls.nSamples;
+0379 controls.nChains = inputControls.nChains;   
+0380 controls.jumpProbability = inputControls.jumpProbability;      
+0381 controls.pUnitGamma = inputControls.pUnitGamma;
+0382 controls.boundHandling = inputControls.boundHandling;
+0383 controls.adaptPCR = inputControls.adaptPCR;
+0384 
+0385 <span class="comment">% Also need to deal with the checks...</span>
+0386 checks.params_fitYesNo = inputStruct.paramFitYesNo;
+0387 checks.backs_fitYesNo = inputStruct.backParFitYesNo;
+0388 checks.shifts_fitYesNo = inputStruct.qzshiftFitYesNo;
+0389 checks.scales_fitYesNo = inputStruct.scalefactorFitYesNo;
+0390 checks.nbairs_fitYesNo = inputStruct.nbaFitYesNo;
+0391 checks.nbsubs_fitYesNo = inputStruct.nbsFitYesNo;
+0392 checks.resol_fitYesNo = inputStruct.resolFitYesNo;
+0393 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
+0394     checks.domainRatio_fitYesNo = inputStruct.domainRatioFitYesNo;
+0395 <span class="keyword">else</span>
+0396     checks.domainRatio_fitYesNo = ones(1,0);
+0397 <span class="keyword">end</span>
+0398 
+0399 controls.checks = checks;
+0400 
+0401 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

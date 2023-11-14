@@ -65,17 +65,18 @@ This function is called by:
 <li><a href="#_sub19" class="code">function obj = set.nsTolerance(obj,val)</a></li>
 <li><a href="#_sub20" class="code">function obj = set.nSamples(obj,val)</a></li>
 <li><a href="#_sub21" class="code">function obj = set.nChains(obj,val)</a></li>
-<li><a href="#_sub22" class="code">function obj = set.lambda(obj,val)</a></li>
+<li><a href="#_sub22" class="code">function obj = set.jumpProbability(obj,val)</a></li>
 <li><a href="#_sub23" class="code">function obj = set.pUnitGamma(obj,val)</a></li>
 <li><a href="#_sub24" class="code">function obj = set.boundHandling(obj,val)</a></li>
-<li><a href="#_sub25" class="code">function obj = setProcedure(obj, procedure, varargin)</a></li>
-<li><a href="#_sub26" class="code">function groups = getPropertyGroups(obj)</a></li>
-<li><a href="#_sub27" class="code">function obj = processCalculateInput(obj, varargin)</a></li>
-<li><a href="#_sub28" class="code">function obj = processSimplexInput(obj, varargin)</a></li>
-<li><a href="#_sub29" class="code">function obj = processDEInput(obj, varargin)</a></li>
-<li><a href="#_sub30" class="code">function obj = processNSInput(obj, varargin)</a></li>
-<li><a href="#_sub31" class="code">function obj = processDreamInput(obj, varargin)</a></li>
-<li><a href="#_sub32" class="code">function inputBlock = parseInputs(~, p, properties, errorMsg)</a></li>
+<li><a href="#_sub25" class="code">function obj = set.adaptPCR(obj,val)</a></li>
+<li><a href="#_sub26" class="code">function obj = setProcedure(obj, procedure, varargin)</a></li>
+<li><a href="#_sub27" class="code">function groups = getPropertyGroups(obj)</a></li>
+<li><a href="#_sub28" class="code">function obj = processCalculateInput(obj, varargin)</a></li>
+<li><a href="#_sub29" class="code">function obj = processSimplexInput(obj, varargin)</a></li>
+<li><a href="#_sub30" class="code">function obj = processDEInput(obj, varargin)</a></li>
+<li><a href="#_sub31" class="code">function obj = processNSInput(obj, varargin)</a></li>
+<li><a href="#_sub32" class="code">function obj = processDreamInput(obj, varargin)</a></li>
+<li><a href="#_sub33" class="code">function inputBlock = parseInputs(~, p, properties, errorMsg)</a></li>
 </ul>
 
 
@@ -116,616 +117,627 @@ This function is called by:
 0034         <span class="comment">%(4) DREAM</span>
 0035         nSamples = 50000;          <span class="comment">% Total number of samples</span>
 0036         nChains = 10               <span class="comment">% Number of MCMC chains..</span>
-0037         lambda = 0.5               <span class="comment">% Jump probabilities</span>
+0037         jumpProbability = 0.5               <span class="comment">% Jump probabilities</span>
 0038         pUnitGamma = 0.2
 0039         boundHandling = boundHandlingOptions.Fold.value     <span class="comment">% Boundary handling</span>
-0040     <span class="keyword">end</span>
-0041 
-0042     <span class="comment">%------------------------- Set and Get ------------------------------</span>
-0043     methods
-0044         <a name="_sub0" href="#_subfunctions" class="code">function obj = set.parallel(obj,val)</a>
-0045             message = sprintf(<span class="string">'parallel must be a parallelOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
-0046                 strjoin(parallelOptions.values(), <span class="string">', '</span>));
-0047             obj.parallel = validateOption(val, <span class="string">'parallelOptions'</span>, message).value;
-0048 
-0049         <span class="keyword">end</span>
-0050 
-0051         <a name="_sub1" href="#_subfunctions" class="code">function obj = set.procedure(obj,val)</a>
-0052             message = sprintf(<span class="string">'procedure must be a procedures enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
-0053                 strjoin(procedures.values(), <span class="string">', '</span>));
-0054             obj.procedure = validateOption(val, <span class="string">'procedures'</span>, message).value;
-0055         <span class="keyword">end</span>
-0056 
-0057         <a name="_sub2" href="#_subfunctions" class="code">function obj = set.calcSldDuringFit(obj,val)</a>
-0058             <span class="keyword">if</span> ~islogical(val)
-0059                 throw(invalidType(<span class="string">'Type must be logical ''true'' or ''false'''</span>));
-0060             <span class="keyword">end</span>
-0061             obj.calcSldDuringFit = val;
-0062         <span class="keyword">end</span>
-0063 
-0064         <a name="_sub3" href="#_subfunctions" class="code">function obj = set.display(obj,val)</a>
-0065             message = sprintf(<span class="string">'display must be a displayOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
-0066                 strjoin(displayOptions.values(), <span class="string">', '</span>));
-0067             obj.display = validateOption(val, <span class="string">'displayOptions'</span>, message).value;
-0068         <span class="keyword">end</span>
-0069 
-0070         <a name="_sub4" href="#_subfunctions" class="code">function obj = set.resamPars(obj,val)</a>
-0071             <span class="keyword">if</span> length(val) ~= 2
-0072                 throw(invalidValue(<span class="string">'resamPars must have length of 2'</span>));
-0073             <span class="keyword">end</span>
-0074 
-0075             validateNumber(val, <span class="string">'resamPars must be a number array'</span>);
-0076 
-0077             <span class="keyword">if</span> (val(1) &lt; 0 || val(1) &gt; 1)
-0078                 throw(invalidValue(<span class="string">'resamPars(0) must be between 0 and 1'</span>));
-0079             <span class="keyword">end</span>
-0080             <span class="keyword">if</span> val(2) &lt;= 0
-0081                 throw(invalidValue(<span class="string">'resamPars(1) must be greater than 0'</span>));
-0082             <span class="keyword">end</span>
-0083             obj.resamPars = val;
-0084         <span class="keyword">end</span>
-0085 
-0086         <span class="comment">% Simplex control methods</span>
-0087         <a name="_sub5" href="#_subfunctions" class="code">function obj = set.tolX(obj, val)</a>
-0088             obj.tolX = validateNumber(val, <span class="string">'tolX must be a number'</span>);
-0089         <span class="keyword">end</span>
-0090 
-0091         <a name="_sub6" href="#_subfunctions" class="code">function obj = set.tolFun(obj, val)</a>
-0092             obj.tolFun = validateNumber(val, <span class="string">'tolFun must be a number'</span>);
-0093         <span class="keyword">end</span>
-0094 
-0095         <a name="_sub7" href="#_subfunctions" class="code">function obj = set.maxFunEvals(obj, val)</a>
-0096             obj.maxFunEvals = validateNumber(val, <span class="string">'maxFunEvals must be a number'</span>);
-0097         <span class="keyword">end</span>
-0098 
-0099         <a name="_sub8" href="#_subfunctions" class="code">function obj = set.maxIter(obj, val)</a>
-0100             obj.maxIter = validateNumber(val, <span class="string">'maxIter must be a number'</span>);
-0101         <span class="keyword">end</span>
-0102 
-0103         <span class="comment">% DE controls methods</span>
-0104         <a name="_sub9" href="#_subfunctions" class="code">function obj = set.populationSize(obj, val)</a>
-0105             validateNumber(val, <span class="string">'populationSize must be a number'</span>);
-0106             <span class="keyword">if</span> val &lt; 1
-0107                 throw(invalidValue(<span class="string">'populationSize must be greater or equal to 1'</span>));
-0108             <span class="keyword">end</span>
-0109             obj.populationSize = val;
-0110         <span class="keyword">end</span>
-0111 
-0112         <a name="_sub10" href="#_subfunctions" class="code">function obj = set.fWeight(obj,val)</a>
-0113             obj.fWeight = validateNumber(val,<span class="string">'fWeight must be a number'</span>);
-0114         <span class="keyword">end</span>
-0115 
-0116         <a name="_sub11" href="#_subfunctions" class="code">function obj = set.crossoverProbability(obj,val)</a>
-0117             validateNumber(val, <span class="string">'crossoverProbability must be a number'</span>);
-0118             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
-0119                 throw(invalidValue(<span class="string">'crossoverProbability must be between 0 and 1'</span>));
-0120             <span class="keyword">end</span>
-0121             obj.crossoverProbability = val;
-0122         <span class="keyword">end</span>
-0123 
-0124         <a name="_sub12" href="#_subfunctions" class="code">function obj = set.strategy(obj,val)</a>
-0125             message = sprintf(<span class="string">'strategy must be a strategyOptions enum or one of the following integers (%s)'</span>, <span class="keyword">...</span>
-0126                 strjoin(string(strategyOptions.values()), <span class="string">', '</span>));
-0127 
-0128             obj.strategy = validateOption(val, <span class="string">'strategyOptions'</span>, message).value;
-0129         <span class="keyword">end</span>
-0130 
-0131         <a name="_sub13" href="#_subfunctions" class="code">function obj = set.targetValue(obj,val)</a>
-0132             validateNumber(val, <span class="string">'targetValue must be a number'</span>);
-0133             <span class="keyword">if</span> val &lt; 1
-0134                 throw(invalidValue(<span class="string">'targetValue must be greater or equal to 1'</span>));
-0135             <span class="keyword">end</span>
-0136             obj.targetValue = val;
-0137         <span class="keyword">end</span>
-0138 
-0139         <a name="_sub14" href="#_subfunctions" class="code">function obj = set.numGenerations(obj, val)</a>
-0140             validateNumber(val, <span class="string">'numGenerations value must be a number'</span>);
-0141             <span class="keyword">if</span> val &lt; 1
-0142                 throw(invalidValue(<span class="string">'numGenerations must be greater or equal to 1'</span>));
-0143             <span class="keyword">end</span>
-0144             obj.numGenerations = val;
-0145         <span class="keyword">end</span>
-0146 
-0147         <span class="comment">% NS control methods</span>
-0148         <a name="_sub15" href="#_subfunctions" class="code">function obj = set.Nlive(obj, val)</a>
-0149             validateNumber(val, <span class="string">'Nlive must be a number'</span>);
-0150             <span class="keyword">if</span> val &lt; 1
-0151                 throw(invalidValue(<span class="string">'Nlive must be greater or equal to 1'</span>));
-0152             <span class="keyword">end</span>
-0153             obj.Nlive = val;
-0154         <span class="keyword">end</span>
-0155 
-0156         <a name="_sub16" href="#_subfunctions" class="code">function obj = set.Nmcmc(obj, val)</a>
-0157             validateNumber(val, <span class="string">'Nmcmc must be a number'</span>);
-0158             <span class="keyword">if</span> val &lt; 0
-0159                 throw(invalidValue(<span class="string">'Nmcmc must be greater or equal than 0'</span>));
-0160             <span class="keyword">end</span>
-0161             obj.Nmcmc = val;
-0162         <span class="keyword">end</span>
-0163 
-0164         <a name="_sub17" href="#_subfunctions" class="code">function obj = set.propScale(obj, val)</a>
-0165             validateNumber(val, <span class="string">'propScale must be a number'</span>);
-0166             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
-0167                 throw(invalidValue(<span class="string">'propScale must be between 0 and 1'</span>));
-0168             <span class="keyword">end</span>
-0169             obj.propScale = val;
-0170         <span class="keyword">end</span>
-0171 
-0172         <a name="_sub18" href="#_subfunctions" class="code">function obj = set.nsTolerance(obj,val)</a>
-0173             validateNumber(val, <span class="string">'nsTolerance must be a number '</span>);
-0174             <span class="keyword">if</span> val &lt; 0
-0175                 throw(invalidValue(<span class="string">'nsTolerance must be greater or equal to 0'</span>));
-0176             <span class="keyword">end</span>
-0177             obj.nsTolerance = val;
-0178         <span class="keyword">end</span>
-0179 
-0180         <span class="comment">% DREAM methods</span>
-0181         <a name="_sub19" href="#_subfunctions" class="code">function obj = set.nSamples(obj,val)</a>
-0182             validateNumber(val, <span class="string">'nSample must be a number '</span>);
-0183             <span class="keyword">if</span> val &lt; 0
-0184                 throw(invalidValue(<span class="string">'nSample must be greater or equal to 0'</span>));
-0185             <span class="keyword">end</span>
-0186             obj.nSamples = val;
-0187         <span class="keyword">end</span>
-0188 
-0189         <a name="_sub20" href="#_subfunctions" class="code">function obj = set.nChains(obj,val)</a>
-0190             validateNumber(val, <span class="string">'nChains must be a number '</span>);
-0191             <span class="keyword">if</span> (~(round(val) == val) || val &lt;= 0 || isnan(val) || isinf(val))
-0192                 throw(invalidValue(<span class="string">'nChains must be a finite integer greater than 0'</span>));
-0193             <span class="keyword">end</span>
-0194             obj.nChains = val;
-0195         <span class="keyword">end</span>
-0196 
-0197         <a name="_sub21" href="#_subfunctions" class="code">function obj = set.lambda(obj,val)</a>
-0198             validateNumber(val, <span class="string">'lambda must be a number'</span>);
-0199             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
-0200                 throw(invalidValue(<span class="string">'Jump probability lambda must be a fraction between 0 and 1'</span>));
-0201             <span class="keyword">end</span>
-0202             obj.lambda = val;
-0203         <span class="keyword">end</span>
-0204 
-0205         <a name="_sub22" href="#_subfunctions" class="code">function obj = set.pUnitGamma(obj,val)</a>
-0206             validateNumber(val, <span class="string">'pUnitGamma must be a number'</span>);
-0207             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
-0208                 throw(invalidValue(<span class="string">'pUnitGamma must be a fraction between 0 and 1'</span>));
-0209             <span class="keyword">end</span>
-0210             obj.pUnitGamma = val;
-0211         <span class="keyword">end</span>
-0212 
-0213         <a name="_sub23" href="#_subfunctions" class="code">function obj = set.boundHandling(obj,val)</a>
-0214             message = sprintf(<span class="string">'boundHandling must be a boundHandlingOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
-0215                 strjoin(boundHandlingOptions.values(), <span class="string">', '</span>));
-0216             obj.boundHandling = validateOption(val, <span class="string">'boundHandlingOptions'</span>, message).value;
-0217         <span class="keyword">end</span>
-0218 
-0219         <a name="_sub24" href="#_subfunctions" class="code">function obj = setProcedure(obj, procedure, varargin)</a>
-0220             <span class="comment">% Method sets the properties of the class based on the selected procedures.</span>
-0221             <span class="comment">%</span>
-0222             <span class="comment">% obj.setProcedure(procedure, varargin)</span>
-0223             <span class="comment">%</span>
-0224             <span class="comment">% Usage Examples:</span>
-0225             <span class="comment">% obj.setProcedure('simplex',...</span>
-0226             <span class="comment">%                   {'tolX', 1e-6,...</span>
-0227             <span class="comment">%                   'tolFun', 1e-6,...</span>
-0228             <span class="comment">%                   'maxFunEvals', 1000})</span>
-0229             <span class="comment">% obj.setProcedure('dream')</span>
-0230             <span class="comment">% obj.setProcedure('ns',</span>
-0231             <span class="comment">%                  {'Nlive', 150,...</span>
-0232             <span class="comment">%                  'Nmcmc', 0,...</span>
-0233             <span class="comment">%                  'propScale', 0.1,...</span>
-0234             <span class="comment">%                  'nsTolerance', 0.1})</span>
-0235 
-0236             <span class="keyword">switch</span> procedure
-0237 
-0238                 <span class="keyword">case</span> procedures.Calculate.value
-0239                     <span class="comment">% Parses the inputs and sets the object properties of</span>
-0240                     <span class="comment">% the Calculate procedure</span>
-0241                     <span class="keyword">if</span> ~isempty(varargin)
-0242                         obj = obj.processCalculateInput(varargin{:});
-0243                     <span class="keyword">end</span>
-0244                     obj.procedure = procedures.Calculate.value;
-0245 
-0246                 <span class="keyword">case</span> procedures.Simplex.value
-0247                     <span class="comment">% Parses the inputs and sets the object properties of</span>
-0248                     <span class="comment">% the Simplex procedure</span>
-0249                     <span class="keyword">if</span> ~isempty(varargin)
-0250                         obj = obj.processSimplexInput(varargin{:});
-0251                     <span class="keyword">end</span>
-0252                     obj.procedure = procedures.Simplex.value;
-0253 
-0254                 <span class="keyword">case</span> procedures.DE.value
-0255                     <span class="comment">% Parses the inputs and sets the object properties of</span>
-0256                     <span class="comment">% the Differential Evolution procedure</span>
-0257                     <span class="keyword">if</span> ~isempty(varargin)
-0258                         obj = obj.processDEInput(varargin{:});
-0259                     <span class="keyword">end</span>
-0260                     obj.procedure = procedures.DE.value;
-0261 
-0262                 <span class="keyword">case</span> procedures.NS.value
-0263                     <span class="comment">% Parses the inputs and sets the object properties of</span>
-0264                     <span class="comment">% the Nested Sampler procedure</span>
-0265                     <span class="keyword">if</span> ~isempty(varargin)
-0266                         obj = obj.processNSInput(varargin{:});
-0267                     <span class="keyword">end</span>
-0268                     obj.procedure = procedures.NS.value;
-0269 
-0270                 <span class="keyword">case</span> procedures.Dream.value
-0271                     <span class="comment">% Parses the inputs and sets the object properties of</span>
-0272                     <span class="comment">% the DREAM procedure</span>
-0273                     <span class="keyword">if</span> ~isempty(varargin)
-0274                         obj = obj.processDreamInput(varargin{:});
-0275                     <span class="keyword">end</span>
-0276                     obj.procedure = procedures.Dream.value;
-0277 
-0278                 <span class="keyword">otherwise</span>
-0279                     <span class="comment">% invalid procedure</span>
-0280                     throw(invalidValue(sprintf(<span class="string">'%s is not a supported procedure. The procedure must be a procedures enum or one of the following strings (%s)'</span>, procedure, strjoin(procedures.values(), <span class="string">', '</span>))));
-0281 
-0282             <span class="keyword">end</span>
-0283 
-0284         <span class="keyword">end</span>
-0285     <span class="keyword">end</span>
+0040         adaptPCR = false;
+0041     <span class="keyword">end</span>
+0042 
+0043     <span class="comment">%------------------------- Set and Get ------------------------------</span>
+0044     methods
+0045         <a name="_sub0" href="#_subfunctions" class="code">function obj = set.parallel(obj,val)</a>
+0046             message = sprintf(<span class="string">'parallel must be a parallelOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0047                 strjoin(parallelOptions.values(), <span class="string">', '</span>));
+0048             obj.parallel = validateOption(val, <span class="string">'parallelOptions'</span>, message).value;
+0049 
+0050         <span class="keyword">end</span>
+0051 
+0052         <a name="_sub1" href="#_subfunctions" class="code">function obj = set.procedure(obj,val)</a>
+0053             message = sprintf(<span class="string">'procedure must be a procedures enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0054                 strjoin(procedures.values(), <span class="string">', '</span>));
+0055             obj.procedure = validateOption(val, <span class="string">'procedures'</span>, message).value;
+0056         <span class="keyword">end</span>
+0057 
+0058         <a name="_sub2" href="#_subfunctions" class="code">function obj = set.calcSldDuringFit(obj,val)</a>
+0059             validateLogical(val, <span class="string">'calcSldDuringFit must be logical ''true'' or ''false'''</span>);
+0060             obj.calcSldDuringFit = val;
+0061         <span class="keyword">end</span>
+0062 
+0063         <a name="_sub3" href="#_subfunctions" class="code">function obj = set.display(obj,val)</a>
+0064             message = sprintf(<span class="string">'display must be a displayOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0065                 strjoin(displayOptions.values(), <span class="string">', '</span>));
+0066             obj.display = validateOption(val, <span class="string">'displayOptions'</span>, message).value;
+0067         <span class="keyword">end</span>
+0068 
+0069         <a name="_sub4" href="#_subfunctions" class="code">function obj = set.resamPars(obj,val)</a>
+0070             <span class="keyword">if</span> length(val) ~= 2
+0071                 throw(invalidValue(<span class="string">'resamPars must have length of 2'</span>));
+0072             <span class="keyword">end</span>
+0073 
+0074             validateNumber(val, <span class="string">'resamPars must be a number array'</span>);
+0075 
+0076             <span class="keyword">if</span> (val(1) &lt; 0 || val(1) &gt; 1)
+0077                 throw(invalidValue(<span class="string">'resamPars(0) must be between 0 and 1'</span>));
+0078             <span class="keyword">end</span>
+0079             <span class="keyword">if</span> val(2) &lt;= 0
+0080                 throw(invalidValue(<span class="string">'resamPars(1) must be greater than 0'</span>));
+0081             <span class="keyword">end</span>
+0082             obj.resamPars = val;
+0083         <span class="keyword">end</span>
+0084 
+0085         <span class="comment">% Simplex control methods</span>
+0086         <a name="_sub5" href="#_subfunctions" class="code">function obj = set.tolX(obj, val)</a>
+0087             obj.tolX = validateNumber(val, <span class="string">'tolX must be a number'</span>);
+0088         <span class="keyword">end</span>
+0089 
+0090         <a name="_sub6" href="#_subfunctions" class="code">function obj = set.tolFun(obj, val)</a>
+0091             obj.tolFun = validateNumber(val, <span class="string">'tolFun must be a number'</span>);
+0092         <span class="keyword">end</span>
+0093 
+0094         <a name="_sub7" href="#_subfunctions" class="code">function obj = set.maxFunEvals(obj, val)</a>
+0095             obj.maxFunEvals = validateNumber(val, <span class="string">'maxFunEvals must be a number'</span>);
+0096         <span class="keyword">end</span>
+0097 
+0098         <a name="_sub8" href="#_subfunctions" class="code">function obj = set.maxIter(obj, val)</a>
+0099             obj.maxIter = validateNumber(val, <span class="string">'maxIter must be a number'</span>);
+0100         <span class="keyword">end</span>
+0101 
+0102         <span class="comment">% DE controls methods</span>
+0103         <a name="_sub9" href="#_subfunctions" class="code">function obj = set.populationSize(obj, val)</a>
+0104             validateNumber(val, <span class="string">'populationSize must be a number'</span>);
+0105             <span class="keyword">if</span> val &lt; 1
+0106                 throw(invalidValue(<span class="string">'populationSize must be greater or equal to 1'</span>));
+0107             <span class="keyword">end</span>
+0108             obj.populationSize = val;
+0109         <span class="keyword">end</span>
+0110 
+0111         <a name="_sub10" href="#_subfunctions" class="code">function obj = set.fWeight(obj,val)</a>
+0112             obj.fWeight = validateNumber(val,<span class="string">'fWeight must be a number'</span>);
+0113         <span class="keyword">end</span>
+0114 
+0115         <a name="_sub11" href="#_subfunctions" class="code">function obj = set.crossoverProbability(obj,val)</a>
+0116             validateNumber(val, <span class="string">'crossoverProbability must be a number'</span>);
+0117             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
+0118                 throw(invalidValue(<span class="string">'crossoverProbability must be between 0 and 1'</span>));
+0119             <span class="keyword">end</span>
+0120             obj.crossoverProbability = val;
+0121         <span class="keyword">end</span>
+0122 
+0123         <a name="_sub12" href="#_subfunctions" class="code">function obj = set.strategy(obj,val)</a>
+0124             message = sprintf(<span class="string">'strategy must be a strategyOptions enum or one of the following integers (%s)'</span>, <span class="keyword">...</span>
+0125                 strjoin(string(strategyOptions.values()), <span class="string">', '</span>));
+0126 
+0127             obj.strategy = validateOption(val, <span class="string">'strategyOptions'</span>, message).value;
+0128         <span class="keyword">end</span>
+0129 
+0130         <a name="_sub13" href="#_subfunctions" class="code">function obj = set.targetValue(obj,val)</a>
+0131             validateNumber(val, <span class="string">'targetValue must be a number'</span>);
+0132             <span class="keyword">if</span> val &lt; 1
+0133                 throw(invalidValue(<span class="string">'targetValue must be greater or equal to 1'</span>));
+0134             <span class="keyword">end</span>
+0135             obj.targetValue = val;
+0136         <span class="keyword">end</span>
+0137 
+0138         <a name="_sub14" href="#_subfunctions" class="code">function obj = set.numGenerations(obj, val)</a>
+0139             validateNumber(val, <span class="string">'numGenerations value must be a number'</span>);
+0140             <span class="keyword">if</span> val &lt; 1
+0141                 throw(invalidValue(<span class="string">'numGenerations must be greater or equal to 1'</span>));
+0142             <span class="keyword">end</span>
+0143             obj.numGenerations = val;
+0144         <span class="keyword">end</span>
+0145 
+0146         <span class="comment">% NS control methods</span>
+0147         <a name="_sub15" href="#_subfunctions" class="code">function obj = set.Nlive(obj, val)</a>
+0148             validateNumber(val, <span class="string">'Nlive must be a number'</span>);
+0149             <span class="keyword">if</span> val &lt; 1
+0150                 throw(invalidValue(<span class="string">'Nlive must be greater or equal to 1'</span>));
+0151             <span class="keyword">end</span>
+0152             obj.Nlive = val;
+0153         <span class="keyword">end</span>
+0154 
+0155         <a name="_sub16" href="#_subfunctions" class="code">function obj = set.Nmcmc(obj, val)</a>
+0156             validateNumber(val, <span class="string">'Nmcmc must be a number'</span>);
+0157             <span class="keyword">if</span> val &lt; 0
+0158                 throw(invalidValue(<span class="string">'Nmcmc must be greater or equal than 0'</span>));
+0159             <span class="keyword">end</span>
+0160             obj.Nmcmc = val;
+0161         <span class="keyword">end</span>
+0162 
+0163         <a name="_sub17" href="#_subfunctions" class="code">function obj = set.propScale(obj, val)</a>
+0164             validateNumber(val, <span class="string">'propScale must be a number'</span>);
+0165             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
+0166                 throw(invalidValue(<span class="string">'propScale must be between 0 and 1'</span>));
+0167             <span class="keyword">end</span>
+0168             obj.propScale = val;
+0169         <span class="keyword">end</span>
+0170 
+0171         <a name="_sub18" href="#_subfunctions" class="code">function obj = set.nsTolerance(obj,val)</a>
+0172             validateNumber(val, <span class="string">'nsTolerance must be a number '</span>);
+0173             <span class="keyword">if</span> val &lt; 0
+0174                 throw(invalidValue(<span class="string">'nsTolerance must be greater or equal to 0'</span>));
+0175             <span class="keyword">end</span>
+0176             obj.nsTolerance = val;
+0177         <span class="keyword">end</span>
+0178 
+0179         <span class="comment">% DREAM methods</span>
+0180         <a name="_sub19" href="#_subfunctions" class="code">function obj = set.nSamples(obj,val)</a>
+0181             validateNumber(val, <span class="string">'nSample must be a number '</span>);
+0182             <span class="keyword">if</span> val &lt; 0
+0183                 throw(invalidValue(<span class="string">'nSample must be greater or equal to 0'</span>));
+0184             <span class="keyword">end</span>
+0185             obj.nSamples = val;
+0186         <span class="keyword">end</span>
+0187 
+0188         <a name="_sub20" href="#_subfunctions" class="code">function obj = set.nChains(obj,val)</a>
+0189             validateNumber(val, <span class="string">'nChains must be a number '</span>);
+0190             <span class="keyword">if</span> (~(round(val) == val) || val &lt;= 0 || isnan(val) || isinf(val))
+0191                 throw(invalidValue(<span class="string">'nChains must be a finite integer greater than 0'</span>));
+0192             <span class="keyword">end</span>
+0193             obj.nChains = val;
+0194         <span class="keyword">end</span>
+0195 
+0196         <a name="_sub21" href="#_subfunctions" class="code">function obj = set.jumpProbability(obj,val)</a>
+0197             validateNumber(val, <span class="string">'jumpProbability must be a number'</span>);
+0198             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
+0199                 throw(invalidValue(<span class="string">'Jump probability jumpProbability must be a fraction between 0 and 1'</span>));
+0200             <span class="keyword">end</span>
+0201             obj.jumpProbability = val;
+0202         <span class="keyword">end</span>
+0203 
+0204         <a name="_sub22" href="#_subfunctions" class="code">function obj = set.pUnitGamma(obj,val)</a>
+0205             validateNumber(val, <span class="string">'pUnitGamma must be a number'</span>);
+0206             <span class="keyword">if</span> (val &lt; 0 || val &gt; 1)
+0207                 throw(invalidValue(<span class="string">'pUnitGamma must be a fraction between 0 and 1'</span>));
+0208             <span class="keyword">end</span>
+0209             obj.pUnitGamma = val;
+0210         <span class="keyword">end</span>
+0211 
+0212         <a name="_sub23" href="#_subfunctions" class="code">function obj = set.boundHandling(obj,val)</a>
+0213             message = sprintf(<span class="string">'boundHandling must be a boundHandlingOptions enum or one of the following strings (%s)'</span>, <span class="keyword">...</span>
+0214                 strjoin(boundHandlingOptions.values(), <span class="string">', '</span>));
+0215             obj.boundHandling = validateOption(val, <span class="string">'boundHandlingOptions'</span>, message).value;
+0216         <span class="keyword">end</span>
+0217 
+0218         <a name="_sub24" href="#_subfunctions" class="code">function obj = set.adaptPCR(obj,val)</a>
+0219             validateLogical(val, <span class="string">'adaptPCR must be logical ''true'' or ''false'''</span>);
+0220             obj.adaptPCR = val;
+0221         <span class="keyword">end</span>
+0222 
+0223 
+0224         <a name="_sub25" href="#_subfunctions" class="code">function obj = setProcedure(obj, procedure, varargin)</a>
+0225             <span class="comment">% Method sets the properties of the class based on the selected procedures.</span>
+0226             <span class="comment">%</span>
+0227             <span class="comment">% obj.setProcedure(procedure, varargin)</span>
+0228             <span class="comment">%</span>
+0229             <span class="comment">% Usage Examples:</span>
+0230             <span class="comment">% obj.setProcedure('simplex',...</span>
+0231             <span class="comment">%                   {'tolX', 1e-6,...</span>
+0232             <span class="comment">%                   'tolFun', 1e-6,...</span>
+0233             <span class="comment">%                   'maxFunEvals', 1000})</span>
+0234             <span class="comment">% obj.setProcedure('dream')</span>
+0235             <span class="comment">% obj.setProcedure('ns',</span>
+0236             <span class="comment">%                  {'Nlive', 150,...</span>
+0237             <span class="comment">%                  'Nmcmc', 0,...</span>
+0238             <span class="comment">%                  'propScale', 0.1,...</span>
+0239             <span class="comment">%                  'nsTolerance', 0.1})</span>
+0240 
+0241             <span class="keyword">switch</span> procedure
+0242 
+0243                 <span class="keyword">case</span> procedures.Calculate.value
+0244                     <span class="comment">% Parses the inputs and sets the object properties of</span>
+0245                     <span class="comment">% the Calculate procedure</span>
+0246                     <span class="keyword">if</span> ~isempty(varargin)
+0247                         obj = obj.processCalculateInput(varargin{:});
+0248                     <span class="keyword">end</span>
+0249                     obj.procedure = procedures.Calculate.value;
+0250 
+0251                 <span class="keyword">case</span> procedures.Simplex.value
+0252                     <span class="comment">% Parses the inputs and sets the object properties of</span>
+0253                     <span class="comment">% the Simplex procedure</span>
+0254                     <span class="keyword">if</span> ~isempty(varargin)
+0255                         obj = obj.processSimplexInput(varargin{:});
+0256                     <span class="keyword">end</span>
+0257                     obj.procedure = procedures.Simplex.value;
+0258 
+0259                 <span class="keyword">case</span> procedures.DE.value
+0260                     <span class="comment">% Parses the inputs and sets the object properties of</span>
+0261                     <span class="comment">% the Differential Evolution procedure</span>
+0262                     <span class="keyword">if</span> ~isempty(varargin)
+0263                         obj = obj.processDEInput(varargin{:});
+0264                     <span class="keyword">end</span>
+0265                     obj.procedure = procedures.DE.value;
+0266 
+0267                 <span class="keyword">case</span> procedures.NS.value
+0268                     <span class="comment">% Parses the inputs and sets the object properties of</span>
+0269                     <span class="comment">% the Nested Sampler procedure</span>
+0270                     <span class="keyword">if</span> ~isempty(varargin)
+0271                         obj = obj.processNSInput(varargin{:});
+0272                     <span class="keyword">end</span>
+0273                     obj.procedure = procedures.NS.value;
+0274 
+0275                 <span class="keyword">case</span> procedures.Dream.value
+0276                     <span class="comment">% Parses the inputs and sets the object properties of</span>
+0277                     <span class="comment">% the DREAM procedure</span>
+0278                     <span class="keyword">if</span> ~isempty(varargin)
+0279                         obj = obj.processDreamInput(varargin{:});
+0280                     <span class="keyword">end</span>
+0281                     obj.procedure = procedures.Dream.value;
+0282 
+0283                 <span class="keyword">otherwise</span>
+0284                     <span class="comment">% invalid procedure</span>
+0285                     throw(invalidValue(sprintf(<span class="string">'%s is not a supported procedure. The procedure must be a procedures enum or one of the following strings (%s)'</span>, procedure, strjoin(procedures.values(), <span class="string">', '</span>))));
 0286 
-0287     <span class="comment">%------------------------- Display Methods --------------------------</span>
-0288     methods (Access = protected)
-0289         <a name="_sub25" href="#_subfunctions" class="code">function groups = getPropertyGroups(obj)</a>
-0290             masterPropList = struct(<span class="string">'parallel'</span>, {obj.parallel},<span class="keyword">...</span>
-0291                 <span class="string">'procedure'</span>, {obj.procedure},<span class="keyword">...</span>
-0292                 <span class="string">'calcSldDuringFit'</span>, {obj.calcSldDuringFit},<span class="keyword">...</span>
-0293                 <span class="string">'display'</span>, {obj.display},<span class="keyword">...</span>
-0294                 <span class="string">'tolX'</span>, {obj.tolX},<span class="keyword">...</span>
-0295                 <span class="string">'tolFun'</span>, {obj.tolFun},<span class="keyword">...</span>
-0296                 <span class="string">'maxFunEvals'</span>, {obj.maxFunEvals},<span class="keyword">...</span>
-0297                 <span class="string">'maxIter'</span>, {obj.maxIter},<span class="keyword">...</span>
-0298                 <span class="string">'updateFreq'</span>, {obj.updateFreq},<span class="keyword">...</span>
-0299                 <span class="string">'updatePlotFreq'</span>, {obj.updatePlotFreq},<span class="keyword">...</span>
-0300                 <span class="string">'populationSize'</span>, {obj.populationSize},<span class="keyword">...</span>
-0301                 <span class="string">'fWeight'</span>, {obj.fWeight},<span class="keyword">...</span>
-0302                 <span class="string">'crossoverProbability'</span>, {obj.crossoverProbability},<span class="keyword">...</span>
-0303                 <span class="string">'strategy'</span>, {obj.strategy},<span class="keyword">...</span>
-0304                 <span class="string">'targetValue'</span>, {obj.targetValue},<span class="keyword">...</span>
-0305                 <span class="string">'numGenerations'</span>, {obj.numGenerations},<span class="keyword">...</span>
-0306                 <span class="string">'Nlive'</span>, {obj.Nlive},<span class="keyword">...</span>
-0307                 <span class="string">'Nmcmc'</span>, {obj.Nmcmc},<span class="keyword">...</span>
-0308                 <span class="string">'propScale'</span>, {obj.propScale},<span class="keyword">...</span>
-0309                 <span class="string">'nsTolerance'</span>, {obj.nsTolerance},<span class="keyword">...</span>
-0310                 <span class="string">'resamPars'</span>, {obj.resamPars},<span class="keyword">...</span>
-0311                 <span class="string">'nSamples'</span>, {obj.nSamples},<span class="keyword">...</span>
-0312                 <span class="string">'nChains'</span>, {obj.nChains},<span class="keyword">...</span>
-0313                 <span class="string">'lambda'</span>, {obj.lambda},<span class="keyword">...</span>
-0314                 <span class="string">'pUnitGamma'</span>, {obj.pUnitGamma},<span class="keyword">...</span>
-0315                 <span class="string">'boundHandling'</span>, {obj.boundHandling});
-0316 
-0317             simplexCell = {<span class="string">'tolX'</span>,<span class="keyword">...</span>
-0318                 <span class="string">'tolFun'</span>,<span class="keyword">...</span>
-0319                 <span class="string">'maxFunEvals'</span>,<span class="keyword">...</span>
-0320                 <span class="string">'maxIter'</span>,<span class="keyword">...</span>
-0321                 <span class="string">'updateFreq'</span>,<span class="keyword">...</span>
-0322                 <span class="string">'updatePlotFreq'</span>};
-0323 
-0324             deCell = {<span class="string">'populationSize'</span>,<span class="keyword">...</span>
-0325                 <span class="string">'fWeight'</span>,<span class="keyword">...</span>
-0326                 <span class="string">'crossoverProbability'</span>,<span class="keyword">...</span>
-0327                 <span class="string">'strategy'</span>,<span class="keyword">...</span>
-0328                 <span class="string">'targetValue'</span>,<span class="keyword">...</span>
-0329                 <span class="string">'numGenerations'</span>};
-0330 
-0331             nsCell = {<span class="string">'Nlive'</span>,<span class="keyword">...</span>
-0332                 <span class="string">'Nmcmc'</span>,<span class="keyword">...</span>
-0333                 <span class="string">'propScale'</span>,<span class="keyword">...</span>
-0334                 <span class="string">'nsTolerance'</span>};
-0335 
-0336             dreamCell = {<span class="string">'nSamples'</span>,<span class="keyword">...</span>
-0337                 <span class="string">'nChains'</span>,<span class="keyword">...</span>
-0338                 <span class="string">'lambda'</span>,<span class="keyword">...</span>
-0339                 <span class="string">'pUnitGamma'</span>,<span class="keyword">...</span>
-0340                 <span class="string">'boundHandling'</span>};
+0287             <span class="keyword">end</span>
+0288 
+0289         <span class="keyword">end</span>
+0290     <span class="keyword">end</span>
+0291 
+0292     <span class="comment">%------------------------- Display Methods --------------------------</span>
+0293     methods (Access = protected)
+0294         <a name="_sub26" href="#_subfunctions" class="code">function groups = getPropertyGroups(obj)</a>
+0295             masterPropList = struct(<span class="string">'parallel'</span>, {obj.parallel},<span class="keyword">...</span>
+0296                 <span class="string">'procedure'</span>, {obj.procedure},<span class="keyword">...</span>
+0297                 <span class="string">'calcSldDuringFit'</span>, {obj.calcSldDuringFit},<span class="keyword">...</span>
+0298                 <span class="string">'display'</span>, {obj.display},<span class="keyword">...</span>
+0299                 <span class="string">'tolX'</span>, {obj.tolX},<span class="keyword">...</span>
+0300                 <span class="string">'tolFun'</span>, {obj.tolFun},<span class="keyword">...</span>
+0301                 <span class="string">'maxFunEvals'</span>, {obj.maxFunEvals},<span class="keyword">...</span>
+0302                 <span class="string">'maxIter'</span>, {obj.maxIter},<span class="keyword">...</span>
+0303                 <span class="string">'updateFreq'</span>, {obj.updateFreq},<span class="keyword">...</span>
+0304                 <span class="string">'updatePlotFreq'</span>, {obj.updatePlotFreq},<span class="keyword">...</span>
+0305                 <span class="string">'populationSize'</span>, {obj.populationSize},<span class="keyword">...</span>
+0306                 <span class="string">'fWeight'</span>, {obj.fWeight},<span class="keyword">...</span>
+0307                 <span class="string">'crossoverProbability'</span>, {obj.crossoverProbability},<span class="keyword">...</span>
+0308                 <span class="string">'strategy'</span>, {obj.strategy},<span class="keyword">...</span>
+0309                 <span class="string">'targetValue'</span>, {obj.targetValue},<span class="keyword">...</span>
+0310                 <span class="string">'numGenerations'</span>, {obj.numGenerations},<span class="keyword">...</span>
+0311                 <span class="string">'Nlive'</span>, {obj.Nlive},<span class="keyword">...</span>
+0312                 <span class="string">'Nmcmc'</span>, {obj.Nmcmc},<span class="keyword">...</span>
+0313                 <span class="string">'propScale'</span>, {obj.propScale},<span class="keyword">...</span>
+0314                 <span class="string">'nsTolerance'</span>, {obj.nsTolerance},<span class="keyword">...</span>
+0315                 <span class="string">'resamPars'</span>, {obj.resamPars},<span class="keyword">...</span>
+0316                 <span class="string">'nSamples'</span>, {obj.nSamples},<span class="keyword">...</span>
+0317                 <span class="string">'nChains'</span>, {obj.nChains},<span class="keyword">...</span>
+0318                 <span class="string">'jumpProbability'</span>, {obj.jumpProbability},<span class="keyword">...</span>
+0319                 <span class="string">'pUnitGamma'</span>, {obj.pUnitGamma},<span class="keyword">...</span>
+0320                 <span class="string">'boundHandling'</span>, {obj.boundHandling},<span class="keyword">...</span>
+0321                 <span class="string">'adaptPCR'</span>, {obj.adaptPCR});
+0322 
+0323             simplexCell = {<span class="string">'tolX'</span>,<span class="keyword">...</span>
+0324                 <span class="string">'tolFun'</span>,<span class="keyword">...</span>
+0325                 <span class="string">'maxFunEvals'</span>,<span class="keyword">...</span>
+0326                 <span class="string">'maxIter'</span>,<span class="keyword">...</span>
+0327                 <span class="string">'updateFreq'</span>,<span class="keyword">...</span>
+0328                 <span class="string">'updatePlotFreq'</span>};
+0329 
+0330             deCell = {<span class="string">'populationSize'</span>,<span class="keyword">...</span>
+0331                 <span class="string">'fWeight'</span>,<span class="keyword">...</span>
+0332                 <span class="string">'crossoverProbability'</span>,<span class="keyword">...</span>
+0333                 <span class="string">'strategy'</span>,<span class="keyword">...</span>
+0334                 <span class="string">'targetValue'</span>,<span class="keyword">...</span>
+0335                 <span class="string">'numGenerations'</span>};
+0336 
+0337             nsCell = {<span class="string">'Nlive'</span>,<span class="keyword">...</span>
+0338                 <span class="string">'Nmcmc'</span>,<span class="keyword">...</span>
+0339                 <span class="string">'propScale'</span>,<span class="keyword">...</span>
+0340                 <span class="string">'nsTolerance'</span>};
 0341 
-0342             <span class="keyword">if</span> isscalar(obj)
-0343                 dispPropList = masterPropList;
-0344                 <span class="keyword">if</span> strcmpi(obj.procedure, <span class="string">'calculate'</span>)
-0345                     dispPropList = rmfield(masterPropList, [deCell, simplexCell, nsCell, dreamCell]);
-0346                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'simplex'</span>)
-0347                     dispPropList = rmfield(masterPropList, [deCell, nsCell, dreamCell]);
-0348                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'de'</span>)
-0349                     dispPropList = rmfield(masterPropList, [simplexCell, nsCell, dreamCell]);
-0350                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'ns'</span>)
-0351                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, dreamCell]);
-0352                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'dream'</span>)
-0353                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, nsCell]);
-0354                 <span class="keyword">end</span>
-0355                 groups = matlab.mixin.util.PropertyGroup(dispPropList);
-0356             <span class="keyword">else</span>
-0357                 groups = <a href="#_sub26" class="code" title="subfunction groups = getPropertyGroups(obj)">getPropertyGroups</a>@matlab.mixin.CustomDisplay(obj);
-0358             <span class="keyword">end</span>
-0359         <span class="keyword">end</span>
-0360     <span class="keyword">end</span>
-0361 
-0362     <span class="comment">%------------------------- Parsing Methods --------------------------</span>
-0363     methods (Access = private)
-0364 
-0365         <a name="_sub26" href="#_subfunctions" class="code">function obj = processCalculateInput(obj, varargin)</a>
-0366             <span class="comment">% Parses calculate keyword/value pairs and sets the properties of the class.</span>
-0367             <span class="comment">%</span>
-0368             <span class="comment">% obj.processCalculateInput('param', 'value')</span>
-0369             <span class="comment">%</span>
-0370             <span class="comment">% The parameters that can be set when using calculate procedure are</span>
-0371             <span class="comment">% 1) parallel</span>
-0372             <span class="comment">% 2) calcSldDuringFit</span>
-0373             <span class="comment">% 3) resamPars</span>
-0374             <span class="comment">% 4) display</span>
-0375 
-0376             <span class="comment">% The default values for Calculate</span>
-0377             defaultParallel = parallelOptions.Single.value;
-0378             defaultCalcSldDuringFit = false;
-0379             defaultResamPars = [0.9 50];
-0380             defaultDisplay = displayOptions.Iter.value;
-0381 
-0382             <span class="comment">% Creates the input parser for the calculate parameters</span>
-0383             p = inputParser;
-0384             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
-0385             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
-0386             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
-0387             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
-0388             properties = varargin{:};
-0389 
-0390             <span class="comment">% Parses the input or raises invalidOption error</span>
-0391             errorMsg = <span class="string">'Only parallel, calcSldDuringFit, resamPars and display can be set while using the Calculate procedure'</span>;
-0392             inputBlock = obj.parseInputs(p, properties, errorMsg);
-0393 
-0394             <span class="comment">% Sets the values the for Calculate parameters</span>
-0395             obj.parallel = inputBlock.parallel;
-0396             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-0397             obj.resamPars = inputBlock.resamPars;
-0398             obj.display = inputBlock.display;
-0399         <span class="keyword">end</span>
+0342             dreamCell = {<span class="string">'nSamples'</span>,<span class="keyword">...</span>
+0343                 <span class="string">'nChains'</span>,<span class="keyword">...</span>
+0344                 <span class="string">'jumpProbability'</span>,<span class="keyword">...</span>
+0345                 <span class="string">'pUnitGamma'</span>,<span class="keyword">...</span>
+0346                 <span class="string">'boundHandling'</span>,<span class="keyword">...</span>
+0347                 <span class="string">'adaptPCR'</span>};
+0348 
+0349             <span class="keyword">if</span> isscalar(obj)
+0350                 dispPropList = masterPropList;
+0351                 <span class="keyword">if</span> strcmpi(obj.procedure, <span class="string">'calculate'</span>)
+0352                     dispPropList = rmfield(masterPropList, [deCell, simplexCell, nsCell, dreamCell]);
+0353                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'simplex'</span>)
+0354                     dispPropList = rmfield(masterPropList, [deCell, nsCell, dreamCell]);
+0355                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'de'</span>)
+0356                     dispPropList = rmfield(masterPropList, [simplexCell, nsCell, dreamCell]);
+0357                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'ns'</span>)
+0358                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, dreamCell]);
+0359                 <span class="keyword">elseif</span> strcmpi(obj.procedure, <span class="string">'dream'</span>)
+0360                     dispPropList = rmfield(masterPropList, [simplexCell, deCell, nsCell]);
+0361                 <span class="keyword">end</span>
+0362                 groups = matlab.mixin.util.PropertyGroup(dispPropList);
+0363             <span class="keyword">else</span>
+0364                 groups = <a href="#_sub27" class="code" title="subfunction groups = getPropertyGroups(obj)">getPropertyGroups</a>@matlab.mixin.CustomDisplay(obj);
+0365             <span class="keyword">end</span>
+0366         <span class="keyword">end</span>
+0367     <span class="keyword">end</span>
+0368 
+0369     <span class="comment">%------------------------- Parsing Methods --------------------------</span>
+0370     methods (Access = private)
+0371 
+0372         <a name="_sub27" href="#_subfunctions" class="code">function obj = processCalculateInput(obj, varargin)</a>
+0373             <span class="comment">% Parses calculate keyword/value pairs and sets the properties of the class.</span>
+0374             <span class="comment">%</span>
+0375             <span class="comment">% obj.processCalculateInput('param', 'value')</span>
+0376             <span class="comment">%</span>
+0377             <span class="comment">% The parameters that can be set when using calculate procedure are</span>
+0378             <span class="comment">% 1) parallel</span>
+0379             <span class="comment">% 2) calcSldDuringFit</span>
+0380             <span class="comment">% 3) resamPars</span>
+0381             <span class="comment">% 4) display</span>
+0382 
+0383             <span class="comment">% The default values for Calculate</span>
+0384             defaultParallel = parallelOptions.Single.value;
+0385             defaultCalcSldDuringFit = false;
+0386             defaultResamPars = [0.9 50];
+0387             defaultDisplay = displayOptions.Iter.value;
+0388 
+0389             <span class="comment">% Creates the input parser for the calculate parameters</span>
+0390             p = inputParser;
+0391             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
+0392             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
+0393             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
+0394             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
+0395             properties = varargin{:};
+0396 
+0397             <span class="comment">% Parses the input or raises invalidOption error</span>
+0398             errorMsg = <span class="string">'Only parallel, calcSldDuringFit, resamPars and display can be set while using the Calculate procedure'</span>;
+0399             inputBlock = obj.parseInputs(p, properties, errorMsg);
 0400 
-0401         <a name="_sub27" href="#_subfunctions" class="code">function obj = processSimplexInput(obj, varargin)</a>
-0402             <span class="comment">% Parses simplex keyword/value pairs and sets the properties of the class.</span>
-0403             <span class="comment">%</span>
-0404             <span class="comment">% obj.parseSimplexInput('param', 'value')</span>
-0405             <span class="comment">%</span>
-0406             <span class="comment">% The parameters that can be set when using simplex procedure are</span>
-0407             <span class="comment">% 1) tolX</span>
-0408             <span class="comment">% 2) tolFun</span>
-0409             <span class="comment">% 3) maxFunEvals</span>
-0410             <span class="comment">% 4) maxIter</span>
-0411             <span class="comment">% 5) updateFreq</span>
-0412             <span class="comment">% 6) updatePlotFreq</span>
-0413             <span class="comment">% 7) parallel</span>
-0414             <span class="comment">% 8) calcSldDuringFit</span>
-0415             <span class="comment">% 9) resamPars</span>
-0416             <span class="comment">% 10) display</span>
-0417 
-0418             <span class="comment">% The simplex default values</span>
-0419             defaultTolX = 1e-6;
-0420             defaultTolFun = 1e-6;
-0421             defaultMaxFunEvals = 10000;
-0422             defaultMaxIter = 1000;
-0423             defaultUpdateFreq = -1;
-0424             defaultUpdatePlotFreq = -1;
-0425             defaultParallel = parallelOptions.Single.value;
-0426             defaultCalcSldDuringFit = false;
-0427             defaultResamPars = [0.9 50];
-0428             defaultDisplay = displayOptions.Iter.value;
-0429 
-0430             <span class="comment">% Parses the input for simplex parameters</span>
-0431             p = inputParser;
-0432             addParameter(p,<span class="string">'tolX'</span>,  defaultTolX,   @isnumeric);
-0433             addParameter(p,<span class="string">'tolFun'</span>,   defaultTolFun,    @isnumeric);
-0434             addParameter(p,<span class="string">'maxFunEvals'</span>, defaultMaxFunEvals,  @isnumeric);
-0435             addParameter(p,<span class="string">'maxIter'</span>,   defaultMaxIter,    @isnumeric);
-0436             addParameter(p,<span class="string">'updateFreq'</span>,   defaultUpdateFreq,    @isnumeric);
-0437             addParameter(p,<span class="string">'updatePlotFreq'</span>,   defaultUpdatePlotFreq,    @isnumeric);
-0438             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
-0439             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
-0440             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
-0441             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
-0442             properties = varargin{:};
-0443 
-0444             <span class="comment">% Parses the input or raises invalidOption error</span>
-0445             errorMsg = <span class="string">'Only tolX, tolFun, maxFunEvals, maxIter, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, resamPars and display can be set while using the Simplex procedure.'</span>;
-0446             inputBlock = obj.parseInputs(p, properties, errorMsg);
-0447 
-0448             <span class="comment">% Sets the values the for simplex parameters</span>
-0449             obj.tolX = inputBlock.tolX;
-0450             obj.tolFun = inputBlock.tolFun;
-0451             obj.maxFunEvals = inputBlock.maxFunEvals;
-0452             obj.maxIter = inputBlock.maxIter;
-0453             obj.updateFreq = inputBlock.updateFreq;
-0454             obj.updatePlotFreq = inputBlock.updatePlotFreq;
-0455             obj.parallel = inputBlock.parallel;
-0456             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-0457             obj.resamPars = inputBlock.resamPars;
-0458             obj.display = inputBlock.display;
-0459         <span class="keyword">end</span>
-0460 
-0461         <a name="_sub28" href="#_subfunctions" class="code">function obj = processDEInput(obj, varargin)</a>
-0462             <span class="comment">% Parses differential evolution keyword/value pairs and sets the properties of the class.</span>
-0463             <span class="comment">%</span>
-0464             <span class="comment">% obj.processDEInput('param', 'value')</span>
-0465             <span class="comment">%</span>
-0466             <span class="comment">% The parameters that can be set when using de procedure are</span>
-0467             <span class="comment">% 1) populationSize</span>
-0468             <span class="comment">% 2) fWeight</span>
-0469             <span class="comment">% 3) crossoverProbability</span>
-0470             <span class="comment">% 4) strategy</span>
-0471             <span class="comment">% 5) targetValue</span>
-0472             <span class="comment">% 6) numGenerations</span>
-0473             <span class="comment">% 7) parallel</span>
-0474             <span class="comment">% 8) calcSldDuringFit</span>
-0475             <span class="comment">% 9) resamPars</span>
-0476             <span class="comment">% 10) display</span>
-0477 
-0478             <span class="comment">% The default values for DE</span>
-0479             defaultPopulationSize = 20;
-0480             defaultFWeight = 0.5;
-0481             defaultCrossoverProbability = 0.8;
-0482             defaultStrategy = 4;
-0483             defaultTargetValue = 1;
-0484             defaultNumGenerations = 500;
-0485             defaultParallel = parallelOptions.Single.value;
-0486             defaultCalcSldDuringFit = false;
-0487             defaultResamPars = [0.9 50];
-0488             defaultDisplay = displayOptions.Iter.value;
-0489 
-0490             <span class="comment">% Creates the input parser for the DE parameters</span>
-0491             p = inputParser;
-0492             addParameter(p,<span class="string">'populationSize'</span>,  defaultPopulationSize,   @isnumeric);
-0493             addParameter(p,<span class="string">'fWeight'</span>,   defaultFWeight,    @isnumeric);
-0494             addParameter(p,<span class="string">'crossoverProbability'</span>, defaultCrossoverProbability,  @isnumeric);
-0495             addParameter(p,<span class="string">'strategy'</span>,   defaultStrategy,    @isnumeric);
-0496             addParameter(p,<span class="string">'targetValue'</span>,   defaultTargetValue,    @isnumeric);
-0497             addParameter(p,<span class="string">'numGenerations'</span>,   defaultNumGenerations,    @isnumeric);
-0498             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
-0499             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
-0500             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
-0501             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
-0502             properties = varargin{:};
-0503 
-0504             <span class="comment">% Parses the input or raises invalidOption error</span>
-0505             errorMsg = <span class="string">'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resamPars and display can be set while using the Differential Evolution procedure'</span>;
-0506             inputBlock = obj.parseInputs(p, properties, errorMsg);
-0507 
-0508             <span class="comment">% Sets the values the for DE parameters</span>
-0509             obj.populationSize = inputBlock.populationSize;
-0510             obj.fWeight = inputBlock.fWeight;
-0511             obj.crossoverProbability = inputBlock.crossoverProbability;
-0512             obj.strategy = inputBlock.strategy;
-0513             obj.targetValue = inputBlock.targetValue;
-0514             obj.numGenerations = inputBlock.numGenerations;
-0515             obj.parallel = inputBlock.parallel;
-0516             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-0517             obj.resamPars = inputBlock.resamPars;
-0518             obj.display = inputBlock.display;
-0519         <span class="keyword">end</span>
-0520 
-0521         <a name="_sub29" href="#_subfunctions" class="code">function obj = processNSInput(obj, varargin)</a>
-0522             <span class="comment">% Parses nested sampler keyword/value pairs and sets the properties of the class.</span>
-0523             <span class="comment">%</span>
-0524             <span class="comment">% obj.processNSInput('param', 'value')</span>
-0525             <span class="comment">%</span>
-0526             <span class="comment">% The parameters that can be set when using nested sampler procedure are</span>
-0527             <span class="comment">% 1) Nlive</span>
-0528             <span class="comment">% 2) Nmcmc</span>
-0529             <span class="comment">% 3) propScale</span>
-0530             <span class="comment">% 4) nsTolerance</span>
-0531             <span class="comment">% 5) parallel</span>
-0532             <span class="comment">% 6) calcSldDuringFit</span>
-0533             <span class="comment">% 7) resamPars</span>
-0534             <span class="comment">% 8) display</span>
-0535 
-0536             <span class="comment">% The default values for NS</span>
-0537             defaultNlive = 150;
-0538             defaultNmcmc = 0;
-0539             defaultPropScale = 0.1;
-0540             defaultNsTolerance = 0.1;
-0541             defaultParallel = parallelOptions.Single.value;
-0542             defaultCalcSldDuringFit = false;
-0543             defaultResamPars = [0.9 50];
-0544             defaultDisplay = displayOptions.Iter.value;
-0545 
-0546             <span class="comment">% Creates the input parser for the NS parameters</span>
-0547             p = inputParser;
-0548             addParameter(p,<span class="string">'Nlive'</span>,  defaultNlive,   @isnumeric);
-0549             addParameter(p,<span class="string">'Nmcmc'</span>,   defaultNmcmc,    @isnumeric);
-0550             addParameter(p,<span class="string">'propScale'</span>, defaultPropScale,  @isnumeric);
-0551             addParameter(p,<span class="string">'nsTolerance'</span>,   defaultNsTolerance,    @isnumeric);
-0552             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
-0553             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
-0554             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
-0555             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
-0556             properties = varargin{:};
-0557 
-0558             <span class="comment">% Parses the input or raises invalidOption error</span>
-0559             errorMsg = <span class="string">'Only Nlive, Nmcmc, propScale, nsTolerance, parallel, calcSldDuringFit, resamPars and display can be set while using the Nested Sampler procedure'</span>;
-0560             inputBlock = obj.parseInputs(p, properties, errorMsg);
-0561 
-0562             <span class="comment">% Sets the values the for NS parameters</span>
-0563             obj.Nlive = inputBlock.Nlive;
-0564             obj.Nmcmc = inputBlock.Nmcmc;
-0565             obj.propScale = inputBlock.propScale;
-0566             obj.nsTolerance = inputBlock.nsTolerance;
-0567             obj.parallel = inputBlock.parallel;
-0568             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-0569             obj.resamPars = inputBlock.resamPars;
-0570             obj.display = inputBlock.display;
-0571         <span class="keyword">end</span>
-0572 
-0573         <a name="_sub30" href="#_subfunctions" class="code">function obj = processDreamInput(obj, varargin)</a>
-0574             <span class="comment">% Parses Dream keyword/value pairs and sets the properties of the class.</span>
-0575             <span class="comment">%</span>
-0576             <span class="comment">% obj.processDreamInput('param', 'value')</span>
-0577             <span class="comment">%</span>
-0578             <span class="comment">% The parameters that can be set when using Dream procedure are</span>
-0579             <span class="comment">% 1) nSamples</span>
-0580             <span class="comment">% 2) nChains</span>
-0581             <span class="comment">% 3) lambda</span>
-0582             <span class="comment">% 4) pUnitGamma</span>
-0583             <span class="comment">% 5) boundHandling</span>
-0584             <span class="comment">% 6) parallel</span>
-0585             <span class="comment">% 7) calcSldDuringFit</span>
-0586             <span class="comment">% 8) resamPars</span>
-0587             <span class="comment">% 9) display</span>
-0588 
-0589             <span class="comment">% The default values for Dream</span>
-0590             defaultNSamples = 50000;
-0591             defaultNChains = 10;
-0592             defaultLambda = 0.5;
-0593             defaultPUnitGamma = 0.2;
-0594             defaultBoundHandling = boundHandlingOptions.Fold.value;
-0595             defaultParallel = parallelOptions.Single.value;
-0596             defaultCalcSldDuringFit = false;
-0597             defaultResamPars = [0.9 50];
-0598             defaultDisplay = displayOptions.Iter.value;
-0599 
-0600             <span class="comment">% Creates the input parser for the Dream parameters</span>
-0601             p = inputParser;
-0602             addParameter(p,<span class="string">'nSamples'</span>,  defaultNSamples,   @isnumeric);
-0603             addParameter(p,<span class="string">'nChains'</span>,   defaultNChains,    @isnumeric);
-0604             addParameter(p,<span class="string">'lambda'</span>, defaultLambda,  @isnumeric);
-0605             addParameter(p,<span class="string">'pUnitGamma'</span>,   defaultPUnitGamma,    @isnumeric);
-0606             addParameter(p,<span class="string">'boundHandling'</span>,   defaultBoundHandling, @(x) isText(x) || isenum(x));
-0607             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
-0608             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
-0609             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
-0610             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
-0611             properties = varargin{:};
-0612 
-0613             <span class="comment">% Parses the input or raises invalidOption error</span>
-0614             errorMsg = <span class="string">'Only nSamples, nChains, lambda, pUnitGamma, boundHandling, parallel, calcSldDuringFit, resamPars and display can be set while using the DREAM procedure'</span>;
-0615             inputBlock = obj.parseInputs(p, properties, errorMsg);
-0616 
-0617             <span class="comment">% Sets the values the for Dream parameters</span>
-0618             obj.nSamples = inputBlock.nSamples;
-0619             obj.nChains = inputBlock.nChains;
-0620             obj.lambda = inputBlock.lambda;
-0621             obj.pUnitGamma = inputBlock.pUnitGamma;
-0622             obj.boundHandling = inputBlock.boundHandling;
-0623             obj.parallel = inputBlock.parallel;
-0624             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
-0625             obj.resamPars = inputBlock.resamPars;
-0626             obj.display = inputBlock.display;
-0627         <span class="keyword">end</span>
-0628 
-0629         <a name="_sub31" href="#_subfunctions" class="code">function inputBlock = parseInputs(~, p, properties, errorMsg)</a>
-0630             <span class="comment">% Parses the input or raises invalidOption error</span>
-0631             <span class="keyword">try</span>
-0632                 parse(p, properties{:});
-0633                 inputBlock = p.Results;
-0634             <span class="keyword">catch</span> ME
-0635                 <span class="keyword">if</span> (strcmp(ME.identifier,<span class="string">'MATLAB:InputParser:UnmatchedParameter'</span>))
-0636                     throw(invalidOption(errorMsg));
-0637                 <span class="keyword">else</span>
-0638                     rethrow(ME)
-0639                 <span class="keyword">end</span>
-0640             <span class="keyword">end</span>
-0641         <span class="keyword">end</span>
-0642 
-0643     <span class="keyword">end</span>
-0644 <span class="keyword">end</span>
+0401             <span class="comment">% Sets the values the for Calculate parameters</span>
+0402             obj.parallel = inputBlock.parallel;
+0403             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
+0404             obj.resamPars = inputBlock.resamPars;
+0405             obj.display = inputBlock.display;
+0406         <span class="keyword">end</span>
+0407 
+0408         <a name="_sub28" href="#_subfunctions" class="code">function obj = processSimplexInput(obj, varargin)</a>
+0409             <span class="comment">% Parses simplex keyword/value pairs and sets the properties of the class.</span>
+0410             <span class="comment">%</span>
+0411             <span class="comment">% obj.parseSimplexInput('param', 'value')</span>
+0412             <span class="comment">%</span>
+0413             <span class="comment">% The parameters that can be set when using simplex procedure are</span>
+0414             <span class="comment">% 1) tolX</span>
+0415             <span class="comment">% 2) tolFun</span>
+0416             <span class="comment">% 3) maxFunEvals</span>
+0417             <span class="comment">% 4) maxIter</span>
+0418             <span class="comment">% 5) updateFreq</span>
+0419             <span class="comment">% 6) updatePlotFreq</span>
+0420             <span class="comment">% 7) parallel</span>
+0421             <span class="comment">% 8) calcSldDuringFit</span>
+0422             <span class="comment">% 9) resamPars</span>
+0423             <span class="comment">% 10) display</span>
+0424 
+0425             <span class="comment">% The simplex default values</span>
+0426             defaultTolX = 1e-6;
+0427             defaultTolFun = 1e-6;
+0428             defaultMaxFunEvals = 10000;
+0429             defaultMaxIter = 1000;
+0430             defaultUpdateFreq = -1;
+0431             defaultUpdatePlotFreq = -1;
+0432             defaultParallel = parallelOptions.Single.value;
+0433             defaultCalcSldDuringFit = false;
+0434             defaultResamPars = [0.9 50];
+0435             defaultDisplay = displayOptions.Iter.value;
+0436 
+0437             <span class="comment">% Parses the input for simplex parameters</span>
+0438             p = inputParser;
+0439             addParameter(p,<span class="string">'tolX'</span>,  defaultTolX,   @isnumeric);
+0440             addParameter(p,<span class="string">'tolFun'</span>,   defaultTolFun,    @isnumeric);
+0441             addParameter(p,<span class="string">'maxFunEvals'</span>, defaultMaxFunEvals,  @isnumeric);
+0442             addParameter(p,<span class="string">'maxIter'</span>,   defaultMaxIter,    @isnumeric);
+0443             addParameter(p,<span class="string">'updateFreq'</span>,   defaultUpdateFreq,    @isnumeric);
+0444             addParameter(p,<span class="string">'updatePlotFreq'</span>,   defaultUpdatePlotFreq,    @isnumeric);
+0445             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
+0446             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
+0447             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
+0448             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
+0449             properties = varargin{:};
+0450 
+0451             <span class="comment">% Parses the input or raises invalidOption error</span>
+0452             errorMsg = <span class="string">'Only tolX, tolFun, maxFunEvals, maxIter, updateFreq, updatePlotFreq, parallel, calcSldDuringFit, resamPars and display can be set while using the Simplex procedure.'</span>;
+0453             inputBlock = obj.parseInputs(p, properties, errorMsg);
+0454 
+0455             <span class="comment">% Sets the values the for simplex parameters</span>
+0456             obj.tolX = inputBlock.tolX;
+0457             obj.tolFun = inputBlock.tolFun;
+0458             obj.maxFunEvals = inputBlock.maxFunEvals;
+0459             obj.maxIter = inputBlock.maxIter;
+0460             obj.updateFreq = inputBlock.updateFreq;
+0461             obj.updatePlotFreq = inputBlock.updatePlotFreq;
+0462             obj.parallel = inputBlock.parallel;
+0463             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
+0464             obj.resamPars = inputBlock.resamPars;
+0465             obj.display = inputBlock.display;
+0466         <span class="keyword">end</span>
+0467 
+0468         <a name="_sub29" href="#_subfunctions" class="code">function obj = processDEInput(obj, varargin)</a>
+0469             <span class="comment">% Parses differential evolution keyword/value pairs and sets the properties of the class.</span>
+0470             <span class="comment">%</span>
+0471             <span class="comment">% obj.processDEInput('param', 'value')</span>
+0472             <span class="comment">%</span>
+0473             <span class="comment">% The parameters that can be set when using de procedure are</span>
+0474             <span class="comment">% 1) populationSize</span>
+0475             <span class="comment">% 2) fWeight</span>
+0476             <span class="comment">% 3) crossoverProbability</span>
+0477             <span class="comment">% 4) strategy</span>
+0478             <span class="comment">% 5) targetValue</span>
+0479             <span class="comment">% 6) numGenerations</span>
+0480             <span class="comment">% 7) parallel</span>
+0481             <span class="comment">% 8) calcSldDuringFit</span>
+0482             <span class="comment">% 9) resamPars</span>
+0483             <span class="comment">% 10) display</span>
+0484 
+0485             <span class="comment">% The default values for DE</span>
+0486             defaultPopulationSize = 20;
+0487             defaultFWeight = 0.5;
+0488             defaultCrossoverProbability = 0.8;
+0489             defaultStrategy = 4;
+0490             defaultTargetValue = 1;
+0491             defaultNumGenerations = 500;
+0492             defaultParallel = parallelOptions.Single.value;
+0493             defaultCalcSldDuringFit = false;
+0494             defaultResamPars = [0.9 50];
+0495             defaultDisplay = displayOptions.Iter.value;
+0496 
+0497             <span class="comment">% Creates the input parser for the DE parameters</span>
+0498             p = inputParser;
+0499             addParameter(p,<span class="string">'populationSize'</span>,  defaultPopulationSize,   @isnumeric);
+0500             addParameter(p,<span class="string">'fWeight'</span>,   defaultFWeight,    @isnumeric);
+0501             addParameter(p,<span class="string">'crossoverProbability'</span>, defaultCrossoverProbability,  @isnumeric);
+0502             addParameter(p,<span class="string">'strategy'</span>,   defaultStrategy,    @isnumeric);
+0503             addParameter(p,<span class="string">'targetValue'</span>,   defaultTargetValue,    @isnumeric);
+0504             addParameter(p,<span class="string">'numGenerations'</span>,   defaultNumGenerations,    @isnumeric);
+0505             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
+0506             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
+0507             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
+0508             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
+0509             properties = varargin{:};
+0510 
+0511             <span class="comment">% Parses the input or raises invalidOption error</span>
+0512             errorMsg = <span class="string">'Only populationSize, fWeight, crossoverProbability, strategy, targetValue, numGenerations, parallel, calcSldDuringFit, resamPars and display can be set while using the Differential Evolution procedure'</span>;
+0513             inputBlock = obj.parseInputs(p, properties, errorMsg);
+0514 
+0515             <span class="comment">% Sets the values the for DE parameters</span>
+0516             obj.populationSize = inputBlock.populationSize;
+0517             obj.fWeight = inputBlock.fWeight;
+0518             obj.crossoverProbability = inputBlock.crossoverProbability;
+0519             obj.strategy = inputBlock.strategy;
+0520             obj.targetValue = inputBlock.targetValue;
+0521             obj.numGenerations = inputBlock.numGenerations;
+0522             obj.parallel = inputBlock.parallel;
+0523             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
+0524             obj.resamPars = inputBlock.resamPars;
+0525             obj.display = inputBlock.display;
+0526         <span class="keyword">end</span>
+0527 
+0528         <a name="_sub30" href="#_subfunctions" class="code">function obj = processNSInput(obj, varargin)</a>
+0529             <span class="comment">% Parses nested sampler keyword/value pairs and sets the properties of the class.</span>
+0530             <span class="comment">%</span>
+0531             <span class="comment">% obj.processNSInput('param', 'value')</span>
+0532             <span class="comment">%</span>
+0533             <span class="comment">% The parameters that can be set when using nested sampler procedure are</span>
+0534             <span class="comment">% 1) Nlive</span>
+0535             <span class="comment">% 2) Nmcmc</span>
+0536             <span class="comment">% 3) propScale</span>
+0537             <span class="comment">% 4) nsTolerance</span>
+0538             <span class="comment">% 5) parallel</span>
+0539             <span class="comment">% 6) calcSldDuringFit</span>
+0540             <span class="comment">% 7) resamPars</span>
+0541             <span class="comment">% 8) display</span>
+0542 
+0543             <span class="comment">% The default values for NS</span>
+0544             defaultNlive = 150;
+0545             defaultNmcmc = 0;
+0546             defaultPropScale = 0.1;
+0547             defaultNsTolerance = 0.1;
+0548             defaultParallel = parallelOptions.Single.value;
+0549             defaultCalcSldDuringFit = false;
+0550             defaultResamPars = [0.9 50];
+0551             defaultDisplay = displayOptions.Iter.value;
+0552 
+0553             <span class="comment">% Creates the input parser for the NS parameters</span>
+0554             p = inputParser;
+0555             addParameter(p,<span class="string">'Nlive'</span>,  defaultNlive,   @isnumeric);
+0556             addParameter(p,<span class="string">'Nmcmc'</span>,   defaultNmcmc,    @isnumeric);
+0557             addParameter(p,<span class="string">'propScale'</span>, defaultPropScale,  @isnumeric);
+0558             addParameter(p,<span class="string">'nsTolerance'</span>,   defaultNsTolerance,    @isnumeric);
+0559             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
+0560             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
+0561             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
+0562             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
+0563             properties = varargin{:};
+0564 
+0565             <span class="comment">% Parses the input or raises invalidOption error</span>
+0566             errorMsg = <span class="string">'Only Nlive, Nmcmc, propScale, nsTolerance, parallel, calcSldDuringFit, resamPars and display can be set while using the Nested Sampler procedure'</span>;
+0567             inputBlock = obj.parseInputs(p, properties, errorMsg);
+0568 
+0569             <span class="comment">% Sets the values the for NS parameters</span>
+0570             obj.Nlive = inputBlock.Nlive;
+0571             obj.Nmcmc = inputBlock.Nmcmc;
+0572             obj.propScale = inputBlock.propScale;
+0573             obj.nsTolerance = inputBlock.nsTolerance;
+0574             obj.parallel = inputBlock.parallel;
+0575             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
+0576             obj.resamPars = inputBlock.resamPars;
+0577             obj.display = inputBlock.display;
+0578         <span class="keyword">end</span>
+0579 
+0580         <a name="_sub31" href="#_subfunctions" class="code">function obj = processDreamInput(obj, varargin)</a>
+0581             <span class="comment">% Parses Dream keyword/value pairs and sets the properties of the class.</span>
+0582             <span class="comment">%</span>
+0583             <span class="comment">% obj.processDreamInput('param', 'value')</span>
+0584             <span class="comment">%</span>
+0585             <span class="comment">% The parameters that can be set when using Dream procedure are</span>
+0586             <span class="comment">% 1) nSamples</span>
+0587             <span class="comment">% 2) nChains</span>
+0588             <span class="comment">% 3) jumpProbability</span>
+0589             <span class="comment">% 4) pUnitGamma</span>
+0590             <span class="comment">% 5) boundHandling</span>
+0591             <span class="comment">% 6) adaptPCR</span>
+0592             <span class="comment">% 7) parallel</span>
+0593             <span class="comment">% 8) calcSldDuringFit</span>
+0594             <span class="comment">% 9) resamPars</span>
+0595             <span class="comment">% 10) display</span>
+0596 
+0597             <span class="comment">% The default values for Dream</span>
+0598             defaultNSamples = 50000;
+0599             defaultNChains = 10;
+0600             defaultJumpProbability = 0.5;
+0601             defaultPUnitGamma = 0.2;
+0602             defaultBoundHandling = boundHandlingOptions.Fold.value;
+0603             defaultAdaptPCR = false;
+0604             defaultParallel = parallelOptions.Single.value;
+0605             defaultCalcSldDuringFit = false;
+0606             defaultResamPars = [0.9 50];
+0607             defaultDisplay = displayOptions.Iter.value;
+0608 
+0609             <span class="comment">% Creates the input parser for the Dream parameters</span>
+0610             p = inputParser;
+0611             addParameter(p,<span class="string">'nSamples'</span>,  defaultNSamples,   @isnumeric);
+0612             addParameter(p,<span class="string">'nChains'</span>,   defaultNChains,    @isnumeric);
+0613             addParameter(p,<span class="string">'jumpProbability'</span>, defaultJumpProbability,  @isnumeric);
+0614             addParameter(p,<span class="string">'pUnitGamma'</span>,   defaultPUnitGamma,    @isnumeric);
+0615             addParameter(p,<span class="string">'boundHandling'</span>,   defaultBoundHandling, @(x) isText(x) || isenum(x));
+0616             addParameter(p,<span class="string">'adaptPCR'</span>, defaultAdaptPCR, @islogical);
+0617             addParameter(p,<span class="string">'parallel'</span>,  defaultParallel,   @(x) isText(x) || isenum(x));
+0618             addParameter(p,<span class="string">'calcSldDuringFit'</span>,   defaultCalcSldDuringFit,    @islogical);
+0619             addParameter(p,<span class="string">'resamPars'</span>, defaultResamPars,  @isnumeric);
+0620             addParameter(p,<span class="string">'display'</span>,   defaultDisplay,    @(x) isText(x) || isenum(x));
+0621             properties = varargin{:};
+0622 
+0623             <span class="comment">% Parses the input or raises invalidOption error</span>
+0624             errorMsg = <span class="string">'Only nSamples, nChains, jumpProbability, pUnitGamma, boundHandling, adaptPCR, parallel, calcSldDuringFit, resamPars and display can be set while using the DREAM procedure'</span>;
+0625             inputBlock = obj.parseInputs(p, properties, errorMsg);
+0626 
+0627             <span class="comment">% Sets the values the for Dream parameters</span>
+0628             obj.nSamples = inputBlock.nSamples;
+0629             obj.nChains = inputBlock.nChains;
+0630             obj.jumpProbability = inputBlock.jumpProbability;
+0631             obj.pUnitGamma = inputBlock.pUnitGamma;
+0632             obj.boundHandling = inputBlock.boundHandling;
+0633             obj.adaptPCR = inputBlock.adaptPCR;
+0634             obj.parallel = inputBlock.parallel;
+0635             obj.calcSldDuringFit = inputBlock.calcSldDuringFit;
+0636             obj.resamPars = inputBlock.resamPars;
+0637             obj.display = inputBlock.display;
+0638         <span class="keyword">end</span>
+0639 
+0640         <a name="_sub32" href="#_subfunctions" class="code">function inputBlock = parseInputs(~, p, properties, errorMsg)</a>
+0641             <span class="comment">% Parses the input or raises invalidOption error</span>
+0642             <span class="keyword">try</span>
+0643                 parse(p, properties{:});
+0644                 inputBlock = p.Results;
+0645             <span class="keyword">catch</span> ME
+0646                 <span class="keyword">if</span> (strcmp(ME.identifier,<span class="string">'MATLAB:InputParser:UnmatchedParameter'</span>))
+0647                     throw(invalidOption(errorMsg));
+0648                 <span class="keyword">else</span>
+0649                     rethrow(ME)
+0650                 <span class="keyword">end</span>
+0651             <span class="keyword">end</span>
+0652         <span class="keyword">end</span>
+0653 
+0654     <span class="keyword">end</span>
+0655 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

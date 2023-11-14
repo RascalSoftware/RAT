@@ -33,7 +33,6 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>	</li>
 <li><a href="../targetFunctions/reflectivityCalculation/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>	Main entry point into the reflectivity calculation for the toolbox.</li>
 </ul>
 This function is called by:
@@ -83,36 +82,35 @@ This function is called by:
 0037 outProblemDef = problemDef;
 0038 
 0039 <span class="comment">%Decide what we are doing....</span>
-0040 action = controls.proc;
-0041 <span class="keyword">switch</span> lower(action)
-0042     <span class="keyword">case</span> <span class="string">'calculate'</span> <span class="comment">%Just a single reflectivity calculation</span>
-0043         [problem,results] = <a href="../targetFunctions/reflectivityCalculation/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>(problemDef,problemDefCells,problemDefLimits,controls);
-0044         outProblemDef = problemDef;
-0045     <span class="keyword">case</span> <span class="string">'simplex'</span>
-0046         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0047             <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nRunning simplex\n\n'</span>));
-0048         <span class="keyword">end</span>
-0049         [outProblemDef,problem,results] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls);
-0050     <span class="keyword">case</span> <span class="string">'de'</span>
-0051         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0052             <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nRunning Differential Evolution\n\n'</span>));
-0053         <span class="keyword">end</span>
-0054         [outProblemDef,problem,results] = runDE(problemDef,problemDefCells,problemDefLimits,controls);
-0055 <span class="comment">%     case 'ns'</span>
-0056 <span class="comment">%         if ~strcmpi(controls.display,'off')</span>
-0057 <span class="comment">%             sendTextOutput(sprintf('\nRunning Nested Sampler\n\n'));</span>
-0058 <span class="comment">%         end</span>
-0059 <span class="comment">%         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls);</span>
-0060     <span class="keyword">case</span> <span class="string">'dream'</span>
-0061         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
-0062             <a href="../API/outputFunction/sendTextOutput.html" class="code" title="function sendTextOutput(text)">sendTextOutput</a>(sprintf(<span class="string">'\nRunning DREAM\n\n'</span>));
-0063         <span class="keyword">end</span>
-0064         [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors);
-0065 <span class="keyword">end</span>
-0066 
-0067 <span class="keyword">end</span>
+0040 <span class="keyword">switch</span> lower(controls.procedure)
+0041     <span class="keyword">case</span> <span class="string">'calculate'</span> <span class="comment">%Just a single reflectivity calculation</span>
+0042         [problem,results] = <a href="../targetFunctions/reflectivityCalculation/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>(problemDef,problemDefCells,problemDefLimits,controls);
+0043         outProblemDef = problemDef;
+0044     <span class="keyword">case</span> <span class="string">'simplex'</span>
+0045         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0046             fprintf(<span class="string">'\nRunning simplex\n\n'</span>);
+0047         <span class="keyword">end</span>
+0048         [outProblemDef,problem,results] = runSimplex(problemDef,problemDefCells,problemDefLimits,controls);
+0049     <span class="keyword">case</span> <span class="string">'de'</span>
+0050         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0051             fprintf(<span class="string">'\nRunning Differential Evolution\n\n'</span>);
+0052         <span class="keyword">end</span>
+0053         [outProblemDef,problem,results] = runDE(problemDef,problemDefCells,problemDefLimits,controls);
+0054     <span class="keyword">case</span> <span class="string">'ns'</span>
+0055         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0056             fprintf(<span class="string">'\nRunning Nested Sampler\n\n'</span>);
+0057         <span class="keyword">end</span>            
+0058         [outProblemDef,problem,results,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls,priors);   
+0059     <span class="keyword">case</span> <span class="string">'dream'</span>
+0060         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
+0061             fprintf(<span class="string">'\nRunning DREAM\n\n'</span>);
+0062         <span class="keyword">end</span>
+0063         [outProblemDef,problem,results,bayesResults] = runDREAM(problemDef,problemDefCells,problemDefLimits,controls,priors);
+0064 <span class="keyword">end</span>
+0065 
+0066 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

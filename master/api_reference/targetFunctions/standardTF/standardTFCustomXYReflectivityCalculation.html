@@ -106,48 +106,46 @@ This function is called by:
 0056     allLayers{i} = [1 ; 1];
 0057 <span class="keyword">end</span>
 0058 
-0059 para = controls.para;
-0060 
-0061 <span class="keyword">switch</span> para
-0062     <span class="keyword">case</span> <span class="string">'single'</span>
-0063             
-0064           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
-0065              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0066              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYSingle</a>(problemDef,problemDefCells,<span class="keyword">...</span>
-0067              problemDefLimits,controls);
+0059 <span class="keyword">switch</span> controls.parallel
+0060     <span class="keyword">case</span> <span class="string">'single'</span>
+0061             
+0062           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0063              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0064              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYSingle</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0065              problemDefLimits,controls);
+0066         
+0067     <span class="keyword">case</span> <span class="string">'points'</span>
 0068         
-0069     <span class="keyword">case</span> <span class="string">'points'</span>
-0070         
-0071           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
-0072              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0073              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYParallelPoints</a>(problemDef,problemDefCells,<span class="keyword">...</span>
-0074              problemDefLimits,controls);
+0069           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0070              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0071              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYParallelPoints</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0072              problemDefLimits,controls);
+0073         
+0074     <span class="keyword">case</span> <span class="string">'contrasts'</span>
 0075         
-0076     <span class="keyword">case</span> <span class="string">'contrasts'</span>
-0077         
-0078           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
-0079              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
-0080              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYParallelContrasts</a>(problemDef,problemDefCells,<span class="keyword">...</span>
-0081              problemDefLimits,controls);
-0082         
-0083 <span class="keyword">end</span>
-0084 
-0085 problem.ssubs = outSsubs;
-0086 problem.backgrounds = backgs;
-0087 problem.qshifts = qshifts;
-0088 problem.scalefactors = sfs;
-0089 problem.nbairs = nbas;
-0090 problem.nbsubs = nbss;
-0091 problem.resolutions = resols;
-0092 problem.calculations.all_chis = chis;
-0093 problem.calculations.sum_chi = sum(chis);
-0094 problem.allSubRough = allRoughs;
-0095 problem.resample = ones(1,length(allRoughs));
-0096 
-0097 
-0098 <span class="keyword">end</span>
+0076           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0077              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0078              allRoughs] = <a href="../../targetFunctions/standardTF/customXY/standardTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFCustomXYParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFCustomXYParallelContrasts</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0079              problemDefLimits,controls);
+0080         
+0081 <span class="keyword">end</span>
+0082 
+0083 problem.ssubs = outSsubs;
+0084 problem.backgrounds = backgs;
+0085 problem.qshifts = qshifts;
+0086 problem.scalefactors = sfs;
+0087 problem.nbairs = nbas;
+0088 problem.nbsubs = nbss;
+0089 problem.resolutions = resols;
+0090 problem.calculations.all_chis = chis;
+0091 problem.calculations.sum_chi = sum(chis);
+0092 problem.allSubRough = allRoughs;
+0093 problem.resample = ones(1,length(allRoughs));
+0094 
+0095 
+0096 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

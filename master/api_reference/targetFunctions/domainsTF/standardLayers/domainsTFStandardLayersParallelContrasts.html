@@ -87,7 +87,7 @@ This function is called by:
 0026 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,<span class="keyword">...</span>
 0027 numberOfLayers, resample, backsType, ~] =  <a href="../../../API/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>(problemDef);
 0028 
-0029 calcSld = controls.calcSld;   
+0029 calcSld = controls.calcSldDuringFit;   
 0030 useImaginary = problemDef.useImaginary;
 0031 allDomainRatios = problemDef.domainRatio;
 0032 contrastDomainRatios = problemDef.contrastDomainRatios;
@@ -181,77 +181,76 @@ This function is called by:
 0120     thisRough = params(1);      <span class="comment">% Substrate roughness is always first parameter for standard layers</span>
 0121     thisRepeatLayers = repeatLayers{i};
 0122     thisResample = resample(i);
-0123     thisCalcSld = calcSld;
-0124     thisData = allData{i};
-0125     thisDataPresent = dataPresent(i);
-0126     thisDataLimits = dataLimits{i};
-0127     thisSimLimits = simLimits{i};
-0128     thisBacksType = backsType(i);
-0129     
-0130     <span class="comment">% Now call the core standardTF_stanlay reflectivity calculation</span>
-0131     <span class="comment">% In this case we are single cored, so we do not parallelise over</span>
-0132     <span class="comment">% points</span>
-0133     parallelPoints = <span class="string">'single'</span>;
-0134     
-0135     <span class="comment">% Call the core layers calculation - need to do this once for each</span>
-0136     <span class="comment">% domain</span>
-0137     [sldProfile1,reflect1,Simul1,shifted_dat,layerSld1,resamLayers1,~,thisSsubs]= <a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">standardTFLayersCore</a>(thisContrastLayers1, thisRough, <span class="keyword">...</span>
-0138     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,<span class="keyword">...</span>
-0139     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
-0140     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
-0141 
-0142     [sldProfile2,reflect2,Simul2,~,layerSld2,resamLayers2,~,~] = <a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">standardTFLayersCore</a>(thisContrastLayers2, thisRough, <span class="keyword">...</span>
-0143     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,<span class="keyword">...</span>
-0144     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
-0145     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
-0146 
-0147     <span class="comment">% Calculate the average reflectivities....</span>
-0148     [totReflect,totSimul] = <a href="../../../targetFunctions/domainsTF/averageReflectivity.html" class="code" title="function [totReflect,totSimul] = averageReflectivity(reflect1,reflect2,Simul1,Simul2,domainRatio)">averageReflectivity</a>(reflect1,reflect2,Simul1,Simul2,domainRatio);
-0149 
-0150     <span class="comment">% Get an overall chi-squared for the new averaged curve..</span>
-0151     thisChiSquared = <a href="../../../targetFunctions/common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shifted_dat,totReflect,length(params));
-0152 
-0153     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
-0154     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
-0155     <span class="comment">% the other values (background, scalefactors etc) for each contrast</span>
-0156     <span class="comment">% for future use.</span>
-0157     outSsubs(i) = thisSsubs;
-0158     tempSldProfiles{i} = {sldProfile1, sldProfile2};
-0159     reflectivity{i} = totReflect;
-0160     Simulation{i} = totSimul;
-0161     shifted_data{i} = shifted_dat;
-0162     tempLayerSlds{i} = {layerSld1, layerSld2};
-0163     tempAllLayers{i} = {resamLayers1, resamLayers2};
-0164     
-0165     chis(i) = thisChiSquared;
-0166     backgs(i) = thisBackground;
-0167     qshifts(i) = thisQshift;
-0168     sfs(i) = thisSf;
-0169     nbas(i) = thisNba;
-0170     nbss(i) = thisNbs;
-0171     resols(i) = thisResol;
-0172     allRoughs(i) = thisRough;
-0173 <span class="keyword">end</span>
-0174 
-0175 <span class="keyword">for</span> i = 1:numberOfContrasts
-0176     theseDomainSLDs = tempSldProfiles{i};
-0177     domainSldProfiles{i,1} = theseDomainSLDs{1};
-0178     domainSldProfiles{i,2} = theseDomainSLDs{2};
-0179 
-0180     theseAllLayers = tempAllLayers{i};
-0181     allLayers{i,1} = theseAllLayers{1};
-0182     allLayers{i,2} = theseAllLayers{2};
-0183 
-0184     theseLayerSlds = tempLayerSlds{i};
-0185     layerSlds{i,1} = theseLayerSlds{1};
-0186     layerSlds{i,2} = theseLayerSlds{2};
-0187 <span class="keyword">end</span>
-0188 
-0189 <span class="keyword">end</span>
+0123     thisData = allData{i};
+0124     thisDataPresent = dataPresent(i);
+0125     thisDataLimits = dataLimits{i};
+0126     thisSimLimits = simLimits{i};
+0127     thisBacksType = backsType(i);
+0128     
+0129     <span class="comment">% Now call the core standardTF_stanlay reflectivity calculation</span>
+0130     <span class="comment">% In this case we are single cored, so we do not parallelise over</span>
+0131     <span class="comment">% points</span>
+0132     parallelPoints = <span class="string">'single'</span>;
+0133     
+0134     <span class="comment">% Call the core layers calculation - need to do this once for each</span>
+0135     <span class="comment">% domain</span>
+0136     [sldProfile1,reflect1,Simul1,shifted_dat,layerSld1,resamLayers1,~,thisSsubs]= <a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">standardTFLayersCore</a>(thisContrastLayers1, thisRough, <span class="keyword">...</span>
+0137     geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,<span class="keyword">...</span>
+0138     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
+0139     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
+0140 
+0141     [sldProfile2,reflect2,Simul2,~,layerSld2,resamLayers2,~,~] = <a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">standardTFLayersCore</a>(thisContrastLayers2, thisRough, <span class="keyword">...</span>
+0142     geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,<span class="keyword">...</span>
+0143     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
+0144     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
+0145 
+0146     <span class="comment">% Calculate the average reflectivities....</span>
+0147     [totReflect,totSimul] = <a href="../../../targetFunctions/domainsTF/averageReflectivity.html" class="code" title="function [totReflect,totSimul] = averageReflectivity(reflect1,reflect2,Simul1,Simul2,domainRatio)">averageReflectivity</a>(reflect1,reflect2,Simul1,Simul2,domainRatio);
+0148 
+0149     <span class="comment">% Get an overall chi-squared for the new averaged curve..</span>
+0150     thisChiSquared = <a href="../../../targetFunctions/common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shifted_dat,totReflect,length(params));
+0151 
+0152     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
+0153     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
+0154     <span class="comment">% the other values (background, scalefactors etc) for each contrast</span>
+0155     <span class="comment">% for future use.</span>
+0156     outSsubs(i) = thisSsubs;
+0157     tempSldProfiles{i} = {sldProfile1, sldProfile2};
+0158     reflectivity{i} = totReflect;
+0159     Simulation{i} = totSimul;
+0160     shifted_data{i} = shifted_dat;
+0161     tempLayerSlds{i} = {layerSld1, layerSld2};
+0162     tempAllLayers{i} = {resamLayers1, resamLayers2};
+0163     
+0164     chis(i) = thisChiSquared;
+0165     backgs(i) = thisBackground;
+0166     qshifts(i) = thisQshift;
+0167     sfs(i) = thisSf;
+0168     nbas(i) = thisNba;
+0169     nbss(i) = thisNbs;
+0170     resols(i) = thisResol;
+0171     allRoughs(i) = thisRough;
+0172 <span class="keyword">end</span>
+0173 
+0174 <span class="keyword">for</span> i = 1:numberOfContrasts
+0175     theseDomainSLDs = tempSldProfiles{i};
+0176     domainSldProfiles{i,1} = theseDomainSLDs{1};
+0177     domainSldProfiles{i,2} = theseDomainSLDs{2};
+0178 
+0179     theseAllLayers = tempAllLayers{i};
+0180     allLayers{i,1} = theseAllLayers{1};
+0181     allLayers{i,2} = theseAllLayers{2};
+0182 
+0183     theseLayerSlds = tempLayerSlds{i};
+0184     layerSlds{i,1} = theseLayerSlds{1};
+0185     layerSlds{i,2} = theseLayerSlds{2};
+0186 <span class="keyword">end</span>
+0187 
+0188 <span class="keyword">end</span>
+0189 
 0190 
-0191 
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

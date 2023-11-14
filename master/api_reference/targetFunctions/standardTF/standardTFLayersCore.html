@@ -84,7 +84,7 @@
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>	</li>
-<li><a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType,useImaginary)">callReflectivity</a>	</li>
+<li><a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)">callReflectivity</a>	</li>
 <li><a href="../../targetFunctions/common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	Chi-squared function is used to evaluate the goodness of fit.</li>
 <li><a href="../../targetFunctions/common/groupLayers/groupLayersMod.html" class="code" title="function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,nbair,nbsubs)">groupLayersMod</a>	Arrange layers according to geometry and apply any coverage correction.</li>
 <li><a href="../../targetFunctions/common/groupLayers/groupLayersModImaginary.html" class="code" title="function [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,nbair,nbsubs)">groupLayersModImaginary</a>	Arrange layers according to geometry and apply any coverage correction.</li>
@@ -189,12 +189,12 @@ This function is called by:
 0074 <span class="comment">% Make the SLD profiles.</span>
 0075 <span class="comment">% If resampling is needed, then enforce the calcSLD flag, so as to catch</span>
 0076 <span class="comment">% the error af trying to resample a non-existent profile.</span>
-0077 <span class="keyword">if</span> (resample == 1 &amp;&amp; calcSld == 0)
-0078     calcSld = 1;
+0077 <span class="keyword">if</span> (resample == 1 &amp;&amp; ~calcSld)
+0078     calcSld = true;
 0079 <span class="keyword">end</span>
 0080 
 0081 <span class="comment">% If calc SLD flag is set, then calculate the SLD profile</span>
-0082 <span class="keyword">if</span> calcSld == 1
+0082 <span class="keyword">if</span> calcSld
 0083 
 0084     <span class="comment">% If we need them both, we process real and imaginary parts of the SLD</span>
 0085     <span class="comment">% seperately...</span>
@@ -237,7 +237,7 @@ This function is called by:
 0122 
 0123 <span class="comment">% Calculate the reflectivity</span>
 0124 reflectivityType = <span class="string">'standardAbeles'</span>;
-0125 [reflect,Simul] = <a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType,useImaginary)">callReflectivity</a>(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,parallelPoints,reflectivityType,useImaginary);
+0125 [reflect,Simul] = <a href="../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)">callReflectivity</a>(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,parallelPoints,reflectivityType,useImaginary);
 0126 
 0127 <span class="comment">% Apply background correction, either to the simulation or the data</span>
 0128 [reflect,Simul,shifted_dat] = <a href="../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>(reflect,Simul,shifted_dat,background,backsType);
@@ -248,6 +248,6 @@ This function is called by:
 0133 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -1,13 +1,9 @@
 /* Created by mdot for Matlab */
 digraph m2html {
-  RAT -> defaultOutputFunction;
-  RAT -> outputClass;
-  RAT -> sendTextOutput;
   RAT -> parseClassToStructs;
   RAT -> parseOutToProjectClass;
   RAT -> parseResultToStruct;
   RAT -> mergeStructs;
-  RATMain -> sendTextOutput;
   RATMain -> reflectivityCalculation;
   controlsClass -> controlsClass;
   allowedTypes -> allowedTypes;
@@ -24,10 +20,6 @@ digraph m2html {
   strategyOptions -> strategyOptions;
   supportedLanguages -> supportedLanguages;
   eventManager -> eventManager;
-  outputClass -> outputClass;
-  outputClass -> specialEventDataClass;
-  sendTextOutput -> outputClass;
-  specialEventDataClass -> specialEventDataClass;
   project -> contrastsClass;
   project -> domainsClass;
   project -> layersClass;
@@ -275,10 +267,7 @@ digraph m2html {
   eventManager [URL="API/events/eventManager.html"];
   triggerEvent [URL="API/events/triggerEvent.html"];
   extractProblemParams [URL="API/extractProblemParams.html"];
-  defaultOutputFunction [URL="API/outputFunction/defaultOutputFunction.html"];
-  outputClass [URL="API/outputFunction/outputClass.html"];
   sendTextOutput [URL="API/outputFunction/sendTextOutput.html"];
-  specialEventDataClass [URL="API/outputFunction/specialEventDataClass.html"];
   parseCells [URL="API/parseCells.html"];
   parseClassToStructs [URL="API/parseClassToStructs.html"];
   parseOutToProjectClass [URL="API/parseOutToProjectClass.html"];

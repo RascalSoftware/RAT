@@ -1,12 +1,5 @@
 /* Created by mdot for Matlab */
 digraph m2html {
-  outputClass -> outputClass;
-  outputClass -> specialEventDataClass;
-  sendTextOutput -> outputClass;
-  specialEventDataClass -> specialEventDataClass;
 
-  defaultOutputFunction [URL="defaultOutputFunction.html"];
-  outputClass [URL="outputClass.html"];
   sendTextOutput [URL="sendTextOutput.html"];
-  specialEventDataClass [URL="specialEventDataClass.html"];
 }

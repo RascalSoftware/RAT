@@ -4,7 +4,7 @@
 <head>
   <title>Description of sendTextOutput</title>
   <meta name="keywords" content="sendTextOutput">
-  <meta name="description" content="">
+  <meta name="description" content="This is an overloaded version of 'sendTextOutput' for the compile.">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -22,47 +22,47 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong></strong></div>
+<div class="box"><strong>This is an overloaded version of 'sendTextOutput' for the compile.</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="box"><strong>function sendTextOutput(text) </strong></div>
+<div class="box"><strong>function sendTextOutput(outText) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre class="comment"></pre></div>
+<div class="fragment"><pre class="comment"> This is an overloaded version of 'sendTextOutput' for the compile.
+ The 'real' one is the output class. We will think of a better solution
+ later on.
+ if isnumeric(outText)
+     outText = sprintf('%g',outText);
+ end
+</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="outputClass.html" class="code" title="">outputClass</a>	</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../API/RAT.html" class="code" title="function [outProblemDef,result] = RAT(problemDefInput,controls)">RAT</a>	</li>
-<li><a href="../../API/RATMain.html" class="code" title="function [outProblemDef,problem,results,bayesResults] = RATMain(problemDef,problemDefCells,problemDefLimits,controls,priors)">RATMain</a>	</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function sendTextOutput(text)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function sendTextOutput(outText)</a>
 0002 
-0003 <span class="keyword">persistent</span> ratOut
-0004 
-0005 <span class="keyword">if</span> isempty(ratOut)
-0006     ratOut = getappdata(0,<span class="string">'ratOut'</span>);
-0007     <a href="outputClass.html" class="code" title="">outputClass</a> = ratOut{1};
-0008 <span class="keyword">end</span>
+0003 <span class="comment">% This is an overloaded version of 'sendTextOutput' for the compile.</span>
+0004 <span class="comment">% The 'real' one is the output class. We will think of a better solution</span>
+0005 <span class="comment">% later on.</span>
+0006 <span class="comment">% if isnumeric(outText)</span>
+0007 <span class="comment">%     outText = sprintf('%g',outText);</span>
+0008 <span class="comment">% end</span>
 0009 
-0010 <span class="keyword">try</span>
-0011     outputClass.customEventData.textUpdate = text;
-0012     outputClass.triggerEvent;
-0013 <span class="keyword">catch</span>
-0014     disp(text);
-0015 <span class="keyword">end</span>
+0010 fprintf(<span class="string">'%s \n'</span>,outText);
+0011 
+0012 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

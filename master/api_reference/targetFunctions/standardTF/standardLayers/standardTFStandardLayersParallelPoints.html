@@ -84,7 +84,7 @@ This function is called by:
 0025 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,<span class="keyword">...</span>
 0026 numberOfLayers, resample, backsType, cCustFiles] =  <a href="../../../API/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>(problemDef);
 0027 
-0028 calcSld = controls.calcSld;   
+0028 calcSld = controls.calcSldDuringFit;   
 0029 useImaginary = problemDef.useImaginary;
 0030 
 0031 <span class="comment">% Allocate the memory for the output arrays before the main loop</span>
@@ -145,49 +145,48 @@ This function is called by:
 0086     thisRough = params(1);      <span class="comment">% Substrate roughness is always first parameter for standard layers</span>
 0087     thisRepeatLayers = repeatLayers{i};
 0088     thisResample = resample(i);
-0089     thisCalcSld = calcSld;
-0090     thisData = allData{i};
-0091     thisDataPresent = dataPresent(i);
-0092     thisDataLimits = dataLimits{i};
-0093     thisSimLimits = simLimits{i};
-0094     thisBacksType = backsType(i);
-0095     
-0096     <span class="comment">% Now call the core standardTF_stanlay reflectivity calculation</span>
-0097     <span class="comment">% In this case we are single cored, so we do not parallelise over</span>
-0098     <span class="comment">% points</span>
-0099     parallelPoints = <span class="string">'points'</span>;
-0100     
-0101     <span class="comment">% Call the core layers calculation</span>
-0102     [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,<span class="keyword">...</span>
-0103         thisChiSquared,thisSsubs] = <a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">standardTFLayersCore</a>(thisContrastLayers, thisRough, <span class="keyword">...</span>
-0104     geometry, thisNba, thisNbs, thisResample, thisCalcSld, thisSf, thisQshift,<span class="keyword">...</span>
-0105     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
-0106     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
-0107    
-0108     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
-0109     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
-0110     <span class="comment">% the other values (background, scalefactors etc) for each contrast</span>
-0111     <span class="comment">% for future use.</span>
-0112     outSsubs(i) = thisSsubs;
-0113     sldProfiles{i} = sldProfile;
-0114     reflectivity{i} = reflect;
-0115     Simulation{i} = Simul;
-0116     shifted_data{i} = shifted_dat;
-0117     layerSlds{i} = layerSld;
-0118     chis(i) = thisChiSquared;
-0119     backgs(i) = thisBackground;
-0120     qshifts(i) = thisQshift;
-0121     sfs(i) = thisSf;
-0122     nbas(i) = thisNba;
-0123     nbss(i) = thisNbs;
-0124     resols(i) = thisResol;
-0125     allRoughs(i) = thisRough;
-0126     allLayers{i} = resampledLayers;
-0127 <span class="keyword">end</span>
-0128 
-0129 <span class="keyword">end</span>
+0089     thisData = allData{i};
+0090     thisDataPresent = dataPresent(i);
+0091     thisDataLimits = dataLimits{i};
+0092     thisSimLimits = simLimits{i};
+0093     thisBacksType = backsType(i);
+0094     
+0095     <span class="comment">% Now call the core standardTF_stanlay reflectivity calculation</span>
+0096     <span class="comment">% In this case we are single cored, so we do not parallelise over</span>
+0097     <span class="comment">% points</span>
+0098     parallelPoints = <span class="string">'points'</span>;
+0099     
+0100     <span class="comment">% Call the core layers calculation</span>
+0101     [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,<span class="keyword">...</span>
+0102         thisChiSquared,thisSsubs] = <a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">standardTFLayersCore</a>(thisContrastLayers, thisRough, <span class="keyword">...</span>
+0103     geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,<span class="keyword">...</span>
+0104     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
+0105     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
+0106    
+0107     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
+0108     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
+0109     <span class="comment">% the other values (background, scalefactors etc) for each contrast</span>
+0110     <span class="comment">% for future use.</span>
+0111     outSsubs(i) = thisSsubs;
+0112     sldProfiles{i} = sldProfile;
+0113     reflectivity{i} = reflect;
+0114     Simulation{i} = Simul;
+0115     shifted_data{i} = shifted_dat;
+0116     layerSlds{i} = layerSld;
+0117     chis(i) = thisChiSquared;
+0118     backgs(i) = thisBackground;
+0119     qshifts(i) = thisQshift;
+0120     sfs(i) = thisSf;
+0121     nbas(i) = thisNba;
+0122     nbss(i) = thisNbs;
+0123     resols(i) = thisResol;
+0124     allRoughs(i) = thisRough;
+0125     allLayers{i} = resampledLayers;
+0126 <span class="keyword">end</span>
+0127 
+0128 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

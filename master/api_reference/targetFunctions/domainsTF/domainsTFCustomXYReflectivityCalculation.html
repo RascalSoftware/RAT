@@ -111,47 +111,45 @@ This function is called by:
 0061 
 0062 <span class="comment">% End pre-allocation</span>
 0063 
-0064 para = controls.para;
-0065 
-0066 <span class="keyword">switch</span> para
-0067     <span class="keyword">case</span> <span class="string">'single'</span>
-0068             
-0069           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
-0070              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,<span class="keyword">...</span>
-0071              allRoughs] = <a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYSingle(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYSingle</a>(problemDef,problemDefCells,<span class="keyword">...</span>
-0072              problemDefLimits,controls);
+0064 <span class="keyword">switch</span> controls.parallel
+0065     <span class="keyword">case</span> <span class="string">'single'</span>
+0066             
+0067           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0068              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,<span class="keyword">...</span>
+0069              allRoughs] = <a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYSingle(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYSingle</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0070              problemDefLimits,controls);
+0071         
+0072     <span class="keyword">case</span> <span class="string">'points'</span>
 0073         
-0074     <span class="keyword">case</span> <span class="string">'points'</span>
-0075         
-0076           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
-0077              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,<span class="keyword">...</span>
-0078              allRoughs] = <a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYParallelPoints</a>(problemDef,problemDefCells,<span class="keyword">...</span>
-0079              problemDefLimits,controls);
-0080          
-0081     <span class="keyword">case</span> <span class="string">'contrasts'</span>
-0082         
-0083           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
-0084              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,<span class="keyword">...</span>
-0085              allRoughs] = <a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYParallelContrasts</a>(problemDef,problemDefCells,<span class="keyword">...</span>
-0086              problemDefLimits,controls);
+0074           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0075              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,<span class="keyword">...</span>
+0076              allRoughs] = <a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYParallelPoints</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0077              problemDefLimits,controls);
+0078          
+0079     <span class="keyword">case</span> <span class="string">'contrasts'</span>
+0080         
+0081           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,<span class="keyword">...</span>
+0082              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,<span class="keyword">...</span>
+0083              allRoughs] = <a href="../../targetFunctions/domainsTF/customXY/domainsTFCustomXYParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFCustomXYParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFCustomXYParallelContrasts</a>(problemDef,problemDefCells,<span class="keyword">...</span>
+0084              problemDefLimits,controls);
+0085 
+0086 <span class="keyword">end</span>
 0087 
-0088 <span class="keyword">end</span>
-0089 
-0090 problem.ssubs = outSsubs;
-0091 problem.backgrounds = backgs;
-0092 problem.qshifts = qshifts;
-0093 problem.scalefactors = sfs;
-0094 problem.nbairs = nbas;
-0095 problem.nbsubs = nbss;
-0096 problem.resolutions = resols;
-0097 problem.calculations.all_chis = chis;
-0098 problem.calculations.sum_chi = sum(chis);
-0099 problem.allSubRough = allRoughs;
-0100 problem.resample = problemDef.resample;
-0101 
-0102 <span class="keyword">end</span>
+0088 problem.ssubs = outSsubs;
+0089 problem.backgrounds = backgs;
+0090 problem.qshifts = qshifts;
+0091 problem.scalefactors = sfs;
+0092 problem.nbairs = nbas;
+0093 problem.nbsubs = nbss;
+0094 problem.resolutions = resols;
+0095 problem.calculations.all_chis = chis;
+0096 problem.calculations.sum_chi = sum(chis);
+0097 problem.allSubRough = allRoughs;
+0098 problem.resample = problemDef.resample;
+0099 
+0100 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

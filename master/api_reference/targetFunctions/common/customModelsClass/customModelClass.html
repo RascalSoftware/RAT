@@ -36,7 +36,7 @@
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="../../../targetFunctions/common/backSort/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
-<li><a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer, colSize)">callCppFunc</a>	</li>
+<li><a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer)">callCppFunc</a>	</li>
 <li><a href="../../../targetFunctions/common/callCustomFunction/callMatlabFunction/callMatlabCustomFunction.html" class="code" title="function [output,sRough] = callMatlabCustomFunction(params, contrast, funcName, bulkIn, bulkOut, nContrasts, domainNumber)">callMatlabCustomFunction</a>	Excecute a custom model function in the base Matlab workspace.</li>
 <li><a href="applyHydrationImag.html" class="code" title="function thisContrastLayers = applyHydrationImag(thisContrastLayers,bulkIn,bulkOut)">applyHydrationImag</a>	Applies the hydration correction to real value of layers</li>
 <li><a href="applyHydrationReal.html" class="code" title="function thisContrastLayers = applyHydrationReal(thisContrastLayers,bulkIn,bulkOut)">applyHydrationReal</a>	Applies the hydration correction to real value of layers</li>
@@ -106,7 +106,7 @@ This function is called by:
 0042                 <span class="keyword">if</span> isnan(str2double(functionHandle))
 0043                     [thisContrastLayers,allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callMatlabFunction/callMatlabCustomFunction.html" class="code" title="function [output,sRough] = callMatlabCustomFunction(params, contrast, funcName, bulkIn, bulkOut, nContrasts, domainNumber)">callMatlabCustomFunction</a>(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,0);
 0044                 <span class="keyword">else</span>
-0045                     [thisContrastLayers, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer, colSize)">callCppFunc</a>(params, bulkIn, bulkOut, i, -1, functionHandle, 3);
+0045                     [thisContrastLayers, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer)">callCppFunc</a>(params, bulkIn, bulkOut, i, -1, functionHandle);
 0046                 <span class="keyword">end</span>
 0047 
 0048                 <span class="comment">% If the output layers has 5 columns, then we need to do</span>
@@ -154,7 +154,7 @@ This function is called by:
 0090                 <span class="keyword">if</span> isnan(str2double(functionHandle))
 0091                     [tempAllSLDs{i}, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callMatlabFunction/callMatlabCustomFunction.html" class="code" title="function [output,sRough] = callMatlabCustomFunction(params, contrast, funcName, bulkIn, bulkOut, nContrasts, domainNumber)">callMatlabCustomFunction</a>(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,0);
 0092                 <span class="keyword">else</span>
-0093                     [tempAllSLDs{i}, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer, colSize)">callCppFunc</a>(params, bulkIn, bulkOut, i, -1, functionHandle, 2);
+0093                     [tempAllSLDs{i}, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer)">callCppFunc</a>(params, bulkIn, bulkOut, i, -1, functionHandle);
 0094                 <span class="keyword">end</span>
 0095             <span class="keyword">end</span>
 0096 
@@ -202,8 +202,8 @@ This function is called by:
 0138                     [thisContrastLayers1, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callMatlabFunction/callMatlabCustomFunction.html" class="code" title="function [output,sRough] = callMatlabCustomFunction(params, contrast, funcName, bulkIn, bulkOut, nContrasts, domainNumber)">callMatlabCustomFunction</a>(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,1);
 0139                     [thisContrastLayers2, ~] = <a href="../../../targetFunctions/common/callCustomFunction/callMatlabFunction/callMatlabCustomFunction.html" class="code" title="function [output,sRough] = callMatlabCustomFunction(params, contrast, funcName, bulkIn, bulkOut, nContrasts, domainNumber)">callMatlabCustomFunction</a>(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,2);
 0140                 <span class="keyword">else</span>
-0141                     [thisContrastLayers1, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer, colSize)">callCppFunc</a>(params, bulkIn, bulkOut, i, 0, functionHandle, 3);
-0142                     [thisContrastLayers2, ~] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer, colSize)">callCppFunc</a>(params, bulkIn, bulkOut, i, 1, functionHandle, 3);
+0141                     [thisContrastLayers1, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer)">callCppFunc</a>(params, bulkIn, bulkOut, i, 0, functionHandle);
+0142                     [thisContrastLayers2, ~] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer)">callCppFunc</a>(params, bulkIn, bulkOut, i, 1, functionHandle);
 0143                 <span class="keyword">end</span>
 0144 
 0145                 <span class="comment">% If the output layers has 5 columns, then we need to do</span>
@@ -256,8 +256,8 @@ This function is called by:
 0192                     [tempAllSLDs{i, 1}, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callMatlabFunction/callMatlabCustomFunction.html" class="code" title="function [output,sRough] = callMatlabCustomFunction(params, contrast, funcName, bulkIn, bulkOut, nContrasts, domainNumber)">callMatlabCustomFunction</a>(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,1);
 0193                     [tempAllSLDs{i, 2}, ~] = <a href="../../../targetFunctions/common/callCustomFunction/callMatlabFunction/callMatlabCustomFunction.html" class="code" title="function [output,sRough] = callMatlabCustomFunction(params, contrast, funcName, bulkIn, bulkOut, nContrasts, domainNumber)">callMatlabCustomFunction</a>(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,2);
 0194                 <span class="keyword">else</span>
-0195                     [tempAllSLDs{i, 1}, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer, colSize)">callCppFunc</a>(params, bulkIn, bulkOut, i, 0, functionHandle, 2);
-0196                     [tempAllSLDs{i, 2}, ~] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer, colSize)">callCppFunc</a>(params, bulkIn, bulkOut, i, 1, functionHandle, 2);
+0195                     [tempAllSLDs{i, 1}, allRoughs(i)] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer)">callCppFunc</a>(params, bulkIn, bulkOut, i, 0, functionHandle);
+0196                     [tempAllSLDs{i, 2}, ~] = <a href="../../../targetFunctions/common/callCustomFunction/callCppFunction/callCppFunc.html" class="code" title="function [output,subRough] = callCppFunc(params, nba, nbs, contrast, domain, pointer)">callCppFunc</a>(params, bulkIn, bulkOut, i, 1, functionHandle);
 0197                 <span class="keyword">end</span>
 0198             <span class="keyword">end</span>
 0199 
@@ -268,6 +268,6 @@ This function is called by:
 0204 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

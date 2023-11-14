@@ -40,7 +40,7 @@ This function calls:
 <li><a href="../../../API/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)">parseCells</a>	Splits up the master input list of all arrays into separate arrays</li>
 <li><a href="../../../targetFunctions/common/backSort/backSort.html" class="code" title="function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
 <li><a href="../../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>	</li>
-<li><a href="../../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType,useImaginary)">callReflectivity</a>	</li>
+<li><a href="../../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)">callReflectivity</a>	</li>
 <li><a href="../../../targetFunctions/common/costFunctions/chiSquared/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	Chi-squared function is used to evaluate the goodness of fit.</li>
 <li><a href="../../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resamPars)">resampleLayers</a>	Function handle for adaptive resampling</li>
 <li><a href="../../../targetFunctions/common/resampleLayers/resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resamPars)">resampleLayersReIm</a>	Resample the SLD profile. In this case we have an imaginary SLD also, and</li>
@@ -137,7 +137,7 @@ This function is called by:
 0080     shifted_data{i} = shifted_dat;
 0081     
 0082     reflectivityType = <span class="string">'standardAbeles'</span>;
-0083     [reflect,Simul] = <a href="../../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,para,refType,useImaginary)">callReflectivity</a>(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),<span class="string">'single'</span>,reflectivityType,useImaginary);
+0083     [reflect,Simul] = <a href="../../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)">callReflectivity</a>(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),<span class="string">'single'</span>,reflectivityType,useImaginary);
 0084     
 0085     [reflect,Simul,shifted_dat] = <a href="../../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>(reflect,Simul,shifted_dat,backgs(i),backsType(i));
 0086     
@@ -155,6 +155,6 @@ This function is called by:
 0098 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Fri 20-Oct-2023 14:33:25 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

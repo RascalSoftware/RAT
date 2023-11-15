@@ -2,7 +2,7 @@ function stop = checkDREAM(DREAMPar,Par_info,Meas_info)
 % Check for setup errors
 
 % Assign stop to be No
-stop = 'no';
+stop = false;
 
 % First close all files
 fclose('all');
@@ -17,15 +17,15 @@ fclose('all');
 % Check number of chains
 if DREAMPar.N < (2 * DREAMPar.delta) + 1
     % Error -- not enough chains to do sampling -- increase number of chains!
-    stop = 'yes';
-    error('DREAM ERROR: Inufficient number of chains -> Use at least DREAMPar.N = %1g chains \n',((2 * DREAMPar.delta) + 1));
+    stop = true;
+    error('DREAM ERROR: Insufficient number of chains -> Use at least DREAMPar.N = %1g chains \n',((2 * DREAMPar.delta) + 1));
 end
 
 % Check parameter ranges
 if strcmp(Par_info,'latin')
     % Error -- if lhs is used -> requires explicit parameter ranges
     if ( sum(isinf(Par_info.min)) == DREAMPar.d )
-        stop = 'yes';
+        stop = true;
         error('DREAM ERROR: latinHypercubeSampling hypercube sampling selected but parameter ranges not defined -> Set Par_info.min and Par_info.max!!\n');
     end
 end
@@ -38,7 +38,7 @@ end
 %         % Now print warning to screen and to file
 %         fprintf(evalstr); fprintf(fid,evalstr);
 %         % Stop DREAM
-%         stop = 'yes';
+%         stop = true;
 %     end;
 % end;
 

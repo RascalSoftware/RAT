@@ -7,7 +7,7 @@ function [fx] = evaluateModel(x,DREAMPar,Meas_info,ratInputs)
 % Written by Jasper A. Vrugt
 
 % Check whether to store the output of each model evaluation (function call)
-% if ( strcmp(lower(DREAMPar.modout),'yes') ) && ( Meas_info.N > 0 )
+% if DREAMPar.modout && ( Meas_info.N > 0 )
 %     
 %     % Create initial fx of size model output by DREAMPar.N
 %     fx = NaN(Meas_info.N,DREAMPar.N);
@@ -28,7 +28,7 @@ if ( DREAMPar.CPU == 1 )         % Sequential evaluation
 else     % Parallel evaluation
 
     % If IO writing with model --> worker needs to go to own directory
-    %     if strcmp(lower(DREAMPar.IO),'yes')
+    %     if DREAMPar.IO
     %         % Minimise network traffic by checking in example dir is needed.
     %         % Tim Peterson 2016
     %         if ~isempty(EXAMPLE_dir)

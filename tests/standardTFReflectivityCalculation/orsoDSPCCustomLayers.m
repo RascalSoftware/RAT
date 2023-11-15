@@ -13,17 +13,8 @@ problem = projectClass('Orso lipid example - custom layers');
 problem.setModelType('custom layers');
 problem.setGeometry('Substrate/liquid');
 problem.setUsePriors(true);
-%% 
-% 
-% 
-% % First we need to set up a parameters group. We will be using a pre-prepared 
-% % custom model file, so it's useful to look at this to check which parameters 
-% % we are going to need:
-% 
-type customBilayer.m
-%% 
-% 
-% 
+
+%%  
 % We need to add the relevant parameters we are going to need to define the 
 % model (note that Substrate Roughness' always exists as parameter 1..
 

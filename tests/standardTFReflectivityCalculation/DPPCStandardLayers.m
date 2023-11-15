@@ -6,14 +6,7 @@ function problem = DPPCStandardLayers()
 % Start by making an empty instance of the project definition class:
 
 problem = projectClass('Orso lipid example');
-%% 
-% 
-% 
-% This is the standard class containing the model definition for any project. 
-% We add to it using the class methods, which are fairly self explanatory (although 
-% more detailed instructions are pending) -
 
-methods(problem)
 %% 
 % In this example, we will use a standard layers model. This defines layers 
 % in terms of thickness, SLD, roughness and hydration. These are then grouped 
@@ -34,7 +27,7 @@ Parameters = {
 % Add these parameters to the project class, and group them into a layer to 
 % demonstrate how this is done:
 
-    problem.addParameterGroup(Parameters)
+    problem.addParameterGroup(Parameters);
     % Now make the oxide layer
     Oxide =     {'Oxide Layer',...          % Name of the layer
                 'Oxide thick',...           % Layer thickness
@@ -127,7 +120,7 @@ bilOuterHead = {
 % 
 % Add these layers to the project:
 
-problem.addLayerGroup({waterLayer, bilInnerHead, bilTails, bilOuterHead})
+problem.addLayerGroup({waterLayer, bilInnerHead, bilTails, bilOuterHead});
 %% 
 % We have three datasets we need to consider - the bilayer against D2O, Silicon 
 % Matched water and H2O. Load these datafiles in and put them in the data block....
@@ -189,7 +182,7 @@ problem.setBackground(1,'name','Background D2O','Value1','Backs par D2O');
 % for a solid / liquid experiment.
 
 % Set the scalefactor...
-problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',false)
+problem.setScalefactor(1,'Value',1,'min',0.5,'max',2,'fit',false);
 
 
 %% 

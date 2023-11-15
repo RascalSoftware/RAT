@@ -3,7 +3,7 @@ function fx = evaluateRATModel(x,DREAMPar,Meas_info,ratInputs)
 % RAT function evaluation
 
 % Check whether to store the output of each model evaluation (function call)
-if strcmpi(DREAMPar.modout,'yes') && (Meas_info.N > 0)
+if DREAMPar.modout && (Meas_info.N > 0)
     % Create initial fx of size model output by DREAMPar.N
     fx = NaN(Meas_info.N,DREAMPar.N);
 end

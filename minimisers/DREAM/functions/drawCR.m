@@ -1,14 +1,12 @@
 function CR = drawCR(DREAMPar,pCR)
-% Generates CR values based on current crossover probabilities
+    % Generates CR values based on current crossover probabilities
 
-CR = [1,1];
-coder.varsize('CR',[1e2,1e6],[1,1]);
+    CR = [1,1];
+    coder.varsize('CR',[1e2,1e6],[1,1]);
 
-switch DREAMPar.adaptPCR
-    
-    % If crossover probabilities are updated
-    case 'yes'
+    if DREAMPar.adaptPCR
         
+        % If crossover probabilities are updated  
         % How many candidate points for each crossover value?
         [L] = multrnd(DREAMPar.N * DREAMPar.steps,pCR); L2 = [0 cumsum(L)];
         
@@ -35,14 +33,8 @@ switch DREAMPar.adaptPCR
         % Now reshape CR
         % CR = reshape(cCR,DREAMPar.N,DREAMPar.steps);
         CR = reshape(cCR,DREAMPar.N,[]);
-    
-    % If crossover probabilities are not updated
-    case 'no'
-        
+    else
+        % If crossover probabilities are not updated  
         CR = reshape(randsample([1:DREAMPar.nCR]/DREAMPar.nCR,DREAMPar.steps*DREAMPar.N,true,pCR),DREAMPar.N,DREAMPar.steps);
-        
-    otherwise
-        
-        error('unknown crossover sampling method');
-        
+    end    
 end

@@ -19,7 +19,7 @@ invalidModelMessage = sprintf('modelType must be a modelTypes enum or one of the
                              strjoin(modelTypes.values(), ', '));
 problem.module.type = validateOption(problem.module.type, 'modelTypes', invalidModelMessage).value;
 
-thisProjectClass = project(name=projectName, model=problem.module.type);
+thisProjectClass = createProject(name=projectName, model=problem.module.type);
 
 % Set geometry
 if strcmpi(problem.module.experiment_type, 'Air / Liquid (or solid)')

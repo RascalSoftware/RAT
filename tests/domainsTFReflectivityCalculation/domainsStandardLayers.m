@@ -1,6 +1,6 @@
 function problem = domainsStandardLayers()
 
-    problem = project(calcType="domains");
+    problem = createProject(calcType="domains");
     
     Parameters = {
         %       Name                min         val         max     fit?

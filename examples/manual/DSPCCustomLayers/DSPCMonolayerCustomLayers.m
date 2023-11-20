@@ -1,5 +1,5 @@
 % First make an instance of the project class
-problem = project(name='DSPC custom layers', model='custom layers');
+problem = createProject(name='DSPC custom layers', model='custom layers');
 
 
 %% 

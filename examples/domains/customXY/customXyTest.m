@@ -1,4 +1,4 @@
-problem = project(calcType="domains");
+problem = createProject(calcType="domains");
 problem.setModelType('custom XY');
 problem.setGeometry('air/substrate');
 

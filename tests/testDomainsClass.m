@@ -9,7 +9,7 @@ classdef testDomainsClass < matlab.unittest.TestCase
     end
 
     methods(TestMethodSetup)
-        function createProject(testCase)
+        function initialiseProject(testCase)
             testCase.project = domainsClass('example');
             testCase.parameters = {
                     %       Name                min     val     max  fit? 'Prior Type','mu','sigma'

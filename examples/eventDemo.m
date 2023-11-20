@@ -21,7 +21,7 @@ eventManager.clear()
 %% Domain Event example 
 
 % Domains test...
-problem = project(calcType="domains");
+problem = createProject(calcType="domains");
 
 % Add some parameters....
 Parameters = {

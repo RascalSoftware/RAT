@@ -55,7 +55,7 @@ end
 default = {'ABC','parallel','IO','modout','restart','save'};
 for j = 1 : numel(default)
     if ~isfield(DREAMPar,default{j})
-        % Set variable of DREAMPar to "No"
+        % Set variable of DREAMPar to false
         %evalstr = strcat('DREAMPar.',char(default(j)),'=false',';'); eval(evalstr);
         outDREAMPar.(default{j}) = false;
     else

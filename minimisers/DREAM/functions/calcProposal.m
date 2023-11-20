@@ -39,7 +39,7 @@ function [x_new,CR] = calcProposal(X,CR,DREAMPar,Table_gamma,Par_info)
 % % %     if (rand < (1 - DREAMPar.pJumpRate_one)),
 % % %         
 % % %         %         % Now determine gamma, the jump factor
-% % %         %         if DREAMPar.ABC
+% % %         %         if ~DREAMPar.ABC
 % % %         %
 % % %         % Select the JumpRate (dependent of NrDim and number of pairs)
 % % %         NrDim = size(i,2); JumpRate = Table_gamma(NrDim,DE_pairs(qq,1));

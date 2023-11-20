@@ -136,17 +136,17 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % raise an error
 
             % Invalid length for custom file parameters
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'matlab', ''), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', '', 'other'), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'matlab', ''), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Invalid Entry', 'invalid.m', 'matlab', '', 'other'), exceptions.invalidNumberOfInputs.errorID);
 
             % Invalid types
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile(42), invalidType.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile(42), exceptions.invalidType.errorID);
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Unrecognised language', 'file.m', 'fortran', ''), invalidOption.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('Unrecognised language', 'file.m', 'fortran', ''), exceptions.invalidOption.errorID);
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.addCustomFile('DPPC Model'), duplicateName.errorID);
+            testCase.verifyError(@() testCase.exampleClass.addCustomFile('DPPC Model'), exceptions.duplicateName.errorID);
         end
 
         function testSetCustomFile(testCase, testRow, inputData, expectedRow)
@@ -163,24 +163,24 @@ classdef testCustomFileClass < matlab.unittest.TestCase
             % If the inputs are invalid, it should raise an error
 
             % Invalid row
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(0, 'Name', 'Invalid'), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(testCase.numRows+1, 'Name', 'Invalid'), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile('Undefined row', 'Name', 'Invalid'), nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(0, 'Name', 'Invalid'), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(testCase.numRows+1, 'Name', 'Invalid'), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile('Undefined row', 'Name', 'Invalid'), exceptions.nameNotRecognised.errorID);
 
             % Unrecognised language
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 'Language', 'Fortran'), invalidOption.errorID)
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 'Language', 'Fortran'), exceptions.invalidOption.errorID)
 
             % Duplicate custom object names
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'DPPC Model'), duplicateName.errorID)
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'DPPC Model'), exceptions.duplicateName.errorID)
         end
 
         function testSetCustomFileInvalidNumberOfParams(testCase)
             % If we call "setCustomFile" with fewer than three values or
             % an even number of values (i.e., not name-value pairs) it
             % should raise an error
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 1), invalidNumberOfInputs.errorID);
-            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(1, 1), exceptions.invalidNumberOfInputs.errorID);
+            testCase.verifyError(@() testCase.exampleClass.setCustomFile(2, 'Name', 'New Model', 'Language'), exceptions.invalidNumberOfInputs.errorID);
         end
 
         function testDisplayTable(testCase)

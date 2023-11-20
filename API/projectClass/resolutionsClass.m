@@ -86,7 +86,7 @@ classdef resolutionsClass < handle
                typeVal = validateOption(in{2}, 'allowedTypes', obj.invalidTypeMessage).value;
 
                if any(strcmpi(typeVal, {allowedTypes.Constant.value, allowedTypes.Function.value})) && length(in) < 3
-                   throw(invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
+                   throw(exceptions.invalidNumberOfInputs(sprintf('For type ''%s'', at least three inputs are required, but only %d are supplied', typeVal, length(in))));
                end
 
                thisRow{1} = in{1};
@@ -140,10 +140,10 @@ classdef resolutionsClass < handle
             elseif isnumeric(row)
                 count = obj.resolutions.rowCount;
                 if (row < 1) || (row > count)
-                    throw(indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, count)));
+                    throw(exceptions.indexOutOfRange(sprintf('The row index %d is not within the range 1 - %d', row, count)));
                 end
             else
-                throw(invalidType('Unrecognised row'));
+                throw(exceptions.invalidType('Unrecognised row'));
             end
             
             p = inputParser;
@@ -216,12 +216,12 @@ classdef resolutionsClass < handle
             parList = obj.resolPars.getNames(); 
             if isnumeric(param)
                 if (param < 1) || (param > length(parList))
-                    throw(indexOutOfRange(sprintf('Resolution Parameter %d is out of range', param)));
+                    throw(exceptions.indexOutOfRange(sprintf('Resolution Parameter %d is out of range', param)));
                 end
                 thisPar = parList(param);
             else
                 if ~strcmpi(param, parList)
-                    throw(nameNotRecognised(sprintf('Unrecognised parameter name %s', param)));
+                    throw(exceptions.nameNotRecognised(sprintf('Unrecognised parameter name %s', param)));
                 end
                 thisPar = param;
             end   

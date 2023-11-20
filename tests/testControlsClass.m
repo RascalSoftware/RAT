@@ -21,7 +21,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.All.value, 'set.parallel method is not working')
             testCase.controls.parallel = parallelOptions.Single.value;
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'set.parallel method is not working')
-            testCase.verifyError(@setParallel, invalidOption.errorID);  % bad parallel option 
+            testCase.verifyError(@setParallel, exceptions.invalidOption.errorID);  % bad parallel option 
             function setParallel
                 testCase.controls.parallel = 'random';
             end
@@ -39,7 +39,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.procedure, procedures.NS.value, 'set.procedure method is not working')
             testCase.controls.procedure = procedures.Calculate;
             testCase.verifyEqual(testCase.controls.procedure, procedures.Calculate.value, 'set.procedure method is not working')
-            testCase.verifyError(@setProcedure, invalidOption.errorID);  % bad procedure option 
+            testCase.verifyError(@setProcedure, exceptions.invalidOption.errorID);  % bad procedure option 
             function setProcedure
                 testCase.controls.procedure = 'random';
             end
@@ -55,7 +55,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.display, displayOptions.Iter.value, 'set.display method is not working')
             testCase.controls.display = displayOptions.Notify;
             testCase.verifyEqual(testCase.controls.display, displayOptions.Notify.value, 'set.display method is not working')
-            testCase.verifyError(@setDisplay, invalidOption.errorID);  % bad display option 
+            testCase.verifyError(@setDisplay, exceptions.invalidOption.errorID);  % bad display option 
             function setDisplay
                 testCase.controls.display = 'any';
             end
@@ -68,11 +68,11 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.resamPars = [0.9, 10.2];
             testCase.verifyEqual(testCase.controls.resamPars, [0.9, 10.2], 'set.resamPars method is not working')            
             % bad resamPar option 
-            testCase.verifyError(@() setResamPars('ab'), invalidType.errorID);
-            testCase.verifyError(@() setResamPars([0.5, 6, 7]), invalidValue.errorID);            
-            testCase.verifyError(@() setResamPars([-1, 4]), invalidValue.errorID);
-            testCase.verifyError(@() setResamPars([0, 0]), invalidValue.errorID);
-            testCase.verifyError(@() setResamPars([12, 13]), invalidValue.errorID);
+            testCase.verifyError(@() setResamPars('ab'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setResamPars([0.5, 6, 7]), exceptions.invalidValue.errorID);            
+            testCase.verifyError(@() setResamPars([-1, 4]), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setResamPars([0, 0]), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setResamPars([12, 13]), exceptions.invalidValue.errorID);
             function setResamPars(value)
                 testCase.controls.resamPars = value;
             end
@@ -84,7 +84,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyTrue(testCase.controls.calcSldDuringFit, 'set.calcSldDuringFit method is not working')
             testCase.controls.calcSldDuringFit = false;
             testCase.verifyFalse(testCase.controls.calcSldDuringFit, 'set.calcSldDuringFit method is not working')
-            testCase.verifyError(@setCalcSldDuringFit, invalidType.errorID);  % bad calcSldDuringFit option 
+            testCase.verifyError(@setCalcSldDuringFit, exceptions.invalidType.errorID);  % bad calcSldDuringFit option 
             function setCalcSldDuringFit
                 testCase.controls.calcSldDuringFit = 2;
             end
@@ -94,28 +94,28 @@ classdef testControlsClass < matlab.unittest.TestCase
             % Test if Simplex property setters are working
             testCase.controls.tolX = 5;
             testCase.verifyEqual(testCase.controls.tolX, 5, 'set.tolX method is not working')
-            testCase.verifyError(@setTolX, invalidType.errorID);  % bad tolX type 
+            testCase.verifyError(@setTolX, exceptions.invalidType.errorID);  % bad tolX type 
             function setTolX
                 testCase.controls.tolX = 'a';
             end
 
             testCase.controls.tolFun = 2;
             testCase.verifyEqual(testCase.controls.tolFun, 2, 'set.tolFun method is not working')
-            testCase.verifyError(@setTolFun, invalidType.errorID);  % bad tolFun type 
+            testCase.verifyError(@setTolFun, exceptions.invalidType.errorID);  % bad tolFun type 
             function setTolFun
                 testCase.controls.tolFun = 'a';
             end
 
             testCase.controls.maxFunEvals = 123;
             testCase.verifyEqual(testCase.controls.maxFunEvals, 123, 'set.maxFunEvals method is not working')
-            testCase.verifyError(@setMaxFunEvals, invalidType.errorID);  % bad maxFunEvals type 
+            testCase.verifyError(@setMaxFunEvals, exceptions.invalidType.errorID);  % bad maxFunEvals type 
             function setMaxFunEvals
                 testCase.controls.maxFunEvals = 'a';
             end
 
             testCase.controls.maxIter = 456;
             testCase.verifyEqual(testCase.controls.maxIter, 456, 'set.maxIter method is not working')
-            testCase.verifyError(@setMaxIter, invalidType.errorID);  % bad maxIter type 
+            testCase.verifyError(@setMaxIter, exceptions.invalidType.errorID);  % bad maxIter type 
             function setMaxIter
                 testCase.controls.maxIter = 'a';
             end
@@ -126,15 +126,15 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.populationSize = 5;
             testCase.verifyEqual(testCase.controls.populationSize, 5, 'set.populationSize method is not working')
             % bad populationSize type
-            testCase.verifyError(@() setPopulationSize('a'), invalidType.errorID);
-            testCase.verifyError(@() setPopulationSize(0), invalidValue.errorID);
+            testCase.verifyError(@() setPopulationSize('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setPopulationSize(0), exceptions.invalidValue.errorID);
             function setPopulationSize(value)
                 testCase.controls.populationSize = value;
             end
 
             testCase.controls.fWeight = 0.2;
             testCase.verifyEqual(testCase.controls.fWeight, 0.2, 'set.fWeight method is not working')
-            testCase.verifyError(@setFWeight, invalidType.errorID);  % bad fWeight type 
+            testCase.verifyError(@setFWeight, exceptions.invalidType.errorID);  % bad fWeight type 
             function setFWeight
                 testCase.controls.fWeight = 'a';
             end
@@ -142,9 +142,9 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.crossoverProbability = 0.1;
             testCase.verifyEqual(testCase.controls.crossoverProbability, 0.1, 'set.crossoverProbability method is not working')
             % bad crossoverProbability type
-            testCase.verifyError(@() setCrossoverProbability('a'), invalidType.errorID);  
-            testCase.verifyError(@() setCrossoverProbability(-1), invalidValue.errorID);
-            testCase.verifyError(@() setCrossoverProbability(2), invalidValue.errorID);
+            testCase.verifyError(@() setCrossoverProbability('a'), exceptions.invalidType.errorID);  
+            testCase.verifyError(@() setCrossoverProbability(-1), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setCrossoverProbability(2), exceptions.invalidValue.errorID);
             function setCrossoverProbability(value)
                 testCase.controls.crossoverProbability = value;
             end
@@ -154,10 +154,10 @@ classdef testControlsClass < matlab.unittest.TestCase
                 testCase.verifyEqual(testCase.controls.strategy, i, 'set.strategy method is not working')
             end
             % bad strategy type 
-            testCase.verifyError(@() setStrategy('a'), invalidType.errorID);  
-            testCase.verifyError(@() setStrategy(7), invalidOption.errorID);
-            testCase.verifyError(@() setStrategy(3.14), invalidOption.errorID);
-            testCase.verifyError(@() setStrategy(0), invalidOption.errorID);
+            testCase.verifyError(@() setStrategy('a'), exceptions.invalidType.errorID);  
+            testCase.verifyError(@() setStrategy(7), exceptions.invalidOption.errorID);
+            testCase.verifyError(@() setStrategy(3.14), exceptions.invalidOption.errorID);
+            testCase.verifyError(@() setStrategy(0), exceptions.invalidOption.errorID);
             function setStrategy(value)
                 testCase.controls.strategy = value;
             end
@@ -165,8 +165,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.targetValue = 4;
             testCase.verifyEqual(testCase.controls.targetValue, 4, 'set.targetValue method is not working')
             % bad targetValue type
-            testCase.verifyError(@() setTargetValue('a'), invalidType.errorID);
-            testCase.verifyError(@() setTargetValue(0), invalidValue.errorID); 
+            testCase.verifyError(@() setTargetValue('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setTargetValue(0), exceptions.invalidValue.errorID); 
             function setTargetValue(value)
                 testCase.controls.targetValue = value;
             end
@@ -174,8 +174,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.numGenerations = 6;
             testCase.verifyEqual(testCase.controls.numGenerations, 6, 'set.numGenerations method is not working')
             % bad numGenerations type 
-            testCase.verifyError(@() setNumGenerations('a'), invalidType.errorID);
-            testCase.verifyError(@() setNumGenerations(0), invalidValue.errorID);
+            testCase.verifyError(@() setNumGenerations('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setNumGenerations(0), exceptions.invalidValue.errorID);
             function setNumGenerations(value)
                 testCase.controls.numGenerations = value;
             end
@@ -186,8 +186,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.Nlive = 5;
             testCase.verifyEqual(testCase.controls.Nlive, 5, 'set.Nlive method is not working')
             % bad Nlive type
-            testCase.verifyError(@() setNlive('a'), invalidType.errorID);
-            testCase.verifyError(@() setNlive(0), invalidValue.errorID);
+            testCase.verifyError(@() setNlive('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setNlive(0), exceptions.invalidValue.errorID);
             function setNlive(value)
                 testCase.controls.Nlive = value;
             end
@@ -195,8 +195,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.Nmcmc = 5;
             testCase.verifyEqual(testCase.controls.Nmcmc, 5, 'set.Nmcmc method is not working')
             % bad Nmcmc type
-            testCase.verifyError(@() setNmcmc('a'), invalidType.errorID);
-            testCase.verifyError(@() setNmcmc(-1), invalidValue.errorID);
+            testCase.verifyError(@() setNmcmc('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setNmcmc(-1), exceptions.invalidValue.errorID);
             function setNmcmc(value)
                 testCase.controls.Nmcmc = value;
             end
@@ -204,9 +204,9 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.propScale = 0.1;
             testCase.verifyEqual(testCase.controls.propScale, 0.1, 'set.propScale method is not working')
             % bad propScale type
-            testCase.verifyError(@() setPropScale('a'), invalidType.errorID);
-            testCase.verifyError(@() setPropScale(-1), invalidValue.errorID);
-            testCase.verifyError(@() setPropScale(2), invalidValue.errorID);
+            testCase.verifyError(@() setPropScale('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setPropScale(-1), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setPropScale(2), exceptions.invalidValue.errorID);
             function setPropScale(value)
                 testCase.controls.propScale = value;
             end
@@ -214,8 +214,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.nsTolerance = 0;
             testCase.verifyEqual(testCase.controls.nsTolerance, 0, 'set.nsTolerance method is not working')
             % bad nsTolerance type
-            testCase.verifyError(@() setNsTolerance('a'), invalidType.errorID);
-            testCase.verifyError(@() setNsTolerance(-1), invalidValue.errorID);
+            testCase.verifyError(@() setNsTolerance('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setNsTolerance(-1), exceptions.invalidValue.errorID);
             function setNsTolerance(value)
                 testCase.controls.nsTolerance = value;
             end
@@ -226,8 +226,8 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.nSamples = 289;
             testCase.verifyEqual(testCase.controls.nSamples, 289, 'set.nSamples method is not working')
             % bad nSamples type
-            testCase.verifyError(@() setNSamples('a'), invalidType.errorID);
-            testCase.verifyError(@() setNSamples(-1), invalidValue.errorID);
+            testCase.verifyError(@() setNSamples('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setNSamples(-1), exceptions.invalidValue.errorID);
             function setNSamples(value)
                 testCase.controls.nSamples = value;
             end
@@ -235,11 +235,11 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.nChains = 20;
             testCase.verifyEqual(testCase.controls.nChains, 20, 'set.nChains method is not working')
             % bad nChains type
-            testCase.verifyError(@() setNChains(Inf), invalidValue.errorID);
-            testCase.verifyError(@() setNChains(NaN), invalidValue.errorID);
-            testCase.verifyError(@() setNChains('a'), invalidType.errorID);
-            testCase.verifyError(@() setNChains(0), invalidValue.errorID);
-            testCase.verifyError(@() setNChains(20.1), invalidValue.errorID);
+            testCase.verifyError(@() setNChains(Inf), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setNChains(NaN), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setNChains('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setNChains(0), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setNChains(20.1), exceptions.invalidValue.errorID);
             function setNChains(value)
                 testCase.controls.nChains = value;
             end
@@ -251,9 +251,9 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.jumpProbability = 0.5;
             testCase.verifyEqual(testCase.controls.jumpProbability, 0.5, 'set.jumpProbability method is not working')
             % bad jumpProbability type 
-            testCase.verifyError(@() setJumpProbability(1.1), invalidValue.errorID);  
-            testCase.verifyError(@() setJumpProbability(-0.1), invalidValue.errorID);
-            testCase.verifyError(@() setJumpProbability('a'), invalidType.errorID);
+            testCase.verifyError(@() setJumpProbability(1.1), exceptions.invalidValue.errorID);  
+            testCase.verifyError(@() setJumpProbability(-0.1), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setJumpProbability('a'), exceptions.invalidType.errorID);
             function setJumpProbability(value)
                 testCase.controls.jumpProbability = value;
             end
@@ -265,9 +265,9 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.controls.pUnitGamma = 0.5;
             testCase.verifyEqual(testCase.controls.pUnitGamma, 0.5, 'set.pUnitGamma method is not working')
             % bad pUnitGamma type 
-            testCase.verifyError(@() setJumpProbability(1.1), invalidValue.errorID);
-            testCase.verifyError(@() setPUnitGamma(-0.1), invalidValue.errorID);
-            testCase.verifyError(@() setPUnitGamma('a'), invalidType.errorID);
+            testCase.verifyError(@() setJumpProbability(1.1), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setPUnitGamma(-0.1), exceptions.invalidValue.errorID);
+            testCase.verifyError(@() setPUnitGamma('a'), exceptions.invalidType.errorID);
             function setPUnitGamma(value)
                 testCase.controls.pUnitGamma = value;
             end
@@ -280,7 +280,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Bound.value, 'setboundHandling method is not working')
             testCase.controls.boundHandling = boundHandlingOptions.Fold;
             testCase.verifyEqual(testCase.controls.boundHandling, boundHandlingOptions.Fold.value, 'set.boundHandling method is not working')
-            testCase.verifyError(@setBoundHandling, invalidOption.errorID);  % bad method option 
+            testCase.verifyError(@setBoundHandling, exceptions.invalidOption.errorID);  % bad method option 
             function setBoundHandling
                 testCase.controls.boundHandling = 'random';
             end
@@ -290,7 +290,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyTrue(testCase.controls.adaptPCR, 'set.adaptPCR method is not working')
             testCase.controls.adaptPCR = false;
             testCase.verifyFalse(testCase.controls.adaptPCR, 'set.adaptPCR method is not working')
-            testCase.verifyError(@setAdaptPCR, invalidType.errorID);  % bad adaptPCR option 
+            testCase.verifyError(@setAdaptPCR, exceptions.invalidType.errorID);  % bad adaptPCR option 
             function setAdaptPCR
                 testCase.controls.adaptPCR = 2;
             end
@@ -393,15 +393,15 @@ classdef testControlsClass < matlab.unittest.TestCase
 
             % Test passing invalid parameter values for dream procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
-                {'boundHandling', 'invalid'}), invalidOption.errorID);
+                {'boundHandling', 'invalid'}), exceptions.invalidOption.errorID);
             
             % Test passing wrong parameter for dream procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
-                {'tolX', 1e-6}), invalidOption.errorID); % Simplex Parameter
+                {'tolX', 1e-6}), exceptions.invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
-                {'populationSize', 100000}), invalidOption.errorID); % DE Parameter
+                {'populationSize', 100000}), exceptions.invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
-                {'Nlive', 10}), invalidOption.errorID); % NS Parameter
+                {'Nlive', 10}), exceptions.invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Dream.value,...
                 {'nChains', '0.5'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
         end
@@ -441,11 +441,11 @@ classdef testControlsClass < matlab.unittest.TestCase
 
             % Test passing wrong parameter for NS procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
-                {'tolFun', 1e-6}), invalidOption.errorID); % Simplex Parameter
+                {'tolFun', 1e-6}), exceptions.invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
-                {'fWeight', 1}), invalidOption.errorID); % DE Parameter
+                {'fWeight', 1}), exceptions.invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
-                {'nSamples', 10}), invalidOption.errorID); % Dream Parameter
+                {'nSamples', 10}), exceptions.invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.NS.value,...
                 {'propScale', '0.5'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
         end
@@ -491,11 +491,11 @@ classdef testControlsClass < matlab.unittest.TestCase
 
             % Test passing wrong parameter for DE procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
-                {'tolFun', 1e-6}), invalidOption.errorID); % Simplex Parameter
+                {'tolFun', 1e-6}), exceptions.invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
-                {'Nmcmc', 1}), invalidOption.errorID); % NS Parameter
+                {'Nmcmc', 1}), exceptions.invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
-                {'nSamples', 10}), invalidOption.errorID); % Dream Parameter
+                {'nSamples', 10}), exceptions.invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.DE.value,...
                 {'crossoverProbability', '0.5'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
         end
@@ -541,11 +541,11 @@ classdef testControlsClass < matlab.unittest.TestCase
 
             % Test passing wrong parameter for Simplex procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
-                {'crossoverProbability', 0.7}), invalidOption.errorID); % DE Parameter
+                {'crossoverProbability', 0.7}), exceptions.invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
-                {'Nmcmc', 1}), invalidOption.errorID); % NS Parameter
+                {'Nmcmc', 1}), exceptions.invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
-                {'nSamples', 10}), invalidOption.errorID); % Dream Parameter
+                {'nSamples', 10}), exceptions.invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Simplex.value,...
                 {'maxIter', '1'}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
         end
@@ -573,18 +573,18 @@ classdef testControlsClass < matlab.unittest.TestCase
 
             % Test passing wrong parameter for Calculate procedure
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
-                {'maxIter', 100}), invalidOption.errorID); % Simplex Parameter
+                {'maxIter', 100}), exceptions.invalidOption.errorID); % Simplex Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
-                {'crossoverProbability', 0.7}), invalidOption.errorID); % DE Parameter
+                {'crossoverProbability', 0.7}), exceptions.invalidOption.errorID); % DE Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
-                {'Nmcmc', 1}), invalidOption.errorID); % NS Parameter
+                {'Nmcmc', 1}), exceptions.invalidOption.errorID); % NS Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
-                {'nSamples', 10}), invalidOption.errorID); % Dream Parameter
+                {'nSamples', 10}), exceptions.invalidOption.errorID); % Dream Parameter
             testCase.verifyError(@() testCase.controls.setProcedure(procedures.Calculate.value,...
                 {'calcSldDuringFit', 1}), 'MATLAB:InputParser:ArgumentFailedValidation'); 
 
             % Test exception
-            testCase.verifyError(@() testCase.controls.setProcedure('bayes'), invalidValue.errorID);
+            testCase.verifyError(@() testCase.controls.setProcedure('bayes'), exceptions.invalidValue.errorID);
 
         end
 

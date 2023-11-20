@@ -153,7 +153,7 @@ classdef domainsClass < projectClass
                 allowedNames = obj.getAllAllowedNames();
                 obj.domainContrasts.addContrast(allowedNames, varargin{:});
             else
-                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
+                throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
         end
 
@@ -165,7 +165,7 @@ classdef domainsClass < projectClass
             if isa(obj.domainContrasts, 'domainContrastsClass')
                 obj.domainContrasts.removeContrast(row);
             else
-                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
+                throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
         end
  
@@ -183,7 +183,7 @@ classdef domainsClass < projectClass
                 % Call the setContrast method
                 obj.domainContrasts.setContrast(row, allowedValues, varargin{:});
             else
-                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
+                throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
         end
         
@@ -196,7 +196,7 @@ classdef domainsClass < projectClass
                 allowedValues = obj.layers.getNames();
                 obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
             else
-                throw(invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
+                throw(exceptions.invalidProperty(sprintf('Domain Contrasts are not defined for the model type: %s', obj.modelType)));
             end
         end
 

@@ -71,7 +71,7 @@ classdef customFileClass < tableUtilities
                         % One input supplied - assume just name provided
                         newName = inputs{1};
                         if ~isText(newName)
-                            throw(invalidType('Single input is expected to be a custom object name'));
+                            throw(exceptions.invalidType('Single input is expected to be a custom object name'));
                         end
                         
                         newRow = {newName, '', supportedLanguages.Matlab.value, ''};
@@ -98,7 +98,7 @@ classdef customFileClass < tableUtilities
                     otherwise
 
                         % Other length of inputs is not recognised
-                        throw(invalidNumberOfInputs('Unrecognised input into addCustomFile'));
+                        throw(exceptions.invalidNumberOfInputs('Unrecognised input into addCustomFile'));
                         
                 end
             end
@@ -122,13 +122,13 @@ classdef customFileClass < tableUtilities
             
             % Always need three or more inputs to set data value
             if length(varargin) < 2 || mod(length(varargin), 2) ~= 0
-                throw(invalidNumberOfInputs('The input to ''setCustomFile'' should be a file entry and a set of name-value pairs'));
+                throw(exceptions.invalidNumberOfInputs('The input to ''setCustomFile'' should be a file entry and a set of name-value pairs'));
             end
                 
             % First input needs to be a data number or name
             if isnumeric(row)
                 if (row > obj.rowCount) || (row < 1)
-                    throw(indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.rowCount)));
+                    throw(exceptions.indexOutOfRange(sprintf('The index %d is not within the range 1 - %d', row, obj.rowCount)));
                 end
             elseif isText(row)
                 row = obj.findRowIndex(row, customNames, sprintf('Custom file object name %s not recognised', row));
@@ -279,7 +279,7 @@ classdef customFileClass < tableUtilities
             % Name must not be an existing name
             existingNames = obj.varTable{:,1};
             if any(strcmpi(name,existingNames))
-                throw(duplicateName('Duplicate custom file names are not allowed'));
+                throw(exceptions.duplicateName('Duplicate custom file names are not allowed'));
             end
             
             % Set the relevant name

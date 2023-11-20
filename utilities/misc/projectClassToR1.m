@@ -318,7 +318,7 @@ function inputBlock = parseR1Problem(varargin)
         actualDiffs = intersect(diffs,allowedDiffs);
         
         if ~isequal(actualDiffs,diffs)
-            throw(unrecognizedR1Problem);
+            throw(exceptions.unrecognizedR1Problem);
         end
     end
     

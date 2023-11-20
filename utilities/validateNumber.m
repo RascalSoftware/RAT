@@ -8,6 +8,6 @@ function input = validateNumber(input, message)
     end
     
     if ~isnumeric(input)
-        throw(invalidType(message));
+        throw(exceptions.invalidType(message));
     end
 end

@@ -53,7 +53,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.resolution.showPriors = true;
             testCase.verifyTrue(testCase.resolution.showPriors);
             testCase.verifyTrue(testCase.resolution.resolPars.showPriors);
-            testCase.verifyError(@setShowPriors, invalidType.errorID);  % showPrior should be logical 
+            testCase.verifyError(@setShowPriors, exceptions.invalidType.errorID);  % showPrior should be logical 
             function setShowPriors
                 testCase.resolution.showPriors = 'a';
             end
@@ -91,9 +91,9 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.verifyEqual(string(testCase.resolution.resolutions.varTable{end, :}),...
                                     ["Resolution 5", string(allowedTypes.Function.value), "function_name", "Resolution par 1", "Resolution par 3", "", ""], ...
                                     'addResolution method not working');
-            testCase.verifyError(@() testCase.resolution.addResolution('New', 'fixed'), invalidOption.errorID);
-            testCase.verifyError(@() testCase.resolution.addResolution('New', allowedTypes.Constant), invalidNumberOfInputs.errorID);           
-            testCase.verifyError(@() testCase.resolution.addResolution('New', allowedTypes.Constant.value, 6), indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.resolution.addResolution('New', 'fixed'), exceptions.invalidOption.errorID);
+            testCase.verifyError(@() testCase.resolution.addResolution('New', allowedTypes.Constant), exceptions.invalidNumberOfInputs.errorID);           
+            testCase.verifyError(@() testCase.resolution.addResolution('New', allowedTypes.Constant.value, 6), exceptions.indexOutOfRange.errorID);
         end
 
         function testRemoveResolution(testCase)
@@ -121,7 +121,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{1, 2}, string(allowedTypes.Constant.value), 'setResolutionValue method not working');
             testCase.resolution.setResolution('Resolution 1', 'type', allowedTypes.Function); 
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{1, 2}, string(allowedTypes.Function.value), 'setResolutionValue method not working');
-            testCase.verifyError(@() testCase.resolution.setResolution(2, 'type', 'random'), invalidOption.errorID);
+            testCase.verifyError(@() testCase.resolution.setResolution(2, 'type', 'random'), exceptions.invalidOption.errorID);
             
             testCase.resolution.setResolution(3, 'Value1', 'random');
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 3}, "random", 'setResolutionValue method not working');
@@ -130,9 +130,9 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             
             testCase.resolution.setResolution(2, 'Value2', 'Resolution par 1');
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{2, 4}, "Resolution par 1", 'setResolutionValue method not working');
-            testCase.verifyError(@() testCase.resolution.setResolution(2, 'Value2', 'random'), nameNotRecognised.errorID);
-            testCase.verifyError(@() testCase.resolution.setResolution(5, 'Value2', 'random'), indexOutOfRange.errorID);
-            testCase.verifyError(@() testCase.resolution.setResolution(true, 'Value2', 'random'), invalidType.errorID);
+            testCase.verifyError(@() testCase.resolution.setResolution(2, 'Value2', 'random'), exceptions.nameNotRecognised.errorID);
+            testCase.verifyError(@() testCase.resolution.setResolution(5, 'Value2', 'random'), exceptions.indexOutOfRange.errorID);
+            testCase.verifyError(@() testCase.resolution.setResolution(true, 'Value2', 'random'), exceptions.invalidType.errorID);
             
             testCase.resolution.setResolution(3, 'name', 'New Name', 'type', allowedTypes.Constant, 'value1', 'Resolution par 3', 'value2', '');
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{3, 1}, "New Name", 'setResolutionValue method not working');

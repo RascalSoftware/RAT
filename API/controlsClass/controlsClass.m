@@ -68,16 +68,16 @@ classdef controlsClass < matlab.mixin.CustomDisplay
 
         function obj = set.resamPars(obj,val)
             if length(val) ~= 2
-                throw(invalidValue('resamPars must have length of 2'));
+                throw(exceptions.invalidValue('resamPars must have length of 2'));
             end
 
             validateNumber(val, 'resamPars must be a number array');
 
             if (val(1) < 0 || val(1) > 1)
-                throw(invalidValue('resamPars(0) must be between 0 and 1'));
+                throw(exceptions.invalidValue('resamPars(0) must be between 0 and 1'));
             end
             if val(2) <= 0
-                throw(invalidValue('resamPars(1) must be greater than 0'));
+                throw(exceptions.invalidValue('resamPars(1) must be greater than 0'));
             end
             obj.resamPars = val;
         end
@@ -103,7 +103,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.populationSize(obj, val)
             validateNumber(val, 'populationSize must be a number');
             if val < 1
-                throw(invalidValue('populationSize must be greater or equal to 1'));
+                throw(exceptions.invalidValue('populationSize must be greater or equal to 1'));
             end
             obj.populationSize = val;
         end
@@ -115,7 +115,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.crossoverProbability(obj,val)
             validateNumber(val, 'crossoverProbability must be a number');
             if (val < 0 || val > 1)
-                throw(invalidValue('crossoverProbability must be between 0 and 1'));
+                throw(exceptions.invalidValue('crossoverProbability must be between 0 and 1'));
             end
             obj.crossoverProbability = val;
         end
@@ -130,7 +130,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.targetValue(obj,val)
             validateNumber(val, 'targetValue must be a number');
             if val < 1
-                throw(invalidValue('targetValue must be greater or equal to 1'));
+                throw(exceptions.invalidValue('targetValue must be greater or equal to 1'));
             end
             obj.targetValue = val;
         end
@@ -138,7 +138,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.numGenerations(obj, val)
             validateNumber(val, 'numGenerations value must be a number');
             if val < 1
-                throw(invalidValue('numGenerations must be greater or equal to 1'));
+                throw(exceptions.invalidValue('numGenerations must be greater or equal to 1'));
             end
             obj.numGenerations = val;
         end
@@ -147,7 +147,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.Nlive(obj, val)
             validateNumber(val, 'Nlive must be a number');
             if val < 1
-                throw(invalidValue('Nlive must be greater or equal to 1'));
+                throw(exceptions.invalidValue('Nlive must be greater or equal to 1'));
             end
             obj.Nlive = val;
         end
@@ -155,7 +155,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.Nmcmc(obj, val)
             validateNumber(val, 'Nmcmc must be a number');
             if val < 0
-                throw(invalidValue('Nmcmc must be greater or equal than 0'));
+                throw(exceptions.invalidValue('Nmcmc must be greater or equal than 0'));
             end
             obj.Nmcmc = val;
         end
@@ -163,7 +163,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.propScale(obj, val)
             validateNumber(val, 'propScale must be a number');
             if (val < 0 || val > 1)
-                throw(invalidValue('propScale must be between 0 and 1'));
+                throw(exceptions.invalidValue('propScale must be between 0 and 1'));
             end
             obj.propScale = val;
         end
@@ -171,7 +171,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.nsTolerance(obj,val)
             validateNumber(val, 'nsTolerance must be a number ');
             if val < 0
-                throw(invalidValue('nsTolerance must be greater or equal to 0'));
+                throw(exceptions.invalidValue('nsTolerance must be greater or equal to 0'));
             end
             obj.nsTolerance = val;
         end
@@ -180,7 +180,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.nSamples(obj,val)
             validateNumber(val, 'nSample must be a number ');
             if val < 0
-                throw(invalidValue('nSample must be greater or equal to 0'));
+                throw(exceptions.invalidValue('nSample must be greater or equal to 0'));
             end
             obj.nSamples = val;
         end
@@ -188,7 +188,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.nChains(obj,val)
             validateNumber(val, 'nChains must be a number ');
             if (~(round(val) == val) || val <= 0 || isnan(val) || isinf(val))
-                throw(invalidValue('nChains must be a finite integer greater than 0'));
+                throw(exceptions.invalidValue('nChains must be a finite integer greater than 0'));
             end
             obj.nChains = val;
         end
@@ -196,7 +196,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.jumpProbability(obj,val)
             validateNumber(val, 'jumpProbability must be a number');
             if (val < 0 || val > 1)
-                throw(invalidValue('Jump probability jumpProbability must be a fraction between 0 and 1'));
+                throw(exceptions.invalidValue('JumpProbability must be a fraction between 0 and 1'));
             end
             obj.jumpProbability = val;
         end
@@ -204,7 +204,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.pUnitGamma(obj,val)
             validateNumber(val, 'pUnitGamma must be a number');
             if (val < 0 || val > 1)
-                throw(invalidValue('pUnitGamma must be a fraction between 0 and 1'));
+                throw(exceptions.invalidValue('pUnitGamma must be a fraction between 0 and 1'));
             end
             obj.pUnitGamma = val;
         end
@@ -282,7 +282,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
 
                 otherwise
                     % invalid procedure
-                    throw(invalidValue(sprintf('%s is not a supported procedure. The procedure must be a procedures enum or one of the following strings (%s)', procedure, strjoin(procedures.values(), ', '))));
+                    throw(exceptions.invalidValue(sprintf('%s is not a supported procedure. The procedure must be a procedures enum or one of the following strings (%s)', procedure, strjoin(procedures.values(), ', '))));
 
             end
 
@@ -644,7 +644,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
                 inputBlock = p.Results;
             catch ME
                 if (strcmp(ME.identifier,'MATLAB:InputParser:UnmatchedParameter'))
-                    throw(invalidOption(errorMsg));
+                    throw(exceptions.invalidOption(errorMsg));
                 else
                     rethrow(ME)
                 end

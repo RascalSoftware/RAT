@@ -15,7 +15,7 @@ function input = validateOption(input, enum,  message)
     
     options = enumeration(enum);
     if ~(isenum(input) || isa(input, class(options(1).value)))
-        throw(invalidType(message));
+        throw(exceptions.invalidType(message));
     end
 
     if ~isenum(input)
@@ -23,7 +23,7 @@ function input = validateOption(input, enum,  message)
     end
     
     if isempty(input) || ~ismember(input, options)
-        throw(invalidOption(message));
+        throw(exceptions.invalidOption(message));
     end
     
     enum = str2func(enum); % Gets class handle via name
@@ -33,11 +33,11 @@ end
 function mustBeCustomEnum(value)
     % Check for name of class with enumeration
     if ~isText(value)
-        throwAsCaller(invalidType('Enum class argument must be passed as string or char array.'));
+        throwAsCaller(exceptions.invalidType('Enum class argument must be passed as string or char array.'));
     end
     
     metaClass = meta.class.fromName(value);
     if isempty(metaClass) || metaClass.Enumeration ~= 1 || metaClass.SuperclassList.Name ~= "customEnum"
-        throwAsCaller(invalidValue(sprintf('The enum class (''%s'') must inherit customEnum and have an enumeration block.', value)));
+        throwAsCaller(exceptions.invalidValue(sprintf('The enum class (''%s'') must inherit customEnum and have an enumeration block.', value)));
     end
 end

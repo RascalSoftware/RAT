@@ -209,7 +209,7 @@ coder.varsize('problem.resample',[1 Inf],[0 1]);
 coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
 coder.varsize('result{1}{:}',[Inf 2],[1 0]);
 
-coder.varsize('result{2}',[Inf 1],[1 0]);           %Simulatin
+coder.varsize('result{2}',[Inf 1],[1 0]);           %Simulation
 coder.varsize('result{2}{:}',[Inf 2],[1 0]);
 
 coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data

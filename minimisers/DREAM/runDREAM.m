@@ -48,26 +48,19 @@ totalGen = controls.nSamples;                   % Total number of generations
 nChains = controls.nChains;                     % Number of chains
 
 % Set the relevant parameters for the DREAM sampler....
-yesNo = 'no';
-coder.varsize('yesNo',[1 3],[0 1]); % Variable size to allow for 'no'!
-
 DREAMPar.d = length(fitParamNames);             % Dimension of the problem
 DREAMPar.N = nChains;                           % Number of Markov Chains
 DREAMPar.T = ceil(totalGen / nChains);          % Number of generations per chain
 %DREAMPar.lik = 1;                              % Model output is likelihood
 
 % Parallel or not...
-DREAMPar.parallel = yesNo;
+DREAMPar.parallel = false;
 DREAMPar.CPU = 1;
 
 % Jump probabilities...
 DREAMPar.lambda = controls.jumpProbability;
 DREAMPar.pUnitGamma = controls.pUnitGamma;
-if controls.adaptPCR
-    DREAMPar.adaptPCR = 'yes';
-else
-    DREAMPar.adaptPCR = 'no';
-end
+DREAMPar.adaptPCR = controls.adaptPCR;
 
 % This will change...
 % Initial sampling and parameter range

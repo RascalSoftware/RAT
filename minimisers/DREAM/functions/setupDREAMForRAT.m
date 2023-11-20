@@ -12,7 +12,7 @@ function [DREAMPar] = setupDREAMForRAT(DREAMPar)
 % end
 
 % Now check if we want parallel execution of chains or not?
-if strcmp(DREAMPar.parallel,'no')
+if ~DREAMPar.parallel
     
     % We use 1 CPU (processor)
     DREAMPar.CPU = 1;
@@ -27,7 +27,7 @@ else
 end
     
     % If input/output writing is done we need directories for each worker
-%     if strcmp(DREAMPar.IO,'yes'),
+%     if DREAMPar.IO
 %         
 %         % Go to directory with problem files
 %         cd(EXAMPLE_dir)

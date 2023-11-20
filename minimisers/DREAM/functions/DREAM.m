@@ -131,21 +131,21 @@ function [chain,output,fx,log_L] = DREAM(Func_name,DREAMPar,Par_info,Meas_info, 
 if nargin < 4, Meas_info.Y = []; end
 if isempty(Meas_info), Meas_info.Y = []; end
 
-if ~isfield(DREAMPar,'restart') || strcmp(DREAMPar.restart,'no')
+if ~isfield(DREAMPar,'restart') || ~DREAMPar.restart
     % Initialize the main variables used in DREAM
     [DREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
         gen] = setupDREAM(DREAMPar,Par_info,Meas_info);
     % Check for setup errors
     [stop,fid] = checkDREAM(DREAMPar,Par_info,Meas_info);
     % Return to main program
-    if strcmp(stop,'yes'); return; end
+    if stop; return; end
     % Create computing environment (depending whether multi-core is used)
     [DREAMPar,f_handle] = setDREAMParam(DREAMPar,Func_name);
     % Now check how the measurement sigma is arranged (estimated or defined)
     Meas_info = checkSigma(Meas_info); T_start = 2;
     % Create the initial states of each of the chains (initial population)
     [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,f_handle,chain,output,log_L, varargin{:});
-elseif strcmp(DREAMPar.restart,'yes')
+elseif DREAMPar.restart
     % Print to screen restart run
     disp('Restart run');
     % If a restart run is being done: just load the output from the previous ongoing trial
@@ -197,7 +197,7 @@ for t = T_start : DREAMPar.T
     end
     
     % Check whether we update the crossover values
-    if strcmp(DREAMPar.adaptPCR,'yes')
+    if DREAMPar.adaptPCR
         % Calculate the standard deviation of each dimension of X
         r = repmat(std(X(1:DREAMPar.N,1:DREAMPar.d)),DREAMPar.N,1);
         % Compute the Euclidean distance between new X and old X
@@ -227,7 +227,7 @@ for t = T_start : DREAMPar.T
         
         % Check whether to update individual pCR values
         if ( t <= DREAMPar.T / 10 )
-            if strcmp(DREAMPar.adaptPCR,'yes')
+            if DREAMPar.adaptPCR
                 % Update pCR values
                 [pCR,lCR] = adaptPCR(DREAMPar,CR,delta_tot,lCR);
             end
@@ -252,7 +252,7 @@ for t = T_start : DREAMPar.T
         iteration = iteration + 1;  gen = 1; totaccept = 0;
         
         % Save the output or not?
-        if strcmp(lower(DREAMPar.save),'yes')
+        if DREAMPar.save
             
             % Store in memory
             save DREAM.mat

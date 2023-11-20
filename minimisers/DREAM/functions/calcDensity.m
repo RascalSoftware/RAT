@@ -29,7 +29,7 @@ function [log_L,log_PR] = calcDensity(x,fx,DREAMPar,Par_info,Meas_info,ratInputs
 % ----------------------- Calculate log-prior  ----------------------------
 
 % No ABC --> regular priors (pdfs)
-% if strcmp(DREAMPar.ABC,'no')
+% if ~DREAMPar.ABC
 %     
 %     % Calculate the log-prior
 %     if isfield(Par_info,'prior_marginal')

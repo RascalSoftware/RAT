@@ -25,27 +25,26 @@ end
 fclose(fid);
 
 % Check whether output simulations are requested
-switch DREAMPar.modout
-    case 'no'
-        % Return an empty matrix
+if ~DREAMPar.modout
+    % Return an empty matrix
+    fx = [];
+else
+    if Meas_info.N > 0
+        % Open the binary file with model simulations
+        fid_fx = fopen('fx.bin','r','n');
+        % Now read the binary file
+        fx = fread(fid_fx, [ Meas_info.N, floor(DREAMPar.T*DREAMPar.N/DREAMPar.thinning)+1 ],'double')';
+        % Now close the file again
+        fclose(fid_fx);
+    else
         fx = [];
-    case 'yes'
-        if Meas_info.N > 0
-            % Open the binary file with model simulations
-            fid_fx = fopen('fx.bin','r','n');
-            % Now read the binary file
-            fx = fread(fid_fx, [ Meas_info.N, floor(DREAMPar.T*DREAMPar.N/DREAMPar.thinning)+1 ],'double')';
-            % Now close the file again
-            fclose(fid_fx);
-        else
-            fx = [];
-        end
+    end
 end
 
 % Close MATLAB pool (if CPU > 1) and remove file if
 % if DREAMPar.CPU > 1
 %     % If input output writing, then remove directories
-%     if strcmp(DREAMPar.IO,'yes')
+%     if DREAMPar.IO
 %         % Go to directory with problem files
 %         cd(EXAMPLE_dir)
 %         % Remove the directories

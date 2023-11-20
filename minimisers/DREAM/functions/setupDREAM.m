@@ -10,13 +10,10 @@ function [outDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,ite
 Rr = zeros(DREAMPar.N,DREAMPar.N);
 coder.varsize('Rr',[1e4 1e4],[1 1]);
 
-yesNo = 'no';
-coder.varsize('yesNo',[1 3],[0 1]); % Variable size to allow for 'no'!
-
-outDREAMPar = struct('d',0,'N',0,'T',0,'parallel','no','CPU',0,'lambda',0,...
+outDREAMPar = struct('d',0,'N',0,'T',0,'parallel',false,'CPU',0,'lambda',0,...
     'pUnitGamma',0,'nCR',0,'delta',0,'steps',0,'zeta',0,'outlier','iqr',...
-    'adaptPCR',yesNo,'thinning',0,'epsilon',0,'ABC',yesNo,'IO',yesNo,'modout',yesNo,...
-    'restart',yesNo,'save',yesNo,'R',Rr);
+    'adaptPCR',false,'thinning',0,'epsilon',0,'ABC',false,'IO',false,'modout',false,...
+    'restart',false,'save',false,'R',Rr);
 
 
 % Generate new seed
@@ -41,7 +38,7 @@ for i = 1:length(setFieldNames)
 end
 
 % Set default values algorithmic variables DREAM - if not specified
-value = {3,3,max(max(floor(DREAMPar.T/50),1),50),0.01,1e-12,'iqr',0.04,'no',1,0.025};
+value = {3,3,max(max(floor(DREAMPar.T/50),1),50),0.01,1e-12,'iqr',0.04,false,1,0.025};
 % Name variable
 name = {'nCR','delta','steps','lambda','zeta','outlier','pUnitGamma','adaptPCR','thinning','epsilon'};
 for j = 1 : numel(name)
@@ -58,9 +55,9 @@ end
 default = {'ABC','parallel','IO','modout','restart','save'};
 for j = 1 : numel(default)
     if ~isfield(DREAMPar,default{j})
-        % Set variable of DREAMPar to "No"
-        %evalstr = strcat('DREAMPar.',char(default(j)),'=''no''',';'); eval(evalstr);
-        outDREAMPar.(default{j}) = 'no';
+        % Set variable of DREAMPar to false
+        %evalstr = strcat('DREAMPar.',char(default(j)),'=false',';'); eval(evalstr);
+        outDREAMPar.(default{j}) = false;
     else
         outDREAMPar.(default{j}) = DREAMPar.(default{j});
     end

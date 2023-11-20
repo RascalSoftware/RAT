@@ -58,8 +58,8 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 %       Each cell is {1 x Inf char}
 %
 % {14} - inputProblemDef.customFiles
-%          array of cells
-%        Each cell is {fName, lang, path}
+%        {1 x nCustomFiles}  array of cells
+%        Each cell is {1 x Inf char}
 %
 % {15} - inputProblemDef.backgroundTypes
 %        {1 x nBackgrounds} array of cells
@@ -222,7 +222,7 @@ for i=1:length(priorFields)
 end
 
 priors.priorNames = allPriors(:, 1);
-priors.priorVals = cell2mat(allPriors(:, 2:end));   % Note move to double now for this...
+priors.priorVals = cell2mat(allPriors(:, 2:end));
 
 
 %% Split up the contrastBacks array

@@ -139,7 +139,7 @@ function [chain,output,fx,log_L] = ratDREAM(dreamVariables,Par_info,Meas_info,ra
 % ------------------------------------------------------------------------
 Meas_info.Y = 0;
 
-%if ~isfield(dreamVariables,'restart') || strcmp(dreamVariables.restart,'no')
+%if ~isfield(dreamVariables,'restart') || ~dreamVariables.restart
 
     % Initialize the main variables used in DREAM
     [inDREAMPar,Par_info,Meas_info,chain,output,log_L,Table_gamma,iloc,iteration,...
@@ -150,7 +150,7 @@ Meas_info.Y = 0;
     stop = checkDREAM(inDREAMPar,Par_info,Meas_info);
 
     % Return to main program
-%   if strcmp(stop,'yes'); return; end
+%   if stop; return; end
 
     % Create computing environment (depending whether multi-core is used)
     [DREAMPar] = setDREAMParam(inDREAMPar);
@@ -169,7 +169,7 @@ Meas_info.Y = 0;
     % Create the initial states of each of the chains (initial population)
     [chain,output,X,fx,CR,pCR,lCR,delta_tot,log_L] = initializeDREAM(DREAMPar,Par_info,Meas_info,chain,output,log_L,ratInputs);
 
-% elseif strcmp(DREAMPar.restart,'yes')
+% elseif DREAMPar.restart
 % 
 %     % Print to screen restart run
 %     disp('Restart run');
@@ -222,7 +222,7 @@ for t = T_start : DREAMPar.T
     end
     
     % Check whether we update the crossover values
-    if strcmp(DREAMPar.adaptPCR,'yes')
+    if DREAMPar.adaptPCR
         % Calculate the standard deviation of each dimension of X
         r = repmat(std(X(1:DREAMPar.N,1:DREAMPar.d)),DREAMPar.N,1);
         % Compute the Euclidean distance between new X and old X
@@ -252,7 +252,7 @@ for t = T_start : DREAMPar.T
         
         % Check whether to update individual pCR values
         if ( t <= DREAMPar.T / 10 )
-            if strcmp(DREAMPar.adaptPCR,'yes')
+            if DREAMPar.adaptPCR
                 % Update pCR values
                 [pCR,lCR] = adaptPCR(DREAMPar,CR,delta_tot,lCR);
             end
@@ -277,7 +277,7 @@ for t = T_start : DREAMPar.T
         iteration = iteration + 1;  gen = 1; totaccept = 0;
         
         % Save the output or not?
-%         if strcmp(lower(DREAMPar.save),'yes')
+%         if DREAMPar.save
 %             
 %             % Store in memory
 %             save DREAM.mat

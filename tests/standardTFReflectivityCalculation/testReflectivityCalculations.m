@@ -165,16 +165,16 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             
             testCase.controls.parallel = whichParallel;
             if useCompiled
-                [problem, result] = reflectivityCalculation_mex(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                [problem, result] = reflectivityCalculation_mex(testCase.problemDef, testCase.problemDefCells, testCase.controls);
             else        
-                [problem, result] = reflectivityCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+                [problem, result] = reflectivityCalculation(testCase.problemDef,testCase.problemDefCells,testCase.controls);
             end
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testStandardTFReflectivityCalculation(testCase)
-            [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+            [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -189,11 +189,11 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.standardLayers.calculate(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.standardLayers.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
                 case 'customLayersTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.customLayers.calculate(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.customLayers.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
                 case 'customXYTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.customXY.calculate(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.customXY.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
             end
 
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -212,17 +212,17 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = standardTF.standardLayers.single(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'customLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = standardTF.customLayers.single(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = standardTF.customXY.single(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
             end
 
             testCase.verifyEqual(outSsubs, testCase.TFOutSsubs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -249,17 +249,17 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = standardTF.standardLayers.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'customLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = standardTF.customLayers.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = standardTF.customXY.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
             end
 
             testCase.verifyEqual(outSsubs, testCase.TFOutSsubs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -286,17 +286,17 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = standardTF.standardLayers.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'customLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = standardTF.customLayers.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = standardTF.customXY.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
             end
 
             testCase.verifyEqual(outSsubs, testCase.TFOutSsubs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

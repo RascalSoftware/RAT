@@ -1,7 +1,6 @@
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
-    allRoughs] = single(problemDef,problemDefCells,...
-    problemDefLimits,controls)
+    allRoughs] = single(problemDef,problemDefCells,controls)
 % Single threaded version of the custom layers, domainsTF reflectivity
 % calculation. The function extracts the relevant parameters from the input
 % arrays, allocates these on a pre-contrast basis, then calls the 'core' 
@@ -19,7 +18,7 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
+~, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
 
 calcSld = controls.calcSldDuringFit;
 useImaginary = problemDef.useImaginary;
@@ -37,8 +36,7 @@ nbss = zeros(numberOfContrasts,1);
 resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
-chis =  zeros(numberOfContrasts,1);
-allLayers = cell(numberOfContrasts,2); 
+chis =  zeros(numberOfContrasts,1); 
 layerSlds = cell(numberOfContrasts,2);
 domainSldProfiles = cell(numberOfContrasts,2);
 shifted_data = cell(numberOfContrasts,1);

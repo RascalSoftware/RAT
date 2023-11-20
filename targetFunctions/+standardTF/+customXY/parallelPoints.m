@@ -1,7 +1,6 @@
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = parallelPoints(problemDef,problemDefCells,...
-    problemDefLimits,controls)
+    allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
 
 % Multi threaded version of the custom XY profile over reflectivity points
 % for standardTF reflectivity calculation. 
@@ -15,9 +14,9 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  customFiles] = parseCells(problemDefCells);
 
 % Extract individual parameters from problemDef struct
-[numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
+[numberOfContrasts, ~, cBacks, cShifts, cScales, cNbas, cNbss,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-numberOfLayers, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);      
+~, ~, backsType, cCustFiles] =  extractProblemParams(problemDef);      
             
 %Pre-Allocation...
 backgs = zeros(numberOfContrasts,1);
@@ -28,10 +27,8 @@ nbss = zeros(numberOfContrasts,1);
 resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
-chis =  zeros(numberOfContrasts,1);
-allLayers = cell(numberOfContrasts,1); 
+chis =  zeros(numberOfContrasts,1); 
 layerSlds = cell(numberOfContrasts,1);
-sldProfiles = cell(numberOfContrasts,1);
 shifted_data = cell(numberOfContrasts,1);
 
 reflectivity = cell(numberOfContrasts,1);

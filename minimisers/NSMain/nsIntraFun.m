@@ -9,7 +9,7 @@ function fval = nsIntraFun(data,p)
     problemDef.fitpars = p;
 
     problemDef = unpackparams(problemDef,controls);
-    [problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+    [problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
     fval = (-problemDef.calculations.sum_chi/2); 
 end

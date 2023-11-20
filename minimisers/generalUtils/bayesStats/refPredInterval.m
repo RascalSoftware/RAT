@@ -71,7 +71,7 @@ for n = 1:numberOfContrasts
         % problem = getappdata(0,'problem');
         problemDef.fitpars = thisRow;
         problemDef = unpackparams(problemDef,controls);
-        [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+        [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
         result = parseResultToStruct(problem,result);
 
 %         ref.bestSlds = result.sldProfiles;

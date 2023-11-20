@@ -5,7 +5,6 @@ function Lik = DREAMWrapper(pars,ratInputs)
 problem = ratInputs.problemDef;
 control = ratInputs.controls;
 cells = ratInputs.problemDefCells;
-limits = ratInputs.problemDefLimits;
 
 % Put the current parameters into problem
 problem.fitpars = pars;
@@ -14,7 +13,7 @@ problem.fitpars = pars;
 problem = unpackparams(problem,control);
 
 % Calculate....
-[outProblem,~] = reflectivityCalculation(problem,cells,limits,control);
+[outProblem,~] = reflectivityCalculation(problem,cells,control);
 
 % Function value is chi-squared....
 chiSquared = outProblem.calculations.sum_chi;

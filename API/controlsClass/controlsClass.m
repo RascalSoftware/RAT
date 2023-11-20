@@ -196,7 +196,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = set.jumpProbability(obj,val)
             validateNumber(val, 'jumpProbability must be a number');
             if (val < 0 || val > 1)
-                throw(exceptions.invalidValue('Jump probability lambda must be a fraction between 0 and 1'));
+                throw(exceptions.invalidValue('JumpProbability must be a fraction between 0 and 1'));
             end
             obj.jumpProbability = val;
         end

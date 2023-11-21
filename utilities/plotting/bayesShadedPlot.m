@@ -1,4 +1,4 @@
-function bayesShadedPlot(problem,result,varargin)
+function bayesShadedPlot(result,varargin)
 
 % Plot the shaded reflectivities from Bayes output
 % from RAT

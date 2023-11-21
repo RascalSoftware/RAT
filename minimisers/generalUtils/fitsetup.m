@@ -3,13 +3,13 @@ function [problemDef,fitNames] = fitsetup(problemDef,problemDefCells,problemDefL
 if isfield(controls,'checks')
     checks = controls.checks;
 else
-    checks.params_fitYesNo = ones(length(problemDef.params),1);
-    checks.backs_fitYesNo = ones(length(problemDef.backs),1);
-    checks.shifts_fitYesNo = ones(length(problemDef.shifts),1);
-    checks.scales_fitYesNo = ones(length(problemDef.sf),1);
-    checks.nbairs_fitYesNo = ones(length(problemDef.nba),1);
-    checks.nbsubs_fitYesNo = ones(length(problemDef.nbs),1);
-    checks.resol_fitYesNo = ones(length(problemDef.res),1);
+    checks.fitParams = ones(length(problemDef.params),1);
+    checks.fitBacks = ones(length(problemDef.backs),1);
+    checks.fitShifts = ones(length(problemDef.shifts),1);
+    checks.fitScales = ones(length(problemDef.sf),1);
+    checks.fitNbairs = ones(length(problemDef.nba),1);
+    checks.fitNbsubs = ones(length(problemDef.nbs),1);
+    checks.fitResol = ones(length(problemDef.res),1);
 end
 
 

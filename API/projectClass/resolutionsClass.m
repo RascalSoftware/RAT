@@ -181,7 +181,7 @@ classdef resolutionsClass < handle
             resolStruct.resolParNames = resolParamsStruct.paramNames;
             resolStruct.resolParConstr = resolParamsStruct.paramConstr;
             resolStruct.resolPars = resolParamsStruct.params;
-            resolStruct.resolFitYesNo = resolParamsStruct.fitYesNo;
+            resolStruct.fitResol = resolParamsStruct.fit;
             resolStruct.nResolPars = resolParamsStruct.nParams;
             resolStruct.resolParPriors = resolParamsStruct.priors;
             

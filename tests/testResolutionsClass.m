@@ -196,7 +196,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             expected.resolParNames =  {'Resolution par 1'};
             expected.resolParConstr = {[0.0100 0.0500]};
             expected.resolPars = 0.0300;
-            expected.resolFitYesNo = 0;
+            expected.fitResol = 0;
             expected.nResolPars = 1;
             expected.resolParPriors= {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf}};
             expected.resolutionNames = "Resolution 1";
@@ -210,7 +210,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             expected.resolParNames =  {'Resolution par 1', 'Resolution par 2', 'Resolution par 3'};
             expected.resolParConstr = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};
             expected.resolPars = [0.0300, 0.1900, 0.1700];
-            expected.resolFitYesNo = [0, 1, 0];
+            expected.fitResol = [0, 1, 0];
             expected.nResolPars = 3;
             expected.resolParPriors= {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf};... 
                                         {'Resolution par 2', priorTypes.Gaussian.value, -1, 1};... 

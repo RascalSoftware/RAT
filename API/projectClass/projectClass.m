@@ -858,7 +858,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Parameters
             params = obj.parameters.toStruct();
             paramStruct = cell2struct(struct2cell(params),{'paramNames',...
-                'nParams','paramConstr','params','paramFitYesNo','paramPriors'});
+                'nParams','paramConstr','params','fitParams','paramPriors'});
             
             % Backgrounds
             backgroundStruct = obj.background.toStruct();
@@ -869,22 +869,22 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Bulk in
             bulkInStruct = obj.bulkIn.toStruct();
             bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'nbairNames',...
-                'nNba','nbairConstr','nbairs','nbaFitYesNo','nbaPriors'});
+                'nNba','nbairConstr','nbairs','fitNba','nbaPriors'});
             
             % Bulk out
             bulkOutStruct = obj.bulkOut.toStruct();
             bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'nbsubNames',...
-                'nNbs','nbsubConstr','nbsubs','nbsFitYesNo','nbsPriors'});
+                'nNbs','nbsubConstr','nbsubs','fitNbs','nbsPriors'});
             
             % Scalefactors
             scalefactorStruct = obj.scalefactors.toStruct();
             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{'scalefactorNames',...
-                'nScalefactors','scalefactorConstr','scalefactors','scalefactorFitYesNo','scalefactorPriors'});
+                'nScalefactors','scalefactorConstr','scalefactors','fitScalefactor','scalefactorPriors'});
             
             % Qzshifts
             qzshiftStruct = obj.qzshifts.toStruct();
             qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{'qzshiftNames',...
-                'nQzshifts','qzshiftConstr','qzshifts','qzshiftFitYesNo','qzshiftPriors'});
+                'nQzshifts','qzshiftConstr','qzshifts','fitQzshift','qzshiftPriors'});
             
             % Layers
             if isa(obj.layers, 'layersClass')

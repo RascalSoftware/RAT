@@ -209,7 +209,7 @@
          expected.backParNames =  {'background par 1'};
          expected.backParConstr = {[0.0100 0.0500]};
          expected.backParVals = 0.0300;
-         expected.backParFitYesNo = 0;
+         expected.fitBackPar = 0;
          expected.nBackPars = 1;
          expected.backsPriors= {{'background par 1', priorTypes.Uniform.value, 0, Inf}};
          expected.backgroundNames = "background 1";
@@ -223,7 +223,7 @@
          expected.backParNames =  {'background par 1', 'background par 2', 'background par 3'};
          expected.backParConstr = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};
          expected.backParVals = [0.0300, 0.1900, 0.1700];
-         expected.backParFitYesNo = [0, 1, 0];
+         expected.fitBackPar = [0, 1, 0];
          expected.nBackPars = 3;
          expected.backsPriors= {{'background par 1', priorTypes.Uniform.value, 0, Inf};... 
                                 {'background par 2', priorTypes.Gaussian.value, -1, 1};... 

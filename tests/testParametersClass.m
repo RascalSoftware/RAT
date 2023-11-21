@@ -215,7 +215,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(paramsStruct.nParams, 1, 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.paramConstr, {[10 30]}, 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.params, 20, 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.fitYesNo, 1, 'toStruct method not working');
+            testCase.verifyEqual(paramsStruct.fit, 1, 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.priors, {{'Tails Thickness', priorTypes.Uniform.value, 0, Inf}}, 'toStruct method not working');
 
             params.varTable = [params.varTable; vertcat(testCase.parameters(2:3, :))];
@@ -224,7 +224,7 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(paramsStruct.nParams, 3, 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.paramConstr, {[10, 30], [3, 16], [2, 9]}, 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.params, [20, 11, 5], 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.fitYesNo, [1, 0, 1], 'toStruct method not working');   
+            testCase.verifyEqual(paramsStruct.fit, [1, 0, 1], 'toStruct method not working');   
             testCase.verifyEqual(paramsStruct.priors, {{'Tails Thickness', priorTypes.Uniform.value, 0, Inf}; ...
                                 {'Heads Thickness', priorTypes.Gaussian.value, -1, 1}; {'Tails Roughness', priorTypes.Uniform.value, 0, Inf}}, 'toStruct method not working');
         end

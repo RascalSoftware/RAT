@@ -339,7 +339,7 @@ classdef parametersClass < tableUtilities
             
             outStruct.params = obj.varTable{:,3};
             
-            outStruct.fitYesNo = double(obj.varTable{:,5});
+            outStruct.fit = double(obj.varTable{:,5});
             
             priors = table2cell(obj.varTable(:,6:8));
             priors = [outStruct.paramNames priors];
@@ -362,7 +362,7 @@ classdef parametersClass < tableUtilities
             outStruct.paramNames = outStruct.paramNames';
             %outStruct.paramConstr = outStruct.paramConstr;
             outStruct.params = outStruct.params';
-            outStruct.fitYesNo = outStruct.fitYesNo';
+            outStruct.fit = outStruct.fit';
             
             % Fields order needs to be...
             
@@ -370,7 +370,7 @@ classdef parametersClass < tableUtilities
             % nParams
             % paramConstr
             % params
-            % fitYesNo
+            % fit
             % priors    
         end
         

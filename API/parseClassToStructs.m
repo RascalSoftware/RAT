@@ -383,17 +383,17 @@ controls.boundHandling = inputControls.boundHandling;
 controls.adaptPCR = inputControls.adaptPCR;
 
 % Also need to deal with the checks...
-checks.params_fitYesNo = inputStruct.paramFitYesNo;
-checks.backs_fitYesNo = inputStruct.backParFitYesNo;
-checks.shifts_fitYesNo = inputStruct.qzshiftFitYesNo;
-checks.scales_fitYesNo = inputStruct.scalefactorFitYesNo;
-checks.nbairs_fitYesNo = inputStruct.nbaFitYesNo;
-checks.nbsubs_fitYesNo = inputStruct.nbsFitYesNo;
-checks.resol_fitYesNo = inputStruct.resolFitYesNo;
+checks.fitParams = inputStruct.fitParams;
+checks.fitBacks = inputStruct.fitBackPar;
+checks.fitShifts = inputStruct.fitQzshift;
+checks.fitScales = inputStruct.fitScalefactor;
+checks.fitNbairs = inputStruct.fitNba;
+checks.fitNbsubs = inputStruct.fitNbs;
+checks.fitResol = inputStruct.fitResol;
 if isa(inputProblemDef, 'domainsClass')
-    checks.domainRatio_fitYesNo = inputStruct.domainRatioFitYesNo;
+    checks.fitDomainRatio = inputStruct.fitDomainRatio;
 else
-    checks.domainRatio_fitYesNo = ones(1,0);
+    checks.fitDomainRatio = ones(1,0);
 end
 
 controls.checks = checks;

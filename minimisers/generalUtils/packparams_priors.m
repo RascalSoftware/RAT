@@ -6,12 +6,12 @@ function [problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemD
 
 %problem = getappdata(0,'problem');
 
-% controls.checks.params_fitYesNo = ones(length(problem.params),1);
-% controls.checks.backs_fitYesNo = ones(length(problem.backs),1);
-% controls.checks.scales_fitYesNo = ones(length(problem.scalefac),1);
-% controls.checks.nbairs_fitYesNo = ones(length(problem.nba),1);
-% controls.checks.nbsubs_fitYesNo = ones(length(problem.nbs),1);
-% controls.checks.resol_fitYesNo = ones(length(problem.resolution),1);
+% controls.checks.fitParams = ones(length(problem.params),1);
+% controls.checks.fitBacks = ones(length(problem.backs),1);
+% controls.checks.fitScales = ones(length(problem.scalefac),1);
+% controls.checks.fitNbairs = ones(length(problem.nba),1);
+% controls.checks.fitNbsubs = ones(length(problem.nbs),1);
+% controls.checks.fitResol = ones(length(problem.resolution),1);
 
 % calculation.limits.params = problem.constr;
 % calculation.limits.backs = problem.backs_constr;
@@ -26,14 +26,14 @@ function [problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemD
 %We need to pack the parameters into seperate vectors
 %of those that are being fitted, and those that are
 %held constant.
-numberOfFitted = sum(checks.params_fitYesNo) + ...
-                 sum(checks.backs_fitYesNo) + ...
-                 sum(checks.scales_fitYesNo) + ...
-                 sum(checks.shifts_fitYesNo) + ...
-                 sum(checks.nbairs_fitYesNo) + ...
-                 sum(checks.nbsubs_fitYesNo) + ...
-                 sum(checks.resol_fitYesNo) + ...
-                 sum(checks.domainRatio_fitYesNo);
+numberOfFitted = sum(checks.fitParams) + ...
+                 sum(checks.fitBacks) + ...
+                 sum(checks.fitScales) + ...
+                 sum(checks.fitShifts) + ...
+                 sum(checks.fitNbairs) + ...
+                 sum(checks.fitNbsubs) + ...
+                 sum(checks.fitResol) + ...
+                 sum(checks.fitDomainRatio);
              
 numberOfTotal = length(problemDef.params) + ...
                 length(problemDef.backs) + ...
@@ -53,8 +53,8 @@ fitNames = cell(numberOfFitted,1);
 fitPriors = zeros(numberOfFitted,2);
 fitCounter = 1;
 otherCounter = 1;
-for n = 1:length(checks.params_fitYesNo)
-    if checks.params_fitYesNo(n) == 1
+for n = 1:length(checks.fitParams)
+    if checks.fitParams(n) == 1
         fitpars(fitCounter) = problemDef.params(n);
         fitconstr(fitCounter,1) = limits.params(n,1);
         fitconstr(fitCounter,2) = limits.params(n,2);        
@@ -76,8 +76,8 @@ for n = 1:length(checks.params_fitYesNo)
 end
 
 %Also do the same for backgrounds...
-for n = 1:length(checks.backs_fitYesNo)
-    if checks.backs_fitYesNo(n) == 1
+for n = 1:length(checks.fitBacks)
+    if checks.fitBacks(n) == 1
         fitpars(fitCounter) = problemDef.backs(n);
         fitconstr(fitCounter,1) = limits.backs(n,1);
         fitconstr(fitCounter,2) = limits.backs(n,2);
@@ -99,8 +99,8 @@ for n = 1:length(checks.backs_fitYesNo)
 end
 
 %..also for the scale factors
-for n = 1:length(checks.scales_fitYesNo)
-    if checks.scales_fitYesNo(n) == 1
+for n = 1:length(checks.fitScales)
+    if checks.fitScales(n) == 1
         fitpars(fitCounter) = problemDef.sf(n);
         fitconstr(fitCounter,1) = limits.scales(n,1);
         fitconstr(fitCounter,2) = limits.scales(n,2);
@@ -122,8 +122,8 @@ for n = 1:length(checks.scales_fitYesNo)
 end    
 
 %Need qshifts
-for n = 1:length(checks.shifts_fitYesNo)
-    if checks.shifts_fitYesNo(n) == 1
+for n = 1:length(checks.fitShifts)
+    if checks.fitShifts(n) == 1
         fitpars(fitCounter) = problemDef.shifts(n);
         fitconstr(fitCounter,1) = limits.shifts(n,1);
         fitconstr(fitCounter,2) = limits.shifts(n,2);
@@ -145,8 +145,8 @@ for n = 1:length(checks.shifts_fitYesNo)
 end 
 
 %Nbairs
-for n = 1:length(checks.nbairs_fitYesNo)
-    if checks.nbairs_fitYesNo(n) == 1
+for n = 1:length(checks.fitNbairs)
+    if checks.fitNbairs(n) == 1
         fitpars(fitCounter) = problemDef.nba(n);
         fitconstr(fitCounter,1) = limits.nba(n,1);
         fitconstr(fitCounter,2) = limits.nba(n,2);
@@ -168,8 +168,8 @@ for n = 1:length(checks.nbairs_fitYesNo)
 end 
 
 %NBsubs
-for n = 1:length(checks.nbsubs_fitYesNo)
-    if checks.nbsubs_fitYesNo(n) == 1
+for n = 1:length(checks.fitNbsubs)
+    if checks.fitNbsubs(n) == 1
         fitpars(fitCounter) = problemDef.nbs(n);
         fitconstr(fitCounter,1) = limits.nbs(n,1);
         fitconstr(fitCounter,2) = limits.nbs(n,2);
@@ -191,8 +191,8 @@ for n = 1:length(checks.nbsubs_fitYesNo)
 end 
 
 %Resolution.....
-for n = 1:length(checks.resol_fitYesNo)
-    if checks.resol_fitYesNo(n) == 1
+for n = 1:length(checks.fitResol)
+    if checks.fitResol(n) == 1
         fitpars(fitCounter) = problemDef.res(n);
         fitconstr(fitCounter,1) = limits.res(n,1);
         fitconstr(fitCounter,2) = limits.res(n,2);
@@ -214,8 +214,8 @@ for n = 1:length(checks.resol_fitYesNo)
 end 
 
 % Domain Ratio
-for n = 1:length(checks.domainRatio_fitYesNo)
-    if checks.domainRatio_fitYesNo(n) == 1
+for n = 1:length(checks.fitDomainRatio)
+    if checks.fitDomainRatio(n) == 1
         fitpars(fitCounter) = problemDef.domainRatio(n);
         fitconstr(fitCounter,1) = limits.domainRatio(n,1);
         fitconstr(fitCounter,2) = limits.domainRatio(n,2);

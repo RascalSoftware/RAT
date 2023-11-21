@@ -2,27 +2,27 @@ function out = checkBounds(problem)
 
 out{1} = 'ok';
 
-fitWhichParams = problem.fityesno;
+fitWhichParams = problem.fit;
 fittingParams = problem.params(find(fitWhichParams));
 fittingConstr = problem.constr(find(fitWhichParams),:);
 fittingNames = problem.paramnames(find(fitWhichParams));
 
-fitWhichBacks = problem.backgrounds_fityesno;
+fitWhichBacks = problem.fitBackgrounds;
 fittingBacks = problem.backs(find(fitWhichBacks));
 fittingBacksConstr = problem.backs_constr(find(fitWhichBacks),:);
 fittingBacksNames = problem.backsNames(find(fitWhichBacks));
 
-fitWhichScales = problem.scalefac_fityesno;
+fitWhichScales = problem.fitScales;
 fittingScales = problem.scalefac(find(fitWhichScales));
 fittingScalesConstr = problem.scale_constr(find(fitWhichScales),:);
 fittingScalesNames = problem.scalesNames(find(fitWhichScales));
 
-fitWhichShifts = problem.shifts_fityesno;
+fitWhichShifts = problem.fitShifts;
 fittingShifts = problem.shifts_horisontal(find(fitWhichShifts));
 fittingShiftsConstr = problem.shifts_constr(find(fitWhichShifts),:);
 fittingShiftsNames = problem.shiftsNames(find(fitWhichShifts));
 
-fitWhichNbas = problem.nbairs_fityesno;
+fitWhichNbas = problem.fitNbairs;
 fittingNbas = problem.nba(find(fitWhichNbas));
 fittingNbaConstr = problem.nbairs_constr(find(fitWhichNbas),:);
 fittingNbaNames = problem.nbaNames(find(fitWhichNbas));

@@ -47,7 +47,7 @@ r2ParamStruct = r2Problem.parameters.toStruct();
 r1Problem.params = r2ParamStruct.params;
 r1Problem.paramnames = r2ParamStruct.paramNames;
 r1Problem.constr = vertcat(r2ParamStruct.paramConstr{:});
-r1Problem.fityesno = r2ParamStruct.fitYesNo;
+r1Problem.fityesno = r2ParamStruct.fit;
 
 % Set qz shifts
 r1Problem.numberOfShifts = 1;
@@ -61,7 +61,7 @@ r1Problem.scalesNames = r2ScalesStruct.paramNames;
 r1Problem.scalefac = r2ScalesStruct.params;
 r1Problem.numberOfScales = r2ScalesStruct.nParams;
 r1Problem.scale_constr = vertcat(r2ScalesStruct.paramConstr{:});
-r1Problem.scalefac_fityesno = r2ScalesStruct.fitYesNo;
+r1Problem.scalefac_fityesno = r2ScalesStruct.fit;
 
 % Set bulk in
 r2BulkInStruct = r2Problem.bulkIn.toStruct();
@@ -69,7 +69,7 @@ r1Problem.nbaNames = r2BulkInStruct.paramNames;
 r1Problem.nba = r2BulkInStruct.params;
 r1Problem.numberOfNbas = r2BulkInStruct.nParams;
 r1Problem.nbairs_constr = vertcat(r2BulkInStruct.paramConstr{:});
-r1Problem.nbairs_fityesno = r2BulkInStruct.fitYesNo;
+r1Problem.nbairs_fityesno = r2BulkInStruct.fit;
 
 % Set bulk out
 r2BulkOutStruct = r2Problem.bulkOut.toStruct();
@@ -77,7 +77,7 @@ r1Problem.nbsNames = r2BulkOutStruct.paramNames;
 r1Problem.nbs = r2BulkOutStruct.params;
 r1Problem.numberOfNbss = r2BulkOutStruct.nParams;
 r1Problem.nbsubs_constr = vertcat(r2BulkOutStruct.paramConstr{:});
-r1Problem.nbsubs_fityesno = r2BulkOutStruct.fitYesNo;
+r1Problem.nbsubs_fityesno = r2BulkOutStruct.fit;
 
 % Set resolutions (only use resolpars - more advanced resolutions
 % unavaliable in R1)
@@ -86,7 +86,7 @@ r1Problem.resolNames = r2ResolStruct.resolParNames;
 r1Problem.resolution = r2ResolStruct.resolPars;
 r1Problem.numberOfResolutions = r2ResolStruct.nResolPars;
 r1Problem.reslution_constr = vertcat(r2ResolStruct.resolParConstr{:});
-r1Problem.resolution_fityesno = r2ResolStruct.resolFitYesNo;
+r1Problem.resolution_fityesno = r2ResolStruct.fitResol;
 
 % Set Backgrounds
 r2BackStruct = r2Problem.background.toStruct();
@@ -94,7 +94,7 @@ r1Problem.backsNames = r2BackStruct.backParNames;
 r1Problem.backs = r2BackStruct.backParVals;
 r1Problem.numberOfBacks = r2BackStruct.nBackPars;
 r1Problem.backs_constr = vertcat(r2BackStruct.backParConstr{:});
-r1Problem.backgrounds_fityesno = r2BackStruct.backParFitYesNo;
+r1Problem.backgrounds_fityesno = r2BackStruct.fitBackPar;
 
 if strcmpi(r2Problem.modelType, modelTypes.StandardLayers.value)
     % Set layers (if modelType is standard layers)

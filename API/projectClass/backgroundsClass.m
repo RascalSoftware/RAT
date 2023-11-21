@@ -203,7 +203,7 @@ classdef backgroundsClass < handle
             backStruct.backParNames = backParamsStruct.paramNames;
             backStruct.backParConstr = backParamsStruct.paramConstr;
             backStruct.backParVals = backParamsStruct.params;
-            backStruct.backParFitYesNo = backParamsStruct.fitYesNo;
+            backStruct.fitBackPar = backParamsStruct.fit;
             backStruct.nBackPars = backParamsStruct.nParams;
             backStruct.backsPriors = backParamsStruct.priors;
             

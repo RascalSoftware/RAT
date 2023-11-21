@@ -3,12 +3,6 @@
 % necessary to run this function so that the changes (i.e. number of
 % fields) are set in inputs and outputs to the tests.
 
-% Paul Sharp 18/01/23 -- Fixed bugs in making test data and added new
-% objects to the files. Changed class names to enable parameterised
-% testing.
-% Paul Sharp 12/04/23 -- Added code to update the test data for converting
-% between RAT and RASCAL
-
 %% 1. Custom Layers.
 root = getappdata(0,'root');
 customLayersProblem = orsoDSPCCustomLayers();
@@ -52,7 +46,7 @@ outputs.resultOut = resultOut;
 save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -64,8 +58,7 @@ TFParams.allLayers = allLayers;
 
 [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
- allRoughs] = standardTFCustomLayersSingle(problemDef,problemDefCells,...
-              problemDefLimits,controls);
+ allRoughs] = standardTF.customLayers.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgs = backgs;
@@ -122,7 +115,7 @@ outputs.resultOut = resultOut;
 save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customXYOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -134,8 +127,7 @@ TFParams.allLayers = allLayers;
 
 [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
- allRoughs] = standardTFCustomXYSingle(problemDef,problemDefCells,...
-              problemDefLimits,controls);
+ allRoughs] = standardTF.customXY.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgs = backgs;
@@ -192,7 +184,7 @@ outputs.resultOut = resultOut;
 save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'standardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTFReflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -204,8 +196,7 @@ TFParams.allLayers = allLayers;
 
 [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
- allRoughs] = standardTFStandardLayersSingle(problemDef,problemDefCells,...
-              problemDefLimits,controls);
+ allRoughs] = standardTF.standardLayers.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgs = backgs;

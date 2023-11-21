@@ -1,7 +1,6 @@
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
-    allRoughs] = parallelContrasts(problemDef,problemDefCells,...
-    problemDefLimits,controls)
+    allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)
 % Single threaded version of the Standard Layers calculation 
 % This is the main reflectivity calculation of the standard layers
 % calculation type. It extracts the required parameters for the contrasts
@@ -23,7 +22,7 @@ domainContrastLayers = problemDefCells{19};
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-numberOfLayers, resample, backsType, ~] =  extractProblemParams(problemDef);
+~, resample, backsType, ~] =  extractProblemParams(problemDef);
 
 calcSld = controls.calcSldDuringFit;   
 useImaginary = problemDef.useImaginary;

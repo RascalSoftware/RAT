@@ -17,7 +17,7 @@ problemDef.fitpars = pars;
 problemDef = unpackparams(problemDef,controls);
 %setappdata(0,'problem',problem);
 %problem = reflectivityCalculation(problem);
-[problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+[problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
 %problem = getappdata(0,'problem');
 ss = problemDef.calculations.sum_chi;

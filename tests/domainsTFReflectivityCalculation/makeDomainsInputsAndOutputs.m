@@ -24,7 +24,7 @@ inputs.controls = controls;
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsStandardLayersInputs'],'inputs');
 
 % (b) Outputs
-[problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
 outputs.problem = problem;
 outputs.result = result;
@@ -94,7 +94,7 @@ inputs.controls = controls;
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomXYInputs'],'inputs');
 
 % (b) Outputs
-[problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
 outputs.problem = problem;
 outputs.result = result;
@@ -164,7 +164,7 @@ inputs.controls = controls;
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomLayersInputs'],'inputs');
 
 % (b) Outputs
-[problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+[problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
 outputs.problem = problem;
 outputs.result = result;

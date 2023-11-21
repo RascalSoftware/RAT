@@ -1,7 +1,6 @@
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
-    allRoughs] = parallelContrasts(problemDef,problemDefCells,...
-    problemDefLimits,controls)
+    allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)
 
 
 % Extract individual cell arrays
@@ -27,9 +26,7 @@ resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
 chis =  zeros(numberOfContrasts,1);
-allLayers = cell(numberOfContrasts,2); 
 layerSlds = cell(numberOfContrasts,2);
-domainSldProfiles = cell(numberOfContrasts,2);
 shifted_data = cell(numberOfContrasts,1);
 
 reflectivity = cell(numberOfContrasts,1);

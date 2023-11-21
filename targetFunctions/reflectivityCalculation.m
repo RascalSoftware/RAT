@@ -1,4 +1,4 @@
-function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)
+function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls)
 % Main entry point into the reflectivity calculation for the toolbox.
 % This is the main function that is called by any of the minimisers or
 % analysis tools from the rest of the toolbox. 
@@ -103,13 +103,13 @@ coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
 whichTF = problemDef.TF;
 switch whichTF
     case 'non polarised'
-        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF.reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF.reflectivityCalculation(problemDef,problemDefCells,controls);
     %case 'oil water'
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDefCells,controls);    
     %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDefCells,controls);
     case 'domains'
-        [problem,reflectivity,Simulation,shifted_data,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+        [problem,reflectivity,Simulation,shifted_data,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 %     otherwise
 %         error('The calculation type "%s" is not supported', whichTF);
 

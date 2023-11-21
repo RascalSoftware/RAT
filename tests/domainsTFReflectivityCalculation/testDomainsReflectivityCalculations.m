@@ -164,16 +164,16 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             
             testCase.controls.parallel = whichParallel;
             if useCompiled
-                [problem, result] = reflectivityCalculation_mex(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                [problem, result] = reflectivityCalculation_mex(testCase.problemDef, testCase.problemDefCells, testCase.controls);
             else        
-                [problem, result] = reflectivityCalculation(testCase.problemDef,testCase.problemDefCells,testCase.problemDefLimits,testCase.controls);
+                [problem, result] = reflectivityCalculation(testCase.problemDef,testCase.problemDefCells,testCase.controls);
             end
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testDomainsTFReflectivityCalculation(testCase)
-            [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+            [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -188,11 +188,11 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'domainsStandardLayersTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.standardLayers.calculate(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.standardLayers.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
                 case 'domainsCustomLayersTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.customLayers.calculate(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.customLayers.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
                 case 'domainsCustomXYTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.customXY.calculate(testCase.problemDef, testCase.problemDefCells, testCase.problemDefLimits, testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = domainsTF.customXY.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
             end
 
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -211,17 +211,17 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = domainsTF.standardLayers.single(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'domainsCustomLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = domainsTF.customLayers.single(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'domainsCustomXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = domainsTF.customXY.single(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
             end
 
             testCase.verifyEqual(outSsubs, testCase.TFOutSsubs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -248,17 +248,17 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = domainsTF.standardLayers.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'domainsCustomLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = domainsTF.customLayers.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'domainsCustomXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = domainsTF.customXY.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
             end
 
             testCase.verifyEqual(outSsubs, testCase.TFOutSsubs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -285,17 +285,17 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = domainsTF.standardLayers.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'domainsCustomLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = domainsTF.customLayers.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
                 case 'domainsCustomXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
                     allRoughs] = domainsTF.customXY.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
-                    testCase.problemDefLimits,testCase.controls);
+                    testCase.controls);
             end
 
             testCase.verifyEqual(outSsubs, testCase.TFOutSsubs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

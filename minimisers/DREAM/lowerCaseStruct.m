@@ -16,5 +16,4 @@ names = lower(names);
 % Re-build the struct with the new lower case fieldnames..
 outStruct = cell2struct(cellDat,names);
 
-
 end

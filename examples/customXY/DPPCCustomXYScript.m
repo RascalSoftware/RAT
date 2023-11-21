@@ -1,6 +1,6 @@
 %%
 % Start by making an empty project
-problem = project(name='Custom DPPC', model='custom XY');
+problem = createProject(name='Custom DPPC', model='custom XY');
 
 % Set the geometry
 problem.setGeometry('Substrate/liquid');

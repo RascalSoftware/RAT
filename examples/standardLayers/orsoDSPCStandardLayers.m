@@ -3,7 +3,7 @@
 %
 % Start by making an empty instance of the project definition class:
 
-problem = project(name='Orso lipid example');
+problem = createProject(name='Orso lipid example');
 %%
 %
 %

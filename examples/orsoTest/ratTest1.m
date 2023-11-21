@@ -10,7 +10,7 @@ orsoVals = [0.000000000000000000e+00 2.069999999999999840e+00 0.0000000000000000
 orsoVals(:,2) = orsoVals(:,2) .* 1e-6;
 orsoVals(:,3) = orsoVals(:,3) .* 1e-6;
 
-problem = project(absorption = true);
+problem = createProject(absorption = true);
 
 % Make the parameters....
 paramGroup = {

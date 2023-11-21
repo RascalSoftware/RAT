@@ -62,6 +62,6 @@ result = mergeStructs(result,bayesResults);
 [~,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 result.fitNames = fitNames;
 
-outProblemDef = parseOutToProjectClass(problem,problemDef,[],[]);
+outProblemDef = parseOutToProjectClass(problem,problemDef);
 
 end

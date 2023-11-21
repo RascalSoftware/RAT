@@ -1,4 +1,3 @@
-
 function newSLD = resampleLayers(sldProfile,resamPars)
 
 

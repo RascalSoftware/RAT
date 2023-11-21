@@ -1,7 +1,7 @@
 % Test of absorbance for standard layers....
 
 % (1) Two layers with absorption..
-problem = project(absorption=true);
+problem = createProject(absorption=true);
 problem.modelType = 'custom layers';
 
 % Add some parameters...

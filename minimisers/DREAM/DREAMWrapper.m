@@ -21,8 +21,3 @@ chiSquared = outProblem.calculations.sum_chi;
 Lik = -chiSquared/2;
 
 end
-
-
-
-
-

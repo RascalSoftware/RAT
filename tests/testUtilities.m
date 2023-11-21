@@ -54,10 +54,10 @@ classdef testUtilities < matlab.unittest.TestCase
         end
 
         function testCopyProperties(testCase)
-            initialProject = project(name='copyPropertiesTest', absorption=true);
+            initialProject = createProject(name='copyPropertiesTest', absorption=true);
             initialProject.addParameter('Test Param');
 
-            copiedProject = copyProperties(initialProject, project(absorption=true));
+            copiedProject = copyProperties(initialProject, createProject(absorption=true));
 
             testCase.verifyEqual(copiedProject.experimentName, 'copyPropertiesTest');
             testCase.verifyEqual(copiedProject.layers, initialProject.layers);

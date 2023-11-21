@@ -35,7 +35,7 @@ fittingNames = [fittingNames(:) ; fittingBacksNames(:) ; fittingScalesNames(:) ;
 if isempty(fittingParams)
     out{1} = 'fail';
     beep
-    addInfoText(sprintf('No parameters selected!'));
+    disp('No parameters selected!');
 end
 
 
@@ -47,9 +47,9 @@ areEqual = find(hiBounds==loBounds);
 if ~isempty(areEqual)
     out{1} = 'fail';
     beep
-    addInfoText(sprintf('Bounds must be distinct for '));
+    disp('Bounds must be distinct for ');
     for i = 1:length(areEqual)
-        addInfoText(sprintf(fittingNames{areEqual(i)}));
+        disp(fittingNames{areEqual(i)});
     end
 end
 
@@ -58,9 +58,9 @@ outOfRange = find(fittingParams(:) < loBounds(:) | fittingParams(:) > hiBounds(:
 if ~isempty(outOfRange)
     out{1} = 'fail';
     beep
-    addInfoText(sprintf('Parameter must be between bounds for '));
+    disp('Parameter must be between bounds for ');
     for i = 1:length(outOfRange)
-        addInfoText(sprintf(fittingNames{outOfRange(i)}));
+        disp(fittingNames{outOfRange(i)});
     end
 end
     

@@ -948,7 +948,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             fprintf(fileID, "%s\n\n", '% THIS FILE IS GENERATED FROM RAT VIA THE "WRITESCRIPT" ROUTINE. IT IS NOT PART OF THE RAT CODE.');
 
             % Start by getting input arguments
-            projectSpec = "%s = project(name='%s', calcType='%s', model='%s', geometry='%s', absorption=%s);\n\n";
+            projectSpec = "%s = createProject(name='%s', calcType='%s', model='%s', geometry='%s', absorption=%s);\n\n";
             fprintf(fileID, projectSpec, options.objName, obj.experimentName, obj.calculationType,  obj.modelType, obj.geometry,  string(obj.absorption));
             if obj.usePriors
                 fprintf(fileID, "%s.setUsePriors(true);\n\n", options.objName);

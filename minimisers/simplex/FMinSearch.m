@@ -227,7 +227,7 @@ how = '';
 %     if stop
 %         [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
 %         if  prnt > 0
-%             sendTextOutput(output.message)
+%             fprintf('%s \n', output.message)
 %         end
 %         return;
 %     end
@@ -248,14 +248,14 @@ elseif prnt == 4
 %     oc2 = onCleanup(@()set(0,'formatspacing',formatsave.formatspacing));
 %     format compact
 %     format short e
-%     sendTextOutput(' ')
-%     sendTextOutput(how)
-%     sendTextOutput('v = ')
-%     sendTextOutput(sprintf('%g',v))
-%     sendTextOutput('fv = ')
-%     sendTextOutput(sprintf('%g',fv))
-%     sendTextOutput('func_evals = ')
-%     sendTextOutput(sprintf('%g',func_evals))
+%     fprintf('%s \n', ' ')
+%     fprintf('%s \n', how)
+%     fprintf('%s \n', 'v = ')
+%     fprintf('%g \n', v)
+%     fprintf('%s \n', 'fv = ')
+%     fprintf('%g \n', fv)
+%     fprintf('%s \n', 'func_evals = ')
+%     fprintf('%g \n', func_evals)
 end
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -264,7 +264,7 @@ end
 %     if stop  % Stop per user request.
 %         [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
 %         if  prnt > 0
-%             sendTextOutput(output.message)
+%             fprintf('%s \n', output.message)
 %         end
 %         return;
 %     end
@@ -296,14 +296,14 @@ func_evals = n+1;
 if prnt == 3
     fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
 elseif prnt == 4
-%     sendTextOutput(' ')
-%     sendTextOutput(how)
-%     sendTextOutput('v = ')
-%     sendTextOutput(sprintf('%g',v))
-%     sendTextOutput('fv = ')
-%     sendTextOutput(sprintf('%g',fv))
-%     sendTextOutput('func_evals = ')
-%     sendTextOutput(sprintf('%g',func_evals))
+%     fprintf('%s \n', ' ')
+%     fprintf('%s \n', how)
+%     fprintf('%s \n', 'v = ')
+%     fprintf('%g \n', v)
+%     fprintf('%s \n', 'fv = ')
+%     fprintf('%g \n', fv)
+%     fprintf('%s \n', 'func_evals = ')
+%     fprintf('%g \n', func_evals)
 end
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -312,7 +312,7 @@ end
 %     if stop  % Stop per user request.
 %         [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
 %         if  prnt > 0
-%             sendTextOutput(output.message)
+%             fprintf('%s \n', output.message)
 %         end
 %         return;
 %     end
@@ -408,14 +408,14 @@ while func_evals < maxfun && itercount < maxiter
     if prnt == 3
         fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
     elseif prnt == 4
-%         sendTextOutput(' ')
-%         sendTextOutput(num2str(how))
-%         sendTextOutput('v = ')
-%         sendTextOutput(v)
-%         sendTextOutput('fv = ')
-%         sendTextOutput(fv)
-%         sendTextOutput('func_evals = ')
-%         sendTextOutput(num2str(func_evals))
+%         fprintf('%s \n', ' ')
+%         fprintf('%s \n', num2str(how))
+%         fprintf('%s \n', 'v = ')
+%         fprintf('%s \n', v)
+%         fprintf('%s \n', 'fv = ')
+%         fprintf('%s \n', fv)
+%         fprintf('%s \n', 'func_evals = ')
+%         fprintf('%s \n', num2str(func_evals))
     end
     % OutputFcn and PlotFcns call
 %     if haveoutputfcn || haveplotfcn
@@ -424,7 +424,7 @@ while func_evals < maxfun && itercount < maxiter
 %         if stop  % Stop per user request.
 %             [x,fval,exitflag,output] = cleanUpInterrupt(xOutputfcn,optimValues);
 %             if  prnt > 0
-%                 sendTextOutput(output.message)
+%                 fprintf('%s \n', output.message)
 %             end
 %             return;
 %         end

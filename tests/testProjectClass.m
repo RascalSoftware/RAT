@@ -18,7 +18,7 @@ classdef testProjectClass < matlab.unittest.TestCase
     end
 
     methods(TestMethodSetup)
-        function createProject(testCase)
+        function initialiseProject(testCase)
             testCase.project = projectClass('example');
             testCase.parameters = {
                     %       Name                min     val     max  fit? 'Prior Type','mu','sigma'

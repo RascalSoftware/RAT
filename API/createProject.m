@@ -1,4 +1,4 @@
-function obj = project(options)
+function obj = createProject(options)
     % Creates a project object.
     % The input arguments are the experiment name which is a char
     % array; the calculation type, which is a calculationTypes enum; the
@@ -7,7 +7,7 @@ function obj = project(options)
     % absorption terms are included in the refractive index.
     % All of the arguments are optional.
     %
-    % problem = project(name='New experiment', calc='non polarised');
+    % problem = createProject(name='New experiment', calc='non polarised');
     arguments
         options.name {mustBeTextScalar} = ''
         options.calcType = calculationTypes.NonPolarised

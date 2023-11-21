@@ -77,7 +77,7 @@
 % General Public License can be obtained from the 
 % Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [FVr_bestmem,problem] = RAT_deopt(fname,problem,problemDefLimits,problemDefCells,plotIt,controls,S_struct)
+function [FVr_bestmem,problem] = deopt(fname,problem,problemDefLimits,problemDefCells,controls,S_struct)
 
 
 %function FVr_bestmem = rascal_deopt(fname,problem,PlotIt,controls,S_struct)
@@ -165,7 +165,7 @@ I_nfeval  = I_nfeval + 1;
 for k=2:I_NP                          % check the remaining members
   S_val(k)  = fname(FM_pop(k,:),problem,controls,problemDefCells,problemDefLimits);
   I_nfeval  = I_nfeval + 1;
-  if (left_win(S_val(k),S_bestval) == 1)
+  if (leftWin(S_val(k),S_bestval) == 1)
      I_best_index   = k;              % save its location
      S_bestval      = S_val(k);
   end   
@@ -310,12 +310,12 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
   
       S_tempval = fname(FM_ui(k,:),problem, controls,problemDefCells,problemDefLimits);  % check cost of competitor
       I_nfeval  = I_nfeval + 1;
-      if (left_win(S_tempval,S_val(k)) == 1)   
+      if (leftWin(S_tempval,S_val(k)) == 1)   
          FM_pop(k,:) = FM_ui(k,:);                    % replace old vector with new one (for new iteration)
          S_val(k)   = S_tempval;                      % save value in "cost array"
       
          %----we update S_bestval only in case of success to save time-----------
-         if (left_win(S_tempval,S_bestval) == 1)   
+         if (leftWin(S_tempval,S_bestval) == 1)   
             S_bestval = S_tempval;                    % new best value
             FVr_bestmem = FM_ui(k,:);                 % new best parameter vector ever
          end
@@ -340,7 +340,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
 %         if (I_plotting == 1)
 %            PlotIt(FVr_bestmem,problem); 
 %         end
-        stopflag = getStopFlag();
+        stopflag = 0;
         
     end
   end

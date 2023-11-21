@@ -2,7 +2,7 @@
 
 
 % (1) Two layers with absorption..
-problem = project(absorption=true);
+problem = createProject(absorption=true);
 
 % Add some parameters...
 paramGroup = {{'Lay 1 Thick',   20, 50, 90, false}

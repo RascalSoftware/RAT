@@ -1,7 +1,7 @@
 function [problemDef,problem,result] = runDE(problemDef,problemDefCells,problemDefLimits,controls)
 
 
-[problemDef,fitNames] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls);
+[problemDef,~] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls);
 F_VTR = controls.targetValue; %Value to reach
 I_D = length(problemDef.fitpars);
 
@@ -99,9 +99,9 @@ S_struct.I_plotting   = I_plotting;
 S_struct.FM_pop = zeros(I_NP,2);
 S_struct.FVr_bestmem = [0 0];
 
-%res = RAT_deopt(@intrafun,problemDef,@PlotIt,controls,S_struct);
+%res = deopt(@intrafun,problemDef,controls,S_struct);
 
-[res,problemDef] = RAT_deopt(@intrafun,problemDef,problemDefLimits,problemDefCells,@plotIt,controls,S_struct);
+[res,problemDef] = deopt(@intrafun,problemDef,problemDefLimits,problemDefCells,controls,S_struct);
 problemDef.fitpars = res;
 problemDef = unpackparams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
@@ -113,7 +113,7 @@ end
 end
 
 
-function S_MSE = intrafun(p,problemDef,controls,problemDefCells,problemDefLimits);
+function S_MSE = intrafun(p,problemDef,controls,problemDefCells,problemDefLimits)
 
 % S_MSE.I_nc      = [];
 % S_MSE.FVr_ca    = [];
@@ -136,7 +136,7 @@ coder.varsize('S_MSE.FVr_oa',[1 1],[0 0]);
 
 problemDef.fitpars = p;
 problemDef = unpackparams(problemDef,controls);
-[problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+[problemDef,~] = reflectivityCalculation(problemDef,problemDefCells,controls);
 fval = problemDef.calculations.sum_chi;
 
 S_MSE.I_nc      = 0;%no constraints                 THESE FIRST FEW VALS MAY BE WRONG

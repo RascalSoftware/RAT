@@ -119,7 +119,7 @@ end
 % now we can call fminsearch, but with our own
 % intra-objective function.
 
-[xu,~,~,~] = RATFminSearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDefCells,problemDefLimits,controls,params,300);
+[xu,~,~,~] = FMinSearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDefCells,problemDefLimits,controls,params,300);
 
 %[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemDef,problemDefCells,problemDefLimits,controls,options,params,300);
 

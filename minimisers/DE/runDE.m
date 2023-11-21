@@ -136,7 +136,7 @@ coder.varsize('S_MSE.FVr_oa',[1 1],[0 0]);
 
 problemDef.fitpars = p;
 problemDef = unpackparams(problemDef,controls);
-[problemDef,~] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
+[problemDef,~] = reflectivityCalculation(problemDef,problemDefCells,controls);
 fval = problemDef.calculations.sum_chi;
 
 S_MSE.I_nc      = 0;%no constraints                 THESE FIRST FEW VALS MAY BE WRONG

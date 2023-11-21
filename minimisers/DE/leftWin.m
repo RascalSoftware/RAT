@@ -14,7 +14,7 @@
 % Return value:     I_z          (O)    If S_x wins over S_y then I_z=1 else I_z=0.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function I_z = left_win(S_x,S_y)
+function I_z = leftWin(S_x,S_y)
 I_z = 1;  %start with I_z=1
 
 %----deal with the constraints first. If constraints are not met------

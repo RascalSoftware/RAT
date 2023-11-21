@@ -83,7 +83,7 @@ if nargin==1 && nargout <= 1 && isequal(funfcn,'defaults')
     return
 end
 
-if nargin < 2,
+if nargin < 2
     error('MATLAB:fminsearch:NotEnoughInputs',...
         'FMINSEARCH requires at least two input arguments');
 end
@@ -107,7 +107,7 @@ maxiter = optimget(options,'MaxIter',defaultopt,'fast');
 funValCheck = strcmp(optimget(options,'FunValCheck',defaultopt,'fast'),'on');
 
 %*******************************
-stopflag = 0;%getStopFlag();
+stopflag = 0;
 
 % In case the defaults were gathered from calling: optimset('fminsearch'):
 if ischar(maxfun)
@@ -285,7 +285,7 @@ exitflag = 1;
 while func_evals < maxfun && itercount < maxiter && stopflag == 0
     
     if rem(itercount,20)==0
-        stopflag = 0;%getStopFlag();
+        stopflag = 0;
         switch stopflag
             case 1
                 disp('User Interrupt!');
@@ -393,7 +393,7 @@ while func_evals < maxfun && itercount < maxiter && stopflag == 0
 end   % while
 
 x(:) = v(:,1);
-if prnt == 4,
+if prnt == 4
     % reset format
     set(0,{'format','formatspacing'},formatsave);
 end

@@ -78,7 +78,7 @@ Par_info.boundhandling = controls.boundHandling;
 %[chain,output,fx] = rat_DREAM(DREAMPar,Par_info,[],ratInputs);
 %Func_name = @DREAMWrapper;
 Meas_info = struct('Y',0,'N',0);
-[chain,dreamOutput,fx] = ratDREAM(DREAMPar,Par_info,Meas_info,ratInputs);
+[chain,dreamOutput,~] = ratDREAM(DREAMPar,Par_info,Meas_info,ratInputs);
 
 % Combine all chains....
 nChains = DREAMPar.N;

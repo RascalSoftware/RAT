@@ -1,4 +1,3 @@
-
 function priorFitList = getFittedPriors(paramNames,priors,fitconstr)
 
 % Get the list of all the priors..

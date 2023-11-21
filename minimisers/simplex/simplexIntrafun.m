@@ -1,4 +1,4 @@
-function fval = simplexIntrafun(x,problemDef,problemDefCells,problemDefLimits,controls,params,maxEval)
+function fval = simplexIntrafun(x,problemDef,problemDefCells,problemDefLimits,controls,params)
 
 
 %problemDef,problemDefCells,problemDefLimits,controls,params,300
@@ -6,14 +6,12 @@ function fval = simplexIntrafun(x,problemDef,problemDefCells,problemDefLimits,co
 
 
 % transform variables, then call original function
-a = 'debug';
-% transform
 xtrans = simplexXTransform(x,params);
 
 %Unpck the params..
 problemDef.fitpars = xtrans;
 problemDef = unpackparams(problemDef,controls);
 
-[problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
+[problemDef,~] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls);
 
 fval = problemDef.calculations.sum_chi;

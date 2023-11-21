@@ -77,7 +77,7 @@
 % General Public License can be obtained from the 
 % Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function [FVr_bestmem,problem] = RAT_deopt(fname,problem,problemDefLimits,problemDefCells,plotIt,controls,S_struct)
+function [FVr_bestmem,problem] = RAT_deopt(fname,problem,problemDefLimits,problemDefCells,controls,S_struct)
 
 
 %function FVr_bestmem = rascal_deopt(fname,problem,PlotIt,controls,S_struct)
@@ -340,7 +340,7 @@ while ((I_iter < I_itermax) & (S_bestval.FVr_oa(1) > F_VTR))
 %         if (I_plotting == 1)
 %            PlotIt(FVr_bestmem,problem); 
 %         end
-        stopflag = getStopFlag();
+        stopflag = 0;
         
     end
   end

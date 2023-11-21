@@ -16,7 +16,7 @@ problem = struct('ssubs',preAlloc,...
                  'allSubRough',preAlloc);
 
 
-[problemDef,fitNames] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls);
+[problemDef,~] = fitsetup(problemDef,problemDefCells,problemDefLimits,controls);
 
 maxIter = controls.maxIter;
 tolFun = controls.tolFun;
@@ -119,7 +119,7 @@ end
 % now we can call fminsearch, but with our own
 % intra-objective function.
 
-[xu,fval,exitflag,output] = RATFminSearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDefCells,problemDefLimits,controls,params,300);
+[xu,~,~,~] = RATFminSearch(@simplexIntrafun,x0u,options,dis,problemDef,problemDefCells,problemDefLimits,controls,params,300);
 
 %[xu,fval,exitflag,output] = simplex(@simplexIntrafun,x0u,problemDef,problemDefCells,problemDefLimits,controls,options,params,300);
 

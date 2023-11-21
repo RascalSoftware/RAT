@@ -381,7 +381,7 @@ classdef testDomainsReflectivityCalculations < matlab.unittest.TestCase
         end
 
         function testRATParseOutToProjectClass(testCase)
-            problemOut = parseOutToProjectClass(testCase.problemDefInput, testCase.expectedProblemOutStruct, testCase.expectedProblem, testCase.expectedResult);
+            problemOut = parseOutToProjectClass(testCase.problemDefInput, testCase.expectedProblemOutStruct);
             testCase.verifyEqual(problemOut, testCase.expectedProblemOut, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 

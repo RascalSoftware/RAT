@@ -1,4 +1,4 @@
-function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct,problem,result)
+function outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct)
 
 
 %Reconstruct the problemDef class as an output

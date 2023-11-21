@@ -8,6 +8,9 @@ function triggerEvent(eventType, data)
     persistent notified;
     persistent helper;
 
+    initialised = false;
+    hasPlotHandler = false;
+
     if isempty(notified)
         notified = false;
     end
@@ -29,12 +32,15 @@ function triggerEvent(eventType, data)
             coder.ceval('std::mem_fn(&eventHelper::init)', helper, path);
         end
         
-        initialised = false;
         initialised = coder.ceval('std::mem_fn(&eventHelper::isInitialised)', helper);
         if initialised
             if strcmpi(eventType, 'message')
                 coder.ceval('std::mem_fn(&eventHelper::sendMessage)', helper, [data,0]);
             elseif strcmpi(eventType, 'plot')
+                hasPlotHandler = coder.ceval('std::mem_fn(&eventHelper::hasPlotHandler)', helper);
+                if ~hasPlotHandler
+                    return;
+                end
                 result = data{1};
                 problemDef = data{3};
                 nContrast = length(result{1});
@@ -68,7 +74,7 @@ function triggerEvent(eventType, data)
         else
             % This avoids printing the error message multiple times during the optimization.
             if ~notified
-                fprintf(2, "\neventManager library coult be loaded. Check that the dynamic library is present in the compile/events folder.\n");
+                fprintf(2, "\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n");
                 notified = true;
             end
             

@@ -63,6 +63,8 @@ public:
     eventManager& operator=(eventManager const&) = delete;
     ~eventManager() {}
     
+    const std::vector<enum eventTypes>& getEventNames()const {return eventNames;}
+
     void addListener(enum eventTypes type, const callback fn) {
        std::lock_guard<std::mutex> lock(m_mutex);
 	   eventNames.push_back(type);

@@ -325,8 +325,6 @@ classdef parametersClass < tableUtilities
             end
             outStruct.names = names;
             
-            outStruct.nParams = size(obj.varTable,1);
-            
             mins = obj.varTable{:,2};
             maxs = obj.varTable{:,4};
             limits = cell([1, length(mins)]);
@@ -365,7 +363,6 @@ classdef parametersClass < tableUtilities
             % Fields order needs to be...
             
             % names
-            % nParams
             % limits
             % values
             % fit

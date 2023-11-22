@@ -204,7 +204,6 @@ classdef backgroundsClass < handle
             backStruct.backParLimits = backParamsStruct.limits;
             backStruct.backParValues = backParamsStruct.values;
             backStruct.fitBackPar = backParamsStruct.fit;
-            backStruct.nBackPars = backParamsStruct.nParams;
             backStruct.backsPriors = backParamsStruct.priors;
             
             backgroundNames = obj.backgrounds.varTable{:,1};

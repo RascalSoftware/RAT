@@ -182,7 +182,6 @@ classdef resolutionsClass < handle
             resolStruct.resolParLimits = resolParamsStruct.limits;
             resolStruct.resolParValues = resolParamsStruct.values;
             resolStruct.fitResol = resolParamsStruct.fit;
-            resolStruct.nResolPars = resolParamsStruct.nParams;
             resolStruct.resolParPriors = resolParamsStruct.priors;
             
             resolutionNames = obj.resolutions.varTable{:,1};

@@ -317,13 +317,13 @@ classdef parametersClass < tableUtilities
         
         function outStruct = toStruct(obj)
             % Converts the class parameters into a structure array.
-            paramNames = table2cell(obj.varTable(:,1));
+            names = table2cell(obj.varTable(:,1));
             
             % Want these to be class 'char' rather than 'string'
-            for n = 1:length(paramNames)
-                paramNames{n} = char(paramNames{n});
+            for n = 1:length(names)
+                names{n} = char(names{n});
             end
-            outStruct.paramNames = paramNames;
+            outStruct.names = names;
             
             outStruct.nParams = size(obj.varTable,1);
             
@@ -341,7 +341,7 @@ classdef parametersClass < tableUtilities
             outStruct.fit = double(obj.varTable{:,5});
             
             priors = table2cell(obj.varTable(:,6:8));
-            priors = [outStruct.paramNames priors];
+            priors = [outStruct.names priors];
             
             % Group each row into one cell. Should be a way of doing this
             % without a loop but I can't quite see it right now...
@@ -358,13 +358,13 @@ classdef parametersClass < tableUtilities
             
             % Need to force some of the outputs
             % to be row vectors, so transpose them
-            outStruct.paramNames = outStruct.paramNames';
+            outStruct.names = outStruct.names';
             outStruct.params = outStruct.params';
             outStruct.fit = outStruct.fit';
             
             % Fields order needs to be...
             
-            % paramNames
+            % names
             % nParams
             % limits
             % params

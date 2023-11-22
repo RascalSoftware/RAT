@@ -200,7 +200,7 @@ classdef backgroundsClass < handle
             % Converts the class parameters into a structure array
             backParamsStruct = obj.backPars.toStruct();
             
-            backStruct.backParNames = backParamsStruct.paramNames;
+            backStruct.backParNames = backParamsStruct.names;
             backStruct.backParLimits = backParamsStruct.limits;
             backStruct.backParVals = backParamsStruct.params;
             backStruct.fitBackPar = backParamsStruct.fit;

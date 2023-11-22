@@ -178,7 +178,7 @@ classdef resolutionsClass < handle
             % Converts the class parameters into a structure array.
             resolParamsStruct = obj.resolPars.toStruct();
             
-            resolStruct.resolParNames = resolParamsStruct.paramNames;
+            resolStruct.resolParNames = resolParamsStruct.names;
             resolStruct.resolParLimits = resolParamsStruct.limits;
             resolStruct.resolPars = resolParamsStruct.params;
             resolStruct.fitResol = resolParamsStruct.fit;

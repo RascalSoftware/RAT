@@ -45,7 +45,7 @@ r1Problem.module.experiment_type = r2Problem.geometry;
 % Set parameter names, values, limits and check boxes
 r2ParamStruct = r2Problem.parameters.toStruct();
 r1Problem.params = r2ParamStruct.params;
-r1Problem.paramnames = r2ParamStruct.paramNames;
+r1Problem.paramnames = r2ParamStruct.names;
 r1Problem.constr = vertcat(r2ParamStruct.limits{:});
 r1Problem.fityesno = r2ParamStruct.fit;
 
@@ -57,7 +57,7 @@ r1Problem.shifts_constr = [-1e-4 1e-4];
 
 % Set scalefactors
 r2ScalesStruct = r2Problem.scalefactors.toStruct();
-r1Problem.scalesNames = r2ScalesStruct.paramNames;
+r1Problem.scalesNames = r2ScalesStruct.names;
 r1Problem.scalefac = r2ScalesStruct.params;
 r1Problem.numberOfScales = r2ScalesStruct.nParams;
 r1Problem.scale_constr = vertcat(r2ScalesStruct.limits{:});
@@ -65,7 +65,7 @@ r1Problem.scalefac_fityesno = r2ScalesStruct.fit;
 
 % Set bulk in
 r2BulkInStruct = r2Problem.bulkIn.toStruct();
-r1Problem.nbaNames = r2BulkInStruct.paramNames;
+r1Problem.nbaNames = r2BulkInStruct.names;
 r1Problem.nba = r2BulkInStruct.params;
 r1Problem.numberOfNbas = r2BulkInStruct.nParams;
 r1Problem.nbairs_constr = vertcat(r2BulkInStruct.limits{:});
@@ -73,7 +73,7 @@ r1Problem.nbairs_fityesno = r2BulkInStruct.fit;
 
 % Set bulk out
 r2BulkOutStruct = r2Problem.bulkOut.toStruct();
-r1Problem.nbsNames = r2BulkOutStruct.paramNames;
+r1Problem.nbsNames = r2BulkOutStruct.names;
 r1Problem.nbs = r2BulkOutStruct.params;
 r1Problem.numberOfNbss = r2BulkOutStruct.nParams;
 r1Problem.nbsubs_constr = vertcat(r2BulkOutStruct.limits{:});
@@ -145,11 +145,11 @@ for i = 1:numberOfContrasts
     contrastNames{i} = thisContrast.name;
     
     % nba
-    bulkInLoc = strfind(r2BulkInStruct.paramNames, thisContrast.nba);
+    bulkInLoc = strfind(r2BulkInStruct.names, thisContrast.nba);
     contrastNbas(i) = find(not(cellfun('isempty', bulkInLoc)));
     
     % nbs
-    bulkOutLoc = strfind(r2BulkOutStruct.paramNames, thisContrast.nbs);
+    bulkOutLoc = strfind(r2BulkOutStruct.names, thisContrast.nbs);
     contrastNbss(i) = find(not(cellfun('isempty', bulkOutLoc)));
     
     % scalefactors

@@ -233,9 +233,9 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 3}, 50, 'setParameter method not working');
             testCase.project.setParameterValue(2, 13);
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 3}, 13, 'setParameterValue method not working');
-            testCase.project.setParameterConstraint('Tails Thickness', 0, 100);
-            testCase.verifyEqual(testCase.project.parameters.varTable{2, 2}, 0, 'setParameterConstraint method not working');
-            testCase.verifyEqual(testCase.project.parameters.varTable{2, 4}, 100, 'setParameterConstraint method not working');
+            testCase.project.setParameterLimits('Tails Thickness', 0, 100);
+            testCase.verifyEqual(testCase.project.parameters.varTable{2, 2}, 0, 'setParameterLimits method not working');
+            testCase.verifyEqual(testCase.project.parameters.varTable{2, 4}, 100, 'setParameterLimits method not working');
             testCase.project.setParameterName(2, 'NewParam');
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 1}, "NewParam", 'setParameterName method not working');
             testCase.project.setParameterName(2, 'Tails Thickness');
@@ -471,10 +471,10 @@ classdef testProjectClass < matlab.unittest.TestCase
             % Checks that background parameter name can be modified
             testCase.project.setBacksParName(1, 'Backs Value D2O');
             testCase.verifyEqual(testCase.project.background.backPars.varTable{1, 1}, "Backs Value D2O", 'setBacksParName method not working');
-            % Checks that background parameter constraints can be modified
-            testCase.project.setBacksParConstr(1, 0, 1);
-            testCase.verifyEqual(testCase.project.background.backPars.varTable{1, 2}, 0, 'setBacksParConstr method not working');
-            testCase.verifyEqual(testCase.project.background.backPars.varTable{1, 4}, 1, 'setBacksParConstr method not working');
+            % Checks that background parameter limits can be modified
+            testCase.project.setBacksParLimits(1, 0, 1);
+            testCase.verifyEqual(testCase.project.background.backPars.varTable{1, 2}, 0, 'setBacksParLimits method not working');
+            testCase.verifyEqual(testCase.project.background.backPars.varTable{1, 4}, 1, 'setBacksParLimits method not working');
 
             % Checks the default background parameter 
             testCase.verifySize(testCase.project.background.backgrounds.varTable, [1, 7], 'background has wrong dimension');

@@ -207,7 +207,7 @@
       function testToStruct(testCase)
          % Checks that class to struct works correctly
          expected.backParNames =  {'background par 1'};
-         expected.backParConstr = {[0.0100 0.0500]};
+         expected.backParLimits = {[0.0100 0.0500]};
          expected.backParVals = 0.0300;
          expected.fitBackPar = 0;
          expected.nBackPars = 1;
@@ -221,7 +221,7 @@
          testCase.background.backPars.varTable = [testCase.background.backPars.varTable; vertcat(testCase.parameters(2:3, :))];
 
          expected.backParNames =  {'background par 1', 'background par 2', 'background par 3'};
-         expected.backParConstr = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};
+         expected.backParLimits = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};
          expected.backParVals = [0.0300, 0.1900, 0.1700];
          expected.fitBackPar = [0, 1, 0];
          expected.nBackPars = 3;

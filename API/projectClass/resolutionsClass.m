@@ -179,7 +179,7 @@ classdef resolutionsClass < handle
             resolParamsStruct = obj.resolPars.toStruct();
             
             resolStruct.resolParNames = resolParamsStruct.paramNames;
-            resolStruct.resolParConstr = resolParamsStruct.paramConstr;
+            resolStruct.resolParLimits = resolParamsStruct.limits;
             resolStruct.resolPars = resolParamsStruct.params;
             resolStruct.fitResol = resolParamsStruct.fit;
             resolStruct.nResolPars = resolParamsStruct.nParams;

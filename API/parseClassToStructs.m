@@ -96,8 +96,8 @@ layersDetails = inputStruct.layersDetails;
 % If any of the contrastLayers are empty, replace the empty cells by zero
 % thickness layers
 for i = 1:length(contrastLayers)
-    thisLayers = contrastLayers{i};
-    if isempty(thisLayers)
+    thisLayer = contrastLayers{i};
+    if isempty(thisLayer)
         contrastLayers{i} = 0;
     end
 end
@@ -134,8 +134,8 @@ if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 
     % If any of the domainContrastLayers are empty, replace the empty
     % cells by zero thickness layers
     for i = 1:length(domainContrastLayers)
-        thisLayers = domainContrastLayers{i};
-        if isempty(thisLayers)
+        thisLayer = domainContrastLayers{i};
+        if isempty(thisLayer)
             domainContrastLayers{i} = 0;
         end
     end
@@ -260,37 +260,37 @@ end
         
 
 %% Now make the limits array
-for i = 1:length(inputStruct.paramConstr)
-    problemDefLimits.params(i,:) = inputStruct.paramConstr{i};
+for i = 1:length(inputStruct.paramLimits)
+    problemDefLimits.params(i,:) = inputStruct.paramLimits{i};
 end
 
-for i = 1:length(inputStruct.backParConstr)
-    problemDefLimits.backs(i,:) = inputStruct.backParConstr{i};
+for i = 1:length(inputStruct.backParLimits)
+    problemDefLimits.backs(i,:) = inputStruct.backParLimits{i};
 end
 
-for i = 1:length(inputStruct.scalefactorConstr)
-    problemDefLimits.scales(i,:) = inputStruct.scalefactorConstr{i};
+for i = 1:length(inputStruct.scalefactorLimits)
+    problemDefLimits.scales(i,:) = inputStruct.scalefactorLimits{i};
 end
 
-for i = 1:length(inputStruct.qzshiftConstr)
-    problemDefLimits.shifts(i,:) = inputStruct.qzshiftConstr{i};
+for i = 1:length(inputStruct.qzshiftLimits)
+    problemDefLimits.shifts(i,:) = inputStruct.qzshiftLimits{i};
 end
 
-for i = 1:length(inputStruct.nbairConstr)
-    problemDefLimits.nba(i,:) = inputStruct.nbairConstr{i};
+for i = 1:length(inputStruct.nbairLimits)
+    problemDefLimits.nba(i,:) = inputStruct.nbairLimits{i};
 end
 
-for i = 1:length(inputStruct.nbsubConstr)
-    problemDefLimits.nbs(i,:) = inputStruct.nbsubConstr{i};
+for i = 1:length(inputStruct.nbsubLimits)
+    problemDefLimits.nbs(i,:) = inputStruct.nbsubLimits{i};
 end
 
-for i = 1:length(inputStruct.resolParConstr)
-    problemDefLimits.res(i,:) = inputStruct.resolParConstr{i};
+for i = 1:length(inputStruct.resolParLimits)
+    problemDefLimits.res(i,:) = inputStruct.resolParLimits{i};
 end
 
 if isa(inputProblemDef, 'domainsClass')
-    for i = 1:length(inputStruct.domainRatioConstr)
-        problemDefLimits.domainRatio(i,:) = inputStruct.domainRatioConstr{i};
+    for i = 1:length(inputStruct.domainRatioLimits)
+        problemDefLimits.domainRatio(i,:) = inputStruct.domainRatioLimits{i};
     end
 else
     problemDefLimits.domainRatio = ones(0,2);

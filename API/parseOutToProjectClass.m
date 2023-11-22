@@ -52,14 +52,3 @@ if strcmpi(outProblemStruct.TF,'domains')
         outProblemDef.setDomainRatio(i,'value',domainRatios(i));
     end
 end
-
-% resolNames = problemDefCells{13};
-% outProblemDef.resolutionNames = resolNames;
-% 
-% resolLimits = problemDefLimits.res;
-% for i = 1:numberOfResols
-%     outProblemDef.resolutionConstr{i} = resolLimits(i,:)
-
-
-
-end

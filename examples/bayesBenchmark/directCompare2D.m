@@ -23,18 +23,18 @@ probArray = zeros(gridSize, gridSize);
 
 %Make a vector of roughness values..
 outProb = NSProb;
-minRough = outProb.paramConstr{1}(1);
-maxRough = outProb.paramConstr{1}(2);
+minRough = outProb.paramLimits{1}(1);
+maxRough = outProb.paramLimits{1}(2);
 roughVector = linspace(minRough, maxRough, gridSize);
 
 %Also background...
-minBack = outProb.backgroundConstr{1}(1);
-maxBack = outProb.backgroundConstr{1}(2);
+minBack = outProb.backgroundLimits{1}(1);
+maxBack = outProb.backgroundLimits{1}(2);
 backsVector = linspace(minBack, maxBack, gridSize);
 
 % %..and scalefactor
-% minScale = outProb.scalefactorConstr{1}(1);
-% maxScale = outProb.scalefactorConstr{1}(2);
+% minScale = outProb.scalefactorLimits{1}(1);
+% maxScale = outProb.scalefactorLimits{1}(2);
 % scaleVector = linspace(minScale, maxScale, gridSize);
 
 

@@ -349,13 +349,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.parameters.setValue(row, value);
         end
         
-        function obj = setParameterConstraint(obj, row, min, max)
-            % Sets the constraints of an existing parameter.
+        function obj = setParameterLimits(obj, row, min, max)
+            % Sets the limits of an existing parameter.
             % Expects index or name of parameter and new min 
             % and max of the parameter's value
             %
-            % problem.setParameterConstraint(2, 0, 100);
-            obj.parameters.setConstraint(row, min, max);
+            % problem.setParameterLimits(2, 0, 100);
+            obj.parameters.setLimits(row, min, max);
         end
         
         function obj = setParameterName(obj, row, name)
@@ -491,13 +491,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.backPars.setValue(row, value);
         end
         
-        function obj = setBacksParConstr(obj, row, min, max)
+        function obj = setBacksParLimits(obj, row, min, max)
             % Sets the constraints of existing background
             % parameter. Expects index or name of parameter 
             % and new min and max of the parameter's value
             %
-            % problem.setBacksParConstr(1, 0, 1);
-            obj.background.backPars.setConstraint(row, min, max);
+            % problem.setBacksParLimits(1, 0, 1);
+            obj.background.backPars.setLimits(row, min, max);
         end
         
         function obj = setBacksParName(obj, row, name)
@@ -858,7 +858,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Parameters
             params = obj.parameters.toStruct();
             paramStruct = cell2struct(struct2cell(params),{'paramNames',...
-                'nParams','paramConstr','params','fitParams','paramPriors'});
+                'nParams','paramLimits','params','fitParams','paramPriors'});
             
             % Backgrounds
             backgroundStruct = obj.background.toStruct();
@@ -869,22 +869,22 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Bulk in
             bulkInStruct = obj.bulkIn.toStruct();
             bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'nbairNames',...
-                'nNba','nbairConstr','nbairs','fitNba','nbaPriors'});
+                'nNba','nbairLimits','nbairs','fitNba','nbaPriors'});
             
             % Bulk out
             bulkOutStruct = obj.bulkOut.toStruct();
             bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'nbsubNames',...
-                'nNbs','nbsubConstr','nbsubs','fitNbs','nbsPriors'});
+                'nNbs','nbsubLimits','nbsubs','fitNbs','nbsPriors'});
             
             % Scalefactors
             scalefactorStruct = obj.scalefactors.toStruct();
             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{'scalefactorNames',...
-                'nScalefactors','scalefactorConstr','scalefactors','fitScalefactor','scalefactorPriors'});
+                'nScalefactors','scalefactorLimits','scalefactors','fitScalefactor','scalefactorPriors'});
             
             % Qzshifts
             qzshiftStruct = obj.qzshifts.toStruct();
             qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{'qzshiftNames',...
-                'nQzshifts','qzshiftConstr','qzshifts','fitQzshift','qzshiftPriors'});
+                'nQzshifts','qzshiftLimits','qzshifts','fitQzshift','qzshiftPriors'});
             
             % Layers
             if isa(obj.layers, 'layersClass')
@@ -962,7 +962,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 % Set protected parameters
                 if any(strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters))
                     fprintf(fileID, options.objName + ".setParameterValue(%d, %.15g);\n", i, obj.parameters.varTable{i, 3});
-                    fprintf(fileID, options.objName + ".setParameterConstraint(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
+                    fprintf(fileID, options.objName + ".setParameterLimits(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
                     fprintf(fileID, options.objName + ".setParameterFit(%d, %s);\n", i, string(obj.parameters.varTable{i, 5}));
                     fprintf(fileID, options.objName + ".setParameterPrior(%d, '%s', %.15g, %.15g);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
                 % Add non-protected parameters to a parameter group

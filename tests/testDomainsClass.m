@@ -205,12 +205,12 @@ classdef testDomainsClass < matlab.unittest.TestCase
             testCase.verifyEqual(projectStruct.paramNames, {'Substrate Roughness'}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.backgroundNames, testCase.project.background.backgrounds.varTable{:, 1}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.backgroundTypes, testCase.project.background.backgrounds.varTable{:, 2}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.backParNames, ...
-                                 {convertStringsToChars(testCase.project.background.backPars.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.backgroundParamNames, ...
+                                 {convertStringsToChars(testCase.project.background.backgroundParams.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.varTable{:, 1}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.resolutionTypes, testCase.project.resolution.resolutions.varTable{:, 2}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.resolParNames, ...
-                                 {convertStringsToChars(testCase.project.resolution.resolPars.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.resolutionParamNames, ...
+                                 {convertStringsToChars(testCase.project.resolution.resolutionParams.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.varTable{:, 1}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.scalefactorNames, {convertStringsToChars(testCase.project.scalefactors.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.qzshiftNames, {convertStringsToChars(testCase.project.qzshifts.varTable{:, 1})}, 'toStruct method not working');

@@ -33,7 +33,7 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 %       {1 x nParams} array of cells
 %       Each cell is {1 x Inf char}
 %
-% {8} - inputProblemDef.backgroundsNames
+% {8} - inputProblemDef.backgroundParamNames
 %       {1 x nBackgrounds} array of cells
 %       Each cell is {1 x Inf char}
 % 
@@ -53,7 +53,7 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 %       {1 x nNba} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {13}- inputProblemDef.resolNames
+% {13}- inputProblemDef.resolutionParamNames
 %       {1 x nNba} array of cells
 %       Each cell is {1 x Inf char}
 %
@@ -115,12 +115,12 @@ problemDefCells{4} = inputStruct.simLimits;
 problemDefCells{5} = contrastLayers;
 problemDefCells{6} = layersDetails;
 problemDefCells{7} = inputStruct.paramNames;
-problemDefCells{8} = inputStruct.backParNames;
+problemDefCells{8} = inputStruct.backgroundParamNames;
 problemDefCells{9} = inputStruct.scalefactorNames;
 problemDefCells{10} = inputStruct.qzshiftNames;
 problemDefCells{11} = inputStruct.nbairNames;
 problemDefCells{12} = inputStruct.nbsubNames;
-problemDefCells{13} = inputStruct.resolParNames;
+problemDefCells{13} = inputStruct.resolutionParamNames;
 problemDefCells{14} = inputStruct.files;
 problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
 problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
@@ -177,8 +177,8 @@ end
 
 %% Put the priors into their own array
 priors.paramPriors = inputStruct.paramPriors;
-priors.backsPriors = inputStruct.backsPriors;
-priors.resolPriors = inputStruct.resolParPriors;
+priors.backgroundParamPriors = inputStruct.backgroundParamPriors;
+priors.resolutionParamPriors = inputStruct.resolutionParamPriors;
 priors.nbaPriors = inputStruct.nbaPriors;
 priors.nbsPriors = inputStruct.nbsPriors;
 priors.shiftPriors = inputStruct.qzshiftPriors;
@@ -222,7 +222,7 @@ for i=1:length(priorFields)
 end
 
 priors.priorNames = allPriors(:, 1);
-priors.priorVals = cell2mat(allPriors(:, 2:end));
+priors.priorValues = cell2mat(allPriors(:, 2:end));
 
 
 %% Split up the contrastBacks array
@@ -234,7 +234,7 @@ end
     
 % Here we need to do the same with the contrastResolutions array
 contrastResols = inputStruct.contrastRes;
-resolNames = inputStruct.resolParNames;
+resolNames = inputStruct.resolutionParamNames;
 resolTypes = inputStruct.resolutionTypes;
 contrastRes = zeros(1, length(contrastResols));
 for i = 1:length(contrastResols)
@@ -248,13 +248,13 @@ for i = 1:length(contrastResols)
         % Resolution is in the datafile. Set contrastRes to zero
         contrastRes(i) = -1;
     else
-        % Resolution is a resolParam, the nname of which should
+        % Resolution is a resolutionParam, the nname of which should
         % be in the first column of resolutionValues
-        whichResolParName = inputStruct.resolutionValues{thisResol,1};
+        whichResolutionParamName = inputStruct.resolutionValues{thisResol,1};
         
-        % Find which resolPar this is, and set contrastRes to this number
-        resolParNumber = find(strcmpi(whichResolParName,resolNames));
-        contrastRes(i) = resolParNumber;
+        % Find which resolutionParam this is, and set contrastRes to this number
+        resolutionParamNumber = find(strcmpi(whichResolutionParamName,resolNames));
+        contrastRes(i) = resolutionParamNumber;
     end
 end
         
@@ -264,8 +264,8 @@ for i = 1:length(inputStruct.paramLimits)
     problemDefLimits.params(i,:) = inputStruct.paramLimits{i};
 end
 
-for i = 1:length(inputStruct.backParLimits)
-    problemDefLimits.backs(i,:) = inputStruct.backParLimits{i};
+for i = 1:length(inputStruct.backgroundParamLimits)
+    problemDefLimits.backs(i,:) = inputStruct.backgroundParamLimits{i};
 end
 
 for i = 1:length(inputStruct.scalefactorLimits)
@@ -284,8 +284,8 @@ for i = 1:length(inputStruct.nbsubLimits)
     problemDefLimits.nbs(i,:) = inputStruct.nbsubLimits{i};
 end
 
-for i = 1:length(inputStruct.resolParLimits)
-    problemDefLimits.res(i,:) = inputStruct.resolParLimits{i};
+for i = 1:length(inputStruct.resolutionParamLimits)
+    problemDefLimits.res(i,:) = inputStruct.resolutionParamLimits{i};
 end
 
 if isa(inputProblemDef, 'domainsClass')
@@ -301,9 +301,9 @@ end
 
 % *************************************************************************
 % NOTE - not using the more complicated background and resolution
-% definitions for now - instead use the background names and backsPar
-% values.... fix this next
-% **********************************************************************8
+% definitions for now - instead use the background names and
+% backgroundParam values.... fix this next
+% *************************************************************************
 
 
 problemDef.TF = inputStruct.TF;
@@ -319,12 +319,12 @@ problemDef.contrastScales = inputStruct.contrastScales;
 problemDef.contrastNbas = inputStruct.contrastNbas;
 problemDef.contrastNbss = inputStruct.contrastNbss;
 problemDef.contrastRes = contrastRes;
-problemDef.backs = inputStruct.backParValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
+problemDef.backs = inputStruct.backgroundParamValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
 problemDef.shifts = inputStruct.qzshiftValues;
 problemDef.sf = inputStruct.scalefactorValues;
 problemDef.nba = inputStruct.nbairValues;
 problemDef.nbs = inputStruct.nbsubValues;
-problemDef.res = inputStruct.resolParValues; %inputStruct.resolutions;           % **** note resolPar workaround (todo) ****          
+problemDef.res = inputStruct.resolutionParamValues; %inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****          
 problemDef.params = inputStruct.paramValues;
 problemDef.numberOfLayers = inputStruct.numberOfLayers;
 problemDef.modelType = inputStruct.modelType;
@@ -384,12 +384,12 @@ controls.adaptPCR = inputControls.adaptPCR;
 
 % Also need to deal with the checks...
 checks.fitParams = inputStruct.fitParams;
-checks.fitBacks = inputStruct.fitBackPar;
+checks.fitBackgroundParam = inputStruct.fitBackgroundParam;
 checks.fitShifts = inputStruct.fitQzshift;
 checks.fitScales = inputStruct.fitScalefactor;
 checks.fitNbairs = inputStruct.fitNba;
 checks.fitNbsubs = inputStruct.fitNbs;
-checks.fitResol = inputStruct.fitResol;
+checks.fitResolutionParam = inputStruct.fitResolutionParam;
 if isa(inputProblemDef, 'domainsClass')
     checks.fitDomainRatio = inputStruct.fitDomainRatio;
 else

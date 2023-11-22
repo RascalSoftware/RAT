@@ -80,7 +80,7 @@ switch lower(problem.module.type)
 end
 
 % Remove defaults
-thisProjectClass.removeBacksPar(1);
+thisProjectClass.removeBackgroundParam(1);
 thisProjectClass.removeBackground(1);
 thisProjectClass.removeBulkIn(1);
 thisProjectClass.removeBulkOut(1);
@@ -90,8 +90,8 @@ thisProjectClass.removeScalefactor(1);
 for i = 1:problem.numberOfBacks
     backName = sprintf('Backs parameter %d',i);
     % Add backgrounds parameter
-    % addBacksPar <- (name, min, value, max, fit)
-    thisProjectClass.addBacksPar(backName, ...
+    % addBackgroundParam <- (name, min, value, max, fit)
+    thisProjectClass.addBackgroundParam(backName, ...
         problem.backs_constr(i,1), ...
         problem.backs(i), ...
         problem.backs_constr(i,2), ...

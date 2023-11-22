@@ -17,7 +17,7 @@ classdef backgroundsClass < handle
     % subtracted from the data.
     
     properties
-       backPars 
+       backgroundParams 
        backgrounds
     end
 
@@ -38,7 +38,7 @@ classdef backgroundsClass < handle
             %
             % params = parametersClass({'Backs par 1', 1e-7, 1e-6, 1e-5, false, 'uniform', 0, Inf});
             % background = backgroundClass(params, {'Background 1', 'constant', 'Backs Par 1'});
-            obj.backPars = parameters;
+            obj.backgroundParams = parameters;
             
             % Make a multiType table to define the actual backgrounds
             obj.backgrounds = multiTypeTable();
@@ -47,11 +47,11 @@ classdef backgroundsClass < handle
         end
 
         function flag = get.showPriors(obj)
-            flag = obj.backPars.showPriors;
+            flag = obj.backgroundParams.showPriors;
         end
         
         function set.showPriors(obj, value)
-            obj.backPars.showPriors = value;
+            obj.backgroundParams.showPriors = value;
         end
         
         function names = getBackgroundNames(obj)
@@ -190,29 +190,29 @@ classdef backgroundsClass < handle
         function displayBackgroundsObject(obj)
             % Displays the background parameters and background table.
             fprintf('    (a) Background Parameters: \n\n');
-            obj.backPars.displayTable;
+            obj.backgroundParams.displayTable;
             
             fprintf('    (b) Backgrounds:  \n\n')
             obj.backgrounds.displayTable;
         end
         
-        function backStruct = toStruct(obj)
+        function backgroundStruct = toStruct(obj)
             % Converts the class parameters into a structure array
-            backParamsStruct = obj.backPars.toStruct();
+            backgroundParamsStruct = obj.backgroundParams.toStruct();
             
-            backStruct.backParNames = backParamsStruct.names;
-            backStruct.backParLimits = backParamsStruct.limits;
-            backStruct.backParValues = backParamsStruct.values;
-            backStruct.fitBackPar = backParamsStruct.fit;
-            backStruct.backsPriors = backParamsStruct.priors;
+            backgroundStruct.backgroundParamNames = backgroundParamsStruct.names;
+            backgroundStruct.backgroundParamLimits = backgroundParamsStruct.limits;
+            backgroundStruct.backgroundParamValues = backgroundParamsStruct.values;
+            backgroundStruct.fitBackgroundParam = backgroundParamsStruct.fit;
+            backgroundStruct.backgroundParamPriors = backgroundParamsStruct.priors;
             
             backgroundNames = obj.backgrounds.varTable{:,1};
             backgroundTypes = obj.backgrounds.varTable{:,2};
             backgroundValues = table2cell(obj.backgrounds.varTable(:,3:7));
             
-            backStruct.backgroundNames = backgroundNames;
-            backStruct.backgroundTypes = backgroundTypes;
-            backStruct.backgroundValues = backgroundValues;
+            backgroundStruct.backgroundNames = backgroundNames;
+            backgroundStruct.backgroundTypes = backgroundTypes;
+            backgroundStruct.backgroundValues = backgroundValues;
         end
     end
 
@@ -225,7 +225,7 @@ classdef backgroundsClass < handle
             if iscell(param)
                 param = param{:};
             end
-            parList = obj.backPars.getNames();
+            parList = obj.backgroundParams.getNames();
             if isnumeric(param)
                 if (param < 1) || (param > length(parList))
                     throw(exceptions.indexOutOfRange(sprintf('Background Parameter %d is out of range', param)));

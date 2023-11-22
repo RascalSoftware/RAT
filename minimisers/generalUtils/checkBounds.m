@@ -10,7 +10,7 @@ fittingNames = problem.paramnames(find(fitWhichParams));
 fitWhichBacks = problem.fitBackgrounds;
 fittingBacks = problem.backs(find(fitWhichBacks));
 fittingBacksConstr = problem.backs_constr(find(fitWhichBacks),:);
-fittingBacksNames = problem.backsNames(find(fitWhichBacks));
+fittingBacksNames = problem.backgroundParamNames(find(fitWhichBacks));
 
 fitWhichScales = problem.fitScales;
 fittingScales = problem.scalefac(find(fitWhichScales));

@@ -31,15 +31,15 @@ end
 % Put all the priors into one array
 % ** This won't work for code generation **
 % priorsGroup = [priors.paramPriors ; ...
-%     priors.backsPriors ; ...
-%     priors.resolPriors ; ...
+%     priors.backgroundParamPriors ; ...
+%     priors.resolutionParamPriors ; ...
 %     priors.nbaPriors ; ...
 %     priors.nbsPriors ; ...
 %     priors.shiftPriors ; 
 %     priors.scalesPriors];
 
-% totalNumber = size(priors.paramPriors,1) + size(priors.backsPriors,1) + ...
-%     size(priors.resolPriors,1) + size(priors.nbaPriors,1) + size(priors.nbsPriors,1) + ...
+% totalNumber = size(priors.paramPriors,1) + size(priors.backgroundParamPriors,1) + ...
+%     size(priors.resolutionParamPriors,1) + size(priors.nbaPriors,1) + size(priors.nbsPriors,1) + ...
 %     size(priors.shiftPriors,1) + size(priors.scalesPriors,1);
 
 % Expand the individual cells..
@@ -55,19 +55,19 @@ end
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.backsPriors,1)
-%     allPriors(cellCount,1) = priors.backsPriors{i}{1};
-%     allPriors(cellCount,2) = priors.backsPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.backsPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.backsPriors{i}{4};
+% for i = 1:size(priors.backgroundParamPriors,1)
+%     allPriors(cellCount,1) = priors.backgroundParamPriors{i}{1};
+%     allPriors(cellCount,2) = priors.backgroundParamPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.backgroundParamPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.backgroundParamPriors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.resolPriors,1)
-%     allPriors(cellCount,1) = priors.resolPriors{i}{1};
-%     allPriors(cellCount,2) = priors.resolPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.resolPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.resolPriors{i}{4};
+% for i = 1:size(priors.resolutionParamPriors,1)
+%     allPriors(cellCount,1) = priors.resolutionParamPriors{i}{1};
+%     allPriors(cellCount,2) = priors.resolutionParamPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.resolutionParamPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.resolutionParamPriors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
@@ -111,7 +111,7 @@ end
 % allPriorNames = {allPriors{:,1}};
 
 priorNames = allPriors.priorNames;
-priorVals = allPriors.priorVals;
+priorValues = allPriors.priorValues;
 
 
 for i = 1:length(fitNames)
@@ -136,8 +136,8 @@ for i = 1:length(fitNames)
 %         error('Can"t identify this fitting parameter');
 %     end
     
-    mu = real(str2double(priorVals{parPos,2}));
-    sigma = real(str2double(priorVals{parPos,3}));
+    mu = real(str2double(priorValues{parPos,2}));
+    sigma = real(str2double(priorValues{parPos,3}));
     
     thisGroup = {name, value, min, max, mu, sigma};
     params{i} = thisGroup;

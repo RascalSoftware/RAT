@@ -14,7 +14,7 @@ end
 %(2) Backgrounds
 backs = outProblemStruct.backs;
 for i = 1:length(backs)
-    outProblemDef.setBacksParValue(i,backs(i));
+    outProblemDef.setBackgroundParamValue(i,backs(i));
 end
 
 %(3) Scalefactors
@@ -42,7 +42,7 @@ end
 %(5) Resolutions
 resol = outProblemStruct.res;
 for i = 1:length(resol)
-    outProblemDef.setResolPar(i,'value',resol(i));
+    outProblemDef.setResolutionParam(i,'value',resol(i));
 end
 
 % (6) Domain ratio

@@ -29,10 +29,10 @@ problem.addCustomFile('DSPC Model','customDSPCMonolayer.m','matlab','pwd');
 
 % Need two backgrounds - one for D2O and for H2O
 % Change the name of the first and add a new one for the second
-% Also need a new backsPar
-problem.setBacksParName(1,'Backs value ACMW');
-problem.setBacksParValue(1,5.5e-6);
-problem.addBacksPar('Backs Value D2O',1e-8,2.8e-6,1e-5);
+% Also need a new backgroundParam
+problem.setBackgroundParamName(1,'Backs value ACMW');
+problem.setBackgroundParamValue(1,5.5e-6);
+problem.addBackgroundParam('Backs Value D2O',1e-8,2.8e-6,1e-5);
 
 problem.addBackground('Background D2O','constant','Backs Value D2O');
 problem.setBackground(1,'name','Background ACMW', 'value1', 'Backs Value ACMW');
@@ -74,8 +74,8 @@ problem.setContrastModel(2,'DSPC Model');
 % 
 
 % Set the fitting fitting flag on some parameters we need to fit
-problem.setBacksPar(1,'fit',true);
-problem.setBacksPar(2,'fit',true);
+problem.setBackgroundParam(1,'fit',true);
+problem.setBackgroundParam(2,'fit',true);
 problem.setScalefactor(1,'fit',true);
 problem.setBulkOut(1,'fit',false);
 problem.setBulkOut(2,'fit',false);

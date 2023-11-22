@@ -14,7 +14,7 @@ classdef resolutionsClass < handle
     % parameters table) which are then supplied to the function to calculate the resolution. 
     
     properties   
-       resolPars 
+       resolutionParams 
        resolutions
     end
 
@@ -35,7 +35,7 @@ classdef resolutionsClass < handle
             %
             % params = parametersClass({'Resolution par 1', 0.01, 0.03, 0.05, false});
             % resolution = resolutionsClass(params , {'Resolution 1', 'constant', 'Tails'});
-            obj.resolPars = parameters;
+            obj.resolutionParams = parameters;
             
             % Make a multiType table to define the actual resolutions
             obj.resolutions = multiTypeTable();
@@ -44,11 +44,11 @@ classdef resolutionsClass < handle
         end
         
         function flag = get.showPriors(obj)
-            flag = obj.resolPars.showPriors;
+            flag = obj.resolutionParams.showPriors;
         end
         
         function set.showPriors(obj, value)
-            obj.resolPars.showPriors = value;
+            obj.resolutionParams.showPriors = value;
         end
         
         function names = getResolNames(obj)
@@ -174,29 +174,29 @@ classdef resolutionsClass < handle
             end
         end
         
-        function resolStruct = toStruct(obj)
+        function resolutionStruct = toStruct(obj)
             % Converts the class parameters into a structure array.
-            resolParamsStruct = obj.resolPars.toStruct();
+            resolutionParamsStruct = obj.resolutionParams.toStruct();
             
-            resolStruct.resolParNames = resolParamsStruct.names;
-            resolStruct.resolParLimits = resolParamsStruct.limits;
-            resolStruct.resolParValues = resolParamsStruct.values;
-            resolStruct.fitResol = resolParamsStruct.fit;
-            resolStruct.resolParPriors = resolParamsStruct.priors;
+            resolutionStruct.resolutionParamNames = resolutionParamsStruct.names;
+            resolutionStruct.resolutionParamLimits = resolutionParamsStruct.limits;
+            resolutionStruct.resolutionParamValues = resolutionParamsStruct.values;
+            resolutionStruct.fitResolutionParam = resolutionParamsStruct.fit;
+            resolutionStruct.resolutionParamPriors = resolutionParamsStruct.priors;
             
             resolutionNames = obj.resolutions.varTable{:,1};
             resolutionTypes = obj.resolutions.varTable{:,2};
             resolutionValues = table2cell(obj.resolutions.varTable(:,3:7));
             
-            resolStruct.resolutionNames = resolutionNames;
-            resolStruct.resolutionTypes = resolutionTypes;
-            resolStruct.resolutionValues = resolutionValues;  
+            resolutionStruct.resolutionNames = resolutionNames;
+            resolutionStruct.resolutionTypes = resolutionTypes;
+            resolutionStruct.resolutionValues = resolutionValues;  
          end
         
         function displayResolutionsObject(obj)
             % Displays the resolution parameters and resolution table.
             fprintf('    (a) Resolutions Parameters: \n\n');
-            obj.resolPars.displayTable;
+            obj.resolutionParams.displayTable;
             
             fprintf('    (b) Resolutions:  \n\n')
             obj.resolutions.displayTable;
@@ -212,7 +212,7 @@ classdef resolutionsClass < handle
             if iscell(param)
                 param = param{:};
             end
-            parList = obj.resolPars.getNames(); 
+            parList = obj.resolutionParams.getNames(); 
             if isnumeric(param)
                 if (param < 1) || (param > length(parList))
                     throw(exceptions.indexOutOfRange(sprintf('Resolution Parameter %d is out of range', param)));

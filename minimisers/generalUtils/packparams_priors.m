@@ -7,11 +7,11 @@ function [problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemD
 %problem = getappdata(0,'problem');
 
 % controls.checks.fitParams = ones(length(problem.params),1);
-% controls.checks.fitBacks = ones(length(problem.backs),1);
+% controls.checks.fitBackgroundParam = ones(length(problem.backs),1);
 % controls.checks.fitScales = ones(length(problem.scalefac),1);
 % controls.checks.fitNbairs = ones(length(problem.nba),1);
 % controls.checks.fitNbsubs = ones(length(problem.nbs),1);
-% controls.checks.fitResol = ones(length(problem.resolution),1);
+% controls.checks.fitResolutionParam = ones(length(problem.resolution),1);
 
 % calculation.limits.params = problem.constr;
 % calculation.limits.backs = problem.backs_constr;
@@ -27,12 +27,12 @@ function [problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemD
 %of those that are being fitted, and those that are
 %held constant.
 numberOfFitted = sum(checks.fitParams) + ...
-                 sum(checks.fitBacks) + ...
+                 sum(checks.fitBackgroundParam) + ...
                  sum(checks.fitScales) + ...
                  sum(checks.fitShifts) + ...
                  sum(checks.fitNbairs) + ...
                  sum(checks.fitNbsubs) + ...
-                 sum(checks.fitResol) + ...
+                 sum(checks.fitResolutionParam) + ...
                  sum(checks.fitDomainRatio);
              
 numberOfTotal = length(problemDef.params) + ...
@@ -76,13 +76,13 @@ for n = 1:length(checks.fitParams)
 end
 
 %Also do the same for backgrounds...
-for n = 1:length(checks.fitBacks)
-    if checks.fitBacks(n) == 1
+for n = 1:length(checks.fitBackgroundParam)
+    if checks.fitBackgroundParam(n) == 1
         fitpars(fitCounter) = problemDef.backs(n);
         fitconstr(fitCounter,1) = limits.backs(n,1);
         fitconstr(fitCounter,2) = limits.backs(n,2);
         fitNames{fitCounter} = problemDefCells{8}{n};
-        thisPrior = priors.backsPriors{n};
+        thisPrior = priors.backgroundParamPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
         else
@@ -191,13 +191,13 @@ for n = 1:length(checks.fitNbsubs)
 end 
 
 %Resolution.....
-for n = 1:length(checks.fitResol)
-    if checks.fitResol(n) == 1
+for n = 1:length(checks.fitResolutionParam)
+    if checks.fitResolutionParam(n) == 1
         fitpars(fitCounter) = problemDef.res(n);
         fitconstr(fitCounter,1) = limits.res(n,1);
         fitconstr(fitCounter,2) = limits.res(n,2);
         fitNames{fitCounter} = problemDefCells{13}{n};
-        thisPrior = priors.resolPriors{n};
+        thisPrior = priors.resolutionParamPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
         else

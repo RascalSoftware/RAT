@@ -28,8 +28,8 @@ problemDef.params = uppars;
 %Also the backgrounds
 uppars = zeros(1,length(problemDef.backs));
 uppars_counter = 1;
-for i = 1:length(controls.checks.fitBacks)
-    if controls.checks.fitBacks(i) == 1
+for i = 1:length(controls.checks.fitBackgroundParam)
+    if controls.checks.fitBackgroundParam(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -113,8 +113,8 @@ problemDef.nbs = uppars;
 %Finally resolutions
 uppars = zeros(1,length(problemDef.res));
 uppars_counter = 1;
-for i = 1:length(controls.checks.fitResol)
-    if controls.checks.fitResol(i) == 1
+for i = 1:length(controls.checks.fitResolutionParam)
+    if controls.checks.fitResolutionParam(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;

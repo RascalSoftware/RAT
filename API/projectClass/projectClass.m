@@ -858,7 +858,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Parameters
             params = obj.parameters.toStruct();
             paramStruct = cell2struct(struct2cell(params),{'paramNames',...
-                'nParams','paramLimits','params','fitParams','paramPriors'});
+                'nParams','paramLimits','paramValues','fitParams','paramPriors'});
             
             % Backgrounds
             backgroundStruct = obj.background.toStruct();
@@ -869,22 +869,22 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Bulk in
             bulkInStruct = obj.bulkIn.toStruct();
             bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'nbairNames',...
-                'nNba','nbairLimits','nbairs','fitNba','nbaPriors'});
+                'nNba','nbairLimits','nbairValues','fitNba','nbaPriors'});
             
             % Bulk out
             bulkOutStruct = obj.bulkOut.toStruct();
             bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'nbsubNames',...
-                'nNbs','nbsubLimits','nbsubs','fitNbs','nbsPriors'});
+                'nNbs','nbsubLimits','nbsubValues','fitNbs','nbsPriors'});
             
             % Scalefactors
             scalefactorStruct = obj.scalefactors.toStruct();
             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{'scalefactorNames',...
-                'nScalefactors','scalefactorLimits','scalefactors','fitScalefactor','scalefactorPriors'});
+                'nScalefactors','scalefactorLimits','scalefactorValues','fitScalefactor','scalefactorPriors'});
             
             % Qzshifts
             qzshiftStruct = obj.qzshifts.toStruct();
             qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{'qzshiftNames',...
-                'nQzshifts','qzshiftLimits','qzshifts','fitQzshift','qzshiftPriors'});
+                'nQzshifts','qzshiftLimits','qzshiftValues','fitQzshift','qzshiftPriors'});
             
             % Layers
             if isa(obj.layers, 'layersClass')

@@ -202,7 +202,7 @@ classdef backgroundsClass < handle
             
             backStruct.backParNames = backParamsStruct.names;
             backStruct.backParLimits = backParamsStruct.limits;
-            backStruct.backParVals = backParamsStruct.params;
+            backStruct.backParValues = backParamsStruct.values;
             backStruct.fitBackPar = backParamsStruct.fit;
             backStruct.nBackPars = backParamsStruct.nParams;
             backStruct.backsPriors = backParamsStruct.priors;

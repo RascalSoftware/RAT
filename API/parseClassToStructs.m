@@ -319,13 +319,13 @@ problemDef.contrastScales = inputStruct.contrastScales;
 problemDef.contrastNbas = inputStruct.contrastNbas;
 problemDef.contrastNbss = inputStruct.contrastNbss;
 problemDef.contrastRes = contrastRes;
-problemDef.backs = inputStruct.backParVals; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
-problemDef.shifts = inputStruct.qzshifts;
-problemDef.sf = inputStruct.scalefactors;
-problemDef.nba = inputStruct.nbairs;
-problemDef.nbs = inputStruct.nbsubs;
-problemDef.res = inputStruct.resolPars; %inputStruct.resolutions;           % **** note resolPar workaround (todo) ****          
-problemDef.params = inputStruct.params;
+problemDef.backs = inputStruct.backParValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
+problemDef.shifts = inputStruct.qzshiftValues;
+problemDef.sf = inputStruct.scalefactorValues;
+problemDef.nba = inputStruct.nbairValues;
+problemDef.nbs = inputStruct.nbsubValues;
+problemDef.res = inputStruct.resolParValues; %inputStruct.resolutions;           % **** note resolPar workaround (todo) ****          
+problemDef.params = inputStruct.paramValues;
 problemDef.numberOfLayers = inputStruct.numberOfLayers;
 problemDef.modelType = inputStruct.modelType;
 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
@@ -335,7 +335,7 @@ problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
 problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
 
 if isa(inputProblemDef, 'domainsClass')
-    problemDef.domainRatio = inputStruct.domainRatios;
+    problemDef.domainRatio = inputStruct.domainRatioValues;
 else
     problemDef.domainRatio = ones(1,0);
 end

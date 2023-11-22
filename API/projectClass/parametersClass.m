@@ -336,7 +336,7 @@ classdef parametersClass < tableUtilities
             
             outStruct.limits = limits;
             
-            outStruct.params = obj.varTable{:,3};
+            outStruct.values = obj.varTable{:,3};
             
             outStruct.fit = double(obj.varTable{:,5});
             
@@ -359,7 +359,7 @@ classdef parametersClass < tableUtilities
             % Need to force some of the outputs
             % to be row vectors, so transpose them
             outStruct.names = outStruct.names';
-            outStruct.params = outStruct.params';
+            outStruct.values = outStruct.values';
             outStruct.fit = outStruct.fit';
             
             % Fields order needs to be...
@@ -367,7 +367,7 @@ classdef parametersClass < tableUtilities
             % names
             % nParams
             % limits
-            % params
+            % values
             % fit
             % priors    
         end

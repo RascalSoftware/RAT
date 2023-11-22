@@ -44,7 +44,7 @@ r1Problem.module.experiment_type = r2Problem.geometry;
 
 % Set parameter names, values, limits and check boxes
 r2ParamStruct = r2Problem.parameters.toStruct();
-r1Problem.params = r2ParamStruct.params;
+r1Problem.params = r2ParamStruct.values;
 r1Problem.paramnames = r2ParamStruct.names;
 r1Problem.constr = vertcat(r2ParamStruct.limits{:});
 r1Problem.fityesno = r2ParamStruct.fit;
@@ -58,7 +58,7 @@ r1Problem.shifts_constr = [-1e-4 1e-4];
 % Set scalefactors
 r2ScalesStruct = r2Problem.scalefactors.toStruct();
 r1Problem.scalesNames = r2ScalesStruct.names;
-r1Problem.scalefac = r2ScalesStruct.params;
+r1Problem.scalefac = r2ScalesStruct.values;
 r1Problem.numberOfScales = r2ScalesStruct.nParams;
 r1Problem.scale_constr = vertcat(r2ScalesStruct.limits{:});
 r1Problem.scalefac_fityesno = r2ScalesStruct.fit;
@@ -66,7 +66,7 @@ r1Problem.scalefac_fityesno = r2ScalesStruct.fit;
 % Set bulk in
 r2BulkInStruct = r2Problem.bulkIn.toStruct();
 r1Problem.nbaNames = r2BulkInStruct.names;
-r1Problem.nba = r2BulkInStruct.params;
+r1Problem.nba = r2BulkInStruct.values;
 r1Problem.numberOfNbas = r2BulkInStruct.nParams;
 r1Problem.nbairs_constr = vertcat(r2BulkInStruct.limits{:});
 r1Problem.nbairs_fityesno = r2BulkInStruct.fit;
@@ -74,7 +74,7 @@ r1Problem.nbairs_fityesno = r2BulkInStruct.fit;
 % Set bulk out
 r2BulkOutStruct = r2Problem.bulkOut.toStruct();
 r1Problem.nbsNames = r2BulkOutStruct.names;
-r1Problem.nbs = r2BulkOutStruct.params;
+r1Problem.nbs = r2BulkOutStruct.values;
 r1Problem.numberOfNbss = r2BulkOutStruct.nParams;
 r1Problem.nbsubs_constr = vertcat(r2BulkOutStruct.limits{:});
 r1Problem.nbsubs_fityesno = r2BulkOutStruct.fit;
@@ -83,7 +83,7 @@ r1Problem.nbsubs_fityesno = r2BulkOutStruct.fit;
 % unavaliable in R1)
 r2ResolStruct = r2Problem.resolution.toStruct();
 r1Problem.resolNames = r2ResolStruct.resolParNames;
-r1Problem.resolution = r2ResolStruct.resolPars;
+r1Problem.resolution = r2ResolStruct.resolParValues;
 r1Problem.numberOfResolutions = r2ResolStruct.nResolPars;
 r1Problem.reslution_constr = vertcat(r2ResolStruct.resolParLimits{:});
 r1Problem.resolution_fityesno = r2ResolStruct.fitResol;
@@ -91,7 +91,7 @@ r1Problem.resolution_fityesno = r2ResolStruct.fitResol;
 % Set Backgrounds
 r2BackStruct = r2Problem.background.toStruct();
 r1Problem.backsNames = r2BackStruct.backParNames;
-r1Problem.backs = r2BackStruct.backParVals;
+r1Problem.backs = r2BackStruct.backParValues;
 r1Problem.numberOfBacks = r2BackStruct.nBackPars;
 r1Problem.backs_constr = vertcat(r2BackStruct.backParLimits{:});
 r1Problem.backgrounds_fityesno = r2BackStruct.fitBackPar;

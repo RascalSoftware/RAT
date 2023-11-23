@@ -36,14 +36,14 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             params = parametersClass(testCase.parameters{1, :});
             params.varTable = [params.varTable; vertcat(testCase.parameters(2:end, :))];
             
-            resolution = resolutionsClass(params, testCase.resolutions(1, :));
-            testCase.verifyEqual(string(resolution.resolutionParams.varTable{1, :}), ...
+            testResolution = resolutionsClass(params, testCase.resolutions(1, :));
+            testCase.verifyEqual(string(testResolution.resolutionParams.varTable{1, :}), ...
                                  string(testCase.parameters(1, :)), 'Start resolution parameter not set correctly');
-            testCase.verifySize(resolution.resolutionParams.varTable, [3, 8], 'Resolution Parameters has wrong dimension');
+            testCase.verifySize(testResolution.resolutionParams.varTable, [3, 8], 'Resolution Parameters has wrong dimension');
             
-            testCase.verifyEqual(string(resolution.resolutions.varTable{1, :}), ...
+            testCase.verifyEqual(string(testResolution.resolutions.varTable{1, :}), ...
                                  string(testCase.resolutions(1, :)), 'Start resolution parameter not set correctly');
-            testCase.verifySize(resolution.resolutions.varTable, [1, 7], 'Resolutions has wrong dimension');
+            testCase.verifySize(testResolution.resolutions.varTable, [1, 7], 'Resolutions has wrong dimension');
         end
         
         function testShowPrior(testCase)

@@ -1,4 +1,4 @@
-classdef testProject < matlab.unittest.TestCase
+classdef testCreateProject < matlab.unittest.TestCase
 %%
 % testProjects Class based unit tests for the project routine used to set
 % up calculations in RAT.

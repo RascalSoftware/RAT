@@ -12,12 +12,12 @@ fittingBacks = problem.backs(find(fitWhichBacks));
 fittingBacksConstr = problem.backs_constr(find(fitWhichBacks),:);
 fittingBacksNames = problem.backgroundParamNames(find(fitWhichBacks));
 
-fitWhichScales = problem.fitScales;
+fitWhichScales = problem.fitScalefactor;
 fittingScales = problem.scalefac(find(fitWhichScales));
 fittingScalesConstr = problem.scale_constr(find(fitWhichScales),:);
 fittingScalesNames = problem.scalesNames(find(fitWhichScales));
 
-fitWhichShifts = problem.fitShifts;
+fitWhichShifts = problem.fitQzshift;
 fittingShifts = problem.shifts_horisontal(find(fitWhichShifts));
 fittingShiftsConstr = problem.shifts_constr(find(fitWhichShifts),:);
 fittingShiftsNames = problem.shiftsNames(find(fitWhichShifts));

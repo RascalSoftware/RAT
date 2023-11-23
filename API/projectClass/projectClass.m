@@ -570,7 +570,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % of a name, min, value, max, fit flag, prior type', mu,
             % and sigma
             %
-            % problem.addResolutionParam('ResolutionParam 1', 1e-8, 2.8e-6, 1e-5);
+            % problem.addResolutionParam('Resolution Param 1', 1e-8, 2.8e-6, 1e-5);
             obj.resolution.resolutionParams.addParameter(varargin{:});
         end
         
@@ -578,7 +578,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Sets the value of an existing resolution parameter. Expects
             % index or name of parameter and keyword/value pairs to set
             %
-            % problem.setResolutionParam(1, 'name', 'ResolutionParam');
+            % problem.setResolutionParam(1, 'name', 'Resolution Param');
             obj.resolution.resolutionParams.setParameter(varargin{:});
         end
         
@@ -858,7 +858,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Parameters
             params = obj.parameters.toStruct();
             paramStruct = cell2struct(struct2cell(params),{'paramNames',...
-                'paramLimits','paramValues','fitParams','paramPriors'});
+                'paramLimits','paramValues','fitParam','paramPriors'});
             
             % Backgrounds
             backgroundStruct = obj.background.toStruct();

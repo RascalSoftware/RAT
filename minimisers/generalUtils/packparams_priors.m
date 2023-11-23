@@ -6,17 +6,17 @@ function [problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemD
 
 %problem = getappdata(0,'problem');
 
-% controls.checks.fitParams = ones(length(problem.params),1);
+% controls.checks.fitParam = ones(length(problem.params),1);
 % controls.checks.fitBackgroundParam = ones(length(problem.backs),1);
-% controls.checks.fitScales = ones(length(problem.scalefac),1);
+% controls.checks.fitScalefactor = ones(length(problem.scalefac),1);
 % controls.checks.fitNbairs = ones(length(problem.nba),1);
 % controls.checks.fitNbsubs = ones(length(problem.nbs),1);
 % controls.checks.fitResolutionParam = ones(length(problem.resolution),1);
 
 % calculation.limits.params = problem.constr;
 % calculation.limits.backs = problem.backs_constr;
-% calculation.limits.scales = problem.scale_constr;
-% calculation.limits.shifts = problem.shifts_constr;
+% calculation.limits.scalefactor = problem.scale_constr;
+% calculation.limits.qzshift = problem.shifts_constr;
 % calculation.limits.nba = problem.nbairs_constr;
 % calculation.limits.nbs = problem.nbsubs_constr;
 % calculation.limits.res = problem.resolution_constr;
@@ -26,10 +26,10 @@ function [problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemD
 %We need to pack the parameters into seperate vectors
 %of those that are being fitted, and those that are
 %held constant.
-numberOfFitted = sum(checks.fitParams) + ...
+numberOfFitted = sum(checks.fitParam) + ...
                  sum(checks.fitBackgroundParam) + ...
-                 sum(checks.fitScales) + ...
-                 sum(checks.fitShifts) + ...
+                 sum(checks.fitScalefactor) + ...
+                 sum(checks.fitQzshift) + ...
                  sum(checks.fitNbairs) + ...
                  sum(checks.fitNbsubs) + ...
                  sum(checks.fitResolutionParam) + ...
@@ -53,8 +53,8 @@ fitNames = cell(numberOfFitted,1);
 fitPriors = zeros(numberOfFitted,2);
 fitCounter = 1;
 otherCounter = 1;
-for n = 1:length(checks.fitParams)
-    if checks.fitParams(n) == 1
+for n = 1:length(checks.fitParam)
+    if checks.fitParam(n) == 1
         fitpars(fitCounter) = problemDef.params(n);
         fitconstr(fitCounter,1) = limits.params(n,1);
         fitconstr(fitCounter,2) = limits.params(n,2);        
@@ -99,13 +99,13 @@ for n = 1:length(checks.fitBackgroundParam)
 end
 
 %..also for the scale factors
-for n = 1:length(checks.fitScales)
-    if checks.fitScales(n) == 1
+for n = 1:length(checks.fitScalefactor)
+    if checks.fitScalefactor(n) == 1
         fitpars(fitCounter) = problemDef.sf(n);
-        fitconstr(fitCounter,1) = limits.scales(n,1);
-        fitconstr(fitCounter,2) = limits.scales(n,2);
+        fitconstr(fitCounter,1) = limits.scalefactor(n,1);
+        fitconstr(fitCounter,2) = limits.scalefactor(n,2);
         fitNames{fitCounter} = problemDefCells{9}{n};
-        thisPrior = priors.scalesPriors{n};
+        thisPrior = priors.scalefactorPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
         else
@@ -115,20 +115,20 @@ for n = 1:length(checks.fitScales)
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.sf(n);
-        otherconstr(otherCounter,1) = limits.scales(n,1);
-        otherconstr(otherCounter,2) = limits.scales(n,2);
+        otherconstr(otherCounter,1) = limits.scalefactor(n,1);
+        otherconstr(otherCounter,2) = limits.scalefactor(n,2);
         otherCounter = otherCounter + 1;
     end
 end    
 
 %Need qshifts
-for n = 1:length(checks.fitShifts)
-    if checks.fitShifts(n) == 1
+for n = 1:length(checks.fitQzshift)
+    if checks.fitQzshift(n) == 1
         fitpars(fitCounter) = problemDef.shifts(n);
-        fitconstr(fitCounter,1) = limits.shifts(n,1);
-        fitconstr(fitCounter,2) = limits.shifts(n,2);
+        fitconstr(fitCounter,1) = limits.qzshift(n,1);
+        fitconstr(fitCounter,2) = limits.qzshift(n,2);
         fitNames{fitCounter} = problemDefCells{10}{n};
-        thisPrior = priors.shiftPriors{n};
+        thisPrior = priors.qzshiftPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
         else
@@ -138,8 +138,8 @@ for n = 1:length(checks.fitShifts)
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.shifts(n);
-        otherconstr(otherCounter,1) = limits.shifts(n,1);
-        otherconstr(otherCounter,2) = limits.shifts(n,2);
+        otherconstr(otherCounter,1) = limits.qzshift(n,1);
+        otherconstr(otherCounter,2) = limits.qzshift(n,2);
         otherCounter = otherCounter + 1;
     end
 end 

@@ -181,8 +181,8 @@ priors.backgroundParamPriors = inputStruct.backgroundParamPriors;
 priors.resolutionParamPriors = inputStruct.resolutionParamPriors;
 priors.nbaPriors = inputStruct.nbaPriors;
 priors.nbsPriors = inputStruct.nbsPriors;
-priors.shiftPriors = inputStruct.qzshiftPriors;
-priors.scalesPriors = inputStruct.scalefactorPriors;
+priors.qzshiftPriors = inputStruct.qzshiftPriors;
+priors.scalefactorPriors = inputStruct.scalefactorPriors;
 if isa(inputProblemDef, 'domainsClass')
     priors.domainRatioPriors = inputStruct.domainRatioPriors;
 else
@@ -269,11 +269,11 @@ for i = 1:length(inputStruct.backgroundParamLimits)
 end
 
 for i = 1:length(inputStruct.scalefactorLimits)
-    problemDefLimits.scales(i,:) = inputStruct.scalefactorLimits{i};
+    problemDefLimits.scalefactor(i,:) = inputStruct.scalefactorLimits{i};
 end
 
 for i = 1:length(inputStruct.qzshiftLimits)
-    problemDefLimits.shifts(i,:) = inputStruct.qzshiftLimits{i};
+    problemDefLimits.qzshift(i,:) = inputStruct.qzshiftLimits{i};
 end
 
 for i = 1:length(inputStruct.nbairLimits)
@@ -383,10 +383,10 @@ controls.boundHandling = inputControls.boundHandling;
 controls.adaptPCR = inputControls.adaptPCR;
 
 % Also need to deal with the checks...
-checks.fitParams = inputStruct.fitParams;
+checks.fitParam = inputStruct.fitParam;
 checks.fitBackgroundParam = inputStruct.fitBackgroundParam;
-checks.fitShifts = inputStruct.fitQzshift;
-checks.fitScales = inputStruct.fitScalefactor;
+checks.fitQzshift = inputStruct.fitQzshift;
+checks.fitScalefactor = inputStruct.fitScalefactor;
 checks.fitNbairs = inputStruct.fitNba;
 checks.fitNbsubs = inputStruct.fitNbs;
 checks.fitResolutionParam = inputStruct.fitResolutionParam;

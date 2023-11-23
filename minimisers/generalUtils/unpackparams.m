@@ -11,8 +11,8 @@ packed_counter = 1;
 uppars_counter = 1;
 
 uppars = zeros(1,length(problemDef.params));
-for i = 1:length(controls.checks.fitParams)
-    if controls.checks.fitParams(i) == 1
+for i = 1:length(controls.checks.fitParam)
+    if controls.checks.fitParam(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -44,8 +44,8 @@ problemDef.backs = uppars;
 %Scalefactors
 uppars = zeros(1,length(problemDef.sf));
 uppars_counter = 1;
-for i = 1:length(controls.checks.fitScales)
-    if controls.checks.fitScales(i) == 1
+for i = 1:length(controls.checks.fitScalefactor)
+    if controls.checks.fitScalefactor(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -61,8 +61,8 @@ problemDef.sf = uppars;
 %qshifts
 uppars = zeros(1,length(problemDef.shifts));
 uppars_counter = 1;
-for i = 1:length(controls.checks.fitShifts)
-    if controls.checks.fitShifts(i) == 1
+for i = 1:length(controls.checks.fitQzshift)
+    if controls.checks.fitQzshift(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;

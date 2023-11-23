@@ -35,12 +35,12 @@ end
 %     priors.resolutionParamPriors ; ...
 %     priors.nbaPriors ; ...
 %     priors.nbsPriors ; ...
-%     priors.shiftPriors ; 
-%     priors.scalesPriors];
+%     priors.qzshiftPriors ; 
+%     priors.scalefactorPriors];
 
 % totalNumber = size(priors.paramPriors,1) + size(priors.backgroundParamPriors,1) + ...
 %     size(priors.resolutionParamPriors,1) + size(priors.nbaPriors,1) + size(priors.nbsPriors,1) + ...
-%     size(priors.shiftPriors,1) + size(priors.scalesPriors,1);
+%     size(priors.qzshiftPriors,1) + size(priors.scalefactorPriors,1);
 
 % Expand the individual cells..
 %allPriors = cell(totalNumber,2);    %Will be a char type....
@@ -87,19 +87,19 @@ end
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.shiftPriors,1)
-%     allPriors(cellCount,1) = priors.shiftPriors{i}{1};
-%     allPriors(cellCount,2) = priors.shiftPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.shiftPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.shiftPriors{i}{4};
+% for i = 1:size(priors.qzshiftPriors,1)
+%     allPriors(cellCount,1) = priors.qzshiftPriors{i}{1};
+%     allPriors(cellCount,2) = priors.qzshiftPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.qzshiftPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.qzshiftPriors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.scalesPriors,1)
-%     allPriors(cellCount,1) = priors.scalesPriors{i}{1};
-%     allPriors(cellCount,2) = priors.scalesPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.scalesPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.scalesPriors{i}{4};
+% for i = 1:size(priors.scalefactorPriors,1)
+%     allPriors(cellCount,1) = priors.scalefactorPriors{i}{1};
+%     allPriors(cellCount,2) = priors.scalefactorPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.scalefactorPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.scalefactorPriors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 

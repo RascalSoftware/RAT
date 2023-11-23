@@ -33,13 +33,13 @@ end
 % priorsGroup = [priors.paramPriors ; ...
 %     priors.backgroundParamPriors ; ...
 %     priors.resolutionParamPriors ; ...
-%     priors.nbaPriors ; ...
-%     priors.nbsPriors ; ...
+%     priors.bulkInPriors ; ...
+%     priors.bulkOutPriors ; ...
 %     priors.qzshiftPriors ; 
 %     priors.scalefactorPriors];
 
 % totalNumber = size(priors.paramPriors,1) + size(priors.backgroundParamPriors,1) + ...
-%     size(priors.resolutionParamPriors,1) + size(priors.nbaPriors,1) + size(priors.nbsPriors,1) + ...
+%     size(priors.resolutionParamPriors,1) + size(priors.bulkInPriors,1) + size(priors.bulkOutPriors,1) + ...
 %     size(priors.qzshiftPriors,1) + size(priors.scalefactorPriors,1);
 
 % Expand the individual cells..
@@ -71,19 +71,19 @@ end
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.nbaPriors,1)
-%     allPriors(cellCount,1) = priors.nbaPriors{i}{1};
-%     allPriors(cellCount,2) = priors.nbaPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.nbaPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.nbaPriors{i}{4}; 
+% for i = 1:size(priors.bulkInPriors,1)
+%     allPriors(cellCount,1) = priors.bulkInPriors{i}{1};
+%     allPriors(cellCount,2) = priors.bulkInPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.bulkInPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.bulkInPriors{i}{4}; 
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.nbsPriors,1)
-%     allPriors(cellCount,1) = priors.nbsPriors{i}{1};
-%     allPriors(cellCount,2) = priors.nbsPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.nbsPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.nbsPriors{i}{4};
+% for i = 1:size(priors.bulkOutPriors,1)
+%     allPriors(cellCount,1) = priors.bulkOutPriors{i}{1};
+%     allPriors(cellCount,2) = priors.bulkOutPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.bulkOutPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.bulkOutPriors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 

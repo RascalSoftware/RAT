@@ -79,8 +79,8 @@ problemDef.shifts = uppars;
 %Nbairs
 uppars = zeros(1,length(problemDef.nba));
 uppars_counter = 1;
-for i = 1:length(controls.checks.fitNbairs)
-    if controls.checks.fitNbairs(i) == 1
+for i = 1:length(controls.checks.fitBulkIn)
+    if controls.checks.fitBulkIn(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -96,8 +96,8 @@ problemDef.nba = uppars;
 %Nbsubs
 uppars = zeros(1,length(problemDef.nbs));
 uppars_counter = 1;
-for i = 1:length(controls.checks.fitNbsubs)
-    if controls.checks.fitNbsubs(i) == 1
+for i = 1:length(controls.checks.fitBulkOut)
+    if controls.checks.fitBulkOut(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;

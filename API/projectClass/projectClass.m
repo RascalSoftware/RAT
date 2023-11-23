@@ -868,13 +868,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Bulk in
             bulkInStruct = obj.bulkIn.toStruct();
-            bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'nbairNames',...
-                'nbairLimits','nbairValues','fitNba','nbaPriors'});
+            bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'bulkInNames',...
+                'bulkInLimits','bulkInValues','fitBulkIn','bulkInPriors'});
             
             % Bulk out
             bulkOutStruct = obj.bulkOut.toStruct();
-            bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'nbsubNames',...
-                'nbsubLimits','nbsubValues','fitNbs','nbsPriors'});
+            bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'bulkOutNames',...
+                'bulkOutLimits','bulkOutValues','fitBulkOut','bulkOutPriors'});
             
             % Scalefactors
             scalefactorStruct = obj.scalefactors.toStruct();

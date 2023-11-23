@@ -9,16 +9,16 @@ function [problemDef,fitNames] = packparams(problemDef,problemDefCells,limits,ch
 % controls.checks.fitParam = ones(length(problem.params),1);
 % controls.checks.fitBackgroundParam = ones(length(problem.backs),1);
 % controls.checks.fitScalefactor = ones(length(problem.scalefac),1);
-% controls.checks.fitNbairs = ones(length(problem.nba),1);
-% controls.checks.fitNbsubs = ones(length(problem.nbs),1);
+% controls.checks.fitBulkIn = ones(length(problem.nba),1);
+% controls.checks.fitBulkOut = ones(length(problem.nbs),1);
 % controls.checks.fitResolutionParam = ones(length(problem.resolution),1);
 
 % calculation.limits.params = problem.constr;
 % calculation.limits.backs = problem.backs_constr;
 % calculation.limits.scalefactor = problem.scale_constr;
 % calculation.limits.qzshift = problem.shifts_constr;
-% calculation.limits.nba = problem.nbairs_constr;
-% calculation.limits.nbs = problem.nbsubs_constr;
+% calculation.limits.bulkIn = problem.nbairs_constr;
+% calculation.limits.bulkOut = problem.nbsubs_constr;
 % calculation.limits.res = problem.resolution_constr;
 
 
@@ -30,8 +30,8 @@ numberOfFitted = sum(checks.fitParam) + ...
                  sum(checks.fitBackgroundParam) + ...
                  sum(checks.fitScalefactor) + ...
                  sum(checks.fitQzshift) + ...
-                 sum(checks.fitNbairs) + ...
-                 sum(checks.fitNbsubs) + ...
+                 sum(checks.fitBulkIn) + ...
+                 sum(checks.fitBulkOut) + ...
                  sum(checks.fitResolutionParam) + ...
                  sum(checks.fitDomainRatio);
              
@@ -121,33 +121,33 @@ for n = 1:length(checks.fitQzshift)
 end 
 
 %Nbairs
-for n = 1:length(checks.fitNbairs)
-    if checks.fitNbairs(n) == 1
+for n = 1:length(checks.fitBulkIn)
+    if checks.fitBulkIn(n) == 1
         fitpars(fitCounter) = problemDef.nba(n);
-        fitconstr(fitCounter,1) = limits.nba(n,1);
-        fitconstr(fitCounter,2) = limits.nba(n,2);
+        fitconstr(fitCounter,1) = limits.bulkIn(n,1);
+        fitconstr(fitCounter,2) = limits.bulkIn(n,2);
         fitNames{fitCounter} = problemDefCells{11}{n};
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.nba(n);
-        otherconstr(otherCounter,1) = limits.nba(n,1);
-        otherconstr(otherCounter,2) = limits.nba(n,2);
+        otherconstr(otherCounter,1) = limits.bulkIn(n,1);
+        otherconstr(otherCounter,2) = limits.bulkIn(n,2);
         otherCounter = otherCounter + 1;
     end
 end 
 
 %NBsubs
-for n = 1:length(checks.fitNbsubs)
-    if checks.fitNbsubs(n) == 1
+for n = 1:length(checks.fitBulkOut)
+    if checks.fitBulkOut(n) == 1
         fitpars(fitCounter) = problemDef.nbs(n);
-        fitconstr(fitCounter,1) = limits.nbs(n,1);
-        fitconstr(fitCounter,2) = limits.nbs(n,2);
+        fitconstr(fitCounter,1) = limits.bulkOut(n,1);
+        fitconstr(fitCounter,2) = limits.bulkOut(n,2);
         fitNames{fitCounter} = problemDefCells{12}{n};
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.nbs(n);
-        otherconstr(otherCounter,1) = limits.nbs(n,1);
-        otherconstr(otherCounter,2) = limits.nbs(n,2);
+        otherconstr(otherCounter,1) = limits.bulkOut(n,1);
+        otherconstr(otherCounter,2) = limits.bulkOut(n,2);
         otherCounter = otherCounter + 1;
     end
 end 

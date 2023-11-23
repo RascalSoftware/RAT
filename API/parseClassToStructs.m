@@ -45,11 +45,11 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 %       {1 x nShifts} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {11}- inputProblemDef.nbairNames
+% {11}- inputProblemDef.bulkInNames
 %       {1 x nNba} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {12}- inputProblemDef.nbsrNames
+% {12}- inputProblemDef.bulkOutNames
 %       {1 x nNba} array of cells
 %       Each cell is {1 x Inf char}
 % 
@@ -118,8 +118,8 @@ problemDefCells{7} = inputStruct.paramNames;
 problemDefCells{8} = inputStruct.backgroundParamNames;
 problemDefCells{9} = inputStruct.scalefactorNames;
 problemDefCells{10} = inputStruct.qzshiftNames;
-problemDefCells{11} = inputStruct.nbairNames;
-problemDefCells{12} = inputStruct.nbsubNames;
+problemDefCells{11} = inputStruct.bulkInNames;
+problemDefCells{12} = inputStruct.bulkOutNames;
 problemDefCells{13} = inputStruct.resolutionParamNames;
 problemDefCells{14} = inputStruct.files;
 problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
@@ -179,8 +179,8 @@ end
 priors.paramPriors = inputStruct.paramPriors;
 priors.backgroundParamPriors = inputStruct.backgroundParamPriors;
 priors.resolutionParamPriors = inputStruct.resolutionParamPriors;
-priors.nbaPriors = inputStruct.nbaPriors;
-priors.nbsPriors = inputStruct.nbsPriors;
+priors.bulkInPriors = inputStruct.bulkInPriors;
+priors.bulkOutPriors = inputStruct.bulkOutPriors;
 priors.qzshiftPriors = inputStruct.qzshiftPriors;
 priors.scalefactorPriors = inputStruct.scalefactorPriors;
 if isa(inputProblemDef, 'domainsClass')
@@ -276,12 +276,12 @@ for i = 1:length(inputStruct.qzshiftLimits)
     problemDefLimits.qzshift(i,:) = inputStruct.qzshiftLimits{i};
 end
 
-for i = 1:length(inputStruct.nbairLimits)
-    problemDefLimits.nba(i,:) = inputStruct.nbairLimits{i};
+for i = 1:length(inputStruct.bulkInLimits)
+    problemDefLimits.bulkIn(i,:) = inputStruct.bulkInLimits{i};
 end
 
-for i = 1:length(inputStruct.nbsubLimits)
-    problemDefLimits.nbs(i,:) = inputStruct.nbsubLimits{i};
+for i = 1:length(inputStruct.bulkOutLimits)
+    problemDefLimits.bulkOut(i,:) = inputStruct.bulkOutLimits{i};
 end
 
 for i = 1:length(inputStruct.resolutionParamLimits)
@@ -322,8 +322,8 @@ problemDef.contrastRes = contrastRes;
 problemDef.backs = inputStruct.backgroundParamValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
 problemDef.shifts = inputStruct.qzshiftValues;
 problemDef.sf = inputStruct.scalefactorValues;
-problemDef.nba = inputStruct.nbairValues;
-problemDef.nbs = inputStruct.nbsubValues;
+problemDef.nba = inputStruct.bulkInValues;
+problemDef.nbs = inputStruct.bulkOutValues;
 problemDef.res = inputStruct.resolutionParamValues; %inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****          
 problemDef.params = inputStruct.paramValues;
 problemDef.numberOfLayers = inputStruct.numberOfLayers;
@@ -387,8 +387,8 @@ checks.fitParam = inputStruct.fitParam;
 checks.fitBackgroundParam = inputStruct.fitBackgroundParam;
 checks.fitQzshift = inputStruct.fitQzshift;
 checks.fitScalefactor = inputStruct.fitScalefactor;
-checks.fitNbairs = inputStruct.fitNba;
-checks.fitNbsubs = inputStruct.fitNbs;
+checks.fitBulkIn = inputStruct.fitBulkIn;
+checks.fitBulkOut = inputStruct.fitBulkOut;
 checks.fitResolutionParam = inputStruct.fitResolutionParam;
 if isa(inputProblemDef, 'domainsClass')
     checks.fitDomainRatio = inputStruct.fitDomainRatio;

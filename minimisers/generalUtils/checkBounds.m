@@ -22,7 +22,7 @@ fittingShifts = problem.shifts_horisontal(find(fitWhichShifts));
 fittingShiftsConstr = problem.shifts_constr(find(fitWhichShifts),:);
 fittingShiftsNames = problem.shiftsNames(find(fitWhichShifts));
 
-fitWhichNbas = problem.fitNbairs;
+fitWhichNbas = problem.fitBulkIn;
 fittingNbas = problem.nba(find(fitWhichNbas));
 fittingNbaConstr = problem.nbairs_constr(find(fitWhichNbas),:);
 fittingNbaNames = problem.nbaNames(find(fitWhichNbas));

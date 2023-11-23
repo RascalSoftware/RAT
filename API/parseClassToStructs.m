@@ -33,7 +33,7 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 %       {1 x nParams} array of cells
 %       Each cell is {1 x Inf char}
 %
-% {8} - inputProblemDef.backgroundsNames
+% {8} - inputProblemDef.backgroundParamNames
 %       {1 x nBackgrounds} array of cells
 %       Each cell is {1 x Inf char}
 % 
@@ -45,15 +45,15 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 %       {1 x nShifts} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {11}- inputProblemDef.nbairNames
+% {11}- inputProblemDef.bulkInNames
 %       {1 x nNba} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {12}- inputProblemDef.nbsrNames
+% {12}- inputProblemDef.bulkOutNames
 %       {1 x nNba} array of cells
 %       Each cell is {1 x Inf char}
 % 
-% {13}- inputProblemDef.resolNames
+% {13}- inputProblemDef.resolutionParamNames
 %       {1 x nNba} array of cells
 %       Each cell is {1 x Inf char}
 %
@@ -96,8 +96,8 @@ layersDetails = inputStruct.layersDetails;
 % If any of the contrastLayers are empty, replace the empty cells by zero
 % thickness layers
 for i = 1:length(contrastLayers)
-    thisLayers = contrastLayers{i};
-    if isempty(thisLayers)
+    thisLayer = contrastLayers{i};
+    if isempty(thisLayer)
         contrastLayers{i} = 0;
     end
 end
@@ -115,12 +115,12 @@ problemDefCells{4} = inputStruct.simLimits;
 problemDefCells{5} = contrastLayers;
 problemDefCells{6} = layersDetails;
 problemDefCells{7} = inputStruct.paramNames;
-problemDefCells{8} = inputStruct.backParNames;
+problemDefCells{8} = inputStruct.backgroundParamNames;
 problemDefCells{9} = inputStruct.scalefactorNames;
 problemDefCells{10} = inputStruct.qzshiftNames;
-problemDefCells{11} = inputStruct.nbairNames;
-problemDefCells{12} = inputStruct.nbsubNames;
-problemDefCells{13} = inputStruct.resolParNames;
+problemDefCells{11} = inputStruct.bulkInNames;
+problemDefCells{12} = inputStruct.bulkOutNames;
+problemDefCells{13} = inputStruct.resolutionParamNames;
 problemDefCells{14} = inputStruct.files;
 problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
 problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
@@ -134,8 +134,8 @@ if isa(inputProblemDef, 'domainsClass') && isa(inputProblemDef.domainContrasts, 
     % If any of the domainContrastLayers are empty, replace the empty
     % cells by zero thickness layers
     for i = 1:length(domainContrastLayers)
-        thisLayers = domainContrastLayers{i};
-        if isempty(thisLayers)
+        thisLayer = domainContrastLayers{i};
+        if isempty(thisLayer)
             domainContrastLayers{i} = 0;
         end
     end
@@ -177,12 +177,12 @@ end
 
 %% Put the priors into their own array
 priors.paramPriors = inputStruct.paramPriors;
-priors.backsPriors = inputStruct.backsPriors;
-priors.resolPriors = inputStruct.resolParPriors;
-priors.nbaPriors = inputStruct.nbaPriors;
-priors.nbsPriors = inputStruct.nbsPriors;
-priors.shiftPriors = inputStruct.qzshiftPriors;
-priors.scalesPriors = inputStruct.scalefactorPriors;
+priors.backgroundParamPriors = inputStruct.backgroundParamPriors;
+priors.resolutionParamPriors = inputStruct.resolutionParamPriors;
+priors.bulkInPriors = inputStruct.bulkInPriors;
+priors.bulkOutPriors = inputStruct.bulkOutPriors;
+priors.qzshiftPriors = inputStruct.qzshiftPriors;
+priors.scalefactorPriors = inputStruct.scalefactorPriors;
 if isa(inputProblemDef, 'domainsClass')
     priors.domainRatioPriors = inputStruct.domainRatioPriors;
 else
@@ -222,7 +222,7 @@ for i=1:length(priorFields)
 end
 
 priors.priorNames = allPriors(:, 1);
-priors.priorVals = cell2mat(allPriors(:, 2:end));
+priors.priorValues = cell2mat(allPriors(:, 2:end));
 
 
 %% Split up the contrastBacks array
@@ -234,7 +234,7 @@ end
     
 % Here we need to do the same with the contrastResolutions array
 contrastResols = inputStruct.contrastRes;
-resolNames = inputStruct.resolParNames;
+resolNames = inputStruct.resolutionParamNames;
 resolTypes = inputStruct.resolutionTypes;
 contrastRes = zeros(1, length(contrastResols));
 for i = 1:length(contrastResols)
@@ -248,49 +248,49 @@ for i = 1:length(contrastResols)
         % Resolution is in the datafile. Set contrastRes to zero
         contrastRes(i) = -1;
     else
-        % Resolution is a resolParam, the nname of which should
+        % Resolution is a resolutionParam, the nname of which should
         % be in the first column of resolutionValues
-        whichResolParName = inputStruct.resolutionValues{thisResol,1};
+        whichResolutionParamName = inputStruct.resolutionValues{thisResol,1};
         
-        % Find which resolPar this is, and set contrastRes to this number
-        resolParNumber = find(strcmpi(whichResolParName,resolNames));
-        contrastRes(i) = resolParNumber;
+        % Find which resolutionParam this is, and set contrastRes to this number
+        resolutionParamNumber = find(strcmpi(whichResolutionParamName,resolNames));
+        contrastRes(i) = resolutionParamNumber;
     end
 end
         
 
 %% Now make the limits array
-for i = 1:length(inputStruct.paramConstr)
-    problemDefLimits.params(i,:) = inputStruct.paramConstr{i};
+for i = 1:length(inputStruct.paramLimits)
+    problemDefLimits.param(i,:) = inputStruct.paramLimits{i};
 end
 
-for i = 1:length(inputStruct.backParConstr)
-    problemDefLimits.backs(i,:) = inputStruct.backParConstr{i};
+for i = 1:length(inputStruct.backgroundParamLimits)
+    problemDefLimits.backgroundParam(i,:) = inputStruct.backgroundParamLimits{i};
 end
 
-for i = 1:length(inputStruct.scalefactorConstr)
-    problemDefLimits.scales(i,:) = inputStruct.scalefactorConstr{i};
+for i = 1:length(inputStruct.scalefactorLimits)
+    problemDefLimits.scalefactor(i,:) = inputStruct.scalefactorLimits{i};
 end
 
-for i = 1:length(inputStruct.qzshiftConstr)
-    problemDefLimits.shifts(i,:) = inputStruct.qzshiftConstr{i};
+for i = 1:length(inputStruct.qzshiftLimits)
+    problemDefLimits.qzshift(i,:) = inputStruct.qzshiftLimits{i};
 end
 
-for i = 1:length(inputStruct.nbairConstr)
-    problemDefLimits.nba(i,:) = inputStruct.nbairConstr{i};
+for i = 1:length(inputStruct.bulkInLimits)
+    problemDefLimits.bulkIn(i,:) = inputStruct.bulkInLimits{i};
 end
 
-for i = 1:length(inputStruct.nbsubConstr)
-    problemDefLimits.nbs(i,:) = inputStruct.nbsubConstr{i};
+for i = 1:length(inputStruct.bulkOutLimits)
+    problemDefLimits.bulkOut(i,:) = inputStruct.bulkOutLimits{i};
 end
 
-for i = 1:length(inputStruct.resolParConstr)
-    problemDefLimits.res(i,:) = inputStruct.resolParConstr{i};
+for i = 1:length(inputStruct.resolutionParamLimits)
+    problemDefLimits.resolutionParam(i,:) = inputStruct.resolutionParamLimits{i};
 end
 
 if isa(inputProblemDef, 'domainsClass')
-    for i = 1:length(inputStruct.domainRatioConstr)
-        problemDefLimits.domainRatio(i,:) = inputStruct.domainRatioConstr{i};
+    for i = 1:length(inputStruct.domainRatioLimits)
+        problemDefLimits.domainRatio(i,:) = inputStruct.domainRatioLimits{i};
     end
 else
     problemDefLimits.domainRatio = ones(0,2);
@@ -301,9 +301,9 @@ end
 
 % *************************************************************************
 % NOTE - not using the more complicated background and resolution
-% definitions for now - instead use the background names and backsPar
-% values.... fix this next
-% **********************************************************************8
+% definitions for now - instead use the background names and
+% backgroundParam values.... fix this next
+% *************************************************************************
 
 
 problemDef.TF = inputStruct.TF;
@@ -319,13 +319,13 @@ problemDef.contrastScales = inputStruct.contrastScales;
 problemDef.contrastNbas = inputStruct.contrastNbas;
 problemDef.contrastNbss = inputStruct.contrastNbss;
 problemDef.contrastRes = contrastRes;
-problemDef.backs = inputStruct.backParVals; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
-problemDef.shifts = inputStruct.qzshifts;
-problemDef.sf = inputStruct.scalefactors;
-problemDef.nba = inputStruct.nbairs;
-problemDef.nbs = inputStruct.nbsubs;
-problemDef.res = inputStruct.resolPars; %inputStruct.resolutions;           % **** note resolPar workaround (todo) ****          
-problemDef.params = inputStruct.params;
+problemDef.backs = inputStruct.backgroundParamValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
+problemDef.shifts = inputStruct.qzshiftValues;
+problemDef.sf = inputStruct.scalefactorValues;
+problemDef.nba = inputStruct.bulkInValues;
+problemDef.nbs = inputStruct.bulkOutValues;
+problemDef.res = inputStruct.resolutionParamValues; %inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****          
+problemDef.params = inputStruct.paramValues;
 problemDef.numberOfLayers = inputStruct.numberOfLayers;
 problemDef.modelType = inputStruct.modelType;
 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
@@ -335,7 +335,7 @@ problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
 problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
 
 if isa(inputProblemDef, 'domainsClass')
-    problemDef.domainRatio = inputStruct.domainRatios;
+    problemDef.domainRatio = inputStruct.domainRatioValues;
 else
     problemDef.domainRatio = ones(1,0);
 end
@@ -383,17 +383,17 @@ controls.boundHandling = inputControls.boundHandling;
 controls.adaptPCR = inputControls.adaptPCR;
 
 % Also need to deal with the checks...
-checks.params_fitYesNo = inputStruct.paramFitYesNo;
-checks.backs_fitYesNo = inputStruct.backParFitYesNo;
-checks.shifts_fitYesNo = inputStruct.qzshiftFitYesNo;
-checks.scales_fitYesNo = inputStruct.scalefactorFitYesNo;
-checks.nbairs_fitYesNo = inputStruct.nbaFitYesNo;
-checks.nbsubs_fitYesNo = inputStruct.nbsFitYesNo;
-checks.resol_fitYesNo = inputStruct.resolFitYesNo;
+checks.fitParam = inputStruct.fitParam;
+checks.fitBackgroundParam = inputStruct.fitBackgroundParam;
+checks.fitQzshift = inputStruct.fitQzshift;
+checks.fitScalefactor = inputStruct.fitScalefactor;
+checks.fitBulkIn = inputStruct.fitBulkIn;
+checks.fitBulkOut = inputStruct.fitBulkOut;
+checks.fitResolutionParam = inputStruct.fitResolutionParam;
 if isa(inputProblemDef, 'domainsClass')
-    checks.domainRatio_fitYesNo = inputStruct.domainRatioFitYesNo;
+    checks.fitDomainRatio = inputStruct.fitDomainRatio;
 else
-    checks.domainRatio_fitYesNo = ones(1,0);
+    checks.fitDomainRatio = ones(1,0);
 end
 
 controls.checks = checks;

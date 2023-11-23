@@ -109,7 +109,7 @@ else
                 [problem,results] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 %                 d2oproblem.setParameter(1,'value',thisRough);
-%                 d2oproblem.setBacksPar(1,'value',thisBack);
+%                 d2oproblem.setBackgroundParam(1,'value',thisBack);
 %                 d2oproblem.setScalefactor(1,'value',thisScale);
 % 
 %                 [outProblem,results] = RAT(d2oproblem,controls);

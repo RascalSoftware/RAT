@@ -2,7 +2,7 @@ function priorFitList = getFittedPriors(paramNames,priors,fitconstr)
 
 % Get the list of all the priors..
 priorNames = priors.priorNames;
-priorVals = priors.priorVals;
+priorValues = priors.priorValues;
 
 % Find the values for fitpars
 numberOfParams = length(paramNames);
@@ -29,10 +29,10 @@ for i = 1:numberOfParams
     
     if ~isempty(indices)
         index = indices(1);
-        priorType =  priorVals(index,1);
+        priorType =  priorValues(index,1);
         priorFitList(i,1) = priorType;
-        priorFitList(i,2) = priorVals(index,2);
-        priorFitList(i,3) = priorVals(index,3);
+        priorFitList(i,2) = priorValues(index,2);
+        priorFitList(i,3) = priorValues(index,3);
         priorFitList(i,4) = fitconstr(i,1);
         priorFitList(i,5) = fitconstr(i,2);
     else

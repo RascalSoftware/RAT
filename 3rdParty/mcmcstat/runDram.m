@@ -31,16 +31,16 @@ end
 % Put all the priors into one array
 % ** This won't work for code generation **
 % priorsGroup = [priors.paramPriors ; ...
-%     priors.backsPriors ; ...
-%     priors.resolPriors ; ...
-%     priors.nbaPriors ; ...
-%     priors.nbsPriors ; ...
-%     priors.shiftPriors ; 
-%     priors.scalesPriors];
+%     priors.backgroundParamPriors ; ...
+%     priors.resolutionParamPriors ; ...
+%     priors.bulkInPriors ; ...
+%     priors.bulkOutPriors ; ...
+%     priors.qzshiftPriors ; 
+%     priors.scalefactorPriors];
 
-% totalNumber = size(priors.paramPriors,1) + size(priors.backsPriors,1) + ...
-%     size(priors.resolPriors,1) + size(priors.nbaPriors,1) + size(priors.nbsPriors,1) + ...
-%     size(priors.shiftPriors,1) + size(priors.scalesPriors,1);
+% totalNumber = size(priors.paramPriors,1) + size(priors.backgroundParamPriors,1) + ...
+%     size(priors.resolutionParamPriors,1) + size(priors.bulkInPriors,1) + size(priors.bulkOutPriors,1) + ...
+%     size(priors.qzshiftPriors,1) + size(priors.scalefactorPriors,1);
 
 % Expand the individual cells..
 %allPriors = cell(totalNumber,2);    %Will be a char type....
@@ -55,51 +55,51 @@ end
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.backsPriors,1)
-%     allPriors(cellCount,1) = priors.backsPriors{i}{1};
-%     allPriors(cellCount,2) = priors.backsPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.backsPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.backsPriors{i}{4};
+% for i = 1:size(priors.backgroundParamPriors,1)
+%     allPriors(cellCount,1) = priors.backgroundParamPriors{i}{1};
+%     allPriors(cellCount,2) = priors.backgroundParamPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.backgroundParamPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.backgroundParamPriors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.resolPriors,1)
-%     allPriors(cellCount,1) = priors.resolPriors{i}{1};
-%     allPriors(cellCount,2) = priors.resolPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.resolPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.resolPriors{i}{4};
+% for i = 1:size(priors.resolutionParamPriors,1)
+%     allPriors(cellCount,1) = priors.resolutionParamPriors{i}{1};
+%     allPriors(cellCount,2) = priors.resolutionParamPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.resolutionParamPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.resolutionParamPriors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.nbaPriors,1)
-%     allPriors(cellCount,1) = priors.nbaPriors{i}{1};
-%     allPriors(cellCount,2) = priors.nbaPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.nbaPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.nbaPriors{i}{4}; 
+% for i = 1:size(priors.bulkInPriors,1)
+%     allPriors(cellCount,1) = priors.bulkInPriors{i}{1};
+%     allPriors(cellCount,2) = priors.bulkInPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.bulkInPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.bulkInPriors{i}{4}; 
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.nbsPriors,1)
-%     allPriors(cellCount,1) = priors.nbsPriors{i}{1};
-%     allPriors(cellCount,2) = priors.nbsPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.nbsPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.nbsPriors{i}{4};
+% for i = 1:size(priors.bulkOutPriors,1)
+%     allPriors(cellCount,1) = priors.bulkOutPriors{i}{1};
+%     allPriors(cellCount,2) = priors.bulkOutPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.bulkOutPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.bulkOutPriors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.shiftPriors,1)
-%     allPriors(cellCount,1) = priors.shiftPriors{i}{1};
-%     allPriors(cellCount,2) = priors.shiftPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.shiftPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.shiftPriors{i}{4};
+% for i = 1:size(priors.qzshiftPriors,1)
+%     allPriors(cellCount,1) = priors.qzshiftPriors{i}{1};
+%     allPriors(cellCount,2) = priors.qzshiftPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.qzshiftPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.qzshiftPriors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 % 
-% for i = 1:size(priors.scalesPriors,1)
-%     allPriors(cellCount,1) = priors.scalesPriors{i}{1};
-%     allPriors(cellCount,2) = priors.scalesPriors{i}{2};
-%     allPriorVals{cellCount,1} = priors.scalesPriors{i}{3};
-%     allPriorVals{cellCount,2} = priors.scalesPriors{i}{4};
+% for i = 1:size(priors.scalefactorPriors,1)
+%     allPriors(cellCount,1) = priors.scalefactorPriors{i}{1};
+%     allPriors(cellCount,2) = priors.scalefactorPriors{i}{2};
+%     allPriorVals{cellCount,1} = priors.scalefactorPriors{i}{3};
+%     allPriorVals{cellCount,2} = priors.scalefactorPriors{i}{4};
 %     cellCount = cellCount + 1;
 % end
 
@@ -111,7 +111,7 @@ end
 % allPriorNames = {allPriors{:,1}};
 
 priorNames = allPriors.priorNames;
-priorVals = allPriors.priorVals;
+priorValues = allPriors.priorValues;
 
 
 for i = 1:length(fitNames)
@@ -136,8 +136,8 @@ for i = 1:length(fitNames)
 %         error('Can"t identify this fitting parameter');
 %     end
     
-    mu = real(str2double(priorVals{parPos,2}));
-    sigma = real(str2double(priorVals{parPos,3}));
+    mu = real(str2double(priorValues{parPos,2}));
+    sigma = real(str2double(priorValues{parPos,3}));
     
     thisGroup = {name, value, min, max, mu, sigma};
     params{i} = thisGroup;

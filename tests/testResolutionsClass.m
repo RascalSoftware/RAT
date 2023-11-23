@@ -36,23 +36,23 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             params = parametersClass(testCase.parameters{1, :});
             params.varTable = [params.varTable; vertcat(testCase.parameters(2:end, :))];
             
-            resolution = resolutionsClass(params, testCase.resolutions(1, :));
-            testCase.verifyEqual(string(resolution.resolPars.varTable{1, :}), ...
+            testResolution = resolutionsClass(params, testCase.resolutions(1, :));
+            testCase.verifyEqual(string(testResolution.resolutionParams.varTable{1, :}), ...
                                  string(testCase.parameters(1, :)), 'Start resolution parameter not set correctly');
-            testCase.verifySize(resolution.resolPars.varTable, [3, 8], 'Resolution Parameters has wrong dimension');
+            testCase.verifySize(testResolution.resolutionParams.varTable, [3, 8], 'Resolution Parameters has wrong dimension');
             
-            testCase.verifyEqual(string(resolution.resolutions.varTable{1, :}), ...
+            testCase.verifyEqual(string(testResolution.resolutions.varTable{1, :}), ...
                                  string(testCase.resolutions(1, :)), 'Start resolution parameter not set correctly');
-            testCase.verifySize(resolution.resolutions.varTable, [1, 7], 'Resolutions has wrong dimension');
+            testCase.verifySize(testResolution.resolutions.varTable, [1, 7], 'Resolutions has wrong dimension');
         end
         
         function testShowPrior(testCase)
             % Tests showPrior property
             testCase.verifyFalse(testCase.resolution.showPriors);
-            testCase.verifyFalse(testCase.resolution.resolPars.showPriors);
+            testCase.verifyFalse(testCase.resolution.resolutionParams.showPriors);
             testCase.resolution.showPriors = true;
             testCase.verifyTrue(testCase.resolution.showPriors);
-            testCase.verifyTrue(testCase.resolution.resolPars.showPriors);
+            testCase.verifyTrue(testCase.resolution.resolutionParams.showPriors);
             testCase.verifyError(@setShowPriors, exceptions.invalidType.errorID);  % showPrior should be logical 
             function setShowPriors
                 testCase.resolution.showPriors = 'a';
@@ -73,7 +73,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
 
         function testAddResolution(testCase)
             % Checks that resolution can be added
-            testCase.resolution.resolPars.varTable = [testCase.resolution.resolPars.varTable; vertcat(testCase.parameters(2:end, :))];
+            testCase.resolution.resolutionParams.varTable = [testCase.resolution.resolutionParams.varTable; vertcat(testCase.parameters(2:end, :))];
             
             testCase.resolution.addResolution();
             testCase.verifyEqual(string(testCase.resolution.resolutions.varTable{end, :}),...
@@ -102,15 +102,15 @@ classdef testResolutionsClass < matlab.unittest.TestCase
 
             testCase.resolution.removeResolution(3);
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{:, 1}, ...
-                                    ["Resolution 1"; "Resolution 2"; "Resolution 4"], 'removeResolPar method not working');
+                                    ["Resolution 1"; "Resolution 2"; "Resolution 4"], 'removeResolutionParam method not working');
             testCase.resolution.removeResolution([1, 3]);
-            testCase.verifyEqual(testCase.resolution.resolutions.varTable{:, 1}, "Resolution 2", 'removeResolPar method not working');  
+            testCase.verifyEqual(testCase.resolution.resolutions.varTable{:, 1}, "Resolution 2", 'removeResolutionParam method not working');  
         end
             
         function testSetResolution(testCase)
             % Checks that resolution can be modified
             testCase.resolution.resolutions.varTable = [testCase.resolution.resolutions.varTable; vertcat(testCase.resolutions(2:end, :))];
-            testCase.resolution.resolPars.varTable = [testCase.resolution.resolPars.varTable; vertcat(testCase.parameters(2:end, :))];
+            testCase.resolution.resolutionParams.varTable = [testCase.resolution.resolutionParams.varTable; vertcat(testCase.parameters(2:end, :))];
             
             testCase.resolution.setResolution('Resolution 1', 'name', 'Resol 1');
             testCase.verifyEqual(testCase.resolution.resolutions.varTable{1, 1}, "Resol 1", 'setResolutionValue method not working');
@@ -151,8 +151,8 @@ classdef testResolutionsClass < matlab.unittest.TestCase
 
             displayArray = textscan(display{2},'%s','Delimiter','\r','TextType','string');
             displayArray = strip(displayArray{1});
-            % display table should be height of resolPars table plus header and divider row
-            testCase.verifyLength(displayArray, height(testCase.resolution.resolPars.varTable) + 3);
+            % display table should be height of resolutionParams table plus header and divider row
+            testCase.verifyLength(displayArray, height(testCase.resolution.resolutionParams.varTable) + 3);
             % Remove html tags used to format header then split table when
             % 2 or more spaces are found to avoid splitting names with single space
             displayHeader = eraseBetween(displayArray{2}, '<', '>', 'Boundaries','inclusive');
@@ -193,26 +193,24 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             
         function testToStruct(testCase)
             % Checks that class to struct works correctly
-            expected.resolParNames =  {'Resolution par 1'};
-            expected.resolParConstr = {[0.0100 0.0500]};
-            expected.resolPars = 0.0300;
-            expected.resolFitYesNo = 0;
-            expected.nResolPars = 1;
-            expected.resolParPriors= {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf}};
+            expected.resolutionParamNames =  {'Resolution par 1'};
+            expected.resolutionParamLimits = {[0.0100 0.0500]};
+            expected.resolutionParamValues = 0.0300;
+            expected.fitResolutionParam = 0;
+            expected.resolutionParamPriors= {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf}};
             expected.resolutionNames = "Resolution 1";
             expected.resolutionTypes = string(allowedTypes.Constant.value);
             expected.resolutionValues = {"Resolution par 1", "", "", "", ""};
             testCase.verifyEqual(testCase.resolution.toStruct(), expected, 'toStruct method not working');
 
             testCase.resolution.resolutions.varTable = [testCase.resolution.resolutions.varTable; vertcat(testCase.resolutions(2:3, :))];
-            testCase.resolution.resolPars.varTable = [testCase.resolution.resolPars.varTable; vertcat(testCase.parameters(2:3, :))];
+            testCase.resolution.resolutionParams.varTable = [testCase.resolution.resolutionParams.varTable; vertcat(testCase.parameters(2:3, :))];
 
-            expected.resolParNames =  {'Resolution par 1', 'Resolution par 2', 'Resolution par 3'};
-            expected.resolParConstr = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};
-            expected.resolPars = [0.0300, 0.1900, 0.1700];
-            expected.resolFitYesNo = [0, 1, 0];
-            expected.nResolPars = 3;
-            expected.resolParPriors= {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf};... 
+            expected.resolutionParamNames =  {'Resolution par 1', 'Resolution par 2', 'Resolution par 3'};
+            expected.resolutionParamLimits = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};
+            expected.resolutionParamValues = [0.0300, 0.1900, 0.1700];
+            expected.fitResolutionParam = [0, 1, 0];
+            expected.resolutionParamPriors= {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf};... 
                                         {'Resolution par 2', priorTypes.Gaussian.value, -1, 1};... 
                                         {'Resolution par 3', priorTypes.Uniform.value, 0, Inf}};
             expected.resolutionNames = ["Resolution 1"; "Resolution 2"; "Resolution 3"];

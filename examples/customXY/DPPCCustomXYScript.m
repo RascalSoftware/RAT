@@ -38,11 +38,11 @@ problem.addCustomFile('DPPC Model','DPPCCustomXY.m','matlab','pwd');
 % Also, add the relevant background parameters - one each for each contrast:
 
 % Change the name of the existing parameters to refer to D2O
-problem.setBacksPar(1,'name','Backs par D2O','fit',true,'min',1e-7,'max',1e-5,'val',1e-6);
+problem.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-7,'max',1e-5,'val',1e-6);
 
 % Add two new backs parameters for the other two..
-problem.addBacksPar('Backs par SMW',1e-7,1e-7,1e-5,true);
-problem.addBacksPar('Backs par H2O',1e-7,1e-7,1e-5,true);
+problem.addBackgroundParam('Backs par SMW',1e-7,1e-7,1e-5,true);
+problem.addBackgroundParam('Backs par H2O',1e-7,1e-7,1e-5,true);
 
 % And add the two new constant backgrounds..
 problem.addBackground('Background SMW','constant','Backs par SMW');

@@ -14,10 +14,10 @@ function problem = domainsCustomXY()
     problem.addParameterGroup(params);
     
     
-    problem.setBacksPar(1,'name','Backs par D2O','fit',true,'min',1e-10,'max',1e-5,'val',1e-07);
+    problem.setBackgroundParam(1,'name','Backs par D2O','fit',true,'min',1e-10,'max',1e-5,'val',1e-07);
     
-    problem.addBacksPar('Backs par SMW',1e-10,1e-7,1e-5,true);
-    problem.addBacksPar('Backs par H2O',1e-10,1e-7,1e-5,true);
+    problem.addBackgroundParam('Backs par SMW',1e-10,1e-7,1e-5,true);
+    problem.addBackgroundParam('Backs par H2O',1e-10,1e-7,1e-5,true);
     
     problem.addBackground('Background SMW','constant','Backs par SMW');
     problem.addBackground('Background H2O','constant','Backs par H2O');

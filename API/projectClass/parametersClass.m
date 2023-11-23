@@ -175,12 +175,12 @@ classdef parametersClass < tableUtilities
             
             if ~isempty(inputBlock.min)
                 max = obj.varTable{row, 4};
-                obj.setConstraint(row, inputBlock.min, max);
+                obj.setLimits(row, inputBlock.min, max);
             end
             
             if ~isempty(inputBlock.max)
                 min = obj.varTable{row, 2};
-                obj.setConstraint(row, min, inputBlock.max);
+                obj.setLimits(row, min, inputBlock.max);
             end
             
             if ~isempty(inputBlock.value)
@@ -252,12 +252,12 @@ classdef parametersClass < tableUtilities
             obj.varTable = tab;
         end
         
-        function obj = setConstraint(obj, row, min, max)
-            % Sets the constraints of an existing parameter. Expects index
+        function obj = setLimits(obj, row, min, max)
+            % Sets the limits of an existing parameter. Expects index
             % or name of parameter and new min and max of the parameter's
             % value
             %
-            % params.setConstraint({2, 0, 100});
+            % params.setLimits({2, 0, 100});
             tab = obj.varTable;
             row = obj.getValidRow(row);
 
@@ -317,32 +317,29 @@ classdef parametersClass < tableUtilities
         
         function outStruct = toStruct(obj)
             % Converts the class parameters into a structure array.
-            paramNames = table2cell(obj.varTable(:,1));
+            names = table2cell(obj.varTable(:,1));
             
             % Want these to be class 'char' rather than 'string'
-            for n = 1:length(paramNames)
-                paramNames{n} = char(paramNames{n});
+            for n = 1:length(names)
+                names{n} = char(names{n});
             end
-            outStruct.paramNames = paramNames;
-            
-            outStruct.nParams = size(obj.varTable,1);
+            outStruct.names = names;
             
             mins = obj.varTable{:,2};
             maxs = obj.varTable{:,4};
-            constr = cell([1, length(mins)]);
+            limits = cell([1, length(mins)]);
             for i = 1:length(mins)
-                constr{i} = [mins(i) maxs(i)];
+                limits{i} = [mins(i) maxs(i)];
             end
             
-            %constr = [mins maxs];
-            outStruct.paramConstr = constr;
+            outStruct.limits = limits;
             
-            outStruct.params = obj.varTable{:,3};
+            outStruct.values = obj.varTable{:,3};
             
-            outStruct.fitYesNo = double(obj.varTable{:,5});
+            outStruct.fit = double(obj.varTable{:,5});
             
             priors = table2cell(obj.varTable(:,6:8));
-            priors = [outStruct.paramNames priors];
+            priors = [outStruct.names priors];
             
             % Group each row into one cell. Should be a way of doing this
             % without a loop but I can't quite see it right now...
@@ -359,18 +356,16 @@ classdef parametersClass < tableUtilities
             
             % Need to force some of the outputs
             % to be row vectors, so transpose them
-            outStruct.paramNames = outStruct.paramNames';
-            %outStruct.paramConstr = outStruct.paramConstr;
-            outStruct.params = outStruct.params';
-            outStruct.fitYesNo = outStruct.fitYesNo';
+            outStruct.names = outStruct.names';
+            outStruct.values = outStruct.values';
+            outStruct.fit = outStruct.fit';
             
             % Fields order needs to be...
             
-            % paramNames
-            % nParams
-            % paramConstr
-            % params
-            % fitYesNo
+            % names
+            % limits
+            % values
+            % fit
             % priors    
         end
         

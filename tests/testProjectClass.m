@@ -183,8 +183,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyTrue(testCase.project.bulkOut.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.scalefactors.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyTrue(testCase.project.qzshifts.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyTrue(testCase.project.background.backPars.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyTrue(testCase.project.resolution.resolPars.showPriors, 'Parameter show priors not set correctly');
+            testCase.verifyTrue(testCase.project.background.backgroundParams.showPriors, 'Parameter show priors not set correctly');
+            testCase.verifyTrue(testCase.project.resolution.resolutionParams.showPriors, 'Parameter show priors not set correctly');
             testCase.project.setUsePriors(false);
             testCase.verifyFalse(testCase.project.usePriors, 'Use Priors type not set correctly');
             testCase.verifyFalse(testCase.project.parameters.showPriors, 'Parameter show priors not set correctly');
@@ -192,8 +192,8 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyFalse(testCase.project.bulkOut.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.scalefactors.showPriors, 'Parameter show priors not set correctly');
             testCase.verifyFalse(testCase.project.qzshifts.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyFalse(testCase.project.background.backPars.showPriors, 'Parameter show priors not set correctly');
-            testCase.verifyFalse(testCase.project.resolution.resolPars.showPriors, 'Parameter show priors not set correctly');
+            testCase.verifyFalse(testCase.project.background.backgroundParams.showPriors, 'Parameter show priors not set correctly');
+            testCase.verifyFalse(testCase.project.resolution.resolutionParams.showPriors, 'Parameter show priors not set correctly');
             % Test bad inputs 
             testCase.verifyError(@() testCase.project.setUsePriors('anything'), exceptions.invalidType.errorID);
             testCase.verifyError(@() testCase.project.setUsePriors(1), exceptions.invalidType.errorID);
@@ -233,9 +233,9 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 3}, 50, 'setParameter method not working');
             testCase.project.setParameterValue(2, 13);
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 3}, 13, 'setParameterValue method not working');
-            testCase.project.setParameterConstraint('Tails Thickness', 0, 100);
-            testCase.verifyEqual(testCase.project.parameters.varTable{2, 2}, 0, 'setParameterConstraint method not working');
-            testCase.verifyEqual(testCase.project.parameters.varTable{2, 4}, 100, 'setParameterConstraint method not working');
+            testCase.project.setParameterLimits('Tails Thickness', 0, 100);
+            testCase.verifyEqual(testCase.project.parameters.varTable{2, 2}, 0, 'setParameterLimits method not working');
+            testCase.verifyEqual(testCase.project.parameters.varTable{2, 4}, 100, 'setParameterLimits method not working');
             testCase.project.setParameterName(2, 'NewParam');
             testCase.verifyEqual(testCase.project.parameters.varTable{2, 1}, "NewParam", 'setParameterName method not working');
             testCase.project.setParameterName(2, 'Tails Thickness');
@@ -414,27 +414,27 @@ classdef testProjectClass < matlab.unittest.TestCase
 
         function testResolution(testCase)
             % Checks the default resolution parameter 
-            testCase.verifySize(testCase.project.resolution.resolPars.varTable, [1, 8], 'resolution parameter has wrong dimension');
-            testCase.verifyEqual(string(testCase.project.resolution.resolPars.varTable{1, :}),...
+            testCase.verifySize(testCase.project.resolution.resolutionParams.varTable, [1, 8], 'resolution parameter has wrong dimension');
+            testCase.verifyEqual(string(testCase.project.resolution.resolutionParams.varTable{1, :}),...
                                     string({'Resolution par 1', 0.01, 0.03, 0.05, false, priorTypes.Uniform.value, 0, Inf}), 'resolution parameter default');
             % Checks that resolution parameter can be added
-            testCase.project.addResolPar('Resolution par 2', 0.1, 0.19, 1.0, true);
-            testCase.project.addResolPar('Resolution par 3', 0.2, 0.17, 1.1, false);
-            testCase.verifySize(testCase.project.resolution.resolPars.varTable, [3, 8], 'resolution parameter has wrong dimension');
-            testCase.verifyEqual(testCase.project.resolution.resolPars.varTable{end, 1}, "Resolution par 3", 'addResolPar method not working');
+            testCase.project.addResolutionParam('Resolution par 2', 0.1, 0.19, 1.0, true);
+            testCase.project.addResolutionParam('Resolution par 3', 0.2, 0.17, 1.1, false);
+            testCase.verifySize(testCase.project.resolution.resolutionParams.varTable, [3, 8], 'resolution parameter has wrong dimension');
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{end, 1}, "Resolution par 3", 'addResolutionParam method not working');
             % Checks that resolution parameter can be removed
-            testCase.project.removeResolPar(2);
-            testCase.verifySize(testCase.project.resolution.resolPars.varTable, [2, 8], 'resolution parameter has wrong dimension');
-            testCase.verifyEqual(testCase.project.resolution.resolPars.varTable{:, 1}, ["Resolution par 1"; "Resolution par 3"], 'removeResolPar method not working');
+            testCase.project.removeResolutionParam(2);
+            testCase.verifySize(testCase.project.resolution.resolutionParams.varTable, [2, 8], 'resolution parameter has wrong dimension');
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{:, 1}, ["Resolution par 1"; "Resolution par 3"], 'removeResolutionParam method not working');
             % Checks that resolution parameter can be modified
-            testCase.project.setResolParValue('Resolution par 1', 0.2325);
-            testCase.verifyEqual(testCase.project.resolution.resolPars.varTable{1, 3}, 0.2325, 'setResolParValue method not working with name value pair');
-            testCase.project.setResolParValue(2, 0.4);
-            testCase.verifyEqual(testCase.project.resolution.resolPars.varTable{2, 3}, 0.4, 'setResolParValue method not working with index value pair');
-            testCase.project.setResolPar(2, 'name', 'ResolPar', 'min', 0, 'value', 0.5, 'max', 1,'fit',true);
-            testCase.verifySize(testCase.project.resolution.resolPars.varTable, [2, 8], 'resolution parameter has wrong dimension');
-            testCase.verifyEqual(string(testCase.project.resolution.resolPars.varTable{2, :}),...
-                                    string({'ResolPar', 0, 0.5, 1, true, priorTypes.Uniform.value, 0, Inf}), 'setResolPar method not working');
+            testCase.project.setResolutionParamValue('Resolution par 1', 0.2325);
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{1, 3}, 0.2325, 'setResolutionParamValue method not working with name value pair');
+            testCase.project.setResolutionParamValue(2, 0.4);
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable{2, 3}, 0.4, 'setResolutionParamValue method not working with index value pair');
+            testCase.project.setResolutionParam(2, 'name', 'ResolutionParam', 'min', 0, 'value', 0.5, 'max', 1,'fit',true);
+            testCase.verifySize(testCase.project.resolution.resolutionParams.varTable, [2, 8], 'resolution parameter has wrong dimension');
+            testCase.verifyEqual(string(testCase.project.resolution.resolutionParams.varTable{2, :}),...
+                                    string({'ResolutionParam', 0, 0.5, 1, true, priorTypes.Uniform.value, 0, Inf}), 'setResolutionParam method not working');
             % Checks the default resolution parameter 
             testCase.verifySize(testCase.project.resolution.resolutions.varTable, [1, 7], 'resolution has wrong dimension');
             testCase.verifyEqual(string(testCase.project.resolution.resolutions.varTable{1, :}),...
@@ -451,35 +451,35 @@ classdef testProjectClass < matlab.unittest.TestCase
 
         function testBackground(testCase)
             % Checks the default background parameter 
-            testCase.verifySize(testCase.project.background.backPars.varTable, [1, 8], 'background parameter has wrong dimension');
-            testCase.verifyEqual(string(testCase.project.background.backPars.varTable{1, :}),...
-                                    string({'Backs par 1', 1e-7, 1e-6, 1e-5, false, priorTypes.Uniform.value, 0, Inf}), 'background parameter default');
+            testCase.verifySize(testCase.project.background.backgroundParams.varTable, [1, 8], 'background parameter has wrong dimension');
+            testCase.verifyEqual(string(testCase.project.background.backgroundParams.varTable{1, :}),...
+                                    string({'Background Param 1', 1e-7, 1e-6, 1e-5, false, priorTypes.Uniform.value, 0, Inf}), 'background parameter default');
             % Checks that background parameter can be added
-            testCase.project.addBacksPar('Backs Value D2O', 1e-8, 2.8e-6, 1e-5, true);
-            testCase.verifyEqual(testCase.project.background.backPars.varTable{end,1}, "Backs Value D2O", 'addBacksPar method not working');
+            testCase.project.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5, true);
+            testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{end,1}, "Backs Value D2O", 'addBackgroundParam method not working');
             % Checks that background parameter can be modified
-            testCase.project.setBacksPar(1, 'name', 'Backs Value H2O', 'min', 0.1, 'value', 0.23251, 'max', 0.4, 'fit', true);
-            testCase.verifyEqual(string(testCase.project.background.backPars.varTable{1, :}),...
-                                    string({'Backs Value H2O', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'setBacksPar method not working');
+            testCase.project.setBackgroundParam(1, 'name', 'Backs Value H2O', 'min', 0.1, 'value', 0.23251, 'max', 0.4, 'fit', true);
+            testCase.verifyEqual(string(testCase.project.background.backgroundParams.varTable{1, :}),...
+                                    string({'Backs Value H2O', 0.1, 0.23251, 0.4, true, priorTypes.Uniform.value, 0, Inf}), 'setBackgroundParam method not working');
             % Checks that background parameter can be removed
-            testCase.project.removeBacksPar(2);
-            testCase.verifySize(testCase.project.background.backPars.varTable, [1, 8], 'background has wrong dimension');
-            testCase.verifyEqual(testCase.project.background.backPars.varTable{:, 1}, "Backs Value H2O", 'removeBacksPar method not working');
+            testCase.project.removeBackgroundParam(2);
+            testCase.verifySize(testCase.project.background.backgroundParams.varTable, [1, 8], 'background has wrong dimension');
+            testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{:, 1}, "Backs Value H2O", 'removeBackgroundParam method not working');
             % Checks that background parameter value can be modified
-            testCase.project.setBacksParValue(1, 5.5e-6);
-            testCase.verifyEqual(testCase.project.background.backPars.varTable{1, 3}, 5.5e-6, 'setBacksParValue method not working');
+            testCase.project.setBackgroundParamValue(1, 5.5e-6);
+            testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 3}, 5.5e-6, 'setBackgroundParamValue method not working');
             % Checks that background parameter name can be modified
-            testCase.project.setBacksParName(1, 'Backs Value D2O');
-            testCase.verifyEqual(testCase.project.background.backPars.varTable{1, 1}, "Backs Value D2O", 'setBacksParName method not working');
-            % Checks that background parameter constraints can be modified
-            testCase.project.setBacksParConstr(1, 0, 1);
-            testCase.verifyEqual(testCase.project.background.backPars.varTable{1, 2}, 0, 'setBacksParConstr method not working');
-            testCase.verifyEqual(testCase.project.background.backPars.varTable{1, 4}, 1, 'setBacksParConstr method not working');
+            testCase.project.setBackgroundParamName(1, 'Backs Value D2O');
+            testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 1}, "Backs Value D2O", 'setBackgroundParamName method not working');
+            % Checks that background parameter limits can be modified
+            testCase.project.setBackgroundParamLimits(1, 0, 1);
+            testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 2}, 0, 'setBackgroundParamLimits method not working');
+            testCase.verifyEqual(testCase.project.background.backgroundParams.varTable{1, 4}, 1, 'setBackgroundParamLimits method not working');
 
             % Checks the default background parameter 
             testCase.verifySize(testCase.project.background.backgrounds.varTable, [1, 7], 'background has wrong dimension');
             testCase.verifyEqual(string(testCase.project.background.backgrounds.varTable{1, :}),...
-                                      string({'Background 1', allowedTypes.Constant.value, 'Backs Par 1', '', '', '', ''}), 'background default');
+                                      string({'Background 1', allowedTypes.Constant.value, 'Background Param 1', '', '', '', ''}), 'background default');
             % Checks that background can be added
             testCase.project.addBackground('Background D2O',allowedTypes.Constant.value,'Backs Value D2O');
             testCase.verifySize(testCase.project.background.backgrounds.varTable, [2, 7], 'background has wrong dimension');
@@ -572,17 +572,17 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(projectStruct.paramNames, {'Substrate Roughness'}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.backgroundNames, testCase.project.background.backgrounds.varTable{:, 1}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.backgroundTypes, testCase.project.background.backgrounds.varTable{:, 2}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.backParNames, ...
-                                 {convertStringsToChars(testCase.project.background.backPars.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.backgroundParamNames, ...
+                                 {convertStringsToChars(testCase.project.background.backgroundParams.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.varTable{:, 1}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.resolutionTypes, testCase.project.resolution.resolutions.varTable{:, 2}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.resolParNames, ...
-                                 {convertStringsToChars(testCase.project.resolution.resolPars.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.resolutionParamNames, ...
+                                 {convertStringsToChars(testCase.project.resolution.resolutionParams.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.resolutionNames, testCase.project.resolution.resolutions.varTable{:, 1}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.scalefactorNames, {convertStringsToChars(testCase.project.scalefactors.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.qzshiftNames, {convertStringsToChars(testCase.project.qzshifts.varTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbairNames, {convertStringsToChars(testCase.project.bulkIn.varTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.nbsubNames, {convertStringsToChars(testCase.project.bulkOut.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.bulkInNames, {convertStringsToChars(testCase.project.bulkIn.varTable{:, 1})}, 'toStruct method not working');
+            testCase.verifyEqual(projectStruct.bulkOutNames, {convertStringsToChars(testCase.project.bulkOut.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.layersNames, testCase.project.layers.varTable{:, 1}, 'toStruct method not working');           
 
             nContrasts = testCase.project.contrasts.numberOfContrasts;
@@ -621,9 +621,9 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.project.qzshifts.varTable, problem.qzshifts.varTable, 'qz shifts are not correctly regenerated by the script');
             
             % Test backgrounds and resolutions
-            testCase.verifyEqual(testCase.project.background.backPars.varTable, problem.background.backPars.varTable, 'background parameters are not correctly regenerated by the script');
+            testCase.verifyEqual(testCase.project.background.backgroundParams.varTable, problem.background.backgroundParams.varTable, 'background parameters are not correctly regenerated by the script');
             testCase.verifyEqual(testCase.project.background.backgrounds.varTable, problem.background.backgrounds.varTable, 'backgrounds are not correctly regenerated by the script');
-            testCase.verifyEqual(testCase.project.resolution.resolPars.varTable, problem.resolution.resolPars.varTable, 'resolution parameters not correctly regenerated by the script');
+            testCase.verifyEqual(testCase.project.resolution.resolutionParams.varTable, problem.resolution.resolutionParams.varTable, 'resolution parameters not correctly regenerated by the script');
             testCase.verifyEqual(testCase.project.resolution.resolutions.varTable, problem.resolution.resolutions.varTable, 'resolutions are not correctly regenerated by the script');
 
             % Test string classes and data

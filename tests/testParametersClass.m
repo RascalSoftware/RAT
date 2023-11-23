@@ -132,11 +132,11 @@ classdef testParametersClass < matlab.unittest.TestCase
             testCase.verifyEqual(params.varTable{1, 3}, 15, 'setParameter method not working');
             params.setValue('Heads', 20);
             testCase.verifyEqual(params.varTable{1, 3}, 20, 'setParameter method not working');
-            % Checks that parameter constraints can be modified
-            testCase.verifyError(@() params.setConstraint(1, '3', '4'), exceptions.invalidType.errorID);
-            params.setConstraint(1, 1, 45);
+            % Checks that parameter limits can be modified
+            testCase.verifyError(@() params.setLimits(1, '3', '4'), exceptions.invalidType.errorID);
+            params.setLimits(1, 1, 45);
             testCase.verifyEqual(params.varTable{1, [2, 4]}, [1, 45], 'setParameter method not working');
-            params.setConstraint('Heads', 10, 30);
+            params.setLimits('Heads', 10, 30);
             testCase.verifyEqual(params.varTable{1, [2, 4]}, [10, 30], 'setParameter method not working');  
             % Checks that parameter fit can be modified
             testCase.verifyError(@() params.setFit(1, '2'), exceptions.invalidType.errorID);
@@ -211,20 +211,18 @@ classdef testParametersClass < matlab.unittest.TestCase
             params = parametersClass(testCase.parameters{1, :});
             paramsStruct =   params.toStruct();
             
-            testCase.verifyEqual(paramsStruct.paramNames, testCase.parameters(1, 1), 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.nParams, 1, 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.paramConstr, {[10 30]}, 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.params, 20, 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.fitYesNo, 1, 'toStruct method not working');
+            testCase.verifyEqual(paramsStruct.names, testCase.parameters(1, 1), 'toStruct method not working');
+            testCase.verifyEqual(paramsStruct.limits, {[10 30]}, 'toStruct method not working');
+            testCase.verifyEqual(paramsStruct.values, 20, 'toStruct method not working');
+            testCase.verifyEqual(paramsStruct.fit, 1, 'toStruct method not working');
             testCase.verifyEqual(paramsStruct.priors, {{'Tails Thickness', priorTypes.Uniform.value, 0, Inf}}, 'toStruct method not working');
 
             params.varTable = [params.varTable; vertcat(testCase.parameters(2:3, :))];
             paramsStruct = params.toStruct();
-            testCase.verifyEqual(paramsStruct.paramNames, testCase.parameters(1:3, 1)', 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.nParams, 3, 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.paramConstr, {[10, 30], [3, 16], [2, 9]}, 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.params, [20, 11, 5], 'toStruct method not working');
-            testCase.verifyEqual(paramsStruct.fitYesNo, [1, 0, 1], 'toStruct method not working');   
+            testCase.verifyEqual(paramsStruct.names, testCase.parameters(1:3, 1)', 'toStruct method not working');
+            testCase.verifyEqual(paramsStruct.limits, {[10, 30], [3, 16], [2, 9]}, 'toStruct method not working');
+            testCase.verifyEqual(paramsStruct.values, [20, 11, 5], 'toStruct method not working');
+            testCase.verifyEqual(paramsStruct.fit, [1, 0, 1], 'toStruct method not working');   
             testCase.verifyEqual(paramsStruct.priors, {{'Tails Thickness', priorTypes.Uniform.value, 0, Inf}; ...
                                 {'Heads Thickness', priorTypes.Gaussian.value, -1, 1}; {'Tails Roughness', priorTypes.Uniform.value, 0, Inf}}, 'toStruct method not working');
         end

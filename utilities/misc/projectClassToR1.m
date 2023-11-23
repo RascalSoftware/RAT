@@ -44,10 +44,10 @@ r1Problem.module.experiment_type = r2Problem.geometry;
 
 % Set parameter names, values, limits and check boxes
 r2ParamStruct = r2Problem.parameters.toStruct();
-r1Problem.params = r2ParamStruct.params;
-r1Problem.paramnames = r2ParamStruct.paramNames;
-r1Problem.constr = vertcat(r2ParamStruct.paramConstr{:});
-r1Problem.fityesno = r2ParamStruct.fitYesNo;
+r1Problem.params = r2ParamStruct.values;
+r1Problem.paramnames = r2ParamStruct.names;
+r1Problem.constr = vertcat(r2ParamStruct.limits{:});
+r1Problem.fityesno = r2ParamStruct.fit;
 
 % Set qz shifts
 r1Problem.numberOfShifts = 1;
@@ -57,44 +57,44 @@ r1Problem.shifts_constr = [-1e-4 1e-4];
 
 % Set scalefactors
 r2ScalesStruct = r2Problem.scalefactors.toStruct();
-r1Problem.scalesNames = r2ScalesStruct.paramNames;
-r1Problem.scalefac = r2ScalesStruct.params;
-r1Problem.numberOfScales = r2ScalesStruct.nParams;
-r1Problem.scale_constr = vertcat(r2ScalesStruct.paramConstr{:});
-r1Problem.scalefac_fityesno = r2ScalesStruct.fitYesNo;
+r1Problem.scalesNames = r2ScalesStruct.names;
+r1Problem.scalefac = r2ScalesStruct.values;
+r1Problem.numberOfScales = length(r2ScalesStruct.names);
+r1Problem.scale_constr = vertcat(r2ScalesStruct.limits{:});
+r1Problem.scalefac_fityesno = r2ScalesStruct.fit;
 
 % Set bulk in
 r2BulkInStruct = r2Problem.bulkIn.toStruct();
-r1Problem.nbaNames = r2BulkInStruct.paramNames;
-r1Problem.nba = r2BulkInStruct.params;
-r1Problem.numberOfNbas = r2BulkInStruct.nParams;
-r1Problem.nbairs_constr = vertcat(r2BulkInStruct.paramConstr{:});
-r1Problem.nbairs_fityesno = r2BulkInStruct.fitYesNo;
+r1Problem.nbaNames = r2BulkInStruct.names;
+r1Problem.nba = r2BulkInStruct.values;
+r1Problem.numberOfNbas = length(r2BulkInStruct.names);
+r1Problem.nbairs_constr = vertcat(r2BulkInStruct.limits{:});
+r1Problem.nbairs_fityesno = r2BulkInStruct.fit;
 
 % Set bulk out
 r2BulkOutStruct = r2Problem.bulkOut.toStruct();
-r1Problem.nbsNames = r2BulkOutStruct.paramNames;
-r1Problem.nbs = r2BulkOutStruct.params;
-r1Problem.numberOfNbss = r2BulkOutStruct.nParams;
-r1Problem.nbsubs_constr = vertcat(r2BulkOutStruct.paramConstr{:});
-r1Problem.nbsubs_fityesno = r2BulkOutStruct.fitYesNo;
+r1Problem.nbsNames = r2BulkOutStruct.names;
+r1Problem.nbs = r2BulkOutStruct.values;
+r1Problem.numberOfNbss = length(r2BulkOutStruct.names);
+r1Problem.nbsubs_constr = vertcat(r2BulkOutStruct.limits{:});
+r1Problem.nbsubs_fityesno = r2BulkOutStruct.fit;
 
-% Set resolutions (only use resolpars - more advanced resolutions
+% Set resolutions (only use resolutionparams - more advanced resolutions
 % unavaliable in R1)
 r2ResolStruct = r2Problem.resolution.toStruct();
-r1Problem.resolNames = r2ResolStruct.resolParNames;
-r1Problem.resolution = r2ResolStruct.resolPars;
-r1Problem.numberOfResolutions = r2ResolStruct.nResolPars;
-r1Problem.reslution_constr = vertcat(r2ResolStruct.resolParConstr{:});
-r1Problem.resolution_fityesno = r2ResolStruct.resolFitYesNo;
+r1Problem.resolNames = r2ResolStruct.resolutionParamNames;
+r1Problem.resolution = r2ResolStruct.resolutionParamValues;
+r1Problem.numberOfResolutions = length(r2ResolStruct.resolutionParamNames);
+r1Problem.reslution_constr = vertcat(r2ResolStruct.resolutionParamLimits{:});
+r1Problem.resolution_fityesno = r2ResolStruct.fitResolutionParam;
 
 % Set Backgrounds
 r2BackStruct = r2Problem.background.toStruct();
-r1Problem.backsNames = r2BackStruct.backParNames;
-r1Problem.backs = r2BackStruct.backParVals;
-r1Problem.numberOfBacks = r2BackStruct.nBackPars;
-r1Problem.backs_constr = vertcat(r2BackStruct.backParConstr{:});
-r1Problem.backgrounds_fityesno = r2BackStruct.backParFitYesNo;
+r1Problem.backsNames = r2BackStruct.backgroundParamNames;
+r1Problem.backs = r2BackStruct.backgroundParamValues;
+r1Problem.numberOfBacks = length(r2BackStruct.backgroundParamNames);
+r1Problem.backs_constr = vertcat(r2BackStruct.backgroundParamLimits{:});
+r1Problem.backgrounds_fityesno = r2BackStruct.fitBackgroundParam;
 
 if strcmpi(r2Problem.modelType, modelTypes.StandardLayers.value)
     % Set layers (if modelType is standard layers)
@@ -145,11 +145,11 @@ for i = 1:numberOfContrasts
     contrastNames{i} = thisContrast.name;
     
     % nba
-    bulkInLoc = strfind(r2BulkInStruct.paramNames, thisContrast.nba);
+    bulkInLoc = strfind(r2BulkInStruct.names, thisContrast.nba);
     contrastNbas(i) = find(not(cellfun('isempty', bulkInLoc)));
     
     % nbs
-    bulkOutLoc = strfind(r2BulkOutStruct.paramNames, thisContrast.nbs);
+    bulkOutLoc = strfind(r2BulkOutStruct.names, thisContrast.nbs);
     contrastNbss(i) = find(not(cellfun('isempty', bulkOutLoc)));
     
     % scalefactors
@@ -161,16 +161,16 @@ for i = 1:numberOfContrasts
     thisResolInd = find(strcmp(resolutionNames, thisContrast.resolution));
     
     % find which resolution par this is..
-    thisResolParName = r2ResolStruct.resolutionValues{thisResolInd, 1}; 
-    contrastResolutions(i) = find(strcmp(r2ResolStruct.resolParNames, thisResolParName));
+    thisResolutionParamName = r2ResolStruct.resolutionValues{thisResolInd, 1};
+    contrastResolutions(i) = find(strcmp(r2ResolStruct.resolutionParamNames, thisResolutionParamName));
     
     % backgrounds (find the background name in the backgrounds struct)
     backgroundNames = r2BackStruct.backgroundNames;
     thisBacksInd = find(strcmp(backgroundNames, thisContrast.background));
     
     % find which backs par this is..
-    thisBacksParName = r2BackStruct.backgroundValues{thisBacksInd, 1};    
-    contrastBacks(i) = find(strcmp(r2BackStruct.backParNames, thisBacksParName));
+    thisBackgroundParamName = r2BackStruct.backgroundValues{thisBacksInd, 1};
+    contrastBacks(i) = find(strcmp(r2BackStruct.backgroundParamNames, thisBackgroundParamName));
 
     % data
     dataTable = table2cell(r2Problem.data.varTable);

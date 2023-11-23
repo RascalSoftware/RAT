@@ -42,9 +42,9 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
     end
 
     properties(Access = protected, Constant, Hidden)
-        classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts", "backPars", "resolPars", "domainRatio", "layers", "customFile", "backgrounds", "resolutions", "data", "contrast"], ...
-                         addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addBacksPar", "addResolPar", "addDomainRatio", "addLayer", "addCustomFile", "addBackground", "addResolution", "addData", "addContrast"], ...
-                         removeRoutine = ["removeParameter", "removeBulkIn", "removeBulkOut", "removeScalefactor", "removeQzshift", "removeBacksPar", "removeResolPar", "removeDomainRatio", "removeLayer", "removeCustomFile", "removeBackground", "removeResolution", "removeData", "removeContrast"]);
+        classes = struct(name = ["parameters", "bulkIn", "bulkOut", "scalefactors", "qzshifts", "backgroundParams", "resolutionParams", "domainRatio", "layers", "customFile", "backgrounds", "resolutions", "data", "contrast"], ...
+                         addRoutine = ["addParameter", "addBulkIn", "addBulkOut", "addScalefactor", "addQzshift", "addBackgroundParam", "addResolutionParam", "addDomainRatio", "addLayer", "addCustomFile", "addBackground", "addResolution", "addData", "addContrast"], ...
+                         removeRoutine = ["removeParameter", "removeBulkIn", "removeBulkOut", "removeScalefactor", "removeQzshift", "removeBackgroundParam", "removeResolutionParam", "removeDomainRatio", "removeLayer", "removeCustomFile", "removeBackground", "removeResolution", "removeData", "removeContrast"]);
     end
 
     methods
@@ -116,15 +116,15 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Initialise qzshifts table
             obj.qzshifts = parametersClass('Qz shift 1',-1e-4,0,1e-4,false,priorTypes.Uniform,0,Inf);
             
-            % Initialise backs object
-            backPars = parametersClass('Backs par 1',1e-7,1e-6,1e-5,false,priorTypes.Uniform,0,Inf);
-            backgrounds = {'Background 1',allowedTypes.Constant.value,'Backs Par 1','','','',''};
-            obj.background = backgroundsClass(backPars, backgrounds);
+            % Initialise backgrounds object
+            backgroundParams = parametersClass('Background Param 1',1e-7,1e-6,1e-5,false,priorTypes.Uniform,0,Inf);
+            backgrounds = {'Background 1',allowedTypes.Constant.value,'Background Param 1','','','',''};
+            obj.background = backgroundsClass(backgroundParams, backgrounds);
             
             % Initialise resolution object
-            resolPars = parametersClass('Resolution par 1',0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
+            resolutionParams = parametersClass('Resolution par 1',0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
             resolutions = {'Resolution 1',allowedTypes.Constant.value,'Resolution par 1','','','',''};
-            obj.resolution = resolutionsClass(resolPars, resolutions);
+            obj.resolution = resolutionsClass(resolutionParams, resolutions);
             
             % Initialise data object
             obj.data = dataClass('Simulation', [], [], []);
@@ -180,10 +180,10 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.qzshifts.showPriors = showFlag;
             
             % (6) Backgrounds (parameters table)
-            obj.background.backPars.showPriors = showFlag;
+            obj.background.backgroundParams.showPriors = showFlag;
             
             % (7) Resolutions (parameters table)
-            obj.resolution.resolPars.showPriors = showFlag;
+            obj.resolution.resolutionParams.showPriors = showFlag;
             
         end
         
@@ -229,11 +229,11 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % set parameter names for the project.
             names.paramNames = obj.parameters.getNames();
             names.backsNames = obj.background.getBackgroundNames();
-            names.backParNames = obj.background.backPars.getNames();
+            names.backgroundParamNames = obj.background.backgroundParams.getNames();
             names.bulkInNames = obj.bulkIn.getNames();
             names.bulkOutNames = obj.bulkOut.getNames();
             names.resolsNames = obj.resolution.getResolNames();
-            names.resolParNames = obj.resolution.resolPars.getNames();
+            names.resolutionParamNames = obj.resolution.resolutionParams.getNames();
             names.dataNames = obj.data.getNames();
             names.scalefacNames = obj.scalefactors.getNames();
             names.qzShiftNames = obj.qzshifts.getNames();
@@ -349,13 +349,13 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.parameters.setValue(row, value);
         end
         
-        function obj = setParameterConstraint(obj, row, min, max)
-            % Sets the constraints of an existing parameter.
+        function obj = setParameterLimits(obj, row, min, max)
+            % Sets the limits of an existing parameter.
             % Expects index or name of parameter and new min 
             % and max of the parameter's value
             %
-            % problem.setParameterConstraint(2, 0, 100);
-            obj.parameters.setConstraint(row, min, max);
+            % problem.setParameterLimits(2, 0, 100);
+            obj.parameters.setLimits(row, min, max);
         end
         
         function obj = setParameterName(obj, row, name)
@@ -465,48 +465,48 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
         
         
         %(1) Background Parameters
-        function obj = addBacksPar(obj, varargin)
+        function obj = addBackgroundParam(obj, varargin)
             % Adds a new background parameter. A parameter consists 
             % of a name, min, value, max, fit flag, prior type', mu,
             % and sigma
             %
-            % problem.addBacksPar('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
-            obj.background.backPars.addParameter(varargin{:});
+            % problem.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);
+            obj.background.backgroundParams.addParameter(varargin{:});
         end
         
-        function obj = removeBacksPar(obj, varargin)
+        function obj = removeBackgroundParam(obj, varargin)
             % Removes a given background parameter.
             % Expects index or name of parameter to remove
             % 
-            % problem.removeBacksPar(2);
-            obj.background.backPars.removeParameter(varargin{:});
+            % problem.removeBackgroundParam(2);
+            obj.background.backgroundParams.removeParameter(varargin{:});
         end
         
-        function obj = setBacksParValue(obj, row, value)
+        function obj = setBackgroundParamValue(obj, row, value)
             % Sets the value of existing background            
             % parameter. Expects index or name of parameter 
             % and new value to set
             %
-            % problem.setBacksParValue(1, 5.5e-6);
-            obj.background.backPars.setValue(row, value);
+            % problem.setBackgroundParamValue(1, 5.5e-6);
+            obj.background.backgroundParams.setValue(row, value);
         end
         
-        function obj = setBacksParConstr(obj, row, min, max)
+        function obj = setBackgroundParamLimits(obj, row, min, max)
             % Sets the constraints of existing background
             % parameter. Expects index or name of parameter 
             % and new min and max of the parameter's value
             %
-            % problem.setBacksParConstr(1, 0, 1);
-            obj.background.backPars.setConstraint(row, min, max);
+            % problem.setBackgroundParamLimits(1, 0, 1);
+            obj.background.backgroundParams.setLimits(row, min, max);
         end
         
-        function obj = setBacksParName(obj, row, name)
+        function obj = setBackgroundParamName(obj, row, name)
             % Sets the name of an existing background 
             % parameter. Expects index or name of parameter 
             % and the new name
             %
-            % problem.setBacksParName(2, 'new name');
-            obj.background.backPars.setName(row, name);
+            % problem.setBackgroundParamName(2, 'new name');
+            obj.background.backgroundParams.setName(row, name);
         end
         
         % (2) Backgrounds
@@ -544,50 +544,50 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background.setBackgroundName(row, name);
         end
         
-        function obj = setBacksPar(obj, varargin)
+        function obj = setBackgroundParam(obj, varargin)
             % Sets the value of an existing background parameter. Expects
             % index or name of parameter and keyword/value pairs to set
             %
-            % problem.setBacksPar(1, 'name', 'Backs Value H2O');
-            obj.background.backPars.setParameter(varargin{:});
+            % problem.setBackgroundParam(1, 'name', 'Backs Value H2O');
+            obj.background.backgroundParams.setParameter(varargin{:});
         end
         
         % -------------------------------------------------------------
         %   Editing of Resolutions block
         
         % Resol Pars
-        function obj = setResolParValue(obj, row, value)
+        function obj = setResolutionParamValue(obj, row, value)
             % Sets the value of existing resolution            
             % parameter. Expects index or name of parameter 
             % and new value to set
             %
-            % problem.setResolParValue(1, 5.5e-6);
-            obj.resolution.resolPars.setValue(row, value);
+            % problem.setResolutionParamValue(1, 5.5e-6);
+            obj.resolution.resolutionParams.setValue(row, value);
         end
         
-        function obj = addResolPar(obj, varargin)
+        function obj = addResolutionParam(obj, varargin)
             % Adds a new resolution parameter. A parameter consists 
             % of a name, min, value, max, fit flag, prior type', mu,
             % and sigma
             %
-            % problem.addResolPar('ResolPar 1', 1e-8, 2.8e-6, 1e-5);
-            obj.resolution.resolPars.addParameter(varargin{:});
+            % problem.addResolutionParam('Resolution Param 1', 1e-8, 2.8e-6, 1e-5);
+            obj.resolution.resolutionParams.addParameter(varargin{:});
         end
         
-        function obj = setResolPar(obj, varargin)
+        function obj = setResolutionParam(obj, varargin)
             % Sets the value of an existing resolution parameter. Expects
             % index or name of parameter and keyword/value pairs to set
             %
-            % problem.setResolPar(1, 'name', 'ResolPar');
-            obj.resolution.resolPars.setParameter(varargin{:});
+            % problem.setResolutionParam(1, 'name', 'Resolution Param');
+            obj.resolution.resolutionParams.setParameter(varargin{:});
         end
         
-        function obj = removeResolPar(obj, varargin)
+        function obj = removeResolutionParam(obj, varargin)
             % Removes a given resolution parameter.
             % Expects index or name of parameter to remove
             % 
-            % problem.removeResolPar(2);
-            obj.resolution.resolPars.removeParameter(varargin{:});
+            % problem.removeResolutionParam(2);
+            obj.resolution.resolutionParams.removeParameter(varargin{:});
         end
         
         % Resolutions
@@ -858,7 +858,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Parameters
             params = obj.parameters.toStruct();
             paramStruct = cell2struct(struct2cell(params),{'paramNames',...
-                'nParams','paramConstr','params','paramFitYesNo','paramPriors'});
+                'paramLimits','paramValues','fitParam','paramPriors'});
             
             % Backgrounds
             backgroundStruct = obj.background.toStruct();
@@ -868,23 +868,23 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             
             % Bulk in
             bulkInStruct = obj.bulkIn.toStruct();
-            bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'nbairNames',...
-                'nNba','nbairConstr','nbairs','nbaFitYesNo','nbaPriors'});
+            bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'bulkInNames',...
+                'bulkInLimits','bulkInValues','fitBulkIn','bulkInPriors'});
             
             % Bulk out
             bulkOutStruct = obj.bulkOut.toStruct();
-            bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'nbsubNames',...
-                'nNbs','nbsubConstr','nbsubs','nbsFitYesNo','nbsPriors'});
+            bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'bulkOutNames',...
+                'bulkOutLimits','bulkOutValues','fitBulkOut','bulkOutPriors'});
             
             % Scalefactors
             scalefactorStruct = obj.scalefactors.toStruct();
             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{'scalefactorNames',...
-                'nScalefactors','scalefactorConstr','scalefactors','scalefactorFitYesNo','scalefactorPriors'});
+                'scalefactorLimits','scalefactorValues','fitScalefactor','scalefactorPriors'});
             
             % Qzshifts
             qzshiftStruct = obj.qzshifts.toStruct();
             qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{'qzshiftNames',...
-                'nQzshifts','qzshiftConstr','qzshifts','qzshiftFitYesNo','qzshiftPriors'});
+                'qzshiftLimits','qzshiftValues','fitQzshift','qzshiftPriors'});
             
             % Layers
             if isa(obj.layers, 'layersClass')
@@ -962,7 +962,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 % Set protected parameters
                 if any(strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters))
                     fprintf(fileID, options.objName + ".setParameterValue(%d, %.15g);\n", i, obj.parameters.varTable{i, 3});
-                    fprintf(fileID, options.objName + ".setParameterConstraint(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
+                    fprintf(fileID, options.objName + ".setParameterLimits(%d, %.15g, %.15g);\n", i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});
                     fprintf(fileID, options.objName + ".setParameterFit(%d, %s);\n", i, string(obj.parameters.varTable{i, 5}));
                     fprintf(fileID, options.objName + ".setParameterPrior(%d, '%s', %.15g, %.15g);\n", i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});
                 % Add non-protected parameters to a parameter group
@@ -991,7 +991,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
 
             % Add all parameters based on a parametersClass
             paramClasses = ["bulkIn", "bulkOut", "scalefactors", "qzshifts", "background", "resolution"];
-            paramSubclasses = ["", "", "", "", "backPars", "resolPars"];
+            paramSubclasses = ["", "", "", "", "backgroundParams", "resolutionParams"];
 
             if isprop(obj, 'domainRatio')
                 paramClasses(end + 1) = "domainRatio";

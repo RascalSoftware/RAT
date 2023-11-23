@@ -11,8 +11,8 @@ packed_counter = 1;
 uppars_counter = 1;
 
 uppars = zeros(1,length(problemDef.params));
-for i = 1:length(controls.checks.params_fitYesNo)
-    if controls.checks.params_fitYesNo(i) == 1
+for i = 1:length(controls.checks.fitParam)
+    if controls.checks.fitParam(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -28,8 +28,8 @@ problemDef.params = uppars;
 %Also the backgrounds
 uppars = zeros(1,length(problemDef.backs));
 uppars_counter = 1;
-for i = 1:length(controls.checks.backs_fitYesNo)
-    if controls.checks.backs_fitYesNo(i) == 1
+for i = 1:length(controls.checks.fitBackgroundParam)
+    if controls.checks.fitBackgroundParam(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -44,8 +44,8 @@ problemDef.backs = uppars;
 %Scalefactors
 uppars = zeros(1,length(problemDef.sf));
 uppars_counter = 1;
-for i = 1:length(controls.checks.scales_fitYesNo)
-    if controls.checks.scales_fitYesNo(i) == 1
+for i = 1:length(controls.checks.fitScalefactor)
+    if controls.checks.fitScalefactor(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -61,8 +61,8 @@ problemDef.sf = uppars;
 %qshifts
 uppars = zeros(1,length(problemDef.shifts));
 uppars_counter = 1;
-for i = 1:length(controls.checks.shifts_fitYesNo)
-    if controls.checks.shifts_fitYesNo(i) == 1
+for i = 1:length(controls.checks.fitQzshift)
+    if controls.checks.fitQzshift(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -79,8 +79,8 @@ problemDef.shifts = uppars;
 %Nbairs
 uppars = zeros(1,length(problemDef.nba));
 uppars_counter = 1;
-for i = 1:length(controls.checks.nbairs_fitYesNo)
-    if controls.checks.nbairs_fitYesNo(i) == 1
+for i = 1:length(controls.checks.fitBulkIn)
+    if controls.checks.fitBulkIn(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -96,8 +96,8 @@ problemDef.nba = uppars;
 %Nbsubs
 uppars = zeros(1,length(problemDef.nbs));
 uppars_counter = 1;
-for i = 1:length(controls.checks.nbsubs_fitYesNo)
-    if controls.checks.nbsubs_fitYesNo(i) == 1
+for i = 1:length(controls.checks.fitBulkOut)
+    if controls.checks.fitBulkOut(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -113,8 +113,8 @@ problemDef.nbs = uppars;
 %Finally resolutions
 uppars = zeros(1,length(problemDef.res));
 uppars_counter = 1;
-for i = 1:length(controls.checks.resol_fitYesNo)
-    if controls.checks.resol_fitYesNo(i) == 1
+for i = 1:length(controls.checks.fitResolutionParam)
+    if controls.checks.fitResolutionParam(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;
@@ -130,8 +130,8 @@ problemDef.res = uppars;
 %Finally domainRatio
 uppars = zeros(1,length(problemDef.domainRatio));
 uppars_counter = 1;
-for i = 1:length(controls.checks.domainRatio_fitYesNo)
-    if controls.checks.domainRatio_fitYesNo(i) == 1
+for i = 1:length(controls.checks.fitDomainRatio)
+    if controls.checks.fitDomainRatio(i) == 1
         uppars(uppars_counter) = problemDef.fitpars(unpacked_counter);
         unpacked_counter = unpacked_counter + 1;
         uppars_counter = uppars_counter + 1;

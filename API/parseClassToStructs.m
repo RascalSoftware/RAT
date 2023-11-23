@@ -261,11 +261,11 @@ end
 
 %% Now make the limits array
 for i = 1:length(inputStruct.paramLimits)
-    problemDefLimits.params(i,:) = inputStruct.paramLimits{i};
+    problemDefLimits.param(i,:) = inputStruct.paramLimits{i};
 end
 
 for i = 1:length(inputStruct.backgroundParamLimits)
-    problemDefLimits.backs(i,:) = inputStruct.backgroundParamLimits{i};
+    problemDefLimits.backgroundParam(i,:) = inputStruct.backgroundParamLimits{i};
 end
 
 for i = 1:length(inputStruct.scalefactorLimits)
@@ -285,7 +285,7 @@ for i = 1:length(inputStruct.bulkOutLimits)
 end
 
 for i = 1:length(inputStruct.resolutionParamLimits)
-    problemDefLimits.res(i,:) = inputStruct.resolutionParamLimits{i};
+    problemDefLimits.resolutionParam(i,:) = inputStruct.resolutionParamLimits{i};
 end
 
 if isa(inputProblemDef, 'domainsClass')

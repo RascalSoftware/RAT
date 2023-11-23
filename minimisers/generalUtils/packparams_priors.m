@@ -13,13 +13,13 @@ function [problemDef,fitNames,fitPriors] = packparams_priors(problemDef,problemD
 % controls.checks.fitBulkOut = ones(length(problem.nbs),1);
 % controls.checks.fitResolutionParam = ones(length(problem.resolution),1);
 
-% calculation.limits.params = problem.constr;
-% calculation.limits.backs = problem.backs_constr;
+% calculation.limits.param = problem.constr;
+% calculation.limits.backgroundParam = problem.backs_constr;
 % calculation.limits.scalefactor = problem.scale_constr;
 % calculation.limits.qzshift = problem.shifts_constr;
 % calculation.limits.bulkIn = problem.nbairs_constr;
 % calculation.limits.bulkOut = problem.nbsubs_constr;
-% calculation.limits.res = problem.resolution_constr;
+% calculation.limits.resolutionParam = problem.resolution_constr;
 
 
 
@@ -56,8 +56,8 @@ otherCounter = 1;
 for n = 1:length(checks.fitParam)
     if checks.fitParam(n) == 1
         fitpars(fitCounter) = problemDef.params(n);
-        fitconstr(fitCounter,1) = limits.params(n,1);
-        fitconstr(fitCounter,2) = limits.params(n,2);        
+        fitconstr(fitCounter,1) = limits.param(n,1);
+        fitconstr(fitCounter,2) = limits.param(n,2);        
         fitNames{fitCounter} = problemDefCells{7}{n};
         thisPrior = priors.paramPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
@@ -69,8 +69,8 @@ for n = 1:length(checks.fitParam)
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.params(n);
-        otherconstr(otherCounter,1) = limits.params(n,1);
-        otherconstr(otherCounter,2) = limits.params(n,2);
+        otherconstr(otherCounter,1) = limits.param(n,1);
+        otherconstr(otherCounter,2) = limits.param(n,2);
         otherCounter = otherCounter + 1;
     end
 end
@@ -79,8 +79,8 @@ end
 for n = 1:length(checks.fitBackgroundParam)
     if checks.fitBackgroundParam(n) == 1
         fitpars(fitCounter) = problemDef.backs(n);
-        fitconstr(fitCounter,1) = limits.backs(n,1);
-        fitconstr(fitCounter,2) = limits.backs(n,2);
+        fitconstr(fitCounter,1) = limits.backgroundParam(n,1);
+        fitconstr(fitCounter,2) = limits.backgroundParam(n,2);
         fitNames{fitCounter} = problemDefCells{8}{n};
         thisPrior = priors.backgroundParamPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
@@ -92,8 +92,8 @@ for n = 1:length(checks.fitBackgroundParam)
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.backs(n);
-        otherconstr(otherCounter,1) = limits.backs(n,1);
-        otherconstr(otherCounter,2) = limits.backs(n,2);
+        otherconstr(otherCounter,1) = limits.backgroundParam(n,1);
+        otherconstr(otherCounter,2) = limits.backgroundParam(n,2);
         otherCounter = otherCounter + 1;
     end
 end
@@ -194,8 +194,8 @@ end
 for n = 1:length(checks.fitResolutionParam)
     if checks.fitResolutionParam(n) == 1
         fitpars(fitCounter) = problemDef.res(n);
-        fitconstr(fitCounter,1) = limits.res(n,1);
-        fitconstr(fitCounter,2) = limits.res(n,2);
+        fitconstr(fitCounter,1) = limits.resolutionParam(n,1);
+        fitconstr(fitCounter,2) = limits.resolutionParam(n,2);
         fitNames{fitCounter} = problemDefCells{13}{n};
         thisPrior = priors.resolutionParamPriors{n};
         if (strcmpi(thisPrior{2},'gaussian'))
@@ -207,8 +207,8 @@ for n = 1:length(checks.fitResolutionParam)
         fitCounter = fitCounter + 1;
     else
         otherpars(otherCounter) = problemDef.res(n);
-        otherconstr(otherCounter,1) = limits.res(n,1);
-        otherconstr(otherCounter,2) = limits.res(n,2);
+        otherconstr(otherCounter,1) = limits.resolutionParam(n,1);
+        otherconstr(otherCounter,2) = limits.resolutionParam(n,2);
         otherCounter = otherCounter + 1;
     end
 end 

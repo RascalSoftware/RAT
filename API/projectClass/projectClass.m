@@ -122,8 +122,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             obj.background = backgroundsClass(backgroundParams, backgrounds);
             
             % Initialise resolution object
-            resolutionParams = parametersClass('Resolution par 1',0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
-            resolutions = {'Resolution 1',allowedTypes.Constant.value,'Resolution par 1','','','',''};
+            resolutionParams = parametersClass('Resolution Param 1',0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
+            resolutions = {'Resolution 1',allowedTypes.Constant.value,'Resolution Param 1','','','',''};
             obj.resolution = resolutionsClass(resolutionParams, resolutions);
             
             % Initialise data object

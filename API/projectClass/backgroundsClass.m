@@ -36,8 +36,8 @@ classdef backgroundsClass < handle
             % an instance of the parameter class with the background parameters
             % and a cell array of  backgrounds
             %
-            % params = parametersClass({'Backs par 1', 1e-7, 1e-6, 1e-5, false, 'uniform', 0, Inf});
-            % background = backgroundClass(params, {'Background 1', 'constant', 'Backs Par 1'});
+            % params = parametersClass({'Background Param 1', 1e-7, 1e-6, 1e-5, false, 'uniform', 0, Inf});
+            % % background = backgroundClass(params, {'Background 1', 'constant', 'Background Param 1'});
             obj.backgroundParams = parameters;
             
             % Make a multiType table to define the actual backgrounds

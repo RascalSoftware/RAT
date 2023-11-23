@@ -33,7 +33,7 @@ classdef resolutionsClass < handle
             % an instance of the parameter class with the resolution parameters and a
             % cell array with the first resolution entry
             %
-            % params = parametersClass({'Resolution par 1', 0.01, 0.03, 0.05, false});
+            % params = parametersClass({'Resolution Param 1', 0.01, 0.03, 0.05, false});
             % resolution = resolutionsClass(params , {'Resolution 1', 'constant', 'Tails'});
             obj.resolutionParams = parameters;
             

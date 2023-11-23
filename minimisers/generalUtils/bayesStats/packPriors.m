@@ -34,15 +34,15 @@ for n = 1:length(checks.fitParam)
         fitCounter = fitCounter + 1;
         
 %         fitpars(fitCounter) = problemDef.params(n);
-%         fitconstr(fitCounter,1) = limits.params(n,1);
-%         fitconstr(fitCounter,2) = limits.params(n,2);        
+%         fitconstr(fitCounter,1) = limits.param(n,1);
+%         fitconstr(fitCounter,2) = limits.param(n,2);        
 %         fitNames{fitCounter} = problemDefCells{7}{n};
 %         fitCounter = fitCounter + 1;
 % 
 %     else
 %         otherpars(otherCounter) = problemDef.params(n);
-%         otherconstr(otherCounter,1) = limits.params(n,1);
-%         otherconstr(otherCounter,2) = limits.params(n,2);
+%         otherconstr(otherCounter,1) = limits.param(n,1);
+%         otherconstr(otherCounter,2) = limits.param(n,2);
 %         otherCounter = otherCounter + 1;
     end
 end

@@ -8,7 +8,7 @@ clear
 controls.calcSldDuringFit = true;
 controls.nsTolerance = 1;
 controls.Nlive = 500;
-d2oProblem.scalefactorFit = 0;
+d2oProblem.fitScalefactor = 0;
 
 
 % Run nested sampler

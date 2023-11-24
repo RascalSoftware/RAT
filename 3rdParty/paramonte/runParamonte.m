@@ -40,7 +40,7 @@ logFunc.controls = controls;
 logFunc.NDIM = nDims;
 logFunc.scaled = true;
 
-% Create a paraMonte object
+% Create a paramonte object
 pm = paramonte();
 
 % create a ParaDRAM simulation object

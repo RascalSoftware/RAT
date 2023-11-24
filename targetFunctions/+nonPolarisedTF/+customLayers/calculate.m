@@ -1,6 +1,6 @@
 function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
 
-% Custom layers reflectivity calculation for standardTF
+% Custom layers reflectivity calculation for nonPolarisedTF
 
 % This function decides on parallelisation options before calling the
 % relevant version of the main custom layers calculation. It is more
@@ -59,15 +59,15 @@ switch controls.parallel
     case 'single'
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = standardTF.customLayers.single(problemDef,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customLayers.single(problemDef,problemDefCells,controls);
     case 'points'
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = standardTF.customLayers.parallelPoints(problemDef,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customLayers.parallelPoints(problemDef,problemDefCells,controls);
     case 'contrasts'
           [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-             allRoughs] = standardTF.customLayers.parallelContrasts(problemDef,problemDefCells,controls);
+             allRoughs] = nonPolarisedTF.customLayers.parallelContrasts(problemDef,problemDefCells,controls);
 end
 
 problem.ssubs = outSsubs;

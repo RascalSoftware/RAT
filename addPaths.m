@@ -50,7 +50,7 @@ paths = {
     fullfile(root,'targetFunctions','common','resampleLayers');
     fullfile(root,'targetFunctions','common','resolutionFunctions','simpleGaussian'); 
     
-    fullfile(root,'tests','standardTFReflectivityCalculation');
+    fullfile(root,'tests','nonPolarisedTFReflectivityCalculation');
     fullfile(root,'tests','domainsTFReflectivityCalculation');
     fullfile(root,'tests','testCommonFunctions');
     fullfile(root,'tests','testProjectConversion');

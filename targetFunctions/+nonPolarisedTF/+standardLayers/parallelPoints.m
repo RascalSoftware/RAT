@@ -1,13 +1,14 @@
 
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)
-% Standard Layers calculation paralelised over the outer loop
+    allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
+% Standard Layers calculation paralelised over the inner loop
 % This is the main reflectivity calculation of the standard layers
 % calculation type. It extracts the required parameters for the contrasts
 % from the input arrays, then passes the main calculation to
 % 'standardLayersCore', which carries out the calculation iteself. 
 % The core calculation is common for both standard and custom layers.
+
 
 % Extract individual cell arrays
 [repeatLayers,...
@@ -61,11 +62,11 @@ end
 % to be done once, and so is done outside the contrasts loop
 outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
 
-% Resample parameters if required
+% Resample params if requiired
 resamPars = controls.resamPars;
 
 % Loop over all the contrasts
-parfor i = 1:numberOfContrasts
+for i = 1:numberOfContrasts
     
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
@@ -89,14 +90,14 @@ parfor i = 1:numberOfContrasts
     thisSimLimits = simLimits{i};
     thisBacksType = backsType(i);
     
-    % Now call the core standardTF_stanlay reflectivity calculation
+    % Now call the core nonPolarisedTF_stanlay reflectivity calculation
     % In this case we are single cored, so we do not parallelise over
     % points
-    parallelPoints = 'single';
+    parallelPoints = 'points';
     
     % Call the core layers calculation
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,...
-        thisChiSquared,thisSsubs] = standardTF.coreLayersCalculation(thisContrastLayers, thisRough, ...
+        thisChiSquared,thisSsubs] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);

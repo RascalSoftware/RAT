@@ -21,7 +21,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customLayersInputs'],'inputs');
+save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customLayersInputs'],'inputs');
 
 % (b) Outputs
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
@@ -43,10 +43,10 @@ outputs.resultOutStruct = resultOutStruct;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customLayersOutputs'],'outputs');
+save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -58,7 +58,7 @@ TFParams.allLayers = allLayers;
 
 [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
- allRoughs] = standardTF.customLayers.single(problemDef,problemDefCells,controls);
+ allRoughs] = nonPolarisedTF.customLayers.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgs = backgs;
@@ -70,7 +70,7 @@ TFParams.resols = resols;
 TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
 
-save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customLayersTFParams'],'TFParams');
+save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customLayersTFParams'],'TFParams');
 
 %% 2. Custom XY.
 % (a) Inputs
@@ -90,7 +90,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customXYInputs'],'inputs');
+save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customXYInputs'],'inputs');
 
 % (b) Outputs
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
@@ -112,10 +112,10 @@ outputs.resultOutStruct = resultOutStruct;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customXYOutputs'],'outputs');
+save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customXYOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -127,7 +127,7 @@ TFParams.allLayers = allLayers;
 
 [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
- allRoughs] = standardTF.customXY.single(problemDef,problemDefCells,controls);
+ allRoughs] = nonPolarisedTF.customXY.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgs = backgs;
@@ -139,7 +139,7 @@ TFParams.resols = resols;
 TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
 
-save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'customXYTFParams'],'TFParams');
+save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'customXYTFParams'],'TFParams');
 
 %% 3. Standard Layers
 % (a) Inputs
@@ -159,7 +159,7 @@ inputs.priors = priors;
 inputs.controlsInput = controlsInput;
 inputs.controls = controls;
 
-save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'standardLayersInputs'],'inputs');
+save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'standardLayersInputs'],'inputs');
 
 % (b) Outputs
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
@@ -181,10 +181,10 @@ outputs.resultOutStruct = resultOutStruct;
 outputs.problemOut = problemOut;
 outputs.resultOut = resultOut;
 
-save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'standardLayersOutputs'],'outputs');
+save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'standardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
@@ -196,7 +196,7 @@ TFParams.allLayers = allLayers;
 
 [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
- allRoughs] = standardTF.standardLayers.single(problemDef,problemDefCells,controls);
+ allRoughs] = nonPolarisedTF.standardLayers.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
 TFParams.backgs = backgs;
@@ -208,7 +208,7 @@ TFParams.resols = resols;
 TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
 
-save(['tests' filesep 'standardTFReflectivityCalculation' filesep 'standardLayersTFParams'],'TFParams');
+save(['tests' filesep 'nonPolarisedTFReflectivityCalculation' filesep 'standardLayersTFParams'],'TFParams');
 
 %% 4. Converting between RAT and RASCAL
 

@@ -3,27 +3,11 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 % testReflectivityCalculations Class based unit tests for RAT API, the
 % reflectivity calculation and pre- and post-processing routines.
 %
-% In this class, we test:
-% RAT, RATMain, reflectivityCalculation, reflectivityCalculation,
-% standardTFReflectivityCalculation,
-% standardTF.standardLayersReflectivityCalculation,
-% standardTF.customLayersReflectivityCalculation,
-% standardTF.customXYReflectivityCalculation, 
-% standardTF.standardLayers.single, standardTF.customLayers.single,
-% standardTF.customXYSingle, standardTF.standardLayers.parallelContrasts,
-% standardTF.customLayers.parallelContrasts, standardTF.customXYParallelContrasts,
-% standardTF.standardLayers.parallelPoints, standardTF.customLayers.parallelPoints,
-% standardTF.customXYParallelPoints,
-% RatParseClasstoStructs_new, parseCells, extractProblemParams
-% parseResultToStruct, RATParseOutToProjectClass
-%
-% We are using the test cases for a standard TF reflectivity calculation
-% to test the routines. We consider standard layers, custom layers and
-% custom XY examples. For the reflectivity calculation itself, we consider
-% the serial and parallel versions (both points and contrasts), using both
-% the MATLAB and compiled (MEX) versions.
-%
-% Paul Sharp 23/01/23
+% We are using the test cases for a non polarised TF reflectivity
+% calculation to test the routines. We consider standard layers, custom
+% layers and custom XY examples. For the reflectivity calculation itself,
+% we consider the serial and parallel versions (both points and contrasts),
+% using both the MATLAB and compiled (MEX) versions.
 %
 %% Declare properties and parameters
 
@@ -152,7 +136,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
 %% Test Reflectivity Calculation Routines
 
-        function testReflectivityCalculation(testCase, whichParallel, useCompiled)
+        function testReflectivityCalc(testCase, whichParallel, useCompiled)
             % Test the reflectivity calculation.
             % We will test the serial and parallel (over both points and
             % contrasts) versions of the calculation, using both the MATLAB
@@ -173,8 +157,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(result, testCase.expectedResult, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testStandardTFReflectivityCalculation(testCase)
-            [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.controls);
+        function testNonPolarisedTFReflectivityCalculation(testCase)
+            [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = nonPolarisedTF.reflectivityCalculation(testCase.problemDef, testCase.problemDefCells, testCase.controls);
 
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(reflectivity, testCase.TFReflectivity, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -185,15 +169,15 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(allLayers, testCase.TFAllLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testStandardTFLayersReflectivityCalculation(testCase, TFFile)
+        function testNonPolarisedTFLayersReflectivityCalc(testCase, TFFile)
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.standardLayers.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = nonPolarisedTF.standardLayers.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
                 case 'customLayersTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.customLayers.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = nonPolarisedTF.customLayers.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
                 case 'customXYTFParams.mat'
-                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = standardTF.customXY.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
+                    [problem, reflectivity, simulation, shiftedData, layerSLDs, SLDProfiles, allLayers] = nonPolarisedTF.customXY.calculate(testCase.problemDef, testCase.problemDefCells,  testCase.controls);
             end
 
             testCase.verifyEqual(problem, testCase.expectedProblem, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -205,23 +189,23 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(allLayers, testCase.TFAllLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testStandardTFLayersSerialReflectivityCalculation(testCase, TFFile)
+        function testNonPolarisedTFLayersSerialReflectivityCalc(testCase, TFFile)
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF.standardLayers.single(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = nonPolarisedTF.standardLayers.single(testCase.problemDef,testCase.problemDefCells,...
                     testCase.controls);
                 case 'customLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF.customLayers.single(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = nonPolarisedTF.customLayers.single(testCase.problemDef,testCase.problemDefCells,...
                     testCase.controls);
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF.customXY.single(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = nonPolarisedTF.customXY.single(testCase.problemDef,testCase.problemDefCells,...
                     testCase.controls);
             end
 
@@ -242,23 +226,23 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(allRoughs, testCase.TFAllRoughs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testStandardTFLayersParallelContrastsReflectivityCalculation(testCase, TFFile)
+        function testNonPolarisedTFLayersParallelContrastsReflectivityCalc(testCase, TFFile)
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF.standardLayers.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = nonPolarisedTF.standardLayers.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
                     testCase.controls);
                 case 'customLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF.customLayers.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = nonPolarisedTF.customLayers.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
                     testCase.controls);
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF.customXY.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = nonPolarisedTF.customXY.parallelContrasts(testCase.problemDef,testCase.problemDefCells,...
                     testCase.controls);
             end
 
@@ -279,23 +263,23 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(allRoughs, testCase.TFAllRoughs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
-        function testStandardTFLayersParallelPointsReflectivityCalculation(testCase, TFFile)
+        function testNonPolarisedTFLayersParallelPointsReflectivityCalc(testCase, TFFile)
             % Choose the appropriate routine for each test case
             switch TFFile
                 case 'standardLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF.standardLayers.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = nonPolarisedTF.standardLayers.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
                     testCase.controls);
                 case 'customLayersTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF.customLayers.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = nonPolarisedTF.customLayers.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
                     testCase.controls);
                 case 'customXYTFParams.mat'
                     [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
                     simulation,shiftedData,layerSLDs,SLDProfiles,allLayers,...
-                    allRoughs] = standardTF.customXY.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
+                    allRoughs] = nonPolarisedTF.customXY.parallelPoints(testCase.problemDef,testCase.problemDefCells,...
                     testCase.controls);
             end
 

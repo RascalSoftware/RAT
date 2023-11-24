@@ -103,7 +103,7 @@ coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
 whichTF = problemDef.TF;
 switch whichTF
     case 'non polarised'
-        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = standardTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+        [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDef,problemDefCells,controls);
     %case 'oil water'
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDefCells,controls);    
     %case 'magnetic'

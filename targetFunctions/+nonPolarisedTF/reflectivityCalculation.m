@@ -1,6 +1,6 @@
 function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = reflectivityCalculation(problemDef,problemDefCells,controls)
 
-% Main function for the standardTF reflectivity calculation
+% Main function for the nonPolarisedTF reflectivity calculation
 % This function decides what type of model is being analysed and barnches
 % to the correct one. The main options are:
 % layers            - This is the equivalent of Standard Layers in RasCAL
@@ -67,16 +67,16 @@ switch lower(type)
         % Standard layers calculation
         [problem,reflectivity,Simulation,...
          shifted_data,layerSlds,sldProfiles,...
-         allLayers]= standardTF.standardLayers.calculate(problemDef,problemDefCells,controls);
+         allLayers]= nonPolarisedTF.standardLayers.calculate(problemDef,problemDefCells,controls);
     case 'custom layers'
         % Custom layers with user supplied custom model file
         [problem,reflectivity,Simulation,...
             shifted_data,layerSlds,sldProfiles,...
-            allLayers] = standardTF.customLayers.calculate(problemDef,problemDefCells,controls);
+            allLayers] = nonPolarisedTF.customLayers.calculate(problemDef,problemDefCells,controls);
     case 'custom xy'
         % Custom SLD profile with user defined model file
         [problem,reflectivity,Simulation,...
            shifted_data,layerSlds,sldProfiles,...
-           allLayers] = standardTF.customXY.calculate(problemDef,problemDefCells,controls);
+           allLayers] = nonPolarisedTF.customXY.calculate(problemDef,problemDefCells,controls);
 end
 end

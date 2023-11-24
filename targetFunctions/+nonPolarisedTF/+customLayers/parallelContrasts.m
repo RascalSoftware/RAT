@@ -1,13 +1,12 @@
-
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = single(problemDef,problemDefCells,controls)
-% Single threaded version of the Standard Layers calculation 
-% This is the main reflectivity calculation of the standard layers
-% calculation type. It extracts the required parameters for the contrasts
-% from the input arrays, then passes the main calculation to
-% 'standardLayersCore', which carries out the calculation itself. 
-% The core calculation is common for both standard and custom layers.
+    allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)
+
+% Multi threaded version of the custom layers, nonPolarisedTF reflectivity
+% calculation. The function extracts the relevant parameters from the input
+% arrays, allocates these on a pre-contrast basis, then calls the 'core' 
+% calculation (the core layers nonPolarisedTF calc is shared between
+% multiple calculation types).
 
 
 % Extract individual cell arrays
@@ -15,18 +14,17 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  allData,...
  dataLimits,...
  simLimits,...
- contrastLayers,...
- layersDetails,~] = parseCells(problemDefCells);
+ ~,~,customFiles] = parseCells(problemDefCells);
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
 cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-~, resample, backsType, ~] =  extractProblemParams(problemDef);
+~, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
 
-calcSld = controls.calcSldDuringFit;   
+calcSld = controls.calcSldDuringFit;
 useImaginary = problemDef.useImaginary;
-
-% Allocate the memory for the output arrays before the main loop
+                     
+% Pre-Allocation of output arrays...
 backgs = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
 sfs = zeros(numberOfContrasts,1);
@@ -35,7 +33,7 @@ nbss = zeros(numberOfContrasts,1);
 resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
-chis =  zeros(numberOfContrasts,1);
+chis =  zeros(numberOfContrasts,1); 
 layerSlds = cell(numberOfContrasts,1);
 sldProfiles = cell(numberOfContrasts,1);
 shifted_data = cell(numberOfContrasts,1);
@@ -52,21 +50,20 @@ end
 
 allLayers = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    allLayers{i} = [1 1 1; 1 1 1];
+    allLayers{i} = [1 ; 1];
 end
-% end memory allocation.
 
+%   --- End Memory Allocation ---
 
-% First we need to allocate the absolute values of the input
-% parameters to all the layers in the layers list. This only needs
-% to be done once, and so is done outside the contrasts loop
-outParameterisedLayers = allocateParamsToLayers(params, layersDetails);
-
-% Resample params if requiired
+% Resampling parameters
 resamPars = controls.resamPars;
 
-% Loop over all the contrasts
-for i = 1:numberOfContrasts
+% Process the custom models....
+[allLayers,allRoughs] = customModelClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
+                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
+
+% Multi cored over all contrasts
+parfor i = 1:numberOfContrasts
     
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
@@ -74,14 +71,12 @@ for i = 1:numberOfContrasts
     % data shifts and bulk contrasts are associated with this contrast
     [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
     
-    % Also need to determine which layers from the overall layers list
-    % are required for this contrast, and put them in the correct order 
-    % according to geometry
-    thisContrastLayers = allocateLayersForContrast(contrastLayers{i},outParameterisedLayers,useImaginary);
-    
+    % Get the custom layers output for this contrast
+    thisContrastLayers = allLayers{i};
+
     % For the other parameters, we extract the correct ones from the input
     % arrays
-    thisRough = params(1);      % Substrate roughness is always first parameter for standard layers
+    thisRough = allRoughs(i);      
     thisRepeatLayers = repeatLayers{i};
     thisResample = resample(i);
     thisData = allData{i};
@@ -90,14 +85,15 @@ for i = 1:numberOfContrasts
     thisSimLimits = simLimits{i};
     thisBacksType = backsType(i);
     
-    % Now call the core standardTF_stanlay reflectivity calculation
+    % Now call the core nonPolarisedTF_stanlay reflectivity calculation
     % In this case we are single cored, so we do not parallelise over
     % points
     parallelPoints = 'single';
     
-    % Call the core layers calculation
-    [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,...
-        thisChiSquared,thisSsubs] = standardTF.coreLayersCalculation(thisContrastLayers, thisRough, ...
+    % Call the reflectivity calculation
+    [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
+    nonPolarisedTF.coreLayersCalculation...
+    (thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
@@ -112,6 +108,8 @@ for i = 1:numberOfContrasts
     Simulation{i} = Simul;
     shifted_data{i} = shifted_dat;
     layerSlds{i} = layerSld;
+    allLayers{i} = resamLayers;
+    
     chis(i) = thisChiSquared;
     backgs(i) = thisBackground;
     qshifts(i) = thisQshift;
@@ -120,6 +118,6 @@ for i = 1:numberOfContrasts
     nbss(i) = thisNbs;
     resols(i) = thisResol;
     allRoughs(i) = thisRough;
-    allLayers{i} = resampledLayers;
+
 end
 end

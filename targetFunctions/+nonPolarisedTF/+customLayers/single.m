@@ -1,12 +1,11 @@
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
-    allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)
-
-% Multi threaded version of the custom layers, standardTF reflectivity
+    allRoughs] = single(problemDef,problemDefCells,controls)
+% Single threaded version of the custom layers, nonPolarisedTF reflectivity
 % calculation. The function extracts the relevant parameters from the input
 % arrays, allocates these on a pre-contrast basis, then calls the 'core' 
-% calculation (the core layers standardTf calc is shared between multiple
-% calculation types).
+% calculation (the core layers nonPolarisedTF calc is shared between
+% multiple calculation types).
 
 
 % Extract individual cell arrays
@@ -33,7 +32,7 @@ nbss = zeros(numberOfContrasts,1);
 resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
-chis =  zeros(numberOfContrasts,1); 
+chis =  zeros(numberOfContrasts,1);
 layerSlds = cell(numberOfContrasts,1);
 sldProfiles = cell(numberOfContrasts,1);
 shifted_data = cell(numberOfContrasts,1);
@@ -62,8 +61,8 @@ resamPars = controls.resamPars;
 [allLayers,allRoughs] = customModelClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
                                     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
-% Multi cored over all contrasts
-parfor i = 1:numberOfContrasts
+% Single cored over all contrasts
+for i = 1:numberOfContrasts
     
     % Extract the relevant parameter values for this contrast
     % from the input arrays.
@@ -85,14 +84,14 @@ parfor i = 1:numberOfContrasts
     thisSimLimits = simLimits{i};
     thisBacksType = backsType(i);
     
-    % Now call the core standardTF_stanlay reflectivity calculation
+    % Now call the core nonPolarisedTF_stanlay reflectivity calculation
     % In this case we are single cored, so we do not parallelise over
     % points
     parallelPoints = 'single';
     
     % Call the reflectivity calculation
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
-    standardTF.coreLayersCalculation...
+    nonPolarisedTF.coreLayersCalculation...
     (thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...

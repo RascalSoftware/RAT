@@ -193,7 +193,7 @@ for t = T_start : DREAMPar.T
         
         
         % Store the model simulations (if appropriate)
-        storeDREAMResults ( DREAMPar , fx , Meas_info , 'a+' );
+        storeDREAMResults(DREAMPar,fx,Meas_info,'a+');
     end
     
     % Check whether we update the crossover values

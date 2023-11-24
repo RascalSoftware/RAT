@@ -44,7 +44,7 @@ mu = mean(u);
 
 % check condition number of C (eps = 2.2204e-16)
 if rcond(C)<eps || isnan(rcond(C)) 
-    if DEBUG; fprintf('bad condition number!\n'); end;
+    if DEBUG; fprintf('bad condition number!\n'); end
     flag = 1;
     return;
 end

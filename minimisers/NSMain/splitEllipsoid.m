@@ -72,7 +72,7 @@ while 1
     
     % check flags
     if flag1 || flag2
-        if DEBUG; fprintf('CANT SPLIT!!\n'); end;
+        if DEBUG; fprintf('CANT SPLIT!!\n'); end
         nosplit = 1;
         break
     end
@@ -137,14 +137,14 @@ while 1
         
     end
 
-    u1 = []; u2 = []; mu1 = []; mu2 = [];;
+    u1 = []; u2 = []; mu1 = []; mu2 = [];
     n1 = m1;
     n2 = m2;
     
     u1 = u1new(1:n1,:);
     u2 = u2new(1:n2,:);
 
-    u1new = []; u2new = [];;
+    u1new = []; u2new = [];
 
     % update counter
     counter = counter + 1;
@@ -172,6 +172,6 @@ u2 = temp_u2{idx};
 VE1 = temp_VE1(idx);
 VE2 = temp_VE2(idx);
 
-if DEBUG; fprintf('SPLIT ELLIPSOID: min F(S) = %f\n', minFS); end;
+if DEBUG; fprintf('SPLIT ELLIPSOID: min F(S) = %f\n', minFS); end
 
 end

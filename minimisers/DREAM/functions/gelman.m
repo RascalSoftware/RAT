@@ -25,7 +25,7 @@ else
     % Step 2: Compute the variance of the various chain
     for zz = 1:DREAMPar.N
         var_chain(zz,:) = var(chain(:,:,zz));
-    end;
+    end
     
     % Step 2: Calculate the average of the within _chainuence variances
     W = mean(var_chain);

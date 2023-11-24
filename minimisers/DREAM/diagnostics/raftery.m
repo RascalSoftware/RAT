@@ -103,7 +103,7 @@ for nv = 1:nvar % big loop over variables
         q = 0.0;
         i1 = find(runs == 0); i2 = find(runs == 1);
         ct1 = size(i1);   ct2 = size(i2);
-        if (ct1+ct2 ~= n), error('raftery needs 0s and 1s in runs'); end;
+        if (ct1+ct2 ~= n), error('raftery needs 0s and 1s in runs'); end
         work = runs;
         q = sum(runs);
         q = q/n;

@@ -36,7 +36,7 @@ switch Par_info.prior
     otherwise
         
         error('unknown initial sampling method');
-end;
+end
 
 % If specified do boundary handling ( "Bound","Reflect","Fold")
 if isfield(Par_info,'boundhandling')
@@ -54,7 +54,7 @@ end
 X = [x log_PR_x log_L_x];
 
 % Store the model simulations (if appropriate)
-storeDREAMResults ( DREAMPar , fx , Meas_info , 'w+' );
+storeDREAMResults(DREAMPar,fx,Meas_info,'w+');
 
 % Set the first point of each of the DREAMPar.N chain equal to the initial X values
 chain(1,1:DREAMPar.d+2,1:DREAMPar.N) = reshape(X',1,DREAMPar.d+2,DREAMPar.N);

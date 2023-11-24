@@ -23,7 +23,7 @@ paths = {
     fullfile(root,'minimisers','DE');
     %fullfile(root,'minimisers','mcmcstat_new');
     %fullfile(root,'minimisers','mcmcstat_new','src');
-    fullfile(root,'minimisers','NSMain');
+    fullfile(root,'minimisers','NS');
 
     fullfile(root,'targetFunctions' );
     fullfile(root,'targetFunctions','common');

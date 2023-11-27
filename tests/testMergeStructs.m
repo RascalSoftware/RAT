@@ -12,10 +12,16 @@ classdef testMergeStructs < matlab.unittest.TestCase
              struct('s1', 1, 's2', 2, 's3', 3, 'd1', 1, 'd2', 2)};
     end
 
-    methods (Test, gitParameterCombination="sequential")
+    methods (Test, ParameterCombination="sequential")
         function testMergeResults(testCase, s, d, r)
             result = mergeStructs(s, d);
             testCase.verifyEqual(result, r);
+        end
+
+        function testMergeError(testCase)
+            s1 = struct('s', 1);
+            s2 = struct('s', 3);
+            testCase.verifyError(@() mergeStructs(s1, s2), 'MATLAB:DuplicateFieldName')
         end
     end
 end

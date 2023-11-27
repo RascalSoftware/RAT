@@ -84,7 +84,7 @@ for i = 1:numberOfContrasts
     thisSimLimits = simLimits{i};
     thisBacksType = backsType(i);
     
-    % Now call the core nonPolarisedTF_stanlay reflectivity calculation
+    % Now call the core layers reflectivity calculation
     % In this case we are single cored, so we do not parallelise over
     % points
     parallelPoints = 'single';

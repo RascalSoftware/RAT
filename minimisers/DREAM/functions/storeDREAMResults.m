@@ -1,4 +1,4 @@
-function storeDREAMResults ( DREAMPar , fx , Meas_info , id )
+function storeDREAMResults(DREAMPar,fx,Meas_info,id)
 % Stores the results of DREAM to binary files
 
 % Append current model simulations of X to file "fx.bin"
@@ -9,4 +9,4 @@ if DREAMPar.modout && ( Meas_info.N > 0 )
     fwrite(fid_fx,fx,'double');
     % Now close file
     fclose(fid_fx);
-end;
+end

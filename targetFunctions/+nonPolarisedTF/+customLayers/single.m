@@ -1,11 +1,11 @@
 function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
     allRoughs] = single(problemDef,problemDefCells,controls)
-% Single threaded version of the custom layers, standardTF reflectivity
+% Single threaded version of the custom layers, nonPolarisedTF reflectivity
 % calculation. The function extracts the relevant parameters from the input
 % arrays, allocates these on a pre-contrast basis, then calls the 'core' 
-% calculation (the core layers standardTf calc is shared between multiple
-% calculation types).
+% calculation (the core layers nonPolarisedTF calc is shared between
+% multiple calculation types).
 
 
 % Extract individual cell arrays
@@ -84,14 +84,14 @@ for i = 1:numberOfContrasts
     thisSimLimits = simLimits{i};
     thisBacksType = backsType(i);
     
-    % Now call the core standardTF_stanlay reflectivity calculation
+    % Now call the core layers reflectivity calculation
     % In this case we are single cored, so we do not parallelise over
     % points
     parallelPoints = 'single';
     
     % Call the reflectivity calculation
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
-    standardTF.coreLayersCalculation...
+    nonPolarisedTF.coreLayersCalculation...
     (thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...

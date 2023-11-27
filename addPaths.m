@@ -37,7 +37,7 @@ paths = {
     fullfile(root,'minimisers','DE');
     %fullfile(root,'minimisers','mcmcstat_new');
     %fullfile(root,'minimisers','mcmcstat_new','src');
-    fullfile(root,'minimisers','NSMain');
+    fullfile(root,'minimisers','NS');
     
     fullfile(root,'targetFunctions' );
     fullfile(root,'targetFunctions','common');
@@ -50,7 +50,7 @@ paths = {
     fullfile(root,'targetFunctions','common','resampleLayers');
     fullfile(root,'targetFunctions','common','resolutionFunctions','simpleGaussian'); 
     
-    fullfile(root,'tests','standardTFReflectivityCalculation');
+    fullfile(root,'tests','nonPolarisedTFReflectivityCalculation');
     fullfile(root,'tests','domainsTFReflectivityCalculation');
     fullfile(root,'tests','testCommonFunctions');
     fullfile(root,'tests','testProjectConversion');

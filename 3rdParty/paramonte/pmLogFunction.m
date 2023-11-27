@@ -16,21 +16,16 @@ classdef pmLogFunction
         
         function logFuncVal = get(obj,pars)
             
-            problem = obj.problemDef;
-            control = obj.controls;
-            cells = obj.problemDefCells;
-            limits = obj.problemDefLimits;
-            priors = obj.priors;
-            
+            problem = obj.problemDef;            
             problem.fitpars = pars;
             
-            if obj.scaled 
+            if obj.scaled
                 problem = unscalePars(problem);
             end
 
-            problem = unpackparams(problem,control);
+            problem = unpackparams(problem,obj.controls);
             
-            [outProblem,results] = reflectivityCalculation_mex(problem,cells,limits,control);
+            [outProblem,~] = reflectivityCalculation_mex(problem,obj.problemDefCells,obj.controls);
             chi = outProblem.calculations.sum_chi;
             logFuncVal = -chi/2;
             
@@ -42,14 +37,10 @@ classdef pmLogFunction
             % Now apply the priors where necessary. 
             priorfun = @(th,mu,sig) sum(((th-mu)./sig).^2);
 
-            val = priorfun(problem.fitpars,priors(:,1),priors(:,2));
+            val = priorfun(problem.fitpars,obj.priors(:,1),obj.priors(:,2));
 
-            logFuncVal = logFuncVal + val;
-
-            %end
-            
+            logFuncVal = logFuncVal + val;           
 
         end   
     end
 end
-    

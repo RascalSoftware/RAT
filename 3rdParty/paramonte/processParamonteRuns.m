@@ -1,16 +1,13 @@
-
-function [outProblemDef,result,pmpd] = processFits(problem,controls,chainName,chainTrim)
+function [outProblemDef,result,pmpd] = processParamonteRuns(problem,controls,chainName,chainTrim)
 
 % problem = load(name);
 % problem = problem.twentyMNProblem;
 % 
 % controls = controlsClass();
 
-[problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problem,controls);
-problemDefInput = problemDef;
+[problemDef,problemDefCells,problemDefLimits,~,controls] = parseClassToStructs(problem,controls);
 
 [problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
-nDims = length(problemDef.fitpars);
 
 pm = paramonte();
 pmpd = pm.ParaDRAM();
@@ -49,7 +46,6 @@ bayesOutputs.results.mean = mean(unscaledChain);
 
 [problemDef,outProblemStruct,result,bayesResults] = processBayes(bayesOutputs,allProblem);
 bayesResults.chain = unscaledChain;
-
 
 result = parseResultToStruct(outProblemStruct,result);
 

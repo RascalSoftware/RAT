@@ -83,13 +83,11 @@ if nargin < 3
         m = 1;
     else
         error('You need to input at least two arguments.');
-        return,
     end
 end
 
 if (length(n)~=1) | (fix(n) ~= n) | (n < 0)
    error('n must be a positive integer.');
-   return,
 end
 
 P = sum(p);

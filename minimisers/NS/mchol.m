@@ -68,26 +68,26 @@ D=zeros(n);
 E=zeros(n);
 theta = zeros(n);
 
-for j=1:n,
+for j=1:n
     bb=[1:j-1];
     ee=[j+1:n];
 
     %
     %  Calculate the jth row of L.  
     %
-    if (j > 1),
+    if (j > 1)
         L(j,bb)=C(j,bb)./diag(D(bb,bb))';
-    end;
+    end
     %
     %  Update the jth column of C.
     %
-    if (j >= 2),
-        if (j < n), 
+    if (j >= 2)
+        if (j < n)
             C(ee,j)=G(ee,j)-(L(j,bb)*C(ee,bb)')';
-        end;
+        end
     else
         C(ee,j)=G(ee,j);
-    end;
+    end
     %
     % Update theta. 
     %
@@ -95,7 +95,7 @@ for j=1:n,
         theta(j)=0;
     else
         theta(j)=max(abs(C(ee,j)));
-    end;
+    end
     %
     %  Update D
     %
@@ -119,7 +119,7 @@ for j=1:n,
     C(ind)=C(ind)-(1/D(j,j))*C(ee,j).^2;
 
 
-end;
+end
 
 %
 % Put 1's on the diagonal of L
@@ -143,7 +143,7 @@ if ((nargout == 4) & (min(diag(C)) < 0.0))
     pneg=L'\rhs;
 else
   pneg=[];
-end;
+end
 
 
 return

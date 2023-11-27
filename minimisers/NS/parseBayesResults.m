@@ -1,4 +1,4 @@
-function results = parseBayesResults(chain,problemDef,problemDefCells,problemDefLimits,controls)
+function results = parseBayesResults(chain,problemDef,problemDefCells,controls)
 debug = 1;
 
 numPars = size(chain,2)-1;

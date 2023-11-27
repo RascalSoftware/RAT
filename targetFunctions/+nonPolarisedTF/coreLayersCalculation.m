@@ -5,7 +5,7 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
     background,resol,backsType,params,parallelPoints,resamPars,useImaginary)
 
 %   This is the main reflectivity calculation for all Layers models in the 
-%   standard target function. 
+%   non polarised target function. 
 %
 %   The function first arranges the 
 %   roughness' in the correct order according

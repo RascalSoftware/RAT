@@ -3,7 +3,7 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
     allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
 
 % Multi threaded version of the custom XY profile over reflectivity points
-% for standardTF reflectivity calculation. 
+% for nonPolarisedTF reflectivity calculation. 
 
 % Extract individual cell arrays
 [repeatLayers,...

@@ -218,7 +218,7 @@ for t = T_start : DREAMPar.T
         % store the distance between the simualted and observed signatures
         
         % Store the model simulations (if appropriate)
-        % storeDREAMResults ( DREAMPar , fx , Meas_info , 'a+' );
+        % storeDREAMResults(DREAMPar,fx,Meas_info,'a+');
     end
     
     % Check whether we update the crossover values

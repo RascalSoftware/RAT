@@ -1,4 +1,4 @@
-function setCompilePaths(which)
+function setCompilePaths()
 
 % This function sets the paths for compiling, depending on whether a mex
 % file of source code is being generated.

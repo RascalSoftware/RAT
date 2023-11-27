@@ -90,14 +90,14 @@ for i = 1:numberOfContrasts
     thisSimLimits = simLimits{i};
     thisBacksType = backsType(i);
     
-    % Now call the core standardTF_stanlay reflectivity calculation
+    % Now call the core layers reflectivity calculation
     % In this case we are single cored, so we do not parallelise over
     % points
     parallelPoints = 'single';
     
     % Call the core layers calculation
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,...
-        thisChiSquared,thisSsubs] = standardTF.coreLayersCalculation(thisContrastLayers, thisRough, ...
+        thisChiSquared,thisSsubs] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers, thisRough, ...
     geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);

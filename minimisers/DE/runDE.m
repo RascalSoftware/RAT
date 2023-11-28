@@ -98,9 +98,7 @@ function [problemDef,problem,result] = runDE(problemDef,problemDefCells,problemD
     S_struct.FM_pop = zeros(I_NP,2);
     S_struct.FVr_bestmem = [0 0];
     
-    %res = deopt(@intrafun,problemDef,controls,S_struct);
-    
-    [res,problemDef] = deopt(@intrafun,problemDef,problemDefLimits,problemDefCells,controls,S_struct);
+    [res,problemDef] = deopt(@intrafun,problemDef,problemDefCells,controls,S_struct);
     problemDef.fitpars = res;
     problemDef = unpackparams(problemDef,controls);
     [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);

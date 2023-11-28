@@ -176,17 +176,17 @@ end
 
 
 %% Put the priors into their own array
-priors.paramPriors = inputStruct.paramPriors;
-priors.backgroundParamPriors = inputStruct.backgroundParamPriors;
-priors.resolutionParamPriors = inputStruct.resolutionParamPriors;
-priors.bulkInPriors = inputStruct.bulkInPriors;
-priors.bulkOutPriors = inputStruct.bulkOutPriors;
-priors.qzshiftPriors = inputStruct.qzshiftPriors;
-priors.scalefactorPriors = inputStruct.scalefactorPriors;
+priors.param = inputStruct.param;
+priors.backgroundParam = inputStruct.backgroundParam;
+priors.resolutionParam = inputStruct.resolutionParam;
+priors.bulkIn = inputStruct.bulkIn;
+priors.bulkOut = inputStruct.bulkOut;
+priors.qzshift = inputStruct.qzshift;
+priors.scalefactor = inputStruct.scalefactor;
 if isa(inputProblemDef, 'domainsClass')
-    priors.domainRatioPriors = inputStruct.domainRatioPriors;
+    priors.domainRatio = inputStruct.domainRatio;
 else
-    priors.domainRatioPriors = cell(0,1);
+    priors.domainRatio = cell(0,1);
 end
 
 priorFields = fieldnames(priors);

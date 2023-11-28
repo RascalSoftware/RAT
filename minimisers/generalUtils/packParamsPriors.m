@@ -59,7 +59,7 @@ for n = 1:length(checks.fitParam)
         fitconstr(fitCounter,1) = limits.param(n,1);
         fitconstr(fitCounter,2) = limits.param(n,2);        
         fitNames{fitCounter} = problemDefCells{7}{n};
-        thisPrior = priors.paramPriors{n};
+        thisPrior = priors.param{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{3} thisPrior{4}];
         else
@@ -82,7 +82,7 @@ for n = 1:length(checks.fitBackgroundParam)
         fitconstr(fitCounter,1) = limits.backgroundParam(n,1);
         fitconstr(fitCounter,2) = limits.backgroundParam(n,2);
         fitNames{fitCounter} = problemDefCells{8}{n};
-        thisPrior = priors.backgroundParamPriors{n};
+        thisPrior = priors.backgroundParam{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
         else
@@ -105,7 +105,7 @@ for n = 1:length(checks.fitScalefactor)
         fitconstr(fitCounter,1) = limits.scalefactor(n,1);
         fitconstr(fitCounter,2) = limits.scalefactor(n,2);
         fitNames{fitCounter} = problemDefCells{9}{n};
-        thisPrior = priors.scalefactorPriors{n};
+        thisPrior = priors.scalefactor{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
         else
@@ -128,7 +128,7 @@ for n = 1:length(checks.fitQzshift)
         fitconstr(fitCounter,1) = limits.qzshift(n,1);
         fitconstr(fitCounter,2) = limits.qzshift(n,2);
         fitNames{fitCounter} = problemDefCells{10}{n};
-        thisPrior = priors.qzshiftPriors{n};
+        thisPrior = priors.qzshift{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
         else
@@ -151,7 +151,7 @@ for n = 1:length(checks.fitBulkIn)
         fitconstr(fitCounter,1) = limits.bulkIn(n,1);
         fitconstr(fitCounter,2) = limits.bulkIn(n,2);
         fitNames{fitCounter} = problemDefCells{11}{n};
-        thisPrior = priors.bulkInPriors{n};
+        thisPrior = priors.bulkIn{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
         else
@@ -174,7 +174,7 @@ for n = 1:length(checks.fitBulkOut)
         fitconstr(fitCounter,1) = limits.bulkOut(n,1);
         fitconstr(fitCounter,2) = limits.bulkOut(n,2);
         fitNames{fitCounter} = problemDefCells{12}{n};
-        thisPrior = priors.bulkOutPriors{n};
+        thisPrior = priors.bulkOut{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{3} thisPrior{4}];
         else
@@ -197,7 +197,7 @@ for n = 1:length(checks.fitResolutionParam)
         fitconstr(fitCounter,1) = limits.resolutionParam(n,1);
         fitconstr(fitCounter,2) = limits.resolutionParam(n,2);
         fitNames{fitCounter} = problemDefCells{13}{n};
-        thisPrior = priors.resolutionParamPriors{n};
+        thisPrior = priors.resolutionParam{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
         else
@@ -220,7 +220,7 @@ for n = 1:length(checks.fitDomainRatio)
         fitconstr(fitCounter,1) = limits.domainRatio(n,1);
         fitconstr(fitCounter,2) = limits.domainRatio(n,2);
         fitNames{fitCounter} = problemDefCells{20}{n};
-        thisPrior = priors.domainRatioPriors{n};
+        thisPrior = priors.domainRatio{n};
         if (strcmpi(thisPrior{2},'gaussian'))
             thisGausPrior = [thisPrior{4} thisPrior{5}];
         else

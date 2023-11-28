@@ -27,7 +27,7 @@ numberOfFitted = sum(checks.fitParam) + ...
 % fitNames = cell(numberOfFitted,1);
 fitCounter = 1;
 % otherCounter = 1;
-thesePriors = priors.paramPriors;
+thesePriors = priors.param;
 for n = 1:length(checks.fitParam)
     if checks.fitParam(n) == 1
         fitPriors{fitCounter} = thesePriors(n,:);

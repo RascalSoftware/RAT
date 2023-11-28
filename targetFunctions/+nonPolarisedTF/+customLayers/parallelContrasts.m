@@ -59,8 +59,8 @@ end
 resamPars = controls.resamPars;
 
 % Process the custom models....
-[allLayers,allRoughs] = customModelClass.processCustomLayers(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
+[allLayers,allRoughs] = nonPolarisedTF.customLayers.processCustomFunction(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs, ...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 % Multi cored over all contrasts
 parfor i = 1:numberOfContrasts

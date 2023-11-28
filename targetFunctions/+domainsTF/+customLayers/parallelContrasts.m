@@ -83,8 +83,8 @@ end
 resamPars = controls.resamPars;
 
 % Process the custom models....
-[calcAllLayers,allRoughs] = customModelClass.processCustomLayersDomains(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
+[calcAllLayers,allRoughs] = domainsTF.customLayers.process(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs, ...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 
 % Parallel over all contrasts

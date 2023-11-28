@@ -79,8 +79,8 @@ for i = 1:numberOfContrasts
     domainSldProfiles{i,1} = [1 1 ; 1 1];
     domainSldProfiles{i,2} = [1 1 ; 1 1];
 end
-[domainSldProfiles,allRoughs] = customModelClass.processCustomXYDomains(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,...
-                                    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+[domainSldProfiles,allRoughs] = domainsTF.customXY.process(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs, ...
+    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts
     outSsubs(i) = allRoughs(i);

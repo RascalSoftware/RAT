@@ -25,14 +25,15 @@ function [sample, logL] = drawMultiNest(fracvol, Bs, mus, ...
         % find the ellipsoid from which to draw a new point
         rval = rand;
                 
-        for k=1:K
+        k0 = 1;
+        for k = 1:K
+            k0 = k;
             if rval < fracvol(k)
                 continue
             else
                 break
             end
         end
-        k0 = k;
         
         % extract bounding matrix and centroid for that ellipsoid
         B = Bs((k0-1)*ndims+1:k0*ndims,:);

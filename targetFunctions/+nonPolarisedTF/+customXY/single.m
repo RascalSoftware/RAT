@@ -54,7 +54,7 @@ end
 resamPars = controls.resamPars;
 useImaginary = problemDef.useImaginary;
 
-[sldProfiles,allRoughs] = nonPolarisedTF.customXY.process(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs, ...
+[sldProfiles,allRoughs] = nonPolarisedTF.customXY.processCustomFunction(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs, ...
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts

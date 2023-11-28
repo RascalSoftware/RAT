@@ -74,7 +74,7 @@ contrastDomainRatios = problemDef.contrastDomainRatios;
 
 domainRatio = 1;    % Default for compile.
 
-[domainSldProfiles,allRoughs] = domainsTF.customXY.process(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs, ...
+[domainSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs, ...
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts

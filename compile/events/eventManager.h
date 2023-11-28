@@ -26,6 +26,8 @@ LIB_EXPORT void addListener(enum eventTypes type, const callback fn);
 
 LIB_EXPORT void clearListeners();
 
+LIB_EXPORT bool hasPlotHandler();
+
 #ifdef __cplusplus
 }
 #endif

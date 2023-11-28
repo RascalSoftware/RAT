@@ -1,4 +1,4 @@
-function [x,fval,exitflag,output] = FMinSearch(funfcn,x,options,dis,varargin)
+function [x,fval,exitflag,output] = fMinSearch(funfcn,x,options,dis,varargin)
 %FMINSEARCH Multidimensional unconstrained nonlinear minimization (Nelder-Mead).
 %   X = FMINSEARCH(FUN,X0) starts at X0 and attempts to find a local minimizer 
 %   X of the function FUN.  FUN is a function handle.  FUN accepts input X and 
@@ -101,8 +101,8 @@ buildOutputStruct = nargout > 3;
 % end
 % -------------------------------------------------------------------
 
-n = numel(x);
-numberOfVariables = n;
+% n = numel(x);
+% numberOfVariables = n;
 
 % ------------- Check is done upstream ----------------
 % Check that options is a struct
@@ -112,7 +112,7 @@ numberOfVariables = n;
 % end
 % ------------------- AVH -----------------------------
 
-printtype = optimget(options,'Display',defaultopt,'fast');
+% printtype = optimget(options,'Display',defaultopt,'fast');
 tolx = optimget(options,'TolX',defaultopt,'fast');
 tolf = optimget(options,'TolFun',defaultopt,'fast');
 maxfun = optimget(options,'MaxFunEvals',defaultopt,'fast');
@@ -181,6 +181,8 @@ header = ' Iteration   Func-count     min f(x)         Procedure';
 % Convert to function handle as needed.
 % funfcn = fcnchk(funfcn,length(varargin));
 % Add a wrapper function to check for Inf/NaN/complex values
+controls = varargin{3};
+problemDef = varargin{1};
 if funValCheck
     % Add a wrapper function, CHECKFUN, to check for NaN/complex values without
     % having to change the calls that look like this:
@@ -192,21 +194,21 @@ if funValCheck
     varargin = [{funfcn}, varargin];
     funfcn = @checkfun;
 end
-
+% 
 n = numel(x);
 
 % Initialize parameters
 rho = 1; chi = 2; psi = 0.5; sigma = 0.5;
 onesn = ones(1,n);
-two2np1 = 2:n+1;
-one2n = 1:n;
+% two2np1 = 2:n+1;
+% one2n = 1:n;
 
 % Set up a simplex near the initial guess.
 xin = x(:); % Force xin to be a column vector
 v = zeros(n,n+1); fv = zeros(1,n+1);
 v(:,1) = xin;    % Place input guess in the simplex! (credit L.Pfeffer at Stanford)
 x(:) = xin;    % Change x to the form expected by funfcn
-fv(:,1) = funfcn(x,varargin{:});
+[fv(:,1), problem, result] = funfcn(x,varargin{:});
 func_evals = 1;
 itercount = 0;
 coder.varsize('how',[1 Inf],[0 1]);
@@ -219,7 +221,6 @@ how = '';
 % RAT doesn't use output or plot functions...
 %
 % --------------------- AVH -----------
-
 
 % if haveoutputfcn || haveplotfcn
 %     [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'init',itercount, ...
@@ -237,7 +238,7 @@ how = '';
 if prnt == 3
     fprintf('\n%s\n', header);
     fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
-elseif prnt == 4
+% elseif prnt == 4
     % Option never used in RAT
     
     
@@ -257,6 +258,9 @@ elseif prnt == 4
 %     fprintf('%s \n', 'func_evals = ')
 %     fprintf('%g \n', func_evals)
 end
+
+triggerEvent('plot', {result, problem.ssubs, problemDef});
+
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
 %     [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,v(:,1),xOutputfcn,'iter',itercount, ...
@@ -282,7 +286,7 @@ for j = 1:n
         y(j) = zero_term_delta;
     end
     v(:,j+1) = y;
-    x(:) = y; f = funfcn(x,varargin{:});
+    x(:) = y; [f, problem, result] = funfcn(x,varargin{:});
     fv(1,j+1) = f;
 end
 
@@ -295,7 +299,7 @@ itercount = itercount + 1;
 func_evals = n+1;
 if prnt == 3
     fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
-elseif prnt == 4
+% elseif prnt == 4
 %     fprintf('%s \n', ' ')
 %     fprintf('%s \n', how)
 %     fprintf('%s \n', 'v = ')
@@ -304,6 +308,9 @@ elseif prnt == 4
 %     fprintf('%g \n', fv)
 %     fprintf('%s \n', 'func_evals = ')
 %     fprintf('%g \n', func_evals)
+end
+if rem(itercount, controls.updatePlotFreq) == 0
+    triggerEvent('plot', {result, problem.ssubs, problemDef});
 end
 % OutputFcn and PlotFcns call
 % if haveoutputfcn || haveplotfcn
@@ -317,7 +324,7 @@ end
 %         return;
 %     end
 % end
-exitflag = 1;
+% exitflag = 1;
 
 % Main algorithm: iterate until 
 % (a) the maximum coordinate difference between the current best point and the 
@@ -340,13 +347,13 @@ while func_evals < maxfun && itercount < maxiter
     % xbar = average of the n (NOT n+1) best points
     xbar = sum(v(:,1:n), 2)/n;
     xr = (1 + rho)*xbar - rho*v(:,end);
-    x(:) = xr; fxr = funfcn(x,varargin{:});
+    x(:) = xr; [fxr, problem, result] = funfcn(x,varargin{:});
     func_evals = func_evals+1;
     
     if fxr < fv(:,1)
         % Calculate the expansion point
         xe = (1 + rho*chi)*xbar - rho*chi*v(:,end);
-        x(:) = xe; fxe = funfcn(x,varargin{:});
+        x(:) = xe; [fxe, problem, result] = funfcn(x,varargin{:});
         func_evals = func_evals+1;
         if fxe < fxr
             v(:,end) = xe;
@@ -367,7 +374,7 @@ while func_evals < maxfun && itercount < maxiter
             if fxr < fv(:,end)
                 % Perform an outside contraction
                 xc = (1 + psi*rho)*xbar - psi*rho*v(:,end);
-                x(:) = xc; fxc = funfcn(x,varargin{:});
+                x(:) = xc; [fxc, problem, result] = funfcn(x,varargin{:});
                 func_evals = func_evals+1;
                 
                 if fxc <= fxr
@@ -381,7 +388,7 @@ while func_evals < maxfun && itercount < maxiter
             else
                 % Perform an inside contraction
                 xcc = (1-psi)*xbar + psi*v(:,end);
-                x(:) = xcc; fxcc = funfcn(x,varargin{:});
+                x(:) = xcc; [fxcc, problem, result] = funfcn(x,varargin{:});
                 func_evals = func_evals+1;
                 
                 if fxcc < fv(:,end)
@@ -396,7 +403,7 @@ while func_evals < maxfun && itercount < maxiter
             if strcmp(how,'shrink')
                 for j=2:n+1
                     v(:,j)=v(:,1)+sigma*(v(:,j) - v(:,1));
-                    x(:) = v(:,j); fv(:,j) = funfcn(x,varargin{:});
+                    x(:) = v(:,j); [fv(:,j), problem, result] = funfcn(x,varargin{:});
                 end
                 func_evals = func_evals + n;
             end
@@ -407,7 +414,7 @@ while func_evals < maxfun && itercount < maxiter
     itercount = itercount + 1;
     if prnt == 3
         fprintf(' %5.0f        %5.0f     %12.6g         %s\n', itercount, func_evals, fv(1), how);
-    elseif prnt == 4
+%     elseif prnt == 4
 %         fprintf('%s \n', ' ')
 %         fprintf('%s \n', num2str(how))
 %         fprintf('%s \n', 'v = ')
@@ -416,6 +423,9 @@ while func_evals < maxfun && itercount < maxiter
 %         fprintf('%s \n', fv)
 %         fprintf('%s \n', 'func_evals = ')
 %         fprintf('%s \n', num2str(func_evals))
+    end
+    if rem(itercount, controls.updatePlotFreq) == 0   
+        triggerEvent('plot', {result, problem.ssubs, problemDef});
     end
     % OutputFcn and PlotFcns call
 %     if haveoutputfcn || haveplotfcn
@@ -475,8 +485,8 @@ if printMsg
 end
 
 %--------------------------------------------------------------------------
-function [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,x,xOutputfcn,state,iter,...
-    numf,how,f,varargin)
+% function [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotfcns,x,xOutputfcn,state,iter,...
+%     numf,how,f,varargin)
 % CALLOUTPUTANDPLOTFCNS assigns values to the struct OptimValues and then calls the
 % outputfcn/plotfcns.
 %
@@ -484,14 +494,14 @@ function [xOutputfcn, optimValues, stop] = callOutputAndPlotFcns(outputfcn,plotf
 
 % For the 'done' state we do not check the value of 'stop' because the
 % optimization is already done.
-optimValues.iteration = iter;
-optimValues.funccount = numf;
-optimValues.fval = f;
-optimValues.procedure = how;
+% optimValues.iteration = iter;
+% optimValues.funccount = numf;
+% optimValues.fval = f;
+% optimValues.procedure = how;
 
-xOutputfcn(:) = x;  % Set x to have user expected size
-stop = false;
-state = char(state);
+% xOutputfcn(:) = x;  % Set x to have user expected size
+% stop = false;
+% state = char(state);
 % Call output functions
 
 % ---- Remove these from function for compile - AVH
@@ -515,7 +525,7 @@ state = char(state);
 % -----------------------------------
 
 %--------------------------------------------------------------------------
-function [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)
+% function [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)
 % CLEANUPINTERRUPT updates or sets all the output arguments of FMINBND when the optimization
 % is interrupted.
 
@@ -524,27 +534,27 @@ function [x,FVAL,EXITFLAG,OUTPUT] = cleanUpInterrupt(xOutputfcn,optimValues)
 % longer exists, this call just returns.
 % callAllOptimPlotFcns('cleanuponstopsignal');
 
-x = xOutputfcn;
-FVAL = optimValues.fval;
-EXITFLAG = -1;
-OUTPUT.iterations = optimValues.iteration;
-OUTPUT.funcCount = optimValues.funccount;
-OUTPUT.algorithm = 'Nelder-Mead simplex direct search';
-OUTPUT.message = fprintf('Optimisation terminated by user'); %getString(message('MATLAB:optimfun:fminsearch:OptimizationTerminatedPrematurelyByUser'));
+% x = xOutputfcn;
+% FVAL = optimValues.fval;
+% EXITFLAG = -1;
+% OUTPUT.iterations = optimValues.iteration;
+% OUTPUT.funcCount = optimValues.funccount;
+% OUTPUT.algorithm = 'Nelder-Mead simplex direct search';
+% OUTPUT.message = fprintf('Optimisation terminated by user'); %getString(message('MATLAB:optimfun:fminsearch:OptimizationTerminatedPrematurelyByUser'));
 
 %--------------------------------------------------------------------------
-function f = checkfun(x,userfcn,varargin)
+% function f = checkfun(x,userfcn,varargin)
 % CHECKFUN checks for complex or NaN results from userfcn.
 
-f = userfcn(x,varargin{:});
+% f = userfcn(x,varargin{:});
 % Note: we do not check for Inf as FMINSEARCH handles it naturally.
-if isnan(f)
-    error('MATLAB:fminsearch:checkfun:NaNFval','Target function is NaN');
-elseif ~isreal(f)
+% if isnan(f)
+%     error('MATLAB:fminsearch:checkfun:NaNFval','Target function is NaN');
+% elseif ~isreal(f)
 %     error('MATLAB:fminsearch:checkfun:ComplexFval',...
 %         getString(message('MATLAB:optimfun:fminsearch:checkfun:ComplexFval', localChar( userfcn ))));  
-        error(sprintf('Target function is complex'));
-end
+%         error(sprintf('Target function is complex'));
+% end
 
 %--------------------------------------------------------------------------
 % function strfcn = localChar(fcn)

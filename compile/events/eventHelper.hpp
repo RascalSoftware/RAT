@@ -51,7 +51,7 @@ class eventHelper
                 this->initialised = false;
             }   
         };
-
+        
         void sendMessage(const char* msg)
         {                              
             auto sendMessage = library->get_function<void(const char*)>("sendMessage");
@@ -59,6 +59,14 @@ class eventHelper
             // pass the arguments to the function
             return sendMessage(msg);   
 
+        };
+        
+        bool hasPlotHandler(void)
+        {                              
+            auto hasPlotHandler = library->get_function<bool(void)>("hasPlotHandler");
+            
+            // pass the arguments to the function
+            return hasPlotHandler();   
         };
 
         void updatePlot(int nContrast, double* reflect, double* nReflect, double* shiftedData, double* nShiftedData, 

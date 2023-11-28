@@ -48,3 +48,13 @@ LIB_EXPORT void clearListeners()
 {
 	eventManager::get_instance()->clear();
 }
+
+LIB_EXPORT bool hasPlotHandler()
+{   
+    auto names = eventManager::get_instance()->getEventNames();
+	for(unsigned i=0; i < names.size(); i++) {
+        if (names[i] == PLOT)
+            return true;
+    }
+    return false;
+}

@@ -14,7 +14,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         maxFunEvals = 10000
         maxIter = 1000
         updateFreq = -1
-        updatePlotFreq = -1
+        updatePlotFreq = 1
 
         %(2) Differential Evolution
         populationSize = 20
@@ -64,6 +64,14 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             message = sprintf('display must be a displayOptions enum or one of the following strings (%s)', ...
                 strjoin(displayOptions.values(), ', '));
             obj.display = validateOption(val, 'displayOptions', message).value;
+        end
+
+        function obj = set.updatePlotFreq(obj, val)
+            validateNumber(val, 'updatePlotFreq must be a number');
+            if val < 1
+                throw(exceptions.invalidValue('updatePlotFreq must be greater or equal to 1'));
+            end
+            obj.updatePlotFreq = val;
         end
 
         function obj = set.resamPars(obj,val)
@@ -428,7 +436,7 @@ classdef controlsClass < matlab.mixin.CustomDisplay
             defaultMaxFunEvals = 10000;
             defaultMaxIter = 1000;
             defaultUpdateFreq = -1;
-            defaultUpdatePlotFreq = -1;
+            defaultUpdatePlotFreq = 1;
             defaultParallel = parallelOptions.Single.value;
             defaultCalcSldDuringFit = false;
             defaultResamPars = [0.9 50];

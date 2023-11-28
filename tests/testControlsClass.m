@@ -89,6 +89,18 @@ classdef testControlsClass < matlab.unittest.TestCase
                 testCase.controls.calcSldDuringFit = 2;
             end
         end
+        
+        function testUpdatePlotFreq(testCase)   
+            % Test if NS property setters are working
+            testCase.controls.updatePlotFreq = 5;
+            testCase.verifyEqual(testCase.controls.updatePlotFreq, 5, 'set.updatePlotFreq method is not working')
+            % bad updatePlotFreq type
+            testCase.verifyError(@() setUpdatePlotFreq('a'), exceptions.invalidType.errorID);
+            testCase.verifyError(@() setUpdatePlotFreq(0), exceptions.invalidValue.errorID);
+            function setUpdatePlotFreq(value)
+                testCase.controls.updatePlotFreq = value;
+            end
+        end
 
         function testSimplexArguments(testCase)
             % Test if Simplex property setters are working
@@ -509,7 +521,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             testCase.verifyEqual(testCase.controls.maxFunEvals, 10000, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.maxIter, 1000, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.updateFreq, -1, 'setProcedure method is not working');
-            testCase.verifyEqual(testCase.controls.updatePlotFreq, -1, 'setProcedure method is not working');
+            testCase.verifyEqual(testCase.controls.updatePlotFreq, 1, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.parallel, parallelOptions.Single.value, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.calcSldDuringFit, false, 'setProcedure method is not working');
             testCase.verifyEqual(testCase.controls.resamPars, [0.9 50], 'setProcedure method is not working');

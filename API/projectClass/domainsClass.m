@@ -148,7 +148,7 @@ classdef domainsClass < projectClass
             % and with key-value pairs with one or more of the following
             % "bulk in", "bulk out", "model"
             % 
-            % problem.addDomainContrast('domainContrast 1', 'nba', 'Silicon');
+            % problem.addDomainContrast('domainContrast 1', 'bulkIn', 'Silicon');
             if isa(obj.domainContrasts, 'domainContrastsClass')
                 allowedNames = obj.getAllAllowedNames();
                 obj.domainContrasts.addContrast(allowedNames, varargin{:});

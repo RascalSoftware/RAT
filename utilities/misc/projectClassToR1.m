@@ -144,12 +144,12 @@ for i = 1:numberOfContrasts
     
     contrastNames{i} = thisContrast.name;
     
-    % nba
-    bulkInLoc = strfind(r2BulkInStruct.names, thisContrast.nba);
+    % Bulk In
+    bulkInLoc = strfind(r2BulkInStruct.names, thisContrast.bulkIn);
     contrastNbas(i) = find(not(cellfun('isempty', bulkInLoc)));
     
-    % nbs
-    bulkOutLoc = strfind(r2BulkOutStruct.names, thisContrast.nbs);
+    % Bulk Out
+    bulkOutLoc = strfind(r2BulkOutStruct.names, thisContrast.bulkOut);
     contrastNbss(i) = find(not(cellfun('isempty', bulkOutLoc)));
     
     % scalefactors

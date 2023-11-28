@@ -503,28 +503,28 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEmpty(testCase.project.contrasts.contrasts, 'contrast has wrong dimension');
             % Checks that contrast can be added
             testCase.project.addContrast('name', 'Bilayer / H2O', 'background', 'Background H2O', 'resolution', 'Resolution 2',...
-                                         'scalefactor', 'Scalefactor 1', 'resample', false, 'nbs', 'SLD D2O', 'nba', 'SLD Air',...
+                                         'scalefactor', 'Scalefactor 1', 'resample', false, 'bulkOut', 'SLD D2O', 'bulkIn', 'SLD Air',...
                                          'data', 'Sim 1');
             testCase.verifyLength(testCase.project.contrasts.contrasts, 1, 'contrast has wrong dimension');
             testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.name, 'Bilayer / H2O', 'addContrast method not working');
 
             testCase.project.addContrast('name', 'Another Bilayer', 'background', 'Background H2O', 'resolution', 'Resolution 2',...
-                                         'scalefactor', 'Scalefactor 1', 'resample', false, 'nbs', 'SLD H2O', 'nba', 'Silicon',...
+                                         'scalefactor', 'Scalefactor 1', 'resample', false, 'bulkOut', 'SLD H2O', 'bulkIn', 'Silicon',...
                                          'data', 'Sim 2');
             testCase.verifyLength(testCase.project.contrasts.contrasts, 2, 'contrast has wrong dimension');
             testCase.verifyEqual(testCase.project.contrasts.contrasts{2}.name, 'Another Bilayer', 'addContrast method not working');
             % Checks that contrast can be modified
             testCase.verifyError(@() testCase.project.setContrast(3, 'name', 'First Bilayer'), exceptions.indexOutOfRange.errorID)
             testCase.verifyError(@() testCase.project.setContrast('Bilayer', 'name', 'First Bilayer'), exceptions.nameNotRecognised.errorID)
-            testCase.project.setContrast(1, 'name', 'First Bilayer', 'nbs', 'SLD H2O');
+            testCase.project.setContrast(1, 'name', 'First Bilayer', 'bulkOut', 'SLD H2O');
             testCase.verifyLength(testCase.project.contrasts.contrasts, 2, 'contrast has wrong dimension');
             testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.name, 'First Bilayer', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.nbs, 'SLD H2O', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.nba, 'SLD Air', 'setContrast method not working');
-            testCase.project.setContrast('First Bilayer', 'nba', 'Silicon');
+            testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.bulkOut, 'SLD H2O', 'setContrast method not working');
+            testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.bulkIn, 'SLD Air', 'setContrast method not working');
+            testCase.project.setContrast('First Bilayer', 'bulkIn', 'Silicon');
             testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.name, 'First Bilayer', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.nbs, 'SLD H2O', 'setContrast method not working');
-            testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.nba, 'Silicon', 'setContrast method not working');
+            testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.bulkOut, 'SLD H2O', 'setContrast method not working');
+            testCase.verifyEqual(testCase.project.contrasts.contrasts{1}.bulkIn, 'Silicon', 'setContrast method not working');
             % Checks that contrast can be removed
             testCase.project.removeContrast(1);
             testCase.verifyLength(testCase.project.contrasts.contrasts, 1, 'contrast has wrong dimension');

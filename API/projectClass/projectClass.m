@@ -790,7 +790,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % "background", "bulk in", "bulk out", "scalefactor",
             % "resolution", "resample", "model"
             % 
-            % problem.addContrast('contrast 1', 'nba', 'Silicon');
+            % problem.addContrast('contrast 1', 'bulkIn', 'Silicon');
             allowedNames = obj.getAllAllowedNames();
             obj.contrasts.addContrast(allowedNames, varargin{:});   
         end

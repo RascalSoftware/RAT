@@ -118,8 +118,8 @@ classdef contrastsClass < baseContrasts
                 end
 
                 contrastBacks{i} =  [find(strcmpi(thisContrast.background,allowedNames.backsNames)), 1];
-                contrastNbas(i) = find(strcmpi(thisContrast.nba,allowedNames.bulkInNames));
-                contrastNbss(i) = find(strcmpi(thisContrast.nbs,allowedNames.bulkOutNames));
+                contrastNbas(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
+                contrastNbss(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
                 contrastShifts(i) = 1;  %Todo
                 contrastScales(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefacNames));
                 contrastRes(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolsNames));
@@ -190,20 +190,20 @@ classdef contrastsClass < baseContrasts
             %                                   'name', 'Contrast Name', ...
             %                                   'background', 'Background H2O')        
             defaultName = '';
-            defaultBack = '';
+            defaultBackground = '';
             defaultData = '';   
-            defaultNba = '';
-            defaultNbs = '';
-            defaultScalefac = '';
-            defaultResol = '';
+            defaultBulkIn = '';
+            defaultBulkOut = '';
+            defaultScalefactor = '';
+            defaultResolution = '';
             defaultResample = false;
         
-            expectedBacks = cellstr(allowedNames.backsNames);
+            expectedBackground = cellstr(allowedNames.backsNames);
             expectedData = cellstr(allowedNames.dataNames);
-            expectedBulkin = cellstr(allowedNames.bulkInNames);
-            expectedBulkout = cellstr(allowedNames.bulkOutNames);
-            expectedResols = cellstr(allowedNames.resolsNames);
-            expectedScalefac = cellstr(allowedNames.scalefacNames);
+            expectedBulkIn = cellstr(allowedNames.bulkInNames);
+            expectedBulkOut = cellstr(allowedNames.bulkOutNames);
+            expectedScalefactor = cellstr(allowedNames.scalefacNames);
+            expectedResolution = cellstr(allowedNames.resolsNames);
 
             p = inputParser;
             addParameter(p,'name',          defaultName,        @isText);
@@ -214,11 +214,11 @@ classdef contrastsClass < baseContrasts
                 addParameter(p,'oilChiData',    defaultOilChiData,  @(x) any(validatestring(x,expectedData)));
             end
 
-            addParameter(p,'background',    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
-            addParameter(p,'nba',           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
-            addParameter(p,'nbs',           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
-            addParameter(p,'scalefactor',   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
-            addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
+            addParameter(p,'background',    defaultBackground,  @(x) any(validatestring(x,expectedBackground)));
+            addParameter(p,'bulkIn',        defaultBulkIn,      @(x) any(validatestring(x,expectedBulkIn)));
+            addParameter(p,'bulkOut',       defaultBulkOut,     @(x) any(validatestring(x,expectedBulkOut)));
+            addParameter(p,'scalefactor',   defaultScalefactor, @(x) any(validatestring(x,expectedScalefactor)));
+            addParameter(p,'resolution',    defaultResolution,  @(x) any(validatestring(x,expectedResolution)));
             addParameter(p,'resample',      defaultResample,    @islogical);
 
             if obj.domainsCalc

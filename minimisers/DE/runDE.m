@@ -100,7 +100,7 @@ function [problemDef,problem,result] = runDE(problemDef,problemDefCells,problemD
     
     [res,problemDef] = deopt(@intrafun,problemDef,problemDefCells,controls,S_struct);
     problemDef.fitpars = res;
-    problemDef = unpackparams(problemDef,controls);
+    problemDef = unpackParams(problemDef,controls);
     [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
     
     if ~strcmpi(controls.display,'off')
@@ -118,7 +118,7 @@ function S_MSE = intrafun(p,problemDef,controls,problemDefCells)
     coder.varsize('S_MSE.FVr_oa',[1 1],[0 0]);
     
     problemDef.fitpars = p;
-    problemDef = unpackparams(problemDef,controls);
+    problemDef = unpackParams(problemDef,controls);
     [problemDef,~] = reflectivityCalculation(problemDef,problemDefCells,controls);
     fval = problemDef.calculations.sum_chi;
     

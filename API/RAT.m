@@ -1,7 +1,7 @@
 function [outProblemDef,result] = RAT(problemDefInput,controls)
 
 [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseClassToStructs(problemDefInput,controls);
-[problemDef,~] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[problemDef,~] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 
 % Set controls.calCls always to 1
 % if we are doing customXY
@@ -45,7 +45,7 @@ if any((strcmpi(controls.procedure,{'bayes','NS','dream'})))
     result = mergeStructs(result,bayesResults);
 end
 
-[~,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[~,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 result.fitNames = fitNames;
 
 outProblemDef = parseOutToProjectClass(problemDefInput,outProblemStruct);

@@ -1,7 +1,7 @@
 function  [problemDef,outProblem,result,bayesResults] = runNestedSampler(problemDef,problemDefCells,problemDefLimits,controls,inPriors)
 
 checks = controls.checks;
-[problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,checks);
+[problemDef,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,checks);
 
 nest_samples = [0 0 ; 0 0];
 coder.varsize('nest_samples');

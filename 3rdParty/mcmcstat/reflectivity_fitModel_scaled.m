@@ -14,7 +14,7 @@ constr = problemDef.fitconstr;
 pars = unscalePars(pars,constr);
 
 problemDef.fitpars = pars;
-problemDef = unpackparams(problemDef,controls);
+problemDef = unpackParams(problemDef,controls);
 %setappdata(0,'problem',problem);
 %problem = reflectivityCalculation(problem);
 [problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,controls);

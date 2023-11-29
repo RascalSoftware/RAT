@@ -7,7 +7,7 @@ function [outProblemDef,result,pmpd] = processParamonteRuns(problem,controls,cha
 
 [problemDef,problemDefCells,problemDefLimits,~,controls] = parseClassToStructs(problem,controls);
 
-[problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[problemDef,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 
 pm = paramonte();
 pmpd = pm.ParaDRAM();
@@ -55,7 +55,7 @@ end
 
 result = mergeStructs(result,bayesResults);
 
-[~,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,controls.checks);
+[~,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,controls.checks);
 result.fitNames = fitNames;
 
 outProblemDef = parseOutToProjectClass(problem,problemDef);

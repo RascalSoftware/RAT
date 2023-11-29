@@ -14,7 +14,7 @@ end
 
 
 
-[problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,checks);
+[problemDef,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,checks);
 
 
 %Check the bounds on all the selected

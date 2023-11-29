@@ -10,7 +10,7 @@ cells = ratInputs.problemDefCells;
 problem.fitpars = pars;
 
 % Distribute them to the right parts
-problem = unpackparams(problem,control);
+problem = unpackParams(problem,control);
 
 % Calculate....
 [outProblem,~] = reflectivityCalculation(problem,cells,control);

@@ -130,7 +130,7 @@ x = simplexXTransform(xu,params);
 %x = reshape(x,xsize);
 
 problemDef.fitpars = x;
-problemDef = unpackparams(problemDef,controls);
+problemDef = unpackParams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
 end

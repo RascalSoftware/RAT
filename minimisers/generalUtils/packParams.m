@@ -1,4 +1,4 @@
-function [problemDef,fitNames] = packparams(problemDef,problemDefCells,limits,checks)
+function [problemDef,fitNames] = packParams(problemDef,problemDefCells,limits,checks)
 
 %Separate out the params array into fitting
 %and unfitting arrays.

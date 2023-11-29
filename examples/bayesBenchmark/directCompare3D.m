@@ -89,7 +89,7 @@ if useSaved
 else
 
     [problemDef,problemDef_cells,problemDef_limits,priors,controls] = RatParseClassToStructs_new(d2oproblem,controls);
-    [problemDef,fitNames] = packparams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
+    [problemDef,fitNames] = packParams(problemDef,problemDef_cells,problemDef_limits,controls.checks);
 
     for r = 1:gridSize
         for b = 1:gridSize
@@ -105,7 +105,7 @@ else
                 problemDef.fitpars(1) = thisRough;
                 problemDef.fitpars(2) = thisBack;
                 problemDef.fitpars(3) = thisScale;
-                problemDef = unpackparams(problemDef,controls);
+                problemDef = unpackParams(problemDef,controls);
                 [problem,results] = reflectivity_calculation_wrapper(problemDef,problemDef_cells,problemDef_limits,controls);
 
 %                 d2oproblem.setParameter(1,'value',thisRough);

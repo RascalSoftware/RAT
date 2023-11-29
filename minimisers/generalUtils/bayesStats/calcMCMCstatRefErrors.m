@@ -32,7 +32,7 @@ end
 controls.procedure = 'calculate';
 controls.calcSldDuringFit = true;
 problemDef.fitpars = bestFitPars;
-problemDef = unpackparams(problemDef,controls);
+problemDef = unpackParams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 result = parseResultToStruct(problem,result);
 

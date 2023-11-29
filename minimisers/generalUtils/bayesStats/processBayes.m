@@ -11,7 +11,7 @@ controlsStruct.calcSldDuringFit = true;
 
 %... and use the Bayes bestpars
 problemDef.fitpars = bayesOutputs.bestPars;
-problemDef = unpackparams(problemDef,controlsStruct);
+problemDef = unpackParams(problemDef,controlsStruct);
 parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,length(fitNames),[],0.95);
 
 % % 2. Find maximum values of posteriors. Store the max and mean posterior 
@@ -22,7 +22,7 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 % % Calculate Max best fit curves
 % controls.calcSldDuringFit = true;
 % problemDef.fitpars = bestPars_max;
-% problemDef = unpackparams(problemDef,controls);
+% problemDef = unpackParams(problemDef,controls);
 % [outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 % bestFitMax_Ref = result(1);
 % bestFitMax_Sld = result(5);
@@ -30,7 +30,7 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 
 % Calculate 'mean' best fit curves
 % problemDef.fitpars = parConfInts.mean;
-% problemDef = unpackparams(problemDef,controlsStruct);
+% problemDef = unpackParams(problemDef,controlsStruct);
 [outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,controlsStruct);
 p = parseResultToStruct(outProblem,result);
 bestFitMean.ref = p.reflectivity;

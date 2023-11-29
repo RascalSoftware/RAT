@@ -5,13 +5,13 @@ function  [problemDef,outProblem,result,bayesResults] = runDram(problemDef,probl
 %coder.varsize('problemDef.contrastBacks',[1 Inf],[0 1]);
 
 checks = controls.checks;
-[problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,checks);
+[problemDef,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,checks);
 %fitPriors = packPriors(priors,checks);
 
 % Seed the Random Number Generator
 rng(0);
 
-%fitPriors = packpriors(priors,checks);
+%fitPriors = packPriors(priors,checks);
 
 %First deal with priors.
 prior = {};
@@ -23,8 +23,8 @@ for i = 1:length(params)
     params{i} = cell(1,6);
 end
 
-% We have a list of 'fitPars' which is created by packparams.m
-% packparams doesn't do the same for our priors however. So we need 
+% We have a list of 'fitPars' which is created by packParams.m
+% packParams doesn't do the same for our priors however. So we need 
 % to make an array of the priors for the fitted parameters 
 % so that we can then build the params array for the algorithm
 
@@ -171,7 +171,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % 
 % % Calulate Max best fit curves
 % problemDef.fitpars = bestPars_max;
-% problemDef = unpackparams(problemDef,controls);
+% problemDef = unpackParams(problemDef,controls);
 % [outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 % bestFitMax_Ref = result(1);
 % bestFitMax_Sld = result(5);
@@ -179,7 +179,7 @@ output = runBayes(loop,nsimu,burnin,adaptint,params,problem,controls);
 % 
 % % Calculate 'mean' best fit curves
 % problemDef.fitpars = bestPars_mean;
-% problemDef = unpackparams(problemDef,controls);
+% problemDef = unpackParams(problemDef,controls);
 % [outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 % bestFitMean_Ref = result(1);
 % bestFitMean_Sld = result(5);

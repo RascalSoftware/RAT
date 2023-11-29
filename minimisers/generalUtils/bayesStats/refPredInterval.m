@@ -65,12 +65,12 @@ for n = 1:numberOfContrasts
         end
         
 %         problem.fitpars = thisRow;
-%         problem = unpackparams(problem);
+%         problem = unpackParams(problem);
 %         % setappdata(0,'problem',problem);
 %         problem = reflectivityCalculation(problem);
         % problem = getappdata(0,'problem');
         problemDef.fitpars = thisRow;
-        problemDef = unpackparams(problemDef,controls);
+        problemDef = unpackParams(problemDef,controls);
         [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
         result = parseResultToStruct(problem,result);
 

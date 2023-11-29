@@ -17,7 +17,8 @@ import sys
 # ones.
 exclude_patterns = []
 current_dir = os.path.dirname(os.path.abspath(__file__))
-matlab_src_dir = os.path.abspath(os.path.join(current_dir, '..','..'))
+matlab_src_dir = 'D:/Documents/MATLAB/RAT'
+#os.path.abspath(os.path.join(current_dir, '..','..'))
 sys.path.insert(0, matlab_src_dir)
 
 project = 'RAT'
@@ -25,7 +26,7 @@ copyright = '2022, Arwel Hughes,Sethu Pastula'
 author = 'Arwel Hughes,Sethu Pastula'
 
 # The full version, including alpha/beta/rc tags
-with open(os.path.join(matlab_src_dir, 'version.txt'), 'r') as version_file:
+with open(os.path.join('D:\Documents\MATLAB\RAT', 'version.txt'), 'r') as version_file:
     release = version_file.read()
 
 # -- General configuration ---------------------------------------------------

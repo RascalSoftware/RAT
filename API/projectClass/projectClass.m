@@ -858,7 +858,7 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Parameters
             params = obj.parameters.toStruct();
             paramStruct = cell2struct(struct2cell(params),{'paramNames',...
-                'paramLimits','paramValues','fitParam','param'});
+                'paramLimits','paramValues','fitParam','paramPriors'});
             
             % Backgrounds
             backgroundStruct = obj.background.toStruct();
@@ -869,22 +869,22 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Bulk in
             bulkInStruct = obj.bulkIn.toStruct();
             bulkInStruct = cell2struct(struct2cell(bulkInStruct),{'bulkInNames',...
-                'bulkInLimits','bulkInValues','fitBulkIn','bulkIn'});
+                'bulkInLimits','bulkInValues','fitBulkIn','bulkInPriors'});
             
             % Bulk out
             bulkOutStruct = obj.bulkOut.toStruct();
             bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{'bulkOutNames',...
-                'bulkOutLimits','bulkOutValues','fitBulkOut','bulkOut'});
+                'bulkOutLimits','bulkOutValues','fitBulkOut','bulkOutPriors'});
             
             % Scalefactors
             scalefactorStruct = obj.scalefactors.toStruct();
             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{'scalefactorNames',...
-                'scalefactorLimits','scalefactorValues','fitScalefactor','scalefactor'});
+                'scalefactorLimits','scalefactorValues','fitScalefactor','scalefactorPriors'});
             
             % Qzshifts
             qzshiftStruct = obj.qzshifts.toStruct();
             qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{'qzshiftNames',...
-                'qzshiftLimits','qzshiftValues','fitQzshift','qzshift'});
+                'qzshiftLimits','qzshiftValues','fitQzshift','qzshiftPriors'});
             
             % Layers
             if isa(obj.layers, 'layersClass')

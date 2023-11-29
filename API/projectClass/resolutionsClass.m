@@ -182,7 +182,7 @@ classdef resolutionsClass < handle
             resolutionStruct.resolutionParamLimits = resolutionParamsStruct.limits;
             resolutionStruct.resolutionParamValues = resolutionParamsStruct.values;
             resolutionStruct.fitResolutionParam = resolutionParamsStruct.fit;
-            resolutionStruct.resolutionParam = resolutionParamsStruct.priors;
+            resolutionStruct.resolutionParamPriors = resolutionParamsStruct.priors;
             
             resolutionNames = obj.resolutions.varTable{:,1};
             resolutionTypes = obj.resolutions.varTable{:,2};

@@ -204,7 +204,7 @@ classdef backgroundsClass < handle
             backgroundStruct.backgroundParamLimits = backgroundParamsStruct.limits;
             backgroundStruct.backgroundParamValues = backgroundParamsStruct.values;
             backgroundStruct.fitBackgroundParam = backgroundParamsStruct.fit;
-            backgroundStruct.backgroundParam = backgroundParamsStruct.priors;
+            backgroundStruct.backgroundParamPriors = backgroundParamsStruct.priors;
             
             backgroundNames = obj.backgrounds.varTable{:,1};
             backgroundTypes = obj.backgrounds.varTable{:,2};

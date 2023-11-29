@@ -25,7 +25,7 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 %       {1 x nContrasts} array of cells
 %       Each cell is {1 x Inf double}
 %
-% {6} - inputProblemDef.layersDetails
+% {6} - inputProblemDef.layerDetails
 %       {n x 1} array of cells
 %       Each cell is (1 x 5 double}
 %
@@ -91,7 +91,7 @@ inputStruct = inputProblemDef.toStruct();
 
 %% Start by removing the cell arrays
 contrastLayers = inputStruct.contrastLayers;
-layersDetails = inputStruct.layersDetails;
+layerDetails = inputStruct.layerDetails;
 
 % If any of the contrastLayers are empty, replace the empty cells by zero
 % thickness layers
@@ -102,9 +102,9 @@ for i = 1:length(contrastLayers)
     end
 end
 
-% Do the same for layersDetails
-if isempty(layersDetails)
-    layersDetails = {0};
+% Do the same for layerDetails
+if isempty(layerDetails)
+    layerDetails = {0};
 end
 
 % Pull out all the cell arrays (except priors) into one array
@@ -113,7 +113,7 @@ problemDefCells{2} = inputStruct.allData;
 problemDefCells{3} = inputStruct.dataLimits;
 problemDefCells{4} = inputStruct.simLimits;
 problemDefCells{5} = contrastLayers;
-problemDefCells{6} = layersDetails;
+problemDefCells{6} = layerDetails;
 problemDefCells{7} = inputStruct.paramNames;
 problemDefCells{8} = inputStruct.backgroundParamNames;
 problemDefCells{9} = inputStruct.scalefactorNames;

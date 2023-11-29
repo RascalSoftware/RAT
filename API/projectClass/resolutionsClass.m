@@ -51,11 +51,11 @@ classdef resolutionsClass < handle
             obj.resolutionParams.showPriors = value;
         end
         
-        function names = getResolNames(obj)
+        function names = getNames(obj)
             % Returns a N x 1 cell array of names of the resolutions 
             % in the object. 
             % 
-            % names = resolution.getResolNames();
+            % names = resolution.getNames();
             resolTable = obj.resolutions.varTable;
             names = resolTable{:,1};   
         end
@@ -136,7 +136,7 @@ classdef resolutionsClass < handle
             %
             % resolution.setResolution(1, 'name', 'res 1', 'type', 'constant', 'value1', 'param_name');
             if isText(row)
-                row = obj.resolutions.findRowIndex(row, obj.getResolNames(), 'Unrecognised resolution');
+                row = obj.resolutions.findRowIndex(row, obj.getNames(), 'Unrecognised resolution');
             elseif isnumeric(row)
                 count = obj.resolutions.rowCount;
                 if (row < 1) || (row > count)

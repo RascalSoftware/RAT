@@ -54,11 +54,11 @@ classdef backgroundsClass < handle
             obj.backgroundParams.showPriors = value;
         end
         
-        function names = getBackgroundNames(obj)
+        function names = getNames(obj)
             % Returns a N x 1 cell array of names of the backgrounds 
             % in the object. 
             % 
-            % names = background.getBackgroundNames();
+            % names = background.getNames();
             backsTable = obj.backgrounds.varTable;
             names = backsTable{:,1};      
         end
@@ -138,7 +138,7 @@ classdef backgroundsClass < handle
             %
             % background.setBackground(1, 'name', 'back 1', 'type', 'constant', 'value1', 'param_name');
             if isText(row)
-                row = obj.backgrounds.findRowIndex(row, obj.getBackgroundNames(), 'Unrecognised background');
+                row = obj.backgrounds.findRowIndex(row, obj.getNames(), 'Unrecognised background');
             elseif isnumeric(row)
                 count = obj.backgrounds.rowCount;
                 if (row < 1) || (row > count)

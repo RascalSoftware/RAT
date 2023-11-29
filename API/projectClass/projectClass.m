@@ -228,18 +228,18 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
             % Returns a cell array of all currently
             % set parameter names for the project.
             names.paramNames = obj.parameters.getNames();
-            names.backsNames = obj.background.getBackgroundNames();
+            names.backgroundNames = obj.background.getNames();
             names.backgroundParamNames = obj.background.backgroundParams.getNames();
             names.bulkInNames = obj.bulkIn.getNames();
             names.bulkOutNames = obj.bulkOut.getNames();
-            names.resolsNames = obj.resolution.getResolNames();
+            names.resolutionNames = obj.resolution.getNames();
             names.resolutionParamNames = obj.resolution.resolutionParams.getNames();
             names.dataNames = obj.data.getNames();
-            names.scalefacNames = obj.scalefactors.getNames();
+            names.scalefactorNames = obj.scalefactors.getNames();
             names.qzShiftNames = obj.qzshifts.getNames();
-            names.customNames = obj.customFile.getNames();
+            names.customFileNames = obj.customFile.getNames();
             if isa(obj.layers, 'layersClass')
-                names.layersNames = obj.layers.getNames();
+                names.layerNames = obj.layers.getNames();
             end
         end
         
@@ -891,8 +891,8 @@ classdef projectClass < handle & matlab.mixin.CustomDisplay
                 layersStruct = obj.layers.toStruct(paramStruct.paramNames);
             else
                 layersStruct.numberOfLayers = 0;
-                layersStruct.layersNames = strings(0,1);
-                layersStruct.layersDetails = {};
+                layersStruct.layerNames = strings(0,1);
+                layersStruct.layerDetails = {};
             end
 
             % Custom files

@@ -30,7 +30,7 @@ classdef domainContrastsClass < baseContrasts
                 thisLayerArray = ones(1, length(thisModel));
                 for n = 1:length(thisModel)
                     thisLayer = thisModel{n};
-                    thisLayerNum = find(strcmpi(thisLayer, allowedNames.layersNames));
+                    thisLayerNum = find(strcmpi(thisLayer, allowedNames.layerNames));
                     thisLayerArray(n) = thisLayerNum;
                 end
                 contrastLayers{i} = thisLayerArray;

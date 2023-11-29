@@ -59,15 +59,15 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             end
         end
         
-        function testGetResolNames(testCase)
-            % Tests getResolNames returns correctly
-            names = testCase.resolution.getResolNames();
-            testCase.verifyEqual(names, string(testCase.resolutions(1, 1)), 'getResolNames method not working');
+        function testGetNames(testCase)
+            % Tests getNames returns correctly
+            names = testCase.resolution.getNames();
+            testCase.verifyEqual(names, string(testCase.resolutions(1, 1)), 'getNames method not working');
             testCase.verifySize(names, [1, 1], 'Resolution names has wrong dimension');
 
             testCase.resolution.resolutions.varTable = [testCase.resolution.resolutions.varTable; vertcat(testCase.resolutions(2:end, :))];
-            names = testCase.resolution.getResolNames();
-            testCase.verifyEqual(names, convertCharsToStrings(testCase.resolutions(:, 1)), 'getResolNames method not working');
+            names = testCase.resolution.getNames();
+            testCase.verifyEqual(names, convertCharsToStrings(testCase.resolutions(:, 1)), 'getNames method not working');
             testCase.verifySize(names, [size(testCase.resolutions, 1), 1], 'Resolution names has wrong dimension');
         end
 

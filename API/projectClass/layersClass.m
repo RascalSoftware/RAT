@@ -148,15 +148,15 @@ classdef layersClass < tableUtilities
             layersCell = obj.varTable{:,:};
 
             outStruct.numberOfLayers = size(layersCell, 1);
-            outStruct.layersNames = layersCell(:,1);
+            outStruct.layerNames = layersCell(:,1);
             
             % parse the layers details
-            layersValues = layersCell(:,2:end);         
-            layersDetails = cell([1, outStruct.numberOfLayers]);
+            layerValues = layersCell(:,2:end);         
+            layerDetails = cell([1, outStruct.numberOfLayers]);
 
             for i = 1:outStruct.numberOfLayers
 
-                thisLayer = layersValues(i,:);
+                thisLayer = layerValues(i,:);
                 numCols = length(thisLayer);
                 paramIndices = zeros(1,numCols-2);
                 for j = 1:numCols-2
@@ -174,14 +174,14 @@ classdef layersClass < tableUtilities
                 else
                     hydrWhat = 2;
                 end
-                layersDetails{i} = [paramIndices hydr hydrWhat];
+                layerDetails{i} = [paramIndices hydr hydrWhat];
                 
             end
 
             if outStruct.numberOfLayers > 0
-                outStruct.layersDetails = layersDetails(:);
+                outStruct.layerDetails = layerDetails(:);
             else
-                outStruct.layersDetails = {};
+                outStruct.layerDetails = {};
             end
             
         end

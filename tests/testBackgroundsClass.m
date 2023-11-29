@@ -60,15 +60,15 @@
          end
       end
 
-      function testGetBackgroundNames(testCase)
-         % Tests getBackgroundNames returns correctly
-         names = testCase.background.getBackgroundNames();
-         testCase.verifyEqual(names, string(testCase.backgrounds(1, 1)), 'getBackgroundNames method not working');
+      function testGetNames(testCase)
+         % Tests getNames returns correctly
+         names = testCase.background.getNames();
+         testCase.verifyEqual(names, string(testCase.backgrounds(1, 1)), 'getNames method not working');
          testCase.verifySize(names, [1, 1], 'background names has wrong dimension');
 
          testCase.background.backgrounds.varTable = [testCase.background.backgrounds.varTable; vertcat(testCase.backgrounds(2:end, :))];
-         names = testCase.background.getBackgroundNames();
-         testCase.verifyEqual(names, convertCharsToStrings(testCase.backgrounds(:, 1)), 'getBackgroundNames method not working');
+         names = testCase.background.getNames();
+         testCase.verifyEqual(names, convertCharsToStrings(testCase.backgrounds(:, 1)), 'getNames method not working');
          testCase.verifySize(names, [size(testCase.backgrounds, 1), 1], 'background names has wrong dimension');
       end
 

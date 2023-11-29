@@ -583,7 +583,7 @@ classdef testProjectClass < matlab.unittest.TestCase
             testCase.verifyEqual(projectStruct.qzshiftNames, {convertStringsToChars(testCase.project.qzshifts.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.bulkInNames, {convertStringsToChars(testCase.project.bulkIn.varTable{:, 1})}, 'toStruct method not working');
             testCase.verifyEqual(projectStruct.bulkOutNames, {convertStringsToChars(testCase.project.bulkOut.varTable{:, 1})}, 'toStruct method not working');
-            testCase.verifyEqual(projectStruct.layersNames, testCase.project.layers.varTable{:, 1}, 'toStruct method not working');           
+            testCase.verifyEqual(projectStruct.layerNames, testCase.project.layers.varTable{:, 1}, 'toStruct method not working');           
 
             nContrasts = testCase.project.contrasts.numberOfContrasts;
             contrastNames = cell(1,nContrasts);

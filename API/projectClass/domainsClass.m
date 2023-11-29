@@ -84,7 +84,7 @@ classdef domainsClass < projectClass
             names = getAllAllowedNames@projectClass(obj);
             names.domainRatioNames = obj.domainRatio.getNames();
             if isa(obj.domainContrasts, 'domainContrastsClass')
-                names.domainContrastsNames = obj.domainContrasts.getNames();
+                names.domainContrastNames = obj.domainContrasts.getNames();
             end
         end
     

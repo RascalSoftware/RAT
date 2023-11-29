@@ -225,11 +225,11 @@ priors.priorNames = allPriors(:, 1);
 priors.priorValues = cell2mat(allPriors(:, 2:end));
 
 
-%% Split up the contrastBacks array
+%% Split up the contrastBackgrounds array
 contrastBackgrounds = inputStruct.contrastBackgrounds;
 for i = 1:length(contrastBackgrounds)
-    problemDef.contrastBacks(i) = contrastBackgrounds{i}(1);
-    problemDef.contrastBacksType(i) = contrastBackgrounds{i}(2);
+    problemDef.contrastBackgrounds(i) = contrastBackgrounds{i}(1);
+    problemDef.contrastBackgroundsType(i) = contrastBackgrounds{i}(2);
 end
     
 % Here we need to do the same with the contrastResolutions array
@@ -313,12 +313,12 @@ problemDef.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
 problemDef.geometry = inputStruct.geometry;
 problemDef.useImaginary = inputStruct.useImaginary;
-%problemDef.contrastBacks = contrastBackgrounds;
-problemDef.contrastShifts = inputStruct.contrastQzshifts;
-problemDef.contrastScales = inputStruct.contrastScalefactors;
-problemDef.contrastNbas = inputStruct.contrastBulkIns;
-problemDef.contrastNbss = inputStruct.contrastBulkOuts;
-problemDef.contrastRes = contrastRes;
+%problemDef.contrastBackgrounds = contrastBackgrounds;
+problemDef.contrastQzshifts = inputStruct.contrastQzshifts;
+problemDef.contrastScalefactors = inputStruct.contrastScalefactors;
+problemDef.contrastBulkIns = inputStruct.contrastBulkIns;
+problemDef.contrastBulkOuts = inputStruct.contrastBulkOuts;
+problemDef.contrastResolutions = contrastRes;
 problemDef.backs = inputStruct.backgroundParamValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
 problemDef.shifts = inputStruct.qzshiftValues;
 problemDef.sf = inputStruct.scalefactorValues;

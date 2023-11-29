@@ -67,13 +67,13 @@ classdef contrastsClass < baseContrasts
             nContrasts = obj.numberOfContrasts;
             contrastLayers = cell(1,nContrasts);
             contrastCustomFile = ones(1,nContrasts);
-            contrastBacks = cell(1,nContrasts);
-            contrastNbas = ones(1,nContrasts);
-            contrastNbss = ones(1,nContrasts);
+            contrastBackgrounds = cell(1,nContrasts);
+            contrastBulkIns = ones(1,nContrasts);
+            contrastBulkOuts = ones(1,nContrasts);
             contrastDomainRatios = zeros(1,nContrasts);
-            contrastShifts = ones(1,nContrasts);
-            contrastScales = ones(1,nContrasts);
-            contrastRes = ones(1,nContrasts);
+            contrastQzshifts = ones(1,nContrasts);
+            contrastScalefactors = ones(1,nContrasts);
+            contrastResolutions = ones(1,nContrasts);
             resample = ones(1,nContrasts);
 
             dataPresent = zeros(1,nContrasts);
@@ -117,12 +117,12 @@ classdef contrastsClass < baseContrasts
                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
                 end
 
-                contrastBacks{i} =  [find(strcmpi(thisContrast.background,allowedNames.backgroundNames)), 1];
-                contrastNbas(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
-                contrastNbss(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
-                contrastShifts(i) = 1;  %Todo
-                contrastScales(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefactorNames));
-                contrastRes(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolutionNames));
+                contrastBackgrounds{i} =  [find(strcmpi(thisContrast.background,allowedNames.backgroundNames)), 1];
+                contrastBulkIns(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
+                contrastBulkOuts(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
+                contrastQzshifts(i) = 1;  %Todo
+                contrastScalefactors(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefactorNames));
+                contrastResolutions(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolutionNames));
                 resample(i) = thisContrast.resample;
 
                 thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
@@ -164,12 +164,12 @@ classdef contrastsClass < baseContrasts
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.contrastDomainRatios = contrastDomainRatios;
-            contrastStruct.contrastBacks = contrastBacks;
-            contrastStruct.contrastNbas = contrastNbas;
-            contrastStruct.contrastNbss = contrastNbss;
-            contrastStruct.contrastShifts = contrastShifts;
-            contrastStruct.contrastScales = contrastScales;
-            contrastStruct.contrastRes = contrastRes;
+            contrastStruct.contrastBackgrounds = contrastBackgrounds;
+            contrastStruct.contrastBulkIns = contrastBulkIns;
+            contrastStruct.contrastBulkOuts = contrastBulkOuts;
+            contrastStruct.contrastQzshifts = contrastQzshifts;
+            contrastStruct.contrastScalefactors = contrastScalefactors;
+            contrastStruct.contrastResolutions = contrastResolutions;
             contrastStruct.resample = resample;
             contrastStruct.dataPresent = dataPresent;
             contrastStruct.dataLimits = dataLimits;

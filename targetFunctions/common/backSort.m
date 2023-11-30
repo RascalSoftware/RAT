@@ -45,10 +45,10 @@ function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolu
             %thisScale = contrastScalefactors(i);
             outScalefactor = scalefactor(contrastScalefactors);
             
-            %thisBulkInir = contrastBulkIns(i);
+            %thisBulkIn = contrastBulkIns(i);
             outBulkIn = bulkIn(contrastBulkIns);
             
-            %thisBulkOutub = contrastBulkOuts(i);
+            %thisBulkOut = contrastBulkOuts(i);
             outBulkOut = bulkOut(contrastBulkOuts);
             
             %thisResol = contrastResolutions(i);

@@ -134,7 +134,7 @@ end
 numberOfContrasts = r2Problem.contrasts.numberOfContrasts;
 r1Problem.numberOfContrasts = numberOfContrasts;
 
-[contrastBacks, contrastScales, contrastResolutions, contrastNbas, contrastNbss, contrastsNumberOfLayers, forceReload, fitlowrange, fithirange] = deal(zeros(numberOfContrasts, 1));
+[contrastBacks, contrastScales, contrastResolutions, contrastBulkIns, contrastBulkOuts, contrastsNumberOfLayers, forceReload, fitlowrange, fithirange] = deal(zeros(numberOfContrasts, 1));
 contrastShifts = ones(numberOfContrasts, 1);
 [contrastLayers, simLimits, dataLimits, data, contrastNames, contrastFiles] = deal(cell(numberOfContrasts, 1));
 
@@ -146,11 +146,11 @@ for i = 1:numberOfContrasts
     
     % Bulk In
     bulkInLoc = strfind(r2BulkInStruct.names, thisContrast.bulkIn);
-    contrastNbas(i) = find(not(cellfun('isempty', bulkInLoc)));
+    contrastBulkIns(i) = find(not(cellfun('isempty', bulkInLoc)));
     
     % Bulk Out
     bulkOutLoc = strfind(r2BulkOutStruct.names, thisContrast.bulkOut);
-    contrastNbss(i) = find(not(cellfun('isempty', bulkOutLoc)));
+    contrastBulkOuts(i) = find(not(cellfun('isempty', bulkOutLoc)));
     
     % scalefactors
     scaleLoc = strfind(r1Problem.scalesNames, thisContrast.scalefactor);
@@ -226,8 +226,8 @@ end
 % Put everything into the R1 problem
 r1Problem.contrastTypes = dataTypes;
 r1Problem.contrastNames = contrastNames;
-r1Problem.contrastNbas = contrastNbas;
-r1Problem.contrastNbss = contrastNbss;
+r1Problem.contrastNbas = contrastBulkIns;
+r1Problem.contrastNbss = contrastBulkOuts;
 r1Problem.contrastScales = contrastScales;
 r1Problem.contrastShifts = contrastShifts;
 r1Problem.contrastResolutions = contrastResolutions;

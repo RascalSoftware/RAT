@@ -1,4 +1,4 @@
-function sldProfile= makeSLDProfiles(nbair,nbsub,sld,ssub,repeats)
+function sldProfile= makeSLDProfiles(bulkIn,bulkOut,sld,ssub,repeats)
 
 
 lays = size(sld,1);
@@ -9,6 +9,6 @@ else
 end
 
 
-sldProfile = makeSLDProfileXY(nbair,nbsub,ssub,sld,lays,reps);
+sldProfile = makeSLDProfileXY(bulkIn,bulkOut,ssub,sld,lays,reps);
 
 end

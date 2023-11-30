@@ -56,17 +56,17 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
-[outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
- Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
+ resolutionParams,chis,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
  allRoughs] = domainsTF.standardLayers.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
-TFParams.backgs = backgs;
-TFParams.qshifts = qshifts;
-TFParams.sfs = sfs;
-TFParams.nbas = nbas;
-TFParams.nbss = nbss;
-TFParams.resols = resols;
+TFParams.backgroundParams = backgroundParams;
+TFParams.qzshifts = qzshifts;
+TFParams.scalefactors = scalefactors;
+TFParams.bulkIn = bulkIn;
+TFParams.bulkOut = bulkOut;
+TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
 
@@ -125,17 +125,17 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
-[outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
- Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
+ resolutionParams,chis,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
  allRoughs] = domainsTF.customXY.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
-TFParams.backgs = backgs;
-TFParams.qshifts = qshifts;
-TFParams.sfs = sfs;
-TFParams.nbas = nbas;
-TFParams.nbss = nbss;
-TFParams.resols = resols;
+TFParams.backgroundParams = backgroundParams;
+TFParams.qzshifts = qzshifts;
+TFParams.scalefactors = scalefactors;
+TFParams.bulkIn = bulkIn;
+TFParams.bulkOut = bulkOut;
+TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
 
@@ -194,17 +194,17 @@ TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
-[outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
- Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+[outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
+ resolutionParams,chis,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
  allRoughs] = domainsTF.customLayers.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
-TFParams.backgs = backgs;
-TFParams.qshifts = qshifts;
-TFParams.sfs = sfs;
-TFParams.nbas = nbas;
-TFParams.nbss = nbss;
-TFParams.resols = resols;
+TFParams.backgrounds = backgroundParams;
+TFParams.qzshifts = qzshifts;
+TFParams.scalefactors = scalefactors;
+TFParams.bulkIn = bulkIn;
+TFParams.bulkOut = bulkOut;
+TFParams.resolutionParams = resolutionParams;
 TFParams.chis = chis;
 TFParams.allRoughs = allRoughs;
 

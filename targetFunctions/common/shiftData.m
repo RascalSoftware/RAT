@@ -5,7 +5,7 @@ function shifted_data = shiftData(scalefac,horshift,dataPresent,data,dataLimits,
 % INPUTS:
 %
 %     * scalefac = problem.scalefactors;
-%     * horshift = problem.qshifts;
+%     * horshift = problem.qzshifts;
 %     * numberOfContrasts = problem.numberOfContrasts;
 %     * dataPresent = problem.dataPresent;
 %     * allData = problem.data;

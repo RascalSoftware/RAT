@@ -81,7 +81,7 @@ function [problemDef,fitNames] = packParams(problemDef,problemDefCells,limits,ch
         end
     end    
     
-    %Need qshifts
+    %Need qzshifts
     for n = 1:length(checks.fitQzshift)
         if checks.fitQzshift(n) == 1
             fitpars(fitCounter) = problemDef.qzshifts(n);

@@ -1,9 +1,9 @@
-function [backg,qshift,scalefactor,nba,nbs,resol] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res)
+function [backg,qzshift,scalefactor,nba,nbs,resol] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res)
 %     Distributes the background and shift values among the different contrasts
 %
 %     USAGE::
 %
-%         [backg,qshift,scalefactor,nba,nbs,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res)
+%         [backg,qzshift,scalefactor,nba,nbs,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res)
 %
 %     INPUTS:
 %        * contrastBackgrounds  :         Which backround value is associated with each contrast
@@ -21,7 +21,7 @@ function [backg,qshift,scalefactor,nba,nbs,resol] = backSort(contrastBackgrounds
 % 
 %     OUTPUTS:
 %        * backgs : list of actual background values for each contrast
-%        * qshifts : list of actual shift values for each contrast      
+%        * qzshifts : list of actual shift values for each contrast      
 %        * scalefactors : list of actual shift values for each contrast     
 %        * nbas : list of actual shift values for each contrast     
 %        * nbss : list of actual shift values for each contrast
@@ -40,7 +40,7 @@ function [backg,qshift,scalefactor,nba,nbs,resol] = backSort(contrastBackgrounds
             backg = backs(contrastBackgrounds);
             
             %thisShift = contrastQzshifts(i);
-            qshift = shifts(contrastQzshifts);
+            qzshift = shifts(contrastQzshifts);
             
             %thisScale = contrastScalefactors(i);
             scalefactor = scalefactor(contrastScalefactors);

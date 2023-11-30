@@ -58,7 +58,7 @@ function problemDef = unpackParams(problemDef,controls)
     problemDef.scalefactors = uppars;
     
     
-    %qshifts
+    %qzshifts
     uppars = zeros(1,length(problemDef.qzshifts));
     uppars_counter = 1;
     for i = 1:length(controls.checks.fitQzshift)

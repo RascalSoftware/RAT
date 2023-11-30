@@ -1,4 +1,4 @@
-function [outSsubs,backgs,qshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
+function [outSsubs,backgs,qzshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
     allRoughs] = single(problemDef,problemDefCells,controls)
 % Single threaded version of the custom layers, nonPolarisedTF reflectivity
@@ -25,7 +25,7 @@ useImaginary = problemDef.useImaginary;
                      
 % Pre-Allocation of output arrays...
 backgs = zeros(numberOfContrasts,1);
-qshifts = zeros(numberOfContrasts,1);
+qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
 nbas = zeros(numberOfContrasts,1);
 nbss = zeros(numberOfContrasts,1);
@@ -68,7 +68,7 @@ for i = 1:numberOfContrasts
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
-    [thisBackground,thisQshift,thisScalefactor,thisNba,thisNbs,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
+    [thisBackground,thisQzshift,thisScalefactor,thisNba,thisNbs,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
     
     % Get the custom layers output for this contrast
     thisContrastLayers = allLayers{i};
@@ -93,7 +93,7 @@ for i = 1:numberOfContrasts
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
     nonPolarisedTF.coreLayersCalculation...
     (thisContrastLayers, thisRough, ...
-    geometry, thisNba, thisNbs, thisResample, calcSld, thisScalefactor, thisQshift,...
+    geometry, thisNba, thisNbs, thisResample, calcSld, thisScalefactor, thisQzshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
    
@@ -111,7 +111,7 @@ for i = 1:numberOfContrasts
     
     chis(i) = thisChiSquared;
     backgs(i) = thisBackground;
-    qshifts(i) = thisQshift;
+    qzshifts(i) = thisQzshift;
     scalefactors(i) = thisScalefactor;
     nbas(i) = thisNba;
     nbss(i) = thisNbs;

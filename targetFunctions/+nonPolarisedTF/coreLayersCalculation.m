@@ -1,6 +1,6 @@
 function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] = ...
     coreLayersCalculation(contrastLayers, rough, ...
-    geometry, nba, nbs, resample, calcSld, scalefactor, qshift,...
+    geometry, nba, nbs, resample, calcSld, scalefactor, qzshift,...
     dataPresent, data, dataLimits, simLimits, repeatLayers,...
     background,resol,backsType,params,parallelPoints,resamPars,useImaginary)
 
@@ -30,7 +30,7 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
 %   resample        :
 %   calcSld         :
 %   scalefactor              :
-%   qshift          :
+%   qzshift          :
 %   dataPresent     :
 %   data            :
 %   dataLimits      :
@@ -116,7 +116,7 @@ else
 end
 
 % Apply scale factors and q shifts to the data
-shifted_dat = shiftData(scalefactor,qshift,dataPresent,data,dataLimits,simLimits);
+shifted_dat = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits);
 
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles';

@@ -98,7 +98,7 @@ function [problemDef,fitNames,fitPriors] = packParamsPriors(problemDef,problemDe
         end
     end    
     
-    %Need qshifts
+    %Need qzshifts
     for n = 1:length(checks.fitQzshift)
         if checks.fitQzshift(n) == 1
             fitpars(fitCounter) = problemDef.qzshifts(n);

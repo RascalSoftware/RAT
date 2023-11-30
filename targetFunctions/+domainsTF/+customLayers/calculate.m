@@ -17,7 +17,7 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfil
 numberOfContrasts = problemDef.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
 backgs = zeros(numberOfContrasts,1);
-qshifts = zeros(numberOfContrasts,1);
+qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
 nbas = zeros(numberOfContrasts,1);
 nbss = zeros(numberOfContrasts,1);
@@ -63,22 +63,22 @@ coder.varsize('allLayers',[10000 2],[1 1]);
 
 switch controls.parallel
     case 'single'
-          [outSsubs,backgs,qshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
+          [outSsubs,backgs,qzshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customLayers.single(problemDef,problemDefCells,controls);
     case 'points'
-          [outSsubs,backgs,qshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
+          [outSsubs,backgs,qzshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customLayers.parallelPoints(problemDef,problemDefCells,controls);    
     case 'contrasts'
-          [outSsubs,backgs,qshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
+          [outSsubs,backgs,qzshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customLayers.parallelContrasts(problemDef,problemDefCells,controls);
 end
 
 problem.ssubs = outSsubs;
 problem.backgroundParams = backgs;
-problem.qzshifts = qshifts;
+problem.qzshifts = qzshifts;
 problem.scalefactors = scalefactors;
 problem.bulkIn = nbas;
 problem.bulkOut = nbss;

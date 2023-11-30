@@ -337,12 +337,12 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(contrastBulkIns, testCase.problemDef.contrastBulkIns, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastBulkOuts, testCase.problemDef.contrastBulkOuts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastResolutions, testCase.problemDef.contrastResolutions, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(backs, testCase.problemDef.backs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(shifts, testCase.problemDef.shifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(sf, testCase.problemDef.sf, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(nba, testCase.problemDef.nba, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(nbs, testCase.problemDef.nbs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(res, testCase.problemDef.res, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(backs, testCase.problemDef.backgroundParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(shifts, testCase.problemDef.qzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(sf, testCase.problemDef.scalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(nba, testCase.problemDef.bulkIn, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(nbs, testCase.problemDef.bulkOut, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(res, testCase.problemDef.resolutionParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(dataPresent, testCase.problemDef.dataPresent, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(nParams, length(testCase.problemDef.params), 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(params, testCase.problemDef.params, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);

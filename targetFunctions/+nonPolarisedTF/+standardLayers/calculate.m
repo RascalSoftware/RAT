@@ -74,12 +74,12 @@ end
 
 % Package everything into one array for tidy output
 problem.ssubs = outSsubs;
-problem.backgrounds = backgs;
-problem.qshifts = qshifts;
+problem.backgroundParams = backgs;
+problem.qzshifts = qshifts;
 problem.scalefactors = sfs;
-problem.nbairs = nbas;
-problem.nbsubs = nbss;
-problem.resolutions = resols;
+problem.bulkIn = nbas;
+problem.bulkOut = nbss;
+problem.resolutionParams = resols;
 problem.calculations.all_chis = chis;
 problem.calculations.sum_chi = sum(chis);
 problem.allSubRough = allRoughs;

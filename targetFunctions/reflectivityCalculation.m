@@ -21,12 +21,12 @@ function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,c
 % for compilation, we have to preallocate memory for the output arrays
 % Setting these parameters in the struct defines them as doubles
 problem.ssubs = 0;
-problem.backgrounds = 0;
-problem.qshifts = 0;
+problem.backgroundParams = 0;
+problem.qzshifts = 0;
 problem.scalefactors = 0;
-problem.nbairs = 0;
-problem.nbsubs = 0;
-problem.resolutions = 0;
+problem.bulkIn = 0;
+problem.bulkOut = 0;
+problem.resolutionParams = 0;
 problem.calculations.all_chis = 0;
 problem.calculations.sum_chi = 0;
 problem.allSubRough = 0;
@@ -186,12 +186,12 @@ end
 % Pre-processor directives for Matlab Coder
 % to define the size of the output array
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
-coder.varsize('problem.backgrounds',[Inf 1],[1 0]);
-coder.varsize('problem.qshifts',[Inf 1],[1 0]);
+coder.varsize('problem.backgroundParams',[Inf 1],[1 0]);
+coder.varsize('problem.qzshifts',[Inf 1],[1 0]);
 coder.varsize('problem.scalefactors',[Inf 1],[1 0]);
-coder.varsize('problem.nbairs',[Inf 1],[1 0]);
-coder.varsize('problem.nbsubs',[Inf 1],[1 0]);
-coder.varsize('problem.resolutions',[Inf 1],[1 0]);
+coder.varsize('problem.bulkIn',[Inf 1],[1 0]);
+coder.varsize('problem.bulkOut',[Inf 1],[1 0]);
+coder.varsize('problem.resolutionParams',[Inf 1],[1 0]);
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
 coder.varsize('problem.calculations.all_chis',[Inf 1],[1 0]);
 coder.varsize('problem.calculations.sum_chi',[1 1],[0 0]);

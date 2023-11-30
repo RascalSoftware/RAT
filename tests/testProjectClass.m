@@ -392,20 +392,20 @@ classdef testProjectClass < matlab.unittest.TestCase
         end
             
         function testQzShift(testCase)
-            % Checks the default Qz shift
+            % Checks the default qzshift
             testCase.verifySize(testCase.project.qzshifts.varTable, [1, 8], 'qzshifts has wrong dimension');
             testCase.verifyEqual(string(testCase.project.qzshifts.varTable{1, :}),...
                                     string({'Qz shift 1', -1e-4, 0, 1e-4, false, priorTypes.Uniform.value, 0, Inf}), 'qzshifts default');
-            % Checks that Qz shift can be added
+            % Checks that qzshift can be added
             testCase.project.addQzshift('Qz shift 2', -2e-4, 0, 2e-4, false);
             testCase.verifySize(testCase.project.qzshifts.varTable, [2, 8], 'qzshifts has wrong dimension');
             testCase.verifyEqual(testCase.project.qzshifts.varTable{end, 1}, "Qz shift 2", 'addQzshift method not working');
 
-            % Checks that Qz shift can be removed
+            % Checks that qzshift can be removed
             testCase.project.removeQzshift(2);
             testCase.verifySize(testCase.project.qzshifts.varTable, [1, 8], 'qzshifts has wrong dimension');
             testCase.verifyEqual(testCase.project.qzshifts.varTable{:, 1}, "Qz shift 1", 'removeQzshift method not working');
-            % Checks that Qzshift can be modified
+            % Checks that qzshift can be modified
             testCase.project.setQzshift(1, 'name','Qz shift 1','min',-1e-5,'value',0.001,'max',1e-5,'fit',true);
             testCase.verifyEqual(string(testCase.project.qzshifts.varTable{1, :}),...
                                     string({'Qz shift 1', -1e-5, 0.001, 1e-5, true, priorTypes.Uniform.value, 0, Inf}), 'setQzshift method not working');

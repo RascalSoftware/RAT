@@ -71,12 +71,12 @@ problemDef = unpackParams(problemDef,controls);
 
 % Pre-processor directives for Matlab Coder.
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
-coder.varsize('problem.backgrounds',[Inf 1],[1 0]);
-coder.varsize('problem.qshifts',[Inf 1],[1 0]);
+coder.varsize('problem.backgroundParams',[Inf 1],[1 0]);
+coder.varsize('problem.qzshifts',[Inf 1],[1 0]);
 coder.varsize('problem.scalefactors',[Inf 1],[1 0]);
-coder.varsize('problem.nbairs',[Inf 1],[1 0]);
-coder.varsize('problem.nbsubs',[Inf 1],[1 0]);
-coder.varsize('problem.resolutions',[Inf 1],[1 0]);
+coder.varsize('problem.bulkIn',[Inf 1],[1 0]);
+coder.varsize('problem.bulkOut',[Inf 1],[1 0]);
+coder.varsize('problem.resolutionParams',[Inf 1],[1 0]);
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
 coder.varsize('problem.calculations.all_chis',[Inf 1],[1 0]);
 coder.varsize('problem.calculations.sum_chi',[1 1],[0 0]);

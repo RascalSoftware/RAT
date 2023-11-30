@@ -1,4 +1,4 @@
-function [backg,qzshift,scalefactor,nba,nbs,resol] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res)
+function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)
 %     Distributes the background and shift values among the different contrasts
 %
 %     USAGE::
@@ -6,18 +6,18 @@ function [backg,qzshift,scalefactor,nba,nbs,resol] = backSort(contrastBackground
 %         [backg,qzshift,scalefactor,nba,nbs,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res)
 %
 %     INPUTS:
-%        * contrastBackgrounds  :         Which backround value is associated with each contrast
+%        * contrastBackgrounds  :     Which backround value is associated with each contrast
 %        * contrastQzshifts  :        Which qz_shift value is associated with each contrast
-%        * contrastScalefactors  :        Which scalefactor value is associated with each contrast
-%        * contrastBulkIns  :          Which NBa value is associated with each contrast
-%        * contrastBulkOuts  :          Which Nbs value is associated with each contrast
-%        * contrastResolutions  :           Which resolution value is associated with each contrast
-%        * backs  :          List of all background values.
-%        * shifts  :         List of all qz-shift values
+%        * contrastScalefactors  :    Which scalefactor value is associated with each contrast
+%        * contrastBulkIns  :         Which NBa value is associated with each contrast
+%        * contrastBulkOuts  :        Which Nbs value is associated with each contrast
+%        * contrastResolutions  :     Which resolution value is associated with each contrast
+%        * backs  :                   List of all background values.
+%        * shifts  :                  List of all qzshift values
 %        * scalefactor :              List of all scalefactor values
-%        * nba :             List of all nba values
-%        * nbs :             List of all nbs values
-%        * res :             List of all resolution values
+%        * bulkIn :                   List of all bulkIn values
+%        * bulkOut :                  List of all bulkOut values
+%        * res :                      List of all resolution values
 % 
 %     OUTPUTS:
 %        * backgs : list of actual background values for each contrast
@@ -37,25 +37,25 @@ function [backg,qzshift,scalefactor,nba,nbs,resol] = backSort(contrastBackground
         
             %for i = 1:nc
             %thisBack = contrastBackgrounds(i);
-            backg = backs(contrastBackgrounds);
+            outBackground = backs(contrastBackgrounds);
             
             %thisShift = contrastQzshifts(i);
-            qzshift = shifts(contrastQzshifts);
+            outQzshift = qzshifts(contrastQzshifts);
             
             %thisScale = contrastScalefactors(i);
-            scalefactor = scalefactor(contrastScalefactors);
+            outScalefactor = scalefactor(contrastScalefactors);
             
             %thisNbair = contrastBulkIns(i);
-            nba = nba(contrastBulkIns);
+            outBulkIn = bulkIn(contrastBulkIns);
             
             %thisNbsub = contrastBulkOuts(i);
-            nbs = nbs(contrastBulkOuts);
+            outBulkOut = bulkOut(contrastBulkOuts);
             
             %thisResol = contrastResolutions(i);
             if contrastResolutions ~= -1
-                resol = res(contrastResolutions);
+                outResolution = res(contrastResolutions);
             else
-                resol = -1;     % Negative value means we have a data resolution..
+                outResolution = -1;     % Negative value means we have a data resolution..
             end
             %end
            

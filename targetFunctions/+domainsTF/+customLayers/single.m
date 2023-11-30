@@ -16,8 +16,8 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
  ~,~,customFiles] = parseCells(problemDefCells);
 
 % Extract individual parameters from problemDef struct
-[numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
-cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
+[numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
+contrastResolutions, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
 ~, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
 
 calcSld = controls.calcSldDuringFit;
@@ -82,7 +82,7 @@ end
 resamPars = controls.resamPars;
 
 % Process the custom models....
-[calcAllLayers,allRoughs] = domainsTF.customLayers.processCustomFunction(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs, ...
+[calcAllLayers,allRoughs] = domainsTF.customLayers.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
     shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 % Parallel over all contrasts
@@ -100,7 +100,7 @@ for i = 1:numberOfContrasts
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
-    [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+    [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,sf,nba,nbs,res);
     
     % Get the custom layers output for this contrast
     % We have two for each contrast - one for each domain

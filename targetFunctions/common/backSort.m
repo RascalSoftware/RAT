@@ -1,17 +1,17 @@
-function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)
+function [backg,qshift,sf,nba,nbs,resol] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,sf,nba,nbs,res)
 %     Distributes the background and shift values among the different contrasts
 %
 %     USAGE::
 %
-%         [backg,qshift,sf,nba,nbs,resol] = backsort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)
+%         [backg,qshift,sf,nba,nbs,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,sf,nba,nbs,res)
 %
 %     INPUTS:
-%        * cBacks  :         Which backround value is associated with each contrast
-%        * cShifts  :        Which qz_shift value is associated with each contrast
-%        * cScales  :        Which scalefactor value is associated with each contrast
-%        * cNbas  :          Which NBa value is associated with each contrast
-%        * cNbss  :          Which Nbs value is associated with each contrast
-%        * cRes  :           Which resolution value is associated with each contrast
+%        * contrastBackgrounds  :         Which backround value is associated with each contrast
+%        * contrastQzshifts  :        Which qz_shift value is associated with each contrast
+%        * contrastScalefactors  :        Which scalefactor value is associated with each contrast
+%        * contrastBulkIns  :          Which NBa value is associated with each contrast
+%        * contrastBulkOuts  :          Which Nbs value is associated with each contrast
+%        * contrastResolutions  :           Which resolution value is associated with each contrast
 %        * backs  :          List of all background values.
 %        * shifts  :         List of all qz-shift values
 %        * sf :              List of all scalefactor values
@@ -36,24 +36,24 @@ function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas
         
         
             %for i = 1:nc
-            %thisBack = cBacks(i);
-            backg = backs(cBacks);
+            %thisBack = contrastBackgrounds(i);
+            backg = backs(contrastBackgrounds);
             
-            %thisShift = cShifts(i);
-            qshift = shifts(cShifts);
+            %thisShift = contrastQzshifts(i);
+            qshift = shifts(contrastQzshifts);
             
-            %thisScale = cScales(i);
-            sf = sf(cScales);
+            %thisScale = contrastScalefactors(i);
+            sf = sf(contrastScalefactors);
             
-            %thisNbair = cNbas(i);
-            nba = nba(cNbas);
+            %thisNbair = contrastBulkIns(i);
+            nba = nba(contrastBulkIns);
             
-            %thisNbsub = cNbss(i);
-            nbs = nbs(cNbss);
+            %thisNbsub = contrastBulkOuts(i);
+            nbs = nbs(contrastBulkOuts);
             
-            %thisResol = cRes(i);
-            if cRes ~= -1
-                resol = res(cRes);
+            %thisResol = contrastResolutions(i);
+            if contrastResolutions ~= -1
+                resol = res(contrastResolutions);
             else
                 resol = -1;     % Negative value means we have a data resolution..
             end

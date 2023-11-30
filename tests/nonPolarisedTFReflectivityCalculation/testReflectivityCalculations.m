@@ -325,18 +325,18 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
         end        
 
         function testExtractProblemParams(testCase)
-            [numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
-            cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-            numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(testCase.problemDef);
+            [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
+            contrastResolutions, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
+            numberOfLayers, resample, backsType, contrastCustomFiles] =  extractProblemParams(testCase.problemDef);
 
             testCase.verifyEqual(numberOfContrasts, testCase.problemDef.numberOfContrasts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(geometry, testCase.problemDef.geometry, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(cBacks, testCase.problemDef.contrastBackgrounds, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(cShifts, testCase.problemDef.contrastQzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(cScales, testCase.problemDef.contrastScalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(cNbas, testCase.problemDef.contrastBulkIns, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(cNbss, testCase.problemDef.contrastBulkOuts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(cRes, testCase.problemDef.contrastResolutions, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastBackgrounds, testCase.problemDef.contrastBackgrounds, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastQzshifts, testCase.problemDef.contrastQzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastScalefactors, testCase.problemDef.contrastScalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastBulkIns, testCase.problemDef.contrastBulkIns, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastBulkOuts, testCase.problemDef.contrastBulkOuts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastResolutions, testCase.problemDef.contrastResolutions, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(backs, testCase.problemDef.backs, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(shifts, testCase.problemDef.shifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(sf, testCase.problemDef.sf, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -349,7 +349,7 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(numberOfLayers, testCase.problemDef.numberOfLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resample, testCase.problemDef.resample, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(backsType, testCase.problemDef.contrastBackgroundsType, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(cFiles, testCase.problemDef.contrastCustomFiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(contrastCustomFiles, testCase.problemDef.contrastCustomFiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 
         function testParseResultToStruct(testCase)

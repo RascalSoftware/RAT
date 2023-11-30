@@ -18,14 +18,14 @@ problemDef.fitpars = firstRow;
 problemDef = unpackParams(problemDef,controlsStruct);
 
 % Calc the reflectivities....
-[calcProblem,calcResult] = reflectivityCalculation(problemDef,problemDefCells,controlsStruct);
+[calcProblem,calcontrastResolutionsult] = reflectivityCalculation(problemDef,problemDefCells,controlsStruct);
 
 % 'result' is currently a cell array. Convert this to a struct because it's
 % easier to work with fieldnames...
-calcResult = parseResultToStruct(calcProblem,calcResult);
+calcontrastResolutionsult = parseResultToStruct(calcProblem,calcontrastResolutionsult);
 
-thisRef = calcResult.reflectivity;
-thisSld = calcResult.sldProfiles;
+thisRef = calcontrastResolutionsult.reflectivity;
+thisSld = calcontrastResolutionsult.sldProfiles;
 
 % so each is a {n x 1} cell array, because of n contrasts. 
 % Prepare some arrays to hold the SLD's and Refs for all the chain, keeping only the Y vales.
@@ -95,15 +95,15 @@ for i = 1:nsample
     problemDef = unpackParams(problemDef,controlsStruct);
 
     % Calc the reflectivities....
-    [calcProblem,calcResult] = reflectivityCalculation(problemDef,problemDefCells,controlsStruct);
+    [calcProblem,calcontrastResolutionsult] = reflectivityCalculation(problemDef,problemDefCells,controlsStruct);
 
     % 'result' is currently a cell array. Convert this to a struct because it's
     % easier to work with fieldnames...
-    calcResult = parseResultToStruct(calcProblem,calcResult);
+    calcontrastResolutionsult = parseResultToStruct(calcProblem,calcontrastResolutionsult);
     
-    thisRef = calcResult.reflectivity;
-    thisSld = calcResult.sldProfiles;
-    sampleChi(i) = calcResult.calculationResults.sum_chi;
+    thisRef = calcontrastResolutionsult.reflectivity;
+    thisSld = calcontrastResolutionsult.sldProfiles;
+    sampleChi(i) = calcontrastResolutionsult.calculationResults.sum_chi;
 
     for n = 1:numberOfContrasts
 

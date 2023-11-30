@@ -21,8 +21,8 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
 domainContrastLayers = problemDefCells{19};
 
 % Extract individual parameters from problemDef struct
-[numberOfContrasts, geometry, cBacks, cShifts, cScales, cNbas, cNbss,...
-cRes, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
+[numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
+contrastResolutions, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
 ~, resample, backsType, ~] =  extractProblemParams(problemDef);
 
 calcSld = controls.calcSldDuringFit;   
@@ -106,7 +106,7 @@ for i = 1:numberOfContrasts
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
-    [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+    [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,sf,nba,nbs,res);
     
     % Also need to determine which layers from the overall layers list
     % are required for this contrast, and put them in the correct order 

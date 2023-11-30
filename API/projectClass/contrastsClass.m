@@ -67,13 +67,13 @@ classdef contrastsClass < baseContrasts
             nContrasts = obj.numberOfContrasts;
             contrastLayers = cell(1,nContrasts);
             contrastCustomFile = ones(1,nContrasts);
-            contrastBacks = cell(1,nContrasts);
-            contrastNbas = ones(1,nContrasts);
-            contrastNbss = ones(1,nContrasts);
+            contrastBackgrounds = cell(1,nContrasts);
+            contrastBulkIns = ones(1,nContrasts);
+            contrastBulkOuts = ones(1,nContrasts);
             contrastDomainRatios = zeros(1,nContrasts);
-            contrastShifts = ones(1,nContrasts);
-            contrastScales = ones(1,nContrasts);
-            contrastRes = ones(1,nContrasts);
+            contrastQzshifts = ones(1,nContrasts);
+            contrastScalefactors = ones(1,nContrasts);
+            contrastResolutions = ones(1,nContrasts);
             resample = ones(1,nContrasts);
 
             dataPresent = zeros(1,nContrasts);
@@ -95,12 +95,12 @@ classdef contrastsClass < baseContrasts
                         thisArray = ones(1, length(thisModel));
                         if obj.domainsCalc
                             for n = 1:length(thisModel)
-                                thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.domainContrastsNames));
+                                thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.domainContrastNames));
                                 thisArray(n) = thisLayerNum;
                             end
                         else
                             for n = 1:length(thisModel)
-                                thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.layersNames));
+                                thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.layerNames));
                                 thisArray(n) = thisLayerNum;
                             end
                         end
@@ -109,7 +109,7 @@ classdef contrastsClass < baseContrasts
                     otherwise
                         contrastLayers{i} = {};
                         whichFile = thisContrast.model;
-                        thisContrastFileNum = find(strcmpi(whichFile, allowedNames.customNames));
+                        thisContrastFileNum = find(strcmpi(whichFile, allowedNames.customFileNames));
                         contrastCustomFile(i) = thisContrastFileNum;
                 end
 
@@ -117,12 +117,12 @@ classdef contrastsClass < baseContrasts
                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
                 end
 
-                contrastBacks{i} =  [find(strcmpi(thisContrast.background,allowedNames.backsNames)), 1];
-                contrastNbas(i) = find(strcmpi(thisContrast.nba,allowedNames.bulkInNames));
-                contrastNbss(i) = find(strcmpi(thisContrast.nbs,allowedNames.bulkOutNames));
-                contrastShifts(i) = 1;  %Todo
-                contrastScales(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefacNames));
-                contrastRes(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolsNames));
+                contrastBackgrounds{i} =  [find(strcmpi(thisContrast.background,allowedNames.backgroundNames)), 1];
+                contrastBulkIns(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
+                contrastBulkOuts(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
+                contrastQzshifts(i) = 1;  %Todo
+                contrastScalefactors(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefactorNames));
+                contrastResolutions(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolutionNames));
                 resample(i) = thisContrast.resample;
 
                 thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
@@ -164,12 +164,12 @@ classdef contrastsClass < baseContrasts
             contrastStruct.contrastLayers = contrastLayers;
             contrastStruct.contrastCustomFile = contrastCustomFile;
             contrastStruct.contrastDomainRatios = contrastDomainRatios;
-            contrastStruct.contrastBacks = contrastBacks;
-            contrastStruct.contrastNbas = contrastNbas;
-            contrastStruct.contrastNbss = contrastNbss;
-            contrastStruct.contrastShifts = contrastShifts;
-            contrastStruct.contrastScales = contrastScales;
-            contrastStruct.contrastRes = contrastRes;
+            contrastStruct.contrastBackgrounds = contrastBackgrounds;
+            contrastStruct.contrastBulkIns = contrastBulkIns;
+            contrastStruct.contrastBulkOuts = contrastBulkOuts;
+            contrastStruct.contrastQzshifts = contrastQzshifts;
+            contrastStruct.contrastScalefactors = contrastScalefactors;
+            contrastStruct.contrastResolutions = contrastResolutions;
             contrastStruct.resample = resample;
             contrastStruct.dataPresent = dataPresent;
             contrastStruct.dataLimits = dataLimits;
@@ -190,20 +190,20 @@ classdef contrastsClass < baseContrasts
             %                                   'name', 'Contrast Name', ...
             %                                   'background', 'Background H2O')        
             defaultName = '';
-            defaultBack = '';
+            defaultBackground = '';
             defaultData = '';   
-            defaultNba = '';
-            defaultNbs = '';
-            defaultScalefac = '';
-            defaultResol = '';
+            defaultBulkIn = '';
+            defaultBulkOut = '';
+            defaultScalefactor = '';
+            defaultResolution = '';
             defaultResample = false;
         
-            expectedBacks = cellstr(allowedNames.backsNames);
+            expectedBackground = cellstr(allowedNames.backgroundNames);
             expectedData = cellstr(allowedNames.dataNames);
-            expectedBulkin = cellstr(allowedNames.bulkInNames);
-            expectedBulkout = cellstr(allowedNames.bulkOutNames);
-            expectedResols = cellstr(allowedNames.resolsNames);
-            expectedScalefac = cellstr(allowedNames.scalefacNames);
+            expectedBulkIn = cellstr(allowedNames.bulkInNames);
+            expectedBulkOut = cellstr(allowedNames.bulkOutNames);
+            expectedScalefactor = cellstr(allowedNames.scalefactorNames);
+            expectedResolution = cellstr(allowedNames.resolutionNames);
 
             p = inputParser;
             addParameter(p,'name',          defaultName,        @isText);
@@ -214,11 +214,11 @@ classdef contrastsClass < baseContrasts
                 addParameter(p,'oilChiData',    defaultOilChiData,  @(x) any(validatestring(x,expectedData)));
             end
 
-            addParameter(p,'background',    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
-            addParameter(p,'nba',           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
-            addParameter(p,'nbs',           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
-            addParameter(p,'scalefactor',   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
-            addParameter(p,'resolution',    defaultResol,       @(x) any(validatestring(x,expectedResols)));
+            addParameter(p,'background',    defaultBackground,  @(x) any(validatestring(x,expectedBackground)));
+            addParameter(p,'bulkIn',        defaultBulkIn,      @(x) any(validatestring(x,expectedBulkIn)));
+            addParameter(p,'bulkOut',       defaultBulkOut,     @(x) any(validatestring(x,expectedBulkOut)));
+            addParameter(p,'scalefactor',   defaultScalefactor, @(x) any(validatestring(x,expectedScalefactor)));
+            addParameter(p,'resolution',    defaultResolution,  @(x) any(validatestring(x,expectedResolution)));
             addParameter(p,'resample',      defaultResample,    @islogical);
 
             if obj.domainsCalc

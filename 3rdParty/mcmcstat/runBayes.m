@@ -90,7 +90,7 @@ output.data = data;
 % outSld = mcmcpred_compile_sld(results,chain,[],data,problem,500);
 % 
 % problemDef.fitpars = output.bestPars;
-% problemDef = unpackparams(problemDef,controls);
+% problemDef = unpackParams(problemDef,controls);
 % [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 % 
 % output.bestFits = result{1};

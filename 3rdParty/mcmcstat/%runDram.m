@@ -2,14 +2,14 @@ function  [problemDef,problem,result,bayesResults] = runDram(problemDef,problemD
 debug = 0;
 
 checks = controls.checks;
-[problemDef,fitNames] = packparams(problemDef,problemDefCells,problemDefLimits,checks);
+[problemDef,fitNames] = packParams(problemDef,problemDefCells,problemDefLimits,checks);
 %fitPriors = packPriors(priors,checks);
 
 % Seed the Random Number Generator
 rng(0);
 
 
-%fitPriors = packpriors(priors,checks);
+%fitPriors = packPriors(priors,checks);
 
 %First deal with priors.
 %Make uniform priors from the
@@ -66,7 +66,7 @@ bayesResults.bestFits = output.bestFits;
 bayesResults.predlims = output.predlims;
 
 problemDef.fitpars = output.bestPars;
-problemDef = unpackparams(problemDef,controls);
+problemDef = unpackParams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
 % Pre-processor directives for Matlab Coder.

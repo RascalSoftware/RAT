@@ -25,7 +25,7 @@ classdef (Abstract) baseContrasts < handle
         invalidTypeMessage = sprintf('Model type must be a modelTypes enum or one of the following strings (%s)', ...
                                      strjoin(modelTypes.values(), ', '))
         rowHeaders = struct('key', ["Name"; "Data"; "Oil Chi Data"; "Background"; "Bulk in"; "Bulk out"; "Scalefactor"; "Resolution"; "Resample"; "Domain Ratio"; "Model"], ...
-                            'field', ["name"; "data"; "oilChiData"; "background"; "nba"; "nbs"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
+                            'field', ["name"; "data"; "oilChiData"; "background"; "bulkIn"; "bulkOut"; "scalefactor"; "resolution"; "resample"; "domainRatio"; "model"])
     end
 
     methods (Abstract)
@@ -238,12 +238,12 @@ classdef (Abstract) baseContrasts < handle
                 thisContrast.background = inputBlock.background;
             end
             
-            if isfield(inputBlock, 'nba') && ~isempty(inputBlock.nba)
-                thisContrast.nba = inputBlock.nba;
+            if isfield(inputBlock, 'bulkIn') && ~isempty(inputBlock.bulkIn)
+                thisContrast.bulkIn = inputBlock.bulkIn;
             end
             
-            if isfield(inputBlock, 'nbs') && ~isempty(inputBlock.nbs)
-                thisContrast.nbs = inputBlock.nbs;
+            if isfield(inputBlock, 'bulkOut') && ~isempty(inputBlock.bulkOut)
+                thisContrast.bulkOut = inputBlock.bulkOut;
             end
 
             if isfield(inputBlock, 'scalefactor') && ~isempty(inputBlock.scalefactor)

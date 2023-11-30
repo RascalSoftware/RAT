@@ -15,7 +15,7 @@ chain = bayesOutputs.chain;
 % cain onto....
 firstRow = chain(1,:); 
 problemDef.fitpars = firstRow;
-problemDef = unpackparams(problemDef,controlsStruct);
+problemDef = unpackParams(problemDef,controlsStruct);
 
 % Calc the reflectivities....
 [calcProblem,calcResult] = reflectivityCalculation(problemDef,problemDefCells,controlsStruct);
@@ -92,7 +92,7 @@ for i = 1:nsample
     thisChain= chain(isample(i),:);
 
     problemDef.fitpars = thisChain;
-    problemDef = unpackparams(problemDef,controlsStruct);
+    problemDef = unpackParams(problemDef,controlsStruct);
 
     % Calc the reflectivities....
     [calcProblem,calcResult] = reflectivityCalculation(problemDef,problemDefCells,controlsStruct);

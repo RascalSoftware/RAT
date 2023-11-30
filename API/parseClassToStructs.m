@@ -25,7 +25,7 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 %       {1 x nContrasts} array of cells
 %       Each cell is {1 x Inf double}
 %
-% {6} - inputProblemDef.layersDetails
+% {6} - inputProblemDef.layerDetails
 %       {n x 1} array of cells
 %       Each cell is (1 x 5 double}
 %
@@ -34,31 +34,31 @@ function [problemDef,problemDefCells,problemDefLimits,priors,controls] = parseCl
 %       Each cell is {1 x Inf char}
 %
 % {8} - inputProblemDef.backgroundParamNames
-%       {1 x nBackgrounds} array of cells
+%       {1 x nBackgroundParams} array of cells
 %       Each cell is {1 x Inf char}
 % 
 % {9} - inputProblemDef.scalefactorNames
-%       {1 x nScales} array of cells
+%       {1 x nScalefactors} array of cells
 %       Each cell is {1 x Inf char}
 % 
 % {10}- inputProblemDef.qzshiftNames
-%       {1 x nShifts} array of cells
+%       {1 x nQzshifts} array of cells
 %       Each cell is {1 x Inf char}
 % 
 % {11}- inputProblemDef.bulkInNames
-%       {1 x nNba} array of cells
+%       {1 x nBulkIn} array of cells
 %       Each cell is {1 x Inf char}
 % 
 % {12}- inputProblemDef.bulkOutNames
-%       {1 x nNba} array of cells
+%       {1 x nBulkOut} array of cells
 %       Each cell is {1 x Inf char}
 % 
 % {13}- inputProblemDef.resolutionParamNames
-%       {1 x nNba} array of cells
+%       {1 x nResolutionParams} array of cells
 %       Each cell is {1 x Inf char}
 %
 % {14} - inputProblemDef.customFiles
-%        {1 x nCustomFiles}  array of cells
+%        {1 x nCustomFiles} array of cells
 %        Each cell is {1 x Inf char}
 %
 % {15} - inputProblemDef.backgroundTypes
@@ -91,7 +91,7 @@ inputStruct = inputProblemDef.toStruct();
 
 %% Start by removing the cell arrays
 contrastLayers = inputStruct.contrastLayers;
-layersDetails = inputStruct.layersDetails;
+layerDetails = inputStruct.layerDetails;
 
 % If any of the contrastLayers are empty, replace the empty cells by zero
 % thickness layers
@@ -102,9 +102,9 @@ for i = 1:length(contrastLayers)
     end
 end
 
-% Do the same for layersDetails
-if isempty(layersDetails)
-    layersDetails = {0};
+% Do the same for layerDetails
+if isempty(layerDetails)
+    layerDetails = {0};
 end
 
 % Pull out all the cell arrays (except priors) into one array
@@ -113,7 +113,7 @@ problemDefCells{2} = inputStruct.allData;
 problemDefCells{3} = inputStruct.dataLimits;
 problemDefCells{4} = inputStruct.simLimits;
 problemDefCells{5} = contrastLayers;
-problemDefCells{6} = layersDetails;
+problemDefCells{6} = layerDetails;
 problemDefCells{7} = inputStruct.paramNames;
 problemDefCells{8} = inputStruct.backgroundParamNames;
 problemDefCells{9} = inputStruct.scalefactorNames;
@@ -176,17 +176,17 @@ end
 
 
 %% Put the priors into their own array
-priors.paramPriors = inputStruct.paramPriors;
-priors.backgroundParamPriors = inputStruct.backgroundParamPriors;
-priors.resolutionParamPriors = inputStruct.resolutionParamPriors;
-priors.bulkInPriors = inputStruct.bulkInPriors;
-priors.bulkOutPriors = inputStruct.bulkOutPriors;
-priors.qzshiftPriors = inputStruct.qzshiftPriors;
-priors.scalefactorPriors = inputStruct.scalefactorPriors;
+priors.param = inputStruct.paramPriors;
+priors.backgroundParam = inputStruct.backgroundParamPriors;
+priors.resolutionParam = inputStruct.resolutionParamPriors;
+priors.bulkIn = inputStruct.bulkInPriors;
+priors.bulkOut = inputStruct.bulkOutPriors;
+priors.qzshift = inputStruct.qzshiftPriors;
+priors.scalefactor = inputStruct.scalefactorPriors;
 if isa(inputProblemDef, 'domainsClass')
-    priors.domainRatioPriors = inputStruct.domainRatioPriors;
+    priors.domainRatio = inputStruct.domainRatioPriors;
 else
-    priors.domainRatioPriors = cell(0,1);
+    priors.domainRatio = cell(0,1);
 end
 
 priorFields = fieldnames(priors);
@@ -225,35 +225,35 @@ priors.priorNames = allPriors(:, 1);
 priors.priorValues = cell2mat(allPriors(:, 2:end));
 
 
-%% Split up the contrastBacks array
-contrastBacks = inputStruct.contrastBacks;
-for i = 1:length(contrastBacks)
-    problemDef.contrastBacks(i) = contrastBacks{i}(1);
-    problemDef.contrastBacksType(i) = contrastBacks{i}(2);
+%% Split up the contrastBackgrounds array
+contrastBackgrounds = inputStruct.contrastBackgrounds;
+for i = 1:length(contrastBackgrounds)
+    problemDef.contrastBackgrounds(i) = contrastBackgrounds{i}(1);
+    problemDef.contrastBackgroundsType(i) = contrastBackgrounds{i}(2);
 end
     
 % Here we need to do the same with the contrastResolutions array
-contrastResols = inputStruct.contrastRes;
-resolNames = inputStruct.resolutionParamNames;
-resolTypes = inputStruct.resolutionTypes;
-contrastRes = zeros(1, length(contrastResols));
-for i = 1:length(contrastResols)
+contrastResolutions = inputStruct.contrastResolutions;
+resolutionNames = inputStruct.resolutionParamNames;
+resolutionTypes = inputStruct.resolutionTypes;
+contrastRes = zeros(1, length(contrastResolutions));
+for i = 1:length(contrastResolutions)
     % Check the type of the resolution that each contrast is pointing to.
     % If it is a constant, point to the number of the corresponding
     % resolution par. If it's data, then set it to zero
-    thisResol = contrastResols(i);      % Which reolution
-    thisType = resolTypes{thisResol};   % What type is it?
+    thisResol = contrastResolutions(i);      % Which reolution
+    thisType = resolutionTypes{thisResol};   % What type is it?
     
     if strcmpi(thisType,'data')
         % Resolution is in the datafile. Set contrastRes to zero
         contrastRes(i) = -1;
     else
-        % Resolution is a resolutionParam, the nname of which should
+        % Resolution is a resolutionParam, the name of which should
         % be in the first column of resolutionValues
         whichResolutionParamName = inputStruct.resolutionValues{thisResol,1};
         
         % Find which resolutionParam this is, and set contrastRes to this number
-        resolutionParamNumber = find(strcmpi(whichResolutionParamName,resolNames));
+        resolutionParamNumber = find(strcmpi(whichResolutionParamName,resolutionNames));
         contrastRes(i) = resolutionParamNumber;
     end
 end
@@ -313,12 +313,12 @@ problemDef.oilChiDataPresent = inputStruct.oilChiDataPresent;
 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
 problemDef.geometry = inputStruct.geometry;
 problemDef.useImaginary = inputStruct.useImaginary;
-%problemDef.contrastBacks = contrastBacks;
-problemDef.contrastShifts = inputStruct.contrastShifts;
-problemDef.contrastScales = inputStruct.contrastScales;
-problemDef.contrastNbas = inputStruct.contrastNbas;
-problemDef.contrastNbss = inputStruct.contrastNbss;
-problemDef.contrastRes = contrastRes;
+%problemDef.contrastBackgrounds = contrastBackgrounds;
+problemDef.contrastQzshifts = inputStruct.contrastQzshifts;
+problemDef.contrastScalefactors = inputStruct.contrastScalefactors;
+problemDef.contrastBulkIns = inputStruct.contrastBulkIns;
+problemDef.contrastBulkOuts = inputStruct.contrastBulkOuts;
+problemDef.contrastResolutions = contrastRes;
 problemDef.backs = inputStruct.backgroundParamValues; %inputStruct.backgrounds;       % **** note backPar workaround (todo) ****
 problemDef.shifts = inputStruct.qzshiftValues;
 problemDef.sf = inputStruct.scalefactorValues;

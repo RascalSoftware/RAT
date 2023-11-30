@@ -6,12 +6,12 @@ numberOfLayers, resample, backsType, cFiles] =  extractProblemParams(problemDef)
 
 numberOfContrasts = problemDef.numberOfContrasts;
 geometry = problemDef.geometry;
-cBacks = problemDef.contrastBacks;
-cShifts = problemDef.contrastShifts;
-cScales = problemDef.contrastScales;
-cNbas = problemDef.contrastNbas;
-cNbss = problemDef.contrastNbss;
-cRes = problemDef.contrastRes;
+cBacks = problemDef.contrastBackgrounds;
+cShifts = problemDef.contrastQzshifts;
+cScales = problemDef.contrastScalefactors;
+cNbas = problemDef.contrastBulkIns;
+cNbss = problemDef.contrastBulkOuts;
+cRes = problemDef.contrastResolutions;
 backs = problemDef.backs;
 shifts = problemDef.shifts;
 sf = problemDef.sf;
@@ -23,7 +23,7 @@ nParams = length(problemDef.params);
 params = problemDef.params;
 numberOfLayers = problemDef.numberOfLayers;
 resample = problemDef.resample;
-backsType = problemDef.contrastBacksType;
+backsType = problemDef.contrastBackgroundsType;
 cFiles = problemDef.contrastCustomFiles;
 
 

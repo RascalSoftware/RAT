@@ -36,7 +36,7 @@ problemDefLimits = problem{3};
 problemDefCells = problem{4};
 
 problemDef.fitpars = pars;
-problemDef = unpackparams(problemDef,controls);
+problemDef = unpackParams(problemDef,controls);
 [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
 ySim = result{1}{contrast};

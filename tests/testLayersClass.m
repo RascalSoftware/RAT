@@ -278,8 +278,8 @@ classdef testLayersClass < matlab.unittest.TestCase
             % Test converting the layers class to a struct
             % Here we use a "standard layers" model type
             expectedStruct.numberOfLayers = 3;
-            expectedStruct.layersNames = ["Bil inner head"; "Bil tail"; "Bil outer head"];
-            expectedStruct.layersDetails = {[5 6 8 7 2]; [9 10 12 11 2]; [5 6 8 7 2]};
+            expectedStruct.layerNames = ["Bil inner head"; "Bil tail"; "Bil outer head"];
+            expectedStruct.layerDetails = {[5 6 8 7 2]; [9 10 12 11 2]; [5 6 8 7 2]};
 
             testCase.verifyEqual(testCase.exampleClass.toStruct(testCase.parameterNames), expectedStruct);
         end

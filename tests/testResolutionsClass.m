@@ -59,15 +59,15 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             end
         end
         
-        function testGetResolNames(testCase)
-            % Tests getResolNames returns correctly
-            names = testCase.resolution.getResolNames();
-            testCase.verifyEqual(names, string(testCase.resolutions(1, 1)), 'getResolNames method not working');
+        function testGetNames(testCase)
+            % Tests getNames returns correctly
+            names = testCase.resolution.getNames();
+            testCase.verifyEqual(names, string(testCase.resolutions(1, 1)), 'getNames method not working');
             testCase.verifySize(names, [1, 1], 'Resolution names has wrong dimension');
 
             testCase.resolution.resolutions.varTable = [testCase.resolution.resolutions.varTable; vertcat(testCase.resolutions(2:end, :))];
-            names = testCase.resolution.getResolNames();
-            testCase.verifyEqual(names, convertCharsToStrings(testCase.resolutions(:, 1)), 'getResolNames method not working');
+            names = testCase.resolution.getNames();
+            testCase.verifyEqual(names, convertCharsToStrings(testCase.resolutions(:, 1)), 'getNames method not working');
             testCase.verifySize(names, [size(testCase.resolutions, 1), 1], 'Resolution names has wrong dimension');
         end
 
@@ -197,7 +197,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             expected.resolutionParamLimits = {[0.0100 0.0500]};
             expected.resolutionParamValues = 0.0300;
             expected.fitResolutionParam = 0;
-            expected.resolutionParamPriors= {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf}};
+            expected.resolutionParamPriors = {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf}};
             expected.resolutionNames = "Resolution 1";
             expected.resolutionTypes = string(allowedTypes.Constant.value);
             expected.resolutionValues = {"Resolution par 1", "", "", "", ""};
@@ -210,7 +210,7 @@ classdef testResolutionsClass < matlab.unittest.TestCase
             expected.resolutionParamLimits = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};
             expected.resolutionParamValues = [0.0300, 0.1900, 0.1700];
             expected.fitResolutionParam = [0, 1, 0];
-            expected.resolutionParamPriors= {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf};... 
+            expected.resolutionParamPriors = {{'Resolution par 1', priorTypes.Uniform.value, 0, Inf};... 
                                         {'Resolution par 2', priorTypes.Gaussian.value, -1, 1};... 
                                         {'Resolution par 3', priorTypes.Uniform.value, 0, Inf}};
             expected.resolutionNames = ["Resolution 1"; "Resolution 2"; "Resolution 3"];

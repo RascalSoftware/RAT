@@ -60,15 +60,15 @@
          end
       end
 
-      function testGetBackgroundNames(testCase)
-         % Tests getBackgroundNames returns correctly
-         names = testCase.background.getBackgroundNames();
-         testCase.verifyEqual(names, string(testCase.backgrounds(1, 1)), 'getBackgroundNames method not working');
+      function testGetNames(testCase)
+         % Tests getNames returns correctly
+         names = testCase.background.getNames();
+         testCase.verifyEqual(names, string(testCase.backgrounds(1, 1)), 'getNames method not working');
          testCase.verifySize(names, [1, 1], 'background names has wrong dimension');
 
          testCase.background.backgrounds.varTable = [testCase.background.backgrounds.varTable; vertcat(testCase.backgrounds(2:end, :))];
-         names = testCase.background.getBackgroundNames();
-         testCase.verifyEqual(names, convertCharsToStrings(testCase.backgrounds(:, 1)), 'getBackgroundNames method not working');
+         names = testCase.background.getNames();
+         testCase.verifyEqual(names, convertCharsToStrings(testCase.backgrounds(:, 1)), 'getNames method not working');
          testCase.verifySize(names, [size(testCase.backgrounds, 1), 1], 'background names has wrong dimension');
       end
 
@@ -210,7 +210,7 @@
          expected.backgroundParamLimits = {[0.0100 0.0500]};
          expected.backgroundParamValues = 0.0300;
          expected.fitBackgroundParam = 0;
-         expected.backgroundParamPriors= {{'background param 1', priorTypes.Uniform.value, 0, Inf}};
+         expected.backgroundParamPriors = {{'background param 1', priorTypes.Uniform.value, 0, Inf}};
          expected.backgroundNames = "background 1";
          expected.backgroundTypes = string(allowedTypes.Constant.value);
          expected.backgroundValues = {"background param 1", "", "", "", ""};
@@ -223,9 +223,9 @@
          expected.backgroundParamLimits = {[0.0100 0.0500], [0.1000 1], [0.2000 1.1000]};
          expected.backgroundParamValues = [0.0300, 0.1900, 0.1700];
          expected.fitBackgroundParam = [0, 1, 0];
-         expected.backgroundParamPriors= {{'background param 1', priorTypes.Uniform.value, 0, Inf};... 
-                                          {'background param 2', priorTypes.Gaussian.value, -1, 1};... 
-                                          {'background param 3', priorTypes.Uniform.value, 0, Inf}};
+         expected.backgroundParamPriors = {{'background param 1', priorTypes.Uniform.value, 0, Inf};... 
+                                           {'background param 2', priorTypes.Gaussian.value, -1, 1};... 
+                                           {'background param 3', priorTypes.Uniform.value, 0, Inf}};
          expected.backgroundNames = ["background 1"; "background 2"; "background 3"];
          expected.backgroundTypes = [string(allowedTypes.Constant.value); string(allowedTypes.Constant.value); 
                                      string(allowedTypes.Function.value)];

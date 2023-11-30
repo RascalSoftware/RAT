@@ -97,7 +97,7 @@ function [problemDef,fitNames] = packParams(problemDef,problemDefCells,limits,ch
         end
     end 
     
-    %Nbairs
+    %Bulk In
     for n = 1:length(checks.fitBulkIn)
         if checks.fitBulkIn(n) == 1
             fitpars(fitCounter) = problemDef.bulkIn(n);
@@ -113,7 +113,7 @@ function [problemDef,fitNames] = packParams(problemDef,problemDefCells,limits,ch
         end
     end 
     
-    %NBsubs
+    %Bulk Out
     for n = 1:length(checks.fitBulkOut)
         if checks.fitBulkOut(n) == 1
             fitpars(fitCounter) = problemDef.bulkOut(n);

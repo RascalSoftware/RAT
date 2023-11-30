@@ -1,9 +1,9 @@
-function [backg,qshift,sf,nba,nbs,resol] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,sf,nba,nbs,res)
+function [backg,qshift,scalefactor,nba,nbs,resol] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res)
 %     Distributes the background and shift values among the different contrasts
 %
 %     USAGE::
 %
-%         [backg,qshift,sf,nba,nbs,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,sf,nba,nbs,res)
+%         [backg,qshift,scalefactor,nba,nbs,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res)
 %
 %     INPUTS:
 %        * contrastBackgrounds  :         Which backround value is associated with each contrast
@@ -14,7 +14,7 @@ function [backg,qshift,sf,nba,nbs,resol] = backSort(contrastBackgrounds,contrast
 %        * contrastResolutions  :           Which resolution value is associated with each contrast
 %        * backs  :          List of all background values.
 %        * shifts  :         List of all qz-shift values
-%        * sf :              List of all scalefactor values
+%        * scalefactor :              List of all scalefactor values
 %        * nba :             List of all nba values
 %        * nbs :             List of all nbs values
 %        * res :             List of all resolution values
@@ -22,7 +22,7 @@ function [backg,qshift,sf,nba,nbs,resol] = backSort(contrastBackgrounds,contrast
 %     OUTPUTS:
 %        * backgs : list of actual background values for each contrast
 %        * qshifts : list of actual shift values for each contrast      
-%        * sfs : list of actual shift values for each contrast     
+%        * scalefactors : list of actual shift values for each contrast     
 %        * nbas : list of actual shift values for each contrast     
 %        * nbss : list of actual shift values for each contrast
 %        * nbss : list of actual shift values for each contrast  
@@ -43,7 +43,7 @@ function [backg,qshift,sf,nba,nbs,resol] = backSort(contrastBackgrounds,contrast
             qshift = shifts(contrastQzshifts);
             
             %thisScale = contrastScalefactors(i);
-            sf = sf(contrastScalefactors);
+            scalefactor = scalefactor(contrastScalefactors);
             
             %thisNbair = contrastBulkIns(i);
             nba = nba(contrastBulkIns);

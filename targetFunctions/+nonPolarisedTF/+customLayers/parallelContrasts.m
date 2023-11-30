@@ -1,4 +1,4 @@
-function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+function [outSsubs,backgs,qshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
     allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)
 
@@ -18,7 +18,7 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutions, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
+contrastResolutions, backs, shifts, scalefactor, nba, nbs, res, dataPresent, nParams, params,...
 ~, resample, backsType, cCustFiles] =  extractProblemParams(problemDef);
 
 calcSld = controls.calcSldDuringFit;
@@ -27,7 +27,7 @@ useImaginary = problemDef.useImaginary;
 % Pre-Allocation of output arrays...
 backgs = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
-sfs = zeros(numberOfContrasts,1);
+scalefactors = zeros(numberOfContrasts,1);
 nbas = zeros(numberOfContrasts,1);
 nbss = zeros(numberOfContrasts,1);
 resols = zeros(numberOfContrasts,1);
@@ -60,7 +60,7 @@ resamPars = controls.resamPars;
 
 % Process the custom models....
 [allLayers,allRoughs] = nonPolarisedTF.customLayers.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
+    shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 % Multi cored over all contrasts
 parfor i = 1:numberOfContrasts
@@ -69,7 +69,7 @@ parfor i = 1:numberOfContrasts
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
-    [thisBackground,thisQshift,thisSf,thisNba,thisNbs,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,sf,nba,nbs,res);
+    [thisBackground,thisQshift,thisScalefactor,thisNba,thisNbs,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
     
     % Get the custom layers output for this contrast
     thisContrastLayers = allLayers{i};
@@ -94,7 +94,7 @@ parfor i = 1:numberOfContrasts
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
     nonPolarisedTF.coreLayersCalculation...
     (thisContrastLayers, thisRough, ...
-    geometry, thisNba, thisNbs, thisResample, calcSld, thisSf, thisQshift,...
+    geometry, thisNba, thisNbs, thisResample, calcSld, thisScalefactor, thisQshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
    
@@ -113,7 +113,7 @@ parfor i = 1:numberOfContrasts
     chis(i) = thisChiSquared;
     backgs(i) = thisBackground;
     qshifts(i) = thisQshift;
-    sfs(i) = thisSf;
+    scalefactors(i) = thisScalefactor;
     nbas(i) = thisNba;
     nbss(i) = thisNbs;
     resols(i) = thisResol;

@@ -1,4 +1,4 @@
-function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+function [outSsubs,backgs,qshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
     allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
 
@@ -13,13 +13,13 @@ function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, ~, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutions, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
+contrastResolutions, backs, shifts, scalefactor, nba, nbs, res, dataPresent, nParams, params,...
 ~, ~, backsType, cCustFiles] =  extractProblemParams(problemDef);      
             
 %Pre-Allocation...
 backgs = zeros(numberOfContrasts,1);
 qshifts = zeros(numberOfContrasts,1);
-sfs = zeros(numberOfContrasts,1);
+scalefactors = zeros(numberOfContrasts,1);
 nbas = zeros(numberOfContrasts,1);
 nbss = zeros(numberOfContrasts,1);
 resols = zeros(numberOfContrasts,1);
@@ -75,11 +75,11 @@ contrastDomainRatios = problemDef.contrastDomainRatios;
 domainRatio = 1;    % Default for compile.
 
 [domainSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+    shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts
     outSsubs(i) = allRoughs(i);
-    [backgs(i),qshifts(i),sfs(i),nbas(i),nbss(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,sf,nba,nbs,res);
+    [backgs(i),qshifts(i),scalefactors(i),nbas(i),nbss(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
 
     % Get the domain ratio for this contrast
     thisContrastDR = contrastDomainRatios(i);
@@ -109,7 +109,7 @@ for i = 1:numberOfContrasts
     tempAllLayers{i} = {layerSld1, layerSld2};
     tempSldProfiles{i} = {thisSld1, thisSld2};
 
-    shifted_dat =  shiftData(sfs(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
+    shifted_dat =  shiftData(scalefactors(i),qshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
     shifted_data{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles';

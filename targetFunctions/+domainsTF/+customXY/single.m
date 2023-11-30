@@ -1,4 +1,4 @@
-function [outSsubs,backgs,qzshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
+function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
     allRoughs] = single(problemDef,problemDefCells,controls)
 
@@ -13,15 +13,15 @@ function [outSsubs,backgs,qzshifts,scalefactors,nbas,nbss,resols,chis,reflectivi
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, ~, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutions, backs, shifts, scalefactor, nba, nbs, res, dataPresent, nParams, params,...
+contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
 ~, ~, backsType, cCustFiles] =  extractProblemParams(problemDef);      
             
 %Pre-Allocation...
 backgs = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
-nbas = zeros(numberOfContrasts,1);
-nbss = zeros(numberOfContrasts,1);
+bulkIns = zeros(numberOfContrasts,1);
+bulkOuts = zeros(numberOfContrasts,1);
 resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
@@ -80,11 +80,11 @@ for i = 1:numberOfContrasts
     domainSldProfiles{i,2} = [1 1 ; 1 1];
 end
 [domainSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
-    shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params);
+    shifts,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts
     outSsubs(i) = allRoughs(i);
-    [backgs(i),qzshifts(i),scalefactors(i),nbas(i),nbss(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
+    [backgs(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,bulkIn,bulkOut,res);
 
     % Get the domain ratio for this contrast
     thisContrastDR = contrastDomainRatios(i);
@@ -118,8 +118,8 @@ for i = 1:numberOfContrasts
     shifted_data{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles';
-    [reflect1,Simul1] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,allRoughs(i),resols(i),'single',reflectivityType,useImaginary);
-    [reflect2,Simul2] = callReflectivity(nbas(i),nbss(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,allRoughs(i),resols(i),'single',reflectivityType,useImaginary);
+    [reflect1,Simul1] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,allRoughs(i),resols(i),'single',reflectivityType,useImaginary);
+    [reflect2,Simul2] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,allRoughs(i),resols(i),'single',reflectivityType,useImaginary);
 
     [reflect1,Simul1,shifted_dat] = applyBackgroundCorrection(reflect1,Simul1,shifted_dat,backgs(i),backsType(i));
     [reflect2,Simul2,shifted_dat] = applyBackgroundCorrection(reflect2,Simul2,shifted_dat,backgs(i),backsType(i));

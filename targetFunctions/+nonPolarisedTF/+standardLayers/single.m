@@ -1,5 +1,5 @@
 
-function [outSsubs,backgs,qzshifts,scalefactors,nbas,nbss,resols,chis,reflectivity,...
+function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
     allRoughs] = single(problemDef,problemDefCells,controls)
 % Single threaded version of the Standard Layers calculation 
@@ -20,7 +20,7 @@ function [outSsubs,backgs,qzshifts,scalefactors,nbas,nbss,resols,chis,reflectivi
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutions, backs, shifts, scalefactor, nba, nbs, res, dataPresent, nParams, params,...
+contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
 ~, resample, backsType, ~] =  extractProblemParams(problemDef);
 
 calcSld = controls.calcSldDuringFit;   
@@ -30,8 +30,8 @@ useImaginary = problemDef.useImaginary;
 backgs = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
-nbas = zeros(numberOfContrasts,1);
-nbss = zeros(numberOfContrasts,1);
+bulkIns = zeros(numberOfContrasts,1);
+bulkOuts = zeros(numberOfContrasts,1);
 resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
@@ -72,7 +72,7 @@ for i = 1:numberOfContrasts
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
-    [thisBackground,thisQzshift,thisScalefactor,thisNba,thisNbs,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
+    [thisBackground,thisQzshift,thisScalefactor,thisBulkIn,thisBulkOut,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,bulkIn,bulkOut,res);
     
     % Also need to determine which layers from the overall layers list
     % are required for this contrast, and put them in the correct order 
@@ -98,7 +98,7 @@ for i = 1:numberOfContrasts
     % Call the core layers calculation
     [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,...
         thisChiSquared,thisSsubs] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers, thisRough, ...
-    geometry, thisNba, thisNbs, thisResample, calcSld, thisScalefactor, thisQzshift,...
+    geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
    
@@ -116,8 +116,8 @@ for i = 1:numberOfContrasts
     backgs(i) = thisBackground;
     qzshifts(i) = thisQzshift;
     scalefactors(i) = thisScalefactor;
-    nbas(i) = thisNba;
-    nbss(i) = thisNbs;
+    bulkIns(i) = thisBulkIn;
+    bulkOuts(i) = thisBulkOut;
     resols(i) = thisResol;
     allRoughs(i) = thisRough;
     allLayers{i} = resampledLayers;

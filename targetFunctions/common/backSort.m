@@ -3,14 +3,14 @@ function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolu
 %
 %     USAGE::
 %
-%         [backg,qzshift,scalefactor,nba,nbs,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res)
+%         [backg,qzshift,scalefactor,bulkIn,bulkOut,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,bulkIn,bulkOut,res)
 %
 %     INPUTS:
 %        * contrastBackgrounds  :     Which backround value is associated with each contrast
 %        * contrastQzshifts  :        Which qz_shift value is associated with each contrast
 %        * contrastScalefactors  :    Which scalefactor value is associated with each contrast
-%        * contrastBulkIns  :         Which NBa value is associated with each contrast
-%        * contrastBulkOuts  :        Which Nbs value is associated with each contrast
+%        * contrastBulkIns  :         Which BulkIn value is associated with each contrast
+%        * contrastBulkOuts  :        Which BulkOut value is associated with each contrast
 %        * contrastResolutions  :     Which resolution value is associated with each contrast
 %        * backs  :                   List of all background values.
 %        * shifts  :                  List of all qzshift values
@@ -23,9 +23,9 @@ function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolu
 %        * backgs : list of actual background values for each contrast
 %        * qzshifts : list of actual shift values for each contrast      
 %        * scalefactors : list of actual shift values for each contrast     
-%        * nbas : list of actual shift values for each contrast     
-%        * nbss : list of actual shift values for each contrast
-%        * nbss : list of actual shift values for each contrast  
+%        * bulkIns : list of actual shift values for each contrast     
+%        * bulkOuts : list of actual shift values for each contrast
+%        * bulkOuts : list of actual shift values for each contrast  
 % 
 % 
     
@@ -45,10 +45,10 @@ function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolu
             %thisScale = contrastScalefactors(i);
             outScalefactor = scalefactor(contrastScalefactors);
             
-            %thisNbair = contrastBulkIns(i);
+            %thisBulkInir = contrastBulkIns(i);
             outBulkIn = bulkIn(contrastBulkIns);
             
-            %thisNbsub = contrastBulkOuts(i);
+            %thisBulkOutub = contrastBulkOuts(i);
             outBulkOut = bulkOut(contrastBulkOuts);
             
             %thisResol = contrastResolutions(i);

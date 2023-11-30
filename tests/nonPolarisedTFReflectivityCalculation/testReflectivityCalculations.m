@@ -326,8 +326,8 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
 
         function testExtractProblemParams(testCase)
             [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-            contrastResolutions, backs, shifts, sf, nba, nbs, res, dataPresent, nParams, params,...
-            numberOfLayers, resample, backsType, contrastCustomFiles] =  extractProblemParams(testCase.problemDef);
+            contrastResolutions, backgroundParams, qzshifts, scalefactors, bulkIn, bulkOut, resolutionParams, dataPresent, nParams, params,...
+            numberOfLayers, resample, backgroundParamsType, contrastCustomFiles] =  extractProblemParams(testCase.problemDef);
 
             testCase.verifyEqual(numberOfContrasts, testCase.problemDef.numberOfContrasts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(geometry, testCase.problemDef.geometry, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
@@ -337,18 +337,18 @@ classdef testReflectivityCalculations < matlab.unittest.TestCase
             testCase.verifyEqual(contrastBulkIns, testCase.problemDef.contrastBulkIns, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastBulkOuts, testCase.problemDef.contrastBulkOuts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastResolutions, testCase.problemDef.contrastResolutions, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(backs, testCase.problemDef.backgroundParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(shifts, testCase.problemDef.qzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(sf, testCase.problemDef.scalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(nba, testCase.problemDef.bulkIn, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(nbs, testCase.problemDef.bulkOut, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(res, testCase.problemDef.resolutionParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(backgroundParams, testCase.problemDef.backgroundParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(qzshifts, testCase.problemDef.qzshifts, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(scalefactors, testCase.problemDef.scalefactors, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(bulkIn, testCase.problemDef.bulkIn, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(bulkOut, testCase.problemDef.bulkOut, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(resolutionParams, testCase.problemDef.resolutionParams, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(dataPresent, testCase.problemDef.dataPresent, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(nParams, length(testCase.problemDef.params), 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(params, testCase.problemDef.params, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(numberOfLayers, testCase.problemDef.numberOfLayers, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(resample, testCase.problemDef.resample, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
-            testCase.verifyEqual(backsType, testCase.problemDef.contrastBackgroundsType, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
+            testCase.verifyEqual(backgroundParamsType, testCase.problemDef.contrastBackgroundsType, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
             testCase.verifyEqual(contrastCustomFiles, testCase.problemDef.contrastCustomFiles, 'RelTol', testCase.tolerance, 'AbsTol', testCase.absTolerance);
         end
 

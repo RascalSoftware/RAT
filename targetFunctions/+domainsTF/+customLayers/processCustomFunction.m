@@ -1,5 +1,5 @@
 function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
-    shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
+    shifts,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)
 
     % Top-level function for processing custom layers for all the
     % contrasts.
@@ -27,7 +27,7 @@ function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contr
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast...
         [~,~,~,bulkIn,bulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),...
-            contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
+            contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,bulkIn,bulkOut,res);
 
         thisContrastLayers1 = [1 1 1]; % typeDef
         coder.varsize('thisContrastLayers1',[10000, 6],[1 1]);

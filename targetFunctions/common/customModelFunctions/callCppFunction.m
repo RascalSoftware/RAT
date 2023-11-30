@@ -1,4 +1,4 @@
-function [output,subRough] = callCppFunction(params, nba, nbs, contrast, domain, pointer)
+function [output,subRough] = callCppFunction(params, bulkIn, bulkOut, contrast, domain, pointer)
     coder.cinclude('<functional>');
     coder.cinclude('classHandle.hpp')
     
@@ -15,11 +15,11 @@ function [output,subRough] = callCppFunction(params, nba, nbs, contrast, domain,
     % domain should either before 0 or 1. A value less than zero indicates no domains  
     if (domain < 0)
         coder.ceval('std::mem_fn<void(double*, double*, double*, int, double*, double*, double*)>(&CallbackInterface::invoke)', ...
-              callback, coder.ref(params), coder.ref(nba), coder.ref(nbs), contrast, coder.wref(tempOutput), ...
+              callback, coder.ref(params), coder.ref(bulkIn), coder.ref(bulkOut), contrast, coder.wref(tempOutput), ...
               coder.wref(outputSize), coder.wref(subRough));
     else
         coder.ceval('std::mem_fn<void(double*, double*, double*, int, int, double*, double*, double*)>(&CallbackInterface::invoke)', ...
-            callback, coder.ref(params), coder.ref(nba), coder.ref(nbs), contrast, domain, coder.wref(tempOutput), ...
+            callback, coder.ref(params), coder.ref(bulkIn), coder.ref(bulkOut), contrast, domain, coder.wref(tempOutput), ...
             coder.wref(outputSize), coder.wref(subRough)); 
     end
 

@@ -1,5 +1,5 @@
 function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
-    shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
+    shifts,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params)
 
     % Top-level function for processing custom XY profiles for all the
     % contrasts.
@@ -23,7 +23,7 @@ function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contras
         functionHandle = customFiles{cCustFiles(i)};
 
         % Find values of 'bulkIn' and 'bulkOut' for this contrast...
-        [~,~,~,bulkIn,bulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
+        [~,~,~,bulkIn,bulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,bulkIn,bulkOut,res);
 
         if isnan(str2double(functionHandle))
             [tempAllSLDs{i, 1}, allRoughs(i)] = callMatlabFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,1);

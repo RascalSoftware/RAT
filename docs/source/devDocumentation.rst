@@ -1,4 +1,4 @@
-.. _devDocs:
+:orphan:
 
 ========================
 Developer Documentation
@@ -22,7 +22,7 @@ These unit tests are written to test the following set of functions:
 
 1. :ref:`CommonFunctions`
 
-2. :ref:`StandardTF_reflectivityCalculation`
+2. :ref:`nonPolarisedTF`
 
 3. :ref:`ProjectClass`
 
@@ -30,7 +30,7 @@ These unit tests are written to test the following set of functions:
 
 .. note::
       All the common function tests compare the **stable output** against the **on-demand output** of a function. This is done to make sure that the current function is behaving 
-      as expected. On the contrary, all the standard_TF tests compare the MATLAB output against the MEX output. This is done to make sure and catch any unseen errors during
+      as expected. On the contrary, all the nonPolarisedTF tests compare the MATLAB output against the MEX output. This is done to make sure and catch any unseen errors during
       compiling the MEX file by MATLAB Coder.
 
 **Stable output** = This is the output of a certain function obtained when the function is working as expected.
@@ -39,12 +39,12 @@ These unit tests are written to test the following set of functions:
 
 .. note::
       Despite tests being written in MATLAB, RAT's unit tests also test the C++ code of RAT in a way.
-      This is achieved through comparing the outputs of mex and matlab versions of all the possible parallelization of standardTF_reflectivityCalculation.
+      This is achieved through comparing the outputs of mex and matlab versions of all the possible parallelization of nonPolarisedTF.reflectivityCalculation.
       This includes the following:
 
-        1. standardTF_customLayers (Single,Points and Contrast)
-        2. standard_TF_customXY (Single,Points and Contrast)
-        3. standardTF_standardLayers (Single,Points and Contrast)
+        1. nonPolarisedTF.customLayers (Single, Points and Contrast)
+        2. nonPolarisedTF.customXY (Single, Points and Contrast)
+        3. nonPolarisedTF.standardLayers (Single, Points and Contrast)
 
 
 
@@ -220,141 +220,5 @@ This section details how everything works together in the DevOps department.
 
 References for Developers 
 -------------------------
-1. Checkout the Architectural Decision Record (ADR) for RAT. This document contains all the decisions made in the past and why they were made.
+1. Checkout the :ref:`ADR` (ADR) for RAT. This document contains all the decisions made in the past and why they were made.
    This can be found in RasCal Planner in Microsoft Planner.
-
-2. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.. GHOST CODE ___________________________________________________________________________________
-.. High Level Components
-.. =========================
-.. At a high level, RAT only contains two components. These are really important and makes up the core of RAT.
-
-.. 1. Project Class
-.. 2. Controls Class
-
-
-.. .. _ProjectClass:
-
-.. .. Project Class
-.. .. --------------
-.. .. Project Class is all about data. It contains the very data user wants to work with. It stores all the data required for reflectivity calculations. 
-.. .. Everything in RAT comes from RAT in one way or another. There are many functions that deal with breaking down the data from Project Class into smaller pieces 
-.. .. so that they can be used in other parts of the software.
-
-.. .. .. automodule:: API.projectClass
-.. .. .. autoclass:: projectClass
-
-.. .. **Important Methods:**
-.. .. ^^^^^^^^^^^^^^^^^^^^^^^
-.. .. The following are some of the most used methods in the Project Class.
-
-.. .. .. dropdown:: Show important methods of Project Class
-
-.. ..     **addContrast**
-
-.. ..     This function adds a contrast to the project.
-
-.. ..     .. automodule:: API.projectClass
-.. ..     .. automethod:: projectClass.addContrast
-        
-.. ..     **addBackground**
-   
-.. ..     This function adds a background to the project.
-
-.. ..     .. automodule:: API.projectClass
-.. ..     .. automethod:: projectClass.addBackground
-
-.. ..     **addBulkOut**
-   
-.. ..     This function adds a bulk out to the project.
-
-.. ..     .. automodule:: API.projectClass
-.. ..     .. automethod:: projectClass.addBulkOut
-
-.. ..     **setModelType**
-    
-.. ..     This function sets the model type of the project. It can be "custom layers" or "standard layers" or "custom XY".
-
-.. ..     .. automodule:: API.projectClass
-.. ..     .. automethod:: projectClass.setModelType
-
-.. ..     **addCustomFile**
-   
-.. ..     This function adds a custom file to the project. This is really useful if the user want to use their own custom model.
-.. ..     Currently, RAT supports MATLAB and C++ custom models.
-
-.. ..     .. automodule:: API.projectClass
-.. ..     .. automethod:: projectClass.addCustomFile
-
-
-
-
-
-
-
-
-.. .. **All methods**
-.. .. ^^^^^^^^^^^^^^^^
-
-.. .. .. dropdown:: Show all methods of Project Class
-
-
-.. ..     .. automodule:: API.projectClass
-.. ..     .. autoclass:: projectClass
-.. ..         :show-inheritance:
-.. ..         :members:
-
-        
-
-.. .. _controlsClass:
-
-.. Controls Class
-.. --------------
-.. .. ControlsClass is all about control. It is necessary in determine the way RAT works. It deals with how the user interacts with the software. From type of parallelization
-.. .. to whether the users wants to calculate SLD during fit and even how many iteration an algorithm should do ..etc.
-
-.. .. .. dropdown:: Show all methods of controlsClass
-
-.. ..     .. automodule:: API.controlsClass
-.. ..     .. autoclass:: controlsClass
-.. ..         :show-inheritance:
-.. ..         :members:

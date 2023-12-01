@@ -1,34 +1,24 @@
-function [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,bulkIn,bulkOuts)
-%Arrange layers according to geometry and apply any coverage correction.
+function [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,bulkIns,bulkOuts)
+% Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the 
+% z,rho,rough stack, and the parameter 'ssub' in callParatt is the final roughness encountered. 
+%
+% * For air liquid 'ssub' is therefore the substrate roughness.
+% * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer
 %
 % USAGE::
 %
-%     [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,numberOfContrasts,geometry,bulkIns,bulkOuts)
+%     [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,bulkIns,bulkOuts)
 %
 % INPUTS:
-%
-%     * allLayers =         cell array, one for each contrast. Each cell is the list of layer values for each contrast.
-%     * allRoughs =         Double of substrate roughness for each contrast.
-%     * numberOfContrasts = double.
-%     * geometry =          'Air / Liquid (or solid)' or 'Solid / Liquid'
-%     * bulkIns =            vector of bulkIn values.
-%     * bulkOuts =            vector of bulkOut values.
-%
-%     The paratt calculation procedds through the 
-%     z,rho,rough stack, and the parameter 'ssub' in
-%     callParatt is the final roughness encountered. 
-%
-%     * For air liquid 'ssub' is therefore the substrate roughness.
-%
-%     * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer
+%     * allLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
+%     * allRoughs:  Double of substrate roughness for each contrast.
+%     * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'
+%     * bulkIns: vector of bulkIn values.
+%     * bulkOuts: vector of bulkOut values.
 %
 % Outputs:
-%
-%     * outLayers = cell array of layers param values for each contrast.
-%
-%     * outSsubs =  vector of substrate roughness values.
-%
-
+%     * outLayers: cell array of layers param values for each contrast.
+%     * outSsubs: vector of substrate roughness values.
 
 %outLayers = cell(1,numberOfContrasts);
 %outSsubs = zeros(1,numberOfContrasts);
@@ -71,7 +61,7 @@ coder.varsize('layers',[Inf,6],[1 1]);
             for j = 1:l
                 this_pcw = output(j,5);
                 if output(j,5) == 1
-                    pc_add = bulkIn;
+                    pc_add = bulkIns;
                 else
                     pc_add = bulkOuts;
                 end

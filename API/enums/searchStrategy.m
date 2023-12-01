@@ -1,11 +1,11 @@
-classdef strategyOptions < customEnum
+classdef searchStrategy < customEnum
     methods (Static)
         function v = values()
-            v = customEnum.values('strategyOptions');
+            v = customEnum.values('searchStrategy');
         end
             
         function e = fromValue(value)
-            e = customEnum.fromValue('strategyOptions', value);
+            e = customEnum.fromValue('searchStrategy', value);
         end
     end
 

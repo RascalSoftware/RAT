@@ -162,7 +162,7 @@ classdef testControlsClass < matlab.unittest.TestCase
             end
             
             for i = 1:6
-                testCase.controls.strategy = strategyOptions.fromValue(i);
+                testCase.controls.strategy = searchStrategy.fromValue(i);
                 testCase.verifyEqual(testCase.controls.strategy, i, 'set.strategy method is not working')
             end
             % bad strategy type 

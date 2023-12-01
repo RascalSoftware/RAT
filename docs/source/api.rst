@@ -1,4 +1,4 @@
-.. _api:
+:orphan:
 
 =====
 API
@@ -62,8 +62,6 @@ data type provided by matlab. Check this link to know more about `table`_.
       - parametersClass.setValue()
     
       
-       
-
 When adding parameters, they can be added individually or as a group (see below). When added as a group, `addParamGroup` method in projectClass iterates over the 
 list of parameters and adds them one by one using `addParam` method which is used to add individual parameters.
 
@@ -232,7 +230,6 @@ Multi-Type Table
 #################
 Multi-type Table is a custom table type. It is a general type of table that can altered to one's needs by taking advantage of methods that allow 
 adding rows, setting values of an element, etc. This class is used in Background Class.
-
 
 
 Data Class 

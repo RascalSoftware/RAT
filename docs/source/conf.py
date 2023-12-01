@@ -26,7 +26,7 @@ copyright = u'2022-{}, ISIS Neutron and Muon Source'.format(datetime.date.today(
 author = 'Arwel Hughes, Sethu Pastula, Rabiya Farooq, Paul Sharp, Stephen Nneji'
 
 # The full version, including alpha/beta/rc tags
-with open(os.path.join('D:\Documents\MATLAB\RAT', 'version.txt'), 'r') as version_file:
+with open(os.path.join(matlab_src_dir, 'version.txt'), 'r') as version_file:
     release = version_file.read()
 
 # -- General configuration ---------------------------------------------------

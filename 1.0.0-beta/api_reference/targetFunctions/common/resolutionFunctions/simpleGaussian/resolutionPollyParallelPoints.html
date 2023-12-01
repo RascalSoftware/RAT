@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of resolutionPollyParallelPoints</title>
+  <meta name="keywords" content="resolutionPollyParallelPoints">
+  <meta name="description" content="res = res + 0.0001;">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../../menu.html targetFunctions -->
+<!-- ../../menu.html common -->
+<!-- # resolutionFunctions -->
+<!-- menu.html simpleGaussian -->
+
+<h1>resolutionPollyParallelPoints
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>res = res + 0.0001;</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function out = resolutionPollyParallelPoints(xdata,ydata,res,points) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">res = res + 0.0001;
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function out = resolutionPollyParallelPoints(xdata,ydata,res,points)</a>
+0002 
+0003 
+0004 <span class="comment">%res = res + 0.0001;</span>
+0005 dummydata = zeros(points,1);
+0006 dummyref = ydata;
+0007 
+0008 parfor j = 1:points
+0009     sumg = 0;
+0010     dummydata(j) = 0;
+0011     
+0012     <span class="keyword">if</span> (j&gt;10)
+0013         ilow = -10;
+0014     <span class="keyword">else</span>
+0015         ilow = -j + 1;
+0016     <span class="keyword">end</span>
+0017     
+0018     <span class="keyword">if</span> (j &lt; (points - 10))
+0019         ihi = 10;
+0020     <span class="keyword">else</span>
+0021         ihi = points - j;
+0022     <span class="keyword">end</span>
+0023     
+0024 <span class="comment">%    try</span>
+0025     <span class="keyword">for</span> i = ilow:ihi
+0026         g = exp(-1*((xdata(j+i)-xdata(j))/(res*xdata(j)))^2);
+0027         sumg = sumg + g;
+0028         dummydata(j) = dummydata(j) + dummyref(i+j) * g;
+0029     <span class="keyword">end</span>
+0030     <span class="keyword">if</span> (sumg ~= 0)
+0031         dummydata(j) = dummydata(j) / sumg;
+0032     <span class="keyword">end</span>
+0033 <span class="comment">%     catch</span>
+0034 <span class="comment">%         disp('debug!');</span>
+0035 <span class="comment">%     end</span>
+0036 <span class="keyword">end</span>
+0037 
+0038 out = dummydata;
+0039 
+0040 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 01-Dec-2023 17:59:39 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

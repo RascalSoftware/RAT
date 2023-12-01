@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of parallelContrasts</title>
+  <meta name="keywords" content="parallelContrasts">
+  <meta name="description" content="Standard Layers calculation paralelised over the outer loop">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html targetFunctions -->
+<!-- ../menu.html +nonPolarisedTF -->
+<!-- menu.html +standardLayers -->
+
+<h1>parallelContrasts
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Standard Layers calculation paralelised over the outer loop</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelContrasts(problemDef,problemDefCells,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Standard Layers calculation paralelised over the outer loop
+ This is the main reflectivity calculation of the standard layers
+ calculation type. It extracts the required parameters for the contrasts
+ from the input arrays, then passes the main calculation to
+ 'standardLayersCore', which carries out the calculation iteself. 
+ The core calculation is common for both standard and custom layers.
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../targetFunctions/+domainsTF/+customLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Single threaded version of the custom layers, domainsTF reflectivity</li>
+<li><a href="../../../targetFunctions/+domainsTF/+customXY/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/+domainsTF/+standardLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Single threaded version of the Standard Layers calculation</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customXY/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
+<li><a href="parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
+<li><a href="../../../targetFunctions/common/backSort.html" class="code" title="function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
+<li><a href="../../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, contrastCustomFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>	Extract individual parameters from problemDef</li>
+<li><a href="../../../targetFunctions/common/groupLayers/allocateLayersForContrast.html" class="code" title="function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers,useImaginary)">allocateLayersForContrast</a>	Decide which layers are needed for a particular contrast.</li>
+<li><a href="../../../targetFunctions/common/groupLayers/allocateParamsToLayers.html" class="code" title="function outLayers = allocateParamsToLayers(params, layersDetails)">allocateParamsToLayers</a>	Allocates parameters from the parameter array to the correct layers</li>
+<li><a href="../../../targetFunctions/common/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)">parseCells</a>	Splits up the master input list of all arrays into separate arrays</li>
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 
+0002 <a name="_sub0" href="#_subfunctions" class="code">function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,</a><span class="keyword">...</span>
+0003     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0004     allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)
+0005 <span class="comment">% Standard Layers calculation paralelised over the outer loop</span>
+0006 <span class="comment">% This is the main reflectivity calculation of the standard layers</span>
+0007 <span class="comment">% calculation type. It extracts the required parameters for the contrasts</span>
+0008 <span class="comment">% from the input arrays, then passes the main calculation to</span>
+0009 <span class="comment">% 'standardLayersCore', which carries out the calculation iteself.</span>
+0010 <span class="comment">% The core calculation is common for both standard and custom layers.</span>
+0011 
+0012 <span class="comment">% Extract individual cell arrays</span>
+0013 [repeatLayers,<span class="keyword">...</span>
+0014  allData,<span class="keyword">...</span>
+0015  dataLimits,<span class="keyword">...</span>
+0016  simLimits,<span class="keyword">...</span>
+0017  contrastLayers,<span class="keyword">...</span>
+0018  layersDetails,~] = <a href="../../../targetFunctions/common/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)">parseCells</a>(problemDefCells);
+0019 
+0020 <span class="comment">% Extract individual parameters from problemDef struct</span>
+0021 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,<span class="keyword">...</span>
+0022 contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,<span class="keyword">...</span>
+0023 ~, resample, backsType, ~] =  <a href="../../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, contrastCustomFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>(problemDef);
+0024 
+0025 calcSld = controls.calcSldDuringFit;   
+0026 useImaginary = problemDef.useImaginary;
+0027 
+0028 <span class="comment">% Allocate the memory for the output arrays before the main loop</span>
+0029 backgs = zeros(numberOfContrasts,1);
+0030 qzshifts = zeros(numberOfContrasts,1);
+0031 scalefactors = zeros(numberOfContrasts,1);
+0032 bulkIns = zeros(numberOfContrasts,1);
+0033 bulkOuts = zeros(numberOfContrasts,1);
+0034 resols = zeros(numberOfContrasts,1);
+0035 allRoughs = zeros(numberOfContrasts,1);
+0036 outSsubs = zeros(numberOfContrasts,1);
+0037 chis =  zeros(numberOfContrasts,1);
+0038 layerSlds = cell(numberOfContrasts,1);
+0039 sldProfiles = cell(numberOfContrasts,1);
+0040 shifted_data = cell(numberOfContrasts,1);
+0041 
+0042 reflectivity = cell(numberOfContrasts,1);
+0043 <span class="keyword">for</span> i = 1:numberOfContrasts
+0044     reflectivity{i} = [1 1 ; 1 1];
+0045 <span class="keyword">end</span>
+0046 
+0047 Simulation = cell(numberOfContrasts,1);
+0048 <span class="keyword">for</span> i = 1:numberOfContrasts
+0049     Simulation{i} = [1 1 ; 1 1];
+0050 <span class="keyword">end</span>
+0051 
+0052 allLayers = cell(numberOfContrasts,1);
+0053 <span class="keyword">for</span> i = 1:numberOfContrasts
+0054     allLayers{i} = [1 1 1; 1 1 1];
+0055 <span class="keyword">end</span>
+0056 <span class="comment">% end memory allocation.</span>
+0057 
+0058 
+0059 <span class="comment">% First we need to allocate the absolute values of the input</span>
+0060 <span class="comment">% parameters to all the layers in the layers list. This only needs</span>
+0061 <span class="comment">% to be done once, and so is done outside the contrasts loop</span>
+0062 outParameterisedLayers = <a href="../../../targetFunctions/common/groupLayers/allocateParamsToLayers.html" class="code" title="function outLayers = allocateParamsToLayers(params, layersDetails)">allocateParamsToLayers</a>(params, layersDetails);
+0063 
+0064 <span class="comment">% Resample parameters if required</span>
+0065 resamPars = controls.resamPars;
+0066 
+0067 <span class="comment">% Loop over all the contrasts</span>
+0068 parfor i = 1:numberOfContrasts
+0069     
+0070     <span class="comment">% Extract the relevant parameter values for this contrast</span>
+0071     <span class="comment">% from the input arrays.</span>
+0072     <span class="comment">% First need to decide which values of the backgrounds, scalefactors</span>
+0073     <span class="comment">% data shifts and bulk contrasts are associated with this contrast</span>
+0074     [thisBackground,thisQzshift,thisScalefactor,thisBulkIn,thisBulkOut,thisResol] = <a href="../../../targetFunctions/common/backSort.html" class="code" title="function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)">backSort</a>(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,bulkIn,bulkOut,res);
+0075     
+0076     <span class="comment">% Also need to determine which layers from the overall layers list</span>
+0077     <span class="comment">% are required for this contrast, and put them in the correct order</span>
+0078     <span class="comment">% according to geometry</span>
+0079     thisContrastLayers = <a href="../../../targetFunctions/common/groupLayers/allocateLayersForContrast.html" class="code" title="function     thisContrastLayers = allocateLayersForContrast(contrastLayers,outParameterisedLayers,useImaginary)">allocateLayersForContrast</a>(contrastLayers{i},outParameterisedLayers,useImaginary);
+0080     
+0081     <span class="comment">% For the other parameters, we extract the correct ones from the input</span>
+0082     <span class="comment">% arrays</span>
+0083     thisRough = params(1);      <span class="comment">% Substrate roughness is always first parameter for standard layers</span>
+0084     thisRepeatLayers = repeatLayers{i};
+0085     thisResample = resample(i);
+0086     thisData = allData{i};
+0087     thisDataPresent = dataPresent(i);
+0088     thisDataLimits = dataLimits{i};
+0089     thisSimLimits = simLimits{i};
+0090     thisBacksType = backsType(i);
+0091     
+0092     <span class="comment">% Now call the core layers reflectivity calculation</span>
+0093     <span class="comment">% In this case we are single cored, so we do not parallelise over</span>
+0094     <span class="comment">% points</span>
+0095     <a href="parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a> = <span class="string">'single'</span>;
+0096     
+0097     <span class="comment">% Call the core layers calculation</span>
+0098     [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,<span class="keyword">...</span>
+0099         thisChiSquared,thisSsubs] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers, thisRough, <span class="keyword">...</span>
+0100     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,<span class="keyword">...</span>
+0101     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
+0102     thisBackground,thisResol,thisBacksType,nParams,<a href="parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>,resamPars,useImaginary);
+0103    
+0104     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
+0105     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
+0106     <span class="comment">% the other values (background, scalefactors etc) for each contrast</span>
+0107     <span class="comment">% for future use.</span>
+0108     outSsubs(i) = thisSsubs;
+0109     sldProfiles{i} = sldProfile;
+0110     reflectivity{i} = reflect;
+0111     Simulation{i} = Simul;
+0112     shifted_data{i} = shifted_dat;
+0113     layerSlds{i} = layerSld;
+0114     chis(i) = thisChiSquared;
+0115     backgs(i) = thisBackground;
+0116     qzshifts(i) = thisQzshift;
+0117     scalefactors(i) = thisScalefactor;
+0118     bulkIns(i) = thisBulkIn;
+0119     bulkOuts(i) = thisBulkOut;
+0120     resols(i) = thisResol;
+0121     allRoughs(i) = thisRough;
+0122     allLayers{i} = resampledLayers;
+0123 <span class="keyword">end</span>
+0124 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 01-Dec-2023 17:59:39 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

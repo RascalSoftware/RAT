@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of tableUtilities</title>
+  <meta name="keywords" content="tableUtilities">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html API -->
+<!-- menu.html projectClass -->
+
+<h1>tableUtilities
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="tableUtilities.html" class="code" title="">tableUtilities</a>	</li>
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="customFileClass.html" class="code" title="">customFileClass</a>	</li>
+<li><a href="dataClass.html" class="code" title="">dataClass</a>	</li>
+<li><a href="layersClass.html" class="code" title="">layersClass</a>	</li>
+<li><a href="multiTypeTable.html" class="code" title="">multiTypeTable</a>	</li>
+<li><a href="parametersClass.html" class="code" title="">parametersClass</a>	</li>
+<li><a href="tableUtilities.html" class="code" title="">tableUtilities</a>	</li>
+</ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function count = get.rowCount(obj)</a></li>
+<li><a href="#_sub2" class="code">function names = getNames(obj)</a></li>
+<li><a href="#_sub3" class="code">function addRow(obj, varargin)</a></li>
+<li><a href="#_sub4" class="code">function removeRow(obj, row)</a></li>
+<li><a href="#_sub5" class="code">function displayTable(obj)</a></li>
+<li><a href="#_sub6" class="code">function row = findRowIndex(name, rowNames, errorMessage)</a></li>
+</ul>
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 classdef (Abstract) <a href="tableUtilities.html" class="code" title="">tableUtilities</a> &lt; handle
+0002 
+0003     <span class="comment">% This class holds the common routines for handling table entries</span>
+0004 
+0005     properties
+0006         varTable = table
+0007     <span class="keyword">end</span>
+0008 
+0009     properties (GetAccess = protected, SetAccess = private)
+0010         autoNameCounter = 1
+0011     <span class="keyword">end</span>
+0012 
+0013     properties (Dependent, SetAccess = private)
+0014         rowCount
+0015     <span class="keyword">end</span>
+0016 
+0017     methods
+0018 
+0019         <a name="_sub0" href="#_subfunctions" class="code">function count = get.rowCount(obj)</a>
+0020            count = height(obj.varTable);
+0021         <span class="keyword">end</span>
+0022 
+0023         <a name="_sub1" href="#_subfunctions" class="code">function names = getNames(obj)</a>
+0024             <span class="comment">% Get a string array of the names of each of the objects</span>
+0025             <span class="comment">% defined in the class.</span>
+0026             <span class="comment">%</span>
+0027             <span class="comment">% customFiles.getNames()</span>
+0028             names = obj.varTable{:,1};  
+0029         <span class="keyword">end</span>
+0030         
+0031         <a name="_sub2" href="#_subfunctions" class="code">function addRow(obj, varargin)</a>
+0032             <span class="comment">% Appends a new row to the table. Expects a cell array</span>
+0033             <span class="comment">% with the row to append</span>
+0034             <span class="comment">%</span>
+0035             <span class="comment">% obj.addRow('Tails', 10, 20, 30, true, 'uniform', 0, Inf)</span>
+0036             tab = obj.varTable;
+0037 
+0038             <span class="comment">% Ensure no duplicate names</span>
+0039             <span class="keyword">if</span> any(strcmp(varargin{1}, tab{:,1}))
+0040                 throw(exceptions.duplicateName(<span class="string">'Duplicate row names not allowed'</span>));
+0041             <span class="keyword">end</span>
+0042 
+0043             tab = [tab; varargin];
+0044             obj.varTable = tab;
+0045             obj.autoNameCounter = obj.autoNameCounter + 1;
+0046         <span class="keyword">end</span>
+0047 
+0048         <a name="_sub3" href="#_subfunctions" class="code">function removeRow(obj, row)</a>
+0049             <span class="comment">% Removes a row from the table. The expected input is an</span>
+0050             <span class="comment">% integer or integer array.</span>
+0051             <span class="comment">% NOTE that an input such as [1 3] leads to multiple rows</span>
+0052             <span class="comment">% being removed from the table</span>
+0053             <span class="comment">%</span>
+0054             <span class="comment">% varTable.removeRow(2);</span>
+0055             arguments
+0056                 obj
+0057                 row {mustBePositive, mustBeInteger}
+0058             <span class="keyword">end</span>
+0059 
+0060             <span class="keyword">if</span> row &gt; obj.rowCount
+0061                 throw(exceptions.indexOutOfRange(sprintf(<span class="string">'Row index %d out of range 1 - %d'</span>, row, obj.rowCount)));
+0062             <span class="keyword">end</span>
+0063             
+0064             tab = obj.varTable;
+0065             tab(row, :) = [];
+0066             obj.varTable = tab;
+0067         <span class="keyword">end</span>
+0068 
+0069         <a name="_sub4" href="#_subfunctions" class="code">function displayTable(obj)</a>
+0070             <span class="comment">% Displays the param table with numbered rows</span>
+0071             <span class="comment">%</span>
+0072             <span class="comment">% layers.displayTable()</span>
+0073             array = obj.varTable;
+0074 
+0075             <span class="keyword">if</span> obj.rowCount == 0
+0076                 <span class="comment">% Creat blank line for empty table,</span>
+0077                 array(1, :) = repmat({<span class="string">''</span>}, 1, width(obj.varTable));
+0078             <span class="keyword">else</span>
+0079                 <span class="comment">% Add indices for table entries</span>
+0080                 p = 1:obj.rowCount;
+0081                 p = p(:);
+0082                 p = table(p);
+0083                 array = [p array];
+0084             <span class="keyword">end</span>
+0085 
+0086             disp(array);
+0087         <span class="keyword">end</span>
+0088 
+0089     <span class="keyword">end</span>
+0090 
+0091     methods(Static)
+0092         
+0093         <a name="_sub5" href="#_subfunctions" class="code">function row = findRowIndex(name, rowNames, errorMessage)</a>
+0094             <span class="comment">% Find the index of a row in the table given its name.</span>
+0095             <span class="comment">% The expected inputs are the name of the row, the</span>
+0096             <span class="comment">% full list of row names, and, optionally, an error message.</span>
+0097             <span class="comment">%</span>
+0098             <span class="comment">% obj.findRowIndex('param')</span>
+0099             arguments
+0100                 name {mustBeTextScalar}
+0101                 rowNames {mustBeText}
+0102                 errorMessage {mustBeTextScalar} = <span class="string">'The given name is not recognised'</span>
+0103             <span class="keyword">end</span>
+0104 
+0105             <span class="comment">% Strip leading or trailing whitespaces from names</span>
+0106             rowNames = strip(rowNames);
+0107             name = strip(name);
+0108 
+0109             <span class="comment">% Compare 'name' to list ignoring case</span>
+0110             index = strcmpi(name, rowNames);
+0111             <span class="keyword">if</span> any(index)
+0112                 <span class="comment">% Non-zero value in array is the row index</span>
+0113                 row = find(index);
+0114             <span class="keyword">else</span>
+0115                 throw(exceptions.nameNotRecognised(errorMessage));
+0116             <span class="keyword">end</span>
+0117         <span class="keyword">end</span>
+0118 
+0119     <span class="keyword">end</span>
+0120 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 01-Dec-2023 17:59:39 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

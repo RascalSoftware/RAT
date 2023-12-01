@@ -1,0 +1,9 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+
+  allocateLayersForContrast [URL="allocateLayersForContrast.html"];
+  allocateLayersForDomainsContrast [URL="allocateLayersForDomainsContrast.html"];
+  allocateParamsToLayers [URL="allocateParamsToLayers.html"];
+  groupLayersMod [URL="groupLayersMod.html"];
+  groupLayersModImaginary [URL="groupLayersModImaginary.html"];
+}

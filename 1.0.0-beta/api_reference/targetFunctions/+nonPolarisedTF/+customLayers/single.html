@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of single</title>
+  <meta name="keywords" content="single">
+  <meta name="description" content="Single threaded version of the custom layers, nonPolarisedTF reflectivity">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html targetFunctions -->
+<!-- ../menu.html +nonPolarisedTF -->
+<!-- menu.html +customLayers -->
+
+<h1>single
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Single threaded version of the custom layers, nonPolarisedTF reflectivity</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = single(problemDef,problemDefCells,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Single threaded version of the custom layers, nonPolarisedTF reflectivity
+ calculation. The function extracts the relevant parameters from the input
+ arrays, allocates these on a pre-contrast basis, then calls the 'core' 
+ calculation (the core layers nonPolarisedTF calc is shared between
+ multiple calculation types).
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../targetFunctions/+domainsTF/+customLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Single threaded version of the custom layers, domainsTF reflectivity</li>
+<li><a href="../../../targetFunctions/+domainsTF/+customXY/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/+domainsTF/+standardLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Single threaded version of the Standard Layers calculation</li>
+<li><a href="parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Multi threaded version of the custom layers over reflectivity poimnts</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customXY/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+standardLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
+<li><a href="../../../targetFunctions/common/backSort.html" class="code" title="function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
+<li><a href="../../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, contrastCustomFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>	Extract individual parameters from problemDef</li>
+<li><a href="../../../targetFunctions/common/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)">parseCells</a>	Splits up the master input list of all arrays into separate arrays</li>
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,</a><span class="keyword">...</span>
+0002     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0003     allRoughs] = single(problemDef,problemDefCells,controls)
+0004 <span class="comment">% Single threaded version of the custom layers, nonPolarisedTF reflectivity</span>
+0005 <span class="comment">% calculation. The function extracts the relevant parameters from the input</span>
+0006 <span class="comment">% arrays, allocates these on a pre-contrast basis, then calls the 'core'</span>
+0007 <span class="comment">% calculation (the core layers nonPolarisedTF calc is shared between</span>
+0008 <span class="comment">% multiple calculation types).</span>
+0009 
+0010 
+0011 <span class="comment">% Extract individual cell arrays</span>
+0012 [repeatLayers,<span class="keyword">...</span>
+0013  allData,<span class="keyword">...</span>
+0014  dataLimits,<span class="keyword">...</span>
+0015  simLimits,<span class="keyword">...</span>
+0016  ~,~,customFiles] = <a href="../../../targetFunctions/common/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)">parseCells</a>(problemDefCells);
+0017 
+0018 <span class="comment">% Extract individual parameters from problemDef struct</span>
+0019 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,<span class="keyword">...</span>
+0020 contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,<span class="keyword">...</span>
+0021 ~, resample, backsType, cCustFiles] =  <a href="../../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, contrastCustomFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>(problemDef);
+0022 
+0023 calcSld = controls.calcSldDuringFit;
+0024 useImaginary = problemDef.useImaginary;
+0025                      
+0026 <span class="comment">% Pre-Allocation of output arrays...</span>
+0027 backgs = zeros(numberOfContrasts,1);
+0028 qzshifts = zeros(numberOfContrasts,1);
+0029 scalefactors = zeros(numberOfContrasts,1);
+0030 bulkIns = zeros(numberOfContrasts,1);
+0031 bulkOuts = zeros(numberOfContrasts,1);
+0032 resols = zeros(numberOfContrasts,1);
+0033 allRoughs = zeros(numberOfContrasts,1);
+0034 outSsubs = zeros(numberOfContrasts,1);
+0035 chis =  zeros(numberOfContrasts,1);
+0036 layerSlds = cell(numberOfContrasts,1);
+0037 sldProfiles = cell(numberOfContrasts,1);
+0038 shifted_data = cell(numberOfContrasts,1);
+0039 
+0040 reflectivity = cell(numberOfContrasts,1);
+0041 <span class="keyword">for</span> i = 1:numberOfContrasts
+0042     reflectivity{i} = [1 1 ; 1 1];
+0043 <span class="keyword">end</span>
+0044 
+0045 Simulation = cell(numberOfContrasts,1);
+0046 <span class="keyword">for</span> i = 1:numberOfContrasts
+0047     Simulation{i} = [1 1 ; 1 1];
+0048 <span class="keyword">end</span>
+0049 
+0050 allLayers = cell(numberOfContrasts,1);
+0051 <span class="keyword">for</span> i = 1:numberOfContrasts
+0052     allLayers{i} = [1 ; 1];
+0053 <span class="keyword">end</span>
+0054 
+0055 <span class="comment">%   --- End Memory Allocation ---</span>
+0056 
+0057 <span class="comment">% Resampling parameters</span>
+0058 resamPars = controls.resamPars;
+0059 
+0060 <span class="comment">% Process the custom models....</span>
+0061 [allLayers,allRoughs] = nonPolarisedTF.customLayers.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, <span class="keyword">...</span>
+0062     shifts,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
+0063 
+0064 <span class="comment">% Single cored over all contrasts</span>
+0065 <span class="keyword">for</span> i = 1:numberOfContrasts
+0066     
+0067     <span class="comment">% Extract the relevant parameter values for this contrast</span>
+0068     <span class="comment">% from the input arrays.</span>
+0069     <span class="comment">% First need to decide which values of the backgrounds, scalefactors</span>
+0070     <span class="comment">% data shifts and bulk contrasts are associated with this contrast</span>
+0071     [thisBackground,thisQzshift,thisScalefactor,thisBulkIn,thisBulkOut,thisResol] = <a href="../../../targetFunctions/common/backSort.html" class="code" title="function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)">backSort</a>(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,bulkIn,bulkOut,res);
+0072     
+0073     <span class="comment">% Get the custom layers output for this contrast</span>
+0074     thisContrastLayers = allLayers{i};
+0075 
+0076     <span class="comment">% For the other parameters, we extract the correct ones from the input</span>
+0077     <span class="comment">% arrays</span>
+0078     thisRough = allRoughs(i);      
+0079     thisRepeatLayers = repeatLayers{i};
+0080     thisResample = resample(i);
+0081     thisData = allData{i};
+0082     thisDataPresent = dataPresent(i);
+0083     thisDataLimits = dataLimits{i};
+0084     thisSimLimits = simLimits{i};
+0085     thisBacksType = backsType(i);
+0086     
+0087     <span class="comment">% Now call the core layers reflectivity calculation</span>
+0088     <span class="comment">% In this case we are single cored, so we do not parallelise over</span>
+0089     <span class="comment">% points</span>
+0090     <a href="parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a> = <span class="string">'single'</span>;
+0091     
+0092     <span class="comment">% Call the reflectivity calculation</span>
+0093     [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = <span class="keyword">...</span>
+0094     nonPolarisedTF.coreLayersCalculation<span class="keyword">...</span>
+0095     (thisContrastLayers, thisRough, <span class="keyword">...</span>
+0096     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,<span class="keyword">...</span>
+0097     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,<span class="keyword">...</span>
+0098     thisBackground,thisResol,thisBacksType,nParams,<a href="parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>,resamPars,useImaginary);
+0099    
+0100     <span class="comment">% Store returned values for this contrast in the output arrays.</span>
+0101     <span class="comment">% As well as the calculated profiles, we also store a record of</span>
+0102     <span class="comment">% the other values (background, scalefactors etc) for each contrast</span>
+0103     <span class="comment">% for future use.</span>
+0104     outSsubs(i) = thisSsubs;
+0105     sldProfiles{i} = sldProfile;
+0106     reflectivity{i} = reflect;
+0107     Simulation{i} = Simul;
+0108     shifted_data{i} = shifted_dat;
+0109     layerSlds{i} = layerSld;
+0110     allLayers{i} = resamLayers;
+0111     
+0112     chis(i) = thisChiSquared;
+0113     backgs(i) = thisBackground;
+0114     qzshifts(i) = thisQzshift;
+0115     scalefactors(i) = thisScalefactor;
+0116     bulkIns(i) = thisBulkIn;
+0117     bulkOuts(i) = thisBulkOut;
+0118     resols(i) = thisResol;
+0119     allRoughs(i) = thisRough;
+0120 
+0121 <span class="keyword">end</span>
+0122 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 01-Dec-2023 17:59:39 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

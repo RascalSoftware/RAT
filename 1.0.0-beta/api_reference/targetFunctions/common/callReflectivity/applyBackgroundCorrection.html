@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of applyBackgroundCorrection</title>
+  <meta name="keywords" content="applyBackgroundCorrection">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html targetFunctions -->
+<!-- ../menu.html common -->
+<!-- menu.html callReflectivity -->
+
+<h1>applyBackgroundCorrection
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../targetFunctions/+domainsTF/+customXY/parallelContrasts.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)">parallelContrasts</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/+domainsTF/+customXY/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/+domainsTF/+customXY/single.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = single(problemDef,problemDefCells,controls)">single</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customXY/parallelContrasts.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)">parallelContrasts</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customXY/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Multi threaded version of the custom XY profile over reflectivity points</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customXY/single.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = single(problemDef,problemDefCells,controls)">single</a>	Extract individual cell arrays</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/coreLayersCalculation.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =coreLayersCalculation(contrastLayers, rough,geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">coreLayersCalculation</a>	This is the main reflectivity calculation for all Layers models in the</li>
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)</a>
+0002 
+0003 <span class="keyword">switch</span> backsType
+0004     <span class="keyword">case</span> 1
+0005         <span class="comment">%Add background to the simulation</span>
+0006         reflect(:,2) = reflect(:,2) + backg;
+0007         Simul(:,2) = Simul(:,2) + backg;
+0008      <span class="keyword">case</span> 2 
+0009 <span class="comment">%         %Subtract the background from the data..</span>
+0010         shifted_dat(:,2) = shifted_dat(:,2) - backg;
+0011         <span class="comment">%shifted_dat(:,3) = shifted_dat(:,3) - backg;</span>
+0012  <span class="keyword">end</span>
+0013         
+0014 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 01-Dec-2023 17:59:39 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

@@ -1,0 +1,17 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  RAT -> mergeStructs;
+  RAT -> parseClassToStructs;
+  RAT -> parseOutToProjectClass;
+  RAT -> parseResultToStruct;
+  controlsClass -> controlsClass;
+
+  RAT [URL="RAT.html"];
+  RATMain [URL="RATMain.html"];
+  controlsClass [URL="controlsClass.html"];
+  createProject [URL="createProject.html"];
+  mergeStructs [URL="mergeStructs.html"];
+  parseClassToStructs [URL="parseClassToStructs.html"];
+  parseOutToProjectClass [URL="parseOutToProjectClass.html"];
+  parseResultToStruct [URL="parseResultToStruct.html"];
+}

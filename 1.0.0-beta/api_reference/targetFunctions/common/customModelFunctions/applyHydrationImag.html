@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of applyHydrationImag</title>
+  <meta name="keywords" content="applyHydrationImag">
+  <meta name="description" content="Applies the hydration correction to real value of layers">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html targetFunctions -->
+<!-- ../menu.html common -->
+<!-- menu.html customModelFunctions -->
+
+<h1>applyHydrationImag
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Applies the hydration correction to real value of layers</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function thisContrastLayers = applyHydrationImag(thisContrastLayers,bulkIn,bulkOut) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Applies the hydration correction to real value of layers
+ if it is necessary.. (This is for when im(SLD) is used) 
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../targetFunctions/+domainsTF/+customLayers/processCustomFunction.html" class="code" title="function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)">processCustomFunction</a>	Top-level function for processing custom layers for all the</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customLayers/processCustomFunction.html" class="code" title="function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)">processCustomFunction</a>	Top-level function for processing custom layers for all the</li>
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function thisContrastLayers = applyHydrationImag(thisContrastLayers,bulkIn,bulkOut)</a>
+0002 
+0003 <span class="comment">% Applies the hydration correction to real value of layers</span>
+0004 <span class="comment">% if it is necessary.. (This is for when im(SLD) is used)</span>
+0005 
+0006 
+0007 <span class="comment">% The only guidance we have to whether the user is using hydration</span>
+0008 <span class="comment">% in their custom model is the number of columns of the output</span>
+0009 outSize = size(thisContrastLayers);     <span class="comment">% [nlayers x nCols]</span>
+0010 
+0011 <span class="keyword">if</span>  outSize(2) == 6   <span class="comment">% we need to calculate the hydrated SLD</span>
+0012 
+0013     newOutLayers = zeros(outSize(1),4);
+0014     newOutLayers(:,1) = thisContrastLayers(:,1);               <span class="comment">% Thickness'</span>
+0015     newOutLayers(:,3) = thisContrastLayers(:,3);               <span class="comment">% We never hydrate im(SLD)</span>
+0016     newOutLayers(:,4) = thisContrastLayers(:,4);               <span class="comment">% Roughness</span>
+0017 
+0018     <span class="keyword">for</span> n = 1:outSize(1)
+0019         thisSLD = thisContrastLayers(n,2);
+0020         thisHydration = thisContrastLayers(n,5) / 100;   <span class="comment">% Assume percent for backwards compatability</span>
+0021         thisHydrWhat = thisContrastLayers(n,6);
+0022         <span class="keyword">if</span> thisHydrWhat == 0                            
+0023             thisBulkHydr = bulkIn;
+0024         <span class="keyword">else</span>
+0025             thisBulkHydr = bulkOut;
+0026         <span class="keyword">end</span>
+0027         newSld = (thisHydration * thisBulkHydr) + ((1-thisHydration) * thisSLD);
+0028         thisSldVal = newSld(1,1);                        <span class="comment">% Reassignment to keep codegen happy</span>
+0029         newOutLayers(n,2) = thisSldVal;
+0030     <span class="keyword">end</span>
+0031     thisContrastLayers = newOutLayers;
+0032 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 01-Dec-2023 17:59:39 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

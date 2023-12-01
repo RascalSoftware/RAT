@@ -22,12 +22,12 @@ function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contras
 
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast...
-        [~,~,~,bulkIn,bulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
+        [~,~,~,thisBulkIn,thisBulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
 
         if isnan(str2double(functionHandle))
-            [tempAllSLDs{i}, allRoughs(i)] = callMatlabFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,0);
+            [tempAllSLDs{i}, allRoughs(i)] = callMatlabFunction(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,0);
         else
-            [tempAllSLDs{i}, allRoughs(i)] = callCppFunction(params, bulkIn, bulkOut, i, -1, functionHandle);
+            [tempAllSLDs{i}, allRoughs(i)] = callCppFunction(params, thisBulkIn, thisBulkOut, i, -1, functionHandle);
         end
     end
 

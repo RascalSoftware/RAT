@@ -29,35 +29,28 @@ function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolu
 % 
 % 
     
-    
-    
-    
-    
+        %for i = 1:nc
+        %thisBack = contrastBackgrounds(i);
+        outBackground = backs(contrastBackgrounds);
         
+        %thisShift = contrastQzshifts(i);
+        outQzshift = qzshifts(contrastQzshifts);
         
-            %for i = 1:nc
-            %thisBack = contrastBackgrounds(i);
-            outBackground = backs(contrastBackgrounds);
-            
-            %thisShift = contrastQzshifts(i);
-            outQzshift = qzshifts(contrastQzshifts);
-            
-            %thisScale = contrastScalefactors(i);
-            outScalefactor = scalefactor(contrastScalefactors);
-            
-            %thisBulkIn = contrastBulkIns(i);
-            outBulkIn = bulkIn(contrastBulkIns);
-            
-            %thisBulkOut = contrastBulkOuts(i);
-            outBulkOut = bulkOut(contrastBulkOuts);
-            
-            %thisResol = contrastResolutions(i);
-            if contrastResolutions ~= -1
-                outResolution = res(contrastResolutions);
-            else
-                outResolution = -1;     % Negative value means we have a data resolution..
-            end
-            %end
-           
-            
-    end
+        %thisScale = contrastScalefactors(i);
+        outScalefactor = scalefactor(contrastScalefactors);
+        
+        %thisBulkIn = contrastBulkIns(i);
+        outBulkIn = bulkIn(contrastBulkIns);
+        
+        %thisBulkOut = contrastBulkOuts(i);
+        outBulkOut = bulkOut(contrastBulkOuts);
+        
+        %thisResol = contrastResolutions(i);
+        if contrastResolutions ~= -1
+            outResolution = res(contrastResolutions);
+        else
+            outResolution = -1;     % Negative value means we have a data resolution..
+        end
+        %end
+
+end

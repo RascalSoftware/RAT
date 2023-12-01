@@ -23,24 +23,24 @@ function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contr
 
         % Find values of 'bulkIn' and 'bulkOut' for this
         % contrast...
-        [~,~,~,bulkIn,bulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
+        [~,~,~,thisBulkIn,thisBulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
 
         thisContrastLayers = [1 1 1]; % typeDef
         coder.varsize('thisContrastLayers',[10000, 6],[1 1]);
 
         if isnan(str2double(functionHandle))
-            [thisContrastLayers,allRoughs(i)] = callMatlabFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,0);
+            [thisContrastLayers,allRoughs(i)] = callMatlabFunction(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,0);
         else
-            [thisContrastLayers, allRoughs(i)] = callCppFunction(params, bulkIn, bulkOut, i, -1, functionHandle);
+            [thisContrastLayers, allRoughs(i)] = callCppFunction(params, thisBulkIn, thisBulkOut, i, -1, functionHandle);
         end
 
         % If the output layers has 5 columns, then we need to do
         % the hydration correction (the user has not done it in the
         % custom function). Do that here....
         if ~useImaginary
-           thisContrastLayers = applyHydrationReal(thisContrastLayers,bulkIn,bulkOut);
+           thisContrastLayers = applyHydrationReal(thisContrastLayers,thisBulkIn,thisBulkOut);
         else
-           thisContrastLayers = applyHydrationImag(thisContrastLayers,bulkIn,bulkOut);
+           thisContrastLayers = applyHydrationImag(thisContrastLayers,thisBulkIn,thisBulkOut);
         end
 
         tempAllLayers{i} = thisContrastLayers;

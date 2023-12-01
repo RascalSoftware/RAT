@@ -8,16 +8,16 @@ to whether the users wants to calculate SLD during fit, and even how many iterat
 There are 5 different `controlsClass.procedures` that can be used with RAT. They are:
 
 1. **Simplex** 
-2. **Differential Evolution** - Optimizes a problem by iteratively improving a candidate solution based on an evolutionary process
-3. **Nested Sampler** -  Estimates directly how the likelihood function relates to prior mass
+2. **Differential Evolution (DE)** - Optimizes a problem by iteratively improving a candidate solution based on an evolutionary process
+3. **Nested Sampler (NS)** - Estimates directly how the likelihood function relates to prior mass
 4. **DREAM**
 5. **Calculate** 
 
 Each of them has their own unique set of options. The fields in class object of controlsClass are 
 automatically updated based on the procedure selected.
 
-RAT uses parallelization to speed up the calculation. This is achieved using Parallel Computing Toolbox. The user can choose to use the parallelization or not and 
-if yes, what to parallelize on. (Points or Contrasts or all)
+RAT uses parallelization to speed up the calculation. This is achieved using Parallel Computing Toolbox. The user can choose to use the parallelisation or not and 
+if yes, what to parallelize on. (Single, Points or Contrasts)
 
 .. code-block:: MATLAB
     :caption: Sample usage of controlsClass.

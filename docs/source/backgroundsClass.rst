@@ -16,27 +16,16 @@ background parameters to either define background as constant, data or a functio
 
     * - Method in Project Class
       - Method in backgroundsClass 
-    * - projectClass.addBacksPar()
-      - backgroundsClass.addBacksPar() 
-    * - projectClass.removeBacksPar()
-      - backgroundsClass.removeBacksPar()
-    * - projectClass.setBacksPar()
-      - backgroundsClass.setBacksPar()
+    * - projectClass.addBackgroundParam()
+      - backgroundsClass.backgroundParams.addParameter() 
+    * - projectClass.removeBackgroundParam()
+      - backgroundsClass.backgroundParams.removeParameter()
+    * - projectClass.setBackgroundParamValue()
+      - backgroundsClass.backgroundParams.setValue()
     * - projectClass.addBackground()
       - backgroundsClass.addBackground()
     * - projectClass.removeBackground()
       - backgroundsClass.removeBackground()
-    * - projectClass.setBackground{Value/Name}()
-      - backgroundsClass.setBackground{Value/Name}()
-
-Some of the methods of Background Class are:
-
-1. `addBacksPar` - This method adds the parameter to the back parameter table.
-2. `setBacksParValue` - Set a parameter value in the back parameter table.
-3. `removeBacksPar` - Remove a parameter from the backsPar/ back parameter table.
-4. `addBackground` - Add a background to the background table. 
-5. `setBackground` - Set a background value in the background table. (Based on row)
-
 
 .. note::
  1. For constant, only one parameter is supplied to multi type table. 

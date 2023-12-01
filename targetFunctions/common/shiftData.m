@@ -4,7 +4,7 @@ function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits
 %
 % INPUTS:
 %     * scalefactor: problem.scalefactors
-%     * qzshift: problem.qshifts
+%     * qzshift: problem.qzhifts
 %     * dataPresent: problem.dataPresent
 %     * data: problem.data
 %     * dataLimits: problem.dataLimits

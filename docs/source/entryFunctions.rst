@@ -1,13 +1,13 @@
 ===================
 RAT Entry Functions
 ===================
-After the user has defined the projectClass and controlsClass, the user can run RAT like shown below
+The user should begin by creating a project and controls object, then the user can run RAT like shown below
 
 .. code-block:: MATLAB
     :caption: Sample usage of RAT class.
 
         % Initialize the project class
-        problem = projectClass();
+        problem = createProject();
 
         % Initialize the controls class
         controls = controlsClass();
@@ -17,7 +17,7 @@ After the user has defined the projectClass and controlsClass, the user can run 
 
 
 When the RAT function is called, the classes are passed into internal functions like `parseClassToStructs` which takes the classes and breaks them down into cells, 
-limits,prior and more importantly converts the project class to struct. 
+limits, priors and more importantly converts the project class to struct. 
 
 Then, the `RATMain` function redirects the control flow based on what procedure is selected in controlsClass. One of the redirecting functions will call the reflectivityCalculation
 which starts the reflectivity calculation.

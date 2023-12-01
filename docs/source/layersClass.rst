@@ -11,11 +11,11 @@ adds them one by one using `addLayer` method which is used to add individual lay
     * - Method in Project Class
       - Method in Layers Class 
     * - projectClass.addLayerGroup()
-      - layersClass_realSLD.addLayer() 
+      - layersClass.addLayer() 
     * - projectClass.addLayer()
-      - layersClass_realSLD.addLayer()
+      - layersClass.addLayer()
     * - projectClass.setLayerValue()
-      - layersClass_realSLD.setLayerValue()
+      - layersClass.setLayerValue()
 
 
 .. code-block:: MATLAB

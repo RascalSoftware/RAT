@@ -5,7 +5,7 @@ Resolutions Class
 =================
 
 Resolutions are defined in a two stage process. Firstly, actual fitted parameters are defined. These are held in a 'Parameter Class' table (referring to data type).
-Then,these are grouped into the resolutions themselves using a multi-type table. Then the resolution parameters can be used to either define resolution as 
+Then, these are grouped into the resolutions themselves using a multi-type table. Then the resolution parameters can be used to either define resolution as 
 constant, data, or a function. 
 
 The constructor is called with the parameters and resolutions as input. The parameters are stored in the resolPars table whereas the resolutions are stored in 

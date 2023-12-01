@@ -30,8 +30,6 @@ Project Class has lot of other classes that help create objects for inputs. They
     5. A 'toStruct' method which output the class parameters as a struct.
 
 
-Bulk In and Bulk Out are ........................to be added. They are set using the `addParam` method in parameter class since they have the same columns in the table.
-
 .. list-table:: The methods on the left call the methods on the right in the table.
     :widths: 50 50
     :header-rows: 1
@@ -39,9 +37,9 @@ Bulk In and Bulk Out are ........................to be added. They are set using
     * - Method in Project Class
       - Method in Parameter Class 
     * - projectClass.addBulkIn/addBulkOut()
-      - parametersClass.addParam() 
+      - parametersClass.addParameter() 
     * - projectClass.removeBulkIn/removeBulkOut()
-      - parametersClass.removeParam()
+      - parametersClass.removeParameter()
     * - projectClass.setBulkIn/setBulkOut()
       - parametersClass.setParameter()
 
@@ -53,13 +51,10 @@ Although, Project class provides one level higher interface so that one can use 
         %                   Name       min     val   max  fit?
         problem.addBulkOut({'SLD SMW',2e-6,2.073e-6,3e-6,true});
 
- 
-
-`setParameter` or `setBulk(In/Out)` does the same thing which is converting cell array to struct. 
 
 Domains Class
 -------------
-RAT currently supports two calculation types (nonPolarised and Domains). The Domains Class is a project class with extra parameters for the Domains calculation.
+RAT currently supports two calculation types (nonPolarised and Domains). The Domains Class is a project class with extra parameters (domainRatio, domainContrasts) for the Domains calculation.
 
 
 .. note::

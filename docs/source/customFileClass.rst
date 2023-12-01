@@ -14,7 +14,7 @@ The custom file table has the following columns:
 3. Language of the custom file
 4. Path of the custom file
 
-If all of the 4 columns are supplied, a new row (cell array of strings) is made using the supplied inputs. Then, `appendNewRow` method is used to append the row to the obj.
+If all of the 4 columns are supplied, a new row (cell array of strings) is made using the supplied inputs. Then, `addCustomFile` method is used to append the row to the object.
 This method takes care of the error checking and incrementing the count of the custom files. It also makes a table of the row supplied. This table helps with displaying it 
 properly on terminal.
 
@@ -30,8 +30,6 @@ properly on terminal.
             % For C++, function name of the cpp file is supplied
             %                       Row Name        DLL/function Name  Language   Path
             problem.addCustomFile('DSPC CPP Model','customBilayer','c++','pwd');
-
-
 
 
 .. warning::

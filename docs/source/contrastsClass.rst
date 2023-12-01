@@ -37,7 +37,7 @@ on the type of model, the code checks whether some of contrast names are allowed
 
 Domains Contrasts Class
 -----------------------
-The Domains Contrasts Class is a contrasts class with extra parameters for the Domains calculation.
+The Domains Contrasts Class is a simplified model only contrasts class for the Domains calculation.
 
 Reference
 ---------

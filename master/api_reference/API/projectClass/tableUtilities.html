@@ -98,7 +98,7 @@ This function is called by:
 0037 
 0038             <span class="comment">% Ensure no duplicate names</span>
 0039             <span class="keyword">if</span> any(strcmp(varargin{1}, tab{:,1}))
-0040                 throw(duplicateName(<span class="string">'Duplicate row names not allowed'</span>));
+0040                 throw(exceptions.duplicateName(<span class="string">'Duplicate row names not allowed'</span>));
 0041             <span class="keyword">end</span>
 0042 
 0043             tab = [tab; varargin];
@@ -119,7 +119,7 @@ This function is called by:
 0058             <span class="keyword">end</span>
 0059 
 0060             <span class="keyword">if</span> row &gt; obj.rowCount
-0061                 throw(indexOutOfRange(sprintf(<span class="string">'Row index %d out of range 1 - %d'</span>, row, obj.rowCount)));
+0061                 throw(exceptions.indexOutOfRange(sprintf(<span class="string">'Row index %d out of range 1 - %d'</span>, row, obj.rowCount)));
 0062             <span class="keyword">end</span>
 0063             
 0064             tab = obj.varTable;
@@ -173,7 +173,7 @@ This function is called by:
 0112                 <span class="comment">% Non-zero value in array is the row index</span>
 0113                 row = find(index);
 0114             <span class="keyword">else</span>
-0115                 throw(nameNotRecognised(errorMessage));
+0115                 throw(exceptions.nameNotRecognised(errorMessage));
 0116             <span class="keyword">end</span>
 0117         <span class="keyword">end</span>
 0118 
@@ -181,6 +181,6 @@ This function is called by:
 0120 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

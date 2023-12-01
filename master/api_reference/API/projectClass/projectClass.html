@@ -34,20 +34,20 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../API/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>	</li>
 <li><a href="backgroundsClass.html" class="code" title="">backgroundsClass</a>	</li>
 <li><a href="contrastsClass.html" class="code" title="">contrastsClass</a>	</li>
 <li><a href="customFileClass.html" class="code" title="">customFileClass</a>	</li>
 <li><a href="dataClass.html" class="code" title="">dataClass</a>	</li>
 <li><a href="domainsClass.html" class="code" title="">domainsClass</a>	</li>
 <li><a href="layersClass.html" class="code" title="">layersClass</a>	</li>
-<li><a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>	</li>
 <li><a href="parametersClass.html" class="code" title="">parametersClass</a>	</li>
 <li><a href="projectClass.html" class="code" title="">projectClass</a>	</li>
 <li><a href="resolutionsClass.html" class="code" title="">resolutionsClass</a>	</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../API/project.html" class="code" title="function obj = project(options)">project</a>	Creates a project object.</li>
+<li><a href="../../API/createProject.html" class="code" title="function obj = createProject(options)">createProject</a>	Creates a project object.</li>
 <li><a href="domainsClass.html" class="code" title="">domainsClass</a>	</li>
 <li><a href="projectClass.html" class="code" title="">projectClass</a>	</li>
 </ul>
@@ -67,7 +67,7 @@ This function is called by:
 <li><a href="#_sub10" class="code">function obj = removeParameter(obj, row)</a></li>
 <li><a href="#_sub11" class="code">function obj = setParameter(obj, row, varargin)</a></li>
 <li><a href="#_sub12" class="code">function obj = setParameterValue(obj, row, value)</a></li>
-<li><a href="#_sub13" class="code">function obj = setParameterConstraint(obj, row, min, max)</a></li>
+<li><a href="#_sub13" class="code">function obj = setParameterLimits(obj, row, min, max)</a></li>
 <li><a href="#_sub14" class="code">function obj = setParameterName(obj, row, name)</a></li>
 <li><a href="#_sub15" class="code">function obj = setParameterFit(obj, row, fitFlag)</a></li>
 <li><a href="#_sub16" class="code">function obj = setParameterPrior(obj, row, varargin)</a></li>
@@ -75,20 +75,20 @@ This function is called by:
 <li><a href="#_sub18" class="code">function obj = addLayer(obj, varargin)</a></li>
 <li><a href="#_sub19" class="code">function obj = removeLayer(obj, layer)</a></li>
 <li><a href="#_sub20" class="code">function obj = setLayerValue(obj, row, col, value)</a></li>
-<li><a href="#_sub21" class="code">function obj = addBacksPar(obj, varargin)</a></li>
-<li><a href="#_sub22" class="code">function obj = removeBacksPar(obj, varargin)</a></li>
-<li><a href="#_sub23" class="code">function obj = setBacksParValue(obj, row, value)</a></li>
-<li><a href="#_sub24" class="code">function obj = setBacksParConstr(obj, row, min, max)</a></li>
-<li><a href="#_sub25" class="code">function obj = setBacksParName(obj, row, name)</a></li>
+<li><a href="#_sub21" class="code">function obj = addBackgroundParam(obj, varargin)</a></li>
+<li><a href="#_sub22" class="code">function obj = removeBackgroundParam(obj, varargin)</a></li>
+<li><a href="#_sub23" class="code">function obj = setBackgroundParamValue(obj, row, value)</a></li>
+<li><a href="#_sub24" class="code">function obj = setBackgroundParamLimits(obj, row, min, max)</a></li>
+<li><a href="#_sub25" class="code">function obj = setBackgroundParamName(obj, row, name)</a></li>
 <li><a href="#_sub26" class="code">function obj = addBackground(obj, varargin)</a></li>
 <li><a href="#_sub27" class="code">function obj = removeBackground(obj, row)</a></li>
 <li><a href="#_sub28" class="code">function obj = setBackground(obj, row, varargin)</a></li>
 <li><a href="#_sub29" class="code">function obj = setBackgroundName(obj, row, name)</a></li>
-<li><a href="#_sub30" class="code">function obj = setBacksPar(obj, varargin)</a></li>
-<li><a href="#_sub31" class="code">function obj = setResolParValue(obj, row, value)</a></li>
-<li><a href="#_sub32" class="code">function obj = addResolPar(obj, varargin)</a></li>
-<li><a href="#_sub33" class="code">function obj = setResolPar(obj, varargin)</a></li>
-<li><a href="#_sub34" class="code">function obj = removeResolPar(obj, varargin)</a></li>
+<li><a href="#_sub30" class="code">function obj = setBackgroundParam(obj, varargin)</a></li>
+<li><a href="#_sub31" class="code">function obj = setResolutionParamValue(obj, row, value)</a></li>
+<li><a href="#_sub32" class="code">function obj = addResolutionParam(obj, varargin)</a></li>
+<li><a href="#_sub33" class="code">function obj = setResolutionParam(obj, varargin)</a></li>
+<li><a href="#_sub34" class="code">function obj = removeResolutionParam(obj, varargin)</a></li>
 <li><a href="#_sub35" class="code">function obj = addResolution(obj, varargin)</a></li>
 <li><a href="#_sub36" class="code">function obj = removeResolution(obj, row)</a></li>
 <li><a href="#_sub37" class="code">function obj = addData(obj, varargin)</a></li>
@@ -167,9 +167,9 @@ This function is called by:
 0042     <span class="keyword">end</span>
 0043 
 0044     properties(Access = protected, Constant, Hidden)
-0045         classes = struct(name = [&quot;parameters&quot;, &quot;bulkIn&quot;, &quot;bulkOut&quot;, &quot;scalefactors&quot;, &quot;qzshifts&quot;, &quot;backPars&quot;, &quot;resolPars&quot;, &quot;domainRatio&quot;, &quot;layers&quot;, &quot;customFile&quot;, &quot;backgrounds&quot;, &quot;resolutions&quot;, &quot;data&quot;, &quot;contrast&quot;], <span class="keyword">...</span>
-0046                          addRoutine = [&quot;<a href="#_sub9" class="code" title="subfunction obj = addParameter(obj, varargin)">addParameter</a>&quot;, &quot;<a href="#_sub43" class="code" title="subfunction obj = addBulkIn(obj, varargin)">addBulkIn</a>&quot;, &quot;<a href="#_sub40" class="code" title="subfunction obj = addBulkOut(obj, varargin)">addBulkOut</a>&quot;, &quot;<a href="#_sub46" class="code" title="subfunction obj = addScalefactor(obj, varargin)">addScalefactor</a>&quot;, &quot;<a href="#_sub49" class="code" title="subfunction obj = addQzshift(obj, varargin)">addQzshift</a>&quot;, &quot;<a href="#_sub21" class="code" title="subfunction obj = addBacksPar(obj, varargin)">addBacksPar</a>&quot;, &quot;<a href="#_sub32" class="code" title="subfunction obj = addResolPar(obj, varargin)">addResolPar</a>&quot;, &quot;addDomainRatio&quot;, &quot;<a href="#_sub18" class="code" title="subfunction obj = addLayer(obj, varargin)">addLayer</a>&quot;, &quot;<a href="#_sub52" class="code" title="subfunction obj = addCustomFile(obj, varargin)">addCustomFile</a>&quot;, &quot;<a href="#_sub26" class="code" title="subfunction obj = addBackground(obj, varargin)">addBackground</a>&quot;, &quot;<a href="#_sub35" class="code" title="subfunction obj = addResolution(obj, varargin)">addResolution</a>&quot;, &quot;<a href="#_sub37" class="code" title="subfunction obj = addData(obj, varargin)">addData</a>&quot;, &quot;<a href="#_sub55" class="code" title="subfunction obj = addContrast(obj, varargin)">addContrast</a>&quot;], <span class="keyword">...</span>
-0047                          removeRoutine = [&quot;<a href="#_sub10" class="code" title="subfunction obj = removeParameter(obj, row)">removeParameter</a>&quot;, &quot;<a href="#_sub44" class="code" title="subfunction obj = removeBulkIn(obj, varargin)">removeBulkIn</a>&quot;, &quot;<a href="#_sub41" class="code" title="subfunction obj = removeBulkOut(obj, varargin)">removeBulkOut</a>&quot;, &quot;<a href="#_sub47" class="code" title="subfunction obj = removeScalefactor(obj, varargin)">removeScalefactor</a>&quot;, &quot;<a href="#_sub50" class="code" title="subfunction obj = removeQzshift(obj, varargin)">removeQzshift</a>&quot;, &quot;<a href="#_sub22" class="code" title="subfunction obj = removeBacksPar(obj, varargin)">removeBacksPar</a>&quot;, &quot;<a href="#_sub34" class="code" title="subfunction obj = removeResolPar(obj, varargin)">removeResolPar</a>&quot;, &quot;removeDomainRatio&quot;, &quot;<a href="#_sub19" class="code" title="subfunction obj = removeLayer(obj, layer)">removeLayer</a>&quot;, &quot;<a href="#_sub53" class="code" title="subfunction obj = removeCustomFile(obj, row)">removeCustomFile</a>&quot;, &quot;<a href="#_sub27" class="code" title="subfunction obj = removeBackground(obj, row)">removeBackground</a>&quot;, &quot;<a href="#_sub36" class="code" title="subfunction obj = removeResolution(obj, row)">removeResolution</a>&quot;, &quot;<a href="#_sub38" class="code" title="subfunction obj = removeData(obj, row)">removeData</a>&quot;, &quot;<a href="#_sub56" class="code" title="subfunction obj = removeContrast(obj, row)">removeContrast</a>&quot;]);
+0045         classes = struct(name = [&quot;parameters&quot;, &quot;bulkIn&quot;, &quot;bulkOut&quot;, &quot;scalefactors&quot;, &quot;qzshifts&quot;, &quot;backgroundParams&quot;, &quot;resolutionParams&quot;, &quot;domainRatio&quot;, &quot;layers&quot;, &quot;customFile&quot;, &quot;backgrounds&quot;, &quot;resolutions&quot;, &quot;data&quot;, &quot;contrast&quot;], <span class="keyword">...</span>
+0046                          addRoutine = [&quot;<a href="#_sub9" class="code" title="subfunction obj = addParameter(obj, varargin)">addParameter</a>&quot;, &quot;<a href="#_sub43" class="code" title="subfunction obj = addBulkIn(obj, varargin)">addBulkIn</a>&quot;, &quot;<a href="#_sub40" class="code" title="subfunction obj = addBulkOut(obj, varargin)">addBulkOut</a>&quot;, &quot;<a href="#_sub46" class="code" title="subfunction obj = addScalefactor(obj, varargin)">addScalefactor</a>&quot;, &quot;<a href="#_sub49" class="code" title="subfunction obj = addQzshift(obj, varargin)">addQzshift</a>&quot;, &quot;<a href="#_sub21" class="code" title="subfunction obj = addBackgroundParam(obj, varargin)">addBackgroundParam</a>&quot;, &quot;<a href="#_sub32" class="code" title="subfunction obj = addResolutionParam(obj, varargin)">addResolutionParam</a>&quot;, &quot;addDomainRatio&quot;, &quot;<a href="#_sub18" class="code" title="subfunction obj = addLayer(obj, varargin)">addLayer</a>&quot;, &quot;<a href="#_sub52" class="code" title="subfunction obj = addCustomFile(obj, varargin)">addCustomFile</a>&quot;, &quot;<a href="#_sub26" class="code" title="subfunction obj = addBackground(obj, varargin)">addBackground</a>&quot;, &quot;<a href="#_sub35" class="code" title="subfunction obj = addResolution(obj, varargin)">addResolution</a>&quot;, &quot;<a href="#_sub37" class="code" title="subfunction obj = addData(obj, varargin)">addData</a>&quot;, &quot;<a href="#_sub55" class="code" title="subfunction obj = addContrast(obj, varargin)">addContrast</a>&quot;], <span class="keyword">...</span>
+0047                          removeRoutine = [&quot;<a href="#_sub10" class="code" title="subfunction obj = removeParameter(obj, row)">removeParameter</a>&quot;, &quot;<a href="#_sub44" class="code" title="subfunction obj = removeBulkIn(obj, varargin)">removeBulkIn</a>&quot;, &quot;<a href="#_sub41" class="code" title="subfunction obj = removeBulkOut(obj, varargin)">removeBulkOut</a>&quot;, &quot;<a href="#_sub47" class="code" title="subfunction obj = removeScalefactor(obj, varargin)">removeScalefactor</a>&quot;, &quot;<a href="#_sub50" class="code" title="subfunction obj = removeQzshift(obj, varargin)">removeQzshift</a>&quot;, &quot;<a href="#_sub22" class="code" title="subfunction obj = removeBackgroundParam(obj, varargin)">removeBackgroundParam</a>&quot;, &quot;<a href="#_sub34" class="code" title="subfunction obj = removeResolutionParam(obj, varargin)">removeResolutionParam</a>&quot;, &quot;removeDomainRatio&quot;, &quot;<a href="#_sub19" class="code" title="subfunction obj = removeLayer(obj, layer)">removeLayer</a>&quot;, &quot;<a href="#_sub53" class="code" title="subfunction obj = removeCustomFile(obj, row)">removeCustomFile</a>&quot;, &quot;<a href="#_sub27" class="code" title="subfunction obj = removeBackground(obj, row)">removeBackground</a>&quot;, &quot;<a href="#_sub36" class="code" title="subfunction obj = removeResolution(obj, row)">removeResolution</a>&quot;, &quot;<a href="#_sub38" class="code" title="subfunction obj = removeData(obj, row)">removeData</a>&quot;, &quot;<a href="#_sub56" class="code" title="subfunction obj = removeContrast(obj, row)">removeContrast</a>&quot;]);
 0048     <span class="keyword">end</span>
 0049 
 0050     methods
@@ -241,15 +241,15 @@ This function is called by:
 0116             <span class="comment">% Initialise qzshifts table</span>
 0117             obj.qzshifts = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Qz shift 1'</span>,-1e-4,0,1e-4,false,priorTypes.Uniform,0,Inf);
 0118             
-0119             <span class="comment">% Initialise backs object</span>
-0120             backPars = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Backs par 1'</span>,1e-7,1e-6,1e-5,false,priorTypes.Uniform,0,Inf);
-0121             backgrounds = {<span class="string">'Background 1'</span>,allowedTypes.Constant.value,<span class="string">'Backs Par 1'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
-0122             obj.background = <a href="backgroundsClass.html" class="code" title="">backgroundsClass</a>(backPars, backgrounds);
+0119             <span class="comment">% Initialise backgrounds object</span>
+0120             backgroundParams = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Background Param 1'</span>,1e-7,1e-6,1e-5,false,priorTypes.Uniform,0,Inf);
+0121             backgrounds = {<span class="string">'Background 1'</span>,allowedTypes.Constant.value,<span class="string">'Background Param 1'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+0122             obj.background = <a href="backgroundsClass.html" class="code" title="">backgroundsClass</a>(backgroundParams, backgrounds);
 0123             
 0124             <span class="comment">% Initialise resolution object</span>
-0125             resolPars = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Resolution par 1'</span>,0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
+0125             resolutionParams = <a href="parametersClass.html" class="code" title="">parametersClass</a>(<span class="string">'Resolution par 1'</span>,0.01,0.03,0.05,false,priorTypes.Uniform,0,Inf);
 0126             resolutions = {<span class="string">'Resolution 1'</span>,allowedTypes.Constant.value,<span class="string">'Resolution par 1'</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
-0127             obj.resolution = <a href="resolutionsClass.html" class="code" title="">resolutionsClass</a>(resolPars, resolutions);
+0127             obj.resolution = <a href="resolutionsClass.html" class="code" title="">resolutionsClass</a>(resolutionParams, resolutions);
 0128             
 0129             <span class="comment">% Initialise data object</span>
 0130             obj.data = <a href="dataClass.html" class="code" title="">dataClass</a>(<span class="string">'Simulation'</span>, [], [], []);
@@ -282,7 +282,7 @@ This function is called by:
 0157             <span class="comment">%</span>
 0158             <span class="comment">% problem.setUsePriors(true);</span>
 0159             <span class="keyword">if</span> ~islogical(showFlag)
-0160                 throw(invalidType(<span class="string">'usePriors must be logical ''true'' or ''false'''</span>));
+0160                 throw(exceptions.invalidType(<span class="string">'usePriors must be logical ''true'' or ''false'''</span>));
 0161             <span class="keyword">end</span>
 0162             obj.usePriors = showFlag;
 0163             
@@ -305,10 +305,10 @@ This function is called by:
 0180             obj.qzshifts.showPriors = showFlag;
 0181             
 0182             <span class="comment">% (6) Backgrounds (parameters table)</span>
-0183             obj.background.backPars.showPriors = showFlag;
+0183             obj.background.backgroundParams.showPriors = showFlag;
 0184             
 0185             <span class="comment">% (7) Resolutions (parameters table)</span>
-0186             obj.resolution.resolPars.showPriors = showFlag;
+0186             obj.resolution.resolutionParams.showPriors = showFlag;
 0187             
 0188         <span class="keyword">end</span>
 0189         
@@ -353,18 +353,18 @@ This function is called by:
 0228             <span class="comment">% Returns a cell array of all currently</span>
 0229             <span class="comment">% set parameter names for the project.</span>
 0230             names.paramNames = obj.parameters.getNames();
-0231             names.backsNames = obj.background.getBackgroundNames();
-0232             names.backParNames = obj.background.backPars.getNames();
+0231             names.backgroundNames = obj.background.getNames();
+0232             names.backgroundParamNames = obj.background.backgroundParams.getNames();
 0233             names.bulkInNames = obj.bulkIn.getNames();
 0234             names.bulkOutNames = obj.bulkOut.getNames();
-0235             names.resolsNames = obj.resolution.getResolNames();
-0236             names.resolParNames = obj.resolution.resolPars.getNames();
+0235             names.resolutionNames = obj.resolution.getNames();
+0236             names.resolutionParamNames = obj.resolution.resolutionParams.getNames();
 0237             names.dataNames = obj.data.getNames();
-0238             names.scalefacNames = obj.scalefactors.getNames();
+0238             names.scalefactorNames = obj.scalefactors.getNames();
 0239             names.qzShiftNames = obj.qzshifts.getNames();
-0240             names.customNames = obj.customFile.getNames();
+0240             names.customFileNames = obj.customFile.getNames();
 0241             <span class="keyword">if</span> isa(obj.layers, <span class="string">'layersClass'</span>)
-0242                 names.layersNames = obj.layers.getNames();
+0242                 names.layerNames = obj.layers.getNames();
 0243             <span class="keyword">end</span>
 0244         <span class="keyword">end</span>
 0245         
@@ -380,7 +380,7 @@ This function is called by:
 0255                 <span class="keyword">if</span> iscell(paramGroup{i})
 0256                     obj = <a href="#_sub9" class="code" title="subfunction obj = addParameter(obj, varargin)">addParameter</a>(obj, paramGroup{i});
 0257                 <span class="keyword">else</span>
-0258                     throw(invalidType(<span class="string">'Expecting a cell array of parameters in ''addParameterGroup'''</span>));
+0258                     throw(exceptions.invalidType(<span class="string">'Expecting a cell array of parameters in ''addParameterGroup'''</span>));
 0259                 <span class="keyword">end</span>
 0260             <span class="keyword">end</span>
 0261         <span class="keyword">end</span>
@@ -420,7 +420,7 @@ This function is called by:
 0295                 row = cellstr(row);
 0296             <span class="keyword">elseif</span> iscell(row)
 0297             <span class="keyword">else</span>
-0298                 throw(invalidType(<span class="string">'Unrecognised Row'</span>))
+0298                 throw(exceptions.invalidType(<span class="string">'Unrecognised Row'</span>))
 0299             <span class="keyword">end</span>
 0300 
 0301             <span class="keyword">for</span> i = 1:length(row)
@@ -428,7 +428,7 @@ This function is called by:
 0303                 
 0304                 <span class="comment">% Make sure we don't remove any protected parameters</span>
 0305                 <span class="keyword">if</span> (isnumeric(thisParam) &amp;&amp; thisParam &lt;= length(obj.protectedParameters)) || any((strcmpi(thisParam, obj.protectedParameters)))
-0306                     throw(invalidOption(sprintf(<span class="string">'Can''t remove protected parameters'</span>)));
+0306                     throw(exceptions.invalidOption(sprintf(<span class="string">'Can''t remove protected parameters'</span>)));
 0307                 <span class="keyword">end</span>
 0308                 
 0309                 <span class="comment">% No need to check validity of the parameter</span>
@@ -474,13 +474,13 @@ This function is called by:
 0349             obj.parameters.setValue(row, value);
 0350         <span class="keyword">end</span>
 0351         
-0352         <a name="_sub12" href="#_subfunctions" class="code">function obj = setParameterConstraint(obj, row, min, max)</a>
-0353             <span class="comment">% Sets the constraints of an existing parameter.</span>
+0352         <a name="_sub12" href="#_subfunctions" class="code">function obj = setParameterLimits(obj, row, min, max)</a>
+0353             <span class="comment">% Sets the limits of an existing parameter.</span>
 0354             <span class="comment">% Expects index or name of parameter and new min</span>
 0355             <span class="comment">% and max of the parameter's value</span>
 0356             <span class="comment">%</span>
-0357             <span class="comment">% problem.setParameterConstraint(2, 0, 100);</span>
-0358             obj.parameters.setConstraint(row, min, max);
+0357             <span class="comment">% problem.setParameterLimits(2, 0, 100);</span>
+0358             obj.parameters.setLimits(row, min, max);
 0359         <span class="keyword">end</span>
 0360         
 0361         <a name="_sub13" href="#_subfunctions" class="code">function obj = setParameterName(obj, row, name)</a>
@@ -490,7 +490,7 @@ This function is called by:
 0365             <span class="comment">%</span>
 0366             <span class="comment">% problem.setParameterName(2, 'new name');</span>
 0367             <span class="keyword">if</span> (isnumeric(row) &amp;&amp; row &lt;= length(obj.protectedParameters)) || any((strcmpi(row, obj.protectedParameters)))
-0368                 throw(invalidOption(<span class="string">'Can''t rename protected parameters'</span>));
+0368                 throw(exceptions.invalidOption(<span class="string">'Can''t rename protected parameters'</span>));
 0369             <span class="keyword">end</span>
 0370             obj.parameters.setName(row, name);
 0371         <span class="keyword">end</span>
@@ -526,11 +526,11 @@ This function is called by:
 0401                     <span class="keyword">if</span> iscell(layerGroup{i})
 0402                         obj = <a href="#_sub18" class="code" title="subfunction obj = addLayer(obj, varargin)">addLayer</a>(obj, layerGroup{i});
 0403                     <span class="keyword">else</span>
-0404                         throw(invalidType(<span class="string">'Expecting a cell array of parameters in ''addLayerGroup'''</span>));
+0404                         throw(exceptions.invalidType(<span class="string">'Expecting a cell array of parameters in ''addLayerGroup'''</span>));
 0405                     <span class="keyword">end</span>
 0406                 <span class="keyword">end</span>
 0407             <span class="keyword">else</span>
-0408                 throw(invalidProperty(sprintf(<span class="string">'Layer are not defined for the model type: %s'</span>, obj.modelType)));
+0408                 throw(exceptions.invalidProperty(sprintf(<span class="string">'Layer are not defined for the model type: %s'</span>, obj.modelType)));
 0409             <span class="keyword">end</span>
 0410         <span class="keyword">end</span>
 0411         
@@ -555,7 +555,7 @@ This function is called by:
 0430                     obj.layers.addLayer(obj.parameters.varTable{:,1}, thisLayer{:});
 0431                 <span class="keyword">end</span>
 0432             <span class="keyword">else</span>
-0433                 throw(invalidProperty(sprintf(<span class="string">'Layer are not defined for the model type: %s'</span>, obj.modelType)));
+0433                 throw(exceptions.invalidProperty(sprintf(<span class="string">'Layer are not defined for the model type: %s'</span>, obj.modelType)));
 0434             <span class="keyword">end</span>
 0435         <span class="keyword">end</span>
 0436 
@@ -567,7 +567,7 @@ This function is called by:
 0442             <span class="keyword">if</span> isa(obj.layers, <span class="string">'layersClass'</span>)
 0443                 obj.layers.removeRow(layer);
 0444             <span class="keyword">else</span>
-0445                 throw(invalidProperty(sprintf(<span class="string">'Layer are not defined for the model type: %s'</span>, obj.modelType)));
+0445                 throw(exceptions.invalidProperty(sprintf(<span class="string">'Layer are not defined for the model type: %s'</span>, obj.modelType)));
 0446             <span class="keyword">end</span>
 0447         <span class="keyword">end</span>
 0448 
@@ -580,7 +580,7 @@ This function is called by:
 0455             <span class="keyword">if</span> isa(obj.layers, <span class="string">'layersClass'</span>)
 0456                 obj.layers.setLayerValue(row, col, value, obj.parameters.varTable{:,1});
 0457             <span class="keyword">else</span>
-0458                 throw(invalidProperty(sprintf(<span class="string">'Layer are not defined for the model type: %s'</span>, obj.modelType)));
+0458                 throw(exceptions.invalidProperty(sprintf(<span class="string">'Layer are not defined for the model type: %s'</span>, obj.modelType)));
 0459             <span class="keyword">end</span>
 0460         <span class="keyword">end</span>
 0461         
@@ -590,48 +590,48 @@ This function is called by:
 0465         
 0466         
 0467         <span class="comment">%(1) Background Parameters</span>
-0468         <a name="_sub20" href="#_subfunctions" class="code">function obj = addBacksPar(obj, varargin)</a>
+0468         <a name="_sub20" href="#_subfunctions" class="code">function obj = addBackgroundParam(obj, varargin)</a>
 0469             <span class="comment">% Adds a new background parameter. A parameter consists</span>
 0470             <span class="comment">% of a name, min, value, max, fit flag, prior type', mu,</span>
 0471             <span class="comment">% and sigma</span>
 0472             <span class="comment">%</span>
-0473             <span class="comment">% problem.addBacksPar('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);</span>
-0474             obj.background.backPars.addParameter(varargin{:});
+0473             <span class="comment">% problem.addBackgroundParam('Backs Value D2O', 1e-8, 2.8e-6, 1e-5);</span>
+0474             obj.background.backgroundParams.addParameter(varargin{:});
 0475         <span class="keyword">end</span>
 0476         
-0477         <a name="_sub21" href="#_subfunctions" class="code">function obj = removeBacksPar(obj, varargin)</a>
+0477         <a name="_sub21" href="#_subfunctions" class="code">function obj = removeBackgroundParam(obj, varargin)</a>
 0478             <span class="comment">% Removes a given background parameter.</span>
 0479             <span class="comment">% Expects index or name of parameter to remove</span>
 0480             <span class="comment">%</span>
-0481             <span class="comment">% problem.removeBacksPar(2);</span>
-0482             obj.background.backPars.removeParameter(varargin{:});
+0481             <span class="comment">% problem.removeBackgroundParam(2);</span>
+0482             obj.background.backgroundParams.removeParameter(varargin{:});
 0483         <span class="keyword">end</span>
 0484         
-0485         <a name="_sub22" href="#_subfunctions" class="code">function obj = setBacksParValue(obj, row, value)</a>
+0485         <a name="_sub22" href="#_subfunctions" class="code">function obj = setBackgroundParamValue(obj, row, value)</a>
 0486             <span class="comment">% Sets the value of existing background</span>
 0487             <span class="comment">% parameter. Expects index or name of parameter</span>
 0488             <span class="comment">% and new value to set</span>
 0489             <span class="comment">%</span>
-0490             <span class="comment">% problem.setBacksParValue(1, 5.5e-6);</span>
-0491             obj.background.backPars.setValue(row, value);
+0490             <span class="comment">% problem.setBackgroundParamValue(1, 5.5e-6);</span>
+0491             obj.background.backgroundParams.setValue(row, value);
 0492         <span class="keyword">end</span>
 0493         
-0494         <a name="_sub23" href="#_subfunctions" class="code">function obj = setBacksParConstr(obj, row, min, max)</a>
+0494         <a name="_sub23" href="#_subfunctions" class="code">function obj = setBackgroundParamLimits(obj, row, min, max)</a>
 0495             <span class="comment">% Sets the constraints of existing background</span>
 0496             <span class="comment">% parameter. Expects index or name of parameter</span>
 0497             <span class="comment">% and new min and max of the parameter's value</span>
 0498             <span class="comment">%</span>
-0499             <span class="comment">% problem.setBacksParConstr(1, 0, 1);</span>
-0500             obj.background.backPars.setConstraint(row, min, max);
+0499             <span class="comment">% problem.setBackgroundParamLimits(1, 0, 1);</span>
+0500             obj.background.backgroundParams.setLimits(row, min, max);
 0501         <span class="keyword">end</span>
 0502         
-0503         <a name="_sub24" href="#_subfunctions" class="code">function obj = setBacksParName(obj, row, name)</a>
+0503         <a name="_sub24" href="#_subfunctions" class="code">function obj = setBackgroundParamName(obj, row, name)</a>
 0504             <span class="comment">% Sets the name of an existing background</span>
 0505             <span class="comment">% parameter. Expects index or name of parameter</span>
 0506             <span class="comment">% and the new name</span>
 0507             <span class="comment">%</span>
-0508             <span class="comment">% problem.setBacksParName(2, 'new name');</span>
-0509             obj.background.backPars.setName(row, name);
+0508             <span class="comment">% problem.setBackgroundParamName(2, 'new name');</span>
+0509             obj.background.backgroundParams.setName(row, name);
 0510         <span class="keyword">end</span>
 0511         
 0512         <span class="comment">% (2) Backgrounds</span>
@@ -669,50 +669,50 @@ This function is called by:
 0544             obj.background.setBackgroundName(row, name);
 0545         <span class="keyword">end</span>
 0546         
-0547         <a name="_sub29" href="#_subfunctions" class="code">function obj = setBacksPar(obj, varargin)</a>
+0547         <a name="_sub29" href="#_subfunctions" class="code">function obj = setBackgroundParam(obj, varargin)</a>
 0548             <span class="comment">% Sets the value of an existing background parameter. Expects</span>
 0549             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
 0550             <span class="comment">%</span>
-0551             <span class="comment">% problem.setBacksPar(1, 'name', 'Backs Value H2O');</span>
-0552             obj.background.backPars.setParameter(varargin{:});
+0551             <span class="comment">% problem.setBackgroundParam(1, 'name', 'Backs Value H2O');</span>
+0552             obj.background.backgroundParams.setParameter(varargin{:});
 0553         <span class="keyword">end</span>
 0554         
 0555         <span class="comment">% -------------------------------------------------------------</span>
 0556         <span class="comment">%   Editing of Resolutions block</span>
 0557         
 0558         <span class="comment">% Resol Pars</span>
-0559         <a name="_sub30" href="#_subfunctions" class="code">function obj = setResolParValue(obj, row, value)</a>
+0559         <a name="_sub30" href="#_subfunctions" class="code">function obj = setResolutionParamValue(obj, row, value)</a>
 0560             <span class="comment">% Sets the value of existing resolution</span>
 0561             <span class="comment">% parameter. Expects index or name of parameter</span>
 0562             <span class="comment">% and new value to set</span>
 0563             <span class="comment">%</span>
-0564             <span class="comment">% problem.setResolParValue(1, 5.5e-6);</span>
-0565             obj.resolution.resolPars.setValue(row, value);
+0564             <span class="comment">% problem.setResolutionParamValue(1, 5.5e-6);</span>
+0565             obj.resolution.resolutionParams.setValue(row, value);
 0566         <span class="keyword">end</span>
 0567         
-0568         <a name="_sub31" href="#_subfunctions" class="code">function obj = addResolPar(obj, varargin)</a>
+0568         <a name="_sub31" href="#_subfunctions" class="code">function obj = addResolutionParam(obj, varargin)</a>
 0569             <span class="comment">% Adds a new resolution parameter. A parameter consists</span>
 0570             <span class="comment">% of a name, min, value, max, fit flag, prior type', mu,</span>
 0571             <span class="comment">% and sigma</span>
 0572             <span class="comment">%</span>
-0573             <span class="comment">% problem.addResolPar('ResolPar 1', 1e-8, 2.8e-6, 1e-5);</span>
-0574             obj.resolution.resolPars.addParameter(varargin{:});
+0573             <span class="comment">% problem.addResolutionParam('Resolution Param 1', 1e-8, 2.8e-6, 1e-5);</span>
+0574             obj.resolution.resolutionParams.addParameter(varargin{:});
 0575         <span class="keyword">end</span>
 0576         
-0577         <a name="_sub32" href="#_subfunctions" class="code">function obj = setResolPar(obj, varargin)</a>
+0577         <a name="_sub32" href="#_subfunctions" class="code">function obj = setResolutionParam(obj, varargin)</a>
 0578             <span class="comment">% Sets the value of an existing resolution parameter. Expects</span>
 0579             <span class="comment">% index or name of parameter and keyword/value pairs to set</span>
 0580             <span class="comment">%</span>
-0581             <span class="comment">% problem.setResolPar(1, 'name', 'ResolPar');</span>
-0582             obj.resolution.resolPars.setParameter(varargin{:});
+0581             <span class="comment">% problem.setResolutionParam(1, 'name', 'Resolution Param');</span>
+0582             obj.resolution.resolutionParams.setParameter(varargin{:});
 0583         <span class="keyword">end</span>
 0584         
-0585         <a name="_sub33" href="#_subfunctions" class="code">function obj = removeResolPar(obj, varargin)</a>
+0585         <a name="_sub33" href="#_subfunctions" class="code">function obj = removeResolutionParam(obj, varargin)</a>
 0586             <span class="comment">% Removes a given resolution parameter.</span>
 0587             <span class="comment">% Expects index or name of parameter to remove</span>
 0588             <span class="comment">%</span>
-0589             <span class="comment">% problem.removeResolPar(2);</span>
-0590             obj.resolution.resolPars.removeParameter(varargin{:});
+0589             <span class="comment">% problem.removeResolutionParam(2);</span>
+0590             obj.resolution.resolutionParams.removeParameter(varargin{:});
 0591         <span class="keyword">end</span>
 0592         
 0593         <span class="comment">% Resolutions</span>
@@ -915,7 +915,7 @@ This function is called by:
 0790             <span class="comment">% &quot;background&quot;, &quot;bulk in&quot;, &quot;bulk out&quot;, &quot;scalefactor&quot;,</span>
 0791             <span class="comment">% &quot;resolution&quot;, &quot;resample&quot;, &quot;model&quot;</span>
 0792             <span class="comment">%</span>
-0793             <span class="comment">% problem.addContrast('contrast 1', 'nba', 'Silicon');</span>
+0793             <span class="comment">% problem.addContrast('contrast 1', 'bulkIn', 'Silicon');</span>
 0794             allowedNames = obj.getAllAllowedNames();
 0795             obj.contrasts.addContrast(allowedNames, varargin{:});   
 0796         <span class="keyword">end</span>
@@ -983,7 +983,7 @@ This function is called by:
 0858             <span class="comment">% Parameters</span>
 0859             params = obj.parameters.toStruct();
 0860             paramStruct = cell2struct(struct2cell(params),{<span class="string">'paramNames'</span>,<span class="keyword">...</span>
-0861                 <span class="string">'nParams'</span>,<span class="string">'paramConstr'</span>,<span class="string">'params'</span>,<span class="string">'paramFitYesNo'</span>,<span class="string">'paramPriors'</span>});
+0861                 <span class="string">'paramLimits'</span>,<span class="string">'paramValues'</span>,<span class="string">'fitParam'</span>,<span class="string">'paramPriors'</span>});
 0862             
 0863             <span class="comment">% Backgrounds</span>
 0864             backgroundStruct = obj.background.toStruct();
@@ -993,31 +993,31 @@ This function is called by:
 0868             
 0869             <span class="comment">% Bulk in</span>
 0870             bulkInStruct = obj.bulkIn.toStruct();
-0871             bulkInStruct = cell2struct(struct2cell(bulkInStruct),{<span class="string">'nbairNames'</span>,<span class="keyword">...</span>
-0872                 <span class="string">'nNba'</span>,<span class="string">'nbairConstr'</span>,<span class="string">'nbairs'</span>,<span class="string">'nbaFitYesNo'</span>,<span class="string">'nbaPriors'</span>});
+0871             bulkInStruct = cell2struct(struct2cell(bulkInStruct),{<span class="string">'bulkInNames'</span>,<span class="keyword">...</span>
+0872                 <span class="string">'bulkInLimits'</span>,<span class="string">'bulkInValues'</span>,<span class="string">'fitBulkIn'</span>,<span class="string">'bulkInPriors'</span>});
 0873             
 0874             <span class="comment">% Bulk out</span>
 0875             bulkOutStruct = obj.bulkOut.toStruct();
-0876             bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{<span class="string">'nbsubNames'</span>,<span class="keyword">...</span>
-0877                 <span class="string">'nNbs'</span>,<span class="string">'nbsubConstr'</span>,<span class="string">'nbsubs'</span>,<span class="string">'nbsFitYesNo'</span>,<span class="string">'nbsPriors'</span>});
+0876             bulkOutStruct = cell2struct(struct2cell(bulkOutStruct),{<span class="string">'bulkOutNames'</span>,<span class="keyword">...</span>
+0877                 <span class="string">'bulkOutLimits'</span>,<span class="string">'bulkOutValues'</span>,<span class="string">'fitBulkOut'</span>,<span class="string">'bulkOutPriors'</span>});
 0878             
 0879             <span class="comment">% Scalefactors</span>
 0880             scalefactorStruct = obj.scalefactors.toStruct();
 0881             scalefactorStruct = cell2struct(struct2cell(scalefactorStruct),{<span class="string">'scalefactorNames'</span>,<span class="keyword">...</span>
-0882                 <span class="string">'nScalefactors'</span>,<span class="string">'scalefactorConstr'</span>,<span class="string">'scalefactors'</span>,<span class="string">'scalefactorFitYesNo'</span>,<span class="string">'scalefactorPriors'</span>});
+0882                 <span class="string">'scalefactorLimits'</span>,<span class="string">'scalefactorValues'</span>,<span class="string">'fitScalefactor'</span>,<span class="string">'scalefactorPriors'</span>});
 0883             
 0884             <span class="comment">% Qzshifts</span>
 0885             qzshiftStruct = obj.qzshifts.toStruct();
 0886             qzshiftStruct = cell2struct(struct2cell(qzshiftStruct),{<span class="string">'qzshiftNames'</span>,<span class="keyword">...</span>
-0887                 <span class="string">'nQzshifts'</span>,<span class="string">'qzshiftConstr'</span>,<span class="string">'qzshifts'</span>,<span class="string">'qzshiftFitYesNo'</span>,<span class="string">'qzshiftPriors'</span>});
+0887                 <span class="string">'qzshiftLimits'</span>,<span class="string">'qzshiftValues'</span>,<span class="string">'fitQzshift'</span>,<span class="string">'qzshiftPriors'</span>});
 0888             
 0889             <span class="comment">% Layers</span>
 0890             <span class="keyword">if</span> isa(obj.layers, <span class="string">'layersClass'</span>)
 0891                 layersStruct = obj.layers.toStruct(paramStruct.paramNames);
 0892             <span class="keyword">else</span>
 0893                 layersStruct.numberOfLayers = 0;
-0894                 layersStruct.layersNames = strings(0,1);
-0895                 layersStruct.layersDetails = {};
+0894                 layersStruct.layerNames = strings(0,1);
+0895                 layersStruct.layerDetails = {};
 0896             <span class="keyword">end</span>
 0897 
 0898             <span class="comment">% Custom files</span>
@@ -1030,7 +1030,7 @@ This function is called by:
 0905             contrastStruct = obj.contrasts.toStruct(allNames, generalStruct.modelType, dataTable);
 0906 
 0907             <span class="comment">% Merge all the outputs into one large structure</span>
-0908             outStruct = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(generalStruct, <span class="keyword">...</span>
+0908             outStruct = <a href="../../API/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(generalStruct, <span class="keyword">...</span>
 0909                                      paramStruct, <span class="keyword">...</span>
 0910                                      backgroundStruct, <span class="keyword">...</span>
 0911                                      resolutionStruct, <span class="keyword">...</span>
@@ -1066,14 +1066,14 @@ This function is called by:
 0941                 options.script = fullfile(filePath, fileName);
 0942             <span class="keyword">elseif</span> ~strcmp(extension, &quot;.m&quot;)
 0943                 <span class="comment">% Raise error if incorrect format is used</span>
-0944                 throw(invalidValue(sprintf(<span class="string">'The filename chosen for the script has the &quot;%s&quot; extension, rather than a MATLAB &quot;.m&quot; extension'</span>, extension)));
+0944                 throw(exceptions.invalidValue(sprintf(<span class="string">'The filename chosen for the script has the &quot;%s&quot; extension, rather than a MATLAB &quot;.m&quot; extension'</span>, extension)));
 0945             <span class="keyword">end</span>
 0946 
 0947             fileID = fopen(options.script, <span class="string">'w'</span>);
 0948             fprintf(fileID, &quot;<span class="comment">%s\n\n&quot;, '% THIS FILE IS GENERATED FROM RAT VIA THE &quot;WRITESCRIPT&quot; ROUTINE. IT IS NOT PART OF THE RAT CODE.');</span>
 0949 
 0950             <span class="comment">% Start by getting input arguments</span>
-0951             projectSpec = &quot;<span class="comment">%s = project(name='%s', calcType='%s', model='%s', geometry='%s', absorption=%s);\n\n&quot;;</span>
+0951             projectSpec = &quot;<span class="comment">%s = createProject(name='%s', calcType='%s', model='%s', geometry='%s', absorption=%s);\n\n&quot;;</span>
 0952             fprintf(fileID, projectSpec, options.objName, obj.experimentName, obj.calculationType,  obj.modelType, obj.geometry,  string(obj.absorption));
 0953             <span class="keyword">if</span> obj.usePriors
 0954                 fprintf(fileID, &quot;<span class="comment">%s.setUsePriors(true);\n\n&quot;, options.objName);</span>
@@ -1087,7 +1087,7 @@ This function is called by:
 0962                 <span class="comment">% Set protected parameters</span>
 0963                 <span class="keyword">if</span> any(strcmpi(obj.parameters.varTable{i, 1}, obj.protectedParameters))
 0964                     fprintf(fileID, options.objName + &quot;.setParameterValue(<span class="comment">%d, %.15g);\n&quot;, i, obj.parameters.varTable{i, 3});</span>
-0965                     fprintf(fileID, options.objName + &quot;.setParameterConstraint(<span class="comment">%d, %.15g, %.15g);\n&quot;, i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});</span>
+0965                     fprintf(fileID, options.objName + &quot;.setParameterLimits(<span class="comment">%d, %.15g, %.15g);\n&quot;, i, obj.parameters.varTable{i, 2}, obj.parameters.varTable{i, 4});</span>
 0966                     fprintf(fileID, options.objName + &quot;.setParameterFit(<span class="comment">%d, %s);\n&quot;, i, string(obj.parameters.varTable{i, 5}));</span>
 0967                     fprintf(fileID, options.objName + &quot;.setParameterPrior(<span class="comment">%d, '%s', %.15g, %.15g);\n&quot;, i, obj.parameters.varTable{i, 6}, obj.parameters.varTable{i, 7}, obj.parameters.varTable{i, 8});</span>
 0968                 <span class="comment">% Add non-protected parameters to a parameter group</span>
@@ -1116,7 +1116,7 @@ This function is called by:
 0991 
 0992             <span class="comment">% Add all parameters based on a parametersClass</span>
 0993             paramClasses = [&quot;bulkIn&quot;, &quot;bulkOut&quot;, &quot;scalefactors&quot;, &quot;qzshifts&quot;, &quot;background&quot;, &quot;resolution&quot;];
-0994             paramSubclasses = [&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;backPars&quot;, &quot;resolPars&quot;];
+0994             paramSubclasses = [&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;backgroundParams&quot;, &quot;resolutionParams&quot;];
 0995 
 0996             <span class="keyword">if</span> isprop(obj, <span class="string">'domainRatio'</span>)
 0997                 paramClasses(end + 1) = &quot;domainRatio&quot;;
@@ -1389,6 +1389,6 @@ This function is called by:
 1264 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -1,7 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  domainsTFCustomXYParallelContrasts [URL="domainsTFCustomXYParallelContrasts.html"];
-  domainsTFCustomXYParallelPoints [URL="domainsTFCustomXYParallelPoints.html"];
-  domainsTFCustomXYSingle [URL="domainsTFCustomXYSingle.html"];
-}

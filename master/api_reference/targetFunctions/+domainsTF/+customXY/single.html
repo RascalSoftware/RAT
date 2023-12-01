@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of single</title>
+  <meta name="keywords" content="single">
+  <meta name="description" content="Extract individual cell arrays">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html targetFunctions -->
+<!-- ../menu.html +domainsTF -->
+<!-- menu.html +customXY -->
+
+<h1>single
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Extract individual cell arrays</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = single(problemDef,problemDefCells,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Extract individual cell arrays
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../targetFunctions/common/backSort.html" class="code" title="function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)">backSort</a>	Distributes the background and shift values among the different contrasts</li>
+<li><a href="../../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>	</li>
+<li><a href="../../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)">callReflectivity</a>	</li>
+<li><a href="../../../targetFunctions/common/costFunctions/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>	Chi-squared function is used to evaluate the goodness of fit.</li>
+<li><a href="../../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, contrastCustomFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>	Extract individual parameters from problemDef</li>
+<li><a href="../../../targetFunctions/common/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)">parseCells</a>	Splits up the master input list of all arrays into separate arrays</li>
+<li><a href="../../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resamPars)">resampleLayers</a>	Function handle for adaptive resampling</li>
+<li><a href="../../../targetFunctions/common/resampleLayers/resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resamPars)">resampleLayersReIm</a>	Resample the SLD profile. In this case we have an imaginary SLD also, and</li>
+<li><a href="../../../targetFunctions/common/shiftData.html" class="code" title="function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits)">shiftData</a>	Shifts the data according to scale factor. If there is no data, makes</li>
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,</a><span class="keyword">...</span>
+0002     Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,<span class="keyword">...</span>
+0003     allRoughs] = single(problemDef,problemDefCells,controls)
+0004 
+0005 
+0006 <span class="comment">% Extract individual cell arrays</span>
+0007 [repeatLayers,<span class="keyword">...</span>
+0008  allData,<span class="keyword">...</span>
+0009  dataLimits,<span class="keyword">...</span>
+0010  simLimits,<span class="keyword">...</span>
+0011  ~,~,<span class="keyword">...</span><span class="comment">        % Layers details N/A</span>
+0012  customFiles] = <a href="../../../targetFunctions/common/parseCells.html" class="code" title="function [repeatLayers,allData,dataLimits,simLimits,contrastLayers,layersDetails,customFiles] = parseCells(problemDefCells)">parseCells</a>(problemDefCells);
+0013 
+0014 <span class="comment">% Extract individual parameters from problemDef struct</span>
+0015 [numberOfContrasts, ~, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,<span class="keyword">...</span>
+0016 contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,<span class="keyword">...</span>
+0017 ~, ~, backsType, cCustFiles] =  <a href="../../../targetFunctions/common/extractProblemParams.html" class="code" title="function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,numberOfLayers, resample, backsType, contrastCustomFiles] =  extractProblemParams(problemDef)">extractProblemParams</a>(problemDef);      
+0018             
+0019 <span class="comment">%Pre-Allocation...</span>
+0020 backgs = zeros(numberOfContrasts,1);
+0021 qzshifts = zeros(numberOfContrasts,1);
+0022 scalefactors = zeros(numberOfContrasts,1);
+0023 bulkIns = zeros(numberOfContrasts,1);
+0024 bulkOuts = zeros(numberOfContrasts,1);
+0025 resols = zeros(numberOfContrasts,1);
+0026 allRoughs = zeros(numberOfContrasts,1);
+0027 outSsubs = zeros(numberOfContrasts,1);
+0028 chis =  zeros(numberOfContrasts,1);
+0029 layerSlds = cell(numberOfContrasts,2);
+0030 domainSldProfiles = cell(numberOfContrasts,2);
+0031 shifted_data = cell(numberOfContrasts,1);
+0032 
+0033 reflectivity = cell(numberOfContrasts,1);
+0034 <span class="keyword">for</span> i = 1:numberOfContrasts
+0035     reflectivity{i} = [1 1 ; 1 1];
+0036 <span class="keyword">end</span>
+0037 
+0038 Simulation = cell(numberOfContrasts,1);
+0039 <span class="keyword">for</span> i = 1:numberOfContrasts
+0040     Simulation{i} = [1 1 ; 1 1];
+0041 <span class="keyword">end</span>
+0042 
+0043 allLayers = cell(numberOfContrasts,2);
+0044 <span class="keyword">for</span> i = 1:numberOfContrasts
+0045     allLayers{i,1} = [1 1 1; 1 1 1];
+0046     allLayers{i,2} = [1 1 1; 1 1 1];
+0047 <span class="keyword">end</span>
+0048 
+0049 <span class="keyword">for</span> i = 1:numberOfContrasts
+0050     domainSldProfiles{i,1} = [1 1 ; 1 1];
+0051     domainSldProfiles{i,2} = [1 1 ; 1 1];
+0052 <span class="keyword">end</span>
+0053 
+0054 tempSldProfiles = cell(numberOfContrasts,1);
+0055 <span class="keyword">for</span> i = 1:numberOfContrasts
+0056     tempSldProfiles{i} = {[1 1 ; 1 1],[1 1 ; 1 1]};
+0057 <span class="keyword">end</span>
+0058 
+0059 tempAllLayers = cell(numberOfContrasts,1);
+0060 <span class="keyword">for</span> i = 1:numberOfContrasts
+0061     tempAllLayers{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
+0062 <span class="keyword">end</span>
+0063 
+0064 tempLayerSlds = cell(numberOfContrasts,1);
+0065 <span class="keyword">for</span> i = 1:numberOfContrasts
+0066     tempLayerSlds{i} = {[1 1 1;1 1 1],[1 1 1;1 1 1]};
+0067 <span class="keyword">end</span>
+0068 
+0069 <span class="comment">% Resampling parameters</span>
+0070 resamPars = controls.resamPars;
+0071 useImaginary = problemDef.useImaginary;
+0072 allDomainRatios = problemDef.domainRatio;
+0073 contrastDomainRatios = problemDef.contrastDomainRatios;
+0074 
+0075 domainRatio = 1;    <span class="comment">% Default for compile.</span>
+0076 
+0077 domainSldProfiles = cell(numberOfContrasts,2);
+0078 <span class="keyword">for</span> i = 1:numberOfContrasts
+0079     domainSldProfiles{i,1} = [1 1 ; 1 1];
+0080     domainSldProfiles{i,2} = [1 1 ; 1 1];
+0081 <span class="keyword">end</span>
+0082 [domainSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, <span class="keyword">...</span>
+0083     shifts,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params);
+0084 
+0085 <span class="keyword">for</span> i = 1:numberOfContrasts
+0086     outSsubs(i) = allRoughs(i);
+0087     [backgs(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resols(i)] = <a href="../../../targetFunctions/common/backSort.html" class="code" title="function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)">backSort</a>(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,bulkIn,bulkOut,res);
+0088 
+0089     <span class="comment">% Get the domain ratio for this contrast</span>
+0090     thisContrastDR = contrastDomainRatios(i);
+0091     <span class="keyword">if</span> isempty(thisContrastDR)
+0092         thisContrastDR = 1;
+0093     <span class="keyword">end</span>
+0094     domainRatio = allDomainRatios(thisContrastDR);
+0095 
+0096     <span class="comment">% Resample the sld profiles</span>
+0097     thisSld1 = domainSldProfiles{1};
+0098     thisSld2 = domainSldProfiles{2};
+0099     <span class="keyword">if</span> ~useImaginary
+0100         layerSld1 = <a href="../../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resamPars)">resampleLayers</a>(thisSld1,resamPars);
+0101         layerSld2 = <a href="../../../targetFunctions/common/resampleLayers/resampleLayers.html" class="code" title="function newSLD = resampleLayers(sldProfile,resamPars)">resampleLayers</a>(thisSld2,resamPars);
+0102     <span class="keyword">else</span>
+0103         reSLD1 = thisSld1(:,1:2);
+0104         imSLD1 = [thisSld1(:,1),thisSld1(:,3)];
+0105 
+0106         reSLD2 = thisSld2(:,1:2);
+0107         imSLD2 = [thisSld2(:,1),thisSld2(:,3)];
+0108 
+0109         layerSld1 = <a href="../../../targetFunctions/common/resampleLayers/resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resamPars)">resampleLayersReIm</a>(reSLD1,imSLD1,resamPars);
+0110         layerSld2 = <a href="../../../targetFunctions/common/resampleLayers/resampleLayersReIm.html" class="code" title="function newSLD = resampleLayersReIm(sldProfile,sldProfileIm,resamPars)">resampleLayersReIm</a>(reSLD2,imSLD2,resamPars);
+0111     <span class="keyword">end</span>
+0112     
+0113     tempLayerSlds{i} = {layerSld1, layerSld2};
+0114     tempAllLayers{i} = {layerSld1, layerSld2};
+0115     tempSldProfiles{i} = {thisSld1, thisSld2};
+0116 
+0117     shifted_dat =  <a href="../../../targetFunctions/common/shiftData.html" class="code" title="function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits)">shiftData</a>(scalefactors(i),qzshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
+0118     shifted_data{i} = shifted_dat;
+0119     
+0120     reflectivityType = <span class="string">'standardAbeles'</span>;
+0121     [reflect1,Simul1] = <a href="../../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)">callReflectivity</a>(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,allRoughs(i),resols(i),<span class="string">'single'</span>,reflectivityType,useImaginary);
+0122     [reflect2,Simul2] = <a href="../../../targetFunctions/common/callReflectivity/callReflectivity.html" class="code" title="function [reflectivity, Simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)">callReflectivity</a>(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,allRoughs(i),resols(i),<span class="string">'single'</span>,reflectivityType,useImaginary);
+0123 
+0124     [reflect1,Simul1,shifted_dat] = <a href="../../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>(reflect1,Simul1,shifted_dat,backgs(i),backsType(i));
+0125     [reflect2,Simul2,shifted_dat] = <a href="../../../targetFunctions/common/callReflectivity/applyBackgroundCorrection.html" class="code" title="function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)">applyBackgroundCorrection</a>(reflect2,Simul2,shifted_dat,backgs(i),backsType(i));
+0126 
+0127      <span class="comment">% Calculate the average reflectivities....</span>
+0128     [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,Simul1,Simul2,domainRatio);
+0129     
+0130     reflectivity{i} = totReflect;
+0131     Simulation{i} = totSimul;
+0132     
+0133     <span class="keyword">if</span> dataPresent(i)
+0134         chis(i) = <a href="../../../targetFunctions/common/costFunctions/chiSquared.html" class="code" title="function chi2 = chiSquared(thisData,thisFit,P)">chiSquared</a>(shifted_dat,totReflect,nParams);
+0135     <span class="keyword">else</span>
+0136         chis(i) = 0;
+0137     <span class="keyword">end</span>
+0138 <span class="keyword">end</span>
+0139 
+0140 <span class="keyword">for</span> i = 1:numberOfContrasts
+0141     theseDomainSLDs = tempSldProfiles{i};
+0142     domainSldProfiles{i,1} = theseDomainSLDs{1};
+0143     domainSldProfiles{i,2} = theseDomainSLDs{2};
+0144 
+0145     theseAllLayers = tempAllLayers{i};
+0146     allLayers{i,1} = theseAllLayers{1};
+0147     allLayers{i,2} = theseAllLayers{2};
+0148 
+0149     theseLayerSlds = tempLayerSlds{i};
+0150     layerSlds{i,1} = theseLayerSlds{1};
+0151     layerSlds{i,2} = theseLayerSlds{2};
+0152 <span class="keyword">end</span>
+0153 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

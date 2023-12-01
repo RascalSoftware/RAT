@@ -34,16 +34,16 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../API/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>	</li>
 <li><a href="contrastsClass.html" class="code" title="">contrastsClass</a>	</li>
 <li><a href="domainContrastsClass.html" class="code" title="">domainContrastsClass</a>	</li>
 <li><a href="domainsClass.html" class="code" title="">domainsClass</a>	</li>
-<li><a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>	</li>
 <li><a href="parametersClass.html" class="code" title="">parametersClass</a>	</li>
 <li><a href="projectClass.html" class="code" title="">projectClass</a>	</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../API/project.html" class="code" title="function obj = project(options)">project</a>	Creates a project object.</li>
+<li><a href="../../API/createProject.html" class="code" title="function obj = createProject(options)">createProject</a>	Creates a project object.</li>
 <li><a href="domainsClass.html" class="code" title="">domainsClass</a>	</li>
 <li><a href="projectClass.html" class="code" title="">projectClass</a>	</li>
 </ul>
@@ -155,7 +155,7 @@ This function is called by:
 0084             names = <a href="#_sub4" class="code" title="subfunction names = getAllAllowedNames(obj)">getAllAllowedNames</a>@<a href="projectClass.html" class="code" title="">projectClass</a>(obj);
 0085             names.domainRatioNames = obj.domainRatio.getNames();
 0086             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
-0087                 names.domainContrastsNames = obj.domainContrasts.getNames();
+0087                 names.domainContrastNames = obj.domainContrasts.getNames();
 0088             <span class="keyword">end</span>
 0089         <span class="keyword">end</span>
 0090     
@@ -219,12 +219,12 @@ This function is called by:
 0148             <span class="comment">% and with key-value pairs with one or more of the following</span>
 0149             <span class="comment">% &quot;bulk in&quot;, &quot;bulk out&quot;, &quot;model&quot;</span>
 0150             <span class="comment">%</span>
-0151             <span class="comment">% problem.addDomainContrast('domainContrast 1', 'nba', 'Silicon');</span>
+0151             <span class="comment">% problem.addDomainContrast('domainContrast 1', 'bulkIn', 'Silicon');</span>
 0152             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
 0153                 allowedNames = obj.getAllAllowedNames();
 0154                 obj.domainContrasts.addContrast(allowedNames, varargin{:});
 0155             <span class="keyword">else</span>
-0156                 throw(invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
+0156                 throw(exceptions.invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
 0157             <span class="keyword">end</span>
 0158         <span class="keyword">end</span>
 0159 
@@ -236,7 +236,7 @@ This function is called by:
 0165             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
 0166                 obj.domainContrasts.removeContrast(row);
 0167             <span class="keyword">else</span>
-0168                 throw(invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
+0168                 throw(exceptions.invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
 0169             <span class="keyword">end</span>
 0170         <span class="keyword">end</span>
 0171  
@@ -254,7 +254,7 @@ This function is called by:
 0183                 <span class="comment">% Call the setContrast method</span>
 0184                 obj.domainContrasts.setContrast(row, allowedValues, varargin{:});
 0185             <span class="keyword">else</span>
-0186                 throw(invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
+0186                 throw(exceptions.invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
 0187             <span class="keyword">end</span>
 0188         <span class="keyword">end</span>
 0189         
@@ -267,7 +267,7 @@ This function is called by:
 0196                 allowedValues = obj.layers.getNames();
 0197                 obj.domainContrasts.setContrastModel(row, obj.modelType, allowedValues, model);
 0198             <span class="keyword">else</span>
-0199                 throw(invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
+0199                 throw(exceptions.invalidProperty(sprintf(<span class="string">'Domain Contrasts are not defined for the model type: %s'</span>, obj.modelType)));
 0200             <span class="keyword">end</span>
 0201         <span class="keyword">end</span>
 0202 
@@ -291,50 +291,49 @@ This function is called by:
 0220             domainRatioStruct = obj.domainRatio.toStruct();
 0221             domainRatioStruct = cell2struct(struct2cell(domainRatioStruct), <span class="keyword">...</span>
 0222                                             {<span class="string">'domainRatioNames'</span>, <span class="keyword">...</span>
-0223                                              <span class="string">'ndomainRatios'</span>, <span class="keyword">...</span>
-0224                                              <span class="string">'domainRatioConstr'</span>, <span class="keyword">...</span>
-0225                                              <span class="string">'domainRatios'</span>, <span class="keyword">...</span>
-0226                                              <span class="string">'domainRatioFitYesNo'</span>, <span class="keyword">...</span>
-0227                                              <span class="string">'domainRatioPriors'</span>});
-0228 
-0229             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
-0230                 outStruct = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(mainStruct, <span class="keyword">...</span>
-0231                                          domainContrastStruct, <span class="keyword">...</span>
-0232                                          domainRatioStruct);
-0233             <span class="keyword">else</span>
-0234                 outStruct = <a href="mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(mainStruct, <span class="keyword">...</span>
-0235                                          domainRatioStruct);
-0236             <span class="keyword">end</span>
-0237 
-0238         <span class="keyword">end</span>
-0239 
-0240     <span class="keyword">end</span>
-0241     
-0242     <span class="comment">% ------------------------------------------------------------------</span>
-0243 
-0244     methods (Hidden)
-0245 
-0246         <a name="_sub13" href="#_subfunctions" class="code">function projectObj = projectClass(obj)</a>
-0247             <span class="comment">% Converter routine from domainsClass to projectClass.</span>
-0248             <span class="comment">% This routine takes the currently defined project and</span>
-0249             <span class="comment">% converts it to a nonPolarised calculation, preserving all</span>
-0250             <span class="comment">% currently defined properties.</span>
-0251             <span class="comment">%</span>
-0252             <span class="comment">% nonPolarisedProblem = problem.projectClass();</span>
-0253             projectObj = <a href="projectClass.html" class="code" title="">projectClass</a>(obj.experimentName, calculationTypes.NonPolarised, obj.modelType, obj.geometry, obj.absorption);
-0254             projectObj = copyProperties(obj, projectObj);
-0255 
-0256             <span class="comment">% Need to treat contrasts separately due to changes in the</span>
-0257             <span class="comment">% class for domains calculations</span>
-0258             projectObj.contrasts = copyProperties(obj.contrasts, <a href="contrastsClass.html" class="code" title="">contrastsClass</a>(oilWater=obj.contrasts.oilWaterCalc));
-0259         <span class="keyword">end</span>
-0260 
-0261     <span class="keyword">end</span>
-0262     
-0263 <span class="keyword">end</span>
-0264 
+0223                                              <span class="string">'domainRatioLimits'</span>, <span class="keyword">...</span>
+0224                                              <span class="string">'domainRatioValues'</span>, <span class="keyword">...</span>
+0225                                              <span class="string">'fitDomainRatio'</span>, <span class="keyword">...</span>
+0226                                              <span class="string">'domainRatioPriors'</span>});
+0227 
+0228             <span class="keyword">if</span> isa(obj.domainContrasts, <span class="string">'domainContrastsClass'</span>)
+0229                 outStruct = <a href="../../API/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(mainStruct, <span class="keyword">...</span>
+0230                                          domainContrastStruct, <span class="keyword">...</span>
+0231                                          domainRatioStruct);
+0232             <span class="keyword">else</span>
+0233                 outStruct = <a href="../../API/mergeStructs.html" class="code" title="function outStruct = mergeStructs(varargin)">mergeStructs</a>(mainStruct, <span class="keyword">...</span>
+0234                                          domainRatioStruct);
+0235             <span class="keyword">end</span>
+0236 
+0237         <span class="keyword">end</span>
+0238 
+0239     <span class="keyword">end</span>
+0240     
+0241     <span class="comment">% ------------------------------------------------------------------</span>
+0242 
+0243     methods (Hidden)
+0244 
+0245         <a name="_sub13" href="#_subfunctions" class="code">function projectObj = projectClass(obj)</a>
+0246             <span class="comment">% Converter routine from domainsClass to projectClass.</span>
+0247             <span class="comment">% This routine takes the currently defined project and</span>
+0248             <span class="comment">% converts it to a nonPolarised calculation, preserving all</span>
+0249             <span class="comment">% currently defined properties.</span>
+0250             <span class="comment">%</span>
+0251             <span class="comment">% nonPolarisedProblem = problem.projectClass();</span>
+0252             projectObj = <a href="projectClass.html" class="code" title="">projectClass</a>(obj.experimentName, calculationTypes.NonPolarised, obj.modelType, obj.geometry, obj.absorption);
+0253             projectObj = copyProperties(obj, projectObj);
+0254 
+0255             <span class="comment">% Need to treat contrasts separately due to changes in the</span>
+0256             <span class="comment">% class for domains calculations</span>
+0257             projectObj.contrasts = copyProperties(obj.contrasts, <a href="contrastsClass.html" class="code" title="">contrastsClass</a>(oilWater=obj.contrasts.oilWaterCalc));
+0258         <span class="keyword">end</span>
+0259 
+0260     <span class="keyword">end</span>
+0261     
+0262 <span class="keyword">end</span>
+0263 
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

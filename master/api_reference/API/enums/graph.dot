@@ -11,7 +11,7 @@ digraph m2html {
   parallelOptions -> parallelOptions;
   priorTypes -> priorTypes;
   procedures -> procedures;
-  strategyOptions -> strategyOptions;
+  searchStrategy -> searchStrategy;
   supportedLanguages -> supportedLanguages;
 
   allowedTypes [URL="allowedTypes.html"];
@@ -25,6 +25,6 @@ digraph m2html {
   parallelOptions [URL="parallelOptions.html"];
   priorTypes [URL="priorTypes.html"];
   procedures [URL="procedures.html"];
-  strategyOptions [URL="strategyOptions.html"];
+  searchStrategy [URL="searchStrategy.html"];
   supportedLanguages [URL="supportedLanguages.html"];
 }

@@ -129,10 +129,10 @@ This function is called by:
 0073                 row = obj.findRowIndex(row, rowNames, <span class="string">'Unrecognised parameter name'</span>);
 0074             <span class="keyword">elseif</span> isnumeric(row)
 0075                 <span class="keyword">if</span> (row &lt; 1) || (row &gt; obj.rowCount)
-0076                     throw(indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, row, obj.rowCount)));
+0076                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, row, obj.rowCount)));
 0077                 <span class="keyword">end</span>
 0078             <span class="keyword">else</span>
-0079                 throw(invalidType(<span class="string">'Unrecognised row'</span>));
+0079                 throw(exceptions.invalidType(<span class="string">'Unrecognised row'</span>));
 0080             <span class="keyword">end</span>
 0081             
 0082             <span class="comment">% Second parameter needs to be either a column name or</span>
@@ -143,10 +143,10 @@ This function is called by:
 0087                 col = obj.findRowIndex(col,colNames, <span class="string">'Unrecognised column name'</span>);
 0088             <span class="keyword">elseif</span> isnumeric(col)
 0089                 <span class="keyword">if</span> (col &lt; 1) || (col &gt; length(colNames))
-0090                     throw(indexOutOfRange(sprintf(<span class="string">'The column index %d is not within the range 1 - %d'</span>, col, length(colNames))));
+0090                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'The column index %d is not within the range 1 - %d'</span>, col, length(colNames))));
 0091                 <span class="keyword">end</span>
 0092             <span class="keyword">else</span>
-0093                 throw(invalidType(<span class="string">'Unrecognised column'</span>));
+0093                 throw(exceptions.invalidType(<span class="string">'Unrecognised column'</span>));
 0094             <span class="keyword">end</span>
 0095             
 0096             <span class="comment">% Set the value</span>
@@ -160,6 +160,6 @@ This function is called by:
 0104 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

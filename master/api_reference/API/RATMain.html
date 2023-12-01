@@ -33,7 +33,9 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="../targetFunctions/reflectivityCalculation/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>	Main entry point into the reflectivity calculation for the toolbox.</li>
+<li><a href="../targetFunctions/+domainsTF/reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = reflectivityCalculation(problemDef,problemDefCells,controls)">reflectivityCalculation</a>	Main function for the domainsTF reflectivity calculation</li>
+<li><a href="../targetFunctions/+nonPolarisedTF/reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = reflectivityCalculation(problemDef,problemDefCells,controls)">reflectivityCalculation</a>	Main function for the nonPolarisedTF reflectivity calculation</li>
+<li><a href="../targetFunctions/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls)">reflectivityCalculation</a>	Main entry point into the reflectivity calculation for the toolbox.</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
@@ -54,12 +56,12 @@ This function is called by:
 0009 preAlloc = zeros(numberOfContrasts,1);
 0010 
 0011 problem = struct(<span class="string">'ssubs'</span>,preAlloc,<span class="keyword">...</span>
-0012                  <span class="string">'backgrounds'</span>,preAlloc,<span class="keyword">...</span>
-0013                  <span class="string">'qshifts'</span>,preAlloc,<span class="keyword">...</span>
+0012                  <span class="string">'backgroundParams'</span>,preAlloc,<span class="keyword">...</span>
+0013                  <span class="string">'qzshifts'</span>,preAlloc,<span class="keyword">...</span>
 0014                  <span class="string">'scalefactors'</span>,preAlloc,<span class="keyword">...</span>
-0015                  <span class="string">'nbairs'</span>,preAlloc,<span class="keyword">...</span>
-0016                  <span class="string">'nbsubs'</span>,preAlloc,<span class="keyword">...</span>
-0017                  <span class="string">'resolutions'</span>,preAlloc,<span class="keyword">...</span>
+0015                  <span class="string">'bulkIn'</span>,preAlloc,<span class="keyword">...</span>
+0016                  <span class="string">'bulkOut'</span>,preAlloc,<span class="keyword">...</span>
+0017                  <span class="string">'resolutionParams'</span>,preAlloc,<span class="keyword">...</span>
 0018                  <span class="string">'calculations'</span>,struct(<span class="string">'all_chis'</span>,preAlloc,<span class="string">'sum_chi'</span>,0),<span class="keyword">...</span>
 0019                  <span class="string">'allSubRough'</span>,preAlloc,<span class="keyword">...</span>
 0020                  <span class="string">'resample'</span>,preAlloc);
@@ -84,7 +86,7 @@ This function is called by:
 0039 <span class="comment">%Decide what we are doing....</span>
 0040 <span class="keyword">switch</span> lower(controls.procedure)
 0041     <span class="keyword">case</span> <span class="string">'calculate'</span> <span class="comment">%Just a single reflectivity calculation</span>
-0042         [problem,results] = <a href="../targetFunctions/reflectivityCalculation/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>(problemDef,problemDefCells,problemDefLimits,controls);
+0042         [problem,results] = <a href="../targetFunctions/+domainsTF/reflectivityCalculation.html" class="code" title="function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers] = reflectivityCalculation(problemDef,problemDefCells,controls)">reflectivityCalculation</a>(problemDef,problemDefCells,controls);
 0043         outProblemDef = problemDef;
 0044     <span class="keyword">case</span> <span class="string">'simplex'</span>
 0045         <span class="keyword">if</span> ~strcmpi(controls.display,<span class="string">'off'</span>)
@@ -111,6 +113,6 @@ This function is called by:
 0066 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

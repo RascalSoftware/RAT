@@ -15,8 +15,8 @@
 </head>
 <body>
 <a name="_top"></a>
-<!-- # targetFunctions -->
-<!-- # common -->
+<!-- ../../menu.html targetFunctions -->
+<!-- ../menu.html common -->
 <!-- menu.html makeSLDProfiles -->
 
 <h1>makeSLDProfiles
@@ -26,7 +26,7 @@
 <div class="box"><strong></strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function sldProfile= makeSLDProfiles(nbair,nbsub,sld,ssub,repeats) </strong></div>
+<div class="box"><strong>function sldProfile= makeSLDProfiles(bulkIn,bulkOut,sld,ssub,repeats) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment"></pre></div>
@@ -35,18 +35,18 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="makeSLDProfileXY.html" class="code" title="function out = makeSLDProfileXY(nbair,nbsub,ssub,layers,numberOfLayers,nrepeats)">makeSLDProfileXY</a>	</li>
+<li><a href="makeSLDProfileXY.html" class="code" title="function out = makeSLDProfileXY(bulkIn,bulkOut,ssub,layers,numberOfLayers,nrepeats)">makeSLDProfileXY</a>	</li>
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">standardTFLayersCore</a>	This is the main reflectivity calculation for all Layers models in the</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/coreLayersCalculation.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =coreLayersCalculation(contrastLayers, rough,geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">coreLayersCalculation</a>	This is the main reflectivity calculation for all Layers models in the</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function sldProfile= makeSLDProfiles(nbair,nbsub,sld,ssub,repeats)</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function sldProfile= makeSLDProfiles(bulkIn,bulkOut,sld,ssub,repeats)</a>
 0002 
 0003 
 0004 lays = size(sld,1);
@@ -57,11 +57,11 @@ This function is called by:
 0009 <span class="keyword">end</span>
 0010 
 0011 
-0012 sldProfile = <a href="makeSLDProfileXY.html" class="code" title="function out = makeSLDProfileXY(nbair,nbsub,ssub,layers,numberOfLayers,nrepeats)">makeSLDProfileXY</a>(nbair,nbsub,ssub,sld,lays,reps);
+0012 sldProfile = <a href="makeSLDProfileXY.html" class="code" title="function out = makeSLDProfileXY(bulkIn,bulkOut,ssub,layers,numberOfLayers,nrepeats)">makeSLDProfileXY</a>(bulkIn,bulkOut,ssub,sld,lays,reps);
 0013 
 0014 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

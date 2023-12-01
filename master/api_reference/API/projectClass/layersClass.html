@@ -39,7 +39,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../API/project.html" class="code" title="function obj = project(options)">project</a>	Creates a project object.</li>
+<li><a href="../../API/createProject.html" class="code" title="function obj = createProject(options)">createProject</a>	Creates a project object.</li>
 <li><a href="layersClass.html" class="code" title="">layersClass</a>	</li>
 <li><a href="projectClass.html" class="code" title="">projectClass</a>	</li>
 </ul>
@@ -105,183 +105,182 @@ This function is called by:
 0046             <span class="comment">%</span>
 0047             <span class="comment">% layers.addLayer(parameters.varTable{:, 1});</span>
 0048             <span class="comment">% layers.addLayer(parameters.varTable{:, 1}, 'New layer');</span>
-0049             <span class="comment">% layers.addLayer(parameters.varTable{:, 1},...</span>
-0050             <span class="comment">%                 'Another layer', 1, 2, 3);</span>
-0051             layerDetails = varargin;
-0052 
-0053             <span class="keyword">if</span> isempty(layerDetails)
-0054                 <span class="comment">% Add an empty layer</span>
-0055                 layerNum = obj.autoNameCounter;
-0056                 layerName = sprintf(<span class="string">'Layer %d'</span>,layerNum);
-0057                 newRow = [{layerName}, repmat({<span class="string">''</span>}, 1, obj.varCount - 2), {hydrationTypes.BulkOut.value}];
-0058                 
-0059             <span class="keyword">elseif</span> length(layerDetails) == 1 &amp;&amp; isText(layerDetails{1})
-0060                 <span class="comment">% Add an empty named layer</span>
-0061                 newRow = [layerDetails(1), repmat({<span class="string">''</span>}, 1, obj.varCount - 2), {hydrationTypes.BulkOut.value}];
-0062             
-0063             <span class="keyword">else</span>
-0064                 <span class="comment">% Add a layer that is fully defined</span>
-0065                 <span class="keyword">if</span> length(layerDetails) == (obj.varCount - 2)
-0066                     <span class="comment">% No hydration</span>
-0067                     layerDetails = [layerDetails, {<span class="string">''</span>, hydrationTypes.BulkOut.value}];
-0068                 <span class="keyword">elseif</span> length(layerDetails) ~= obj.varCount
-0069                     throw(invalidNumberOfInputs(sprintf(<span class="string">'Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.'</span>, obj.varCount - 2, obj.varCount)));
-0070                 <span class="keyword">end</span>
-0071                 
-0072                 name = layerDetails{1};
-0073                 hydration = validateOption(layerDetails{end}, <span class="string">'hydrationTypes'</span>, obj.invalidTypeMessage).value;
-0074                 
-0075                 <span class="comment">% Check that the parameter names given are real</span>
-0076                 <span class="comment">% parameters or numbers</span>
-0077                 newRow = [name, repmat({<span class="string">''</span>}, 1, obj.varCount - 2), hydration];
-0078                 
-0079                 <span class="comment">% Must be a parameter name or number . . .</span>
-0080                 <span class="keyword">for</span> i = 2:(obj.varCount - 2)
-0081                     newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
-0082                 <span class="keyword">end</span>
-0083 
-0084                 <span class="comment">%  . . . (apart from the penultimate column which can also be empty or NaN)</span>
-0085                 <span class="keyword">if</span> ~(strcmpi(layerDetails{obj.varCount - 1}, <span class="string">''</span>) || any(isnan(layerDetails{obj.varCount - 1})))
-0086                     newRow{obj.varCount - 1} = obj.findParameter(layerDetails{obj.varCount - 1}, paramNames);
-0087                 <span class="keyword">end</span>
-0088 
-0089             <span class="keyword">end</span>
-0090 
-0091             obj.addRow(newRow{:});
-0092 
-0093         <span class="keyword">end</span>
-0094         
-0095         <a name="_sub3" href="#_subfunctions" class="code">function obj = setLayerValue(obj, row, col, inputValue, paramNames)</a>
-0096             <span class="comment">% Change the value of a given layer parameter in the table</span>
-0097             <span class="comment">% (excluding the layer name). The row and column of the</span>
-0098             <span class="comment">% parameter can both be specified by either name or index.</span>
-0099             <span class="comment">% The expected input is a row parameter (name or index), a</span>
-0100             <span class="comment">% column parameter (name or index), the new value to be set at</span>
-0101             <span class="comment">% that row and column, and a string array of parameter names</span>
-0102             <span class="comment">% defined in the project's parameter class.</span>
-0103             <span class="comment">%</span>
-0104             <span class="comment">% layers.setLayerValue(1, 1, 'origin', parameters.varTable{:, 1});</span>
-0105             layerNames = obj.varTable{:,1};
-0106             colNames = obj.varTable.Properties.VariableNames;
-0107             
-0108             <span class="comment">% Find the row index if we have a layer name</span>
-0109             <span class="keyword">if</span> isText(row)
-0110                 row = obj.findRowIndex(row, layerNames, <span class="string">'Unrecognised layer name'</span>);
-0111             <span class="keyword">elseif</span> isnumeric(row)
-0112                 <span class="keyword">if</span> (row &lt; 1) || (row &gt; obj.rowCount)
-0113                     throw(indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, row, obj.rowCount)));
-0114                 <span class="keyword">end</span>
-0115             <span class="keyword">else</span>
-0116                 throw(invalidType(<span class="string">'Unrecognised layer type'</span>));
-0117             <span class="keyword">end</span>
-0118             
-0119             <span class="comment">% Find the column index if we have a column name</span>
-0120             <span class="keyword">if</span> isText(col)
-0121                 col = obj.findRowIndex(col, colNames, <span class="string">'Unrecognised column name'</span>);
-0122             <span class="keyword">elseif</span> isnumeric(col)
-0123                 <span class="keyword">if</span> (col &lt; 1) || (col &gt; length(colNames))
-0124                     throw(indexOutOfRange(sprintf(<span class="string">'The column index %d is not within the range 1 - %d'</span>, col, length(colNames))));
-0125                 <span class="keyword">end</span>
-0126             <span class="keyword">else</span>
-0127                 throw(invalidType(<span class="string">'Unrecognised layer table column type'</span>));
-0128             <span class="keyword">end</span>
-0129 
-0130             <span class="keyword">if</span> ~isnumeric(col) || col &lt; 2  || col &gt; length(colNames)
-0131                 throw(indexOutOfRange(sprintf(<span class="string">'Column index should be a number between 2 and %d'</span>, length(colNames))));
-0132             <span class="keyword">end</span>
-0133 
-0134             <span class="keyword">if</span> col == length(colNames)
-0135                 val = validateOption(inputValue, <span class="string">'hydrationTypes'</span>, obj.invalidTypeMessage).value;
-0136             <span class="keyword">else</span>
-0137                 val = obj.findParameter(inputValue, paramNames);
-0138             <span class="keyword">end</span>
-0139                 
-0140             obj.varTable(row,col) = {val};
-0141             
-0142         <span class="keyword">end</span>
-0143         
-0144         <a name="_sub4" href="#_subfunctions" class="code">function outStruct = toStruct(obj, paramNames)</a>
-0145             <span class="comment">% Convert the layers class to a struct.</span>
-0146             <span class="comment">%</span>
-0147             <span class="comment">% layers.toStruct()</span>
-0148             layersCell = obj.varTable{:,:};
-0149 
-0150             outStruct.numberOfLayers = size(layersCell, 1);
-0151             outStruct.layersNames = layersCell(:,1);
-0152             
-0153             <span class="comment">% parse the layers details</span>
-0154             layersValues = layersCell(:,2:end);         
-0155             layersDetails = cell([1, outStruct.numberOfLayers]);
-0156 
-0157             <span class="keyword">for</span> i = 1:outStruct.numberOfLayers
-0158 
-0159                 thisLayer = layersValues(i,:);
-0160                 numCols = length(thisLayer);
-0161                 paramIndices = zeros(1,numCols-2);
-0162                 <span class="keyword">for</span> j = 1:numCols-2
-0163                     paramIndices(j) = find(strcmpi(thisLayer{j},paramNames));
-0164                 <span class="keyword">end</span>
-0165 
-0166                 <span class="keyword">if</span> strcmpi(thisLayer(numCols-1), &quot;&quot;)
-0167                     hydr = NaN;
-0168                 <span class="keyword">else</span>
-0169                     hydr = find(strcmpi(thisLayer{numCols-1},paramNames));
-0170                 <span class="keyword">end</span>
-0171 
-0172                 <span class="keyword">if</span> strcmpi(thisLayer{numCols}, hydrationTypes.BulkIn.value)
-0173                     hydrWhat = 1;
-0174                 <span class="keyword">else</span>
-0175                     hydrWhat = 2;
-0176                 <span class="keyword">end</span>
-0177                 layersDetails{i} = [paramIndices hydr hydrWhat];
-0178                 
-0179             <span class="keyword">end</span>
-0180 
-0181             <span class="keyword">if</span> outStruct.numberOfLayers &gt; 0
-0182                 outStruct.layersDetails = layersDetails(:);
-0183             <span class="keyword">else</span>
-0184                 outStruct.layersDetails = {};
-0185             <span class="keyword">end</span>
-0186             
-0187         <span class="keyword">end</span>
-0188 
-0189     <span class="keyword">end</span>
-0190         
-0191     methods(Static)
-0192 
-0193         <a name="_sub5" href="#_subfunctions" class="code">function param = findParameter(inputVal, paramNames)</a>
-0194             <span class="comment">% Find whether or not a proposed layer parameter is included</span>
-0195             <span class="comment">% in a list of parameters, or obtain a parameter by index.</span>
-0196             <span class="comment">% The expected inputs are the potential layer parameter value</span>
-0197             <span class="comment">% (either name or index) and a list of parameter names.</span>
-0198 
-0199             <span class="keyword">if</span> isText(inputVal)
-0200                 <span class="keyword">if</span> ~any(strcmpi(inputVal, paramNames))
-0201                     throw(nameNotRecognised(sprintf(<span class="string">'Parameter %s not recognized'</span>, inputVal)));
-0202                 <span class="keyword">end</span>
-0203                 param = inputVal;
-0204 
-0205             <span class="keyword">elseif</span> isnumeric(inputVal)
-0206                 paramIndex = floor(inputVal);
-0207                 <span class="keyword">if</span> paramIndex &lt; 1 || paramIndex &gt; length(paramNames)
-0208                     throw(indexOutOfRange(sprintf(<span class="string">'Parameter ''%d'' is out of range 1 - %d'</span>, paramIndex, length(paramNames))));
-0209                 <span class="keyword">end</span>
-0210                 param = paramNames{paramIndex};
-0211 
-0212             <span class="keyword">else</span>
-0213                 throw(invalidType(sprintf(<span class="string">'Parameter %s is not in a recognizable format'</span>, inputVal)));
-0214                 
-0215             <span class="keyword">end</span>
-0216         <span class="keyword">end</span>
-0217 
-0218     <span class="keyword">end</span>
-0219 <span class="keyword">end</span>
+0049             <span class="comment">% layers.addLayer(parameters.varTable{:, 1}, 'Another layer', 1, 2, 3);</span>
+0050             layerDetails = varargin;
+0051 
+0052             <span class="keyword">if</span> isempty(layerDetails)
+0053                 <span class="comment">% Add an empty layer</span>
+0054                 layerNum = obj.autoNameCounter;
+0055                 layerName = sprintf(<span class="string">'Layer %d'</span>,layerNum);
+0056                 newRow = [{layerName}, repmat({<span class="string">''</span>}, 1, obj.varCount - 2), {hydrationTypes.BulkOut.value}];
+0057                 
+0058             <span class="keyword">elseif</span> length(layerDetails) == 1 &amp;&amp; isText(layerDetails{1})
+0059                 <span class="comment">% Add an empty named layer</span>
+0060                 newRow = [layerDetails(1), repmat({<span class="string">''</span>}, 1, obj.varCount - 2), {hydrationTypes.BulkOut.value}];
+0061             
+0062             <span class="keyword">else</span>
+0063                 <span class="comment">% Add a layer that is fully defined</span>
+0064                 <span class="keyword">if</span> length(layerDetails) == (obj.varCount - 2)
+0065                     <span class="comment">% No hydration</span>
+0066                     layerDetails = [layerDetails, {<span class="string">''</span>, hydrationTypes.BulkOut.value}];
+0067                 <span class="keyword">elseif</span> length(layerDetails) ~= obj.varCount
+0068                     throw(exceptions.invalidNumberOfInputs(sprintf(<span class="string">'Incorrect number of parameters for layer definition. Either 0, 1, %d, or %d inputs are required.'</span>, obj.varCount - 2, obj.varCount)));
+0069                 <span class="keyword">end</span>
+0070                 
+0071                 name = layerDetails{1};
+0072                 hydration = validateOption(layerDetails{end}, <span class="string">'hydrationTypes'</span>, obj.invalidTypeMessage).value;
+0073                 
+0074                 <span class="comment">% Check that the parameter names given are real</span>
+0075                 <span class="comment">% parameters or numbers</span>
+0076                 newRow = [name, repmat({<span class="string">''</span>}, 1, obj.varCount - 2), hydration];
+0077                 
+0078                 <span class="comment">% Must be a parameter name or number . . .</span>
+0079                 <span class="keyword">for</span> i = 2:(obj.varCount - 2)
+0080                     newRow{i} = obj.findParameter(layerDetails{i}, paramNames);
+0081                 <span class="keyword">end</span>
+0082 
+0083                 <span class="comment">%  . . . (apart from the penultimate column which can also be empty or NaN)</span>
+0084                 <span class="keyword">if</span> ~(strcmpi(layerDetails{obj.varCount - 1}, <span class="string">''</span>) || any(isnan(layerDetails{obj.varCount - 1})))
+0085                     newRow{obj.varCount - 1} = obj.findParameter(layerDetails{obj.varCount - 1}, paramNames);
+0086                 <span class="keyword">end</span>
+0087 
+0088             <span class="keyword">end</span>
+0089 
+0090             obj.addRow(newRow{:});
+0091 
+0092         <span class="keyword">end</span>
+0093         
+0094         <a name="_sub3" href="#_subfunctions" class="code">function obj = setLayerValue(obj, row, col, inputValue, paramNames)</a>
+0095             <span class="comment">% Change the value of a given layer parameter in the table</span>
+0096             <span class="comment">% (excluding the layer name). The row and column of the</span>
+0097             <span class="comment">% parameter can both be specified by either name or index.</span>
+0098             <span class="comment">% The expected input is a row parameter (name or index), a</span>
+0099             <span class="comment">% column parameter (name or index), the new value to be set at</span>
+0100             <span class="comment">% that row and column, and a string array of parameter names</span>
+0101             <span class="comment">% defined in the project's parameter class.</span>
+0102             <span class="comment">%</span>
+0103             <span class="comment">% layers.setLayerValue(1, 1, 'origin', parameters.varTable{:, 1});</span>
+0104             layerNames = obj.varTable{:,1};
+0105             colNames = obj.varTable.Properties.VariableNames;
+0106             
+0107             <span class="comment">% Find the row index if we have a layer name</span>
+0108             <span class="keyword">if</span> isText(row)
+0109                 row = obj.findRowIndex(row, layerNames, <span class="string">'Unrecognised layer name'</span>);
+0110             <span class="keyword">elseif</span> isnumeric(row)
+0111                 <span class="keyword">if</span> (row &lt; 1) || (row &gt; obj.rowCount)
+0112                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'The row index %d is not within the range 1 - %d'</span>, row, obj.rowCount)));
+0113                 <span class="keyword">end</span>
+0114             <span class="keyword">else</span>
+0115                 throw(exceptions.invalidType(<span class="string">'Unrecognised layer type'</span>));
+0116             <span class="keyword">end</span>
+0117             
+0118             <span class="comment">% Find the column index if we have a column name</span>
+0119             <span class="keyword">if</span> isText(col)
+0120                 col = obj.findRowIndex(col, colNames, <span class="string">'Unrecognised column name'</span>);
+0121             <span class="keyword">elseif</span> isnumeric(col)
+0122                 <span class="keyword">if</span> (col &lt; 1) || (col &gt; length(colNames))
+0123                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'The column index %d is not within the range 1 - %d'</span>, col, length(colNames))));
+0124                 <span class="keyword">end</span>
+0125             <span class="keyword">else</span>
+0126                 throw(exceptions.invalidType(<span class="string">'Unrecognised layer table column type'</span>));
+0127             <span class="keyword">end</span>
+0128 
+0129             <span class="keyword">if</span> ~isnumeric(col) || col &lt; 2  || col &gt; length(colNames)
+0130                 throw(exceptions.indexOutOfRange(sprintf(<span class="string">'Column index should be a number between 2 and %d'</span>, length(colNames))));
+0131             <span class="keyword">end</span>
+0132 
+0133             <span class="keyword">if</span> col == length(colNames)
+0134                 val = validateOption(inputValue, <span class="string">'hydrationTypes'</span>, obj.invalidTypeMessage).value;
+0135             <span class="keyword">else</span>
+0136                 val = obj.findParameter(inputValue, paramNames);
+0137             <span class="keyword">end</span>
+0138                 
+0139             obj.varTable(row,col) = {val};
+0140             
+0141         <span class="keyword">end</span>
+0142         
+0143         <a name="_sub4" href="#_subfunctions" class="code">function outStruct = toStruct(obj, paramNames)</a>
+0144             <span class="comment">% Convert the layers class to a struct.</span>
+0145             <span class="comment">%</span>
+0146             <span class="comment">% layers.toStruct()</span>
+0147             layersCell = obj.varTable{:,:};
+0148 
+0149             outStruct.numberOfLayers = size(layersCell, 1);
+0150             outStruct.layerNames = layersCell(:,1);
+0151             
+0152             <span class="comment">% parse the layers details</span>
+0153             layerValues = layersCell(:,2:end);         
+0154             layerDetails = cell([1, outStruct.numberOfLayers]);
+0155 
+0156             <span class="keyword">for</span> i = 1:outStruct.numberOfLayers
+0157 
+0158                 thisLayer = layerValues(i,:);
+0159                 numCols = length(thisLayer);
+0160                 paramIndices = zeros(1,numCols-2);
+0161                 <span class="keyword">for</span> j = 1:numCols-2
+0162                     paramIndices(j) = find(strcmpi(thisLayer{j},paramNames));
+0163                 <span class="keyword">end</span>
+0164 
+0165                 <span class="keyword">if</span> strcmpi(thisLayer(numCols-1), &quot;&quot;)
+0166                     hydr = NaN;
+0167                 <span class="keyword">else</span>
+0168                     hydr = find(strcmpi(thisLayer{numCols-1},paramNames));
+0169                 <span class="keyword">end</span>
+0170 
+0171                 <span class="keyword">if</span> strcmpi(thisLayer{numCols}, hydrationTypes.BulkIn.value)
+0172                     hydrWhat = 1;
+0173                 <span class="keyword">else</span>
+0174                     hydrWhat = 2;
+0175                 <span class="keyword">end</span>
+0176                 layerDetails{i} = [paramIndices hydr hydrWhat];
+0177                 
+0178             <span class="keyword">end</span>
+0179 
+0180             <span class="keyword">if</span> outStruct.numberOfLayers &gt; 0
+0181                 outStruct.layerDetails = layerDetails(:);
+0182             <span class="keyword">else</span>
+0183                 outStruct.layerDetails = {};
+0184             <span class="keyword">end</span>
+0185             
+0186         <span class="keyword">end</span>
+0187 
+0188     <span class="keyword">end</span>
+0189         
+0190     methods(Static)
+0191 
+0192         <a name="_sub5" href="#_subfunctions" class="code">function param = findParameter(inputVal, paramNames)</a>
+0193             <span class="comment">% Find whether or not a proposed layer parameter is included</span>
+0194             <span class="comment">% in a list of parameters, or obtain a parameter by index.</span>
+0195             <span class="comment">% The expected inputs are the potential layer parameter value</span>
+0196             <span class="comment">% (either name or index) and a list of parameter names.</span>
+0197 
+0198             <span class="keyword">if</span> isText(inputVal)
+0199                 <span class="keyword">if</span> ~any(strcmpi(inputVal, paramNames))
+0200                     throw(exceptions.nameNotRecognised(sprintf(<span class="string">'Parameter %s not recognized'</span>, inputVal)));
+0201                 <span class="keyword">end</span>
+0202                 param = inputVal;
+0203 
+0204             <span class="keyword">elseif</span> isnumeric(inputVal)
+0205                 paramIndex = floor(inputVal);
+0206                 <span class="keyword">if</span> paramIndex &lt; 1 || paramIndex &gt; length(paramNames)
+0207                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'Parameter ''%d'' is out of range 1 - %d'</span>, paramIndex, length(paramNames))));
+0208                 <span class="keyword">end</span>
+0209                 param = paramNames{paramIndex};
+0210 
+0211             <span class="keyword">else</span>
+0212                 throw(exceptions.invalidType(sprintf(<span class="string">'Parameter %s is not in a recognizable format'</span>, inputVal)));
+0213                 
+0214             <span class="keyword">end</span>
+0215         <span class="keyword">end</span>
+0216 
+0217     <span class="keyword">end</span>
+0218 <span class="keyword">end</span>
+0219 
 0220 
 0221 
 0222 
-0223 
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

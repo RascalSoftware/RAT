@@ -1,12 +1,6 @@
 /* Created by mdot for Matlab */
 digraph m2html {
-  orso_test0 -> abelesSingle;
-  orso_test1 -> abelesSingle;
-  orso_test7 -> abelesSingle;
 
   abelesParallelPoints [URL="abelesParallelPoints.html"];
   abelesSingle [URL="abelesSingle.html"];
-  orso_test0 [URL="orso_test0.html"];
-  orso_test1 [URL="orso_test1.html"];
-  orso_test7 [URL="orso_test7.html"];
 }

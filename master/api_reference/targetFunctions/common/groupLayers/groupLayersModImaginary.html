@@ -4,7 +4,7 @@
 <head>
   <title>Description of groupLayersModImaginary</title>
   <meta name="keywords" content="groupLayersModImaginary">
-  <meta name="description" content="Arrange layers according to geometry and apply any coverage correction.">
+  <meta name="description" content="Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -15,49 +15,40 @@
 </head>
 <body>
 <a name="_top"></a>
-<!-- # targetFunctions -->
-<!-- # common -->
+<!-- ../../menu.html targetFunctions -->
+<!-- ../menu.html common -->
 <!-- menu.html groupLayers -->
 
 <h1>groupLayersModImaginary
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>Arrange layers according to geometry and apply any coverage correction.</strong></div>
+<div class="box"><strong>Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,nbair,nbsubs) </strong></div>
+<div class="box"><strong>function [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,bulkIns,bulkOuts) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">Arrange layers according to geometry and apply any coverage correction.
+<div class="fragment"><pre class="comment"> Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the 
+ z,rho,rough stack, and the parameter 'ssub' in callParatt is the final roughness encountered. 
+
+ * For air liquid 'ssub' is therefore the substrate roughness.
+ * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer
 
  USAGE::
 
-     [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,numberOfContrasts,geometry,nbairs,nbsubs)
+     [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,bulkIns,bulkOuts)
 
  INPUTS:
-
-     * allLayers =         cell array, one for each contrast. Each cell is the list of layer values for each contrast.
-     * allRoughs =         Double of substrate roughness for each contrast.
-     * numberOfContrasts = double.
-     * geometry =          'Air / Liquid (or solid)' or 'Solid / Liquid'
-     * nbairs =            vector of nbair values.
-     * nbsubs =            vector of nbsub values.
-
-     The paratt calculation procedds through the 
-     z,rho,rough stack, and the parameter 'ssub' in
-     callParatt is the final roughness encountered. 
-
-     * For air liquid 'ssub' is therefore the substrate roughness.
-
-     * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer
+     * allLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.
+     * allRoughs:  Double of substrate roughness for each contrast.
+     * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'
+     * bulkIns: vector of bulkIn values.
+     * bulkOuts: vector of bulkOut values.
 
  Outputs:
-
-     * outLayers = cell array of layers param values for each contrast.
-
-     * outSsubs =  vector of substrate roughness values.
-
+     * outLayers: cell array of layers param values for each contrast.
+     * outSsubs: vector of substrate roughness values.
 </pre></div>
 
 <!-- crossreference -->
@@ -67,114 +58,104 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../targetFunctions/standardTF/standardTFLayersCore.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =standardTFLayersCore(contrastLayers, rough,geometry, nba, nbs, resample, calcSld, sf, qshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">standardTFLayersCore</a>	This is the main reflectivity calculation for all Layers models in the</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/coreLayersCalculation.html" class="code" title="function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] =coreLayersCalculation(contrastLayers, rough,geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,dataPresent, data, dataLimits, simLimits, repeatLayers,background,resol,backsType,params,parallelPoints,resamPars,useImaginary)">coreLayersCalculation</a>	This is the main reflectivity calculation for all Layers models in the</li>
 </ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,nbair,nbsubs)</a>
-0002 <span class="comment">%Arrange layers according to geometry and apply any coverage correction.</span>
-0003 <span class="comment">%</span>
-0004 <span class="comment">% USAGE::</span>
-0005 <span class="comment">%</span>
-0006 <span class="comment">%     [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,numberOfContrasts,geometry,nbairs,nbsubs)</span>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,bulkIns,bulkOuts)</a>
+0002 <span class="comment">% Arrange layers according to geometry and apply any coverage correction. The paratt calculation proceeds through the</span>
+0003 <span class="comment">% z,rho,rough stack, and the parameter 'ssub' in callParatt is the final roughness encountered.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% * For air liquid 'ssub' is therefore the substrate roughness.</span>
+0006 <span class="comment">% * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer</span>
 0007 <span class="comment">%</span>
-0008 <span class="comment">% INPUTS:</span>
+0008 <span class="comment">% USAGE::</span>
 0009 <span class="comment">%</span>
-0010 <span class="comment">%     * allLayers =         cell array, one for each contrast. Each cell is the list of layer values for each contrast.</span>
-0011 <span class="comment">%     * allRoughs =         Double of substrate roughness for each contrast.</span>
-0012 <span class="comment">%     * numberOfContrasts = double.</span>
-0013 <span class="comment">%     * geometry =          'Air / Liquid (or solid)' or 'Solid / Liquid'</span>
-0014 <span class="comment">%     * nbairs =            vector of nbair values.</span>
-0015 <span class="comment">%     * nbsubs =            vector of nbsub values.</span>
-0016 <span class="comment">%</span>
-0017 <span class="comment">%     The paratt calculation procedds through the</span>
-0018 <span class="comment">%     z,rho,rough stack, and the parameter 'ssub' in</span>
-0019 <span class="comment">%     callParatt is the final roughness encountered.</span>
-0020 <span class="comment">%</span>
-0021 <span class="comment">%     * For air liquid 'ssub' is therefore the substrate roughness.</span>
-0022 <span class="comment">%</span>
-0023 <span class="comment">%     * For solid liquid, the substrate roughness is the first roughness encountered, and 'ssub' is then the roughness of the outermost layer</span>
-0024 <span class="comment">%</span>
-0025 <span class="comment">% Outputs:</span>
-0026 <span class="comment">%</span>
-0027 <span class="comment">%     * outLayers = cell array of layers param values for each contrast.</span>
-0028 <span class="comment">%</span>
-0029 <span class="comment">%     * outSsubs =  vector of substrate roughness values.</span>
-0030 <span class="comment">%</span>
-0031 
-0032 
-0033 <span class="comment">%outLayers = cell(1,numberOfContrasts);</span>
-0034 <span class="comment">%outSsubs = zeros(1,numberOfContrasts);</span>
-0035 
-0036 
-0037 coder.varsize(<span class="string">'layers'</span>,[Inf,6],[1 1]);
-0038 
-0039 <span class="comment">%for i = 1:numberOfContrasts</span>
-0040     output = allLayers;
-0041     s_sub = allRoughs;
-0042     layers = zeros(size(output));
-0043     <span class="keyword">if</span> ~isempty(output)
-0044         <span class="keyword">if</span> strcmpi(geometry,<span class="string">'air/substrate'</span>)
-0045                 layers = output;
-0046                 <span class="comment">%s_sub = rsub;</span>
-0047         <span class="keyword">else</span>
-0048                 roughs = output(:,4);
-0049                 sldss = output(:,2:3);
-0050                 thicks = output(:,1);
-0051                 rsub = roughs(end);
-0052                 <span class="keyword">if</span> length(roughs) &gt; 1
-0053                     roughs = [s_sub ; roughs(1:end-1)];
-0054                 <span class="keyword">else</span>
-0055                     roughs = s_sub;
-0056                 <span class="keyword">end</span>
-0057                 n = size(output,2);
-0058                 <span class="keyword">if</span> n == 5
-0059                     cov = output(:,5);
-0060                     layers = [thicks sldss roughs cov];
-0061                 <span class="keyword">else</span>
-0062                     layers = [thicks sldss roughs];
-0063                 <span class="keyword">end</span>
-0064                 s_sub = rsub;
-0065         <span class="keyword">end</span>
-0066         
-0067         <span class="comment">%Deal with the %coverage if present</span>
-0068         n = size(output,2);
-0069         l = size(output,1);
-0070         <span class="keyword">if</span> n == 6
-0071             <span class="keyword">for</span> j = 1:l
-0072                 this_pcw = output(j,5);
-0073                 <span class="keyword">if</span> output(j,5) == 1
-0074                     pc_add = nbair;
-0075                 <span class="keyword">else</span>
-0076                     pc_add = nbsubs;
-0077                 <span class="keyword">end</span>
-0078                 <span class="keyword">if</span> ~isnan(this_pcw)
-0079                     layers(j,2) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,2);
-0080                     <span class="comment">%layers(j,3) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,3);</span>
-0081                 <span class="keyword">end</span>
-0082             <span class="keyword">end</span>
-0083         <span class="keyword">end</span> 
-0084     <span class="keyword">end</span>
-0085 <span class="comment">%     problem.layers{i} = layers;</span>
-0086 <span class="comment">%     problem.ssubs(i) = s_sub;</span>
-0087 <span class="keyword">if</span> ~isempty(layers)
-0088     outLayers = layers(:,1:4);
-0089 <span class="keyword">else</span>
-0090     outLayers = zeros(1,4);
-0091 <span class="keyword">end</span>
-0092 outSsubs = s_sub;
-0093 
-0094 
-0095 <span class="keyword">end</span>
-0096 
-0097 
-0098 <span class="comment">%end</span>
-0099     
+0010 <span class="comment">%     [outLayers, outSsubs] = groupLayersModImaginary(allLayers,allRoughs,geometry,bulkIns,bulkOuts)</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% INPUTS:</span>
+0013 <span class="comment">%     * allLayers: cell array, one for each contrast. Each cell is the list of layer values for each contrast.</span>
+0014 <span class="comment">%     * allRoughs:  Double of substrate roughness for each contrast.</span>
+0015 <span class="comment">%     * geometry: 'Air / Liquid (or solid)' or 'Solid / Liquid'</span>
+0016 <span class="comment">%     * bulkIns: vector of bulkIn values.</span>
+0017 <span class="comment">%     * bulkOuts: vector of bulkOut values.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% Outputs:</span>
+0020 <span class="comment">%     * outLayers: cell array of layers param values for each contrast.</span>
+0021 <span class="comment">%     * outSsubs: vector of substrate roughness values.</span>
+0022 
+0023 <span class="comment">%outLayers = cell(1,numberOfContrasts);</span>
+0024 <span class="comment">%outSsubs = zeros(1,numberOfContrasts);</span>
+0025 
+0026 
+0027 coder.varsize(<span class="string">'layers'</span>,[Inf,6],[1 1]);
+0028 
+0029 <span class="comment">%for i = 1:numberOfContrasts</span>
+0030     output = allLayers;
+0031     s_sub = allRoughs;
+0032     layers = zeros(size(output));
+0033     <span class="keyword">if</span> ~isempty(output)
+0034         <span class="keyword">if</span> strcmpi(geometry,<span class="string">'air/substrate'</span>)
+0035                 layers = output;
+0036                 <span class="comment">%s_sub = rsub;</span>
+0037         <span class="keyword">else</span>
+0038                 roughs = output(:,4);
+0039                 sldss = output(:,2:3);
+0040                 thicks = output(:,1);
+0041                 rsub = roughs(end);
+0042                 <span class="keyword">if</span> length(roughs) &gt; 1
+0043                     roughs = [s_sub ; roughs(1:end-1)];
+0044                 <span class="keyword">else</span>
+0045                     roughs = s_sub;
+0046                 <span class="keyword">end</span>
+0047                 n = size(output,2);
+0048                 <span class="keyword">if</span> n == 5
+0049                     cov = output(:,5);
+0050                     layers = [thicks sldss roughs cov];
+0051                 <span class="keyword">else</span>
+0052                     layers = [thicks sldss roughs];
+0053                 <span class="keyword">end</span>
+0054                 s_sub = rsub;
+0055         <span class="keyword">end</span>
+0056         
+0057         <span class="comment">%Deal with the %coverage if present</span>
+0058         n = size(output,2);
+0059         l = size(output,1);
+0060         <span class="keyword">if</span> n == 6
+0061             <span class="keyword">for</span> j = 1:l
+0062                 this_pcw = output(j,5);
+0063                 <span class="keyword">if</span> output(j,5) == 1
+0064                     pc_add = bulkIns;
+0065                 <span class="keyword">else</span>
+0066                     pc_add = bulkOuts;
+0067                 <span class="keyword">end</span>
+0068                 <span class="keyword">if</span> ~isnan(this_pcw)
+0069                     layers(j,2) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,2);
+0070                     <span class="comment">%layers(j,3) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,3);</span>
+0071                 <span class="keyword">end</span>
+0072             <span class="keyword">end</span>
+0073         <span class="keyword">end</span> 
+0074     <span class="keyword">end</span>
+0075 <span class="comment">%     problem.layers{i} = layers;</span>
+0076 <span class="comment">%     problem.ssubs(i) = s_sub;</span>
+0077 <span class="keyword">if</span> ~isempty(layers)
+0078     outLayers = layers(:,1:4);
+0079 <span class="keyword">else</span>
+0080     outLayers = zeros(1,4);
+0081 <span class="keyword">end</span>
+0082 outSsubs = s_sub;
+0083 
+0084 
+0085 <span class="keyword">end</span>
+0086 
+0087 
+0088 <span class="comment">%end</span>
+0089     
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

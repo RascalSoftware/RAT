@@ -15,8 +15,8 @@
 </head>
 <body>
 <a name="_top"></a>
-<!-- # targetFunctions -->
-<!-- # common -->
+<!-- ../../menu.html targetFunctions -->
+<!-- ../menu.html common -->
 <!-- menu.html groupLayers -->
 
 <h1>allocateParamsToLayers
@@ -44,12 +44,12 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../targetFunctions/domainsTF/standardLayers/domainsTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFStandardLayersParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFStandardLayersParallelContrasts</a>	Single threaded version of the Standard Layers calculation</li>
-<li><a href="../../../targetFunctions/domainsTF/standardLayers/domainsTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFStandardLayersParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFStandardLayersParallelPoints</a>	Single threaded version of the Standard Layers calculation</li>
-<li><a href="../../../targetFunctions/domainsTF/standardLayers/domainsTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = domainsTFStandardLayersSingle(problemDef,problemDefCells,problemDefLimits,controls)">domainsTFStandardLayersSingle</a>	Single threaded version of the Standard Layers calculation</li>
-<li><a href="../../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelContrasts.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelContrasts(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelContrasts</a>	Standard Layers calculation paralelised over the outer loop</li>
-<li><a href="../../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersParallelPoints.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersParallelPoints(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersParallelPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
-<li><a href="../../../targetFunctions/standardTF/standardLayers/standardTFStandardLayersSingle.html" class="code" title="function [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = standardTFStandardLayersSingle(problemDef,problemDefCells,problemDefLimits,controls)">standardTFStandardLayersSingle</a>	Single threaded version of the Standard Layers calculation</li>
+<li><a href="../../../targetFunctions/+domainsTF/+standardLayers/parallelContrasts.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)">parallelContrasts</a>	Single threaded version of the Standard Layers calculation</li>
+<li><a href="../../../targetFunctions/+domainsTF/+standardLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Single threaded version of the Standard Layers calculation</li>
+<li><a href="../../../targetFunctions/+domainsTF/+standardLayers/single.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,allRoughs] = single(problemDef,problemDefCells,controls)">single</a>	Single threaded version of the Standard Layers calculation</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+standardLayers/parallelContrasts.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelContrasts(problemDef,problemDefCells,controls)">parallelContrasts</a>	Standard Layers calculation paralelised over the outer loop</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+standardLayers/parallelPoints.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = parallelPoints(problemDef,problemDefCells,controls)">parallelPoints</a>	Standard Layers calculation paralelised over the inner loop</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+standardLayers/single.html" class="code" title="function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers,allRoughs] = single(problemDef,problemDefCells,controls)">single</a>	Single threaded version of the Standard Layers calculation</li>
 </ul>
 <!-- crossreference -->
 
@@ -85,6 +85,6 @@ This function is called by:
 0027 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

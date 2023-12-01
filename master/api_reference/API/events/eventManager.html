@@ -136,7 +136,7 @@ This function is called by:
 0077             eventType = validateOption(eventType, <span class="string">'eventTypes'</span>, <span class="string">'Event type must be an eventTypes enum'</span>).value;
 0078 
 0079             <span class="keyword">if</span> ~isText(functionName) || isempty(char(functionName))
-0080                 throw(invalidType(<span class="string">'Second value must be function name (text)'</span>));
+0080                 throw(exceptions.invalidType(<span class="string">'Second value must be function name (text)'</span>));
 0081             <span class="keyword">end</span>
 0082 
 0083             <a href="#_sub3" class="code" title="subfunction value=events(op, newValue)">events</a> = eventManager.getEvents();
@@ -188,6 +188,6 @@ This function is called by:
 0129 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

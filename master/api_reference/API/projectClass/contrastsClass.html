@@ -39,7 +39,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../API/project.html" class="code" title="function obj = project(options)">project</a>	Creates a project object.</li>
+<li><a href="../../API/createProject.html" class="code" title="function obj = createProject(options)">createProject</a>	Creates a project object.</li>
 <li><a href="contrastsClass.html" class="code" title="">contrastsClass</a>	</li>
 <li><a href="domainsClass.html" class="code" title="">domainsClass</a>	</li>
 <li><a href="projectClass.html" class="code" title="">projectClass</a>	</li>
@@ -126,13 +126,13 @@ This function is called by:
 0067             nContrasts = obj.numberOfContrasts;
 0068             contrastLayers = cell(1,nContrasts);
 0069             contrastCustomFile = ones(1,nContrasts);
-0070             contrastBacks = cell(1,nContrasts);
-0071             contrastNbas = ones(1,nContrasts);
-0072             contrastNbss = ones(1,nContrasts);
+0070             contrastBackgrounds = cell(1,nContrasts);
+0071             contrastBulkIns = ones(1,nContrasts);
+0072             contrastBulkOuts = ones(1,nContrasts);
 0073             contrastDomainRatios = zeros(1,nContrasts);
-0074             contrastShifts = ones(1,nContrasts);
-0075             contrastScales = ones(1,nContrasts);
-0076             contrastRes = ones(1,nContrasts);
+0074             contrastQzshifts = ones(1,nContrasts);
+0075             contrastScalefactors = ones(1,nContrasts);
+0076             contrastResolutions = ones(1,nContrasts);
 0077             resample = ones(1,nContrasts);
 0078 
 0079             dataPresent = zeros(1,nContrasts);
@@ -154,12 +154,12 @@ This function is called by:
 0095                         thisArray = ones(1, length(thisModel));
 0096                         <span class="keyword">if</span> obj.domainsCalc
 0097                             <span class="keyword">for</span> n = 1:length(thisModel)
-0098                                 thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.domainContrastsNames));
+0098                                 thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.domainContrastNames));
 0099                                 thisArray(n) = thisLayerNum;
 0100                             <span class="keyword">end</span>
 0101                         <span class="keyword">else</span>
 0102                             <span class="keyword">for</span> n = 1:length(thisModel)
-0103                                 thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.layersNames));
+0103                                 thisLayerNum = find(strcmpi(thisModel{n}, allowedNames.layerNames));
 0104                                 thisArray(n) = thisLayerNum;
 0105                             <span class="keyword">end</span>
 0106                         <span class="keyword">end</span>
@@ -168,7 +168,7 @@ This function is called by:
 0109                     <span class="keyword">otherwise</span>
 0110                         contrastLayers{i} = {};
 0111                         whichFile = thisContrast.model;
-0112                         thisContrastFileNum = find(strcmpi(whichFile, allowedNames.customNames));
+0112                         thisContrastFileNum = find(strcmpi(whichFile, allowedNames.customFileNames));
 0113                         contrastCustomFile(i) = thisContrastFileNum;
 0114                 <span class="keyword">end</span>
 0115 
@@ -176,12 +176,12 @@ This function is called by:
 0117                     contrastDomainRatios(i) = find(strcmpi(thisContrast.domainRatio,allowedNames.domainRatioNames));
 0118                 <span class="keyword">end</span>
 0119 
-0120                 contrastBacks{i} =  [find(strcmpi(thisContrast.background,allowedNames.backsNames)), 1];
-0121                 contrastNbas(i) = find(strcmpi(thisContrast.nba,allowedNames.bulkInNames));
-0122                 contrastNbss(i) = find(strcmpi(thisContrast.nbs,allowedNames.bulkOutNames));
-0123                 contrastShifts(i) = 1;  <span class="comment">%Todo</span>
-0124                 contrastScales(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefacNames));
-0125                 contrastRes(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolsNames));
+0120                 contrastBackgrounds{i} =  [find(strcmpi(thisContrast.background,allowedNames.backgroundNames)), 1];
+0121                 contrastBulkIns(i) = find(strcmpi(thisContrast.bulkIn,allowedNames.bulkInNames));
+0122                 contrastBulkOuts(i) = find(strcmpi(thisContrast.bulkOut,allowedNames.bulkOutNames));
+0123                 contrastQzshifts(i) = 1;  <span class="comment">%Todo</span>
+0124                 contrastScalefactors(i) = find(strcmpi(thisContrast.scalefactor,allowedNames.scalefactorNames));
+0125                 contrastResolutions(i) = find(strcmpi(thisContrast.resolution,allowedNames.resolutionNames));
 0126                 resample(i) = thisContrast.resample;
 0127 
 0128                 thisDataVal = find(strcmpi(thisContrast.data,allowedNames.dataNames));
@@ -223,12 +223,12 @@ This function is called by:
 0164             contrastStruct.contrastLayers = contrastLayers;
 0165             contrastStruct.contrastCustomFile = contrastCustomFile;
 0166             contrastStruct.contrastDomainRatios = contrastDomainRatios;
-0167             contrastStruct.contrastBacks = contrastBacks;
-0168             contrastStruct.contrastNbas = contrastNbas;
-0169             contrastStruct.contrastNbss = contrastNbss;
-0170             contrastStruct.contrastShifts = contrastShifts;
-0171             contrastStruct.contrastScales = contrastScales;
-0172             contrastStruct.contrastRes = contrastRes;
+0167             contrastStruct.contrastBackgrounds = contrastBackgrounds;
+0168             contrastStruct.contrastBulkIns = contrastBulkIns;
+0169             contrastStruct.contrastBulkOuts = contrastBulkOuts;
+0170             contrastStruct.contrastQzshifts = contrastQzshifts;
+0171             contrastStruct.contrastScalefactors = contrastScalefactors;
+0172             contrastStruct.contrastResolutions = contrastResolutions;
 0173             contrastStruct.resample = resample;
 0174             contrastStruct.dataPresent = dataPresent;
 0175             contrastStruct.dataLimits = dataLimits;
@@ -249,20 +249,20 @@ This function is called by:
 0190             <span class="comment">%                                   'name', 'Contrast Name', ...</span>
 0191             <span class="comment">%                                   'background', 'Background H2O')</span>
 0192             defaultName = <span class="string">''</span>;
-0193             defaultBack = <span class="string">''</span>;
+0193             defaultBackground = <span class="string">''</span>;
 0194             defaultData = <span class="string">''</span>;   
-0195             defaultNba = <span class="string">''</span>;
-0196             defaultNbs = <span class="string">''</span>;
-0197             defaultScalefac = <span class="string">''</span>;
-0198             defaultResol = <span class="string">''</span>;
+0195             defaultBulkIn = <span class="string">''</span>;
+0196             defaultBulkOut = <span class="string">''</span>;
+0197             defaultScalefactor = <span class="string">''</span>;
+0198             defaultResolution = <span class="string">''</span>;
 0199             defaultResample = false;
 0200         
-0201             expectedBacks = cellstr(allowedNames.backsNames);
+0201             expectedBackground = cellstr(allowedNames.backgroundNames);
 0202             expectedData = cellstr(allowedNames.dataNames);
-0203             expectedBulkin = cellstr(allowedNames.bulkInNames);
-0204             expectedBulkout = cellstr(allowedNames.bulkOutNames);
-0205             expectedResols = cellstr(allowedNames.resolsNames);
-0206             expectedScalefac = cellstr(allowedNames.scalefacNames);
+0203             expectedBulkIn = cellstr(allowedNames.bulkInNames);
+0204             expectedBulkOut = cellstr(allowedNames.bulkOutNames);
+0205             expectedScalefactor = cellstr(allowedNames.scalefactorNames);
+0206             expectedResolution = cellstr(allowedNames.resolutionNames);
 0207 
 0208             p = inputParser;
 0209             addParameter(p,<span class="string">'name'</span>,          defaultName,        @isText);
@@ -273,11 +273,11 @@ This function is called by:
 0214                 addParameter(p,<span class="string">'oilChiData'</span>,    defaultOilChiData,  @(x) any(validatestring(x,expectedData)));
 0215             <span class="keyword">end</span>
 0216 
-0217             addParameter(p,<span class="string">'background'</span>,    defaultBack,        @(x) any(validatestring(x,expectedBacks)));
-0218             addParameter(p,<span class="string">'nba'</span>,           defaultNba,         @(x) any(validatestring(x,expectedBulkin)));
-0219             addParameter(p,<span class="string">'nbs'</span>,           defaultNbs,         @(x) any(validatestring(x,expectedBulkout)));
-0220             addParameter(p,<span class="string">'scalefactor'</span>,   defaultScalefac,    @(x) any(validatestring(x,expectedScalefac)));
-0221             addParameter(p,<span class="string">'resolution'</span>,    defaultResol,       @(x) any(validatestring(x,expectedResols)));
+0217             addParameter(p,<span class="string">'background'</span>,    defaultBackground,  @(x) any(validatestring(x,expectedBackground)));
+0218             addParameter(p,<span class="string">'bulkIn'</span>,        defaultBulkIn,      @(x) any(validatestring(x,expectedBulkIn)));
+0219             addParameter(p,<span class="string">'bulkOut'</span>,       defaultBulkOut,     @(x) any(validatestring(x,expectedBulkOut)));
+0220             addParameter(p,<span class="string">'scalefactor'</span>,   defaultScalefactor, @(x) any(validatestring(x,expectedScalefactor)));
+0221             addParameter(p,<span class="string">'resolution'</span>,    defaultResolution,  @(x) any(validatestring(x,expectedResolution)));
 0222             addParameter(p,<span class="string">'resample'</span>,      defaultResample,    @islogical);
 0223 
 0224             <span class="keyword">if</span> obj.domainsCalc
@@ -294,6 +294,6 @@ This function is called by:
 0235 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

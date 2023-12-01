@@ -43,7 +43,6 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../matlabicon.gif)">
-<li><a href="../../targetFunctions/reflectivityCalculation/reflectivityCalculation.html" class="code" title="function [problem,result] = reflectivityCalculation(problemDef,problemDefCells,problemDefLimits,controls)">reflectivityCalculation</a>	Main entry point into the reflectivity calculation for the toolbox.</li>
 </ul>
 <!-- crossreference -->
 
@@ -64,103 +63,109 @@ This function is called by:
 0008     <span class="keyword">persistent</span> notified;
 0009     <span class="keyword">persistent</span> helper;
 0010 
-0011     <span class="keyword">if</span> isempty(notified)
-0012         notified = false;
-0013     <span class="keyword">end</span>
-0014 
-0015     <span class="keyword">if</span> coder.target(<span class="string">'MATLAB'</span>)
-0016          <span class="keyword">if</span> strcmpi(eventType, <span class="string">'message'</span>)
-0017              fprintf(&quot;<span class="comment">%s&quot;, data);</span>
-0018          <span class="keyword">end</span>
-0019     <span class="keyword">else</span>       
-0020         coder.cinclude(<span class="string">'eventHelper.hpp'</span>);
-0021         coder.updateBuildInfo(<span class="string">'addLinkFlags'</span>,<span class="string">'-ldl'</span>);
-0022         <span class="keyword">if</span> isempty(helper)       
-0023             <span class="comment">% Declaration for coder</span>
-0024             helper = coder.opaque(<span class="string">'eventHelper'</span>,<span class="string">'NULL'</span>,<span class="string">'HeaderFile'</span>,<span class="string">'eventHelper.hpp'</span>);
-0025     
-0026             <span class="comment">% Make an instance</span>
-0027             helper = coder.ceval(<span class="string">'eventHelper'</span>);
-0028             path = [getenv(<span class="string">'RAT_PATH'</span>), 0];
-0029             coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::init)'</span>, helper, path);
-0030         <span class="keyword">end</span>
-0031         
-0032         initialised = false;
-0033         initialised = coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::isInitialised)'</span>, helper);
-0034         <span class="keyword">if</span> initialised
-0035             <span class="keyword">if</span> strcmpi(eventType, <span class="string">'message'</span>)
-0036                 coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::sendMessage)'</span>, helper, [data,0]);
-0037             <span class="keyword">elseif</span> strcmpi(eventType, <span class="string">'plot'</span>)
-0038                 result = data{1};
-0039                 problemDef = data{3};
-0040                 nContrast = length(result{1});
-0041                 [reflect, nReflect] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{1}, 1); <span class="comment">% reflectivity</span>
-0042                 [shiftedData, nShiftedData] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{3}, 1);  
-0043                 [sldProfiles, nSldProfiles] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{5}, 1);
-0044                 [layers, nLayers] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{6}, 1);
-0045                 
-0046                 <span class="keyword">switch</span> problemDef.TF
-0047                     <span class="keyword">case</span> <span class="string">'domains'</span>
-0048                         [sldProfiles2, nSldProfiles2] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{5}, 2);
-0049                         [layers2, nLayers2] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{6}, 2);
-0050                     <span class="keyword">otherwise</span> 
-0051                         sldProfiles2 = coder.nullcopy(zeros(0));
-0052                         nSldProfiles2 =  coder.nullcopy(zeros(0));
-0053                         layers2 =  coder.nullcopy(zeros(0));
-0054                         nLayers2 = coder.nullcopy(zeros(0));
-0055                 <span class="keyword">end</span>
-0056 
-0057                 ssubs = data{2}; <span class="comment">% ssubs</span>
-0058    
-0059                 modelType = [problemDef.modelType, 0];
-0060                 resample = problemDef.resample;
-0061                 dataPresent = problemDef.dataPresent;
-0062                 
-0063                 coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::updatePlot)'</span>, helper, nContrast, reflect, nReflect, shiftedData, <span class="keyword">...</span>
-0064                             nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, sldProfiles2, nSldProfiles2, layers2, <span class="keyword">...</span>
-0065                             nLayers2, ssubs, resample, dataPresent, modelType);
-0066             <span class="keyword">end</span>
-0067             notified = false;
-0068         <span class="keyword">else</span>
-0069             <span class="comment">% This avoids printing the error message multiple times during the optimization.</span>
-0070             <span class="keyword">if</span> ~notified
-0071                 fprintf(2, &quot;\neventManager library coult be loaded. Check that the dynamic library is present in the compile/events folder.\n&quot;);
-0072                 notified = true;
-0073             <span class="keyword">end</span>
-0074             
-0075             <span class="keyword">if</span> strcmpi(eventType, <span class="string">'message'</span>)
-0076                 fprintf(&quot;<span class="comment">%s&quot;, data);</span>
-0077             <span class="keyword">end</span>
-0078         <span class="keyword">end</span>
-0079     <span class="keyword">end</span>
-0080 <span class="keyword">end</span>
-0081 
-0082 
-0083 <a name="_sub1" href="#_subfunctions" class="code">function [packedArray, counts] = packCellArray(cellArray, col)</a>
-0084     <span class="comment">% Packs a specified column of a cell array with different sized arrays into a</span>
-0085     <span class="comment">% single row array and an array of counts for each cell. For the example below</span>
-0086     <span class="comment">% reflect will be [1, 2, 3, 4, 5, 6, 7] and nReflect will be [3, 4]</span>
-0087     <span class="comment">%</span>
-0088     <span class="comment">% [reflect, nReflect] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);</span>
-0089     rowSize = 0;
-0090     nCells = size(cellArray, 1);
-0091     
-0092     counts = zeros(nCells, 1);
-0093     <span class="keyword">for</span> i=1:nCells
-0094         counts(i) = size(cellArray{i, col}, 1) * size(cellArray{i, col}, 2);
-0095         rowSize = rowSize + counts(i);
-0096     <span class="keyword">end</span>
+0011     initialised = false;
+0012     hasPlotHandler = false;
+0013 
+0014     <span class="keyword">if</span> isempty(notified)
+0015         notified = false;
+0016     <span class="keyword">end</span>
+0017 
+0018     <span class="keyword">if</span> coder.target(<span class="string">'MATLAB'</span>)
+0019          <span class="keyword">if</span> strcmpi(eventType, <span class="string">'message'</span>)
+0020              fprintf(&quot;<span class="comment">%s&quot;, data);</span>
+0021          <span class="keyword">end</span>
+0022     <span class="keyword">else</span>       
+0023         coder.cinclude(<span class="string">'eventHelper.hpp'</span>);
+0024         coder.updateBuildInfo(<span class="string">'addLinkFlags'</span>,<span class="string">'-ldl'</span>);
+0025         <span class="keyword">if</span> isempty(helper)       
+0026             <span class="comment">% Declaration for coder</span>
+0027             helper = coder.opaque(<span class="string">'eventHelper'</span>,<span class="string">'NULL'</span>,<span class="string">'HeaderFile'</span>,<span class="string">'eventHelper.hpp'</span>);
+0028     
+0029             <span class="comment">% Make an instance</span>
+0030             helper = coder.ceval(<span class="string">'eventHelper'</span>);
+0031             path = [getenv(<span class="string">'RAT_PATH'</span>), 0];
+0032             coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::init)'</span>, helper, path);
+0033         <span class="keyword">end</span>
+0034         
+0035         initialised = coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::isInitialised)'</span>, helper);
+0036         <span class="keyword">if</span> initialised
+0037             <span class="keyword">if</span> strcmpi(eventType, <span class="string">'message'</span>)
+0038                 coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::sendMessage)'</span>, helper, [data,0]);
+0039             <span class="keyword">elseif</span> strcmpi(eventType, <span class="string">'plot'</span>)
+0040                 hasPlotHandler = coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::hasPlotHandler)'</span>, helper);
+0041                 <span class="keyword">if</span> ~hasPlotHandler
+0042                     <span class="keyword">return</span>;
+0043                 <span class="keyword">end</span>
+0044                 result = data{1};
+0045                 problemDef = data{3};
+0046                 nContrast = length(result{1});
+0047                 [reflect, nReflect] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{1}, 1); <span class="comment">% reflectivity</span>
+0048                 [shiftedData, nShiftedData] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{3}, 1);  
+0049                 [sldProfiles, nSldProfiles] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{5}, 1);
+0050                 [layers, nLayers] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{6}, 1);
+0051                 
+0052                 <span class="keyword">switch</span> problemDef.TF
+0053                     <span class="keyword">case</span> <span class="string">'domains'</span>
+0054                         [sldProfiles2, nSldProfiles2] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{5}, 2);
+0055                         [layers2, nLayers2] = <a href="#_sub1" class="code" title="subfunction [packedArray, counts] = packCellArray(cellArray, col)">packCellArray</a>(result{6}, 2);
+0056                     <span class="keyword">otherwise</span> 
+0057                         sldProfiles2 = coder.nullcopy(zeros(0));
+0058                         nSldProfiles2 =  coder.nullcopy(zeros(0));
+0059                         layers2 =  coder.nullcopy(zeros(0));
+0060                         nLayers2 = coder.nullcopy(zeros(0));
+0061                 <span class="keyword">end</span>
+0062 
+0063                 ssubs = data{2}; <span class="comment">% ssubs</span>
+0064    
+0065                 modelType = [problemDef.modelType, 0];
+0066                 resample = problemDef.resample;
+0067                 dataPresent = problemDef.dataPresent;
+0068                 
+0069                 coder.ceval(<span class="string">'std::mem_fn(&amp;eventHelper::updatePlot)'</span>, helper, nContrast, reflect, nReflect, shiftedData, <span class="keyword">...</span>
+0070                             nShiftedData, sldProfiles, nSldProfiles, layers, nLayers, sldProfiles2, nSldProfiles2, layers2, <span class="keyword">...</span>
+0071                             nLayers2, ssubs, resample, dataPresent, modelType);
+0072             <span class="keyword">end</span>
+0073             notified = false;
+0074         <span class="keyword">else</span>
+0075             <span class="comment">% This avoids printing the error message multiple times during the optimization.</span>
+0076             <span class="keyword">if</span> ~notified
+0077                 fprintf(2, &quot;\neventManager library could be loaded. Check that the dynamic library is present in the compile/events folder.\n&quot;);
+0078                 notified = true;
+0079             <span class="keyword">end</span>
+0080             
+0081             <span class="keyword">if</span> strcmpi(eventType, <span class="string">'message'</span>)
+0082                 fprintf(&quot;<span class="comment">%s&quot;, data);</span>
+0083             <span class="keyword">end</span>
+0084         <span class="keyword">end</span>
+0085     <span class="keyword">end</span>
+0086 <span class="keyword">end</span>
+0087 
+0088 
+0089 <a name="_sub1" href="#_subfunctions" class="code">function [packedArray, counts] = packCellArray(cellArray, col)</a>
+0090     <span class="comment">% Packs a specified column of a cell array with different sized arrays into a</span>
+0091     <span class="comment">% single row array and an array of counts for each cell. For the example below</span>
+0092     <span class="comment">% reflect will be [1, 2, 3, 4, 5, 6, 7] and nReflect will be [3, 4]</span>
+0093     <span class="comment">%</span>
+0094     <span class="comment">% [reflect, nReflect] = packCellArray({[1; 2; 3], [4; 5; 6; 7]}, 1);</span>
+0095     rowSize = 0;
+0096     nCells = size(cellArray, 1);
 0097     
-0098     packedArray = zeros(rowSize, 1);
-0099     start = 1;
-0100     <span class="keyword">for</span> i=1:nCells
-0101         stop = start + counts(i);
-0102         packedArray(start:stop-1, :) = reshape(cellArray{i, col}, [], 1);
-0103         start = stop;
-0104     <span class="keyword">end</span>
-0105 <span class="keyword">end</span>
+0098     counts = zeros(nCells, 1);
+0099     <span class="keyword">for</span> i=1:nCells
+0100         counts(i) = size(cellArray{i, col}, 1) * size(cellArray{i, col}, 2);
+0101         rowSize = rowSize + counts(i);
+0102     <span class="keyword">end</span>
+0103     
+0104     packedArray = zeros(rowSize, 1);
+0105     start = 1;
+0106     <span class="keyword">for</span> i=1:nCells
+0107         stop = start + counts(i);
+0108         packedArray(start:stop-1, :) = reshape(cellArray{i, col}, [], 1);
+0109         start = stop;
+0110     <span class="keyword">end</span>
+0111 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

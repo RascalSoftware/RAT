@@ -108,7 +108,7 @@ This function is called by:
 0050                 newName = inputs{1};
 0051 
 0052                 <span class="keyword">if</span> ~isText(newName)
-0053                     throw(invalidType(<span class="string">'First input is expected to be a data name'</span>));
+0053                     throw(exceptions.invalidType(<span class="string">'First input is expected to be a data name'</span>));
 0054                 <span class="keyword">end</span>
 0055 
 0056                 newData = [];
@@ -141,7 +141,7 @@ This function is called by:
 0083 
 0084                     <span class="keyword">otherwise</span>  
 0085                         <span class="comment">% Other length of inputs is not recognised</span>
-0086                         throw(invalidNumberOfInputs(<span class="string">'Unrecognised input into addData'</span>));
+0086                         throw(exceptions.invalidNumberOfInputs(<span class="string">'Unrecognised input into addData'</span>));
 0087                       
 0088                 <span class="keyword">end</span>
 0089             <span class="keyword">end</span>
@@ -162,13 +162,13 @@ This function is called by:
 0104             
 0105             <span class="comment">% Always need three or more inputs to set data value</span>
 0106             <span class="keyword">if</span> length(varargin) &lt; 2 || mod(length(varargin), 2) ~= 0
-0107                 throw(invalidNumberOfInputs(<span class="string">'The input to ''setData'' should be a data entry and a set of name-value pairs'</span>));
+0107                 throw(exceptions.invalidNumberOfInputs(<span class="string">'The input to ''setData'' should be a data entry and a set of name-value pairs'</span>));
 0108             <span class="keyword">end</span>
 0109                 
 0110             <span class="comment">% First input needs to be a data number or name</span>
 0111             <span class="keyword">if</span> isnumeric(row)
 0112                 <span class="keyword">if</span> (row &gt; obj.rowCount) || (row &lt; 1)
-0113                     throw(indexOutOfRange(sprintf(<span class="string">'The index %d is not within the range 1 - %d'</span>, row, obj.rowCount)));
+0113                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'The index %d is not within the range 1 - %d'</span>, row, obj.rowCount)));
 0114                 <span class="keyword">end</span>
 0115             <span class="keyword">elseif</span> isText(row)
 0116                 row = obj.findRowIndex(row, dataNames, sprintf(<span class="string">'Data object name %s not recognised'</span>, row));
@@ -225,12 +225,12 @@ This function is called by:
 0167             <span class="comment">%</span>
 0168             <span class="comment">% names = data.setDataName({2, 'new name'});</span>
 0169             <span class="keyword">if</span> ~isText(name)
-0170                 throw(invalidType(<span class="string">'Name must be a character array or string'</span>));
+0170                 throw(exceptions.invalidType(<span class="string">'Name must be a character array or string'</span>));
 0171             <span class="keyword">end</span>
 0172             
 0173             existingNames = obj.getNames;
 0174             <span class="keyword">if</span> any(strcmpi(name,existingNames))
-0175                 throw(duplicateName(<span class="string">'Duplicate data names are not allowed'</span>));
+0175                 throw(exceptions.duplicateName(<span class="string">'Duplicate data names are not allowed'</span>));
 0176             <span class="keyword">end</span>
 0177             
 0178             <span class="comment">% Set the relevant name</span>
@@ -303,17 +303,17 @@ This function is called by:
 0245             <span class="keyword">if</span> ~isempty(data)
 0246 
 0247                 <span class="keyword">if</span> ~isnumeric(data)
-0248                     throw(invalidType(<span class="string">'Data must be a numeric array'</span>));
+0248                     throw(exceptions.invalidType(<span class="string">'Data must be a numeric array'</span>));
 0249                 <span class="keyword">end</span>
 0250                 
 0251                 <span class="keyword">if</span> ((~isnumeric(dataRange)) || any(size(dataRange) ~= [1,2]) || any(size(simRange) ~= [1,2]))
-0252                     throw(invalidType(<span class="string">'Data range and sim range must be [1 x 2] numeric arrays'</span>));
+0252                     throw(exceptions.invalidType(<span class="string">'Data range and sim range must be [1 x 2] numeric arrays'</span>));
 0253                 <span class="keyword">end</span>
 0254     
 0255                 dataX = data(:, 1);  <span class="comment">% First column is always Q</span>
 0256                 realDataRange = [dataX(1), dataX(end)];
 0257                 <span class="keyword">if</span> realDataRange(1) &gt; realDataRange(2)
-0258                     throw(invalidValue(<span class="string">'Data is expected to be sorted (ascending order) by the first column'</span>));
+0258                     throw(exceptions.invalidValue(<span class="string">'Data is expected to be sorted (ascending order) by the first column'</span>));
 0259                 <span class="keyword">end</span>
 0260     
 0261                 <span class="keyword">if</span> dataRange(1) &lt; realDataRange(1)
@@ -351,6 +351,6 @@ This function is called by:
 0293 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

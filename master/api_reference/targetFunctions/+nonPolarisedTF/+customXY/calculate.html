@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of calculate</title>
+  <meta name="keywords" content="calculate">
+  <meta name="description" content="Custom XP profile reflectivity calculation for nonPolarisedTF">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html targetFunctions -->
+<!-- ../menu.html +nonPolarisedTF -->
+<!-- menu.html +customXY -->
+
+<h1>calculate
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>Custom XP profile reflectivity calculation for nonPolarisedTF</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> Custom XP profile reflectivity calculation for nonPolarisedTF
+</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)</a>
+0002 
+0003 <span class="comment">% Custom XP profile reflectivity calculation for nonPolarisedTF</span>
+0004 
+0005 <span class="comment">% This function decides on parallelisation options before calling the</span>
+0006 <span class="comment">% relevant version of the main custom XY calculation. It is more</span>
+0007 <span class="comment">% efficient to have multiple versions of the core calculation, each dealing</span>
+0008 <span class="comment">% with a different scheme for parallelisation. These are:</span>
+0009 <span class="comment">% single    - single threaded reflectivity calculation</span>
+0010 <span class="comment">% points    - parallelise over points in the reflectivity calculation</span>
+0011 <span class="comment">% contrasts - parallelise over contrasts.</span>
+0012 
+0013 
+0014 <span class="comment">% Pre-allocation - It's necessary to</span>
+0015 <span class="comment">% pre-allocate the memory for all the arrays</span>
+0016 <span class="comment">% for compilation, so do this in this block.</span>
+0017 
+0018 numberOfContrasts = problemDef.numberOfContrasts;
+0019 outSsubs = zeros(numberOfContrasts,1);
+0020 backgs = zeros(numberOfContrasts,1);
+0021 qzshifts = zeros(numberOfContrasts,1);
+0022 scalefactors = zeros(numberOfContrasts,1);
+0023 bulkIns = zeros(numberOfContrasts,1);
+0024 bulkOuts = zeros(numberOfContrasts,1);
+0025 chis = zeros(numberOfContrasts,1);
+0026 resols = zeros(numberOfContrasts,1);
+0027 allRoughs = zeros(numberOfContrasts,1);
+0028 
+0029 reflectivity = cell(numberOfContrasts,1);
+0030 <span class="keyword">for</span> i = 1:numberOfContrasts
+0031     reflectivity{i} = [1 1 ; 1 1];
+0032 <span class="keyword">end</span>
+0033 
+0034 Simulation = cell(numberOfContrasts,1);
+0035 <span class="keyword">for</span> i = 1:numberOfContrasts
+0036     Simulation{i} = [1 1 ; 1 1];
+0037 <span class="keyword">end</span>
+0038 
+0039 shifted_data = cell(numberOfContrasts,1);
+0040 <span class="keyword">for</span> i = 1:numberOfContrasts
+0041     shifted_data{i} = [1 1 1; 1 1 1];
+0042 <span class="keyword">end</span>
+0043 
+0044 layerSlds = cell(numberOfContrasts,1);
+0045 <span class="keyword">for</span> i = 1:numberOfContrasts
+0046     layerSlds{i} = [1 1 1; 1 1 1];
+0047 <span class="keyword">end</span>
+0048 
+0049 sldProfiles = cell(numberOfContrasts,1);
+0050 <span class="keyword">for</span> i = 1:numberOfContrasts
+0051     sldProfiles{i} = [1 1; 1 1];
+0052 <span class="keyword">end</span>
+0053 
+0054 allLayers = cell(numberOfContrasts,1);
+0055 <span class="keyword">for</span> i = 1:numberOfContrasts
+0056     allLayers{i} = [1 ; 1];
+0057 <span class="keyword">end</span>
+0058 
+0059 <span class="keyword">switch</span> controls.parallel
+0060     <span class="keyword">case</span> <span class="string">'single'</span>
+0061           [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,<span class="keyword">...</span>
+0062              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0063              allRoughs] = nonPolarisedTF.customXY.single(problemDef,problemDefCells,controls);
+0064     <span class="keyword">case</span> <span class="string">'points'</span>
+0065           [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,<span class="keyword">...</span>
+0066              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0067              allRoughs] = nonPolarisedTF.customXY.parallelPoints(problemDef,problemDefCells,controls);
+0068     <span class="keyword">case</span> <span class="string">'contrasts'</span>
+0069           [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,<span class="keyword">...</span>
+0070              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,<span class="keyword">...</span>
+0071              allRoughs] = nonPolarisedTF.customXY.parallelContrasts(problemDef,problemDefCells,controls);
+0072 <span class="keyword">end</span>
+0073 
+0074 problem.ssubs = outSsubs;
+0075 problem.backgroundParams = backgs;
+0076 problem.qzshifts = qzshifts;
+0077 problem.scalefactors = scalefactors;
+0078 problem.bulkIn = bulkIns;
+0079 problem.bulkOut = bulkOuts;
+0080 problem.resolutionParams = resols;
+0081 problem.calculations.all_chis = chis;
+0082 problem.calculations.sum_chi = sum(chis);
+0083 problem.allSubRough = allRoughs;
+0084 problem.resample = ones(1,length(allRoughs));
+0085 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

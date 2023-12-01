@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of callCppFunction</title>
+  <meta name="keywords" content="callCppFunction">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003-2019 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html targetFunctions -->
+<!-- ../menu.html common -->
+<!-- menu.html customModelFunctions -->
+
+<h1>callCppFunction
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [output,subRough] = callCppFunction(params, bulkIn, bulkOut, contrast, domain, pointer) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"></pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../targetFunctions/+domainsTF/+customLayers/processCustomFunction.html" class="code" title="function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)">processCustomFunction</a>	Top-level function for processing custom layers for all the</li>
+<li><a href="../../../targetFunctions/+domainsTF/+customXY/processCustomFunction.html" class="code" title="function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)">processCustomFunction</a>	Top-level function for processing custom XY profiles for all the</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customLayers/processCustomFunction.html" class="code" title="function [allLayers,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary)">processCustomFunction</a>	Top-level function for processing custom layers for all the</li>
+<li><a href="../../../targetFunctions/+nonPolarisedTF/+customXY/processCustomFunction.html" class="code" title="function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)">processCustomFunction</a>	Top-level function for processing custom XY profiles for all the</li>
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [output,subRough] = callCppFunction(params, bulkIn, bulkOut, contrast, domain, pointer)</a>
+0002     coder.cinclude(<span class="string">'&lt;functional&gt;'</span>);
+0003     coder.cinclude(<span class="string">'classHandle.hpp'</span>)
+0004     
+0005     callbackHandle = coder.opaque(<span class="string">'ClassHandle&lt;CallbackInterface&gt; *'</span>,<span class="string">'NULL'</span>);
+0006     callbackHandle = coder.ceval(<span class="string">'convertString2HandlePtr&lt;CallbackInterface&gt;'</span>, pointer);
+0007 
+0008     callback = coder.opaque(<span class="string">'CallbackInterface *'</span>,<span class="string">'NULL'</span>);
+0009     callback = coder.ceval(<span class="string">'std::mem_fn(&amp;ClassHandle&lt;CallbackInterface&gt;::ptr)'</span>, callbackHandle);
+0010        
+0011     tempOutput = zeros(1, 6000); <span class="comment">% This is not ideal, it needs to be fixed</span>
+0012     subRough = 0.0;
+0013     outputSize = [0, 0];
+0014     
+0015     <span class="comment">% domain should either before 0 or 1. A value less than zero indicates no domains</span>
+0016     <span class="keyword">if</span> (domain &lt; 0)
+0017         coder.ceval(<span class="string">'std::mem_fn&lt;void(double*, double*, double*, int, double*, double*, double*)&gt;(&amp;CallbackInterface::invoke)'</span>, <span class="keyword">...</span>
+0018               callback, coder.ref(params), coder.ref(bulkIn), coder.ref(bulkOut), contrast, coder.wref(tempOutput), <span class="keyword">...</span>
+0019               coder.wref(outputSize), coder.wref(subRough));
+0020     <span class="keyword">else</span>
+0021         coder.ceval(<span class="string">'std::mem_fn&lt;void(double*, double*, double*, int, int, double*, double*, double*)&gt;(&amp;CallbackInterface::invoke)'</span>, <span class="keyword">...</span>
+0022             callback, coder.ref(params), coder.ref(bulkIn), coder.ref(bulkOut), contrast, domain, coder.wref(tempOutput), <span class="keyword">...</span>
+0023             coder.wref(outputSize), coder.wref(subRough)); 
+0024     <span class="keyword">end</span>
+0025 
+0026     size = outputSize(1) * outputSize(2);
+0027     output = reshape(tempOutput(1, 1:size), [outputSize(2), outputSize(1)])';
+0028 <span class="keyword">end</span>
+</pre></div>
+
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+</body>
+</html>

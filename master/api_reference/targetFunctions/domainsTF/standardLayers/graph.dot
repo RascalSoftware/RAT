@@ -1,7 +1,0 @@
-/* Created by mdot for Matlab */
-digraph m2html {
-
-  domainsTFStandardLayersParallelContrasts [URL="domainsTFStandardLayersParallelContrasts.html"];
-  domainsTFStandardLayersParallelPoints [URL="domainsTFStandardLayersParallelPoints.html"];
-  domainsTFStandardLayersSingle [URL="domainsTFStandardLayersSingle.html"];
-}

@@ -35,8 +35,6 @@
 This function calls:
 <ul style="list-style-image:url(../../matlabicon.gif)">
 <li><a href="customFileClass.html" class="code" title="">customFileClass</a>	</li>
-<li><a href="dyLibWrapper.html" class="code" title="">dyLibWrapper</a>	</li>
-<li><a href="pythonWrapper.html" class="code" title="">pythonWrapper</a>	</li>
 <li><a href="tableUtilities.html" class="code" title="">tableUtilities</a>	</li>
 </ul>
 This function is called by:
@@ -134,7 +132,7 @@ This function is called by:
 0071                         <span class="comment">% One input supplied - assume just name provided</span>
 0072                         newName = inputs{1};
 0073                         <span class="keyword">if</span> ~isText(newName)
-0074                             throw(invalidType(<span class="string">'Single input is expected to be a custom object name'</span>));
+0074                             throw(exceptions.invalidType(<span class="string">'Single input is expected to be a custom object name'</span>));
 0075                         <span class="keyword">end</span>
 0076                         
 0077                         newRow = {newName, <span class="string">''</span>, supportedLanguages.Matlab.value, <span class="string">''</span>};
@@ -161,7 +159,7 @@ This function is called by:
 0098                     <span class="keyword">otherwise</span>
 0099 
 0100                         <span class="comment">% Other length of inputs is not recognised</span>
-0101                         throw(invalidNumberOfInputs(<span class="string">'Unrecognised input into addCustomFile'</span>));
+0101                         throw(exceptions.invalidNumberOfInputs(<span class="string">'Unrecognised input into addCustomFile'</span>));
 0102                         
 0103                 <span class="keyword">end</span>
 0104             <span class="keyword">end</span>
@@ -185,13 +183,13 @@ This function is called by:
 0122             
 0123             <span class="comment">% Always need three or more inputs to set data value</span>
 0124             <span class="keyword">if</span> length(varargin) &lt; 2 || mod(length(varargin), 2) ~= 0
-0125                 throw(invalidNumberOfInputs(<span class="string">'The input to ''setCustomFile'' should be a file entry and a set of name-value pairs'</span>));
+0125                 throw(exceptions.invalidNumberOfInputs(<span class="string">'The input to ''setCustomFile'' should be a file entry and a set of name-value pairs'</span>));
 0126             <span class="keyword">end</span>
 0127                 
 0128             <span class="comment">% First input needs to be a data number or name</span>
 0129             <span class="keyword">if</span> isnumeric(row)
 0130                 <span class="keyword">if</span> (row &gt; obj.rowCount) || (row &lt; 1)
-0131                     throw(indexOutOfRange(sprintf(<span class="string">'The index %d is not within the range 1 - %d'</span>, row, obj.rowCount)));
+0131                     throw(exceptions.indexOutOfRange(sprintf(<span class="string">'The index %d is not within the range 1 - %d'</span>, row, obj.rowCount)));
 0132                 <span class="keyword">end</span>
 0133             <span class="keyword">elseif</span> isText(row)
 0134                 row = obj.findRowIndex(row, customNames, sprintf(<span class="string">'Custom file object name %s not recognised'</span>, row));
@@ -309,10 +307,10 @@ This function is called by:
 0246                     <span class="keyword">end</span>
 0247                     <span class="keyword">if</span> isempty(wrapper) || ~strcmp(wrapper.libPath, libpath) || ~strcmp(wrapper.functionName, functionName)
 0248                         <span class="keyword">if</span> strcmpi(thisType, supportedLanguages.Python.value)
-0249                             wrapper = <a href="pythonWrapper.html" class="code" title="">pythonWrapper</a>(libpath, functionName);
+0249                             wrapper = pythonWrapper(libpath, functionName);
 0250                             thisFile = wrapper.getHandle();
 0251                         <span class="keyword">elseif</span> strcmpi(thisType, supportedLanguages.Cpp.value)
-0252                             wrapper = <a href="dyLibWrapper.html" class="code" title="">dyLibWrapper</a>(libpath, functionName);
+0252                             wrapper = dyLibWrapper(libpath, functionName);
 0253                             thisFile = wrapper.getHandle();
 0254                         <span class="keyword">end</span>
 0255                         obj.wrappers{i} = wrapper;
@@ -342,7 +340,7 @@ This function is called by:
 0279             <span class="comment">% Name must not be an existing name</span>
 0280             existingNames = obj.varTable{:,1};
 0281             <span class="keyword">if</span> any(strcmpi(name,existingNames))
-0282                 throw(duplicateName(<span class="string">'Duplicate custom file names are not allowed'</span>));
+0282                 throw(exceptions.duplicateName(<span class="string">'Duplicate custom file names are not allowed'</span>));
 0283             <span class="keyword">end</span>
 0284             
 0285             <span class="comment">% Set the relevant name</span>
@@ -360,6 +358,6 @@ This function is called by:
 0297     
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

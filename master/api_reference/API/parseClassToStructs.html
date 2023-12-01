@@ -71,7 +71,7 @@ This function is called by:
 0025 <span class="comment">%       {1 x nContrasts} array of cells</span>
 0026 <span class="comment">%       Each cell is {1 x Inf double}</span>
 0027 <span class="comment">%</span>
-0028 <span class="comment">% {6} - inputProblemDef.layersDetails</span>
+0028 <span class="comment">% {6} - inputProblemDef.layerDetails</span>
 0029 <span class="comment">%       {n x 1} array of cells</span>
 0030 <span class="comment">%       Each cell is (1 x 5 double}</span>
 0031 <span class="comment">%</span>
@@ -79,33 +79,33 @@ This function is called by:
 0033 <span class="comment">%       {1 x nParams} array of cells</span>
 0034 <span class="comment">%       Each cell is {1 x Inf char}</span>
 0035 <span class="comment">%</span>
-0036 <span class="comment">% {8} - inputProblemDef.backgroundsNames</span>
-0037 <span class="comment">%       {1 x nBackgrounds} array of cells</span>
+0036 <span class="comment">% {8} - inputProblemDef.backgroundParamNames</span>
+0037 <span class="comment">%       {1 x nBackgroundParams} array of cells</span>
 0038 <span class="comment">%       Each cell is {1 x Inf char}</span>
 0039 <span class="comment">%</span>
 0040 <span class="comment">% {9} - inputProblemDef.scalefactorNames</span>
-0041 <span class="comment">%       {1 x nScales} array of cells</span>
+0041 <span class="comment">%       {1 x nScalefactors} array of cells</span>
 0042 <span class="comment">%       Each cell is {1 x Inf char}</span>
 0043 <span class="comment">%</span>
 0044 <span class="comment">% {10}- inputProblemDef.qzshiftNames</span>
-0045 <span class="comment">%       {1 x nShifts} array of cells</span>
+0045 <span class="comment">%       {1 x nQzshifts} array of cells</span>
 0046 <span class="comment">%       Each cell is {1 x Inf char}</span>
 0047 <span class="comment">%</span>
-0048 <span class="comment">% {11}- inputProblemDef.nbairNames</span>
-0049 <span class="comment">%       {1 x nNba} array of cells</span>
+0048 <span class="comment">% {11}- inputProblemDef.bulkInNames</span>
+0049 <span class="comment">%       {1 x nBulkIn} array of cells</span>
 0050 <span class="comment">%       Each cell is {1 x Inf char}</span>
 0051 <span class="comment">%</span>
-0052 <span class="comment">% {12}- inputProblemDef.nbsrNames</span>
-0053 <span class="comment">%       {1 x nNba} array of cells</span>
+0052 <span class="comment">% {12}- inputProblemDef.bulkOutNames</span>
+0053 <span class="comment">%       {1 x nBulkOut} array of cells</span>
 0054 <span class="comment">%       Each cell is {1 x Inf char}</span>
 0055 <span class="comment">%</span>
-0056 <span class="comment">% {13}- inputProblemDef.resolNames</span>
-0057 <span class="comment">%       {1 x nNba} array of cells</span>
+0056 <span class="comment">% {13}- inputProblemDef.resolutionParamNames</span>
+0057 <span class="comment">%       {1 x nResolutionParams} array of cells</span>
 0058 <span class="comment">%       Each cell is {1 x Inf char}</span>
 0059 <span class="comment">%</span>
 0060 <span class="comment">% {14} - inputProblemDef.customFiles</span>
-0061 <span class="comment">%          array of cells</span>
-0062 <span class="comment">%        Each cell is {fName, lang, path}</span>
+0061 <span class="comment">%        {1 x nCustomFiles} array of cells</span>
+0062 <span class="comment">%        Each cell is {1 x Inf char}</span>
 0063 <span class="comment">%</span>
 0064 <span class="comment">% {15} - inputProblemDef.backgroundTypes</span>
 0065 <span class="comment">%        {1 x nBackgrounds} array of cells</span>
@@ -137,20 +137,20 @@ This function is called by:
 0091 
 0092 <span class="comment">%% Start by removing the cell arrays</span>
 0093 contrastLayers = inputStruct.contrastLayers;
-0094 layersDetails = inputStruct.layersDetails;
+0094 layerDetails = inputStruct.layerDetails;
 0095 
 0096 <span class="comment">% If any of the contrastLayers are empty, replace the empty cells by zero</span>
 0097 <span class="comment">% thickness layers</span>
 0098 <span class="keyword">for</span> i = 1:length(contrastLayers)
-0099     thisLayers = contrastLayers{i};
-0100     <span class="keyword">if</span> isempty(thisLayers)
+0099     thisLayer = contrastLayers{i};
+0100     <span class="keyword">if</span> isempty(thisLayer)
 0101         contrastLayers{i} = 0;
 0102     <span class="keyword">end</span>
 0103 <span class="keyword">end</span>
 0104 
-0105 <span class="comment">% Do the same for layersDetails</span>
-0106 <span class="keyword">if</span> isempty(layersDetails)
-0107     layersDetails = {0};
+0105 <span class="comment">% Do the same for layerDetails</span>
+0106 <span class="keyword">if</span> isempty(layerDetails)
+0107     layerDetails = {0};
 0108 <span class="keyword">end</span>
 0109 
 0110 <span class="comment">% Pull out all the cell arrays (except priors) into one array</span>
@@ -159,14 +159,14 @@ This function is called by:
 0113 problemDefCells{3} = inputStruct.dataLimits;
 0114 problemDefCells{4} = inputStruct.simLimits;
 0115 problemDefCells{5} = contrastLayers;
-0116 problemDefCells{6} = layersDetails;
+0116 problemDefCells{6} = layerDetails;
 0117 problemDefCells{7} = inputStruct.paramNames;
-0118 problemDefCells{8} = inputStruct.backParNames;
+0118 problemDefCells{8} = inputStruct.backgroundParamNames;
 0119 problemDefCells{9} = inputStruct.scalefactorNames;
 0120 problemDefCells{10} = inputStruct.qzshiftNames;
-0121 problemDefCells{11} = inputStruct.nbairNames;
-0122 problemDefCells{12} = inputStruct.nbsubNames;
-0123 problemDefCells{13} = inputStruct.resolParNames;
+0121 problemDefCells{11} = inputStruct.bulkInNames;
+0122 problemDefCells{12} = inputStruct.bulkOutNames;
+0123 problemDefCells{13} = inputStruct.resolutionParamNames;
 0124 problemDefCells{14} = inputStruct.files;
 0125 problemDefCells{15} = cellstr(inputStruct.backgroundTypes');
 0126 problemDefCells{16} = cellstr(inputStruct.resolutionTypes');
@@ -180,8 +180,8 @@ This function is called by:
 0134     <span class="comment">% If any of the domainContrastLayers are empty, replace the empty</span>
 0135     <span class="comment">% cells by zero thickness layers</span>
 0136     <span class="keyword">for</span> i = 1:length(domainContrastLayers)
-0137         thisLayers = domainContrastLayers{i};
-0138         <span class="keyword">if</span> isempty(thisLayers)
+0137         thisLayer = domainContrastLayers{i};
+0138         <span class="keyword">if</span> isempty(thisLayer)
 0139             domainContrastLayers{i} = 0;
 0140         <span class="keyword">end</span>
 0141     <span class="keyword">end</span>
@@ -222,17 +222,17 @@ This function is called by:
 0176 
 0177 
 0178 <span class="comment">%% Put the priors into their own array</span>
-0179 priors.paramPriors = inputStruct.paramPriors;
-0180 priors.backsPriors = inputStruct.backsPriors;
-0181 priors.resolPriors = inputStruct.resolParPriors;
-0182 priors.nbaPriors = inputStruct.nbaPriors;
-0183 priors.nbsPriors = inputStruct.nbsPriors;
-0184 priors.shiftPriors = inputStruct.qzshiftPriors;
-0185 priors.scalesPriors = inputStruct.scalefactorPriors;
+0179 priors.param = inputStruct.paramPriors;
+0180 priors.backgroundParam = inputStruct.backgroundParamPriors;
+0181 priors.resolutionParam = inputStruct.resolutionParamPriors;
+0182 priors.bulkIn = inputStruct.bulkInPriors;
+0183 priors.bulkOut = inputStruct.bulkOutPriors;
+0184 priors.qzshift = inputStruct.qzshiftPriors;
+0185 priors.scalefactor = inputStruct.scalefactorPriors;
 0186 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0187     priors.domainRatioPriors = inputStruct.domainRatioPriors;
+0187     priors.domainRatio = inputStruct.domainRatioPriors;
 0188 <span class="keyword">else</span>
-0189     priors.domainRatioPriors = cell(0,1);
+0189     priors.domainRatio = cell(0,1);
 0190 <span class="keyword">end</span>
 0191 
 0192 priorFields = fieldnames(priors);
@@ -268,75 +268,75 @@ This function is called by:
 0222 <span class="keyword">end</span>
 0223 
 0224 priors.priorNames = allPriors(:, 1);
-0225 priors.priorVals = cell2mat(allPriors(:, 2:end));   <span class="comment">% Note move to double now for this...</span>
+0225 priors.priorValues = cell2mat(allPriors(:, 2:end));
 0226 
 0227 
-0228 <span class="comment">%% Split up the contrastBacks array</span>
-0229 contrastBacks = inputStruct.contrastBacks;
-0230 <span class="keyword">for</span> i = 1:length(contrastBacks)
-0231     problemDef.contrastBacks(i) = contrastBacks{i}(1);
-0232     problemDef.contrastBacksType(i) = contrastBacks{i}(2);
+0228 <span class="comment">%% Split up the contrastBackgrounds array</span>
+0229 contrastBackgrounds = inputStruct.contrastBackgrounds;
+0230 <span class="keyword">for</span> i = 1:length(contrastBackgrounds)
+0231     problemDef.contrastBackgrounds(i) = contrastBackgrounds{i}(1);
+0232     problemDef.contrastBackgroundsType(i) = contrastBackgrounds{i}(2);
 0233 <span class="keyword">end</span>
 0234     
 0235 <span class="comment">% Here we need to do the same with the contrastResolutions array</span>
-0236 contrastResols = inputStruct.contrastRes;
-0237 resolNames = inputStruct.resolParNames;
-0238 resolTypes = inputStruct.resolutionTypes;
-0239 contrastRes = zeros(1, length(contrastResols));
-0240 <span class="keyword">for</span> i = 1:length(contrastResols)
+0236 contrastResolutions = inputStruct.contrastResolutions;
+0237 resolutionNames = inputStruct.resolutionParamNames;
+0238 resolutionTypes = inputStruct.resolutionTypes;
+0239 contrastRes = zeros(1, length(contrastResolutions));
+0240 <span class="keyword">for</span> i = 1:length(contrastResolutions)
 0241     <span class="comment">% Check the type of the resolution that each contrast is pointing to.</span>
 0242     <span class="comment">% If it is a constant, point to the number of the corresponding</span>
 0243     <span class="comment">% resolution par. If it's data, then set it to zero</span>
-0244     thisResol = contrastResols(i);      <span class="comment">% Which reolution</span>
-0245     thisType = resolTypes{thisResol};   <span class="comment">% What type is it?</span>
+0244     thisResol = contrastResolutions(i);      <span class="comment">% Which reolution</span>
+0245     thisType = resolutionTypes{thisResol};   <span class="comment">% What type is it?</span>
 0246     
 0247     <span class="keyword">if</span> strcmpi(thisType,<span class="string">'data'</span>)
 0248         <span class="comment">% Resolution is in the datafile. Set contrastRes to zero</span>
 0249         contrastRes(i) = -1;
 0250     <span class="keyword">else</span>
-0251         <span class="comment">% Resolution is a resolParam, the nname of which should</span>
+0251         <span class="comment">% Resolution is a resolutionParam, the name of which should</span>
 0252         <span class="comment">% be in the first column of resolutionValues</span>
-0253         whichResolParName = inputStruct.resolutionValues{thisResol,1};
+0253         whichResolutionParamName = inputStruct.resolutionValues{thisResol,1};
 0254         
-0255         <span class="comment">% Find which resolPar this is, and set contrastRes to this number</span>
-0256         resolParNumber = find(strcmpi(whichResolParName,resolNames));
-0257         contrastRes(i) = resolParNumber;
+0255         <span class="comment">% Find which resolutionParam this is, and set contrastRes to this number</span>
+0256         resolutionParamNumber = find(strcmpi(whichResolutionParamName,resolutionNames));
+0257         contrastRes(i) = resolutionParamNumber;
 0258     <span class="keyword">end</span>
 0259 <span class="keyword">end</span>
 0260         
 0261 
 0262 <span class="comment">%% Now make the limits array</span>
-0263 <span class="keyword">for</span> i = 1:length(inputStruct.paramConstr)
-0264     problemDefLimits.params(i,:) = inputStruct.paramConstr{i};
+0263 <span class="keyword">for</span> i = 1:length(inputStruct.paramLimits)
+0264     problemDefLimits.param(i,:) = inputStruct.paramLimits{i};
 0265 <span class="keyword">end</span>
 0266 
-0267 <span class="keyword">for</span> i = 1:length(inputStruct.backParConstr)
-0268     problemDefLimits.backs(i,:) = inputStruct.backParConstr{i};
+0267 <span class="keyword">for</span> i = 1:length(inputStruct.backgroundParamLimits)
+0268     problemDefLimits.backgroundParam(i,:) = inputStruct.backgroundParamLimits{i};
 0269 <span class="keyword">end</span>
 0270 
-0271 <span class="keyword">for</span> i = 1:length(inputStruct.scalefactorConstr)
-0272     problemDefLimits.scales(i,:) = inputStruct.scalefactorConstr{i};
+0271 <span class="keyword">for</span> i = 1:length(inputStruct.scalefactorLimits)
+0272     problemDefLimits.scalefactor(i,:) = inputStruct.scalefactorLimits{i};
 0273 <span class="keyword">end</span>
 0274 
-0275 <span class="keyword">for</span> i = 1:length(inputStruct.qzshiftConstr)
-0276     problemDefLimits.shifts(i,:) = inputStruct.qzshiftConstr{i};
+0275 <span class="keyword">for</span> i = 1:length(inputStruct.qzshiftLimits)
+0276     problemDefLimits.qzshift(i,:) = inputStruct.qzshiftLimits{i};
 0277 <span class="keyword">end</span>
 0278 
-0279 <span class="keyword">for</span> i = 1:length(inputStruct.nbairConstr)
-0280     problemDefLimits.nba(i,:) = inputStruct.nbairConstr{i};
+0279 <span class="keyword">for</span> i = 1:length(inputStruct.bulkInLimits)
+0280     problemDefLimits.bulkIn(i,:) = inputStruct.bulkInLimits{i};
 0281 <span class="keyword">end</span>
 0282 
-0283 <span class="keyword">for</span> i = 1:length(inputStruct.nbsubConstr)
-0284     problemDefLimits.nbs(i,:) = inputStruct.nbsubConstr{i};
+0283 <span class="keyword">for</span> i = 1:length(inputStruct.bulkOutLimits)
+0284     problemDefLimits.bulkOut(i,:) = inputStruct.bulkOutLimits{i};
 0285 <span class="keyword">end</span>
 0286 
-0287 <span class="keyword">for</span> i = 1:length(inputStruct.resolParConstr)
-0288     problemDefLimits.res(i,:) = inputStruct.resolParConstr{i};
+0287 <span class="keyword">for</span> i = 1:length(inputStruct.resolutionParamLimits)
+0288     problemDefLimits.resolutionParam(i,:) = inputStruct.resolutionParamLimits{i};
 0289 <span class="keyword">end</span>
 0290 
 0291 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0292     <span class="keyword">for</span> i = 1:length(inputStruct.domainRatioConstr)
-0293         problemDefLimits.domainRatio(i,:) = inputStruct.domainRatioConstr{i};
+0292     <span class="keyword">for</span> i = 1:length(inputStruct.domainRatioLimits)
+0293         problemDefLimits.domainRatio(i,:) = inputStruct.domainRatioLimits{i};
 0294     <span class="keyword">end</span>
 0295 <span class="keyword">else</span>
 0296     problemDefLimits.domainRatio = ones(0,2);
@@ -347,9 +347,9 @@ This function is called by:
 0301 
 0302 <span class="comment">% *************************************************************************</span>
 0303 <span class="comment">% NOTE - not using the more complicated background and resolution</span>
-0304 <span class="comment">% definitions for now - instead use the background names and backsPar</span>
-0305 <span class="comment">% values.... fix this next</span>
-0306 <span class="comment">% **********************************************************************8</span>
+0304 <span class="comment">% definitions for now - instead use the background names and</span>
+0305 <span class="comment">% backgroundParam values.... fix this next</span>
+0306 <span class="comment">% *************************************************************************</span>
 0307 
 0308 
 0309 problemDef.TF = inputStruct.TF;
@@ -359,19 +359,19 @@ This function is called by:
 0313 problemDef.numberOfContrasts = inputStruct.numberOfContrasts;
 0314 problemDef.geometry = inputStruct.geometry;
 0315 problemDef.useImaginary = inputStruct.useImaginary;
-0316 <span class="comment">%problemDef.contrastBacks = contrastBacks;</span>
-0317 problemDef.contrastShifts = inputStruct.contrastShifts;
-0318 problemDef.contrastScales = inputStruct.contrastScales;
-0319 problemDef.contrastNbas = inputStruct.contrastNbas;
-0320 problemDef.contrastNbss = inputStruct.contrastNbss;
-0321 problemDef.contrastRes = contrastRes;
-0322 problemDef.backs = inputStruct.backParVals; <span class="comment">%inputStruct.backgrounds;       % **** note backPar workaround (todo) ****</span>
-0323 problemDef.shifts = inputStruct.qzshifts;
-0324 problemDef.sf = inputStruct.scalefactors;
-0325 problemDef.nba = inputStruct.nbairs;
-0326 problemDef.nbs = inputStruct.nbsubs;
-0327 problemDef.res = inputStruct.resolPars; <span class="comment">%inputStruct.resolutions;           % **** note resolPar workaround (todo) ****</span>
-0328 problemDef.params = inputStruct.params;
+0316 <span class="comment">%problemDef.contrastBackgrounds = contrastBackgrounds;</span>
+0317 problemDef.contrastQzshifts = inputStruct.contrastQzshifts;
+0318 problemDef.contrastScalefactors = inputStruct.contrastScalefactors;
+0319 problemDef.contrastBulkIns = inputStruct.contrastBulkIns;
+0320 problemDef.contrastBulkOuts = inputStruct.contrastBulkOuts;
+0321 problemDef.contrastResolutions = contrastRes;
+0322 problemDef.backgroundParams = inputStruct.backgroundParamValues; <span class="comment">%inputStruct.backgrounds;       % **** note backPar workaround (todo) ****</span>
+0323 problemDef.qzshifts = inputStruct.qzshiftValues;
+0324 problemDef.scalefactors = inputStruct.scalefactorValues;
+0325 problemDef.bulkIn = inputStruct.bulkInValues;
+0326 problemDef.bulkOut = inputStruct.bulkOutValues;
+0327 problemDef.resolutionParams = inputStruct.resolutionParamValues; <span class="comment">%inputStruct.resolutions;           % **** note resolutionParam workaround (todo) ****</span>
+0328 problemDef.params = inputStruct.paramValues;
 0329 problemDef.numberOfLayers = inputStruct.numberOfLayers;
 0330 problemDef.modelType = inputStruct.modelType;
 0331 problemDef.contrastCustomFiles = inputStruct.contrastCustomFile;
@@ -381,7 +381,7 @@ This function is called by:
 0335 problemDef.contrastDomainRatios = inputStruct.contrastDomainRatios;
 0336 
 0337 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0338     problemDef.domainRatio = inputStruct.domainRatios;
+0338     problemDef.domainRatio = inputStruct.domainRatioValues;
 0339 <span class="keyword">else</span>
 0340     problemDef.domainRatio = ones(1,0);
 0341 <span class="keyword">end</span>
@@ -429,17 +429,17 @@ This function is called by:
 0383 controls.adaptPCR = inputControls.adaptPCR;
 0384 
 0385 <span class="comment">% Also need to deal with the checks...</span>
-0386 checks.params_fitYesNo = inputStruct.paramFitYesNo;
-0387 checks.backs_fitYesNo = inputStruct.backParFitYesNo;
-0388 checks.shifts_fitYesNo = inputStruct.qzshiftFitYesNo;
-0389 checks.scales_fitYesNo = inputStruct.scalefactorFitYesNo;
-0390 checks.nbairs_fitYesNo = inputStruct.nbaFitYesNo;
-0391 checks.nbsubs_fitYesNo = inputStruct.nbsFitYesNo;
-0392 checks.resol_fitYesNo = inputStruct.resolFitYesNo;
+0386 checks.fitParam = inputStruct.fitParam;
+0387 checks.fitBackgroundParam = inputStruct.fitBackgroundParam;
+0388 checks.fitQzshift = inputStruct.fitQzshift;
+0389 checks.fitScalefactor = inputStruct.fitScalefactor;
+0390 checks.fitBulkIn = inputStruct.fitBulkIn;
+0391 checks.fitBulkOut = inputStruct.fitBulkOut;
+0392 checks.fitResolutionParam = inputStruct.fitResolutionParam;
 0393 <span class="keyword">if</span> isa(inputProblemDef, <span class="string">'domainsClass'</span>)
-0394     checks.domainRatio_fitYesNo = inputStruct.domainRatioFitYesNo;
+0394     checks.fitDomainRatio = inputStruct.fitDomainRatio;
 0395 <span class="keyword">else</span>
-0396     checks.domainRatio_fitYesNo = ones(1,0);
+0396     checks.fitDomainRatio = ones(1,0);
 0397 <span class="keyword">end</span>
 0398 
 0399 controls.checks = checks;
@@ -447,6 +447,6 @@ This function is called by:
 0401 <span class="keyword">end</span>
 </pre></div>
 
-<hr><address>Generated on Tue 14-Nov-2023 16:00:59 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
+<hr><address>Generated on Fri 01-Dec-2023 17:22:03 by <strong><a href="https://github.com/gllmflndn/m2html">m2html</a></strong> &copy; 2003-2022</address>
 </body>
 </html>

@@ -2,8 +2,10 @@
 
 .. _RAT: 
 
-RAT is a software package for the analysis of Reflectivity data. It is a combination of C/C++, MATLAB and Java that provides high performance, multi-threaded analysis.
-To know more about RAT and its history, please check the :ref:`about` page. 
+
+RAT is an acronym for Reflectivity Algorithms Toolbox for Rascal. This is a MATLAB toolbox for analysing neutron reflectivity data at multiple contrasts. 
+This is designed to fit multiple contrast neutron reflectivity data, primarily using the Abeles layer model but user-defined model function are also supported.
+RAT was originally developed by Dr. Arwel Hughes in MATLAB. It is converted to C++/MEX using MATLAB Coder to improve the performance. 
 
 
 Index
@@ -14,10 +16,9 @@ Index
    
    install
    tutorial
-   sourceCodeLayout
-   userDocumentation
+   reference
+   advanced
    support
-   about
 
 
 Indices and tables

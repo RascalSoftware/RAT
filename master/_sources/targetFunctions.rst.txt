@@ -1,114 +1,42 @@
-.. _targetFunctions:
-
-================
-Target Functions
-================
-
-Reflectivity Calculation
--------------------------
-.. automodule:: targetFunctions.reflectivityCalculation
-
-.. autofunction:: reflectivityCalculation
-
+================================
+Target Functions (Low Level API)
+================================
+.. automodule:: targetFunctions
+    :members:
 
 .. _CommonFunctions:
 
 Common Functions
 ----------------
+.. automodule:: targetFunctions.common
+    :members:
+
+.. automodule:: targetFunctions.common.costFunctions
+    :members: 
+
 .. automodule:: targetFunctions.common.groupLayers
+    :members:    
 
-Allocate Layers For Contrast
-############################
-.. autofunction:: allocateLayersForContrast
+.. _nonPolarisedTF:
 
-Allocate Params To Layers
-#########################
-.. autofunction:: allocateParamsToLayers
+Non-Polarised Target Functions (nonPolarisedTF)
+-----------------------------------------------
+.. automodule:: targetFunctions.+nonPolarisedTF.+standardLayers
+    :members:
 
+.. automodule:: targetFunctions.+nonPolarisedTF.+customLayers
+    :members:
 
-Back Sort
-#########
+.. automodule:: targetFunctions.+nonPolarisedTF.+customXY
+    :members:
 
-.. automodule:: targetFunctions.common.backSort
+Domains Target Functions (domainsTF)
+------------------------------------
+.. automodule:: targetFunctions.+domainsTF.+standardLayers
+    :members:
 
-.. autofunction:: backSort
+.. automodule:: targetFunctions.+domainsTF.+customLayers
+    :members:
 
-
-Chi-Squared
-############
-
-.. automodule:: targetFunctions.common.costFunctions.chiSquared
-
-.. autofunction:: chiSquared
-
-
-Group Layers Mod 
-################
-.. autofunction:: targetFunctions.common.groupLayers.groupLayersMod
-
-
-Shift Data
-##########
-
-.. automodule:: targetFunctions.common.shiftData
-
-.. autofunction:: shiftData
-
-
-.. _StandardTF_reflectivityCalculation:
-
-Standard Target Functions (StandardTF)
---------------------------------------
-
-.. image:: images/standTF.png
-
-
-.. automodule:: targetFunctions.standardTF.standardLayers
-
-Standard Layers - Single
-########################
-.. autofunction:: standardTFStandardLayersSingle
-
-
-Standard Layers - Parallel Points
-#################################
-.. autofunction:: standardTFStandardLayersParallelPoints
-
-
-Standard Layers - Parallel Contrasts
-####################################
-.. autofunction:: standardTFStandardLayersParallelContrasts
-
-
-.. automodule:: targetFunctions.standardTF.customLayers
-
-Custom Layers - Single
-######################
-.. autofunction:: standardTFCustomLayersSingle
-
-
-Custom Layers - Parallel Points
-###############################
-.. autofunction:: standardTFCustomLayersParallelPoints
-
-
-Custom Layers - Parallel Contrasts
-##################################
-.. autofunction:: standardTFCustomLayersParallelContrasts
-
-
-.. automodule:: targetFunctions.standardTF.customXY
-
-Custom XY - single
-##################
-.. autofunction:: standardTFCustomXYSingle
-
-
-Custom XY - Parallel Points
-###########################
-.. autofunction:: standardTFCustomXYParallelPoints
-
-
-Custom XY - Parallel Contrasts
-##############################
-.. autofunction:: standardTFCustomXYParallelContrasts
+.. automodule:: targetFunctions.+domainsTF.+customXY
+    :members:

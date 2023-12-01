@@ -46,8 +46,7 @@ classdef layersClass < tableUtilities
             %
             % layers.addLayer(parameters.varTable{:, 1});
             % layers.addLayer(parameters.varTable{:, 1}, 'New layer');
-            % layers.addLayer(parameters.varTable{:, 1},...
-            %                 'Another layer', 1, 2, 3);
+            % layers.addLayer(parameters.varTable{:, 1}, 'Another layer', 1, 2, 3);
             layerDetails = varargin;
 
             if isempty(layerDetails)

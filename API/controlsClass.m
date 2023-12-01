@@ -1,42 +1,55 @@
 classdef controlsClass < matlab.mixin.CustomDisplay
 
     properties
+        % Parallelisation Option (Default: parallelOptions.Single)
         parallel = parallelOptions.Single.value
+        % Optimization procedure (Default: procedures.Calculate)
         procedure = procedures.Calculate.value
+        % Indicates if SLD should be calculated (Default: false)
         calcSldDuringFit = false
         resamPars = [0.9 50]
+        % Display Option (Default: displayOptions.Iter)
         display = displayOptions.Iter.value
 
-        %Procedure arguments
-        %(1) Simplex
-        tolX = 1e-6
+        % optimization tolerance for simplex (Default: 1e-6)
+        tolX = 1e-6    
         tolFun = 1e-6
+        % Maximum number of function evaluations for simplex  (Default: 10000)
         maxFunEvals = 10000
+        % Maximum number of iterations for simplex  (Default: 1000)
         maxIter = 1000
         updateFreq = -1
         updatePlotFreq = 1
-
-        %(2) Differential Evolution
+        
+        % Differential Evolution population size (Default: 20)
         populationSize = 20
+        % Differential weight (Default: 0.5)
         fWeight = 0.5
+        % The crossover probability or recombination constant (Default: 0.8)
         crossoverProbability = 0.8
-        strategy = 4
+        % differential evolution strategy (Default: searchStrategy.RandomWithPerVectorDither)
+        strategy = searchStrategy.RandomWithPerVectorDither.value
+        % Target Value (Default: 1)
         targetValue = 1
+        % Maximum number of generations (Default: 500)
         numGenerations = 500
 
-        %(3) Nested Sampler (for Matlab version. There will be more options
-        % with the C version)
+        % Number of live points for Nested Sampler (Default: 150)
         Nlive = 150
         Nmcmc = 0
         propScale = 0.1     % Used if MCMC is used
-        nsTolerance = 0.1     % Target stopping tolerance
+        % Target stopping tolerance for Nested Sampler (Default: 0.1)
+        nsTolerance = 0.1   
 
-        %(4) DREAM
-        nSamples = 50000;          % Total number of samples
-        nChains = 10               % Number of MCMC chains..
-        jumpProbability = 0.5               % Jump probabilities
+        % Total number of samples for DREAM (Default: 50000)
+        nSamples = 50000;
+        % Number of MCMC chains (Default: 10)       
+        nChains = 10
+        % Jump probabilities (Default: 0.5)          
+        jumpProbability = 0.5      
         pUnitGamma = 0.2
-        boundHandling = boundHandlingOptions.Fold.value     % Boundary handling
+        % Boundary handling
+        boundHandling = boundHandlingOptions.Fold.value     
         adaptPCR = false;
     end
 
@@ -129,10 +142,10 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         end
 
         function obj = set.strategy(obj,val)
-            message = sprintf('strategy must be a strategyOptions enum or one of the following integers (%s)', ...
-                strjoin(string(strategyOptions.values()), ', '));
+            message = sprintf('strategy must be a searchStrategy enum or one of the following integers (%s)', ...
+                strjoin(string(searchStrategy.values()), ', '));
 
-            obj.strategy = validateOption(val, 'strategyOptions', message).value;
+            obj.strategy = validateOption(val, 'searchStrategy', message).value;
         end
 
         function obj = set.targetValue(obj,val)
@@ -232,19 +245,13 @@ classdef controlsClass < matlab.mixin.CustomDisplay
         function obj = setProcedure(obj, procedure, varargin)
             % Method sets the properties of the class based on the selected procedures.
             %
-            % obj.setProcedure(procedure, varargin)
+            % USAGE: 
+            %     obj.setProcedure(procedure, varargin)
             %
-            % Usage Examples:
-            % obj.setProcedure('simplex',...
-            %                   {'tolX', 1e-6,...
-            %                   'tolFun', 1e-6,...
-            %                   'maxFunEvals', 1000})
-            % obj.setProcedure('dream')
-            % obj.setProcedure('ns',
-            %                  {'Nlive', 150,...
-            %                  'Nmcmc', 0,...
-            %                  'propScale', 0.1,...
-            %                  'nsTolerance', 0.1})
+            % EXAMPLE: 
+            %     * obj.setProcedure('simplex', {'tolX', 1e-6, 'tolFun', 1e-6,'maxFunEvals', 1000})
+            %     * obj.setProcedure('dream')
+            %     * obj.setProcedure('ns', {'Nlive', 150,'Nmcmc', 0, 'propScale', 0.1, 'nsTolerance', 0.1})
 
             switch procedure
 

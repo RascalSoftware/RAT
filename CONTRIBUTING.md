@@ -5,14 +5,14 @@ You can contribute to the Reflectivity Algorithms Toolbox (RAT) project by eithe
 
 Create Developer Environment
 ----------------------------
-The MATLAB IDE is recommended for developement, the following toolboxes are required for RAT:
+The MATLAB IDE is recommended for development, the following toolboxes are required for RAT:
 
 - MATLAB Coder
 - MATLAB Compiler
 - Parallel Computing Toolbox
 - Statistics and Machine Learning Toolbox (for DREAM Minimizer)
 
-After intalling the IDE, proceed by creating a fork of the RAT repo, then clone the fork
+After installing the IDE, proceed by creating a fork of the RAT repo, then clone the fork
 
     git clone --recurse-submodules https://github.com/<username>/RAT.git
     cd RAT

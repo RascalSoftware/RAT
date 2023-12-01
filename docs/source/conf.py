@@ -10,6 +10,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os
 import sys
+import datetime
 
 # -- Project information -----------------------------------------------------
 # Add any Sphinx extension module names here, as strings. They can be
@@ -17,13 +18,12 @@ import sys
 # ones.
 exclude_patterns = []
 current_dir = os.path.dirname(os.path.abspath(__file__))
-matlab_src_dir = 'D:/Documents/MATLAB/RAT'
-#os.path.abspath(os.path.join(current_dir, '..','..'))
+matlab_src_dir = os.path.abspath(os.path.join(current_dir, '..','..'))
 sys.path.insert(0, matlab_src_dir)
 
 project = 'RAT'
-copyright = '2022, Arwel Hughes,Sethu Pastula'
-author = 'Arwel Hughes,Sethu Pastula'
+copyright = u'2022-{}, ISIS Neutron and Muon Source'.format(datetime.date.today().year)
+author = 'Arwel Hughes, Sethu Pastula, Rabiya Farooq, Paul Sharp, Stephen Nneji'
 
 # The full version, including alpha/beta/rc tags
 with open(os.path.join('D:\Documents\MATLAB\RAT', 'version.txt'), 'r') as version_file:
@@ -38,6 +38,7 @@ templates_path = ['_templates']
 # -- Options for HTML output -------------------------------------------------
 #set primary_domain = 'matlab'
 primary_domain = 'mat'
+matlab_keep_package_prefix = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 html_theme =  'sphinx_rtd_theme'

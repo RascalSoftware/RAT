@@ -1,16 +1,23 @@
-.. _targetFunctions:
-
-================
-Target Functions
-================
+================================
+Target Functions (Low Level API)
+================================
 .. automodule:: targetFunctions
     :members:
+
+.. _CommonFunctions:
 
 Common Functions
 ----------------
 .. automodule:: targetFunctions.common
     :members:
 
+.. automodule:: targetFunctions.common.costFunctions
+    :members: 
+
+.. automodule:: targetFunctions.common.groupLayers
+    :members:    
+
+.. _nonPolarisedTF:
 
 Non-Polarised Target Functions (nonPolarisedTF)
 -----------------------------------------------

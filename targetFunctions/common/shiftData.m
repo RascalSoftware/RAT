@@ -1,25 +1,25 @@
-function shifted_data = shiftData(scalefac,horshift,dataPresent,data,dataLimits,simLimits)
+function shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits)
 % Shifts the data according to scale factor. If there is no data, makes 
 % x-data over the simulation range.
 %
 % INPUTS:
 %
-%     * scalefac = problem.scalefactors;
-%     * horshift = problem.qshifts;
-%     * numberOfContrasts = problem.numberOfContrasts;
+%     * scalefactor = problem.scalefactors;
+%     * horshift = problem.qzshifts;
 %     * dataPresent = problem.dataPresent;
 %     * allData = problem.data;
 %     * dataLimits = problem.dataLimits;
 
-
 switch dataPresent
+
     case 1
-        if scalefac == 0
-            scalefac = 1e-30;
+        
+        if scalefactor == 0
+            scalefactor = 1e-30;
         end
-        data(:,1) = data(:,1) + horshift;
-        data(:,2) = data(:,2) ./ scalefac;
-        data(:,3) = data(:,3) ./ scalefac;
+        data(:,1) = data(:,1) + qzshift;
+        data(:,2) = data(:,2) ./ scalefactor;
+        data(:,3) = data(:,3) ./ scalefactor;
         
         lowLimit = dataLimits(1);
         hiLimit = dataLimits(2);
@@ -38,22 +38,16 @@ switch dataPresent
             hiIndex = length(data(:,1));
         end
         
-        shifted_data = data(lowIndex:hiIndex,:);
+        shiftedData = data(lowIndex:hiIndex,:);
+
     otherwise
+
         simPoints = 500;
         simLo = simLimits(1);
         simHi = simLimits(2);
         simXData = linspace(simLo,simHi,simPoints);
         simYData = zeros(length(simXData),1);
-        shifted_data = [simXData(:) simYData(:) simYData(:)];
+        shiftedData = [simXData(:) simYData(:) simYData(:)];
+
 end
-
-
-
-
-
-
-
  
-
-    

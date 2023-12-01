@@ -1,63 +1,56 @@
-function [backg,qshift,sf,nba,nbs,resol] = backSort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)
+function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)
 %     Distributes the background and shift values among the different contrasts
 %
 %     USAGE::
 %
-%         [backg,qshift,sf,nba,nbs,resol] = backsort(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs,shifts,sf,nba,nbs,res)
+%         [backg,qzshift,scalefactor,bulkIn,bulkOut,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,bulkIn,bulkOut,res)
 %
 %     INPUTS:
-%        * cBacks  :         Which backround value is associated with each contrast
-%        * cShifts  :        Which qz_shift value is associated with each contrast
-%        * cScales  :        Which scalefactor value is associated with each contrast
-%        * cNbas  :          Which NBa value is associated with each contrast
-%        * cNbss  :          Which Nbs value is associated with each contrast
-%        * cRes  :           Which resolution value is associated with each contrast
-%        * backs  :          List of all background values.
-%        * shifts  :         List of all qz-shift values
-%        * sf :              List of all scalefactor values
-%        * nba :             List of all nba values
-%        * nbs :             List of all nbs values
-%        * res :             List of all resolution values
+%        * contrastBackgrounds  :     Which backround value is associated with each contrast
+%        * contrastQzshifts  :        Which qz_shift value is associated with each contrast
+%        * contrastScalefactors  :    Which scalefactor value is associated with each contrast
+%        * contrastBulkIns  :         Which BulkIn value is associated with each contrast
+%        * contrastBulkOuts  :        Which BulkOut value is associated with each contrast
+%        * contrastResolutions  :     Which resolution value is associated with each contrast
+%        * backs  :                   List of all background values.
+%        * shifts  :                  List of all qzshift values
+%        * scalefactor :              List of all scalefactor values
+%        * bulkIn :                   List of all bulkIn values
+%        * bulkOut :                  List of all bulkOut values
+%        * res :                      List of all resolution values
 % 
 %     OUTPUTS:
 %        * backgs : list of actual background values for each contrast
-%        * qshifts : list of actual shift values for each contrast      
-%        * sfs : list of actual shift values for each contrast     
-%        * nbas : list of actual shift values for each contrast     
-%        * nbss : list of actual shift values for each contrast
-%        * nbss : list of actual shift values for each contrast  
+%        * qzshifts : list of actual shift values for each contrast      
+%        * scalefactors : list of actual shift values for each contrast     
+%        * bulkIns : list of actual shift values for each contrast     
+%        * bulkOuts : list of actual shift values for each contrast
+%        * bulkOuts : list of actual shift values for each contrast  
 % 
 % 
     
-    
-    
-    
-    
+        %for i = 1:nc
+        %thisBack = contrastBackgrounds(i);
+        outBackground = backs(contrastBackgrounds);
         
+        %thisShift = contrastQzshifts(i);
+        outQzshift = qzshifts(contrastQzshifts);
         
-            %for i = 1:nc
-            %thisBack = cBacks(i);
-            backg = backs(cBacks);
-            
-            %thisShift = cShifts(i);
-            qshift = shifts(cShifts);
-            
-            %thisScale = cScales(i);
-            sf = sf(cScales);
-            
-            %thisNbair = cNbas(i);
-            nba = nba(cNbas);
-            
-            %thisNbsub = cNbss(i);
-            nbs = nbs(cNbss);
-            
-            %thisResol = cRes(i);
-            if cRes ~= -1
-                resol = res(cRes);
-            else
-                resol = -1;     % Negative value means we have a data resolution..
-            end
-            %end
-           
-            
-    end
+        %thisScale = contrastScalefactors(i);
+        outScalefactor = scalefactor(contrastScalefactors);
+        
+        %thisBulkIn = contrastBulkIns(i);
+        outBulkIn = bulkIn(contrastBulkIns);
+        
+        %thisBulkOut = contrastBulkOuts(i);
+        outBulkOut = bulkOut(contrastBulkOuts);
+        
+        %thisResol = contrastResolutions(i);
+        if contrastResolutions ~= -1
+            outResolution = res(contrastResolutions);
+        else
+            outResolution = -1;     % Negative value means we have a data resolution..
+        end
+        %end
+
+end

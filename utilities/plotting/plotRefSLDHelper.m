@@ -55,14 +55,14 @@ function plotRefSLDHelper(data, noDelay)
         if (data.resample(i) == 1) || (strcmpi(modelType, 'custom xy'))
             ssub = data.ssubs(i); 
             layers = allLayers{i, 1};
-            nbair = layers(1, 2);
-            nbsub = layers(end, 2);
+            bulkIn = layers(1, 2);
+            bulkOut = layers(end, 2);
 
             for j=1:size(allLayers, 2)
                 layer = allLayers{i, j};                          
                 numberOfLayers = size(layer, 1);
                 nrepeats = 1;
-                newProf = makeSLDProfileXY(nbair,nbsub,ssub,layer,numberOfLayers,nrepeats);
+                newProf = makeSLDProfileXY(bulkIn,bulkOut,ssub,layer,numberOfLayers,nrepeats);
                 plot(newProf(:,1)-49,newProf(:,2));
             end
         end

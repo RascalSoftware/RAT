@@ -1,4 +1,4 @@
-function [reflectivity, Simulation] = callReflectivity(nbairs,nbsubs,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)
+function [reflectivity, Simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)
 
 xdata = this_data(:,1);
 
@@ -15,7 +15,7 @@ end
  
 if isempty(layers)
     % No layers defined. Make a zeros dummy zero layer 
-    layers = [0 nbairs 0];
+    layers = [0 bulkIns 0];
 end
 
 nLayers = size(layers,1);
@@ -53,8 +53,8 @@ for m = 1:nRepeats
 end
 
 % Add the air and substrate parameters
-slds(1) = nbairs;
-slds(end) = nbsubs;
+slds(1) = bulkIns;
+slds(end) = bulkOuts;
 roughs(end) = ssubs;
 
 simXLo = simLimits(1);

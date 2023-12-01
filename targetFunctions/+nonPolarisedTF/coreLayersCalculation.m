@@ -1,6 +1,6 @@
 function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] = ...
     coreLayersCalculation(contrastLayers, rough, ...
-    geometry, nba, nbs, resample, calcSld, sf, qshift,...
+    geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,...
     dataPresent, data, dataLimits, simLimits, repeatLayers,...
     background,resol,backsType,params,parallelPoints,resamPars,useImaginary)
 
@@ -25,12 +25,12 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
 %   contrastLayers  :
 %   rough           :
 %   geometry        :
-%   nba             :
-%   nbs             :
+%   bulkIn             :
+%   bulkOut             :
 %   resample        :
 %   calcSld         :
-%   sf              :
-%   qshift          :
+%   scalefactor              :
+%   qzshift          :
 %   dataPresent     :
 %   data            :
 %   dataLimits      :
@@ -64,9 +64,9 @@ coder.varsize('sldProfileIm',[10000 3],[1 1]);
 
 % Bulid up the layers matrix for this contrast
 if ~useImaginary
-    [theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,nba,nbs);
+    [theseLayers, ssubs] = groupLayersMod(contrastLayers,rough,geometry,bulkIn,bulkOut);
 else
-    [theseLayers, ssubs] = groupLayersModImaginary(contrastLayers,rough,geometry,nba,nbs);
+    [theseLayers, ssubs] = groupLayersModImaginary(contrastLayers,rough,geometry,bulkIn,bulkOut);
 end
 
 % Make the SLD profiles.
@@ -88,12 +88,12 @@ if calcSld
         thisSldLays = theseLayers;
     end
     
-    sldProfile = makeSLDProfiles(nba,nbs,thisSldLays,ssubs,repeatLayers);
+    sldProfile = makeSLDProfiles(bulkIn,bulkOut,thisSldLays,ssubs,repeatLayers);
 
     % If we have imaginary, we are also
     % going to need an SLD profile for the imaginary part
     if useImaginary
-        % Note nba and nbs = 0 since there is never any imaginary part for
+        % Note bulkIn and bulkOut = 0 since there is never any imaginary part for
         % the bulk phases..
         sldProfileIm = makeSLDProfiles(0,0,thisSldLaysIm,ssubs,repeatLayers);
     end
@@ -116,11 +116,11 @@ else
 end
 
 % Apply scale factors and q shifts to the data
-shifted_dat = shiftData(sf,qshift,dataPresent,data,dataLimits,simLimits);
+shifted_dat = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits);
 
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles';
-[reflect,Simul] = callReflectivity(nba,nbs,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,parallelPoints,reflectivityType,useImaginary);
+[reflect,Simul] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,parallelPoints,reflectivityType,useImaginary);
 
 % Apply background correction, either to the simulation or the data
 [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,background,backsType);

@@ -1,5 +1,5 @@
-function [allSLDs,allRoughs] = processCustomFunction(cBacks,cShifts,cScales,cNbas,cNbss,cRes,backs, ...
-    shifts,sf,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
+function [allSLDs,allRoughs] = processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
+    shifts,scalefactor,nba,nbs,res,cCustFiles,numberOfContrasts,customFiles,params)
 
     % Top-level function for processing custom XY profiles for all the
     % contrasts.
@@ -23,14 +23,14 @@ function [allSLDs,allRoughs] = processCustomFunction(cBacks,cShifts,cScales,cNba
         functionHandle = customFiles{cCustFiles(i)};
 
         % Find values of 'bulkIn' and 'bulkOut' for this contrast...
-        [~,~,~,bulkIn,bulkOut,~] = backSort(cBacks(i),cShifts(i),cScales(i),cNbas(i),cNbss(i),cRes(i),backs,shifts,sf,nba,nbs,res);
+        [~,~,~,thisBulkIn,thisBulkOut,~] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,nba,nbs,res);
 
         if isnan(str2double(functionHandle))
-            [tempAllSLDs{i, 1}, allRoughs(i)] = callMatlabFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,1);
-            [tempAllSLDs{i, 2}, ~] = callMatlabFunction(params,i,functionHandle,bulkIn,bulkOut,numberOfContrasts,2);
+            [tempAllSLDs{i, 1}, allRoughs(i)] = callMatlabFunction(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,1);
+            [tempAllSLDs{i, 2}, ~] = callMatlabFunction(params,i,functionHandle,thisBulkIn,thisBulkOut,numberOfContrasts,2);
         else
-            [tempAllSLDs{i, 1}, allRoughs(i)] = callCppFunction(params, bulkIn, bulkOut, i, 0, functionHandle);
-            [tempAllSLDs{i, 2}, ~] = callCppFunction(params, bulkIn, bulkOut, i, 1, functionHandle);
+            [tempAllSLDs{i, 1}, allRoughs(i)] = callCppFunction(params,thisBulkIn,thisBulkOut,i,0,functionHandle);
+            [tempAllSLDs{i, 2}, ~] = callCppFunction(params,thisBulkIn,thisBulkOut,i,1,functionHandle);
         end
     end
 

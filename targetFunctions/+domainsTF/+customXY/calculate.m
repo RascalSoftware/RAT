@@ -17,10 +17,10 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfil
 numberOfContrasts = problemDef.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
 backgs = zeros(numberOfContrasts,1);
-qshifts = zeros(numberOfContrasts,1);
-sfs = zeros(numberOfContrasts,1);
-nbas = zeros(numberOfContrasts,1);
-nbss = zeros(numberOfContrasts,1);
+qzshifts = zeros(numberOfContrasts,1);
+scalefactors = zeros(numberOfContrasts,1);
+bulkIns = zeros(numberOfContrasts,1);
+bulkOuts = zeros(numberOfContrasts,1);
 chis = zeros(numberOfContrasts,1);
 resols = zeros(numberOfContrasts,1);
 allRoughs = zeros(numberOfContrasts,1);
@@ -63,26 +63,26 @@ coder.varsize('allLayers',[10000 2],[1 1]);
 
 switch controls.parallel
     case 'single'
-          [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customXY.single(problemDef,problemDefCells,controls);
     case 'points'
-          [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customXY.parallelPoints(problemDef,problemDefCells,controls);
     case 'contrasts'
-          [outSsubs,backgs,qshifts,sfs,nbas,nbss,resols,chis,reflectivity,...
+          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customXY.parallelContrasts(problemDef,problemDefCells,controls);
 end
 
 problem.ssubs = outSsubs;
-problem.backgrounds = backgs;
-problem.qshifts = qshifts;
-problem.scalefactors = sfs;
-problem.nbairs = nbas;
-problem.nbsubs = nbss;
-problem.resolutions = resols;
+problem.backgroundParams = backgs;
+problem.qzshifts = qzshifts;
+problem.scalefactors = scalefactors;
+problem.bulkIn = bulkIns;
+problem.bulkOut = bulkOuts;
+problem.resolutionParams = resols;
 problem.calculations.all_chis = chis;
 problem.calculations.sum_chi = sum(chis);
 problem.allSubRough = allRoughs;

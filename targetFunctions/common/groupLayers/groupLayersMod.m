@@ -1,9 +1,9 @@
-function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,nbair,nbsubs)
+function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,bulkIn,bulkOuts)
 %Arrange layers according to geometry and apply any coverage correction.
 %
 % USAGE::
 %
-%     [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,numberOfContrasts,geometry,nbairs,nbsubs)
+%     [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,numberOfContrasts,geometry,bulkIns,bulkOuts)
 %
 % INPUTS:
 %
@@ -11,8 +11,8 @@ function [outLayers, outSsubs] = groupLayersMod(allLayers,allRoughs,geometry,nba
 %     * allRoughs =         Double of substrate roughness for each contrast.
 %     * numberOfContrasts = double.
 %     * geometry =          'Air / Liquid (or solid)' or 'Solid / Liquid'
-%     * nbairs =            vector of nbair values.
-%     * nbsubs =            vector of nbsub values.
+%     * bulkIns =            vector of bulkIn values.
+%     * bulkOuts =            vector of bulkOut values.
 %
 %     The paratt calculation procedds through the 
 %     z,rho,rough stack, and the parameter 'ssub' in
@@ -71,9 +71,9 @@ coder.varsize('layers',[Inf,6],[1 1]);
             for j = 1:l
                 this_pcw = output(j,4);
                 if output(j,5) == 1
-                    pc_add = nbair;
+                    pc_add = bulkIn;
                 else
-                    pc_add = nbsubs;
+                    pc_add = bulkOuts;
                 end
                 if ~isnan(this_pcw)
                     layers(j,2) = pc_add*(this_pcw/100) + (1-(this_pcw/100))*layers(j,2);

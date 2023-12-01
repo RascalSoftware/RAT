@@ -9,23 +9,23 @@ fittingNames = problem.paramnames(find(fitWhichParams));
 
 fitWhichBacks = problem.fitBackgrounds;
 fittingBacks = problem.backs(find(fitWhichBacks));
-fittingBacksConstr = problem.backs_constr(find(fitWhichBacks),:);
+fittingBacksConstr = problem.backgroundParamLimits(find(fitWhichBacks),:);
 fittingBacksNames = problem.backgroundParamNames(find(fitWhichBacks));
 
 fitWhichScales = problem.fitScalefactor;
 fittingScales = problem.scalefac(find(fitWhichScales));
-fittingScalesConstr = problem.scale_constr(find(fitWhichScales),:);
-fittingScalesNames = problem.scalesNames(find(fitWhichScales));
+fittingScalesConstr = problem.scalefactorLimits(find(fitWhichScales),:);
+fittingScalesNames = problem.scalefactorNames(find(fitWhichScales));
 
 fitWhichShifts = problem.fitQzshift;
-fittingShifts = problem.shifts_horisontal(find(fitWhichShifts));
-fittingShiftsConstr = problem.shifts_constr(find(fitWhichShifts),:);
-fittingShiftsNames = problem.shiftsNames(find(fitWhichShifts));
+fittingShifts = problem.qzshifts(find(fitWhichShifts));
+fittingShiftsConstr = problem.qzshiftLimit(find(fitWhichShifts),:);
+fittingShiftsNames = problem.qzshiftNames(find(fitWhichShifts));
 
 fitWhichNbas = problem.fitBulkIn;
-fittingNbas = problem.nba(find(fitWhichNbas));
-fittingNbaConstr = problem.nbairs_constr(find(fitWhichNbas),:);
-fittingNbaNames = problem.nbaNames(find(fitWhichNbas));
+fittingNbas = problem.bulkIn(find(fitWhichNbas));
+fittingNbaConstr = problem.bulkInLimits(find(fitWhichNbas),:);
+fittingNbaNames = problem.bulkInNames(find(fitWhichNbas));
 
 
 fittingParams = [fittingParams(:) ; fittingBacks(:) ; fittingScales(:) ; fittingShifts(:) ; fittingNbas(:)];

@@ -1,4 +1,4 @@
-function out = makeSLDProfileXY(nbair,nbsub,ssub,layers,numberOfLayers,nrepeats)
+function out = makeSLDProfileXY(bulkIn,bulkOut,ssub,layers,numberOfLayers,nrepeats)
 
 if numberOfLayers>0
     layerThicks = sum(layers(:,1));
@@ -8,7 +8,7 @@ if numberOfLayers>0
     boxCen = 0;
     boxWidth = 100;
     nextLayRough = layers(1,3);
-    airBox = asymconvstep(x,boxWidth,boxCen,nextLayRough,nextLayRough,nbair);
+    airBox = asymconvstep(x,boxWidth,boxCen,nextLayRough,nextLayRough,bulkIn);
     lastBoxEdge = boxCen + (boxWidth/2);
     for n = 1:nrepeats
         for i = 1:numberOfLayers
@@ -31,7 +31,7 @@ if numberOfLayers>0
     end
     thisLayRough = nextLayRough;%layers(end,3);
     thisLayThick = (x(end)-lastBoxEdge)*2;
-    thisLaySLD = nbsub;
+    thisLaySLD = bulkOut;
     nextLayRough = ssub;
     thisBoxCentre = x(end);
     Lays(:,(numberOfLayers*nrepeats)+1) = asymconvstep(x,thisLayThick,thisBoxCentre,thisLayRough,nextLayRough,thisLaySLD);
@@ -45,8 +45,8 @@ else
     subsBoxCen = max(x);
     airBoxCen = 0;
     widths = max(x);
-    airBox = asymconvstep(x,widths,airBoxCen,ssub,ssub,nbair);
-    subBox = asymconvstep(x,widths,subsBoxCen,ssub,ssub,nbsub);
+    airBox = asymconvstep(x,widths,airBoxCen,ssub,ssub,bulkIn);
+    subBox = asymconvstep(x,widths,subsBoxCen,ssub,ssub,bulkOut);
     SLD = airBox + subBox;
 end
 

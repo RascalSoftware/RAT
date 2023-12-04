@@ -29,10 +29,10 @@ if ref == version:
         '<!DOCTYPE html>\n',
         '<html>\n',
         '  <head>\n',
-        f'    <title>Redirecting to https://reflectivity-algorithms-toolbox.github.io/RAT/{ref}/</title>\n',
+        f'    <title>Redirecting to https://rascalsoftware.github.io/RAT/{ref}/</title>\n',
         '    <meta charset="utf-8">\n',
-        f'    <meta http-equiv="refresh" content="0; URL=https://reflectivity-algorithms-toolbox.github.io/RAT/{ref}/index.html">\n',
-        f'    <link rel="canonical" href="https://reflectivity-algorithms-toolbox.github.io/RAT/{ref}/index.html">\n',
+        f'    <meta http-equiv="refresh" content="0; URL=https://rascalsoftware.github.io/RAT/{ref}/index.html">\n',
+        f'    <link rel="canonical" href="https://rascalsoftware.github.io/RAT/{ref}/index.html">\n',
         '  </head>\n',
         '</html>',
     ]

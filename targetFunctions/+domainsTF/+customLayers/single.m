@@ -17,7 +17,7 @@ function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,ref
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutions, backs, qzshift, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
+contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
 ~, resample, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDef);
 
 calcSld = controls.calcSldDuringFit;
@@ -82,7 +82,7 @@ end
 resamPars = controls.resamPars;
 
 % Process the custom models....
-[calcAllLayers,allRoughs] = domainsTF.customLayers.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
+[calcAllLayers,allRoughs] = domainsTF.customLayers.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParam, ...
     qzshift,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 % Parallel over all contrasts
@@ -100,7 +100,7 @@ for i = 1:numberOfContrasts
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
-    [thisBackground,thisQzshift,thisScalefactor,thisBulkIn,thisBulkOut,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,qzshift,scalefactor,bulkIn,bulkOut,res);
+    [thisBackground,thisQzshift,thisScalefactor,thisBulkIn,thisBulkOut,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,res);
     
     % Get the custom layers output for this contrast
     % We have two for each contrast - one for each domain

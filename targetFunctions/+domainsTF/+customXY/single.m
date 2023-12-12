@@ -13,7 +13,7 @@ function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,ref
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, ~, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutions, backs, qzshift, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
+contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
 ~, ~, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDef);      
             
 %Pre-Allocation...
@@ -79,12 +79,12 @@ for i = 1:numberOfContrasts
     domainSldProfiles{i,1} = [1 1 ; 1 1];
     domainSldProfiles{i,2} = [1 1 ; 1 1];
 end
-[domainSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
+[domainSldProfiles,allRoughs] = domainsTF.customXY.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParam, ...
     qzshift,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts
     outSsubs(i) = allRoughs(i);
-    [backgs(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,qzshift,scalefactor,bulkIn,bulkOut,res);
+    [backgs(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,res);
 
     % Get the domain ratio for this contrast
     thisContrastDR = contrastDomainRatios(i);

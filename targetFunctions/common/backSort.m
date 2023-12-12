@@ -1,4 +1,4 @@
-function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)
+function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParams,qzshifts,scalefactor,bulkIn,bulkOut,res)
     % Distributes the background and shift values among the different contrasts
     %
     % USAGE::
@@ -29,7 +29,7 @@ function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolu
     
         %for i = 1:nc
         %thisBack = contrastBackgrounds(i);
-        outBackground = backs(contrastBackgrounds);
+        outBackgroundParam = backgroundParams(contrastBackgrounds);
         
         %thisShift = contrastQzshifts(i);
         outQzshift = qzshifts(contrastQzshifts);

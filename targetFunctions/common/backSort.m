@@ -1,4 +1,4 @@
-function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolutionParam] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParams,qzshifts,scalefactor,bulkIn,bulkOut,res)
+function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolutionParam] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,resolutionParams)
     % Distributes the background and shift values among the different contrasts
     %
     % USAGE::
@@ -12,12 +12,12 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
     %    * contrastBulkIns: Which BulkIn value is associated with each contrast
     %    * contrastBulkOuts: Which BulkOut value is associated with each contrast
     %    * contrastResolutions: Which resolution value is associated with each contrast
-    %    * backs: List of all background values.
+    %    * backgroundParams: List of all background values.
     %    * qzshifts: List of all qzshift values
-    %    * scalefactor: List of all scalefactor values
+    %    * scalefactors: List of all scalefactor values
     %    * bulkIn: List of all bulkIn values
     %    * bulkOut: List of all bulkOut values
-    %    * res: List of all resolution values
+    %    * resolutionParams: List of all resolution values
     % 
     % OUTPUTS:
     %    * outBackground: list of actual background values for each contrast
@@ -35,7 +35,7 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
         outQzshift = qzshifts(contrastQzshifts);
         
         %thisScale = contrastScalefactors(i);
-        outScalefactor = scalefactor(contrastScalefactors);
+        outScalefactor = scalefactors(contrastScalefactors);
         
         %thisBulkIn = contrastBulkIns(i);
         outBulkIn = bulkIn(contrastBulkIns);
@@ -45,7 +45,7 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
         
         %thisResol = contrastResolutions(i);
         if contrastResolutions ~= -1
-            outResolutionParam = res(contrastResolutions);
+            outResolutionParam = resolutionParams(contrastResolutions);
         else
             outResolutionParam = -1;     % Negative value means we have a data resolution..
         end

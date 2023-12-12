@@ -23,7 +23,7 @@ domainContrastLayers = problemDefCells{19};
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
 contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
-~, resample, backsType, ~] =  extractProblemParams(problemDef);
+~, resample, contrastBackgroundsType, ~] =  extractProblemParams(problemDef);
 
 calcSld = controls.calcSldDuringFit;   
 useImaginary = problemDef.useImaginary;
@@ -123,7 +123,7 @@ for i = 1:numberOfContrasts
     thisDataPresent = dataPresent(i);
     thisDataLimits = dataLimits{i};
     thisSimLimits = simLimits{i};
-    thisBacksType = backsType(i);
+    thisBacksType = contrastBackgroundsType(i);
     
     % Now call the core layers reflectivity calculation
     % In this case we are single cored, so we do not parallelise over

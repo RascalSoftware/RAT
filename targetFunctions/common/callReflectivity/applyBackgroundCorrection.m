@@ -1,6 +1,6 @@
-function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,backsType)
+function    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backg,contrastBackgroundsType)
 
-switch backsType
+switch contrastBackgroundsType
     case 1
         %Add background to the simulation
         reflect(:,2) = reflect(:,2) + backg;

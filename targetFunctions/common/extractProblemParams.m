@@ -1,5 +1,5 @@
 function [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
+contrastResolutions, backs, qzshifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
 numberOfLayers, resample, contrastBackgroundsType, contrastCustomFiles] =  extractProblemParams(problemDef)
 
 %Extract individual parameters from problemDef
@@ -15,7 +15,7 @@ contrastBulkOuts = problemDef.contrastBulkOuts;
 contrastResolutions = problemDef.contrastResolutions;
 contrastCustomFiles = problemDef.contrastCustomFiles;
 backs = problemDef.backgroundParams;
-shifts = problemDef.qzshifts;
+qzshifts = problemDef.qzshifts;
 scalefactor = problemDef.scalefactors;
 bulkIn = problemDef.bulkIn;
 bulkOut = problemDef.bulkOut;

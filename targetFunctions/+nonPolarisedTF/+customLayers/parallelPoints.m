@@ -17,7 +17,7 @@ function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,ref
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, geometry, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
+contrastResolutions, backs, qzshift, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
 ~, resample, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDef);
 
 calcSld = controls.calcSldDuringFit;
@@ -59,7 +59,7 @@ resamPars = controls.resamPars;
 
 % Process the custom models....
 [allLayers,allRoughs] = nonPolarisedTF.customLayers.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
-    shifts,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
+    qzshift,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params,useImaginary);
 
 % Single cored over all contrasts
 for i = 1:numberOfContrasts
@@ -68,7 +68,7 @@ for i = 1:numberOfContrasts
     % from the input arrays.
     % First need to decide which values of the backgrounds, scalefactors
     % data shifts and bulk contrasts are associated with this contrast
-    [thisBackground,thisQzshift,thisScalefactor,thisBulkIn,thisBulkOut,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,bulkIn,bulkOut,res);
+    [thisBackground,thisQzshift,thisScalefactor,thisBulkIn,thisBulkOut,thisResol] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,qzshift,scalefactor,bulkIn,bulkOut,res);
     
     % Get the custom layers output for this contrast
     thisContrastLayers = allLayers{i};

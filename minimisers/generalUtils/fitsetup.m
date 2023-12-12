@@ -5,7 +5,7 @@ if isfield(controls,'checks')
 else
     checks.fitParam = ones(length(problemDef.params),1);
     checks.fitBackgroundParam = ones(length(problemDef.backs),1);
-    checks.fitQzshift = ones(length(problemDef.shifts),1);
+    checks.fitQzshift = ones(length(problemDef.qzshifts),1);
     checks.fitScalefactor = ones(length(problemDef.sf),1);
     checks.fitBulkIn = ones(length(problemDef.nba),1);
     checks.fitBulkOut = ones(length(problemDef.nbs),1);

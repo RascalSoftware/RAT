@@ -3,7 +3,7 @@ function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolu
     %
     % USAGE::
     %
-    %    [backg,qzshift,scalefactor,bulkIn,bulkOut,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,shifts,scalefactor,bulkIn,bulkOut,res)
+    %    [backg,qzshift,scalefactor,bulkIn,bulkOut,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)
     %
     % INPUTS:
     %    * contrastBackgrounds: Which background value is associated with each contrast
@@ -13,7 +13,7 @@ function [outBackground,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolu
     %    * contrastBulkOuts: Which BulkOut value is associated with each contrast
     %    * contrastResolutions: Which resolution value is associated with each contrast
     %    * backs: List of all background values.
-    %    * shifts: List of all qzshift values
+    %    * qzshifts: List of all qzshift values
     %    * scalefactor: List of all scalefactor values
     %    * bulkIn: List of all bulkIn values
     %    * bulkOut: List of all bulkOut values

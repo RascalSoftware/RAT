@@ -15,7 +15,7 @@ function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,ref
 
 % Extract individual parameters from problemDef struct
 [numberOfContrasts, ~, contrastBackgrounds, contrastQzshifts, contrastScalefactors, contrastBulkIns, contrastBulkOuts,...
-contrastResolutions, backs, shifts, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
+contrastResolutions, backs, qzshift, scalefactor, bulkIn, bulkOut, res, dataPresent, nParams, params,...
 ~, ~, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDef);      
             
 %Pre-Allocation...
@@ -57,10 +57,10 @@ resamPars = controls.resamPars;
 useImaginary = problemDef.useImaginary;
 
 [sldProfiles,allRoughs] = nonPolarisedTF.customXY.processCustomFunction(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs, ...
-    shifts,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params);
+    qzshift,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts
-    [backgs(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,shifts,scalefactor,bulkIn,bulkOut,res);
+    [backgs(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backs,qzshift,scalefactor,bulkIn,bulkOut,res);
 
     % Resample the layers
     thisSld = sldProfiles{i};

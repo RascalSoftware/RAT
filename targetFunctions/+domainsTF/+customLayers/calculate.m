@@ -16,7 +16,7 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,domainSldProfil
 % for compilation, so do this in this block.
 numberOfContrasts = problemDef.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
-backgs = zeros(numberOfContrasts,1);
+backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
 bulkIns = zeros(numberOfContrasts,1);
@@ -63,21 +63,21 @@ coder.varsize('allLayers',[10000 2],[1 1]);
 
 switch controls.parallel
     case 'single'
-          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
+          [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customLayers.single(problemDef,problemDefCells,controls);
     case 'points'
-          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
+          [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customLayers.parallelPoints(problemDef,problemDefCells,controls);    
     case 'contrasts'
-          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
+          [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customLayers.parallelContrasts(problemDef,problemDefCells,controls);
 end
 
 problem.ssubs = outSsubs;
-problem.backgroundParams = backgs;
+problem.backgroundParams = backgroundParams;
 problem.qzshifts = qzshifts;
 problem.scalefactors = scalefactors;
 problem.bulkIn = bulkIns;

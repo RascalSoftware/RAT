@@ -1,9 +1,9 @@
-function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolution] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParams,qzshifts,scalefactor,bulkIn,bulkOut,res)
+function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outResolutionParam] = backSort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backgroundParams,qzshifts,scalefactor,bulkIn,bulkOut,res)
     % Distributes the background and shift values among the different contrasts
     %
     % USAGE::
     %
-    %    [backg,qzshift,scalefactor,bulkIn,bulkOut,resol] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)
+    %    [backgroundParams,qzshift,scalefactor,bulkIn,bulkOut,resolutionParams] = backsort(contrastBackgrounds,contrastQzshifts,contrastScalefactors,contrastBulkIns,contrastBulkOuts,contrastResolutions,backs,qzshifts,scalefactor,bulkIn,bulkOut,res)
     %
     % INPUTS:
     %    * contrastBackgrounds: Which background value is associated with each contrast
@@ -45,9 +45,9 @@ function [outBackgroundParam,outQzshift,outScalefactor,outBulkIn,outBulkOut,outR
         
         %thisResol = contrastResolutions(i);
         if contrastResolutions ~= -1
-            outResolution = res(contrastResolutions);
+            outResolutionParam = res(contrastResolutions);
         else
-            outResolution = -1;     % Negative value means we have a data resolution..
+            outResolutionParam = -1;     % Negative value means we have a data resolution..
         end
         %end
 

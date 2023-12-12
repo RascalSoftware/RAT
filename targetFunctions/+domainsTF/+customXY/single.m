@@ -1,4 +1,4 @@
-function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
+function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,domainSldProfiles,allLayers,...
     allRoughs] = single(problemDef,problemDefCells,controls)
 
@@ -17,7 +17,7 @@ contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, res
 ~, ~, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDef);      
             
 %Pre-Allocation...
-backgs = zeros(numberOfContrasts,1);
+backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
 bulkIns = zeros(numberOfContrasts,1);
@@ -84,7 +84,7 @@ end
 
 for i = 1:numberOfContrasts
     outSsubs(i) = allRoughs(i);
-    [backgs(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,res);
+    [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,res);
 
     % Get the domain ratio for this contrast
     thisContrastDR = contrastDomainRatios(i);
@@ -121,8 +121,8 @@ for i = 1:numberOfContrasts
     [reflect1,Simul1] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,allRoughs(i),resols(i),'single',reflectivityType,useImaginary);
     [reflect2,Simul2] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,allRoughs(i),resols(i),'single',reflectivityType,useImaginary);
 
-    [reflect1,Simul1,shifted_dat] = applyBackgroundCorrection(reflect1,Simul1,shifted_dat,backgs(i),contrastBackgroundsType(i));
-    [reflect2,Simul2,shifted_dat] = applyBackgroundCorrection(reflect2,Simul2,shifted_dat,backgs(i),contrastBackgroundsType(i));
+    [reflect1,Simul1,shifted_dat] = applyBackgroundCorrection(reflect1,Simul1,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
+    [reflect2,Simul2,shifted_dat] = applyBackgroundCorrection(reflect2,Simul2,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
 
      % Calculate the average reflectivities....
     [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,Simul1,Simul2,domainRatio);

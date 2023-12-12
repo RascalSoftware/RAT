@@ -1,4 +1,4 @@
-function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
+function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
     allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
 
@@ -19,7 +19,7 @@ contrastResolutions, backgroundParam, qzshift, scalefactor, bulkIn, bulkOut, res
 ~, ~, contrastBackgroundsType, cCustFiles] =  extractProblemParams(problemDef);      
             
 %Pre-Allocation...
-backgs = zeros(numberOfContrasts,1);
+backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
 bulkIns = zeros(numberOfContrasts,1);
@@ -60,7 +60,7 @@ useImaginary = problemDef.useImaginary;
     qzshift,scalefactor,bulkIn,bulkOut,res,cCustFiles,numberOfContrasts,customFiles,params);
 
 for i = 1:numberOfContrasts
-    [backgs(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,res);
+    [backgroundParams(i),qzshifts(i),scalefactors(i),bulkIns(i),bulkOuts(i),resols(i)] = backSort(contrastBackgrounds(i),contrastQzshifts(i),contrastScalefactors(i),contrastBulkIns(i),contrastBulkOuts(i),contrastResolutions(i),backgroundParam,qzshift,scalefactor,bulkIn,bulkOut,res);
 
     % Resample the layers
     thisSld = sldProfiles{i};
@@ -81,7 +81,7 @@ for i = 1:numberOfContrasts
     reflectivityType = 'standardAbeles';
     [reflect,Simul] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resols(i),'points',reflectivityType,useImaginary);
     
-    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgs(i),contrastBackgroundsType(i));
+    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
     
     reflectivity{i} = reflect;
     Simulation{i} = Simul;

@@ -1,4 +1,4 @@
-function [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
+function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
     Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
     allRoughs] = single(problemDef,problemDefCells,controls)
 % Single threaded version of the custom layers, nonPolarisedTF reflectivity
@@ -24,7 +24,7 @@ calcSld = controls.calcSldDuringFit;
 useImaginary = problemDef.useImaginary;
                      
 % Pre-Allocation of output arrays...
-backgs = zeros(numberOfContrasts,1);
+backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
 bulkIns = zeros(numberOfContrasts,1);
@@ -110,7 +110,7 @@ for i = 1:numberOfContrasts
     allLayers{i} = resamLayers;
     
     chis(i) = thisChiSquared;
-    backgs(i) = thisBackground;
+    backgroundParams(i) = thisBackground;
     qzshifts(i) = thisQzshift;
     scalefactors(i) = thisScalefactor;
     bulkIns(i) = thisBulkIn;

@@ -17,7 +17,7 @@ function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,all
 
 numberOfContrasts = problemDef.numberOfContrasts;
 outSsubs = zeros(numberOfContrasts,1);
-backgs = zeros(numberOfContrasts,1);
+backgroundParams = zeros(numberOfContrasts,1);
 qzshifts = zeros(numberOfContrasts,1);
 scalefactors = zeros(numberOfContrasts,1);
 bulkIns = zeros(numberOfContrasts,1);
@@ -58,21 +58,21 @@ end
 
 switch controls.parallel
     case 'single'
-          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
+          [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.customXY.single(problemDef,problemDefCells,controls);
     case 'points'
-          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
+          [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.customXY.parallelPoints(problemDef,problemDefCells,controls);
     case 'contrasts'
-          [outSsubs,backgs,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
+          [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resols,chis,reflectivity,...
              Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.customXY.parallelContrasts(problemDef,problemDefCells,controls);
 end
 
 problem.ssubs = outSsubs;
-problem.backgroundParams = backgs;
+problem.backgroundParams = backgroundParams;
 problem.qzshifts = qzshifts;
 problem.scalefactors = scalefactors;
 problem.bulkIn = bulkIns;

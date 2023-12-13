@@ -1,6 +1,6 @@
 
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-    Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
+    simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
     allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
 % Standard Layers calculation paralelised over the inner loop
 % This is the main reflectivity calculation of the standard layers
@@ -45,9 +45,9 @@ for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
 
 allLayers = cell(numberOfContrasts,1);
@@ -96,7 +96,7 @@ for i = 1:numberOfContrasts
     parallelPoints = 'points';
     
     % Call the core layers calculation
-    [sldProfile,reflect,Simul,shifted_dat,layerSld,resampledLayers,...
+    [sldProfile,reflect,simul,shifted_dat,layerSld,resampledLayers,...
         thisChiSquared,thisSsubs] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers, thisRough, ...
     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
@@ -109,7 +109,7 @@ for i = 1:numberOfContrasts
     outSsubs(i) = thisSsubs;
     sldProfiles{i} = sldProfile;
     reflectivity{i} = reflect;
-    Simulation{i} = Simul;
+    simulation{i} = simul;
     shiftedData{i} = shifted_dat;
     layerSlds{i} = layerSld;
     chis(i) = thisChiSquared;

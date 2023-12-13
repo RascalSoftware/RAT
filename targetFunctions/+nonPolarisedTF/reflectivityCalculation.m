@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shiftedData,layerSlds,sldProfiles,allLayers] = reflectivityCalculation(problemDef,problemDefCells,controls)
+function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = reflectivityCalculation(problemDef,problemDefCells,controls)
 
 % Main function for the nonPolarisedTF reflectivity calculation
 % This function decides what type of model is being analysed and barnches
@@ -37,9 +37,9 @@ for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
 
 shiftedData = cell(numberOfContrasts,1);
@@ -65,17 +65,17 @@ end
 switch lower(type)
     case 'standard layers'
         % Standard layers calculation
-        [problem,reflectivity,Simulation,...
+        [problem,reflectivity,simulation,...
          shiftedData,layerSlds,sldProfiles,...
          allLayers]= nonPolarisedTF.standardLayers.calculate(problemDef,problemDefCells,controls);
     case 'custom layers'
         % Custom layers with user supplied custom model file
-        [problem,reflectivity,Simulation,...
+        [problem,reflectivity,simulation,...
             shiftedData,layerSlds,sldProfiles,...
             allLayers] = nonPolarisedTF.customLayers.calculate(problemDef,problemDefCells,controls);
     case 'custom xy'
         % Custom SLD profile with user defined model file
-        [problem,reflectivity,Simulation,...
+        [problem,reflectivity,simulation,...
            shiftedData,layerSlds,sldProfiles,...
            allLayers] = nonPolarisedTF.customXY.calculate(problemDef,problemDefCells,controls);
 end

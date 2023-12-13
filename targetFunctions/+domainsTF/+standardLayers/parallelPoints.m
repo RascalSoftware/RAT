@@ -1,6 +1,6 @@
 
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-    Simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
+    simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
     allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
 % Single threaded version of the Standard Layers calculation 
 % This is the main reflectivity calculation of the standard layers
@@ -51,9 +51,9 @@ for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
 
 allLayers = cell(numberOfContrasts,2);
@@ -132,18 +132,18 @@ for i = 1:numberOfContrasts
     
     % Call the core layers calculation - need to do this once for each
     % domain
-    [sldProfile1,reflect1,Simul1,shifted_dat,layerSld1,resamLayers1,~,thisSsubs]= nonPolarisedTF.coreLayersCalculation(thisContrastLayers1, thisRough, ...
+    [sldProfile1,reflect1,simul1,shifted_dat,layerSld1,resamLayers1,~,thisSsubs]= nonPolarisedTF.coreLayersCalculation(thisContrastLayers1, thisRough, ...
     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
 
-    [sldProfile2,reflect2,Simul2,~,layerSld2,resamLayers2,~,~] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers2, thisRough, ...
+    [sldProfile2,reflect2,simul2,~,layerSld2,resamLayers2,~,~] = nonPolarisedTF.coreLayersCalculation(thisContrastLayers2, thisRough, ...
     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
     thisDataPresent, thisData, thisDataLimits, thisSimLimits, thisRepeatLayers,...
     thisBackground,thisResol,thisBacksType,nParams,parallelPoints,resamPars,useImaginary);
 
     % Calculate the average reflectivities....
-    [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,Simul1,Simul2,domainRatio);
+    [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
 
     % Get an overall chi-squared for the new averaged curve..
     thisChiSquared = chiSquared(shifted_dat,totReflect,length(params));
@@ -155,7 +155,7 @@ for i = 1:numberOfContrasts
     outSsubs(i) = thisSsubs;
     tempSldProfiles{i} = {sldProfile1, sldProfile2};
     reflectivity{i} = totReflect;
-    Simulation{i} = totSimul;
+    simulation{i} = totSimul;
     shiftedData{i} = shifted_dat;
     tempLayerSlds{i} = {layerSld1, layerSld2};
     tempAllLayers{i} = {resamLayers1, resamLayers2};

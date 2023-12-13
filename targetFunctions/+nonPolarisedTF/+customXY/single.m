@@ -1,5 +1,5 @@
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-    Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
+    simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
     allRoughs] = single(problemDef,problemDefCells,controls)
 
 
@@ -34,9 +34,9 @@ for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
 
 allLayers = cell(numberOfContrasts,1);
@@ -77,12 +77,12 @@ for i = 1:numberOfContrasts
     shiftedData{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles';
-    [reflect,Simul] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
+    [reflect,simul] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
     
-    [reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
+    [reflect,simul,shifted_dat] = applyBackgroundCorrection(reflect,simul,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
     
     reflectivity{i} = reflect;
-    Simulation{i} = Simul;
+    simulation{i} = simul;
     
     if dataPresent(i)
         chis(i) = chiSquared(shifted_dat,reflect,nParams);

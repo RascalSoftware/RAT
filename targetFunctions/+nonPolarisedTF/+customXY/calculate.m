@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
+function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
 
 % Custom XP profile reflectivity calculation for nonPolarisedTF
 
@@ -31,9 +31,9 @@ for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
 
 shiftedData = cell(numberOfContrasts,1);
@@ -59,15 +59,15 @@ end
 switch controls.parallel
     case 'single'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
+             simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.customXY.single(problemDef,problemDefCells,controls);
     case 'points'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
+             simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.customXY.parallelPoints(problemDef,problemDefCells,controls);
     case 'contrasts'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
+             simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.customXY.parallelContrasts(problemDef,problemDefCells,controls);
 end
 

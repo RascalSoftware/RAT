@@ -1,4 +1,4 @@
-function [reflectivity, Simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)
+function [reflectivity, simulation] = callReflectivity(bulkIns,bulkOuts,simLimits,repeatLayers,this_data,layers,ssubs,res,parallel,refType,useImaginary)
 
 xdata = this_data(:,1);
 
@@ -79,8 +79,8 @@ end
 simXdata = [firstSection(:) ; middleSection(:) ; lastSection(:)];
 splits = [(length(firstSection)+1) ((length(firstSection))+length(middleSection))];
 
-Simulation = zeros(length(simXdata),2);
-Simulation(:,1) = simXdata;
+simulation = zeros(length(simXdata),2);
+simulation(:,1) = simXdata;
 
 % If we are using data resolutions, then we also need to adjust the length
 % of the reolution column. We do thit by just extending with the rosolution
@@ -130,7 +130,7 @@ switch refType
         end
 end
 
-Simulation(:,2) = simRef(:);
-reflectivity = Simulation(splits(1):splits(2),:);
+simulation(:,2) = simRef(:);
+reflectivity = simulation(splits(1):splits(2),:);
 
 end

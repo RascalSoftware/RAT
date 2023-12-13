@@ -17,7 +17,7 @@ function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiS
 %   the shifted datapoints. The main reflectivity calculation is then
 %   called, including the resolution function. The calculation outputs two
 %   profiles - 'reflect' which is the same range as the points, and
-%   'Simulation' which can be a different range to allow extrapolation.
+%   'simulation' which can be a different range to allow extrapolation.
 %   The background correction is the applied, and finally chi-squared is 
 %   calculated.
 %

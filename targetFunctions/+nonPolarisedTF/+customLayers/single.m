@@ -1,5 +1,5 @@
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-    Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
+    simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
     allRoughs] = single(problemDef,problemDefCells,controls)
 % Single threaded version of the custom layers, nonPolarisedTF reflectivity
 % calculation. The function extracts the relevant parameters from the input
@@ -42,9 +42,9 @@ for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
 
 allLayers = cell(numberOfContrasts,1);
@@ -90,7 +90,7 @@ for i = 1:numberOfContrasts
     parallelPoints = 'single';
     
     % Call the reflectivity calculation
-    [sldProfile,reflect,Simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
+    [sldProfile,reflect,simul,shifted_dat,layerSld,resamLayers,thisChiSquared,thisSsubs] = ...
     nonPolarisedTF.coreLayersCalculation...
     (thisContrastLayers, thisRough, ...
     geometry, thisBulkIn, thisBulkOut, thisResample, calcSld, thisScalefactor, thisQzshift,...
@@ -104,7 +104,7 @@ for i = 1:numberOfContrasts
     outSsubs(i) = thisSsubs;
     sldProfiles{i} = sldProfile;
     reflectivity{i} = reflect;
-    Simulation{i} = Simul;
+    simulation{i} = simul;
     shiftedData{i} = shifted_dat;
     layerSlds{i} = layerSld;
     allLayers{i} = resamLayers;

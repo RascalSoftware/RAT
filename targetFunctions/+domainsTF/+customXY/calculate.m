@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shiftedData,layerSlds,domainSldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
+function [problem,reflectivity,simulation,shiftedData,layerSlds,domainSldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
 
 % Custom layers reflectivity calculation for domainsTF
 
@@ -30,9 +30,9 @@ for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
 
 shiftedData = cell(numberOfContrasts,1);
@@ -64,15 +64,15 @@ coder.varsize('allLayers',[10000 2],[1 1]);
 switch controls.parallel
     case 'single'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
+             simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customXY.single(problemDef,problemDefCells,controls);
     case 'points'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
+             simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customXY.parallelPoints(problemDef,problemDefCells,controls);
     case 'contrasts'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
+             simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
              allRoughs] = domainsTF.customXY.parallelContrasts(problemDef,problemDefCells,controls);
 end
 

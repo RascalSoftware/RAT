@@ -45,11 +45,11 @@ for i = 1:numberOfContrasts
 end
 coder.varsize('reflectivity{:}',[10000 2],[1 0]);
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
-coder.varsize('Simulation{:}',[10000 2],[1 0]);
+coder.varsize('simulation{:}',[10000 2],[1 0]);
 
 shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -103,13 +103,13 @@ coder.varsize('domainAllLayers{:}',[10000 3],[1 0]);
 whichTF = problemDef.TF;
 switch whichTF
     case 'non polarised'
-        [problem,reflectivity,Simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+        [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = nonPolarisedTF.reflectivityCalculation(problemDef,problemDefCells,controls);
     %case 'oil water'
         %problem = oilWaterTF_reflectivityCalculation(problemDef,problemDefCells,controls);    
     %case 'magnetic'
         %problem = polarisedTF_reflectivityCalculation(problemDef,problemDefCells,controls);
     case 'domains'
-        [problem,reflectivity,Simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+        [problem,reflectivity,simulation,shiftedData,domainLayerSlds,domainSldProfiles,domainAllLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 %     otherwise
 %         error('The calculation type "%s" is not supported', whichTF);
 
@@ -125,7 +125,7 @@ result{1} = cell1;
 
 cell2 = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    cell2{i} = Simulation{i};
+    cell2{i} = simulation{i};
 end
 result{2} = cell2;
 
@@ -202,7 +202,7 @@ coder.varsize('problem.resample',[1 Inf],[0 1]);
 coder.varsize('result{1}',[Inf 1],[1 0]);           %Reflectivity
 coder.varsize('result{1}{:}',[Inf 2],[1 0]);
 
-coder.varsize('result{2}',[Inf 1],[1 0]);           %Simulation
+coder.varsize('result{2}',[Inf 1],[1 0]);           %simulation
 coder.varsize('result{2}{:}',[Inf 2],[1 0]);
 
 coder.varsize('result{3}',[Inf 1],[1 0]);           %Shifted data

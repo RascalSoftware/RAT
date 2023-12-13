@@ -1,5 +1,5 @@
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-    Simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
+    simulation,shiftedData,layerSlds,domainSldProfiles,allLayers,...
     allRoughs] = single(problemDef,problemDefCells,controls)
 
 
@@ -35,9 +35,9 @@ for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
 
 allLayers = cell(numberOfContrasts,2);
@@ -118,17 +118,17 @@ for i = 1:numberOfContrasts
     shiftedData{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles';
-    [reflect1,Simul1] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,allRoughs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
-    [reflect2,Simul2] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,allRoughs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
+    [reflect1,simul1] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld1,allRoughs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
+    [reflect2,simul2] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld2,allRoughs(i),resolutionParams(i),'single',reflectivityType,useImaginary);
 
-    [reflect1,Simul1,shifted_dat] = applyBackgroundCorrection(reflect1,Simul1,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
-    [reflect2,Simul2,shifted_dat] = applyBackgroundCorrection(reflect2,Simul2,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
+    [reflect1,simul1,shifted_dat] = applyBackgroundCorrection(reflect1,simul1,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
+    [reflect2,simul2,shifted_dat] = applyBackgroundCorrection(reflect2,simul2,shifted_dat,backgroundParams(i),contrastBackgroundsType(i));
 
      % Calculate the average reflectivities....
-    [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,Simul1,Simul2,domainRatio);
+    [totReflect,totSimul] = domainsTF.averageReflectivity(reflect1,reflect2,simul1,simul2,domainRatio);
     
     reflectivity{i} = totReflect;
-    Simulation{i} = totSimul;
+    simulation{i} = totSimul;
     
     if dataPresent(i)
         chis(i) = chiSquared(shifted_dat,totReflect,nParams);

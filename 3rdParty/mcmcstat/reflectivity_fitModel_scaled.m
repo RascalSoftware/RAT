@@ -20,7 +20,7 @@ problemDef = unpackParams(problemDef,controls);
 [problemDef,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
 %problem = getappdata(0,'problem');
-ss = problemDef.calculations.sum_chi;
+ss = problemDef.calculations.sumChi;
 
 end
 

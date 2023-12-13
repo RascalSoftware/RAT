@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
+function [problem,reflectivity,Simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
 
 % Standard layers reflectivity calculation for nonPolarisedTF
 % This function decides on parallelisation options before calling the
@@ -35,9 +35,9 @@ for i = 1:numberOfContrasts
     Simulation{i} = [1 1 ; 1 1];
 end
 
-shifted_data = cell(numberOfContrasts,1);
+shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    shifted_data{i} = [1 1 1; 1 1 1];
+    shiftedData{i} = [1 1 1; 1 1 1];
 end
 
 layerSlds = cell(numberOfContrasts,1);
@@ -60,15 +60,15 @@ end
 switch controls.parallel
     case 'single'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+             Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.standardLayers.single(problemDef,problemDefCells,controls);
      case 'points'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+             Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.standardLayers.parallelPoints(problemDef,problemDefCells,controls);
     case 'contrasts'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+             Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.standardLayers.parallelContrasts(problemDef,problemDefCells,controls);        
 end
 
@@ -80,8 +80,8 @@ problem.scalefactors = scalefactors;
 problem.bulkIn = bulkIns;
 problem.bulkOut = bulkOuts;
 problem.resolutionParams = resolutionParams;
-problem.calculations.all_chis = chis;
-problem.calculations.sum_chi = sum(chis);
+problem.calculations.allChis = chis;
+problem.calculations.sumChi = sum(chis);
 problem.allSubRough = allRoughs;
 problem.resample = problemDef.resample;
 end

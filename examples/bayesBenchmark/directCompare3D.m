@@ -15,7 +15,7 @@ controls.calcSldDuringFit = true;
 [outProb,results] = RAT(d2oproblem,controls);
 figure(1); clf
 plotRefSLD(outProb, results);
-thisChisq = results.calculationResults.sum_chi;
+thisChisq = results.calculationResults.sumChi;
 fprintf('Chi squared in %d \n',thisChisq);
 
 % Run MCMC
@@ -114,7 +114,7 @@ else
 % 
 %                 [outProblem,results] = RAT(d2oproblem,controls);
 
-                thisChi = problem.calculations.sum_chi;
+                thisChi = problem.calculations.sumChi;
                 probArray(r,b,s) = exp(-thisChi/2);
                 percent = (counter/totalGrid)*100;
                 fprintf('Calculated %1.1f percent \n',percent);

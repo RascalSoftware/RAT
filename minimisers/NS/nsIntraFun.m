@@ -10,5 +10,5 @@ function fval = nsIntraFun(data,p)
     problemDef = unpackParams(problemDef,controls);
     [problemDef,~] = reflectivityCalculation(problemDef,problemDefCells,controls);
 
-    fval = (-problemDef.calculations.sum_chi/2); 
+    fval = (-problemDef.calculations.sumChi/2); 
 end

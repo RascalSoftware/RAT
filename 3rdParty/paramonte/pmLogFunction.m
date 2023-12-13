@@ -26,7 +26,7 @@ classdef pmLogFunction
             problem = unpackParams(problem,obj.controls);
             
             [outProblem,~] = reflectivityCalculation_mex(problem,obj.problemDefCells,obj.controls);
-            chi = outProblem.calculations.sum_chi;
+            chi = outProblem.calculations.sumChi;
             logFuncVal = -chi/2;
             
             % Check to catch any strange NaNs

@@ -103,7 +103,7 @@ for i = 1:nsample
     
     thisRef = calcResult.reflectivity;
     thisSld = calcResult.sldProfiles;
-    sampleChi(i) = calcResult.calculationResults.sum_chi;
+    sampleChi(i) = calcResult.calculationResults.sumChi;
 
     for n = 1:numberOfContrasts
 

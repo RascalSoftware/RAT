@@ -26,7 +26,7 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 % [outProblem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
 % bestFitMax_Ref = result(1);
 % bestFitMax_Sld = result(5);
-% bestFitMax_chi = outProblem.calculations.sum_chi;
+% bestFitMax_chi = outProblem.calculations.sumChi;
 
 % Calculate 'mean' best fit curves
 % problemDef.fitpars = parConfInts.mean;
@@ -35,8 +35,8 @@ parConfInts = prctileConfInts(bayesOutputs.chain);   %iterShortest(output.chain,
 p = parseResultToStruct(outProblem,result);
 bestFitMean.ref = p.reflectivity;
 bestFitMean.sld = p.sldProfiles;
-bestFitMean.chi = p.calculationResults.sum_chi;
-bestFitMean.data = p.shifted_data;
+bestFitMean.chi = p.calculationResults.sumChi;
+bestFitMean.data = p.shiftedData;
 
 % 2. Reflectivity and SLD shading
 

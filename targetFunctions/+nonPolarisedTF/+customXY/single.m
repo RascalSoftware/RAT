@@ -1,5 +1,5 @@
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-    Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+    Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
     allRoughs] = single(problemDef,problemDefCells,controls)
 
 
@@ -27,7 +27,7 @@ allRoughs = zeros(numberOfContrasts,1);
 outSsubs = zeros(numberOfContrasts,1);
 chis =  zeros(numberOfContrasts,1); 
 layerSlds = cell(numberOfContrasts,1);
-shifted_data = cell(numberOfContrasts,1);
+shiftedData = cell(numberOfContrasts,1);
 
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -74,7 +74,7 @@ for i = 1:numberOfContrasts
     allLayers{i} = layerSld;
 
     shifted_dat =  shiftData(scalefactors(i),qzshifts(i),dataPresent(i),allData{i},dataLimits{i},simLimits{i});
-    shifted_data{i} = shifted_dat;
+    shiftedData{i} = shifted_dat;
     
     reflectivityType = 'standardAbeles';
     [reflect,Simul] = callReflectivity(bulkIns(i),bulkOuts(i),simLimits{i},repeatLayers{i},shifted_dat,layerSld,outSsubs(i),resolutionParams(i),'single',reflectivityType,useImaginary);

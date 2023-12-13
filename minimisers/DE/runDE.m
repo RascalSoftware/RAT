@@ -104,7 +104,7 @@ function [problemDef,problem,result] = runDE(problemDef,problemDefCells,problemD
     [problem,result] = reflectivityCalculation(problemDef,problemDefCells,controls);
     
     if ~strcmpi(controls.display,'off')
-        fprintf('Final chi squared is %g\n',problem.calculations.sum_chi);
+        fprintf('Final chi squared is %g\n',problem.calculations.sumChi);
     end
 
 end
@@ -120,7 +120,7 @@ function S_MSE = intrafun(p,problemDef,controls,problemDefCells)
     problemDef.fitpars = p;
     problemDef = unpackParams(problemDef,controls);
     [problemDef,~] = reflectivityCalculation(problemDef,problemDefCells,controls);
-    fval = problemDef.calculations.sum_chi;
+    fval = problemDef.calculations.sumChi;
     
     S_MSE.I_nc      = 0; %no constraints                 THESE FIRST FEW VALS MAY BE WRONG
     S_MSE.FVr_ca    = 0; %no constraint array

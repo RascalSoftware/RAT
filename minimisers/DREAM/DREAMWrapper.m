@@ -16,7 +16,7 @@ problem = unpackParams(problem,control);
 [outProblem,~] = reflectivityCalculation(problem,cells,control);
 
 % Function value is chi-squared....
-chiSquared = outProblem.calculations.sum_chi;
+chiSquared = outProblem.calculations.sumChi;
 
 Lik = -chiSquared/2;
 

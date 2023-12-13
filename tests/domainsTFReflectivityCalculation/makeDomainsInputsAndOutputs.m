@@ -46,18 +46,18 @@ outputs.resultOut = resultOut;
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsStandardLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+[problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
-TFParams.shiftedData = shifted_data;
+TFParams.shiftedData = shiftedData;
 TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
 [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+ resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
  allRoughs] = domainsTF.standardLayers.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
@@ -115,18 +115,18 @@ outputs.resultOut = resultOut;
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomXYOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+[problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
-TFParams.shiftedData = shifted_data;
+TFParams.shiftedData = shiftedData;
 TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
 [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+ resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
  allRoughs] = domainsTF.customXY.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;
@@ -184,18 +184,18 @@ outputs.resultOut = resultOut;
 save(['tests' filesep 'domainsTFReflectivityCalculation' filesep 'domainsCustomLayersOutputs'],'outputs');
 
 % (c) TF Parameters
-[problem,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
+[problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = domainsTF.reflectivityCalculation(problemDef,problemDefCells,controls);
 
 TFParams.problem = problem;
 TFParams.reflectivity = reflectivity;
 TFParams.simulation = simulation;
-TFParams.shiftedData = shifted_data;
+TFParams.shiftedData = shiftedData;
 TFParams.layerSlds = layerSlds;
 TFParams.sldProfiles = sldProfiles;
 TFParams.allLayers = allLayers;
 
 [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIn,bulkOut,...
- resolutionParams,chis,reflectivity,simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+ resolutionParams,chis,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
  allRoughs] = domainsTF.customLayers.single(problemDef,problemDefCells,controls);
 
 TFParams.outSsubs = outSsubs;

@@ -1,4 +1,4 @@
-function [problem,reflectivity,Simulation,shifted_data,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
+function [problem,reflectivity,simulation,shiftedData,layerSlds,sldProfiles,allLayers] = calculate(problemDef,problemDefCells,controls)
 
 % Custom layers reflectivity calculation for nonPolarisedTF
 
@@ -29,14 +29,14 @@ for i = 1:numberOfContrasts
     reflectivity{i} = [1 1 ; 1 1];
 end
 
-Simulation = cell(numberOfContrasts,1);
+simulation = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    Simulation{i} = [1 1 ; 1 1];
+    simulation{i} = [1 1 ; 1 1];
 end
 
-shifted_data = cell(numberOfContrasts,1);
+shiftedData = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
-    shifted_data{i} = [1 1 1; 1 1 1];
+    shiftedData{i} = [1 1 1; 1 1 1];
 end
 
 layerSlds = cell(numberOfContrasts,1);
@@ -58,15 +58,15 @@ end
 switch controls.parallel
     case 'single'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+             simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.customLayers.single(problemDef,problemDefCells,controls);
     case 'points'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+             simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.customLayers.parallelPoints(problemDef,problemDefCells,controls);
     case 'contrasts'
           [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-             Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+             simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
              allRoughs] = nonPolarisedTF.customLayers.parallelContrasts(problemDef,problemDefCells,controls);
 end
 
@@ -77,8 +77,8 @@ problem.scalefactors = scalefactors;
 problem.bulkIn = bulkIns;
 problem.bulkOut = bulkOuts;
 problem.resolutionParams = resolutionParams;
-problem.calculations.all_chis = chis;
-problem.calculations.sum_chi = sum(chis);
+problem.calculations.allChis = chis;
+problem.calculations.sumChi = sum(chis);
 problem.allSubRough = allRoughs;
 problem.resample = problemDef.resample;
 end

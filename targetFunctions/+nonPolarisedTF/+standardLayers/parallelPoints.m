@@ -1,6 +1,6 @@
 
 function [outSsubs,backgroundParams,qzshifts,scalefactors,bulkIns,bulkOuts,resolutionParams,chis,reflectivity,...
-    Simulation,shifted_data,layerSlds,sldProfiles,allLayers,...
+    Simulation,shiftedData,layerSlds,sldProfiles,allLayers,...
     allRoughs] = parallelPoints(problemDef,problemDefCells,controls)
 % Standard Layers calculation paralelised over the inner loop
 % This is the main reflectivity calculation of the standard layers
@@ -38,7 +38,7 @@ outSsubs = zeros(numberOfContrasts,1);
 chis =  zeros(numberOfContrasts,1);
 layerSlds = cell(numberOfContrasts,1);
 sldProfiles = cell(numberOfContrasts,1);
-shifted_data = cell(numberOfContrasts,1);
+shiftedData = cell(numberOfContrasts,1);
 
 reflectivity = cell(numberOfContrasts,1);
 for i = 1:numberOfContrasts
@@ -110,7 +110,7 @@ for i = 1:numberOfContrasts
     sldProfiles{i} = sldProfile;
     reflectivity{i} = reflect;
     Simulation{i} = Simul;
-    shifted_data{i} = shifted_dat;
+    shiftedData{i} = shifted_dat;
     layerSlds{i} = layerSld;
     chis(i) = thisChiSquared;
     backgroundParams(i) = thisBackground;

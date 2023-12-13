@@ -78,8 +78,8 @@ coder.varsize('problem.bulkIn',[Inf 1],[1 0]);
 coder.varsize('problem.bulkOut',[Inf 1],[1 0]);
 coder.varsize('problem.resolutionParams',[Inf 1],[1 0]);
 coder.varsize('problem.ssubs',[Inf 1],[1 0]);
-coder.varsize('problem.calculations.all_chis',[Inf 1],[1 0]);
-coder.varsize('problem.calculations.sum_chi',[1 1],[0 0]);
+coder.varsize('problem.calculations.allChis',[Inf 1],[1 0]);
+coder.varsize('problem.calculations.sumChi',[1 1],[0 0]);
 coder.varsize('problem.allSubRough',[Inf 1],[1 0]);
 
 %Result coder definitions....

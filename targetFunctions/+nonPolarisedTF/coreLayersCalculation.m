@@ -1,8 +1,8 @@
-function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssubs] = ...
+function [sldProfile,reflect,simulation,shiftedData,theseLayers,resamLayers,chiSq,ssubs] = ...
     coreLayersCalculation(contrastLayers, rough, ...
     geometry, bulkIn, bulkOut, resample, calcSld, scalefactor, qzshift,...
     dataPresent, data, dataLimits, simLimits, repeatLayers,...
-    background,resol,contrastBackgroundsType,params,parallelPoints,resamPars,useImaginary)
+    background,resolution,contrastBackgroundsType,params,parallelPoints,resamPars,useImaginary)
 
 %   This is the main reflectivity calculation for all Layers models in the 
 %   non polarised target function. 
@@ -25,12 +25,12 @@ function [sldProfile,reflect,Simul,shifted_dat,theseLayers,resamLayers,chiSq,ssu
 %   contrastLayers  :
 %   rough           :
 %   geometry        :
-%   bulkIn             :
-%   bulkOut             :
+%   bulkIn          :
+%   bulkOut         :
 %   resample        :
 %   calcSld         :
-%   scalefactor              :
-%   qzshift          :
+%   scalefactor     :
+%   qzshift         :
 %   dataPresent     :
 %   data            :
 %   dataLimits      :
@@ -116,16 +116,16 @@ else
 end
 
 % Apply scale factors and q shifts to the data
-shifted_dat = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits);
+shiftedData = shiftData(scalefactor,qzshift,dataPresent,data,dataLimits,simLimits);
 
 % Calculate the reflectivity
 reflectivityType = 'standardAbeles';
-[reflect,Simul] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,shifted_dat,layerSld,ssubs,resol,parallelPoints,reflectivityType,useImaginary);
+[reflect,simulation] = callReflectivity(bulkIn,bulkOut,simLimits,repeatLayers,shiftedData,layerSld,ssubs,resolution,parallelPoints,reflectivityType,useImaginary);
 
 % Apply background correction, either to the simulation or the data
-[reflect,Simul,shifted_dat] = applyBackgroundCorrection(reflect,Simul,shifted_dat,background,contrastBackgroundsType);
+[reflect,simulation,shiftedData] = applyBackgroundCorrection(reflect,simulation,shiftedData,background,contrastBackgroundsType);
 
 % Calculate chi squared.
-chiSq = chiSquared(shifted_dat,reflect,params);
+chiSq = chiSquared(shiftedData,reflect,params);
 
 end

@@ -16,7 +16,7 @@ controls.procedure = 'calculate';
 % Load in problem
 % problem = getappdata(0,'problem');
 % originalProblem = problem;
-data = result.shifted_data;
+data = result.shiftedData;
 
 % Find out how many params and contrasts there are
 numberOfParams = size(chain,2);
